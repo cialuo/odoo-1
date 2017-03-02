@@ -1,0 +1,43 @@
+<odoo>
+	<data>
+		<!-- fault form tree -->
+        <record model="ir.ui.view" id="fleet_manage_fault_view_tree">
+            <field name="name">Fault.tree</field>
+            <field name="model">fleet_manage_fault.fault</field>
+            <field name="arch" type="xml">
+                <tree string="Fault Tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+		
+		
+		<!-- fault form view -->
+        <record model="ir.ui.view" id="fleet_manage_fault_view_form">
+            <field name="name">Fault.form</field>
+            <field name="model">fleet_manage_fault.fault</field>
+            <field name="arch" type="xml">
+                <form string="Fault Form">
+					<sheet>
+						<field name="name">
+                        </field>
+					</sheet>
+                </form>
+            </field>
+        </record>
+	
+		
+		<record model="ir.actions.act_window" id="fleet_manage_fault_action">
+	      <field name="name">fleet_manage_fault_action</field>
+	      <field name="res_model">fleet_manage_fault.fault</field>
+	      <field name="view_mode">tree,form</field>
+		</record>
+		
+		
+	    <menuitem name="fleet_manage_fault" 
+				  id="fleet_manage_menu_fault" 
+				  parent="fleet_manage_menu.fleet_manage_menu_data" 
+				  action = "fleet_manage_fault_action"
+				  />
+	</data>
+</odoo>

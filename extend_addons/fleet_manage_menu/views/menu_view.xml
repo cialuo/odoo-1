@@ -1,0 +1,6 @@
+<odoo>
+	<data>
+		<menuitem name="fleet_manage_menu" sequence="1" id="fleet_manage_menu_root"/>
+	    <menuitem name="fleet_manage_data" id="fleet_manage_menu_data" parent="fleet_manage_menu_root"/>
+	</data>
+</odoo>
