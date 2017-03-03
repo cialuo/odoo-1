@@ -1,43 +1,318 @@
 <odoo>
 	<data>
-		<!-- fault form tree -->
-        <record model="ir.ui.view" id="fleet_manage_fault_view_tree">
-            <field name="name">Fault.tree</field>
-            <field name="model">fleet_manage_fault.fault</field>
+		<!-- FaultCategory  tree -->
+        <record model="ir.ui.view" id="fleet_manage_fault_category_view_tree">
+            <field name="name">FaultCategory.tree</field>
+            <field name="model">fleet_manage_fault.fault_category</field>
             <field name="arch" type="xml">
-                <tree string="Fault Tree">
-                    <field name="name"/>
+                <tree string="FaultCategory Tree">
+                    <field name="fault_category_code"/>
+					<field name="name"/>
+					<field name="user_id"/>
+					<field name="create_date"/>
+					<field name="state"/>
+                </tree>
+            </field>
+        </record>
+		<!-- FaultAppearance  tree -->
+        <record model="ir.ui.view" id="fleet_manage_fault_appearance_view_tree">
+            <field name="name">FaultAppearance.tree</field>
+            <field name="model">fleet_manage_fault.fault_appearance</field>
+            <field name="arch" type="xml">
+                <tree string="FaultAppearance Tree">
+                    <field name="fault_appearance_code"/>
+					<field name="name"/>
+					<field name="category_id"/>
+					<field name="user_id"/>
+					<field name="create_date"/>
+					<field name="state"/>
                 </tree>
             </field>
         </record>
 		
-		
-		<!-- fault form view -->
-        <record model="ir.ui.view" id="fleet_manage_fault_view_form">
-            <field name="name">Fault.form</field>
-            <field name="model">fleet_manage_fault.fault</field>
+		<!-- FaultReason  tree -->
+        <record model="ir.ui.view" id="fleet_manage_fault_reason_view_tree">
+            <field name="name">FaultReason.tree</field>
+            <field name="model">fleet_manage_fault.fault_reason</field>
             <field name="arch" type="xml">
-                <form string="Fault Form">
+                <tree string="FaultReason Tree">
+                    <field name="fault_reason_code"/>
+					<field name="name"/>
+					<field name="appearance_id"/>
+					<field name="category_id"/>
+					<field name="user_id"/>
+					<field name="create_date"/>
+					<field name="state"/>
+                </tree>
+            </field>
+        </record>
+		
+		<!-- FaultMethod  tree -->
+        <record model="ir.ui.view" id="fleet_manage_fault_method_view_tree">
+            <field name="name">FaultMethod.tree</field>
+            <field name="model">fleet_manage_fault.fault_method</field>
+            <field name="arch" type="xml">
+                <tree string="FaultMethod Tree">
+                    <field name="fault_method_code"/>
+					<field name="name"/>
+					<field name="reason_id"/>
+					<field name="appearance_id"/>
+					<field name="category_id"/>
+					<field name="user_id"/>
+					<field name="create_date"/>
+					<field name="state"/>
+                </tree>
+            </field>
+        </record>
+		
+		<!-- FaultCategory form view -->
+        <record model="ir.ui.view" id="fleet_manage_fault_category_view_form">
+            <field name="name">FaultCategory.form</field>
+            <field name="model">fleet_manage_fault.fault_category</field>
+            <field name="arch" type="xml">
+                <form string="FaultCategory Form">
+                	<header>
+                		<button name="action_draft" type="object"
+                                string="Reset to draft"
+                                states="use"/>
+                        <button name="action_use" type="object"
+                                string="Confirm" 
+								states="draft,done"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Mark as done" 
+								states="use"
+                                class="oe_highlight"/>
+                    	<field name="state"  widget="statusbar" clickable="True" />
+                	</header>
 					<sheet>
-						<field name="name">
-                        </field>
+						<div class="oe_title">
+	                        <label for="name" class="oe_edit_only"/>
+	                        <h1><field name="name"/></h1>
+	                    </div>
+						 <group col="2">
+	                        <group>
+	                        	<field name="user_id" />
+	                            <field name="create_date" />
+	                        </group>
+	                        <group>
+	                            <field name="fault_category_code" />
+	                        </group>
+                   		 </group>
+						 
+						 <notebook>
+							<page string="FaultAppearance">
+                                <field name="appearance_ids">
+                                    <tree string="FaultAppearance">
+                                    	 <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+							
+							<page string="No FaultAppearance">
+                                <field name="reason_ids">
+                                    <tree string="FaultReason">
+                                    	 <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+			            </notebook>
 					</sheet>
                 </form>
             </field>
         </record>
-	
 		
-		<record model="ir.actions.act_window" id="fleet_manage_fault_action">
-	      <field name="name">fleet_manage_fault_action</field>
-	      <field name="res_model">fleet_manage_fault.fault</field>
+		
+		<!-- FaultAppearance form view -->
+        <record model="ir.ui.view" id="fleet_manage_fault_appearance_view_form">
+            <field name="name">FaultAppearance.form</field>
+            <field name="model">fleet_manage_fault.fault_appearance</field>
+            <field name="arch" type="xml">
+                <form string="FaultAppearance Form">
+                	<header>
+                    	<field name="state"  widget="statusbar" clickable="True" />
+                	</header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name" class="oe_edit_only"/>
+	                        <h1><field name="name"/></h1>
+	                    </div>
+						 <group col="2">
+	                        <group>
+	                        	<field name="category_id" />
+	                        </group>
+	                        <group>
+	                            <field name="fault_appearance_code" />
+								<field name="user_id" />
+								<field name="create_date" />
+	                        </group>
+                   		 </group>
+ 						 <notebook>
+							<page string="FaultReasons">
+                                <field name="reason_ids">
+                                    <tree string="FaultReasons">
+                                    	 <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+			            </notebook>
+					</sheet>
+                </form>
+            </field>
+        </record>
+		
+		
+		
+		<!-- FaultReason form view -->
+        <record model="ir.ui.view" id="fleet_manage_fault_reason_view_form">
+            <field name="name">FaultReason.form</field>
+            <field name="model">fleet_manage_fault.fault_reason</field>
+            <field name="arch" type="xml">
+                <form string="FaultReason Form">
+                	<header>
+                    	<field name="state"  widget="statusbar" clickable="True" />
+                	</header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name" class="oe_edit_only"/>
+	                        <h1><field name="name"/></h1>
+	                    </div>
+						 <group col="2">
+	                        <group>
+	                        	<field name="category_id" />
+								<field name="appearance_id" />
+	                        </group>
+	                        <group>
+	                            <field name="fault_reason_code" />
+								<field name="user_id" />
+								<field name="create_date" />
+	                        </group>
+                   		 </group>
+  						 <notebook>
+							<page string="FaultMethods">
+                                <field name="method_ids">
+                                    <tree string="FaultMethods">
+                                    	 <field name="name"/>
+										 <field name="work_time"/>
+										 <field name="complex_level"/>
+										 <field name="warranty_deadline"/>
+										 <field name="remark"/>
+                                    </tree>
+                                </field>
+                            </page>
+			            </notebook>
+					</sheet>
+                </form>
+            </field>
+        </record>
+		
+		
+		<!-- FaultMethod form view -->
+        <record model="ir.ui.view" id="fleet_manage_fault_method_view_form">
+            <field name="name">FaultMethod.form</field>
+            <field name="model">fleet_manage_fault.fault_method</field>
+            <field name="arch" type="xml">
+                <form string="FaultMethod Form">
+                	<header>
+                    	<field name="state"  widget="statusbar" clickable="True" />
+                	</header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name" class="oe_edit_only"/>
+	                        <h1><field name="name"/></h1>
+	                    </div>
+						 <group col="2">
+	                        <group>
+	                        	<field name="category_id" />
+								<field name="appearance_id" />
+								<field name="reason_id" />
+	                        </group>
+	                        <group>
+	                            <field name="fault_method_code" />
+								<field name="user_id" />
+								<field name="create_date" />
+	                        </group>
+                   		 </group>
+						 
+						 <group col="2">
+	                        <group>
+	                        	<field name="work_time" />
+								<field name="complex_level" />
+								<field name="materials_control" />
+	                        </group>
+	                        <group>
+	                            <field name="remark" />
+	                        </group>
+                   		 </group>
+						 <notebook>
+						 	<page name="product" string="Product" attrs="{'invisible':[('materials_control','=',False)] }">
+								<field name="avail_ids"  >
+									<tree>
+										<field name="name"/>
+									</tree>	
+								</field>
+	                        </page>
+						 </notebook>
+						 	
+						 	
+						 
+						 
+					</sheet>
+                </form>
+            </field>
+        </record>
+		
+	
+		<!-- FaultCategory Action -->
+		<record model="ir.actions.act_window" id="fleet_manage_fault_category_action">
+	      <field name="name">fleet_manage_fault_category_action</field>
+	      <field name="res_model">fleet_manage_fault.fault_category</field>
+	      <field name="view_mode">tree,form</field>
+		</record>
+		
+		<!-- FaultAppearance Action -->
+		<record model="ir.actions.act_window" id="fleet_manage_fault_appearance_action">
+	      <field name="name">fleet_manage_fault_appearance_action</field>
+	      <field name="res_model">fleet_manage_fault.fault_appearance</field>
+	      <field name="view_mode">tree,form</field>
+		</record>
+		
+		<!-- FaultReason Action -->
+		<record model="ir.actions.act_window" id="fleet_manage_fault_reason_action">
+	      <field name="name">fleet_manage_fault_reason_action</field>
+	      <field name="res_model">fleet_manage_fault.fault_reason</field>
 	      <field name="view_mode">tree,form</field>
 		</record>
 		
 		
-	    <menuitem name="fleet_manage_fault" 
-				  id="fleet_manage_menu_fault" 
+		<!-- FaultMethod Action -->
+		<record model="ir.actions.act_window" id="fleet_manage_fault_method_action">
+	      <field name="name">fleet_manage_fault_method_action</field>
+	      <field name="res_model">fleet_manage_fault.fault_method</field>
+	      <field name="view_mode">tree,form</field>
+		</record>
+		
+	    <menuitem name="fleet_manage_fault_category" 
+				  id="fleet_manage_menu_fault_category" 
 				  parent="fleet_manage_menu.fleet_manage_menu_data" 
-				  action = "fleet_manage_fault_action"
+				  action = "fleet_manage_fault_category_action"
 				  />
+	    <menuitem name="fleet_manage_fault_appearance" 
+				  id="fleet_manage_menu_fault_appearance" 
+				  parent="fleet_manage_menu.fleet_manage_menu_data" 
+				  action = "fleet_manage_fault_appearance_action"
+				  />		
+  	    <menuitem name="fleet_manage_fault_reason" 
+				  id="fleet_manage_menu_fault_reason" 
+				  parent="fleet_manage_menu.fleet_manage_menu_data" 
+				  action = "fleet_manage_fault_reason_action"
+				  />	  
+  	    <menuitem name="fleet_manage_fault_method" 
+				  id="fleet_manage_menu_fault_method" 
+				  parent="fleet_manage_menu.fleet_manage_menu_data" 
+				  action = "fleet_manage_fault_method_action"
+				  />	  
+				  		  
+				  
 	</data>
 </odoo>
