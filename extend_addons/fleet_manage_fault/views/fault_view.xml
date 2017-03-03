@@ -104,7 +104,9 @@
 							<page string="FaultAppearance">
                                 <field name="appearance_ids">
                                     <tree string="FaultAppearance">
-                                    	 <field name="name"/>
+										<field name="name"/>
+										<field name="reason_ct"/>
+										<field name="sequence"/>
                                     </tree>
                                 </field>
                             </page>
@@ -112,7 +114,9 @@
 							<page string="No FaultAppearance">
                                 <field name="reason_ids">
                                     <tree string="FaultReason">
-                                    	 <field name="name"/>
+										<field name="name"/>
+										<field name="method_ct"/>
+										<field name="sequence"/>
                                     </tree>
                                 </field>
                             </page>
@@ -140,6 +144,7 @@
 						 <group col="2">
 	                        <group>
 	                        	<field name="category_id" />
+								<field name="sequence"/>
 	                        </group>
 	                        <group>
 	                            <field name="fault_appearance_code" />
@@ -151,7 +156,9 @@
 							<page string="FaultReasons">
                                 <field name="reason_ids">
                                     <tree string="FaultReasons">
-                                    	 <field name="name"/>
+										<field name="name"/>
+										<field name="method_ct"/>
+										<field name="sequence"/>
                                     </tree>
                                 </field>
                             </page>
@@ -248,7 +255,15 @@
 						 	<page name="product" string="Product" attrs="{'invisible':[('materials_control','=',False)] }">
 								<field name="avail_ids"  >
 									<tree>
-										<field name="name"/>
+										<field name="product_code"/>
+										<field name="product_name"/>
+										<field name="product_type"/>
+										<field name="product_size"/>
+										<field name="product_unit"/>
+										<field name="default_dosage"/>
+										<field name="max_dosage"/>
+										<field name="remark"/>
+
 									</tree>	
 								</field>
 	                        </page>

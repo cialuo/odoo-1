@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 
+
 class FaultCategory(models.Model):
     """
     故障分类
@@ -36,7 +37,8 @@ class FaultCategory(models.Model):
     def action_done(self):
         self.state = 'done'
         self.active = False
-    
+
+
 class FaultAppearance(models.Model):
     """
     故障现象
@@ -57,7 +59,18 @@ class FaultAppearance(models.Model):
     
     reason_ids = fields.One2many(
        'fleet_manage_fault.fault_reason', 'appearance_id', string="Reasons")
-    
+    sequence = fields.Integer("Sequence", help="Sequence")
+
+    reason_ct = fields.Integer(string="Fault Reason Count", compute='_get_reason_count')
+
+    @api.depends("reason_ids")
+    def _get_reason_count(self):
+        if self.reason_ids:
+            self.reason_ct = len(self.reason_ids)
+        else:
+            self.reason_ct = 0
+
+
 class FaultReason(models.Model):
     """
     故障原因
@@ -81,12 +94,22 @@ class FaultReason(models.Model):
     
     method_ids = fields.One2many(
        'fleet_manage_fault.fault_method', 'reason_id', string="methods")
+    sequence = fields.Integer("Sequence", help="Sequence")
+    method_ct = fields.Integer(string="Fault Method Count", compute='_get_method_count')
+
+    @api.depends("method_ids")
+    def _get_method_count(self):
+        if self.method_ids:
+            self.method_ct = len(self.method_ids)
+        else:
+            self.method_ct = 0
     
     @api.onchange('appearance_id')
     def onchange_appearance_id(self):
         if self.appearance_id and not self.category_id:
             self.category_id = self.appearance_id.category_id
-    
+
+
 class FaultMethod(models.Model):
     """
     维修办法
@@ -129,11 +152,32 @@ class FaultMethod(models.Model):
         if self.reason_id and not self.category_id:
             self.category_id = self.reason_id.category_id
             self.appearance_id = self.reason_id.appearance_id
-    
+
+
 class AvailableProduct(models.Model):
     _name = 'fleet_manage_fault.available_product'
+
+    product_id = fields.Many2one('product.product',string="Product")
+
     name = fields.Char(required=True)    
     reason_id = fields.Many2one('fleet_manage_fault.fault_method',
         ondelete='cascade', string="Fault Reason Name")
-    
-    
+    default_dosage = fields.Integer("Default Dosage")
+    max_dosage = fields.Integer("Default Dosage")
+    remark = fields.Text("Remark", help="Remark")
+
+    product_code = fields.Text("Product Code", help="Product Code")
+    product_name = fields.Text("Product Name", help="Product Name")
+    product_type = fields.Text("Product Type", help="Product Type")
+    product_size = fields.Text("Product Size", help="Product Size")
+    product_unit = fields.Text("Product Unit", help="Product Unit")
+
+
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        if self.product_id:
+            self.product_code = self.product_id.code
+            self.product_name = self.product_id.name
+        else:
+            self.product_code = ''
+            self.product_name = ''
