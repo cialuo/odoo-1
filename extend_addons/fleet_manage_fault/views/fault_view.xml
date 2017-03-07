@@ -263,15 +263,10 @@
 										<field name="default_dosage"/>
 										<field name="max_dosage"/>
 										<field name="remark"/>
-
-									</tree>	
+									</tree>
 								</field>
 	                        </page>
 						 </notebook>
-						 	
-						 	
-						 
-						 
 					</sheet>
                 </form>
             </field>

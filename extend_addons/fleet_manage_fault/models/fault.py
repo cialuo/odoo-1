@@ -123,11 +123,11 @@ class FaultMethod(models.Model):
     state = fields.Selection([
        ('draft', "Draft"),
        ('use', "Use"),
-       ('done', "Done"),],default='use')  
+       ('done', "Done"),], default='use')
     active = fields.Boolean(default=True)
     remark = fields.Text("Remark", help='Remark')
-    work_time = fields.Integer(string="Work time(minutes)")
-    warranty_deadline = fields.Integer(string="Warranty_deadline(day)")
+    work_time = fields.Integer(string="Work Time(Minutes)")
+    warranty_deadline = fields.Integer(string="Warranty Deadline(Days)")
     complex_level = fields.Selection([
        ('1 work', "One work"),
        ('2 works', "Two works"),
@@ -136,7 +136,7 @@ class FaultMethod(models.Model):
     state = fields.Selection([
        ('draft', "Draft"),
        ('use', "Use"),
-       ('done', "Done"),],default='use')  
+       ('done', "Done"),], default='use')
     
     reason_id = fields.Many2one('fleet_manage_fault.fault_reason',
         ondelete='cascade', string="Fault reason Name",required=True)

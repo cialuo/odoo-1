@@ -1,0 +1,412 @@
+<odoo>
+    <data>
+
+        <!-- MaintainReport  tree -->
+        <record model="ir.ui.view" id="fleet_manage_maintain_report_view_tree">
+            <field name="name">MaintainReport.tree</field>
+            <field name="model">fleet_manage_maintain.maintain_report</field>
+            <field name="arch" type="xml">
+                <tree string="MaintainReport Tree">
+					<field name="name"/>
+					<field name="vehicle_no"/>
+					<field name="vehicle_type"/>
+					<field name="user_id"/>
+					<field name="report_date"/>
+					<field name="repair_type"/>
+					<field name="repair_level"/>
+					<field name="is_fault_vehicle"/>
+					<field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+		<!-- MaintainRepair  tree -->
+        <record model="ir.ui.view" id="fleet_manage_maintain_repair_view_tree">
+            <field name="name">MaintainRepair.tree</field>
+            <field name="model">fleet_manage_maintain.maintain_repair</field>
+            <field name="arch" type="xml">
+                <tree string="MaintainRepair Tree">
+					<field name="name"/>
+					<field name="report_id"/>
+					<field name="vehicle_no"/>
+					<field name="vehicle_type"/>
+					<field name="vehicle_license"/>
+					<field name="guarantee_level"/>
+					<field name="fault_reason_id"/>
+					<field name="fault_method_id"/>
+					<field name="plan_start_time"/>
+					<field name="plan_end_time"/>
+					<field name="repair_names"/>
+					<field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+		<!-- MaintainDelivery  tree -->
+        <record model="ir.ui.view" id="fleet_manage_maintain_delivery_view_tree">
+            <field name="name">MaintainDelivery.tree</field>
+            <field name="model">fleet_manage_maintain.maintain_delivery</field>
+            <field name="arch" type="xml">
+                <tree string="MaintainDelivery Tree">
+					<field name="name"/>
+					<field name="report_id"/>
+					<field name="vehicle_no"/>
+					<field name="vehicle_type"/>
+					<field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+		<!-- MaintainReport form view -->
+        <record model="ir.ui.view" id="fleet_manage_report_view_form">
+            <field name="name">MaintainReport.form</field>
+            <field name="model">fleet_manage_maintain.maintain_report</field>
+            <field name="arch" type="xml">
+                <form string="MaintainReport Form">
+                	<header>
+						<button name="action_precheck" type="object"
+                                string="Submit Inspection"
+								states="draft"
+                                class="oe_highlight"/> <!-- 提交检验-->
+
+						<button name="action_draft" type="object"
+                                string="Reset to draft"
+								states="back"
+                                class="oe_highlight"/> <!-- 设为草稿-->
+
+						<button name="action_dispatch" type="object"
+                                string="Precheck Success And Create The Delivery"
+                                states="precheck"
+								class="oe_highlight"/>  <!-- 预检通过并创建交接单-->
+						<button name="action_back" type="object"
+                                string="Precheck Back"
+								states="precheck"/> <!-- 检验退回-->
+
+
+						<button name="" type="object"
+                                string="Delivery Manage"
+                                states="dispatch"
+								class="oe_highlight"/> <!-- 管理交接单-->
+						<button name="action_repair" type="object"
+                                string="Batch Dispatch"
+                                states="dispatch"/>  <!-- 批量派工-->
+						<button name="action_precheck" type="object"
+                                string="Dispatch to Precheck"
+                                states="dispatch"/> <!-- 退回检验-->
+
+
+						<button name="action_inspect" type="object"
+                                string="Repair Complete"
+                                states="repair"
+								class="oe_highlight"/>  <!-- 维修完成-->
+
+						<button name="action_dispatch" type="object"
+                                string="Again Dispatch"
+                                states="repair"/>  <!-- 维修完成-->
+
+						<button name="" type="object"
+                                string="Inspect Manage"
+                                states="inspect"
+								class="oe_highlight"/> <!-- 管理检验单-->
+
+                    	<field name="state"  widget="statusbar" clickable="True" />
+                	</header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name"/>
+							<h1><field name="name"/></h1>
+	                    </div>
+						 <group col="2">
+	                        <group>
+	                        	<field name="vehicle_no" />
+								<field name="user_id" />
+								<field name="repair_type" />
+								<!--<field name="state" />-->
+	                        </group>
+	                        <group>
+	                            <field name="vehicle_type" />
+								<field name="report_date" />
+								<field name="is_fault_vehicle" />
+	                        </group>
+                   		 </group>
+  						 <notebook>
+							<page string="Maintain Repair">
+                                <field name="repair_ids" context="{'form_view_ref': 'fleet_manage_maintain.fleet_manage_repair_view_form_action'}">
+                                    <tree string="Maintain Repair">
+										<field name="fault_category_id"/>
+										<field name="fault_appearance_id"/>
+										<field name="fault_reason_id"/>
+										<field name="fault_method_id"/>
+										<field name="repair_names"/>
+										<field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+							 <page string="More Information">
+                                <group col="2">
+									<group>
+										<field name="partner_id" />
+										<field name="fleet" />
+										<field name="create_name" />
+										<field name="remark" />
+									</group>
+									<group>
+										<field name="repair_plant" />
+										<field name="repair_level" />
+										<field name="create_name_company" />
+									</group>
+								 </group>
+                            </page>
+			            </notebook>
+					</sheet>
+                </form>
+            </field>
+        </record>
+
+
+		<!-- MaintainRepair form view -->
+        <record model="ir.ui.view" id="fleet_manage_repair_view_form">
+            <field name="name">MaintainRepair.form</field>
+            <field name="model">fleet_manage_maintain.maintain_repair</field>
+			<field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form string="MaintainRepair Form">
+                	<header>
+						<button name="action_repair" type="object"
+                                string="Start Repair"
+								states="dispatch"
+                                class="oe_highlight"/> <!-- 开工-->
+
+						<button name="action_inspect" type="object"
+                                string="Inspect"
+								states="repair"
+                                class="oe_highlight"/> <!-- 报检-->
+
+                    	<field name="state"  widget="statusbar" clickable="True" />
+                	</header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name"/>
+							<h1><field name="name"/></h1>
+	                    </div>
+						 <group col="2">
+	                        <group>
+	                        	<field name="fault_reason_id" />
+								<field name="fault_method_id" />
+								<field name="guarantee_level" />
+								<field name="report_id" />
+	                        </group>
+	                        <group>
+	                            <field name="vehicle_no" />
+								<field name="vehicle_license" />
+								<field name="vehicle_type" />
+	                        </group>
+                   		 </group>
+  						 <notebook>
+							<page string="FaultMethods">
+                                <field name="job_ids">
+                                    <tree string="FaultMethods">
+										<field name="sequence"/>
+										<field name="fault_method_id"/>
+										<field name="user_id"/>
+										<field name="plan_start_time"/>
+										<field name="plan_end_time"/>
+										<field name="real_start_time"/>
+										<field name="real_end_time"/>
+										<field name="standard_work"/>
+										<field name="percentage_work"/>
+										<field name="my_work"/>
+										<field name="real_work"/>
+										 <!--<field name="complex_level"/>-->
+										 <!--<field name="warranty_deadline"/>-->
+										 <!--<field name="remark"/>-->
+                                    </tree>
+                                </field>
+                            </page>
+			            </notebook>
+					</sheet>
+                </form>
+            </field>
+        </record>
+
+
+		<!-- MaintainRepair form action -->
+        <record model="ir.ui.view" id="fleet_manage_repair_view_form_action">
+            <field name="name">MaintainRepair.form</field>
+            <field name="model">fleet_manage_maintain.maintain_repair</field>
+			<field name="priority">0</field>
+            <field name="arch" type="xml">
+                <form string="MaintainRepair Form">
+                	<header>
+                    	<field name="state"  widget="statusbar" clickable="True" />
+                	</header>
+					<sheet>
+						<!--<div class="oe_title">-->
+	                        <!--<label for="name" class="oe_edit_only"/>-->
+							<!--<h1><field name="name"/></h1>-->
+	                    <!--</div>-->
+						<notebook>
+							<page string="MaintainRepair Jobs">
+                                <field name="job_ids">
+                                    <tree string="MaintainRepair Jobs">
+										<field name="sequence"/>
+										<field name="fault_method_id"/>
+										<field name="user_id"/>
+										<field name="plan_start_time"/>
+										<field name="plan_end_time"/>
+										<field name="real_start_time"/>
+										<field name="real_end_time"/>
+										<field name="standard_work"/>
+										<field name="percentage_work"/>
+										<field name="my_work"/>
+										<field name="real_work"/>
+                                    </tree>
+                                </field>
+                            </page>
+			            </notebook>
+
+						 <group col="2">
+	                        <group>
+								<field name="fault_category_id" />
+								<field name="fault_appearance_id" />
+	                        	<field name="fault_reason_id" />
+								<field name="fault_method_id" />
+								<field name="user_id" />
+	                        </group>
+	                        <group>
+	                            <field name="plan_start_time" />
+								<field name="plan_end_time" />
+								<field name="percentage_work" />
+								<field name="standard_work" />
+	                        </group>
+                   		 </group>
+
+						<footer>
+							<button name="dispatch" type="object"
+									string="Dispatch" class="oe_highlight oe_edit_only"/>
+                    	</footer>
+
+					</sheet>
+                </form>
+            </field>
+        </record>
+
+		<!-- MaintainDelivery form view -->
+        <record model="ir.ui.view" id="fleet_manage_delivery_view_form">
+            <field name="name">MaintainDelivery.form</field>
+            <field name="model">fleet_manage_maintain.maintain_delivery</field>
+            <field name="arch" type="xml">
+                <form string="MaintainDelivery Form">
+                	<header>
+						<button name="action_delivery" type="object"
+                                string="Comfirm Delivery"
+								states="draft"
+                                class="oe_highlight"/> <!-- 确认交接-->
+
+						<button name="action_return" type="object"
+                                string="delivery to Return"
+								states="delivery"
+                                class="oe_highlight"/> <!-- 提交检验-->
+
+						<button name="" type="object"
+                                string="Maintenance/Warranty"
+								states="return"
+                                class="oe_highlight"/> <!-- 查看 保养/维修 单-->
+
+                    	<field name="state"  widget="statusbar" clickable="True" />
+                	</header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name"/>
+							<h1><field name="name"/></h1>
+	                    </div>
+						 <group col="2">
+	                        <group>
+	                        	<field name="report_id" />
+								<!--<field name="fault_method_id" />-->
+								<!--<field name="guarantee_level" />-->
+								<!--<field name="report_id" />-->
+	                        </group>
+	                        <group>
+	                            <field name="vehicle_no" />
+								<field name="vehicle_license" />
+								<field name="vehicle_type" />
+	                        </group>
+                   		 </group>
+						<notebook>
+							<page string="Other Information">
+								<group col="1">
+									<group>
+										<field name="delivery_time"/>
+										<field name="delivery_return_time"/>
+									</group>
+								</group>
+                            </page>
+
+						</notebook>
+
+					</sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- MaintainReport Action-->
+		<record model="ir.actions.act_window" id="fleet_manage_maintain_report_action">
+	      <field name="name">fleet_manage_maintain_report_action</field>
+	      <field name="res_model">fleet_manage_maintain.maintain_report</field>
+	      <field name="view_mode">tree,form</field>
+		</record>
+
+		<!-- MaintainRepair Action-->
+		<record model="ir.actions.act_window" id="fleet_manage_maintain_repair_action">
+			<field name="name">fleet_manage_maintain_repair_action</field>
+			<field name="res_model">fleet_manage_maintain.maintain_repair</field>
+			<field name="view_mode">tree,form</field>
+
+			<field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_repair_view_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('fleet_manage_maintain.fleet_manage_repair_view_form')})]"/>
+		</record>
+
+		<!-- MaintainDelivery Action-->
+		<record model="ir.actions.act_window" id="fleet_manage_maintain_delivery_action">
+	      <field name="name">fleet_manage_maintain_delivery_action</field>
+	      <field name="res_model">fleet_manage_maintain.maintain_delivery</field>
+	      <field name="view_mode">tree,form</field>
+		</record>
+
+		<!-- MaintainInspect Action-->
+		<record model="ir.actions.act_window" id="fleet_manage_maintain_inspect_action">
+	      <field name="name">fleet_manage_maintain_inspect_action</field>
+	      <field name="res_model">fleet_manage_maintain.maintain_inspect</field>
+	      <field name="view_mode">tree,form</field>
+		</record>
+
+        <menuitem name="fleet_manage_maintain"
+				  id="fleet_manage_maintain"
+				  parent="fleet_manage_menu.fleet_manage_warranty_maintain"/>
+
+        <menuitem name="report_bill"
+				  id="fleet_manage_maintain_report_bill"
+				  parent="fleet_manage_maintain"
+				  action="fleet_manage_maintain_report_action"
+				  />
+        <menuitem name="repair_bill"
+				  id="fleet_manage_maintain_repair_bill"
+				  parent="fleet_manage_maintain"
+				  action="fleet_manage_maintain_repair_action"
+				  />
+        <menuitem name="delivery_bill"
+				  id="fleet_manage_maintain_delivery_bill"
+				  parent="fleet_manage_maintain"
+				  action="fleet_manage_maintain_delivery_action"
+				  />
+        <menuitem name="inspect_bill"
+				  id="fleet_manage_maintain_inspect_bill"
+				  parent="fleet_manage_maintain"
+				  action="fleet_manage_maintain_inspect_action"
+				  />
+    </data>
+</odoo>
