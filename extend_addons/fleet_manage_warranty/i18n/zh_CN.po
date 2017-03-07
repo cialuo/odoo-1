@@ -1,0 +1,333 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* fleet_manage_warranty
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-06 10:59+0000\n"
+"PO-Revision-Date: 2017-03-06 10:59+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_applicable_carmodel
+msgid "Applicable carmodel"
+msgstr "试用车型"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_bom_line_ids
+msgid "BoM Lines"
+msgstr "BoM行"
+
+#. module: fleet_manage_warranty
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_form
+msgid "Category Form"
+msgstr "Category Form2"
+
+#. module: fleet_manage_warranty
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_tree
+msgid "Category Tree"
+msgstr "Category Tree2"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_child_ids
+msgid "Child ids"
+msgstr "Child ids2"
+
+#. module: fleet_manage_warranty
+#: model:ir.actions.act_window,help:fleet_manage_warranty.fleet_manage_warranty_mode_action
+msgid "Click to create a warranty mode."
+msgstr "Click to create a warranty mode.2"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_code
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_code
+msgid "Code"
+msgstr "保修类别代码"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_collar_cap
+msgid "Collar cap"
+msgstr "领用上限"
+
+#. module: fleet_manage_warranty
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_item_view_form
+msgid "Components"
+msgstr "部件"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_mode_create_uid
+msgid "Created by"
+msgstr "建档人"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_create_date
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_create_date
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_create_date
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_mode_create_date
+msgid "Created on"
+msgstr "建档时间"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,help:fleet_manage_warranty.field_fleet_manage_warranty_item_mode
+msgid "Current mode of the item"
+msgstr "Current mode of the item2"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_default_usage
+msgid "Default usage"
+msgstr "默认用量"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_display_name
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_display_name
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_display_name
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_mode_display_name
+msgid "Display Name"
+msgstr "保修类别名称"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,help:fleet_manage_warranty.field_fleet_manage_warranty_item_line_sequence
+msgid "Gives the sequence order when displaying."
+msgstr "用于显示顺序"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_id
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_id
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_id_5760
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_mode_id
+msgid "ID"
+msgstr "ID2"
+
+#. module: fleet_manage_warranty
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_item_view_tree
+msgid "Item Tree"
+msgstr "Item Tree2"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_items
+msgid "Items"
+msgstr "Items2"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category___last_update
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item___last_update
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line___last_update
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_mode___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_mode_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_write_date
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_write_date
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_write_date
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_mode_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_manhour
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_manhour
+msgid "Manhour"
+msgstr "工时定额（分）"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_mode
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_mode_view_tree
+msgid "Mode"
+msgstr "模式"
+
+#. module: fleet_manage_warranty
+#: sql_constraint:fleet_manage_warranty.mode:0
+msgid "Mode name already exists"
+msgstr "Mode name already exists2"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_name
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_name
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_mode_name
+msgid "Name"
+msgstr "名称"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_bom_id
+msgid "Parent BoM"
+msgstr "父级 BoM"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_parent_id
+msgid "Parent id"
+msgstr "父类名称"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_product_id
+msgid "Product"
+msgstr "产品"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_product_qty
+msgid "Product Quantity"
+msgstr "数量"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_product_uom_id
+msgid "Product Unit of Measure"
+msgstr "产品计量单位"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_remark
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_remark
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_remark
+msgid "Remark"
+msgstr "备注"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_line_sequence
+msgid "Sequence"
+msgstr "序号"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_state
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_state
+msgid "State"
+msgstr "状态"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_sum_categories_manhour
+msgid "Sum categories manhour"
+msgstr "分类工时汇总"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_sum_items_manhour
+msgid "Sum items manhour"
+msgstr "项目工时汇总"
+
+#. module: fleet_manage_warranty
+#: model:ir.model.fields,help:fleet_manage_warranty.field_fleet_manage_warranty_item_line_product_uom_id
+msgid "Unit of Measure (Unit of Measure) is the unit of measurement for the inventory control"
+msgstr "计量单位是库存单位"
+
+#. module: fleet_manage_warranty
+#: model:ir.actions.act_window,name:fleet_manage_warranty.fleet_manage_warranty_category_action
+#: model:ir.ui.menu,name:fleet_manage_warranty.fleet_manage_warranty_category
+msgid "Warranty Category"
+msgstr "保养类别"
+
+#. module: fleet_manage_warranty
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_item_view_form
+msgid "Warranty Form"
+msgstr "Warranty Form2"
+
+#. module: fleet_manage_warranty
+#: model:ir.actions.act_window,name:fleet_manage_warranty.fleet_manage_warranty_item_action
+#: model:ir.ui.menu,name:fleet_manage_warranty.fleet_manage_warranty_item
+msgid "Warranty Item"
+msgstr "保养项目"
+
+#. module: fleet_manage_warranty
+#: model:ir.actions.act_window,name:fleet_manage_warranty.fleet_manage_warranty_mode_action
+#: model:ir.ui.menu,name:fleet_manage_warranty.fleet_manage_warranty_mode_menu
+msgid "Warranty Mode"
+msgstr "保修方式"
+
+#. module: fleet_manage_warranty
+#: model:ir.actions.act_window,help:fleet_manage_warranty.fleet_manage_warranty_mode_action
+msgid "You can customize available mode to track the evolution of\n"
+"                each warranty mode. Example: Active, Being Repaired, Sold."
+msgstr "You can customize available mode to track the evolution of\n"
+"                each warranty mode. Example: Active, Being Repaired, Sold."
+
+#. module: fleet_manage_warranty
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_item_view_form
+msgid "back to draft"
+msgstr "退回草稿"
+
+#. module: fleet_manage_warranty
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_item_view_form
+msgid "confirm"
+msgstr "启用"
+
+#. module: fleet_manage_warranty
+#: selection:fleet_manage_warranty.category,state:0
+#: selection:fleet_manage_warranty.item,state:0
+msgid "confirmed"
+msgstr "在用"
+
+#. module: fleet_manage_warranty
+#: selection:fleet_manage_warranty.category,state:0
+#: selection:fleet_manage_warranty.item,state:0
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_item_view_form
+msgid "done"
+msgstr "归档"
+
+#. module: fleet_manage_warranty
+#: selection:fleet_manage_warranty.category,state:0
+#: selection:fleet_manage_warranty.item,state:0
+msgid "draft"
+msgstr "草稿"
+
+#. module: fleet_manage_warranty
+#: model:ir.model,name:fleet_manage_warranty.model_fleet_manage_warranty_category
+msgid "fleet_manage_warranty.category"
+msgstr "fleet_manage_warranty.category2"
+
+#. module: fleet_manage_warranty
+#: model:ir.model,name:fleet_manage_warranty.model_fleet_manage_warranty_item
+msgid "fleet_manage_warranty.item"
+msgstr "fleet_manage_warranty.item2"
+
+#. module: fleet_manage_warranty
+#: model:ir.model,name:fleet_manage_warranty.model_fleet_manage_warranty_item_line
+msgid "fleet_manage_warranty.item.line"
+msgstr "fleet_manage_warranty.item.line2"
+
+#. module: fleet_manage_warranty
+#: model:ir.model,name:fleet_manage_warranty.model_fleet_manage_warranty_mode
+msgid "fleet_manage_warranty.mode"
+msgstr "fleet_manage_warranty.mode2"
+
+#. module: fleet_manage_warranty
+#: model:ir.model,name:fleet_manage_warranty.model_fleet_manage_warranty_warranty
+msgid "fleet_manage_warranty.warranty"
+msgstr "fleet_manage_warranty.warranty2"
+
+#. module: fleet_manage_warranty
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_form
+msgid "page child_ids"
+msgstr "子类别"
+
+#. module: fleet_manage_warranty
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_form
+msgid "page items"
+msgstr "保修项目"
+
+#. module: fleet_manage_warranty
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_form
+msgid "tree child_ids"
+msgstr "tree child_ids2"
+
+#. module: fleet_manage_warranty
+#: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_form
+msgid "tree items"
+msgstr "tree items2"
+

@@ -1,0 +1,142 @@
+<odoo>
+    <data>
+
+        <!-- 保修项目 tree -->
+        <record model="ir.ui.view" id="fleet_manage_warranty_item_view_tree">
+            <field name="name">Item.tree</field>
+            <field name="model">fleet_manage_warranty.item</field>
+            <field name="arch" type="xml">
+                <tree string="Item Tree">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="mode" />
+                    <field name="manhour" />
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 保修项目 view -->
+        <record model="ir.ui.view" id="fleet_manage_warranty_item_view_form">
+            <field name="name">Item.form</field>
+            <field name="model">fleet_manage_warranty.item</field>
+            <field name="arch" type="xml">
+                <form string="Warranty Form">
+                    <header>
+                        <button name="action_draft" type="object"
+                                string="back to draft"
+                                states="confirmed,done"/>
+                        <button name="action_confirm" type="object"
+                                string="confirm" states="draft"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="done" states="confirmed"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+
+                    <sheet>
+
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" />
+                            <h1><field name="name" /></h1>
+                        </div>
+                        <group col="2">
+                            <group >
+                                <field name="mode"/>
+                                <field name="manhour"/>
+                            </group>
+                            <group >
+                                <label for="code" />
+                                <div class="o_row">
+                                    <field name="code"/>
+                                </div>
+                                <field name="create_uid" readonly="1" />
+                                <field name="create_date" readonly="1" />
+                            </group>
+                        </group>
+
+                        <div class="oe_right"><group><field name="remark"/></group></div>
+
+                        <notebook>
+                            <page string="Components">
+                                <field name="bom_line_ids" widget="one2many_list">
+                                    <tree string="Components" editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="product_id" context="{'default_type': 'product'}"/>
+                                        <!--<field name="has_attachments" invisible="1"/>-->
+                                        <!--<button name="action_see_attachments" type="object" icon="fa-files-o" attrs="{'invisible': [('has_attachments', '=', False)]}"/>-->
+                                        <!--<button name="action_see_attachments" type="object" icon="fa-file" attrs="{'invisible': [('has_attachments', '=', True)]}"/>-->
+                                        <field name="product_qty"/>
+                                        <field name="product_uom_id" options="{'no_open':True,'no_create':True}"/> <!-- groups="product.group_uom"-->
+                                        <!--<field name="attribute_value_ids" widget="many2many_tags" domain="[('product_ids.product_tmpl_id', '=', parent.product_tmpl_id)]" groups="product.group_product_variant"/>-->
+                                        <!--<field name="operation_id" groups="mrp.group_mrp_routings" domain="[('routing_id', '=', parent.routing_id)]" options="{'no_quick_create':True,'no_create_edit':True}"/>-->
+
+                                        <field name="default_usage"/>
+                                        <field name="collar_cap"/>
+                                        <field name="applicable_carmodel"/>
+                                        <field name="remark"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 保修项目 action -->
+        <record model="ir.actions.act_window" id="fleet_manage_warranty_item_action">
+            <field name="name">Warranty Item</field>
+            <field name="res_model">fleet_manage_warranty.item</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 保修项目 menu -->
+        <menuitem name="Warranty Item"
+                  id="fleet_manage_warranty_item" sequence="22"
+                  parent="fleet_manage_menu.fleet_manage_menu_data"
+                  action="fleet_manage_warranty_item_action"/>
+
+
+
+        <!-- 保修方式 tree -->
+        <record id='fleet_manage_warranty_mode_view_tree' model='ir.ui.view'>
+            <field name="name">fleet_manage_warranty.mode.tree</field>
+            <field name="model">fleet_manage_warranty.mode</field>
+            <field name="arch" type="xml">
+                <tree string="Mode" editable="bottom">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- 保修方式 action -->
+        <record id='fleet_manage_warranty_mode_action' model='ir.actions.act_window'>
+            <field name="name">Warranty Mode</field>
+            <field name="res_model">fleet_manage_warranty.mode</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a warranty mode.
+              </p><p>
+                You can customize available mode to track the evolution of
+                each warranty mode. Example: Active, Being Repaired, Sold.
+              </p>
+            </field>
+        </record>
+
+
+        <!-- 保修方式 menu -->
+        <menuitem action="fleet_manage_warranty_mode_action" sequence="24"
+            parent="fleet_manage_menu.fleet_manage_menu_data" id="fleet_manage_warranty_mode_menu" />
+
+
+
+    </data>
+</odoo>
