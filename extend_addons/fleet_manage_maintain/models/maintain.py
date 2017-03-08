@@ -26,16 +26,14 @@ class FleetMaintainReport(models.Model):
        ])
     is_fault_vehicle = fields.Boolean("Is Fault Vehicle", default=True)
 
-    state = fields.Selection([
-        ('back', "Back"),
-        ('draft', "Draft"),
-        ('precheck', "Precheck"),
-        ('dispatch', "Dispatch"),
-        ('repair', "Repair"),
-        ('inspect', "Inspect"),
-        ('done', "Done"),
-
-    ], default='draft')
+    state = fields.Selection(
+           selection=[('back', "Back"),
+            ('draft', "Draft"),
+            ('precheck', "Precheck"),
+            ('dispatch', "Dispatch"),
+            ('repair', "Repair"),
+            ('inspect', "Inspect"),
+            ('done', "Done")], default='draft')
     repair_ids = fields.One2many("fleet_manage_maintain.maintain_repair", 'report_id',string='Maintain Repair')
     partner_id = fields.Many2one('res.partner', string="Repair Company")
     fleet = fields.Char(string="Fleet")
@@ -43,6 +41,13 @@ class FleetMaintainReport(models.Model):
     create_name = fields.Many2one('res.users', string="Create Name")
     create_name_company = fields.Char(string="Create Name Company")
     remark = fields.Text(string="Remark")
+    dispatch_count = fields.Integer("Dispatch Count",compute="_get_dispatch_count")
+
+    def _get_dispatch_count(self):  #计算待派工的维修单
+        repair = self.env['fleet_manage_maintain.maintain_repair'].search([("report_id", '=', self.id),('state','=','dispatch')])
+        self.dispatch_count = len(repair)
+
+
 
     @api.multi
     def action_back(self):
@@ -84,6 +89,16 @@ class FleetMaintainReport(models.Model):
     def action_done(self):
         self.state = 'done'
 
+    @api.multi
+    def delivery_manage(self):
+        self.ensure_one()
+        deliverys = self.env['fleet_manage_maintain.maintain_delivery'].search([("report_id",'=',self.id)])
+        action = self.env.ref('fleet_manage_maintain.fleet_manage_maintain_delivery_action').read()[0]
+        action['res_id'] = deliverys.id#[('id', '=', deliverys.id)]
+        action['views'] = [(self.env.ref('fleet_manage_maintain.fleet_manage_delivery_view_form').id, 'form')]
+        print action
+        return action
+
 
 class FleetMaintainRepair(models.Model):
     """
@@ -121,6 +136,8 @@ class FleetMaintainRepair(models.Model):
     standard_work = fields.Float(help='standard_work')
     percentage_work = fields.Float(help='percentage_work')
 
+
+
     @api.multi
     def action_repair(self):
         self.state = 'repair'
@@ -128,6 +145,7 @@ class FleetMaintainRepair(models.Model):
     @api.multi
     def action_inspect(self):
         self.state = 'inspect'
+        self.inspect_time = fields.Datetime.now()
 
     @api.multi
     def dispatch(self):
@@ -150,12 +168,13 @@ class FleetMaintainRepair(models.Model):
 
     @api.depends("job_ids")
     def _get_repair_names(self):
-        repair_names = set()
-        for i in self.job_ids:
-            repair_names.add(i.user_id.name)
-        repair_names = ",".join(list(repair_names))
-        self.repair_names = repair_names
+        for i in self:
+            repair_names = set()
+            for j in i.job_ids:
+                repair_names.add(j.user_id.name)
+            repair_names = ",".join(list(repair_names))
 
+            i.repair_names = repair_names
 
 
 class FleetMaintainRepairJobs(models.Model):
@@ -219,5 +238,14 @@ class FleetMaintainInspect(models.Model):
     """
     车辆维修管理：检验单
     """
-    _name = 'fleet_manage_maintain.maintain_inspect'
-    name = fields.Char("Inspect Bill", help="Inspect Bill")
+    # _name = 'fleet_manage_maintain.maintain_inspect'
+    _inherit = 'fleet_manage_maintain.maintain_repair'
+    #name = fields.Char("Inspect Bill", help="Inspect Bill")
+    inspect_result = fields.Char("Inspect Result", help="Inspect Result")
+    rework_count = fields.Integer("Rework Count",help="Rework Count")
+    inspect_time = fields.Datetime("Inspect Time", help="Inspect Time")
+    inspect_standard = fields.Text("Inspect Standard", help="Inspect Standard")
+
+    @api.multi
+    def action_done(self):
+        self.state = 'done'
