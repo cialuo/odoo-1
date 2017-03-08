@@ -48,29 +48,28 @@ class FleetMaintainReport(models.Model):
         self.dispatch_count = len(repair)
 
 
-
     @api.multi
-    def action_back(self):
+    def action_back(self): #检验退回
         self.state = 'back'
 
     @api.multi
-    def action_draft(self):
+    def action_draft(self): #设为草稿
         self.state = 'draft'
 
     @api.multi
-    def action_precheck(self):
+    def action_precheck(self): #提交检验 或者退回检验
         self.state = 'precheck'
 
     @api.multi
-    def action_repair(self):
+    def action_repair(self): #批量派工
         self.state = 'repair'
 
     @api.multi
-    def action_inspect(self):
+    def action_inspect(self):  #维修完成
         self.state = 'inspect'
 
     @api.multi
-    def action_dispatch(self):
+    def action_dispatch(self):  #预检通过并创建交接单  或者重新派工
         self.state = 'dispatch'
         self.ensure_one()
         vals = {
@@ -83,20 +82,13 @@ class FleetMaintainReport(models.Model):
         self.env['fleet_manage_maintain.maintain_delivery'].create(vals)
 
 
-
-
     @api.multi
-    def action_done(self):
-        self.state = 'done'
-
-    @api.multi
-    def delivery_manage(self):
+    def delivery_manage(self):  #跳转到交接单
         self.ensure_one()
         deliverys = self.env['fleet_manage_maintain.maintain_delivery'].search([("report_id",'=',self.id)])
         action = self.env.ref('fleet_manage_maintain.fleet_manage_maintain_delivery_action').read()[0]
         action['res_id'] = deliverys.id#[('id', '=', deliverys.id)]
         action['views'] = [(self.env.ref('fleet_manage_maintain.fleet_manage_delivery_view_form').id, 'form')]
-        print action
         return action
 
 
@@ -136,19 +128,21 @@ class FleetMaintainRepair(models.Model):
     standard_work = fields.Float(help='standard_work')
     percentage_work = fields.Float(help='percentage_work')
 
+    available_product_ids = fields.One2many("fleet_manage_maintain.available_product", 'repair_id', string='Available Product')
+
 
 
     @api.multi
-    def action_repair(self):
+    def action_repair(self):  #开工
         self.state = 'repair'
 
     @api.multi
-    def action_inspect(self):
+    def action_inspect(self):  #报检
         self.state = 'inspect'
         self.inspect_time = fields.Datetime.now()
 
     @api.multi
-    def dispatch(self):
+    def dispatch(self):         #派工
         # self.env['fleet_manage_maintain.maintain_repair_jobs'].create()
         self.ensure_one()
         vals = {
@@ -167,7 +161,7 @@ class FleetMaintainRepair(models.Model):
         self.write({'job_ids': [(0, 0, vals)]})
 
     @api.depends("job_ids")
-    def _get_repair_names(self):
+    def _get_repair_names(self):  #获取维修人名字
         for i in self:
             repair_names = set()
             for j in i.job_ids:
@@ -175,6 +169,33 @@ class FleetMaintainRepair(models.Model):
             repair_names = ",".join(list(repair_names))
 
             i.repair_names = repair_names
+
+
+class FleetMaintainAvailableProduct(models.Model):
+    _name = 'fleet_manage_maintain.available_product'
+
+    product_id = fields.Many2one('product.product',string="Product")
+    # name = fields.Char(required=True)
+    repair_id = fields.Many2one('fleet_manage_maintain.maintain_repair',
+        ondelete='set null', string="Repair")
+
+
+    product_code = fields.Char("Product Code", help="Product Code")
+    product_name = fields.Char("Product Name", help="Product Name")
+    max_available_count = fields.Integer("Max Available Count", help="Max Available Count")
+    default_avail_count = fields.Integer("Default Available Count", help="Default Available Count")
+    stock_count = fields.Integer("Stock Count", help="Stock Count")
+    available_count = fields.Integer("Available Count", help="Available Count")
+
+    post_old_get_new = fields.Boolean("Post Old Get New")
+    meet_vehicle_type = fields.Char("Meet Vehicle Type", help="Meet Vehicle Type")
+
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        if self.product_id:
+            self.product_code = self.product_id.code
+            self.product_name = self.product_id.name
+
 
 
 class FleetMaintainRepairJobs(models.Model):

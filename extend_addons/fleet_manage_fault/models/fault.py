@@ -166,11 +166,11 @@ class AvailableProduct(models.Model):
     max_dosage = fields.Integer("Default Dosage")
     remark = fields.Text("Remark", help="Remark")
 
-    product_code = fields.Text("Product Code", help="Product Code")
-    product_name = fields.Text("Product Name", help="Product Name")
-    product_type = fields.Text("Product Type", help="Product Type")
-    product_size = fields.Text("Product Size", help="Product Size")
-    product_unit = fields.Text("Product Unit", help="Product Unit")
+    product_code = fields.Char("Product Code", help="Product Code")
+    product_name = fields.Char("Product Name", help="Product Name")
+    product_type = fields.Char("Product Type", help="Product Type")
+    product_size = fields.Char("Product Size", help="Product Size")
+    product_unit = fields.Char("Product Unit", help="Product Unit")
 
 
     @api.onchange('product_id')
