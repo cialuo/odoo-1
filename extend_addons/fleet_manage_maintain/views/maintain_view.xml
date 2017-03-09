@@ -266,11 +266,10 @@
                    		 </group>
   						 <notebook>
 
+							 <page string="Maintain Repair">
+								<field name="repair_ids" context="{'form_view_ref': 'fleet_manage_maintain.fleet_manage_repair_view_form_action'}">
+									<tree string="Maintain Repair">
 
-							<page string="Maintain Repair">
-                                <field name="repair_ids" context="{'form_view_ref': 'fleet_manage_maintain.fleet_manage_repair_view_form_action'}">
-                                    <tree string="Maintain Repair">
-										<field name="name"/>
 										<field name="fault_category_id"/>
 										<field name="fault_appearance_id"/>
 										<field name="fault_reason_id"/>
