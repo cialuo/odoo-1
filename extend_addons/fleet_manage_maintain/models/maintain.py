@@ -126,7 +126,7 @@ class FleetMaintainRepair(models.Model):
         ('dispatch', "Dispatch"),
         ('repair', "Repair"),
         ('inspect', "Inspect"),
-        ('done', "Done"),],default='dispatch')
+        ('done', "Done"),],default='dispatch', readonly=True)
 
     job_ids = fields.One2many("fleet_manage_maintain.maintain_repair_jobs", 'repair_id', string='Maintain Repair Jobs')
     standard_work = fields.Float(help='standard_work')

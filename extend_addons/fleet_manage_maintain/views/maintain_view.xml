@@ -20,6 +20,25 @@
             </field>
         </record>
 
+		<!-- MaintainReport  tree -->
+        <record model="ir.ui.view" id="fleet_manage_maintain_precheck_view_tree">
+            <field name="name">MaintainReportPrecheck.tree</field>
+            <field name="model">fleet_manage_maintain.maintain_report</field>
+            <field name="arch" type="xml">
+                <tree string="MaintainReportPrecheck Tree" create="false">
+					<field name="name"/>
+					<field name="vehicle_no"/>
+					<field name="vehicle_type"/>
+					<field name="user_id"/>
+					<field name="report_date"/>
+					<field name="repair_type"/>
+					<field name="repair_level"/>
+					<field name="is_fault_vehicle"/>
+					<field name="state"/>
+                </tree>
+            </field>
+        </record>
+
 		<!-- MaintainRepair  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_repair_view_tree">
             <field name="name">MaintainRepair.tree</field>
@@ -83,6 +102,72 @@
             <field name="model">fleet_manage_maintain.maintain_report</field>
             <field name="arch" type="xml">
                 <form string="MaintainReport Form">
+                	<header>
+						<button name="action_precheck" type="object"
+                                string="Precheck"
+								states="draft"
+                                class="oe_highlight"/> <!-- 提交检验-->
+                    	<field name="state"  widget="statusbar" clickable="True" statusbar_visible="draft,precheck,dispatch,repair,inspect,done"/>
+                	</header>
+					<sheet>
+
+						<div class="oe_title">
+	                        <label for="name"/>
+							<h1><field name="name"/></h1>
+	                    </div>
+						 <group col="2">
+	                        <group>
+	                        	<field name="vehicle_no" />
+								<field name="user_id" />
+								<field name="repair_type" />
+								<!--<field name="state" />-->
+	                        </group>
+	                        <group>
+	                            <field name="vehicle_type" />
+								<field name="report_date" />
+								<field name="is_fault_vehicle" />
+	                        </group>
+                   		 </group>
+  						 <notebook>
+							<page string="Maintain Repair">
+                                <field name="repair_ids">
+                                    <tree string="Maintain Repair" editable="bottom">
+										<field name="name"/>
+										<field name="fault_category_id"/>
+										<field name="fault_appearance_id"/>
+										<field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+							 <page string="More Information">
+                                <group col="2">
+									<group>
+										<field name="partner_id" />
+										<field name="fleet" />
+										<field name="create_name" />
+										<field name="remark" />
+									</group>
+									<group>
+										<field name="repair_plant" />
+										<field name="repair_level" />
+										<field name="create_name_company" />
+									</group>
+								 </group>
+                            </page>
+			            </notebook>
+					</sheet>
+                </form>
+            </field>
+        </record>
+
+
+		<!-- MaintainPrecheck form view -->
+        <record model="ir.ui.view" id="fleet_manage_precheck_view_form">
+            <field name="name">MaintainPrecheck.form</field>
+            <field name="model">fleet_manage_maintain.maintain_report</field>
+            <field name="arch" type="xml">
+                <form string="MaintainPrecheck Form" create="false">
                 	<header>
 						<button name="action_precheck" type="object"
                                 string="Precheck"
@@ -162,12 +247,6 @@
 							<!--</button>-->
                    	 	</div>
 
-
-
-
-
-
-
 						<div class="oe_title">
 	                        <label for="name"/>
 							<h1><field name="name" readonly="1"/></h1>
@@ -186,6 +265,7 @@
 	                        </group>
                    		 </group>
   						 <notebook>
+
 							<page string="Maintain Repair">
                                 <field name="repair_ids" context="{'form_view_ref': 'fleet_manage_maintain.fleet_manage_repair_view_form_action'}">
                                     <tree string="Maintain Repair">
@@ -196,9 +276,9 @@
 										<field name="fault_method_id"/>
 										<field name="repair_names"/>
 										<field name="state"/>
-                                    </tree>
-                                </field>
-                            </page>
+									</tree>
+								</field>
+							 </page>
 
 							 <page string="More Information">
                                 <group col="2">
@@ -220,7 +300,6 @@
                 </form>
             </field>
         </record>
-
 
 		<!-- MaintainRepair form view -->
         <record model="ir.ui.view" id="fleet_manage_repair_view_form">
@@ -434,7 +513,6 @@
                 <form string="MaintainInspect Form">
                 	<header>
 
-
 						<button name="action_inspect" type="object"
                                 string="Inspect"
 								states="repair"
@@ -480,7 +558,6 @@
 							<page string="Other Information">
                             </page>
 						</notebook>
-
 					</sheet>
                 </form>
             </field>
@@ -491,6 +568,21 @@
 			<field name="name">fleet_manage_maintain_report_action</field>
 			<field name="res_model">fleet_manage_maintain.maintain_report</field>
 			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_report_view_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('fleet_manage_maintain.fleet_manage_report_view_form')})]"/>
+
+		</record>
+
+		<!-- MaintainPrecheck Action-->
+		<record model="ir.actions.act_window" id="fleet_manage_maintain_precheck_action">
+			<field name="name">fleet_manage_maintain_precheck_action</field>
+			<field name="res_model">fleet_manage_maintain.maintain_report</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state', 'not in', ['back','draft'])]</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_precheck_view_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('fleet_manage_maintain.fleet_manage_precheck_view_form')})]"/>
 		</record>
 
 		<!-- MaintainRepair Action-->
@@ -538,21 +630,31 @@
 				  id="fleet_manage_maintain_report_bill"
 				  parent="fleet_manage_maintain"
 				  action="fleet_manage_maintain_report_action"
+				  sequence="1"
+				  />
+		<menuitem name="precheck_bill"
+				  id="fleet_manage_maintain_precheck_bill"
+				  parent="fleet_manage_maintain"
+				  action="fleet_manage_maintain_precheck_action"
+				  sequence="2"
 				  />
         <menuitem name="repair_bill"
 				  id="fleet_manage_maintain_repair_bill"
 				  parent="fleet_manage_maintain"
 				  action="fleet_manage_maintain_repair_action"
+				  sequence="3"
 				  />
         <menuitem name="delivery_bill"
 				  id="fleet_manage_maintain_delivery_bill"
 				  parent="fleet_manage_maintain"
 				  action="fleet_manage_maintain_delivery_action"
+				  sequence="4"
 				  />
         <menuitem name="inspect_bill"
 				  id="fleet_manage_maintain_inspect_bill"
 				  parent="fleet_manage_maintain"
 				  action="fleet_manage_maintain_inspect_action"
+				  sequence="5"
 				  />
     </data>
 </odoo>
