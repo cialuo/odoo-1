@@ -16,7 +16,8 @@
 
     # always loaded
     'data': [
-         'views/maintain_view.xml',
+        'views/maintain_view.xml',
+        "data/sequence.xml"
     ],
     # only loaded in demonstration mode
     'installable': True,

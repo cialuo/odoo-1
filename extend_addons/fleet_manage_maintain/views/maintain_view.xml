@@ -170,7 +170,7 @@
 
 						<div class="oe_title">
 	                        <label for="name"/>
-							<h1><field name="name"/></h1>
+							<h1><field name="name" readonly="1"/></h1>
 	                    </div>
 						 <group col="2">
 	                        <group>
@@ -189,6 +189,7 @@
 							<page string="Maintain Repair">
                                 <field name="repair_ids" context="{'form_view_ref': 'fleet_manage_maintain.fleet_manage_repair_view_form_action'}">
                                     <tree string="Maintain Repair">
+										<field name="name"/>
 										<field name="fault_category_id"/>
 										<field name="fault_appearance_id"/>
 										<field name="fault_reason_id"/>
@@ -244,7 +245,7 @@
 					<sheet>
 						<div class="oe_title">
 	                        <label for="name"/>
-							<h1><field name="name"/></h1>
+							<h1><field name="name" readonly="1"/></h1>
 	                    </div>
 						 <group col="2">
 	                        <group>
@@ -322,7 +323,7 @@
 							<page string="MaintainRepair Jobs">
                                 <field name="job_ids">
                                     <tree string="MaintainRepair Jobs">
-										<field name="sequence"/>
+										<field name="name"/>
 										<field name="fault_method_id"/>
 										<field name="user_id"/>
 										<field name="plan_start_time"/>
@@ -391,7 +392,7 @@
 					<sheet>
 						<div class="oe_title">
 	                        <label for="name"/>
-							<h1><field name="name"/></h1>
+							<h1><field name="name" readonly="1"/></h1>
 	                    </div>
 						 <group col="2">
 	                        <group>
@@ -458,7 +459,7 @@
 					<sheet>
 						<div class="oe_title">
 	                        <label for="name"/>
-							<h1><field name="name"/></h1>
+							<h1><field name="name" readonly="1"/></h1>
 	                    </div>
 						<group col="2">
 							<group>

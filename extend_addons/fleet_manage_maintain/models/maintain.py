@@ -8,7 +8,7 @@ class FleetMaintainReport(models.Model):
     车辆维修管理：报修单
     """
     _name = 'fleet_manage_maintain.maintain_report'
-    name = fields.Char(string="Report Bill", help='Report Bill')
+    name = fields.Char(string="Report Bill", help='Report Bill', required=True, index=True, copy=False, default='New')
     vehicle_no = fields.Char(string="Vehicle No", help='Vehicle No')
     vehicle_type = fields.Char(string="Vehicle Type", help='Vehicle Type')
     user_id = fields.Many2one('res.users', string="Report Name")
@@ -47,6 +47,11 @@ class FleetMaintainReport(models.Model):
         repair = self.env['fleet_manage_maintain.maintain_repair'].search([("report_id", '=', self.id),('state','=','dispatch')])
         self.dispatch_count = len(repair)
 
+    @api.model
+    def create(self, vals):
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_maintain.maintain_report') or '/'
+        return super(FleetMaintainReport, self).create(vals)
 
     @api.multi
     def action_back(self): #检验退回
@@ -74,12 +79,11 @@ class FleetMaintainReport(models.Model):
         self.ensure_one()
         vals = {
             "report_id": self.id,
-            "name": "JJD"+str(self.id),
             # "fault_appearance_id": self.partner_id.id,
-
         }
-        # self.write({'job_ids': [(0, 0, vals)]})
-        self.env['fleet_manage_maintain.maintain_delivery'].create(vals)
+        deliverys = self.env['fleet_manage_maintain.maintain_delivery'].search([("report_id", '=', self.id)])
+        if not deliverys:
+            self.env['fleet_manage_maintain.maintain_delivery'].create(vals)
 
 
     @api.multi
@@ -97,7 +101,7 @@ class FleetMaintainRepair(models.Model):
     车辆维修管理：维修单
     """
     _name = 'fleet_manage_maintain.maintain_repair'
-    name = fields.Char(string="Repair Bill", help='Repair Bill')
+    name = fields.Char(string="Repair Bill", help='Repair Bill', required=True, index=True, copy=False, default='New')
     report_id = fields.Many2one("fleet_manage_maintain.maintain_report",ondelete='cascade',string="Report Code")
     vehicle_no = fields.Char(string="Vehicle No", help='Vehicle No')
     vehicle_type = fields.Char(string="Vehicle Type", help='Vehicle Type')
@@ -130,7 +134,11 @@ class FleetMaintainRepair(models.Model):
 
     available_product_ids = fields.One2many("fleet_manage_maintain.available_product", 'repair_id', string='Available Product')
 
-
+    @api.model
+    def create(self, vals):
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_maintain.maintain_repair') or '/'
+        return super(FleetMaintainRepair, self).create(vals)
 
     @api.multi
     def action_repair(self):  #开工
@@ -229,7 +237,7 @@ class FleetMaintainDelivery(models.Model):
     车辆维修管理：交接单
     """
     _name = 'fleet_manage_maintain.maintain_delivery'
-    name = fields.Char("Delivery Bill", help="Delivery Bill")
+    name = fields.Char(string="Delivery Bill", help='Delivery Bill', required=True, index=True, copy=False, default='New')
     report_id = fields.Many2one("fleet_manage_maintain.maintain_report", ondelete='cascade', string="Report Code")
     vehicle_no = fields.Char(string="Vehicle No", help='Vehicle No')
     vehicle_type = fields.Char(string="Vehicle Type", help='Vehicle Type')
@@ -241,6 +249,12 @@ class FleetMaintainDelivery(models.Model):
         ('draft', "Draft"),
         ('delivery', "Delivery"),
         ('return', "Return"),],default='draft')
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_maintain.maintain_delivery') or '/'
+        return super(FleetMaintainDelivery, self).create(vals)
 
     @api.multi
     def action_delivery(self):
