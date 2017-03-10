@@ -106,7 +106,7 @@ class FaultReason(models.Model):
     
     @api.onchange('appearance_id')
     def onchange_appearance_id(self):
-        if self.appearance_id and not self.category_id:
+        if self.appearance_id:
             self.category_id = self.appearance_id.category_id
 
 
@@ -149,7 +149,7 @@ class FaultMethod(models.Model):
     
     @api.onchange('reason_id')
     def onchange_reason_id(self):
-        if self.reason_id and not self.category_id:
+        if self.reason_id:
             self.category_id = self.reason_id.category_id
             self.appearance_id = self.reason_id.appearance_id
 

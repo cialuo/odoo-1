@@ -44,14 +44,14 @@
             <field name="name">MaintainRepair.tree</field>
             <field name="model">fleet_manage_maintain.maintain_repair</field>
             <field name="arch" type="xml">
-                <tree string="MaintainRepair Tree">
+                <tree string="MaintainRepair Tree" create="false">
 					<field name="name"/>
 					<field name="report_id"/>
 					<field name="vehicle_no"/>
 					<field name="vehicle_type"/>
 					<field name="vehicle_license"/>
 					<field name="guarantee_level"/>
-					<field name="fault_reason_id"/>
+					<field name="fault_method_code"/>
 					<field name="fault_method_id"/>
 					<field name="plan_start_time"/>
 					<field name="plan_end_time"/>
@@ -66,7 +66,7 @@
             <field name="name">MaintainDelivery.tree</field>
             <field name="model">fleet_manage_maintain.maintain_delivery</field>
             <field name="arch" type="xml">
-                <tree string="MaintainDelivery Tree">
+                <tree string="MaintainDelivery Tree" create="false">
 					<field name="name"/>
 					<field name="report_id"/>
 					<field name="vehicle_no"/>
@@ -82,12 +82,14 @@
             <field name="name">MaintainInspect.tree</field>
             <field name="model">fleet_manage_maintain.maintain_repair</field>
             <field name="arch" type="xml">
-                <tree string="MaintainInspect Tree">
+                <tree string="MaintainInspect Tree" create="false">
 					<field name="name"/>
 					<field name="vehicle_no"/>
 					<field name="vehicle_type"/>
 					<field name="vehicle_license"/>
 					<field name="inspect_time"/>
+					<field name="fault_method_code"/>
+					<field name="fault_method_id"/>
 					<field name="inspect_result"/>
 					<field name="state"/>
 					<field name="rework_count"/>
@@ -113,7 +115,7 @@
 
 						<div class="oe_title">
 	                        <label for="name"/>
-							<h1><field name="name"/></h1>
+							<h1><field name="name" readonly="1"/></h1>
 	                    </div>
 						 <group col="2">
 	                        <group>
@@ -268,10 +270,12 @@
 							 <page string="Maintain Repair">
 								<field name="repair_ids" context="{'form_view_ref': 'fleet_manage_maintain.fleet_manage_repair_view_form_action'}">
 									<tree string="Maintain Repair">
+										<field name="name"/>
 										<field name="fault_category_id"/>
 										<field name="fault_appearance_id"/>
 										<field name="fault_reason_id"/>
 										<field name="fault_method_id"/>
+										<field name="fault_method_code"/>
 										<field name="repair_names"/>
 										<field name="state"/>
 									</tree>
@@ -338,9 +342,9 @@
 	                        </group>
                    		 </group>
   						 <notebook>
-							 <page string="FaultMethods">
+							 <page string="MaintainRepair Jobs">
                                 <field name="job_ids">
-                                    <tree string="FaultMethods">
+                                    <tree string="MaintainRepair Jobs">
 										<field name="sequence"/>
 										<field name="fault_method_id"/>
 										<field name="user_id"/>
@@ -400,7 +404,7 @@
 							<page string="MaintainRepair Jobs">
                                 <field name="job_ids">
                                     <tree string="MaintainRepair Jobs">
-										<field name="name"/>
+										<field name="sequence"/>
 										<field name="fault_method_id"/>
 										<field name="user_id"/>
 										<field name="plan_start_time"/>
@@ -420,13 +424,17 @@
 	                        <group>
 								<field name="fault_category_id" />
 								<field name="fault_appearance_id" />
-	                        	<field name="fault_reason_id" />
-								<field name="fault_method_id" />
 								<field name="user_id" />
+
+								<field name="plan_start_time" />
+								<field name="plan_end_time" />
+
 	                        </group>
 	                        <group>
-	                            <field name="plan_start_time" />
-								<field name="plan_end_time" />
+	                            <field name="fault_reason_id" />
+								<field name="fault_method_id" />
+								<field name="fault_method_code" />
+
 								<field name="percentage_work" />
 								<field name="standard_work" />
 	                        </group>
