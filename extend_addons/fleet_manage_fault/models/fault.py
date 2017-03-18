@@ -181,3 +181,13 @@ class AvailableProduct(models.Model):
         else:
             self.product_code = ''
             self.product_name = ''
+
+
+class FaultMaintainType(models.Model):
+    """
+    维修类型
+    """
+    _name = 'fleet_manage_fault.fault_maintain_type'
+
+    name = fields.Char("Fault Maintain Type",require=True ,help='Fault Maintain Type')
+

@@ -16,7 +16,8 @@
 
     # always loaded
     'data': [
-         'views/fault_view.xml',
+        'data/fault_maintain_type.xml'
+        'views/fault_view.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,

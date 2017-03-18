@@ -271,8 +271,8 @@
                 </form>
             </field>
         </record>
-		
-	
+
+
 		<!-- FaultCategory Action -->
 		<record model="ir.actions.act_window" id="fleet_manage_fault_category_action">
 	      <field name="name">fleet_manage_fault_category_action</field>
@@ -301,7 +301,16 @@
 	      <field name="res_model">fleet_manage_fault.fault_method</field>
 	      <field name="view_mode">tree,form</field>
 		</record>
-		
+
+		<!-- FaultMethod Action -->
+		<record model="ir.actions.act_window" id="fleet_manage_fault_maintain_type_action">
+	      <field name="name">fleet_manage_fault_maintain_type_action</field>
+	      <field name="res_model">fleet_manage_fault.fault_maintain_type</field>
+	      <field name="view_mode">tree,form</field>
+		</record>
+
+
+
 	    <menuitem name="fleet_manage_fault_category" 
 				  id="fleet_manage_menu_fault_category" 
 				  parent="fleet_manage_menu.fleet_manage_menu_data" 
@@ -321,7 +330,12 @@
 				  id="fleet_manage_menu_fault_method" 
 				  parent="fleet_manage_menu.fleet_manage_menu_data" 
 				  action = "fleet_manage_fault_method_action"
-				  />	  
+				  />
+		<menuitem name="fleet_manage_fault_maintain_type"
+				  id="fleet_manage_menu_fault_maintain_type"
+				  parent="fleet_manage_menu.fleet_manage_menu_data"
+				  action = "fleet_manage_fault_maintain_type_action"
+				  />
 				  		  
 				  
 	</data>

@@ -2,7 +2,6 @@
 
 from odoo import models, fields, api, exceptions
 
-
 class FleetMaintainReport(models.Model):
     """
     车辆维修管理：报修单
@@ -116,7 +115,8 @@ class FleetMaintainRepair(models.Model):
     车辆维修管理：维修单
     """
     _name = 'fleet_manage_maintain.maintain_repair'
-    name = fields.Char(string="Repair Bill", help='Repair Bill', required=True, index=True, copy=False, default='New')
+    name = fields.Char(string="Repair Bill", help='Repair Bill', required=True, index=True,
+                       copy=False, default='New', readonly=True)
     report_id = fields.Many2one("fleet_manage_maintain.maintain_report",ondelete='cascade',
                                 string="Report Code", required=True)
     vehicle_no = fields.Char(string="Vehicle No", help='Vehicle No')

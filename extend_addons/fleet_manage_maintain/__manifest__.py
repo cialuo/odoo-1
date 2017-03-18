@@ -12,10 +12,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','product','fleet_manage_menu'],
+    'depends': ['base','product','fleet_manage_menu','fleet_manage_fault'],
 
     # always loaded
     'data': [
+        # 'security/maintain_security.xml',
+        # 'security/ir.model.access.csv',
         'views/maintain_view.xml',
         "data/sequence.xml"
     ],

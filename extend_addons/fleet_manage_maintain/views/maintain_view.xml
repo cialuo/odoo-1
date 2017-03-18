@@ -401,7 +401,7 @@
 							<!--<h1><field name="name"/></h1>-->
 	                    <!--</div>-->
 						<notebook>
-							<page string="MaintainRepair Jobs">
+							<page string="MaintainRepair Jobs" >
                                 <field name="job_ids">
                                     <tree string="MaintainRepair Jobs">
 										<field name="sequence"/>
@@ -424,7 +424,7 @@
 	                        <group>
 								<field name="fault_category_id" />
 								<field name="fault_appearance_id" />
-								<field name="user_id" />
+								<field name="user_id"  />
 
 								<field name="plan_start_time" />
 								<field name="plan_end_time" />
@@ -436,7 +436,7 @@
 								<field name="fault_method_code" />
 
 								<field name="percentage_work" />
-								<field name="standard_work" />
+								<field name="standard_work"/>
 	                        </group>
                    		 </group>
 
