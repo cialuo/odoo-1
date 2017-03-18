@@ -72,12 +72,12 @@
             <field name="arch" type="xml">
                 <form string="FaultCategory Form">
                 	<header>
-                		<button name="action_draft" type="object"
-                                string="Reset to draft"
-                                states="use"/>
+                		<!--<button name="action_draft" type="object"-->
+                                <!--string="Reset to draft"-->
+                                <!--states="use"/>-->
                         <button name="action_use" type="object"
-                                string="Confirm" 
-								states="draft,done"
+                                string="Reset"
+								states="done"
                                 class="oe_highlight"/>
                         <button name="action_done" type="object"
                                 string="Mark as done" 
@@ -92,7 +92,7 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="user_id" />
+	                        	<field name="user_id" readonly="1"/>
 	                            <field name="create_date" />
 	                        </group>
 	                        <group>
@@ -133,7 +133,18 @@
             <field name="model">fleet_manage_fault.fault_appearance</field>
             <field name="arch" type="xml">
                 <form string="FaultAppearance Form">
-                	<header>
+					<header>
+                		<!--<button name="action_draft" type="object"-->
+                                <!--string="Reset to draft"-->
+                                <!--states="use"/>-->
+                        <button name="action_use" type="object"
+                                string="Reset"
+								states="done"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Mark as done"
+								states="use"
+                                class="oe_highlight"/>
                     	<field name="state"  widget="statusbar" clickable="True" />
                 	</header>
 					<sheet>
@@ -144,9 +155,11 @@
 						 <group col="2">
 	                        <group>
 	                        	<field name="category_id" />
+								<field name="inner_code" />
 								<field name="sequence"/>
 	                        </group>
 	                        <group>
+
 	                            <field name="fault_appearance_code" />
 								<field name="user_id" />
 								<field name="create_date" />
@@ -176,7 +189,18 @@
             <field name="model">fleet_manage_fault.fault_reason</field>
             <field name="arch" type="xml">
                 <form string="FaultReason Form">
-                	<header>
+					<header>
+                		<!--<button name="action_draft" type="object"-->
+                                <!--string="Reset to draft"-->
+                                <!--states="use"/>-->
+                        <button name="action_use" type="object"
+                                string="Reset"
+								states="done"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Mark as done"
+								states="use"
+                                class="oe_highlight"/>
                     	<field name="state"  widget="statusbar" clickable="True" />
                 	</header>
 					<sheet>
@@ -188,6 +212,7 @@
 	                        <group>
 	                        	<field name="category_id" />
 								<field name="appearance_id" />
+								<field name="inner_code" />
 	                        </group>
 	                        <group>
 	                            <field name="fault_reason_code" />
@@ -221,6 +246,17 @@
             <field name="arch" type="xml">
                 <form string="FaultMethod Form">
                 	<header>
+                		<!--<button name="action_draft" type="object"-->
+                                <!--string="Reset to draft"-->
+                                <!--states="use"/>-->
+                        <button name="action_use" type="object"
+                                string="Reset"
+								states="done"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Mark as done"
+								states="use"
+                                class="oe_highlight"/>
                     	<field name="state"  widget="statusbar" clickable="True" />
                 	</header>
 					<sheet>
@@ -233,6 +269,7 @@
 	                        	<field name="category_id" />
 								<field name="appearance_id" />
 								<field name="reason_id" />
+								<field name="inner_code" />
 	                        </group>
 	                        <group>
 	                            <field name="fault_method_code" />
@@ -244,10 +281,13 @@
 						 <group col="2">
 	                        <group>
 	                        	<field name="work_time" />
+								<field name="warranty_deadline" />
 								<field name="complex_level" />
 								<field name="materials_control" />
 	                        </group>
 	                        <group>
+								<field name="is_important_product"/>
+								<field name="important_product_id" attrs="{'invisible':[('is_important_product','=',False)]}" widget="selection"/>
 	                            <field name="remark" />
 	                        </group>
                    		 </group>

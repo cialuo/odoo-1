@@ -12,11 +12,11 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','product','fleet_manage_menu'],
+    'depends': ['base','product','hr','fleet_manage_menu'],
 
     # always loaded
     'data': [
-        'data/fault_maintain_type.xml'
+        'data/fault_maintain_type.xml',
         'views/fault_view.xml',
     ],
     # only loaded in demonstration mode
