@@ -130,11 +130,6 @@ class PuchasePlan(models.Model):
             order.is_run = True
         return True
 
-    @api.depends('line_ids.state')
-    def _onchange_state(self):
-        if self.line_ids:
-            if all([a.state == 'done' for a in self.line_ids]):
-                self.state = 'done'
 
 class PlanLine(models.Model):
     _name = 'purchase.plan.line'
