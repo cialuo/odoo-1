@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!--定义模块分类-->
+        <record model="ir.module.category" id="module_purchase_plan">
+            <field name="name">Purchase Plan</field>
+            <field name="description">Purchase Plan order</field>
+            <field name="sequence">51</field>
+        </record>
+    </data>
+</odoo>

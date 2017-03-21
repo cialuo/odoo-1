@@ -1,0 +1,62 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* materials_manage
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-21 08:07+0000\n"
+"PO-Revision-Date: 2017-03-21 08:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: materials_manage
+#: model:ir.module.category,name:materials_manage.module_purchase_plan
+msgid "Purchase Plan"
+msgstr "采购计划"
+
+#. module: materials_manage
+#: model:ir.module.category,description:materials_manage.module_purchase_plan
+msgid "Purchase Plan order"
+msgstr "采购计划单"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_analysis
+msgid "analysis_menu"
+msgstr "核算分析"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_config
+msgid "config_menu"
+msgstr "基础资料"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_fuel
+msgid "fuel_menu"
+msgstr "燃料管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_root
+msgid "materials_menu"
+msgstr "物资管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_pick
+msgid "pick_menu"
+msgstr "领用管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_purchase
+msgid "purchase_menu"
+msgstr "采购管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_stock
+msgid "stock_menu"
+msgstr "仓储管理"
+

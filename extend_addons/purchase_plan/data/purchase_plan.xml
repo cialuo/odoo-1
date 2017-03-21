@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!--定义采购计划的单号序号规则：PPO+年月+序号-->
+        <record id="purchase_plan_seq" model="ir.sequence">
+            <field name="name">Purchase Plan</field>
+            <field name="code">purchase_plan_seq</field>
+            <field name="prefix">PPO%(year)s</field>
+            <field name="padding">0</field>
+            <field eval="1" name="number_increment"/>
+        </record>
+    </data>
+</odoo>

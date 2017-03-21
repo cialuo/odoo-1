@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--主菜单-->
+        <menuitem id="materials_menu_root" name="materials_menu" sequence="10"/>
+        <!--一级菜单-->
+
+        <!--采购管理 -->
+        <menuitem id="materials_menu_purchase" name="purchase_menu" sequence="10" parent="materials_menu_root"/>
+        <!--仓储管理 -->
+        <menuitem id="materials_menu_stock" name="stock_menu" sequence="20" parent="materials_menu_root"/>
+        <!--领用管理 -->
+        <menuitem id="materials_menu_pick" name="pick_menu" sequence="30" parent="materials_menu_root"/>
+        <!--燃料管理 -->
+        <menuitem id="materials_menu_fuel" name="fuel_menu" sequence="40" parent="materials_menu_root"/>
+        <!--核算分析 -->
+        <menuitem id="materials_menu_analysis" name="analysis_menu" sequence="50" parent="materials_menu_root"/>
+        <!--基础资料 -->
+        <menuitem id="materials_menu_config" name="config_menu" sequence="60" parent="materials_menu_root"/>
+    </data>
+</odoo>
