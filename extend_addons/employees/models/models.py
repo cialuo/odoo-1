@@ -1,15 +1,130 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
-# class employees(models.Model):
-#     _name = 'employees.employees'
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
+
+class employee(models.Model):
+    _inherit = 'hr.employee'
+
+    # 工号
+    jobnumber = fields.Char(string=_('employee work number'))
+    # 工作单位
+    employer = fields.Char(string=_('employee employer'))
+    # 职称
+    title = fields.Char(string=_('emplyee title'))
+    # 入职时间
+    entrydate = fields.Date(string=_('employee entry date'))
+    # 转正时间
+    passdate = fields.Date(string=_('emplyee pass time'))
+    # 员工状态
+    employeestate = fields.Selection([
+        ('in_work', _('employee state in work')),  # 在职
+        ('retired', _('employee state retired')),  # 退休
+        ('inner_retired', _('employee state inner retired')),  # 内退
+        ('retired_pay', _('employee state retired pay')),  # 退养
+        ('injured', _('employee state injured')),  # 工伤
+        ('other', _('employee state other')),  # 其他
+    ], string=_('emplyee state'))
+    # 人员属性
+    employeeattr = fields.Char(string=_('emplyee attribute'))
+    # 劳动合同
+    bargain = fields.Char(string=_('emplyee bargain'))
+    # 驾驶证类别
+    drivelicense = fields.Char(string=_('emplyee drivelicense type'))
+    # 驾驶证号码
+    drivelicensenumber = fields.Char(string=_('emplyee drivelicense number'))
+    # 驾驶证领证日期
+    drivelicensedata = fields.Date(string=_('emplyee drivelicense date'))
+    # 社保账户
+    socialsecurityaccount = fields.Char(string=_('employee socialsecurity account'))
+    # 工资账户
+    salaryaccount = fields.Char(string=_('employee salary account'))
+
+
+    # 员工家属信息
+    families = fields.One2many('employees.employeefamily', 'employee_id', string=_("employees's families"))
+    # 员工所在岗位
+    workpost = fields.Many2one('employees.post', ondelete='set null',  string=_('employee work post'))
+
+
+class EmployeeFamily(models.Model):
+    """
+    员工家属信息表
+    """
+    _name = 'employees.employeefamily'
+
+    # 名称
+    name = fields.Char(string=_('family name'))
+    # 家庭关系
+    relation = fields.Char(string=_('family relation'))
+    # 性别
+    sex = fields.Selection([
+        ('male', _('male')),
+        ('female', _('female'))
+    ],string=_('sex'))
+    # 职业
+    profession = fields.Char(string=_('family profession'))
+    # 电话
+    phone = fields.Char(string=_('family phone'))
+    # 工作单位
+    employer = fields.Char(string=_('family employer'))
+    # 关联的员工
+    employee_id = fields.Many2one('hr.employee', ondelete='cascade')
+
+class WorkInfo(models.Model):
+    """
+    工作信息
+    """
+
+    _name = 'employees.workinfo'
+
+    # 工号
+    jobnumber = fields.Char(string=_('employee work number'))
+    # 工作单位
+    employer = fields.Char(string=_('employee employer'))
+    # 职称
+    title  = fields.Char(string=_('emplyee title'))
+    # 入职时间
+    entrydate = fields.Date(string=_('employee entry date'))
+    # 转正时间
+    passdate = fields.Date(string=_('emplyee pass time'))
+    # 员工状态
+    employeestate = fields.Selection([
+        ('in_work', _('employee state in work')),               #在职
+        ('retired', _('employee state retired')),               #退休
+        ('inner_retired', _('employee state inner retired')),   #内退
+        ('retired_pay', _('employee state retired pay')),       #退养
+        ('injured', _('employee state injured')),               #工伤
+        ('other', _('employee state other')),                   #其他
+    ], string=_('emplyee state'))
+    # 人员属性
+    employeeattr = fields.Char(string=_('emplyee attribute'))
+    # 劳动合同
+    bargain = fields.Char(string=_('emplyee bargain'))
+    # 驾驶证类别
+    drivelicense = fields.Char(string=_('emplyee drivelicense type'))
+    # 驾驶证号码
+    drivelicensenumber = fields.Char(string=_('emplyee drivelicense number'))
+    # 驾驶证领证日期
+    drivelicensedata = fields.Date(string=_('emplyee drivelicense date'))
+
+
+
+class post(models.Model):
+    """
+    岗位设置
+    """
+    _name = 'employees.post'
+
+    # 岗位所在部门
+    department = fields.Many2one('hr.department', ondelete='restrict', string= _('post department'))
+    # 岗位信息
+    description = fields.Char(string=_('post infomation'))
+    # 岗位类型
+    posttype = fields.Selection([
+        ('manager',_('post title manager')),        #经理
+        ('labour',_('post title labour'))           #员工
+    ], string=_('post title list'))
+    # 岗位员工
+    menbers = fields.One2many('hr.employee', 'workpost', string=_('post members'))
