@@ -24,5 +24,36 @@
                   parent="materials_menu_purchase"
                   action="base.action_partner_supplier_form"
         />
+        <!--询价管理-->
+        <menuitem id="materials_menu_purchase_rfq"
+                  name="purchase_rfq_menu"
+                  sequence="20"
+                  parent="materials_menu_purchase"
+                  action="purchase.purchase_rfq"
+        />
+        <!--采购管理-->
+        <menuitem id="materials_menu_purchase_order"
+                  name="purchase_order_menu"
+                  sequence="30"
+                  parent="materials_menu_purchase"
+                  action="purchase.purchase_form_action"
+        />
+        <!--采购入库-->
+        <!--定义打开采购入库的动作-->
+        <record id="extend_stock_picking_type_action" model="ir.actions.act_window">
+            <field name="name">Extend picking type action</field>
+            <field name="res_model">stock.picking.type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_form">form</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="context">{'search_default_name': '收货'}</field>
+        </record>
+        <!--采购入库菜单-->
+        <menuitem id="materials_menu_purchase_pick"
+                  name="purchase_pick_menu"
+                  sequence="40"
+                  parent="materials_menu_purchase"
+                  action="extend_stock_picking_type_action"
+        />
     </data>
 </odoo>
