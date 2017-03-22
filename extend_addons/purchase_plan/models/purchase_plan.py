@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import models, api, fields,exceptions
 from odoo.tools.translate import _
+import time
 
 class PuchasePlan(models.Model):
     _name = 'purchase.plan'
@@ -18,12 +19,15 @@ class PuchasePlan(models.Model):
             return user.employee_ids[0]
         else:
             return False
+    @api.model
+    def _get_month(self):
+        return time.strftime("%Y-%m")
 
 
 
 
     name = fields.Char(string='name', default='New', readonly=True)
-    month = fields.Char(string='Month', readonly=True, states={'draft': [('readonly', False)]}, required=True)
+    month = fields.Char(string='Month', readonly=True, states={'draft': [('readonly', False)]}, required=True, default=_get_month)
     user_id = fields.Many2one('hr.employee', string='Create User', required=True, readonly=True,
                               states={'draft': [('readonly', False)]}, default=_get_default_user)
     login_user = fields.Many2one('res.users', string='Login user', default=lambda self: self.env.user)
