@@ -128,3 +128,31 @@ class post(models.Model):
     ], string=_('post title list'))
     # 岗位员工
     menbers = fields.One2many('hr.employee', 'workpost', string=_('post members'))
+
+class department(models.Model):
+
+    _inherit = 'hr.department'
+
+    # 成员数量
+    membercount = fields.Char(compute='_countmember', string=_('member count in department'))
+
+    @api.multi
+    def _countmember(self):
+        for item in self:
+            employeeModel = self.env['hr.employee']
+            item.membercount = str(employeeModel.search_count([('department_id', '=', item.id)]))
+
+
+    record_createdate = fields.Date(compute='_getRecordCreateTime',
+                                    string=_('department record create time'))
+    @api.multi
+    def _getRecordCreateTime(self):
+        for item in self:
+            item.record_createdate = item.create_date
+
+
+
+    # 部门岗位列表
+    post_id = fields.One2many('employees.post', 'department', string=_('department post list'))
+    # 岗位成员
+    member_id = fields.One2many('hr.employee', 'department_id', string=_('department employees'))
