@@ -16,7 +16,7 @@ class FleetVehicle(models.Model):
                               ('stop', "stop"),], default='normal',
                                help='Current state of the vehicle', ondelete="set null")
     inner_code = fields.Char(string="Inner Code",help="Inner Code")
-    route_id = fields.Many2one('fleet_manage_basic.route',string="Route")
+    route_id = fields.Many2one('fleet_manage_vehicle.route',string="Route")
     trainman = fields.Many2one('hr.employee', string="Trainman Name")
     driver = fields.Many2one('hr.employee', string="Driver Name", required=True)
     engine_no = fields.Char('Engine No',help='Engine No')
@@ -106,6 +106,6 @@ class FleetVehicleRoute(models.Model):
     """
     车型管理
     """
-    _name = 'fleet_manage_basic.route'
+    _name = 'fleet_manage_vehicle.route'
 
     name = fields.Char("Route Name", help='Route Name')

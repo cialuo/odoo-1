@@ -3,7 +3,7 @@
     'name': "fleet_manage_maintain",
 
     'description': """
-        主要功能包括车辆维修管理的报修单，维修单，交接单，检验单
+        主要功能包括 维修管理的报修单，预检单，维修单，交接单，检验单
     """,
 
     'author': "Xiangll",
@@ -12,7 +12,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','product','fleet_manage_menu','fleet_manage_fault'],
+    'depends': ['fleet_manage_fault','fleet_manage_vehicle'],
 
     # always loaded
     'data': [
