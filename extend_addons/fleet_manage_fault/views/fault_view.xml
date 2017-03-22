@@ -58,6 +58,8 @@
 					<field name="reason_id"/>
 					<field name="appearance_id"/>
 					<field name="category_id"/>
+					<field name="work_time"/>
+                    <field name="complex_level"/>
 					<field name="user_id"/>
 					<field name="create_date"/>
 					<field name="state"/>
