@@ -142,13 +142,21 @@ class department(models.Model):
             employeeModel = self.env['hr.employee']
             item.membercount = str(employeeModel.search_count([('department_id', '=', item.id)]))
 
-
+    # 建档时间
     record_createdate = fields.Date(compute='_getRecordCreateTime',
                                     string=_('department record create time'))
     @api.multi
     def _getRecordCreateTime(self):
         for item in self:
             item.record_createdate = item.create_date
+
+    departmenttype = fields.Selection([
+        ('headquarters', _('department type headquarters')),
+        ('branch', _('department type branch')),
+        ('subsidiary', _('department type subsidiary')),
+        ('department', _('department type department')),
+        ('group', _('department type group')),
+    ], _('department type'))
 
 
 
