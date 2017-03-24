@@ -57,7 +57,8 @@ class Item(models.Model): # 保修项目
     # rel_warrantys = fields.Many2many('fleet_manage_warranty.warranty', string="Rel_warrantys")
 
 
-    bom_line_ids = fields.One2many('fleet_manage_warranty.item.line', 'bom_id', 'BoM Lines', copy=True)
+    bom_line_ids = fields.One2many('fleet_manage_warranty.item.line', 'item_id', 'ItemId', copy=True)
+
 
     # line_id = fields.Many2one('mrp.bom.line', string="Line")
 
@@ -79,9 +80,11 @@ class ItemLine(models.Model): # 用料清单
         help="Gives the sequence order when displaying.")
 
 
-    bom_id = fields.Many2one(
-        'mrp.bom', 'Parent BoM',
-        index=True, ondelete='cascade', required=True)
+    # bom_id = fields.Many2one(
+    #     'mrp.bom', 'Parent BoM',
+    #     index=True, ondelete='cascade', required=True)
+
+    item_id = fields.Many2one('fleet_manage_warranty.item', index=True)
 
 
     product_qty = fields.Float(
@@ -105,6 +108,9 @@ class FleetManageWarrantyMode(models.Model): # 保修方式
     # _order = 'sequence asc'
 
     name = fields.Char(required=True)
+
+    code = fields.Char() # 编码
+
     # sequence = fields.Integer(help="Used to order the note stages")
 
     _sql_constraints = [('warranty_mode_name_unique', 'unique(name)', 'Mode name already exists')]

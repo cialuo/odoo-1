@@ -109,6 +109,7 @@
             <field name="model">fleet_manage_warranty.mode</field>
             <field name="arch" type="xml">
                 <tree string="Mode" editable="bottom">
+                    <field name="code" />
                     <field name="name" />
                 </tree>
             </field>

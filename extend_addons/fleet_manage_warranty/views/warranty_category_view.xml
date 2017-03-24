@@ -1,6 +1,13 @@
 <odoo>
     <data>
 
+        <record model="ir.actions.act_window" id="category_open_material">
+            <!--<field name="context">{'search_default_productgroup': 1}</field>-->
+            <!--<field name="domain">[('location_id', 'child_of', active_ids)]</field>-->
+            <field name="name">Current Material</field>
+            <field name="res_model">fleet_manage_warranty.item.line</field>
+        </record>
+
         <!-- 保修类别 tree -->
         <record model="ir.ui.view" id="fleet_manage_warranty_category_view_tree">
             <field name="name">Category.tree</field>
@@ -37,10 +44,28 @@
 
                     <sheet>
 
+                        <div class="oe_button_box" name="button_box">
+                            <button string="Current Material"
+                                    class="oe_stat_button"
+                                    icon="fa-building-o" name="%(category_open_material)d" type="action"
+                                    context="{'search_default_internal_loc': 1}"/>
+
+                            <button name="return_action_to_open"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-book"
+                                context="{'xml_id':'category_open_material'}"
+                                help="show the contract for this vehicle">
+                                <!--<field name="contract_count" widget="statinfo" string="Contracts"/>-->
+                            </button>
+
+                        </div>
+
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only" />
                             <h1><field name="name" /></h1>
                         </div>
+
                         <group col="2">
                             <group >
                                 <field name="parent_id"/>
@@ -106,6 +131,8 @@
                   id="fleet_manage_warranty_category" sequence="21"
                   parent="fleet_manage_menu.fleet_manage_menu_data"
                   action="fleet_manage_warranty_category_action"/>
+
+
 
     </data>
 </odoo>

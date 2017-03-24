@@ -1,0 +1,111 @@
+<odoo>
+    <data>
+
+        <!-- 保养单 tree -->
+        <record model="ir.ui.view" id="fleet_manage_warranty_maintain.warranty_maintain_sheet_view_tree">
+            <field name="name">warranty_maintain_sheet.tree</field>
+            <field name="model">fleet_manage_warranty_maintain.warranty_maintain_sheet</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="plan_id"/>
+                    <field name="vehicle_no"/>
+                    <field name="vehicle_type"/>
+                    <field name="warrantycategory_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 保养单 view -->
+        <record model="ir.ui.view" id="fleet_manage_warranty_maintain.warranty_maintain_sheet_view_form">
+            <field name="name">warranty_maintain_sheet.form</field>
+            <field name="model">fleet_manage_warranty_maintain.warranty_maintain_sheet</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_draft" type="object"
+                                string="back to draft"
+                                states="confirmed,done"/>
+                        <button name="action_confirm" type="object"
+                                string="confirm" states="draft"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="done" states="confirmed"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_title">
+
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+
+                        </div>
+
+
+                        <group col="2">
+                            <group >
+                                <field name="vehicle_no"/>
+                                <field name="create_uid" readonly="1" />
+                                <field name="warrantycategory_id"/>
+                                <!--<field name="mode"/>-->
+                                <!--<field name="remark"/>-->
+                            </group>
+
+                            <group >
+
+                                <field name="vehicle_type"/>
+                                <field name="create_date" readonly="1" />
+                                <field name="plan_id"/>
+
+                            </group>
+
+                        </group>
+
+                        <notebook>
+                            <page string="page item_ids">
+                                <field name="item_ids" widget="one2many_list">
+                                    <tree string="tree item_ids" editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="category_id"/>
+                                        <field name="item_id"/>
+                                        <field name="maintenance_method"/>
+                                        <field name="maintenance_personnel"/>
+                                        <field name="state"/>
+                                        <field name="inspection_operation"/>
+                                        <field name="reinspection_count"/>
+                                    </tree>
+                                </field>
+
+                            </page>
+                        </notebook>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 保养单 action -->
+        <record model="ir.actions.act_window" id="fleet_manage_warranty_maintain.warranty_maintain_sheet_action">
+            <field name="name">warranty_maintain_sheet</field>
+            <field name="res_model">fleet_manage_warranty_maintain.warranty_maintain_sheet</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- 车辆保养管理 menu -->
+        <menuitem name="fleet_manage_warranty"
+                  id="fleet_manage_warranty_maintain_warranty_menuitemId"
+                  parent="fleet_manage_menu.fleet_manage_warranty_maintain"/>
+
+        <!-- 保养单 menu -->
+        <menuitem name="warranty_maintain_sheet"
+                  id="fleet_manage_warranty_maintain.warranty_maintain_sheet_menuitemId" sequence="21"
+                  parent="fleet_manage_warranty_maintain_warranty_menuitemId"
+                  action="fleet_manage_warranty_maintain.warranty_maintain_sheet_action"/>
+
+    </data>
+</odoo>

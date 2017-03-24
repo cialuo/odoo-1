@@ -90,3 +90,30 @@ class Category(models.Model): # 保修
                 name = "%s / %s" % (record.parent_id.name_get()[0][1], name)
             result.append((record.id, name))
         return result
+
+    @api.multi
+    def return_action_to_open(self):
+        """ This opens the xml view specified in xml_id for the current vehicle """
+        self.ensure_one()
+        bom_ids = []
+        if self.items:
+            for item in self.items:
+                if item.bom_line_ids:
+                    for bom in item.bom_line_ids:
+                        # bom_dicts.append(bom)
+                        bom_ids.append(bom.id)
+
+                        # bom_dicts.append({
+                        #     'name': bom.name if bom.name != '/' else bom.name
+                        # })
+
+        xml_id = self.env.context.get('xml_id')
+        if xml_id:
+            res = self.env['ir.actions.act_window'].for_xml_id('fleet_manage_warranty', xml_id)
+            res.update(
+                context=dict(self.env.context), # , default_vehicle_id=self.id
+                domain=[('id', 'in', bom_ids)]
+                #domain=[('vehicle_id', '=', self.id)]
+            )
+            return res
+        return False
