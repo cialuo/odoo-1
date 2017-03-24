@@ -201,6 +201,8 @@ class FaultMethod(models.Model):
        ('group works', "Group Works"),],default='one work')
     materials_control = fields.Boolean("Materials Control")
     is_important_product = fields.Boolean("Materials Control")
+    operation_manual = fields.Text("Operation Manual", help="Operation Manual")
+    inspect_standard = fields.Text("Inspect Standard", help="Inspect Standard")
 
     # important_product = fields.Many2one('product.product',string="Important Product", domain=[('import_product', '=', True)])
     important_product_id = fields.Many2one('product.product', string="Important Product")
@@ -211,8 +213,7 @@ class FaultMethod(models.Model):
         ondelete='cascade', string="Fault appearance Name")
     category_id = fields.Many2one('fleet_manage_fault.fault_category',
         ondelete='cascade', string="Fault Category Name")
-    avail_ids = fields.One2many(
-       'fleet_manage_fault.available_product', 'reason_id', string="Products")
+    avail_ids = fields.One2many('fleet_manage_fault.available_product', 'method_id', string="Products")
 
 
     @api.multi
@@ -251,11 +252,11 @@ class AvailableProduct(models.Model):
 
     product_id = fields.Many2one('product.product',string="Product")
 
-    name = fields.Char(required=True)    
-    reason_id = fields.Many2one('fleet_manage_fault.fault_method',
+    name = fields.Char(required=True)
+    method_id = fields.Many2one('fleet_manage_fault.fault_method',
         ondelete='cascade', string="Fault Reason Name")
     default_dosage = fields.Integer("Default Dosage")
-    max_dosage = fields.Integer("Default Dosage")
+    max_dosage = fields.Integer("Max Dosage")
     remark = fields.Text("Remark", help="Remark")
 
     product_code = fields.Char("Product Code", help="Product Code")

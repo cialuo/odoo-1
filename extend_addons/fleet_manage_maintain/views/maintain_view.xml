@@ -8,11 +8,11 @@
             <field name="arch" type="xml">
                 <tree string="MaintainReport Tree">
 					<field name="name"/>
-					<field name="vehicle_no"/>
+					<field name="vehicle_id"/>
 					<field name="vehicle_type"/>
-					<field name="user_id"/>
+					<field name="report_user_id"/>
 					<field name="report_date"/>
-					<field name="repair_type"/>
+					<field name="repair_category"/>
 					<field name="repair_level"/>
 					<field name="is_fault_vehicle"/>
 					<field name="state"/>
@@ -20,18 +20,18 @@
             </field>
         </record>
 
-		<!-- MaintainReport  tree -->
+		<!-- MaintainReportPrecheck  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_precheck_view_tree">
             <field name="name">MaintainReportPrecheck.tree</field>
             <field name="model">fleet_manage_maintain.maintain_report</field>
             <field name="arch" type="xml">
                 <tree string="MaintainReportPrecheck Tree" create="false">
 					<field name="name"/>
-					<field name="vehicle_no"/>
+					<field name="vehicle_id"/>
 					<field name="vehicle_type"/>
-					<field name="user_id"/>
+					<field name="report_user_id"/>
 					<field name="report_date"/>
-					<field name="repair_type"/>
+					<field name="repair_category"/>
 					<field name="repair_level"/>
 					<field name="is_fault_vehicle"/>
 					<field name="state"/>
@@ -47,10 +47,10 @@
                 <tree string="MaintainRepair Tree" create="false">
 					<field name="name"/>
 					<field name="report_id"/>
-					<field name="vehicle_no"/>
+					<field name="vehicle_id"/>
 					<field name="vehicle_type"/>
-					<field name="vehicle_license"/>
-					<field name="guarantee_level"/>
+					<field name="license_plate"/>
+					<field name="repair_category"/>
 					<field name="fault_method_code"/>
 					<field name="fault_method_id"/>
 					<field name="plan_start_time"/>
@@ -69,8 +69,11 @@
                 <tree string="MaintainDelivery Tree" create="false">
 					<field name="name"/>
 					<field name="report_id"/>
-					<field name="vehicle_no"/>
+					<field name="vehicle_id"/>
 					<field name="vehicle_type"/>
+					<field name="license_plate"/>
+					<field name="report_user_id"/>
+
 					<field name="state"/>
                 </tree>
             </field>
@@ -84,9 +87,9 @@
             <field name="arch" type="xml">
                 <tree string="MaintainInspect Tree" create="false">
 					<field name="name"/>
-					<field name="vehicle_no"/>
+					<field name="vehicle_id"/>
 					<field name="vehicle_type"/>
-					<field name="vehicle_license"/>
+					<field name="license_plate"/>
 					<field name="inspect_time"/>
 					<field name="fault_method_code"/>
 					<field name="fault_method_id"/>
@@ -109,7 +112,7 @@
                                 string="Precheck"
 								states="draft"
                                 class="oe_highlight"/> <!-- 提交检验-->
-                    	<field name="state"  widget="statusbar" clickable="True" statusbar_visible="draft,precheck,dispatch,repair,inspect,done"/>
+                    	<field name="state"  widget="statusbar" statusbar_visible="draft,precheck,dispatch,repair,inspect,done"/>
                 	</header>
 					<sheet>
 
@@ -119,9 +122,9 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="vehicle_no" />
-								<field name="user_id" />
-								<field name="repair_type" />
+								<field name="vehicle_id" />
+								<field name="report_user_id" />
+								<field name="repair_category" />
 								<!--<field name="state" />-->
 	                        </group>
 	                        <group>
@@ -153,7 +156,7 @@
 									<group>
 										<field name="repair_plant" />
 										<field name="repair_level" />
-										<field name="create_name_company" />
+										<field name="department" />
 									</group>
 								 </group>
                             </page>
@@ -224,7 +227,7 @@
                                 states="inspect"
 								class="oe_highlight"/> <!-- 管理检验单-->
 
-                    	<field name="state"  widget="statusbar" clickable="True" statusbar_visible="draft,precheck,dispatch,repair,inspect,done"/>
+                    	<field name="state"  widget="statusbar"  statusbar_visible="draft,precheck,dispatch,repair,inspect,done"/>
                 	</header>
 					<sheet>
 
@@ -255,10 +258,9 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="vehicle_no" />
-								<field name="user_id" />
-								<field name="repair_type" />
-								<!--<field name="state" />-->
+	                        	<field name="vehicle_id" />
+								<field name="report_user_id" />
+								<field name="repair_category" />
 	                        </group>
 	                        <group>
 	                            <field name="vehicle_type" />
@@ -293,7 +295,7 @@
 									<group>
 										<field name="repair_plant" />
 										<field name="repair_level" />
-										<field name="create_name_company" />
+										<field name="department" />
 									</group>
 								 </group>
                             </page>
@@ -321,7 +323,7 @@
 								states="repair"
                                 class="oe_highlight"/> <!-- 报检-->
 
-                    	<field name="state"  widget="statusbar" clickable="True" />
+                    	<field name="state"  widget="statusbar"  />
                 	</header>
 					<sheet>
 						<div class="oe_title">
@@ -332,13 +334,15 @@
 	                        <group>
 	                        	<field name="fault_reason_id" />
 								<field name="fault_method_id" />
-								<field name="guarantee_level" />
+								<field name="repair_category" />
 								<field name="report_id" />
 	                        </group>
 	                        <group>
-	                            <field name="vehicle_no" />
-								<field name="vehicle_license" />
+	                            <field name="vehicle_id" />
+								<field name="license_plate" />
 								<field name="vehicle_type" />
+								<field name="rework_count" />
+
 	                        </group>
                    		 </group>
   						 <notebook>
@@ -352,7 +356,7 @@
 										<field name="plan_end_time"/>
 										<field name="real_start_time"/>
 										<field name="real_end_time"/>
-										<field name="standard_work"/>
+										<field name="work_time"/>
 										<field name="percentage_work"/>
 										<field name="my_work"/>
 										<field name="real_work"/>
@@ -378,6 +382,9 @@
                                     </tree>
                                 </field>
                             </page>
+							<page string="Operation Manual">
+								<field name="operation_manual"/>
+							</page>
 			            </notebook>
 					</sheet>
                 </form>
@@ -393,7 +400,7 @@
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
                 	<header>
-                    	<field name="state"  widget="statusbar" clickable="True" />
+                    	<field name="state"  widget="statusbar"/>
                 	</header>
 					<sheet>
 						<!--<div class="oe_title">-->
@@ -411,7 +418,7 @@
 										<field name="plan_end_time"/>
 										<field name="real_start_time"/>
 										<field name="real_end_time"/>
-										<field name="standard_work"/>
+										<field name="work_time"/>
 										<field name="percentage_work"/>
 										<field name="my_work"/>
 										<field name="real_work"/>
@@ -424,19 +431,20 @@
 	                        <group>
 								<field name="fault_category_id" />
 								<field name="fault_appearance_id" />
-								<field name="user_id"  />
-
+								<field name="work_time"/>
 								<field name="plan_start_time" />
 								<field name="plan_end_time" />
-
 	                        </group>
 	                        <group>
 	                            <field name="fault_reason_id" />
 								<field name="fault_method_id" />
 								<field name="fault_method_code" />
+								<field name="user_id"  />
 
-								<field name="percentage_work" />
-								<field name="standard_work"/>
+								<label for="percentage_work"/>
+								<div class="o_row">
+									<field name="percentage_work"/><span>%</span>
+								</div>
 	                        </group>
                    		 </group>
 
@@ -472,7 +480,7 @@
 								states="return"
                                 class="oe_highlight"/> <!-- 查看 保养/维修 单-->
 
-                    	<field name="state"  widget="statusbar" clickable="True" />
+                    	<field name="state"  widget="statusbar"/>
                 	</header>
 					<sheet>
 						<div class="oe_title">
@@ -483,12 +491,12 @@
 	                        <group>
 	                        	<field name="report_id" />
 								<!--<field name="fault_method_id" />-->
-								<!--<field name="guarantee_level" />-->
+								<!--<field name="repair_category" />-->
 								<!--<field name="report_id" />-->
 	                        </group>
 	                        <group>
-	                            <field name="vehicle_no" />
-								<field name="vehicle_license" />
+	                            <field name="vehicle_id" />
+								<field name="license_plate" />
 								<field name="vehicle_type" />
 	                        </group>
                    		 </group>
@@ -538,7 +546,7 @@
 								states="done"/> <!-- 退回重检-->
 
 
-                    	<field name="state"  widget="statusbar" clickable="True" statusbar_visible="repair,inspect,done" />
+                    	<field name="state"  widget="statusbar"  statusbar_visible="repair,inspect,done" />
                 	</header>
 					<sheet>
 						<div class="oe_title">
@@ -552,8 +560,8 @@
 
 							</group>
 							<group>
-								<field name="vehicle_no" />
-								<field name="vehicle_license" />
+								<field name="vehicle_id" />
+								<field name="license_plate" />
 								<field name="vehicle_type" />
 							</group>
 						</group>

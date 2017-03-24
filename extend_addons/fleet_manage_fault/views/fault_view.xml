@@ -294,7 +294,14 @@
 	                        </group>
                    		 </group>
 						 <notebook>
-						 	<page name="product" string="Product" attrs="{'invisible':[('materials_control','=',False)] }">
+							<page name="Operation Manual" string="Operation Manual">
+								<field name="operation_manual"/>
+							</page>
+							<page name="Inspect Standard" string="Inspect Standard">
+								<field name="inspect_standard"/>
+							</page>
+
+							<page name="product" string="Product" attrs="{'invisible':[('materials_control','=',False)] }">
 								<field name="avail_ids"  >
 									<tree>
 										<field name="product_code"/>
@@ -307,7 +314,7 @@
 										<field name="remark"/>
 									</tree>
 								</field>
-	                        </page>
+							</page>
 						 </notebook>
 					</sheet>
                 </form>

@@ -15,10 +15,12 @@ class FleetVehicle(models.Model):
                               ('repair', "repair"),
                               ('stop', "stop"),], default='normal',
                                help='Current state of the vehicle', ondelete="set null")
-    inner_code = fields.Char(string="Inner Code",help="Inner Code")
+    name = fields.Char("Vehicle Number",compute="_cumpute_model_name", store=True)
+    inner_code = fields.Char(string="Inner Code",help="Inner Code",required=True)
     route_id = fields.Many2one('fleet_manage_vehicle.route',string="Route")
-    trainman = fields.Many2one('hr.employee', string="Trainman Name")
-    driver = fields.Many2one('hr.employee', string="Driver Name", required=True)
+    company_id = fields.Many2one('res.company', 'Company')
+    # trainman = fields.Many2one('hr.employee', string="Trainman Name")
+    # driver = fields.Many2one('hr.employee', string="Driver Name", required=True)
     engine_no = fields.Char('Engine No',help='Engine No')
     transmission_ext = fields.Char(related='model_id.transmission_ext', store=True, readonly=True, copy=False)
     fuel_type_ext = fields.Char(related='model_id.fuel_type_ext', store=True, readonly=True, copy=False)
@@ -39,6 +41,13 @@ class FleetVehicle(models.Model):
     annual_inspection_date = fields.Date(help='The annual inspection date')
     emissions = fields.Char(help='The vehicle emissions')
     total_odometer = fields.Float(compute='_get_total_odometer', string='Total Odometer', help='Total Odometer')
+
+    vehicle_device_ids = fields.One2many('fleet_manage_vehicle.maintenance',"vehicle_id",string="Vehicle Device")
+
+    @api.depends('inner_code')
+    def _cumpute_model_name(self):
+        for record in self:
+            record.name = record.inner_code
 
     @api.depends('model_id')
     def _compute_model_att_name(self):
@@ -104,8 +113,35 @@ class FleetVehicleModel(models.Model):
 
 class FleetVehicleRoute(models.Model):
     """
-    车型管理
+    线路
     """
     _name = 'fleet_manage_vehicle.route'
 
     name = fields.Char("Route Name", help='Route Name')
+
+
+class FleetVehicleDevice(models.Model):
+    """
+    随车设备
+    """
+    _name = 'fleet_manage_vehicle.maintenance'
+    # _inherit = 'maintenance.equipment'
+
+    vehicle_id = fields.Many2one('fleet.vehicle',ondelete='set null', string="Vehicle")
+    device_id = fields.Many2one('maintenance.equipment', string="Equipment")
+    serial_no = fields.Char("Serial No",related='device_id.serial_no', help="Serial No")
+    name = fields.Char("Name", related='device_id.name', help="Name")
+    fixed_asset_number = fields.Char("Fixed Asset Number", help="Fixed Asset Number")
+    create_date_ext = fields.Datetime("Create Date",related='device_id.create_date', help="Create Date")
+
+
+    # @api.onchange('product_id')
+    # def _onchange_product_id(self):
+    #     if self.product_id:
+    #         self.product_code = self.product_id.code
+    #         self.product_name = self.product_id.name
+    #     else:
+    #         self.product_code = ''
+    #         self.product_name = ''
+
+
