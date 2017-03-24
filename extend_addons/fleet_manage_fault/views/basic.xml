@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <!-- FaultMethodCraft Action -->
+		<record model="ir.actions.act_window" id="fleet_manage_maintain_method_craft_action">
+	        <field name="name">fleet_manage_maintain_method_craft_action</field>
+	        <field name="res_model">fleet_manage_fault.fault_method</field>
+	        <field name="view_mode">tree,form</field>
+		</record>
+        <!-- FaultMethodQuota Action -->
+		<record model="ir.actions.act_window" id="fleet_manage_maintain_method_quota_action">
+	        <field name="name">fleet_manage_maintain_method_quota_action</field>
+	        <field name="res_model">fleet_manage_fault.fault_method</field>
+	        <field name="view_mode">tree,form</field>
+		</record>
+
+
+        <menuitem name="fleet_manage_maintain_method_craft"
+                  id="fleet_manage_maintain_method_craft"
+                  parent="fleet_manage_menu.fleet_manage_basic"
+                  action = "fleet_manage_maintain_method_craft_action"/>
+
+        <menuitem name="fleet_manage_quota"
+                  id="fleet_manage_quota"
+                  parent="fleet_manage_menu.fleet_manage_basic"
+                  />
+
+        <menuitem name="fleet_manage_maintain_method_quota"
+                  id="fleet_manage_maintain_method_quota"
+                  parent="fleet_manage_quota"
+                  action = "fleet_manage_maintain_method_quota_action"/>
+
+    </data>
+</odoo>

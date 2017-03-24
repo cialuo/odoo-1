@@ -58,6 +58,8 @@
 					<field name="reason_id"/>
 					<field name="appearance_id"/>
 					<field name="category_id"/>
+					<field name="work_time"/>
+                    <field name="complex_level"/>
 					<field name="user_id"/>
 					<field name="create_date"/>
 					<field name="state"/>
@@ -72,12 +74,12 @@
             <field name="arch" type="xml">
                 <form string="FaultCategory Form">
                 	<header>
-                		<button name="action_draft" type="object"
-                                string="Reset to draft"
-                                states="use"/>
+                		<!--<button name="action_draft" type="object"-->
+                                <!--string="Reset to draft"-->
+                                <!--states="use"/>-->
                         <button name="action_use" type="object"
-                                string="Confirm" 
-								states="draft,done"
+                                string="Reset"
+								states="done"
                                 class="oe_highlight"/>
                         <button name="action_done" type="object"
                                 string="Mark as done" 
@@ -92,7 +94,7 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="user_id" />
+	                        	<field name="user_id" readonly="1"/>
 	                            <field name="create_date" />
 	                        </group>
 	                        <group>
@@ -133,7 +135,18 @@
             <field name="model">fleet_manage_fault.fault_appearance</field>
             <field name="arch" type="xml">
                 <form string="FaultAppearance Form">
-                	<header>
+					<header>
+                		<!--<button name="action_draft" type="object"-->
+                                <!--string="Reset to draft"-->
+                                <!--states="use"/>-->
+                        <button name="action_use" type="object"
+                                string="Reset"
+								states="done"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Mark as done"
+								states="use"
+                                class="oe_highlight"/>
                     	<field name="state"  widget="statusbar" clickable="True" />
                 	</header>
 					<sheet>
@@ -144,9 +157,11 @@
 						 <group col="2">
 	                        <group>
 	                        	<field name="category_id" />
+								<field name="inner_code" />
 								<field name="sequence"/>
 	                        </group>
 	                        <group>
+
 	                            <field name="fault_appearance_code" />
 								<field name="user_id" />
 								<field name="create_date" />
@@ -176,7 +191,18 @@
             <field name="model">fleet_manage_fault.fault_reason</field>
             <field name="arch" type="xml">
                 <form string="FaultReason Form">
-                	<header>
+					<header>
+                		<!--<button name="action_draft" type="object"-->
+                                <!--string="Reset to draft"-->
+                                <!--states="use"/>-->
+                        <button name="action_use" type="object"
+                                string="Reset"
+								states="done"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Mark as done"
+								states="use"
+                                class="oe_highlight"/>
                     	<field name="state"  widget="statusbar" clickable="True" />
                 	</header>
 					<sheet>
@@ -188,6 +214,7 @@
 	                        <group>
 	                        	<field name="category_id" />
 								<field name="appearance_id" />
+								<field name="inner_code" />
 	                        </group>
 	                        <group>
 	                            <field name="fault_reason_code" />
@@ -221,6 +248,17 @@
             <field name="arch" type="xml">
                 <form string="FaultMethod Form">
                 	<header>
+                		<!--<button name="action_draft" type="object"-->
+                                <!--string="Reset to draft"-->
+                                <!--states="use"/>-->
+                        <button name="action_use" type="object"
+                                string="Reset"
+								states="done"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Mark as done"
+								states="use"
+                                class="oe_highlight"/>
                     	<field name="state"  widget="statusbar" clickable="True" />
                 	</header>
 					<sheet>
@@ -233,6 +271,7 @@
 	                        	<field name="category_id" />
 								<field name="appearance_id" />
 								<field name="reason_id" />
+								<field name="inner_code" />
 	                        </group>
 	                        <group>
 	                            <field name="fault_method_code" />
@@ -244,15 +283,25 @@
 						 <group col="2">
 	                        <group>
 	                        	<field name="work_time" />
+								<field name="warranty_deadline" />
 								<field name="complex_level" />
 								<field name="materials_control" />
 	                        </group>
 	                        <group>
+								<field name="is_important_product"/>
+								<field name="important_product_id" attrs="{'invisible':[('is_important_product','=',False)]}" widget="selection"/>
 	                            <field name="remark" />
 	                        </group>
                    		 </group>
 						 <notebook>
-						 	<page name="product" string="Product" attrs="{'invisible':[('materials_control','=',False)] }">
+							<page name="Operation Manual" string="Operation Manual">
+								<field name="operation_manual"/>
+							</page>
+							<page name="Inspect Standard" string="Inspect Standard">
+								<field name="inspect_standard"/>
+							</page>
+
+							<page name="product" string="Product" attrs="{'invisible':[('materials_control','=',False)] }">
 								<field name="avail_ids"  >
 									<tree>
 										<field name="product_code"/>
@@ -265,14 +314,14 @@
 										<field name="remark"/>
 									</tree>
 								</field>
-	                        </page>
+							</page>
 						 </notebook>
 					</sheet>
                 </form>
             </field>
         </record>
-		
-	
+
+
 		<!-- FaultCategory Action -->
 		<record model="ir.actions.act_window" id="fleet_manage_fault_category_action">
 	      <field name="name">fleet_manage_fault_category_action</field>
@@ -301,7 +350,16 @@
 	      <field name="res_model">fleet_manage_fault.fault_method</field>
 	      <field name="view_mode">tree,form</field>
 		</record>
-		
+
+		<!-- FaultMethod Action -->
+		<record model="ir.actions.act_window" id="fleet_manage_fault_maintain_type_action">
+	      <field name="name">fleet_manage_fault_maintain_type_action</field>
+	      <field name="res_model">fleet_manage_fault.fault_maintain_type</field>
+	      <field name="view_mode">tree,form</field>
+		</record>
+
+
+
 	    <menuitem name="fleet_manage_fault_category" 
 				  id="fleet_manage_menu_fault_category" 
 				  parent="fleet_manage_menu.fleet_manage_menu_data" 
@@ -321,7 +379,12 @@
 				  id="fleet_manage_menu_fault_method" 
 				  parent="fleet_manage_menu.fleet_manage_menu_data" 
 				  action = "fleet_manage_fault_method_action"
-				  />	  
+				  />
+		<menuitem name="fleet_manage_fault_maintain_type"
+				  id="fleet_manage_menu_fault_maintain_type"
+				  parent="fleet_manage_menu.fleet_manage_menu_data"
+				  action = "fleet_manage_fault_maintain_type_action"
+				  />
 				  		  
 				  
 	</data>
