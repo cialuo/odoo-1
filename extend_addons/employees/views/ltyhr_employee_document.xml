@@ -220,9 +220,57 @@
                         </div>
                     </form>
                 </xpath>
-
             </field>
         </record>
+
+        <!--岗位设置编辑表单-->
+        <record id="ltyhr_view_post_form" model="ir.ui.view">
+            <field name="name">ltyhr.post.form</field>
+            <field name="model">employees.post</field>
+            <field name="arch" type="xml">
+                <form string="department">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="post Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="department" />
+                                <field name="direct_leader" />
+                                <field name="description" />
+                            </group>
+                            <group>
+                                <field name="higher_level"/>
+                                <field name="posttype"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="members" string="members in department">
+                                <field name="members" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!--岗位列表 -->
+        <record id="ltyhr_view_post_tree" model="ir.ui.view">
+            <field name="name">ltyhr.post.tree</field>
+            <field name="model">employees.post</field>
+            <field name="arch" type="xml">
+                <tree string="post list">
+                    <field name="name"/>
+                    <field name="department"/>
+                    <field name="posttype"/>
+                </tree>
+            </field>
+        </record>
+
 
         <record model="ir.actions.act_window" id="ltyhr_employee_information">
             <field name="name">action</field>
@@ -236,6 +284,13 @@
             <field name="view_mode">kanban,tree,form</field>
         </record>
 
+        <record model="ir.actions.act_window" id="ltyhr_employee_post">
+            <field name="name">action</field>
+            <field name="res_model">employees.post</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
         <!-- 人力资源档案 -->
         <menuitem id="ltyhr_top_menu" name="LTY human resource"/>
         <menuitem id="ltyhr_employee_document_menu" name="employee document"
@@ -244,5 +299,7 @@
                   parent="ltyhr_employee_document_menu" action="ltyhr_employee_information"/>
         <menuitem id="ltyhr_employee_document_department_menu" name="employee department"
                   parent="ltyhr_employee_document_menu" action="ltyhr_employee_department"/>
+        <menuitem id="ltyhr_employee_document_post_menu" name="employee post"
+                  parent="ltyhr_employee_document_menu" action="ltyhr_employee_post"/>
     </data>
 </odoo>

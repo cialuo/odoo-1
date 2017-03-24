@@ -72,44 +72,6 @@ class EmployeeFamily(models.Model):
     # 关联的员工
     employee_id = fields.Many2one('hr.employee', ondelete='cascade')
 
-class WorkInfo(models.Model):
-    """
-    工作信息
-    """
-
-    _name = 'employees.workinfo'
-
-    # 工号
-    jobnumber = fields.Char(string=_('employee work number'))
-    # 工作单位
-    employer = fields.Char(string=_('employee employer'))
-    # 职称
-    title  = fields.Char(string=_('emplyee title'))
-    # 入职时间
-    entrydate = fields.Date(string=_('employee entry date'))
-    # 转正时间
-    passdate = fields.Date(string=_('emplyee pass time'))
-    # 员工状态
-    employeestate = fields.Selection([
-        ('in_work', _('employee state in work')),               #在职
-        ('retired', _('employee state retired')),               #退休
-        ('inner_retired', _('employee state inner retired')),   #内退
-        ('retired_pay', _('employee state retired pay')),       #退养
-        ('injured', _('employee state injured')),               #工伤
-        ('other', _('employee state other')),                   #其他
-    ], string=_('emplyee state'))
-    # 人员属性
-    employeeattr = fields.Char(string=_('emplyee attribute'))
-    # 劳动合同
-    bargain = fields.Char(string=_('emplyee bargain'))
-    # 驾驶证类别
-    drivelicense = fields.Char(string=_('emplyee drivelicense type'))
-    # 驾驶证号码
-    drivelicensenumber = fields.Char(string=_('emplyee drivelicense number'))
-    # 驾驶证领证日期
-    drivelicensedata = fields.Date(string=_('emplyee drivelicense date'))
-
-
 
 class post(models.Model):
     """
@@ -117,17 +79,79 @@ class post(models.Model):
     """
     _name = 'employees.post'
 
+    # 岗位名称
+    name = fields.Char(_('employees post name'))
     # 岗位所在部门
-    department = fields.Many2one('hr.department', ondelete='restrict', string= _('post department'))
+    department = fields.Many2one('hr.department', ondelete='restrict', string= _('post department'), required=True)
     # 岗位信息
     description = fields.Char(string=_('post infomation'))
     # 岗位类型
     posttype = fields.Selection([
         ('manager',_('post title manager')),        #经理
         ('labour',_('post title labour'))           #员工
-    ], string=_('post title list'))
+    ], string=_('post title list'), required=True)
     # 岗位员工
-    menbers = fields.One2many('hr.employee', 'workpost', string=_('post members'))
+    members = fields.One2many('hr.employee', 'workpost', string=_('post members'))
+    # 直接领导
+    direct_leader = fields.Char(compute='_getDirectLeader', string=_('deirect leader'))
+    @api.onchange('department')
+    def _getDirectLeader(self):
+        for item in self:
+            parentDepartmentId = item.department.parent_id.id
+            managerPosts = self.getPostListInDepartment(parentDepartmentId, postType='manager')
+            if len(managerPosts) != 0:
+                managerList = self.getEmployeesWithSpecifyPost(managerPosts[0].id)
+                item.direct_leader = '\\'.join([manager['name'] for manager in managerList ])
+            else:
+                item.direct_leader = ''
+
+    def getPostListInDepartment(self, departmentId, postType=None):
+        """
+        获取指定部门下的岗位列表
+        :param departmentId 部门ID号
+        :param postType 岗位类型
+        :return 返回岗位列表
+        """
+        constrains = [('department','=', departmentId)]
+        if postType != None:
+            constrains.append(('posttype', '=', postType))
+        postList = self.search(constrains)
+        return postList
+
+    def getEmployeesWithSpecifyPost(self, postid):
+        """
+        获取指定岗位下的全部员工信息
+        :param postid  岗位ID
+        """
+        employeeMode = self.env['hr.employee']
+        employeeList = employeeMode.search([('workpost', '=', postid)])
+        return [{'id':item.id, 'name':item.name} for item in employeeList]
+        
+
+    # 上级部门 
+    higher_level = fields.Char(compute='_getHigherLevel', string=_('higher level'))
+    @api.onchange('department')
+    def _getHigherLevel(self):
+        for item in self:
+            parentDepartments = []
+            self.getParentDepartment(item.department.id, parentDepartments)
+            parentDepartments = parentDepartments[::-1]
+            self.higher_level = '\\'.join(parentDepartments)
+    
+    def getParentDepartment(self, parentId, container):
+        """
+        递归获取上级部门名称
+        """
+        if parentId:
+            departmentMode = self.env['hr.department']
+            result = departmentMode.search([('id','=', parentId)], limit=1)
+            if len(result) > 0:
+                record = result[0]
+                container.append(record.name)
+                if record.parent_id != None:
+                    self.getParentDepartment(record.parent_id.id, container)
+
+
 
 class department(models.Model):
 
