@@ -188,3 +188,28 @@ class department(models.Model):
     post_id = fields.One2many('employees.post', 'department', string=_('department post list'))
     # 岗位成员
     member_id = fields.One2many('hr.employee', 'department_id', string=_('department employees'))
+
+
+class LtyGroups(models.Model):
+    """
+    重载系统 群组 设置
+    """
+    _inherit = "res.groups"
+
+    # 是否可以作为角色
+    isrole = fields.Boolean(default=False, string=_('is role'))
+
+    # 关联的岗位
+    post_id = fields.Many2one('employees.post', string = _('related post'))
+
+    @api.constrains('post_id')
+    def _checkPostNotSetBefore(self):
+        """
+        当一个岗位已经设置权限后，不能再设置权限
+        """
+        for item in self:
+            postid = item.post_id.id
+            count = self.search_count([('post_id', '=', postid)])
+            if count > 0:
+                raise exceptions.ValidationError(_("can't set post's group in twice"))
+

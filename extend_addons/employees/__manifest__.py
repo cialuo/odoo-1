@@ -27,7 +27,8 @@
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'views/ltyhr_employee_document.xml'
+        'views/ltyhr_employee_document.xml',
+        'views/lty_groups.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
