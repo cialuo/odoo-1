@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-22 01:37+0000\n"
-"PO-Revision-Date: 2017-03-22 01:37+0000\n"
+"POT-Creation-Date: 2017-03-25 02:02+0000\n"
+"PO-Revision-Date: 2017-03-25 02:02+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: materials_manage
+#: model:ir.actions.act_window,name:materials_manage.extend_stock_picking_type_action
+msgid "Extend picking type action"
+msgstr "采购入库"
 
 #. module: materials_manage
 #: model:ir.module.category,name:materials_manage.module_purchase_plan
@@ -54,6 +59,21 @@ msgstr "领用管理"
 #: model:ir.ui.menu,name:materials_manage.materials_menu_purchase
 msgid "purchase_menu"
 msgstr "采购管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_purchase_order
+msgid "purchase_order_menu"
+msgstr "采购管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_purchase_pick
+msgid "purchase_pick_menu"
+msgstr "采购入库"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_purchase_rfq
+msgid "purchase_rfq_menu"
+msgstr "询价管理"
 
 #. module: materials_manage
 #: model:ir.ui.menu,name:materials_manage.materials_menu_purchase_vendor
