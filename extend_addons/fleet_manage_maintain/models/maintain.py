@@ -55,6 +55,19 @@ class FleetMaintainReport(models.Model):
                                                                            ('state','=','dispatch')])
         self.dispatch_count = len(repair)
 
+    @api.multi
+    def return_action_to_open(self):
+        self.ensure_one()
+        xml_id = self.env.context.get('xml_id')
+        if xml_id:
+            res = self.env['ir.actions.act_window'].for_xml_id('fleet_manage_maintain', xml_id)
+            res.update(
+                context=dict(self.env.context, defaultreport_id=self.id),
+                domain=[('report_id', '=', self.id)]
+            )
+            return res
+        return False
+
     @api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
@@ -172,10 +185,10 @@ class FleetMaintainRepair(models.Model):
 
     available_product_ids = fields.One2many("fleet_manage_maintain.available_product", 'repair_id',
                                             string='Available Product')
-    operation_manual = fields.Text("Operation Manual", reated='fault_method_id.operation_manual',
-                                   help="Operation Manual")
-    inspect_standard = fields.Text("Inspect Standard", reated='fault_method_id.inspect_standard',
-                                   help="Inspect Standard")
+    operation_manual = fields.Text("Operation Manual", related='fault_method_id.operation_manual',
+                                   help="Operation Manual",store=True, readonly=True, copy=False)
+    inspect_standard = fields.Text("Inspect Standard", related='fault_method_id.inspect_standard',
+                                   help="Inspect Standard",store=True, readonly=True, copy=False)
     rework_count = fields.Integer("Rework Count", help="Rework Count")
     repair_type = fields.Selection([('vehicle_repair',"vehicle_repair"),('assembly_repair',"assembly_repair")],
                                    default='vehicle_repair',string="Repair Type")
@@ -241,8 +254,13 @@ class FleetMaintainRepair(models.Model):
         self.ensure_one()
         if not self.user_id:
             raise exceptions.UserError("Maintain  Repair Names Required!")
-
+        percentage_work = sum(i.percentage_work for i in self.job_ids)
+        # for i in self.job_ids:
+        #     percentage_work = percentage_work +i.percentage_work
+        if percentage_work + self.percentage_work >100:
+            raise exceptions.UserError("Dispatching the proportion of more than 100")
         self.state = 'dispatch'
+
         vals = {
             # "repair_id": self.id,
             "fault_category_id": self.fault_category_id.id,

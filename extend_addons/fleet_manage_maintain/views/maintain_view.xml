@@ -205,9 +205,9 @@
 								class="oe_highlight"/>
 
 
-						<button name="action_repair" type="object"
-                                string="Batch Dispatch"
-                                states="dispatch"/>  <!-- 批量派工-->
+						<!--<button name="action_repair" type="object"-->
+                                <!--string="Batch Dispatch"-->
+                                <!--states="dispatch"/>  &lt;!&ndash; 批量派工&ndash;&gt;-->
 						<button name="action_precheck" type="object"
                                 string="Dispatch to Precheck"
                                 states="dispatch"/> <!-- 退回检验-->
@@ -238,7 +238,7 @@
 								type="object"
 								class="oe_stat_button"
 								icon="fa-pencil-square-o"
-								context="{'xml_id':'fleet_vehicle_log_contract_action'}"
+								context="{'xml_id':'fleet_manage_maintain_repair_action'}"
 								help="For dispatching fault">
 								<field name="dispatch_count" widget="statinfo" string="Dispatch"/>
 							</button>
@@ -434,11 +434,13 @@
 								<field name="work_time"/>
 								<field name="plan_start_time" />
 								<field name="plan_end_time" />
+								<field name="operation_manual" invisible="1"/>
+								<field name="inspect_standard" invisible="1"/>
 	                        </group>
 	                        <group>
 	                            <field name="fault_reason_id" />
 								<field name="fault_method_id" />
-								<field name="fault_method_code" />
+								<field name="fault_method_code" invisible="1"/>
 								<field name="user_id"  />
 
 								<label for="percentage_work"/>
