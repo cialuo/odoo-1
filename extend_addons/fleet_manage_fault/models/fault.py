@@ -6,8 +6,8 @@ class FaultCategory(models.Model):
     """
     故障分类
     """
-    _name = 'fleet_manage_fault.fault_category'
-    _sql_constraints = [('code_uniq', 'unique (fault_category_code)', "Category code already exists !")]
+    _name = 'fleet_manage_fault.category'
+    _sql_constraints = [('code_uniq', 'unique (fault_category_code)', "Category code already exists")]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -21,10 +21,10 @@ class FaultCategory(models.Model):
     
     active = fields.Boolean(default=True)
     appearance_ids = fields.One2many(
-       'fleet_manage_fault.fault_appearance', 'category_id', string="appearances")
+       'fleet_manage_fault.appearance', 'category_id', string="appearances")
     
     reason_ids = fields.One2many(
-       'fleet_manage_fault.fault_reason', 'category_id', string="reasons",domain=[('appearance_id','=',None)])
+       'fleet_manage_fault.reason', 'category_id', string="reasons",domain=[('appearance_id','=',None)])
 
     @api.multi
     def action_use(self):
@@ -41,8 +41,8 @@ class FaultAppearance(models.Model):
     """
     故障现象
     """
-    _name = 'fleet_manage_fault.fault_appearance'
-    _sql_constraints = [('code_uniq', 'unique (inner_code)', "Appearance code already exists !")]
+    _name = 'fleet_manage_fault.appearance'
+    _sql_constraints = [('code_uniq', 'unique (inner_code)', "Appearance code already exists")]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -58,11 +58,11 @@ class FaultAppearance(models.Model):
 
     state = fields.Selection([('use', "Use"),('done', "Done")], default='use')
     active = fields.Boolean(default=True)
-    category_id = fields.Many2one('fleet_manage_fault.fault_category', ondelete='cascade',
+    category_id = fields.Many2one('fleet_manage_fault.category', ondelete='cascade',
                                   string="Fault Category Name", required=True)
     
     reason_ids = fields.One2many(
-       'fleet_manage_fault.fault_reason', 'appearance_id', string="Reasons")
+       'fleet_manage_fault.reason', 'appearance_id', string="Reasons")
     sequence = fields.Integer("Sequence", default=1, help="Sequence", readonly=True)
 
     reason_ct = fields.Integer(string="Fault Reason Count", compute='_get_reason_count')
@@ -94,7 +94,7 @@ class FaultAppearance(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('category_id'):
-            category = self.env['fleet_manage_fault.fault_category'].browse(vals.get('category_id'))
+            category = self.env['fleet_manage_fault.category'].browse(vals.get('category_id'))
             vals['sequence'] = len(category.appearance_ids)+1
         return super(FaultAppearance, self).create(vals)
 
@@ -103,8 +103,8 @@ class FaultReason(models.Model):
     """
     故障原因
     """
-    _name = 'fleet_manage_fault.fault_reason'
-    _sql_constraints = [('code_uniq', 'unique (inner_code)', "Reason code already exists !")]
+    _name = 'fleet_manage_fault.reason'
+    _sql_constraints = [('code_uniq', 'unique (inner_code)', "Reason code already exists")]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -119,12 +119,12 @@ class FaultReason(models.Model):
     create_date = fields.Date("Create Date", help='Create Date', default=fields.Date.context_today, readonly=True)
     state = fields.Selection([('use', "Use"),('done', "Done")], default='use')
     active = fields.Boolean(default=True)
-    appearance_id = fields.Many2one('fleet_manage_fault.fault_appearance',
+    appearance_id = fields.Many2one('fleet_manage_fault.appearance',
                                     ondelete='cascade', string="Fault appearance Name")
-    category_id = fields.Many2one('fleet_manage_fault.fault_category',
+    category_id = fields.Many2one('fleet_manage_fault.category',
                                     ondelete='cascade', string="Fault Category Name", required=True)
     
-    method_ids = fields.One2many('fleet_manage_fault.fault_method', 'reason_id', string="methods")
+    method_ids = fields.One2many('fleet_manage_fault.method', 'reason_id', string="methods")
     sequence = fields.Integer("Sequence", help="Sequence", readonly=True)
     method_ct = fields.Integer(string="Fault Method Count", compute='_get_method_count')
 
@@ -163,10 +163,10 @@ class FaultReason(models.Model):
     @api.model
     def create(self, vals):
         if vals.get("appearance_id",''):
-            appearance = self.env['fleet_manage_fault.fault_appearance'].browse(vals.get('appearance_id'))
+            appearance = self.env['fleet_manage_fault.appearance'].browse(vals.get('appearance_id'))
             vals['sequence'] = len(appearance.reason_ids) + 1
         elif vals.get('category_id',''):
-            category = self.env['fleet_manage_fault.fault_category'].browse(vals.get('category_id'))
+            category = self.env['fleet_manage_fault.category'].browse(vals.get('category_id'))
             vals['sequence'] = len(category.reason_ids) + 1
 
         return super(FaultReason, self).create(vals)
@@ -176,8 +176,8 @@ class FaultMethod(models.Model):
     """
     维修办法
     """
-    _name = 'fleet_manage_fault.fault_method'
-    _sql_constraints = [('code_uniq', 'unique (inner_code)', "Method code already exists !")]
+    _name = 'fleet_manage_fault.method'
+    _sql_constraints = [('code_uniq', 'unique (inner_code)', "Method code already exists")]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -207,11 +207,11 @@ class FaultMethod(models.Model):
     # important_product = fields.Many2one('product.product',string="Important Product", domain=[('import_product', '=', True)])
     important_product_id = fields.Many2one('product.product', string="Important Product")
 
-    reason_id = fields.Many2one('fleet_manage_fault.fault_reason',
+    reason_id = fields.Many2one('fleet_manage_fault.reason',
         ondelete='cascade', string="Fault reason Name",required=True)
-    appearance_id = fields.Many2one('fleet_manage_fault.fault_appearance',
+    appearance_id = fields.Many2one('fleet_manage_fault.appearance',
         ondelete='cascade', string="Fault appearance Name")
-    category_id = fields.Many2one('fleet_manage_fault.fault_category',
+    category_id = fields.Many2one('fleet_manage_fault.category',
         ondelete='cascade', string="Fault Category Name")
     avail_ids = fields.One2many('fleet_manage_fault.available_product', 'method_id', string="Products")
 
@@ -241,7 +241,7 @@ class FaultMethod(models.Model):
     # @api.model
     # def create(self, vals):
     #     if vals.get('reason_id'):
-    #         reason = self.env['fleet_manage_fault.fault_reason'].browse(vals.get('reason_id'))
+    #         reason = self.env['fleet_manage_fault.reason'].browse(vals.get('reason_id'))
     #         if not vals['fault_method_code'].startswith(reason.fault_reason_code):
     #             vals['fault_method_code'] = reason.fault_reason_code+vals['fault_method_code']
     #     return super(FaultMethod, self).create(vals)
@@ -253,7 +253,7 @@ class AvailableProduct(models.Model):
     product_id = fields.Many2one('product.product',string="Product")
 
     name = fields.Char(required=True)
-    method_id = fields.Many2one('fleet_manage_fault.fault_method',
+    method_id = fields.Many2one('fleet_manage_fault.method',
         ondelete='cascade', string="Fault Reason Name")
     default_dosage = fields.Integer("Default Dosage")
     max_dosage = fields.Integer("Max Dosage")

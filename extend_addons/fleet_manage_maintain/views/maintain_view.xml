@@ -4,7 +4,7 @@
         <!-- MaintainReport  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_report_view_tree">
             <field name="name">MaintainReport.tree</field>
-            <field name="model">fleet_manage_maintain.maintain_report</field>
+            <field name="model">fleet_manage_fault.report</field>
             <field name="arch" type="xml">
                 <tree string="MaintainReport Tree">
 					<field name="name"/>
@@ -23,7 +23,7 @@
 		<!-- MaintainReportPrecheck  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_precheck_view_tree">
             <field name="name">MaintainReportPrecheck.tree</field>
-            <field name="model">fleet_manage_maintain.maintain_report</field>
+            <field name="model">fleet_manage_fault.report</field>
             <field name="arch" type="xml">
                 <tree string="MaintainReportPrecheck Tree" create="false">
 					<field name="name"/>
@@ -42,7 +42,7 @@
 		<!-- MaintainRepair  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_repair_view_tree">
             <field name="name">MaintainRepair.tree</field>
-            <field name="model">fleet_manage_maintain.maintain_repair</field>
+            <field name="model">fleet_manage_fault.repair</field>
             <field name="arch" type="xml">
                 <tree string="MaintainRepair Tree" create="false">
 					<field name="name"/>
@@ -64,7 +64,7 @@
 		<!-- MaintainDelivery  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_delivery_view_tree">
             <field name="name">MaintainDelivery.tree</field>
-            <field name="model">fleet_manage_maintain.maintain_delivery</field>
+            <field name="model">fleet_manage_fault.delivery</field>
             <field name="arch" type="xml">
                 <tree string="MaintainDelivery Tree" create="false">
 					<field name="name"/>
@@ -83,7 +83,7 @@
 		<!-- MaintainInspect  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_inspect_view_tree">
             <field name="name">MaintainInspect.tree</field>
-            <field name="model">fleet_manage_maintain.maintain_repair</field>
+            <field name="model">fleet_manage_fault.repair</field>
             <field name="arch" type="xml">
                 <tree string="MaintainInspect Tree" create="false">
 					<field name="name"/>
@@ -104,7 +104,7 @@
 		<!-- MaintainReport form view -->
         <record model="ir.ui.view" id="fleet_manage_report_view_form">
             <field name="name">MaintainReport.form</field>
-            <field name="model">fleet_manage_maintain.maintain_report</field>
+            <field name="model">fleet_manage_fault.report</field>
             <field name="arch" type="xml">
                 <form string="MaintainReport Form">
                 	<header>
@@ -170,7 +170,7 @@
 		<!-- MaintainPrecheck form view -->
         <record model="ir.ui.view" id="fleet_manage_precheck_view_form">
             <field name="name">MaintainPrecheck.form</field>
-            <field name="model">fleet_manage_maintain.maintain_report</field>
+            <field name="model">fleet_manage_fault.report</field>
             <field name="arch" type="xml">
                 <form string="MaintainPrecheck Form" create="false">
                 	<header>
@@ -308,7 +308,7 @@
 		<!-- MaintainRepair form view -->
         <record model="ir.ui.view" id="fleet_manage_repair_view_form">
             <field name="name">MaintainRepair.form</field>
-            <field name="model">fleet_manage_maintain.maintain_repair</field>
+            <field name="model">fleet_manage_fault.repair</field>
 			<field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
@@ -395,7 +395,7 @@
 		<!-- MaintainRepair form action -->
         <record model="ir.ui.view" id="fleet_manage_repair_view_form_action">
             <field name="name">MaintainRepair.form</field>
-            <field name="model">fleet_manage_maintain.maintain_repair</field>
+            <field name="model">fleet_manage_fault.repair</field>
 			<field name="priority">0</field>
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
@@ -463,7 +463,7 @@
 		<!-- MaintainDelivery form view -->
         <record model="ir.ui.view" id="fleet_manage_delivery_view_form">
             <field name="name">MaintainDelivery.form</field>
-            <field name="model">fleet_manage_maintain.maintain_delivery</field>
+            <field name="model">fleet_manage_fault.delivery</field>
             <field name="arch" type="xml">
                 <form string="MaintainDelivery Form">
                 	<header>
@@ -523,7 +523,7 @@
 		<!-- MaintainInspect form view -->
         <record model="ir.ui.view" id="fleet_manage_inspect_view_form">
             <field name="name">MaintainInspect.form</field>
-            <field name="model">fleet_manage_maintain.maintain_repair</field>
+            <field name="model">fleet_manage_fault.repair</field>
 			<field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="MaintainInspect Form">
@@ -583,7 +583,7 @@
         <!-- MaintainReport Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_report_action">
 			<field name="name">fleet_manage_maintain_report_action</field>
-			<field name="res_model">fleet_manage_maintain.maintain_report</field>
+			<field name="res_model">fleet_manage_fault.report</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_ids" eval="[(5, 0, 0),
 				(0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_report_view_tree')}),
@@ -594,7 +594,7 @@
 		<!-- MaintainPrecheck Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_precheck_action">
 			<field name="name">fleet_manage_maintain_precheck_action</field>
-			<field name="res_model">fleet_manage_maintain.maintain_report</field>
+			<field name="res_model">fleet_manage_fault.report</field>
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('state', 'not in', ['back','draft'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
@@ -605,7 +605,7 @@
 		<!-- MaintainRepair Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_repair_action">
 			<field name="name">fleet_manage_maintain_repair_action</field>
-			<field name="res_model">fleet_manage_maintain.maintain_repair</field>
+			<field name="res_model">fleet_manage_fault.repair</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_repair_view_tree')}),
@@ -615,14 +615,14 @@
 		<!-- MaintainDelivery Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_delivery_action">
 			<field name="name">fleet_manage_maintain_delivery_action</field>
-			<field name="res_model">fleet_manage_maintain.maintain_delivery</field>
+			<field name="res_model">fleet_manage_fault.delivery</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 
 		<!-- MaintainInspect Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_inspect_action">
 			<field name="name">fleet_manage_maintain_inspect_action</field>
-			<field name="res_model">fleet_manage_maintain.maintain_repair</field>
+			<field name="res_model">fleet_manage_fault.repair</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_inspect_view_tree')}),
@@ -632,7 +632,7 @@
 		<!-- MaintainRepair Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_repair_action">
 			<field name="name">fleet_manage_maintain_repair_action</field>
-			<field name="res_model">fleet_manage_maintain.maintain_repair</field>
+			<field name="res_model">fleet_manage_fault.repair</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_repair_view_tree')}),
