@@ -78,5 +78,21 @@
                   parent="materials_menu_reorder"
                   action="procurement.action_compute_schedulers"
         />
+        <!--仓储管理-->
+        <menuitem id="materials_menu_location" name="Location Menu" sequence="20" parent="materials_menu_stock"/>
+        <!--仓库-->
+        <menuitem id="materials_menu_warehouse"
+                  name="WareHouse Menu"
+                  sequence="10"
+                  action="stock.action_warehouse_form"
+                  parent="materials_menu_location"
+        />
+        <!--库位-->
+        <menuitem id="materials_menu_sublocation"
+                  name="Sub Location Menu"
+                  sequence="20"
+                  action="stock.action_location_form"
+                  parent="materials_menu_location"
+        />
     </data>
 </odoo>
