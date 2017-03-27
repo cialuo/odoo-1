@@ -18,8 +18,11 @@
     'data': [
         # 'security/maintain_security.xml',
         # 'security/ir.model.access.csv',
+        "data/sequence.xml",
+        'views/fleet_manage_inspect.xml',
         'views/maintain_view.xml',
-        "data/sequence.xml"
+
+
     ],
     # only loaded in demonstration mode
     'installable': True,

@@ -539,13 +539,14 @@
 								states="inspect"
                                 class="oe_highlight"/> <!-- 检验完成-->
 
-						<button name="action_repair" type="object"
+						<button name="%(fleet_manage_maintain_inspect_return)d"
+								type="action"
                                 string="Back To Repair"
 								states="inspect"/> <!-- 退回重修-->
 
-						<button name="action_inspect" type="object"
-                                string="Back To Inspect"
-								states="done"/> <!-- 退回重检-->
+						<!--<button name="action_inspect" type="object"-->
+                                <!--string="Back To Inspect"-->
+								<!--states="done"/> &lt;!&ndash; 退回重检&ndash;&gt;-->
 
 
                     	<field name="state"  widget="statusbar"  statusbar_visible="repair,inspect,done" />
