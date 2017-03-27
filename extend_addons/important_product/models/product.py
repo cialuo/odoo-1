@@ -3,6 +3,7 @@
 from odoo import api, fields, models
 from lxml import etree
 from datetime import datetime
+from odoo.tools.translate import _
 
 class Product(models.Model):
     _inherit = 'product.product'
@@ -13,3 +14,100 @@ class Product(models.Model):
      """
     special_attributes = fields.Selection([('common', 'Common'), ('special', 'Special'), ('general', 'General')],
                                           default='common', string='Special Attribute')
+    vehicle_model = fields.Many2many('fleet.vehicle.model', 'product_vehicle_model_rec',
+                                     id1='product_product_id', id2='vehicle_model_id', string='Suitable Vehicle')
+    require_trans = fields.Boolean(string='Old for new', default=False)
+    lifetime = fields.Char(string='Lifetime')
+    odometer = fields.Float(string='Odometer')
+    is_important = fields.Boolean(string='Important', default=False)
+    important_type = fields.Selection([('equipment', 'Equipment'), ('component', 'Component'), ('energy', 'Energy')],
+                                      string='Important Type')
+    parent_id = fields.Many2one('product.product', string='Parent Product')
+    inter_code = fields.Char(string='Inter Code')
+    default_code = fields.Char(compute='_compute_default_code')
+    keeper_id = fields.Many2one('res.users', string='Keeper')
+    tech_ids= fields.One2many('product.tech.info', 'product_id', string='Tec Info')
+    component_ids = fields.One2many('product.component', 'product_id', string='Component Info')
+    equipment_ids = fields.One2many('product.equipment', 'product_id', string='Equipment Info')
+
+    _sql_constraints = [
+        ('code_parent_category_uniq',
+         'unique (inter_code, parent_id, categ_id)',
+         _('inter code must unique per product and category'))
+    ]
+
+    @api.depends('inter_code', 'categ_id.code', 'parent_id.default_code')
+    def _compute_default_code(self):
+        """
+        根据父产品的编码，产品自编码，产品类别编码计算当前产品的物资编号
+        :return:
+        """
+        for p in self:
+            parent_code = ''
+            categ_code = ''
+            code = ''
+            if p.parent_id and p.parent_id.default_code:
+                parent_code = p.parent_id.default_code
+            if p.categ_id and p.categ_id.code:
+                categ_code = p.categ_id.code
+            if p.inter_code:
+                code = p.inter_code
+            p.default_code = parent_code + categ_code + code
+
+class ProductCategory(models.Model):
+    _inherit = 'product.category'
+
+    """
+    增加产品分类编码，用于物资编号计算
+    """
+
+    code = fields.Char(string='Category Code')
+
+class TechInfo(models.Model):
+    _name = 'product.tech.info'
+
+    """
+    物资技术参数信息
+    """
+
+    name = fields.Char(string='Name')
+    code = fields.Char(string='Code')
+    standard = fields.Char(string='Standard')
+    product_id = fields.Many2one('product.template')
+    compare1 = fields.Char(string='Compare1')
+    compare2 = fields.Char(string='Compare2')
+    parameter1 = fields.Char(string='parameter1')
+    parameter2 = fields.Char(string='parameter2')
+    description = fields.Text(string='Description')
+    note = fields.Char(string='note')
+
+class Component(models.Model):
+    _name = 'product.component'
+
+    """
+    重要部件清单信息
+    """
+
+    product_id = fields.Many2one('product.product', string='Product')
+    code = fields.Char(string='Component Code')
+    odometer = fields.Float(string='Odometer')
+    location_id =fields.Many2one('stock.location', string='Location')
+    state = fields.Selection([('avaliable', 'Avaliable'), ('waiting_repare', 'Waiting Repare'),
+                              ('inuse', 'Inuse'), ('repareing', 'Repareing')],
+                             default='inuse')
+    checkout_date = fields.Date(string='Checkout Date')
+    move_ids = fields.One2many('stock.move', 'component_id', string='Move lines')
+    parent_vehicle = fields.Many2one('fleet.vehicle', string='Vehicle', ondelete='cascade')
+
+    @api.onchange('parent_vehicle')
+    def onchange_location_id(self):
+        """
+        根据选择的车辆，自动修改物理位置。
+        默认位置为： virtual/（车牌号）
+        :return:
+        """
+        if self.parent_vehicle:
+            # inverntory 类型为虚拟库位
+            location = self.parent_vehicle.mapped('location_id').filtered(lambda x: x.usage == 'inventory')
+            if location:
+                self.location_id = location
