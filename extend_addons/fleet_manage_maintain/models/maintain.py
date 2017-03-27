@@ -15,23 +15,23 @@ class FleetMaintainReport(models.Model):
         return emp_ids and emp_ids[0] or False
 
     name = fields.Char(string="Report Bill", help='Report Bill', required=True, index=True, copy=False, default='New')
-    vehicle_id = fields.Many2one('fleet.vehicle',string="Vehicle No", help='Vehicle No',required=True,)
-    vehicle_type = fields.Many2one("fleet.vehicle.model",related='vehicle_id.model_id', store=True,
+    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True,)
+    vehicle_type = fields.Many2one("fleet.vehicle.model", related='vehicle_id.model_id', store=True,
                                    readonly=True, copy=False)
     license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True,
-                                readonly=True,copy=False)
+                                readonly=True, copy=False)
 
     report_user_id = fields.Many2one('hr.employee', string="Report Name", default=_default_employee, required=True)
     create_name = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, required=True,
                                   readonly=True)
 
     department = fields.Many2one('hr.department', string="Department", related='create_name.department_id',
-                                  readonly=True)
+                                 readonly=True)
 
     report_date = fields.Date('Report Date',help='Report Date',default=fields.Date.context_today)
     repair_category = fields.Selection([('repair', "repair"),
-                                   ('return', "return"),
-                                   ('rush', "rush")],string='Repair Category', default='repair')
+                                        ('return', "return"),
+                                        ('rush', "rush")], string='Repair Category', default='repair')
     repair_level = fields.Char(string="Repair Level")
     is_fault_vehicle = fields.Boolean("Is Fault Vehicle", default=True)
 
@@ -42,7 +42,7 @@ class FleetMaintainReport(models.Model):
                             ('repair', "Repair"),
                             ('inspect', "Inspect"),
                             ('done', "Done")], default='draft')
-    repair_ids = fields.One2many("fleet_manage_fault.repair", 'report_id',string='Maintain Repair')
+    repair_ids = fields.One2many("fleet_manage_fault.repair", 'report_id', string='Maintain Repair')
 
     partner_id = fields.Many2one('res.partner', string="Repair Company")
     fleet = fields.Char(string="Fleet")
@@ -50,9 +50,8 @@ class FleetMaintainReport(models.Model):
     remark = fields.Text(string="Remark")
     dispatch_count = fields.Integer("Dispatch Count",compute="_get_dispatch_count")
 
-    def _get_dispatch_count(self):  #计算待派工的维修单
-        repair = self.env['fleet_manage_fault.repair'].search([("report_id", '=', self.id),
-                                                                           ('state','=','dispatch')])
+    def _get_dispatch_count(self):      #计算待派工的维修单
+        repair = self.env['fleet_manage_fault.repair'].search([("report_id", '=', self.id), ('state', '=', 'dispatch')])
         self.dispatch_count = len(repair)
 
     @api.multi
@@ -75,34 +74,34 @@ class FleetMaintainReport(models.Model):
         return super(FleetMaintainReport, self).create(vals)
 
     @api.multi
-    def action_back(self): #检验退回
+    def action_back(self):        #检验退回
         self.state = 'back'
 
     @api.multi
-    def action_draft(self): #设为草稿
+    def action_draft(self):       #设为草稿
         self.state = 'draft'
 
     @api.multi
-    def action_precheck(self): #提交检验 或者退回检验
+    def action_precheck(self):    #提交检验 或者退回检验
         self.ensure_one()
         if not self.repair_ids:
             raise exceptions.UserError("Maintain Repair Required!")
         else:
             self.state = 'precheck'
             for i in self.repair_ids:
-                if i.state =='draft':
+                if i.state == 'draft':
                     i.state = 'precheck'
 
     @api.multi
-    def action_repair(self): #批量派工
+    def action_repair(self):         #批量派工
         self.state = 'repair'
 
     @api.multi
-    def action_inspect(self):  #维修完成
+    def action_inspect(self):         #维修完成
         self.state = 'inspect'
 
     @api.multi
-    def action_dispatch(self):  #预检通过并创建交接单  或者重新派工
+    def action_dispatch(self):     #预检通过并创建交接单  或者重新派工
         self.ensure_one()
         for i in self.repair_ids:
             if not i.fault_method_id:
@@ -121,13 +120,12 @@ class FleetMaintainReport(models.Model):
         if not deliverys:
             self.env['fleet_manage_fault.delivery'].create(vals)
 
-
     @api.multi
     def delivery_manage(self):  #跳转到交接单
         self.ensure_one()
         deliverys = self.env['fleet_manage_fault.delivery'].search([("report_id",'=',self.id)])
         action = self.env.ref('fleet_manage_maintain.fleet_manage_maintain_delivery_action').read()[0]
-        action['res_id'] = deliverys.id#[('id', '=', deliverys.id)]
+        action['res_id'] = deliverys.id
         action['views'] = [(self.env.ref('fleet_manage_maintain.fleet_manage_delivery_view_form').id, 'form')]
         return action
 
@@ -141,7 +139,7 @@ class FleetMaintainRepair(models.Model):
                        copy=False, default='New', readonly=True)
     report_id = fields.Many2one("fleet_manage_fault.report",ondelete='cascade',
                                 string="Report Code", required=True)
-    vehicle_id = fields.Many2one('fleet.vehicle',string="Vehicle No", help='Vehicle No',
+    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
                                  related='report_id.vehicle_id', store=True, readonly=True, copy=False)
     vehicle_type = fields.Many2one("fleet.vehicle.model",related='report_id.vehicle_id.model_id',
                                    store=True, readonly=True, copy=False)
@@ -160,11 +158,11 @@ class FleetMaintainRepair(models.Model):
                                       string="Fault Method")
     fault_method_code = fields.Char(related='fault_method_id.fault_method_code', store=True, readonly=True, copy=False)
     work_time = fields.Integer(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
-    # materials_control = fields.Boolean("Materials Control",related='fault_method_id.materials_control',
-    #                                    store=True, readonly=True, copy=False)
+    materials_control = fields.Boolean("Materials Control", related='fault_method_id.materials_control',
+                                       store=True, readonly=True, copy=False)
 
     plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
-    plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time",compute='_get_end_datetime')
+    plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time", compute='_get_end_datetime')
     real_start_time = fields.Datetime("Real Start Time", help="Real Start Time")
     real_end_time = fields.Datetime("Real End Time", help="Real End Time")
 
@@ -176,7 +174,7 @@ class FleetMaintainRepair(models.Model):
         ('dispatch', "Dispatch"),
         ('repair', "Repair"),
         ('inspect', "Inspect"),
-        ('done', "Done"),],default='draft', readonly=True)
+        ('done', "Done")], default='draft', readonly=True)
 
     job_ids = fields.One2many("fleet_manage_fault.repair_jobs", 'repair_id',
                               string='Maintain Repair Jobs')
@@ -189,9 +187,9 @@ class FleetMaintainRepair(models.Model):
                                    help="Operation Manual",store=True, readonly=True, copy=False)
     inspect_standard = fields.Text("Inspect Standard", related='fault_method_id.inspect_standard',
                                    help="Inspect Standard",store=True, readonly=True, copy=False)
-    rework_count = fields.Integer("Rework Count", help="Rework Count")
+
     repair_type = fields.Selection([('vehicle_repair',"vehicle_repair"),('assembly_repair',"assembly_repair")],
-                                   default='vehicle_repair',string="Repair Type")
+                                   default='vehicle_repair', string="Repair Type")
 
     @api.depends('plan_start_time', 'work_time')
     def _get_end_datetime(self):
@@ -212,7 +210,6 @@ class FleetMaintainRepair(models.Model):
                 }
             }
 
-
     @api.onchange('fault_appearance_id')
     def onchange_appearance_id(self):
         if self.fault_appearance_id:
@@ -222,7 +219,6 @@ class FleetMaintainRepair(models.Model):
     def onchange_method_id(self):
         if self.fault_method_id:
             self.fault_reason_id = self.fault_method_id.reason_id
-            # self.fault_method_code = self.fault_method_id.fault_method_code
             if self.fault_method_id.reason_id.appearance_id:
                 self.fault_appearance_id = self.fault_method_id.reason_id.appearance_id
                 self.fault_category_id = self.fault_method_id.reason_id.appearance_id.category_id
@@ -271,8 +267,8 @@ class FleetMaintainRepair(models.Model):
             "plan_end_time": self.plan_end_time,
             "work_time": self.work_time,
             "percentage_work": self.percentage_work,
-            "user_id":self.user_id.id,
-            "sequence":len(self.job_ids)+1
+            "user_id": self.user_id.id,
+            "sequence": len(self.job_ids)+1
         }
         self.write({'job_ids': [(0, 0, vals)]})
 
@@ -303,7 +299,6 @@ class FleetMaintainAvailableProduct(models.Model):
     post_old_get_new = fields.Boolean("Post Old Get New")
     meet_vehicle_type = fields.Char("Meet Vehicle Type", help="Meet Vehicle Type")
 
-
     @api.onchange('product_id')
     def _onchange_product_id(self):
         if self.product_id:
@@ -326,7 +321,7 @@ class FleetMaintainRepairJobs(models.Model):
                                           string="Fault Appearance")
     fault_reason_id = fields.Many2one("fleet_manage_fault.reason", ondelete='set null', string="Fault Reason")
     fault_method_id = fields.Many2one("fleet_manage_fault.method", ondelete='set null', string="Fault Method")
-    user_id = fields.Many2one('hr.employee', string="Repair Name",required=True)
+    user_id = fields.Many2one('hr.employee', string="Repair Name", required=True)
     # user_id = fields.Many2one('res.user', string="Repair Name", required=True)
     plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
     plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time")
@@ -343,7 +338,8 @@ class FleetMaintainDelivery(models.Model):
     车辆维修管理：交接单
     """
     _name = 'fleet_manage_fault.delivery'
-    name = fields.Char(string="Delivery Bill", help='Delivery Bill', required=True, index=True, copy=False, default='New')
+    name = fields.Char(string="Delivery Bill", help='Delivery Bill', required=True, index=True,
+                       copy=False, default='New')
     report_id = fields.Many2one("fleet_manage_fault.report", ondelete='cascade', string="Report Code")
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
                                  related='report_id.vehicle_id', store=True, readonly=True, copy=False)
@@ -353,8 +349,8 @@ class FleetMaintainDelivery(models.Model):
     license_plate = fields.Char(string="License Plate", help='License Plate',
                                 related='report_id.vehicle_id.license_plate', store=True, readonly=True, copy=False)
 
-    report_user_id = fields.Many2one('hr.employee',related='report_id.report_user_id',string="Report Name",
-                                     required=True,readonly=True)
+    report_user_id = fields.Many2one('hr.employee', related='report_id.report_user_id',string="Report Name",
+                                     required=True, readonly=True)
     delivery_time = fields.Datetime("Delivery Time", help="Delivery Time")
     delivery_return_time = fields.Datetime("Delivery Return Time", help="Delivery Return Time")
 
@@ -381,7 +377,6 @@ class FleetMaintainDelivery(models.Model):
         self.delivery_return_time = fields.Datetime.now()
 
 
-
 class FleetMaintainInspect(models.Model):
     """
     车辆维修管理：检验单
@@ -389,11 +384,63 @@ class FleetMaintainInspect(models.Model):
     # _name = 'fleet_manage_maintain.maintain_inspect'
     _inherit = 'fleet_manage_fault.repair'
     #name = fields.Char("Inspect Bill", help="Inspect Bill")
-    inspect_result = fields.Char("Inspect Result", help="Inspect Result")
+    inspect_result = fields.Selection([('qualified','Qualified'),('defective','Defective')],
+                                      string="Inspect Result", help="Inspect Result")
 
+    start_inspect_time = fields.Datetime("Start Inspect Time", help="Start Inspect Time")
     inspect_time = fields.Datetime("Inspect Time", help="Inspect Time")
 
+    inspect_return_time = fields.Datetime("Inspect Return Time", help="Inspect Return Time")
+
+    return_record_ids = fields.One2many("fleet_manage_fault.return_record", 'repair_id', string='Maintain Repair')
+
+    def _default_employee(self):
+        emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
+        return emp_ids and emp_ids[0] or False
+    inspect_user_id = fields.Many2one('hr.employee', string="Inpect Name", default=_default_employee, required=True)
+    rework_count = fields.Integer("Rework Count", help="Rework Count",compute="_get_rework_count")
+
+    def _get_rework_count(self):
+        # records = self.env['fleet_manage_fault.return_record'].search([("repair_id", '=', self.id)])
+        for i in self:
+            i.rework_count = len(i.return_record_ids)
 
     @api.multi
     def action_done(self):
-        self.state = 'done'
+        for i in self:
+            if i.state not in ('inspect','done'):
+                raise exceptions.UserError("Selected inspect(s) cannot be confirmed as they are not in 'inspect' state")
+            i.state = 'done'
+            i.inspect_result = 'qualified'
+            i.inspect_time = fields.Datetime.now()
+
+    @api.multi
+    def action_return(self,reason=''):
+        inspect_return_time = fields.Datetime.now()
+        vals = {
+            "repair_id": self.id,
+            "inspect_return_time": inspect_return_time,
+            "return_reason": reason,
+            "sequence": len(self.record_ids) + 1
+        }
+        self.write({'record_ids': [(0, 0, vals)]})
+        self.inspect_return_time = inspect_return_time
+        self.inspect_time = inspect_return_time
+        self.inspect_result = "defective"
+        self.state = 'repair'
+
+
+class FleetMaintainReturnRecord(models.Model):
+    """
+    退检记录
+    """
+    _name = 'fleet_manage_fault.return_record'
+    repair_id = fields.Many2one('fleet_manage_fault.repair', string="Repair Bill",
+                                required=True, readonly=True)
+    inspect_user_id = fields.Many2one('hr.employee', related='repair_id.inspect_user_id', string="Inpect Name",
+                                      required=True, readonly=True)
+    fault_method_id = fields.Many2one("fleet_manage_fault.method", related='repair_id.fault_method_id',
+                                      ondelete='set null', string="Fault Method")
+    return_reason = fields.Text("Return Reason", help="Return Reason")
+    inspect_return_time = fields.Datetime("Inspect Return Time", help="Inspect Return Time")
+    sequence = fields.Integer("Sequence", help="Sequence")
