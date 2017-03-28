@@ -191,6 +191,7 @@ class FleetMaintainRepair(models.Model):
     repair_type = fields.Selection([('vehicle_repair',"vehicle_repair"),('assembly_repair',"assembly_repair")],
                                    default='vehicle_repair', string="Repair Type")
 
+
     @api.depends('plan_start_time', 'work_time')
     def _get_end_datetime(self):
         for r in self:
@@ -439,6 +440,7 @@ class FleetMaintainReturnRecord(models.Model):
                                 required=True, readonly=True)
     inspect_user_id = fields.Many2one('hr.employee', related='repair_id.inspect_user_id', string="Inpect Name",
                                       required=True, readonly=True)
+    repair_names = fields.Char(string='Repair Names',related='repair_id.repair_names', help="Repair Names")
     fault_method_id = fields.Many2one("fleet_manage_fault.method", related='repair_id.fault_method_id',
                                       ondelete='set null', string="Fault Method")
     return_reason = fields.Text("Return Reason", help="Return Reason")

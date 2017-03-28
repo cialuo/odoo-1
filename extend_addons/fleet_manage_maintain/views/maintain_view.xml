@@ -391,6 +391,7 @@
                                 <field name="return_record_ids">
                                     <tree string="Inspect Return Records">
 										<field name="repair_id"/>
+										<field name="repair_names"/>
 										<field name="fault_method_id"/>
 										<field name="inspect_user_id"/>
 										<field name="return_reason"/>
@@ -591,6 +592,7 @@
                                 <field name="return_record_ids">
                                     <tree string="Inspect Return Records">
 										<field name="repair_id"/>
+										<field name="repair_names"/>
 										<field name="fault_method_id"/>
 										<field name="inspect_user_id"/>
 										<field name="return_reason"/>
