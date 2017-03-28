@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-
+from odoo.exceptions import ValidationError
 
 
 class employee(models.Model):
@@ -41,11 +41,95 @@ class employee(models.Model):
     # 工资账户
     salaryaccount = fields.Char(string=_('employee salary account'))
 
-
     # 员工家属信息
     families = fields.One2many('employees.employeefamily', 'employee_id', string=_("employees's families"))
     # 员工所在岗位
     workpost = fields.Many2one('employees.post', ondelete='set null',  string=_('employee work post'))
+
+    @api.constrains('user_id')
+    def _relateone2one(self):
+        """
+        一个系统用户只能绑定到一个员工
+        """
+        for item in self:
+            uid = item.user_id.id
+            if uid != False:
+                count = self.search_count([('user_id', '=', uid)])
+                if count > 1:
+                    raise ValidationError(_("can't set system user to employee in twice"))
+
+    @api.multi
+    def write(self, vals):
+        #  重载write方法
+        workpost = vals.get('workpost', None)
+        user_id = vals.get('user_id', None)
+        if workpost != None and user_id == None :
+            # 岗位调整 关联用户未调整
+            # 修改关联用户的权限 先删除用户老岗位权限
+            # 然后增加用户当前新岗位权限
+            if self.workpost != None and self.user_id != None:
+                # 如果之前指定了岗位 并且 之前也绑定了系统用户
+                self._powerRebuild(self.user_id.id, self.workpost.id, 'remove')
+            if self.user_id != None:
+                # 如果之前绑定了用户
+                self._powerRebuild(self.user_id.id, workpost, 'add')
+        elif workpost != None and user_id != None:
+            # 岗位调整 关联用户也调整
+            # 将老用户的权限老岗位的权限解绑 
+            # 将新用户的权限跟新岗位的权限绑定
+            if self.workpost != None and self.user_id != None:
+                # 如果之前指定了岗位 并且 之前也绑定了系统用户
+                self._powerRebuild(self.user_id.id, self.workpost.id, 'remove')
+            self._powerRebuild(user_id, workpost, 'add')
+        elif workpost == None and user_id == None:
+            # 岗位未调整 关联用户也未调整
+            # 无需处理
+            pass
+        elif workpost == None and user_id != None:
+            # 岗位未调整 用户有调整
+            # 将老用户的权限跟当前岗位的权限解绑
+            # 将新用户的权限跟当前岗位的权限绑定
+            if self.user_id != None and self.workpost != None:
+                # 将老用好的岗位权限解绑
+                self._powerRebuild(self.user_id.id, self.workpost.id, 'remove')
+            if self.workpost != None :
+                # 将新用户的权限绑定
+                self._powerRebuild(user_id, self.workpost.id, 'add')
+        return super(employee, self).write(vals)
+
+    def _powerRebuild(self, userid, postid, operator):
+        """
+        更新用户对应岗位的权限
+        @param userid 用户id
+        @param postid 岗位id
+        @param operator 操作类型 add 增加权限 remove 删除权限
+        """
+        groupmode = self.env['res.groups']
+        usermode = self.env['res.users']
+        groupinfo = groupmode.search([('post_id', '=', postid)], limit=1)
+        if groupinfo == None:
+            # 如果组没有被绑定到岗位 则无需处理
+            return 
+        groupid  = groupinfo.id
+        userinfo = usermode.search([('id', '=', userid)], limit=1)
+        if userinfo == None:
+            # 没找到用户信息 不处理
+            return
+        if operator == 'add':
+            # 给用户增加权限
+            userinfo.write({'groups_id':[(4, groupid, 0)]})
+        elif operator == 'remove':
+            # 给用户删除权限
+            userinfo.write({'groups_id':[(3, groupid, 0)]})
+
+    @api.model
+    def create(self, vals):
+        #  重载create方法
+        workpost = vals.get('workpost', False)
+        user_id = vals.get('user_id', False)
+        if workpost != False and user_id != False:
+            self._powerRebuild(user_id, workpost, 'add')
+        return super(employee, self).create(vals)
 
 
 class EmployeeFamily(models.Model):
@@ -182,8 +266,6 @@ class department(models.Model):
         ('group', _('department type group')),
     ], _('department type'))
 
-
-
     # 部门岗位列表
     post_id = fields.One2many('employees.post', 'department', string=_('department post list'))
     # 岗位成员
@@ -209,7 +291,78 @@ class LtyGroups(models.Model):
         """
         for item in self:
             postid = item.post_id.id
-            count = self.search_count([('post_id', '=', postid)])
-            if count > 0:
-                raise exceptions.ValidationError(_("can't set post's group in twice"))
+            if postid != False:
+                count = self.search_count([('post_id', '=', postid)])
+                if count > 1:
+                    raise ValidationError(_("can't set post's group in twice"))
 
+    @api.multi
+    def write(self, vals):
+        """
+        重载write方法
+        """
+        isrole_new = vals.get('isrole', None)
+        post_id_new = vals.get('post_id', None)
+        if isrole_new != self.isrole and isrole_new == False and isrole_new != None:
+            #取消群组的角色勾选框
+            if self.post_id != None:
+                #如果之前指定了岗位 则将岗位下所有的人的权限去掉 同时将postid置空
+                vals['post_id'] = None
+                self.updateUserGroup(None if self.post_id.id == False else self.post_id.id, None, self.id)
+
+        if isrole_new != self.isrole and isrole_new == True and isrole_new != None:
+            #将角色勾选框选中
+            if post_id_new != None:
+                #如果指定了岗位id 则更新岗位下的用户权限
+                self.updateUserGroup(None if self.post_id.id == False else self.post_id.id, post_id_new, self.id)
+        if post_id_new != self.post_id and self.isrole == True and post_id_new != None:
+            # 如果角色勾选框没有修改 并且 岗位id值出现变化 并且 isrole值原本就是true
+            # 则修改对应的岗位员工的权限值
+            self.updateUserGroup(None if self.post_id.id == False else self.post_id.id, post_id_new, self.id)
+
+        return super(LtyGroups, self).write(vals)
+
+    def updateUserGroup(self, old, new, groupid):
+        """
+        更新用户组权限
+        @param  old 之前的岗位id
+        @param new 新的岗位id
+        @param groupid 当前的goupid
+        """
+        usermode = self.env['hr.employee']
+        resusermode = self.env['res.users']
+        if old != None:
+            # 删除之前岗位下用户的权限
+            users = usermode.search([('workpost', '=', old)])
+            for item in users:
+                if item.user_id != None:
+                    item.user_id.write({'groups_id':[(3, groupid, 0)]})
+
+        if new != None:
+            # 给新岗位下的用户添加权限
+            users = usermode.search([('workpost', '=', new)])
+            for item in users:
+                if item.user_id != None:
+                    item.user_id.write({'groups_id':[(4, groupid, 0)]})
+
+    @api.model
+    def create(self, vals):
+        """
+        重载创建方法
+        """
+        isrole = vals.get('isrole', None)
+        postid = vals.get('post_id', None)
+        if (isrole == False and postid != None) or (isrole == None and postid != None):
+            # 如果没有指定为角色 则将选择的岗位id置为空
+            vals['post_id'] = None
+        record = super(LtyGroups, self).create(vals)
+        if isrole == True and postid != False and postid != None:
+            self.updateUserGroup(None, postid, record.id)
+        return record
+
+    @api.multi
+    def unlink(self):
+        # 重载删除方法 
+        for item in self:
+            self.updateUserGroup(None if item.post_id.id else item.post_id.id, None, item.id)
+        return super(LtyGroups, self).unlink()
