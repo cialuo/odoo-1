@@ -63,6 +63,11 @@ class employee(models.Model):
         #  重载write方法
         workpost = vals.get('workpost', None)
         user_id = vals.get('user_id', None)
+        if user_id != None:
+            count = self.search_count([('user_id', '=', user_id)])
+            if count > 1:
+                raise ValidationError(_("can't set system user to employee in twice"))
+
         if workpost != None and user_id == None :
             # 岗位调整 关联用户未调整
             # 修改关联用户的权限 先删除用户老岗位权限
@@ -124,9 +129,13 @@ class employee(models.Model):
 
     @api.model
     def create(self, vals):
-        #  重载create方法
+        # 重载create方法
         workpost = vals.get('workpost', False)
         user_id = vals.get('user_id', False)
+        if user_id != False:
+            count = self.search_count([('user_id', '=', user_id)])
+            if count > 1:
+                raise ValidationError(_("can't set system user to employee in twice"))
         if workpost != False and user_id != False:
             self._powerRebuild(user_id, workpost, 'add')
         return super(employee, self).create(vals)
