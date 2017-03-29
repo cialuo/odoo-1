@@ -232,7 +232,7 @@
                             <field name="manufacturers"/>
                         </group>
 						<group>
-							<field name="reg_date" />
+							<field name="home_entry_date" />
 							<field name="chassis_no" />
 							<label for="height"/>
 							<div class="o_row">

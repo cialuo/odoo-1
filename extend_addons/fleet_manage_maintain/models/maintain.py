@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, exceptions
+from odoo import models, fields, api, exceptions,_
 from datetime import timedelta
 
 
@@ -8,6 +8,7 @@ class FleetMaintainReport(models.Model):
     """
     车辆维修管理：报修单
     """
+    _inherit = 'mail.thread'
     _name = 'fleet_manage_fault.report'
 
     def _default_employee(self):
@@ -35,10 +36,12 @@ class FleetMaintainReport(models.Model):
     repair_level = fields.Char(string="Repair Level")
     is_fault_vehicle = fields.Boolean("Is Fault Vehicle", default=True)
 
-    state = fields.Selection([('back', "Back"),
+    state = fields.Selection([
+                            # ('back', "Back"),
                             ('draft', "Draft"),
                             ('precheck', "Precheck"),
                             ('dispatch', "Dispatch"),
+                            ('wait_repair',"Wait Repair"),
                             ('repair', "Repair"),
                             ('inspect', "Inspect"),
                             ('done', "Done")], default='draft')
@@ -67,22 +70,18 @@ class FleetMaintainReport(models.Model):
             return res
         return False
 
+
     @api.model
-    def create(self, vals):
-        if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_fault.report') or '/'
-        return super(FleetMaintainReport, self).create(vals)
+    def create(self, data):
+        if data.get('name', 'New') == 'New':
+            data['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_fault.report') or '/'
+        report = super(FleetMaintainReport, self.with_context(mail_create_nolog=True)).create(data)
+        report.message_post(body=_('%s has been added to the report!') % (report.name,))
+        return report
+
 
     @api.multi
-    def action_back(self):        #检验退回
-        self.state = 'back'
-
-    @api.multi
-    def action_draft(self):       #设为草稿
-        self.state = 'draft'
-
-    @api.multi
-    def action_precheck(self):    #提交检验 或者退回检验
+    def action_submit_precheck(self):    #提交检验
         self.ensure_one()
         if not self.repair_ids:
             raise exceptions.UserError("Maintain Repair Required!")
@@ -93,20 +92,22 @@ class FleetMaintainReport(models.Model):
                     i.state = 'precheck'
 
     @api.multi
-    def action_repair(self):         #批量派工
-        self.state = 'repair'
+    def action_draft(self):  # 检验退回
+        self.state = 'draft'
 
     @api.multi
-    def action_inspect(self):         #维修完成
-        self.state = 'inspect'
+    def action_precheck(self):  # 检验退回
+        self.state = 'precheck'
+
+
 
     @api.multi
-    def action_dispatch(self):     #预检通过并创建交接单  或者重新派工
+    def action_precheck_success(self):     #预检通过并创建交接单
         self.ensure_one()
-        for i in self.repair_ids:
-            if not i.fault_method_id:
-                raise exceptions.UserError("Maintain Repair Method Required!")
-                break
+        # for i in self.repair_ids:
+        #     if not i.fault_method_id:
+        #         raise exceptions.UserError("Maintain Repair Method Required!")
+        #         break
 
         self.state = 'dispatch'
         for i in self.repair_ids:
@@ -129,12 +130,22 @@ class FleetMaintainReport(models.Model):
         action['views'] = [(self.env.ref('fleet_manage_maintain.fleet_manage_delivery_view_form').id, 'form')]
         return action
 
+    # @api.multi
+    # def action_repair(self):         #批量派工
+    #     self.state = 'repair'
+
+    # @api.multi
+    # def action_inspect(self):         #维修完成
+    #     self.state = 'inspect'
+
 
 class FleetMaintainRepair(models.Model):
     """
     车辆维修管理：维修单
     """
+    _inherit = 'mail.thread'
     _name = 'fleet_manage_fault.repair'
+
     name = fields.Char(string="Repair Bill", help='Repair Bill', required=True, index=True,
                        copy=False, default='New', readonly=True)
     report_id = fields.Many2one("fleet_manage_fault.report",ondelete='cascade',
@@ -172,6 +183,7 @@ class FleetMaintainRepair(models.Model):
         ('draft', "Draft"),
         ('precheck', "Precheck"),
         ('dispatch', "Dispatch"),
+        ('wait_repair', "Wait Repair"),
         ('repair', "Repair"),
         ('inspect', "Inspect"),
         ('done', "Done")], default='draft', readonly=True)
@@ -190,7 +202,6 @@ class FleetMaintainRepair(models.Model):
 
     repair_type = fields.Selection([('vehicle_repair',"vehicle_repair"),('assembly_repair',"assembly_repair")],
                                    default='vehicle_repair', string="Repair Type")
-
 
     @api.depends('plan_start_time', 'work_time')
     def _get_end_datetime(self):
@@ -233,17 +244,6 @@ class FleetMaintainRepair(models.Model):
             vals['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_fault.repair') or '/'
         return super(FleetMaintainRepair, self).create(vals)
 
-    @api.multi
-    def action_repair(self):  #开工
-        self.ensure_one()
-        if not self.job_ids:
-            raise exceptions.UserError("Maintain  Repair Jobs Required!")
-        self.state = 'repair'
-
-    @api.multi
-    def action_inspect(self):  #报检
-        self.state = 'inspect'
-        self.inspect_time = fields.Datetime.now()
 
     @api.multi
     def dispatch(self):         #派工
@@ -256,8 +256,8 @@ class FleetMaintainRepair(models.Model):
         #     percentage_work = percentage_work +i.percentage_work
         if percentage_work + self.percentage_work >100:
             raise exceptions.UserError("Dispatching the proportion of more than 100")
-        self.state = 'dispatch'
-
+        # self.state = 'dispatch'
+        self.state = 'wait_repair'
         vals = {
             # "repair_id": self.id,
             "fault_category_id": self.fault_category_id.id,
@@ -271,6 +271,7 @@ class FleetMaintainRepair(models.Model):
             "user_id": self.user_id.id,
             "sequence": len(self.job_ids)+1
         }
+        # self.env['fleet_manage_fault.repair_jobs'].create(vals)
         self.write({'job_ids': [(0, 0, vals)]})
 
     @api.depends("job_ids")
@@ -280,6 +281,22 @@ class FleetMaintainRepair(models.Model):
             for j in i.job_ids:
                 repair_names.add(j.user_id.name)
             i.repair_names = ",".join(list(repair_names))
+
+    @api.multi
+    def action_repair(self):  # 开工
+        self.ensure_one()
+        if not self.job_ids:
+            raise exceptions.UserError("Maintain  Repair Jobs Required!")
+        self.state = 'repair'
+        for i in self.job_ids:
+            i.real_start_time = fields.Datetime.now()
+
+    @api.multi
+    def action_start_inspect(self):  # 报检
+        self.state = 'inspect'
+        self.start_inspect_time = fields.Datetime.now()
+        for i in self.job_ids:
+            i.real_end_time = fields.Datetime.now()
 
 
 class FleetMaintainAvailableProduct(models.Model):
@@ -328,17 +345,37 @@ class FleetMaintainRepairJobs(models.Model):
     plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time")
     real_start_time = fields.Datetime("Real Start Time", help="Real Start Time")
     real_end_time = fields.Datetime("Real End Time", help="Real End Time")
-    work_time = fields.Float(help='work_time')
-    my_work = fields.Float(help='my_work')
-    real_work = fields.Float(help='real_work')
-    percentage_work = fields.Float(help='percentage_work')
+    percentage_work = fields.Float('Percentage Work', help='Percentage Work')
+
+    work_time = fields.Float('Work Time', help='Work Time')
+    my_work = fields.Float('My Work', help='My Work', compute="_get_my_work")
+    real_work = fields.Float('Real Work',help='Real Work', compute="_get_real_work")
+
+    @api.depends('real_start_time', 'real_end_time')
+    def _get_real_work(self):
+        for i in self:
+            if i.real_start_time and i.real_end_time:
+                start_time = fields.Datetime.from_string(i.real_start_time)
+                end_time = fields.Datetime.from_string(i.real_end_time)
+                i.real_work = (end_time-start_time).seconds/60.0
+
+    @api.depends('plan_start_time', 'plan_end_time','percentage_work',)
+    def _get_my_work(self):
+        for i in self:
+            if i.plan_start_time and i.plan_end_time:
+                start_time = fields.Datetime.from_string(i.plan_start_time)
+                end_time = fields.Datetime.from_string(i.plan_end_time)
+                work_time = (end_time - start_time).seconds / 60.0
+                i.my_work = work_time * i.percentage_work/100
 
 
 class FleetMaintainDelivery(models.Model):
     """
     车辆维修管理：交接单
     """
+    _inherit = 'mail.thread'
     _name = 'fleet_manage_fault.delivery'
+
     name = fields.Char(string="Delivery Bill", help='Delivery Bill', required=True, index=True,
                        copy=False, default='New')
     report_id = fields.Many2one("fleet_manage_fault.report", ondelete='cascade', string="Report Code")
@@ -384,15 +421,13 @@ class FleetMaintainInspect(models.Model):
     """
     # _name = 'fleet_manage_maintain.maintain_inspect'
     _inherit = 'fleet_manage_fault.repair'
+
     #name = fields.Char("Inspect Bill", help="Inspect Bill")
     inspect_result = fields.Selection([('qualified','Qualified'),('defective','Defective')],
                                       string="Inspect Result", help="Inspect Result")
 
     start_inspect_time = fields.Datetime("Start Inspect Time", help="Start Inspect Time")
-    inspect_time = fields.Datetime("Inspect Time", help="Inspect Time")
-
-    inspect_return_time = fields.Datetime("Inspect Return Time", help="Inspect Return Time")
-
+    end_inspect_time = fields.Datetime("End Inspect Time", help="End Inspect Time")
     return_record_ids = fields.One2many("fleet_manage_fault.return_record", 'repair_id', string='Maintain Repair')
 
     def _default_employee(self):
@@ -415,18 +450,20 @@ class FleetMaintainInspect(models.Model):
             i.inspect_result = 'qualified'
             i.inspect_time = fields.Datetime.now()
 
+            if all(repair.state in ['done'] for repair in i.report_id.repair_ids):
+                i.report_id.state = 'done'
+
     @api.multi
-    def action_return(self,reason=''):
+    def action_return(self, reason=''):
         inspect_return_time = fields.Datetime.now()
         vals = {
             "repair_id": self.id,
             "inspect_return_time": inspect_return_time,
             "return_reason": reason,
-            "sequence": len(self.record_ids) + 1
+            "sequence": len(self.return_record_ids) + 1
         }
-        self.write({'record_ids': [(0, 0, vals)]})
-        self.inspect_return_time = inspect_return_time
-        self.inspect_time = inspect_return_time
+        self.write({'return_record_ids': [(0, 0, vals)]})
+        self.end_inspect_time = inspect_return_time
         self.inspect_result = "defective"
         self.state = 'repair'
 

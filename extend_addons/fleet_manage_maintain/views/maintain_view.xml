@@ -90,7 +90,7 @@
 					<field name="vehicle_id"/>
 					<field name="vehicle_type"/>
 					<field name="license_plate"/>
-					<field name="inspect_time"/>
+					<field name="start_inspect_time"/>
 					<field name="repair_names"/>
 					<field name="fault_method_code"/>
 					<field name="fault_method_id"/>
@@ -110,11 +110,11 @@
             <field name="arch" type="xml">
                 <form string="MaintainReport Form">
                 	<header>
-						<button name="action_precheck" type="object"
+						<button name="action_submit_precheck" type="object"
                                 string="Submit Precheck"
 								states="draft"
                                 class="oe_highlight"/> <!-- 提交检验-->
-                    	<field name="state"  widget="statusbar" statusbar_visible="draft,precheck,dispatch,repair,inspect,done"/>
+                    	<field name="state"  widget="statusbar" statusbar_visible="draft,precheck,repair,done"/>
                 	</header>
 					<sheet>
 
@@ -164,6 +164,10 @@
                             </page>
 			            </notebook>
 					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -176,23 +180,20 @@
             <field name="arch" type="xml">
                 <form string="MaintainPrecheck Form" create="false">
                 	<header>
-						<button name="action_precheck" type="object"
+						<button name="action_submit_precheck" type="object"
                                 string="Precheck"
 								states="draft"
                                 class="oe_highlight"/> <!-- 提交检验-->
 
-						<button name="action_draft" type="object"
-                                string="Reset to draft"
-								states="back"
-                                class="oe_highlight"/> <!-- 设为草稿-->
 
-						<button name="action_dispatch" type="object"
+
+						<button name="action_precheck_success" type="object"
                                 string="Precheck Success And Create The Delivery"
                                 states="precheck"
 								class="oe_highlight"/>  <!-- 预检通过并创建交接单-->
-						<button name="action_back" type="object"
-                                string="Precheck Back"
-								states="precheck"/> <!-- 检验退回-->
+						<button name="action_draft" type="object"
+                                string="Reset to draft"
+								states="precheck"/>     <!-- 检验退回-->
 
 
 						<!--<button name="" type="object"-->
@@ -220,7 +221,7 @@
                                 <!--states="repair"-->
 								<!--class="oe_highlight"/>  &lt;!&ndash; 维修完成&ndash;&gt;-->
 
-						<!--<button name="action_dispatch" type="object"-->
+						<!--<button name="action_precheck_success" type="object"-->
                                 <!--string="Again Dispatch"-->
                                 <!--states="repair"/>-->
 
@@ -229,7 +230,7 @@
                                 <!--states="inspect"-->
 								<!--class="oe_highlight"/> &lt;!&ndash; 管理检验单&ndash;&gt;-->
 
-                    	<field name="state"  widget="statusbar"  statusbar_visible="draft,precheck,dispatch,repair,inspect,done"/>
+                    	<field name="state"  widget="statusbar"  statusbar_visible="draft,precheck,repair,done"/>
                 	</header>
 					<sheet>
 
@@ -303,6 +304,10 @@
                             </page>
 			            </notebook>
 					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -317,15 +322,15 @@
                 	<header>
 						<button name="action_repair" type="object"
                                 string="Start Repair"
-								states="dispatch"
+								states="wait_repair"
                                 class="oe_highlight"/> <!-- 开工-->
 
-						<button name="action_inspect" type="object"
-                                string="Inspect"
+						<button name="action_start_inspect" type="object"
+                                string="Start Inspect"
 								states="repair"
                                 class="oe_highlight"/> <!-- 报检-->
 
-                    	<field name="state"  widget="statusbar"  />
+                    	<field name="state"  widget="statusbar" statusbar_visible="wait_repair,repair,inspect,done" />
                 	</header>
 					<sheet>
 						<div class="oe_title">
@@ -402,6 +407,10 @@
                             </page>
 			            </notebook>
 					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -414,9 +423,9 @@
 			<field name="priority">0</field>
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
-                	<header>
-                    	<field name="state"  widget="statusbar"/>
-                	</header>
+                	<!--<header>-->
+                    	<!--<field name="state"  widget="statusbar"/>-->
+                	<!--</header>-->
 					<sheet>
 						<!--<div class="oe_title">-->
 	                        <!--<label for="name" class="oe_edit_only"/>-->
@@ -491,7 +500,7 @@
 						<button name="action_return" type="object"
                                 string="delivery to Return"
 								states="delivery"
-                                class="oe_highlight"/> <!-- 提交检验-->
+                                class="oe_highlight"/> <!-- 确认交回-->
 
 						<button name="" type="object"
                                 string="Maintenance/Warranty"
@@ -527,10 +536,12 @@
 									</group>
 								</group>
                             </page>
-
 						</notebook>
-
 					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -634,6 +645,7 @@
 			<field name="name">fleet_manage_maintain_repair_action</field>
 			<field name="res_model">fleet_manage_fault.repair</field>
 			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state', 'in', ['dispatch','wait_repair','repair','inspect','done'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_repair_view_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('fleet_manage_maintain.fleet_manage_repair_view_form')})]"/>
@@ -651,6 +663,7 @@
 			<field name="name">fleet_manage_maintain_inspect_action</field>
 			<field name="res_model">fleet_manage_fault.repair</field>
 			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state', 'in', ['repair','inspect','done'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_inspect_view_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('fleet_manage_maintain.fleet_manage_inspect_view_form')})]"/>
