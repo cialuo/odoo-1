@@ -1,0 +1,111 @@
+<odoo>
+    <data>
+
+        <!-- 保修类别 tree -->
+        <record model="ir.ui.view" id="fleet_manage_warranty_category_view_tree">
+            <field name="name">Category.tree</field>
+            <field name="model">fleet_manage_warranty.category</field>
+            <field name="arch" type="xml">
+                <tree string="Category Tree">
+                    <field name="code"/>
+                    <field name="display_name"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 保修类别 view -->
+        <record model="ir.ui.view" id="fleet_manage_warranty_category_view_form">
+            <field name="name">Category.form</field>
+            <field name="model">fleet_manage_warranty.category</field>
+            <field name="arch" type="xml">
+                <form string="Category Form">
+                    <header>
+                        <button name="action_draft" type="object"
+                                string="back to draft"
+                                states="confirmed,done"/>
+                        <button name="action_confirm" type="object"
+                                string="confirm" states="draft"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="done" states="confirmed"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+
+                    <sheet>
+
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" />
+                            <h1><field name="name" /></h1>
+                        </div>
+                        <group col="2">
+                            <group >
+                                <field name="parent_id"/>
+                                <!--<field name="mode"/>-->
+                                <field name="manhour"/>
+                                <!--<field name="remark"/>-->
+                            </group>
+
+                            <group >
+                                <label for="code"/>
+                                <div class="o_row"><field name="code"/></div>
+                                <field name="create_uid" readonly="1" />
+                                <field name="create_date" readonly="1" />
+
+                            </group>
+
+                            <div class="oe_right"><group><field name="remark"/></group></div>
+                        </group>
+
+                        <notebook>
+                            <page string="page child_ids">
+                                <field name="child_ids">
+                                    <tree string="tree child_ids">
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="manhour"/>
+                                    </tree>
+                                </field>
+
+                                <div class="oe_right"><group><field name="sum_categories_manhour"/></group></div>
+                            </page>
+                        </notebook>
+
+                        <notebook>
+                            <page string="page items">
+                                <field name="items">
+                                    <tree string="tree items">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="mode"/>
+                                        <field name="manhour"/>
+                                        <field name="remark"/>
+                                    </tree>
+                                </field>
+                                <div class="oe_right"><group><field name="sum_items_manhour"/></group></div>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 保修类别 action -->
+        <record model="ir.actions.act_window" id="fleet_manage_warranty_category_action">
+            <field name="name">Warranty Category</field>
+            <field name="res_model">fleet_manage_warranty.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 保修类别 menu -->
+        <menuitem name="Warranty Category"
+                  id="fleet_manage_warranty_category" sequence="21"
+                  parent="fleet_manage_menu.fleet_manage_menu_data"
+                  action="fleet_manage_warranty_category_action"/>
+
+    </data>
+</odoo>
