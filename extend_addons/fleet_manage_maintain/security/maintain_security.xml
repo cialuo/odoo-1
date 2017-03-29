@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record id="fleet_manage_maintain_group" model="ir.module.category">
+            <field name="name">Maintain</field>
+            <field name="sequence">17</field>
+        </record>
+        <record id="maintain_group_driver" model="res.groups">
+            <field name="name">Driver</field>
+            <field name="category_id" ref="fleet_manage_maintain_group"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="maintain_group_precheck" model="res.groups">
+            <field name="name">Precheck</field>
+            <field name="category_id" ref="fleet_manage_maintain_group"/>
+            <field name="implied_ids" eval="[(4, ref('maintain_group_driver'))]"/>
+        </record>
+
+        <record id="maintain_group_dispatch" model="res.groups">
+            <field name="name">Dispatch</field>
+            <field name="category_id" ref="fleet_manage_maintain_group"/>
+            <field name="implied_ids" eval="[(4, ref('maintain_group_precheck'))]"/>
+        </record>
+
+        <record id="maintain_group_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="implied_ids" eval="[(4, ref('maintain_group_dispatch'))]"/>
+            <field name="category_id" ref="fleet_manage_maintain_group"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+    </data>
+</odoo>

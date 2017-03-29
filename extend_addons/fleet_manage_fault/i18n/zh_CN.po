@@ -1,0 +1,573 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* fleet_manage_fault
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-27 03:01+0000\n"
+"PO-Revision-Date: 2017-03-27 03:01+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_active
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_active
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_active
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_active
+msgid "Active"
+msgstr "有效"
+
+#. module: fleet_manage_fault
+#: sql_constraint:fleet_manage_fault.appearance:0
+msgid "Appearance code already exists"
+msgstr "故障现象编码已经存在"
+
+#. module: fleet_manage_fault
+#: sql_constraint:fleet_manage_fault.category:0
+msgid "Category code already exists"
+msgstr "故障分类编码已经存在"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_complex_level
+msgid "Complex level"
+msgstr "复杂程度"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_create_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_create_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_create_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_create_date
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_appearance_create_date
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_category_create_date
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_method_create_date
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_reason_create_date
+msgid "Create Date"
+msgstr "创建日期"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_user_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_user_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_user_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_user_id
+msgid "Create Name"
+msgstr "建档人"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_create_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_default_dosage
+msgid "Default Dosage"
+msgstr "默认用量"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_display_name
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_display_name
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_display_name
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_display_name
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_display_name
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: fleet_manage_fault
+#: selection:fleet_manage_fault.appearance,state:0
+#: selection:fleet_manage_fault.category,state:0
+#: selection:fleet_manage_fault.method,state:0
+#: selection:fleet_manage_fault.reason,state:0
+msgid "Done"
+msgstr "归档"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_fault_category_code
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_category_fault_category_code
+msgid "Fault Category Code"
+msgstr "故障分类编码"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_category_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_name
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_category_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_category_id
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_category_name
+msgid "Fault Category Name"
+msgstr "故障分类"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_name
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_name
+msgid "Fault Maintain Type"
+msgstr "维修类型"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_fault_method_code
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_method_fault_method_code
+msgid "Fault Method Code"
+msgstr "维修方法编码"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_method_ct
+msgid "Fault Method Count"
+msgstr "维修方法数"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_name
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_method_name
+msgid "Fault Method Name"
+msgstr "维修方法"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_fault_reason_code
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_reason_fault_reason_code
+msgid "Fault Reason Code"
+msgstr "故障原因编码"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_reason_ct
+msgid "Fault Reason Count"
+msgstr "故障原因数"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_method_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_name
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_reason_name
+msgid "Fault Reason Name"
+msgstr "故障原因"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_fault_appearance_code
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_appearance_fault_appearance_code
+msgid "Fault appearance Code"
+msgstr "故障现象编码"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_name
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_appearance_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_appearance_id
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_appearance_name
+msgid "Fault appearance Name"
+msgstr "故障现象"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_reason_id
+msgid "Fault reason Name"
+msgstr "故障原因"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_category_view_form
+msgid "FaultAppearance"
+msgstr "故障现象"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_appearance_view_form
+msgid "FaultAppearance Form"
+msgstr "故障原因"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_appearance_view_tree
+msgid "FaultAppearance Tree"
+msgstr "故障现象"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_category_view_form
+msgid "FaultCategory Form"
+msgstr "故障分类"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_category_view_tree
+msgid "FaultCategory Tree"
+msgstr "故障分类"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_method_view_form
+msgid "FaultMethod Form"
+msgstr "故障方法"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_method_view_tree
+msgid "FaultMethod Tree"
+msgstr "故障方法"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_reason_view_form
+msgid "FaultMethods"
+msgstr "故障方法"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_category_view_form
+msgid "FaultReason"
+msgstr "故障原因"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_reason_view_form
+msgid "FaultReason Form"
+msgstr "故障原因"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_reason_view_tree
+msgid "FaultReason Tree"
+msgstr "故障原因"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_appearance_view_form
+msgid "FaultReasons"
+msgstr "故障原因"
+
+#. module: fleet_manage_fault
+#: selection:fleet_manage_fault.method,complex_level:0
+msgid "Group Works"
+msgstr "群体作业"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_id
+msgid "ID"
+msgstr "ID"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_important_product_id
+msgid "Important Product"
+msgstr "Important Product"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_inner_code
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_inner_code
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_inner_code
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_appearance_inner_code
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_method_inner_code
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_reason_inner_code
+msgid "Inner Code"
+msgstr "内部编码"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_inspect_standard
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_method_inspect_standard
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_method_view_form
+msgid "Inspect Standard"
+msgstr "检验标准"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance___last_update
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product___last_update
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category___last_update
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type___last_update
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method___last_update
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_write_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_write_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_write_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_write_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_write_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_appearance_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_category_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_method_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_reason_view_form
+msgid "Mark as done"
+msgstr "归档"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_is_important_product
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_materials_control
+msgid "Materials Control"
+msgstr "用料控制"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_max_dosage
+msgid "Max Dosage"
+msgstr "Max Dosage"
+
+#. module: fleet_manage_fault
+#: sql_constraint:fleet_manage_fault.method:0
+msgid "Method code already exists"
+msgstr "Method code already exists"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_name
+msgid "Name"
+msgstr "名字"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_category_view_form
+msgid "No FaultAppearance"
+msgstr "无表象故障"
+
+#. module: fleet_manage_fault
+#: selection:fleet_manage_fault.method,complex_level:0
+msgid "One work"
+msgstr "1人作业"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_operation_manual
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_method_operation_manual
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_method_view_form
+msgid "Operation Manual"
+msgstr "作业手册"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_product_id
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_method_view_form
+msgid "Product"
+msgstr "产品"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_product_code
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_available_product_product_code
+msgid "Product Code"
+msgstr "Product Code"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_product_name
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_available_product_product_name
+msgid "Product Name"
+msgstr "Product Name"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_product_size
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_available_product_product_size
+msgid "Product Size"
+msgstr "Product Size"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_product_type
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_available_product_product_type
+msgid "Product Type"
+msgstr "产品类型"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_product_unit
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_available_product_product_unit
+msgid "Product Unit"
+msgstr "Product Unit"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_avail_ids
+msgid "Products"
+msgstr "产品"
+
+#. module: fleet_manage_fault
+#: sql_constraint:fleet_manage_fault.reason:0
+msgid "Reason code already exists"
+msgstr "故障原因编码已经存在"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_reason_ids
+msgid "Reasons"
+msgstr "故障原因"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_remark
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_remark
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_available_product_remark
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_method_remark
+msgid "Remark"
+msgstr "备注"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_appearance_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_category_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_method_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_reason_view_form
+msgid "Reset"
+msgstr "重新启用"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_sequence
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_sequence
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_appearance_sequence
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_reason_sequence
+msgid "Sequence"
+msgstr "序号"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_state
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_state
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_state
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_state
+msgid "State"
+msgstr "状态"
+
+#. module: fleet_manage_fault
+#: selection:fleet_manage_fault.method,complex_level:0
+msgid "Two works"
+msgstr "2人作业"
+
+#. module: fleet_manage_fault
+#: selection:fleet_manage_fault.appearance,state:0
+#: selection:fleet_manage_fault.category,state:0
+#: selection:fleet_manage_fault.method,state:0
+#: selection:fleet_manage_fault.reason,state:0
+msgid "Use"
+msgstr "在用"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_warranty_deadline
+msgid "Warranty Deadline(Days)"
+msgstr "保修天数(天)"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_work_time
+msgid "Work Time(Minutes)"
+msgstr "工时定额(分钟)"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_appearance_ids
+msgid "appearances"
+msgstr "故障现象"
+
+#. module: fleet_manage_fault
+#: model:ir.model,name:fleet_manage_fault.model_fleet_manage_fault_appearance
+msgid "fleet_manage_fault.appearance"
+msgstr "故障现象"
+
+#. module: fleet_manage_fault
+#: model:ir.model,name:fleet_manage_fault.model_fleet_manage_fault_available_product
+msgid "fleet_manage_fault.available_product"
+msgstr "可用物料"
+
+#. module: fleet_manage_fault
+#: model:ir.model,name:fleet_manage_fault.model_fleet_manage_fault_category
+msgid "fleet_manage_fault.category"
+msgstr "故障分类"
+
+#. module: fleet_manage_fault
+#: model:ir.model,name:fleet_manage_fault.model_fleet_manage_fault_fault_maintain_type
+msgid "fleet_manage_fault.fault_maintain_type"
+msgstr "维修类型"
+
+#. module: fleet_manage_fault
+#: model:ir.model,name:fleet_manage_fault.model_fleet_manage_fault_method
+msgid "fleet_manage_fault.method"
+msgstr "维修方法"
+
+#. module: fleet_manage_fault
+#: model:ir.model,name:fleet_manage_fault.model_fleet_manage_fault_reason
+msgid "fleet_manage_fault.reason"
+msgstr "故障原因"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.menu,name:fleet_manage_fault.fleet_manage_menu_fault_appearance
+msgid "fleet_manage_fault_appearance"
+msgstr "故障现象"
+
+#. module: fleet_manage_fault
+#: model:ir.actions.act_window,name:fleet_manage_fault.fleet_manage_fault_appearance_action
+msgid "fleet_manage_fault_appearance_action"
+msgstr "故障现象"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.menu,name:fleet_manage_fault.fleet_manage_menu_fault_category
+msgid "fleet_manage_fault_category"
+msgstr "故障分类"
+
+#. module: fleet_manage_fault
+#: model:ir.actions.act_window,name:fleet_manage_fault.fleet_manage_fault_category_action
+msgid "fleet_manage_fault_category_action"
+msgstr "故障分类"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.menu,name:fleet_manage_fault.fleet_manage_menu_fault_maintain_type
+msgid "fleet_manage_fault_maintain_type"
+msgstr "维修类型"
+
+#. module: fleet_manage_fault
+#: model:ir.actions.act_window,name:fleet_manage_fault.fleet_manage_fault_maintain_type_action
+msgid "fleet_manage_fault_maintain_type_action"
+msgstr "维修类型"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.menu,name:fleet_manage_fault.fleet_manage_menu_fault_method
+msgid "fleet_manage_fault_method"
+msgstr "维修方法"
+
+#. module: fleet_manage_fault
+#: model:ir.actions.act_window,name:fleet_manage_fault.fleet_manage_fault_method_action
+msgid "fleet_manage_fault_method_action"
+msgstr "维修方法"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.menu,name:fleet_manage_fault.fleet_manage_menu_fault_reason
+msgid "fleet_manage_fault_reason"
+msgstr "故障原因"
+
+#. module: fleet_manage_fault
+#: model:ir.actions.act_window,name:fleet_manage_fault.fleet_manage_fault_reason_action
+msgid "fleet_manage_fault_reason_action"
+msgstr "故障原因"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.menu,name:fleet_manage_fault.fleet_manage_maintain_method_craft
+msgid "fleet_manage_maintain_method_craft"
+msgstr "维修工艺管理"
+
+#. module: fleet_manage_fault
+#: model:ir.actions.act_window,name:fleet_manage_fault.fleet_manage_maintain_method_craft_action
+msgid "fleet_manage_maintain_method_craft_action"
+msgstr "维修工艺管理"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.menu,name:fleet_manage_fault.fleet_manage_maintain_method_quota
+msgid "fleet_manage_maintain_method_quota"
+msgstr "维修工时定额"
+
+#. module: fleet_manage_fault
+#: model:ir.actions.act_window,name:fleet_manage_fault.fleet_manage_maintain_method_quota_action
+msgid "fleet_manage_maintain_method_quota_action"
+msgstr "维修工时定额"
+
+#. module: fleet_manage_fault
+#: model:ir.ui.menu,name:fleet_manage_fault.fleet_manage_quota
+msgid "fleet_manage_quota"
+msgstr "定额管理"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_method_ids
+msgid "methods"
+msgstr "维修方法"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_reason_ids
+msgid "reasons"
+msgstr "故障原因"
+
