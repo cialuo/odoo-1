@@ -15,6 +15,8 @@
      4、里程数；
 
     """,
-    'data': [],
+    'data': [
+        'views/product_view.xml',
+    ],
     'depends': ['product', 'fleet', 'materials_manage'],
 }
