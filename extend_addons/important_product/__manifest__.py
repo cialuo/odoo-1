@@ -18,5 +18,5 @@
     'data': [
         'views/product_view.xml',
     ],
-    'depends': ['product', 'fleet', 'materials_manage'],
+    'depends': ['product', 'fleet_manage_vehicle', 'materials_manage'],
 }

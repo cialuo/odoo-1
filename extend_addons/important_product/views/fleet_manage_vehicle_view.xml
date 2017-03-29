@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--车辆技术档案中加入重要部件-->
+        <record id="fleet_vehicle_view_form_product" model="ir.ui.view">
+            <field name="name">Fleet vehicle form extend</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet_manage_vehicle.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="important_product" string="Important Product">
+                        <field name="component_ids">
+                            <tree>
+                                <field name="code"/>
+                                <field name="product_id"/>
+                                <field name="odometer"/>
+                                <field name="state"/>
+                                <field name="location_id"/>
+                                <field name="create_date"/>
+                                <field name="checkout_date"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
