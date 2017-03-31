@@ -77,7 +77,6 @@ class employee(models.Model):
             # 然后增加用户当前新岗位权限
             if self.workpost != None and self.user_id.id != False:
                 # 如果之前指定了岗位 并且 之前也绑定了系统用户
-                #  self._powerRebuild(self.user_id.id, self.workpost.id, 'remove')
                 deleteUserGroup(self, self.user_id.id)
             if self.user_id.id != False:
                 # 如果之前绑定了用户
@@ -88,7 +87,6 @@ class employee(models.Model):
             # 将新用户的权限跟新岗位的权限绑定
             if self.workpost != None and self.user_id.id != False:
                 # 如果之前指定了岗位 并且 之前也绑定了系统用户
-                #  self._powerRebuild(self.user_id.id, self.workpost.id, 'remove')
                 deleteUserGroup(self, self.user_id.id)
             self._powerRebuild(user_id, workpost, 'add')
         elif workpost == None and user_id == None:
@@ -101,7 +99,6 @@ class employee(models.Model):
             # 将新用户的权限跟当前岗位的权限绑定
             if self.user_id.id != False and self.workpost != None:
                 # 将老用好的岗位权限解绑
-                #  self._powerRebuild(self.user_id.id, self.workpost.id, 'remove')
                 deleteUserGroup(self, self.user_id.id)
             if self.workpost != None :
                 # 将新用户的权限绑定
@@ -420,7 +417,6 @@ class LtyGroups(models.Model):
                 # 如果一个群组是一个角色 或者 已经绑定到岗位 那么该group不能被删除
                 raise ValidationError(_('a group that bind with a post can not be delete'))
             self.updateUserGroup(None if item.post_id.id else item.post_id.id, None, item.id)
-            # 处理 存疑
         return super(LtyGroups, self).unlink()
 
     def _getGroupinheritor(self, gid, resultcontainer):
