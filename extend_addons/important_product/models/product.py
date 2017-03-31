@@ -56,6 +56,16 @@ class Product(models.Model):
                 code = p.inter_code
             p.default_code = parent_code + categ_code + code
 
+    @api.multi
+    def write(self, vals):
+        """
+        取消特殊管理的同时，也要取消特殊管理类别，
+        并删除特殊管理类别对应的清单。
+        :param vals:
+        :return:
+        """
+        pass
+
 class ProductCategory(models.Model):
     _inherit = 'product.category'
 

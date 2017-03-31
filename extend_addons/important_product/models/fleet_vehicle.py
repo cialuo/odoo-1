@@ -35,6 +35,17 @@ class Vehicle(models.Model):
             res.model_id._vehicle_update_component(res, update=False)
         return res
 
+    @api.multi
+    def write(self, vals):
+        """
+        车辆创建后，车型不能更改
+        :param vals:
+        :return:
+        """
+        if vals.get('model_id'):
+            raise exceptions.ValidationError(_('can not update model,you could add a new vehicle'))
+        return super(Vehicle, self).write(vals)
+
 class VehicleModel(models.Model):
     _inherit = 'fleet.vehicle.model'
 

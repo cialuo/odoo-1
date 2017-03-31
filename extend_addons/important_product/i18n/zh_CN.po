@@ -111,7 +111,7 @@ msgstr "所有库存作业的默认计量单位"
 #: model:ir.model.fields,field_description:important_product.field_vehicle_model_product_description
 #: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_form
 msgid "Description"
-msgstr "规程型号"
+msgstr "规格型号"
 
 #. module: important_product
 #: model:ir.model.fields,field_description:important_product.field_product_component_display_name
