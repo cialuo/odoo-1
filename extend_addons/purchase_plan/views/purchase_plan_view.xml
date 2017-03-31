@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--定义采购计划的Form-->
+        <record id="purchase_plan_form_view" model="ir.ui.view">
+            <field name="name">Purchase Plan Form</field>
+            <field name="model">purchase.plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Action Submit" name="action_submit" type="object" class="oe_highlight" states="draft"/>
+                        <button string="Action Confirm" name="action_confirm" type="object" class="oe_highlight"
+                                states="submit" groups="purchase_plan.purchase_plan_checker"/>
+                        <button string="Submit Cancel" name="action_submit_cancel" type="object" states="submit"/>
+                        <button string="Approve to Process" name="action_process" type="object" states="confirm"
+                                class="oe_highlight" groups="purchase_plan.purchase_plan_approver"/>
+                        <button string="Confirm Cancel" name="action_confirm_cancel" type="object" states="confirm"/>
+                        <button string="Run Procurement" type="object" name="action_run_procurement"
+                                attrs="{'invisible': ['|', ('is_run', '=', True), ('state', '&lt;&gt;', 'process')]}"
+                                groups="purchase_plan.purchase_plan_approver"
+                        />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,confirm,process,done" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label string="Purchase Plan"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group name="top">
+                            <group name="left">
+                                <field name="month"/>
+                                <field name="create_date" readonly="1"/>
+                                <field name="user_id"/>
+                                <field name="login_user" invisible="1"/>
+                                <field name="user_department" readonly="1"/>
+                                <field name="note"/>
+                            </group>
+                            <group name="right">
+                                <field name="sub_company"/>
+                                <field name="checker_id"/>
+                                <field name="check_date"/>
+                                <field name="approver_id"/>
+                                <field name="approve_date"/>
+                                <field name="is_run" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="plan_line" string="Plan Lines">
+                                <field name="line_ids">
+                                    <tree editable="top">
+                                        <field name="default_code"/>
+                                        <field name="product_id"/>
+                                        <field name="category" readonly="1"/>
+                                        <field name="barcode" readonly="1"/>
+                                        <field name="special_attribute" readonly="1"/>
+                                        <field name="onhand_qty"/>
+                                        <field name="virtual_available"/>
+                                        <field name="qty"/>
+                                        <field name="state"/>
+                                        <field name="procurement_id" readonly="1"/>
+                                        <field name="purchase_id" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <!--定义采购计划的Tree-->
+        <record id="purchase_plan_tree_form" model="ir.ui.view">
+            <field name="name">Purchase Plan Tree</field>
+            <field name="model">purchase.plan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="month"/>
+                    <field name="sub_company"/>
+                    <field name="user_department"/>
+                    <field name="user_id"/>
+                    <field name="create_date"/>
+                    <field name="checker_id"/>
+                    <field name="check_date"/>
+                    <field name="approver_id"/>
+                    <field name="approve_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <!--添加视图动作-->
+        <record id="action_purchase_plan" model="ir.actions.act_window">
+            <field name="name">Purchase Plan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.plan</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+        <!--添加菜单-->
+        <menuitem id="menu_purchase_plan" action="action_purchase_plan" sequence="15" parent="materials_manage.materials_menu_purchase"/>
+    </data>
+</odoo>

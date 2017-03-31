@@ -1,0 +1,824 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* fleet_manage_maintain
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-27 03:15+0000\n"
+"PO-Revision-Date: 2017-03-27 03:15+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+msgid "Again Dispatch"
+msgstr "Again Dispatch"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_repair_view_form
+msgid "AvailProducts"
+msgstr "AvailProducts"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_available_count
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_maintain_available_product_available_count
+msgid "Available Count"
+msgstr "Available Count"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_available_product_ids
+msgid "Available Product"
+msgstr "Available Product"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.report,state:0
+msgid "Back"
+msgstr "检验退回"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_inspect_view_form
+msgid "Back To Repair"
+msgstr "检验退回"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_maintain_inspect_confirm_view
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_maintain_inspect_return_view
+msgid "Cancel"
+msgstr "取消"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_delivery_view_form
+msgid "Comfirm Delivery"
+msgstr "确认交接"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_maintain_inspect_confirm_view
+msgid "Confirm Insepct"
+msgstr "检验通过"
+
+#. module: fleet_manage_maintain
+#: model:ir.actions.act_window,name:fleet_manage_maintain.fleet_manage_maintain_inspect_confirm
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_maintain_inspect_confirm_view
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_maintain_inspect_return_view
+msgid "Confirm Inspect"
+msgstr "检验通过"
+
+#. module: fleet_manage_maintain
+#: model:ir.actions.act_window,name:fleet_manage_maintain.fleet_manage_maintain_inspect_return
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_maintain_inspect_return_view
+msgid "Confirm Return"
+msgstr "Confirm Return"
+
+#. module: fleet_manage_maintain
+#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_maintain_inspect_return
+msgid "Confirm return"
+msgstr "Confirm return"
+
+#. module: fleet_manage_maintain
+#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_maintain_inspect_confirm
+msgid "Confirm the selected inspect"
+msgstr "Confirm the selected inspect"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_create_name
+msgid "Create Name"
+msgstr "填单人"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_confirm_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_create_date
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_create_date
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_confirm_create_date
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_default_avail_count
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_maintain_available_product_default_avail_count
+msgid "Default Available Count"
+msgstr "Default Available Count"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.delivery,state:0
+msgid "Delivery"
+msgstr "交接"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_name
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_delivery_name
+msgid "Delivery Bill"
+msgstr "交接单编号"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+msgid "Delivery Manage"
+msgstr "管理交接单"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_delivery_return_time
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_delivery_delivery_return_time
+msgid "Delivery Return Time"
+msgstr "交回时间"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_delivery_time
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_delivery_delivery_time
+msgid "Delivery Time"
+msgstr "交接时间"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_department
+msgid "Department"
+msgstr "填单人单位"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.repair,state:0
+#: selection:fleet_manage_fault.report,state:0
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_repair_view_form_action
+msgid "Dispatch"
+msgstr "派工"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_dispatch_count
+msgid "Dispatch Count"
+msgstr "待派工故障"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+msgid "Dispatch to Precheck"
+msgstr "退回检验"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_display_name
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_display_name
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_display_name
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_display_name
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_display_name
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_confirm_display_name
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.repair,state:0
+#: selection:fleet_manage_fault.report,state:0
+msgid "Done"
+msgstr "完成"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.delivery,state:0
+#: selection:fleet_manage_fault.repair,state:0
+#: selection:fleet_manage_fault.report,state:0
+msgid "Draft"
+msgstr "草稿"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_fault_appearance_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_fault_appearance_id
+msgid "Fault Appearance"
+msgstr "故障现象"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_fault_category_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_fault_category_id
+msgid "Fault Category"
+msgstr "故障分类"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_fault_method_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_fault_method_id
+msgid "Fault Method"
+msgstr "故障方法"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_fault_method_code
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_fault_method_code
+msgid "Fault Method Code"
+msgstr "维修方法编码"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_fault_reason_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_fault_reason_id
+msgid "Fault Reason"
+msgstr "故障原因"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_fleet
+msgid "Fleet"
+msgstr "Fleet"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+msgid "For dispatching fault"
+msgstr "待派工故障"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_confirm_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_id
+msgid "ID"
+msgstr "ID"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.repair,state:0
+#: selection:fleet_manage_fault.report,state:0
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_inspect_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_repair_view_form
+msgid "Inspect"
+msgstr "检验"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_inspect_view_form
+msgid "Inspect Complete"
+msgstr "检验通过"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+msgid "Inspect Manage"
+msgstr "Inspect Manage"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_inspect_result
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_inspect_result
+msgid "Inspect Result"
+msgstr "检验结论"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_inspect_standard
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_inspect_standard
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_inspect_view_form
+msgid "Inspect Standard"
+msgstr "检验标准"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_inspect_time
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_inspect_time
+msgid "Inspect Time"
+msgstr "报检时间"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_is_fault_vehicle
+msgid "Is Fault Vehicle"
+msgstr "是否故障车"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_name
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_name
+msgid "Job Name"
+msgstr "Job Name"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery___last_update
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair___last_update
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs___last_update
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report___last_update
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product___last_update
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_confirm___last_update
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_confirm_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_write_date
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_write_date
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_confirm_write_date
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_license_plate
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_license_plate
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_license_plate
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_delivery_license_plate
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_license_plate
+msgid "License Plate"
+msgstr "车牌"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_report_license_plate
+msgid "License plate number of the vehicle (i = plate number for a car)"
+msgstr "车牌"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_repair_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_repair_ids
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_report_view_form
+msgid "Maintain Repair"
+msgstr "维修故障"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_job_ids
+msgid "Maintain Repair Jobs"
+msgstr "工时管理"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_delivery_view_form
+msgid "MaintainDelivery Form"
+msgstr "MaintainDelivery Form"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_maintain_delivery_view_tree
+msgid "MaintainDelivery Tree"
+msgstr "MaintainDelivery Tree"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_inspect_view_form
+msgid "MaintainInspect Form"
+msgstr "MaintainInspect Form"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_maintain_inspect_view_tree
+msgid "MaintainInspect Tree"
+msgstr "MaintainInspect Tree"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+msgid "MaintainPrecheck Form"
+msgstr "MaintainPrecheck Form"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_repair_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_repair_view_form_action
+msgid "MaintainRepair Form"
+msgstr "MaintainRepair Form"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_repair_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_repair_view_form_action
+msgid "MaintainRepair Jobs"
+msgstr "工时管理"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_maintain_repair_view_tree
+msgid "MaintainRepair Tree"
+msgstr "MaintainRepair Tree"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_report_view_form
+msgid "MaintainReport Form"
+msgstr "MaintainReport Form"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_maintain_report_view_tree
+msgid "MaintainReport Tree"
+msgstr "MaintainReport Tree"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_maintain_precheck_view_tree
+msgid "MaintainReportPrecheck Tree"
+msgstr "MaintainReportPrecheck Tree"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_delivery_view_form
+msgid "Maintenance/Warranty"
+msgstr "Maintenance/Warranty"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_max_available_count
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_maintain_available_product_max_available_count
+msgid "Max Available Count"
+msgstr "Max Available Count"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_meet_vehicle_type
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_maintain_available_product_meet_vehicle_type
+msgid "Meet Vehicle Type"
+msgstr "Meet Vehicle Type"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_vehicle_type
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_vehicle_type
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_vehicle_type
+msgid "Model"
+msgstr "车型"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_delivery_vehicle_type
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_vehicle_type
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_report_vehicle_type
+msgid "Model of the vehicle"
+msgstr "车型"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_report_view_form
+msgid "More Information"
+msgstr "更多信息"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_my_work
+msgid "My work"
+msgstr "我的工时"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_operation_manual
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_operation_manual
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_repair_view_form
+msgid "Operation Manual"
+msgstr "作业手册"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_delivery_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_inspect_view_form
+msgid "Other Information"
+msgstr "其他信息"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_percentage_work
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_percentage_work
+msgid "Percentage work"
+msgstr "工时比例"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_plan_end_time
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_plan_end_time
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_plan_end_time
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_plan_end_time
+msgid "Plan End Time"
+msgstr "计划结束时间"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_plan_start_time
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_plan_start_time
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_plan_start_time
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_plan_start_time
+msgid "Plan Start Time"
+msgstr "计划开始时间"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_post_old_get_new
+msgid "Post Old Get New"
+msgstr "Post Old Get New"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.repair,state:0
+#: selection:fleet_manage_fault.report,state:0
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_report_view_form
+msgid "Precheck"
+msgstr "预检"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+msgid "Precheck Back"
+msgstr "检验退回"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+msgid "Precheck Success And Create The Delivery"
+msgstr "预检通过并创建交接单"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_product_id
+msgid "Product"
+msgstr "Product"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_product_code
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_maintain_available_product_product_code
+msgid "Product Code"
+msgstr "Product Code"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_product_name
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_maintain_available_product_product_name
+msgid "Product Name"
+msgstr "Product Name"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_real_end_time
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_real_end_time
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_real_end_time
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_real_end_time
+msgid "Real End Time"
+msgstr "实际完工时间"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_real_start_time
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_real_start_time
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_real_start_time
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_real_start_time
+msgid "Real Start Time"
+msgstr "实际开工时间"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_real_work
+msgid "Real work"
+msgstr "实际工时"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_remark
+msgid "Remark"
+msgstr "备注"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.repair,state:0
+#: selection:fleet_manage_fault.report,state:0
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_repair_id
+msgid "Repair"
+msgstr "维修"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_name
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_name
+msgid "Repair Bill"
+msgstr "维修单"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_repair_category
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_repair_category
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_repair_category
+msgid "Repair Category"
+msgstr "维修类别"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_partner_id
+msgid "Repair Company"
+msgstr "Repair Company"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+msgid "Repair Complete"
+msgstr "Repair Complete"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_repair_level
+msgid "Repair Level"
+msgstr "维修等级"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_user_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_user_id
+msgid "Repair Name"
+msgstr "维修人员"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_repair_names
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_repair_names
+msgid "Repair Names"
+msgstr "维修人员"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_repair_plant
+msgid "Repair Plant"
+msgstr "维修车间"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_repair_type
+msgid "Repair Type"
+msgstr "维修类型"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_name
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_report_name
+msgid "Report Bill"
+msgstr "报修单号"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_report_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_report_id
+msgid "Report Code"
+msgstr "报修单号"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_report_date
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_report_report_date
+msgid "Report Date"
+msgstr "报修日期"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_report_user_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_report_user_id
+msgid "Report Name"
+msgstr "报修人"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_precheck_view_form
+msgid "Reset to draft"
+msgstr "设为草稿"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.delivery,state:0
+msgid "Return"
+msgstr "确认交回"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_return_reason
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_return_reason
+msgid "Return Reason"
+msgstr "退检原因"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_rework_count
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_rework_count
+msgid "Rework Count"
+msgstr "返工"
+
+#. module: fleet_manage_maintain
+#: code:addons/fleet_manage_maintain/wizard/fleet_manage_inspect.py:21
+#: code:addons/fleet_manage_maintain/wizard/fleet_manage_inspect.py:45
+#, python-format
+msgid "Selected inspect(s) cannot be confirmed as they are not in 'inspect' state."
+msgstr "选择检验单中存在不是待检状态的记录"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_sequence
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_sequence
+msgid "Sequence"
+msgstr "序号"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_repair_view_form
+msgid "Start Repair"
+msgstr "开工"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_state
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_state
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_state
+msgid "State"
+msgstr "状态"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_stock_count
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_maintain_available_product_stock_count
+msgid "Stock Count"
+msgstr "Stock Count"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_delivery_vehicle_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_vehicle_id
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_report_vehicle_id
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_delivery_vehicle_id
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_vehicle_id
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_report_vehicle_id
+msgid "Vehicle No"
+msgstr "车号"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_work_time
+msgid "Work Time(Minutes)"
+msgstr "工时定额(分钟)"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_work_time
+msgid "Work time"
+msgstr "Work time"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.repair,repair_type:0
+msgid "assembly_repair"
+msgstr "assembly_repair"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_delivery_view_form
+msgid "delivery to Return"
+msgstr "delivery to Return"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.menu,name:fleet_manage_maintain.fleet_manage_maintain_delivery_bill
+msgid "delivery_bill"
+msgstr "交接单"
+
+#. module: fleet_manage_maintain
+#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_fault_delivery
+msgid "fleet_manage_fault.delivery"
+msgstr "交接单"
+
+#. module: fleet_manage_maintain
+#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_fault_repair
+msgid "fleet_manage_fault.repair"
+msgstr "维修单"
+
+#. module: fleet_manage_maintain
+#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_fault_repair_jobs
+msgid "fleet_manage_fault.repair_jobs"
+msgstr "fleet_manage_fault.repair_jobs"
+
+#. module: fleet_manage_maintain
+#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_fault_report
+msgid "fleet_manage_fault.report"
+msgstr "报检单"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.menu,name:fleet_manage_maintain.fleet_manage_maintain
+msgid "fleet_manage_maintain"
+msgstr "车辆维修管理"
+
+#. module: fleet_manage_maintain
+#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_maintain_available_product
+msgid "fleet_manage_maintain.available_product"
+msgstr "fleet_manage_maintain.available_product"
+
+#. module: fleet_manage_maintain
+#: model:ir.actions.act_window,name:fleet_manage_maintain.fleet_manage_maintain_delivery_action
+msgid "fleet_manage_maintain_delivery_action"
+msgstr "交接单"
+
+#. module: fleet_manage_maintain
+#: model:ir.actions.act_window,name:fleet_manage_maintain.fleet_manage_maintain_inspect_action
+msgid "fleet_manage_maintain_inspect_action"
+msgstr "检查单"
+
+#. module: fleet_manage_maintain
+#: model:ir.actions.act_window,name:fleet_manage_maintain.fleet_manage_maintain_precheck_action
+msgid "fleet_manage_maintain_precheck_action"
+msgstr "预检单"
+
+#. module: fleet_manage_maintain
+#: model:ir.actions.act_window,name:fleet_manage_maintain.fleet_manage_maintain_repair_action
+msgid "fleet_manage_maintain_repair_action"
+msgstr "维修单"
+
+#. module: fleet_manage_maintain
+#: model:ir.actions.act_window,name:fleet_manage_maintain.fleet_manage_maintain_report_action
+msgid "fleet_manage_maintain_report_action"
+msgstr "报检单"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.menu,name:fleet_manage_maintain.fleet_manage_maintain_inspect_bill
+msgid "inspect_bill"
+msgstr "检查单"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_my_work
+msgid "my_work"
+msgstr "我的工时"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_percentage_work
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_percentage_work
+msgid "percentage_work"
+msgstr "工时比例"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.menu,name:fleet_manage_maintain.fleet_manage_maintain_precheck_bill
+msgid "precheck_bill"
+msgstr "预检单"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_real_work
+msgid "real_work"
+msgstr "实际工时"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.report,repair_category:0
+msgid "repair"
+msgstr "维修"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.menu,name:fleet_manage_maintain.fleet_manage_maintain_repair_bill
+msgid "repair_bill"
+msgstr "维修单"
+
+#. module: fleet_manage_maintain
+#: model:ir.ui.menu,name:fleet_manage_maintain.fleet_manage_maintain_report_bill
+msgid "report_bill"
+msgstr "报检单"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.report,repair_category:0
+msgid "return"
+msgstr "返修"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.report,repair_category:0
+msgid "rush"
+msgstr "抢修"
+
+#. module: fleet_manage_maintain
+#: selection:fleet_manage_fault.repair,repair_type:0
+msgid "vehicle_repair"
+msgstr "随车修理"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_fault_repair_jobs_work_time
+msgid "work_time"
+msgstr "work_time"
+

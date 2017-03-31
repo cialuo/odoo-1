@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--主菜单-->
+        <menuitem id="materials_menu_root" name="materials_menu" sequence="10"/>
+        <!--一级菜单-->
+
+        <!--采购管理 -->
+        <menuitem id="materials_menu_purchase" name="purchase_menu" sequence="10" parent="materials_menu_root"/>
+        <!--仓储管理 -->
+        <menuitem id="materials_menu_stock" name="stock_menu" sequence="20" parent="materials_menu_root"/>
+        <!--领用管理 -->
+        <menuitem id="materials_menu_pick" name="pick_menu" sequence="30" parent="materials_menu_root"/>
+        <!--燃料管理 -->
+        <menuitem id="materials_menu_fuel" name="fuel_menu" sequence="40" parent="materials_menu_root"/>
+        <!--核算分析 -->
+        <menuitem id="materials_menu_analysis" name="analysis_menu" sequence="50" parent="materials_menu_root"/>
+        <!--基础资料 -->
+        <menuitem id="materials_menu_config" name="config_menu" sequence="60" parent="materials_menu_root"/>
+        <!--供应商管理-->
+        <menuitem id="materials_menu_purchase_vendor"
+                  name="purchase_vendor_menu"
+                  sequence="10"
+                  parent="materials_menu_purchase"
+                  action="base.action_partner_supplier_form"
+        />
+        <!--询价管理-->
+        <menuitem id="materials_menu_purchase_rfq"
+                  name="purchase_rfq_menu"
+                  sequence="20"
+                  parent="materials_menu_purchase"
+                  action="purchase.purchase_rfq"
+        />
+        <!--采购管理-->
+        <menuitem id="materials_menu_purchase_order"
+                  name="purchase_order_menu"
+                  sequence="30"
+                  parent="materials_menu_purchase"
+                  action="purchase.purchase_form_action"
+        />
+        <!--采购入库-->
+        <!--定义打开采购入库的动作-->
+        <record id="extend_stock_picking_type_action" model="ir.actions.act_window">
+            <field name="name">Extend picking type action</field>
+            <field name="res_model">stock.picking.type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_form">form</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="context">{'search_default_name': '收货'}</field>
+        </record>
+        <!--采购入库菜单-->
+        <menuitem id="materials_menu_purchase_pick"
+                  name="purchase_pick_menu"
+                  sequence="40"
+                  parent="materials_menu_purchase"
+                  action="extend_stock_picking_type_action"
+        />
+        <!--补货管理-->
+        <menuitem id="materials_menu_reorder" name="reorder_menu" sequence="10" parent="materials_menu_stock"/>
+        <!--补货规则-->
+        <menuitem id="materials_menu_reorder_rules"
+                  name="reorder_rules_menu"
+                  sequence="10"
+                  parent="materials_menu_reorder"
+                  action="stock.action_orderpoint_form"
+        />
+        <!--运行规则（调用系统模块stock的运行补货规则）-->
+        <menuitem id="materials_menu_run_reorder_rules"
+                  name="run_reorder_rules_menu"
+                  sequence="20"
+                  parent="materials_menu_reorder"
+                  action="stock.action_procurement_compute"
+        />
+        <!--运行调拨(调用系统模块procurement的安排计划)-->
+        <menuitem id="materials_menu_run_procurement"
+                  name="run_procurement_menu"
+                  sequence="30"
+                  parent="materials_menu_reorder"
+                  action="procurement.action_compute_schedulers"
+        />
+        <!--仓储管理-->
+        <menuitem id="materials_menu_location" name="Location Menu" sequence="20" parent="materials_menu_stock"/>
+        <!--仓库-->
+        <menuitem id="materials_menu_warehouse"
+                  name="WareHouse Menu"
+                  sequence="10"
+                  action="stock.action_warehouse_form"
+                  parent="materials_menu_location"
+        />
+        <!--库位-->
+        <menuitem id="materials_menu_sublocation"
+                  name="Sub Location Menu"
+                  sequence="20"
+                  action="stock.action_location_form"
+                  parent="materials_menu_location"
+        />
+    </data>
+</odoo>
