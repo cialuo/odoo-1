@@ -10,14 +10,45 @@
                 <xpath expr="//notebook" position="inside">
                     <page name="important_product" string="Important Product">
                         <field name="component_ids">
-                            <tree>
+                            <tree editable="top" create="false">
                                 <field name="code"/>
+                                <field name="product_id" readonly="1"/>
+                                <field name="odometer" readonly="1"/>
+                                <field name="state" readonly="1"/>
+                                <field name="location_id" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                                <field name="checkout_date" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <!--车型管理增加要件列表及更新要件按钮-->
+        <record id="fleet_vehicle_model_view_form_ext" model="ir.ui.view">
+            <field name="name">Fleet model extend</field>
+            <field name="model">fleet.vehicle.model</field>
+            <field name="inherit_id" ref="fleet_manage_vehicle.fleet_vehicle_model_view_form_ext"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='manufacturers']" position="after">
+                    <field name="control_import"/>
+                </xpath>
+                <xpath expr="//field[@name='image_medium']" position="before">
+                    <header attrs="{'invisible': [('control_import', '=', False)]}">
+                        <button name="update_product_list" type="object" class="oe_highlight" string="Update Product"/>
+                    </header>
+                </xpath>
+                <xpath expr="//notebook/page[1]" position="before">
+                    <page string="Product List" name="product_list" attrs="{'invisible': [('control_import', '=', False)]}">
+                        <field name="product_lines">
+                            <tree decoration-danger="is_update == True" editable="bottom">
+                                <field name="default_code"/>
                                 <field name="product_id"/>
-                                <field name="odometer"/>
-                                <field name="state"/>
-                                <field name="location_id"/>
-                                <field name="create_date"/>
-                                <field name="checkout_date"/>
+                                <field name="description"/>
+                                <field name="uom_id"/>
+                                <field name="qty"/>
+                                <field name="note"/>
+                                <field name="is_update" invisible="1"/>
                             </tree>
                         </field>
                     </page>

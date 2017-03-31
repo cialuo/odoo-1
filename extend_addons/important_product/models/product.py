@@ -17,7 +17,7 @@ class Product(models.Model):
     vehicle_model = fields.Many2many('fleet.vehicle.model', 'product_vehicle_model_rec',
                                      id1='product_product_id', id2='vehicle_model_id', string='Suitable Vehicle')
     require_trans = fields.Boolean(string='Old for new', default=False)
-    lifetime = fields.Char(string='Lifetime')
+    lifetime = fields.Float(string='Lifetime odomter')
     odometer = fields.Float(string='Odometer')
     is_important = fields.Boolean(string='Important', default=False)
     important_type = fields.Selection([('equipment', 'Equipment'), ('component', 'Component'), ('energy', 'Energy')],
@@ -85,13 +85,14 @@ class TechInfo(models.Model):
 
 class Component(models.Model):
     _name = 'product.component'
+    _order = 'id desc'
 
     """
     重要部件清单信息
     """
 
     product_id = fields.Many2one('product.product', string='Product')
-    code = fields.Char(string='Component Code')
+    code = fields.Char(string='Component Code', default='/')
     odometer = fields.Float(string='Odometer')
     location_id =fields.Many2one('stock.location', string='Location')
     state = fields.Selection([('avaliable', 'Avaliable'), ('waiting_repare', 'Waiting Repare'),
@@ -101,18 +102,32 @@ class Component(models.Model):
     move_ids = fields.One2many('stock.move', 'component_id', string='Move lines')
     parent_vehicle = fields.Many2one('fleet.vehicle', string='Vehicle', ondelete='cascade')
 
-    @api.onchange('parent_vehicle')
-    def onchange_location_id(self):
+    _sql_constraints = [('code_uniq', 'unique (code)', "Code already exists")]
+
+    @api.model
+    def create(self, vals):
         """
-        根据选择的车辆，自动修改物理位置。
-        默认位置为： virtual/（车牌号）
+        自动生成部件编号
+        :param vals:
         :return:
         """
-        if self.parent_vehicle:
-            # inverntory 类型为虚拟库位
-            location = self.parent_vehicle.mapped('location_id').filtered(lambda x: x.usage == 'inventory')
-            if location:
-                self.location_id = location
+        if vals.get('code', '/') == '/':
+            vals['code'] = self.env['ir.sequence'].next_by_code('product_component')
+        res = super(Component, self).create(vals)
+        return res
+
+    # @api.onchange('parent_vehicle')
+    # def onchange_location_id(self):
+    #     """
+    #     根据选择的车辆，自动修改物理位置。
+    #     默认位置为： virtual/（车牌号）
+    #     :return:
+    #     """
+    #     if self.parent_vehicle:
+    #         # inverntory 类型为虚拟库位
+    #         location = self.parent_vehicle.mapped('location_id').filtered(lambda x: x.usage == 'inventory')
+    #         if location:
+    #             self.location_id = location
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
