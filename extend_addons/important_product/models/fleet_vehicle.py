@@ -7,6 +7,33 @@ class Vehicle(models.Model):
     _inherit = 'fleet.vehicle'
 
     component_ids = fields.One2many('product.component', 'parent_vehicle', string='Component')
+    location_id = fields.Many2one('stock.location', string='V Location')
+    location_stock_id = fields.Many2one('stock.location', string='Stock Location')
+
+    @api.model
+    def create(self, vals):
+        """
+        创建车辆时，同时为车辆创建两个库位-- 虚拟库位/（车牌号）， 库存/（车牌号）
+        :param vals:
+        :return:
+        """
+        res = super(Vehicle, self).create(vals)
+        name = res.license_plate
+        virtual_parent = self.env.ref('stock.stock_location_locations_virtual', raise_if_not_found=False)
+        stock_vals = self.env['stock.location'].create({
+            'location_id': self.env.ref('stock.stock_location_stock').id,
+            'name': name,
+            'usage': 'internal',
+        })
+        virtual_vals = self.env['stock.location'].create({
+            'location_id': virtual_parent.id,
+            'name': name,
+            'usage': 'inventory'
+        })
+        res.write({'location_id': virtual_vals.id, 'location_stock_id': stock_vals.id})
+        if res.model_id.control_import and res.model_id.product_lines:
+            res.model_id._vehicle_update_component(res, update=False)
+        return res
 
 class VehicleModel(models.Model):
     _inherit = 'fleet.vehicle.model'
@@ -17,6 +44,22 @@ class VehicleModel(models.Model):
 
     control_import = fields.Boolean(string='Control', default=False)
     product_lines = fields.One2many('vehicle.model.product', 'model_id', string='Product Line')
+
+    def _vehicle_move(self, vehicle, product, qty, move_in=True):
+        move_vals = {
+            'name': 'INIT' + vehicle.display_name,
+            'product_id': product.id,
+            'product_uom_qty': qty,
+            'product_uom': product.uom_id.id,
+        }
+        if move_in:
+            move_vals['location_id'] = vehicle.location_id.id
+            move_vals['location_dest_id'] = vehicle.location_stock_id.id
+        else:
+            move_vals['location_id'] = vehicle.location_stock_id.id
+            move_vals['location_dest_id'] = vehicle.location_id.id
+        moves = self.env['stock.move'].create(move_vals)
+        moves.action_done()
 
     def _vehicle_update_component(self, vehicles, update=True):
         """
@@ -37,7 +80,7 @@ class VehicleModel(models.Model):
                 added_qty = len(vehicles[0].mapped('component_ids').filtered(lambda x: x.product_id == l.product_id))
                 lines = l.qty - added_qty
             # if abs(lines) > 5:
-            # 作为预留方案：如果执行过慢，后期根据数量修改
+            # 作为预留方案：如果执行过慢，后期控制每次修改数量的上限
             #     raise exceptions.ValidationError(_(''))
             if lines > 0:
                 # 数量增加，则增加部件清单
@@ -47,10 +90,23 @@ class VehicleModel(models.Model):
                             'product_id': l.product_id.id,
                             'parent_vehicle': v.id,
                         })
+                    #创建重要部件清，同时需要做对于的库存移动
+                    self._vehicle_move(v, l.product_id, lines)
+                    # move_vals = {
+                    #     'name': 'INIT' + v.display_name,
+                    #     'product_id': l.product_id.id,
+                    #     'product_uom_qty': lines,
+                    #     'product_uom': l.product_id.uom_id.id,
+                    #     'location_id': v.location_id.id,
+                    #     'location_dest_id': v.location_stock_id.id,
+                    # }
+                    # moves = self.env['stock.move'].create(move_vals)
+                    # moves.action_done()
             else:
                 # 数量减少，则所有车辆对应的部件减少相应的部件清单（最近更新的清单）
                 for v in vehicles:
                     all_component = v.mapped('component_ids').filtered(lambda x: x.product_id == l.product_id)
+                    self._vehicle_move(v, l.product_id, lines, move_in=False)
                     all_component[:abs(lines)].unlink()
 
 

@@ -128,7 +128,3 @@ class Component(models.Model):
     #         location = self.parent_vehicle.mapped('location_id').filtered(lambda x: x.usage == 'inventory')
     #         if location:
     #             self.location_id = location
-class StockMove(models.Model):
-    _inherit = 'stock.move'
-
-    component_id = fields.Many2one('product.component', string='Product Component')

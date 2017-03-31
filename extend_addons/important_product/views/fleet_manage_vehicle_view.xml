@@ -22,6 +22,15 @@
                         </field>
                     </page>
                 </xpath>
+                <xpath expr="//notebook/page[1]" position="inside">
+                    <separator string="Location Info"/>
+                    <group name="top">
+                        <group name="top-left">
+                            <field name="location_id" readonly="1"/>
+                            <field name="location_stock_id" readonly="1"/>
+                        </group>
+                    </group>
+                </xpath>
             </field>
         </record>
         <!--车型管理增加要件列表及更新要件按钮-->
