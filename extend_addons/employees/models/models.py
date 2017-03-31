@@ -416,6 +416,11 @@ class LtyGroups(models.Model):
             if item.isrole or item.post_id.id != False :
                 # 如果一个群组是一个角色 或者 已经绑定到岗位 那么该group不能被删除
                 raise ValidationError(_('a group that bind with a post can not be delete'))
+            inheritors = set()
+            self._getGroupinheritor(item.id, inheritors)
+            if len(inheritors) > 0:
+                #如果该组被其他组继承 那么该组不能被删除
+                raise ValidationError(_('groups are inherited by other groups, can not be delete!'))
             self.updateUserGroup(None if item.post_id.id else item.post_id.id, None, item.id)
         return super(LtyGroups, self).unlink()
 
