@@ -339,34 +339,39 @@ class LtyGroups(models.Model):
         """
         重载write方法
         """
-        res = super(LtyGroups, self).write(vals)
         isrole_new = vals.get('isrole', None)
         post_id_new = vals.get('post_id', None)
         for item in self:
             if isrole_new != item.isrole and isrole_new == False and isrole_new != None:
                 #取消群组的角色勾选框
-                if item.post_id != None:
+                if item.post_id.id != False:
                     #如果之前指定了岗位 则将岗位下所有的人的权限去掉 同时将postid置空
-                    vals['post_id'] = None
                     self.updateUserGroup(None if item.post_id.id == False else item.post_id.id, None, item.id)
+                    vals['post_id'] = None
 
             if isrole_new != item.isrole and isrole_new == True and isrole_new != None:
                 #将角色勾选框选中
                 if post_id_new != None:
                     #如果指定了岗位id 则更新岗位下的用户权限
                     self.updateUserGroup(None if item.post_id.id == False else item.post_id.id, post_id_new, item.id)
-            if post_id_new != self.post_id and self.isrole == True and post_id_new != None:
+            if post_id_new != self.post_id.id and self.isrole == True and post_id_new != None:
                 # 如果角色勾选框没有修改 并且 岗位id值出现变化 并且 isrole值原本就是true
                 # 则修改对应的岗位员工的权限值
                 self.updateUserGroup(None if item.post_id.id == False else item.post_id.id, post_id_new, item.id)
 
+            
+        res = super(LtyGroups, self).write(vals)
+
+        for item in self:
             if vals.get('implied_ids'):
                 # 修改了继承关系 要重建所有的继承了该group的岗位权限
                 gid = item.id
                 inheritors = set()
                 self._getGroupinheritor(gid, inheritors)
+                inheritors.add(gid)
                 for groupid in inheritors:
                     self._rebuildGroupUser(groupid)
+
         return res
 
     def updateUserGroup(self, old, new, groupid):
@@ -383,7 +388,7 @@ class LtyGroups(models.Model):
             users = usermode.search([('workpost', '=', old)])
             for item in users:
                 if item.user_id.id != False:
-                    usermode.deleteUserGroup(item.user_id.id)
+                    deleteUserGroup(usermode, item.user_id.id)
 
         if new != None:
             # 给新岗位下的用户添加权限
@@ -411,6 +416,9 @@ class LtyGroups(models.Model):
     def unlink(self):
         # 重载删除方法 
         for item in self:
+            if item.isrole or item.post_id.id != False :
+                # 如果一个群组是一个角色 或者 已经绑定到岗位 那么该group不能被删除
+                raise ValidationError(_('a group that bind with a post can not be delete'))
             self.updateUserGroup(None if item.post_id.id else item.post_id.id, None, item.id)
             # 处理 存疑
         return super(LtyGroups, self).unlink()
@@ -425,7 +433,6 @@ class LtyGroups(models.Model):
         if groupinfo.id == False:
             return
         inheritors = groupinfo.implied_ids_r 
-        #  print inheritors, gid, '!!!!!!!!!!!!!'
         for item in inheritors:
             if item.id not in resultcontainer:
                 # 如果之前没有遍历到才继续递归 **防止循环继承导致无限递归**
@@ -445,9 +452,9 @@ class LtyGroups(models.Model):
         employeemode = self.env['hr.employee']
         postid = groupinfo.post_id.id
         employeelist = employeemode.search([('workpost', '=', postid)])
-        for item in employeeList:
+        for item in employeelist:
             if item.user_id.id != False:
                 # 先删除用户的组 然后在重新添加用户的组
                 deleteUserGroup(self, item.user_id.id)
-                item.user_id.write({'groups_id':[(3, groupid, 0)]})
+                item.user_id.write({'groups_id':[(4, groupid, 0)]})
  
