@@ -205,7 +205,7 @@ class FaultMethod(models.Model):
     inspect_standard = fields.Text("Inspect Standard", help="Inspect Standard")
 
     # important_product = fields.Many2one('product.product',string="Important Product", domain=[('import_product', '=', True)])
-    important_product_id = fields.Many2one('product.product', string="Important Product")
+    important_product_id = fields.Many2one('product.component', string="Important Product")
 
     reason_id = fields.Many2one('fleet_manage_fault.reason',
         ondelete='cascade', string="Fault reason Name",required=True)

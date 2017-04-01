@@ -9,7 +9,7 @@ class FleetMaintainReport(models.Model):
     车辆维修管理：报修单
     """
     _inherit = 'mail.thread'
-    _name = 'fleet_manage_fault.report'
+    _name = 'fleet_manage_maintain.report'
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -45,7 +45,7 @@ class FleetMaintainReport(models.Model):
                             ('repair', "Repair"),
                             ('inspect', "Inspect"),
                             ('done', "Done")], default='draft')
-    repair_ids = fields.One2many("fleet_manage_fault.repair", 'report_id', string='Maintain Repair')
+    repair_ids = fields.One2many("fleet_manage_maintain.repair", 'report_id', string='Maintain Repair')
 
     partner_id = fields.Many2one('res.partner', string="Repair Company")
     fleet = fields.Char(string="Fleet")
@@ -57,7 +57,7 @@ class FleetMaintainReport(models.Model):
         """
         功能：计算待派工的维修单
         """
-        repair = self.env['fleet_manage_fault.repair'].search([("report_id", '=', self.id), ('state', '=', 'dispatch')])
+        repair = self.env['fleet_manage_maintain.repair'].search([("report_id", '=', self.id), ('state', '=', 'dispatch')])
         self.dispatch_count = len(repair)
 
     @api.multi
@@ -84,7 +84,7 @@ class FleetMaintainReport(models.Model):
             功能：自动生成订单号：前缀BXD+序号
         """
         if data.get('name', 'New') == 'New':
-            data['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_fault.report') or '/'
+            data['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_maintain.report') or '/'
         report = super(FleetMaintainReport, self.with_context(mail_create_nolog=True)).create(data)
         report.message_post(body=_('%s has been added to the report!') % (report.name,))
         return report
@@ -144,9 +144,9 @@ class FleetMaintainReport(models.Model):
             "report_id": self.id,
             # "fault_appearance_id": self.partner_id.id,
         }
-        deliverys = self.env['fleet_manage_fault.delivery'].search([("report_id", '=', self.id)])
+        deliverys = self.env['fleet_manage_maintain.delivery'].search([("report_id", '=', self.id)])
         if not deliverys:
-            self.env['fleet_manage_fault.delivery'].create(vals)
+            self.env['fleet_manage_maintain.delivery'].create(vals)
 
     @api.multi
     def delivery_manage(self):
@@ -155,7 +155,7 @@ class FleetMaintainReport(models.Model):
             功能：跳转到交接单
         """
         self.ensure_one()
-        deliverys = self.env['fleet_manage_fault.delivery'].search([("report_id",'=',self.id)])
+        deliverys = self.env['fleet_manage_maintain.delivery'].search([("report_id",'=',self.id)])
         action = self.env.ref('fleet_manage_maintain.fleet_manage_maintain_delivery_action').read()[0]
         action['res_id'] = deliverys.id
         action['views'] = [(self.env.ref('fleet_manage_maintain.fleet_manage_delivery_view_form').id, 'form')]
@@ -167,11 +167,11 @@ class FleetMaintainRepair(models.Model):
     车辆维修管理：维修单
     """
     _inherit = 'mail.thread'
-    _name = 'fleet_manage_fault.repair'
+    _name = 'fleet_manage_maintain.repair'
 
     name = fields.Char(string="Repair Bill", help='Repair Bill', required=True, index=True,
                        copy=False, default='New', readonly=True)
-    report_id = fields.Many2one("fleet_manage_fault.report",ondelete='cascade',
+    report_id = fields.Many2one("fleet_manage_maintain.report",ondelete='cascade',
                                 string="Report Code", required=True)
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
                                  related='report_id.vehicle_id', store=True, readonly=True, copy=False)
@@ -211,7 +211,7 @@ class FleetMaintainRepair(models.Model):
         ('inspect', "Inspect"),
         ('done', "Done")], default='draft', readonly=True)
 
-    job_ids = fields.One2many("fleet_manage_fault.repair_jobs", 'repair_id',
+    job_ids = fields.One2many("fleet_manage_maintain.repair_jobs", 'repair_id',
                               string='Maintain Repair Jobs')
 
     percentage_work = fields.Float(help='percentage_work', default=0.0, digits=(2, 1))
@@ -227,7 +227,7 @@ class FleetMaintainRepair(models.Model):
                                    default='vehicle_repair', string="Repair Type")
 
     is_important_product = fields.Boolean("Is Important Product")
-    important_product_id = fields.Many2one('product.product', string="Important Product")
+    important_product_id = fields.Many2one('product.component', string="Important Product")
 
     @api.depends('plan_start_time', 'work_time')
     def _get_end_datetime(self):
@@ -305,7 +305,7 @@ class FleetMaintainRepair(models.Model):
             自动生成订单号：前缀WXD+序号
         """
         if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_fault.repair') or '/'
+            vals['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_maintain.repair') or '/'
         return super(FleetMaintainRepair, self).create(vals)
 
     @api.multi
@@ -416,10 +416,10 @@ class FleetMaintainRepairJobs(models.Model):
     """
     车辆维修管理：维修单工时管理
     """
-    _name = 'fleet_manage_fault.repair_jobs'
+    _name = 'fleet_manage_maintain.repair_jobs'
     name = fields.Char("Job Name", help="Job Name")
     sequence = fields.Integer("Sequence", help="Sequence")
-    repair_id = fields.Many2one("fleet_manage_fault.repair", ondelete='cascade',
+    repair_id = fields.Many2one("fleet_manage_maintain.repair", ondelete='cascade',
                                 string="Maintain Repair")
     fault_category_id = fields.Many2one("fleet_manage_fault.category", ondelete='set null',
                                         string="Fault Category")
@@ -462,11 +462,11 @@ class FleetMaintainDelivery(models.Model):
     车辆维修管理：交接单
     """
     _inherit = 'mail.thread'
-    _name = 'fleet_manage_fault.delivery'
+    _name = 'fleet_manage_maintain.delivery'
 
     name = fields.Char(string="Delivery Bill", help='Delivery Bill', required=True, index=True,
                        copy=False, default='New')
-    report_id = fields.Many2one("fleet_manage_fault.report", ondelete='cascade', string="Report Code")
+    report_id = fields.Many2one("fleet_manage_maintain.report", ondelete='cascade', string="Report Code")
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
                                  related='report_id.vehicle_id', store=True, readonly=True, copy=False)
     vehicle_type = fields.Many2one("fleet.vehicle.model", related='report_id.vehicle_id.model_id',
@@ -488,7 +488,7 @@ class FleetMaintainDelivery(models.Model):
     @api.model
     def create(self,vals):
         if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_fault.delivery') or '/'
+            vals['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_maintain.delivery') or '/'
         return super(FleetMaintainDelivery, self).create(vals)
 
     @api.multi
@@ -507,7 +507,7 @@ class FleetMaintainInspect(models.Model):
     车辆维修管理：检验单
     """
     # _name = 'fleet_manage_maintain.maintain_inspect'
-    _inherit = 'fleet_manage_fault.repair'
+    _inherit = 'fleet_manage_maintain.repair'
 
     #name = fields.Char("Inspect Bill", help="Inspect Bill")
     inspect_result = fields.Selection([('qualified','Qualified'),('defective','Defective')],
@@ -515,12 +515,12 @@ class FleetMaintainInspect(models.Model):
 
     start_inspect_time = fields.Datetime("Start Inspect Time", help="Start Inspect Time")
     end_inspect_time = fields.Datetime("End Inspect Time", help="End Inspect Time")
-    return_record_ids = fields.One2many("fleet_manage_fault.return_record", 'repair_id', string='Maintain Repair')
+    return_record_ids = fields.One2many("fleet_manage_maintain.return_record", 'repair_id', string='Maintain Repair')
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
         return emp_ids and emp_ids[0] or False
-    inspect_user_id = fields.Many2one('hr.employee', string="Inpect Name", default=_default_employee, required=True)
+    inspect_user_id = fields.Many2one('hr.employee', string="Inspect Name", default=_default_employee, required=True)
     rework_count = fields.Integer("Rework Count", help="Rework Count",compute="_get_rework_count")
 
     def _get_rework_count(self):
@@ -578,10 +578,10 @@ class FleetMaintainReturnRecord(models.Model):
     """
     退检记录
     """
-    _name = 'fleet_manage_fault.return_record'
-    repair_id = fields.Many2one('fleet_manage_fault.repair', string="Repair Bill",
+    _name = 'fleet_manage_maintain.return_record'
+    repair_id = fields.Many2one('fleet_manage_maintain.repair', string="Repair Bill",
                                 required=True, readonly=True)
-    inspect_user_id = fields.Many2one('hr.employee', related='repair_id.inspect_user_id', string="Inpect Name",
+    inspect_user_id = fields.Many2one('hr.employee', related='repair_id.inspect_user_id', string="Inspect Name",
                                       required=True, readonly=True)
     repair_names = fields.Char(string='Repair Names',related='repair_id.repair_names', help="Repair Names")
     fault_method_id = fields.Many2one("fleet_manage_fault.method", related='repair_id.fault_method_id',

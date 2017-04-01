@@ -18,7 +18,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['product', 'hr', 'stock','fleet_manage_menu'],
+    'depends': ['product', 'hr', 'stock','fleet_manage_menu','important_product'],
 
     # always loaded
     'data': [

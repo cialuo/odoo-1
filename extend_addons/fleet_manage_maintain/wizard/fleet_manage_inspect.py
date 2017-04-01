@@ -16,7 +16,7 @@ from odoo.exceptions import UserError
 #         context = dict(self._context or {})
 #         active_ids = context.get('active_ids', []) or []
 #
-#         for record in self.env['fleet_manage_fault.repair'].browse(active_ids):
+#         for record in self.env['fleet_manage_maintain.repair'].browse(active_ids):
 #             if record.state not in ('inspect'):
 #                 raise UserError(_("Selected inspect(s) cannot be confirmed as they are not in 'inspect' state."))
 #             record.action_done()
@@ -37,7 +37,7 @@ class MaintainInspectReturn(models.TransientModel):
         context = dict(self._context or {})
         print context
         active_id = context.get('active_id', '') or ''
-        record = self.env['fleet_manage_fault.repair'].browse(active_id)
+        record = self.env['fleet_manage_maintain.repair'].browse(active_id)
         if record.state not in ('inspect'):
             raise UserError(_("Selected inspect(s) cannot be confirmed as they are not in 'inspect' state."))
         record.action_return(self.return_reason)
