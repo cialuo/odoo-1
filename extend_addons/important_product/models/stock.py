@@ -5,4 +5,27 @@ from odoo import api, fields, models
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
-    component_id = fields.Many2one('product.component', string='Product Component')
+    # component_id = fields.Many2one('product.component', string='Product Component')
+
+    @api.multi
+    def action_done(self):
+        """
+        库存移动完成时，如果类型是收货，则进行重要部件过滤及自动编号
+        :return:
+        """
+        res = super(StockMove, self).action_done()
+        com_obj = self.env['product.component']
+        receipts = self.env['stock.picking.type'].with_context({'lang': 'en'}).sudo().search([('name', 'ilike', 'Receipts')])
+        for move in self:
+            #库存移动是收货
+            if move.picking_type_id in receipts:
+                #物资是特别管理，且是重要部件管理
+                if move.product_id.is_important and move.product_id.important_type == 'component':
+                    for x in range(int(move.product_uom_qty)):
+                        com_obj.create({
+                            'product_id': move.product_id.id,
+                            'location_id': move.location_dest_id.id,
+                            'move_id': move.id,
+                            'state': 'avaliable',
+                        })
+        return res

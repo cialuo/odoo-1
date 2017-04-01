@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import api, fields, models
+from odoo import api, fields, models, exceptions
 from lxml import etree
 from datetime import datetime
 from odoo.tools.translate import _
@@ -64,7 +64,29 @@ class Product(models.Model):
         :param vals:
         :return:
         """
-        pass
+        res = super(Product, self).write(vals)
+        com_obj = self.env['product.component']
+        quant_obj = self.env['stock.quant']
+        for p in self:
+            if vals.get('is_important') == True:
+                if vals.get('important_type', False) == 'component':
+                    domain = [('location_id.usage','=', 'internal'), ('product_id', '=', p.id)]
+                    quants = quant_obj.search(domain)
+                    for quant in quants:
+                        for x in range(int(quant.qty)):
+                            com_obj.create({
+                                'product_id': p.id,
+                                'location_id': quant.location_id.id,
+                                'state': 'avaliable',
+                            })
+            if vals.get('is_important') == False:
+                if p.component_ids:
+                    # 已被车型加入到列表中的重要部件不能被修改
+                    important_product = self.env['vehicle.model.product'].search([]).mapped('product_id')
+                    if p in important_product:
+                        raise exceptions.ValidationError(_('Important product be Added to model can not change to not important!'))
+                    p.component_ids.write({'active': False})
+        return res
 
 class ProductCategory(models.Model):
     _inherit = 'product.category'
@@ -109,8 +131,9 @@ class Component(models.Model):
                               ('inuse', 'Inuse'), ('repareing', 'Repareing')],
                              default='inuse')
     checkout_date = fields.Date(string='Checkout Date')
-    move_ids = fields.One2many('stock.move', 'component_id', string='Move lines')
+    move_id = fields.Many2one('stock.move', string='Move lines')
     parent_vehicle = fields.Many2one('fleet.vehicle', string='Vehicle', ondelete='cascade')
+    active = fields.Boolean(default=True)
 
     _sql_constraints = [('code_uniq', 'unique (code)', "Code already exists")]
 

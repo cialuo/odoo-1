@@ -100,6 +100,7 @@ class VehicleModel(models.Model):
                         com_obj.create({
                             'product_id': l.product_id.id,
                             'parent_vehicle': v.id,
+                            'location_id': v.location_stock_id.id,
                         })
                     #创建重要部件清，同时需要做对于的库存移动
                     self._vehicle_move(v, l.product_id, lines)
@@ -118,7 +119,7 @@ class VehicleModel(models.Model):
                 for v in vehicles:
                     all_component = v.mapped('component_ids').filtered(lambda x: x.product_id == l.product_id)
                     self._vehicle_move(v, l.product_id, lines, move_in=False)
-                    all_component[:abs(lines)].unlink()
+                    all_component[:abs(lines)].write({'active': False})
 
 
     @api.multi
