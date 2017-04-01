@@ -69,7 +69,7 @@ class Product(models.Model):
         quant_obj = self.env['stock.quant']
         for p in self:
             if vals.get('is_important') == True:
-                if vals.get('important_type', False) == 'component':
+                if (vals.get('important_type') or p.important_type)  == 'component':
                     domain = [('location_id.usage','=', 'internal'), ('product_id', '=', p.id)]
                     quants = quant_obj.search(domain)
                     for quant in quants:

@@ -104,16 +104,6 @@ class VehicleModel(models.Model):
                         })
                     #创建重要部件清，同时需要做对于的库存移动
                     self._vehicle_move(v, l.product_id, lines)
-                    # move_vals = {
-                    #     'name': 'INIT' + v.display_name,
-                    #     'product_id': l.product_id.id,
-                    #     'product_uom_qty': lines,
-                    #     'product_uom': l.product_id.uom_id.id,
-                    #     'location_id': v.location_id.id,
-                    #     'location_dest_id': v.location_stock_id.id,
-                    # }
-                    # moves = self.env['stock.move'].create(move_vals)
-                    # moves.action_done()
             else:
                 # 数量减少，则所有车辆对应的部件减少相应的部件清单（最近更新的清单）
                 for v in vehicles:
@@ -133,6 +123,9 @@ class VehicleModel(models.Model):
         if vehicles:
             self._vehicle_update_component(vehicles)
             self.product_lines.write({'is_update': False})
+            #如果车型删除了部分重要部件的话，对应车型也需全部删除
+
+
         else:
             raise exceptions.ValidationError(_('Not have any vehicles!'))
 class ModelProduct(models.Model):
@@ -143,7 +136,8 @@ class ModelProduct(models.Model):
     """
 
     model_id = fields.Many2one('fleet.vehicle.model', string='Vehicle Model')
-    product_id = fields.Many2one('product.product', string='Product')
+    product_id = fields.Many2one('product.product', string='Product', required=True,
+                                 domain=[('is_important', '=', True), ('important_type', '=', 'component')])
     uom_id = fields.Many2one(related='product_id.uom_id', string='Uom')
     description = fields.Text(related='product_id.description', string='Description')
     note = fields.Char(string='Note')
