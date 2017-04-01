@@ -53,12 +53,19 @@ class FleetMaintainReport(models.Model):
     remark = fields.Text(string="Remark")
     dispatch_count = fields.Integer("Dispatch Count",compute="_get_dispatch_count")
 
-    def _get_dispatch_count(self):      #计算待派工的维修单
+    def _get_dispatch_count(self):
+        """
+        功能：计算待派工的维修单
+        """
         repair = self.env['fleet_manage_fault.repair'].search([("report_id", '=', self.id), ('state', '=', 'dispatch')])
         self.dispatch_count = len(repair)
 
     @api.multi
     def return_action_to_open(self):
+        """
+        报修单:
+            功能：跳转到派工状态的维修单
+        """
         self.ensure_one()
         xml_id = self.env.context.get('xml_id')
         if xml_id:
@@ -70,18 +77,25 @@ class FleetMaintainReport(models.Model):
             return res
         return False
 
-
     @api.model
     def create(self, data):
+        """
+        报修单:
+            功能：自动生成订单号：前缀BXD+序号
+        """
         if data.get('name', 'New') == 'New':
             data['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_fault.report') or '/'
         report = super(FleetMaintainReport, self.with_context(mail_create_nolog=True)).create(data)
         report.message_post(body=_('%s has been added to the report!') % (report.name,))
         return report
 
-
     @api.multi
-    def action_submit_precheck(self):    #提交检验
+    def action_submit_precheck(self):    #
+        """
+        报修单:
+            功能：提交检验
+            状态：草稿->预检
+        """
         self.ensure_one()
         if not self.repair_ids:
             raise exceptions.UserError("Maintain Repair Required!")
@@ -92,17 +106,30 @@ class FleetMaintainReport(models.Model):
                     i.state = 'precheck'
 
     @api.multi
-    def action_draft(self):  # 检验退回
-        self.state = 'draft'
+    def action_draft(self):
+        """
+        预检单:
+            功能：检验退回
+            状态：预检->草稿
+        """
+        self.write({"state": 'draft'})
 
     @api.multi
-    def action_precheck(self):  # 检验退回
-        self.state = 'precheck'
-
-
+    def action_precheck(self):
+        """
+        预检单:
+            功能：退回检验
+            状态：派工->预检
+        """
+        self.write({"state":'precheck'})
 
     @api.multi
-    def action_precheck_success(self):     #预检通过并创建交接单
+    def action_precheck_success(self):
+        """
+        预检单:
+            功能：预检通过并创建交接单
+            状态：预检->派工
+        """
         self.ensure_one()
         # for i in self.repair_ids:
         #     if not i.fault_method_id:
@@ -122,21 +149,17 @@ class FleetMaintainReport(models.Model):
             self.env['fleet_manage_fault.delivery'].create(vals)
 
     @api.multi
-    def delivery_manage(self):  #跳转到交接单
+    def delivery_manage(self):
+        """
+        预检单:
+            功能：跳转到交接单
+        """
         self.ensure_one()
         deliverys = self.env['fleet_manage_fault.delivery'].search([("report_id",'=',self.id)])
         action = self.env.ref('fleet_manage_maintain.fleet_manage_maintain_delivery_action').read()[0]
         action['res_id'] = deliverys.id
         action['views'] = [(self.env.ref('fleet_manage_maintain.fleet_manage_delivery_view_form').id, 'form')]
         return action
-
-    # @api.multi
-    # def action_repair(self):         #批量派工
-    #     self.state = 'repair'
-
-    # @api.multi
-    # def action_inspect(self):         #维修完成
-    #     self.state = 'inspect'
 
 
 class FleetMaintainRepair(models.Model):
@@ -176,9 +199,9 @@ class FleetMaintainRepair(models.Model):
     plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time", compute='_get_end_datetime')
     real_start_time = fields.Datetime("Real Start Time", help="Real Start Time")
     real_end_time = fields.Datetime("Real End Time", help="Real End Time")
-
     user_id = fields.Many2one('hr.employee', string="Repair Name")
-    repair_names = fields.Char(string='Repair Names', help="Repair Names",compute='_get_repair_names')
+
+    repair_names = fields.Char(string='Repair Names', help="Repair Names", compute='_get_repair_names')
     state = fields.Selection([
         ('draft', "Draft"),
         ('precheck', "Precheck"),
@@ -191,7 +214,7 @@ class FleetMaintainRepair(models.Model):
     job_ids = fields.One2many("fleet_manage_fault.repair_jobs", 'repair_id',
                               string='Maintain Repair Jobs')
 
-    percentage_work = fields.Float(help='percentage_work')
+    percentage_work = fields.Float(help='percentage_work', default=0.0, digits=(2, 1))
 
     available_product_ids = fields.One2many("fleet_manage_maintain.available_product", 'repair_id',
                                             string='Available Product')
@@ -203,17 +226,52 @@ class FleetMaintainRepair(models.Model):
     repair_type = fields.Selection([('vehicle_repair',"vehicle_repair"),('assembly_repair',"assembly_repair")],
                                    default='vehicle_repair', string="Repair Type")
 
+    is_important_product = fields.Boolean("Is Important Product")
+    important_product_id = fields.Many2one('product.product', string="Important Product")
+
     @api.depends('plan_start_time', 'work_time')
     def _get_end_datetime(self):
+        """
+        维修单:
+           功能：计算计划结束时间
+        """
         for r in self:
             if not (r.plan_start_time and r.work_time):
                 continue
             start = fields.Datetime.from_string(r.plan_start_time)
-            duration = timedelta(seconds=r.work_time*60)
-            r.plan_end_time = start + duration
+            r.plan_end_time = start + timedelta(seconds=r.work_time*60)
+
+    @api.multi
+    def write(self, vals):
+        if "fault_method_id" in vals and vals.get('fault_method_id'):
+            for i in self.available_product_ids:  # 维修单存在物料清单，要删除
+                i.unlink()
+            datas = []
+            method = self.env['fleet_manage_fault.method'].browse(vals.get('fault_method_id'))
+            if method.materials_control:
+                # maintain_method = self.env['fleet_manage_maintain.available_product'].search([
+                #     ('method_id', '=', vals.get('fault_method_id')),
+                #     ('repair_id', '=', self.id)])
+                # print 2222222222222,maintain_method
+                for j in method.avail_ids:
+                    data = {
+                        'repair_id': j.id,
+                        'method_id': j.method_id.id,
+                        'product_id': j.product_id.id,
+                        'change_count': j.change_count,
+                        'max_count': j.max_count,
+                    }
+                    datas.append((0, 0, data))
+            vals.update({'available_product_ids': datas})
+        return super(FleetMaintainRepair, self).write(vals)
+
 
     @api.onchange('percentage_work')
-    def _verify_valid_seats(self):
+    def _verify_percentage_work(self):
+        """
+        维修单:
+           功能：验证百分比的大小 不能小于0或者大于100
+        """
         if self.percentage_work < 0 or self.percentage_work > 100:
             return {
                 'warning': {
@@ -231,6 +289,8 @@ class FleetMaintainRepair(models.Model):
     def onchange_method_id(self):
         if self.fault_method_id:
             self.fault_reason_id = self.fault_method_id.reason_id
+            self.is_important_product = self.fault_method_id.is_important_product
+            self.important_product_id = self.fault_method_id.important_product_id
             if self.fault_method_id.reason_id.appearance_id:
                 self.fault_appearance_id = self.fault_method_id.reason_id.appearance_id
                 self.fault_category_id = self.fault_method_id.reason_id.appearance_id.category_id
@@ -240,26 +300,31 @@ class FleetMaintainRepair(models.Model):
 
     @api.model
     def create(self, vals):
+        """
+        维修单:
+            自动生成订单号：前缀WXD+序号
+        """
         if vals.get('name', 'New') == 'New':
             vals['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_fault.repair') or '/'
         return super(FleetMaintainRepair, self).create(vals)
 
-
     @api.multi
-    def dispatch(self):         #派工
-        # self.env['fleet_manage_fault.repair_jobs'].create()
+    def dispatch(self):
+        """
+        维修单:
+            派工
+                功能：1判断工时比例是否已经超过100
+                    2.增加工时管理记录
+                状态：派工->待修
+        """
         self.ensure_one()
         if not self.user_id:
             raise exceptions.UserError("Maintain  Repair Names Required!")
         percentage_work = sum(i.percentage_work for i in self.job_ids)
-        # for i in self.job_ids:
-        #     percentage_work = percentage_work +i.percentage_work
-        if percentage_work + self.percentage_work >100:
+        if percentage_work + self.percentage_work > 100:
             raise exceptions.UserError("Dispatching the proportion of more than 100")
-        # self.state = 'dispatch'
         self.state = 'wait_repair'
         vals = {
-            # "repair_id": self.id,
             "fault_category_id": self.fault_category_id.id,
             "fault_appearance_id": self.fault_appearance_id.id or None,
             "fault_reason_id": self.fault_reason_id.id,
@@ -271,11 +336,20 @@ class FleetMaintainRepair(models.Model):
             "user_id": self.user_id.id,
             "sequence": len(self.job_ids)+1
         }
-        # self.env['fleet_manage_fault.repair_jobs'].create(vals)
-        self.write({'job_ids': [(0, 0, vals)]})
+        self.write({
+            'percentage_work': False,
+            "user_id": False,
+            'plan_start_time': False,
+            'state':'wait_repair',
+            'job_ids': [(0, 0, vals)]
+        })
 
     @api.depends("job_ids")
-    def _get_repair_names(self):  #获取维修人名字
+    def _get_repair_names(self):
+        """
+        维修单:
+            功能：获取维修人名字
+        """
         for i in self:
             repair_names = set()
             for j in i.job_ids:
@@ -283,18 +357,33 @@ class FleetMaintainRepair(models.Model):
             i.repair_names = ",".join(list(repair_names))
 
     @api.multi
-    def action_repair(self):  # 开工
+    def action_start_repair(self):
+        """
+        维修单:
+            功能：开工
+            状态：待修->维修
+            更新工时管理的实际开工时间
+        """
         self.ensure_one()
         if not self.job_ids:
             raise exceptions.UserError("Maintain  Repair Jobs Required!")
-        self.state = 'repair'
+        self.write({'state': 'repair'})
+
+
+
         for i in self.job_ids:
             i.real_start_time = fields.Datetime.now()
 
     @api.multi
-    def action_start_inspect(self):  # 报检
-        self.state = 'inspect'
-        self.start_inspect_time = fields.Datetime.now()
+    def action_start_inspect(self):
+        """
+        维修单:
+            功能：报检
+            状态：维修->检验
+            更新检验单的报检时间
+            更新工时管理的实际完工时间
+        """
+        self.write({'state': 'inspect','start_inspect_time':fields.Datetime.now()})
         for i in self.job_ids:
             i.real_end_time = fields.Datetime.now()
 
@@ -302,26 +391,25 @@ class FleetMaintainRepair(models.Model):
 class FleetMaintainAvailableProduct(models.Model):
     _name = 'fleet_manage_maintain.available_product'
 
-    product_id = fields.Many2one('product.product',string="Product")
-    # name = fields.Char(required=True)
-    repair_id = fields.Many2one('fleet_manage_fault.repair',
+    repair_id = fields.Many2one('fleet_manage_maintain.repair',
                                 ondelete='set null', string="Repair")
+    method_id = fields.Many2one('fleet_manage_fault.method',
+                                ondelete='cascade', string="Fault Method Name")
 
-    product_code = fields.Char("Product Code", help="Product Code")
-    product_name = fields.Char("Product Name", help="Product Name")
-    max_available_count = fields.Integer("Max Available Count", help="Max Available Count")
-    default_avail_count = fields.Integer("Default Available Count", help="Default Available Count")
-    stock_count = fields.Integer("Stock Count", help="Stock Count")
-    available_count = fields.Integer("Available Count", help="Available Count")
+    product_id = fields.Many2one('product.product', string="Product")
+    product_code = fields.Char("Product Code", related='product_id.default_code')
+    categ_id = fields.Many2one('product.category', related='product_id.categ_id',
+                               string='Product Category')
+    uom_id = fields.Many2one('product.uom', 'Unit of Measure', related='product_id.uom_id')
+    onhand_qty = fields.Float('Quantity On Hand', related='product_id.qty_available')
+    virtual_available = fields.Float('Forecast Quantity', related='product_id.virtual_available')
+    # require_trans = fields.Boolean("Product Name", related='product_id.require_trans') #交旧领新
+    # vehicle_model = fields.Many2many('fleet.vehicle.model') #适用车型
+    product_size = fields.Char("Product Size", help="Product Size")
+    change_count = fields.Integer("Change Count")
+    max_count = fields.Integer("Max Count")
 
-    post_old_get_new = fields.Boolean("Post Old Get New")
-    meet_vehicle_type = fields.Char("Meet Vehicle Type", help="Meet Vehicle Type")
 
-    @api.onchange('product_id')
-    def _onchange_product_id(self):
-        if self.product_id:
-            self.product_code = self.product_id.code
-            self.product_name = self.product_id.name
 
 
 class FleetMaintainRepairJobs(models.Model):
@@ -399,7 +487,6 @@ class FleetMaintainDelivery(models.Model):
 
     @api.model
     def create(self,vals):
-
         if vals.get('name', 'New') == 'New':
             vals['name'] = self.env['ir.sequence'].next_by_code('fleet_manage_fault.delivery') or '/'
         return super(FleetMaintainDelivery, self).create(vals)
@@ -437,24 +524,41 @@ class FleetMaintainInspect(models.Model):
     rework_count = fields.Integer("Rework Count", help="Rework Count",compute="_get_rework_count")
 
     def _get_rework_count(self):
-        # records = self.env['fleet_manage_fault.return_record'].search([("repair_id", '=', self.id)])
+        """
+        检验单:
+            功能：获取退检次数
+        """
         for i in self:
             i.rework_count = len(i.return_record_ids)
 
     @api.multi
     def action_done(self):
+        """
+        检验单:
+            功能：检验通过(批量检查通过)
+            状态：检验->完工
+            更新检验单的检验时间和检验结论
+            判断该检验单对应的报修单是否完工
+        """
         for i in self:
             if i.state not in ('inspect','done'):
                 raise exceptions.UserError("Selected inspect(s) cannot be confirmed as they are not in 'inspect' state")
             i.state = 'done'
             i.inspect_result = 'qualified'
-            i.inspect_time = fields.Datetime.now()
+            i.end_inspect_time = fields.Datetime.now()
 
             if all(repair.state in ['done'] for repair in i.report_id.repair_ids):
                 i.report_id.state = 'done'
 
     @api.multi
     def action_return(self, reason=''):
+        """
+        检验单:
+            功能：检验退回
+            状态：检验->维修
+            更新检验单的检验时间和检验结论
+            判断该检验单对应的报修单是否完工
+        """
         inspect_return_time = fields.Datetime.now()
         vals = {
             "repair_id": self.id,
@@ -462,10 +566,12 @@ class FleetMaintainInspect(models.Model):
             "return_reason": reason,
             "sequence": len(self.return_record_ids) + 1
         }
-        self.write({'return_record_ids': [(0, 0, vals)]})
-        self.end_inspect_time = inspect_return_time
-        self.inspect_result = "defective"
-        self.state = 'repair'
+        self.write({
+            "state":'repair',
+            "end_inspect_time": inspect_return_time,
+            "inspect_result": "defective",
+            "return_record_ids": [(0, 0, vals)]
+        })
 
 
 class FleetMaintainReturnRecord(models.Model):

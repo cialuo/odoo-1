@@ -84,11 +84,11 @@
                         <div class="oe_title">
                             <label for="inner_code" class="oe_edit_only"/>
                             <h1>
-                                <field name="inner_code" placeholder="e.g. Model S"/>
+                                <field name="inner_code"/>
                             </h1>
                             <label for="license_plate" class="oe_edit_only"/>
                             <h2>
-                                <field name="license_plate" class="oe_inline" placeholder="e.g. PAE 326"/>
+                                <field name="license_plate" class="oe_inline" placeholder="e.g. B88888"/>
                             </h2>
                             <label for="tag_ids" class="oe_edit_only"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>

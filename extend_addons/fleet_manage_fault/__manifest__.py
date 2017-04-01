@@ -3,8 +3,13 @@
     'name': "fleet_manage_fault",
 
     'description': """
-        车辆管理 包含故障分类 故障原因 故障现象 维修办法
-        维修工艺管理，定额管理
+        主要功能包括：
+        1,故障分类
+        2,故障原因
+        3,故障现象
+        4,维修办法
+        5,维修工艺管理
+        6,定额管理
     """,
 
     'author': "Xiangll",
@@ -13,7 +18,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['product','hr','fleet_manage_menu'],
+    'depends': ['product', 'hr', 'stock','fleet_manage_menu'],
 
     # always loaded
     'data': [

@@ -320,7 +320,7 @@
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
                 	<header>
-						<button name="action_repair" type="object"
+						<button name="action_start_repair" type="object"
                                 string="Start Repair"
 								states="wait_repair"
                                 class="oe_highlight"/> <!-- 开工-->
@@ -374,18 +374,17 @@
                                 </field>
                              </page>
 
-							 <page string="AvailProducts">
+							 <page string="AvailProducts" name="AvailProducts">
                                 <field name="available_product_ids">
                                     <tree string="AvailProducts" editable="bottom">
 										<field name="product_id"/>
 										<field name="product_code"/>
-										<field name="product_name"/>
-										<field name="max_available_count"/>
-										<field name="default_avail_count"/>
-										<field name="stock_count"/>
-										<field name="available_count"/>
-										<field name="post_old_get_new"/>
-										<field name="meet_vehicle_type"/>
+										<field name="max_count"/>
+										<field name="change_count"/>
+										<field name="onhand_qty"/>
+										<field name="virtual_available"/>
+										<!--<field name="require_trans"/>-->
+										<!--<field name="vehicle_model"/>-->
                                     </tree>
                                 </field>
                              </page>
@@ -434,7 +433,7 @@
 						<notebook>
 							<page string="MaintainRepair Jobs" >
                                 <field name="job_ids">
-                                    <tree string="MaintainRepair Jobs">
+                                    <tree string="MaintainRepair Jobs" create="false" editable="bottom">
 										<field name="sequence"/>
 										<field name="fault_method_id"/>
 										<field name="user_id"/>
@@ -460,6 +459,8 @@
 								<field name="plan_end_time" />
 								<field name="operation_manual" invisible="1"/>
 								<field name="inspect_standard" invisible="1"/>
+								<field name="is_important_product" />
+								<field name="important_product_id" />
 	                        </group>
 	                        <group>
 	                            <field name="fault_reason_id" />
@@ -477,7 +478,8 @@
 
 						<footer>
 							<button name="dispatch" type="object"
-									string="Dispatch" class="oe_highlight oe_edit_only"/>
+									string="Dispatch" class="btn btn-primary pull-right btn-sm"/>
+
                     	</footer>
 
 					</sheet>
