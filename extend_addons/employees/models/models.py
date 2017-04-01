@@ -208,6 +208,17 @@ class post(models.Model):
     ], string=_('post title list'), required=True)
     # 岗位员工
     members = fields.One2many('hr.employee', 'workpost', string=_('post members'))
+    # 关联群组
+    group_id = fields.Char(compute='_getRelateGroup', string=_('post relate group'))
+    @api.multi
+    def _getRelateGroup(self):
+        groupmode = self.env['res.groups']
+        for item in self:
+                groupinfo = groupmode.search([('post_id','=',item.id)], limit=1)
+                if groupinfo.id != False:
+                    item.group_id = groupinfo.name
+                else:
+                    item.group_id = ''
     # 直接领导
     direct_leader = fields.Char(compute='_getDirectLeader', string=_('deirect leader'))
     @api.onchange('department')

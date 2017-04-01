@@ -246,6 +246,7 @@
                             <group>
                                 <field name="higher_level"/>
                                 <field name="posttype"/>
+                                <field name="group_id"/>
                             </group>
                         </group>
                         <notebook>

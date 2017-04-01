@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-31 06:26+0000\n"
-"PO-Revision-Date: 2017-03-31 14:27+0800\n"
+"POT-Creation-Date: 2017-04-01 01:40+0000\n"
+"PO-Revision-Date: 2017-04-01 09:41+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -151,7 +151,7 @@ msgid "Users of this group automatically inherit those groups"
 msgstr "这个群组的用户自动继承那些群组"
 
 #. module: employees
-#: code:addons/employees/models/models.py:418
+#: code:addons/employees/models/models.py:428
 #, python-format
 msgid "a group that bind with a post can not be delete"
 msgstr "状态为角色的组不能被删除"
@@ -163,7 +163,7 @@ msgid "administrator can not be bind to an employee"
 msgstr "超级管理员不能绑定到员工"
 
 #. module: employees
-#: code:addons/employees/models/models.py:332
+#: code:addons/employees/models/models.py:343
 #, python-format
 msgid "can't set post's group in twice"
 msgstr "一个岗位不能同时绑定到两个组"
@@ -177,7 +177,7 @@ msgid "can't set system user to employee in twice"
 msgstr "一个系统用户不能绑定到两个员工"
 
 #. module: employees
-#: code:addons/employees/models/models.py:212
+#: code:addons/employees/models/models.py:223
 #, python-format
 msgid "deirect leader"
 msgstr "直接领导"
@@ -190,55 +190,55 @@ msgid "department"
 msgstr "部门"
 
 #. module: employees
-#: code:addons/employees/models/models.py:304
+#: code:addons/employees/models/models.py:315
 #, python-format
 msgid "department employees"
 msgstr "部门员工"
 
 #. module: employees
-#: code:addons/employees/models/models.py:302
+#: code:addons/employees/models/models.py:313
 #, python-format
 msgid "department post list"
 msgstr "部门岗位列表"
 
 #. module: employees
-#: code:addons/employees/models/models.py:287
+#: code:addons/employees/models/models.py:298
 #, python-format
 msgid "department record create time"
 msgstr "创建时间"
 
 #. module: employees
-#: code:addons/employees/models/models.py:299
+#: code:addons/employees/models/models.py:310
 #, python-format
 msgid "department type"
 msgstr "部门类型"
 
 #. module: employees
-#: code:addons/employees/models/models.py:295
+#: code:addons/employees/models/models.py:306
 #, python-format
 msgid "department type branch"
 msgstr "分公司"
 
 #. module: employees
-#: code:addons/employees/models/models.py:297
+#: code:addons/employees/models/models.py:308
 #, python-format
 msgid "department type department"
 msgstr "部门"
 
 #. module: employees
-#: code:addons/employees/models/models.py:298
+#: code:addons/employees/models/models.py:309
 #, python-format
 msgid "department type group"
 msgstr "组"
 
 #. module: employees
-#: code:addons/employees/models/models.py:294
+#: code:addons/employees/models/models.py:305
 #, python-format
 msgid "department type headquarters"
 msgstr "总公司"
 
 #. module: employees
-#: code:addons/employees/models/models.py:296
+#: code:addons/employees/models/models.py:307
 #, python-format
 msgid "department type subsidiary"
 msgstr "子公司"
@@ -462,19 +462,19 @@ msgid "female"
 msgstr "女"
 
 #. module: employees
-#: code:addons/employees/models/models.py:423
+#: code:addons/employees/models/models.py:433
 #, python-format
 msgid "groups are inherited by other groups, can not be delete!"
 msgstr "该组目前被其他群组继承，不能被删除！"
 
 #. module: employees
-#: code:addons/employees/models/models.py:248
+#: code:addons/employees/models/models.py:259
 #, python-format
 msgid "higher level"
 msgstr "上级"
 
 #. module: employees
-#: code:addons/employees/models/models.py:314
+#: code:addons/employees/models/models.py:325
 #, python-format
 msgid "is role"
 msgstr "角色"
@@ -486,7 +486,7 @@ msgid "male"
 msgstr "男"
 
 #. module: employees
-#: code:addons/employees/models/models.py:277
+#: code:addons/employees/models/models.py:288
 #, python-format
 msgid "member count in department"
 msgstr "员工数"
@@ -545,6 +545,13 @@ msgid "post members"
 msgstr "成员列表"
 
 #. module: employees
+#: code:addons/employees/models/models.py:212
+#: model:ir.model.fields,field_description:employees.field_employees_post_group_id
+#, python-format
+msgid "post relate group"
+msgstr "关联权限"
+
+#. module: employees
 #: code:addons/employees/models/models.py:207
 #, python-format
 msgid "post title labour"
@@ -563,7 +570,7 @@ msgid "post title manager"
 msgstr "经理"
 
 #. module: employees
-#: code:addons/employees/models/models.py:317
+#: code:addons/employees/models/models.py:328
 #, python-format
 msgid "related post"
 msgstr "岗位"
