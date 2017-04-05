@@ -56,6 +56,12 @@ class VehicleModel(models.Model):
     control_import = fields.Boolean(string='Control', default=False)
     product_lines = fields.One2many('vehicle.model.product', 'model_id', string='Product Line')
 
+    # @api.model
+    # def create(self, vals):
+    #     res = super(VehicleModel, self).create(vals)
+    #     res.update_product_list()
+    #     return res
+
     def _vehicle_move(self, vehicle, product, qty, move_in=True):
         move_vals = {
             'name': 'INIT' + vehicle.display_name,
@@ -102,7 +108,7 @@ class VehicleModel(models.Model):
                             'parent_vehicle': v.id,
                             'location_id': v.location_stock_id.id,
                         })
-                    #创建重要部件清，同时需要做对于的库存移动
+                    #创建重要部件清，同时需要做对应的库存移动
                     self._vehicle_move(v, l.product_id, lines)
             else:
                 # 数量减少，则所有车辆对应的部件减少相应的部件清单（最近更新的清单）
@@ -123,9 +129,15 @@ class VehicleModel(models.Model):
         if vehicles:
             self._vehicle_update_component(vehicles)
             self.product_lines.write({'is_update': False})
-            #如果车型删除了部分重要部件的话，对应车型也需全部删除
-
-
+            #如果车型删除了部分重要部件的话，对应车辆也需全部删除
+            product_in_vehicle = vehicles[0].mapped('component_ids').mapped('product_id')
+            product_in_model = self.mapped('product_lines').mapped('product_id')
+            delete_product = product_in_vehicle - product_in_model
+            #需取消的部件清单,及库存移动
+            components = vehicles.mapped('component_ids').filtered(lambda x: x.product_id in delete_product)
+            for component in components:
+                self._vehicle_move(component.parent_vehicle, component.product_id, 1, move_in=False)
+            components.write({'active': False})
         else:
             raise exceptions.ValidationError(_('Not have any vehicles!'))
 class ModelProduct(models.Model):
