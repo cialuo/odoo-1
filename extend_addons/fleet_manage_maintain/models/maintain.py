@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, exceptions,_
+from odoo import models, fields, api, exceptions, _
 from datetime import timedelta
 
 
@@ -71,7 +71,7 @@ class FleetMaintainReport(models.Model):
         if xml_id:
             res = self.env['ir.actions.act_window'].for_xml_id('fleet_manage_maintain', xml_id)
             res.update(
-                context=dict(self.env.context, defaultreport_id=self.id),
+                context=dict(self.env.context, default_report_id=self.id),
                 domain=[('report_id', '=', self.id)]
             )
             return res
@@ -98,7 +98,7 @@ class FleetMaintainReport(models.Model):
         """
         self.ensure_one()
         if not self.repair_ids:
-            raise exceptions.UserError("Maintain Repair Required!")
+            raise exceptions.UserError(_("Maintain Repair Required!"))
         else:
             self.state = 'precheck'
             for i in self.repair_ids:
@@ -319,10 +319,10 @@ class FleetMaintainRepair(models.Model):
         """
         self.ensure_one()
         if not self.user_id:
-            raise exceptions.UserError("Maintain  Repair Names Required!")
+            raise exceptions.UserError(_("Maintain  Repair Names Required!"))
         percentage_work = sum(i.percentage_work for i in self.job_ids)
         if percentage_work + self.percentage_work > 100:
-            raise exceptions.UserError("Dispatching the proportion of more than 100")
+            raise exceptions.UserError(_("Dispatching the proportion of more than 100"))
         self.state = 'wait_repair'
         vals = {
             "fault_category_id": self.fault_category_id.id,
@@ -366,7 +366,7 @@ class FleetMaintainRepair(models.Model):
         """
         self.ensure_one()
         if not self.job_ids:
-            raise exceptions.UserError("Maintain  Repair Jobs Required!")
+            raise exceptions.UserError(_("Maintain  Repair Jobs Required!"))
         self.write({'state': 'repair'})
 
 
@@ -542,7 +542,7 @@ class FleetMaintainInspect(models.Model):
         """
         for i in self:
             if i.state not in ('inspect','done'):
-                raise exceptions.UserError("Selected inspect(s) cannot be confirmed as they are not in 'inspect' state")
+                raise exceptions.UserError(_("Selected inspect(s) cannot be confirmed as they are not in 'inspect' state"))
             i.state = 'done'
             i.inspect_result = 'qualified'
             i.end_inspect_time = fields.Datetime.now()
