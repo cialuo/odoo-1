@@ -83,7 +83,7 @@ class employee(models.Model):
                 self._powerRebuild(self.user_id.id, workpost, 'add')
         elif workpost != None and user_id != None:
             # 岗位调整 关联用户也调整
-            # 将老用户的权限老岗位的权限解绑 
+            # 将老用户的权限老岗位的权限解绑
             # 将新用户的权限跟新岗位的权限绑定
             if self.workpost != None and self.user_id.id != False:
                 # 如果之前指定了岗位 并且 之前也绑定了系统用户
@@ -105,7 +105,7 @@ class employee(models.Model):
                 self._powerRebuild(user_id, self.workpost.id, 'add')
         return super(employee, self).write(vals)
 
-           
+
 
     def _powerRebuild(self, userid, postid, operator):
         """
@@ -119,7 +119,7 @@ class employee(models.Model):
         groupinfo = groupmode.search([('post_id', '=', postid)], limit=1)
         if groupinfo.id == False:
             # 如果组没有被绑定到岗位 则无需处理
-            return 
+            return
         groupid  = groupinfo.id
         userinfo = usermode.search([('id', '=', userid)], limit=1)
         if userinfo.id == False:
@@ -208,6 +208,17 @@ class post(models.Model):
     ], string=_('post title list'), required=True)
     # 岗位员工
     members = fields.One2many('hr.employee', 'workpost', string=_('post members'))
+    # 关联群组
+    group_id = fields.Char(compute='_getRelateGroup', string=_('post relate group'))
+    @api.multi
+    def _getRelateGroup(self):
+        groupmode = self.env['res.groups']
+        for item in self:
+                groupinfo = groupmode.search([('post_id','=',item.id)], limit=1)
+                if groupinfo.id != False:
+                    item.group_id = groupinfo.name
+                else:
+                    item.group_id = ''
     # 直接领导
     direct_leader = fields.Char(compute='_getDirectLeader', string=_('deirect leader'))
     @api.onchange('department')
@@ -242,9 +253,9 @@ class post(models.Model):
         employeeMode = self.env['hr.employee']
         employeeList = employeeMode.search([('workpost', '=', postid)])
         return [{'id':item.id, 'name':item.name} for item in employeeList]
-        
 
-    # 上级部门 
+
+    # 上级部门
     higher_level = fields.Char(compute='_getHigherLevel', string=_('higher level'))
     @api.onchange('department')
     def _getHigherLevel(self):
@@ -253,7 +264,7 @@ class post(models.Model):
             self.getParentDepartment(item.department.id, parentDepartments)
             parentDepartments = parentDepartments[::-1]
             self.higher_level = '\\'.join(parentDepartments)
-    
+
     def getParentDepartment(self, parentId, container):
         """
         递归获取上级部门名称
@@ -356,7 +367,7 @@ class LtyGroups(models.Model):
                 # 则修改对应的岗位员工的权限值
                 self.updateUserGroup(None if item.post_id.id == False else item.post_id.id, post_id_new, item.id)
 
-            
+
         res = super(LtyGroups, self).write(vals)
 
         for item in self:
@@ -379,7 +390,6 @@ class LtyGroups(models.Model):
         @param groupid 当前的goupid
         """
         usermode = self.env['hr.employee']
-        resusermode = self.env['res.users']
         if old != None:
             # 删除之前岗位下用户的权限
             users = usermode.search([('workpost', '=', old)])
@@ -411,7 +421,7 @@ class LtyGroups(models.Model):
 
     @api.multi
     def unlink(self):
-        # 重载删除方法 
+        # 重载删除方法
         for item in self:
             if item.isrole or item.post_id.id != False :
                 # 如果一个群组是一个角色 或者 已经绑定到岗位 那么该group不能被删除
@@ -433,7 +443,7 @@ class LtyGroups(models.Model):
         groupinfo = self.search([('id', '=', gid)], limit=1)
         if groupinfo.id == False:
             return
-        inheritors = groupinfo.implied_ids_r 
+        inheritors = groupinfo.implied_ids_r
         for item in inheritors:
             if item.id not in resultcontainer:
                 # 如果之前没有遍历到才继续递归 **防止循环继承导致无限递归**
@@ -448,8 +458,7 @@ class LtyGroups(models.Model):
             return
         if groupinfo.isrole == None or groupinfo.post_id.id == False:
             #如果该组不是角色 或者 没有绑定到岗位 不处理
-            return 
-        postmode = self.env['employees.post']
+            return
         employeemode = self.env['hr.employee']
         postid = groupinfo.post_id.id
         employeelist = employeemode.search([('workpost', '=', postid)])
@@ -458,4 +467,4 @@ class LtyGroups(models.Model):
                 # 先删除用户的组 然后在重新添加用户的组
                 deleteUserGroup(self, item.user_id.id)
                 item.user_id.write({'groups_id':[(4, groupid, 0)]})
- 
+
