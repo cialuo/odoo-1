@@ -15,5 +15,12 @@
         'security/ir.model.access.csv',
         'views/purchase_plan_view.xml',
     ],
-    'depends': ['purchase', 'materials_manage', 'hr', 'important_product', 'stock'],
+    'depends': [
+        'purchase',
+        'materials_manage',
+        'hr',
+        'important_product',
+        'stock',
+        'form_month_widget',
+    ],
 }
