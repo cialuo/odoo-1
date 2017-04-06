@@ -23,6 +23,19 @@
             </field>
         </record>
 
+        <!--EmissionStandard Tree-->
+        <record id='fleet_manage_vehicle_emission_standard_tree' model='ir.ui.view'>
+            <field name="name">fleet_manage_vehicle.emission_standard.tree</field>
+            <field name="model">fleet_manage_vehicle.emission_standard</field>
+            <field name="arch" type="xml">
+                <tree string="Emission Standard">
+                    <field name="name"/>
+                    <field name="code" />
+                    <field name="remark" />
+                </tree>
+            </field>
+        </record>
+
 
         <!--Vehicle Form-->
         <record id='fleet_vehicle_view_form' model='ir.ui.view'>
@@ -96,15 +109,18 @@
 
                         <notebook>
                             <page  string="General Properties">
-                                <group>
-                                    <field name="company_id"/>
-                                    <field name="route_id"/>
-                                    <!--<field name="driver"/>-->
-                                    <field name="vin_sn"/>
-                                    <field name="length_width_height"/>
-                                    <!--<field name="guo_biao"/>-->
-                                    <field name="model_id"/>
-                                    <!--<field name="odometer"/>-->
+                                <group col="2">
+                                    <group>
+                                        <field name="company_id"/>
+                                        <field name="route_id"/>
+                                        <field name="vin_sn"/>
+                                        <field name="length_width_height"/>
+                                        <field name="emission_standard"/>
+                                        <field name="model_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="vehicle_label"/>
+                                    </group>
                                 </group>
                             </page>
                             <page  string="Technical Properties">
@@ -152,7 +168,6 @@
 									</tree>
 								</field>
                             </page>
-
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">
@@ -161,13 +176,7 @@
                     </div>
                 </form>
             </field>
-    </record>
-
-
-
-
-
-
+        </record>
 
         <!-- VehicleModel Form-->
         <record id='fleet_vehicle_model_view_form_ext' model='ir.ui.view'>
@@ -232,13 +241,12 @@
                             <field name="manufacturers"/>
                         </group>
 						<group>
-							<field name="home_entry_date" />
+							<field name="co2_ext" />
 							<field name="chassis_no" />
 							<label for="height"/>
 							<div class="o_row">
                                 <field name="height"/><span>mm</span>
 							</div>
-							<field name="co2_ext" />
 							<field name="doors_ext" />
 							<field name="seats_ext"/>
 							<label for="shaft_distance"/>
@@ -256,6 +264,23 @@
             </field>
         </record>
 
+
+		<!--EmissionStandard   form view -->
+        <record model="ir.ui.view" id="fleet_manage_vehicle_emission_standard_form">
+            <field name="name">EmissionStandard.form</field>
+            <field name="model">fleet_manage_vehicle.emission_standard</field>
+            <field name="arch" type="xml">
+                <form string="EmissionStandard Form">
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="remark"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
 
         <!-- Vehicle Action -->
@@ -284,9 +309,13 @@
 	        <field name="name">fleet_manage_vehicle_model_action</field>
 	        <field name="res_model">fleet.vehicle.model</field>
 	        <field name="view_mode">tree,form</field>
-			<!--<field name="view_ids" eval="[(5, 0, 0),-->
-				<!--(0, 0, {'view_mode': 'tree', 'view_id': ref('fleet.fleet_vehicle_model_view_tree')}),-->
-                <!--(0, 0, {'view_mode': 'form', 'view_id': ref('fleet_vehicle_model_view_form_ext')})]"/>-->
+		</record>
+
+        <!-- Emission Standard Action -->
+		<record model="ir.actions.act_window" id="fleet_manage_vehicle_emission_standard_action">
+	        <field name="name">fleet_manage_vehicle_emission_standard_action</field>
+	        <field name="res_model">fleet_manage_vehicle.emission_standard</field>
+	        <field name="view_mode">tree,form</field>
 		</record>
 
 
@@ -302,6 +331,12 @@
 				  parent="fleet_manage_menu.fleet_manage_menu_data"
 				  action = "fleet_manage_vehicle_model_action"
 				  sequence="40"
+				  />
+        <menuitem name="fleet_manage_vehicle_emission_standard"
+				  id="fleet_manage_vehicle_emission_standard"
+				  parent="fleet_manage_menu.fleet_manage_menu_data"
+				  action = "fleet_manage_vehicle_emission_standard_action"
+				  sequence="50"
 				  />
 
 

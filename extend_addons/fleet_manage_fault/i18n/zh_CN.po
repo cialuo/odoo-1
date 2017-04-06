@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-31 06:41+0000\n"
-"PO-Revision-Date: 2017-03-31 06:41+0000\n"
+"POT-Creation-Date: 2017-04-06 03:34+0000\n"
+"PO-Revision-Date: 2017-04-06 03:34+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,9 +29,19 @@ msgid "Appearance code already exists"
 msgstr "故障现象编码已经存在"
 
 #. module: fleet_manage_fault
+#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_method_view_form
+msgid "AvailProducts"
+msgstr "可用物料"
+
+#. module: fleet_manage_fault
 #: sql_constraint:fleet_manage_fault.category:0
 msgid "Category code already exists"
 msgstr "故障分类编码已经存在"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_change_count
+msgid "Change Count"
+msgstr "必换数量"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_complex_level
@@ -42,7 +52,7 @@ msgstr "复杂程度"
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_create_date
 #: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_category_create_date
 msgid "Create Date"
-msgstr "创建日期"
+msgstr "建档日期"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_user_id
@@ -50,7 +60,7 @@ msgstr "创建日期"
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_user_id
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_user_id
 msgid "Create Name"
-msgstr "Create Name"
+msgstr "建档人"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_create_uid
@@ -74,11 +84,6 @@ msgstr "当前产品数量。 \n"
 "对位置来说，包括了此位置或其子位置的产品。 \n"
 "对仓库来说，包括了这个仓库位置或其子位置的产品。  \n"
 "另外，包括了所有'内部'类型位置的产品。"
-
-#. module: fleet_manage_fault
-#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_change_count
-msgid "Default Count"
-msgstr "Default Count"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_available_product_uom_id
@@ -268,7 +273,7 @@ msgstr "ID"
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_important_product_id
 msgid "Important Product"
-msgstr "Important Product"
+msgstr "重要部件"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_inner_code
@@ -286,6 +291,11 @@ msgstr "自编号码"
 #: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_method_view_form
 msgid "Inspect Standard"
 msgstr "检验标准"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_is_important_product
+msgid "Is Important Product"
+msgstr "重要部件作业"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance___last_update
@@ -318,7 +328,6 @@ msgid "Mark as done"
 msgstr "归档"
 
 #. module: fleet_manage_fault
-#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_is_important_product
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_materials_control
 msgid "Materials Control"
 msgstr "用料控制"
@@ -352,7 +361,6 @@ msgstr "作业手册"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_product_id
-#: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_method_view_form
 msgid "Product"
 msgstr "产品"
 

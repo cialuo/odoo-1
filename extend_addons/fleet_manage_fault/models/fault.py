@@ -247,22 +247,22 @@ class AvailableProduct(models.Model):
         ondelete='cascade', string="Fault Method Name")
 
     product_id = fields.Many2one('product.product', string="Product")
-    product_code = fields.Char("Product Code", related='product_id.default_code')
-    categ_id = fields.Many2one('product.category', related='product_id.categ_id',string='Product Category')
-    uom_id = fields.Many2one('product.uom', 'Unit of Measure', related='product_id.uom_id')
-    onhand_qty = fields.Float('Quantity On Hand', related='product_id.qty_available')
-    virtual_available = fields.Float('Forecast Quantity', related='product_id.virtual_available')
+    product_code = fields.Char("Product Code", related='product_id.default_code', readonly=True)
+    categ_id = fields.Many2one('product.category', related='product_id.categ_id',
+                               string='Product Category', readonly=True)
+    uom_id = fields.Many2one('product.uom', 'Unit of Measure', related='product_id.uom_id', readonly=True)
+    onhand_qty = fields.Float('Quantity On Hand', related='product_id.qty_available', readonly=True)
+    virtual_available = fields.Float('Forecast Quantity', related='product_id.virtual_available', readonly=True)
 
-    # require_trans = fields.Boolean("Product Name", related='product_id.require_trans')
-    # vehicle_model = fields.Many2many('fleet.vehicle.model')
-    product_size = fields.Char("Product Size", help="Product Size")
+    require_trans = fields.Boolean("Require Trans", related='product_id.require_trans', readonly=True)
+    vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec',
+                                      string='Suitable Vehicle', readonly=True)
+
+    description = fields.Text("Product Size", related='product_id.description', readonly=True)
 
     change_count = fields.Integer("Change Count")
     max_count = fields.Integer("Max Count")
     remark = fields.Text("Remark", help="Remark")
-
-
-
 
 
 class FaultMaintainType(models.Model):
