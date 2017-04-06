@@ -30,7 +30,6 @@ class Product(models.Model):
     contract_price = fields.Float(string='Contract Price')
     tech_ids= fields.One2many('product.tech.info', 'product_id', string='Tec Info')
     component_ids = fields.One2many('product.component', 'product_id', string='Component Info')
-    # equipment_ids = fields.One2many('product.equipment', 'product_id', string='Equipment Info')
 
     _sql_constraints = [
         ('code_parent_category_uniq',
@@ -148,16 +147,3 @@ class Component(models.Model):
             vals['code'] = self.env['ir.sequence'].next_by_code('product_component')
         res = super(Component, self).create(vals)
         return res
-
-    # @api.onchange('parent_vehicle')
-    # def onchange_location_id(self):
-    #     """
-    #     根据选择的车辆，自动修改物理位置。
-    #     默认位置为： virtual/（车牌号）
-    #     :return:
-    #     """
-    #     if self.parent_vehicle:
-    #         # inverntory 类型为虚拟库位
-    #         location = self.parent_vehicle.mapped('location_id').filtered(lambda x: x.usage == 'inventory')
-    #         if location:
-    #             self.location_id = location

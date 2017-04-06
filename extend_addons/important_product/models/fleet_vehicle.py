@@ -56,11 +56,6 @@ class VehicleModel(models.Model):
     control_import = fields.Boolean(string='Control', default=False)
     product_lines = fields.One2many('vehicle.model.product', 'model_id', string='Product Line')
 
-    # @api.model
-    # def create(self, vals):
-    #     res = super(VehicleModel, self).create(vals)
-    #     res.update_product_list()
-    #     return res
 
     def _vehicle_move(self, vehicle, product, qty, move_in=True):
         move_vals = {
