@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-01 01:40+0000\n"
-"PO-Revision-Date: 2017-04-01 09:41+0800\n"
+"POT-Creation-Date: 2017-04-06 05:38+0000\n"
+"PO-Revision-Date: 2017-04-06 13:38+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -72,7 +72,6 @@ msgstr "ID"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.lty_view_employee_form
-#: model:ir.ui.view,arch_db:employees.ltyhr_view_department_form
 msgid "Employee's Name"
 msgstr "员工姓名"
 
@@ -215,33 +214,43 @@ msgstr "部门类型"
 
 #. module: employees
 #: code:addons/employees/models/models.py:306
+#: selection:hr.department,departmenttype:0
 #, python-format
 msgid "department type branch"
 msgstr "分公司"
 
 #. module: employees
 #: code:addons/employees/models/models.py:308
+#: selection:hr.department,departmenttype:0
 #, python-format
 msgid "department type department"
 msgstr "部门"
 
 #. module: employees
 #: code:addons/employees/models/models.py:309
+#: selection:hr.department,departmenttype:0
 #, python-format
 msgid "department type group"
 msgstr "组"
 
 #. module: employees
 #: code:addons/employees/models/models.py:305
+#: selection:hr.department,departmenttype:0
 #, python-format
 msgid "department type headquarters"
 msgstr "总公司"
 
 #. module: employees
 #: code:addons/employees/models/models.py:307
+#: selection:hr.department,departmenttype:0
 #, python-format
 msgid "department type subsidiary"
 msgstr "子公司"
+
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.ltyhr_view_department_form
+msgid "department's Name"
+msgstr "部门名称"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.lty_view_employee_form
@@ -299,36 +308,42 @@ msgstr "社保账号"
 
 #. module: employees
 #: code:addons/employees/models/models.py:22
+#: selection:hr.employee,employeestate:0
 #, python-format
 msgid "employee state in work"
 msgstr "在职"
 
 #. module: employees
 #: code:addons/employees/models/models.py:26
+#: selection:hr.employee,employeestate:0
 #, python-format
 msgid "employee state injured"
 msgstr "工伤"
 
 #. module: employees
 #: code:addons/employees/models/models.py:24
+#: selection:hr.employee,employeestate:0
 #, python-format
 msgid "employee state inner retired"
 msgstr "内退"
 
 #. module: employees
 #: code:addons/employees/models/models.py:27
+#: selection:hr.employee,employeestate:0
 #, python-format
 msgid "employee state other"
 msgstr "其他"
 
 #. module: employees
 #: code:addons/employees/models/models.py:23
+#: selection:hr.employee,employeestate:0
 #, python-format
 msgid "employee state retired"
 msgstr "退休"
 
 #. module: employees
 #: code:addons/employees/models/models.py:25
+#: selection:hr.employee,employeestate:0
 #, python-format
 msgid "employee state retired pay"
 msgstr "退养"
@@ -457,6 +472,7 @@ msgstr "关系"
 
 #. module: employees
 #: code:addons/employees/models/models.py:180
+#: selection:employees.employeefamily,sex:0
 #, python-format
 msgid "female"
 msgstr "女"
@@ -481,6 +497,7 @@ msgstr "角色"
 
 #. module: employees
 #: code:addons/employees/models/models.py:179
+#: selection:employees.employeefamily,sex:0
 #, python-format
 msgid "male"
 msgstr "男"
@@ -546,13 +563,13 @@ msgstr "成员列表"
 
 #. module: employees
 #: code:addons/employees/models/models.py:212
-#: model:ir.model.fields,field_description:employees.field_employees_post_group_id
 #, python-format
 msgid "post relate group"
 msgstr "关联权限"
 
 #. module: employees
 #: code:addons/employees/models/models.py:207
+#: selection:employees.post,posttype:0
 #, python-format
 msgid "post title labour"
 msgstr "员工"
@@ -565,6 +582,7 @@ msgstr "岗位类型"
 
 #. module: employees
 #: code:addons/employees/models/models.py:206
+#: selection:employees.post,posttype:0
 #, python-format
 msgid "post title manager"
 msgstr "经理"
