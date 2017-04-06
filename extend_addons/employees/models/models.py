@@ -278,20 +278,26 @@ class post(models.Model):
                 if record.parent_id != None:
                     self.getParentDepartment(record.parent_id.id, container)
 
+    # 岗位下的员工数量
+    membercount = fields.Char(compute='_countpostmember', string=_('member count of post'))
+    def _countpostmember(self):
+        for item in self:
+            employeemode = self.env['hr.employee']
+            count = employeemode.search_count([('workpost' , '=', item.id)])
+            item.membercount = str(count)
 
 
 class department(models.Model):
 
     _inherit = 'hr.department'
 
-    # 成员数量
-    membercount = fields.Char(compute='_countmember', string=_('member count in department'))
-
+    # 岗位数量
+    membercount = fields.Char(compute='_countmember', string=_('post count in department'))
     @api.multi
     def _countmember(self):
         for item in self:
-            employeeModel = self.env['hr.employee']
-            item.membercount = str(employeeModel.search_count([('department_id', '=', item.id)]))
+            postModel = self.env['employees.post']
+            item.membercount = str(postModel.search_count([('department', '=', item.id)]))
 
     # 建档时间
     record_createdate = fields.Date(compute='_getRecordCreateTime',
