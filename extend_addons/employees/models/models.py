@@ -44,7 +44,13 @@ class employee(models.Model):
     # 员工家属信息
     families = fields.One2many('employees.employeefamily', 'employee_id', string=_("employees's families"))
     # 员工所在岗位
-    workpost = fields.Many2one('employees.post', ondelete='restrict',  string=_('employee work post'))
+    workpost = fields.Many2one('employees.post',  ondelete='restrict',  string=_('employee work post'))
+
+    #  @api.onchange('department_id')
+    #  def _restrictPost(self):
+    #      return {
+    #              'domain': {'workpost': [('department', '=', self.department_id.id)]},
+    #          }
 
     @api.constrains('user_id')
     def _relateone2one(self):
