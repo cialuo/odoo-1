@@ -3,7 +3,7 @@
 		<!-- FaultCategory  tree -->
         <record model="ir.ui.view" id="fleet_manage_fault_category_view_tree">
             <field name="name">FaultCategory.tree</field>
-            <field name="model">fleet_manage_fault.fault_category</field>
+            <field name="model">fleet_manage_fault.category</field>
             <field name="arch" type="xml">
                 <tree string="FaultCategory Tree">
                     <field name="fault_category_code"/>
@@ -17,7 +17,7 @@
 		<!-- FaultAppearance  tree -->
         <record model="ir.ui.view" id="fleet_manage_fault_appearance_view_tree">
             <field name="name">FaultAppearance.tree</field>
-            <field name="model">fleet_manage_fault.fault_appearance</field>
+            <field name="model">fleet_manage_fault.appearance</field>
             <field name="arch" type="xml">
                 <tree string="FaultAppearance Tree">
                     <field name="fault_appearance_code"/>
@@ -33,7 +33,7 @@
 		<!-- FaultReason  tree -->
         <record model="ir.ui.view" id="fleet_manage_fault_reason_view_tree">
             <field name="name">FaultReason.tree</field>
-            <field name="model">fleet_manage_fault.fault_reason</field>
+            <field name="model">fleet_manage_fault.reason</field>
             <field name="arch" type="xml">
                 <tree string="FaultReason Tree">
                     <field name="fault_reason_code"/>
@@ -50,7 +50,7 @@
 		<!-- FaultMethod  tree -->
         <record model="ir.ui.view" id="fleet_manage_fault_method_view_tree">
             <field name="name">FaultMethod.tree</field>
-            <field name="model">fleet_manage_fault.fault_method</field>
+            <field name="model">fleet_manage_fault.method</field>
             <field name="arch" type="xml">
                 <tree string="FaultMethod Tree">
                     <field name="fault_method_code"/>
@@ -70,7 +70,7 @@
 		<!-- FaultCategory form view -->
         <record model="ir.ui.view" id="fleet_manage_fault_category_view_form">
             <field name="name">FaultCategory.form</field>
-            <field name="model">fleet_manage_fault.fault_category</field>
+            <field name="model">fleet_manage_fault.category</field>
             <field name="arch" type="xml">
                 <form string="FaultCategory Form">
                 	<header>
@@ -132,7 +132,7 @@
 		<!-- FaultAppearance form view -->
         <record model="ir.ui.view" id="fleet_manage_fault_appearance_view_form">
             <field name="name">FaultAppearance.form</field>
-            <field name="model">fleet_manage_fault.fault_appearance</field>
+            <field name="model">fleet_manage_fault.appearance</field>
             <field name="arch" type="xml">
                 <form string="FaultAppearance Form">
 					<header>
@@ -188,7 +188,7 @@
 		<!-- FaultReason form view -->
         <record model="ir.ui.view" id="fleet_manage_fault_reason_view_form">
             <field name="name">FaultReason.form</field>
-            <field name="model">fleet_manage_fault.fault_reason</field>
+            <field name="model">fleet_manage_fault.reason</field>
             <field name="arch" type="xml">
                 <form string="FaultReason Form">
 					<header>
@@ -244,7 +244,7 @@
 		<!-- FaultMethod form view -->
         <record model="ir.ui.view" id="fleet_manage_fault_method_view_form">
             <field name="name">FaultMethod.form</field>
-            <field name="model">fleet_manage_fault.fault_method</field>
+            <field name="model">fleet_manage_fault.method</field>
             <field name="arch" type="xml">
                 <form string="FaultMethod Form">
                 	<header>
@@ -325,21 +325,21 @@
 		<!-- FaultCategory Action -->
 		<record model="ir.actions.act_window" id="fleet_manage_fault_category_action">
 	      <field name="name">fleet_manage_fault_category_action</field>
-	      <field name="res_model">fleet_manage_fault.fault_category</field>
+	      <field name="res_model">fleet_manage_fault.category</field>
 	      <field name="view_mode">tree,form</field>
 		</record>
 		
 		<!-- FaultAppearance Action -->
 		<record model="ir.actions.act_window" id="fleet_manage_fault_appearance_action">
 	      <field name="name">fleet_manage_fault_appearance_action</field>
-	      <field name="res_model">fleet_manage_fault.fault_appearance</field>
+	      <field name="res_model">fleet_manage_fault.appearance</field>
 	      <field name="view_mode">tree,form</field>
 		</record>
 		
 		<!-- FaultReason Action -->
 		<record model="ir.actions.act_window" id="fleet_manage_fault_reason_action">
 	      <field name="name">fleet_manage_fault_reason_action</field>
-	      <field name="res_model">fleet_manage_fault.fault_reason</field>
+	      <field name="res_model">fleet_manage_fault.reason</field>
 	      <field name="view_mode">tree,form</field>
 		</record>
 		
@@ -347,7 +347,7 @@
 		<!-- FaultMethod Action -->
 		<record model="ir.actions.act_window" id="fleet_manage_fault_method_action">
 	      <field name="name">fleet_manage_fault_method_action</field>
-	      <field name="res_model">fleet_manage_fault.fault_method</field>
+	      <field name="res_model">fleet_manage_fault.method</field>
 	      <field name="view_mode">tree,form</field>
 		</record>
 

@@ -4,7 +4,7 @@
         <!-- MaintainReport  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_report_view_tree">
             <field name="name">MaintainReport.tree</field>
-            <field name="model">fleet_manage_maintain.maintain_report</field>
+            <field name="model">fleet_manage_fault.report</field>
             <field name="arch" type="xml">
                 <tree string="MaintainReport Tree">
 					<field name="name"/>
@@ -23,7 +23,7 @@
 		<!-- MaintainReportPrecheck  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_precheck_view_tree">
             <field name="name">MaintainReportPrecheck.tree</field>
-            <field name="model">fleet_manage_maintain.maintain_report</field>
+            <field name="model">fleet_manage_fault.report</field>
             <field name="arch" type="xml">
                 <tree string="MaintainReportPrecheck Tree" create="false">
 					<field name="name"/>
@@ -42,7 +42,7 @@
 		<!-- MaintainRepair  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_repair_view_tree">
             <field name="name">MaintainRepair.tree</field>
-            <field name="model">fleet_manage_maintain.maintain_repair</field>
+            <field name="model">fleet_manage_fault.repair</field>
             <field name="arch" type="xml">
                 <tree string="MaintainRepair Tree" create="false">
 					<field name="name"/>
@@ -64,7 +64,7 @@
 		<!-- MaintainDelivery  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_delivery_view_tree">
             <field name="name">MaintainDelivery.tree</field>
-            <field name="model">fleet_manage_maintain.maintain_delivery</field>
+            <field name="model">fleet_manage_fault.delivery</field>
             <field name="arch" type="xml">
                 <tree string="MaintainDelivery Tree" create="false">
 					<field name="name"/>
@@ -83,18 +83,20 @@
 		<!-- MaintainInspect  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_inspect_view_tree">
             <field name="name">MaintainInspect.tree</field>
-            <field name="model">fleet_manage_maintain.maintain_repair</field>
+            <field name="model">fleet_manage_fault.repair</field>
             <field name="arch" type="xml">
                 <tree string="MaintainInspect Tree" create="false">
 					<field name="name"/>
 					<field name="vehicle_id"/>
 					<field name="vehicle_type"/>
 					<field name="license_plate"/>
-					<field name="inspect_time"/>
+					<field name="start_inspect_time"/>
+					<field name="repair_names"/>
 					<field name="fault_method_code"/>
 					<field name="fault_method_id"/>
 					<field name="inspect_result"/>
 					<field name="state"/>
+					<field name="inspect_user_id"/>
 					<field name="rework_count"/>
                 </tree>
             </field>
@@ -104,15 +106,15 @@
 		<!-- MaintainReport form view -->
         <record model="ir.ui.view" id="fleet_manage_report_view_form">
             <field name="name">MaintainReport.form</field>
-            <field name="model">fleet_manage_maintain.maintain_report</field>
+            <field name="model">fleet_manage_fault.report</field>
             <field name="arch" type="xml">
                 <form string="MaintainReport Form">
                 	<header>
-						<button name="action_precheck" type="object"
-                                string="Precheck"
+						<button name="action_submit_precheck" type="object"
+                                string="Submit Precheck"
 								states="draft"
                                 class="oe_highlight"/> <!-- 提交检验-->
-                    	<field name="state"  widget="statusbar" statusbar_visible="draft,precheck,dispatch,repair,inspect,done"/>
+                    	<field name="state"  widget="statusbar" statusbar_visible="draft,precheck,repair,done"/>
                 	</header>
 					<sheet>
 
@@ -162,6 +164,10 @@
                             </page>
 			            </notebook>
 					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -170,27 +176,24 @@
 		<!-- MaintainPrecheck form view -->
         <record model="ir.ui.view" id="fleet_manage_precheck_view_form">
             <field name="name">MaintainPrecheck.form</field>
-            <field name="model">fleet_manage_maintain.maintain_report</field>
+            <field name="model">fleet_manage_fault.report</field>
             <field name="arch" type="xml">
                 <form string="MaintainPrecheck Form" create="false">
                 	<header>
-						<button name="action_precheck" type="object"
+						<button name="action_submit_precheck" type="object"
                                 string="Precheck"
 								states="draft"
                                 class="oe_highlight"/> <!-- 提交检验-->
 
-						<button name="action_draft" type="object"
-                                string="Reset to draft"
-								states="back"
-                                class="oe_highlight"/> <!-- 设为草稿-->
 
-						<button name="action_dispatch" type="object"
+
+						<button name="action_precheck_success" type="object"
                                 string="Precheck Success And Create The Delivery"
                                 states="precheck"
 								class="oe_highlight"/>  <!-- 预检通过并创建交接单-->
-						<button name="action_back" type="object"
-                                string="Precheck Back"
-								states="precheck"/> <!-- 检验退回-->
+						<button name="action_draft" type="object"
+                                string="Reset to draft"
+								states="precheck"/>     <!-- 检验退回-->
 
 
 						<!--<button name="" type="object"-->
@@ -213,21 +216,21 @@
                                 states="dispatch"/> <!-- 退回检验-->
 
 
-						<button name="action_inspect" type="object"
-                                string="Repair Complete"
-                                states="repair"
-								class="oe_highlight"/>  <!-- 维修完成-->
+						<!--<button name="action_inspect" type="object"-->
+                                <!--string="Repair Complete"-->
+                                <!--states="repair"-->
+								<!--class="oe_highlight"/>  &lt;!&ndash; 维修完成&ndash;&gt;-->
 
-						<button name="action_dispatch" type="object"
-                                string="Again Dispatch"
-                                states="repair"/>  <!-- 维修完成-->
+						<!--<button name="action_precheck_success" type="object"-->
+                                <!--string="Again Dispatch"-->
+                                <!--states="repair"/>-->
 
-						<button name="" type="object"
-                                string="Inspect Manage"
-                                states="inspect"
-								class="oe_highlight"/> <!-- 管理检验单-->
+						<!--<button name="" type="object"-->
+                                <!--string="Inspect Manage"-->
+                                <!--states="inspect"-->
+								<!--class="oe_highlight"/> &lt;!&ndash; 管理检验单&ndash;&gt;-->
 
-                    	<field name="state"  widget="statusbar"  statusbar_visible="draft,precheck,dispatch,repair,inspect,done"/>
+                    	<field name="state"  widget="statusbar"  statusbar_visible="draft,precheck,repair,done"/>
                 	</header>
 					<sheet>
 
@@ -301,6 +304,10 @@
                             </page>
 			            </notebook>
 					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -308,22 +315,22 @@
 		<!-- MaintainRepair form view -->
         <record model="ir.ui.view" id="fleet_manage_repair_view_form">
             <field name="name">MaintainRepair.form</field>
-            <field name="model">fleet_manage_maintain.maintain_repair</field>
+            <field name="model">fleet_manage_fault.repair</field>
 			<field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
                 	<header>
 						<button name="action_repair" type="object"
                                 string="Start Repair"
-								states="dispatch"
+								states="wait_repair"
                                 class="oe_highlight"/> <!-- 开工-->
 
-						<button name="action_inspect" type="object"
-                                string="Inspect"
+						<button name="action_start_inspect" type="object"
+                                string="Start Inspect"
 								states="repair"
                                 class="oe_highlight"/> <!-- 报检-->
 
-                    	<field name="state"  widget="statusbar"  />
+                    	<field name="state"  widget="statusbar" statusbar_visible="wait_repair,repair,inspect,done" />
                 	</header>
 					<sheet>
 						<div class="oe_title">
@@ -381,12 +388,29 @@
 										<field name="meet_vehicle_type"/>
                                     </tree>
                                 </field>
-                            </page>
-							<page string="Operation Manual">
+                             </page>
+							 <page string="Operation Manual">
 								<field name="operation_manual"/>
-							</page>
+							 </page>
+							 <page string="Inspect Return Records" >
+                                <field name="return_record_ids">
+                                    <tree string="Inspect Return Records">
+										<field name="repair_id"/>
+										<field name="repair_names"/>
+										<field name="fault_method_id"/>
+										<field name="inspect_user_id"/>
+										<field name="return_reason"/>
+										<field name="inspect_return_time"/>
+										<field name="sequence"/>
+                                    </tree>
+                                </field>
+                            </page>
 			            </notebook>
 					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -395,13 +419,13 @@
 		<!-- MaintainRepair form action -->
         <record model="ir.ui.view" id="fleet_manage_repair_view_form_action">
             <field name="name">MaintainRepair.form</field>
-            <field name="model">fleet_manage_maintain.maintain_repair</field>
+            <field name="model">fleet_manage_fault.repair</field>
 			<field name="priority">0</field>
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
-                	<header>
-                    	<field name="state"  widget="statusbar"/>
-                	</header>
+                	<!--<header>-->
+                    	<!--<field name="state"  widget="statusbar"/>-->
+                	<!--</header>-->
 					<sheet>
 						<!--<div class="oe_title">-->
 	                        <!--<label for="name" class="oe_edit_only"/>-->
@@ -441,6 +465,7 @@
 	                            <field name="fault_reason_id" />
 								<field name="fault_method_id" />
 								<field name="fault_method_code" invisible="1"/>
+								<field name="materials_control" invisible="1"/>
 								<field name="user_id"  />
 
 								<label for="percentage_work"/>
@@ -463,7 +488,7 @@
 		<!-- MaintainDelivery form view -->
         <record model="ir.ui.view" id="fleet_manage_delivery_view_form">
             <field name="name">MaintainDelivery.form</field>
-            <field name="model">fleet_manage_maintain.maintain_delivery</field>
+            <field name="model">fleet_manage_fault.delivery</field>
             <field name="arch" type="xml">
                 <form string="MaintainDelivery Form">
                 	<header>
@@ -475,7 +500,7 @@
 						<button name="action_return" type="object"
                                 string="delivery to Return"
 								states="delivery"
-                                class="oe_highlight"/> <!-- 提交检验-->
+                                class="oe_highlight"/> <!-- 确认交回-->
 
 						<button name="" type="object"
                                 string="Maintenance/Warranty"
@@ -511,10 +536,12 @@
 									</group>
 								</group>
                             </page>
-
 						</notebook>
-
 					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -523,7 +550,7 @@
 		<!-- MaintainInspect form view -->
         <record model="ir.ui.view" id="fleet_manage_inspect_view_form">
             <field name="name">MaintainInspect.form</field>
-            <field name="model">fleet_manage_maintain.maintain_repair</field>
+            <field name="model">fleet_manage_fault.repair</field>
 			<field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="MaintainInspect Form">
@@ -539,7 +566,8 @@
 								states="inspect"
                                 class="oe_highlight"/> <!-- 检验完成-->
 
-						<button name="action_repair" type="object"
+						<button name="%(fleet_manage_maintain_inspect_return)d"
+								type="action"
                                 string="Back To Repair"
 								states="inspect"/> <!-- 退回重修-->
 
@@ -571,7 +599,18 @@
 							<page string="Inspect Standard">
 								<field name="inspect_standard"/>
                             </page>
-							<page string="Other Information">
+							<page string="Inspect Return Records" >
+                                <field name="return_record_ids">
+                                    <tree string="Inspect Return Records">
+										<field name="repair_id"/>
+										<field name="repair_names"/>
+										<field name="fault_method_id"/>
+										<field name="inspect_user_id"/>
+										<field name="return_reason"/>
+										<field name="inspect_return_time"/>
+										<field name="sequence"/>
+                                    </tree>
+                                </field>
                             </page>
 						</notebook>
 					</sheet>
@@ -582,7 +621,7 @@
         <!-- MaintainReport Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_report_action">
 			<field name="name">fleet_manage_maintain_report_action</field>
-			<field name="res_model">fleet_manage_maintain.maintain_report</field>
+			<field name="res_model">fleet_manage_fault.report</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_ids" eval="[(5, 0, 0),
 				(0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_report_view_tree')}),
@@ -593,7 +632,7 @@
 		<!-- MaintainPrecheck Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_precheck_action">
 			<field name="name">fleet_manage_maintain_precheck_action</field>
-			<field name="res_model">fleet_manage_maintain.maintain_report</field>
+			<field name="res_model">fleet_manage_fault.report</field>
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('state', 'not in', ['back','draft'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
@@ -604,8 +643,9 @@
 		<!-- MaintainRepair Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_repair_action">
 			<field name="name">fleet_manage_maintain_repair_action</field>
-			<field name="res_model">fleet_manage_maintain.maintain_repair</field>
+			<field name="res_model">fleet_manage_fault.repair</field>
 			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state', 'in', ['dispatch','wait_repair','repair','inspect','done'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_repair_view_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('fleet_manage_maintain.fleet_manage_repair_view_form')})]"/>
@@ -614,15 +654,16 @@
 		<!-- MaintainDelivery Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_delivery_action">
 			<field name="name">fleet_manage_maintain_delivery_action</field>
-			<field name="res_model">fleet_manage_maintain.maintain_delivery</field>
+			<field name="res_model">fleet_manage_fault.delivery</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 
 		<!-- MaintainInspect Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_inspect_action">
 			<field name="name">fleet_manage_maintain_inspect_action</field>
-			<field name="res_model">fleet_manage_maintain.maintain_repair</field>
+			<field name="res_model">fleet_manage_fault.repair</field>
 			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state', 'in', ['repair','inspect','done'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_inspect_view_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('fleet_manage_maintain.fleet_manage_inspect_view_form')})]"/>
@@ -631,14 +672,36 @@
 		<!-- MaintainRepair Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_repair_action">
 			<field name="name">fleet_manage_maintain_repair_action</field>
-			<field name="res_model">fleet_manage_maintain.maintain_repair</field>
+			<field name="res_model">fleet_manage_fault.repair</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_repair_view_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('fleet_manage_maintain.fleet_manage_repair_view_form')})]"/>
 		</record>
 
-        <menuitem name="fleet_manage_maintain"
+
+
+		<record id="fleet_manage_fault_inspect_action_server" model="ir.actions.server">
+            <field name="name">Comfirm Inspect</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_fleet_manage_fault_repair"/>
+            <field name="state">code</field>
+            <field name="code">
+                if context.get('active_model') == 'fleet_manage_fault.repair' and context.get('active_ids'):
+                    action = env['fleet_manage_fault.repair'].browse(context['active_ids']).action_done()
+            </field>
+        </record>
+
+        <record id="action_hr_expense_submit" model="ir.values">
+            <field name="name">Comfirm Inspect</field>
+            <field name="model_id" ref="model_fleet_manage_fault_repair"/>
+            <field name="model">fleet_manage_fault.repair</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%fleet_manage_fault_inspect_action_server" name="value"/>
+        </record>
+
+
+		<menuitem name="fleet_manage_maintain"
 				  id="fleet_manage_maintain"
 				  parent="fleet_manage_menu.fleet_manage_warranty_maintain"/>
 

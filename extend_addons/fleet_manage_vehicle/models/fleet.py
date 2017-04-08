@@ -82,11 +82,10 @@ class FleetVehicleModel(models.Model):
     horsepower_ext = fields.Integer("Horsepower")
     power_ext = fields.Integer('Power', help='Power in KW of the vehicle')
     weight = fields.Integer('Weight',help='Weight')
-    doors_ext = fields.Integer('Doors Number', help='Number of doors of the vehicle', default=5)
-    seats_ext = fields.Integer('Seats Number', help='Number of seats of the vehicle')
+    doors_ext = fields.Integer('Doors Number', help='Number of doors of the vehicle')
+    seats_ext = fields.Integer('Seats Number', help='Number of seats of the vehicle', default=5)
 
-
-    reg_date = fields.Date("Reg Date",help='Reg Date')
+    home_entry_date = fields.Date("Home Entry Date",help='Home Entry Date')
     specifications = fields.Char("Specifications",help='Specifications')
     engine_type_no = fields.Char("Engine Type No",help='Engine Type No')
     chassis_no = fields.Integer('Chassis No',help='Chassis No')

@@ -3,13 +3,13 @@
         <!-- FaultMethodCraft Action -->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_method_craft_action">
 	        <field name="name">fleet_manage_maintain_method_craft_action</field>
-	        <field name="res_model">fleet_manage_fault.fault_method</field>
+	        <field name="res_model">fleet_manage_fault.method</field>
 	        <field name="view_mode">tree,form</field>
 		</record>
         <!-- FaultMethodQuota Action -->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_method_quota_action">
 	        <field name="name">fleet_manage_maintain_method_quota_action</field>
-	        <field name="res_model">fleet_manage_fault.fault_method</field>
+	        <field name="res_model">fleet_manage_fault.method</field>
 	        <field name="view_mode">tree,form</field>
 		</record>
 
