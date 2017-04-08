@@ -21,6 +21,7 @@
         "data/sequence.xml",
         'views/fleet_manage_inspect.xml',
         'views/maintain_view.xml',
+        'views/repair_record.xml',
 
 
     ],
