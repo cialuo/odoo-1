@@ -2,61 +2,88 @@
     <data>
 
         <!-- 车辆保养计划 tree -->
-        <record model="ir.ui.view" id="fleet_manage_warranty_maintain.warranty_plan_view_tree">
+        <record model="ir.ui.view" id="fleet_warranty_plan_view_tree">
             <field name="name">warranty_plan.tree</field>
-            <field name="model">fleet_manage_warranty_maintain.warranty_plan</field>
+            <field name="model">fleet_warranty_plan</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
+                    <field name="month"/>
+                    <field name="company_id"/>
+                    <field name="made_company_id"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                    <field name="auditor_id"/>
+                    <field name="auditor_time"/>
+                    <field name="approval_id"/>
+                    <field name="approval_time"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
 
-        <!-- 车辆保养计划 view -->
-        <record model="ir.ui.view" id="fleet_manage_warranty_maintain.warranty_plan_view_form">
+        <!-- 车辆保养计划 form -->
+        <record model="ir.ui.view" id="fleet_warranty_plan_view_form">
             <field name="name">warranty_plan.form</field>
-            <field name="model">fleet_manage_warranty_maintain.warranty_plan</field>
+            <field name="model">fleet_warranty_plan</field>
             <field name="arch" type="xml">
                 <form>
-
                     <header>
 
-                        <button name="action_draft" type="object"
-                                string="draft" states="commit,audit,execute,done"/>
-                        <button name="action_commit" type="object"
-                                string="commit" states="draft" class="oe_highlight"/>
-                        <button name="action_audit" type="object"
-                                string="audit" states="commit" class="oe_highlight"/>
-                        <button name="action_execute" type="object"
-                                string="execute" states="audit" class="oe_highlight"/>
+                        <button name="action_commit" type="object" string="Confirm Submit" states="draft" class="oe_highlight"/> <!-- 确认提交 -->
 
-                        <field name="state" widget="statusbar" />  <!-- &lt;!&ndash;statusbar_visible="draft,sent,sale"&ndash;&gt;-->
+                        <button name="action_audit" type="object" string="Audit Pass" states="commit" class="oe_highlight"/> <!-- 审核通过 -->
+
+                        <button name="action_execute" type="object" string="Approved" states="audit" class="oe_highlight"/> <!-- 审批通过 -->
+
+                        <button name="action_draft" type="object" string="Rework" states="commit,audit"/> <!-- 退回重做 -->
+
+                        <field name="state" widget="statusbar" />
                     </header>
                     <sheet>
 
                         <div class="oe_title">
-                            <h1>
-                                <field name="name" readonly="1"/>
-                            </h1>
+	                        <label for="name"/>
+							<h1><field name="name" readonly="1"/></h1>
                         </div>
 
-                        <group>
-                            <field name="monthly" /> <!--attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}"-->
-
-                            <field name="create_uid" readonly="1" />
-                            <field name="create_date" readonly="1" />
-
+                        <group col="2">
+                              <group>
+                                <field name="month"/>
+                                <field name="create_date" readonly="1" />
+                                <field name="create_uid" readonly="1" />
+                                <field name="made_company_id"  readonly="1" />
+                                <field name="remark" />
+                              </group>
+                              <group>
+                                <field name="company_id"  />
+                                <field name="auditor_time" readonly="1" />
+                                <field name="auditor_id" readonly="1" />
+                                <field name="approval_id" readonly="1" />
+                                <field name="approval_time" readonly="1" />
+                              </group>
                         </group>
                         <notebook>
                             <page string="plan_sheet_ids_page">
                                 <field name="plan_sheet_ids" widget="one2many_list">
                                     <tree string="plan_sheet_ids_tree" editable="bottom">
                                         <field name="sequence" widget="handle"/>
-                                        <field name="fleet_id" /> <!--context="{'default_type': 'product'}"-->
-                                        <field name="vehicle_no"/>
+                                        <!--<field name="name"/>-->
+                                        <field name="vehicle_id"/>
                                         <field name="vehicle_type"/>
-                                        <field name="maintain_sheet_no"/>
+                                        <field name="license_plate"/>
+                                        <field name="fleet"/>
+                                        <field name="operating_mileage"/>
                                         <field name="warranty_category"/>
+                                        <field name="approval_warranty_category"/>
+                                        <field name="planned_date"/>
+                                        <field name="vin"/>
+                                        <field name="average_daily_kilometer"/>
+                                        <field name="line"/>
+                                        <field name="maintain_location"/>
+                                        <field name="maintain_sheet_no"/>
+                                        <!--<field name="state"/>-->
+
                                         <!--<field name="has_attachments" invisible="1"/>-->
                                         <!--<button name="action_see_attachments" type="object" icon="fa-files-o" attrs="{'invisible': [('has_attachments', '=', False)]}"/>-->
                                         <!--<button name="action_see_attachments" type="object" icon="fa-file" attrs="{'invisible': [('has_attachments', '=', True)]}"/>-->
@@ -72,6 +99,17 @@
                                     </tree>
                                 </field>
                             </page>
+
+                            <page string="Other Information">
+								<group col="1">
+									<group>
+										<field name="task_count"/>
+										<field name="executed_count"/>
+									</group>
+								</group>
+                            </page>
+
+
                         </notebook>
 
                     </sheet>
@@ -80,17 +118,17 @@
         </record>
 
         <!-- 车辆保养计划 action -->
-        <record model="ir.actions.act_window" id="fleet_manage_warranty_maintain.warranty_plan_action">
+        <record model="ir.actions.act_window" id="fleet_warranty_plan_action">
             <field name="name">warranty_plan</field>
-            <field name="res_model">fleet_manage_warranty_maintain.warranty_plan</field>
+            <field name="res_model">fleet_warranty_plan</field>
             <field name="view_mode">tree,form</field>
         </record>
 
         <!-- 车辆保养计划 menu -->
         <menuitem name="warranty_plan"
-                  id="fleet_manage_warranty_maintain.warranty_plan_menuitemId" sequence="21"
+                  id="fleet_warranty_plan_menuitemId" sequence="21"
                   parent="fleet_manage_warranty_maintain_warranty_menuitemId"
-                  action="fleet_manage_warranty_maintain.warranty_plan_action"/>
+                  action="fleet_warranty_plan_action"/>
 
     </data>
 </odoo>

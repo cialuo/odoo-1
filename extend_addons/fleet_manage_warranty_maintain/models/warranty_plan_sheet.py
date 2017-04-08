@@ -2,14 +2,46 @@
 from odoo import models, fields, api
 
 class WarrantyPlanSheet(models.Model): # 计划单
-    _name = 'fleet_manage_warranty_maintain.warranty_plan_sheet'
-    name = fields.Char()
+    _name = 'fleet_warranty_plan_sheet'
+    name = fields.Char(string="Plan Sheet", required=True, index=True, default='New')
+
+    parent_id = fields.Many2one('fleet_warranty_plan', 'WarrantyPlan', required=True, ondelete='cascade') # 车辆保养计划ID
+
+    sequence = fields.Integer('Sequence', default=1)
+
+    vehicle_id = fields.Many2one('fleet.vehicle',string="VehicleNo", required=True,) # 车号
+    vehicle_type = fields.Many2one("fleet.vehicle.model",related='vehicle_id.model_id', store=True, readonly=True) # 车型
+    license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True, readonly=True) # 车牌
+
+    fleet = fields.Char(required=True)  # 车队
+
+    operating_mileage = fields.Float(digits=(6, 1), string="OM") # 运营里程
+
+    warranty_category = fields.Many2one(
+        'fleet_manage_warranty.category', 'WC',
+        ondelete='cascade', required=True) # 生成保养类别
+
+    approval_warranty_category = fields.Many2one(
+        'fleet_manage_warranty.category', 'AWC',
+        ondelete='cascade') # 核准保养类别
+
+    planned_date = fields.Date('PlannedDate', default=fields.Date.context_today) # 计划日期
+
+    vin = fields.Char() # 车架号
+
+    average_daily_kilometer = fields.Float(digits=(6, 1), string="ADK") # 平均日公里
+
+    line = fields.Char() # 线路
+
+    maintain_location = fields.Char() # 保养地点
+
+    maintain_sheet_no = fields.Char(string="SheetNo", readonly=True)  # 保养单号
 
     state = fields.Selection([ # 状态
-        ('draft', "draft"),
-        ('confirmed', "confirmed"),
-        ('done', "done"),
-    ], default='draft')
+        ('wait', "wait"), # 等待执行
+        ('executing', "executing"), # 正在执行
+        ('done', "done"), # 执行完毕
+    ], default='wait')
 
     @api.multi
     def action_draft(self):
@@ -17,79 +49,6 @@ class WarrantyPlanSheet(models.Model): # 计划单
 
     @api.multi
     def action_confirm(self):
-
-        values = {
-            'vehicle_no': 'vehicle_no',
-            'vehicle_type': 'vehicle_type',
-            'plan_id': self.parent_id.id,
-            'name': "auto sheet (%s)" % 'X8', # self.name
-        }
-        maintain_sheet=self.env['fleet_manage_warranty_maintain.warranty_maintain_sheet'].create(values)
-
-        # params = (self.warranty_category.id,)
-
-        category_id=self.warranty_category.id
-
-        condition='%/' + str(category_id) + '/%'
-
-
-        sql_query = """
-            select t.id,t.path,t.idpath from (
-                select t.* from (
-                with recursive tmp_fleet_manage_warranty_category(id,path,idpath) as
-                (
-                select a.id,'/'||a.name as "path",'/'||a.id as "idpath" from fleet_manage_warranty_category as a  where a.parent_id is null
-                union all
-                select a.id,q.path||'/'||a.name as "path",q.idpath||'/'||a.id as "idpath" from fleet_manage_warranty_category as a inner join tmp_fleet_manage_warranty_category as q on (q.id = a.parent_id)
-
-                )
-                select a.id,a.path,a.idpath||'/' as idpath from tmp_fleet_manage_warranty_category as a
-                ) t
-                where idpath like %s
-                order by idpath asc
-            ) t
-                                """
-
-        self.env.cr.execute(sql_query,(condition,))
-
-        results = self.env.cr.dictfetchall()
-        # st_line = self.env['account.bank.statement.line']
-        for line in results:
-            category = self.env['fleet_manage_warranty.category'].search([('id', '=', line.get('id'))])
-            items = category.items
-            for item in items:
-                sheet_item = self.env['fleet_manage_warranty_maintain.maintain_sheet.item'].create({
-                    'maintenance_part': 'maintenance_part',
-                    'maintainsheet_id': maintain_sheet.id,
-                    'category_id': category.id,
-                    'item_id': item.id
-                })
-            # st_line.browse(line.get('id')).write({'partner_id': line.get('partner_id')})
-
-
-        # category = self.env['fleet_manage_warranty.category'].search([('id', '=', self.warranty_category.id)])
-        # items=category.items
-        # for item in items:
-        #     sheet_item = self.env['fleet_manage_warranty_maintain.maintain_sheet.item'].create({
-        #         'maintenance_part': 'maintenance_part',
-        #         'maintainsheet_id': maintain_sheet.id,
-        #         'category_id': category.id,
-        #         'item_id': item.id
-        #     })
-        #
-        # categorys = self.env['fleet_manage_warranty.category'].search([('parent_id', '=', self.warranty_category.id)])
-        # for category in categorys:
-        #     items=category.items
-        #     for item in items:
-        #         sheet_item = self.env['fleet_manage_warranty_maintain.maintain_sheet.item'].create({
-        #             'maintenance_part': 'maintenance_part',
-        #             'maintainsheet_id': maintain_sheet.id,
-        #             'category_id': category.id,
-        #             'item_id': item.id
-        #         })
-
-
-
         self.state = 'confirmed'
 
     @api.multi
@@ -97,36 +56,118 @@ class WarrantyPlanSheet(models.Model): # 计划单
         self.state = 'done'
 
 
-    # _rec_name = "product_id"
-    #
-    # def _get_default_product_uom_id(self):
-    #     return self.env['product.uom'].search([], limit=1, order='id').id
-    parent_id = fields.Many2one('fleet_manage_warranty_maintain.warranty_plan', 'parentId', required=True, ondelete='cascade')
+class WarrantyWizardCreate(models.TransientModel):
+    _name = 'fleet_warranty_wizard_create'
 
-    fleet_id = fields.Many2one('fleet.vehicle', 'Vehicle', required=True) # 车ID
+    def _default_sheet(self):
+        sheetIds=self._context.get('active_ids')
+        print sheetIds
+        sheets = self.env['fleet_warranty_plan_sheet'].browse(sheetIds)
+        return sheets
 
-    sequence = fields.Integer('Sequence', default=1)
+    plan_sheet_ids = fields.Many2many('fleet_warranty_plan_sheet', string='Plan Sheet Ids', required=True, default=_default_sheet)
 
-    # bom_id = fields.Many2one(
-    #     'mrp.bom', 'Parent BoM',
-    #     index=True, ondelete='cascade', required=True)
-    #
-    #
-    # product_qty = fields.Float(
-    #     'Product Quantity', default=1.0,
-    #     digits=dp.get_precision('Product Unit of Measure'), required=True)
-    #
-    # product_uom_id = fields.Many2one(
-    #     'product.uom', 'Product Unit of Measure',
-    #     default=_get_default_product_uom_id,
-    #     oldname='product_uom', required=True,
-    #     help="Unit of Measure (Unit of Measure) is the unit of measurement for the inventory control")
+    @api.multi
+    def create_maintain_sheet(self):
+        sheetIds = self._context.get('active_ids')
+        plan_sheets = self.env['fleet_warranty_plan_sheet'].browse(sheetIds)
+        for plan_sheet in plan_sheets:
+            plan=plan_sheet.parent_id
+            maintain_sheets = self.env['fleet_warranty_maintain_sheet'].search([('plan_id', '=', plan.id)])
+            maintain_sheets_count=len(maintain_sheets)
+            maintain_sheet_val = {
+                'name': plan.name+'_'+str(maintain_sheets_count+1), # +''+str(maintain_sheets_count)
+                'vehicle_id': plan_sheet.vehicle_id.id,
+                'vehicle_type': plan_sheet.vehicle_type.id,
+                'license_plate': plan_sheet.license_plate,
+                'fleet': plan_sheet.fleet,
+                'operating_mileage': plan_sheet.operating_mileage,
+                'warranty_category': plan_sheet.warranty_category.id,
+                'planned_date': plan_sheet.planned_date,
+                'vin': plan_sheet.vin,
+                'average_daily_kilometer':plan_sheet.average_daily_kilometer,
+                'line':plan_sheet.line,
+                'maintain_location':plan_sheet.maintain_location,
+                'plan_id':plan.id
+            }
+            maintain_sheet=self.env['fleet_warranty_maintain_sheet'].create(maintain_sheet_val)
 
-    vehicle_no = fields.Char()  # 车号
-    vehicle_type = fields.Char()  # 车型
-    maintain_sheet_no = fields.Char()  # 保养单号
+            category_id = maintain_sheet.warranty_category.id
 
-    warranty_category = fields.Many2one(
-        'fleet_manage_warranty.category', 'WarrantyCategory',
-        ondelete='cascade', required=True) # 生成保养类别
+            condition = '%/' + str(category_id) + '/%'
+
+            sql_query = """
+                select id,idpath from fleet_manage_warranty_category
+                where idpath like %s
+                order by idpath asc
+            """
+
+            # sql_query = """
+            #             select t.id,t.path,t.idpath from (
+            #                 select t.* from (
+            #                 with recursive tmp_fleet_manage_warranty_category(id,path,idpath) as
+            #                 (
+            #                 select a.id,'/'||a.name as "path",'/'||a.id as "idpath" from fleet_manage_warranty_category as a  where a.parent_id is null
+            #                 union all
+            #                 select a.id,q.path||'/'||a.name as "path",q.idpath||'/'||a.id as "idpath" from fleet_manage_warranty_category as a inner join tmp_fleet_manage_warranty_category as q on (q.id = a.parent_id)
+            #
+            #                 )
+            #                 select a.id,a.path,a.idpath||'/' as idpath from tmp_fleet_manage_warranty_category as a
+            #                 ) t
+            #                 where idpath like %s
+            #                 order by idpath asc
+            #             ) t
+            #                                 """
+
+            self.env.cr.execute(sql_query, (condition,))
+
+            results = self.env.cr.dictfetchall()
+
+            sheet_items = []
+            available_products = []
+            sheet_instructions = []
+            for line in results:
+                category = self.env['fleet_manage_warranty.category'].search([('id', '=', line.get('id'))])
+                items = category.items
+                for item in items:
+                    sheet_item = {
+                        'maintainsheet_id': maintain_sheet.id,
+                        'category_id': category.id,
+                        'item_id': item.id,
+                        'sequence': len(sheet_items) + 1,
+                        'work_time':item.manhour
+                    }
+                    sheet_items.append((0, 0, sheet_item))
+
+                    sheet_instruction = {
+                        'maintainsheet_id': maintain_sheet.id,
+                        'category_id': category.id,
+                        'item_id': item.id,
+                        'sequence': len(sheet_instructions) + 1,
+                        'operational_manual':item.operational_manual
+                    }
+                    sheet_instructions.append((0, 0, sheet_instruction))
+
+
+                    warranty_item = self.env['fleet_manage_warranty.item'].search([('id', '=', item.id)])
+                    boms = warranty_item.bom_line_ids
+                    for bom in boms:
+                        available_product = {
+                            'maintainsheet_id': maintain_sheet.id,
+                            'category_id': category.id,
+                            'item_id': item.id, # item.id,
+                            'product_id': bom.product_id.id,
+                            # 'product_code': bom.product_id.code,
+                            # 'product_name': bom.product_id.name,
+                            'max_available_count': bom.collar_cap,
+                            'default_avail_count': bom.default_usage,
+                            'sequence': len(available_products) + 1,
+                            'vehicle_type': bom.vehicle_type.id
+                        }
+                        available_products.append((0, 0, available_product))
+
+            maintain_sheet.write({'item_ids': sheet_items, 'available_product_ids': available_products, 'instruction_ids': sheet_instructions})
+            plan_sheet.update({'maintain_sheet_no': maintain_sheet.name, 'state': 'executing'})
+
+
 
