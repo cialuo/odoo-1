@@ -352,6 +352,32 @@
                                     </tree>
                                 </field>
                              </page>
+
+							 <page string="ProductLists" name="ProductLists">
+                                <field name="picking_ids">
+                                    <tree string="ProductLists">
+										<field name="picking_type_id"/>
+										<field name="location_id"/>
+										<field name="min_date"/>
+										<field name="origin"/>
+										<field name="state"/>
+                                    </tree>
+                                </field>
+								<center>
+									 <button name="create_get_picking"
+										type="object"
+										string="Create Get Picking"
+										class="oe_highlight">
+									 </button>
+
+									 <button name="create_back_picking"
+										type="object"
+										string="Create Back Picking"
+										/>
+								</center>
+								  <separator/>
+                             </page>
+
 							 <page string="Operation Manual">
 								<field name="operation_manual"/>
 							 </page>

@@ -198,8 +198,7 @@ class FleetMaintainRepair(models.Model):
                                       string="Fault Method")
     fault_method_code = fields.Char(related='fault_method_id.fault_method_code', store=True, readonly=True, copy=False)
     work_time = fields.Integer(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
-    materials_control = fields.Boolean("Materials Control", related='fault_method_id.materials_control',
-                                       store=True, readonly=True, copy=False)
+    materials_control = fields.Boolean("Materials Control", store=True, readonly=True, copy=False)
 
     plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
     plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time", compute='_get_end_datetime')
@@ -235,6 +234,8 @@ class FleetMaintainRepair(models.Model):
 
     is_important_product = fields.Boolean("Is Important Product")
     important_product_id = fields.Many2one('product.component', string="Important Product")
+
+    picking_ids = fields.One2many("stock.picking", 'repair_id', string='Stock Pickings')
 
     @api.depends('plan_start_time', 'work_time')
     def _get_end_datetime(self):
@@ -293,6 +294,7 @@ class FleetMaintainRepair(models.Model):
             self.fault_reason_id = self.fault_method_id.reason_id
             self.is_important_product = self.fault_method_id.is_important_product
             self.important_product_id = self.fault_method_id.important_product_id
+            self.materials_control = self.fault_method_id.materials_control
             if self.fault_method_id.reason_id.appearance_id:
                 self.fault_appearance_id = self.fault_method_id.reason_id.appearance_id
                 self.fault_category_id = self.fault_method_id.reason_id.appearance_id.category_id
@@ -368,11 +370,40 @@ class FleetMaintainRepair(models.Model):
         """
         self.ensure_one()
         if not self.job_ids:
-            raise exceptions.UserError(_("Maintain  Repair Jobs Required!"))
+            raise exceptions.UserError(_("Maintain Repair Jobs Required!"))
         self.write({'state': 'repair'})
 
         for i in self.job_ids:
             i.real_start_time = fields.Datetime.now()
+
+        if self.materials_control:
+            move_lines = []
+            for i in self.available_product_ids:
+                if i.change_count > 0:
+                    vals = {
+                        'name': 'stock_move_repair',
+                        'product_id': i.product_id.id,
+                        'product_uom': i.product_id.uom_id.id,
+                        'product_uom_qty': i.change_count,
+                        'location_id': self.env.ref('stock.stock_location_stock').id,
+                        'location_dest_id': self.env.ref('stock.stock_location_customers').id,
+                    }
+                    move_lines.append([0, 0, vals])
+
+            receipts = self.env['stock.picking.type'].search([('name', 'ilike', 'Receipts')])
+            if move_lines:
+                self.env['stock.picking'].create({
+                    'location_id': self.env.ref('stock.stock_location_stock').id,
+                    'location_dest_id': self.env.ref('stock.stock_location_customers').id,
+                    'picking_type_id': receipts[0].id,#self.env.ref('point_of_sale.picking_type_posout').id,  #分拣类型
+                    'repair_id': self.id,
+                    'move_lines':move_lines
+                })
+
+            for i in self.available_product_ids:
+                if i.change_count and i.require_trans:
+                    pass
+
 
     @api.multi
     def action_start_inspect(self):
@@ -383,10 +414,39 @@ class FleetMaintainRepair(models.Model):
             更新检验单的报检时间
             更新工时管理的实际完工时间
         """
-        self.write({'state': 'inspect','start_inspect_time':fields.Datetime.now()})
+        self.write({
+            'state': 'inspect',
+            'start_inspect_time': fields.Datetime.now()
+        })
         for i in self.job_ids:
             i.real_end_time = fields.Datetime.now()
 
+    @api.multi
+    def create_get_picking(self):
+        """
+        创建领料单
+        """
+        self.ensure_one()
+        res = self.env['ir.actions.act_window'].for_xml_id('stock', 'action_picking_tree_all')
+        res.update(
+            context=dict(self.env.context,
+                         default_repair_id=self.id,
+                         default_picking_type_id=self.env.ref('point_of_sale.picking_type_posout').id,
+                         ),
+        )
+        return res
+
+    @api.multi
+    def create_back_picking(self):
+        """
+        创建退料单
+        """
+        self.ensure_one()
+        res = self.env['ir.actions.act_window'].for_xml_id('', '')
+        res.update(
+            context=dict(self.env.context, default_repair_id=self.id),
+        )
+        return res
 
 class FleetMaintainAvailableProduct(models.Model):
     _name = 'fleet_manage_maintain.available_product'
