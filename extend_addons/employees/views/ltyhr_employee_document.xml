@@ -86,7 +86,7 @@
                                     <group name="active_group">
                                         <field name="socialsecurityaccount" />
                                         <field name="salaryaccount" />
-                                        <field name="workpost" />
+                                        <field name="workpost" domain="[('department','=',department_id)]" />
                                         <field name="user_id" string="Related User"/>
                                     </group>
                                 </group>
