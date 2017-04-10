@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import models, api, fields,exceptions
 from odoo.tools.translate import _
+from datetime import datetime
 import time
 
 class PuchasePlan(models.Model):
@@ -88,7 +89,7 @@ class PuchasePlan(models.Model):
             'state': 'confirm',
             'checker_id': checker.id or False,
             'checker_login': self.env.uid,
-            'check_date': fields.Datetime.now()
+            'check_date': datetime.utcnow()
         })
 
     @api.multi
@@ -109,7 +110,7 @@ class PuchasePlan(models.Model):
         self.write({
             'state': 'process',
             'approver_id': approver.id or False,
-            'approve_date': fields.Datetime.now()
+            'approve_date': datetime.utcnow()
         })
 
     @api.model

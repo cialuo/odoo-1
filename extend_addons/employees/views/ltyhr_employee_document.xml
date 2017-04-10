@@ -86,7 +86,7 @@
                                     <group name="active_group">
                                         <field name="socialsecurityaccount" />
                                         <field name="salaryaccount" />
-                                        <field name="workpost" />
+                                        <field name="workpost" domain="[('department','=',department_id)]" />
                                         <field name="user_id" string="Related User"/>
                                     </group>
                                 </group>
@@ -147,7 +147,7 @@
                         <field name="company_id" groups="base.group_multi_company"/>
                         <field name="department_id"/>
                         <field name="workpost"/>
-                        <field name="job_id"/>
+                        <field name="title"/>
                         <field name="parent_id"/>
                         <field name="coach_id" invisible="1"/>
                         <field name="message_needaction" invisible="1"/>
@@ -193,7 +193,7 @@
                             <div class="oe_title">
                                 <label for="name" class="oe_edit_only"/>
                                 <h1>
-                                    <field name="name" placeholder="Employee's Name"/>
+                                    <field name="name" placeholder="department's Name"/>
                                 </h1>
                             </div>
                             <group>
@@ -246,6 +246,7 @@
                             <group>
                                 <field name="higher_level"/>
                                 <field name="posttype"/>
+                                <field name="group_id"/>
                             </group>
                         </group>
                         <notebook>
@@ -268,6 +269,9 @@
                     <field name="name"/>
                     <field name="department"/>
                     <field name="posttype"/>
+                    <field name="direct_leader"/>
+                    <field name="group_id"/>
+                    <field name="membercount"/>
                 </tree>
             </field>
         </record>
