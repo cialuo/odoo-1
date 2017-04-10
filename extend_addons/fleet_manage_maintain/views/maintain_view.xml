@@ -518,6 +518,29 @@
 	                        </group>
                    		 </group>
 						<notebook>
+							<page string="Deliverys" >
+                                <field name="device_ids">
+                                    <tree string="Deliverys">
+										<field name="device_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+							<page string="ReturnDeliverys" >
+                                <field name="device_return_ids">
+                                    <tree string="ReturnDeliverys">
+										<field name="device_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+
 							<page string="Other Information">
 								<group col="1">
 									<group>

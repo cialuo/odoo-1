@@ -385,11 +385,11 @@
 				  parent="fleet_manage_menu.fleet_manage_menu_data" 
 				  action = "fleet_manage_fault_method_action"
 				  />
-		<menuitem name="fleet_manage_fault_maintain_type"
-				  id="fleet_manage_menu_fault_maintain_type"
-				  parent="fleet_manage_menu.fleet_manage_menu_data"
-				  action = "fleet_manage_fault_maintain_type_action"
-				  />
+		<!--<menuitem name="fleet_manage_fault_maintain_type"-->
+				  <!--id="fleet_manage_menu_fault_maintain_type"-->
+				  <!--parent="fleet_manage_menu.fleet_manage_menu_data"-->
+				  <!--action = "fleet_manage_fault_maintain_type_action"-->
+				  <!--/>-->
 				  		  
 				  
 	</data>
