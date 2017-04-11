@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 
 class FleetVehicle(models.Model):
@@ -43,6 +43,11 @@ class FleetVehicle(models.Model):
     total_odometer = fields.Float(compute='_get_total_odometer', string='Total Odometer', help='Total Odometer')
 
     vehicle_device_ids = fields.One2many('fleet_manage_vehicle.maintenance',"vehicle_id",string="Vehicle Device")
+
+    vehicle_label = fields.Selection([('yellow', "Yellow"),
+                              ('green', "Green")], default='green',
+                               help='Vehicle Label')
+    emission_standard = fields.Many2one('fleet_manage_vehicle.emission_standard', 'Emission Standard')
 
     @api.depends('inner_code')
     def _cumpute_model_name(self):
@@ -134,13 +139,16 @@ class FleetVehicleDevice(models.Model):
     create_date_ext = fields.Datetime("Create Date",related='device_id.create_date', help="Create Date")
 
 
-    # @api.onchange('product_id')
-    # def _onchange_product_id(self):
-    #     if self.product_id:
-    #         self.product_code = self.product_id.code
-    #         self.product_name = self.product_id.name
-    #     else:
-    #         self.product_code = ''
-    #         self.product_name = ''
+class FleetVehicleEmissionStandard(models.Model):
+    """
+    排放标准
+    """
+    _name = 'fleet_manage_vehicle.emission_standard'
+    _sql_constraints = [('stand_code_unique', 'unique(code)', _('Standard code already exists'))]
+
+    name = fields.Char("Emission Level", help="Emission Level")
+    remark = fields.Text("Remark", help="Remark")
+    code = fields.Char('Code', help='Code')
+
 
 
