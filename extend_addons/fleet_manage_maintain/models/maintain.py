@@ -211,7 +211,7 @@ class FleetMaintainRepair(models.Model):
                                       string="Fault Method")
     fault_method_code = fields.Char(related='fault_method_id.fault_method_code', store=True, readonly=True, copy=False)
     work_time = fields.Integer(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
-    materials_control = fields.Boolean("Materials Control", store=True, readonly=True, copy=False)
+    materials_control = fields.Boolean("Materials Control",readonly=True, copy=False)
 
     plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
     plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time", compute='_get_end_datetime')
@@ -277,9 +277,10 @@ class FleetMaintainRepair(models.Model):
                         'product_id': j.product_id.id,
                         'change_count': j.change_count,
                         'max_count': j.max_count,
+                        'require_trans': j.require_trans,
                     }
                     datas.append((0, 0, data))
-            vals.update({'available_product_ids': datas})
+            vals.update({'available_product_ids': datas,'materials_control':method.materials_control})
         return super(FleetMaintainRepair, self).write(vals)
 
     @api.onchange('percentage_work')
@@ -388,9 +389,9 @@ class FleetMaintainRepair(models.Model):
 
         for i in self.job_ids:
             i.real_start_time = fields.Datetime.now()
-
         if self.materials_control:
             move_lines = []
+            picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
             for i in self.available_product_ids:
                 if i.change_count > 0:
                     vals = {
@@ -398,20 +399,19 @@ class FleetMaintainRepair(models.Model):
                         'product_id': i.product_id.id,
                         'product_uom': i.product_id.uom_id.id,
                         'product_uom_qty': i.change_count,
-                        'location_id': self.env.ref('stock.stock_location_stock').id,
-                        'location_dest_id': self.env.ref('stock.stock_location_customers').id,
+                        # 'location_id': self.env.ref('stock.stock_location_stock').id,
+                        # 'location_dest_id': self.env.ref('stock.stock_location_customers').id,
                     }
                     move_lines.append([0, 0, vals])
-
-            receipts = self.env['stock.picking.type'].search([('name', 'ilike', 'Receipts')])
             if move_lines:
                 picking =self.env['stock.picking'].create({
-                    'location_id': self.env.ref('stock.stock_location_stock').id,
-                    'location_dest_id': self.env.ref('stock.stock_location_customers').id,
-                    'picking_type_id': receipts[0].id,#self.env.ref('point_of_sale.picking_type_posout').id,  #分拣类型
+                    'location_id': picking_type.default_location_src_id.id,
+                    'location_dest_id': picking_type.default_location_dest_id.id,
+                    'picking_type_id': picking_type.id,
                     'repair_id': self.id,
                     'move_lines':move_lines
                 })
+                print picking
                 picking.action_assign()
 
 
@@ -437,19 +437,10 @@ class FleetMaintainRepair(models.Model):
         创建领料单
         """
         self.ensure_one()
-        # res = self.env['ir.actions.act_window'].for_xml_id('stock', 'action_picking_tree_all')
-        # res.update(
-        #     context=dict(self.env.context,
-        #                  default_repair_id=self.id,
-        #                  default_picking_type_id=self.env.ref('point_of_sale.picking_type_posout').id,
-        #                  ),
-        # )
-        # return res
-
         context = dict(self.env.context,
                        default_repair_id=self.id,
                        default_origin=self.name,
-                       default_picking_type_id=self.env.ref('point_of_sale.picking_type_posout').id,
+                       default_picking_type_id=self.env.ref('stock_picking_types.picking_type_picking_material').id,
                        )
         return {
             'view_type': 'form',
@@ -466,11 +457,19 @@ class FleetMaintainRepair(models.Model):
         创建退料单
         """
         self.ensure_one()
-        res = self.env['ir.actions.act_window'].for_xml_id('', '')
-        res.update(
-            context=dict(self.env.context, default_repair_id=self.id),
-        )
-        return res
+        context = dict(self.env.context,
+                       default_repair_id=self.id,
+                       default_origin=self.name,
+                       default_picking_type_id=self.env.ref('stock_picking_types.picking_type_return_material').id,
+                       )
+        return {
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'stock.picking',
+            'type': 'ir.actions.act_window',
+            'res_id': '',
+            'context': context
+        }
 
 class FleetMaintainAvailableProduct(models.Model):
     _name = 'fleet_manage_maintain.available_product'
@@ -487,7 +486,7 @@ class FleetMaintainAvailableProduct(models.Model):
     uom_id = fields.Many2one('product.uom', 'Unit of Measure', related='product_id.uom_id')
     onhand_qty = fields.Float('Quantity On Hand', related='product_id.qty_available')
     virtual_available = fields.Float('Forecast Quantity', related='product_id.virtual_available')
-    require_trans = fields.Boolean("Require Trans", related='product_id.require_trans', readonly=True)
+    require_trans = fields.Boolean("Require Trans", readonly=True)
     vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec',
                                       string='Suitable Vehicle', readonly=True)
     product_size = fields.Text("Product Size", related='product_id.description', readonly=True)

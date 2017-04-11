@@ -16,10 +16,9 @@ class Picking(models.Model):
         :return:
         '''
         res = super(Picking, self).action_assign()
-        if self.picking_type_id in ['']:
+        if self.picking_type_id.name in [u'发料', u'领料']:
             move_lines = []
-            require_trans = self.env['stock.picking.type'].search([('name', 'ilike', 'require_trans')])
-            picking_type_id = require_trans[0].id
+            picking_type = self.env.ref('stock_picking_types.picking_old_to_new_material')
             for i in self.repair_id.available_product_ids:
                 if i.change_count > 0 and i.require_trans:
                     vals = {
@@ -27,16 +26,14 @@ class Picking(models.Model):
                         'product_id': i.product_id.id,
                         'product_uom': i.product_id.uom_id.id,
                         'product_uom_qty': i.change_count,
-                        'location_id': self.env.ref('stock.stock_location_stock').id,
-                        'location_dest_id': self.env.ref('stock.stock_location_customers').id,
                     }
                     move_lines.append([0, 0, vals])
             if move_lines:
                 picking = self.env['stock.picking'].create({
-                    'location_id': self.env.ref('stock.stock_location_stock').id,
-                    'location_dest_id': self.env.ref('stock.stock_location_customers').id,
-                    'picking_type_id': picking_type_id,  # 交旧领新分拣类型
-                    'repair_id': self.id,
+                    'location_id': picking_type.default_location_src_id.id,
+                    'location_dest_id': picking_type.default_location_dest_id.id,
+                    'picking_type_id': picking_type.id,  # 交旧领新分拣类型
+                    'repair_id': self.repair_id.id,
                     'move_lines': move_lines
                 })
                 picking.action_assign()
