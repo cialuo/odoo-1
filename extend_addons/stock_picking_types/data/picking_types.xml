@@ -31,8 +31,9 @@
             <field name="suffix">%(year)s%(y)s</field>
             <!--流水-->
             <field name="padding">4</field>
-            <!--公司-->
+            <!--公司
             <field name="company_id" ref="stock.res_company_1"/>
+            -->
             <!--序列代码-->
             <field name="code">picking.type.issuance.of.material</field>
         </record>
@@ -46,8 +47,9 @@
             <field name="suffix">%(year)s%(y)s</field>
             <!--流水-->
             <field name="padding">4</field>
-            <!--公司-->
+            <!--公司
             <field name="company_id" ref="stock.res_company_1"/>
+            -->
             <!--序列代码-->
             <field name="code">picking.type.pick.material</field>
         </record>
@@ -61,8 +63,9 @@
             <field name="suffix">%(year)s%(y)s</field>
             <!--流水-->
             <field name="padding">4</field>
-            <!--公司-->
+            <!--公司
             <field name="company_id" ref="stock.res_company_1"/>
+            -->
             <!--序列代码-->
             <field name="code">picking.type.return.Material</field>
         </record>
@@ -76,8 +79,9 @@
             <field name="suffix">%(year)s%(y)s</field>
             <!--流水-->
             <field name="padding">4</field>
-            <!--公司-->
+            <!--公司
             <field name="company_id" ref="stock.res_company_1"/>
+            -->
             <!--序列代码-->
             <field name="code">picking.type.old.to.new</field>
         </record>
