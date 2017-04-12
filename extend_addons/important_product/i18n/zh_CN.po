@@ -325,7 +325,7 @@ msgstr "补货"
 #: model:ir.model.fields,field_description:important_product.field_product_component_product_id
 #: model:ir.model.fields,field_description:important_product.field_vehicle_model_product_product_id
 msgid "Product"
-msgstr "产品"
+msgstr "部件名称"
 
 #. module: important_product
 #: model:ir.model,name:important_product.model_product_category

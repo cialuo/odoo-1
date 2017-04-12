@@ -32,7 +32,7 @@
                             <group name="left">
                                 <field name="month"/>
                                 <field name="create_date" readonly="1"/>
-                                <field name="user_id"/>
+                                <field name="user_id" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="login_user" invisible="1"/>
                                 <field name="user_department" readonly="1"/>
                                 <field name="note" class="oe_inline"/>
@@ -51,7 +51,7 @@
                                 <field name="line_ids">
                                     <tree editable="top">
                                         <field name="default_code"/>
-                                        <field name="product_id"/>
+                                        <field name="product_id" options="{'no_open': True, 'no_create': True}"/>
                                         <field name="category" readonly="1"/>
                                         <field name="barcode" readonly="1"/>
                                         <field name="special_attribute" readonly="1"/>
