@@ -13,10 +13,12 @@
     'depends': ['materials_manage'],
     'data': [
         # 'security/ir.model.access.csv',
+        'data/picking_types.xml',
         'views/views.xml',
+
     ],
     'demo': [
-        'data/picking_types.xml',
+        # 'data/picking_types.xml',
     ],
     'application': True,
 }

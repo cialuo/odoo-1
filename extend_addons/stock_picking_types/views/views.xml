@@ -97,6 +97,11 @@
     <menuitem id="return_of_material_picking" name="Return Of Material" parent="materials_menu_pick_type" sequence="5" action="stock_picking_types.return_of_material_action_window"/>
     <menuitem id="old_to_new_picking" name="交旧领新" parent="materials_menu_pick_type" sequence="6" action="stock_picking_types.old_to_new_action_window"/>
 
+
+    <!--物资分类-->
+    <menuitem id="picking_material_picking_types1" name="物资分类" parent="materials_menu_config" sequence="3" action="product.product_category_action_form"/>
+     <!--计量单位管理-->
+    <menuitem id="menu_units_of_measure" name="计量单位管理" parent="materials_menu_config" sequence="4" action="product.product_uom_form_action"/>
     <!--新增分拣类型查询-->
     <menuitem id="picking_material_picking_types" name="分拣类型" parent="materials_menu_config" sequence="5" action="stock.action_picking_type_list"/>
 

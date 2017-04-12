@@ -32,7 +32,7 @@ class FleetMaintainReport(models.Model):
     report_date = fields.Date('Report Date',help='Report Date',default=fields.Date.context_today)
     repair_category = fields.Selection([('repair', "repair"),
                                         ('return', "return"),
-                                        ('rush', "rush")], string='Repair Category', default='repair')
+                                        ('rush', "rush")], string='repair category', default='repair')
     repair_level = fields.Char(string="Repair Level")
     is_fault_vehicle = fields.Boolean("Is Fault Vehicle", default=True)
 
@@ -146,13 +146,26 @@ class FleetMaintainReport(models.Model):
         for i in self.repair_ids:
             if i.state == 'precheck':
                 i.state = 'dispatch'
-        vals = {
+        device_lines =[]
+        for i in self.vehicle_id.vehicle_device_ids:
+            vals = {
+                'device_id': i.device_id.id,
+                'serial_no': i.serial_no,
+                'name': i.name,
+                'fixed_asset_number': i.fixed_asset_number,
+                'create_date_ext': i.create_date_ext,
+            }
+            device_lines.append([0, 0, vals])
+
+        data = {
             "report_id": self.id,
             "report_user_id": report_user_id.id,
+            'device_ids':device_lines
         }
+
         deliverys = self.env['fleet_manage_maintain.delivery'].search([("report_id", '=', self.id)])
         if not deliverys:
-            self.env['fleet_manage_maintain.delivery'].create(vals)
+            self.env['fleet_manage_maintain.delivery'].create(data)
 
     @api.multi
     def delivery_manage(self):
@@ -185,7 +198,7 @@ class FleetMaintainRepair(models.Model):
                                    store=True, readonly=True, copy=False)
     license_plate = fields.Char(string="License Plate", help='License Plate',
                                 related='report_id.vehicle_id.license_plate', store=True, readonly=True, copy=False)
-    repair_category = fields.Selection(string="Repair Category", help='Repair Category',
+    repair_category = fields.Selection(string="repair category", help='repair category',
                                    related='report_id.repair_category', store=True, readonly=True, copy=False)
 
     fault_category_id = fields.Many2one("fleet_manage_fault.category", ondelete='set null',
@@ -198,7 +211,7 @@ class FleetMaintainRepair(models.Model):
                                       string="Fault Method")
     fault_method_code = fields.Char(related='fault_method_id.fault_method_code', store=True, readonly=True, copy=False)
     work_time = fields.Integer(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
-    materials_control = fields.Boolean("Materials Control", store=True, readonly=True, copy=False)
+    materials_control = fields.Boolean("Materials Control",readonly=True, copy=False)
 
     plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
     plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time", compute='_get_end_datetime')
@@ -264,9 +277,10 @@ class FleetMaintainRepair(models.Model):
                         'product_id': j.product_id.id,
                         'change_count': j.change_count,
                         'max_count': j.max_count,
+                        'require_trans': j.require_trans,
                     }
                     datas.append((0, 0, data))
-            vals.update({'available_product_ids': datas})
+            vals.update({'available_product_ids': datas,'materials_control':method.materials_control})
         return super(FleetMaintainRepair, self).write(vals)
 
     @api.onchange('percentage_work')
@@ -375,9 +389,9 @@ class FleetMaintainRepair(models.Model):
 
         for i in self.job_ids:
             i.real_start_time = fields.Datetime.now()
-
         if self.materials_control:
             move_lines = []
+            picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
             for i in self.available_product_ids:
                 if i.change_count > 0:
                     vals = {
@@ -385,24 +399,20 @@ class FleetMaintainRepair(models.Model):
                         'product_id': i.product_id.id,
                         'product_uom': i.product_id.uom_id.id,
                         'product_uom_qty': i.change_count,
-                        'location_id': self.env.ref('stock.stock_location_stock').id,
-                        'location_dest_id': self.env.ref('stock.stock_location_customers').id,
+                        # 'location_id': self.env.ref('stock.stock_location_stock').id,
+                        # 'location_dest_id': self.env.ref('stock.stock_location_customers').id,
                     }
                     move_lines.append([0, 0, vals])
-
-            receipts = self.env['stock.picking.type'].search([('name', 'ilike', 'Receipts')])
             if move_lines:
-                self.env['stock.picking'].create({
-                    'location_id': self.env.ref('stock.stock_location_stock').id,
-                    'location_dest_id': self.env.ref('stock.stock_location_customers').id,
-                    'picking_type_id': receipts[0].id,#self.env.ref('point_of_sale.picking_type_posout').id,  #分拣类型
+                picking =self.env['stock.picking'].create({
+                    'location_id': picking_type.default_location_src_id.id,
+                    'location_dest_id': picking_type.default_location_dest_id.id,
+                    'picking_type_id': picking_type.id,
                     'repair_id': self.id,
                     'move_lines':move_lines
                 })
-
-            for i in self.available_product_ids:
-                if i.change_count and i.require_trans:
-                    pass
+                print picking
+                picking.action_assign()
 
 
     @api.multi
@@ -427,14 +437,19 @@ class FleetMaintainRepair(models.Model):
         创建领料单
         """
         self.ensure_one()
-        res = self.env['ir.actions.act_window'].for_xml_id('stock', 'action_picking_tree_all')
-        res.update(
-            context=dict(self.env.context,
-                         default_repair_id=self.id,
-                         default_picking_type_id=self.env.ref('point_of_sale.picking_type_posout').id,
-                         ),
-        )
-        return res
+        context = dict(self.env.context,
+                       default_repair_id=self.id,
+                       default_origin=self.name,
+                       default_picking_type_id=self.env.ref('stock_picking_types.picking_type_picking_material').id,
+                       )
+        return {
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'stock.picking',
+            'type': 'ir.actions.act_window',
+            'res_id': '',
+            'context': context
+        }
 
     @api.multi
     def create_back_picking(self):
@@ -442,11 +457,19 @@ class FleetMaintainRepair(models.Model):
         创建退料单
         """
         self.ensure_one()
-        res = self.env['ir.actions.act_window'].for_xml_id('', '')
-        res.update(
-            context=dict(self.env.context, default_repair_id=self.id),
-        )
-        return res
+        context = dict(self.env.context,
+                       default_repair_id=self.id,
+                       default_origin=self.name,
+                       default_picking_type_id=self.env.ref('stock_picking_types.picking_type_return_material').id,
+                       )
+        return {
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'stock.picking',
+            'type': 'ir.actions.act_window',
+            'res_id': '',
+            'context': context
+        }
 
 class FleetMaintainAvailableProduct(models.Model):
     _name = 'fleet_manage_maintain.available_product'
@@ -463,7 +486,7 @@ class FleetMaintainAvailableProduct(models.Model):
     uom_id = fields.Many2one('product.uom', 'Unit of Measure', related='product_id.uom_id')
     onhand_qty = fields.Float('Quantity On Hand', related='product_id.qty_available')
     virtual_available = fields.Float('Forecast Quantity', related='product_id.virtual_available')
-    require_trans = fields.Boolean("Require Trans", related='product_id.require_trans', readonly=True)
+    require_trans = fields.Boolean("Require Trans", readonly=True)
     vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec',
                                       string='Suitable Vehicle', readonly=True)
     product_size = fields.Text("Product Size", related='product_id.description', readonly=True)
@@ -544,6 +567,9 @@ class FleetMaintainDelivery(models.Model):
         ('delivery', "Delivery"),
         ('return', "Return")], default='draft')
 
+    device_ids = fields.One2many('fleet_manage_maintain.maintenance', 'delivery_id', string='Deliverys')
+    device_return_ids = fields.One2many('fleet_manage_maintain.return_maintenance', 'delivery_id', string='Deliverys')
+
     @api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
@@ -559,6 +585,17 @@ class FleetMaintainDelivery(models.Model):
     def action_return(self):
         self.state = 'return'
         self.delivery_return_time = fields.Datetime.now()
+        device_lines = []
+        for i in self.device_ids:
+            vals = {
+                'device_id': i.device_id.id,
+                'serial_no': i.serial_no,
+                'name': i.name,
+                'fixed_asset_number': i.fixed_asset_number,
+                'create_date_ext': i.create_date_ext,
+            }
+            device_lines.append([0, 0, vals])
+        self.device_return_ids = device_lines
 
     @api.multi
     def return_action_to_open(self):
@@ -576,6 +613,35 @@ class FleetMaintainDelivery(models.Model):
             )
             return res
         return False
+
+
+class FleetMaintainDevice(models.Model):
+    """
+    交接清单
+    """
+    _name = 'fleet_manage_maintain.maintenance'
+
+    delivery_id = fields.Many2one('fleet_manage_maintain.delivery', ondelete='cascade', string="Vehicle")
+    device_id = fields.Many2one('maintenance.equipment', string="Equipment")
+    serial_no = fields.Char("Serial No", help="Serial No")
+    name = fields.Char("Name", help="Name")
+    fixed_asset_number = fields.Char("Fixed Asset Number", help="Fixed Asset Number")
+    create_date_ext = fields.Datetime("Create Date", help="Create Date")
+
+
+class FleetMaintainDevice(models.Model):
+    """
+    交回清单
+    """
+    _name = 'fleet_manage_maintain.return_maintenance'
+
+    delivery_id = fields.Many2one('fleet_manage_maintain.delivery', ondelete='cascade', string="Vehicle")
+    device_id = fields.Many2one('maintenance.equipment', string="Equipment")
+    serial_no = fields.Char("Serial No", help="Serial No")
+    name = fields.Char("Name", help="Name")
+    fixed_asset_number = fields.Char("Fixed Asset Number", help="Fixed Asset Number")
+    create_date_ext = fields.Datetime("Create Date", help="Create Date")
+
 
 
 class FleetMaintainInspect(models.Model):

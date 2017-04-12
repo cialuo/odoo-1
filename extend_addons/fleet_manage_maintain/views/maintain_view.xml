@@ -357,8 +357,10 @@
                                 <field name="picking_ids">
                                     <tree string="ProductLists">
 										<field name="picking_type_id"/>
+										<field name="name"/>
 										<field name="location_id"/>
 										<field name="min_date"/>
+										<field name="date_done"/>
 										<field name="origin"/>
 										<field name="state"/>
                                     </tree>
@@ -518,6 +520,29 @@
 	                        </group>
                    		 </group>
 						<notebook>
+							<page string="Deliverys" >
+                                <field name="device_ids">
+                                    <tree string="Deliverys">
+										<field name="device_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+							<page string="ReturnDeliverys" >
+                                <field name="device_return_ids">
+                                    <tree string="ReturnDeliverys">
+										<field name="device_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+
 							<page string="Other Information">
 								<group col="1">
 									<group>
