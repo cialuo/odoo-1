@@ -309,14 +309,13 @@
 										<field name="categ_id"/>
 										<field name="description"/>
 										<field name="uom_id"/>
-										<field name="vehicle_model" widget="many2many_tags"/>
-										<field name="require_trans"/>
-
 										<field name="change_count"/>
 										<field name="max_count"/>
+										<field name="vehicle_model" widget="many2many_tags"/>
+										<field name="require_trans"/>
 										<field name="remark"/>
-										<field name="onhand_qty"/>
-										<field name="virtual_available"/>
+										<field name="onhand_qty" invisible="1"/>
+										<field name="virtual_available" invisible="1"/>
 									</tree>
 								</field>
 							</page>
@@ -363,30 +362,30 @@
 	      <field name="view_mode">tree,form</field>
 		</record>
 
-		<menuitem name="fleet_manage_fault"
-				  id="fleet_manage_fault"
-				  parent="fleet_manage_menu.fleet_manage_menu_data"
-				  action = "fleet_manage_fault_category_action"
-				  />
+		<!--<menuitem name="fleet_manage_fault"-->
+				  <!--id="fleet_manage_fault"-->
+				  <!--parent="fleet_manage_menu.fleet_manage_menu_data"-->
+				  <!--action = "fleet_manage_fault_category_action"-->
+				  <!--/>-->
 
 	    <menuitem name="fleet_manage_fault_category" 
 				  id="fleet_manage_menu_fault_category" 
-				  parent="fleet_manage_fault"
+				  parent="fleet_manage_menu.fleet_manage_menu_data"
 				  action = "fleet_manage_fault_category_action"
 				  />
 	    <menuitem name="fleet_manage_fault_appearance" 
 				  id="fleet_manage_menu_fault_appearance" 
-				  parent="fleet_manage_fault"
+				  parent="fleet_manage_menu.fleet_manage_menu_data"
 				  action = "fleet_manage_fault_appearance_action"
 				  />		
   	    <menuitem name="fleet_manage_fault_reason" 
 				  id="fleet_manage_menu_fault_reason" 
-				  parent="fleet_manage_fault"
+				  parent="fleet_manage_menu.fleet_manage_menu_data"
 				  action = "fleet_manage_fault_reason_action"
 				  />	  
   	    <menuitem name="fleet_manage_fault_method" 
 				  id="fleet_manage_menu_fault_method" 
-				  parent="fleet_manage_fault"
+				  parent="fleet_manage_menu.fleet_manage_menu_data"
 				  action = "fleet_manage_fault_method_action"
 				  />
 		<!--<menuitem name="fleet_manage_fault_maintain_type"-->

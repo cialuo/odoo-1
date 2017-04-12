@@ -72,7 +72,7 @@ class FleetMaintainReport(models.Model):
             res = self.env['ir.actions.act_window'].for_xml_id('fleet_manage_maintain', xml_id)
             res.update(
                 context=dict(self.env.context, default_report_id=self.id),
-                domain=[('report_id', '=', self.id)]
+                domain=[('report_id', '=', self.id), ('state', '=', 'dispatch')]
             )
             return res
         return False
