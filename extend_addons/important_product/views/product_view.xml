@@ -153,7 +153,7 @@
                                     <group name="supply_top_left">
                                         <field name="type"/>
                                         <field name="shelf"/>
-                                        <field name="keeper_id"/>
+                                        <field name="keeper_id" options="{'no_create_edit': True}"/>
                                     </group>
                                     <group name="supply_top_right">
                                         <field name="route_ids" widget="many2many_checkboxes" attrs="{'invisible':[('type', 'in', ['service', 'digital'])]}"/>
@@ -172,7 +172,7 @@
                             <page name="component_info" string="Component Info"
                                   attrs="{'invisible': ['|', ('important_type', '!=', 'component'), ('is_important', '=', False)]}">
                                 <field name="component_ids">
-                                    <tree editable="top">
+                                    <tree editable="top" create="false" delete="false">
                                         <field name="code"/>
                                         <field name="product_id" readonly="1"/>
                                         <field name="odometer" readonly="1"/>
