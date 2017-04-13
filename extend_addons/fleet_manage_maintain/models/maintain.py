@@ -274,7 +274,7 @@ class FleetMaintainRepair(models.Model):
 
     picking_ids = fields.One2many("stock.picking", 'repair_id', string='Stock Pickings')
     component_ids = fields.Many2many('product.component', 'fleet_manage_maintain_repair_component_rel', 'repair_component_id', 'component_id', 'Component',
-                               copy=False, domain="[('product_id', '=', important_product_id)]", states={
+                               copy=False, domain="[('product_id', '=', important_product_id),('vehicle_id','=',vehicle_id)]", states={
                                           'done': [('readonly', True)],
                                           'inspect': [('readonly', True)],
                                           'repair': [('readonly', True)],
