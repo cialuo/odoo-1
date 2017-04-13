@@ -441,6 +441,7 @@
 								<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="fault_reason_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="fault_method_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="vehicle_id" invisible="1"/>
 								<field name="component_ids" widget="many2many_tags" options="{'no_create_edit': True}"
 									   attrs="{'invisible': [('is_important_product', '=', False)],'required': [('is_important_product','=', True)]}"/>
 								<field name="work_time"/>
