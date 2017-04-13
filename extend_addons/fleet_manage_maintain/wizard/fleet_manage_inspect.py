@@ -35,7 +35,6 @@ class MaintainInspectReturn(models.TransientModel):
     @api.multi
     def inspect_return(self):
         context = dict(self._context or {})
-        print context
         active_id = context.get('active_id', '') or ''
         record = self.env['fleet_manage_maintain.repair'].browse(active_id)
         if record.state not in ('inspect'):

@@ -15,6 +15,7 @@ class FleetVehicle(models.Model):
                               ('repair', "repair"),
                               ('stop', "stop"),], default='normal',
                                help='Current state of the vehicle', ondelete="set null")
+    model_id = fields.Many2one('fleet.vehicle.model', 'Vehicle Model', required=True, help='Model of the vehicle')
     name = fields.Char("Vehicle Number",compute="_cumpute_model_name", store=True)
     inner_code = fields.Char(string="Inner Code",help="Inner Code",required=True)
     route_id = fields.Many2one('fleet_manage_vehicle.route',string="Route")

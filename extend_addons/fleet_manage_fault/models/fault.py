@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions, _
 
 
 class FaultCategory(models.Model):
@@ -204,8 +204,9 @@ class FaultMethod(models.Model):
     operation_manual = fields.Text("Operation Manual", help="Operation Manual")
     inspect_standard = fields.Text("Inspect Standard", help="Inspect Standard")
 
-    # important_product = fields.Many2one('product.product',string="Important Product", domain=[('import_product', '=', True)])
-    important_product_id = fields.Many2one('product.component', string="Important Product")
+    important_product_id = fields.Many2one('product.product', string="Important Product",
+                                           domain=[('is_important', '=', True)])
+    # important_product_id = fields.Many2one('product.component', string="Important Product")
 
     reason_id = fields.Many2one('fleet_manage_fault.reason',
         ondelete='cascade', string="Fault reason Name",required=True)
@@ -264,6 +265,11 @@ class AvailableProduct(models.Model):
     max_count = fields.Integer("Max Count")
     remark = fields.Text("Remark", help="Remark")
 
+    @api.constrains('change_count', 'max_count')
+    def _check_change_count(self):
+        for r in self:
+            if r.change_count > r.max_count:
+                raise exceptions.ValidationError(_("max_count must be greater than or equal to change_count"))
 
 class FaultMaintainType(models.Model):
     """

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-10 02:40+0000\n"
-"PO-Revision-Date: 2017-04-10 02:40+0000\n"
+"POT-Creation-Date: 2017-04-13 03:19+0000\n"
+"PO-Revision-Date: 2017-04-13 03:19+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: fleet_manage_maintain
-#: code:addons/fleet_manage_maintain/models/maintain.py:89
+#: code:addons/fleet_manage_maintain/models/maintain.py:93
 #, python-format
 msgid "%s has been added to the report!"
 msgstr "%s 添加到报修单!"
@@ -62,6 +62,11 @@ msgid "Comfirm Inspect"
 msgstr "检验通过"
 
 #. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_repair_component_ids
+msgid "Component"
+msgstr "选择重要部件"
+
+#. module: fleet_manage_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_maintain_inspect_return_view
 msgid "Confirm Inspect"
 msgstr "检验通过"
@@ -76,11 +81,6 @@ msgstr "退回重修"
 #: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_maintain_inspect_return
 msgid "Confirm return"
 msgstr "退回重修"
-
-#. module: fleet_manage_maintain
-#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_maintain_inspect_confirm
-msgid "Confirm the selected inspect"
-msgstr "检验通过"
 
 #. module: fleet_manage_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_repair_view_form
@@ -107,6 +107,7 @@ msgid "Create Name"
 msgstr "报修人"
 
 #. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_create_uid
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_delivery_create_uid
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_create_uid
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_maintenance_create_uid
@@ -119,6 +120,7 @@ msgid "Created by"
 msgstr "创建人"
 
 #. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_create_date
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_delivery_create_date
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_create_date
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_maintenance_create_date
@@ -211,7 +213,7 @@ msgid "Dispatch to Precheck"
 msgstr "退回检验"
 
 #. module: fleet_manage_maintain
-#: code:addons/fleet_manage_maintain/models/maintain.py:342
+#: code:addons/fleet_manage_maintain/models/maintain.py:356
 #, python-format
 msgid "Dispatching the proportion of more than 100"
 msgstr "派工比例超过了100%"
@@ -271,7 +273,7 @@ msgstr "故障分类"
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_repair_jobs_fault_method_id
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_return_record_fault_method_id
 msgid "Fault Method"
-msgstr "故障方法"
+msgstr "维修方法"
 
 #. module: fleet_manage_maintain
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_repair_fault_method_code
@@ -325,6 +327,7 @@ msgstr "预测数量(计算为 在手数量 - 出货 + 进货) \n"
 "否则，这包括存储在任何“内部”类型位置的货物。"
 
 #. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_id
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_delivery_id
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_id
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_maintenance_id
@@ -344,7 +347,7 @@ msgstr "重要部件"
 #. module: fleet_manage_maintain
 #: model:ir.model,name:fleet_manage_maintain.model_fleet_vehicle
 msgid "Information on a vehicle"
-msgstr "车辆信息"
+msgstr "车辆上的信息"
 
 #. module: fleet_manage_maintain
 #: selection:fleet_manage_maintain.repair,state:0
@@ -402,7 +405,7 @@ msgstr "重要部件作业"
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_repair_jobs_name
 #: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_maintain_repair_jobs_name
 msgid "Job Name"
-msgstr "Job Name"
+msgstr "工时名称"
 
 #. module: fleet_manage_maintain
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product___last_update
@@ -418,6 +421,7 @@ msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_write_uid
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_delivery_write_uid
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_write_uid
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_maintenance_write_uid
@@ -430,6 +434,7 @@ msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_write_date
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_delivery_write_date
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_inspect_return_write_date
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_maintenance_write_date
@@ -456,12 +461,6 @@ msgid "License plate number of the vehicle (i = plate number for a car)"
 msgstr "车牌"
 
 #. module: fleet_manage_maintain
-#: code:addons/fleet_manage_maintain/models/maintain.py:339
-#, python-format
-msgid "Maintain  Repair Names Required!"
-msgstr "请填写维修故障"
-
-#. module: fleet_manage_maintain
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_repair_jobs_repair_id
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_repair_return_record_ids
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_report_repair_ids
@@ -476,13 +475,19 @@ msgid "Maintain Repair Jobs"
 msgstr "工时管理"
 
 #. module: fleet_manage_maintain
-#: code:addons/fleet_manage_maintain/models/maintain.py:386
+#: code:addons/fleet_manage_maintain/models/maintain.py:400
 #, python-format
 msgid "Maintain Repair Jobs Required!"
 msgstr "维修工时不存在，请先派工"
 
 #. module: fleet_manage_maintain
-#: code:addons/fleet_manage_maintain/models/maintain.py:101
+#: code:addons/fleet_manage_maintain/models/maintain.py:353
+#, python-format
+msgid "Maintain Repair Names Required!"
+msgstr "请选择维修人员"
+
+#. module: fleet_manage_maintain
+#: code:addons/fleet_manage_maintain/models/maintain.py:105
 #, python-format
 msgid "Maintain Repair Required!"
 msgstr "请填写维修故障!"
@@ -553,13 +558,6 @@ msgstr "用料控制"
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_max_count
 msgid "Max Count"
 msgstr "领用上限"
-
-#. module: fleet_manage_maintain
-#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_delivery_vehicle_type
-#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_repair_vehicle_type
-#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_report_vehicle_type
-msgid "Model"
-msgstr "车型"
 
 #. module: fleet_manage_maintain
 #: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_maintain_delivery_vehicle_type
@@ -642,22 +640,22 @@ msgstr "预检通过并创建交接单"
 #. module: fleet_manage_maintain
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_product_id
 msgid "Product"
-msgstr "产品"
+msgstr "物资名称"
 
 #. module: fleet_manage_maintain
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_categ_id
 msgid "Product Category"
-msgstr "物料类别"
+msgstr "物资类别"
 
 #. module: fleet_manage_maintain
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_product_code
 msgid "Product Code"
-msgstr "物料编码"
+msgstr "物资编码"
 
 #. module: fleet_manage_maintain
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_product_size
 msgid "Product Size"
-msgstr "规格尺寸"
+msgstr "规格型号"
 
 #. module: fleet_manage_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_maintain.fleet_manage_repair_view_form
@@ -699,7 +697,7 @@ msgstr "实际开工时间"
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_repair_jobs_real_work
 #: model:ir.model.fields,help:fleet_manage_maintain.field_fleet_manage_maintain_repair_jobs_real_work
 msgid "Real Work"
-msgstr "时间工时(分钟)"
+msgstr "实际工时(分钟)"
 
 #. module: fleet_manage_maintain
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_report_remark
@@ -824,13 +822,13 @@ msgid "Select category for the current product"
 msgstr "为当前产品选择一个类别"
 
 #. module: fleet_manage_maintain
-#: code:addons/fleet_manage_maintain/models/maintain.py:688
+#: code:addons/fleet_manage_maintain/models/maintain.py:700
 #, python-format
 msgid "Selected inspect(s) cannot be confirmed as they are not in 'inspect' state"
 msgstr "选择检验单中存在不是待检状态的记录"
 
 #. module: fleet_manage_maintain
-#: code:addons/fleet_manage_maintain/wizard/fleet_manage_inspect.py:42
+#: code:addons/fleet_manage_maintain/wizard/fleet_manage_inspect.py:41
 #, python-format
 msgid "Selected inspect(s) cannot be confirmed as they are not in 'inspect' state."
 msgstr "选择检验单中存在不是待检状态的记录"
@@ -897,13 +895,20 @@ msgstr "调拨"
 #. module: fleet_manage_maintain
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_uom_id
 msgid "Unit of Measure"
-msgstr "计量单位"
+msgstr "单位"
 
 #. module: fleet_manage_maintain
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_maintenance_delivery_id
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_return_maintenance_delivery_id
 msgid "Vehicle"
 msgstr "车辆"
+
+#. module: fleet_manage_maintain
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_delivery_vehicle_type
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_repair_vehicle_type
+#: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_report_vehicle_type
+msgid "Vehicle Model"
+msgstr "车型"
 
 #. module: fleet_manage_maintain
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_delivery_vehicle_id
@@ -948,31 +953,6 @@ msgid "delivery_bill"
 msgstr "交接单"
 
 #. module: fleet_manage_maintain
-#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_fault_delivery
-msgid "fleet_manage_fault.delivery"
-msgstr "交接单"
-
-#. module: fleet_manage_maintain
-#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_fault_repair
-msgid "fleet_manage_fault.repair"
-msgstr "维修单"
-
-#. module: fleet_manage_maintain
-#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_fault_repair_jobs
-msgid "fleet_manage_fault.repair_jobs"
-msgstr "工时管理"
-
-#. module: fleet_manage_maintain
-#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_fault_report
-msgid "fleet_manage_fault.report"
-msgstr "报修单"
-
-#. module: fleet_manage_maintain
-#: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_fault_return_record
-msgid "fleet_manage_fault.return_record"
-msgstr "退检记录"
-
-#. module: fleet_manage_maintain
 #: model:ir.ui.menu,name:fleet_manage_maintain.fleet_manage_maintain
 msgid "fleet_manage_maintain"
 msgstr "车辆维修管理"
@@ -1000,7 +980,7 @@ msgstr "维修单"
 #. module: fleet_manage_maintain
 #: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_maintain_repair_jobs
 msgid "fleet_manage_maintain.repair_jobs"
-msgstr "fleet_manage_maintain.repair_jobs"
+msgstr "工时管理"
 
 #. module: fleet_manage_maintain
 #: model:ir.model,name:fleet_manage_maintain.model_fleet_manage_maintain_report
