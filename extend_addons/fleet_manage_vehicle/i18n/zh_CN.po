@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-10 01:46+0000\n"
-"PO-Revision-Date: 2017-04-10 01:46+0000\n"
+"POT-Creation-Date: 2017-04-13 07:41+0000\n"
+"PO-Revision-Date: 2017-04-13 07:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -79,17 +79,7 @@ msgstr "单击新建车辆."
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_code
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_code
 msgid "Code"
-msgstr "等级代码"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "Contracts"
-msgstr "合约"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "Costs"
-msgstr "费用"
+msgstr "代码"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_maintenance_create_date_ext
@@ -211,11 +201,6 @@ msgstr "前轮距"
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_front_max_weight
 msgid "Front Max Weight"
 msgstr "前桥负荷量"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "Fuel"
-msgstr "燃油"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_model_fuel_capacity
@@ -425,13 +410,13 @@ msgstr "备注"
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_route_id
 msgid "Route"
-msgstr "线路"
+msgstr "路线"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_route_name
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_manage_vehicle_route_name
 msgid "Route Name"
-msgstr "线路"
+msgstr "路线名称"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_model_seats_ext
@@ -446,11 +431,6 @@ msgid "Serial No"
 msgstr "设备编号"
 
 #. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "Services"
-msgstr "服务"
-
-#. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_model_shaft_distance
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_shaft_distance
 msgid "Shaft Distance"
@@ -463,8 +443,7 @@ msgid "Specifications"
 msgstr "型号规格"
 
 #. module: fleet_manage_vehicle
-#: code:addons/fleet_manage_vehicle/models/fleet.py:147
-#: sql_constraint:fleet_manage_vehicle.emission_standard:0
+#: code:addons/fleet_manage_vehicle/models/fleet.py:148
 #, python-format
 msgid "Standard code already exists"
 msgstr "排放等级编码已经存在"
@@ -641,28 +620,8 @@ msgstr "抢修"
 
 #. module: fleet_manage_vehicle
 #: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "show all the costs for this vehicle"
-msgstr "显示这辆车的所有费用"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "show the contract for this vehicle"
-msgstr "显示该车辆的合同"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "show the fuel logs for this vehicle"
-msgstr "显示车辆的燃油日志"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
 msgid "show the odometer logs for this vehicle"
 msgstr "显示辆车的里程表记录"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "show the services logs for this vehicle"
-msgstr "显示该车辆的服务日志"
 
 #. module: fleet_manage_vehicle
 #: selection:fleet.vehicle,state:0
