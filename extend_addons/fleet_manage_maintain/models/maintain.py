@@ -16,7 +16,7 @@ class FleetMaintainReport(models.Model):
         return emp_ids and emp_ids[0] or False
 
     name = fields.Char(string="Report Bill", help='Report Bill', required=True, index=True, copy=False, default='New')
-    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True,)
+    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True)
     vehicle_type = fields.Many2one("fleet.vehicle.model", related='vehicle_id.model_id', store=True,
                                    readonly=True, copy=False)
     license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True,
@@ -45,7 +45,11 @@ class FleetMaintainReport(models.Model):
                             ('repair', "Repair"),
                             ('inspect', "Inspect"),
                             ('done', "Done")], default='draft')
-    repair_ids = fields.One2many("fleet_manage_maintain.repair", 'report_id', string='Maintain Repair')
+    repair_ids = fields.One2many("fleet_manage_maintain.repair", 'report_id', string='Maintain Repair',
+                                 states={'done':[('readonly', True)],
+                                         # 'repair':[('readonly', True)]
+                                         }
+    )
 
     partner_id = fields.Many2one('res.partner', string="Repair Company")
     fleet = fields.Char(string="Fleet")
@@ -191,7 +195,7 @@ class FleetMaintainRepair(models.Model):
     name = fields.Char(string="Repair Bill", help='Repair Bill', required=True, index=True,
                        copy=False, default='New', readonly=True)
     report_id = fields.Many2one("fleet_manage_maintain.report",ondelete='cascade',
-                                string="Report Code", required=True)
+                                string="Report Code", required=True, readonly=True)
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
                                  related='report_id.vehicle_id', store=True, readonly=True, copy=False)
     vehicle_type = fields.Many2one("fleet.vehicle.model",related='report_id.vehicle_id.model_id',
@@ -201,14 +205,30 @@ class FleetMaintainRepair(models.Model):
     repair_category = fields.Selection(string="repair category", help='repair category',
                                    related='report_id.repair_category', store=True, readonly=True, copy=False)
 
-    fault_category_id = fields.Many2one("fleet_manage_fault.category", ondelete='set null',
-                                        string="Fault Category", required=True)
+    fault_category_id = fields.Many2one("fleet_manage_fault.category", ondelete='set null',string="Fault Category",
+                                        required=True, states={
+                                          'done': [('readonly', True)],
+                                          'inspect': [('readonly', True)],
+                                          'repair': [('readonly', True)],
+                                        })
     fault_appearance_id = fields.Many2one("fleet_manage_fault.appearance", ondelete='set null',
-                                          string="Fault Appearance")
+                                          string="Fault Appearance", states={
+                                          'done': [('readonly', True)],
+                                          'inspect': [('readonly', True)],
+                                          'repair': [('readonly', True)],
+                                        })
     fault_reason_id = fields.Many2one("fleet_manage_fault.reason", ondelete='set null',
-                                      string="Fault Reason")
+                                      string="Fault Reason", states={
+                                          'done': [('readonly', True)],
+                                          'inspect': [('readonly', True)],
+                                          'repair': [('readonly', True)],
+                                        })
     fault_method_id = fields.Many2one("fleet_manage_fault.method", ondelete='set null',
-                                      string="Fault Method")
+                                      string="Fault Method", states={
+                                          'done': [('readonly', True)],
+                                          'inspect': [('readonly', True)],
+                                          'repair': [('readonly', True)],
+                                        })
     fault_method_code = fields.Char(related='fault_method_id.fault_method_code', store=True, readonly=True, copy=False)
     work_time = fields.Integer(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
     materials_control = fields.Boolean("Materials Control",readonly=True, copy=False)
@@ -229,8 +249,12 @@ class FleetMaintainRepair(models.Model):
         ('inspect', "Inspect"),
         ('done', "Done")], default='draft', readonly=True)
 
-    job_ids = fields.One2many("fleet_manage_maintain.repair_jobs", 'repair_id',
-                              string='Maintain Repair Jobs')
+    job_ids = fields.One2many("fleet_manage_maintain.repair_jobs", 'repair_id',string='Maintain Repair Jobs',
+                              states={
+                                  'done': [('readonly', True)],
+                                  'inspect': [('readonly', True)],
+                                  'repair': [('readonly', True)],
+                              })
 
     percentage_work = fields.Float(help='percentage_work', digits=(2, 1))
 
@@ -246,9 +270,16 @@ class FleetMaintainRepair(models.Model):
                                    default='vehicle_repair', string="Repair Type")
 
     is_important_product = fields.Boolean("Is Important Product")
-    important_product_id = fields.Many2one('product.component', string="Important Product")
+    important_product_id = fields.Many2one('product.product', related='fault_method_id.important_product_id',string="Important Product")
 
     picking_ids = fields.One2many("stock.picking", 'repair_id', string='Stock Pickings')
+    component_ids = fields.Many2many('product.component', 'fleet_manage_maintain_repair_component_rel', 'repair_component_id', 'component_id', 'Component',
+                               copy=False, domain="[('product_id', '=', important_product_id)]", states={
+                                          'done': [('readonly', True)],
+                                          'inspect': [('readonly', True)],
+                                          'repair': [('readonly', True)],
+                                        })
+
 
     @api.depends('plan_start_time', 'work_time')
     def _get_end_datetime(self):
@@ -307,7 +338,10 @@ class FleetMaintainRepair(models.Model):
         if self.fault_method_id:
             self.fault_reason_id = self.fault_method_id.reason_id
             self.is_important_product = self.fault_method_id.is_important_product
-            self.important_product_id = self.fault_method_id.important_product_id
+            # self.important_product_id = self.fault_method_id.important_product_id
+            if self.fault_method_id.is_important_product:
+                self.component_ids = self.vehicle_id.mapped('component_ids').filtered(lambda x: x.product_id in self.important_product_id).ids
+
             self.materials_control = self.fault_method_id.materials_control
             if self.fault_method_id.reason_id.appearance_id:
                 self.fault_appearance_id = self.fault_method_id.reason_id.appearance_id
@@ -337,7 +371,7 @@ class FleetMaintainRepair(models.Model):
         """
         self.ensure_one()
         if not self.user_id:
-            raise exceptions.UserError(_("Maintain  Repair Names Required!"))
+            raise exceptions.UserError(_("Maintain Repair Names Required!"))
         percentage_work = sum(i.percentage_work for i in self.job_ids)
         if percentage_work + self.percentage_work > 100:
             raise exceptions.UserError(_("Dispatching the proportion of more than 100"))
@@ -559,8 +593,8 @@ class FleetMaintainDelivery(models.Model):
 
     report_user_id = fields.Many2one('hr.employee', string="Create Name", required=True, readonly=True)
 
-    delivery_time = fields.Datetime("Delivery Time", help="Delivery Time")
-    delivery_return_time = fields.Datetime("Delivery Return Time", help="Delivery Return Time")
+    delivery_time = fields.Datetime("Delivery Time", help="Delivery Time", readonly=True)
+    delivery_return_time = fields.Datetime("Delivery Return Time", help="Delivery Return Time", readonly=True)
 
     state = fields.Selection([
         ('draft', "Draft"),

@@ -156,14 +156,14 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="category_id" />
-								<field name="inner_code" />
+	                        	<field name="category_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="inner_code" options="{'no_open':True,'no_create':True}"/>
 								<field name="sequence"/>
 	                        </group>
 	                        <group>
 
 	                            <field name="fault_appearance_code" />
-								<field name="user_id" />
+								<field name="user_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="create_date" />
 	                        </group>
                    		 </group>
@@ -212,13 +212,13 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="category_id" />
-								<field name="appearance_id" />
+	                        	<field name="category_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="appearance_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="inner_code" />
 	                        </group>
 	                        <group>
 	                            <field name="fault_reason_code" />
-								<field name="user_id" />
+								<field name="user_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="create_date" />
 	                        </group>
                    		 </group>
@@ -268,14 +268,14 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="category_id" />
-								<field name="appearance_id" />
-								<field name="reason_id" />
+	                        	<field name="category_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="appearance_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="reason_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="inner_code" />
 	                        </group>
 	                        <group>
 	                            <field name="fault_method_code" />
-								<field name="user_id" />
+								<field name="user_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="create_date" />
 	                        </group>
                    		 </group>
