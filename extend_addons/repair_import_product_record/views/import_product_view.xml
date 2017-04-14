@@ -1,10 +1,9 @@
 <odoo>
     <data>
-
-        <!--Vehicle Form-->
+        <!--importproduct Form-->
         <record id='fleet_vehicle_repair_inherit' model='ir.ui.view'>
-            <field name="name">fleet_vehicle.form.inherit</field>
-            <field name="model">fleet.vehicle</field>
+            <field name="name">product.component.form.inherit</field>
+            <field name="model">product.component</field>
             <field name="inherit_id" ref="fleet_manage_vehicle.fleet_vehicle_view_form"/>
             <field name="arch" type="xml">
                 <div name="button_box" position="inside">
@@ -17,7 +16,17 @@
                             <field name="repair_count" widget="statinfo" string="Repairs"/>
                     </button>
                 </div>
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="repair_record" string="Repair Record">
+                        <field name="repair_ids">
+
+                        </field>
+                    </page>
+                </xpath>
+
             </field>
         </record>
+
     </data>
 </odoo>
