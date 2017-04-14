@@ -7,8 +7,7 @@
        <record id="stock_location_ullage" model="stock.location">
             <field name="name">Ullage</field>
            <field name="location_id"></field>
-            <field name="scrap_location">True</field>
-            <field name="usage">internal</field>
+            <field name="usage">inventory</field>
             <field name="company_id"></field>
         </record>
 
@@ -17,7 +16,7 @@
         <record id="stock_location_old_to_new" model="stock.location">
             <field name="name">Return Of Material</field>
             <field name="location_id" ref="stock.stock_location_stock"/>
-            <field name="return_location">True</field>
+            <field name="scrap_location">True</field>
             <field name="usage">internal</field>
             <field name="company_id"></field>
         </record>
