@@ -451,9 +451,9 @@
 								<field name="is_important_product" invisible="1"/>
 								<field name="important_product_id" invisible="1"/>
 	                        </group>
-	                        <group>
-								<field name="plan_start_time" />
-								<field name="plan_end_time" />
+	                        <group class="oe_edit_only">
+								<field name="plan_start_time"/>
+								<field name="plan_end_time"/>
 								<field name="fault_method_code" invisible="1"/>
 								<field name="materials_control" invisible="1"/>
 								<field name="user_id"  options="{'no_open':True,'no_create':True}"/>

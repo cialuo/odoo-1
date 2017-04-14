@@ -433,19 +433,16 @@ class FleetMaintainRepair(models.Model):
                         'product_id': i.product_id.id,
                         'product_uom': i.product_id.uom_id.id,
                         'product_uom_qty': i.change_count,
-                        # 'location_id': self.env.ref('stock.stock_location_stock').id,
-                        # 'location_dest_id': self.env.ref('stock.stock_location_customers').id,
                     }
                     move_lines.append([0, 0, vals])
             if move_lines:
-                picking =self.env['stock.picking'].create({
+                picking = self.env['stock.picking'].create({
                     'location_id': picking_type.default_location_src_id.id,
                     'location_dest_id': picking_type.default_location_dest_id.id,
                     'picking_type_id': picking_type.id,
                     'repair_id': self.id,
                     'move_lines':move_lines
                 })
-                print picking
                 picking.action_assign()
 
 
