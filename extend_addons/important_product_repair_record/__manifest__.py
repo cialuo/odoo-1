@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': '重要部件的维修记录',
+    'name': 'important_product_repair_record',
     'version': '1.0',
     'category': 'lty',
     'summary': '重要部件管理',
@@ -12,5 +12,5 @@
     'data': [
         'views/import_product_view.xml',
     ],
-    'depends': ['fleet_manage_maintain', 'import_product'],
+    'depends': ['fleet_manage_maintain', 'fleet_important_component'],
 }

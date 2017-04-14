@@ -14,7 +14,8 @@ class ImportProductRepairRecord(models.Model):
     repair_count = fields.Integer(compute="_compute_repair_count", string='Repairs')
 
     repair_ids = fields.Many2many('fleet_manage_maintain.repair', 'fleet_manage_maintain_repair_component_rel',
-                                     'component_id', 'repair_component_id', 'Repairs')
+                                     'component_id', 'repair_component_id', 'Repairs',
+                                  domain=[('state', '=', 'done')])
 
     @api.multi
     @api.depends("repair_ids.component_ids")
@@ -34,7 +35,7 @@ class ImportProductRepairRecord(models.Model):
             res = self.env['ir.actions.act_window'].for_xml_id('fleet_manage_maintain', xml_id)
             res.update(
                 context=dict(self.env.context),
-                domain=[('id', 'id', self.repair_ids.ids)]
+                domain=[('id', 'in', self.repair_ids.ids),('state', 'in', ['done'])]
             )
             return res
         return False
