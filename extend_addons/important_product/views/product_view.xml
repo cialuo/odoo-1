@@ -194,9 +194,9 @@
             <field name="priority">0</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="default_code" string="Materials Code"/>
+                    <!--<field name="default_code" string="Materials Code"/>-->
+                    <field name="display_name" string="Materials Name"/>
                     <field name="categ_id" string="Materials Type"/>
-                    <field name="barcode"/>
                     <field name="vehicle_model"/>
                     <field name="require_trans"/>
                     <field name="keeper_id"/>

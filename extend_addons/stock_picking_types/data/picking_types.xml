@@ -141,7 +141,7 @@
             <!--仓库-->
             <field name="warehouse_id" ref="stock.warehouse0"/>
             <!--默认源-->
-            <field name="default_location_src_id" ref="stock.stock_location_stock"/>
+            <field name="default_location_src_id" ref="stock_location_ullage"/>
             <!--目标源-->
             <field name="default_location_dest_id" ref="stock_location_old_to_new"/>
             <!--作业类型：内部-->
