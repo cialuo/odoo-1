@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-07 08:01+0000\n"
-"PO-Revision-Date: 2017-04-07 16:03+0800\n"
+"POT-Creation-Date: 2017-04-14 07:42+0000\n"
+"PO-Revision-Date: 2017-04-14 15:44+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,17 +20,18 @@ msgstr ""
 #. module: stock_picking_types
 #: model:ir.ui.menu,name:stock_picking_types.issuance_of_material_picking
 msgid "Issuance Of Material"
-msgstr "发料管理"
+msgstr "发料调拨"
 
 #. module: stock_picking_types
 #: model:ir.ui.menu,name:stock_picking_types.picking_material_picking
 msgid "Picking Material"
-msgstr "领料管理"
+msgstr "领料调拨"
 
 #. module: stock_picking_types
 #: model:ir.ui.menu,name:stock_picking_types.return_of_material_picking
+#: model:stock.location,name:stock_picking_types.stock_location_old_to_new
 msgid "Return Of Material"
-msgstr "退料管理"
+msgstr "退料调拨"
 
 #. module: stock_picking_types
 #: model:ir.ui.view,arch_db:stock_picking_types.view_issuance_of_material_search
@@ -43,9 +44,15 @@ msgid "Search Picking Material"
 msgstr "Search Picking Material"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.view_old_to_new_search
 #: model:ir.ui.view,arch_db:stock_picking_types.view_return_of_material_search
 msgid "Search Return Of Material"
 msgstr "Search Return Of Material"
+
+#. module: stock_picking_types
+#: model:stock.location,name:stock_picking_types.stock_location_ullage
+msgid "Ullage"
+msgstr "Ullage"
 
 #. module: stock_picking_types
 #: model:ir.actions.act_window,name:stock_picking_types.issuance_of_material_action_window
@@ -53,16 +60,46 @@ msgid "issuance_of_material window"
 msgstr "仓库作业"
 
 #. module: stock_picking_types
+#: model:ir.ui.menu,name:stock_picking_types.materials_menu_config
+msgid "materials_menu_config_name"
+msgstr "基础资料"
+
+#. module: stock_picking_types
+#: model:ir.ui.menu,name:stock_picking_types.materials_menu_pick_type
+msgid "materials_menu_pick_type_name"
+msgstr "领用管理"
+
+#. module: stock_picking_types
+#: model:ir.ui.menu,name:stock_picking_types.menu_units_of_measure
+msgid "menu_units_of_measure_name"
+msgstr "计量单位"
+
+#. module: stock_picking_types
+#: model:ir.actions.act_window,name:stock_picking_types.old_to_new_action_window
+msgid "old_to_new window"
+msgstr "仓库作业"
+
+#. module: stock_picking_types
+#: model:ir.ui.menu,name:stock_picking_types.old_to_new_picking
+msgid "old_to_new_picking_name"
+msgstr "交旧领新"
+
+#. module: stock_picking_types
 #: model:ir.actions.act_window,name:stock_picking_types.picking_material_action_window
 msgid "picking_material window"
 msgstr "仓库作业"
 
 #. module: stock_picking_types
-#: model:ir.actions.act_window,name:stock_picking_types.return_of_material_action_window
-msgid "return_of_material window"
-msgstr "仓库作业"
+#: model:ir.ui.menu,name:stock_picking_types.picking_material_picking_types1
+msgid "picking_material_picking_types1_name"
+msgstr "物资分类"
 
 #. module: stock_picking_types
-#: model:ir.actions.act_window,name:stock_picking_types.old_to_new_action_window
-msgid "old_to_new window"
+#: model:ir.ui.menu,name:stock_picking_types.picking_material_picking_types
+msgid "picking_material_picking_types_name"
+msgstr "分拣类型"
+
+#. module: stock_picking_types
+#: model:ir.actions.act_window,name:stock_picking_types.return_of_material_action_window
+msgid "return_of_material window"
 msgstr "仓库作业"

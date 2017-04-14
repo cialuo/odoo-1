@@ -7,7 +7,7 @@
       <field name="model">stock.picking</field>
       <field name="arch" type="xml">
         <search string="Search Issuance Of Material">
-          <filter string="发料" name="issuance_of_material" domain="[('picking_type_id','=','发料')]" help="查询所有发料调拨单"/>
+          <filter string="发料" name="issuance_of_material" domain="[('picking_type_id','=','发料')]" />
         </search>
       </field>
     </record>
@@ -29,7 +29,7 @@
       <field name="model">stock.picking</field>
       <field name="arch" type="xml">
         <search string="Search Picking Material">
-          <filter string="领料" name="picking_material" domain="[('picking_type_id','=','领料')]" help="查询所有领料调拨单"/>
+          <filter string="领料" name="picking_material" domain="[('picking_type_id','=','领料')]" />
         </search>
       </field>
     </record>
@@ -50,7 +50,7 @@
       <field name="model">stock.picking</field>
       <field name="arch" type="xml">
         <search string="Search Return Of Material">
-          <filter string="退料" name="return_of_material" domain="[('picking_type_id','=','退料')]" help="查询所有退料调拨单"/>
+          <filter name="return_of_material" string="退料" domain="[('picking_type_id','=','退料')]"/>
         </search>
       </field>
     </record>
@@ -70,7 +70,7 @@
       <field name="model">stock.picking</field>
       <field name="arch" type="xml">
         <search string="Search Return Of Material">
-          <filter string="交旧领新" name="odl_to_new_material" domain="[('picking_type_id','=','交旧领新')]" help="查询所有交旧领新调拨单"/>
+          <filter name="odl_to_new_material" string="交旧领新" domain="[('picking_type_id','=','交旧领新')]"/>
         </search>
       </field>
     </record>
@@ -86,24 +86,24 @@
 
 
     <!--新增领料管理菜单-->
-    <menuitem id="materials_menu_pick_type" name="领用管理" parent="materials_manage.materials_menu_root" sequence="30" />
+    <menuitem id="materials_menu_pick_type" name="materials_menu_pick_type_name" parent="materials_manage.materials_menu_root" sequence="30" />
 
     <!--新增基础资料-->
-    <menuitem id="materials_menu_config" name="基础资料" parent="materials_manage.materials_menu_root" sequence="60" />
+    <menuitem id="materials_menu_config" name="materials_menu_config_name" parent="materials_manage.materials_menu_root" sequence="60" />
 
     <!--新增三个查询菜单-->
     <menuitem id="issuance_of_material_picking" name="Issuance Of Material" parent="materials_menu_pick_type" sequence="3" action="stock_picking_types.issuance_of_material_action_window" />
     <menuitem id="picking_material_picking" name="Picking Material" parent="materials_menu_pick_type" sequence="4" action="stock_picking_types.picking_material_action_window" />
     <menuitem id="return_of_material_picking" name="Return Of Material" parent="materials_menu_pick_type" sequence="5" action="stock_picking_types.return_of_material_action_window"/>
-    <menuitem id="old_to_new_picking" name="交旧领新" parent="materials_menu_pick_type" sequence="6" action="stock_picking_types.old_to_new_action_window"/>
+    <menuitem id="old_to_new_picking" name="old_to_new_picking_name" parent="materials_menu_pick_type" sequence="6" action="stock_picking_types.old_to_new_action_window"/>
 
 
     <!--物资分类-->
-    <menuitem id="picking_material_picking_types1" name="物资分类" parent="materials_menu_config" sequence="3" action="product.product_category_action_form"/>
+    <menuitem id="picking_material_picking_types1" name="picking_material_picking_types1_name" parent="materials_menu_config" sequence="3" action="product.product_category_action_form"/>
      <!--计量单位管理-->
-    <menuitem id="menu_units_of_measure" name="计量单位管理" parent="materials_menu_config" sequence="4" action="product.product_uom_form_action"/>
+    <menuitem id="menu_units_of_measure" name="menu_units_of_measure_name" parent="materials_menu_config" sequence="4" action="product.product_uom_form_action"/>
     <!--新增分拣类型查询-->
-    <menuitem id="picking_material_picking_types" name="分拣类型" parent="materials_menu_config" sequence="5" action="stock.action_picking_type_list"/>
+    <menuitem id="picking_material_picking_types" name="picking_material_picking_types_name" parent="materials_menu_config" sequence="5" action="stock.action_picking_type_list"/>
 
   </data>
 </openerp>

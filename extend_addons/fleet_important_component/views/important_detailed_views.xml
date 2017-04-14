@@ -13,6 +13,7 @@
                     <sheet>
                         <div class="oe_button_box" name="button_box">
 
+                            <!--
                             <button name="return_action_to_open"
                                 type="object"
                                 class="oe_stat_button"
@@ -21,7 +22,7 @@
                                 help="show the odometer logs for this vehicle" >
                                 <field name="odometer" widget="statinfo" string="Odometer"/>
                             </button>
-
+                            -->
                         </div>
 
                         <field name="product_img" widget='image' class="oe_avatar"/>
@@ -42,9 +43,9 @@
                             <page  string="General Properties">
                                 <group col="2">
                                     <group>
-                                        <field name="location_id"/>
+                                        <field name="location_id" options="{'no_open': True, 'no_create': True}"/>
                                         <field name="odometer"/>
-                                        <field name="create_date" readonly="True"/>
+                                        <field name="create_date" readonly="True" DATE_FORMAT ="％Y-％m-％d"/>
                                         <field name="create_uid" readonly="True"/>
                                     </group>
                                     <group>
