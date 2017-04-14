@@ -27,3 +27,8 @@ class StockMove(models.Model):
                             'state': 'avaliable',
                         })
         return res
+
+class StockLocation(models.Model):
+    _inherit = 'stock.location'
+
+    is_vehicle = fields.Boolean(string='Vehicle', default=False)

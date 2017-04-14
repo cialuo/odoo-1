@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-12 03:38+0000\n"
-"PO-Revision-Date: 2017-04-12 03:38+0000\n"
+"POT-Creation-Date: 2017-04-14 07:19+0000\n"
+"PO-Revision-Date: 2017-04-14 07:19+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgstr "比较方式2"
 #: model:ir.model.fields,field_description:important_product.field_fleet_vehicle_component_ids
 #: selection:product.product,important_type:0
 msgid "Component"
-msgstr "作为重要部件管理"
+msgstr "选择重要部件"
 
 #. module: important_product
 #: model:ir.model.fields,field_description:important_product.field_product_component_code
@@ -258,9 +258,13 @@ msgstr "仓库管理"
 
 #. module: important_product
 #: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_form
-#: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_tree
 msgid "Materials Code"
 msgstr "物资编码"
+
+#. module: important_product
+#: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_tree
+msgid "Materials Name"
+msgstr "物资"
 
 #. module: important_product
 #: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_form
@@ -325,7 +329,7 @@ msgstr "补货"
 #: model:ir.model.fields,field_description:important_product.field_product_component_product_id
 #: model:ir.model.fields,field_description:important_product.field_vehicle_model_product_product_id
 msgid "Product"
-msgstr "部件名称"
+msgstr "物资名称"
 
 #. module: important_product
 #: model:ir.model,name:important_product.model_product_category
@@ -471,11 +475,10 @@ msgstr "在库待修"
 #: code:addons/important_product/models/fleet_vehicle.py:46
 #, python-format
 msgid "can not update model,you could add a new vehicle"
-msgstr "can not update model,you could add a new vehicle"
+msgstr "车辆创建后，车型不能更改！"
 
 #. module: important_product
 #: code:addons/important_product/models/product.py:37
-#: sql_constraint:product.product:0
 #, python-format
 msgid "inter code must unique per product and category"
 msgstr "每个类别下的每个产品内部编码必须唯一"
