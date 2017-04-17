@@ -12,7 +12,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['fleet_manage_fault','fleet_manage_vehicle'],
+    'depends': ['fleet_manage_fault','fleet_manage_vehicle','stock_picking_types'],
 
     # always loaded
     'data': [
@@ -21,6 +21,7 @@
         "data/sequence.xml",
         'views/fleet_manage_inspect.xml',
         'views/maintain_view.xml',
+        'views/repair_record.xml',
 
 
     ],

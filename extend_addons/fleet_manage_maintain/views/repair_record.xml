@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+
+        <!--Vehicle Form-->
+        <record id='fleet_vehicle_repair_inherit' model='ir.ui.view'>
+            <field name="name">fleet_vehicle.form.inherit</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet_manage_vehicle.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button name="return_action_to_open"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            context="{'xml_id':'fleet_manage_maintain_repair_action'}"
+                            help="show the contract for this 1">
+                            <field name="repair_count" widget="statinfo" string="Repairs"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -19,6 +19,7 @@
         'data/product_data.xml',
         'views/product_view.xml',
         'views/fleet_manage_vehicle_view.xml',
+        'views/stock_location.xml',
     ],
     'depends': ['product', 'fleet_manage_vehicle', 'materials_manage'],
 }

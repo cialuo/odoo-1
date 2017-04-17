@@ -42,7 +42,7 @@
             <!--key2="client_action_multi"-->
             <!--name="Confirm Inspect"-->
             <!--res_model="fleet_manage_maintain.inspect.confirm"-->
-            <!--src_model="fleet_manage_fault.repair"-->
+            <!--src_model="fleet_manage_maintain.repair"-->
             <!--view_mode="form"-->
             <!--target="new"-->
             <!--view_type="form" />-->

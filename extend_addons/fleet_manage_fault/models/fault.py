@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions, _
 
 
 class FaultCategory(models.Model):
@@ -7,7 +7,7 @@ class FaultCategory(models.Model):
     故障分类
     """
     _name = 'fleet_manage_fault.category'
-    _sql_constraints = [('code_uniq', 'unique (fault_category_code)', "Category code already exists")]
+    _sql_constraints = [('code_uniq', 'unique (fault_category_code)', _("Category code already exists"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -24,7 +24,7 @@ class FaultCategory(models.Model):
        'fleet_manage_fault.appearance', 'category_id', string="appearances")
     
     reason_ids = fields.One2many(
-       'fleet_manage_fault.reason', 'category_id', string="reasons",domain=[('appearance_id','=',None)])
+       'fleet_manage_fault.reason', 'category_id', string="reasons", domain=[('appearance_id','=',None)])
 
     @api.multi
     def action_use(self):
@@ -42,15 +42,15 @@ class FaultAppearance(models.Model):
     故障现象
     """
     _name = 'fleet_manage_fault.appearance'
-    _sql_constraints = [('code_uniq', 'unique (inner_code)', "Appearance code already exists")]
+    _sql_constraints = [('code_uniq', 'unique (category_id, inner_code)', _("Appearance code already exists"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
         return emp_ids and emp_ids[0] or False
 
     inner_code = fields.Char("Inner Code", help='Inner Code', required=True)
-    fault_appearance_code = fields.Char("Fault appearance Code",compute="_get_fault_code",
-                                        help='Fault appearance Code',required=True)
+    fault_appearance_code = fields.Char("Fault appearance Code", compute="_get_fault_code",
+                                        help='Fault appearance Code', required=True)
     name = fields.Char("Fault appearance Name", help='Fault appearance Name',required=True)
     user_id = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, required=True,
                               readonly=True)
@@ -70,7 +70,7 @@ class FaultAppearance(models.Model):
     @api.depends("inner_code")
     def _get_fault_code(self):
         for i in self:
-            if i.category_id and i.inner_code:
+            if i.category_id and i.category_id.fault_category_code and  i.inner_code:
                 i.fault_appearance_code = i.category_id.fault_category_code+i.inner_code
 
     @api.multi
@@ -104,7 +104,7 @@ class FaultReason(models.Model):
     故障原因
     """
     _name = 'fleet_manage_fault.reason'
-    _sql_constraints = [('code_uniq', 'unique (inner_code)', "Reason code already exists")]
+    _sql_constraints = [('code_uniq', 'unique (category_id, appearance_id, inner_code)', _("Reason code already exists"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -132,9 +132,9 @@ class FaultReason(models.Model):
     def _get_fault_code(self):
         for i in self:
             if i.inner_code:
-                if i.appearance_id:
+                if i.appearance_id and i.appearance_id.fault_appearance_code:
                     i.fault_reason_code = i.appearance_id.fault_appearance_code+i.inner_code
-                elif i.category_id:
+                elif i.category_id and i.category_id.fault_category_code:
                     i.fault_reason_code = i.category_id.fault_category_code+i.inner_code
 
     @api.multi
@@ -177,7 +177,7 @@ class FaultMethod(models.Model):
     维修办法
     """
     _name = 'fleet_manage_fault.method'
-    _sql_constraints = [('code_uniq', 'unique (inner_code)', "Method code already exists")]
+    _sql_constraints = [('code_uniq', 'unique (category_id, inner_code)', _("Method code already exists"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -200,12 +200,13 @@ class FaultMethod(models.Model):
        ('two works', "Two works"),
        ('group works', "Group Works"),],default='one work')
     materials_control = fields.Boolean("Materials Control")
-    is_important_product = fields.Boolean("Materials Control")
+    is_important_product = fields.Boolean("Is Important Product")
     operation_manual = fields.Text("Operation Manual", help="Operation Manual")
     inspect_standard = fields.Text("Inspect Standard", help="Inspect Standard")
 
-    # important_product = fields.Many2one('product.product',string="Important Product", domain=[('import_product', '=', True)])
-    important_product_id = fields.Many2one('product.product', string="Important Product")
+    important_product_id = fields.Many2one('product.product', string="Important Product",
+                                           domain=[('is_important', '=', True)])
+    # important_product_id = fields.Many2one('product.component', string="Important Product")
 
     reason_id = fields.Many2one('fleet_manage_fault.reason',
         ondelete='cascade', string="Fault reason Name",required=True)
@@ -229,7 +230,7 @@ class FaultMethod(models.Model):
     @api.depends("inner_code",'reason_id.fault_reason_code')
     def _get_fault_code(self):
         for i in self:
-            if i.inner_code and i.reason_id:
+            if i.inner_code and i.reason_id.fault_reason_code and i.reason_id:
                 i.fault_method_code = i.reason_id.fault_reason_code+i.inner_code
 
     @api.onchange('reason_id')
@@ -238,42 +239,37 @@ class FaultMethod(models.Model):
             self.category_id = self.reason_id.category_id
             self.appearance_id = self.reason_id.appearance_id
 
-    # @api.model
-    # def create(self, vals):
-    #     if vals.get('reason_id'):
-    #         reason = self.env['fleet_manage_fault.reason'].browse(vals.get('reason_id'))
-    #         if not vals['fault_method_code'].startswith(reason.fault_reason_code):
-    #             vals['fault_method_code'] = reason.fault_reason_code+vals['fault_method_code']
-    #     return super(FaultMethod, self).create(vals)
-
 
 class AvailableProduct(models.Model):
     _name = 'fleet_manage_fault.available_product'
 
-    product_id = fields.Many2one('product.product',string="Product")
-
-    name = fields.Char(required=True)
+    # name = fields.Char(required=True)
     method_id = fields.Many2one('fleet_manage_fault.method',
-        ondelete='cascade', string="Fault Reason Name")
-    default_dosage = fields.Integer("Default Dosage")
-    max_dosage = fields.Integer("Max Dosage")
+        ondelete='cascade', string="Fault Method Name")
+
+    product_id = fields.Many2one('product.product', string="Product")
+    product_code = fields.Char("Product Code", related='product_id.default_code', readonly=True)
+    categ_id = fields.Many2one('product.category', related='product_id.categ_id',
+                               string='Product Category', readonly=True)
+    uom_id = fields.Many2one('product.uom', 'Unit of Measure', related='product_id.uom_id', readonly=True)
+    onhand_qty = fields.Float('Quantity On Hand', related='product_id.qty_available', readonly=True)
+    virtual_available = fields.Float('Forecast Quantity', related='product_id.virtual_available', readonly=True)
+
+    require_trans = fields.Boolean("Require Trans", related='product_id.require_trans', readonly=True)
+    vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec',
+                                      string='Suitable Vehicle', readonly=True)
+
+    description = fields.Text("Product Size", related='product_id.description', readonly=True)
+
+    change_count = fields.Integer("Change Count")
+    max_count = fields.Integer("Max Count")
     remark = fields.Text("Remark", help="Remark")
 
-    product_code = fields.Char("Product Code", help="Product Code")
-    product_name = fields.Char("Product Name", help="Product Name")
-    product_type = fields.Char("Product Type", help="Product Type")
-    product_size = fields.Char("Product Size", help="Product Size")
-    product_unit = fields.Char("Product Unit", help="Product Unit")
-
-    @api.onchange('product_id')
-    def _onchange_product_id(self):
-        if self.product_id:
-            self.product_code = self.product_id.code
-            self.product_name = self.product_id.name
-        else:
-            self.product_code = ''
-            self.product_name = ''
-
+    @api.constrains('change_count', 'max_count')
+    def _check_change_count(self):
+        for r in self:
+            if r.change_count > r.max_count:
+                raise exceptions.ValidationError(_("max_count must be greater than or equal to change_count"))
 
 class FaultMaintainType(models.Model):
     """

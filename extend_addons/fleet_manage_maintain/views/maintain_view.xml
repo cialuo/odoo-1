@@ -4,7 +4,7 @@
         <!-- MaintainReport  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_report_view_tree">
             <field name="name">MaintainReport.tree</field>
-            <field name="model">fleet_manage_fault.report</field>
+            <field name="model">fleet_manage_maintain.report</field>
             <field name="arch" type="xml">
                 <tree string="MaintainReport Tree">
 					<field name="name"/>
@@ -23,7 +23,7 @@
 		<!-- MaintainReportPrecheck  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_precheck_view_tree">
             <field name="name">MaintainReportPrecheck.tree</field>
-            <field name="model">fleet_manage_fault.report</field>
+            <field name="model">fleet_manage_maintain.report</field>
             <field name="arch" type="xml">
                 <tree string="MaintainReportPrecheck Tree" create="false">
 					<field name="name"/>
@@ -42,7 +42,7 @@
 		<!-- MaintainRepair  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_repair_view_tree">
             <field name="name">MaintainRepair.tree</field>
-            <field name="model">fleet_manage_fault.repair</field>
+            <field name="model">fleet_manage_maintain.repair</field>
             <field name="arch" type="xml">
                 <tree string="MaintainRepair Tree" create="false">
 					<field name="name"/>
@@ -64,7 +64,7 @@
 		<!-- MaintainDelivery  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_delivery_view_tree">
             <field name="name">MaintainDelivery.tree</field>
-            <field name="model">fleet_manage_fault.delivery</field>
+            <field name="model">fleet_manage_maintain.delivery</field>
             <field name="arch" type="xml">
                 <tree string="MaintainDelivery Tree" create="false">
 					<field name="name"/>
@@ -73,7 +73,6 @@
 					<field name="vehicle_type"/>
 					<field name="license_plate"/>
 					<field name="report_user_id"/>
-
 					<field name="state"/>
                 </tree>
             </field>
@@ -83,7 +82,7 @@
 		<!-- MaintainInspect  tree -->
         <record model="ir.ui.view" id="fleet_manage_maintain_inspect_view_tree">
             <field name="name">MaintainInspect.tree</field>
-            <field name="model">fleet_manage_fault.repair</field>
+            <field name="model">fleet_manage_maintain.repair</field>
             <field name="arch" type="xml">
                 <tree string="MaintainInspect Tree" create="false">
 					<field name="name"/>
@@ -106,11 +105,12 @@
 		<!-- MaintainReport form view -->
         <record model="ir.ui.view" id="fleet_manage_report_view_form">
             <field name="name">MaintainReport.form</field>
-            <field name="model">fleet_manage_fault.report</field>
+            <field name="model">fleet_manage_maintain.report</field>
             <field name="arch" type="xml">
                 <form string="MaintainReport Form">
                 	<header>
-						<button name="action_submit_precheck" type="object"
+						<button name="action_submit_precheck"
+								type="object"
                                 string="Submit Precheck"
 								states="draft"
                                 class="oe_highlight"/> <!-- 提交检验-->
@@ -124,15 +124,14 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-								<field name="vehicle_id" />
-								<field name="report_user_id" />
-								<field name="repair_category" />
-								<!--<field name="state" />-->
+								<field name="vehicle_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
+								<field name="report_user_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
+								<field name="repair_category" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
 	                        </group>
 	                        <group>
 	                            <field name="vehicle_type" />
-								<field name="report_date" />
-								<field name="is_fault_vehicle" />
+								<field name="report_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="is_fault_vehicle" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
 	                        </group>
                    		 </group>
   						 <notebook>
@@ -140,8 +139,8 @@
                                 <field name="repair_ids">
                                     <tree string="Maintain Repair" editable="bottom">
 										<field name="name"/>
-										<field name="fault_category_id"/>
-										<field name="fault_appearance_id"/>
+										<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
+										<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
 										<field name="state"/>
                                     </tree>
                                 </field>
@@ -150,15 +149,15 @@
 							 <page string="More Information">
                                 <group col="2">
 									<group>
-										<field name="partner_id" />
-										<field name="fleet" />
-										<field name="create_name" />
+										<field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
+										<field name="fleet" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+										<field name="create_name" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
 										<field name="remark" />
 									</group>
 									<group>
-										<field name="repair_plant" />
-										<field name="repair_level" />
-										<field name="department" />
+										<field name="repair_plant" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+										<field name="repair_level" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+										<field name="department"/>
 									</group>
 								 </group>
                             </page>
@@ -176,83 +175,50 @@
 		<!-- MaintainPrecheck form view -->
         <record model="ir.ui.view" id="fleet_manage_precheck_view_form">
             <field name="name">MaintainPrecheck.form</field>
-            <field name="model">fleet_manage_fault.report</field>
+            <field name="model">fleet_manage_maintain.report</field>
             <field name="arch" type="xml">
                 <form string="MaintainPrecheck Form" create="false">
                 	<header>
-						<button name="action_submit_precheck" type="object"
+						<button name="action_submit_precheck"
+								type="object"
                                 string="Precheck"
 								states="draft"
                                 class="oe_highlight"/> <!-- 提交检验-->
 
-
-
-						<button name="action_precheck_success" type="object"
+						<button name="action_precheck_to_repair"
+								type="object"
                                 string="Precheck Success And Create The Delivery"
                                 states="precheck"
 								class="oe_highlight"/>  <!-- 预检通过并创建交接单-->
-						<button name="action_draft" type="object"
+
+						<button name="action_precheck_to_draft"
+								type="object"
                                 string="Reset to draft"
 								states="precheck"/>     <!-- 检验退回-->
-
-
-						<!--<button name="" type="object"-->
-                                <!--string="Delivery Manage"-->
-                                <!--states="dispatch"-->
-								<!--class="oe_highlight"/> &lt;!&ndash; 管理交接单&ndash;&gt;-->
 
 						<button type="object"
 								name="delivery_manage"
 								string="Delivery Manage"
-								states="dispatch"
-								class="oe_highlight"/>
+								states="repair"
+								class="oe_highlight"/>  <!--管理交接单-->
 
-
-						<!--<button name="action_repair" type="object"-->
-                                <!--string="Batch Dispatch"-->
-                                <!--states="dispatch"/>  &lt;!&ndash; 批量派工&ndash;&gt;-->
-						<button name="action_precheck" type="object"
+						<button name="action_repair_to_precheck"
+								type="object"
                                 string="Dispatch to Precheck"
-                                states="dispatch"/> <!-- 退回检验-->
-
-
-						<!--<button name="action_inspect" type="object"-->
-                                <!--string="Repair Complete"-->
-                                <!--states="repair"-->
-								<!--class="oe_highlight"/>  &lt;!&ndash; 维修完成&ndash;&gt;-->
-
-						<!--<button name="action_precheck_success" type="object"-->
-                                <!--string="Again Dispatch"-->
-                                <!--states="repair"/>-->
-
-						<!--<button name="" type="object"-->
-                                <!--string="Inspect Manage"-->
-                                <!--states="inspect"-->
-								<!--class="oe_highlight"/> &lt;!&ndash; 管理检验单&ndash;&gt;-->
+                                states="repair"/> 		<!-- 退回检验-->
 
                     	<field name="state"  widget="statusbar"  statusbar_visible="draft,precheck,repair,done"/>
                 	</header>
 					<sheet>
-
-
-						<div class="oe_button_box" name="button_box" attrs="{'invisible': [('state', '!=', 'dispatch')]}">
-
+						<div class="oe_button_box" name="button_box" attrs="{'invisible': [('state', '!=', 'repair')]}">
 							<button name="return_action_to_open"
-								type="object"
-								class="oe_stat_button"
-								icon="fa-pencil-square-o"
-								context="{'xml_id':'fleet_manage_maintain_repair_action'}"
-								help="For dispatching fault">
+									type="object"
+									class="oe_stat_button"
+									icon="fa-pencil-square-o"
+									context="{'xml_id':'fleet_manage_maintain_repair_action'}"
+									help="For dispatching fault">
 								<field name="dispatch_count" widget="statinfo" string="Dispatch"/>
 							</button>
-							<!--<button name="act_show_log_cost"-->
-								<!--type="object"-->
-								<!--class="oe_stat_button"-->
-								<!--icon="fa-pencil-square-o"-->
-								<!--help="For Delivery Device"-->
-								<!--&gt;-->
-								<!--<field name="cost_count" widget="statinfo" string="Costs"/>-->
-							<!--</button>-->
                    	 	</div>
 
 						<div class="oe_title">
@@ -261,14 +227,14 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="vehicle_id" />
-								<field name="report_user_id" />
-								<field name="repair_category" />
+	                        	<field name="vehicle_id" readonly="1"/>
+								<field name="report_user_id" readonly="1"/>
+								<field name="repair_category" readonly="1"/>
 	                        </group>
 	                        <group>
-	                            <field name="vehicle_type" />
-								<field name="report_date" />
-								<field name="is_fault_vehicle" />
+	                            <field name="vehicle_type" readonly="1"/>
+								<field name="report_date" readonly="1"/>
+								<field name="is_fault_vehicle" readonly="1"/>
 	                        </group>
                    		 </group>
   						 <notebook>
@@ -276,29 +242,28 @@
 								<field name="repair_ids" context="{'form_view_ref': 'fleet_manage_maintain.fleet_manage_repair_view_form_action'}">
 									<tree string="Maintain Repair">
 										<field name="name"/>
-										<field name="fault_category_id"/>
-										<field name="fault_appearance_id"/>
-										<field name="fault_reason_id"/>
-										<field name="fault_method_id"/>
+										<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
+										<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
+										<field name="fault_reason_id" options="{'no_open':True,'no_create':True}"/>
+										<field name="fault_method_id" options="{'no_open':True,'no_create':True}"/>
 										<field name="fault_method_code"/>
 										<field name="repair_names"/>
 										<field name="state"/>
 									</tree>
 								</field>
 							 </page>
-
 							 <page string="More Information">
                                 <group col="2">
 									<group>
-										<field name="partner_id" />
-										<field name="fleet" />
+										<field name="partner_id" readonly="1"/>
+										<field name="fleet" readonly="1"/>
 										<field name="create_name" />
-										<field name="remark" />
+										<field name="remark"/>
 									</group>
 									<group>
-										<field name="repair_plant" />
-										<field name="repair_level" />
-										<field name="department" />
+										<field name="repair_plant" readonly="1"/>
+										<field name="repair_level" readonly="1"/>
+										<field name="department"/>
 									</group>
 								 </group>
                             </page>
@@ -315,12 +280,12 @@
 		<!-- MaintainRepair form view -->
         <record model="ir.ui.view" id="fleet_manage_repair_view_form">
             <field name="name">MaintainRepair.form</field>
-            <field name="model">fleet_manage_fault.repair</field>
+            <field name="model">fleet_manage_maintain.repair</field>
 			<field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
                 	<header>
-						<button name="action_repair" type="object"
+						<button name="action_start_repair" type="object"
                                 string="Start Repair"
 								states="wait_repair"
                                 class="oe_highlight"/> <!-- 开工-->
@@ -339,8 +304,8 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="fault_reason_id" />
-								<field name="fault_method_id" />
+	                        	<field name="fault_reason_id" readonly="1"/>
+								<field name="fault_method_id" readonly="1"/>
 								<field name="repair_category" />
 								<field name="report_id" />
 	                        </group>
@@ -349,13 +314,12 @@
 								<field name="license_plate" />
 								<field name="vehicle_type" />
 								<field name="rework_count" />
-
 	                        </group>
                    		 </group>
   						 <notebook>
 							 <page string="MaintainRepair Jobs">
-                                <field name="job_ids">
-                                    <tree string="MaintainRepair Jobs">
+                                <field name="job_ids" readonly="1">
+                                    <tree string="MaintainRepair Jobs" create="false" delete="false">
 										<field name="sequence"/>
 										<field name="fault_method_id"/>
 										<field name="user_id"/>
@@ -374,27 +338,54 @@
                                 </field>
                              </page>
 
-							 <page string="AvailProducts">
-                                <field name="available_product_ids">
-                                    <tree string="AvailProducts" editable="bottom">
+							 <page string="AvailProducts" name="AvailProducts">
+                                <field name="available_product_ids" readonly="1">
+                                    <tree string="AvailProducts" create="false" delete="false">
 										<field name="product_id"/>
 										<field name="product_code"/>
-										<field name="product_name"/>
-										<field name="max_available_count"/>
-										<field name="default_avail_count"/>
-										<field name="stock_count"/>
-										<field name="available_count"/>
-										<field name="post_old_get_new"/>
-										<field name="meet_vehicle_type"/>
+										<field name="max_count"/>
+										<field name="change_count"/>
+										<field name="onhand_qty"/>
+										<field name="virtual_available"/>
+										<field name="require_trans"/>
+										<field name="vehicle_model" widget="many2many_tags"/>
                                     </tree>
                                 </field>
                              </page>
+
+							 <page string="ProductLists" name="ProductLists">
+                                <field name="picking_ids">
+                                    <tree string="ProductLists" create="false" delete="false">
+										<field name="picking_type_id"/>
+										<field name="name"/>
+										<field name="location_id"/>
+										<field name="min_date"/>
+										<field name="date_done"/>
+										<field name="origin"/>
+										<field name="state"/>
+                                    </tree>
+                                </field>
+								<center>
+									 <button name="create_get_picking"
+										type="object"
+										string="Create Get Picking"
+										class="oe_highlight">
+									 </button>
+
+									 <button name="create_back_picking"
+										type="object"
+										string="Create Back Picking"
+										/>
+								</center>
+								  <separator/>
+                             </page>
+
 							 <page string="Operation Manual">
 								<field name="operation_manual"/>
 							 </page>
 							 <page string="Inspect Return Records" >
-                                <field name="return_record_ids">
-                                    <tree string="Inspect Return Records">
+                                <field name="return_record_ids" readonly="1">
+                                    <tree string="Inspect Return Records" create="false" delete="false">
 										<field name="repair_id"/>
 										<field name="repair_names"/>
 										<field name="fault_method_id"/>
@@ -419,33 +410,26 @@
 		<!-- MaintainRepair form action -->
         <record model="ir.ui.view" id="fleet_manage_repair_view_form_action">
             <field name="name">MaintainRepair.form</field>
-            <field name="model">fleet_manage_fault.repair</field>
+            <field name="model">fleet_manage_maintain.repair</field>
 			<field name="priority">0</field>
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
-                	<!--<header>-->
-                    	<!--<field name="state"  widget="statusbar"/>-->
-                	<!--</header>-->
 					<sheet>
-						<!--<div class="oe_title">-->
-	                        <!--<label for="name" class="oe_edit_only"/>-->
-							<!--<h1><field name="name"/></h1>-->
-	                    <!--</div>-->
 						<notebook>
 							<page string="MaintainRepair Jobs" >
                                 <field name="job_ids">
-                                    <tree string="MaintainRepair Jobs">
-										<field name="sequence"/>
-										<field name="fault_method_id"/>
-										<field name="user_id"/>
-										<field name="plan_start_time"/>
-										<field name="plan_end_time"/>
-										<field name="real_start_time"/>
-										<field name="real_end_time"/>
-										<field name="work_time"/>
+                                    <tree string="MaintainRepair Jobs" create="false" editable="bottom">
+										<field name="sequence" readonly="1"/>
+										<field name="fault_method_id" readonly="1"/>
+										<field name="user_id" readonly="1"/>
+										<field name="plan_start_time" readonly="1"/>
+										<field name="plan_end_time" readonly="1"/>
+										<field name="real_start_time" readonly="1"/>
+										<field name="real_end_time" readonly="1"/>
+										<field name="work_time" readonly="1"/>
 										<field name="percentage_work"/>
-										<field name="my_work"/>
-										<field name="real_work"/>
+										<field name="my_work" readonly="1"/>
+										<field name="real_work" readonly="1"/>
                                     </tree>
                                 </field>
                             </page>
@@ -453,32 +437,39 @@
 
 						 <group col="2">
 	                        <group>
-								<field name="fault_category_id" />
-								<field name="fault_appearance_id" />
+								<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="fault_reason_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="fault_method_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="vehicle_id" invisible="1"/>
+								<field name="component_ids" widget="many2many_tags" options="{'no_create_edit': True}"
+									   attrs="{'invisible': [('is_important_product', '=', False)],'required': [('is_important_product','=', True)]}"/>
 								<field name="work_time"/>
-								<field name="plan_start_time" />
-								<field name="plan_end_time" />
+
 								<field name="operation_manual" invisible="1"/>
 								<field name="inspect_standard" invisible="1"/>
+								<field name="is_important_product" invisible="1"/>
+								<field name="important_product_id" invisible="1"/>
 	                        </group>
 	                        <group>
-	                            <field name="fault_reason_id" />
-								<field name="fault_method_id" />
+								<field name="plan_start_time" />
+								<field name="plan_end_time" />
 								<field name="fault_method_code" invisible="1"/>
 								<field name="materials_control" invisible="1"/>
-								<field name="user_id"  />
-
+								<field name="user_id"  options="{'no_open':True,'no_create':True}"/>
 								<label for="percentage_work"/>
 								<div class="o_row">
 									<field name="percentage_work"/><span>%</span>
 								</div>
+								<field name="state" invisible="1"/>
 	                        </group>
                    		 </group>
 
-						<footer>
-							<button name="dispatch" type="object"
-									string="Dispatch" class="oe_highlight oe_edit_only"/>
-                    	</footer>
+							<button name="dispatch"
+									type="object"
+									string="Dispatch"
+									states="dispatch,wait_repair"
+									class="oe_edit_only oe_highlight oe_right"/>
 
 					</sheet>
                 </form>
@@ -488,24 +479,29 @@
 		<!-- MaintainDelivery form view -->
         <record model="ir.ui.view" id="fleet_manage_delivery_view_form">
             <field name="name">MaintainDelivery.form</field>
-            <field name="model">fleet_manage_fault.delivery</field>
+            <field name="model">fleet_manage_maintain.delivery</field>
             <field name="arch" type="xml">
                 <form string="MaintainDelivery Form">
                 	<header>
-						<button name="action_delivery" type="object"
+						<button name="action_delivery"
+								type="object"
                                 string="Comfirm Delivery"
 								states="draft"
                                 class="oe_highlight"/> <!-- 确认交接-->
 
-						<button name="action_return" type="object"
+						<button name="action_return"
+								type="object"
                                 string="delivery to Return"
 								states="delivery"
                                 class="oe_highlight"/> <!-- 确认交回-->
 
-						<button name="" type="object"
-                                string="Maintenance/Warranty"
-								states="return"
-                                class="oe_highlight"/> <!-- 查看 保养/维修 单-->
+						<button name="return_action_to_open"
+                            type="object"
+                            class="oe_highlight"
+                            states="return"
+							string="Query Repair Bill"
+                            context="{'xml_id':'fleet_manage_maintain_repair_action'}"/>
+
 
                     	<field name="state"  widget="statusbar"/>
                 	</header>
@@ -516,7 +512,7 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="report_id" />
+	                        	<field name="report_id" readonly="1"/>
 								<!--<field name="fault_method_id" />-->
 								<!--<field name="repair_category" />-->
 								<!--<field name="report_id" />-->
@@ -528,9 +524,33 @@
 	                        </group>
                    		 </group>
 						<notebook>
+							<page string="Deliverys">
+                                <field name="device_ids">
+                                    <tree string="Deliverys">
+										<field name="device_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+							<page string="ReturnDeliverys" >
+                                <field name="device_return_ids">
+                                    <tree string="ReturnDeliverys">
+										<field name="device_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+
 							<page string="Other Information">
 								<group col="1">
 									<group>
+										<field name="create_date" readonly='1'/>
+										<field name="report_user_id"/>
 										<field name="delivery_time"/>
 										<field name="delivery_return_time"/>
 									</group>
@@ -550,16 +570,15 @@
 		<!-- MaintainInspect form view -->
         <record model="ir.ui.view" id="fleet_manage_inspect_view_form">
             <field name="name">MaintainInspect.form</field>
-            <field name="model">fleet_manage_fault.repair</field>
+            <field name="model">fleet_manage_maintain.repair</field>
 			<field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="MaintainInspect Form">
                 	<header>
-
-						<button name="action_inspect" type="object"
-                                string="Inspect"
-								states="repair"
-                                class="oe_highlight"/> <!-- 报检-->
+						<!--<button name="action_inspect" type="object"-->
+                                <!--string="Inspect"-->
+								<!--states="repair"-->
+                                <!--class="oe_highlight"/> &lt;!&ndash; 报检&ndash;&gt;-->
 
 						<button name="action_done" type="object"
                                 string="Inspect Complete"
@@ -571,10 +590,9 @@
                                 string="Back To Repair"
 								states="inspect"/> <!-- 退回重修-->
 
-						<button name="action_inspect" type="object"
-                                string="Back To Inspect"
-								states="done"/> <!-- 退回重检-->
-
+						<!--<button name="action_inspect" type="object"-->
+                                <!--string="Back To Inspect"-->
+								<!--states="done"/> &lt;!&ndash; 退回重检&ndash;&gt;-->
 
                     	<field name="state"  widget="statusbar"  statusbar_visible="repair,inspect,done" />
                 	</header>
@@ -585,9 +603,8 @@
 	                    </div>
 						<group col="2">
 							<group>
-								<field name="fault_reason_id" />
-								<field name="fault_method_id" />
-
+								<field name="fault_reason_id" readonly="1"/>
+								<field name="fault_method_id" readonly="1"/>
 							</group>
 							<group>
 								<field name="vehicle_id" />
@@ -600,8 +617,8 @@
 								<field name="inspect_standard"/>
                             </page>
 							<page string="Inspect Return Records" >
-                                <field name="return_record_ids">
-                                    <tree string="Inspect Return Records">
+                                <field name="return_record_ids" readonly="1">
+                                    <tree string="Inspect Return Records" create="false" delete="false">
 										<field name="repair_id"/>
 										<field name="repair_names"/>
 										<field name="fault_method_id"/>
@@ -621,7 +638,7 @@
         <!-- MaintainReport Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_report_action">
 			<field name="name">fleet_manage_maintain_report_action</field>
-			<field name="res_model">fleet_manage_fault.report</field>
+			<field name="res_model">fleet_manage_maintain.report</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_ids" eval="[(5, 0, 0),
 				(0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_report_view_tree')}),
@@ -632,7 +649,7 @@
 		<!-- MaintainPrecheck Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_precheck_action">
 			<field name="name">fleet_manage_maintain_precheck_action</field>
-			<field name="res_model">fleet_manage_fault.report</field>
+			<field name="res_model">fleet_manage_maintain.report</field>
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('state', 'not in', ['back','draft'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
@@ -643,7 +660,7 @@
 		<!-- MaintainRepair Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_repair_action">
 			<field name="name">fleet_manage_maintain_repair_action</field>
-			<field name="res_model">fleet_manage_fault.repair</field>
+			<field name="res_model">fleet_manage_maintain.repair</field>
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('state', 'in', ['dispatch','wait_repair','repair','inspect','done'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
@@ -654,14 +671,14 @@
 		<!-- MaintainDelivery Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_delivery_action">
 			<field name="name">fleet_manage_maintain_delivery_action</field>
-			<field name="res_model">fleet_manage_fault.delivery</field>
+			<field name="res_model">fleet_manage_maintain.delivery</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 
 		<!-- MaintainInspect Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_inspect_action">
 			<field name="name">fleet_manage_maintain_inspect_action</field>
-			<field name="res_model">fleet_manage_fault.repair</field>
+			<field name="res_model">fleet_manage_maintain.repair</field>
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('state', 'in', ['repair','inspect','done'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
@@ -672,7 +689,7 @@
 		<!-- MaintainRepair Action-->
 		<record model="ir.actions.act_window" id="fleet_manage_maintain_repair_action">
 			<field name="name">fleet_manage_maintain_repair_action</field>
-			<field name="res_model">fleet_manage_fault.repair</field>
+			<field name="res_model">fleet_manage_maintain.repair</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_manage_maintain.fleet_manage_maintain_repair_view_tree')}),
@@ -681,23 +698,23 @@
 
 
 
-		<record id="fleet_manage_fault_inspect_action_server" model="ir.actions.server">
+		<record id="fleet_manage_maintain_inspect_action_server" model="ir.actions.server">
             <field name="name">Comfirm Inspect</field>
             <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_fleet_manage_fault_repair"/>
+            <field name="model_id" ref="model_fleet_manage_maintain_repair"/>
             <field name="state">code</field>
             <field name="code">
-                if context.get('active_model') == 'fleet_manage_fault.repair' and context.get('active_ids'):
-                    action = env['fleet_manage_fault.repair'].browse(context['active_ids']).action_done()
+                if context.get('active_model') == 'fleet_manage_maintain.repair' and context.get('active_ids'):
+                    action = env['fleet_manage_maintain.repair'].browse(context['active_ids']).action_done()
             </field>
         </record>
 
         <record id="action_hr_expense_submit" model="ir.values">
             <field name="name">Comfirm Inspect</field>
-            <field name="model_id" ref="model_fleet_manage_fault_repair"/>
-            <field name="model">fleet_manage_fault.repair</field>
+            <field name="model_id" ref="model_fleet_manage_maintain_repair"/>
+            <field name="model">fleet_manage_maintain.repair</field>
             <field name="key2">client_action_multi</field>
-            <field eval="'ir.actions.server,%d'%fleet_manage_fault_inspect_action_server" name="value"/>
+            <field eval="'ir.actions.server,%d'%fleet_manage_maintain_inspect_action_server" name="value"/>
         </record>
 
 

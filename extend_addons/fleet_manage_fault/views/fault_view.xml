@@ -156,14 +156,14 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="category_id" />
-								<field name="inner_code" />
+	                        	<field name="category_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="inner_code" options="{'no_open':True,'no_create':True}"/>
 								<field name="sequence"/>
 	                        </group>
 	                        <group>
 
 	                            <field name="fault_appearance_code" />
-								<field name="user_id" />
+								<field name="user_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="create_date" />
 	                        </group>
                    		 </group>
@@ -212,13 +212,13 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="category_id" />
-								<field name="appearance_id" />
+	                        	<field name="category_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="appearance_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="inner_code" />
 	                        </group>
 	                        <group>
 	                            <field name="fault_reason_code" />
-								<field name="user_id" />
+								<field name="user_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="create_date" />
 	                        </group>
                    		 </group>
@@ -268,14 +268,14 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="category_id" />
-								<field name="appearance_id" />
-								<field name="reason_id" />
+	                        	<field name="category_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="appearance_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="reason_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="inner_code" />
 	                        </group>
 	                        <group>
 	                            <field name="fault_method_code" />
-								<field name="user_id" />
+								<field name="user_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="create_date" />
 	                        </group>
                    		 </group>
@@ -301,17 +301,21 @@
 								<field name="inspect_standard"/>
 							</page>
 
-							<page name="product" string="Product" attrs="{'invisible':[('materials_control','=',False)] }">
+							<page name="AvailProducts" string="AvailProducts" attrs="{'invisible':[('materials_control','=',False)] }">
 								<field name="avail_ids"  >
-									<tree>
+									<tree editable="bottom">
+										<field name="product_id" options="{'no_open':True,'no_create':True}"/>
 										<field name="product_code"/>
-										<field name="product_name"/>
-										<field name="product_type"/>
-										<field name="product_size"/>
-										<field name="product_unit"/>
-										<field name="default_dosage"/>
-										<field name="max_dosage"/>
+										<field name="categ_id"/>
+										<field name="description"/>
+										<field name="uom_id"/>
+										<field name="change_count"/>
+										<field name="max_count"/>
+										<field name="vehicle_model" widget="many2many_tags"/>
+										<field name="require_trans"/>
 										<field name="remark"/>
+										<field name="onhand_qty" invisible="1"/>
+										<field name="virtual_available" invisible="1"/>
 									</tree>
 								</field>
 							</page>
@@ -358,34 +362,36 @@
 	      <field name="view_mode">tree,form</field>
 		</record>
 
-
+		<!--<menuitem name="fleet_manage_fault"-->
+				  <!--id="fleet_manage_fault"-->
+				  <!--parent="fleet_manage_menu.fleet_manage_menu_data"-->
+				  <!--action = "fleet_manage_fault_category_action"-->
+				  <!--/>-->
 
 	    <menuitem name="fleet_manage_fault_category" 
 				  id="fleet_manage_menu_fault_category" 
-				  parent="fleet_manage_menu.fleet_manage_menu_data" 
+				  parent="fleet_manage_menu.fleet_manage_menu_data"
 				  action = "fleet_manage_fault_category_action"
 				  />
 	    <menuitem name="fleet_manage_fault_appearance" 
 				  id="fleet_manage_menu_fault_appearance" 
-				  parent="fleet_manage_menu.fleet_manage_menu_data" 
+				  parent="fleet_manage_menu.fleet_manage_menu_data"
 				  action = "fleet_manage_fault_appearance_action"
 				  />		
   	    <menuitem name="fleet_manage_fault_reason" 
 				  id="fleet_manage_menu_fault_reason" 
-				  parent="fleet_manage_menu.fleet_manage_menu_data" 
+				  parent="fleet_manage_menu.fleet_manage_menu_data"
 				  action = "fleet_manage_fault_reason_action"
 				  />	  
   	    <menuitem name="fleet_manage_fault_method" 
 				  id="fleet_manage_menu_fault_method" 
-				  parent="fleet_manage_menu.fleet_manage_menu_data" 
+				  parent="fleet_manage_menu.fleet_manage_menu_data"
 				  action = "fleet_manage_fault_method_action"
 				  />
-		<menuitem name="fleet_manage_fault_maintain_type"
-				  id="fleet_manage_menu_fault_maintain_type"
-				  parent="fleet_manage_menu.fleet_manage_menu_data"
-				  action = "fleet_manage_fault_maintain_type_action"
-				  />
-				  		  
-				  
+		<!--<menuitem name="fleet_manage_fault_maintain_type"-->
+				  <!--id="fleet_manage_menu_fault_maintain_type"-->
+				  <!--parent="fleet_manage_fault"-->
+				  <!--action = "fleet_manage_fault_maintain_type_action"-->
+				  <!--/>-->
 	</data>
 </odoo>
