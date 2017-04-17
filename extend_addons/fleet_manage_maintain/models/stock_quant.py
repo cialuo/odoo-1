@@ -8,5 +8,6 @@ class Quant(models.Model):
 
     def _quants_get_reservation(self, quantity, move, ops=False, domain=None, **kwargs):
         domain = domain if domain is not None else [('qty', '>', 0.0)]
-        domain.append([('is_vehicle', '=', False), ('scrap_location', '=', False)])
+        domain.append(('location_id.is_vehicle', '=', False))
+        domain.append(('location_id.scrap_location', '=', False))
         return super(Quant, self)._quants_get_reservation(quantity, move, ops, domain, **kwargs)
