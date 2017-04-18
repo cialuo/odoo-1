@@ -431,9 +431,9 @@ class FleetMaintainRepair(models.Model):
             picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
 
             location_id = self.env.ref('stock.stock_location_stock').id     # 库存
-            location_dest_id = self.env.ref('stock_picking_types.stock_location_ullage').id  #损耗库存
+            location_dest_id = self.env.ref('stock_picking_types.stock_location_ullage').id  #维修(生产)虚位
             if import_products:
-                location_dest_id = self.vehicle_id.location_stock_id.id          #车的实际库位
+                location_dest_id = self.vehicle_id.location_stock_id.id          #随车实位
 
             for products in [import_products, no_import_products]:
                 if not products:

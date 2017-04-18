@@ -728,6 +728,7 @@
 				  action="fleet_manage_maintain_report_action"
 				  sequence="1"
 				  />
+
 		<menuitem name="precheck_bill"
 				  id="fleet_manage_maintain_precheck_bill"
 				  parent="fleet_manage_maintain"
