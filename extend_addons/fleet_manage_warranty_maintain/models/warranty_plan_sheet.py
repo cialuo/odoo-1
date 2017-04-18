@@ -13,17 +13,22 @@ class WarrantyPlanSheet(models.Model): # 计划单
     vehicle_type = fields.Many2one("fleet.vehicle.model",related='vehicle_id.model_id', store=True, readonly=True) # 车型
     license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True, readonly=True) # 车牌
 
-    fleet = fields.Char(required=True)  # 车队
+    fleet = fields.Char()  # 车队
 
     operating_mileage = fields.Float(digits=(6, 1), string="OM") # 运营里程
 
     warranty_category = fields.Many2one(
         'fleet_manage_warranty.category', 'WC',
-        ondelete='cascade', required=True) # 生成保养类别
+        required=True, domain=[('level', '=', '1')]) # 生成保养类别
+
+    @api.one
+    @api.depends('warranty_category')
+    def _compute_awc(self):
+        self.approval_warranty_category = self.warranty_category
 
     approval_warranty_category = fields.Many2one(
         'fleet_manage_warranty.category', 'AWC',
-        ondelete='cascade') # 核准保养类别
+        domain=[('level', '=', '1')], compute='_compute_awc') # 核准保养类别
 
     planned_date = fields.Date('PlannedDate', default=fields.Date.context_today) # 计划日期
 
@@ -38,10 +43,12 @@ class WarrantyPlanSheet(models.Model): # 计划单
     maintain_sheet_no = fields.Char(string="SheetNo", readonly=True)  # 保养单号
 
     state = fields.Selection([ # 状态
+        ('draft', "draft"), # 草稿
+        ('commit', 'commit'), # 已提交
         ('wait', "wait"), # 等待执行
         ('executing', "executing"), # 正在执行
         ('done', "done"), # 执行完毕
-    ], default='wait')
+    ], default='draft')
 
     @api.multi
     def action_draft(self):
@@ -55,13 +62,20 @@ class WarrantyPlanSheet(models.Model): # 计划单
     def action_done(self):
         self.state = 'done'
 
+    # @api.model
+    # def create(self, vals):
+    #     vals['approval_warranty_category']=vals.get('warranty_category')
+    #     result = super(WarrantyPlanSheet, self).create(vals)
+    #     return result
+
+
 
 class WarrantyWizardCreate(models.TransientModel):
     _name = 'fleet_warranty_wizard_create'
 
     def _default_sheet(self):
         sheetIds=self._context.get('active_ids')
-        print sheetIds
+        # print sheetIds
         sheets = self.env['fleet_warranty_plan_sheet'].browse(sheetIds)
         return sheets
 
@@ -82,7 +96,7 @@ class WarrantyWizardCreate(models.TransientModel):
                 'license_plate': plan_sheet.license_plate,
                 'fleet': plan_sheet.fleet,
                 'operating_mileage': plan_sheet.operating_mileage,
-                'warranty_category': plan_sheet.warranty_category.id,
+                'warranty_category': plan_sheet.approval_warranty_category.id,
                 'planned_date': plan_sheet.planned_date,
                 'vin': plan_sheet.vin,
                 'average_daily_kilometer':plan_sheet.average_daily_kilometer,
@@ -135,7 +149,8 @@ class WarrantyWizardCreate(models.TransientModel):
                         'category_id': category.id,
                         'item_id': item.id,
                         'sequence': len(sheet_items) + 1,
-                        'work_time':item.manhour
+                        'work_time':item.manhour,
+                        'percentage_work':100
                     }
                     sheet_items.append((0, 0, sheet_item))
 

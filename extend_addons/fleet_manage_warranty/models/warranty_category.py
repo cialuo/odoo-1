@@ -9,6 +9,7 @@ class Category(models.Model): # 保修类别
     code = fields.Char() # 代码
 
     idpath = fields.Char() # id路径
+    level = fields.Integer() # 层级
 
     state = fields.Selection([ # 状态
         ('in_use', "in_use"), # 在用
@@ -43,7 +44,7 @@ class Category(models.Model): # 保修类别
             if record.child_ids:
                 for child_record in record.child_ids:
                     sum_manhour += sum(child_record.items.mapped('manhour'))
-                    print sum_manhour
+                    # print sum_manhour
                     sum_manhour += child_record.category_manhour_get()[0][1]
             result.append((record.id, sum_manhour))
         return result
@@ -52,7 +53,7 @@ class Category(models.Model): # 保修类别
     def _compute_manhour(self):
         for category in self:
             temp_category_manhour=category.category_manhour_get()
-            print temp_category_manhour
+            # print temp_category_manhour
             category.sum_categories_manhour = category.category_manhour_get()[0][1]
             category.sum_items_manhour = sum(category.items.mapped('manhour'))
             category.manhour=category.sum_categories_manhour+category.sum_items_manhour
@@ -81,10 +82,12 @@ class Category(models.Model): # 保修类别
         result = super(Category, self).create(vals)
         idpath = "/" + str(result.idpath_get()[0][1]) + "/"
         result.idpath=idpath
+        result.level=idpath.count("/")-1
         return result
 
     @api.multi
     def write(self, vals):
         idpath ="/"+str(self.idpath_get()[0][1])+"/"
         vals['idpath'] = idpath
+        vals['level'] = idpath.count("/")-1
         return super(Category, self).write(vals)

@@ -28,13 +28,13 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="maintain_sheet" />
+	                        	<field name="maintain_sheet" readonly="1" />
 	                        	<field name="branch_office" />
 	                        	<field name="driver" />
 	                        	<field name="maintenance_personnel" />
 	                        </group>
 	                        <group>
-	                            <field name="vehicle_id" />
+	                            <field name="vehicle_id" readonly="1" />
 								<field name="license_plate" />
 								<field name="vehicle_type" />
 	                        </group>
@@ -43,10 +43,10 @@
 							<page string="Other Information">
 								<group col="1">
 									<group>
-										<field name="create_sheet_user"/>
-										<field name="create_date"/>
-										<field name="delivery_time"/>
-										<field name="delivery_return_time"/>
+										<field name="create_sheet_user" readonly="1"/>
+										<field name="create_date" readonly="1"/>
+										<field name="delivery_time" readonly="1"/>
+										<field name="delivery_return_time" readonly="1"/>
 									</group>
 								</group>
                             </page>
@@ -54,6 +54,10 @@
 						</notebook>
 
 					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
                 </form>
             </field>
         </record>

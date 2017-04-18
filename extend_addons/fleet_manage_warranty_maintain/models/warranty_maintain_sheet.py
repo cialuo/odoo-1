@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api, exceptions
+from odoo import models, fields, api, exceptions, _
 import datetime
 from datetime import timedelta
+from odoo.exceptions import UserError
 
 class WarrantyMaintainSheet(models.Model): # 保养单
+    _inherit = 'mail.thread'
     _name = 'fleet_warranty_maintain_sheet'
     name = fields.Char(string='Maintain Sheet', required=True, index=True, default='New')
 
@@ -80,6 +82,19 @@ class WarrantyMaintainSheet(models.Model): # 保养单
             self.env['fleet_warranty_handover_sheet'].create(vals)
 
     @api.multi
+    def action_into_maintain(self):  # 进入保养状态
+        self.ensure_one()
+        # for i in self.repair_ids:
+        #     if not i.fault_method_id:
+        #         raise exceptions.UserError("Maintain Repair Method Required!")
+        #         break
+
+        self.state = 'maintain'
+        for item in self.item_ids:
+            if item.state == 'dispatch':
+                item.state = 'maintain'
+
+    @api.multi
     def action_manage_handover_sheet(self):  # 管理交接单
         self.ensure_one()
         maintain_sheet = self.env['fleet_warranty_handover_sheet'].search([("maintain_sheet", '=', self.id)])
@@ -127,8 +142,34 @@ class WarrantyMaintainSheet(models.Model): # 保养单
         #     vals['partner_shipping_id'] = vals.setdefault('partner_shipping_id', addr['delivery'])
         #     vals['pricelist_id'] = vals.setdefault('pricelist_id', partner.property_product_pricelist and partner.property_product_pricelist.id)
 
-        result = super(WarrantyMaintainSheet, self).create(vals)
+        result = super(WarrantyMaintainSheet, self.with_context(mail_create_nolog=True)).create(vals)
+        result.message_post(body=_('%s has been added to the maintain sheet!') % (result.name,))
         return result
+
+    def if_complete_dispatch(self):
+        print 'complete_dispatch!!!!'
+        total_manhour = sum([manhour.percentage_work for manhour in self.manhour_manage_ids])
+        sum_manhour = len(self.item_ids)*100
+        if total_manhour == sum_manhour:
+            return True
+        elif total_manhour > sum_manhour:
+            raise exceptions.ValidationError(_('this "percentage_work" may not be Incorrect'))
+
+    @api.multi
+    def write(self, vals):
+        print 'write!!!!'
+        if self.state == 'dispatch':
+            if self.if_complete_dispatch():
+                print 'done!!!!'
+                for manhour in self.manhour_manage_ids:
+                    manhour.real_start_time = datetime.datetime.utcnow()
+                for item in self.item_ids:
+                    item.state = 'maintain'
+                vals['state'] = 'maintain'
+
+        result = super(WarrantyMaintainSheet, self).write(vals)
+        return result
+
 
     @api.multi
     def action_batch_dispatch(self): # 批量派工
@@ -136,7 +177,7 @@ class WarrantyMaintainSheet(models.Model): # 保养单
         #     raise UserError(_("You cannot report twice the same line!"))
         # if len(self.mapped('employee_id')) != 1:
         #     raise UserError(_("You cannot report expenses for different employees in the same report!"))
-        print self.id
+        # print self.id
         return {
             'name': 'Batch Dispatch',
             'type': 'ir.actions.act_window',
@@ -156,11 +197,23 @@ class WarrantyMaintainSheet(models.Model): # 保养单
             # 'res_id': self.id, # self.env.context.get('cashbox_id')
         }
 
+    # @api.onchange('manhour_manage_ids')
+    # def on_change_manhour_manage_ids(self):
+    #     print 'on_change_manhour_manage_ids'
+    #     for item in self.item_ids:
+    #         manhour_percentage_work=0
+    #         for manhour_manage in item.manhour_manage_ids:
+    #             manhour_percentage_work += manhour_manage.percentage_work
+    #         item.percentage_work = 100 - manhour_percentage_work
+
 
 class MaintainSheetItem(models.Model): # 保养单_保养项目
     _name = 'fleet_warranty_sheet_item'
     _order = "sequence"
     #_rec_name = "product_id"
+
+
+    name = fields.Char(related='item_id.name') # related='item_id.name', store=True
 
     sequence = fields.Integer('Sequence', default=1)
 
@@ -171,6 +224,14 @@ class MaintainSheetItem(models.Model): # 保养单_保养项目
     item_id = fields.Many2one('fleet_manage_warranty.item', 'Item', required=True) # 保养项目
 
     maintenance_mode = fields.Many2one('fleet_manage_warranty.mode', 'Maintenance Mode', related='item_id.mode')  # 保修方式
+
+    vehicle_id = fields.Many2one('fleet.vehicle', related='maintainsheet_id.vehicle_id')  # 车号
+
+    vehicle_type = fields.Many2one("fleet.vehicle.model", related='maintainsheet_id.vehicle_id.model_id')  # 车型
+
+    license_plate = fields.Char("License Plate", related='maintainsheet_id.vehicle_id.license_plate')  # 车牌
+
+
 
     maintenance_personnel = fields.Char(compute='_get_maintenance_personnel_names')  # 保养人员
 
@@ -184,25 +245,51 @@ class MaintainSheetItem(models.Model): # 保养单_保养项目
 
 
     state = fields.Selection([ # 状态
-        ('nodispatch', "nodispatch"),
-        ('dispatch', "dispatch"),
-        ('maintain', "maintain"),
-        ('check', "check"),
-        ('complete', "complete"),
+        ('nodispatch', ""), # 待派工
+        ('dispatch', "dispatch"), # 派工
+        ('maintain', "maintain"), # 保养
+        ('check', "check"), # 检验
+        ('complete', "complete"), # 完成
     ], default='nodispatch')
 
     inspection_operation = fields.Selection([ # 报检操作
-        ('noinspection', "noinspection"),
+        ('noinspection', ""),
         ('inspection', "inspection"),
     ], default='noinspection')
 
     reinspection_count = fields.Integer(string="ReinspectionCount")  # 重检验次数 compute="_compute_count_all", cost_count =
 
     work_time = manhour = fields.Float(digits=(6, 1)) # 工时定额 # fields.Integer('WorkTime') # work_time = fields.Integer(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
-    user_id = fields.Many2one('hr.employee', string="Repair Name")
-    plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
-    plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time") # ,compute='_get_end_datetime'
-    percentage_work = fields.Float(digits=(6, 1))
+    user_id = fields.Many2one('hr.employee', string="Repair Name", ondelete='set null')
+    plan_start_time = fields.Datetime("Plan Start Time", default=datetime.datetime.utcnow())
+    plan_end_time = fields.Datetime("Plan End Time", compute='_get_end_datetime') # ,compute='_get_end_datetime'
+
+    @api.depends('plan_start_time')
+    def _get_end_datetime(self):
+        for r in self:
+            if not (r.plan_start_time and r.work_time):
+                continue
+            start = fields.Datetime.from_string(r.plan_start_time)
+            r.plan_end_time = start + timedelta(seconds=r.work_time*60)
+
+    percentage_work = fields.Float(compute='on_change_manhour_manage_ids', digits=(6, 1))
+
+    @api.onchange('percentage_work')
+    def _verify_valid_percentage_work(self):
+        if self.percentage_work < 0 or self.percentage_work > 100:
+            return {
+                'warning': {
+                    'title': _("Incorrect 'percentage_work' value"),
+                    'message': _("The percentage_work may not be Incorrect"),
+                },
+            }
+
+    @api.onchange('manhour_manage_ids')
+    def on_change_manhour_manage_ids(self):
+        manhour_percentage_work = 0
+        for manhour_manage in self.manhour_manage_ids:
+            manhour_percentage_work += manhour_manage.percentage_work
+        self.percentage_work = 100-manhour_percentage_work
 
     # bol_select = fields.Boolean("Bol Select")
 
@@ -214,22 +301,59 @@ class MaintainSheetItem(models.Model): # 保养单_保养项目
         if not self.user_id:
             raise exceptions.UserError("user_id Required!")
 
-        self.state = 'dispatch'
+        manhour_percentage_work = 0
+        for manhour_manage in self.manhour_manage_ids:
+            manhour_percentage_work += manhour_manage.percentage_work
+
+        print manhour_percentage_work
+
+        percentage_work=self.percentage_work+manhour_percentage_work
+
+        print percentage_work
+
+        if percentage_work < 0 or percentage_work > 100:
+            raise exceptions.ValidationError(_('"percentage_work" may not be Incorrect'))
+
+
+        # self_work = self.percentage_work * self.work_time / 100
+
         vals = {
-            # "repair_id": self.id,
-            # "fault_category_id": self.fault_category_id.id,
-            # "fault_appearance_id": self.fault_appearance_id.id or None,
-            # "fault_reason_id": self.fault_reason_id.id,
-            # "fault_method_id": self.fault_method_id.id,
             "plan_start_time": self.plan_start_time,
             "plan_end_time": self.plan_end_time,
             "work_time": self.work_time,
             "percentage_work": self.percentage_work,
+            # 'self_work': self_work,
             "user_id":self.user_id.id,
             "sequence":len(self.manhour_manage_ids)+1,
             "maintainsheet_id":self.maintainsheet_id.id
         }
+
+        self.percentage_work=100-percentage_work
+        self.state = 'dispatch'
+
         self.write({'manhour_manage_ids': [(0, 0, vals)]})
+
+        total_manhour = sum([manhour.percentage_work for manhour in self.maintainsheet_id.manhour_manage_ids])
+        sum_manhour = len(self.maintainsheet_id.item_ids)*100
+        if total_manhour == sum_manhour:
+            print 'send!'
+
+    @api.multi
+    def name_get(self):
+        res = []
+        for record in self:
+            name = record.name
+            if record.maintainsheet_id.name:
+                name = record.maintainsheet_id.name + '/' + name
+            res.append((record.id, name))
+        return res
+
+        # for record in self:
+        #     name = "倚天屠龙"
+        # #     name = record.item_id.name
+        # return name
+
+
 
 
 class WarrantyManhourManage(models.Model): # 保养单_保养项目_工时管理
@@ -260,7 +384,14 @@ class WarrantyManhourManage(models.Model): # 保养单_保养项目_工时管理
 
     percentage_work = fields.Float(digits=(6, 1)) # 工时比例
 
-    self_work = fields.Float(digits=(6, 1)) # 本人工时
+    self_work = fields.Float(digits=(6, 1), compute='_get_self_work') # 本人工时
+
+    @api.depends('work_time', 'percentage_work')
+    def _get_self_work(self):
+        for r in self:
+            if not (r.percentage_work and r.work_time):
+                continue
+            r.self_work = r.percentage_work * r.work_time / 100
 
     real_work = fields.Float(digits=(6, 1)) # 实际工时
 
@@ -331,7 +462,115 @@ class MaintainSheetInstruction(models.Model): # 保养单_作业指导
     operational_manual = fields.Text() # 作业手册
 
 
-class WarrantyWizardDispatch(models.TransientModel):
+
+
+class WarrantyInspectSheet(models.Model): # 检验单
+
+    _inherit = 'fleet_warranty_sheet_item'
+
+    inspect_result = fields.Selection([
+        ('qualified', 'qualified'), # 合格
+        ('defective', 'defective')  # 不合格
+    ], string="Inspect Result") # 检验结论
+
+    start_inspect_time = fields.Datetime("Start Inspect Time") # 报检时间
+
+    end_inspect_time = fields.Datetime("End Inspect Time") # 检验通过时间
+
+    return_record_ids = fields.One2many("fleet_warranty_return_record", 'sheet_item', string='Return Record Ids')
+
+    def _default_employee(self):
+        emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
+        return emp_ids and emp_ids[0] or False
+
+    inspect_user_id = fields.Many2one('hr.employee', string="Inspect User", default=_default_employee) # 检验员
+
+    rework_count = fields.Integer("Rework Count", help="Rework Count",compute="_get_rework_count") # 重检次数
+
+    inspection_criteria = fields.Text(related='item_id.inspection_criteria')  # 检验标准
+
+    item_name = fields.Char(related='item_id.name')  # 项目名称
+
+    def _get_rework_count(self): # 获取退检次数
+        for i in self:
+            i.rework_count = len(i.return_record_ids)
+
+    @api.multi
+    def action_into_check(self):  # 进入检验状态
+        for item in self:
+            item.state = 'check'
+            item.start_inspect_time = fields.Datetime.now()
+            for manhour_manage in self.manhour_manage_ids:
+                manhour_manage.real_end_time = fields.Datetime.now()
+
+            # for i in self:
+            #     if i.state not in ('inspect','done'):
+            #         raise exceptions.UserError(_("Selected inspect(s) cannot be confirmed as they are not in 'inspect' state"))
+            #     i.state = 'done'
+            #     i.inspect_result = 'qualified'
+            #     i.end_inspect_time = fields.Datetime.now()
+            #
+            #     if all(repair.state in ['done'] for repair in i.report_id.repair_ids):
+            #         i.report_id.state = 'done'
+
+    @api.multi
+    def action_into_maintain(self):  # 进入保养状态
+        for item in self:
+            item.state = 'maintain'
+
+    @api.multi
+    def action_check_pass(self):
+        for i in self:
+            # if i.state != 'check': # not in ('check','done')
+            #     raise exceptions.UserError(_("Selected inspect(s) cannot be confirmed as they are not in 'inspect' state"))
+            i.state = 'complete'
+            i.inspect_result = 'qualified'
+            i.end_inspect_time = fields.Datetime.now()
+
+            if all(item.state == 'complete' for item in i.maintainsheet_id.item_ids):
+                i.maintainsheet_id.state = 'complete'
+
+    @api.multi
+    def action_return(self, reason=''): # 退回重修
+        inspect_return_time = fields.Datetime.now()
+        vals = {
+            "sheet_item": self.id,
+            "inspect_return_time": inspect_return_time,
+            "return_reason": reason,
+            "sequence": len(self.return_record_ids) + 1
+        }
+        self.write({
+            "state":'maintain',
+            "end_inspect_time": inspect_return_time,
+            "inspect_result": "defective",
+            "return_record_ids": [(0, 0, vals)]
+        })
+
+
+class WarrantyReturnRecord(models.Model): # 退检记录
+    _name = 'fleet_warranty_return_record'
+
+    sheet_item = fields.Many2one('fleet_warranty_sheet_item', string="Sheet Item")
+
+    maintainsheet_name = fields.Char(string='Maintainsheet Name', related='sheet_item.maintainsheet_id.name')
+
+    inspect_user_id = fields.Many2one('hr.employee', related='sheet_item.inspect_user_id', string="Inspect User")
+
+    maintenance_personnel = fields.Char(string='Maintenance Personnel',related='sheet_item.maintenance_personnel')
+
+    # fault_method_id = fields.Many2one("fleet_manage_fault.method", related='repair_id.fault_method_id',
+    #                                   ondelete='set null', string="Fault Method")
+
+    return_reason = fields.Text("Return Reason")
+
+    inspect_return_time = fields.Datetime("Inspect Return Time")
+
+    sequence = fields.Integer("Sequence")
+
+
+
+
+class WarrantyWizardDispatch(models.TransientModel): # 批量派工
     _name = 'fleet_warranty_wizard_dispatch'
 
     def _default_sheetId(self):
@@ -356,7 +595,6 @@ class WarrantyWizardDispatch(models.TransientModel):
 
     @api.multi
     def batch_dispatch_manhour(self):
-        # return False # {}
         sheetId = self._context.get('active_id')
 
         maintain_sheet = self.env['fleet_warranty_maintain_sheet'].search([('id', '=', sheetId)])
@@ -364,33 +602,35 @@ class WarrantyWizardDispatch(models.TransientModel):
         manhour_count=len(maintain_sheet.manhour_manage_ids)
 
         user_count=len(self.user_id)
-
-        sum_manhour_percentage_work=sum(maintain_sheet.manhour_manage_ids.mapped('percentage_work'))
-        print sum_manhour_percentage_work
-
-        val_manhour_percentage_work=0
-
-        if sum_manhour_percentage_work > 0 and sum_manhour_percentage_work < 100:
-            val_manhour_percentage_work=(100-sum_manhour_percentage_work)/user_count
-        else:
-            val_manhour_percentage_work=100/user_count
-
-        print val_manhour_percentage_work
-
-        # current_date_str = fields.Date.context_today(self)
-        # current_date = fields.Date.from_string(fields.Date.context_today(self))
+        #
+        # sum_manhour_percentage_work=sum(maintain_sheet.manhour_manage_ids.mapped('percentage_work'))
+        #
+        #
+        # if sum_manhour_percentage_work > 0 and sum_manhour_percentage_work < 100:
+        #     val_manhour_percentage_work=(100-sum_manhour_percentage_work)/user_count
+        # else:
+        #     val_manhour_percentage_work=100/user_count
 
         for item in self.item_id:
+            sum_manhour_percentage_work = sum(item.manhour_manage_ids.mapped('percentage_work'))
+
+            if sum_manhour_percentage_work == 100:
+                continue
+
+            val_manhour_percentage_work = 0
+
+            if sum_manhour_percentage_work > 0 and sum_manhour_percentage_work < 100:
+                val_manhour_percentage_work = (100 - sum_manhour_percentage_work) / user_count
+            else:
+                val_manhour_percentage_work = 100 / user_count
+
+            # self_work = val_manhour_percentage_work * item.work_time / 100
+
             for user in self.user_id:
                 manhour_count+=1
-                print item.work_time
-
-                # duration = timedelta(seconds=item.work_time * 60)
-                # plan_end_time = current_date + duration
 
                 plan_start_time = datetime.datetime.utcnow()
                 plan_end_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=item.work_time * 60)
-                self_work = val_manhour_percentage_work*item.work_time/100
 
                 manhour = {
                     'name': manhour_count,
@@ -401,34 +641,34 @@ class WarrantyWizardDispatch(models.TransientModel):
                     'plan_end_time': plan_end_time,
                     'work_time': item.work_time,
                     'percentage_work': val_manhour_percentage_work,
-                    'self_work': self_work,
+                    # 'self_work': self_work,
                     'maintainsheet_id':sheetId
                 }
-                # self.env['fleet_warranty_manhour_manage'].create(manhour)
                 manhours.append((0, 0, manhour))
             item.update({
                 'state': 'dispatch',
+                'percentage_work':100-(sum_manhour_percentage_work+val_manhour_percentage_work*user_count)
             })
         maintain_sheet.write({'manhour_manage_ids': manhours})
-
-        # return {
-        #     'type': 'ir.actions.act_window',
-        #     'view_mode': 'form',
-        #     'res_model': 'fleet_warranty_wizard_dispatch', # 'res_model': 'hr.expense.sheet',
-        #     # 'id':'batch_dispatch_view_form',
-        #     'context': {
-        #         # 'default_expense_line_ids': [line.id for line in self],
-        #         # 'default_employee_id': self[0].employee_id.id,
-        #         # 'default_name': 'mingger' # self[0].name if len(self.ids) == 1 else ''
-        #     },
-        #     'res_id': self.copy().id,
-        #     'context': self.env.context,
-        #     'view_id': self.env.ref('fleet_manage_warranty_maintain.wizard_form_view').id,
-        #     # 'target': 'current',
-        #     'target': 'new'
-        #     # 'res_id': self.id, # self.env.context.get('cashbox_id')
-        # }
 
         return False
 
 
+
+
+class WarrantyWizardInspectReturn(models.TransientModel): # 退回重修
+    _name = "fleet_warranty_sheet_inspect_return"
+    # _description = "Confirm return"
+
+    return_reason = fields.Text("Return Reason")
+
+    @api.multi
+    def inspect_return(self):
+        context = dict(self._context or {})
+        # print context
+        active_id = context.get('active_id', '') or ''
+        record = self.env['fleet_warranty_sheet_item'].browse(active_id)
+        if record.state != 'check':
+            raise UserError(_("Selected item cannot be return as they are not in 'check' state."))
+        record.action_return(self.return_reason)
+        return {'type': 'ir.actions.act_window_close'}

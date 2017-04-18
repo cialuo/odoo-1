@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 class WarrantyHandoverSheet(models.Model): # 交接单
+    _inherit = 'mail.thread'
     _name = 'fleet_warranty_handover_sheet'
 
     name = fields.Char(string="Handover Sheet", required=True, index=True, default='New')
@@ -39,7 +40,10 @@ class WarrantyHandoverSheet(models.Model): # 交接单
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
             vals['name'] = self.env['ir.sequence'].next_by_code('fleet_warranty_handover_sheet') or '/'
-        return super(WarrantyHandoverSheet, self).create(vals)
+
+        result = super(WarrantyHandoverSheet, self.with_context(mail_create_nolog=True)).create(vals)
+        result.message_post(body=_('%s has been added to the handover_sheet!') % (result.name,))
+        return result
 
     @api.multi
     def action_delivery(self):

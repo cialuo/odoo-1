@@ -76,6 +76,7 @@
             <field name="name">warranty_plan_sheet</field>
             <field name="res_model">fleet_warranty_plan_sheet</field>
             <field name="view_mode">tree</field> <!--,form-->
+            <field name="domain">[('state','in',['wait','executing','done'])]</field>
         </record>
 
         <!-- 计划单 menu -->
@@ -91,7 +92,7 @@
                 <form string='wizard_create form'>
                     <notebook>
                         <page string="Plan Sheet Ids" >
-                                <field name='plan_sheet_ids'/>
+                                <field name='plan_sheet_ids' readonly="1"/>
                         </page>
                     </notebook>
 

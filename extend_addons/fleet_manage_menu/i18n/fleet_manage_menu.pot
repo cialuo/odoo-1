@@ -18,20 +18,20 @@ msgstr ""
 #. module: fleet_manage_menu
 #: model:ir.ui.menu,name:fleet_manage_menu.fleet_manage_basic
 msgid "Fleet Manage Basic"
-msgstr "车辆基础管理"
+msgstr ""
 
 #. module: fleet_manage_menu
 #: model:ir.ui.menu,name:fleet_manage_menu.fleet_manage_menu_data
 msgid "Fleet Manage Data"
-msgstr "维保体系管理"
+msgstr ""
 
 #. module: fleet_manage_menu
 #: model:ir.ui.menu,name:fleet_manage_menu.fleet_manage_menu_root
 msgid "Fleet Manage Menu"
-msgstr "车辆管理"
+msgstr ""
 
 #. module: fleet_manage_menu
 #: model:ir.ui.menu,name:fleet_manage_menu.fleet_manage_warranty_maintain
 msgid "Fleet Manage Warranty Maintain"
-msgstr "车辆维保管理"
+msgstr ""
 
