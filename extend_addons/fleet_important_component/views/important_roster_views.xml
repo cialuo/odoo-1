@@ -113,11 +113,9 @@
                 (0, 0, {'view_mode': 'form', 'view_id': ref('fleet_important_roster_form')})]"/>
     </record>
 
-    <!--重要部件管理-->
-    <menuitem name="fleet_important_component" id="fleet_important_component" parent="fleet_manage_menu.fleet_manage_menu_root" sequence="900"/>
 
     <!-- menu categories -->
-    <menuitem name="fleet_important_roster" id="fleet_important_roster" sequence="30" parent="fleet_important_component" action="act_fleet_important_roster"/>
+    <menuitem name="fleet_important_roster" id="fleet_important_roster" sequence="30" parent="fleet_manage_menu.fleet_important_component" action="act_fleet_important_roster"/>
 
 
 

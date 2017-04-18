@@ -372,6 +372,8 @@ class FleetMaintainRepair(models.Model):
         self.ensure_one()
         if not self.user_id:
             raise exceptions.UserError(_("Maintain Repair Names Required!"))
+        if not self.plan_start_time:
+            raise exceptions.UserError(_("Maintain Repair StartTime Required!"))
         percentage_work = sum(i.percentage_work for i in self.job_ids)
         if percentage_work + self.percentage_work > 100:
             raise exceptions.UserError(_("Dispatching the proportion of more than 100"))
@@ -424,29 +426,40 @@ class FleetMaintainRepair(models.Model):
         for i in self.job_ids:
             i.real_start_time = fields.Datetime.now()
         if self.materials_control:
-            move_lines = []
+            import_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0 and x.product_id.is_important)
+            no_import_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0 and not x.product_id.is_important)
             picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
-            for i in self.available_product_ids:
-                if i.change_count > 0:
+
+            location_id = self.env.ref('stock.stock_location_stock').id     # 库存
+            location_dest_id = self.env.ref('stock_picking_types.stock_location_ullage').id  #维修(生产)虚位
+            if import_products:
+                location_dest_id = self.vehicle_id.location_stock_id.id          #随车实位
+
+            for products in [import_products, no_import_products]:
+                if not products:
+                    continue
+                move_lines = []
+                picking = []
+                for i in products:
                     vals = {
                         'name': 'stock_move_repair',
                         'product_id': i.product_id.id,
                         'product_uom': i.product_id.uom_id.id,
                         'product_uom_qty': i.change_count,
-                        # 'location_id': self.env.ref('stock.stock_location_stock').id,
-                        # 'location_dest_id': self.env.ref('stock.stock_location_customers').id,
                     }
-                    move_lines.append([0, 0, vals])
-            if move_lines:
-                picking =self.env['stock.picking'].create({
-                    'location_id': picking_type.default_location_src_id.id,
-                    'location_dest_id': picking_type.default_location_dest_id.id,
-                    'picking_type_id': picking_type.id,
-                    'repair_id': self.id,
-                    'move_lines':move_lines
-                })
-                print picking
-                picking.action_assign()
+                    move_lines.append((0, 0, vals))
+                if move_lines:
+                    picking = self.env['stock.picking'].create({
+                        'origin': self.name,
+                        'location_id': location_id,
+                        'location_dest_id': location_dest_id,
+                        'picking_type_id': picking_type.id,
+                        'repair_id': self.id,
+                        'move_lines': move_lines
+                    })
+                if picking:
+                    picking.action_assign()
+
 
 
     @api.multi
