@@ -1,0 +1,58 @@
+<openerp>
+  <data>
+
+    <!--新增一张默认产品视图，动作没定义form的话，默认打开此视图-->
+    <record id="fleet_important_classification_from" model="ir.ui.view">
+        <field name="name">Important Classification form</field>
+        <field name="model">fleet.important_classification</field>
+        <field name="priority">0</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="classification_no"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="classification_describe"/>
+                        <field name="remarks"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="fleet_important_classification_tree" model="ir.ui.view">
+        <field name="name">Important Classification tree</field>
+        <field name="model">fleet.important_classification</field>
+        <field name="priority">0</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="classification_no"/>
+                <field name="name"/>
+                <field name="classification_describe"/>
+                <field name="remarks"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--动作-->
+    <record id="act_fleet_important_classification" model="ir.actions.act_window">
+            <field name="name">Important Classification</field>
+            <field name="res_model">fleet.important_classification</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--菜单-->
+    <menuitem name="fleet_important_classification" id="fleet_important_classification" sequence="50" parent="fleet_manage_menu.fleet_important_component" action="act_fleet_important_classification"/>
+
+
+
+
+  </data>
+</openerp>

@@ -25,6 +25,58 @@
                                     icon="fa-truck" string="Procurements" type="action"
                                     groups="stock.group_adv_location"
                                     attrs="{'invisible':[('type', '=', 'service')]}"/>
+                            <button class="oe_stat_button" name="%(purchase.action_purchase_line_product_tree)d"
+                                    type="action" icon="fa-shopping-cart">
+                                <field string="Purchases" name="purchase_count" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button"
+                               name="%(stock.product_open_quants)d"
+                               icon="fa-building-o"
+                               type="action" attrs="{'invisible':[('type', '!=', 'product')]}">
+                                <field name="qty_available" widget="statinfo" string="On Hand"/>
+                            </button>
+                            <button type="action"
+                                name="%(stock.action_stock_level_forecast_report_product)d"
+                                attrs="{'invisible':[('type', '!=', 'product')]}"
+                                class="oe_stat_button" icon="fa-building-o">
+                                <div class="o_form_field o_stat_info">
+                                    <span class="o_stat_value"><field name="virtual_available" widget="statinfo" nolabel="1"/>
+                                        <span attrs="{'invisible':[('outgoing_qty', '=', 0),('incoming_qty','=',0)]}">
+                                            (-<field name="outgoing_qty" widget="statinfo" nolabel="1"/>
+                                            +<field name="incoming_qty" widget="statinfo" nolabel="1"/>)
+                                        </span>
+                                    </span>
+                                    <span class="o_stat_text">Forecasted</span>
+                                </div>
+                            </button>
+                            <button string="Traceability"
+                                    type="action"
+                                    name= "%(stock.act_product_stock_move_open)d"
+                                    attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}"
+                                    class="oe_stat_button" icon="fa-arrows-v"
+                                    groups="stock.group_stock_user"/>
+                            <button type="action"
+                                    name="%(stock.product_open_orderpoint)d"
+                                    attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '==', 1)]}"
+                                    class="oe_stat_button" icon="fa-refresh">
+                                    <field name="nbr_reordering_rules" widget="statinfo"/>
+                            </button>
+                            <button name="%(stock.product_open_orderpoint)d" type="action"
+                                    attrs="{'invisible':['|',('type', '!=', ['product', 'consu']),('nbr_reordering_rules', '!=', 1)]}"
+                                    class="oe_stat_button" icon="fa-refresh">
+                                    <div class="o_form_field o_stat_info mr4">
+                                        <span class="o_stat_text">Min :</span>
+                                        <span class="o_stat_text">Max:</span>
+                                    </div>
+                                    <div class="o_form_field o_stat_info">
+                                        <span class="o_stat_value"><field name="reordering_min_qty"/></span>
+                                        <span class="o_stat_value"><field name="reordering_max_qty"/></span>
+                                    </div>
+                            </button>
+                            <button string="Routes" type="object"
+                                    name="action_view_routes"
+                                    attrs="{'invisible':[('type', '!=', 'product')]}"
+                                    class="oe_stat_button" icon="fa-cogs" groups="stock.group_adv_location"/>
                         </div>
                         <field name="image_medium" widget="image" class="oe_avatar"/>
                         <div class="oe_title">
@@ -101,7 +153,7 @@
                                     <group name="supply_top_left">
                                         <field name="type"/>
                                         <field name="shelf"/>
-                                        <field name="keeper_id"/>
+                                        <field name="keeper_id" options="{'no_create_edit': True}"/>
                                     </group>
                                     <group name="supply_top_right">
                                         <field name="route_ids" widget="many2many_checkboxes" attrs="{'invisible':[('type', 'in', ['service', 'digital'])]}"/>
@@ -120,7 +172,7 @@
                             <page name="component_info" string="Component Info"
                                   attrs="{'invisible': ['|', ('important_type', '!=', 'component'), ('is_important', '=', False)]}">
                                 <field name="component_ids">
-                                    <tree editable="top">
+                                    <tree editable="top" create="false" delete="false">
                                         <field name="code"/>
                                         <field name="product_id" readonly="1"/>
                                         <field name="odometer" readonly="1"/>
@@ -142,9 +194,9 @@
             <field name="priority">0</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="default_code" string="Materials Code"/>
+                    <!--<field name="default_code" string="Materials Code"/>-->
+                    <field name="display_name" string="Materials Name"/>
                     <field name="categ_id" string="Materials Type"/>
-                    <field name="barcode"/>
                     <field name="vehicle_model"/>
                     <field name="require_trans"/>
                     <field name="keeper_id"/>

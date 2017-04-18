@@ -24,11 +24,13 @@ class Vehicle(models.Model):
             'location_id': self.env.ref('stock.stock_location_stock').id,
             'name': name,
             'usage': 'internal',
+            'is_vehicle': True,
         })
         virtual_vals = self.env['stock.location'].create({
             'location_id': virtual_parent.id,
             'name': name,
-            'usage': 'inventory'
+            'usage': 'inventory',
+            'is_vehicle': True,
         })
         res.write({'location_id': virtual_vals.id, 'location_stock_id': stock_vals.id})
         if res.model_id.control_import and res.model_id.product_lines:

@@ -12,12 +12,11 @@
                             type="object"
                             class="oe_stat_button"
                             icon="fa-book"
-                            context="{'xml_id':'fleet_manage_maintain_repair_action'}"
-                            help="show the contract for this 1">
+                            context="{'xml_id':'fleet_manage_maintain_repair_action'}">
                             <field name="repair_count" widget="statinfo" string="Repairs"/>
                     </button>
                 </div>
             </field>
-    </record>
+        </record>
     </data>
 </odoo>

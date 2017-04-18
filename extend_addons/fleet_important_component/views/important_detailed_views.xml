@@ -1,0 +1,106 @@
+<openerp>
+  <data>
+
+    <!--清单详情-->
+    <record id='fleet_important_detailed_form' model='ir.ui.view'>
+            <field name="name">Important Detailed form</field>
+            <field name="model">product.component</field>
+            <field name="arch" type="xml">
+                <form string="Vehicle">
+                    <header>
+                        <field name="state"  widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+
+                            <!--
+                            <button name="return_action_to_open"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-tachometer"
+                                context="{'xml_id':'fleet_vehicle_odometer_action'}"
+                                help="show the odometer logs for this vehicle" >
+                                <field name="odometer" widget="statinfo" string="Odometer"/>
+                            </button>
+                            -->
+                        </div>
+
+                        <field name="product_img" widget='image' class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="inner_code" class="oe_edit_only"/>
+                            <h1>
+                                <field name="product_name"/>
+                            </h1>
+                            <label for="license_plate" class="oe_edit_only"/>
+                            <h4>
+                                <field name="code" class="oe_inline" placeholder="e.g. B88888"/>
+                            </h4>
+
+                        </div>
+
+                        <notebook>
+
+                            <page  string="General Properties">
+                                <group col="2">
+                                    <group>
+                                        <field name="location_id" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="odometer"/>
+                                        <field name="create_date" readonly="True" DATE_FORMAT ="％Y-％m-％d"/>
+                                        <field name="create_uid" readonly="True"/>
+                                    </group>
+                                    <group>
+
+                                        <field name="product_component_type"/>
+                                        <field name="product_inter_code"/>
+
+                                    </group>
+                                </group>
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+                    <!--
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
+                        -->
+                </form>
+            </field>
+    </record>
+
+    <!--清单列表-->
+    <record id="fleet_important_detailed_tree" model="ir.ui.view">
+        <field name="name">Important Detailed tree</field>
+        <field name="model">product.component</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="display_name"/>
+                <field name="odometer"/>
+                <field name="state"/>
+                <field name="location_id"/>
+                <field name="create_date"/>
+                <field name="checkout_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--部件清单-->
+    <record id="act_fleet_important_detailed" model="ir.actions.act_window">
+            <field name="name">Important Detailed</field>
+            <field name="res_model">product.component</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--菜单-->
+    <menuitem name="fleet_important_detailed" id="fleet_important_detailed" sequence="40" parent="fleet_manage_menu.fleet_important_component" action="act_fleet_important_detailed"/>
+
+
+
+
+  </data>
+</openerp>

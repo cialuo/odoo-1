@@ -124,14 +124,14 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-								<field name="vehicle_id" />
-								<field name="report_user_id" />
-								<field name="repair_category" />
+								<field name="vehicle_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
+								<field name="report_user_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
+								<field name="repair_category" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
 	                        </group>
 	                        <group>
 	                            <field name="vehicle_type" />
-								<field name="report_date" />
-								<field name="is_fault_vehicle" />
+								<field name="report_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="is_fault_vehicle" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
 	                        </group>
                    		 </group>
   						 <notebook>
@@ -139,8 +139,8 @@
                                 <field name="repair_ids">
                                     <tree string="Maintain Repair" editable="bottom">
 										<field name="name"/>
-										<field name="fault_category_id"/>
-										<field name="fault_appearance_id"/>
+										<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
+										<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
 										<field name="state"/>
                                     </tree>
                                 </field>
@@ -149,15 +149,15 @@
 							 <page string="More Information">
                                 <group col="2">
 									<group>
-										<field name="partner_id" />
-										<field name="fleet" />
-										<field name="create_name" />
+										<field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
+										<field name="fleet" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+										<field name="create_name" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
 										<field name="remark" />
 									</group>
 									<group>
-										<field name="repair_plant" />
-										<field name="repair_level" />
-										<field name="department" />
+										<field name="repair_plant" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+										<field name="repair_level" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+										<field name="department"/>
 									</group>
 								 </group>
                             </page>
@@ -227,14 +227,14 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="vehicle_id" />
-								<field name="report_user_id" />
-								<field name="repair_category" />
+	                        	<field name="vehicle_id" readonly="1"/>
+								<field name="report_user_id" readonly="1"/>
+								<field name="repair_category" readonly="1"/>
 	                        </group>
 	                        <group>
-	                            <field name="vehicle_type" />
-								<field name="report_date" />
-								<field name="is_fault_vehicle" />
+	                            <field name="vehicle_type" readonly="1"/>
+								<field name="report_date" readonly="1"/>
+								<field name="is_fault_vehicle" readonly="1"/>
 	                        </group>
                    		 </group>
   						 <notebook>
@@ -242,10 +242,10 @@
 								<field name="repair_ids" context="{'form_view_ref': 'fleet_manage_maintain.fleet_manage_repair_view_form_action'}">
 									<tree string="Maintain Repair">
 										<field name="name"/>
-										<field name="fault_category_id"/>
-										<field name="fault_appearance_id"/>
-										<field name="fault_reason_id"/>
-										<field name="fault_method_id"/>
+										<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
+										<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
+										<field name="fault_reason_id" options="{'no_open':True,'no_create':True}"/>
+										<field name="fault_method_id" options="{'no_open':True,'no_create':True}"/>
 										<field name="fault_method_code"/>
 										<field name="repair_names"/>
 										<field name="state"/>
@@ -255,15 +255,15 @@
 							 <page string="More Information">
                                 <group col="2">
 									<group>
-										<field name="partner_id" />
-										<field name="fleet" />
+										<field name="partner_id" readonly="1"/>
+										<field name="fleet" readonly="1"/>
 										<field name="create_name" />
-										<field name="remark" />
+										<field name="remark"/>
 									</group>
 									<group>
-										<field name="repair_plant" />
-										<field name="repair_level" />
-										<field name="department" />
+										<field name="repair_plant" readonly="1"/>
+										<field name="repair_level" readonly="1"/>
+										<field name="department"/>
 									</group>
 								 </group>
                             </page>
@@ -304,8 +304,8 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="fault_reason_id" />
-								<field name="fault_method_id" />
+	                        	<field name="fault_reason_id" readonly="1"/>
+								<field name="fault_method_id" readonly="1"/>
 								<field name="repair_category" />
 								<field name="report_id" />
 	                        </group>
@@ -318,8 +318,8 @@
                    		 </group>
   						 <notebook>
 							 <page string="MaintainRepair Jobs">
-                                <field name="job_ids">
-                                    <tree string="MaintainRepair Jobs">
+                                <field name="job_ids" readonly="1">
+                                    <tree string="MaintainRepair Jobs" create="false" delete="false">
 										<field name="sequence"/>
 										<field name="fault_method_id"/>
 										<field name="user_id"/>
@@ -339,8 +339,8 @@
                              </page>
 
 							 <page string="AvailProducts" name="AvailProducts">
-                                <field name="available_product_ids">
-                                    <tree string="AvailProducts" editable="bottom">
+                                <field name="available_product_ids" readonly="1">
+                                    <tree string="AvailProducts" create="false" delete="false">
 										<field name="product_id"/>
 										<field name="product_code"/>
 										<field name="max_count"/>
@@ -355,10 +355,12 @@
 
 							 <page string="ProductLists" name="ProductLists">
                                 <field name="picking_ids">
-                                    <tree string="ProductLists">
+                                    <tree string="ProductLists" create="false" delete="false">
 										<field name="picking_type_id"/>
+										<field name="name"/>
 										<field name="location_id"/>
 										<field name="min_date"/>
+										<field name="date_done"/>
 										<field name="origin"/>
 										<field name="state"/>
                                     </tree>
@@ -382,8 +384,8 @@
 								<field name="operation_manual"/>
 							 </page>
 							 <page string="Inspect Return Records" >
-                                <field name="return_record_ids">
-                                    <tree string="Inspect Return Records">
+                                <field name="return_record_ids" readonly="1">
+                                    <tree string="Inspect Return Records" create="false" delete="false">
 										<field name="repair_id"/>
 										<field name="repair_names"/>
 										<field name="fault_method_id"/>
@@ -417,17 +419,17 @@
 							<page string="MaintainRepair Jobs" >
                                 <field name="job_ids">
                                     <tree string="MaintainRepair Jobs" create="false" editable="bottom">
-										<field name="sequence"/>
-										<field name="fault_method_id"/>
-										<field name="user_id"/>
-										<field name="plan_start_time"/>
-										<field name="plan_end_time"/>
-										<field name="real_start_time"/>
-										<field name="real_end_time"/>
-										<field name="work_time"/>
+										<field name="sequence" readonly="1"/>
+										<field name="fault_method_id" readonly="1"/>
+										<field name="user_id" readonly="1"/>
+										<field name="plan_start_time" readonly="1"/>
+										<field name="plan_end_time" readonly="1"/>
+										<field name="real_start_time" readonly="1"/>
+										<field name="real_end_time" readonly="1"/>
+										<field name="work_time" readonly="1"/>
 										<field name="percentage_work"/>
-										<field name="my_work"/>
-										<field name="real_work"/>
+										<field name="my_work" readonly="1"/>
+										<field name="real_work" readonly="1"/>
                                     </tree>
                                 </field>
                             </page>
@@ -435,36 +437,40 @@
 
 						 <group col="2">
 	                        <group>
-								<field name="fault_category_id" />
-								<field name="fault_appearance_id" />
+								<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="fault_reason_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="fault_method_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="vehicle_id" invisible="1"/>
+								<field name="component_ids" widget="many2many_tags" options="{'no_create_edit': True}"
+									   attrs="{'invisible': [('is_important_product', '=', False)],'required': [('is_important_product','=', True)]}"/>
 								<field name="work_time"/>
-								<field name="plan_start_time" />
-								<field name="plan_end_time" />
+
 								<field name="operation_manual" invisible="1"/>
 								<field name="inspect_standard" invisible="1"/>
-								<field name="is_important_product" />
-								<field name="important_product_id" />
+								<field name="is_important_product" invisible="1"/>
+								<field name="important_product_id" invisible="1"/>
 	                        </group>
-	                        <group>
-	                            <field name="fault_reason_id" />
-								<field name="fault_method_id" />
+	                        <group class="oe_edit_only">
+								<field name="plan_start_time"/>
+								<field name="plan_end_time"/>
 								<field name="fault_method_code" invisible="1"/>
 								<field name="materials_control" invisible="1"/>
-								<field name="user_id"  />
-
+								<field name="user_id"  options="{'no_open':True,'no_create':True}"/>
 								<label for="percentage_work"/>
 								<div class="o_row">
 									<field name="percentage_work"/><span>%</span>
 								</div>
+								<field name="state" invisible="1"/>
 	                        </group>
                    		 </group>
 
-						<footer>
 							<button name="dispatch"
 									type="object"
 									string="Dispatch"
-									class="oe_edit_only oe_highlight pull-right"/>
-                    	</footer>
+									states="dispatch,wait_repair"
+									class="oe_edit_only oe_highlight oe_right"/>
+
 					</sheet>
                 </form>
             </field>
@@ -506,7 +512,7 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-	                        	<field name="report_id" />
+	                        	<field name="report_id" readonly="1"/>
 								<!--<field name="fault_method_id" />-->
 								<!--<field name="repair_category" />-->
 								<!--<field name="report_id" />-->
@@ -518,10 +524,32 @@
 	                        </group>
                    		 </group>
 						<notebook>
+							<page string="Deliverys">
+                                <field name="device_ids">
+                                    <tree string="Deliverys">
+										<field name="device_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+							<page string="ReturnDeliverys" >
+                                <field name="device_return_ids">
+                                    <tree string="ReturnDeliverys">
+										<field name="device_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+
 							<page string="Other Information">
 								<group col="1">
 									<group>
-										<field name="create_date"/>
+										<field name="create_date" readonly='1'/>
 										<field name="report_user_id"/>
 										<field name="delivery_time"/>
 										<field name="delivery_return_time"/>
@@ -575,9 +603,8 @@
 	                    </div>
 						<group col="2">
 							<group>
-								<field name="fault_reason_id" />
-								<field name="fault_method_id" />
-
+								<field name="fault_reason_id" readonly="1"/>
+								<field name="fault_method_id" readonly="1"/>
 							</group>
 							<group>
 								<field name="vehicle_id" />
@@ -590,8 +617,8 @@
 								<field name="inspect_standard"/>
                             </page>
 							<page string="Inspect Return Records" >
-                                <field name="return_record_ids">
-                                    <tree string="Inspect Return Records">
+                                <field name="return_record_ids" readonly="1">
+                                    <tree string="Inspect Return Records" create="false" delete="false">
 										<field name="repair_id"/>
 										<field name="repair_names"/>
 										<field name="fault_method_id"/>
@@ -701,6 +728,7 @@
 				  action="fleet_manage_maintain_report_action"
 				  sequence="1"
 				  />
+
 		<menuitem name="precheck_bill"
 				  id="fleet_manage_maintain_precheck_bill"
 				  parent="fleet_manage_maintain"

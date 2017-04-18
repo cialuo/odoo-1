@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-31 06:00+0000\n"
-"PO-Revision-Date: 2017-03-31 06:00+0000\n"
+"POT-Creation-Date: 2017-04-14 07:19+0000\n"
+"PO-Revision-Date: 2017-04-14 07:19+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,26 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: important_product
+#: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_form
+msgid "<span class=\"o_stat_text\">Forecasted</span>"
+msgstr "<span class=\"o_stat_text\">预测</span>"
+
+#. module: important_product
+#: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_form
+msgid "<span class=\"o_stat_text\">Min :</span>\n"
+"                                        <span class=\"o_stat_text\">Max:</span>"
+msgstr "<span class=\"o_stat_text\">Min :</span>\n"
+"                                        <span class=\"o_stat_text\">Max:</span>"
+
+#. module: important_product
 #: model:ir.model.fields,help:important_product.field_vehicle_model_product_description
 msgid "A precise description of the Product, used only for internal information purposes."
 msgstr "产品的精确说明，仅用于内部备注。"
+
+#. module: important_product
+#: model:ir.model.fields,field_description:important_product.field_product_component_active
+msgid "Active"
+msgstr "有效"
 
 #. module: important_product
 #: selection:product.component,state:0
@@ -64,7 +81,7 @@ msgstr "比较方式2"
 #: model:ir.model.fields,field_description:important_product.field_fleet_vehicle_component_ids
 #: selection:product.product,important_type:0
 msgid "Component"
-msgstr "作为重要部件管理"
+msgstr "选择重要部件"
 
 #. module: important_product
 #: model:ir.model.fields,field_description:important_product.field_product_component_code
@@ -111,7 +128,7 @@ msgstr "所有库存作业的默认计量单位"
 #: model:ir.model.fields,field_description:important_product.field_vehicle_model_product_description
 #: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_form
 msgid "Description"
-msgstr "规格型号"
+msgstr "规格描述"
 
 #. module: important_product
 #: model:ir.model.fields,field_description:important_product.field_product_component_display_name
@@ -166,6 +183,12 @@ msgstr "管理类型"
 #: model:ir.actions.act_window,name:important_product.materials_manage_important_product
 msgid "Important product"
 msgstr "重要部件"
+
+#. module: important_product
+#: code:addons/important_product/models/product.py:86
+#, python-format
+msgid "Important product be Added to model can not change to not important!"
+msgstr "已增加到车型的重要部件不能取消重要管理"
 
 #. module: important_product
 #: model:ir.model,name:important_product.model_fleet_vehicle
@@ -235,9 +258,13 @@ msgstr "仓库管理"
 
 #. module: important_product
 #: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_form
-#: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_tree
 msgid "Materials Code"
 msgstr "物资编码"
+
+#. module: important_product
+#: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_tree
+msgid "Materials Name"
+msgstr "物资"
 
 #. module: important_product
 #: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_form
@@ -251,9 +278,9 @@ msgid "Model of a vehicle"
 msgstr "车辆型号"
 
 #. module: important_product
-#: model:ir.model.fields,field_description:important_product.field_product_component_move_ids
+#: model:ir.model.fields,field_description:important_product.field_product_component_move_id
 msgid "Move lines"
-msgstr "库存移动"
+msgstr "移动明细"
 
 #. module: important_product
 #: model:ir.model.fields,field_description:important_product.field_product_tech_info_name
@@ -261,7 +288,7 @@ msgid "Name"
 msgstr "参数名称"
 
 #. module: important_product
-#: code:addons/important_product/models/fleet_vehicle.py:125
+#: code:addons/important_product/models/fleet_vehicle.py:137
 #, python-format
 msgid "Not have any vehicles!"
 msgstr "该车型无车辆!"
@@ -283,6 +310,11 @@ msgid "Old for new"
 msgstr "交旧领新"
 
 #. module: important_product
+#: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_form
+msgid "On Hand"
+msgstr "在手"
+
+#. module: important_product
 #: model:ir.model.fields,field_description:important_product.field_product_product_parent_id
 msgid "Parent Product"
 msgstr "上级产品"
@@ -297,17 +329,12 @@ msgstr "补货"
 #: model:ir.model.fields,field_description:important_product.field_product_component_product_id
 #: model:ir.model.fields,field_description:important_product.field_vehicle_model_product_product_id
 msgid "Product"
-msgstr "部件名称"
+msgstr "物资名称"
 
 #. module: important_product
 #: model:ir.model,name:important_product.model_product_category
 msgid "Product Category"
-msgstr "物资类别"
-
-#. module: important_product
-#: model:ir.model.fields,field_description:important_product.field_stock_move_component_id
-msgid "Product Component"
-msgstr "部件清单"
+msgstr "产品类别"
 
 #. module: important_product
 #: model:ir.model.fields,field_description:important_product.field_fleet_vehicle_model_product_lines
@@ -330,6 +357,11 @@ msgid "Product id"
 msgstr "物资名称"
 
 #. module: important_product
+#: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_form
+msgid "Purchases"
+msgstr "采购"
+
+#. module: important_product
 #: model:ir.model.fields,field_description:important_product.field_vehicle_model_product_qty
 msgid "Qty"
 msgstr "装配数量"
@@ -338,6 +370,11 @@ msgstr "装配数量"
 #: selection:product.component,state:0
 msgid "Repareing"
 msgstr "正在维修"
+
+#. module: important_product
+#: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_form
+msgid "Routes"
+msgstr "路线"
 
 #. module: important_product
 #: model:ir.model.fields,field_description:important_product.field_product_product_shelf
@@ -395,6 +432,11 @@ msgid "Tech Information"
 msgstr "技术参数"
 
 #. module: important_product
+#: model:ir.ui.view,arch_db:important_product.materials_manage_important_product_form
+msgid "Traceability"
+msgstr "追溯"
+
+#. module: important_product
 #: model:ir.model.fields,field_description:important_product.field_vehicle_model_product_uom_id
 msgid "Uom"
 msgstr "单位"
@@ -430,7 +472,13 @@ msgid "Waiting Repare"
 msgstr "在库待修"
 
 #. module: important_product
-#: code:addons/important_product/models/product.py:38
+#: code:addons/important_product/models/fleet_vehicle.py:46
+#, python-format
+msgid "can not update model,you could add a new vehicle"
+msgstr "车辆创建后，车型不能更改！"
+
+#. module: important_product
+#: code:addons/important_product/models/product.py:37
 #, python-format
 msgid "inter code must unique per product and category"
 msgstr "每个类别下的每个产品内部编码必须唯一"

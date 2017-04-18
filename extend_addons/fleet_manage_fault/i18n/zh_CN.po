@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-06 03:34+0000\n"
-"PO-Revision-Date: 2017-04-06 03:34+0000\n"
+"POT-Creation-Date: 2017-04-13 09:08+0000\n"
+"PO-Revision-Date: 2017-04-13 09:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_available_product_description
+msgid "A precise description of the Product, used only for internal information purposes."
+msgstr "产品的精确说明，仅用于内部备注。"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_active
@@ -24,9 +29,10 @@ msgid "Active"
 msgstr "有效"
 
 #. module: fleet_manage_fault
-#: sql_constraint:fleet_manage_fault.appearance:0
+#: code:addons/fleet_manage_fault/models/fault.py:45
+#, python-format
 msgid "Appearance code already exists"
-msgstr "故障现象编码已经存在"
+msgstr "故障现象编码已存在"
 
 #. module: fleet_manage_fault
 #: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_method_view_form
@@ -34,9 +40,10 @@ msgid "AvailProducts"
 msgstr "可用物料"
 
 #. module: fleet_manage_fault
-#: sql_constraint:fleet_manage_fault.category:0
+#: code:addons/fleet_manage_fault/models/fault.py:10
+#, python-format
 msgid "Category code already exists"
-msgstr "故障分类编码已经存在"
+msgstr "故障分类编码已存在"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_change_count
@@ -49,10 +56,16 @@ msgid "Complex level"
 msgstr "复杂程度"
 
 #. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_create_date
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_create_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_create_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_create_date
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_appearance_create_date
 #: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_category_create_date
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_method_create_date
+#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_reason_create_date
 msgid "Create Date"
-msgstr "建档日期"
+msgstr "建档时间"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_user_id
@@ -63,12 +76,17 @@ msgid "Create Name"
 msgstr "建档人"
 
 #. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_create_uid
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_create_uid
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_create_uid
 msgid "Created by"
-msgstr "建档人"
+msgstr "创建人"
 
 #. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_create_date
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_create_date
 msgid "Created on"
 msgstr "创建时间"
@@ -133,7 +151,7 @@ msgstr "维修类型"
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_fault_method_code
 #: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_method_fault_method_code
 msgid "Fault Method Code"
-msgstr "维修方法编码"
+msgstr "故障编码"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_method_ct
@@ -246,7 +264,7 @@ msgstr "故障原因"
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_virtual_available
 msgid "Forecast Quantity"
-msgstr "预测数量"
+msgstr "可用数量"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_available_product_virtual_available
@@ -265,8 +283,12 @@ msgid "Group Works"
 msgstr "群体作业"
 
 #. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_id
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_id
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_id
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_id
 msgid "ID"
 msgstr "ID"
 
@@ -308,14 +330,22 @@ msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_write_uid
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_write_uid
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_write_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_write_date
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_category_write_date
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_fault_maintain_type_write_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_write_date
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
 
@@ -338,9 +368,10 @@ msgid "Max Count"
 msgstr "领用上限"
 
 #. module: fleet_manage_fault
-#: sql_constraint:fleet_manage_fault.method:0
+#: code:addons/fleet_manage_fault/models/fault.py:180
+#, python-format
 msgid "Method code already exists"
-msgstr "维修方法编码已经存在"
+msgstr "维修方法编码已存在"
 
 #. module: fleet_manage_fault
 #: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_category_view_form
@@ -362,7 +393,7 @@ msgstr "作业手册"
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_product_id
 msgid "Product"
-msgstr "产品"
+msgstr "物资名称"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_categ_id
@@ -372,18 +403,17 @@ msgstr "物资类别"
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_product_code
 msgid "Product Code"
-msgstr "物质编码"
+msgstr "物资编码"
 
 #. module: fleet_manage_fault
-#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_product_size
-#: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_available_product_product_size
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_description
 msgid "Product Size"
-msgstr "Product Size"
+msgstr "规格型号"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_method_avail_ids
 msgid "Products"
-msgstr "产品"
+msgstr "可用物料"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_onhand_qty
@@ -391,9 +421,10 @@ msgid "Quantity On Hand"
 msgstr "库存数量"
 
 #. module: fleet_manage_fault
-#: sql_constraint:fleet_manage_fault.reason:0
+#: code:addons/fleet_manage_fault/models/fault.py:107
+#, python-format
 msgid "Reason code already exists"
-msgstr "故障原因编码已经存在"
+msgstr "故障原因编码已存在"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_appearance_reason_ids
@@ -407,6 +438,11 @@ msgstr "故障原因"
 #: model:ir.model.fields,help:fleet_manage_fault.field_fleet_manage_fault_method_remark
 msgid "Remark"
 msgstr "备注"
+
+#. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_require_trans
+msgid "Require Trans"
+msgstr "交旧领新"
 
 #. module: fleet_manage_fault
 #: model:ir.ui.view,arch_db:fleet_manage_fault.fleet_manage_fault_appearance_view_form
@@ -438,6 +474,11 @@ msgid "State"
 msgstr "状态"
 
 #. module: fleet_manage_fault
+#: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_vehicle_model
+msgid "Suitable Vehicle"
+msgstr "适用车型"
+
+#. module: fleet_manage_fault
 #: selection:fleet_manage_fault.method,complex_level:0
 msgid "Two works"
 msgstr "2人作业"
@@ -445,7 +486,7 @@ msgstr "2人作业"
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_available_product_uom_id
 msgid "Unit of Measure"
-msgstr "单位"
+msgstr "计量单位"
 
 #. module: fleet_manage_fault
 #: selection:fleet_manage_fault.appearance,state:0
@@ -521,11 +562,6 @@ msgid "fleet_manage_fault_category_action"
 msgstr "故障分类"
 
 #. module: fleet_manage_fault
-#: model:ir.ui.menu,name:fleet_manage_fault.fleet_manage_menu_fault_maintain_type
-msgid "fleet_manage_fault_maintain_type"
-msgstr "维修类型"
-
-#. module: fleet_manage_fault
 #: model:ir.actions.act_window,name:fleet_manage_fault.fleet_manage_fault_maintain_type_action
 msgid "fleet_manage_fault_maintain_type_action"
 msgstr "维修类型"
@@ -574,6 +610,12 @@ msgstr "维修工时定额"
 #: model:ir.ui.menu,name:fleet_manage_fault.fleet_manage_quota
 msgid "fleet_manage_quota"
 msgstr "定额管理"
+
+#. module: fleet_manage_fault
+#: code:addons/fleet_manage_fault/models/fault.py:272
+#, python-format
+msgid "max_count must be greater than or equal to change_count"
+msgstr "领用上限必须大于等于必换数量"
 
 #. module: fleet_manage_fault
 #: model:ir.model.fields,field_description:fleet_manage_fault.field_fleet_manage_fault_reason_method_ids

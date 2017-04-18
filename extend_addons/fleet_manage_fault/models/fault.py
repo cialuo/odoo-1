@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions, _
 
 
 class FaultCategory(models.Model):
@@ -7,7 +7,7 @@ class FaultCategory(models.Model):
     故障分类
     """
     _name = 'fleet_manage_fault.category'
-    _sql_constraints = [('code_uniq', 'unique (fault_category_code)', "Category code already exists")]
+    _sql_constraints = [('code_uniq', 'unique (fault_category_code)', _("Category code already exists"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -42,15 +42,15 @@ class FaultAppearance(models.Model):
     故障现象
     """
     _name = 'fleet_manage_fault.appearance'
-    _sql_constraints = [('code_uniq', 'unique (inner_code)', "Appearance code already exists")]
+    _sql_constraints = [('code_uniq', 'unique (category_id, inner_code)', _("Appearance code already exists"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
         return emp_ids and emp_ids[0] or False
 
     inner_code = fields.Char("Inner Code", help='Inner Code', required=True)
-    fault_appearance_code = fields.Char("Fault appearance Code",compute="_get_fault_code",
-                                        help='Fault appearance Code',required=True)
+    fault_appearance_code = fields.Char("Fault appearance Code", compute="_get_fault_code",
+                                        help='Fault appearance Code', required=True)
     name = fields.Char("Fault appearance Name", help='Fault appearance Name',required=True)
     user_id = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, required=True,
                               readonly=True)
@@ -104,7 +104,7 @@ class FaultReason(models.Model):
     故障原因
     """
     _name = 'fleet_manage_fault.reason'
-    _sql_constraints = [('code_uniq', 'unique (inner_code)', "Reason code already exists")]
+    _sql_constraints = [('code_uniq', 'unique (category_id, appearance_id, inner_code)', _("Reason code already exists"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -177,7 +177,7 @@ class FaultMethod(models.Model):
     维修办法
     """
     _name = 'fleet_manage_fault.method'
-    _sql_constraints = [('code_uniq', 'unique (inner_code)', "Method code already exists")]
+    _sql_constraints = [('code_uniq', 'unique (category_id, inner_code)', _("Method code already exists"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -204,8 +204,9 @@ class FaultMethod(models.Model):
     operation_manual = fields.Text("Operation Manual", help="Operation Manual")
     inspect_standard = fields.Text("Inspect Standard", help="Inspect Standard")
 
-    # important_product = fields.Many2one('product.product',string="Important Product", domain=[('import_product', '=', True)])
-    important_product_id = fields.Many2one('product.component', string="Important Product")
+    important_product_id = fields.Many2one('product.product', string="Important Product",
+                                           domain=[('is_important', '=', True)])
+    # important_product_id = fields.Many2one('product.component', string="Important Product")
 
     reason_id = fields.Many2one('fleet_manage_fault.reason',
         ondelete='cascade', string="Fault reason Name",required=True)
@@ -264,6 +265,11 @@ class AvailableProduct(models.Model):
     max_count = fields.Integer("Max Count")
     remark = fields.Text("Remark", help="Remark")
 
+    @api.constrains('change_count', 'max_count')
+    def _check_change_count(self):
+        for r in self:
+            if r.change_count > r.max_count:
+                raise exceptions.ValidationError(_("max_count must be greater than or equal to change_count"))
 
 class FaultMaintainType(models.Model):
     """

@@ -118,6 +118,7 @@ class Component(models.Model):
     _name = 'product.component'
     _order = 'id desc'
 
+
     """
     重要部件清单信息
     """
@@ -147,3 +148,8 @@ class Component(models.Model):
             vals['code'] = self.env['ir.sequence'].next_by_code('product_component')
         res = super(Component, self).create(vals)
         return res
+
+    @api.multi
+    def name_get(self):
+        return [(component.id, '%s %s' % (component.code, component.product_id.display_name))
+                for component in self]

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-27 01:59+0000\n"
-"PO-Revision-Date: 2017-03-27 01:59+0000\n"
+"POT-Creation-Date: 2017-04-13 07:41+0000\n"
+"PO-Revision-Date: 2017-04-13 07:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -60,7 +60,7 @@ msgstr "二氧化碳排放量"
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_co2_ext
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_co2_ext
 msgid "CO2 emissions of the vehicle"
-msgstr "二氧化碳排放量"
+msgstr "车辆的CO2排放量"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_model_chassis_no
@@ -74,20 +74,12 @@ msgid "Click to create a new vehicle."
 msgstr "单击新建车辆."
 
 #. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_code
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_model_code
+#: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_code
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_code
 msgid "Code"
 msgstr "代码"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "Contracts"
-msgstr "合约"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "Costs"
-msgstr "费用"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_maintenance_create_date_ext
@@ -96,12 +88,14 @@ msgid "Create Date"
 msgstr "创建日期"
 
 #. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_create_uid
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_maintenance_create_uid
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_route_create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_create_date
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_maintenance_create_date
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_route_create_date
 msgid "Created on"
@@ -118,6 +112,7 @@ msgid "Deadline"
 msgstr "使用年限"
 
 #. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_display_name
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_maintenance_display_name
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_route_display_name
 msgid "Display Name"
@@ -134,6 +129,23 @@ msgstr "车门数量"
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_driving_wheel_count
 msgid "Driving Wheel Count"
 msgstr "驱动轮数"
+
+#. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_name
+#: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_name
+msgid "Emission Level"
+msgstr "排放等级"
+
+#. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_emission_standard
+#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_manage_vehicle_emission_standard_tree
+msgid "Emission Standard"
+msgstr "排放标准"
+
+#. module: fleet_manage_vehicle
+#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_manage_vehicle_emission_standard_form
+msgid "EmissionStandard Form"
+msgstr "排放标准"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_emissions
@@ -155,7 +167,7 @@ msgstr "发动机型号"
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_maintenance_device_id
 msgid "Equipment"
-msgstr "设备名称"
+msgstr "设备"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_fuel_consumption_pre_hund
@@ -191,11 +203,6 @@ msgid "Front Max Weight"
 msgstr "前桥负荷量"
 
 #. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "Fuel"
-msgstr "燃油"
-
-#. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_model_fuel_capacity
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_fuel_capacity
 msgid "Fuel Capacity"
@@ -220,10 +227,21 @@ msgid "General Properties"
 msgstr "常规属性"
 
 #. module: fleet_manage_vehicle
+#: selection:fleet.vehicle,vehicle_label:0
+msgid "Green"
+msgstr "绿标"
+
+#. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_model_height
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_height
 msgid "Height"
 msgstr "高度"
+
+#. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_model_home_entry_date
+#: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_home_entry_date
+msgid "Home Entry Date"
+msgstr "Home Entry Date"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_horsepower_ext
@@ -232,6 +250,7 @@ msgid "Horsepower"
 msgstr "马力"
 
 #. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_id
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_maintenance_id
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_route_id
 msgid "ID"
@@ -255,18 +274,21 @@ msgid "Inner Height"
 msgstr "车内高度"
 
 #. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard___last_update
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_maintenance___last_update
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_route___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_write_uid
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_maintenance_write_uid
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_route_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_write_date
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_maintenance_write_date
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_route_write_date
 msgid "Last Updated on"
@@ -360,8 +382,6 @@ msgid "Rear Max Weight"
 msgstr "后桥负荷量"
 
 #. module: fleet_manage_vehicle
-#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_model_reg_date
-#: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_reg_date
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_reg_date
 msgid "Reg Date"
 msgstr "入户日期"
@@ -382,15 +402,21 @@ msgid "Register Information"
 msgstr "登记信息"
 
 #. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_remark
+#: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_manage_vehicle_emission_standard_remark
+msgid "Remark"
+msgstr "备注"
+
+#. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_route_id
 msgid "Route"
-msgstr "线路"
+msgstr "路线"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_manage_vehicle_route_name
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_manage_vehicle_route_name
 msgid "Route Name"
-msgstr "线路"
+msgstr "路线名称"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_model_seats_ext
@@ -405,11 +431,6 @@ msgid "Serial No"
 msgstr "设备编号"
 
 #. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "Services"
-msgstr "服务"
-
-#. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_model_shaft_distance
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_shaft_distance
 msgid "Shaft Distance"
@@ -420,6 +441,12 @@ msgstr "轴距"
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_specifications
 msgid "Specifications"
 msgstr "型号规格"
+
+#. module: fleet_manage_vehicle
+#: code:addons/fleet_manage_vehicle/models/fleet.py:148
+#, python-format
+msgid "Standard code already exists"
+msgstr "排放等级编码已经存在"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_state
@@ -480,6 +507,16 @@ msgid "Vehicle Device"
 msgstr "随车设备"
 
 #. module: fleet_manage_vehicle
+#: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_vehicle_label
+msgid "Vehicle Label"
+msgstr "标志"
+
+#. module: fleet_manage_vehicle
+#: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_vehicle_label
+msgid "Vehicle label"
+msgstr "标志"
+
+#. module: fleet_manage_vehicle
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_model_weight
 #: model:ir.model.fields,field_description:fleet_manage_vehicle.field_fleet_vehicle_weight
 #: model:ir.model.fields,help:fleet_manage_vehicle.field_fleet_vehicle_model_weight
@@ -500,6 +537,11 @@ msgid "Width"
 msgstr "宽度"
 
 #. module: fleet_manage_vehicle
+#: selection:fleet.vehicle,vehicle_label:0
+msgid "Yellow"
+msgstr "黄标"
+
+#. module: fleet_manage_vehicle
 #: model:ir.actions.act_window,help:fleet_manage_vehicle.fleet_manage_vehicle_action
 msgid "You will be able to manage your fleet by keeping track of the\n"
 "                contracts, services, fixed and recurring costs, odometers and\n"
@@ -508,18 +550,18 @@ msgstr "您保留每辆车的相关的合同，服务，固定和定期的费用
 
 #. module: fleet_manage_vehicle
 #: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "e.g. Model S"
-msgstr "例如S模块"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "e.g. PAE 326"
-msgstr "例如：PAE 326"
+msgid "e.g. B88888"
+msgstr "e.g. B88888"
 
 #. module: fleet_manage_vehicle
 #: model:ir.ui.menu,name:fleet_manage_vehicle.fleet_manage_vehicle
 msgid "fleet_manage_vehicle"
 msgstr "车辆技术档案"
+
+#. module: fleet_manage_vehicle
+#: model:ir.model,name:fleet_manage_vehicle.model_fleet_manage_vehicle_emission_standard
+msgid "fleet_manage_vehicle.emission_standard"
+msgstr "排放标准"
 
 #. module: fleet_manage_vehicle
 #: model:ir.model,name:fleet_manage_vehicle.model_fleet_manage_vehicle_maintenance
@@ -535,6 +577,16 @@ msgstr "线路"
 #: model:ir.actions.act_window,name:fleet_manage_vehicle.fleet_manage_vehicle_action
 msgid "fleet_manage_vehicle_action"
 msgstr "车辆技术档案"
+
+#. module: fleet_manage_vehicle
+#: model:ir.ui.menu,name:fleet_manage_vehicle.fleet_manage_vehicle_emission_standard
+msgid "fleet_manage_vehicle_emission_standard"
+msgstr "排放标准"
+
+#. module: fleet_manage_vehicle
+#: model:ir.actions.act_window,name:fleet_manage_vehicle.fleet_manage_vehicle_emission_standard_action
+msgid "fleet_manage_vehicle_emission_standard_action"
+msgstr "车辆排放标准"
 
 #. module: fleet_manage_vehicle
 #: model:ir.ui.menu,name:fleet_manage_vehicle.fleet_manage_vehicle_model
@@ -568,28 +620,8 @@ msgstr "抢修"
 
 #. module: fleet_manage_vehicle
 #: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "show all the costs for this vehicle"
-msgstr "显示这辆车的所有费用"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "show the contract for this vehicle"
-msgstr "显示该车辆的合同"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "show the fuel logs for this vehicle"
-msgstr "显示车辆的燃油日志"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
 msgid "show the odometer logs for this vehicle"
 msgstr "显示辆车的里程表记录"
-
-#. module: fleet_manage_vehicle
-#: model:ir.ui.view,arch_db:fleet_manage_vehicle.fleet_vehicle_view_form
-msgid "show the services logs for this vehicle"
-msgstr "显示该车辆的服务日志"
 
 #. module: fleet_manage_vehicle
 #: selection:fleet.vehicle,state:0
@@ -600,3 +632,4 @@ msgstr "报停"
 #: selection:fleet.vehicle,state:0
 msgid "warrantly"
 msgstr "保养"
+
