@@ -49,7 +49,7 @@
     </record>
 
     <!--菜单-->
-    <menuitem name="fleet_important_classification" id="fleet_important_classification" sequence="50" parent="fleet_important_component" action="act_fleet_important_classification"/>
+    <menuitem name="fleet_important_classification" id="fleet_important_classification" sequence="50" parent="fleet_manage_menu.fleet_important_component" action="act_fleet_important_classification"/>
 
 
 
