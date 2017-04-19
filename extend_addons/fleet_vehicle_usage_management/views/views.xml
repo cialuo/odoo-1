@@ -1,0 +1,76 @@
+<odoo>
+
+
+    <record id='fleet_vehicle_inspect_tree_list' model='ir.ui.view'>
+        <field name="name">fleet.vehicle.inspect.tree</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="arch" type="xml">
+            <tree string="Vehicle" decoration-warning="contract_renewal_due_soon and not contract_renewal_overdue"
+                  decoration-danger="warnning" default_order="annual_inspection_date asc">
+                <field name="active" invisible="1"/>
+                <field name="license_plate"/>
+                <field name="inner_code"/>
+                <field name="company_id"/>
+                <field name="route_id"/>
+                <!--<field name="driver"/>-->
+                <field name="annual_inspection_date"/>
+                <field name="state"/>
+                <!--<field name="odometer_unit" />-->
+                <field name="contract_renewal_due_soon" invisible="1"/>
+                <field name="contract_renewal_overdue" invisible="1"/>
+                <field name="contract_renewal_total" invisible="1"/>
+                <field name="warnning" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id='fleet_vehicle_inspection_list_action' model='ir.actions.act_window'>
+        <field name="name">fleet_vehicle_inspection_list</field>
+        <field name="res_model">fleet.vehicle</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new vehicle.
+            </p>
+            <p>
+                You will be able to manage your fleet by keeping track of the
+                contracts, services, fixed and recurring costs, odometers and
+                fuel logs associated to each vehicle.
+            </p>
+            <p>
+                Odoo will warn you when services or contract have to be
+                renewed.
+            </p>
+        </field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_vehicle_inspect_tree_list')})]"/>
+    </record>
+
+    <!-- 车辆年检管理 -->
+    <menuitem name="fleet_vehicle_inspection_manage"
+              id="fleet_vehicle_inspection_manage"
+              parent="fleet_manage_menu.fleet_vehicle_usage_management"
+              sequence="1"/>
+
+    <!-- 车辆年检查询 -->
+    <menuitem name="fleet_vehicle_inspection_list"
+                id="fleet_vehicle_inspection_list"
+                parent="fleet_vehicle_inspection_manage"
+                action = "fleet_vehicle_inspection_list_action"
+                sequence="1"/>
+
+    <!-- 车辆年检计划 -->
+    <menuitem name="fleet_vehicle_inspection_plan"
+                id="fleet_vehicle_inspection_plan"
+                parent="fleet_vehicle_inspection_manage"
+                action = "fleet_manage_vehicle.fleet_manage_vehicle_action"
+                sequence="2"/>
+
+    <!-- 车辆年检 -->
+    <menuitem name="fleet_vehicle_inspection"
+                id="fleet_vehicle_inspection_query"
+                parent="fleet_vehicle_inspection_manage"
+                action = "fleet_manage_vehicle.fleet_manage_vehicle_action"
+                sequence="3"/>
+</odoo>

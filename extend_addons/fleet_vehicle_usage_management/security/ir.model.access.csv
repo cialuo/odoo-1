@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fleet_vehicle_usage_management_fleet_vehicle_usage_management,fleet_vehicle_usage_management.fleet_vehicle_usage_management,model_fleet_vehicle_usage_management_fleet_vehicle_usage_management,,1,0,0,0
