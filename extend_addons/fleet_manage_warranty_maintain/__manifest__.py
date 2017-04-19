@@ -12,12 +12,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','product','fleet_manage_menu'],
+    'depends': ['base','product','fleet_manage_menu','fleet_manage_warranty','stock_picking_types'],
 
     # always loaded
     'data': [
-         'views/warranty_plan_view.xml',
          'views/warranty_plan_sheet_view.xml',
+         'views/warranty_plan_view.xml',
          'views/warranty_maintain_sheet_view.xml',
          'views/warranty_handover_sheet_view.xml',
     ],

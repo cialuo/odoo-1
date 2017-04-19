@@ -164,20 +164,33 @@ class WarrantyWizardCreate(models.TransientModel):
                     sheet_instructions.append((0, 0, sheet_instruction))
 
 
+                    # warranty_item = self.env['fleet_manage_warranty.item'].search([('id', '=', item.id)])
+                    # boms = warranty_item.bom_line_ids
+                    # for bom in boms:
+                    #     available_product = {
+                    #         'maintainsheet_id': maintain_sheet.id,
+                    #         'category_id': category.id,
+                    #         'item_id': item.id,
+                    #         'product_id': bom.product_id.id,
+                    #         'max_available_count': bom.collar_cap,
+                    #         'default_avail_count': bom.default_usage,
+                    #         'sequence': len(available_products) + 1,
+                    #         'vehicle_type': bom.vehicle_type.id
+                    #     }
+                    #     available_products.append((0, 0, available_product))
+
                     warranty_item = self.env['fleet_manage_warranty.item'].search([('id', '=', item.id)])
-                    boms = warranty_item.bom_line_ids
+                    boms = warranty_item.avail_ids
                     for bom in boms:
                         available_product = {
+                            'sequence': len(available_products) + 1,
                             'maintainsheet_id': maintain_sheet.id,
                             'category_id': category.id,
-                            'item_id': item.id, # item.id,
+                            'item_id': item.id,
                             'product_id': bom.product_id.id,
-                            # 'product_code': bom.product_id.code,
-                            # 'product_name': bom.product_id.name,
-                            'max_available_count': bom.collar_cap,
-                            'default_avail_count': bom.default_usage,
-                            'sequence': len(available_products) + 1,
-                            'vehicle_type': bom.vehicle_type.id
+                            'change_count': bom.change_count,
+                            'max_count': bom.max_count,
+                            'require_trans': bom.require_trans
                         }
                         available_products.append((0, 0, available_product))
 

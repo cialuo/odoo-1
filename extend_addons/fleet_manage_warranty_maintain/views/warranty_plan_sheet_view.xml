@@ -79,6 +79,11 @@
             <field name="domain">[('state','in',['wait','executing','done'])]</field>
         </record>
 
+        <!-- 车辆保养管理 menu -->
+        <menuitem name="fleet_manage_warranty"
+                  id="fleet_manage_warranty_maintain_warranty_menuitemId"
+                  parent="fleet_manage_menu.fleet_manage_warranty_maintain"/>
+
         <!-- 计划单 menu -->
         <menuitem name="warranty_plan_sheet"
                   id="fleet_warranty_plan_sheet_menuitemId" sequence="22"

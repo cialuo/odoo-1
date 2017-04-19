@@ -42,7 +42,10 @@
                                 <div class="o_row">
                                   <field name="percentage_work"/><span>%</span>
                                 </div>
+                                <field name="component_ids" widget="many2many_tags" options="{'no_create_edit': True}" /> <!--  attrs="{'invisible': [('is_important_product', '=', False)],'required': [('is_important_product','=', True)]}" -->
                                 <field name="work_time" readonly="1"/>
+								<field name="important_product_id" invisible="1"/>
+							    <field name="vehicle_id" invisible="1"/>
                               </group>
                               <group>
                                 <field name="user_id" options="{'no_create': True, 'no_open': True}" />
@@ -100,7 +103,7 @@
 
                         <button name="action_batch_dispatch" states="dispatch" string="Batch Dispatch" type="object" class="oe_highlight o_expense_submit"/> <!-- 批量派工 -->
 
-                        <!--<button name="action_into_maintain" states="dispatch" string="Into Maintain" type="object" class="oe_highlight o_expense_submit"/> &lt;!&ndash; 进入保养状态 &ndash;&gt;-->
+                        <button name="action_into_maintain" states="dispatch" string="Into Maintain" type="object" class="oe_highlight o_expense_submit"/> <!-- 进入保养状态 -->
 
                         <!--<button name="action_draft" type="object"-->
                                 <!--string="back to draft"-->
@@ -196,16 +199,63 @@
                                         <field name="item_id"/>
                                         <field name="product_id"/>
                                         <field name="product_code"/>
-                                        <field name="product_name"/>
-                                        <field name="max_available_count"/>
-                                        <field name="default_avail_count"/>
-                                        <field name="stock_count"/>
-                                        <field name="available_count"/>
-                                        <field name="post_old_get_new"/>
-                                        <field name="vehicle_type"/>
+										<field name="max_count"/>
+										<field name="change_count"/>
+										<field name="onhand_qty"/>
+										<field name="virtual_available"/>
+										<field name="require_trans"/>
+										<field name="vehicle_model" widget="many2many_tags"/>
                                     </tree>
                                 </field>
                             </page>
+
+
+                            <!--<page string="page available_product_ids">-->
+                                <!--<field name="available_product_ids" widget="one2many_list" readonly="1">-->
+                                    <!--<tree string="tree available_product_ids" editable="bottom">-->
+                                        <!--<field name="sequence"/>-->
+                                        <!--<field name="category_id"/>-->
+                                        <!--<field name="item_id"/>-->
+                                        <!--<field name="product_id"/>-->
+                                        <!--<field name="product_code"/>-->
+                                        <!--<field name="product_name"/>-->
+                                        <!--<field name="max_available_count"/>-->
+                                        <!--<field name="default_avail_count"/>-->
+                                        <!--<field name="stock_count"/>-->
+                                        <!--<field name="available_count"/>-->
+                                        <!--<field name="post_old_get_new"/>-->
+                                        <!--<field name="vehicle_type"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                            <!--</page>-->
+
+                            <page string="ProductLists" name="ProductLists">
+                                <field name="picking_ids">
+                                    <tree string="ProductLists" create="false" delete="false">
+										<field name="picking_type_id"/>
+										<field name="name"/>
+										<field name="location_id"/>
+										<field name="min_date"/>
+										<field name="date_done"/>
+										<field name="origin"/>
+										<field name="state"/>
+                                    </tree>
+                                </field>
+								<center>
+									 <button name="create_get_picking"
+										type="object"
+										string="Create Get Picking"
+										class="oe_highlight">
+									 </button>
+
+									 <button name="create_back_picking"
+										type="object"
+										string="Create Back Picking"
+										/>
+								</center>
+							    <separator/>
+                            </page>
+
 
                             <page string="page instruction_ids">
                                 <field name="instruction_ids" readonly="1"> <!-- context="{'form_view_ref': 'fleet_manage_warranty_maintain.item_form_action'}"-->
@@ -271,10 +321,7 @@
 
 
 
-        <!-- 车辆保养管理 menu -->
-        <menuitem name="fleet_manage_warranty"
-                  id="fleet_manage_warranty_maintain_warranty_menuitemId"
-                  parent="fleet_manage_menu.fleet_manage_warranty_maintain"/>
+
 
         <!-- 保养单 menu -->
         <menuitem name="warranty_maintain_sheet"

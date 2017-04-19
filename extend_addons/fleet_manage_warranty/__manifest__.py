@@ -12,7 +12,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','product','fleet_manage_menu'],
+    'depends': ['base','product','fleet_manage_menu','important_product'],
 
     # always loaded
     'data': [

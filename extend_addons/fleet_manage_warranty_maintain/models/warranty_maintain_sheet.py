@@ -81,18 +81,100 @@ class WarrantyMaintainSheet(models.Model): # 保养单
         if not handover_sheet:
             self.env['fleet_warranty_handover_sheet'].create(vals)
 
-    @api.multi
-    def action_into_maintain(self):  # 进入保养状态
-        self.ensure_one()
-        # for i in self.repair_ids:
-        #     if not i.fault_method_id:
-        #         raise exceptions.UserError("Maintain Repair Method Required!")
-        #         break
+    picking_ids = fields.One2many("stock.picking", 'maintainsheet_id', string='Stock Pickings')
 
-        self.state = 'maintain'
+    @api.multi
+    def create_get_picking(self): # 创建领料单
+        self.ensure_one()
+        context = dict(self.env.context,
+            default_maintainsheet_id=self.id,
+            default_origin=self.name,
+            default_picking_type_id=self.env.ref('stock_picking_types.picking_type_picking_material').id,
+        )
+        return {
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'stock.picking',
+            'type': 'ir.actions.act_window',
+            'res_id': '',
+            'context': context
+        }
+
+    @api.multi
+    def create_back_picking(self): # 创建退料单
+        self.ensure_one()
+        context = dict(self.env.context,
+            default_maintainsheet_id=self.id,
+            default_origin=self.name,
+            default_picking_type_id=self.env.ref('stock_picking_types.picking_type_return_material').id,
+        )
+        return {
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'stock.picking',
+            'type': 'ir.actions.act_window',
+            'res_id': '',
+            'context': context
+        }
+
+    @api.multi
+    def action_into_maintain(self):  # 保养单 进入保养状态
+        # self.ensure_one()
+        # self.state = 'maintain'
+        # for item in self.item_ids:
+        #     if item.state == 'dispatch':
+        #         item.state = 'maintain'
+
+        """
+        维修单:
+            功能：开工
+            状态：待修->维修
+            更新工时管理的实际开工时间
+        """
+        self.ensure_one()
+        if not self.manhour_manage_ids:
+            raise exceptions.UserError(_("Maintain Repair Jobs Required!"))
+        self.write({'state': 'maintain'})
+
+        for i in self.manhour_manage_ids:
+            i.real_start_time = datetime.datetime.utcnow()
         for item in self.item_ids:
-            if item.state == 'dispatch':
-                item.state = 'maintain'
+            item.state = 'maintain'
+
+        import_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0 and x.product_id.is_important)
+        no_import_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0 and not x.product_id.is_important)
+        picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
+
+        location_id = self.env.ref('stock.stock_location_stock').id # 库存
+        location_dest_id = self.env.ref('stock_picking_types.stock_location_ullage').id # 维修(生产)虚位
+        if import_products:
+            location_dest_id = self.vehicle_id.location_stock_id.id # 随车实位
+
+        for products in [import_products, no_import_products]:
+            if not products:
+                continue
+            move_lines = []
+            picking = []
+            for i in products:
+                vals = {
+                    'name': 'stock_move_repair',
+                    'product_id': i.product_id.id,
+                    'product_uom': i.product_id.uom_id.id,
+                    'product_uom_qty': i.change_count,
+                }
+                move_lines.append((0, 0, vals))
+            if move_lines:
+                picking = self.env['stock.picking'].create({
+                    'origin': self.name,
+                    'location_id': location_id,
+                    'location_dest_id': location_dest_id,
+                    'picking_type_id': picking_type.id,
+                    'maintainsheet_id': self.id,
+                    'move_lines': move_lines
+                })
+            if picking:
+                picking.action_assign()
+
 
     @api.multi
     def action_manage_handover_sheet(self):  # 管理交接单
@@ -155,20 +237,20 @@ class WarrantyMaintainSheet(models.Model): # 保养单
         elif total_manhour > sum_manhour:
             raise exceptions.ValidationError(_('this "percentage_work" may not be Incorrect'))
 
-    @api.multi
-    def write(self, vals):
-        print 'write!!!!'
-        if self.state == 'dispatch':
-            if self.if_complete_dispatch():
-                print 'done!!!!'
-                for manhour in self.manhour_manage_ids:
-                    manhour.real_start_time = datetime.datetime.utcnow()
-                for item in self.item_ids:
-                    item.state = 'maintain'
-                vals['state'] = 'maintain'
-
-        result = super(WarrantyMaintainSheet, self).write(vals)
-        return result
+    # @api.multi
+    # def write(self, vals):
+    #     print 'write!!!!'
+    #     if self.state == 'dispatch':
+    #         if self.if_complete_dispatch():
+    #             print 'done!!!!'
+    #             for manhour in self.manhour_manage_ids:
+    #                 manhour.real_start_time = datetime.datetime.utcnow()
+    #             for item in self.item_ids:
+    #                 item.state = 'maintain'
+    #             vals['state'] = 'maintain'
+    #
+    #     result = super(WarrantyMaintainSheet, self).write(vals)
+    #     return result
 
 
     @api.multi
@@ -222,6 +304,8 @@ class MaintainSheetItem(models.Model): # 保养单_保养项目
     category_id = fields.Many2one('fleet_manage_warranty.category') # 保养类别
 
     item_id = fields.Many2one('fleet_manage_warranty.item', 'Item', required=True) # 保养项目
+
+    important_product_id = fields.Many2one('product.product', related='item_id.important_product_id',string="Important Product")
 
     maintenance_mode = fields.Many2one('fleet_manage_warranty.mode', 'Maintenance Mode', related='item_id.mode')  # 保修方式
 
@@ -292,6 +376,16 @@ class MaintainSheetItem(models.Model): # 保养单_保养项目
         self.percentage_work = 100-manhour_percentage_work
 
     # bol_select = fields.Boolean("Bol Select")
+
+
+    component_ids = fields.Many2many('product.component', 'fleet_warranty_sheet_item_component_rel', 'item_component_id', 'component_id', 'Component',
+           copy=False, domain="[('product_id', '=', important_product_id),('parent_vehicle','=',vehicle_id)]")
+
+    # , states = {
+    #     'done': [('readonly', True)],
+    #     'inspect': [('readonly', True)],
+    #     'repair': [('readonly', True)],
+    # }
 
     manhour_manage_ids = fields.One2many("fleet_warranty_manhour_manage", 'item_id', string='ManhourManageIds')
 
@@ -405,36 +499,40 @@ class WarrantyAvailableProduct(models.Model): # 保养单_可领物料
 
     maintainsheet_id = fields.Many2one('fleet_warranty_maintain_sheet', ondelete='set null', string="MaintainsheetId", index=True) # 所属保养单
 
-    product_id = fields.Many2one('product.product', 'Product', required=True) # 物资
-
-    product_code = fields.Char('Product Code', related='product_id.default_code', store=True, readonly=True) # 物资编码
-
-    product_name = fields.Char('Product Name', related='product_id.name', store=True, readonly=True) # 物资名称
-
-    max_available_count = fields.Integer("Max Available Count") # 领用上限
-
-    default_avail_count = fields.Integer("Default Available Count") # 默认用量
-
-    stock_count = fields.Integer("Stock Count") # 库存数量
-
-    available_count = fields.Integer("Available Count") # 可用数
-
-    post_old_get_new = fields.Boolean("Post Old Get New") # 交旧领新
-
-    # meet_vehicle_type = fields.Char("Meet Vehicle Type", help="Meet Vehicle Type") # 适用车型
-
-    vehicle_type = fields.Many2one("fleet.vehicle.model")  # 适用车型
-
     category_id = fields.Many2one('fleet_manage_warranty.category') # 保养类别
 
-    # item_id = fields.Many2one('fleet_manage_warranty.item', 'Item') # 保养项目
-
     item_id = fields.Many2one('fleet_manage_warranty.item', 'Item')  # 保养项目
-    # item_id = fields.Many2one("fleet_warranty_sheet_item", ondelete='cascade',string="Item") # 所属保养项目
 
-    # item_category_id = fields.Many2one('fleet_manage_warranty.category', related='item_id.category_id') # 所属保养项目的保养类别
+    product_id = fields.Many2one('product.product', 'Product', required=True) # 物资
 
-    # item_item_id = fields.Many2one('fleet_manage_warranty.item', 'Item', related='item_id.item_id') # 所属保养项目的保养项目
+    product_code = fields.Char('Product Code', related='product_id.default_code') # 物资编码 , store=True, readonly=True
+
+    categ_id = fields.Many2one('product.category', related='product_id.categ_id',
+                               string='Product Category')
+    uom_id = fields.Many2one('product.uom', 'Unit of Measure', related='product_id.uom_id')
+    onhand_qty = fields.Float('Quantity On Hand', related='product_id.qty_available')
+    virtual_available = fields.Float('Forecast Quantity', related='product_id.virtual_available')
+    require_trans = fields.Boolean("Require Trans", readonly=True)
+    vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec',
+                                      string='Suitable Vehicle', readonly=True)
+    product_size = fields.Text("Product Size", related='product_id.description', readonly=True)
+
+    change_count = fields.Integer("Change Count")
+    max_count = fields.Integer("Max Count")
+
+    # product_name = fields.Char('Product Name', related='product_id.name', store=True, readonly=True) # 物资名称
+    #
+    # max_available_count = fields.Integer("Max Available Count") # 领用上限
+    #
+    # default_avail_count = fields.Integer("Default Available Count") # 默认用量
+    #
+    # stock_count = fields.Integer("Stock Count") # 库存数量
+    #
+    # available_count = fields.Integer("Available Count") # 可用数
+    #
+    # post_old_get_new = fields.Boolean("Post Old Get New") # 交旧领新
+    #
+    # vehicle_type = fields.Many2one("fleet.vehicle.model")  # 适用车型
 
 
     @api.onchange('product_id')
