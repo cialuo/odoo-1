@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api,exceptions,_
 
 class fleet_important_component(models.Model):
 
@@ -40,6 +40,7 @@ class fleet_product_component(models.Model):
      product_specifications = fields.Text('product specifications', related='product_parts.description', store=False, readonly=True)
 
 
+
 class fleet_product(models.Model):
 
      _inherit = "product.product"
@@ -60,6 +61,35 @@ class fleet_product(models.Model):
      #零件列表
      parts_ids = fields.One2many('product.parts_list', 'product_id')
 
+     @api.depends('qty_available')
+     def _compute_number_of_libraries(self):
+          """
+               根据在手数量，计算出在库数量
+               在库数量 = 在手数量 - 随车数量
+          :return:
+          """
+          for product in self:
+               #取重要部件
+               if product.important_type == 'component':
+                    domain = ['&',('product_id', '=', product.id),('parent_vehicle','!=',None)]
+                    count = self.env['product.component'].search_count(domain)
+                    product.number_of_libraries = product.qty_available - count
+          return self
+
+     #在库数量
+     number_of_libraries = fields.Float('Number of Libraries',compute=_compute_number_of_libraries)
+
+     @api.multi
+     def write(self, vals):
+
+          if vals.get('component_type')=='is_spare_parts':
+               if len(self.parts_ids) > 0:
+                    raise exceptions.UserError(_("There is part data, so it cannot be modified!"))
+
+          result = super(fleet_product, self).write(vals)
+
+          return result
+
 
 class fleet_component(models.Model):
 
@@ -77,5 +107,13 @@ class fleet_component(models.Model):
 
      product_inter_code = fields.Char('product inter code',related='product_id.default_code', store=False, readonly=True)
 
+     odometer_progress =fields.Float(string='odometer progress', compute='_get_odometer_progress')
 
+     @api.depends('odometer','product_id.lifetime')
+     def _get_odometer_progress(self):
+          for component in self:
+               if component.product_id.lifetime > 0:
+                    component.odometer_progress = round(100.0 * (component.product_id.lifetime-component.odometer) / component.product_id.lifetime, 2)
+               else:
+                    component.odometer_progress=0.0
 

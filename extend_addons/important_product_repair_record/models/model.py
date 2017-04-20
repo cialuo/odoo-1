@@ -35,7 +35,7 @@ class ImportProductRepairRecord(models.Model):
             res = self.env['ir.actions.act_window'].for_xml_id('fleet_manage_maintain', xml_id)
             res.update(
                 context=dict(self.env.context),
-                domain=[('id', 'in', self.repair_ids.ids),('state', 'in', ['done'])]
+                domain=[('id', 'in', self.repair_ids.ids), ('state', 'in', ['done'])]
             )
             return res
         return False

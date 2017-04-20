@@ -1,85 +1,62 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 
-class Category(models.Model): # 保修
-    """
-    """
+class Category(models.Model): # 保修类别
     _name = 'fleet_manage_warranty.category'
+    _order = "idpath asc"
+
     name = fields.Char() # 名称
     code = fields.Char() # 代码
 
+    idpath = fields.Char() # id路径
+    level = fields.Integer() # 层级
+
     state = fields.Selection([ # 状态
-        ('draft', "draft"),
-        ('confirmed', "confirmed"),
-        ('done', "done"),
-    ], default='draft')
+        ('in_use', "in_use"), # 在用
+        ('filing', "filing"),  # 归档
+    ], default='in_use')
 
     @api.multi
-    def action_draft(self):
-        self.state = 'draft'
+    def action_in_use(self):
+        self.state = 'in_use'
 
     @api.multi
-    def action_confirm(self):
-        self.state = 'confirmed'
+    def action_filing(self):
+        self.state = 'filing'
 
-    @api.multi
-    def action_done(self):
-        self.state = 'done'
+    manhour = fields.Float(digits=(6, 1), default=0 , compute='_compute_manhour') # 工时定额
 
+    remark = fields.Char()  # 备注
 
-    # type = fields.Selection([ # 类型
-    #     ('category', "分类"),
-    #     ('item', "项目"),
-    # ])
+    parent_id = fields.Many2one('fleet_manage_warranty.category', index=True, domain=[('state','=','in_use')]) # 父类
+    child_ids = fields.One2many('fleet_manage_warranty.category', 'parent_id') # 子类
 
-    # mode = fields.Selection([ # 保修方式
-    #     ('inspect', "检查"),
-    #     ('replace', "更换"),
-    # ])
+    items = fields.Many2many('fleet_manage_warranty.item', domain=[('state','=','in_use')]) # 保修项目 domain=[('type_tax_use','!=','none'), '|', ('active', '=', False), ('active', '=', True)],)
 
-    manhour = fields.Float(compute='_compute_sum_manhour') # fields.Float(digits=(6, 2), help="工时定额") # 工时定额
+    sum_categories_manhour = fields.Float(digits=(6, 1), default=0, compute='_compute_manhour') # 子类工时汇总
 
-    # remark = fields.Char()  # 备注
-    remark = fields.Text()  # 备注
+    sum_items_manhour = fields.Float(digits=(6, 1), default=0, compute='_compute_manhour') # 项目工时汇总
 
-    # instructor_id = fields.Many2one('res.partner', string="Instructor")
+    def category_manhour_get(self):
+        result = []
+        for record in self:
+            sum_manhour = 0
+            if record.child_ids:
+                for child_record in record.child_ids:
+                    sum_manhour += sum(child_record.items.mapped('manhour'))
+                    # print sum_manhour
+                    sum_manhour += child_record.category_manhour_get()[0][1]
+            result.append((record.id, sum_manhour))
+        return result
 
-    # parent_id = fields.Many2one('fleet_manage_warranty.warranty',
-    #                             ondelete='cascade', string="Parent_id")
-
-    # sub_ids = fields.One2many(
-    #     'fleet_manage_warranty.warranty', 'parent_id', string="Sub_ids")
-
-    # rel_warrantys = fields.Many2many('fleet_manage_warranty.warranty', string="Rel_warrantys")
-
-
-    parent_id = fields.Many2one('fleet_manage_warranty.category',  index=True)
-    child_ids = fields.One2many('fleet_manage_warranty.category', 'parent_id')
-
-    items = fields.Many2many('fleet_manage_warranty.item')
-
-    sum_categories_manhour = fields.Float(compute='_compute_sum_categories_manhour')
-
-    sum_items_manhour = fields.Float(compute='_compute_sum_items_manhour')
-
-    # sum_manhour = fields.Float(compute='_compute_sum_manhour')
-
-    @api.depends('items.manhour')
-    def _compute_sum_items_manhour(self):
+    @api.depends('items', 'child_ids')
+    def _compute_manhour(self):
         for category in self:
+            temp_category_manhour=category.category_manhour_get()
+            # print temp_category_manhour
+            category.sum_categories_manhour = category.category_manhour_get()[0][1]
             category.sum_items_manhour = sum(category.items.mapped('manhour'))
-
-    @api.depends('child_ids.manhour')
-    def _compute_sum_categories_manhour(self):
-        for category in self:
-            category.sum_categories_manhour = sum(category.child_ids.mapped('manhour'))
-
-    @api.depends('items.manhour','child_ids.manhour')
-    def _compute_sum_manhour(self):
-        for category in self:
-            # category.sum_items_manhour = sum(category.items.mapped('manhour'))
-            # category.sum_categories_manhour = sum(category.child_ids.mapped('manhour'))
-            category.manhour = category.sum_items_manhour+category.sum_categories_manhour
+            category.manhour=category.sum_categories_manhour+category.sum_items_manhour
 
     @api.multi
     def name_get(self):
@@ -90,3 +67,27 @@ class Category(models.Model): # 保修
                 name = "%s / %s" % (record.parent_id.name_get()[0][1], name)
             result.append((record.id, name))
         return result
+
+    def idpath_get(self):
+        result = []
+        for record in self:
+            idpath = record.id
+            if record.parent_id:
+                idpath = "%s/%s" % (record.parent_id.idpath_get()[0][1], idpath)
+            result.append((record.id, idpath))
+        return result
+
+    @api.model
+    def create(self, vals):
+        result = super(Category, self).create(vals)
+        idpath = "/" + str(result.idpath_get()[0][1]) + "/"
+        result.idpath=idpath
+        result.level=idpath.count("/")-1
+        return result
+
+    @api.multi
+    def write(self, vals):
+        idpath ="/"+str(self.idpath_get()[0][1])+"/"
+        vals['idpath'] = idpath
+        vals['level'] = idpath.count("/")-1
+        return super(Category, self).write(vals)

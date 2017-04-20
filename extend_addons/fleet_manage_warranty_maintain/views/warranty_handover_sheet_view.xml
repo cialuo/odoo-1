@@ -1,0 +1,127 @@
+<odoo>
+    <data>
+
+
+		<!-- 交接单 form -->
+        <record model="ir.ui.view" id="fleet_warranty_handover_sheet_view_form">
+            <field name="name">fleet_warranty_handover_sheet_name</field>
+            <field name="model">fleet_warranty_handover_sheet</field>
+            <field name="arch" type="xml">
+                <form string="Warranty Handover Form">
+                	<header>
+						<button name="action_delivery" type="object"
+                                string="Confirm Delivery"
+								states="draft"
+                                class="oe_highlight"/>
+
+						<button name="action_delivery_return" type="object"
+                                string="Delivery Return"
+								states="delivery"
+                                class="oe_highlight"/> <!-- 提交检验-->
+
+						<button name="return_action_to_open"
+                            type="object"
+                            class="oe_highlight"
+                            states="delivery_return"
+							string="Query Repair Bill"
+                            context="{'xml_id':'fleet_warranty_maintain_sheet_action'}"/>
+
+                    	<field name="state"  widget="statusbar"/>
+                	</header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name"/>
+							<h1><field name="name" readonly="1"/></h1>
+	                    </div>
+						 <group col="2">
+	                        <group>
+	                        	<field name="maintain_sheet" readonly="1" />
+	                        	<field name="branch_office" />
+	                        	<field name="driver" />
+	                        	<field name="maintenance_personnel" />
+	                        </group>
+	                        <group>
+	                            <field name="vehicle_id" readonly="1" />
+								<field name="license_plate" />
+								<field name="vehicle_type" />
+	                        </group>
+                   		 </group>
+						<notebook>
+							<page string="Deliverys">
+                                <field name="device_ids">
+                                    <tree string="Deliverys">
+										<field name="device_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+							<page string="ReturnDeliverys" >
+                                <field name="device_return_ids">
+                                    <tree string="ReturnDeliverys">
+										<field name="device_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+							<page string="Other Information">
+								<group col="1">
+									<group>
+										<field name="create_sheet_user" readonly="1"/>
+										<field name="create_date" readonly="1"/>
+										<field name="delivery_time" readonly="1"/>
+										<field name="delivery_return_time" readonly="1"/>
+									</group>
+								</group>
+                            </page>
+
+						</notebook>
+
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+		<!-- 交接单 tree -->
+        <record model="ir.ui.view" id="fleet_warranty_handover_sheet_tree">
+            <field name="name">fleet_warranty_handover_sheet_tree</field>
+            <field name="model">fleet_warranty_handover_sheet</field>
+            <field name="arch" type="xml">
+                <tree string="fleet_warranty_handover_sheet Tree" create="false">
+					<field name="name"/>
+					<field name="maintain_sheet"/>
+					<field name="vehicle_id"/>
+					<field name="vehicle_type"/>
+					<field name="license_plate"/>
+					<field name="branch_office"/>
+					<field name="driver"/>
+					<field name="commitment_unit"/>
+					<field name="maintenance_personnel"/>
+					<field name="create_date"/>
+					<field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 交接单 action -->
+		<record model="ir.actions.act_window" id="fleet_warranty_handover_sheet_action">
+			<field name="name">fleet_warranty_handover_sheet_action</field>
+			<field name="res_model">fleet_warranty_handover_sheet</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+        <!-- 交接单 menu -->
+        <menuitem name="Warranty Handover Sheet"
+            id="fleet_warranty_handover_sheet_menu_id" sequence="28"
+            parent="fleet_manage_warranty_maintain_warranty_menuitemId"
+            action="fleet_warranty_handover_sheet_action"/>
+
+    </data>
+</odoo>

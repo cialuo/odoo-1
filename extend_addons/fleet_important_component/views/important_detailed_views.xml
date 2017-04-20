@@ -6,7 +6,7 @@
             <field name="name">Important Detailed form</field>
             <field name="model">product.component</field>
             <field name="arch" type="xml">
-                <form string="Vehicle">
+                <form string="Vehicle" create="false">
                     <header>
                         <field name="state"  widget="statusbar"/>
                     </header>
@@ -75,14 +75,14 @@
         <field name="name">Important Detailed tree</field>
         <field name="model">product.component</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="code"/>
+            <tree create="false">
+                <field name="product_inter_code" string="Essential code"/>
                 <field name="display_name"/>
+                <field name="code"/>
                 <field name="odometer"/>
                 <field name="state"/>
                 <field name="location_id"/>
-                <field name="create_date"/>
-                <field name="checkout_date"/>
+                <field name="odometer_progress" widget="progressbar"/>
             </tree>
         </field>
     </record>
