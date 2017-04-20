@@ -11,7 +11,7 @@
                 <sheet>
                     <field name="image_medium" widget="image" class="oe_avatar"/>
                     <div class="oe_title">
-                        <label class="oe_edit_only" for="name" string="Product Name"/>
+                        <label class="center-block" for="name" string="Product Name"/>
                         <h1><field name="name" placeholder="Product Name"/></h1>
                     </div>
 
@@ -26,7 +26,7 @@
                                         <div name="options">
                                             <div class="col-sm-2">
                                                 <div class="oe_title">
-                                                    <label class="oe_edit_only" for="name" string="Component Type"/>
+                                                    <label class="center-block" for="name" string="Component Type"/>
                                                 </div>
                                             </div>
                                             <div class="col-sm-10">
@@ -52,15 +52,13 @@
                                 </group>
                             </page>
                             <page string="component_ids" name="tech_info">
-                                <field name="component_ids">
-                                    <tree editable="top">
+                                <field name="component_ids" >
+                                    <tree editable="top" create="false" delete="false">
                                         <field name="code"/>
                                         <field name="display_name"/>
                                         <field name="odometer"/>
-                                        <field name="state"/>
+                                        <field name="create_date" readonly="True"/>
                                         <field name="location_id"/>
-                                        <field name="create_date"/>
-                                        <field name="checkout_date"/>
                                     </tree>
                                 </field>
                             </page>
@@ -71,7 +69,7 @@
                                     <tree editable="top">
                                         <field name="product_parts" options="{'no_open': True, 'no_create': True}"/>
                                         <field name="product_code"/>
-                                        <field name="product_specifications" readonly="1"/>
+                                        <field name="product_specifications" readonly="True"/>
                                         <field name="parts_number" />
                                     </tree>
                                 </field>
@@ -87,15 +85,14 @@
         <field name="model">product.product</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="default_code" string="Materials Code"/>
+                <field name="default_code" string="Essential code"/>
                 <field name="name"/>
-                <field name="categ_id" string="Materials Type"/>
+                <field name="classification_id" string="Classification"/>
                 <field name="barcode"/>
                 <field name="vehicle_model"/>
                 <field name="keeper_id"/>
-                <field name="special_attributes"/>
-                <field name="qty_available"/>
-                <field name="virtual_available"/>
+                <field name="qty_available" string="Total quantity"/>
+                <field name="number_of_libraries" string="Number of Libraries"/>
             </tree>
         </field>
     </record>
@@ -107,7 +104,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('important_type','=','component')]</field>
+            <field name="context">{'search_default_important_type':'component', 'default_important_type':'component','default_is_important':'True'}</field>
             <field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_important_roster_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('fleet_important_roster_form')})]"/>

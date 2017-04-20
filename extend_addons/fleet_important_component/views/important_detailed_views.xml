@@ -76,13 +76,13 @@
         <field name="model">product.component</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="code"/>
+                <field name="product_inter_code" string="Essential code"/>
                 <field name="display_name"/>
+                <field name="code"/>
                 <field name="odometer"/>
                 <field name="state"/>
                 <field name="location_id"/>
-                <field name="create_date"/>
-                <field name="checkout_date"/>
+                <field name="odometer_progress" widget="progressbar"/>
             </tree>
         </field>
     </record>

@@ -60,6 +60,28 @@ class fleet_product(models.Model):
      #零件列表
      parts_ids = fields.One2many('product.parts_list', 'product_id')
 
+     @api.depends('qty_available')
+     def _compute_number_of_libraries(self):
+          """
+               根据在手数量，计算出在库数量
+               在库数量 = 在手数量 - 随车数量
+          :return:
+          """
+          for product in self:
+               #取重要部件
+               if product.important_type == 'component':
+                    domain = ['&',('product_id', '=', product.id),('parent_vehicle','!=',None)]
+                    count = self.env['product.component'].search_count(domain)
+                    product.number_of_libraries = product.qty_available - count
+          return self
+
+     #在库数量
+     number_of_libraries = fields.Float('Number of Libraries',compute=_compute_number_of_libraries)
+
+
+
+
+
 
 class fleet_component(models.Model):
 
@@ -77,5 +99,13 @@ class fleet_component(models.Model):
 
      product_inter_code = fields.Char('product inter code',related='product_id.default_code', store=False, readonly=True)
 
+     odometer_progress =fields.Float(string='odometer progress', compute='_get_odometer_progress')
 
+     @api.depends('odometer','product_id.lifetime')
+     def _get_odometer_progress(self):
+          for component in self:
+               if component.product_id.lifetime > 0:
+                    component.odometer_progress = round(100.0 * (component.product_id.lifetime-component.odometer) / component.product_id.lifetime, 2)
+               else:
+                    component.odometer_progress=0.0
 
