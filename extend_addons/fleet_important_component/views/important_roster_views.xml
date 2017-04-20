@@ -53,12 +53,12 @@
                             </page>
                             <page string="component_ids" name="tech_info">
                                 <field name="component_ids" >
-                                    <tree editable="top" create="false" delete="false">
-                                        <field name="code"/>
+                                    <tree editable="top" create="false" delete="false" >
+                                        <field name="code" readonly="True"/>
                                         <field name="display_name"/>
-                                        <field name="odometer"/>
+                                        <field name="odometer" readonly="True"/>
                                         <field name="create_date" readonly="True"/>
-                                        <field name="location_id"/>
+                                        <field name="location_id" readonly="True"/>
                                     </tree>
                                 </field>
                             </page>
