@@ -45,15 +45,22 @@ class InspectionPlan(models.Model):
     maker = fields.Many2one('res.user', string=_('maker'))
     # 备注
     remark = fields.Char(string=_('remark'))
+    # 计划详情
+    planitem_id = fields.One2many('fleet_vehicle_usage_management.planitem', 'vehicle_id',
+                                  string=_("plan detail"))
 
 
 class planItem(models.Model):
     _name = 'fleet_vehicle_usage_management.planitem'
 
     # 年检执行日期
-    inspectiondate = fields.Date(_('inspection date'))
+    inspectiondate = fields.Date(string=_('inspection date'))
     # 年检过期日期
-    inspectionexpire = fields.Date(_('inspection expire'))
+    inspectionexpire = fields.Date(string=_('inspection expire'))
     # 备注
-    inspectionremark = fields.Date(_('inspection remark'))
-    # inspectiondate = fields.Date(string=_(''))
+    inspectionremark = fields.Date(string=_('inspection remark'))
+    # 年检计划
+    inspectionplan_id = fields.Many2one('fleet_vehicle_usage_management.inspectionplan',
+                                        string=_('inspection plan'))
+    # 车辆信息
+    vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'))
