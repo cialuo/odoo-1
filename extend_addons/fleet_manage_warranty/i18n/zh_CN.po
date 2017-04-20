@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-20 01:28+0000\n"
-"PO-Revision-Date: 2017-04-20 01:28+0000\n"
+"POT-Creation-Date: 2017-04-20 09:45+0000\n"
+"PO-Revision-Date: 2017-04-20 09:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,12 +28,12 @@ msgstr "可用物料"
 #. module: fleet_manage_warranty
 #: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_form
 msgid "Category Form"
-msgstr "Category Form2"
+msgstr "分类"
 
 #. module: fleet_manage_warranty
 #: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_tree
 msgid "Category Tree"
-msgstr "Category Tree2"
+msgstr "分类"
 
 #. module: fleet_manage_warranty
 #: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_available_product_change_count
@@ -43,12 +43,12 @@ msgstr "必换数量"
 #. module: fleet_manage_warranty
 #: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_child_ids
 msgid "Child ids"
-msgstr "Child ids2"
+msgstr "分类"
 
 #. module: fleet_manage_warranty
 #: model:ir.actions.act_window,help:fleet_manage_warranty.fleet_manage_warranty_mode_action
 msgid "Click to create a warranty mode."
-msgstr "Click to create a warranty mode.2"
+msgstr "点击创建一个保修方式"
 
 #. module: fleet_manage_warranty
 #: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_code
@@ -150,17 +150,17 @@ msgstr "是否重要部件作业"
 #. module: fleet_manage_warranty
 #: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_available_product_item_id
 msgid "Item Id"
-msgstr "Item Id"
+msgstr "保养项目"
 
 #. module: fleet_manage_warranty
 #: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_item_view_tree
 msgid "Item Tree"
-msgstr "Item Tree2"
+msgstr "保养项目"
 
 #. module: fleet_manage_warranty
 #: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_items
 msgid "Items"
-msgstr "Items2"
+msgstr "保养项目"
 
 #. module: fleet_manage_warranty
 #: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_available_product___last_update
@@ -287,7 +287,7 @@ msgstr "为当前产品选择一个类别"
 #: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_category_state
 #: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_item_state
 msgid "State"
-msgstr "省/ 州"
+msgstr "状态"
 
 #. module: fleet_manage_warranty
 #: model:ir.model.fields,field_description:fleet_manage_warranty.field_fleet_manage_warranty_available_product_vehicle_model
@@ -323,7 +323,7 @@ msgstr "保养类别"
 #. module: fleet_manage_warranty
 #: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_item_view_form
 msgid "Warranty Form"
-msgstr "Warranty Form2"
+msgstr "保养类别"
 
 #. module: fleet_manage_warranty
 #: model:ir.actions.act_window,name:fleet_manage_warranty.fleet_manage_warranty_item_action
@@ -341,8 +341,7 @@ msgstr "保修方式"
 #: model:ir.actions.act_window,help:fleet_manage_warranty.fleet_manage_warranty_mode_action
 msgid "You can customize available mode to track the evolution of\n"
 "                each warranty mode. Example: Active, Being Repaired, Sold."
-msgstr "You can customize available mode to track the evolution of\n"
-"                each warranty mode. Example: Active, Being Repaired, Sold."
+msgstr "您可以自定义可用模式跟踪每个保修的进化模式。例如:活跃、修理、销售。"
 
 #. module: fleet_manage_warranty
 #: selection:fleet_manage_warranty.category,state:0
@@ -355,22 +354,22 @@ msgstr "归档"
 #. module: fleet_manage_warranty
 #: model:ir.model,name:fleet_manage_warranty.model_fleet_manage_warranty_available_product
 msgid "fleet_manage_warranty.available_product"
-msgstr "fleet_manage_warranty.available_product"
+msgstr "用料清单"
 
 #. module: fleet_manage_warranty
 #: model:ir.model,name:fleet_manage_warranty.model_fleet_manage_warranty_category
 msgid "fleet_manage_warranty.category"
-msgstr "fleet_manage_warranty.category2"
+msgstr "保养类别"
 
 #. module: fleet_manage_warranty
 #: model:ir.model,name:fleet_manage_warranty.model_fleet_manage_warranty_item
 msgid "fleet_manage_warranty.item"
-msgstr "fleet_manage_warranty.item2"
+msgstr "保养项目"
 
 #. module: fleet_manage_warranty
 #: model:ir.model,name:fleet_manage_warranty.model_fleet_manage_warranty_mode
 msgid "fleet_manage_warranty.mode"
-msgstr "fleet_manage_warranty.mode2"
+msgstr "保修方式"
 
 #. module: fleet_manage_warranty
 #: selection:fleet_manage_warranty.category,state:0
@@ -384,7 +383,7 @@ msgstr "在用"
 #: code:addons/fleet_manage_warranty/models/warranty_item.py:71
 #, python-format
 msgid "max_count must be greater than or equal to change_count"
-msgstr "max_count must be greater than or equal to change_count"
+msgstr "最大数必须大于或等于可用数"
 
 #. module: fleet_manage_warranty
 #: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_form
@@ -399,12 +398,12 @@ msgstr "保修项目"
 #. module: fleet_manage_warranty
 #: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_form
 msgid "tree child_ids"
-msgstr "tree child_ids2"
+msgstr "保养项目"
 
 #. module: fleet_manage_warranty
 #: model:ir.ui.view,arch_db:fleet_manage_warranty.fleet_manage_warranty_category_view_form
 msgid "tree items"
-msgstr "tree items2"
+msgstr "保养项目"
 
 #. module: fleet_manage_warranty
 #: model:ir.actions.act_window,name:fleet_manage_warranty.warranty_item_craft_action

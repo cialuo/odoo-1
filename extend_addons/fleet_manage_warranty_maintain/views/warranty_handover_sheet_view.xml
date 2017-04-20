@@ -36,9 +36,9 @@
 						 <group col="2">
 	                        <group>
 	                        	<field name="maintain_sheet" readonly="1" />
-	                        	<field name="branch_office" />
-	                        	<field name="driver" />
-	                        	<field name="maintenance_personnel" />
+	                        	<field name="branch_office" readonly="1"/>
+	                        	<field name="driver" readonly="1"/>
+	                        	<field name="maintenance_personnel" readonly="1"/>
 	                        </group>
 	                        <group>
 	                            <field name="vehicle_id" readonly="1" />

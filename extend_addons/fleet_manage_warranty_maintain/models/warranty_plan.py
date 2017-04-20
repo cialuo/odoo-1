@@ -8,7 +8,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
     # name = fields.Char()
 
 
-    name = fields.Char(string='Plan Number', required=True, index=True) # , default='New' readonly=True, default=lambda self: 'New' required=True, states={'draft': [('readonly', False)]}, index=True,  copy=False,  self: _('New')
+    name = fields.Char(string='BYJH', required=True, index=True) # , default='New' readonly=True, default=lambda self: 'New' required=True, states={'draft': [('readonly', False)]}, index=True,  copy=False,  self: _('New')
 
     # @api.depends('name')
     # def _compute_tmp_name(self):
@@ -64,6 +64,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         for item in self.plan_sheet_ids:
             if item.state == 'draft':
                 item.state = 'commit'
+
 
     @api.multi
     def action_audit(self):
