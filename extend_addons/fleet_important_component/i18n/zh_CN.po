@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-14 08:00+0000\n"
-"PO-Revision-Date: 2017-04-14 16:01+0800\n"
+"POT-Creation-Date: 2017-04-20 07:49+0000\n"
+"PO-Revision-Date: 2017-04-20 15:50+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
+"Language: zh\n"
 "X-Generator: Poedit 2.0\n"
 
 #. module: fleet_important_component
@@ -26,6 +26,11 @@ msgstr "产品的精确说明，仅用于内部备注。"
 #: selection:product.product,component_type:0
 msgid "Assembly"
 msgstr "总成"
+
+#. module: fleet_important_component
+#: model:ir.ui.view,arch_db:fleet_important_component.fleet_important_roster_tree
+msgid "Classification"
+msgstr "部件分类"
 
 #. module: fleet_important_component
 #: model:ir.model.fields,field_description:fleet_important_component.field_product_component_product_component_type
@@ -51,6 +56,11 @@ msgstr "创建时间"
 #: model:ir.model.fields,field_description:fleet_important_component.field_product_parts_list_display_name
 msgid "Display Name"
 msgstr "显示名称"
+
+#. module: fleet_important_component
+#: model:ir.ui.view,arch_db:fleet_important_component.fleet_important_roster_tree
+msgid "Essential code"
+msgstr "要件编码"
 
 #. module: fleet_important_component
 #: model:ir.ui.view,arch_db:fleet_important_component.fleet_important_detailed_form
@@ -102,14 +112,10 @@ msgid "Last Updated on"
 msgstr "最后更新时间"
 
 #. module: fleet_important_component
+#: model:ir.model.fields,field_description:fleet_important_component.field_product_product_number_of_libraries
 #: model:ir.ui.view,arch_db:fleet_important_component.fleet_important_roster_tree
-msgid "Materials Code"
-msgstr "物资编码"
-
-#. module: fleet_important_component
-#: model:ir.ui.view,arch_db:fleet_important_component.fleet_important_roster_tree
-msgid "Materials Type"
-msgstr "物资分类"
+msgid "Number of Libraries"
+msgstr "在库数量"
 
 #. module: fleet_important_component
 #: model:ir.model.fields,field_description:fleet_important_component.field_product_product_parts_ids
@@ -140,6 +146,11 @@ msgstr "物料名称"
 #: selection:product.product,component_type:0
 msgid "Spare Parts"
 msgstr "零件"
+
+#. module: fleet_important_component
+#: model:ir.ui.view,arch_db:fleet_important_component.fleet_important_roster_tree
+msgid "Total quantity"
+msgstr "要件总数"
 
 #. module: fleet_important_component
 #: model:ir.ui.view,arch_db:fleet_important_component.fleet_important_detailed_form
@@ -192,19 +203,9 @@ msgid "fleet.important_classification"
 msgstr "要件分类"
 
 #. module: fleet_important_component
-#: model:ir.model,name:fleet_important_component.model_fleet_component
-msgid "fleet_component"
-msgstr "fleet_component"
-
-#. module: fleet_important_component
 #: model:ir.ui.menu,name:fleet_important_component.fleet_important_classification
 msgid "fleet_important_classification"
 msgstr "要件分类"
-
-#. module: fleet_important_component
-#: model:ir.ui.menu,name:fleet_important_component.fleet_important_component
-msgid "fleet_important_component"
-msgstr "重要部件管理"
 
 #. module: fleet_important_component
 #: model:ir.ui.menu,name:fleet_important_component.fleet_important_detailed
@@ -255,11 +256,6 @@ msgstr "规格"
 #: model:ir.model,name:fleet_important_component.model_product_component
 msgid "product.component"
 msgstr "product.component"
-
-#. module: fleet_important_component
-#: model:ir.model,name:fleet_important_component.model_product_component2
-msgid "product.component2"
-msgstr "product.component2"
 
 #. module: fleet_important_component
 #: model:ir.model,name:fleet_important_component.model_product_parts_list
