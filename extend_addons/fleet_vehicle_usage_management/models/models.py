@@ -3,18 +3,6 @@
 from odoo import models, fields, api, _
 import time
 
-# class fleet_vehicle_usage_management(models.Model):
-#     _name = 'fleet_vehicle_usage_management.fleet_vehicle_usage_management'
-
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
-
 class FleetVehicle(models.Model):
     """
     车辆档案
@@ -38,3 +26,34 @@ class FleetVehicle(models.Model):
                 item.warnning = False
 
 
+class InspectionPlan(models.Model):
+    _name = 'fleet_vehicle_usage_management.inspectionplan'
+
+    # 年检计划名称
+    planname = fields.Char(string=_('inspection plan name'))
+    # 开始日期
+    startdate = fields.Date(string=_('inspection start date'))
+    # 结束日期
+    endtdate = fields.Date(string=_('inspection end date'))
+    # 审批时间
+    approvaldate = fields.Date(string=_('approval date'))
+    #分公司
+    branchcompany = fields.Many2one('hr.department', string=_('branch company'))
+    # 审批人
+    approver = fields.Many2one('res.user', string=_('approver'))
+    # 制表人
+    maker = fields.Many2one('res.user', string=_('maker'))
+    # 备注
+    remark = fields.Char(string=_('remark'))
+
+
+class planItem(models.Model):
+    _name = 'fleet_vehicle_usage_management.planitem'
+
+    # 年检执行日期
+    inspectiondate = fields.Date(_('inspection date'))
+    # 年检过期日期
+    inspectionexpire = fields.Date(_('inspection expire'))
+    # 备注
+    inspectionremark = fields.Date(_('inspection remark'))
+    # inspectiondate = fields.Date(string=_(''))
