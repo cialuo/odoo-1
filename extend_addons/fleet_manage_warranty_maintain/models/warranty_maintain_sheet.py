@@ -61,7 +61,7 @@ class WarrantyMaintainSheet(models.Model): # 保养单
     ], default='draft')
 
     @api.multi
-    def action_confirm_effective(self): # 确认生效
+    def action_confirm_effective(self): # 确认生效 生成保养单
         self.ensure_one()
         # for i in self.repair_ids:
         #     if not i.fault_method_id:
@@ -72,14 +72,31 @@ class WarrantyMaintainSheet(models.Model): # 保养单
         # for i in self.repair_ids:
         #     if i.state == 'precheck':
         #         i.state = 'dispatch'
+
+        device_lines =[]
+        for i in self.vehicle_id.vehicle_device_ids:
+            vals = {
+                'device_id': i.device_id.id,
+                'serial_no': i.serial_no,
+                'name': i.name,
+                'fixed_asset_number': i.fixed_asset_number,
+                'create_date_ext': i.create_date_ext,
+            }
+            device_lines.append([0, 0, vals])
+
         vals = {
             "name": "JJD_"+self.name,
             "maintain_sheet": self.id,
-            "vehicle_id": self.vehicle_id.id
+            "vehicle_id": self.vehicle_id.id,
+            'device_ids':device_lines
         }
         handover_sheet = self.env['fleet_warranty_handover_sheet'].search([("maintain_sheet", '=', self.id)])
         if not handover_sheet:
             self.env['fleet_warranty_handover_sheet'].create(vals)
+
+
+
+
 
     picking_ids = fields.One2many("stock.picking", 'maintainsheet_id', string='Stock Pickings')
 
@@ -173,8 +190,19 @@ class WarrantyMaintainSheet(models.Model): # 保养单
                     'move_lines': move_lines
                 })
             if picking:
-                picking.action_assign()
+                picking.action_confirm()
 
+    @api.multi
+    def action_into_inspect(self):  # 保养单 全部报检
+        self.ensure_one()
+        if not self.manhour_manage_ids:
+            raise exceptions.UserError(_("Manhour Manage Ids Required!"))
+        self.write({'state': 'inspect'})
+
+        for i in self.manhour_manage_ids:
+            i.real_end_time = datetime.datetime.utcnow()
+        for item in self.item_ids:
+            item.state = 'check'
 
     @api.multi
     def action_manage_handover_sheet(self):  # 管理交接单
@@ -379,7 +407,7 @@ class MaintainSheetItem(models.Model): # 保养单_保养项目
 
 
     component_ids = fields.Many2many('product.component', 'fleet_warranty_sheet_item_component_rel', 'item_component_id', 'component_id', 'Component',
-           copy=False, domain="[('product_id', '=', important_product_id),('parent_vehicle','=',vehicle_id)]")
+        readonly=True, domain="[('product_id', '=', important_product_id),('parent_vehicle','=',vehicle_id)]")
 
     # , states = {
     #     'done': [('readonly', True)],
@@ -487,7 +515,19 @@ class WarrantyManhourManage(models.Model): # 保养单_保养项目_工时管理
                 continue
             r.self_work = r.percentage_work * r.work_time / 100
 
-    real_work = fields.Float(digits=(6, 1)) # 实际工时
+    real_work = fields.Float(digits=(6, 1), compute='_get_real_work') # 实际工时
+
+
+    @api.depends('real_start_time', 'real_end_time')
+    def _get_real_work(self):
+        for r in self:
+            if not (r.real_start_time and r.real_end_time):
+                continue
+            start_time = fields.Datetime.from_string(r.real_start_time)
+            end_time = fields.Datetime.from_string(r.real_end_time)
+            r.real_work = (end_time - start_time).seconds / 60.0
+
+
 
     maintainsheet_id = fields.Many2one('fleet_warranty_maintain_sheet', index=True)
 
@@ -626,7 +666,7 @@ class WarrantyInspectSheet(models.Model): # 检验单
             i.end_inspect_time = fields.Datetime.now()
 
             if all(item.state == 'complete' for item in i.maintainsheet_id.item_ids):
-                i.maintainsheet_id.state = 'complete'
+                i.maintainsheet_id.state = 'done'
 
     @api.multi
     def action_return(self, reason=''): # 退回重修

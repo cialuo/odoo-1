@@ -85,7 +85,8 @@
                                         <field name="average_daily_kilometer" attrs="{'readonly':[('state','!=','draft')]}" />
                                         <field name="line" attrs="{'readonly':[('state','!=','draft')]}" />
                                         <field name="maintain_location" attrs="{'readonly':[('state','!=','draft')]}" />
-                                        <field name="maintain_sheet_no"/>
+                                        <!--<field name="maintain_sheet_no"/>-->
+                                        <field name="maintain_sheet_id" readonly="1"/>
                                         <field name="state" invisible="1" />
 
                                         <!--attrs="{'invisible': [('state', '=', 'draft')]}"-->
@@ -135,10 +136,17 @@
         </record>
 
         <!-- 车辆保养计划 menu -->
+        <!--<menuitem name="warranty_plan"-->
+                  <!--id="fleet_warranty_plan_menuitemId" sequence="21"-->
+                  <!--parent="fleet_manage_warranty_maintain_warranty_menuitemId"-->
+                  <!--action="fleet_warranty_plan_action"/>-->
+
+        <!-- 车辆保养计划 menu -->
         <menuitem name="warranty_plan"
-                  id="fleet_warranty_plan_menuitemId" sequence="21"
-                  parent="fleet_manage_warranty_maintain_warranty_menuitemId"
-                  action="fleet_warranty_plan_action"/>
+          id="fleet_warranty_plan_menuitemId" sequence="21"
+          parent="fleet_manage_menu.fleet_manage_warranty_usage"
+          action="fleet_warranty_plan_action"/>
+
 
     </data>
 </odoo>

@@ -20,7 +20,8 @@
                     <field name="average_daily_kilometer"/>
                     <field name="line"/>
                     <field name="maintain_location"/>
-                    <field name="maintain_sheet_no"/>
+                    <!--<field name="maintain_sheet_no"/>-->
+                    <field name="maintain_sheet_id"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -82,7 +83,7 @@
         <!-- 车辆保养管理 menu -->
         <menuitem name="fleet_manage_warranty"
                   id="fleet_manage_warranty_maintain_warranty_menuitemId"
-                  parent="fleet_manage_menu.fleet_manage_warranty_maintain"/>
+                  parent="fleet_manage_menu.fleet_manage_warranty_maintain" sequence="1"/>
 
         <!-- 计划单 menu -->
         <menuitem name="warranty_plan_sheet"

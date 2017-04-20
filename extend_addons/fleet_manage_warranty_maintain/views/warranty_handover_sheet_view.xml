@@ -19,6 +19,13 @@
 								states="delivery"
                                 class="oe_highlight"/> <!-- 提交检验-->
 
+						<button name="return_action_to_open"
+                            type="object"
+                            class="oe_highlight"
+                            states="delivery_return"
+							string="Query Repair Bill"
+                            context="{'xml_id':'fleet_warranty_maintain_sheet_action'}"/>
+
                     	<field name="state"  widget="statusbar"/>
                 	</header>
 					<sheet>
@@ -40,6 +47,26 @@
 	                        </group>
                    		 </group>
 						<notebook>
+							<page string="Deliverys">
+                                <field name="device_ids">
+                                    <tree string="Deliverys">
+										<field name="device_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+							<page string="ReturnDeliverys" >
+                                <field name="device_return_ids">
+                                    <tree string="ReturnDeliverys">
+										<field name="device_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
 							<page string="Other Information">
 								<group col="1">
 									<group>

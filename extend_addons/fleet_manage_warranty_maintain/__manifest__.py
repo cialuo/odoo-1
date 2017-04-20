@@ -20,6 +20,7 @@
          'views/warranty_plan_view.xml',
          'views/warranty_maintain_sheet_view.xml',
          'views/warranty_handover_sheet_view.xml',
+         'views/warranty_record_view.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,

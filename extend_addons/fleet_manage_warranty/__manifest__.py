@@ -16,8 +16,9 @@
 
     # always loaded
     'data': [
-         'views/warranty_category_view.xml',
-         'views/warranty_item_view.xml',
+        'views/warranty_category_view.xml',
+        'views/warranty_item_view.xml',
+        'views/basic.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,

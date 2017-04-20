@@ -36,6 +36,10 @@ class WarrantyHandoverSheet(models.Model): # 交接单
         ('delivery', "Delivery"),
         ('delivery_return', "Delivery Return"), ], default='draft')
 
+    device_ids = fields.One2many('fleet_warranty_handover_maintenance', 'delivery_id', string='Device Ids')
+
+    device_return_ids = fields.One2many('fleet_warranty_handover_return_maintenance', 'delivery_id', string='Device Return Ids')
+
     @api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
@@ -52,6 +56,55 @@ class WarrantyHandoverSheet(models.Model): # 交接单
 
     @api.multi
     def action_delivery_return(self):
+        # self.state = 'delivery_return'
+        # self.delivery_return_time = fields.Datetime.utcnow()
+
         self.state = 'delivery_return'
         self.delivery_return_time = fields.Datetime.now()
+        device_lines = []
+        for i in self.device_ids:
+            vals = {
+                'device_id': i.device_id.id,
+                'serial_no': i.serial_no,
+                'name': i.name,
+                'fixed_asset_number': i.fixed_asset_number,
+                'create_date_ext': i.create_date_ext,
+            }
+            device_lines.append([0, 0, vals])
+        self.device_return_ids = device_lines
+
+    @api.multi
+    def return_action_to_open(self): # 交接单跳转到维修单
+        self.ensure_one()
+        xml_id = self.env.context.get('xml_id')
+        if xml_id:
+            res = self.env['ir.actions.act_window'].for_xml_id('fleet_manage_warranty_maintain', xml_id)
+            res.update(
+                # context=dict(self.env.context, default_id=self.maintain_sheet.id),
+                domain=[('id', '=', self.maintain_sheet.id)]
+            )
+            return res
+        return False
+
+
+class WarrantyHandoverMaintainDevice(models.Model): # 交接清单
+    _name = 'fleet_warranty_handover_maintenance'
+
+    delivery_id = fields.Many2one('fleet_warranty_handover_sheet', ondelete='cascade', string="Vehicle")
+    device_id = fields.Many2one('maintenance.equipment', string="Equipment")
+    serial_no = fields.Char("Serial No", help="Serial No")
+    name = fields.Char("Name", help="Name")
+    fixed_asset_number = fields.Char("Fixed Asset Number", help="Fixed Asset Number")
+    create_date_ext = fields.Datetime("Create Date", help="Create Date")
+
+
+class WarrantyHandoverMaintainDevice(models.Model): # 交回清单
+    _name = 'fleet_warranty_handover_return_maintenance'
+
+    delivery_id = fields.Many2one('fleet_warranty_handover_sheet', ondelete='cascade', string="Vehicle")
+    device_id = fields.Many2one('maintenance.equipment', string="Equipment")
+    serial_no = fields.Char("Serial No", help="Serial No")
+    name = fields.Char("Name", help="Name")
+    fixed_asset_number = fields.Char("Fixed Asset Number", help="Fixed Asset Number")
+    create_date_ext = fields.Datetime("Create Date", help="Create Date")
 

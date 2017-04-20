@@ -93,7 +93,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         for plan in self:
             for plan_sheet in plan.plan_sheet_ids:
                 plan_sheet_count += 1
-                if plan_sheet.maintain_sheet_no:
+                if plan_sheet.maintain_sheet_id.id: # if plan_sheet.maintain_sheet_no:
                     maintain_sheet_count += 1
             plan.task_count=plan_sheet_count
             plan.executed_count=maintain_sheet_count

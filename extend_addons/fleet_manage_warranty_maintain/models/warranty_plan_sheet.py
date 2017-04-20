@@ -40,7 +40,10 @@ class WarrantyPlanSheet(models.Model): # 计划单
 
     maintain_location = fields.Char() # 保养地点
 
-    maintain_sheet_no = fields.Char(string="SheetNo", readonly=True)  # 保养单号
+    # maintain_sheet_no = fields.Char(string="SheetNo", readonly=True)  # 保养单号
+
+    maintain_sheet_id = fields.Many2one('fleet_warranty_maintain_sheet', string="Warranty Maintain Sheet")  # 保养单号 , required=True,
+
 
     state = fields.Selection([ # 状态
         ('draft', "draft"), # 草稿
@@ -150,8 +153,10 @@ class WarrantyWizardCreate(models.TransientModel):
                         'item_id': item.id,
                         'sequence': len(sheet_items) + 1,
                         'work_time':item.manhour,
-                        'percentage_work':100
+                        'percentage_work':100,
+                        'component_ids':[(6,0,plan_sheet.vehicle_id.mapped('component_ids').filtered(lambda x: x.product_id in item.important_product_id).ids)] #plan_sheet.vehicle_id.mapped('component_ids').filtered(lambda x: x.product_id in item.important_product_id).ids
                     }
+                    # sheet_item.component_ids=plan_sheet.vehicle_id.mapped('component_ids').filtered(lambda x: x.product_id in item.important_product_id).ids
                     sheet_items.append((0, 0, sheet_item))
 
                     sheet_instruction = {
@@ -195,7 +200,7 @@ class WarrantyWizardCreate(models.TransientModel):
                         available_products.append((0, 0, available_product))
 
             maintain_sheet.write({'item_ids': sheet_items, 'available_product_ids': available_products, 'instruction_ids': sheet_instructions})
-            plan_sheet.update({'maintain_sheet_no': maintain_sheet.name, 'state': 'executing'})
+            plan_sheet.update({'maintain_sheet_id': maintain_sheet.id, 'state': 'executing'}) # 'maintain_sheet_no': maintain_sheet.name,
 
 
 

@@ -2,9 +2,15 @@
 	<data>
 		<menuitem name="fleet_manage_menu" sequence="1" id="fleet_manage_menu_root"/>
 		<menuitem name="fleet_manage_basic" id="fleet_manage_basic" parent="fleet_manage_menu_root" sequence="1"/> <!--车辆基础管理-->
-		<menuitem name="fleet_manage_warranty_maintain" id="fleet_manage_warranty_maintain" parent="fleet_manage_menu_root" sequence="3"/><!--车辆维保管理-->
+		<menuitem name="fleet_manage_quota" id="fleet_manage_quota" parent="fleet_manage_basic" /> <!--定额管理-->
+
+		<menuitem name="fleet_manage_warranty_usage" id="fleet_manage_warranty_usage" parent="fleet_manage_menu_root" sequence="2"/> <!--车辆使用管理(机务)-->
+
+		<menuitem name="fleet_manage_warranty_maintain" id="fleet_manage_warranty_maintain" parent="fleet_manage_menu_root" sequence="3"/> <!--车辆维保管理-->
 
     	<menuitem name="fleet_important_component" id="fleet_important_component" parent="fleet_manage_menu_root" sequence="5"/> <!--重要部件管理-->
-		<menuitem name="fleet_manage_data" id="fleet_manage_menu_data" parent="fleet_manage_menu_root" sequence="7"/><!--维保体系管理-->
+		<menuitem name="fleet_manage_data" id="fleet_manage_menu_data" parent="fleet_manage_menu_root" sequence="7"/> <!--维保体系管理-->
+
+
 	</data>
 </odoo>

@@ -27,7 +27,7 @@
                                         <field name="real_start_time" readonly="1"/>
                                         <field name="real_end_time" readonly="1"/>
                                         <field name="work_time" readonly="1"/>
-                                        <field name="percentage_work" readonly="1"/>
+                                        <field name="percentage_work" /> <!--readonly="1"-->
                                         <field name="self_work"/>
                                         <field name="real_work" readonly="1"/>
                                     </tree>
@@ -35,7 +35,7 @@
                         </page>
                     </notebook>
 
-                    <group col="2" attrs="{'invisible': [('percentage_work', '=', 0)]}" > <!-- attrs="{'invisible': [('percentage_work', '=', 0)]}" -->
+                    <group col="2" attrs="{'invisible': [('percentage_work', '=', 0)]}" > <!-- attrs="{'invisible': [('percentage_work', '=', 0)]}"  -->
                               <group>
                                 <field name="plan_start_time" />
                                 <label for="percentage_work"/>
@@ -53,7 +53,7 @@
                               </group>
                     </group>
 
-                    <footer attrs="{'invisible': [('percentage_work', '=', 0)]}" > <!-- attrs="{'invisible': [('percentage_work', '=', 0)]}" -->
+                    <footer  attrs="{'invisible': [('percentage_work', '=', 0)]}"> <!-- attrs="{'invisible': [('percentage_work', '=', 0)]}" -->
                      <button name="dispatch" type="object"
                           string="Dispatch" class="oe_highlight oe_edit_only pull-right"/>
                     </footer>
@@ -104,6 +104,8 @@
                         <button name="action_batch_dispatch" states="dispatch" string="Batch Dispatch" type="object" class="oe_highlight o_expense_submit"/> <!-- 批量派工 -->
 
                         <button name="action_into_maintain" states="dispatch" string="Into Maintain" type="object" class="oe_highlight o_expense_submit"/> <!-- 进入保养状态 -->
+
+                        <button name="action_into_inspect" states="maintain" string="Into Inspect" type="object" class="oe_highlight o_expense_submit"/> <!-- 全部报检 -->
 
                         <!--<button name="action_draft" type="object"-->
                                 <!--string="back to draft"-->
