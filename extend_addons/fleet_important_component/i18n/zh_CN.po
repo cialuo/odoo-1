@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-20 07:49+0000\n"
-"PO-Revision-Date: 2017-04-20 15:50+0800\n"
+"POT-Creation-Date: 2017-04-20 08:27+0000\n"
+"PO-Revision-Date: 2017-04-20 16:28+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: zh\n"
+"Language: zh_CN\n"
 "X-Generator: Poedit 2.0\n"
 
 #. module: fleet_important_component
@@ -58,9 +58,10 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: fleet_important_component
+#: model:ir.ui.view,arch_db:fleet_important_component.fleet_important_detailed_tree
 #: model:ir.ui.view,arch_db:fleet_important_component.fleet_important_roster_tree
 msgid "Essential code"
-msgstr "要件编码"
+msgstr "物资编码"
 
 #. module: fleet_important_component
 #: model:ir.ui.view,arch_db:fleet_important_component.fleet_important_detailed_form
@@ -221,6 +222,11 @@ msgstr "要件名册"
 #: model:ir.ui.view,arch_db:fleet_important_component.fleet_important_roster_form
 msgid "general_info"
 msgstr "常规信息"
+
+#. module: fleet_important_component
+#: model:ir.model.fields,field_description:fleet_important_component.field_product_component_odometer_progress
+msgid "odometer progress"
+msgstr "里程残值"
 
 #. module: fleet_important_component
 #: model:ir.model.fields,field_description:fleet_important_component.field_product_parts_list_parts_number

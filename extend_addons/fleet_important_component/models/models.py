@@ -70,10 +70,8 @@ class fleet_product(models.Model):
           for product in self:
                #取重要部件
                if product.important_type == 'component':
-                    print '进来..'
                     domain = ['&',('product_id', '=', product.id),('parent_vehicle','!=',None)]
                     count = self.env['product.component'].search_count(domain)
-                    print count
                     product.number_of_libraries = product.qty_available - count
           return self
 
@@ -101,5 +99,13 @@ class fleet_component(models.Model):
 
      product_inter_code = fields.Char('product inter code',related='product_id.default_code', store=False, readonly=True)
 
+     odometer_progress =fields.Float(string='odometer progress', compute='_get_odometer_progress')
 
+     @api.depends('odometer','product_id.lifetime')
+     def _get_odometer_progress(self):
+          for component in self:
+               if component.product_id.lifetime > 0:
+                    component.odometer_progress = round(100.0 * component.odometer / component.product_id.lifetime, 2)
+               else:
+                    component.odometer_progress=0.0
 
