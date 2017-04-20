@@ -18,22 +18,19 @@
             </field>
         </record>
 
-        <!-- 保修项目 view -->
+        <!-- 保修项目 form -->
         <record model="ir.ui.view" id="fleet_manage_warranty_item_view_form">
             <field name="name">Item.form</field>
             <field name="model">fleet_manage_warranty.item</field>
             <field name="arch" type="xml">
                 <form string="Warranty Form">
                     <header>
-                        <button name="action_draft" type="object"
-                                string="back to draft"
-                                states="confirmed,done"/>
-                        <button name="action_confirm" type="object"
-                                string="confirm" states="draft"
-                                class="oe_highlight"/>
-                        <button name="action_done" type="object"
-                                string="done" states="confirmed"
-                                class="oe_highlight"/>
+                        <button name="action_filing" type="object"
+                                string="filing"
+                                states="in_use"/>
+                        <button name="action_in_use" type="object"
+                                string="in_use"
+                                states="filing" class="oe_highlight"/>
                         <field name="state" widget="statusbar"/>
                     </header>
 
@@ -47,40 +44,68 @@
                             <group >
                                 <field name="mode"/>
                                 <field name="manhour"/>
+                                <field name="remark"/>
                             </group>
                             <group >
-                                <label for="code" />
-                                <div class="o_row">
-                                    <field name="code"/>
-                                </div>
+                                <field name="code"/>
                                 <field name="create_uid" readonly="1" />
                                 <field name="create_date" readonly="1" />
+                                <field name="is_important_product"/>
+								<field name="important_product_id" attrs="{'invisible':[('is_important_product','=',False)]}" widget="selection"/>
                             </group>
                         </group>
-
-                        <div class="oe_right"><group><field name="remark"/></group></div>
-
                         <notebook>
-                            <page string="Components">
-                                <field name="bom_line_ids" widget="one2many_list">
-                                    <tree string="Components" editable="bottom">
-                                        <field name="sequence" widget="handle"/>
-                                        <field name="product_id" context="{'default_type': 'product'}"/>
-                                        <!--<field name="has_attachments" invisible="1"/>-->
-                                        <!--<button name="action_see_attachments" type="object" icon="fa-files-o" attrs="{'invisible': [('has_attachments', '=', False)]}"/>-->
-                                        <!--<button name="action_see_attachments" type="object" icon="fa-file" attrs="{'invisible': [('has_attachments', '=', True)]}"/>-->
-                                        <field name="product_qty"/>
-                                        <field name="product_uom_id" options="{'no_open':True,'no_create':True}"/> <!-- groups="product.group_uom"-->
-                                        <!--<field name="attribute_value_ids" widget="many2many_tags" domain="[('product_ids.product_tmpl_id', '=', parent.product_tmpl_id)]" groups="product.group_product_variant"/>-->
-                                        <!--<field name="operation_id" groups="mrp.group_mrp_routings" domain="[('routing_id', '=', parent.routing_id)]" options="{'no_quick_create':True,'no_create_edit':True}"/>-->
+							<page name="AvailProducts" string="AvailProducts">
+								<field name="avail_ids"  >
+									<tree editable="bottom">
+										<field name="product_id" options="{'no_open':True,'no_create':True}"/>
+										<field name="product_code"/>
+										<field name="categ_id"/>
+										<field name="description"/>
+										<field name="uom_id"/>
+										<field name="change_count"/>
+										<field name="max_count"/>
+										<field name="vehicle_model" widget="many2many_tags"/>
+										<field name="require_trans"/>
+										<field name="remark"/>
+										<field name="onhand_qty" invisible="1"/>
+										<field name="virtual_available" invisible="1"/>
+									</tree>
+								</field>
+							</page>
 
-                                        <field name="default_usage"/>
-                                        <field name="collar_cap"/>
-                                        <field name="applicable_carmodel"/>
-                                        <field name="remark"/>
-                                    </tree>
-                                </field>
+                            <!--<page string="Components">-->
+                                <!--<field name="bom_line_ids" widget="one2many_list">-->
+                                    <!--<tree string="Components" editable="bottom">-->
+                                        <!--<field name="sequence" widget="handle"/>-->
+                                        <!--<field name="product_id" context="{'default_type': 'product'}"/>-->
+                                        <!--<field name="product_code" />-->
+                                        <!--<field name="product_category_id" />-->
+                                        <!--<field name="product_type" />-->
+                                        <!--<field name="product_uom_id" options="{'no_open':True,'no_create':True}"/>-->
+                                        <!--<field name="default_usage"/>-->
+                                        <!--<field name="collar_cap"/>-->
+                                        <!--<field name="vehicle_type"/>-->
+                                        <!--<field name="post_old_get_new"/>-->
+                                        <!--<field name="remark"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                            <!--</page>-->
+                            <page string="Operational Manual" name="operationalManual">
+                                <group >
+                                    <separator string="" colspan="4"/>
+                                    <field name="operational_manual" colspan="4" nolabel="1"
+                                        placeholder="This note will be displayed on the quotations."/>
+                                </group>
                             </page>
+                            <page string="Inspection Criteria" name="inspectionCriteria">
+                                <group >
+                                    <separator string="" colspan="4"/>
+                                    <field name="inspection_criteria" colspan="4" nolabel="1"
+                                        placeholder="This note will be displayed on the quotations."/>
+                                </group>
+                            </page>
+
                         </notebook>
 
                     </sheet>
@@ -102,18 +127,17 @@
                   action="fleet_manage_warranty_item_action"/>
 
 
-
         <!-- 保修方式 tree -->
         <record id='fleet_manage_warranty_mode_view_tree' model='ir.ui.view'>
             <field name="name">fleet_manage_warranty.mode.tree</field>
             <field name="model">fleet_manage_warranty.mode</field>
             <field name="arch" type="xml">
                 <tree string="Mode" editable="bottom">
+                    <field name="code" />
                     <field name="name" />
                 </tree>
             </field>
         </record>
-
 
         <!-- 保修方式 action -->
         <record id='fleet_manage_warranty_mode_action' model='ir.actions.act_window'>
@@ -131,12 +155,9 @@
             </field>
         </record>
 
-
         <!-- 保修方式 menu -->
         <menuitem action="fleet_manage_warranty_mode_action" sequence="24"
             parent="fleet_manage_menu.fleet_manage_menu_data" id="fleet_manage_warranty_mode_menu" />
-
-
 
     </data>
 </odoo>

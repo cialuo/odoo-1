@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <!-- 保养工艺管理 Action -->
+		<record model="ir.actions.act_window" id="warranty_item_craft_action">
+	        <field name="name">warranty_item_craft_action</field>
+	        <field name="res_model">fleet_manage_warranty.item</field>
+	        <field name="view_mode">tree,form</field>
+		</record>
+
+        <!-- 保养工时定额 Action -->
+		<record model="ir.actions.act_window" id="warranty_item_quota_action">
+	        <field name="name">warranty_item_quota_action</field>
+	        <field name="res_model">fleet_manage_warranty.item</field>
+	        <field name="view_mode">tree,form</field>
+		</record>
+
+
+        <menuitem name="warranty_item_method_craft"
+                  id="warranty_item_method_craft"
+                  parent="fleet_manage_menu.fleet_manage_basic"
+                  action = "warranty_item_craft_action"/>
+
+        <menuitem name="warranty_item_method_quota"
+                  id="fleet_manage_quota"
+                  parent="fleet_manage_menu.fleet_manage_quota"
+                  action = "warranty_item_quota_action"/>
+
+    </data>
+</odoo>

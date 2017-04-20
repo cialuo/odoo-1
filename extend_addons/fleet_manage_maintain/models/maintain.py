@@ -458,7 +458,7 @@ class FleetMaintainRepair(models.Model):
                         'move_lines': move_lines
                     })
                 if picking:
-                    picking.action_assign()
+                    picking.action_confirm()
 
 
 
