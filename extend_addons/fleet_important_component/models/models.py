@@ -105,7 +105,7 @@ class fleet_component(models.Model):
      def _get_odometer_progress(self):
           for component in self:
                if component.product_id.lifetime > 0:
-                    component.odometer_progress = round(100.0 * component.odometer / component.product_id.lifetime, 2)
+                    component.odometer_progress = round(100.0 * (component.product_id.lifetime-component.odometer) / component.product_id.lifetime, 2)
                else:
                     component.odometer_progress=0.0
 
