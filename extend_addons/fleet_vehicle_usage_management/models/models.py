@@ -35,9 +35,11 @@ class InspectionPlan(models.Model):
     startdate = fields.Date(string=_('inspection start date'))
     # 结束日期
     endtdate = fields.Date(string=_('inspection end date'))
+    # 制表日期
+    create_date = fields.datetime(string=_('plan create date'))
     # 审批时间
     approvaldate = fields.Date(string=_('approval date'))
-    #分公司
+    # 分公司
     branchcompany = fields.Many2one('hr.department', string=_('branch company'))
     # 审批人
     approver = fields.Many2one('res.user', string=_('approver'))
@@ -48,7 +50,37 @@ class InspectionPlan(models.Model):
     # 计划详情
     planitem_id = fields.One2many('fleet_vehicle_usage_management.planitem', 'vehicle_id',
                                   string=_("plan detail"))
+    # 年检负责人
+    principal = fields.Many2one('hr.employee', string=_('inspection principal'))
 
+    state = fields.Selection([
+        ('draft',_('draft')),
+        ('submitted',_('submitted')),
+        ('checked',_('checked')),
+        ('execution',_('execution')),
+        ('done',_('done')),
+    ], string=_('inspection plan state'))
+
+    @api.multi
+    def action_draft(self):
+        self.state = 'draft'
+
+    @api.multi
+    def action_submitted(self):
+        self.state = 'submitted'
+
+    @api.multi
+    def action_checked(self):
+        self.state = 'checked'
+
+    @api.multi
+    def action_execution(self):
+        self.state = 'execution'
+
+    @api.multi
+    def action_done(self):
+        self.state = 'done'
+        self.boss = self._uid
 
 class planItem(models.Model):
     _name = 'fleet_vehicle_usage_management.planitem'

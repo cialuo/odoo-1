@@ -1,6 +1,6 @@
 <odoo>
 
-
+    <!-- 年检查询列表 -->
     <record id='fleet_vehicle_inspect_tree_list' model='ir.ui.view'>
         <field name="name">fleet.vehicle.inspect.tree</field>
         <field name="model">fleet.vehicle</field>
@@ -24,6 +24,7 @@
         </field>
     </record>
 
+    <!-- 年检查询action -->
     <record id='fleet_vehicle_inspection_list_action' model='ir.actions.act_window'>
         <field name="name">fleet_vehicle_inspection_list</field>
         <field name="res_model">fleet.vehicle</field>
@@ -45,6 +46,117 @@
         </field>
         <field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_vehicle_inspect_tree_list')})]"/>
+    </record>
+
+    <!-- 年检计划表单 -->
+    <record model="ir.ui.view" id="inspection_plan_form_view">
+        <field name="name">inspection plan</field>
+        <field name="model">fleet_vehicle_usage_management.inspectionplan</field>
+        <field name="arch" type="xml">
+            <form string="inspection plan Form">
+                <header>
+                    <button name="draft" type="workflow"
+                            string="reset to draft"
+                            states="submitted"/>
+                    <button name="submitted" type="workflow"
+                            string="to submitted" states="draft"
+                            class="oe_highlight"/>
+                    <button name="checked" type="workflow"
+                            string="checked" states="submitted"
+                            class="oe_highlight"/>
+                    <button name="execution" type="workflow"
+                            string="to execution" states="checked"
+                            class="oe_highlight"/>
+                    <button name="done" type="workflow"
+                            string="done work" states="execution"
+                            class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="planname" class="oe_edit_only"/>
+                        <h1>
+                            <field name="planname" placeholder="inspection plan Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="startdate" />
+                            <field name="endtdate" />
+                            <field name="create_date" readonly="1" />
+                            <field name="principal" />
+                            <field name="remark" />
+                        </group>
+                        <group>
+                            <field name="maker" readonly="1"/>
+                            <field name="approver"/>
+                            <field name="approvaldate" readonly="1"/>
+                            <field name="branchcompany"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="inspection_plan_detail" string="inspection plan detail">
+                            <field name="planitem_id"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 年检计划action -->
+    <record id='fleet_vehicle_inspection_plan_action' model='ir.actions.act_window'>
+        <field name="name">vehicle inspection plan</field>
+        <field name="res_model">fleet_vehicle_usage_management.inspectionplan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new inspection plan.
+            </p>
+        </field>
+    </record>
+
+    <!-- 年检计划数据项表单 -->
+    <record model="ir.ui.view" id="inspection_plan_item_form_view">
+        <field name="name">inspection plan item</field>
+        <field name="model">fleet_vehicle_usage_management.planitem</field>
+        <field name="arch" type="xml">
+            <form string="inspection plan Form">
+                <sheet>
+                    <group>
+                        <field name="" />
+                        <field name="vehicle_id." />
+                    </group>
+                </sheet>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="inspectiondate" readonly="1"/>
+                            <field name="inspectionexpire" />
+                            <field name="inspectionremark" />
+                        </group>
+                        <group>
+                            <field name="vehicle_id." />
+                            <field name="vehicle_id." />
+                            <field name="vehicle_id." />
+                            <field name="vehicle_id." />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- 车辆年检action -->
+    <record id='fleet_vehicle_inspection_item_action' model='ir.actions.act_window'>
+        <field name="name">vehicle inspection item</field>
+        <field name="res_model">fleet_vehicle_usage_management.planitem</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+        </field>
     </record>
 
     <!-- 车辆年检管理 -->
