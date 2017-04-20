@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api,exceptions,_
 
 class fleet_important_component(models.Model):
 
@@ -38,6 +38,7 @@ class fleet_product_component(models.Model):
      product_code = fields.Char('product code', related='product_parts.default_code', store=False, readonly=True)
 
      product_specifications = fields.Text('product specifications', related='product_parts.description', store=False, readonly=True)
+
 
 
 class fleet_product(models.Model):
@@ -78,9 +79,16 @@ class fleet_product(models.Model):
      #在库数量
      number_of_libraries = fields.Float('Number of Libraries',compute=_compute_number_of_libraries)
 
+     @api.multi
+     def write(self, vals):
 
+          if vals.get('component_type')=='is_spare_parts':
+               if len(self.parts_ids) > 0:
+                    raise exceptions.UserError(_("There is part data, so it cannot be modified!"))
 
+          result = super(fleet_product, self).write(vals)
 
+          return result
 
 
 class fleet_component(models.Model):

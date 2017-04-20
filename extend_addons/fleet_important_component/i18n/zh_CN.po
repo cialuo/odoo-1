@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-20 08:27+0000\n"
-"PO-Revision-Date: 2017-04-20 16:28+0800\n"
+"POT-Creation-Date: 2017-04-20 10:26+0000\n"
+"PO-Revision-Date: 2017-04-20 18:26+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -147,6 +147,12 @@ msgstr "物料名称"
 #: selection:product.product,component_type:0
 msgid "Spare Parts"
 msgstr "零件"
+
+#. module: fleet_important_component
+#: code:addons/fleet_important_component/models/models.py:87
+#, python-format
+msgid "There is part data, so it cannot be modified!"
+msgstr "存在零件数据,所以无法进行修改!"
 
 #. module: fleet_important_component
 #: model:ir.ui.view,arch_db:fleet_important_component.fleet_important_roster_tree
