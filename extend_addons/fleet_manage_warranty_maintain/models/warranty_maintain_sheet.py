@@ -7,7 +7,7 @@ from odoo.exceptions import UserError
 class WarrantyMaintainSheet(models.Model): # 保养单
     _inherit = 'mail.thread'
     _name = 'fleet_warranty_maintain_sheet'
-    name = fields.Char(string='Maintain Sheet', required=True, index=True, default='New')
+    name = fields.Char(string='BYD', required=True, index=True, default='New')
 
     sequence = fields.Integer('Sequence', default=1)
 
@@ -59,6 +59,8 @@ class WarrantyMaintainSheet(models.Model): # 保养单
         ('inspect', "inspect"),
         ('done', "done"),
     ], default='draft')
+
+    plan_sheet_ids = fields.One2many('fleet_warranty_plan_sheet', 'maintain_sheet_id', 'maintainSheetId')  # 保养项目
 
     @api.multi
     def action_confirm_effective(self): # 确认生效 生成保养单
@@ -239,6 +241,9 @@ class WarrantyMaintainSheet(models.Model): # 保养单
 
     instruction_ids = fields.One2many('fleet_warranty_sheet_instruction', 'maintainsheet_id', 'maintainsheetId') # 作业指导
 
+    return_record_ids = fields.One2many('fleet_warranty_return_record', 'maintainsheet_id', 'maintainsheetId') # 退检记录
+
+
     @api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
@@ -289,7 +294,7 @@ class WarrantyMaintainSheet(models.Model): # 保养单
         #     raise UserError(_("You cannot report expenses for different employees in the same report!"))
         # print self.id
         return {
-            'name': 'Batch Dispatch',
+            'name': _('PLPG'),
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
             'res_model': 'fleet_warranty_wizard_dispatch', # 'res_model': 'hr.expense.sheet',
@@ -315,6 +320,20 @@ class WarrantyMaintainSheet(models.Model): # 保养单
     #         for manhour_manage in item.manhour_manage_ids:
     #             manhour_percentage_work += manhour_manage.percentage_work
     #         item.percentage_work = 100 - manhour_percentage_work
+
+
+    @api.multi
+    def return_action_to_open(self): # 查看检验单
+        self.ensure_one()
+        xml_id = self.env.context.get('xml_id')
+        if xml_id:
+            res = self.env['ir.actions.act_window'].for_xml_id('fleet_manage_warranty_maintain', xml_id)
+            res.update(
+                # context=dict(self.env.context, default_id=self.maintain_sheet.id),
+                domain=[('maintainsheet_id', '=', self.id)]
+            )
+            return res
+        return False
 
 
 class MaintainSheetItem(models.Model): # 保养单_保养项目
@@ -369,7 +388,16 @@ class MaintainSheetItem(models.Model): # 保养单_保养项目
         ('inspection', "inspection"),
     ], default='noinspection')
 
-    reinspection_count = fields.Integer(string="ReinspectionCount")  # 重检验次数 compute="_compute_count_all", cost_count =
+    return_record_ids = fields.One2many("fleet_warranty_return_record", 'sheet_item', string='Return Record Ids')
+
+    rework_count = fields.Integer("Rework Count", help="Rework Count", compute="_get_rework_count")  # 重检次数
+
+    def _get_rework_count(self):  # 获取退检次数
+        for i in self:
+            i.rework_count = len(i.return_record_ids)
+
+
+    # reinspection_count = fields.Integer(string="ReinspectionCount")  # 重检验次数 compute="_compute_count_all", cost_count =
 
     work_time = manhour = fields.Float(digits=(6, 1)) # 工时定额 # fields.Integer('WorkTime') # work_time = fields.Integer(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
     user_id = fields.Many2one('hr.employee', string="Repair Name", ondelete='set null')
@@ -615,7 +643,7 @@ class WarrantyInspectSheet(models.Model): # 检验单
 
     end_inspect_time = fields.Datetime("End Inspect Time") # 检验通过时间
 
-    return_record_ids = fields.One2many("fleet_warranty_return_record", 'sheet_item', string='Return Record Ids')
+    # return_record_ids = fields.One2many("fleet_warranty_return_record", 'sheet_item', string='Return Record Ids')
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -623,22 +651,24 @@ class WarrantyInspectSheet(models.Model): # 检验单
 
     inspect_user_id = fields.Many2one('hr.employee', string="Inspect User", default=_default_employee) # 检验员
 
-    rework_count = fields.Integer("Rework Count", help="Rework Count",compute="_get_rework_count") # 重检次数
+    # rework_count = fields.Integer("Rework Count", help="Rework Count",compute="_get_rework_count") # 重检次数
 
     inspection_criteria = fields.Text(related='item_id.inspection_criteria')  # 检验标准
 
     item_name = fields.Char(related='item_id.name')  # 项目名称
 
-    def _get_rework_count(self): # 获取退检次数
-        for i in self:
-            i.rework_count = len(i.return_record_ids)
+    # def _get_rework_count(self): # 获取退检次数
+    #     for i in self:
+    #         i.rework_count = len(i.return_record_ids)
 
     @api.multi
-    def action_into_check(self):  # 进入检验状态
+    def action_into_check(self):  # 报检
         for item in self:
+            if item.state != 'maintain': # not in ('check','done')
+                raise exceptions.UserError(_("Selected item cannot be check as they are not in 'maintain' state"))
             item.state = 'check'
             item.start_inspect_time = fields.Datetime.now()
-            for manhour_manage in self.manhour_manage_ids:
+            for manhour_manage in item.manhour_manage_ids:
                 manhour_manage.real_end_time = fields.Datetime.now()
 
             # for i in self:
@@ -651,22 +681,45 @@ class WarrantyInspectSheet(models.Model): # 检验单
             #     if all(repair.state in ['done'] for repair in i.report_id.repair_ids):
             #         i.report_id.state = 'done'
 
-    @api.multi
-    def action_into_maintain(self):  # 进入保养状态
-        for item in self:
-            item.state = 'maintain'
+    # @api.multi
+    # def action_into_maintain(self):  # 进入保养状态
+    #     for item in self:
+    #         item.state = 'maintain'
 
     @api.multi
-    def action_check_pass(self):
+    def action_batch_check_pass(self):  # 批量检验通过
         for i in self:
-            # if i.state != 'check': # not in ('check','done')
-            #     raise exceptions.UserError(_("Selected inspect(s) cannot be confirmed as they are not in 'inspect' state"))
+            # item.state = 'maintain'
+            if i.state != 'check': # not in ('check','done')
+                raise exceptions.UserError(_("Selected item cannot be complete as they are not in 'check' state"))
             i.state = 'complete'
             i.inspect_result = 'qualified'
             i.end_inspect_time = fields.Datetime.now()
 
             if all(item.state == 'complete' for item in i.maintainsheet_id.item_ids):
                 i.maintainsheet_id.state = 'done'
+                i.maintainsheet_id.plan_sheet_ids.state = 'done'
+                plan = i.maintainsheet_id.plan_sheet_ids.parent_id
+                if all(plan_sheet.state == 'done' for plan_sheet in plan.plan_sheet_ids):
+                    plan.state = 'done'
+
+
+
+    @api.multi
+    def action_check_pass(self):
+        for i in self:
+            if i.state != 'check':  # not in ('check','done')
+                raise exceptions.UserError(_("Selected item cannot be complete as they are not in 'check' state"))
+            i.state = 'complete'
+            i.inspect_result = 'qualified'
+            i.end_inspect_time = fields.Datetime.now()
+
+            if all(item.state == 'complete' for item in i.maintainsheet_id.item_ids):
+                i.maintainsheet_id.state = 'done'
+                i.maintainsheet_id.plan_sheet_ids.state = 'done'
+                plan = i.maintainsheet_id.plan_sheet_ids.parent_id
+                if all(plan_sheet.state == 'done' for plan_sheet in plan.plan_sheet_ids):
+                    plan.state = 'done'
 
     @api.multi
     def action_return(self, reason=''): # 退回重修
@@ -675,7 +728,8 @@ class WarrantyInspectSheet(models.Model): # 检验单
             "sheet_item": self.id,
             "inspect_return_time": inspect_return_time,
             "return_reason": reason,
-            "sequence": len(self.return_record_ids) + 1
+            "sequence": len(self.return_record_ids) + 1,
+            "maintainsheet_id": self.maintainsheet_id.id
         }
         self.write({
             "state":'maintain',
@@ -704,6 +758,9 @@ class WarrantyReturnRecord(models.Model): # 退检记录
     inspect_return_time = fields.Datetime("Inspect Return Time")
 
     sequence = fields.Integer("Sequence")
+
+    maintainsheet_id = fields.Many2one('fleet_warranty_maintain_sheet', ondelete='set null', string="MaintainsheetId", index=True) # 所属保养单
+
 
 
 
@@ -810,3 +867,34 @@ class WarrantyWizardInspectReturn(models.TransientModel): # 退回重修
             raise UserError(_("Selected item cannot be return as they are not in 'check' state."))
         record.action_return(self.return_reason)
         return {'type': 'ir.actions.act_window_close'}
+
+
+class WarrantyWizardCreate(models.TransientModel): # 批量退检
+    _name = 'fleet_warranty_wizard_batch_back'
+
+    def _default_item(self):
+        item_ids=self._context.get('active_ids')
+        items = self.env['fleet_warranty_sheet_item'].browse(item_ids)
+        return items
+
+    item_ids = fields.Many2many('fleet_warranty_sheet_item', string='Item Ids', required=True, default=_default_item)
+
+    return_reason = fields.Text("Return Reason")
+
+    @api.multi
+    def return_to_repair(self):
+        item_ids = self._context.get('active_ids')
+        items = self.env['fleet_warranty_sheet_item'].browse(item_ids)
+
+        for item in items:
+            if item.state != 'check':
+                raise UserError(_("Selected item cannot be return as they are not in 'check' state."))
+            item.action_return(self.return_reason)
+
+
+
+
+
+
+
+

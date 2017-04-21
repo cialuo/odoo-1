@@ -36,7 +36,9 @@
 
                         <button name="action_execute" type="object" string="Approved" states="audit" class="oe_highlight"/> <!-- 审批通过 -->
 
-                        <button name="action_draft" type="object" string="Rework" states="commit,audit"/> <!-- 退回重做 -->
+                        <button name="action_commit" type="object" string="THCS" states="audit"/> <!-- 退回重审 -->
+
+                        <button name="action_draft" type="object" string="Rework" states="commit"/> <!-- 退回重做 -->
 
                         <field name="state" widget="statusbar" />
                     </header>
@@ -49,6 +51,7 @@
                                 <!--<field name="tmp_name" attrs="{'invisible': [('state', '=', 'draft')]}" />-->
                             </h1>
                         </div>
+
 
                         <group col="2">
                               <group>
@@ -69,7 +72,7 @@
                         </group>
                         <notebook>
                             <page string="plan_sheet_ids_page">
-                                <field name="plan_sheet_ids" widget="one2many_list" > <!-- context="{'set_visible':False}" -->
+                                <field name="plan_sheet_ids" widget="one2many_list" attrs="{'readonly':[('state','=','execute')]}" > <!-- context="{'set_visible':False}" -->
                                     <tree string="plan_sheet_ids_tree" editable="bottom">
                                         <field name="sequence" widget="handle"/>
                                         <!--<field name="name"/>-->

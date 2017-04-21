@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-20 01:20+0000\n"
-"PO-Revision-Date: 2017-04-20 01:20+0000\n"
+"POT-Creation-Date: 2017-04-20 10:54+0000\n"
+"PO-Revision-Date: 2017-04-20 10:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: fleet_manage_warranty_maintain
-#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:437
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:465
 #, python-format
 msgid "\"percentage_work\" may not be Incorrect"
 msgstr "\"工时比例\" 可能不对"
@@ -28,13 +28,13 @@ msgid "%s has been added to the handover_sheet!"
 msgstr "%s 添加到交接单!"
 
 #. module: fleet_manage_warranty_maintain
-#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:256
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:261
 #, python-format
 msgid "%s has been added to the maintain sheet!"
 msgstr "%s 添加到保养单!"
 
 #. module: fleet_manage_warranty_maintain
-#: code:addons/fleet_manage_warranty_maintain/models/warranty_plan.py:114
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_plan.py:115
 #, python-format
 msgid "%s has been added to the plan!"
 msgstr "%s 添加到保养计划!"
@@ -58,7 +58,7 @@ msgstr "核准保养类别"
 #. module: fleet_manage_warranty_maintain
 #: model:ir.actions.act_window,name:fleet_manage_warranty_maintain.wizard_create_maintain_sheet_id
 msgid "Add Maintain Sheet"
-msgstr "新增保养单"
+msgstr "生成保养单"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_plan_approval_id
@@ -73,12 +73,12 @@ msgstr "审核时间"
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_warranty_plan_view_form
 msgid "Approved"
-msgstr "审核通过"
+msgstr "审批通过"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_warranty_plan_view_form
 msgid "Audit Pass"
-msgstr "审批通过"
+msgstr "审核通过"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_plan_auditor_id
@@ -89,6 +89,26 @@ msgstr "审批人"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_plan_auditor_time
 msgid "Auditor Time"
 msgstr "审批时间"
+
+#. module: fleet_manage_warranty_maintain
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_maintain_sheet_name
+msgid "BYD"
+msgstr "保养单"
+
+#. module: fleet_manage_warranty_maintain
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_plan_name
+msgid "BYJH"
+msgstr "保养计划"
+
+#. module: fleet_manage_warranty_maintain
+#: model:ir.actions.act_window,name:fleet_manage_warranty_maintain.warranty_wizard_batch_back
+msgid "Batch Back"
+msgstr "退回返工"
+
+#. module: fleet_manage_warranty_maintain
+#: model:ir.actions.server,name:fleet_manage_warranty_maintain.WarrantyItemSheet_action_batch_check_pass_action_id
+msgid "Batch Check Pass"
+msgstr "检验通过"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_manage_warranty_maintain_sheet_view_form
@@ -102,6 +122,7 @@ msgstr "分公司"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_warranty_sheet_inspect_return_form_id
+#: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_batch_back_sheet_form
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_create_maintain_sheet_form
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_dispatch_form
 msgid "Cancel"
@@ -202,6 +223,7 @@ msgstr "建单人"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_inspect_return_create_uid
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_instruction_create_uid
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_create_uid
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_batch_back_create_uid
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_create_create_uid
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_dispatch_create_uid
 msgid "Created by"
@@ -220,6 +242,7 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_inspect_return_create_date
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_instruction_create_date
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_create_date
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_batch_back_create_date
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_create_create_date
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_dispatch_create_date
 msgid "Created on"
@@ -251,7 +274,7 @@ msgstr "已交接"
 #: selection:fleet_warranty_handover_sheet,state:0
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_warranty_handover_sheet_view_form
 msgid "Delivery Return"
-msgstr "已交回"
+msgstr "确认交回"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_handover_sheet_delivery_return_time
@@ -296,6 +319,7 @@ msgstr "派工"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_inspect_return_display_name
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_instruction_display_name
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_display_name
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_batch_back_display_name
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_create_display_name
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_dispatch_display_name
 msgid "Display Name"
@@ -368,11 +392,6 @@ msgstr "预测数量(计算为 在手数量 - 出货 + 进货) \n"
 "否则，这包括存储在任何“内部”类型位置的货物。"
 
 #. module: fleet_manage_warranty_maintain
-#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_handover_sheet_name
-msgid "Handover Sheet"
-msgstr "交接单"
-
-#. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_available_product_id
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_handover_maintenance_id
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_handover_return_maintenance_id
@@ -385,6 +404,7 @@ msgstr "交接单"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_inspect_return_id
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_instruction_id
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_id
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_batch_back_id
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_create_id
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_dispatch_id
 msgid "ID"
@@ -396,7 +416,7 @@ msgid "Important Product"
 msgstr "重要部件"
 
 #. module: fleet_manage_warranty_maintain
-#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:394
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:422
 #, python-format
 msgid "Incorrect 'percentage_work' value"
 msgstr "'工时比例'不正确"
@@ -440,13 +460,12 @@ msgstr "检验标准"
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_inspection_operation
 msgid "Inspection operation"
-msgstr "检验操作"
+msgstr "报检操作"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.actions.server,name:fleet_manage_warranty_maintain.WarrantyItemSheet_into_check_action_id
-#: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.WarrantyInspectSheet_form_id
 msgid "Into Check"
-msgstr "全部报检"
+msgstr "报检"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_manage_warranty_maintain_sheet_view_form
@@ -454,10 +473,9 @@ msgid "Into Inspect"
 msgstr "报检"
 
 #. module: fleet_manage_warranty_maintain
-#: model:ir.actions.server,name:fleet_manage_warranty_maintain.WarrantyItemSheet_into_maintain_action_id
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_manage_warranty_maintain_sheet_view_form
 msgid "Into Maintain"
-msgstr "开工"
+msgstr "开始保养"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_available_product_item_id
@@ -467,12 +485,23 @@ msgstr "开工"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_item_id
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_dispatch_item_id
 msgid "Item"
-msgstr "项目"
+msgstr "保养项目"
+
+#. module: fleet_manage_warranty_maintain
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_batch_back_item_ids
+#: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_batch_back_sheet_form
+msgid "Item Ids"
+msgstr "保养项目"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_dispatch_form
 msgid "Items"
-msgstr "项目"
+msgstr "保养项目"
+
+#. module: fleet_manage_warranty_maintain
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_handover_sheet_name
+msgid "JJD"
+msgstr "交接单"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_manhour_manage_name
@@ -493,6 +522,7 @@ msgstr "工时名称"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_inspect_return___last_update
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_instruction___last_update
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item___last_update
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_batch_back___last_update
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_create___last_update
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_dispatch___last_update
 msgid "Last Modified on"
@@ -511,6 +541,7 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_inspect_return_write_uid
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_instruction_write_uid
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_write_uid
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_batch_back_write_uid
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_create_write_uid
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_dispatch_write_uid
 msgid "Last Updated by"
@@ -529,6 +560,7 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_inspect_return_write_date
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_instruction_write_date
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_write_date
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_batch_back_write_date
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_create_write_date
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_dispatch_write_date
 msgid "Last Updated on"
@@ -562,20 +594,15 @@ msgid "Made Company Id"
 msgstr "制表单位"
 
 #. module: fleet_manage_warranty_maintain
-#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:153
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:155
 #, python-format
 msgid "Maintain Repair Jobs Required!"
 msgstr "需要填写工时管理!"
 
 #. module: fleet_manage_warranty_maintain
-#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_maintain_sheet_name
-msgid "Maintain Sheet"
-msgstr "保养单"
-
-#. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_stock_picking_maintainsheet_id
 msgid "Maintain Sheet Id"
-msgstr "保养单Id"
+msgstr "保养单"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_maintain_sheet_maintain_location
@@ -608,10 +635,11 @@ msgstr "保养单"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_instruction_maintainsheet_id
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_maintainsheet_id
 msgid "Maintainsheet id"
-msgstr "保养单号"
+msgstr "保养单"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_available_product_maintainsheet_id
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_return_record_maintainsheet_id
 msgid "MaintainsheetId"
 msgstr "保养单"
 
@@ -640,7 +668,7 @@ msgstr "保修人"
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_manage_warranty_maintain_sheet_view_form
 msgid "Manage Handover Sheet"
-msgstr "交接单"
+msgstr "管理交接单"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_manhour
@@ -648,7 +676,7 @@ msgid "Manhour"
 msgstr "工时定额（分）"
 
 #. module: fleet_manage_warranty_maintain
-#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:199
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:201
 #, python-format
 msgid "Manhour Manage Ids Required!"
 msgstr "工时管理必填!"
@@ -669,7 +697,7 @@ msgstr "领用上限"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_plan_sheet_vehicle_type
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_vehicle_type
 msgid "Model"
-msgstr "车型"
+msgstr "型号"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,help:fleet_manage_warranty_maintain.field_fleet_warranty_handover_sheet_vehicle_type
@@ -712,6 +740,12 @@ msgid "Other Information"
 msgstr "其他信息"
 
 #. module: fleet_manage_warranty_maintain
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:297
+#, python-format
+msgid "PLPG"
+msgstr "批量派工"
+
+#. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_manhour_manage_percentage_work
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_percentage_work
 msgid "Percentage work"
@@ -724,11 +758,6 @@ msgid "Plan End Time"
 msgstr "计划结束时间"
 
 #. module: fleet_manage_warranty_maintain
-#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_plan_name
-msgid "Plan Number"
-msgstr "计划数"
-
-#. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_plan_sheet_name
 msgid "Plan Sheet"
 msgstr "计划单"
@@ -737,7 +766,7 @@ msgstr "计划单"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_create_plan_sheet_ids
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_create_maintain_sheet_form
 msgid "Plan Sheet Ids"
-msgstr "Plan Sheet Ids"
+msgstr "计划单"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_manhour_manage_plan_start_time
@@ -789,12 +818,17 @@ msgstr "库存数量"
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model,name:fleet_manage_warranty_maintain.model_stock_quant
 msgid "Quants"
-msgstr "份"
+msgstr "数量"
+
+#. module: fleet_manage_warranty_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_manage_warranty_maintain_sheet_view_form
+msgid "Query Inspect Bill"
+msgstr "查看检验单"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_warranty_handover_sheet_view_form
 msgid "Query Repair Bill"
-msgstr "查看维修单"
+msgstr "查看保养单"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_manhour_manage_real_end_time
@@ -810,11 +844,6 @@ msgstr "实际开工时间"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_manhour_manage_real_work
 msgid "Real work"
 msgstr "实际工时"
-
-#. module: fleet_manage_warranty_maintain
-#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_reinspection_count
-msgid "ReinspectionCount"
-msgstr "退检次数"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_maintain_sheet_remark
@@ -851,16 +880,18 @@ msgstr "交旧领新"
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_return_record_return_reason
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_inspect_return_return_reason
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_wizard_batch_back_return_reason
 msgid "Return Reason"
 msgstr "退检原因"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_sheet_item_return_record_ids
 msgid "Return Record Ids"
-msgstr "Return Record Ids"
+msgstr "退检记录"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.WarrantyInspectSheet_form_id
+#: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_batch_back_sheet_form
 msgid "Return To Repair"
 msgstr "退回重检"
 
@@ -886,10 +917,24 @@ msgid "Select category for the current product"
 msgstr "为当前产品选择一个类别"
 
 #. module: fleet_manage_warranty_maintain
-#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:810
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:668
+#, python-format
+msgid "Selected item cannot be check as they are not in 'maintain' state"
+msgstr "当选择的项目不在保养状态不能报检"
+
+#. module: fleet_manage_warranty_maintain
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:694
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:712
+#, python-format
+msgid "Selected item cannot be complete as they are not in 'check' state"
+msgstr "当选择的项目不在检验状态不能完成"
+
+#. module: fleet_manage_warranty_maintain
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:867
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:891
 #, python-format
 msgid "Selected item cannot be return as they are not in 'check' state."
-msgstr "选择的项目不能返回，因为它们不在'检查'状态。"
+msgstr "选择的项目不能返回，因为它们不在'检验'状态。"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_manhour_manage_self_work
@@ -944,7 +989,7 @@ msgstr "状态"
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_maintain_sheet_picking_ids
 msgid "Stock Pickings"
-msgstr "Stock Pickings"
+msgstr "库存打包"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_available_product_vehicle_model
@@ -952,12 +997,17 @@ msgid "Suitable Vehicle"
 msgstr "适用车型"
 
 #. module: fleet_manage_warranty_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_warranty_plan_view_form
+msgid "THCS"
+msgstr "退回重审"
+
+#. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_plan_task_count
 msgid "Task count"
 msgstr "任务数"
 
 #. module: fleet_manage_warranty_maintain
-#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:395
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:423
 #, python-format
 msgid "The percentage_work may not be Incorrect"
 msgstr "工时比例可能不正确 "
@@ -1013,7 +1063,7 @@ msgstr "车架号"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_maintain_sheet_warranty_category
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_plan_sheet_warranty_category
 msgid "WC"
-msgstr "生成保养类别"
+msgstr "保养类别"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_warranty_handover_sheet_view_form
@@ -1043,12 +1093,12 @@ msgstr "保养单"
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.WarrantyInspectSheet_form_id
 msgid "WarrantyInspectSheet Form"
-msgstr "WarrantyInspectSheet Form"
+msgstr "检验单"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.WarrantyInspectSheet_tree_id
 msgid "WarrantyInspectSheet Tree"
-msgstr "WarrantyInspectSheet Tree"
+msgstr "检验单"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.actions.act_window,name:fleet_manage_warranty_maintain.WarrantyInspectSheet_action_id
@@ -1124,7 +1174,7 @@ msgstr "派工"
 #: selection:fleet_warranty_plan,state:0
 #: selection:fleet_warranty_plan_sheet,state:0
 msgid "done"
-msgstr "完成"
+msgstr "执行完毕"
 
 #. module: fleet_manage_warranty_maintain
 #: selection:fleet_warranty_maintain_sheet,state:0
@@ -1141,7 +1191,7 @@ msgstr "执行"
 #. module: fleet_manage_warranty_maintain
 #: selection:fleet_warranty_plan_sheet,state:0
 msgid "executing"
-msgstr "执行中"
+msgstr "正在执行"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.menu,name:fleet_manage_warranty_maintain.fleet_manage_warranty_maintain_warranty_menuitemId
@@ -1171,7 +1221,7 @@ msgstr "移交单"
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_warranty_handover_sheet_tree
 msgid "fleet_warranty_handover_sheet Tree"
-msgstr "fleet_warranty_handover_sheet Tree"
+msgstr "交接单"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.actions.act_window,name:fleet_manage_warranty_maintain.fleet_warranty_handover_sheet_action
@@ -1219,6 +1269,11 @@ msgid "fleet_warranty_sheet_item"
 msgstr "保养项目"
 
 #. module: fleet_manage_warranty_maintain
+#: model:ir.model,name:fleet_manage_warranty_maintain.model_fleet_warranty_wizard_batch_back
+msgid "fleet_warranty_wizard_batch_back"
+msgstr "退回返工"
+
+#. module: fleet_manage_warranty_maintain
 #: model:ir.model,name:fleet_manage_warranty_maintain.model_fleet_warranty_wizard_create
 msgid "fleet_warranty_wizard_create"
 msgstr "创建"
@@ -1231,18 +1286,23 @@ msgstr "派工"
 #. module: fleet_manage_warranty_maintain
 #: selection:fleet_warranty_maintain_sheet,state:0
 msgid "inspect"
-msgstr "检查"
+msgstr "检验"
 
 #. module: fleet_manage_warranty_maintain
 #: selection:fleet_warranty_sheet_item,inspection_operation:0
 msgid "inspection"
-msgstr "检查"
+msgstr "检验"
 
 #. module: fleet_manage_warranty_maintain
 #: selection:fleet_warranty_maintain_sheet,state:0
 #: selection:fleet_warranty_sheet_item,state:0
 msgid "maintain"
 msgstr "保养"
+
+#. module: fleet_manage_warranty_maintain
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_maintain_sheet_plan_sheet_ids
+msgid "maintainSheetId"
+msgstr "保养单"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.actions.act_window,name:fleet_manage_warranty_maintain.maintain_sheet_item_action
@@ -1254,10 +1314,12 @@ msgstr "保养项目"
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_maintain_sheet_instruction_ids
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_maintain_sheet_item_ids
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_maintain_sheet_manhour_manage_ids
+#: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_maintain_sheet_return_record_ids
 msgid "maintainsheetId"
 msgstr "工时管理"
 
 #. module: fleet_manage_warranty_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_batch_back_sheet_form
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_create_maintain_sheet_form
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_dispatch_form
 msgid "or"
@@ -1289,6 +1351,11 @@ msgid "page more_info"
 msgstr "更多信息"
 
 #. module: fleet_manage_warranty_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_manage_warranty_maintain_sheet_view_form
+msgid "page return_record_ids"
+msgstr "退检记录"
+
+#. module: fleet_manage_warranty_maintain
 #: model:ir.model.fields,field_description:fleet_manage_warranty_maintain.field_fleet_warranty_maintain_sheet_plan_id
 msgid "planId"
 msgstr "保养计划号"
@@ -1301,7 +1368,7 @@ msgstr "计划详情"
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_warranty_plan_view_form
 msgid "plan_sheet_ids_tree"
-msgstr "plan_sheet_ids_tree"
+msgstr "计划单"
 
 #. module: fleet_manage_warranty_maintain
 #: selection:fleet_warranty_sheet_item,inspect_result:0
@@ -1314,7 +1381,7 @@ msgid "sheetIds"
 msgstr "sheetIds"
 
 #. module: fleet_manage_warranty_maintain
-#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:266
+#: code:addons/fleet_manage_warranty_maintain/models/warranty_maintain_sheet.py:271
 #, python-format
 msgid "this \"percentage_work\" may not be Incorrect"
 msgstr "工时比例不正确"
@@ -1322,28 +1389,33 @@ msgstr "工时比例不正确"
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_manage_warranty_maintain_sheet_view_form
 msgid "tree available_product_ids"
-msgstr "tree available_product_ids"
+msgstr "可领物料"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_manage_warranty_maintain_sheet_view_form
 msgid "tree instruction_ids"
-msgstr "tree instruction_ids"
+msgstr "作业指导"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_manage_warranty_maintain_sheet_view_form
 msgid "tree item_ids"
-msgstr "tree item_ids"
+msgstr "保养项目"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_manage_warranty_maintain_sheet_view_form
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.item_form_action
 msgid "tree manhour_manage_ids"
-msgstr "tree manhour_manage_ids"
+msgstr "工时管理"
+
+#. module: fleet_manage_warranty_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.fleet_manage_warranty_maintain_sheet_view_form
+msgid "tree return_record_ids"
+msgstr "退检记录"
 
 #. module: fleet_manage_warranty_maintain
 #: selection:fleet_warranty_plan_sheet,state:0
 msgid "wait"
-msgstr "等待"
+msgstr "等待执行"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.actions.act_window,name:fleet_manage_warranty_maintain.fleet_warranty_maintain_sheet_action
@@ -1364,12 +1436,17 @@ msgid "warranty_plan_sheet"
 msgstr "计划单"
 
 #. module: fleet_manage_warranty_maintain
+#: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_batch_back_sheet_form
+msgid "wizard_batch_back form"
+msgstr "退回"
+
+#. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_create_maintain_sheet_form
 msgid "wizard_create form"
-msgstr "wizard_create form"
+msgstr "创建"
 
 #. module: fleet_manage_warranty_maintain
 #: model:ir.ui.view,arch_db:fleet_manage_warranty_maintain.wizard_dispatch_form
 msgid "wizard_dispatch form"
-msgstr "wizard_dispatch form"
+msgstr "派工"
 

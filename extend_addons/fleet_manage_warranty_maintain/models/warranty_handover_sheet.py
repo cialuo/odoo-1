@@ -5,7 +5,7 @@ class WarrantyHandoverSheet(models.Model): # 交接单
     _inherit = 'mail.thread'
     _name = 'fleet_warranty_handover_sheet'
 
-    name = fields.Char(string="Handover Sheet", required=True, index=True, default='New')
+    name = fields.Char(string="JJD", required=True, index=True, default='New')
 
     branch_office = fields.Char() # 分公司
 

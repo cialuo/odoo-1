@@ -18,7 +18,7 @@
         <menuitem name="warranty_item_method_craft"
                   id="warranty_item_method_craft"
                   parent="fleet_manage_menu.fleet_manage_basic"
-                  action = "warranty_item_craft_action"/>
+                  action = "warranty_item_craft_action" sequence="3"/>
 
         <menuitem name="warranty_item_method_quota"
                   id="fleet_manage_quota"

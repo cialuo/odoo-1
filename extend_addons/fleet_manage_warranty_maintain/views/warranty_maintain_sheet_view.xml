@@ -13,8 +13,7 @@
                  <!--</header>-->
                  <sheet>
                     <div class="oe_title">
-	                    <label for="name"/>
-							<h1><field name="name" readonly="1"/></h1>
+	                    <h1><field name="name" readonly="1"/></h1>
                     </div>
                     <notebook>
                         <page string="MaintainRepair Jobs" >
@@ -35,21 +34,28 @@
                         </page>
                     </notebook>
 
-                    <group col="2" attrs="{'invisible': [('percentage_work', '=', 0)]}" > <!-- attrs="{'invisible': [('percentage_work', '=', 0)]}"  -->
+                    <group col="2" attrs="{'invisible': [('percentage_work', '=', 0)]}"> <!-- attrs="{'invisible': [('percentage_work', '=', 0)]}"  -->
                               <group>
                                 <field name="plan_start_time" />
                                 <label for="percentage_work"/>
                                 <div class="o_row">
                                   <field name="percentage_work"/><span>%</span>
                                 </div>
-                                <field name="component_ids" widget="many2many_tags" options="{'no_create_edit': True}" /> <!--  attrs="{'invisible': [('is_important_product', '=', False)],'required': [('is_important_product','=', True)]}" -->
-                                <field name="work_time" readonly="1"/>
 								<field name="important_product_id" invisible="1"/>
 							    <field name="vehicle_id" invisible="1"/>
                               </group>
                               <group>
                                 <field name="user_id" options="{'no_create': True, 'no_open': True}" />
                                 <field name="plan_end_time" />
+                              </group>
+                    </group>
+
+                    <group col="2" > <!-- attrs="{'invisible': [('percentage_work', '=', 0)]}"  -->
+                              <group>
+                                <field name="component_ids" widget="many2many_tags" options="{'no_create_edit': True}" /> <!--  attrs="{'invisible': [('is_important_product', '=', False)],'required': [('is_important_product','=', True)]}" -->
+                              </group>
+                              <group>
+                                  <field name="work_time" readonly="1"/>
                               </group>
                     </group>
 
@@ -105,7 +111,12 @@
 
                         <button name="action_into_maintain" states="dispatch" string="Into Maintain" type="object" class="oe_highlight o_expense_submit"/> <!-- 进入保养状态 -->
 
+                        <button name="return_action_to_open" states="maintain,inspect,done" type="object" class="oe_highlight" string="Query Inspect Bill" context="{'xml_id':'WarrantyItemSheet_action_id'}"/> <!--查看检验单 -->
+
                         <button name="action_into_inspect" states="maintain" string="Into Inspect" type="object" class="oe_highlight o_expense_submit"/> <!-- 全部报检 -->
+
+
+
 
                         <!--<button name="action_draft" type="object"-->
                                 <!--string="back to draft"-->
@@ -146,7 +157,7 @@
 
                         <notebook>
                             <page string="page item_ids">
-                                <field name="item_ids" context="{'form_view_ref': 'fleet_manage_warranty_maintain.item_form_action'}"  attrs="{'readonly':[('state','!=','dispatch')]}"  > <!--options="{'no_create': True, 'no_open': True}" attrs="{'readonly':[('state','!=','dispatch')]}"  context="{'form_view_ref': 'fleet_manage_warranty_maintain.item_form_action'}" -->
+                                <field name="item_ids" options="{'no_create': True, 'no_open': True}" context="{'form_view_ref': 'fleet_manage_warranty_maintain.item_form_action'}"  attrs="{'readonly':[('state','!=','dispatch')]}"  > <!--options="{'no_create': True, 'no_open': True}" attrs="{'readonly':[('state','!=','dispatch')]}"  context="{'form_view_ref': 'fleet_manage_warranty_maintain.item_form_action'}" -->
                                     <tree string="tree item_ids" create="false">
                                         <field name="sequence"/>
                                         <field name="category_id"/>
@@ -155,7 +166,8 @@
                                         <field name="maintenance_personnel"/>
                                         <field name="state"/>
                                         <field name="inspection_operation"/>
-                                        <field name="reinspection_count"/>
+                                        <!--<field name="reinspection_count"/>-->
+                                        <field name="rework_count"/>
                                     </tree>
                                 </field>
 
@@ -175,7 +187,7 @@
                             </page>
 
                             <page string="page manhour_manage_ids">
-                                <field name="manhour_manage_ids" widget="one2many_list" attrs="{'readonly':[('state','!=','dispatch')]}" >
+                                <field name="manhour_manage_ids" widget="one2many_list" options="{'no_create': True, 'no_open': True}" attrs="{'readonly':[('state','!=','dispatch')]}" >
                                     <tree string="tree manhour_manage_ids" editable="bottom" >
                                         <field name="sequence" readonly="1"/>
                                         <field name="item_category_id" readonly="1"/>
@@ -271,20 +283,32 @@
                                 </field>
                             </page>
 
+                            <page string="page return_record_ids">
+                                <field name="return_record_ids" readonly="1" > <!--options="{'no_create': True, 'no_open': True}" attrs="{'readonly':[('state','!=','dispatch')]}"  context="{'form_view_ref': 'fleet_manage_warranty_maintain.item_form_action'}" -->
+                                    <tree string="tree return_record_ids" create="false">
+                                        <field name="maintenance_personnel"/>
+                                        <field name="sheet_item"/>
+                                        <field name="return_reason"/>
+                                        <field name="inspect_user_id"/>
+                                        <field name="inspect_return_time"/>
+                                    </tree>
+                                </field>
+                            </page>
+
                             <page string="page more_info">
 
                                 <group col="2">
                                     <group >
-                                        <field name="repair_unit"/>
+                                        <field name="repair_unit" readonly="1"/>
                                         <field name="fleet" readonly="1"/>
-                                        <field name="fill_personnel"/>
-                                        <field name="remark"/>
+                                        <field name="fill_personnel" readonly="1"/>
+                                        <field name="remark" />
                                     </group>
                                     <group >
-                                        <field name="repair_workshop"/>
-                                        <field name="maintenance_level"/>
-                                        <field name="fill_personnel_unit"/>
-                                        <field name="maintain_location"/>
+                                        <field name="repair_workshop" readonly="1"/>
+                                        <field name="maintenance_level" readonly="1"/>
+                                        <field name="fill_personnel_unit" readonly="1"/>
+                                        <field name="maintain_location" readonly="1"/>
                                     </group>
                                 </group>
                             </page>
@@ -346,7 +370,8 @@
 					<field name="maintenance_personnel"/>
 					<field name="state"/>
 					<field name="inspection_operation"/>
-					<field name="reinspection_count"/>
+					<!--<field name="reinspection_count"/>-->
+					<field name="rework_count"/>
                 </tree>
             </field>
         </record>
@@ -469,10 +494,10 @@
             <field name="arch" type="xml">
                 <form string="WarrantyInspectSheet Form">
                 	<header>
-                        <button name="action_into_check" type="object"
-                                string="Into Check"
-								states="maintain"
-                                class="oe_highlight"/> <!-- 报检-->
+                        <!--<button name="action_into_check" type="object"-->
+                                <!--string="Into Check"-->
+								<!--states="maintain"-->
+                                <!--class="oe_highlight"/> &lt;!&ndash; 报检&ndash;&gt;-->
 
 						<button name="action_check_pass" type="object"
                                 string="Check Pass"
@@ -493,24 +518,24 @@
 	                    </div>
 						<group col="2">
 							<group>
-								<field name="category_id" />
-								<field name="item_id" />
-								<field name="maintenance_mode" />
-								<field name="maintenance_personnel" />
+								<field name="category_id" readonly="1"/>
+								<field name="item_id" readonly="1"/>
+								<field name="maintenance_mode" readonly="1"/>
+								<field name="maintenance_personnel" readonly="1"/>
 
 							</group>
 							<group>
-								<field name="vehicle_id" />
-								<field name="license_plate" />
-								<field name="vehicle_type" />
+								<field name="vehicle_id" readonly="1"/>
+								<field name="license_plate" readonly="1"/>
+								<field name="vehicle_type" readonly="1"/>
 							</group>
 						</group>
 						<notebook>
 							<page string="Inspect Standard">
-								<field name="inspection_criteria"/>
+								<field name="inspection_criteria" readonly="1"/>
                             </page>
 							<page string="Inspect Return Records" >
-                                <field name="return_record_ids">
+                                <field name="return_record_ids" readonly="1">
                                     <tree string="Inspect Return Records">
 										<field name="sequence"/>
                                         <field name="maintainsheet_name"/>
@@ -563,7 +588,7 @@
             parent="fleet_manage_warranty_maintain_warranty_menuitemId"
             action="WarrantyItemSheet_action_id"/>
 
-        <!-- 保养项目 报检 -->
+        <!-- 保养项目、检验单 报检 -->
         <record id="WarrantyItemSheet_into_check_action_id" model="ir.actions.server">
             <field name="name">Into Check</field>
             <field name="type">ir.actions.server</field>
@@ -584,27 +609,83 @@
         </record>
 
 
-        <!-- 保养项目 退检 -->
-        <record id="WarrantyItemSheet_into_maintain_action_id" model="ir.actions.server">
-            <field name="name">Into Maintain</field>
+        <!--&lt;!&ndash; 保养项目 退检 &ndash;&gt;-->
+        <!--<record id="WarrantyItemSheet_into_maintain_action_id" model="ir.actions.server">-->
+            <!--<field name="name">Into Maintain</field>-->
+            <!--<field name="type">ir.actions.server</field>-->
+            <!--<field name="model_id" ref="model_fleet_warranty_sheet_item"/>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="code">-->
+                <!--if context.get('active_model') == 'fleet_warranty_sheet_item' and context.get('active_ids'):-->
+                    <!--action = env['fleet_warranty_sheet_item'].browse(context['active_ids']).action_into_maintain()-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="WarrantyItemSheet_into_maintain" model="ir.values">-->
+            <!--<field name="name">Into Maintain</field>-->
+            <!--<field name="model_id" ref="model_fleet_warranty_sheet_item"/>-->
+            <!--<field name="model">fleet_warranty_sheet_item</field>-->
+            <!--<field name="key2">client_action_multi</field>-->
+            <!--<field eval="'ir.actions.server,%d' % WarrantyItemSheet_into_maintain_action_id" name="value"/>-->
+        <!--</record>-->
+
+
+        <!-- 保养项目、检验单 检验通过 -->
+        <record id="WarrantyItemSheet_action_batch_check_pass_action_id" model="ir.actions.server">
+            <field name="name">Batch Check Pass</field>
             <field name="type">ir.actions.server</field>
             <field name="model_id" ref="model_fleet_warranty_sheet_item"/>
             <field name="state">code</field>
             <field name="code">
                 if context.get('active_model') == 'fleet_warranty_sheet_item' and context.get('active_ids'):
-                    action = env['fleet_warranty_sheet_item'].browse(context['active_ids']).action_into_maintain()
+                    action = env['fleet_warranty_sheet_item'].browse(context['active_ids']).action_batch_check_pass()
             </field>
         </record>
 
-        <record id="WarrantyItemSheet_into_maintain" model="ir.values">
-            <field name="name">Into Maintain</field>
+        <record id="WarrantyItemSheet_action_batch_check_pass" model="ir.values">
+            <field name="name">Batch Check Pass</field>
             <field name="model_id" ref="model_fleet_warranty_sheet_item"/>
             <field name="model">fleet_warranty_sheet_item</field>
             <field name="key2">client_action_multi</field>
-            <field eval="'ir.actions.server,%d' % WarrantyItemSheet_into_maintain_action_id" name="value"/>
+            <field eval="'ir.actions.server,%d' % WarrantyItemSheet_action_batch_check_pass_action_id" name="value"/>
         </record>
 
 
+        <!-- 批量退检 -->
+
+        <record model='ir.ui.view' id='wizard_batch_back_sheet_form'>
+            <field name='name'>wizard_batch_back_sheet.form</field>
+            <field name='model'>fleet_warranty_wizard_batch_back</field>
+            <field name='arch' type='xml'>
+                <form string='wizard_batch_back form'>
+                    <notebook>
+                        <page string="Item Ids" >
+                                <field name='item_ids' readonly="1"/>
+                        </page>
+                    </notebook>
+
+                    <group>
+                        <field name="return_reason"/>
+                    </group>
+
+                    <footer>
+                        <button name="return_to_repair" type="object"
+                                string="Return To Repair" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <act_window id='warranty_wizard_batch_back'
+                    name='Batch Back'
+                    src_model='fleet_warranty_sheet_item'
+                    res_model='fleet_warranty_wizard_batch_back'
+                    view_mode='form'
+                    target='new'
+                    key2='client_action_multi'/>
 
 
 
