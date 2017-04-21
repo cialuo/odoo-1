@@ -24,7 +24,7 @@ class ImportProductRepairRecord(models.Model):
             i.repair_count = len(i.repair_ids)
 
     @api.multi
-    def return_action_to_open(self):
+    def action_to_open(self):
         """
         报修单:
             功能：跳转到维修单
