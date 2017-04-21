@@ -1,26 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* employees
+#	* employees
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-17 11:49+0000\n"
-"PO-Revision-Date: 2017-04-17 19:50+0800\n"
+"POT-Creation-Date: 2017-04-21 05:56+0000\n"
+"PO-Revision-Date: 2017-04-21 05:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 2.0.1\n"
 
 #. module: employees
 #: model:ir.model,name:employees.model_res_groups
 msgid "Access Groups"
-msgstr "访问组"
+msgstr "访问用户群组"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.lty_view_employee_form
@@ -282,12 +280,12 @@ msgstr "入职时间"
 #. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_document_employeeinfo_menu
 msgid "employee infomation"
-msgstr "员工信息"
+msgstr "员工档案"
 
 #. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_document_post_menu
 msgid "employee post"
-msgstr "岗位"
+msgstr "岗位设置"
 
 #. module: employees
 #: code:addons/employees/models/models.py:42
@@ -585,42 +583,8 @@ msgid "related post"
 msgstr "岗位"
 
 #. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_salary_batch_handle_menu
-msgid "salary batch handle"
-msgstr "薪资批处理"
-
-#. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_salary_constructure_menu
-msgid "salary constructure"
-msgstr "薪资结构"
-
-#. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_salary_management_menu
-msgid "salary management"
-msgstr "薪资管理"
-
-#. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_salary_rule_menu
-msgid "salary rule"
-msgstr "薪资规则"
-
-#. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_salary_rule_category_menu
-msgid "salary rule category"
-msgstr "薪资规则分类"
-
-#. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_salary_slip_menu
-msgid "salary slip"
-msgstr "工资条"
-
-#. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_salary_system_menu
-msgid "salary system"
-msgstr "薪资体系"
-
-#. module: employees
 #: code:addons/employees/models/models.py:187
 #, python-format
 msgid "sex"
 msgstr "性别"
+
