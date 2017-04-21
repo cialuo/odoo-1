@@ -1,0 +1,20 @@
+<odoo>
+	<data>
+		<menuitem name="vehicle_manage_menu" sequence="40" id="vehicle_manage_menu_root"/>
+
+        <menuitem name="vehicle_basic_manage" id="vehicle_basic_manage" parent="vehicle_manage_menu_root" sequence="10"/> <!--车辆基础管理-->
+            <menuitem name="quota_manage" id="quota_manage" parent="vehicle_basic_manage" sequence="10"/> <!--定额管理-->
+
+        <menuitem name="vehicle_use_manage" id="vehicle_use_manage" parent="vehicle_manage_menu_root" sequence="20"/> <!--车辆使用管理-->
+
+        <menuitem name="warranty_maintain_manage" id="warranty_maintain_manage" parent="vehicle_manage_menu_root" sequence="30"/> <!--车辆维保管理-->
+
+        <menuitem name="important_component_manage" id="important_component_manage" parent="vehicle_manage_menu_root" sequence="40"/> <!--重要部件管理-->
+
+        <menuitem name="equipment_manage" id="equipment_manage" parent="vehicle_manage_menu_root" sequence="50"/> <!--设备管理-->
+
+        <menuitem name="warranty_maintain_basic_manage" id="warranty_maintain_basic_manage" parent="vehicle_manage_menu_root" sequence="60"/> <!--维保体系管理-->
+
+        <menuitem name="vehicle_setting" id="vehicle_setting" parent="vehicle_manage_menu_root" sequence="70"/> <!--配置-->
+	</data>
+</odoo>
