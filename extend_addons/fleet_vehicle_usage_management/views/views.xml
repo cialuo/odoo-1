@@ -137,10 +137,10 @@
                             <field name="inspectionremark" />
                         </group>
                         <group>
+                            <field name="vehicle_id.reg_no" />
+                            <field name="vehicle_id.reg_date" />
                             <field name="vehicle_id." />
-                            <field name="vehicle_id." />
-                            <field name="vehicle_id." />
-                            <field name="vehicle_id." />
+                            <field name="vehicle_id.forced_destroy" />
                         </group>
                     </group>
                 </sheet>

@@ -36,7 +36,7 @@ class InspectionPlan(models.Model):
     # 结束日期
     endtdate = fields.Date(string=_('inspection end date'))
     # 制表日期
-    create_date = fields.datetime(string=_('plan create date'))
+    create_date = fields.Datetime(string=_('plan create date'))
     # 审批时间
     approvaldate = fields.Date(string=_('approval date'))
     # 分公司
