@@ -10,6 +10,7 @@
     重要部件管理
     """,
     'data': [
+        'data/component_data.xml',
         'views/component_view.xml',
         'views/vehicle_component_view.xml',
     ],

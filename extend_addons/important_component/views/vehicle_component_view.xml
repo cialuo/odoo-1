@@ -10,7 +10,7 @@
                 <xpath expr="//notebook" position="inside">
                     <page name="important_product" string="Important Product">
                         <field name="component_ids">
-                            <tree editable="top" create="false">
+                            <tree editable="top" create="false" delete="false">
                                 <field name="code"/>
                                 <field name="product_id" readonly="1"/>
                                 <field name="odometer" readonly="1"/>
