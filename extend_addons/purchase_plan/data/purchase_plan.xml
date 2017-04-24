@@ -9,5 +9,11 @@
             <field name="padding">0</field>
             <field eval="1" name="number_increment"/>
         </record>
+        <!--定义模块分类-->
+        <record model="ir.module.category" id="module_purchase_plan">
+            <field name="name">Purchase Plan</field>
+            <field name="description">Purchase Plan order</field>
+            <field name="sequence">51</field>
+        </record>
     </data>
 </odoo>
