@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <!-- Sequences for maintain.report -->
+        <record id="seq_maintain_report" model="ir.sequence">
+            <field name="name">Maintain Report</field>
+            <field name="code">maintain.report</field>
+            <field name="prefix">BXD</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Sequences for maintain.repair -->
+        <record id="seq_maintain_repair" model="ir.sequence">
+            <field name="name">Maintain Repair</field>
+            <field name="code">maintain.repair</field>
+            <field name="prefix">WXD</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

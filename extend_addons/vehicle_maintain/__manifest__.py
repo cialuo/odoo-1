@@ -24,17 +24,22 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['vehicle_manage_menu','product','stock'],
+    'depends': ['vehicle_manage_menu', 'product', 'vehicle_manage'],
 
     # always loaded
     'data': [
         # 'security/maintain_security.xml',
         # # 'security/ir.model.access.csv',
-        'views/fault_view.xml'
-        # "data/sequence.xml",
-        # 'views/fleet_manage_inspect.xml',
-        # 'views/maintain_view.xml',
-        # 'views/repair_record.xml',
+
+        'views/fault_view.xml',
+
+        "data/maintain_sequence.xml",
+        'views/maintain_inspect_view.xml',
+
+        "views/maintain_view.xml",
+        'views/vehicle_repair_record.xml',
+
+
 
 
     ],
