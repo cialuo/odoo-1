@@ -1,0 +1,281 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* important_component
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-24 08:35+0000\n"
+"PO-Revision-Date: 2017-04-24 08:35+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: important_component
+#: model:ir.model.fields,help:important_component.field_vehicle_model_product_description
+msgid "A precise description of the Product, used only for internal information purposes."
+msgstr "产品的精确说明，仅用于内部备注。"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_active
+msgid "Active"
+msgstr "有效"
+
+#. module: important_component
+#: selection:product.component,state:0
+msgid "Avaliable"
+msgstr "在库备用"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_checkout_date
+msgid "Checkout Date"
+msgstr "检验日期"
+
+#. module: important_component
+#: sql_constraint:product.component:0
+msgid "Code already exists"
+msgstr "部件编码已存在"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_fleet_vehicle_component_ids
+#: selection:product.product,important_type:0
+msgid "Component"
+msgstr "作为重要部件管理"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_code
+msgid "Component Code"
+msgstr "部件编码"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_product_component_ids
+#: model:ir.ui.view,arch_db:important_component.important_component_product_extend_form
+msgid "Component Info"
+msgstr "部件清单"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_fleet_vehicle_model_control_import
+msgid "Control"
+msgstr "重要部件控制"
+
+#. module: important_component
+#: model:ir.ui.view,arch_db:important_component.important_component_product_extend_form
+msgid "Create order Date"
+msgstr "建档日期"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_create_uid
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_create_date
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: important_component
+#: model:ir.model.fields,help:important_component.field_vehicle_model_product_uom_id
+msgid "Default Unit of Measure used for all stock operation."
+msgstr "所有库存作业的默认计量单位"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_description
+msgid "Description"
+msgstr "规格描述"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_display_name
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: important_component
+#: selection:product.product,important_type:0
+msgid "Energy"
+msgstr "作为能源管理"
+
+#. module: important_component
+#: selection:product.product,important_type:0
+msgid "Equipment"
+msgstr "作为设备管理"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_id
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_id
+msgid "ID"
+msgstr "ID"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_product_is_important
+msgid "Important"
+msgstr "特别管理"
+
+#. module: important_component
+#: model:ir.ui.view,arch_db:important_component.fleet_vehicle_view_form_product
+msgid "Important Product"
+msgstr "重要部件"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_product_important_type
+msgid "Important Type"
+msgstr "管理类型"
+
+#. module: important_component
+#: code:addons/important_component/models/component.py:44
+#, python-format
+msgid "Important product be Added to model can not change to not important!"
+msgstr "已增加到车型的重要部件不能取消重要管理!"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_fleet_vehicle
+msgid "Information on a vehicle"
+msgstr "车辆上的信息"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_default_code
+msgid "Internal Reference"
+msgstr "物资编码"
+
+#. module: important_component
+#: selection:product.component,state:0
+msgid "Inuse"
+msgstr "正在服役"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_is_update
+msgid "Is Update"
+msgstr "需更新"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component___last_update
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_write_uid
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_write_date
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_location_id
+msgid "Location"
+msgstr "物理位置"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_fleet_vehicle_model
+msgid "Model of a vehicle"
+msgstr "车辆型号"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_move_id
+msgid "Move lines"
+msgstr "移动明细"
+
+#. module: important_component
+#: code:addons/important_component/models/fleet.py:122
+#, python-format
+msgid "Not have any vehicles!"
+msgstr "该车型无车辆!"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_note
+msgid "Note"
+msgstr "备注"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_odometer
+msgid "Odometer"
+msgstr "服役里程数"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_product_product
+#: model:ir.model.fields,field_description:important_component.field_product_component_product_id
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_product_id
+msgid "Product"
+msgstr "物资名称"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_fleet_vehicle_model_product_lines
+msgid "Product Line"
+msgstr "要件列表"
+
+#. module: important_component
+#: model:ir.ui.view,arch_db:important_component.fleet_vehicle_model_view_form_ext
+msgid "Product List"
+msgstr "要件列表"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_qty
+msgid "Qty"
+msgstr "装配数量"
+
+#. module: important_component
+#: selection:product.component,state:0
+msgid "Repareing"
+msgstr "正在维修"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_state
+msgid "State"
+msgstr "状态"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_stock_move
+msgid "Stock Move"
+msgstr "库存移动"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_uom_id
+msgid "Uom"
+msgstr "单位"
+
+#. module: important_component
+#: model:ir.ui.view,arch_db:important_component.fleet_vehicle_model_view_form_ext
+msgid "Update Product"
+msgstr "更新部件"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_product_component_parent_vehicle
+msgid "Vehicle"
+msgstr "车辆"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_model_id
+msgid "Vehicle Model"
+msgstr "车型"
+
+#. module: important_component
+#: selection:product.component,state:0
+msgid "Waiting Repare"
+msgstr "在库待修"
+
+#. module: important_component
+#: code:addons/important_component/models/fleet.py:31
+#, python-format
+msgid "can not update model,you could add a new vehicle"
+msgstr "车辆创建后，车型不能更改！"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_product_component
+msgid "product.component"
+msgstr "product.component"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_vehicle_model_product
+msgid "vehicle.model.product"
+msgstr "vehicle.model.product"
+

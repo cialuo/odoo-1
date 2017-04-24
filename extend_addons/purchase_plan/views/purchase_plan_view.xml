@@ -102,6 +102,6 @@
             <field name="view_type">form</field>
         </record>
         <!--添加菜单-->
-        <menuitem id="menu_purchase_plan" action="action_purchase_plan" sequence="15" parent="materials_manage.materials_menu_purchase"/>
+        <menuitem id="menu_purchase_plan" action="action_purchase_plan" sequence="15" parent="materials_menu.materials_menu_purchase"/>
     </data>
 </odoo>
