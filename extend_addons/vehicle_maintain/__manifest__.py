@@ -18,7 +18,7 @@
         5,检验单
     """,
 
-    'author': "Xiangll",
+    'author': "Xiang",
 
     'category': 'Advanced Edition',
     'version': '0.1',

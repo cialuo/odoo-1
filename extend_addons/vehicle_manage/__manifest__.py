@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "vehicle_manage_menu",
+    'name': "vehicle_manage",
 
     'description': """
-        车辆管理菜单项
+        a）车辆技术管理,车型管理,排放标准
     """,
 
     'author': "Xiang",
@@ -12,14 +12,16 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['hr', 'fleet', 'vehicle_manage_menu','stock'],
 
     # always loaded
     'data': [
-         'views/menu_view.xml',
+        # 'data/fleet_data.xml',
+
+        'views/vehicle_view.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,
     'application': True,
-    'auto_install': False,    
+    'auto_install': False,
 }
