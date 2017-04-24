@@ -17,8 +17,8 @@
     # always loaded
     'data': [
         # 'data/fleet_data.xml',
-
         'views/vehicle_view.xml',
+        'views/stock_location.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,

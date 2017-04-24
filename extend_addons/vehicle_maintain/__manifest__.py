@@ -36,6 +36,7 @@
         "data/maintain_sequence.xml",
         'views/maintain_inspect_view.xml',
 
+
         "views/maintain_view.xml",
         'views/vehicle_repair_record.xml',
 
