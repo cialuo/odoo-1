@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="ltyhr_salary_management_menu" name="salary management"
+<!--    <menuitem id="ltyhr_salary_management_menu" name="salary management"
               parent="ltyhr_top_menu"/>
 
     <menuitem id="ltyhr_salary_system_menu" name="salary system"
@@ -15,6 +15,6 @@
     <menuitem id="ltyhr_salary_batch_handle_menu" name="salary batch handle"
               parent="ltyhr_salary_management_menu" action="hr_payroll.action_hr_payslip_run_tree" />
     <menuitem id="ltyhr_salary_slip_menu" name="salary slip"
-              parent="ltyhr_salary_management_menu" action="hr_payroll.action_view_hr_payslip_form" />
+              parent="ltyhr_salary_management_menu" action="hr_payroll.action_view_hr_payslip_form" />-->
 
 </odoo>

@@ -82,6 +82,13 @@ class InspectionPlan(models.Model):
         self.state = 'done'
         self.boss = self._uid
 
+    def generatePlanDetail(self):
+        """
+        自动填充计划详情列表
+        :return:
+        """
+        pass
+
 class planItem(models.Model):
     _name = 'fleet_vehicle_usage_management.planitem'
 
