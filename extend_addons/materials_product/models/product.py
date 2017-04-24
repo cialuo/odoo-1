@@ -20,7 +20,7 @@ class Product(models.Model):
     lifetime = fields.Float(string='Lifetime odomter')
     odometer = fields.Float(string='Odometer')
     parent_id = fields.Many2one('product.product', string='Parent Product')
-    inter_code = fields.Char(string='Inter Code')
+    inter_code = fields.Char(string='Inter Code', required=True)
     default_code = fields.Char(compute='_compute_default_code')
     keeper_id = fields.Many2one('res.users', string='Keeper')
     shelf = fields.Char(string='Shelf')
