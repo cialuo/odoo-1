@@ -329,8 +329,8 @@
 										<field name="change_count"/>
 										<field name="onhand_qty"/>
 										<field name="virtual_available"/>
-										<!--<field name="require_trans"/>-->
-										<!--<field name="vehicle_model" widget="many2many_tags"/>-->
+										<field name="require_trans"/>
+										<field name="vehicle_model" widget="many2many_tags"/>
                                     </tree>
                                 </field>
                              </page>
@@ -525,7 +525,7 @@
 
 		<!-- MaintainPrecheck Action-->
 		<record model="ir.actions.act_window" id="maintain_precheck_action">
-			<field name="name">fleet_manage_maintain_precheck_action</field>
+			<field name="name">maintain_precheck_action</field>
 			<field name="res_model">maintain.report</field>
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('state', 'not in', ['back','draft'])]</field>
@@ -548,7 +548,7 @@
 
 		<!-- MaintainInspect Action-->
 		<record model="ir.actions.act_window" id="maintain_inspect_action">
-			<field name="name">fleet_manage_maintain_inspect_action</field>
+			<field name="name">maintain_inspect_action</field>
 			<field name="res_model">maintain.repair</field>
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('state', 'in', ['repair','inspect','done'])]</field>

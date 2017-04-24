@@ -14,7 +14,7 @@ class FleetVehicle(models.Model):
     def _compute_repair_count(self):
         for record in self:
             record.repair_count = self.env['maintain.repair'].search_count([('vehicle_id', '=', self.id),
-                                                                            ('state', 'in', ['done'])])
+                                                                            ('state', 'in', ['completed'])])
 
     @api.multi
     def action_to_open(self):
@@ -28,7 +28,7 @@ class FleetVehicle(models.Model):
             res = self.env['ir.actions.act_window'].for_xml_id('maintain_manage', xml_id)
             res.update(
                 context=dict(self.env.context, default_vehicle_id=self.id),
-                domain=[('vehicle_id', '=', self.id), ('state', 'in', ['done'])]
+                domain=[('vehicle_id', '=', self.id), ('state', 'in', ['completed'])]
             )
             return res
         return False

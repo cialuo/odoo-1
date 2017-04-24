@@ -46,9 +46,9 @@ class MaintainReport(models.Model):
                             ('wait_repair',"Wait Repair"),
                             ('repair', "Repair"),
                             ('inspect', "Inspect"),
-                            ('done', "Done")], default='draft')
+                            ('completed', "Completed")], default='draft')
     repair_ids = fields.One2many("maintain.repair", 'report_id', string='Maintain Repair',
-                                 states={'done':[('readonly', True)],
+                                 states={'completed':[('readonly', True)],
                                          # 'repair':[('readonly', True)]
                                          }
     )
@@ -169,25 +169,25 @@ class MaintainRepair(models.Model):
 
     fault_category_id = fields.Many2one("maintain.fault.category", ondelete='set null', string="Fault Category",
                                         required=True, states={
-                                          'done': [('readonly', True)],
+                                          'completed': [('readonly', True)],
                                           'inspect': [('readonly', True)],
                                           'repair': [('readonly', True)],
                                         })
     fault_appearance_id = fields.Many2one("maintain.fault.appearance", ondelete='set null',
                                           string="Fault Appearance", states={
-                                          'done': [('readonly', True)],
+                                          'completed': [('readonly', True)],
                                           'inspect': [('readonly', True)],
                                           'repair': [('readonly', True)],
                                         })
     fault_reason_id = fields.Many2one("maintain.fault.reason", ondelete='set null',
                                       string="Fault Reason", states={
-                                          'done': [('readonly', True)],
+                                          'completed': [('readonly', True)],
                                           'inspect': [('readonly', True)],
                                           'repair': [('readonly', True)],
                                         })
     fault_method_id = fields.Many2one("maintain.fault.method", ondelete='set null',
                                       string="Fault Method", states={
-                                          'done': [('readonly', True)],
+                                          'completed': [('readonly', True)],
                                           'inspect': [('readonly', True)],
                                           'repair': [('readonly', True)],
                                         })
@@ -209,11 +209,11 @@ class MaintainRepair(models.Model):
         ('wait_repair', "Wait Repair"),
         ('repair', "Repair"),
         ('inspect', "Inspect"),
-        ('done', "Done")], default='draft', readonly=True)
+        ('completed', "Completed")], default='draft', readonly=True)
 
     job_ids = fields.One2many("maintain.repair_jobs", 'repair_id', string='Maintain Repair Jobs',
                               states={
-                                  'done': [('readonly', True)],
+                                  'completed': [('readonly', True)],
                                   'inspect': [('readonly', True)],
                                   'repair': [('readonly', True)],
                               })
@@ -261,7 +261,7 @@ class MaintainRepair(models.Model):
                         'product_id': j.product_id.id,
                         'change_count': j.change_count,
                         'max_count': j.max_count,
-                        # 'require_trans': j.require_trans,
+                        'require_trans': j.require_trans,
                     }
                     datas.append((0, 0, data))
             vals.update({'available_product_ids': datas, 'materials_control':method.materials_control})
@@ -482,9 +482,9 @@ class MaintainAvailableProduct(models.Model):
     uom_id = fields.Many2one('product.uom', 'Unit of Measure', related='product_id.uom_id')
     onhand_qty = fields.Float('Quantity On Hand', related='product_id.qty_available')
     virtual_available = fields.Float('Forecast Quantity', related='product_id.virtual_available')
-    # require_trans = fields.Boolean("Require Trans", readonly=True)
-    # vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec',
-    #                                   string='Suitable Vehicle', readonly=True)
+    require_trans = fields.Boolean("Require Trans", readonly=True)
+    vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec',
+                                      string='Suitable Vehicle', readonly=True)
     product_size = fields.Text("Product Size", related='product_id.description', readonly=True)
 
     change_count = fields.Integer("Change Count")
@@ -573,14 +573,14 @@ class MaintainInspect(models.Model):
             判断该检验单对应的报修单是否完工
         """
         for i in self:
-            if i.state not in ('inspect', 'done'):
+            if i.state not in ('inspect', 'completed'):
                 raise exceptions.UserError(_("Selected inspect(s) cannot be confirmed as they are not in 'inspect' state"))
-            i.state = 'done'
+            i.state = 'completed'
             i.inspect_result = 'qualified'
             i.end_inspect_time = fields.Datetime.now()
 
-            if all(repair.state in ['done'] for repair in i.report_id.repair_ids):
-                i.report_id.state = 'done'
+            if all(repair.state in ['completed'] for repair in i.report_id.repair_ids):
+                i.report_id.state = 'completed'
 
     @api.multi
     def action_return(self, reason=''):
