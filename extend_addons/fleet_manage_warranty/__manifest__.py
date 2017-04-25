@@ -12,12 +12,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','product','fleet_manage_menu'],
+    'depends': ['base','product','fleet_manage_menu','important_product'],
 
     # always loaded
     'data': [
-         'views/warranty_category_view.xml',
-         'views/warranty_item_view.xml',
+        'views/warranty_category_view.xml',
+        'views/warranty_item_view.xml',
+        'views/basic.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,

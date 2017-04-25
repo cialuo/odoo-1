@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-22 03:07+0000\n"
-"PO-Revision-Date: 2017-03-22 03:07+0000\n"
+"POT-Creation-Date: 2017-04-20 01:31+0000\n"
+"PO-Revision-Date: 2017-04-20 01:31+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: fleet_manage_menu
+#: model:ir.ui.menu,name:fleet_manage_menu.fleet_important_component
+msgid "fleet_important_component"
+msgstr "重要部件管理"
 
 #. module: fleet_manage_menu
 #: model:ir.ui.menu,name:fleet_manage_menu.fleet_manage_basic
@@ -31,6 +36,17 @@ msgid "fleet_manage_menu"
 msgstr "车辆管理"
 
 #. module: fleet_manage_menu
+#: model:ir.ui.menu,name:fleet_manage_menu.fleet_manage_quota
+msgid "fleet_manage_quota"
+msgstr "定额管理"
+
+#. module: fleet_manage_menu
 #: model:ir.ui.menu,name:fleet_manage_menu.fleet_manage_warranty_maintain
 msgid "fleet_manage_warranty_maintain"
-msgstr "车辆维保管理"
+msgstr "车辆保养管理"
+
+#. module: fleet_manage_menu
+#: model:ir.ui.menu,name:fleet_manage_menu.fleet_manage_warranty_usage
+msgid "fleet_manage_warranty_usage"
+msgstr "车辆使用管理（机务）"
+
