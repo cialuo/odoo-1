@@ -560,7 +560,7 @@ class MaintainInspect(models.Model):
             i.rework_count = len(i.return_record_ids)
 
     @api.multi
-    def action_done(self):
+    def action_completed(self):
         """
         检验单:
             功能：检验通过(批量检查通过)

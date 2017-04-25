@@ -96,7 +96,7 @@
                                 string="Submit Precheck"
 								states="draft"
                                 class="oe_highlight"/> <!-- 提交检验-->
-                    	<field name="state"  widget="statusbar" statusbar_visible="draft,precheck,repair,done"/>
+                    	<field name="state"  widget="statusbar" statusbar_visible="draft,precheck,repair,completed"/>
                 	</header>
 					<sheet>
 
@@ -189,7 +189,7 @@
                                 string="Dispatch to Precheck"
                                 states="repair"/> 		<!-- 退回检验-->
 
-                    	<field name="state"  widget="statusbar"  statusbar_visible="draft,precheck,repair,done"/>
+                    	<field name="state"  widget="statusbar"  statusbar_visible="draft,precheck,repair,completed"/>
                 	</header>
 					<sheet>
 						<div class="oe_button_box" name="button_box" attrs="{'invisible': [('state', '!=', 'repair')]}">
@@ -277,7 +277,7 @@
 								states="repair"
                                 class="oe_highlight"/> <!-- 报检-->
 
-                    	<field name="state"  widget="statusbar" statusbar_visible="wait_repair,repair,inspect,done" />
+                    	<field name="state"  widget="statusbar" statusbar_visible="wait_repair,repair,inspect,completed" />
                 	</header>
 					<sheet>
 						<div class="oe_title">
@@ -461,7 +461,7 @@
                 <form string="MaintainInspect Form">
                 	<header>
 
-						<button name="action_done" type="object"
+						<button name="action_completed" type="object"
                                 string="Inspect Complete"
 								states="inspect"
                                 class="oe_highlight"/> <!-- 检验完成-->
@@ -471,7 +471,7 @@
                                 string="Back To Repair"
 								states="inspect"/> <!-- 退回重修-->
 
-                    	<field name="state"  widget="statusbar"  statusbar_visible="repair,inspect,done" />
+                    	<field name="state"  widget="statusbar"  statusbar_visible="repair,inspect,completed" />
                 	</header>
 					<sheet>
 						<div class="oe_title">
@@ -539,7 +539,7 @@
 			<field name="name">maintain_repair_action</field>
 			<field name="res_model">maintain.repair</field>
 			<field name="view_mode">tree,form</field>
-			<field name="domain">[('state', 'in', ['dispatch','wait_repair','repair','inspect','done'])]</field>
+			<field name="domain">[('state', 'in', ['dispatch','wait_repair','repair','inspect','completed'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('maintain_repair_view_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('maintain_repair_view_form')})]"/>
@@ -551,7 +551,7 @@
 			<field name="name">maintain_inspect_action</field>
 			<field name="res_model">maintain.repair</field>
 			<field name="view_mode">tree,form</field>
-			<field name="domain">[('state', 'in', ['repair','inspect','done'])]</field>
+			<field name="domain">[('state', 'in', ['repair','inspect','completed'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('maintain_inspect_view_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('maintain_inspect_view_form')})]"/>
@@ -565,7 +565,7 @@
             <field name="state">code</field>
             <field name="code">
                 if context.get('active_model') == 'maintain.repair' and context.get('active_ids'):
-                    action = env['maintain.repair'].browse(context['active_ids']).action_done()
+                    action = env['maintain.repair'].browse(context['active_ids']).action_completed()
             </field>
         </record>
 
