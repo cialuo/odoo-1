@@ -1,5 +1,4 @@
 <odoo>
-    <data>
         <record model="workflow" id="wkf_insepctionplan">
             <field name="name">flow of inspection plan</field>
             <field name="osv">fleet_vehicle_usage_management.inspectionplan</field>
@@ -69,5 +68,4 @@
             <field name="signal">done</field>
         </record>
 
-    </data>
 </odoo>
