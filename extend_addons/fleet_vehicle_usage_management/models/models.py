@@ -133,7 +133,7 @@ class InspectionPlan(models.Model):
         res = super(InspectionPlan, self).create(vals)
         planItems = vals.get('planitem_id', [])
         for item in planItems:
-            if item[0] == 0 or item[0] == 1:
+            if item[0] == 0 or (item[0] == 1 and item[2].has_key('vehicle_id')):
                 if self.hasItem(item[2]['vehicle_id']) > 1:
                     raise ValidationError(_("there is a vehicle that already have inspection plan "))
         return res
@@ -143,7 +143,7 @@ class InspectionPlan(models.Model):
         res = super(InspectionPlan, self).write(vals)
         planItems = vals.get('planitem_id', [])
         for item in planItems:
-            if item[0] == 0 or item[0] == 1:
+            if item[0] == 0 or (item[0] == 1 and item[2].has_key('vehicle_id')):
                 if self.hasItem(item[2]['vehicle_id'])>1:
                     raise ValidationError(_("there is a vehicle that already have inspection plan "))
         return res
