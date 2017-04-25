@@ -14,7 +14,7 @@ class security_check_item(models.Model):
     create_time = fields.Date(string=_('create_time'))
 
     check_table_id = fields.Many2one('security_manage.security_check_table',
-                                     ondelete='cascade')
+                                     ondelete='restrict')
 
     state = fields.Selection([
         ('use', _('Use')),

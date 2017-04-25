@@ -31,7 +31,7 @@ msgstr ""
 #. module: security_manage
 #: model:ir.ui.view,arch_db:security_manage.security_check_table_form
 msgid "Confirm"
-msgstr ""
+msgstr "提交审核"
 
 #. module: security_manage
 #: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_create_uid
@@ -114,12 +114,12 @@ msgstr ""
 #: model:ir.ui.view,arch_db:security_manage.security_archives_class_manage_form
 #: model:ir.ui.view,arch_db:security_manage.security_check_item_form
 msgid "Mark as archive"
-msgstr ""
+msgstr "归档"
 
 #. module: security_manage
 #: model:ir.ui.view,arch_db:security_manage.security_check_table_form
 msgid "Mark as done"
-msgstr ""
+msgstr "审核通过"
 
 #. module: security_manage
 #: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_parent_company
@@ -130,12 +130,12 @@ msgstr ""
 #: model:ir.ui.view,arch_db:security_manage.security_archives_class_manage_form
 #: model:ir.ui.view,arch_db:security_manage.security_check_item_form
 msgid "Reset to default"
-msgstr ""
+msgstr "重新启用"
 
 #. module: security_manage
 #: model:ir.ui.view,arch_db:security_manage.security_check_table_form
 msgid "Reset to draft"
-msgstr ""
+msgstr "退回"
 
 #. module: security_manage
 #: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_responser
