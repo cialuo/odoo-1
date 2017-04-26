@@ -19,7 +19,7 @@ msgstr ""
 #: code:addons/vehicle_maintain/models/maintain.py:95
 #, python-format
 msgid "%s has been added to the report!"
-msgstr "%s has been added to the report!"
+msgstr "%s 添加到报修单!"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_available_product_product_size

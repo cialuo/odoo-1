@@ -8,6 +8,7 @@ class Vehicle(models.Model):
     车辆档案
     """
     _inherit = "fleet.vehicle"
+    _sql_constraints = [('code_uniq', 'unique (inner_code)', _("inner code already exists"))]
 
     state = fields.Selection([('warrantly', "warrantly"),
                               ('normal', "normal"),
