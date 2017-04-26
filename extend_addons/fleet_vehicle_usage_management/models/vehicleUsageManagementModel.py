@@ -215,3 +215,26 @@ class InspectionRecords(models.Model):
     company_id = fields.Many2one(related='vehicle_id.company_id', readonly=True)
     # 线路
     route_id = fields.Many2one(related='vehicle_id.route_id', readonly=True)
+
+
+class VehicleAnchor(models.Model):
+    _name = 'fleet_vehicle_usage_management.VehicleAnchor'
+
+    # 关联的车辆信息
+    vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'), required=True)
+    # 内部编号
+    inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
+    # 车牌号
+    license_plate = fields.Char(related='vehicle_id.license_plate', readonly=True)
+    # 车型
+    model_id = fields.Many2one(related='vehicle_id.model_id', readonly=True)
+    # 隶属公司
+    company_id = fields.Many2one(related='vehicle_id.company_id', readonly=True)
+    # 线路
+    route_id = fields.Many2one(related='vehicle_id.route_id', readonly=True)
+    # 抛锚时间
+    anchortime = fields.datetime(string=_('anchor time'))
+    # 抛锚路段
+    anchorroad = fields.Char(string=_('anchor road'))
+    # 抛锚原因
+    anchorreason = fields.Char(string=_('anchor reason'))
