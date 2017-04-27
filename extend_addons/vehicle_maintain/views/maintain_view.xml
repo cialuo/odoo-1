@@ -414,7 +414,7 @@
 								<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="fault_reason_id" options="{'no_open':True,'no_create':True}"/>
-								<field name="fault_method_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="fault_method_id" required="1" options="{'no_open':True,'no_create':True}"/>
 								<field name="work_time"/>
 								<field name="operation_manual" invisible="1"/>
 								<field name="inspect_standard" invisible="1"/>

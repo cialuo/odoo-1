@@ -9,7 +9,7 @@ class Vehicle(models.Model):
     """
     _inherit = "fleet.vehicle"
 
-    equipment_ids = fields.One2many('vehicle_equipment.equipment', "vehicle_id", string="Vehicle Device")
+    equipment_ids = fields.One2many('vehicle_equipment.equipment', "vehicle_id", string="Vehicle Equipment")
 
 
 class VehicleEquipment(models.Model):

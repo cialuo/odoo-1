@@ -120,7 +120,7 @@
 		</record>
 
         <!--抢修交接单-->
-        <menuitem name="maintain_equipment_deliver_order" id="maintain_equipment_deliver_order" parent="vehicle_maintain.maintain_manage"
+        <menuitem name="maintain_equipment_deliver" id="maintain_equipment_deliver" parent="vehicle_maintain.maintain_manage"
 				  action="maintain_delivery_action" sequence="40" />
     </data>
 

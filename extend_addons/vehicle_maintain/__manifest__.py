@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "vehicle_maintain",
+    'name': "抢修模块",
 
     'description': """
     a）抢修体系:
