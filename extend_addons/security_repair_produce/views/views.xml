@@ -1,0 +1,21 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="srp_repair_quality_form">
+            <field name="name">哈哈</field>
+            <field name="model">srp.repair_quality</field>
+            <field name="arch" type="xml">
+                <form string="Idea form">
+                    <sheet>
+                        <notebook>
+                            <page>
+                                <field name="description" widget="html" options="{'style-inline': true}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

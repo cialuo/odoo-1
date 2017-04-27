@@ -1,0 +1,21 @@
+<openerp>
+    <data>
+
+        <!--二级菜单 维修质量安全管理 action-->
+        <record model="ir.actions.act_window" id="repair_quality_act_repair_quality">
+            <field name="name">维修质量安全管理</field>
+            <field name="res_model">srp.repair_quality</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--维修生产安全 start-->
+        <!--一级菜单 维修生产安全-->
+        <menuitem name="repair produce security" id="repair_produce_first_menu"
+                  parent="security_manage.security_manage_menu_root"/>
+        <!--二级菜单 维修质量安全管理-->
+        <menuitem name="repair quality security manage" id="repair_quality_second_menu"
+                  parent="repair_produce_first_menu"
+                  action="repair_quality_act_repair_quality"/>
+        <!--维修生产安全 end-->
+    </data>
+</openerp>
