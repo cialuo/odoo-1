@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+
+        <!--车型管理增加油耗修正系数-->
+        <record id="fleet_vehicle_model_view_fuel_form_ext" model="ir.ui.view">
+            <field name="name">Fleet model extend</field>
+            <field name="model">fleet.vehicle.model</field>
+            <field name="inherit_id" ref="vehicle_manage.vehicle_manage_model_view_form_ext"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook/page[1]" position="before">
+                    <page string="Correct List" name="correct_list">
+                        <field name="correct_ids">
+                            <tree editable="bottom">
+                                <field name="year"/>
+                                <field name="correct_value"/>
+                                <field name="user_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="write_date"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+
+</odoo>
