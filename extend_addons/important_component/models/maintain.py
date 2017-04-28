@@ -4,7 +4,7 @@ from odoo import models, fields, api, exceptions, _
 from datetime import timedelta
 
 class MaintainRepare(models.Model):
-    _inherit = 'maintain.repair'
+    _inherit = 'maintain.manage.repair'
 
     is_important_product = fields.Boolean("Is Important Product")
     important_product_id = fields.Many2one('product.product', related='fault_method_id.important_product_id',
