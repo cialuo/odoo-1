@@ -14,6 +14,6 @@
         'views/component_view.xml',
         'views/vehicle_component_view.xml',
     ],
-    'depends': ['materials_product', 'vehicle_manage'],
+    'depends': ['vehicle_maintain', 'vehicle_manage'],
     'application': True,
 }
