@@ -9,7 +9,7 @@ class MaintainReport(models.Model):
     车辆维修管理：报修单
     """
     _inherit = 'mail.thread'
-    _name = 'maintain.report'
+    _name = 'maintain.manage.report'
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -23,11 +23,7 @@ class MaintainReport(models.Model):
                                 readonly=True, copy=False)
 
     report_user_id = fields.Many2one('hr.employee', string="Report Name", default=_default_employee, required=True)
-    create_name = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, required=True,
-                                  readonly=True)
 
-    department = fields.Many2one('hr.department', string="Department", related='create_name.department_id',
-                                 readonly=True)
 
     report_date = fields.Date('Report Date',help='Report Date',default=fields.Date.context_today)
     repair_category = fields.Selection([('normal repair', "normal repair"),
@@ -47,23 +43,32 @@ class MaintainReport(models.Model):
                             ('repair', "Repair"),
                             ('inspect', "Inspect"),
                             ('completed', "Completed")], default='draft')
-    repair_ids = fields.One2many("maintain.repair", 'report_id', string='Maintain Repair',
+    repair_ids = fields.One2many("maintain.manage.repair", 'report_id', string='Maintain Repair',
                                  states={'completed':[('readonly', True)],
                                          # 'repair':[('readonly', True)]
                                          }
     )
 
-    partner_id = fields.Many2one('hr.department', string="Partner", related='create_name.department_id')
+    create_name = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, required=True,
+                                  readonly=True)
+
+    create_name_department = fields.Many2one('hr.department', string="Create Name Department", related='create_name.department_id',
+                                             readonly=True)
+
+    repair_department = fields.Many2one('hr.department', string="Repair Department")
     fleet = fields.Char(string="Fleet")
     repair_plant = fields.Char(string="Repair Plant")
     remark = fields.Text(string="Remark")
+
+
+
     dispatch_count = fields.Integer("Dispatch Count",compute="_get_dispatch_count")
 
     def _get_dispatch_count(self):
         """
         功能：计算待派工的维修单
         """
-        repair = self.env['maintain.repair'].search([("report_id", '=', self.id), ('state', '=', 'dispatch')])
+        repair = self.env['maintain.manage.repair'].search([("report_id", '=', self.id), ('state', '=', 'dispatch')])
         self.dispatch_count = len(repair)
 
     @api.multi
@@ -90,7 +95,7 @@ class MaintainReport(models.Model):
             功能：自动生成订单号：前缀BXD+序号
         """
         if data.get('name', 'New') == 'New':
-            data['name'] = self.env['ir.sequence'].next_by_code('maintain.report') or '/'
+            data['name'] = self.env['ir.sequence'].next_by_code('maintain.manage.report') or '/'
         report = super(MaintainReport, self.with_context(mail_create_nolog=True)).create(data)
         report.message_post(body=_('%s has been added to the report!') % (report.name,))
         return report
@@ -152,11 +157,11 @@ class MaintainRepair(models.Model):
     车辆维修管理：维修单
     """
     _inherit = 'mail.thread'
-    _name = 'maintain.repair'
+    _name = 'maintain.manage.repair'
 
     name = fields.Char(string="Repair Order", help='Repair Order', required=True, index=True,
                        copy=False, default='New', readonly=True)
-    report_id = fields.Many2one("maintain.report", ondelete='cascade',
+    report_id = fields.Many2one("maintain.manage.report", ondelete='cascade',
                                 string="Report Order", required=True, readonly=True)
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
                                  related='report_id.vehicle_id', store=True, readonly=True, copy=False)
@@ -211,7 +216,7 @@ class MaintainRepair(models.Model):
         ('inspect', "Inspect"),
         ('completed', "Completed")], default='draft', readonly=True)
 
-    job_ids = fields.One2many("maintain.repair_jobs", 'repair_id', string='Maintain Repair Jobs',
+    job_ids = fields.One2many("maintain.manage.repair_jobs", 'repair_id', string='Maintain Repair Jobs',
                               states={
                                   'completed': [('readonly', True)],
                                   'inspect': [('readonly', True)],
@@ -220,7 +225,7 @@ class MaintainRepair(models.Model):
 
     percentage_work = fields.Float(help='percentage_work', digits=(2, 1))
 
-    available_product_ids = fields.One2many("maintain.available_product", 'repair_id',
+    available_product_ids = fields.One2many("maintain.manage.available_product", 'repair_id',
                                             string='Available Product')
     operation_manual = fields.Text("Operation Manual", related='fault_method_id.operation_manual',
                                    help="Operation Manual",store=True, readonly=True, copy=False)
@@ -305,7 +310,7 @@ class MaintainRepair(models.Model):
             自动生成订单号：前缀WXD+序号
         """
         if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code('maintain.repair') or '/'
+            vals['name'] = self.env['ir.sequence'].next_by_code('maintain.manage.repair') or '/'
         return super(MaintainRepair, self).create(vals)
 
     @api.multi
@@ -341,7 +346,7 @@ class MaintainRepair(models.Model):
         self.write({
             'percentage_work': False,
             "user_id": False,
-            'plan_start_time': False,
+            # 'plan_start_time': False,
             'state': 'wait_repair',
             'job_ids': [(0, 0, vals)]
         })
@@ -464,9 +469,9 @@ class MaintainRepair(models.Model):
 
 
 class MaintainAvailableProduct(models.Model):
-    _name = 'maintain.available_product'
+    _name = 'maintain.manage.available_product'
 
-    repair_id = fields.Many2one('maintain.repair',
+    repair_id = fields.Many2one('maintain.manage.repair',
                                 ondelete='cascade', string="Repair")
     method_id = fields.Many2one('maintain.fault.method',
                                 ondelete='set null', string="Fault Method Name")
@@ -491,10 +496,10 @@ class MaintainRepairJobs(models.Model):
     """
     车辆维修管理：维修单工时管理
     """
-    _name = 'maintain.repair_jobs'
+    _name = 'maintain.manage.repair_jobs'
     name = fields.Char("Job Name", help="Job Name")
     sequence = fields.Integer("Sequence", help="Sequence")
-    repair_id = fields.Many2one("maintain.repair", ondelete='cascade',
+    repair_id = fields.Many2one("maintain.manage.repair", ondelete='cascade',
                                 string="Maintain Repair")
     fault_category_id = fields.Many2one("maintain.fault.category", ondelete='set null',
                                         string="Fault Category")
@@ -536,14 +541,14 @@ class MaintainInspect(models.Model):
     车辆维修管理：检验单
     """
     # _name = 'maintain.maintain_inspect'
-    _inherit = 'maintain.repair'
+    _inherit = 'maintain.manage.repair'
 
     inspect_result = fields.Selection([('qualified', 'Qualified'),
                                        ('defective','Defective')], string="Inspect Result")
 
     start_inspect_time = fields.Datetime("Start Inspect Time")
     end_inspect_time = fields.Datetime("End Inspect Time")
-    return_record_ids = fields.One2many("maintain.return_record", 'repair_id', string='Maintain Repair')
+    return_record_ids = fields.One2many("maintain.manage.return_record", 'repair_id', string='Maintain Repair')
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -606,8 +611,8 @@ class MaintainReturnRecord(models.Model):
     """
     退检记录
     """
-    _name = 'maintain.return_record'
-    repair_id = fields.Many2one('maintain.repair', string="Repair Order",
+    _name = 'maintain.manage.return_record'
+    repair_id = fields.Many2one('maintain.manage.repair', string="Repair Order",
                                 required=True, readonly=True)
     inspect_user_id = fields.Many2one('hr.employee', related='repair_id.inspect_user_id', string="Inspect Name",
                                       required=True, readonly=True)

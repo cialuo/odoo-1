@@ -10,10 +10,10 @@
                     <page name="vehicle_equipment" string="Vehicle Equipment">
                         <field name="equipment_ids">
                             <tree editable="bottom">
-                               <field name="equipment_id" options="{'no_open':True,'no_create':True}"/>
-                                <field name="serial_no"/>
+                               <field name="equipment_id" required='1' options="{'no_open':True,'no_create':True}"/>
+                                <field name="serial_no" readonly="1"/>
                                 <field name="fixed_asset_number"/>
-                                <field name="create_date_ext"/>
+                                <field name="create_date_ext" required='1' readonly="1"/>
                             </tree>
                         </field>
                     </page>

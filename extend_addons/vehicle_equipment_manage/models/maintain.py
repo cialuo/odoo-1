@@ -8,7 +8,7 @@ class MaintainReport(models.Model):
     """
     车辆维修管理：报修单
     """
-    _inherit = 'maintain.report'
+    _inherit = 'maintain.manage.report'
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -34,7 +34,6 @@ class MaintainReport(models.Model):
             vals = {
                 'equipment_id': i.equipment_id.id,
                 'serial_no': i.serial_no,
-                'name': i.name,
                 'fixed_asset_number': i.fixed_asset_number,
                 'create_date_ext': i.create_date_ext,
             }
@@ -74,7 +73,7 @@ class MaintainDelivery(models.Model):
 
     name = fields.Char(string="Delivery Order", help='Delivery Order', required=True, index=True,
                        copy=False, default='New')
-    report_id = fields.Many2one("maintain.report", ondelete='cascade', string="Report Order")
+    report_id = fields.Many2one("maintain.manage.report", ondelete='cascade', string="Report Order")
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
                                  related='report_id.vehicle_id', store=True, readonly=True, copy=False)
     vehicle_type = fields.Many2one("fleet.vehicle.model", related='report_id.vehicle_id.model_id',
@@ -116,7 +115,6 @@ class MaintainDelivery(models.Model):
             vals = {
                 'equipment_id': i.equipment_id.id,
                 'serial_no': i.serial_no,
-                'name': i.name,
                 'fixed_asset_number': i.fixed_asset_number,
                 'create_date_ext': i.create_date_ext,
             }

@@ -7,7 +7,7 @@ from odoo.exceptions import UserError
 class Picking(models.Model):
     _inherit = "stock.picking"
 
-    repair_id = fields.Many2one('fleet_manage_maintain.repair',
+    repair_id = fields.Many2one('maintain.manage.repair',
                                 ondelete='cascade', string="Repair")
 
     @api.multi

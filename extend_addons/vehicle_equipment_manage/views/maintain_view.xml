@@ -19,7 +19,7 @@
         <!-- MaintainPrecheck form view -->
         <record model="ir.ui.view" id="maintain_precheck_view_form_ext">
             <field name="name">MaintainPrecheck.form</field>
-            <field name="model">maintain.report</field>
+            <field name="model">maintain.manage.report</field>
             <field name="inherit_id" ref="vehicle_maintain.maintain_precheck_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_precheck_to_draft']" position="after">

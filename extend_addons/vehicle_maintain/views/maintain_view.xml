@@ -4,7 +4,7 @@
         <!-- MaintainReport  tree -->
         <record model="ir.ui.view" id="maintain_report_view_tree">
             <field name="name">MaintainReport.tree</field>
-            <field name="model">maintain.report</field>
+            <field name="model">maintain.manage.report</field>
             <field name="arch" type="xml">
                 <tree string="MaintainReport Tree">
 					<field name="name"/>
@@ -23,7 +23,7 @@
 		<!-- MaintainPrecheck  tree -->
         <record model="ir.ui.view" id="maintain_precheck_view_tree">
             <field name="name">MaintainPrecheck.tree</field>
-            <field name="model">maintain.report</field>
+            <field name="model">maintain.manage.report</field>
             <field name="arch" type="xml">
                 <tree string="MaintainPrecheck Tree" create="false">
 					<field name="name"/>
@@ -42,7 +42,7 @@
 		<!-- MaintainRepair  tree -->
         <record model="ir.ui.view" id="maintain_repair_view_tree">
             <field name="name">MaintainRepair.tree</field>
-            <field name="model">maintain.repair</field>
+            <field name="model">maintain.manage.repair</field>
             <field name="arch" type="xml">
                 <tree string="MaintainRepair Tree" create="false">
 					<field name="name"/>
@@ -64,7 +64,7 @@
 		<!-- MaintainInspect  tree -->
         <record model="ir.ui.view" id="maintain_inspect_view_tree">
             <field name="name">MaintainInspect.tree</field>
-            <field name="model">maintain.repair</field>
+            <field name="model">maintain.manage.repair</field>
             <field name="arch" type="xml">
                 <tree string="MaintainInspect Tree" create="false">
 					<field name="name"/>
@@ -87,7 +87,7 @@
 		<!-- MaintainReport form view -->
         <record model="ir.ui.view" id="maintain_report_view_form">
             <field name="name">MaintainReport.form</field>
-            <field name="model">maintain.report</field>
+            <field name="model">maintain.manage.report</field>
             <field name="arch" type="xml">
                 <form string="MaintainReport Form">
                 	<header>
@@ -127,7 +127,7 @@
 							 <page string="More Information">
                                 <group col="2">
 									<group>
-										<field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
+										<field name="repair_department" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
 										<field name="fleet" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
 										<field name="create_name" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
 										<field name="remark" />
@@ -135,7 +135,7 @@
 									<group>
 										<field name="repair_plant" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
 										<field name="repair_level" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-										<field name="department"/>
+										<field name="create_name_department"/>
 									</group>
 								 </group>
                             </page>
@@ -153,7 +153,7 @@
 		<!-- MaintainPrecheck form view -->
         <record model="ir.ui.view" id="maintain_precheck_view_form">
             <field name="name">MaintainPrecheck.form</field>
-            <field name="model">maintain.report</field>
+            <field name="model">maintain.manage.report</field>
             <field name="arch" type="xml">
                 <form string="MaintainPrecheck Form" create="false">
                 	<header>
@@ -229,7 +229,7 @@
 							 <page string="More Information">
                                 <group col="2">
 									<group>
-										<field name="partner_id" readonly="1"/>
+										<field name="repair_department" readonly="1"/>
 										<field name="fleet" readonly="1"/>
 										<field name="create_name" />
 										<field name="remark"/>
@@ -237,7 +237,7 @@
 									<group>
 										<field name="repair_plant" readonly="1"/>
 										<field name="repair_level" readonly="1"/>
-										<field name="department"/>
+										<field name="create_name_department"/>
 									</group>
 								 </group>
                             </page>
@@ -254,7 +254,7 @@
 		<!-- MaintainRepair form view -->
         <record model="ir.ui.view" id="maintain_repair_view_form">
             <field name="name">MaintainRepair.form</field>
-            <field name="model">maintain.repair</field>
+            <field name="model">maintain.manage.repair</field>
 			<field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
@@ -384,7 +384,7 @@
 		<!-- MaintainRepair form action -->
         <record model="ir.ui.view" id="maintain_repair_view_form_action">
             <field name="name">MaintainRepair.form</field>
-            <field name="model">maintain.repair</field>
+            <field name="model">maintain.manage.repair</field>
 			<field name="priority">0</field>
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
@@ -447,7 +447,7 @@
 		<!-- MaintainInspect form view -->
         <record model="ir.ui.view" id="maintain_inspect_view_form">
             <field name="name">MaintainInspect.form</field>
-            <field name="model">maintain.repair</field>
+            <field name="model">maintain.manage.repair</field>
 			<field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="MaintainInspect Form">
@@ -507,7 +507,7 @@
         <!-- MaintainReport Action-->
 		<record model="ir.actions.act_window" id="maintain_report_action">
 			<field name="name">maintain_report_action</field>
-			<field name="res_model">maintain.report</field>
+			<field name="res_model">maintain.manage.report</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_ids" eval="[(5, 0, 0),
 				(0, 0, {'view_mode': 'tree', 'view_id': ref('maintain_report_view_tree')}),
@@ -518,7 +518,7 @@
 		<!-- MaintainPrecheck Action-->
 		<record model="ir.actions.act_window" id="maintain_precheck_action">
 			<field name="name">maintain_precheck_action</field>
-			<field name="res_model">maintain.report</field>
+			<field name="res_model">maintain.manage.report</field>
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('state', 'not in', ['back','draft'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
@@ -529,7 +529,7 @@
 		<!-- MaintainRepair Action-->
 		<record model="ir.actions.act_window" id="maintain_repair_action">
 			<field name="name">maintain_repair_action</field>
-			<field name="res_model">maintain.repair</field>
+			<field name="res_model">maintain.manage.repair</field>
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('state', 'in', ['dispatch','wait_repair','repair','inspect','completed'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
@@ -541,7 +541,7 @@
 		<!-- MaintainInspect Action-->
 		<record model="ir.actions.act_window" id="maintain_inspect_action">
 			<field name="name">maintain_inspect_action</field>
-			<field name="res_model">maintain.repair</field>
+			<field name="res_model">maintain.manage.repair</field>
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('state', 'in', ['repair','inspect','completed'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
@@ -553,18 +553,18 @@
 		<record id="maintain_inspect_action_server" model="ir.actions.server">
             <field name="name">Comfirm Inspect</field>
             <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_maintain_repair"/>
+            <field name="model_id" ref="model_maintain_manage_repair"/>
             <field name="state">code</field>
             <field name="code">
-                if context.get('active_model') == 'maintain.repair' and context.get('active_ids'):
-                    action = env['maintain.repair'].browse(context['active_ids']).action_completed()
+                if context.get('active_model') == 'maintain.manage.repair' and context.get('active_ids'):
+                    action = env['maintain.manage.repair'].browse(context['active_ids']).action_completed()
             </field>
         </record>
 
         <record id="maintain_inspect_action_server_submit" model="ir.values">
             <field name="name">Comfirm Inspect</field>
             <field name="model_id" ref="model_maintain_repair"/>
-            <field name="model">maintain.repair</field>
+            <field name="model">maintain.manage.repair</field>
             <field name="key2">client_action_multi</field>
             <field eval="'ir.actions.server,%d'%maintain_inspect_action_server" name="value"/>
         </record>

@@ -2,8 +2,8 @@
     <data>
 
         <record id="maintain_inspect_return_view" model="ir.ui.view">
-            <field name="name">maintain.inspect.return.form</field>
-            <field name="model">maintain.inspect.return</field>
+            <field name="name">maintain.manage.inspect.return.form</field>
+            <field name="model">maintain.manage.inspect.return</field>
             <field name="arch" type="xml">
                 <form string="Confirm Inspect">
                     <group>
@@ -20,7 +20,7 @@
 
         <act_window id="maintain_inspect_return"
             name="Confirm Return"
-            res_model="maintain.inspect.return"
+            res_model="maintain.manage.inspect.return"
             view_mode="form"
             target="new"
             view_type="form" />

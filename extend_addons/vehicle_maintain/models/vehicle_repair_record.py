@@ -13,7 +13,7 @@ class FleetVehicle(models.Model):
 
     def _compute_repair_count(self):
         for record in self:
-            record.repair_count = self.env['maintain.repair'].search_count([('vehicle_id', '=', self.id),
+            record.repair_count = self.env['maintain.manage.repair'].search_count([('vehicle_id', '=', self.id),
                                                                             ('state', 'in', ['completed'])])
 
     @api.multi
