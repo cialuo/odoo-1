@@ -28,6 +28,14 @@ class FleetVehicle(models.Model):
             else:
                 item.warnning = False
 
+    # 行车记录
+    driverecords = fields.One2many('vehicleusage.driverecords', 'vehicle_id', string=_('drive records'))
+    # 能源记录
+    # energeusagerecords = fields.One2many('energy.usage_record', 'vehicle_id', string=_('energy usage record'))
+    # 抛锚记录
+    dropanchorrecords = fields.One2many('vehicle_usage.vehicleanchor', 'vehicle_id', string=_('drop anchor record'))
+
+
 class InspectionPlan(models.Model):
     _name = 'vehicle_usage.inspectionplan'
 
@@ -277,6 +285,28 @@ class DriveRecords(models.Model):
     # 日期
     drivedate = fields.Datetime(string=_('drive date'))
 
-# class EnergeUsageRecords(models.Model):
-#     _inherit = ''
+# class EnergeUsage(models.Model):
+#     _inherit = 'vehicleusage.energeusage'
+#
+#     # 能源使用记录
+#     energeuseage_id = fields.One2many('energy.usage_record', 'vehicle_id', string=_('energe usage records'))
+#
+#     # 能源站
+#     station_id = fields.Many2one(related='energy.station_id', string='Station Id', readonly=True)
+#
+#     # 能源桩
+#     pile_id = fields.Many2one(related='energy.pile_id', string='Pile Id', readonly=True)
+#
+#     # 能源量
+#     fuel_capacity = fields.Float(related='energy.fuel_capacity', string='Fuel Capacity', readonly=True)
+#
+#     # 能源类型
+#     pile_type = fields.Selection(string='Pile Type', related='energy.pile_type', readonly=True)
+#
+#     # 加油司机
+#     user_use = fields.Many2one(related='energy.user_use', string='User Use', readonly=True)
+#
+#     # 加油时间
+#     record_date = fields.Date(related='energy.record_date', string='Record Date', readonly=True)
+
 
