@@ -24,8 +24,8 @@
     </record>
 
     <!-- 年检查询action -->
-    <record id='fleet_vehicle_inspection_list_action' model='ir.actions.act_window'>
-        <field name="name">fleet_vehicle_inspection_list</field>
+    <record id='vehicle_inspection_list_action' model='ir.actions.act_window'>
+        <field name="name">vehicle_inspection_list</field>
         <field name="res_model">fleet.vehicle</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
@@ -50,7 +50,7 @@
     <!-- 年检计划表单 -->
     <record model="ir.ui.view" id="inspection_plan_form_view">
         <field name="name">inspection plan</field>
-        <field name="model">fleet_vehicle_usage_management.inspectionplan</field>
+        <field name="model">vehicle_usage.inspectionplan</field>
         <field name="arch" type="xml">
             <form string="inspection plan Form">
                 <header>
@@ -114,8 +114,8 @@
 
     <!-- 年检计划tree视图 -->
     <record id='fleet_vehicle_inspect_plan_tree_list' model='ir.ui.view'>
-        <field name="name">fleet_vehicle_inspect_plan_tree_list</field>
-        <field name="model">fleet_vehicle_usage_management.inspectionplan</field>
+        <field name="name">vehicle_inspect_plan_tree</field>
+        <field name="model">vehicle_usage.inspectionplan</field>
         <field name="arch" type="xml">
             <tree string="inspection plan">
                 <field name="name" />
@@ -130,9 +130,9 @@
     </record>
 
     <!-- 年检计划action -->
-    <record id='fleet_vehicle_inspection_plan_action' model='ir.actions.act_window'>
+    <record id='vehicle_inspection_plan_action' model='ir.actions.act_window'>
         <field name="name">vehicle inspection plan</field>
-        <field name="res_model">fleet_vehicle_usage_management.inspectionplan</field>
+        <field name="res_model">vehicle_usage.inspectionplan</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
@@ -145,7 +145,7 @@
     <!-- 年检记录表单 -->
     <record model="ir.ui.view" id="inspection_recoreds_form_view">
         <field name="name">inspection recoreds</field>
-        <field name="model">fleet_vehicle_usage_management.inspectionrecords</field>
+        <field name="model">vehicle_usage.inspectionrecords</field>
         <field name="arch" type="xml">
             <form string="inspection plan records Form">
                 <sheet>
@@ -174,8 +174,8 @@
 
     <!-- 年检记录tree视图 -->
     <record id='fleet_vehicle_inspect_records_tree_list' model='ir.ui.view'>
-        <field name="name">fleet_vehicle_inspect_records_tree_list</field>
-        <field name="model">fleet_vehicle_usage_management.inspectionrecords</field>
+        <field name="name">fleet_vehicle_inspect_records_tree</field>
+        <field name="model">vehicle_usage.inspectionrecords</field>
         <field name="arch" type="xml">
             <tree string="inspection plan">
                 <field name="license_plate" />
@@ -189,7 +189,7 @@
     <!-- 年检记录表单 -->
     <record model="ir.ui.view" id="inspection_plan_item_form_view">
         <field name="name">inspection plan item</field>
-        <field name="model">fleet_vehicle_usage_management.planitem</field>
+        <field name="model">vehicle_usage.planitem</field>
         <field name="arch" type="xml">
             <form string="inspection plan item Form">
                 <sheet>
@@ -211,8 +211,8 @@
 
     <!-- 年检计划项tree视图 -->
     <record id='fleet_vehicle_inspect_plan_item_tree_list' model='ir.ui.view'>
-        <field name="name">fleet_vehicle_inspect_plan_item_tree_list</field>
-        <field name="model">fleet_vehicle_usage_management.planitem</field>
+        <field name="name">fleet_vehicle_inspect_plan_item_tree</field>
+        <field name="model">vehicle_usage.planitem</field>
         <field name="arch" type="xml">
             <tree string="inspection plan" editable="1">
                 <field name="vehicle_id" />
@@ -230,17 +230,17 @@
     </record>
 
     <!-- 车辆年检action -->
-    <record id='fleet_vehicle_inspection_records_action' model='ir.actions.act_window'>
+    <record id='vehicle_inspection_records_action' model='ir.actions.act_window'>
         <field name="name">vehicle inspection records</field>
-        <field name="res_model">fleet_vehicle_usage_management.inspectionrecords</field>
+        <field name="res_model">vehicle_usage.inspectionrecords</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <!-- 车辆抛锚记录tree视图 -->
     <record id='fleet_vehicle_dorpanchor_records_tree_list' model='ir.ui.view'>
-        <field name="name">fleet_vehicle_dorpanchor_records_tree_list</field>
-        <field name="model">fleet_vehicle_usage_management.vehicleanchor</field>
+        <field name="name">fleet_vehicle_dorpanchor_records_tree</field>
+        <field name="model">vehicle_usage.vehicleanchor</field>
         <field name="arch" type="xml">
             <tree string="inspection plan" >
                 <field name="license_plate" />
@@ -258,7 +258,7 @@
     <!-- 车辆抛锚记录表单 -->
     <record model="ir.ui.view" id="vechile_dropanchor_item_form_view">
         <field name="name">vechile_dropanchor_item_form_view</field>
-        <field name="model">fleet_vehicle_usage_management.vehicleanchor</field>
+        <field name="model">vehicle_usage.vehicleanchor</field>
         <field name="arch" type="xml">
             <form string="drop anchile item Form">
                 <sheet>
@@ -283,9 +283,9 @@
     </record>
 
     <!-- 车辆抛锚记录action -->
-    <record id='fleet_vehicle_dropanchor_records_action' model='ir.actions.act_window'>
+    <record id='vehicle_dropanchor_records_action' model='ir.actions.act_window'>
         <field name="name">vehicle dropanchor records</field>
-        <field name="res_model">fleet_vehicle_usage_management.vehicleanchor</field>
+        <field name="res_model">vehicle_usage.vehicleanchor</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
@@ -296,29 +296,29 @@
               parent="vehicle_manage_menu.vehicle_use_manage"
               sequence="5"/>
     <!-- 车辆抛锚记录 -->
-    <menuitem name="fleet_vehicle_drop_anchor_records"
-              id="fleet_vehicle_drop_anchor_records"
+    <menuitem name="vehicle_drop_anchor_records"
+              id="vehicle_drop_anchor_records"
               parent="vehicle_manage_menu.vehicle_use_manage"
-              action="fleet_vehicle_dropanchor_records_action"
+              action="vehicle_dropanchor_records_action"
               sequence="8"/>
     <!-- 车辆年检查询 -->
-    <menuitem name="fleet_vehicle_inspection_list"
-              id="fleet_vehicle_inspection_list"
+    <menuitem name="vehicle_inspection_list"
+              id="vehicle_inspection_list"
               parent="vehicle_inspection_manage"
-              action="fleet_vehicle_inspection_list_action"
+              action="vehicle_inspection_list_action"
               sequence="1"/>
 
     <!-- 车辆年检计划 -->
-    <menuitem name="fleet_vehicle_inspection_plan"
-              id="fleet_vehicle_inspection_plan"
+    <menuitem name="vehicle_inspection_plan"
+              id="vehicle_inspection_plan"
               parent="vehicle_inspection_manage"
-              action="fleet_vehicle_inspection_plan_action"
+              action="vehicle_inspection_plan_action"
               sequence="2"/>
 
     <!-- 车辆年检 -->
-    <menuitem name="fleet_vehicle_inspection_records"
-              id="fleet_vehicle_inspection_records"
+    <menuitem name="vehicle_inspection_records"
+              id="vehicle_inspection_records"
               parent="vehicle_inspection_manage"
-              action="fleet_vehicle_inspection_records_action"
+              action="vehicle_inspection_records_action"
               sequence="3"/>
 </odoo>

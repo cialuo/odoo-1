@@ -29,7 +29,7 @@ class FleetVehicle(models.Model):
                 item.warnning = False
 
 class InspectionPlan(models.Model):
-    _name = 'fleet_vehicle_usage_management.inspectionplan'
+    _name = 'vehicle_usage.inspectionplan'
 
     # 年检计划名称
     name = fields.Char(string=_('inspection plan name'), required=True)
@@ -51,7 +51,7 @@ class InspectionPlan(models.Model):
     # 备注
     remark = fields.Char(string=_('remark'))
     # 计划详情
-    planitem_id = fields.One2many('fleet_vehicle_usage_management.planitem', 'inspectionplan_id',
+    planitem_id = fields.One2many('vehicle_usage.planitem', 'inspectionplan_id',
                                   string=_("plan detail"))
     # 年检计划
     subject = fields.Char(string=_('plan subject'))
@@ -122,7 +122,7 @@ class InspectionPlan(models.Model):
 
     # 已添加年检单的车辆不能再次被加入到计划单
     def hasItem(self, vehicleid):
-        planitemmode = self.env['fleet_vehicle_usage_management.planitem']
+        planitemmode = self.env['vehicle_usage.planitem']
         count = planitemmode.search_count([
             ('state','=','execution'),
             ('vehicle_id','=',vehicleid)
@@ -152,7 +152,7 @@ class InspectionPlan(models.Model):
 
 class PlanItem(models.Model):
 
-    _name = 'fleet_vehicle_usage_management.planitem'
+    _name = 'vehicle_usage.planitem'
 
     # 车辆信息
     vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'), required=True)
@@ -174,7 +174,7 @@ class PlanItem(models.Model):
     ], string=_('plan item state'), default='execution')
 
     # 年检计划
-    inspectionplan_id = fields.Many2one('fleet_vehicle_usage_management.inspectionplan',
+    inspectionplan_id = fields.Many2one('vehicle_usage.inspectionplan',
                                         string=_('inspection plan'),ondelete='cascade')
 
     # 送检司机
@@ -189,7 +189,7 @@ class InspectionRecords(models.Model):
     年检结果表
     """
 
-    _name = 'fleet_vehicle_usage_management.inspectionrecords'
+    _name = 'vehicle_usage.inspectionrecords'
 
     _rec_name = 'inner_code'
 
@@ -220,7 +220,7 @@ class InspectionRecords(models.Model):
 
 
 class VehicleAnchor(models.Model):
-    _name = 'fleet_vehicle_usage_management.vehicleanchor'
+    _name = 'vehicle_usage.vehicleanchor'
 
     # 关联的车辆信息
     vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'), required=True)
