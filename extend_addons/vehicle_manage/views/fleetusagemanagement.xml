@@ -298,7 +298,7 @@
     <!-- 车辆抛锚记录 -->
     <menuitem name="fleet_vehicle_drop_anchor_records"
               id="fleet_vehicle_drop_anchor_records"
-              parent="fleet_manage_menu.fleet_vehicle_usage_management"
+              parent="vehicle_manage_menu.vehicle_use_manage"
               action="fleet_vehicle_dropanchor_records_action"
               sequence="8"/>
     <!-- 车辆年检查询 -->

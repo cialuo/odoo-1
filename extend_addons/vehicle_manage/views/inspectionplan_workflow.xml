@@ -1,0 +1,71 @@
+<odoo>
+        <record model="workflow" id="wkf_insepctionplan">
+            <field name="name">flow of inspection plan</field>
+            <field name="osv">fleet_vehicle_usage_management.inspectionplan</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record model="workflow.activity" id="draft">
+            <field name="name">draft</field>
+            <field name="wkf_id" ref="wkf_insepctionplan"/>
+            <field name="flow_start" eval="True"/>
+            <field name="kind">function</field>
+            <field name="action">action_draft()</field>
+        </record>
+        <record model="workflow.activity" id="submitted">
+            <field name="name">submitted</field>
+            <field name="wkf_id" ref="wkf_insepctionplan"/>
+            <field name="kind">function</field>
+            <field name="action">action_submitted()</field>
+        </record>
+        <record model="workflow.activity" id="checked">
+            <field name="name">checked</field>
+            <field name="wkf_id" ref="wkf_insepctionplan"/>
+            <field name="kind">function</field>
+            <field name="action">action_checked()</field>
+        </record>
+        <record model="workflow.activity" id="execution">
+            <field name="name">execution</field>
+            <field name="wkf_id" ref="wkf_insepctionplan"/>
+            <field name="kind">function</field>
+            <field name="action">action_execution()</field>
+        </record>
+        <record model="workflow.activity" id="done">
+            <field name="name">Done</field>
+            <field name="wkf_id" ref="wkf_insepctionplan"/>
+            <field name="kind">function</field>
+            <field name="action">action_done()</field>
+        </record>
+
+        <record model="workflow.transition" id="inspectionplan_draft_to_submitted">
+            <field name="act_from" ref="draft"/>
+            <field name="act_to" ref="submitted"/>
+            <field name="signal">submitted</field>
+        </record>
+
+        <record model="workflow.transition" id="inspectionplan_submitted_to_draft">
+            <field name="act_from" ref="submitted"/>
+            <field name="act_to" ref="draft"/>
+            <field name="signal">draft</field>
+        </record>
+
+        <record model="workflow.transition" id="inspectionplan_submitted_to_checked">
+            <field name="act_from" ref="submitted"/>
+            <field name="act_to" ref="checked"/>
+            <field name="signal">checked</field>
+        </record>
+
+        <record model="workflow.transition" id="inspectionplan_checked_to_execution">
+            <field name="act_from" ref="checked"/>
+            <field name="act_to" ref="execution"/>
+            <field name="signal">execution</field>
+        </record>
+
+        <record model="workflow.transition" id="inspectionplan_execution_to_done">
+            <field name="act_from" ref="execution"/>
+            <field name="act_to" ref="done"/>
+            <field name="flow_stop">True</field>
+            <field name="signal">done</field>
+        </record>
+
+</odoo>
