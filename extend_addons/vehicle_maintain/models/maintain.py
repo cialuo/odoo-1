@@ -380,11 +380,14 @@ class MaintainRepair(models.Model):
             i.real_start_time = fields.Datetime.now()
         if self.materials_control:
             avail_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0)
+            location_dest_id = self.env.ref('stock_picking_types.stock_location_ullage').id  # 维修(生产)虚位
+            self._generate_picking(avail_products, location_dest_id)
+
+    def _generate_picking(self, products, location):
             picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
             location_id = self.env.ref('stock.stock_location_stock').id     # 库存
-            location_dest_id = self.env.ref('stock_picking_types.stock_location_ullage').id  #维修(生产)虚位
 
-            for products in [avail_products]:
+            for products in [products]:
                 if not products:
                     continue
                 move_lines = []
@@ -401,7 +404,7 @@ class MaintainRepair(models.Model):
                     picking = self.env['stock.picking'].create({
                         'origin': self.name,
                         'location_id': location_id,
-                        'location_dest_id': location_dest_id,
+                        'location_dest_id': location,
                         'picking_type_id': picking_type.id,
                         'repair_id': self.id,
                         'move_lines': move_lines
