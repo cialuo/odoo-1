@@ -260,6 +260,8 @@ class DriveRecords(models.Model):
     vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'), required=True)
     # 线路
     route_id = fields.Many2one(related='vehicle_id.route_id', readonly=True)
+    # 司机
+    driver_id = fields.Many2one('hr.employee', string=_('driver'))
     # 方向
     direction = fields.Char(string=_('drive direction'))
     # 计划里程
