@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_energy_management_energy_management,energy_management.energy_management,model_energy_management_energy_management,,1,0,0,0
