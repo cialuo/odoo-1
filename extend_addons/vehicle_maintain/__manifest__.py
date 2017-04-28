@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "vehicle_maintain",
+    'name': "抢修模块",
 
     'description': """
     a）抢修体系:
@@ -24,7 +24,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['vehicle_manage_menu', 'materials_product'],
+    'depends': ['vehicle_manage_menu', 'materials_product','stock_picking_types'],
 
     # always loaded
     'data': [

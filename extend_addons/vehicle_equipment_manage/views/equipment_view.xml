@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+
+        <record id="hr_equipment_category_view_tree_ext" model="ir.ui.view">
+            <field name="name">equipment.category.tree</field>
+            <field name="model">maintenance.equipment.category</field>
+            <field name="arch" type="xml">
+                <tree string="Assign To User">
+                    <field name="name" string="Name"/>
+                    <field name="note"/>
+                    <field name="technician_user_id"/>
+                    <field name="create_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_equipment_category_action" model="ir.actions.act_window">
+            <field name="name">Equipment Categories</field>
+            <field name="res_model">maintenance.equipment.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('hr_equipment_category_view_tree_ext')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('maintenance.hr_equipment_category_view_form')})]"/>
+
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new equipment category.
+                </p>
+            </field>
+        </record>
+
+
+        <record id="hr_equipment_action" model="ir.actions.act_window">
+            <field name="name">Equipments</field>
+            <field name="res_model">maintenance.equipment</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('maintenance.hr_equipment_view_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('maintenance.hr_equipment_view_form')})]"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new equipment.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem
+            id="equipment_categories" name="equipment_categories" parent="vehicle_manage_menu.equipment_manage"
+            action="hr_equipment_category_action" sequence="10"/>
+
+        <menuitem id="equipment" name="equipment" parent="vehicle_manage_menu.equipment_manage"
+            action="hr_equipment_action" sequence="20"/>
+    </data>
+</odoo>

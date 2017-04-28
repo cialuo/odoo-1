@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "vehicle_manage",
+    'name': "车辆管理",
 
     'description': """
         a）车辆技术管理,车型管理,排放标准

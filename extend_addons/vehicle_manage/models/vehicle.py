@@ -8,6 +8,8 @@ class Vehicle(models.Model):
     车辆档案
     """
     _inherit = "fleet.vehicle"
+    _sql_constraints = [('code_uniq', 'unique (inner_code)', _("inner code already exists")),
+                        ('license_plate_uniq', 'unique(license_plate)', 'The license_plate must be unique !'),]
 
     state = fields.Selection([('warrantly', "warrantly"),
                               ('normal', "normal"),
@@ -46,6 +48,7 @@ class Vehicle(models.Model):
                               ('green', "Green")], default='green',
                                help='Vehicle Label')
 
+    deadline = fields.Integer(string="Deadline",related='model_id.deadline')
 
     emission_standard = fields.Many2one(related='model_id.emission_standard')
 
@@ -139,7 +142,7 @@ class FleetVehicleModel(models.Model):
     max_climb = fields.Integer('Max Climb',help='Max Climb')
     fuel_capacity = fields.Float('Fuel Capacity',help='Fuel Capacity')
     fuel_consumption_pre_hund = fields.Float(help='Every hundred kilometers rated fuel consumption')
-    deadline = fields.Float(string="Deadline")
+    deadline = fields.Integer(string="Deadline")
     manufacturers = fields.Char(help='Manufacturers')
     note = fields.Text("Note",help='Note')
 

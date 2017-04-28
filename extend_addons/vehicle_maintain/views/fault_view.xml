@@ -271,15 +271,13 @@
 						 <group col="2">
 	                        <group name="next">
 	                        	<field name="work_time" />
-								<field name="warranty_deadline" />
 								<field name="complex_level" />
 								<field name="materials_control" />
-								<field name="remark" />
 	                        </group>
-	                        <!--<group>-->
-								<!--<field name="is_important_product"/>-->
-								<!--<field name="important_product_id" attrs="{'invisible':[('is_important_product','=',False)]}" widget="selection"/>-->
-	                        <!--</group>-->
+							<group>
+								<field name="warranty_deadline" />
+	                            <field name="remark" />
+	                        </group>
                    		 </group>
 						 <notebook>
 							<page name="Operation Manual" string="Operation Manual">
