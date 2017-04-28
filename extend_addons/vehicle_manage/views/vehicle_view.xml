@@ -1,0 +1,290 @@
+<odoo>
+    <data>
+        <!--Vehicle Tree-->
+        <record id='vehicle_view_tree' model='ir.ui.view'>
+            <field name="name">vehicle.tree</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <tree string="Vehicle">
+                    <field name="active" invisible="1"/>
+                    <field name="license_plate" />
+                    <field name="inner_code" />
+                    <field name="company_id" />
+                    <field name="route_id" />
+                    <field name="annual_inspection_date" />
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--EmissionStandard Tree-->
+        <record id='vehicle_manage_emission_standard_tree' model='ir.ui.view'>
+            <field name="name">vehicle_manage.emission_standard.tree</field>
+            <field name="model">vehicle_manage.emission_standard</field>
+            <field name="arch" type="xml">
+                <tree string="Emission Standard">
+                    <field name="name"/>
+                    <field name="level_code" />
+                    <field name="remark" />
+                </tree>
+            </field>
+        </record>
+
+
+        <!--Vehicle Form-->
+        <record id='fleet_vehicle_view_form' model='ir.ui.view'>
+            <field name="name">fleet_vehicle.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <form string="Vehicle">
+                    <header>
+                        <field name="state"  widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+
+                            <button name="return_action_to_open"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-tachometer"
+                                    attrs="{'invisible': [('total_odometer', '=', 0)]}"
+                                    context="{'xml_id':'fleet_vehicle_odometer_action'}"
+                                    help="show the odometer logs for this vehicle" >
+                                    <field name="total_odometer" widget="statinfo" string="Odometer"/>
+                            </button>
+                        </div>
+                        <field name="image_medium" widget='image' class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="inner_code" class="oe_edit_only"/>
+                            <h1>
+                                <field name="inner_code"/>
+                            </h1>
+                            <label for="license_plate" class="oe_edit_only"/>
+                            <h2>
+                                <field name="license_plate" class="oe_inline" placeholder="e.g. B88888"/>
+                            </h2>
+                            <label for="tag_ids" class="oe_edit_only"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                        </div>
+
+                        <notebook>
+                            <page  string="General Properties">
+                                <group col="2">
+                                    <group>
+                                        <field name="company_id" options="{'no_open':True,'no_create':True}"/>
+                                        <field name="route_id" options="{'no_open':True,'no_create':True}"/>
+                                        <field name="vin_sn"/>
+                                        <field name="length_width_height"/>
+                                        <field name="emission_standard"/>
+                                        <field name="model_id" options="{'no_open':True,'no_create':True}" string="车型"/>
+                                    </group>
+                                    <group>
+                                        <field name="deadline"/>
+                                        <field name="vehicle_label"/>
+                                    </group>
+                                </group>
+
+                                <separator string="Location Info"/>
+                                <group name="top">
+                                    <group name="top-left">
+                                        <field name="location_id" readonly="1"/>
+                                        <field name="location_stock_id" readonly="1"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                            <page  string="Technical Properties">
+                                <group>
+                                    <field name="engine_no" />
+                                    <field name="transmission_ext" />
+                                    <field name="fuel_type_ext" />
+                                    <label for="co2_ext"/>
+                                    <div class="o_row">
+                                        <field name="co2_ext"/><span>g/km</span>
+                                    </div>
+                                    <field name="horsepower_ext" />
+                                    <label for="power_ext"/>
+                                    <div class="o_row">
+                                        <field name="power_ext"/><span>kW</span>
+                                    </div>
+                                    <field name="weight" />
+                                </group>
+                            </page>
+                            <page string="Appearance Properties">
+                                <group>
+                                    <field name="doors_ext" />
+                                    <field name="seats_ext" />
+                                    <field name="color" />
+                                    <field name="brand_name" />
+                                </group>
+                            </page>
+                            <page string="Register Information">
+                                <group>
+                                    <field name="reg_no" />
+                                    <field name="reg_date" />
+                                    <field name="forced_destroy" />
+                                    <field name="annual_inspection_date" />
+                                    <field name="emissions"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- VehicleModel Form-->
+        <record id='vehicle_manage_model_view_form_ext' model='ir.ui.view'>
+            <field name="name">vehicle.model.form.ext</field>
+            <field name="model">fleet.vehicle.model</field>
+			<field name="type">form</field>
+            <field name="priority">0</field>
+			<field name="inherit_id" ref="fleet.fleet_vehicle_model_view_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//div[@class='oe_title']" position="after">
+					<group col="3" >
+                        <group>
+                            <field name="code" />
+                            <field name="specifications" />
+							<label for="length"/>
+							<div class="o_row">
+                                   <field name="length"/><span>mm</span>
+							</div>
+							<field name="transmission_ext" />
+                            <field name="horsepower_ext" />
+							<label for="inner_height"/>
+							<div class="o_row">
+                                <field name="inner_height"/><span>mm</span>
+							</div>
+							<label for="front_distance"/>
+							<div class="o_row">
+                                <field name="front_distance"/><span>mm</span>
+							</div>
+							<label for="front_max_weight"/>
+							<div class="o_row">
+                                <field name="front_max_weight"/><span>kg</span>
+							</div>
+							<field name="driving_wheel_count"/>
+                            <field name="fuel_capacity"/>
+							<field name="deadline"/>
+                        </group>
+                        <group>
+                        	<field name="engine_type_no" />
+							<field name="fuel_type_ext" />
+							<label for="width"/>
+							<div class="o_row">
+                                <field name="width"/><span>mm</span>
+							</div>
+							<label for="weight"/>
+							<div class="o_row">
+                                <field name="weight"/><span>kg</span>
+							</div>
+							<label for="rear_distance"/>
+							<div class="o_row">
+                                <field name="rear_distance"/><span>mm</span>
+							</div>
+
+							<label for="rear_max_weight"/>
+							<div class="o_row">
+                                <field name="rear_max_weight"/><span>kg</span>
+							</div>
+							<label for="turn_radius"/>
+							<div class="o_row">
+                                <field name="turn_radius"/><span>m</span>
+							</div>
+							<field name="fuel_consumption_pre_hund"/>
+                            <field name="manufacturers"/>
+                            <field name="emission_standard"/>
+                        </group>
+						<group>
+							<field name="co2_ext" />
+							<field name="chassis_no" />
+							<label for="height"/>
+							<div class="o_row">
+                                <field name="height"/><span>mm</span>
+							</div>
+							<field name="doors_ext" />
+							<field name="seats_ext"/>
+							<label for="shaft_distance"/>
+							<div class="o_row">
+                                <field name="shaft_distance"/><span>mm</span>
+							</div>
+							<field name="wheel_count"/>
+							<label for="max_climb"/>
+							<div class="o_row">
+                                <field name="max_climb"/><span>%</span>
+							</div>
+						</group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+		<!--EmissionStandard   form view -->
+        <record model="ir.ui.view" id="vehicle_manage_emission_standard_form">
+            <field name="name">EmissionStandard.form</field>
+            <field name="model">vehicle_manage.emission_standard</field>
+            <field name="arch" type="xml">
+                <form string="EmissionStandard Form">
+                    <sheet>
+                        <group>
+                            <field name="level_code"/>
+                            <field name="name"/>
+                            <field name="remark"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Vehicle Action -->
+        <record id='vehicle_manage_action' model='ir.actions.act_window'>
+            <field name="name">vehicle_manage_action</field>
+            <field name="res_model">fleet.vehicle</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new vehicle.
+              </p>
+            </field>
+        </record>
+
+
+        <!-- VehicleModel Action -->
+		<record model="ir.actions.act_window" id="vehicle_manage_model_action">
+	        <field name="name">vehicle_manage_model_action</field>
+	        <field name="res_model">fleet.vehicle.model</field>
+	        <field name="view_mode">tree,form</field>
+		</record>
+
+        <!-- Emission Standard Action -->
+		<record model="ir.actions.act_window" id="vehicle_manage_emission_standard_action">
+	        <field name="name">vehicle_manage_emission_standard_action</field>
+	        <field name="res_model">vehicle_manage.emission_standard</field>
+	        <field name="view_mode">tree,form</field>
+		</record>
+
+
+        <menuitem name="vehicle_manage" id="vehicle_manage" parent="vehicle_manage_menu.vehicle_basic_manage"
+                action = "vehicle_manage_action" sequence="10"/>
+
+
+        <menuitem name="vehicle_manage_model" id="vehicle_manage_model" parent="vehicle_manage_menu.warranty_maintain_basic_manage"
+				  action = "vehicle_manage_model_action" sequence="30"
+				  />
+        <menuitem name="vehicle_manage_emission_standard" id="vehicle_manage_emission_standard"
+				  parent="vehicle_manage_menu.warranty_maintain_basic_manage"
+				  action="vehicle_manage_emission_standard_action"
+				  sequence="40"
+				  />
+    </data>
+</odoo>

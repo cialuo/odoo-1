@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "vehicle_maintain",
+    'name': "抢修模块",
 
     'description': """
     a）抢修体系:
@@ -18,23 +18,29 @@
         5,检验单
     """,
 
-    'author': "Xiangll",
+    'author': "Xiang",
 
     'category': 'Advanced Edition',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['vehicle_manage_menu','product','stock'],
+    'depends': ['vehicle_manage_menu', 'materials_product','stock_picking_types'],
 
     # always loaded
     'data': [
         # 'security/maintain_security.xml',
         # # 'security/ir.model.access.csv',
-        'views/fault_view.xml'
-        # "data/sequence.xml",
-        # 'views/fleet_manage_inspect.xml',
-        # 'views/maintain_view.xml',
-        # 'views/repair_record.xml',
+
+        'views/fault_view.xml',
+
+        "data/maintain_sequence.xml",
+        'views/maintain_inspect_view.xml',
+
+
+        "views/maintain_view.xml",
+        'views/vehicle_repair_record.xml',
+
+
 
 
     ],

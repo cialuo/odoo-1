@@ -1,0 +1,173 @@
+# -*- coding: utf-8 -*-
+
+from odoo import models, fields, api, _
+
+
+class Vehicle(models.Model):
+    """
+    车辆档案
+    """
+    _inherit = "fleet.vehicle"
+    _sql_constraints = [('code_uniq', 'unique (inner_code)', _("inner code already exists")),
+                        ('license_plate_uniq', 'unique(license_plate)', 'The license_plate must be unique !'),]
+
+    state = fields.Selection([('warrantly', "warrantly"),
+                              ('normal', "normal"),
+                              ('rush', "rush"),
+                              ('repair', "repair"),
+                              ('stop', "stop"),], default='normal',
+                               help='Current state of the vehicle', ondelete="set null")
+    name = fields.Char("Vehicle Number", compute="_cumpute_model_name", store=True)
+    inner_code = fields.Char(string="Inner Code", help="Inner Code", required=True)
+    route_id = fields.Many2one('vehicle_manage.route', string="Route")
+    company_id = fields.Many2one('res.company', 'Company')
+    # trainman = fields.Many2one('hr.employee', string="Trainman Name")
+    # driver = fields.Many2one('hr.employee', string="Driver Name", required=True)
+    engine_no = fields.Char('Engine No', help='Engine No')
+    transmission_ext = fields.Char(related='model_id.transmission_ext', store=True, readonly=True, copy=False)
+    fuel_type_ext = fields.Char(related='model_id.fuel_type_ext', store=True, readonly=True, copy=False)
+    co2_ext = fields.Float(related='model_id.co2_ext', store=True, readonly=True, copy=False)
+    horsepower_ext = fields.Integer(related='model_id.horsepower_ext', store=True, readonly=True, copy=False)
+    power_ext = fields.Integer(related='model_id.power_ext', store=True, readonly=True, copy=False)
+
+    weight = fields.Integer(related='model_id.weight', store=True, readonly=True, copy=False)
+    doors_ext = fields.Integer(related='model_id.doors_ext', store=True, readonly=True, copy=False)
+    seats_ext = fields.Integer(related='model_id.seats_ext', store=True, readonly=True, copy=False)
+
+    brand_name = fields.Char(compute="_compute_model_att_name", store=True)
+    length_width_height = fields.Char(compute="_compute_model_att_name", help='length_width_height')
+
+    reg_no = fields.Char(help='The registration number')
+    reg_date = fields.Date(help='Reg Date')
+    forced_destroy = fields.Char(help='Forced to destroy')
+    annual_inspection_date = fields.Date(help='The annual inspection date', required=True)
+    emissions = fields.Char(help='The vehicle emissions')
+    total_odometer = fields.Float(compute='_get_total_odometer', string='Total Odometer', help='Total Odometer')
+
+    vehicle_label = fields.Selection([('yellow', "Yellow"),
+                              ('green', "Green")], default='green',
+                               help='Vehicle Label')
+
+    deadline = fields.Integer(string="Deadline",related='model_id.deadline')
+
+    emission_standard = fields.Many2one(related='model_id.emission_standard')
+
+    location_id = fields.Many2one('stock.location', string='V Location')
+    location_stock_id = fields.Many2one('stock.location', string='Stock Location')
+
+    @api.model
+    def create(self, vals):
+        """
+        创建车辆时，同时为车辆创建两个库位-- 虚拟库位/（车牌号）， 库存/（车牌号）
+        :param vals:
+        :return:
+        """
+        res = super(Vehicle, self).create(vals)
+        name = res.license_plate
+        virtual_parent = self.env.ref('stock.stock_location_locations_virtual', raise_if_not_found=False)
+        stock_vals = self.env['stock.location'].create({
+            'location_id': self.env.ref('stock.stock_location_stock').id,
+            'name': name,
+            'usage': 'internal',
+            'is_vehicle': True,
+        })
+        virtual_vals = self.env['stock.location'].create({
+            'location_id': virtual_parent.id,
+            'name': name,
+            'usage': 'inventory',
+            'is_vehicle': True,
+        })
+        res.write({'location_id': virtual_vals.id, 'location_stock_id': stock_vals.id})
+        return res
+
+
+    @api.depends('inner_code')
+    def _cumpute_model_name(self):
+        for record in self:
+            record.name = record.inner_code
+
+    @api.depends('model_id')
+    def _compute_model_att_name(self):
+        for record in self:
+            record.brand_name = record.model_id.brand_id.name
+            record.length_width_height = str(record.model_id.length)+'*'+str(record.model_id.width)+'*'+str(record.model_id.height)
+
+    def _get_total_odometer(self):
+        """
+        获取车辆累计的行程公里数
+        """
+        FleetVehicalOdometer = self.env['fleet.vehicle.odometer']
+        for record in self:
+            vehicle_odometer = FleetVehicalOdometer.search([('vehicle_id', '=', record.id)])
+            if vehicle_odometer:
+                record.total_odometer = sum(i.value for i in vehicle_odometer)
+            else:
+                record.total_odometer = 0
+
+
+class FleetVehicleModel(models.Model):
+    """
+    车型管理
+    """
+    _inherit = 'fleet.vehicle.model'
+
+    code = fields.Char(string="Code", help='Code')
+
+    transmission_ext = fields.Char('Transmission', help='Transmission')
+    fuel_type_ext = fields.Char('Fuel Type', help='Fuel Type')
+    co2_ext = fields.Float('CO2 Emissions', help='CO2 emissions of the vehicle')
+    horsepower_ext = fields.Integer("Horsepower")
+    power_ext = fields.Integer('Power', help='Power in KW of the vehicle')
+    weight = fields.Integer('Weight', help='Weight')
+    doors_ext = fields.Integer('Doors Number', help='Number of doors of the vehicle')
+    seats_ext = fields.Integer('Seats Number', help='Number of seats of the vehicle', default=5)
+
+    home_entry_date = fields.Date("Home Entry Date", help='Home Entry Date')
+    specifications = fields.Char("Specifications", help='Specifications')
+    engine_type_no = fields.Char("Engine Type No", help='Engine Type No')
+    chassis_no = fields.Integer('Chassis No', help='Chassis No')
+    length = fields.Integer("Length", help='Length')
+    width = fields.Integer("Width", help='Width')
+    height = fields.Integer("Height", help='Height')
+    inner_height = fields.Integer('Inner Height', help='Inner Height')
+
+    front_distance = fields.Integer('Front Distance', help='Front Distance')
+    rear_distance = fields.Integer('Rear Distance', help='Rear Distance')
+    shaft_distance = fields.Integer('Shaft Distance', help='Shaft Distance')
+    front_max_weight = fields.Integer('Front Max Weight', help='Front Max Weight')
+    rear_max_weight = fields.Integer('Rear Max Weight', help='Rear Max Weight')
+    wheel_count = fields.Integer('Wheel Count',help='Wheel Count')
+    driving_wheel_count = fields.Integer('Driving Wheel Count', help='Driving Wheel Count')
+    turn_radius = fields.Float('Turn Radius',help='Turn Radius')
+    max_climb = fields.Integer('Max Climb',help='Max Climb')
+    fuel_capacity = fields.Float('Fuel Capacity',help='Fuel Capacity')
+    fuel_consumption_pre_hund = fields.Float(help='Every hundred kilometers rated fuel consumption')
+    deadline = fields.Integer(string="Deadline")
+    manufacturers = fields.Char(help='Manufacturers')
+    note = fields.Text("Note",help='Note')
+
+    emission_standard = fields.Many2one('vehicle_manage.emission_standard', 'Emission Standard')
+
+
+class FleetVehicleRoute(models.Model):
+    """
+    线路
+    """
+    _name = 'vehicle_manage.route'
+
+    name = fields.Char("Route Name", help='Route Name')
+
+
+class VehicleEmissionStandard(models.Model):
+    """
+    排放标准
+    """
+    _name = 'vehicle_manage.emission_standard'
+    _sql_constraints = [('stand_code_unique', 'unique(code)', _('Standard code already exists'))]
+
+    name = fields.Char("Emission Level", help="Emission Level")
+    remark = fields.Text("Remark", help="Remark")
+    level_code = fields.Char('Level Code', help='Level Code')
+
+
+

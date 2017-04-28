@@ -271,15 +271,13 @@
 						 <group col="2">
 	                        <group name="next">
 	                        	<field name="work_time" />
-								<field name="warranty_deadline" />
 								<field name="complex_level" />
 								<field name="materials_control" />
-								<field name="remark" />
 	                        </group>
-	                        <!--<group>-->
-								<!--<field name="is_important_product"/>-->
-								<!--<field name="important_product_id" attrs="{'invisible':[('is_important_product','=',False)]}" widget="selection"/>-->
-	                        <!--</group>-->
+							<group>
+								<field name="warranty_deadline" />
+	                            <field name="remark" />
+	                        </group>
                    		 </group>
 						 <notebook>
 							<page name="Operation Manual" string="Operation Manual">
@@ -299,8 +297,8 @@
 										<field name="uom_id"/>
 										<field name="change_count"/>
 										<field name="max_count"/>
-										<!--<field name="vehicle_model" widget="many2many_tags"/>-->
-										<!--<field name="require_trans"/>-->
+										<field name="vehicle_model" widget="many2many_tags"/>
+										<field name="require_trans"/>
 										<field name="remark"/>
 										<field name="onhand_qty" invisible="1"/>
 										<field name="virtual_available" invisible="1"/>
@@ -360,7 +358,7 @@
 
 
 		<!--抢修体系-->
-		<menuitem name="maintain_basic_manage" id="maintain_basic_manage" parent="vehicle_manage_menu.warranty_maintain_basic_manage" sequence="10"/>
+		<menuitem name="maintain_basic_manage" id="maintain_basic_manage" parent="vehicle_manage_menu.warranty_maintain_basic_manage" sequence="20"/>
 
 		<!--故障分类-->
 	    <menuitem name="fault_category" id="fault_category" parent="maintain_basic_manage"
@@ -368,15 +366,15 @@
 
 		<!--故障现象-->
 	    <menuitem name="fault_appearance" id="fault_appearance" parent="maintain_basic_manage"
-				  action = "fault_appearance_action" sequence="10"/>
+				  action = "fault_appearance_action" sequence="20"/>
 
 		<!--故障原因-->
   	    <menuitem name="fault_reason" id="menu_fault_reason" parent="maintain_basic_manage"
-				  action = "fault_reason_action" sequence="20"/>
+				  action = "fault_reason_action" sequence="30"/>
 
 		<!--修理方法-->
   	    <menuitem name="fault_method" id="fault_method"  parent="maintain_basic_manage"
-				  action = "fault_method_action" sequence="30"/>
+				  action = "fault_method_action" sequence="40"/>
 
 		<!--修理工艺管理-->
 		<menuitem name="fault_method_craft" id="fault_method_craft" parent="vehicle_manage_menu.vehicle_basic_manage"

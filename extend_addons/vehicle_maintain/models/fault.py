@@ -256,9 +256,9 @@ class AvailableProduct(models.Model):
     onhand_qty = fields.Float('Quantity On Hand', related='product_id.qty_available', readonly=True)
     virtual_available = fields.Float('Forecast Quantity', related='product_id.virtual_available', readonly=True)
 
-    # require_trans = fields.Boolean("Require Trans", related='product_id.require_trans', readonly=True)
-    # vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec',
-    #                                   string='Suitable Vehicle', readonly=True)
+    require_trans = fields.Boolean("Require Trans", related='product_id.require_trans', readonly=True)
+    vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec',
+                                      string='Suitable Vehicle', readonly=True)
 
     description = fields.Text("Product Size", related='product_id.description', readonly=True)
 

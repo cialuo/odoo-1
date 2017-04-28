@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "vehicle_manage_menu",
+    'name': "车辆管理菜单",
 
     'description': """
         车辆管理菜单项
     """,
 
-    'author': "Xiangll",
+    'author': "Xiang",
 
     'category': 'Basic Edition',
     'version': '0.1',

@@ -1,0 +1,13 @@
+<openerp>
+    <data>
+
+        <!--<record id="item0" model="security_manage.security_manage">-->
+            <!--<field name="name">Object 0</field>-->
+            <!--<field name="check_id">001</field>-->
+            <!--<field name="check_item_name">制动系统</field>-->
+            <!--<field name="check_content">制动管路密封性</field>-->
+            <!--<field name="check_standards">制动管路工作正常无漏液漏气</field>-->
+        <!--</record>-->
+
+    </data>
+</openerp>
