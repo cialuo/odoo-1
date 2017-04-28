@@ -198,7 +198,7 @@ class MaintainRepair(models.Model):
                                         })
     fault_method_code = fields.Char(related='fault_method_id.fault_method_code', store=True, readonly=True, copy=False)
     work_time = fields.Integer(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
-    materials_control = fields.Boolean("Materials Control", readonly=True, copy=False)
+
 
     plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
     plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time", compute='_get_end_datetime')
@@ -216,15 +216,19 @@ class MaintainRepair(models.Model):
         ('inspect', "Inspect"),
         ('completed', "Completed")], default='draft', readonly=True)
 
+    repair_type = fields.Selection([('vehicle_repair',"vehicle_repair"),
+                                    ('assembly_repair',"assembly_repair")],
+                                   default='vehicle_repair', string="Repair Type")
+
     job_ids = fields.One2many("maintain.manage.repair_jobs", 'repair_id', string='Maintain Repair Jobs',
                               states={
                                   'completed': [('readonly', True)],
                                   'inspect': [('readonly', True)],
                                   'repair': [('readonly', True)],
                               })
-
     percentage_work = fields.Float(help='percentage_work', digits=(2, 1))
 
+    materials_control = fields.Boolean("Materials Control", readonly=True, copy=False)
     available_product_ids = fields.One2many("maintain.manage.available_product", 'repair_id',
                                             string='Available Product')
     operation_manual = fields.Text("Operation Manual", related='fault_method_id.operation_manual',
@@ -232,9 +236,7 @@ class MaintainRepair(models.Model):
     inspect_standard = fields.Text("Inspect Standard", related='fault_method_id.inspect_standard',
                                    help="Inspect Standard",store=True, readonly=True, copy=False)
 
-    repair_type = fields.Selection([('vehicle_repair',"vehicle_repair"),
-                                    ('assembly_repair',"assembly_repair")],
-                                   default='vehicle_repair', string="Repair Type")
+
 
     picking_ids = fields.One2many("stock.picking", 'repair_id', string='Stock Pickings')
 
