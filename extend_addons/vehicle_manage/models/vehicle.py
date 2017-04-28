@@ -54,6 +54,15 @@ class Vehicle(models.Model):
 
     location_id = fields.Many2one('stock.location', string='V Location')
     location_stock_id = fields.Many2one('stock.location', string='Stock Location')
+    # 投入日期
+    startusedate = fields.Date(string=_('start use date'))
+    # 年限残值
+    residuedate = fields.Integer(string=_('residue date'))
+    # 驾驶员
+    drivers = fields.Many2many('hr.employee', string=_('drivers'))
+    # 乘务员
+    steward = fields.Many2many('hr.employee', string=_('steward'))
+
 
     @api.model
     def create(self, vals):

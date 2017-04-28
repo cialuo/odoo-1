@@ -79,9 +79,13 @@
                                         <field name="length_width_height"/>
                                         <field name="emission_standard"/>
                                         <field name="model_id" options="{'no_open':True,'no_create':True}" string="车型"/>
+                                        <field name="startusedate"/>
                                     </group>
                                     <group>
                                         <field name="deadline"/>
+                                        <field name="residuedate"/>
+                                        <field name="drivers" widget="many2many_tags"/>
+                                        <field name="steward" widget="many2many_tags"/>
                                         <field name="vehicle_label"/>
                                     </group>
                                 </group>
