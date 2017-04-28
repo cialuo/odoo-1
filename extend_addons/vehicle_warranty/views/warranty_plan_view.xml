@@ -1,0 +1,127 @@
+<odoo>
+    <data>
+
+        <!-- 车辆保养计划管理 tree -->
+        <record model="ir.ui.view" id="warranty_plan_tree">
+            <field name="name">Warranty Plan</field>
+            <field name="model">warranty_plan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="month"/>
+                    <field name="company_id"/>
+                    <field name="made_company_id"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                    <field name="auditor_id"/>
+                    <field name="auditor_time"/>
+                    <field name="approval_id"/>
+                    <field name="approval_time"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 车辆保养计划管理 form -->
+        <record model="ir.ui.view" id="warranty_plan_form">
+            <field name="name">Warranty Plan</field>
+            <field name="model">warranty_plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_commit" type="object" string="Confirm Submit" states="draft"
+                                class="oe_highlight"/> <!-- 确认提交 -->
+                        <button name="action_audit" type="object" string="Audit Pass" states="commit"
+                                class="oe_highlight"/> <!-- 审核通过 -->
+                        <button name="action_execute" type="object" string="Approved" states="audit"
+                                class="oe_highlight"/> <!-- 审批通过 -->
+                        <button name="action_commit" type="object" string="Back To Audit" states="audit"/> <!-- 退回重审 -->
+                        <button name="action_draft" type="object" string="Rework" states="commit"/> <!-- 退回重做 -->
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </h1>
+                        </div>
+                        <group col="2">
+                            <group>
+                                <field name="plan_month" class="oe_edit_only"
+                                       attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                                <field name="month" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="made_company_id" readonly="1"/>
+                                <field name="remark"/>
+                            </group>
+                            <group>
+                                <field name="company_id" attrs="{'readonly':[('state','!=','draft')]}"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <field name="auditor_time" readonly="1"/>
+                                <field name="auditor_id" readonly="1"/>
+                                <field name="approval_id" readonly="1"/>
+                                <field name="approval_time" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Plan Order Ids">
+                                <field name="plan_order_ids" widget="one2many_list"
+                                       attrs="{'readonly':[('state','=','execute')]}">
+                                    <tree string="Plan Order Ids" editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="vehicle_id" options="{'no_create': True, 'no_open': True}"
+                                               attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="vehicle_type"/>
+                                        <field name="license_plate"/>
+                                        <field name="fleet" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="operating_mileage" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="warranty_category" options="{'no_create': True, 'no_open': True}"
+                                               attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="approval_warranty_category"
+                                               options="{'no_create': True, 'no_open': True}"
+                                               attrs="{'readonly':[('state','not in',['commit'])]}"/>
+                                        <field name="planned_date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="vin" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="average_daily_kilometer"
+                                               attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="line" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="maintain_location" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="maintain_sheet_id" readonly="1"/>
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Other Information">
+                                <group col="1">
+                                    <group>
+                                        <field name="task_count"/>
+                                        <field name="executed_count"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- 车辆保养计划管理 action -->
+        <record model="ir.actions.act_window" id="warranty_plan_action">
+            <field name="name">Warranty Plan</field>
+            <field name="res_model">warranty_plan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 车辆保养计划管理 menu -->
+        <menuitem name="Warranty Plan" id="warranty_plan" sequence="40"
+                  parent="vehicle_manage_menu.vehicle_use_manage"
+                  action="warranty_plan_action"/>
+
+    </data>
+</odoo>
