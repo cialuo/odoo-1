@@ -1,0 +1,84 @@
+<openerp>
+  <data>
+
+    <!--列表视图-->
+    <record model="ir.ui.view" id="energy_management.security_check_list">
+      <field name="name">security_check list</field>
+      <field name="model">energy.security_check</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="station_id"/>
+          <field name="check_type"/>
+          <field name="check_date"/>
+          <field name="patrol_man"/>
+          <field name="person_liable"/>
+          <field name="check_result"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--表单视图-->
+    <record model="ir.ui.view" id="energy_management.security_check_form">
+      <field name="name">security_check form</field>
+      <field name="model">energy.security_check</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+              <button name="refer_to_auditing" type="object" string="refer" states="draft"/>
+              <button name="auditing_to_complete" type="object" string="auditing" states="refer"/>
+              <field name="state"  widget="statusbar"/>
+          </header>
+          <sheet>
+            <div class="oe_title">
+                <label for="name" class="oe_edit_only"/>
+                <h1>
+                    <field name="name" placeholder="Check's No"/>
+                </h1>
+            </div>
+            <group>
+                <group>
+                    <field name="station_id"/>
+                    <field name="person_liable"/>
+                    <field name="check_type"/>
+                    <field name="patrol_man"/>
+                    <field name="check_date"/>
+                </group>
+                <group>
+                    <field name="station_type"/>
+                    <field name="department_id"/>
+                    <field name="check_result"/>
+                    <field name="remarks"/>
+                </group>
+            </group>
+            <notebook>
+                <page name="plan_details" string="Plan details">
+                    <field name="security_check_detail_ids">
+                        <tree editable="top" create="false" delete="false">
+                            <field name="security_check_item_id"/>
+                            <field name="check_item_name"/>
+                            <field name="check_content"/>
+                            <field name="check_standards"/>
+                            <field name="check_result"/>
+                            <field name="remarks"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+          </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+        </form>
+      </field>
+    </record>
+
+    <!--动作-->
+    <record model="ir.actions.act_window" id="energy_management.aw_security_check">
+        <field name="name">security_check window</field>
+        <field name="res_model">energy.security_check</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+  </data>
+</openerp>
