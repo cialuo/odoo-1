@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'Purchase Plan ',
+    'name': '采购计划',
     'version': '1.0',
-    'category': 'Purchase',
+    'category': 'Advanced Edition',
     'summary': 'Purchase Plan',
     'author': 'Xiao',
     'description': """
@@ -16,11 +16,8 @@
         'views/purchase_plan_view.xml',
     ],
     'depends': [
-        'purchase',
-        'materials_manage',
+        'materials_product',
         'hr',
-        'important_product',
-        'stock',
-        'form_month_widget',
     ],
+    'application': True,
 }
