@@ -17,6 +17,7 @@ class FleetVehicle(models.Model):
         for item in self:
             d = item.annual_inspection_date
             if d != False:
+                a = time
                 timeArray = time.strptime(d, "%Y-%m-%d")
                 timeStamp = int(time.mktime(timeArray))
                 currenttime = int(time.time())
@@ -153,7 +154,6 @@ class PlanItem(models.Model):
 
     _name = 'fleet_vehicle_usage_management.planitem'
 
-
     # 车辆信息
     vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'), required=True)
 
@@ -191,6 +191,8 @@ class InspectionRecords(models.Model):
 
     _name = 'fleet_vehicle_usage_management.inspectionrecords'
 
+    _rec_name = 'inner_code'
+
     # 年检执行日期
     inspectiondate = fields.Date(string=_('inspection date'))
     # 年检过期日期
@@ -218,7 +220,7 @@ class InspectionRecords(models.Model):
 
 
 class VehicleAnchor(models.Model):
-    _name = 'fleet_vehicle_usage_management.VehicleAnchor'
+    _name = 'fleet_vehicle_usage_management.vehicleanchor'
 
     # 关联的车辆信息
     vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'), required=True)
@@ -233,8 +235,44 @@ class VehicleAnchor(models.Model):
     # 线路
     route_id = fields.Many2one(related='vehicle_id.route_id', readonly=True)
     # 抛锚时间
-    anchortime = fields.datetime(string=_('anchor time'))
+    anchortime = fields.Datetime(string=_('anchor time'))
     # 抛锚路段
     anchorroad = fields.Char(string=_('anchor road'))
     # 抛锚原因
     anchorreason = fields.Char(string=_('anchor reason'))
+
+
+class DriveRecords(models.Model):
+    """
+    行车记录
+    """
+    _name = 'vehicleusage.driverecords'
+
+    # 关联的车辆信息
+    vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'), required=True)
+    # 线路
+    route_id = fields.Many2one(related='vehicle_id.route_id', readonly=True)
+    # 方向
+    direction = fields.Char(string=_('drive direction'))
+    # 计划里程
+    planmileage = fields.Integer(string=_('plan mileage'))
+    # GPS里程
+    GPSmileage = fields.Integer(string=_('GPS mileage'))
+    # 趟次
+    dirvetimes = fields.Integer(string=_('drive times'))
+    # 计划发车
+    plandepart = fields.Datetime(string=_('plan depart'))
+    # 实际发车
+    realitydepart = fields.Datetime(string=_('reality depart'))
+    # 计划到达
+    planarrive = fields.Datetime(string=_('plan arrive'))
+    # 实际到达
+    realityarrive = fields.Datetime(string=_('reality arrive'))
+    # 类型
+    drivetype = fields.Selection(string=_('drive type'))
+    # 日期
+    drivedate = fields.Selection(string=_('drive date'))
+
+class EnergeUsageRecords(models.Model):
+    _inherit = ''
+

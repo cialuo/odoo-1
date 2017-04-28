@@ -25,7 +25,7 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
+        'views/fleetusagemanagement.xml',
         'views/inspectionplan_workflow.xml',
         'views/templates.xml',
     ],

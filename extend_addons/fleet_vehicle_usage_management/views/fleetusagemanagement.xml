@@ -186,7 +186,7 @@
         </field>
     </record>
 
-    <!-- 年检记录表 -->
+    <!-- 年检记录表单 -->
     <record model="ir.ui.view" id="inspection_plan_item_form_view">
         <field name="name">inspection plan item</field>
         <field name="model">fleet_vehicle_usage_management.planitem</field>
@@ -237,11 +237,70 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <!-- 车辆抛锚记录tree视图 -->
+    <record id='fleet_vehicle_dorpanchor_records_tree_list' model='ir.ui.view'>
+        <field name="name">fleet_vehicle_dorpanchor_records_tree_list</field>
+        <field name="model">fleet_vehicle_usage_management.vehicleanchor</field>
+        <field name="arch" type="xml">
+            <tree string="inspection plan" >
+                <field name="license_plate" />
+                <field name="inner_code" />
+                <field name="company_id" />
+                <field name="model_id" />
+                <field name="route_id" />
+                <field name="anchortime" />
+                <field name="anchorroad" />
+                <field name="anchorreason" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- 车辆抛锚记录表单 -->
+    <record model="ir.ui.view" id="vechile_dropanchor_item_form_view">
+        <field name="name">vechile_dropanchor_item_form_view</field>
+        <field name="model">fleet_vehicle_usage_management.vehicleanchor</field>
+        <field name="arch" type="xml">
+            <form string="drop anchile item Form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="vehicle_id" />
+                            <field name="anchortime" />
+                            <field name="anchorroad" />
+                            <field name="anchorreason" />
+                        </group>
+                        <group>
+                            <field name="license_plate" />
+                            <field name="inner_code" />
+                            <field name="company_id" />
+                            <field name="model_id" />
+                            <field name="route_id" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 车辆抛锚记录action -->
+    <record id='fleet_vehicle_dropanchor_records_action' model='ir.actions.act_window'>
+        <field name="name">vehicle dropanchor records</field>
+        <field name="res_model">fleet_vehicle_usage_management.vehicleanchor</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <!-- 车辆年检管理 -->
     <menuitem name="fleet_vehicle_inspection_manage"
               id="fleet_vehicle_inspection_manage"
               parent="fleet_manage_menu.fleet_vehicle_usage_management"
-              sequence="1"/>
+              sequence="5"/>
+    <!-- 车辆抛锚记录 -->
+    <menuitem name="fleet_vehicle_drop_anchor_records"
+              id="fleet_vehicle_drop_anchor_records"
+              parent="fleet_manage_menu.fleet_vehicle_usage_management"
+              action="fleet_vehicle_dropanchor_records_action"
+              sequence="8"/>
     <!-- 车辆年检查询 -->
     <menuitem name="fleet_vehicle_inspection_list"
               id="fleet_vehicle_inspection_list"
