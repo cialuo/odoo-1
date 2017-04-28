@@ -1,0 +1,288 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* materials_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-24 03:47+0000\n"
+"PO-Revision-Date: 2017-04-24 03:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "<span class=\"o_stat_text\">Forecasted</span>"
+msgstr "<span class=\"o_stat_text\">预测</span>"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "<span class=\"o_stat_text\">Min :</span>\n"
+"                                        <span class=\"o_stat_text\">Max:</span>"
+msgstr "<span class=\"o_stat_text\">Min :</span>\n"
+"                                        <span class=\"o_stat_text\">Max:</span>"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_category_code
+msgid "Category Code"
+msgstr "分类编码"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_code
+msgid "Code"
+msgstr "参数编码"
+
+#. module: materials_product
+#: selection:product.product,special_attributes:0
+msgid "Common"
+msgstr "常用"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_compare1
+msgid "Compare1"
+msgstr "比较方式1"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_compare2
+msgid "Compare2"
+msgstr "比较方式2"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_contract_price
+msgid "Contract Price"
+msgstr "合同单价"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_description
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "Description"
+msgstr "规格描述"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: materials_product
+#: selection:product.product,special_attributes:0
+msgid "General"
+msgstr "一般"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "General Information"
+msgstr "常规属性"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_id
+msgid "ID"
+msgstr "ID"
+
+#. module: materials_product
+#: model:ir.actions.act_window,name:materials_product.materials_manage_important_product
+msgid "Important product"
+msgstr "物资清单"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_inter_code
+msgid "Inter Code"
+msgstr "内部编码"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_keeper_id
+msgid "Keeper"
+msgstr "责任仓管"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_lifetime
+msgid "Lifetime odomter"
+msgstr "退役里程"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "Materials Code"
+msgstr "物资编码"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_tree
+msgid "Materials Name"
+msgstr "物资"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_tree
+msgid "Materials Type"
+msgstr "物资分类"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_name
+msgid "Name"
+msgstr "参数名称"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_odometer
+msgid "Odometer"
+msgstr "服役里程数"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_require_trans
+msgid "Old for new"
+msgstr "交旧领新"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "On Hand"
+msgstr "在手"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_parent_id
+msgid "Parent Product"
+msgstr "上级产品"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "Procurements"
+msgstr "补货"
+
+#. module: materials_product
+#: model:ir.model,name:materials_product.model_product_product
+msgid "Product"
+msgstr "物资名称"
+
+#. module: materials_product
+#: model:ir.model,name:materials_product.model_product_category
+msgid "Product Category"
+msgstr "物资分类"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "Product Name"
+msgstr "物资名称"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_product_id
+msgid "Product id"
+msgstr "物资名称"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "Purchases"
+msgstr "采购"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "Routes"
+msgstr "路线"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_shelf
+msgid "Shelf"
+msgstr "货架位"
+
+#. module: materials_product
+#: selection:product.product,special_attributes:0
+msgid "Special"
+msgstr "稀缺"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_special_attributes
+msgid "Special Attribute"
+msgstr "稀缺属性"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_standard
+msgid "Standard"
+msgstr "规格"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_vehicle_model
+msgid "Suitable Vehicle"
+msgstr "适用车型"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "Supply Info"
+msgstr "供货规则"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_tech_ids
+msgid "Tec Info"
+msgstr "技术参数"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "Tech Information"
+msgstr "技术参数"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "Traceability"
+msgstr "追溯"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
+msgid "Vendors"
+msgstr "供应商"
+
+#. module: materials_product
+#: code:addons/materials_product/models/product.py:33
+#: sql_constraint:product.product:0
+#, python-format
+msgid "inter code must unique per product and category"
+msgstr "每个类别下的每个产品内部编码必须唯一"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_note
+msgid "note"
+msgstr "备注"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_parameter1
+msgid "parameter1"
+msgstr "参数1"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_tech_info_parameter2
+msgid "parameter2"
+msgstr "参数2"
+
+#. module: materials_product
+#: model:ir.model,name:materials_product.model_product_tech_info
+msgid "product.tech.info"
+msgstr "product.tech.info"
+
+#. module: materials_product
+#: model:ir.ui.menu,name:materials_product.materials_menu_product
+msgid "product_menu"
+msgstr "物资管理"
+

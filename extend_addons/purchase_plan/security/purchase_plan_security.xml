@@ -4,19 +4,19 @@
         <!--制单人组-->
         <record id="purchase_plan_user" model="res.groups">
             <field name="name">Plan User</field>
-            <field name="category_id" ref="materials_manage.module_purchase_plan"/>
+            <field name="category_id" ref="module_purchase_plan"/>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         </record>
         <!--审核人组-->
         <record id="purchase_plan_checker" model="res.groups">
             <field name="name">Plan Checker</field>
-            <field name="category_id" ref="materials_manage.module_purchase_plan"/>
+            <field name="category_id" ref="module_purchase_plan"/>
             <field name="implied_ids" eval="[(4, ref('purchase_plan_user'))]"/>
         </record>
         <!--审批人组-->
         <record id="purchase_plan_approver" model="res.groups">
             <field name="name">Plan Approver</field>
-            <field name="category_id" ref="materials_manage.module_purchase_plan"/>
+            <field name="category_id" ref="module_purchase_plan"/>
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
             <field name="implied_ids" eval="[(4, ref('purchase_plan_checker')), (4, ref('purchase.group_purchase_manager'))]"/>
         </record>

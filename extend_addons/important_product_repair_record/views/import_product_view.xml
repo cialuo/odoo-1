@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="fleet_important_component.fleet_important_detailed_form"/>
             <field name="arch" type="xml">
                 <div name="button_box" position="inside">
-                    <button name="return_action_to_open"
+                    <button name="action_to_open"
                             type="object"
                             class="oe_stat_button"
                             icon="fa-book"

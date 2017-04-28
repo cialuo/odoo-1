@@ -65,7 +65,7 @@ class FleetMaintainReport(models.Model):
         self.dispatch_count = len(repair)
 
     @api.multi
-    def return_action_to_open(self):
+    def action_to_open(self):
         """
         报修单:
             功能：跳转到派工状态的维修单
@@ -645,7 +645,7 @@ class FleetMaintainDelivery(models.Model):
         self.device_return_ids = device_lines
 
     @api.multi
-    def return_action_to_open(self):
+    def action_to_open(self):
         """
         交接单:
             功能：交接单跳转到维修单

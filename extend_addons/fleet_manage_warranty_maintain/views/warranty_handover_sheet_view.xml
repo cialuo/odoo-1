@@ -19,7 +19,7 @@
 								states="delivery"
                                 class="oe_highlight"/> <!-- 提交检验-->
 
-						<button name="return_action_to_open"
+						<button name="action_to_open"
                             type="object"
                             class="oe_highlight"
                             states="delivery_return"

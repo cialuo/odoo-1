@@ -16,7 +16,7 @@ class FleetVehicle(models.Model):
             record.repair_count = self.env['fleet_manage_maintain.repair'].search_count([('vehicle_id', '=', self.id),('state', 'in', ['done'])])
 
     @api.multi
-    def return_action_to_open(self):
+    def action_to_open(self):
         """
         报修单:
             功能：跳转到车辆的维修单
