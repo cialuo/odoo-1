@@ -14,6 +14,7 @@
                     <field name="route_id" />
                     <field name="annual_inspection_date" />
                     <field name="state"/>
+                    <field name="total_odometer"/>
                 </tree>
             </field>
         </record>
@@ -79,9 +80,13 @@
                                         <field name="length_width_height"/>
                                         <field name="emission_standard"/>
                                         <field name="model_id" options="{'no_open':True,'no_create':True}" string="车型"/>
+                                        <field name="start_service_date"/>
                                     </group>
                                     <group>
                                         <field name="deadline"/>
+
+                                        <field name="service_year"/>
+                                        <field name="salvage_rate"/>
                                         <field name="vehicle_label"/>
                                     </group>
                                 </group>
@@ -215,11 +220,11 @@
 							<div class="o_row">
                                 <field name="shaft_distance"/><span>mm</span>
 							</div>
-							<field name="wheel_count"/>
 							<label for="max_climb"/>
 							<div class="o_row">
                                 <field name="max_climb"/><span>%</span>
 							</div>
+                            <field name="wheel_count"/>
 						</group>
                     </group>
                 </xpath>
