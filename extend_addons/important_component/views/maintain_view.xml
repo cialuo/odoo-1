@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--维修办法视图中加入重要部件-->
+        <record id="fault_method_view_form_extend" model="ir.ui.view">
+            <field name="name">Form fault method extend</field>
+            <field name="model">maintain.fault.method</field>
+            <field name="inherit_id" ref="vehicle_maintain.fault_method_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='warranty_deadline']" position="before">
+                    <field name="is_important_product"/>
+                    <field name="important_product_id" attrs="{'invisible':[('is_important_product','=',False)]}" widget="selection"/>
+                </xpath>
+            </field>
+        </record>
+        <!--维修单中的维修方法form-->
+        <record id="maintain_repair_view_form_action_extend" model="ir.ui.view">
+            <field name="name">Repair view form extend</field>
+            <field name="model">maintain.manage.repair</field>
+            <field name="inherit_id" ref="vehicle_maintain.maintain_repair_view_form_action"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='operation_manual']" position="before">
+                    <field name="component_ids" widget="many2many_tags" options="{'no_create_edit': True}"
+                           attrs="{'invisible': [('is_important_product', '=', False)],'required': [('is_important_product','=', True)]}"/>
+                    <field name="is_important_product" invisible="1"/>
+                    <field name="important_product_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

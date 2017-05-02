@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+
+        <!-- 调度参数管理——Menu -->
+        <menuitem id="menu_region" name="Regional management" parent="operation_menu.schedule_menu" action="act_region" />
+        <menuitem id="menu_road" name="Road management" parent="operation_menu.schedule_menu" action="act_road_manage"/>
+        <menuitem id="menu_station" name="Platform management" parent="operation_menu.schedule_menu" action="act_station_manage"/>
+        <menuitem id="menu_route" name="Line management" parent="operation_menu.schedule_menu" action="act_route_manage"/>
+
+    </data>
+</odoo>

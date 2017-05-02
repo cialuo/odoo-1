@@ -13,6 +13,7 @@
         'data/component_data.xml',
         'views/component_view.xml',
         'views/vehicle_component_view.xml',
+        'views/maintain_view.xml',
     ],
     'depends': ['vehicle_maintain', 'vehicle_manage'],
     'application': True,

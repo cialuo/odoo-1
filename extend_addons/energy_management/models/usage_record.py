@@ -27,6 +27,9 @@ class usage_record(models.Model):
     #使用
     record_date = fields.Date(string='Record Date')
 
+    #加油人
+    operator = fields.Many2one('hr.employee',string='Operator')
+
     #使用人
     user_use = fields.Many2one('res.partner',related='vehicle_id.driver_id',string='User Use')
 
@@ -43,10 +46,10 @@ class usage_record(models.Model):
     inner_code = fields.Char(string='Inner Code',related='vehicle_id.inner_code', store=False, readonly=True)
 
     #额定油耗
-    fuel_capacity = fields.Float(string='Fuel Capacity')
+    fuel_capacity = fields.Float(string='Fuel Capacity',required=True)
 
     #单位
-    companyc_id = fields.Many2one('product.uom',related='pile_id.companyc_id', store=False, readonly=True,string='Companyc Id')
+    companyc_id = fields.Many2one('product.uom',related='pile_id.energy_type.uom_id', store=False, readonly=True,string='Companyc Id')
 
     #库位
     location_id = fields.Many2one('stock.location', related='pile_id.location_id', store=False, readonly=True,
@@ -59,3 +62,37 @@ class usage_record(models.Model):
     @api.multi
     def stop_to_normal(self):
         self.state = 'normal'
+
+    @api.model
+    def create(self, vals):
+        """
+            复写模块的创建方法,在生成使用记录的同事,新增库位移动记录
+        :param vals:
+        :return:
+        """
+        res = super(usage_record, self).create(vals)
+        self._vehicle_move(vals)
+        return res
+
+    def _vehicle_move(self,vals):
+        """
+            创建一个库存移动
+        :param vals:
+        :return:
+        """
+        #获取能源桩信息
+        pile = self.env['energy.pile'].search([('id', '=', vals.get('pile_id'))])
+        product_id = pile.energy_type
+        #获取车辆信息
+        vehicle = self.env['fleet.vehicle'].search([('id', '=', vals.get('vehicle_id'))])
+
+        move_vals = {
+            'name': 'CONSUME-' + product_id.display_name,
+            'product_id': product_id.id,
+            'product_uom_qty': vals.get('fuel_capacity'),
+            'product_uom': product_id.uom_id.id,
+            'location_id':pile.location_id.id,
+            'location_dest_id':vehicle.location_id.id,
+        }
+        moves = self.env['stock.move'].create(move_vals)
+        moves.action_done()

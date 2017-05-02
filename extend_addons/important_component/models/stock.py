@@ -27,3 +27,14 @@ class StockMove(models.Model):
                             'state': 'avaliable',
                         })
         return res
+
+# class StockPicking(models.Model):
+#     _inherit = 'stock.picking'
+#
+#     @api.multi
+#     def action_confirm(self):
+#         for order in self:
+#             import_products = order.move_lines.mapped('product_id').filtered(lambda x: x.is_important)
+#             if not import_products:
+#                 return super(StockPicking, self).action_confirm()
+#             else:
