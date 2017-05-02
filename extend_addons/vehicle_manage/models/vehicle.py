@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+from datetime import datetime
 
 
 class Vehicle(models.Model):
@@ -48,12 +49,29 @@ class Vehicle(models.Model):
                               ('green', "Green")], default='green',
                                help='Vehicle Label')
 
-    deadline = fields.Integer(string="Deadline",related='model_id.deadline')
+    deadline = fields.Integer(string="Deadline",related='model_id.deadline') #使用寿命
+
 
     emission_standard = fields.Many2one(related='model_id.emission_standard')
 
     location_id = fields.Many2one('stock.location', string='V Location')
     location_stock_id = fields.Many2one('stock.location', string='Stock Location')
+
+    start_service_date = fields.Date(string='Start Service Date')   #投入日期
+    # service_float_year = fields.Float('Service Float Year', compute='_get_service_year')
+    service_year = fields.Integer('Service Year', compute='_get_salvage_rate')
+
+    salvage_rate = fields.Float(string='Salvage Rate', compute='_get_salvage_rate')  # 年限残值
+
+    @api.depends('start_service_date')
+    def _get_salvage_rate(self):
+        for i in self:
+            if not i.start_service_date:
+                continue
+            start = fields.Datetime.from_string(i.start_service_date)
+            today = datetime.today()
+            i.salvage_rate = (today-start).days/365.0/(i.deadline or 15)
+            i.service_year = int((today - start).days / 365.0+1)
 
     @api.model
     def create(self, vals):
@@ -96,9 +114,8 @@ class Vehicle(models.Model):
         """
         获取车辆累计的行程公里数
         """
-        FleetVehicalOdometer = self.env['fleet.vehicle.odometer']
         for record in self:
-            vehicle_odometer = FleetVehicalOdometer.search([('vehicle_id', '=', record.id)])
+            vehicle_odometer = self.env['fleet.vehicle.odometer'].search([('vehicle_id', '=', record.id)])
             if vehicle_odometer:
                 record.total_odometer = sum(i.value for i in vehicle_odometer)
             else:
@@ -142,9 +159,9 @@ class FleetVehicleModel(models.Model):
     max_climb = fields.Integer('Max Climb',help='Max Climb')
     fuel_capacity = fields.Float('Fuel Capacity',help='Fuel Capacity')
     fuel_consumption_pre_hund = fields.Float(help='Every hundred kilometers rated fuel consumption')
-    deadline = fields.Integer(string="Deadline")
+    deadline = fields.Integer(string="Deadline", default=15)
     manufacturers = fields.Char(help='Manufacturers')
-    note = fields.Text("Note",help='Note')
+    note = fields.Text("Note", help='Note')
 
     emission_standard = fields.Many2one('vehicle_manage.emission_standard', 'Emission Standard')
 
