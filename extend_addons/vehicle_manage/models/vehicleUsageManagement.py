@@ -17,7 +17,6 @@ class FleetVehicle(models.Model):
         for item in self:
             d = item.annual_inspection_date
             if d != False:
-                a = time
                 timeArray = time.strptime(d, "%Y-%m-%d")
                 timeStamp = int(time.mktime(timeArray))
                 currenttime = int(time.time())
@@ -192,6 +191,8 @@ class PlanItem(models.Model):
     # 实际年检日期
     actualdate = fields.Date(string=_('actual inspection date'))
 
+
+
 class InspectionRecords(models.Model):
     """
     年检结果表
@@ -206,13 +207,13 @@ class InspectionRecords(models.Model):
     # 年检过期日期
     inspectionexpire = fields.Date(string=_('inspection expire'))
     # 备注
-    inspectionremark = fields.Date(string=_('inspection remark'))
+    inspectionremark = fields.Char(string=_('inspection remark'))
 
     # 车辆信息
     vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'))
 
     # 内部编号
-    inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
+    inner_code = fields.Char(related='vehicle_id.inner_code')
     # 车牌号
     license_plate = fields.Char(related='vehicle_id.license_plate', readonly=True)
     # 登记证号
@@ -225,6 +226,75 @@ class InspectionRecords(models.Model):
     company_id = fields.Many2one(related='vehicle_id.company_id', readonly=True)
     # 线路
     route_id = fields.Many2one(related='vehicle_id.route_id', readonly=True)
+
+    def getVehicleIdByInnercode(self, code):
+        vehicle = self.env['fleet.vehicle']
+        vechileinfo = vehicle.search([('inner_code', '=', code)], limit=1)
+        if len(vechileinfo) == 0:
+            return False
+        else:
+            return vechileinfo[0]
+
+    def buidMessage(self, type='error', message='', moreinfo=''):
+        return dict(
+            {'record': 0, 'rows': {'to': 0, 'from': 0}},
+            type=type, message=message,
+            moreinfo=moreinfo
+        )
+
+    @api.model
+    def load(self, fields, data):
+        returnVal = {'ids': False, 'messages': []}
+        if 'inspectiondate' not in fields:
+            returnVal['messages'].append(
+                self.buidMessage(message=_('need inspection date'),
+                                 moreinfo=_('must have inspection date in data file'))
+            )
+            return returnVal
+        elif 'inspectionexpire' not in fields:
+            returnVal['messages'].append(
+                self.buidMessage(message=_('need inspection expire date'),
+                                 moreinfo=_('must have inspection expire date in data file'))
+            )
+            return returnVal
+        elif 'inner_code' not in fields:
+            returnVal['messages'].append(
+                self.buidMessage(message=_('need inner code'),
+                                 moreinfo=_('must have inner code in data file'))
+            )
+            return returnVal
+        for item in data:
+            record = dict(zip(fields,item))
+            innerCode = record.get('inner_code', None)
+            vehicleinfo = self.getVehicleIdByInnercode(innerCode)
+            if vehicleinfo == False:
+                returnVal['messages'].append(
+                    self.buidMessage(message=_('inner code not exist %s ' % innerCode),
+                                     moreinfo=_('can not found inner code %s in system ' % innerCode))
+                )
+                return returnVal
+
+        res = super(InspectionRecords, self).load(fields, data)
+        return res
+
+    def getPlanItem(self, vid):
+        item = self.env['vehicle_usage.planitem']
+        vechileinfo = item.search([('vehicle_id', '=', vid),('state', '<=', 'execution')], limit=1)
+        if len(vechileinfo) == 0:
+            return False
+        else:
+            return vechileinfo[0]
+
+    @api.model
+    def create(self, vals):
+        vehicleinfo = self.getVehicleIdByInnercode(vals['inner_code'])
+        vals['vehicle_id'] = vehicleinfo['id']
+        vehicleinfo.write({'annual_inspection_date':vals['inspectionexpire']})
+        res = super(InspectionRecords, self).create(vals)
+        planItem = self.getPlanItem(vehicleinfo['id'])
+        if planItem!=False:
+            planItem.write({'state':'done'})
+        return res
 
 
 class VehicleAnchor(models.Model):
@@ -286,29 +356,5 @@ class DriveRecords(models.Model):
     ],string=_('drive type'))
     # 日期
     drivedate = fields.Datetime(string=_('drive date'))
-
-# class EnergeUsage(models.Model):
-#     _inherit = 'vehicleusage.energeusage'
-#
-#     # 能源使用记录
-#     energeuseage_id = fields.One2many('energy.usage_record', 'vehicle_id', string=_('energe usage records'))
-#
-#     # 能源站
-#     station_id = fields.Many2one(related='energy.station_id', string='Station Id', readonly=True)
-#
-#     # 能源桩
-#     pile_id = fields.Many2one(related='energy.pile_id', string='Pile Id', readonly=True)
-#
-#     # 能源量
-#     fuel_capacity = fields.Float(related='energy.fuel_capacity', string='Fuel Capacity', readonly=True)
-#
-#     # 能源类型
-#     pile_type = fields.Selection(string='Pile Type', related='energy.pile_type', readonly=True)
-#
-#     # 加油司机
-#     user_use = fields.Many2one(related='energy.user_use', string='User Use', readonly=True)
-#
-#     # 加油时间
-#     record_date = fields.Date(related='energy.record_date', string='Record Date', readonly=True)
 
 

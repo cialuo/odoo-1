@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "车辆管理",
 
@@ -20,10 +19,10 @@
         'views/vehicle_view.xml',
         'views/stock_location.xml',
         'views/fleetusagemanagement.xml',
-        'views/inspectionplan_workflow.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,
     'application': True,
     'auto_install': False,
 }
+# -*- coding: utf-8 -*-

@@ -54,19 +54,19 @@
         <field name="arch" type="xml">
             <form string="inspection plan Form">
                 <header>
-                    <button name="draft" type="workflow"
+                    <button name="action_draft" type="object"
                             string="reset to draft"
-                            states="submitted"/>
-                    <button name="submitted" type="workflow"
+                            states="submitted,checked"/>
+                    <button name="action_submitted" type="object"
                             string="to submitted" states="draft"
                             class="oe_highlight"/>
-                    <button name="checked" type="workflow"
+                    <button name="action_checked" type="object"
                             string="checked" states="submitted"
                             class="oe_highlight"/>
-                    <button name="execution" type="workflow"
+                    <button name="action_execution" type="object"
                             string="to execution" states="checked"
                             class="oe_highlight"/>
-                    <button name="done" type="workflow"
+                    <button name="action_done" type="object"
                             string="done work" states="execution"
                             class="oe_highlight"/>
                     <button string="generate plan detail " type="object" states="draft"
@@ -83,7 +83,7 @@
                     <div class="oe_title">
                         <label for="subject"/>
                         <h1>
-                            <field name="subject" placeholder="inspection plan subject"/>
+                            <field name="subject" placeholder="inspection plan subject"  />
                         </h1>
                     </div>
                     <group>
@@ -151,7 +151,7 @@
                 <sheet>
                     <group>
                         <field name="vehicle_id" />
-                        <field name="inner_code" />
+                        <field name="inner_code" readonly="1"/>
                         <field name="license_plate" />
                     </group>
                     <group>
@@ -186,7 +186,7 @@
         </field>
     </record>
 
-    <!-- 年检记录表单 -->
+    <!-- 年检计划项表单 -->
     <record model="ir.ui.view" id="inspection_plan_item_form_view">
         <field name="name">inspection plan item</field>
         <field name="model">vehicle_usage.planitem</field>
