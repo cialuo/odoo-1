@@ -47,12 +47,8 @@
                                     <field name="pile_no"/> : <field name="name"/>
                                 </strong>
                                 <ul>
-                                    <li t-if="record.pile_no.raw_value"><field name="pile_no"/></li>
-                                    <!--
-                                    <li t-if="record.tutor_organization.raw_value"><field name="tutor_organization"/></li>
-                                    <li t-if="record.tutor_email.raw_value"><i class="fa fa-envelope"></i> <field name="tutor_email"/></li>
-                                    <li t-if="record.tutor_telephone.raw_value"><i class="fa fa-phone"></i> <field name="tutor_telephone"/></li>
-                                    -->
+                                    <li t-if="record.station_id.raw_value"><field name="station_id"/></li>
+                                    <li t-if="record.station_person_liable.raw_value"><field name="station_person_liable"/></li>
                                 </ul>
                             </div>
                         </div>

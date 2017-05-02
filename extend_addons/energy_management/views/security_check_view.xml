@@ -54,7 +54,7 @@
                 <page name="plan_details" string="Plan details">
                     <field name="security_check_detail_ids">
                         <tree editable="top" create="false" delete="false">
-                            <field name="security_check_item_id"/>
+                            <field name="security_check_item_id" invisible="True"/>
                             <field name="check_item_name"/>
                             <field name="check_content"/>
                             <field name="check_standards"/>
