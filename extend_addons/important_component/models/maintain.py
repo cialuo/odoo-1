@@ -42,7 +42,7 @@ class MaintainRepare(models.Model):
         :param location: 目标库位
         :return: 
         """
-        im_products = products.filterd(lambda x: x.is_important == True)
+        im_products = products.filtered(lambda x: x.product_id.is_important == True)
         if im_products:
             im_location = self.vehicle_id.location_stock_id.id
             super(MaintainRepare, self)._generate_picking(im_products, im_location)
