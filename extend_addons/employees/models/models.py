@@ -44,7 +44,10 @@ class employee(models.Model):
     # 员工家属信息
     families = fields.One2many('employees.employeefamily', 'employee_id', string=_("employees's families"))
     # 员工所在岗位
-    workpost = fields.Many2one('employees.post',  ondelete='restrict',  string=_('employee work post'))
+    workpost = fields.Many2one('employees.post', ondelete='restrict', string=_('employee work post'))
+
+    # 员工单位调动
+    unit_transfer = fields.One2many('employees.unit', 'employee_id', string=_("employees_unit_transfer"))
 
     #  @api.onchange('department_id')
     #  def _restrictPost(self):
@@ -77,7 +80,7 @@ class employee(models.Model):
             if count > 1:
                 raise ValidationError(_("can't set system user to employee in twice"))
 
-        if workpost != None and user_id == None :
+        if workpost != None and user_id == None:
             # 岗位调整 关联用户未调整
             # 修改关联用户的权限 先删除用户老岗位权限
             # 然后增加用户当前新岗位权限
@@ -106,12 +109,10 @@ class employee(models.Model):
             if self.user_id.id != False and self.workpost != None:
                 # 将老用好的岗位权限解绑
                 deleteUserGroup(self, self.user_id.id)
-            if self.workpost != None :
+            if self.workpost != None:
                 # 将新用户的权限绑定
                 self._powerRebuild(user_id, self.workpost.id, 'add')
         return super(employee, self).write(vals)
-
-
 
     def _powerRebuild(self, userid, postid, operator):
         """
@@ -126,17 +127,17 @@ class employee(models.Model):
         if groupinfo.id == False:
             # 如果组没有被绑定到岗位 则无需处理
             return
-        groupid  = groupinfo.id
+        groupid = groupinfo.id
         userinfo = usermode.search([('id', '=', userid)], limit=1)
         if userinfo.id == False:
             # 没找到用户信息 不处理
             return
         if operator == 'add':
             # 给用户增加权限
-            userinfo.write({'groups_id':[(4, groupid, 0)]})
+            userinfo.write({'groups_id': [(4, groupid, 0)]})
         elif operator == 'remove':
             # 给用户删除权限
-            userinfo.write({'groups_id':[(3, groupid, 0)]})
+            userinfo.write({'groups_id': [(3, groupid, 0)]})
 
     @api.model
     def create(self, vals):
@@ -150,6 +151,7 @@ class employee(models.Model):
         if workpost != False and user_id != False:
             self._powerRebuild(user_id, workpost, 'add')
         return super(employee, self).create(vals)
+
 
 def deleteUserGroup(self, userid):
     """
@@ -167,7 +169,7 @@ def deleteUserGroup(self, userid):
         delsql = []
         for item in gids:
             delsql.append((3, item, 0))
-        userinfo.write({'groups_id':delsql})
+        userinfo.write({'groups_id': delsql})
 
 
 class EmployeeFamily(models.Model):
@@ -184,7 +186,7 @@ class EmployeeFamily(models.Model):
     sex = fields.Selection([
         ('male', _('male')),
         ('female', _('female'))
-    ],string=_('sex'))
+    ], string=_('sex'))
     # 职业
     profession = fields.Char(string=_('family profession'))
     # 电话
@@ -204,29 +206,32 @@ class post(models.Model):
     # 岗位名称
     name = fields.Char(_('employees post name'))
     # 岗位所在部门
-    department = fields.Many2one('hr.department', ondelete='restrict', string= _('post department'), required=True)
+    department = fields.Many2one('hr.department', ondelete='restrict', string=_('post department'), required=True)
     # 岗位信息
     description = fields.Char(string=_('post infomation'))
     # 岗位类型
     posttype = fields.Selection([
-        ('manager',_('post title manager')),        #经理
-        ('labour',_('post title labour'))           #员工
+        ('manager', _('post title manager')),  # 经理
+        ('labour', _('post title labour'))  # 员工
     ], string=_('post title list'), required=True)
     # 岗位员工
     members = fields.One2many('hr.employee', 'workpost', string=_('post members'))
     # 关联群组
     group_id = fields.Char(compute='_getRelateGroup', string=_('post relate group'))
+
     @api.multi
     def _getRelateGroup(self):
         groupmode = self.env['res.groups']
         for item in self:
-                groupinfo = groupmode.search([('post_id','=',item.id)], limit=1)
-                if groupinfo.id != False:
-                    item.group_id = groupinfo.name
-                else:
-                    item.group_id = ''
+            groupinfo = groupmode.search([('post_id', '=', item.id)], limit=1)
+            if groupinfo.id != False:
+                item.group_id = groupinfo.name
+            else:
+                item.group_id = ''
+
     # 直接领导
     direct_leader = fields.Char(compute='_getDirectLeader', string=_('deirect leader'))
+
     @api.onchange('department')
     def _getDirectLeader(self):
         for item in self:
@@ -234,7 +239,7 @@ class post(models.Model):
             managerPosts = self.getPostListInDepartment(parentDepartmentId, postType='manager')
             if len(managerPosts) != 0:
                 managerList = self.getEmployeesWithSpecifyPost(managerPosts[0].id)
-                item.direct_leader = '\\'.join([manager['name'] for manager in managerList ])
+                item.direct_leader = '\\'.join([manager['name'] for manager in managerList])
             else:
                 item.direct_leader = ''
 
@@ -245,7 +250,7 @@ class post(models.Model):
         :param postType 岗位类型
         :return 返回岗位列表
         """
-        constrains = [('department','=', departmentId)]
+        constrains = [('department', '=', departmentId)]
         if postType != None:
             constrains.append(('posttype', '=', postType))
         postList = self.search(constrains)
@@ -258,11 +263,11 @@ class post(models.Model):
         """
         employeeMode = self.env['hr.employee']
         employeeList = employeeMode.search([('workpost', '=', postid)])
-        return [{'id':item.id, 'name':item.name} for item in employeeList]
-
+        return [{'id': item.id, 'name': item.name} for item in employeeList]
 
     # 上级部门
     higher_level = fields.Char(compute='_getHigherLevel', string=_('higher level'))
+
     @api.onchange('department')
     def _getHigherLevel(self):
         for item in self:
@@ -277,7 +282,7 @@ class post(models.Model):
         """
         if parentId:
             departmentMode = self.env['hr.department']
-            result = departmentMode.search([('id','=', parentId)], limit=1)
+            result = departmentMode.search([('id', '=', parentId)], limit=1)
             if len(result) > 0:
                 record = result[0]
                 container.append(record.name)
@@ -286,19 +291,20 @@ class post(models.Model):
 
     # 岗位下的员工数量
     membercount = fields.Char(compute='_countpostmember', string=_('member count of post'))
+
     def _countpostmember(self):
         for item in self:
             employeemode = self.env['hr.employee']
-            count = employeemode.search_count([('workpost' , '=', item.id)])
+            count = employeemode.search_count([('workpost', '=', item.id)])
             item.membercount = str(count)
 
 
 class department(models.Model):
-
     _inherit = 'hr.department'
 
     # 岗位数量
     membercount = fields.Char(compute='_countmember', string=_('post count in department'))
+
     @api.multi
     def _countmember(self):
         for item in self:
@@ -308,6 +314,7 @@ class department(models.Model):
     # 建档时间
     record_createdate = fields.Date(compute='_getRecordCreateTime',
                                     string=_('department record create time'))
+
     @api.multi
     def _getRecordCreateTime(self):
         for item in self:
@@ -337,10 +344,11 @@ class LtyGroups(models.Model):
     isrole = fields.Boolean(default=False, string=_('is role'))
 
     # 关联的岗位
-    post_id = fields.Many2one('employees.post', string = _('related post'))
+    post_id = fields.Many2one('employees.post', string=_('related post'))
 
     implied_ids_r = fields.Many2many('res.groups', 'res_groups_implied_rel', 'hid', 'gid',
-        string='Inherits reversal', help='Users of this group automatically inherit those groups')
+                                     string='Inherits reversal',
+                                     help='Users of this group automatically inherit those groups')
 
     @api.constrains('post_id')
     def _checkPostNotSetBefore(self):
@@ -363,22 +371,21 @@ class LtyGroups(models.Model):
         post_id_new = vals.get('post_id', None)
         for item in self:
             if isrole_new != item.isrole and isrole_new == False and isrole_new != None:
-                #取消群组的角色勾选框
+                # 取消群组的角色勾选框
                 if item.post_id.id != False:
-                    #如果之前指定了岗位 则将岗位下所有的人的权限去掉 同时将postid置空
+                    # 如果之前指定了岗位 则将岗位下所有的人的权限去掉 同时将postid置空
                     self.updateUserGroup(None if item.post_id.id == False else item.post_id.id, None, item.id)
                     vals['post_id'] = None
 
             if isrole_new != item.isrole and isrole_new == True and isrole_new != None:
-                #将角色勾选框选中
+                # 将角色勾选框选中
                 if post_id_new != None:
-                    #如果指定了岗位id 则更新岗位下的用户权限
+                    # 如果指定了岗位id 则更新岗位下的用户权限
                     self.updateUserGroup(None if item.post_id.id == False else item.post_id.id, post_id_new, item.id)
             if post_id_new != self.post_id.id and self.isrole == True and post_id_new != None:
                 # 如果角色勾选框没有修改 并且 岗位id值出现变化 并且 isrole值原本就是true
                 # 则修改对应的岗位员工的权限值
                 self.updateUserGroup(None if item.post_id.id == False else item.post_id.id, post_id_new, item.id)
-
 
         res = super(LtyGroups, self).write(vals)
 
@@ -414,7 +421,7 @@ class LtyGroups(models.Model):
             users = usermode.search([('workpost', '=', new)])
             for item in users:
                 if item.user_id.id != False:
-                    item.user_id.write({'groups_id':[(4, groupid, 0)]})
+                    item.user_id.write({'groups_id': [(4, groupid, 0)]})
 
     @api.model
     def create(self, vals):
@@ -435,13 +442,13 @@ class LtyGroups(models.Model):
     def unlink(self):
         # 重载删除方法
         for item in self:
-            if item.isrole or item.post_id.id != False :
+            if item.isrole or item.post_id.id != False:
                 # 如果一个群组是一个角色 或者 已经绑定到岗位 那么该group不能被删除
                 raise ValidationError(_('a group that bind with a post can not be delete'))
             inheritors = set()
             self._getGroupinheritor(item.id, inheritors)
             if len(inheritors) > 0:
-                #如果该组被其他组继承 那么该组不能被删除
+                # 如果该组被其他组继承 那么该组不能被删除
                 raise ValidationError(_('groups are inherited by other groups, can not be delete!'))
             self.updateUserGroup(None if item.post_id.id else item.post_id.id, None, item.id)
         return super(LtyGroups, self).unlink()
@@ -462,14 +469,13 @@ class LtyGroups(models.Model):
                 resultcontainer.add(item.id)
                 self._getGroupinheritor(item.id, resultcontainer)
 
-
     def _rebuildGroupUser(self, groupid):
         groupinfo = self.search([('id', '=', groupid)], limit=1)
         if groupinfo.id == False:
-            #没找到岗位信息 不处理
+            # 没找到岗位信息 不处理
             return
         if groupinfo.isrole == None or groupinfo.post_id.id == False:
-            #如果该组不是角色 或者 没有绑定到岗位 不处理
+            # 如果该组不是角色 或者 没有绑定到岗位 不处理
             return
         employeemode = self.env['hr.employee']
         postid = groupinfo.post_id.id
@@ -478,5 +484,231 @@ class LtyGroups(models.Model):
             if item.user_id.id != False:
                 # 先删除用户的组 然后在重新添加用户的组
                 deleteUserGroup(self, item.user_id.id)
-                item.user_id.write({'groups_id':[(4, groupid, 0)]})
+                item.user_id.write({'groups_id': [(4, groupid, 0)]})
 
+
+class UnitTransfer(models.Model):
+    """
+     单位调动
+    """
+    _name = 'employees.unit'
+
+    # 调动单编码
+    name = fields.Char(string="employees_transfer_code", help='employees_transfer_code', required=True, index=True,
+                       copy=False, default='New', readonly=True)
+    # 关联的员工
+    employee_id = fields.Many2one('hr.employee', ondelete='cascade')
+    # 录入时间
+    entering_date = fields.Date(string="employees_entering_date")
+    # 录单人
+    record_person = fields.Char(string="employees_record_person")
+    # 原单位
+    original_unit = fields.Char(string="employees_original_unit")
+    # 原单位岗位
+    original_post = fields.Char(string="employees_original_post")
+    # 原部门
+    original_section = fields.Char(string="employees_original_section")
+    # 原工资结构
+    original_wage = fields.Char(string="employees_original_wage")
+    # 新单位
+    new_unit = fields.Char(string="employees_new_unit")
+    # 新单位岗位
+    new_post = fields.Char(string="employees_new_post")
+    # 新部门
+    new_section = fields.Char(string="employees_new_section")
+    # 新工资结构
+    new_wage = fields.Char(string="employees_new_wage")
+    # 状态
+    state = fields.Selection([("draft", "employees_unit_draft"),  # 草稿
+                              ("confirmed", "employees_unit_confirmed"),  # 待审批
+                              ("done", "employees_unit_done"),  # 已完成
+                              ], default='draft', string="employees_unit_status")
+
+    # 调动原因
+    transfer_reason = fields.Text(string="employees_transfer_reason")
+    # 审批/会签人员
+    countersign_person = fields.Many2many('hr.employee', string="employees_countersign_person")
+
+    @api.model
+    def create(self, vals):
+        """
+        单位调动:
+            自动生成订单号：前缀NBDD+序号
+        """
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('hr_employees.transfer') or '/'
+        return super(UnitTransfer, self).create(vals)
+
+    @api.multi
+    def action_draft(self):
+        self.state = 'draft'
+
+    @api.multi
+    def action_confirm(self):
+        self.state = 'confirmed'
+
+    @api.multi
+    def action_done(self):
+        self.state = 'done'
+
+
+class PostTransfer(models.Model):
+    """
+    岗位调动
+    """
+    _name = 'employees.post.transfer'
+
+    # 调动单编码
+    name = fields.Char(string="employees_transfer_code", help='employees_transfer_code', required=True, index=True,
+                       copy=False, default='New', readonly=True)
+    # 录入时间
+    entering_date = fields.Date(string="employees_entering_date")
+    # 录单人
+    record_person = fields.Char(string="employees_record_person")
+    # 单位
+    original_unit = fields.Char(string="employees_post_unit")
+    # 原单位岗位
+    original_post = fields.Char(string="employees_original_post")
+    # 新单位岗位
+    new_post = fields.Char(string="employees_new_post")
+
+    # 部门
+    post_section = fields.Char(string="employees_post_section")
+    # 原工资结构
+    original_wage = fields.Char(string="employees_original_wage")
+    # 新工资结构
+    new_wage = fields.Char(string="employees_new_wage")
+
+    # 状态
+    state = fields.Selection([("draft", "employees_unit_draft"),  # 草稿
+                              ("confirmed", "employees_unit_confirmed"),  # 待审批
+                              ("done", "employees_unit_done"),  # 已完成
+                              ], default='draft', string="employees_unit_status")
+
+    # 调动原因
+    transfer_reason = fields.Text(string="employees_transfer_reason")
+    # 审批/会签人员
+    countersign_person = fields.Many2many('hr.employee', string="employees_countersign_person")
+
+    @api.model
+    def create(self, vals):
+        """
+        单位调动:
+            自动生成订单号：前缀NBDD+序号
+        """
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('hr_employees.transfer') or '/'
+        return super(PostTransfer, self).create(vals)
+
+    @api.multi
+    def action_draft(self):
+        self.state = 'draft'
+
+    @api.multi
+    def action_confirm(self):
+        self.state = 'confirmed'
+
+    @api.multi
+    def action_done(self):
+        self.state = 'done'
+
+
+class ForeignTransfer(models.Model):
+    """
+    对外调动
+    """
+    _name = 'employees.foreign'
+
+    # 调动单编码
+    name = fields.Char(string="employees_transfer_code", help='employees_transfer_code', required=True, index=True,
+                       copy=False, default='New', readonly=True)
+    # 录入时间
+    entering_date = fields.Date(string="employees_entering_date")
+    # 录单人
+    record_person = fields.Char(string="employees_record_person")
+    # 单位
+    original_unit = fields.Char(string="employees_post_unit")
+    # 原单位岗位
+    original_post = fields.Char(string="employees_original_post")
+    # 对方单位
+    new_unit = fields.Char(string="employees_foreign_new_unit")
+    # 调动类型
+    transfer_type = fields.Char(string="employees_foreign_transfer_type")
+    # 部门
+    foreign_section = fields.Char(string="employees_foreign_section")
+    # 工资结构
+    wage = fields.Char(string="employees_foreign_wage")
+    # 状态
+    state = fields.Selection([("draft", "employees_unit_draft"),  # 草稿
+                              ("confirmed", "employees_unit_confirmed"),  # 待审批
+                              ("done", "employees_unit_done"),  # 已完成
+                              ], default='draft', string="employees_unit_status")
+
+    # 调动原因
+    transfer_reason = fields.Text(string="employees_transfer_reason")
+    # 审批/会签人员
+    countersign_person = fields.Many2many('hr.employee', string="employees_countersign_person")
+
+    @api.model
+    def create(self, vals):
+        """
+        单位调动:
+            自动生成订单号：前缀NBDD+序号
+        """
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('hr_employees.transfer') or '/'
+        return super(ForeignTransfer, self).create(vals)
+
+    @api.multi
+    def action_draft(self):
+        self.state = 'draft'
+
+    @api.multi
+    def action_confirm(self):
+        self.state = 'confirmed'
+
+    @api.multi
+    def action_done(self):
+        self.state = 'done'
+
+
+class TransferRecord(models.Model):
+    """
+    调动记录
+    """
+    _name = 'employees.transfer.record'
+
+    # 调动单编码
+    name = fields.Char(string="employees_transfer_code")
+    # 关联的员工
+    employee_id = fields.Many2one('hr.employee', ondelete='cascade')
+    # 调动时间
+    entering_date = fields.Date(string="employees_transfer_date")
+    # 调动人
+    record_person = fields.Char(string="employees_transfer_person")
+    # 原单位
+    original_unit = fields.Char(string="employees_original_unit")
+    # 原单位岗位
+    original_post = fields.Char(string="employees_original_post")
+    # 原部门
+    original_section = fields.Char(string="employees_original_section")
+    # 原工资结构
+    original_wage = fields.Char(string="employees_original_wage")
+    # 新单位
+    new_unit = fields.Char(string="employees_new_unit")
+    # 新单位岗位
+    new_post = fields.Char(string="employees_new_post")
+    # 新部门
+    new_section = fields.Char(string="employees_new_section")
+    # 新工资结构
+    new_wage = fields.Char(string="employees_new_wage")
+    # 调动类型
+    transfer_type = fields.Selection([("post_transfer", "employees_post_transfer"),  # 岗位调动
+                                      ("unit_transfer", "employees_unit_transfer"),  # 单位调动
+                                      ("foreign_transfer", "employees_foreign_transfer"),  # 对外调动
+                                      ], string="employees_foreign_transfer_type")
+
+    # 调动原因
+    transfer_reason = fields.Text(string="employees_transfer_reason")
+    # 审批/会签人员
+    countersign_person = fields.Many2many('hr.employee', string="employees_countersign_person")
