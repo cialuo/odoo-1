@@ -310,18 +310,9 @@
                             <page  string="drive records">
                                 <field name="driverecords" />
                             </page>
-                            <!--能源记录-->
-                            <page  string="energe recorcs">
-                            </page>
-                            <!--维保记录-->
-                            <page  string="maintenance records">
-                            </page>
                             <!--抛锚记录-->
                             <page  string="drop anchor records">
                                 <field name="dropanchorrecords" />
-                            </page>
-                            <!--要件变更-->
-                            <page  string="important component change records">
                             </page>
                         </notebook>
                     </sheet>

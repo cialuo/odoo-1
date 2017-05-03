@@ -29,8 +29,6 @@ class FleetVehicle(models.Model):
 
     # 行车记录
     driverecords = fields.One2many('vehicleusage.driverecords', 'vehicle_id', string=_('drive records'))
-    # 能源记录
-    # energeusagerecords = fields.One2many('energy.usage_record', 'vehicle_id', string=_('energy usage record'))
     # 抛锚记录
     dropanchorrecords = fields.One2many('vehicle_usage.vehicleanchor', 'vehicle_id', string=_('drop anchor record'))
 
