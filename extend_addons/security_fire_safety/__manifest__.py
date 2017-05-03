@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "security_repair_produce",
+    'name': "security_fire_safety",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -25,16 +25,11 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'data/sequence.xml',
         'views/menu.xml',
-        'views/repair_quality_views.xml',
-        'views/repair_site_views.xml',
-        'views/disease_views.xml',
-        'views/emergency_plan_views.xml',
-        'views/maintainer_train_views.xml',
-        'views/produce_map_views.xml',
-        'views/safety_manage_views.xml',
-        'views/source_of_danger_views.xml',
+        'views/fire_danger_source_views.xml',
+        'views/fire_device_map_views.xml',
+        'views/fire_device_manage_views.xml',
+        'views/fire_plan_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
