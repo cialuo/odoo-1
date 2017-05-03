@@ -37,3 +37,4 @@ install/win32/meta.py
 /src/
 odoo.conf
 /odoo.conf
+xl_odoo.conf
