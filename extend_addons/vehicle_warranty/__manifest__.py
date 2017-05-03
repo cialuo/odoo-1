@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "vehicle_warranty",
+    'name': "维保模块",
     'description': """
         维保模块 包含车辆维保管理、维保体系
     """,
     'author': "XJM",
     'category': 'Advanced Edition',
-    'version': '0.1',
-    'depends': ['vehicle_manage_menu','product'],
+    'version': '1.0',
+    'depends': ['vehicle_manage_menu','materials_product','stock_picking_types'], # 'product','stock'
     'data': [
         'views/warranty_category_view.xml',
-        'views/warranty_item_view.xml',
+        'views/warranty_project_view.xml',
         'views/warranty_plan_view.xml',
         'views/warranty_plan_order_view.xml',
         'views/warranty_order_view.xml',

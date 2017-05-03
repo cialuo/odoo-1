@@ -11,9 +11,9 @@
             <field name="model">warranty_plan_order</field>
             <field name="arch" type="xml">
                 <tree create="false">
-                    <field name="parent_id"/>
+                    <field name="parent_id" string="Warranty Plan No"/>
                     <field name="vehicle_id"/>
-                    <field name="vehicle_type"/>
+                    <field name="vehicle_type" string="Vehicle Model"/>
                     <field name="license_plate"/>
                     <field name="fleet"/>
                     <field name="operating_mileage"/>
@@ -22,9 +22,9 @@
                     <field name="vin"/>
                     <field name="average_daily_kilometer"/>
                     <field name="line"/>
-                    <field name="maintain_location"/>
+                    <field name="warranty_location"/>
                     <field name="maintain_sheet_id"/>
-                    <field name="state"/>
+                    <field name="state" string="MyState"/>
                 </tree>
             </field>
         </record>

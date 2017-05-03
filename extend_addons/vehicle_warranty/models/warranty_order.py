@@ -7,11 +7,11 @@ from odoo.exceptions import UserError
 class WarrantyOrder(models.Model): # 保养单
     _inherit = 'mail.thread'
     _name = 'warranty_order'
-    name = fields.Char(string='BYD', required=True, index=True, default='New')
+    name = fields.Char(string='Warranty Order', required=True, index=True, default='New')
 
     sequence = fields.Integer('Sequence', default=1)
 
-    vehicle_id = fields.Many2one('fleet.vehicle', string="VehicleNo", required=True, )  # 车号
+    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", required=True, )  # 车号
 
     vehicle_type = fields.Many2one("fleet.vehicle.model", related='vehicle_id.model_id', store=True, readonly=True)  # 车型
 
@@ -23,15 +23,15 @@ class WarrantyOrder(models.Model): # 保养单
 
     report_repair_user = fields.Many2one('hr.employee', string="Report Name", default=_default_employee, required=True) # 报修人
 
-    operating_mileage = fields.Float(digits=(6, 1), string="OM")  # 运营里程
+    operating_mileage = fields.Float(digits=(6, 1), string="Operating Mileage")  # 运营里程
 
-    warranty_category = fields.Many2one('warranty_category', 'WC', ondelete='cascade', required=True)  # 保养类别
+    warranty_category = fields.Many2one('warranty_category', 'Warranty Category', ondelete='cascade', required=True)  # 保养类别
 
-    planned_date = fields.Date('PlannedDate', default=fields.Date.context_today)  # 计划日期
+    planned_date = fields.Date('Planned Date', default=fields.Date.context_today)  # 计划日期
 
-    vin = fields.Char()  # 车架号
+    vin = fields.Char("VIN")  # 车架号
 
-    average_daily_kilometer = fields.Float(digits=(6, 1), string="ADK")  # 平均日公里
+    average_daily_kilometer = fields.Float(digits=(6, 1), string="Average Daily Kilometer")  # 平均日公里
 
     line = fields.Char()  # 线路
 
@@ -49,7 +49,7 @@ class WarrantyOrder(models.Model): # 保养单
 
     remark = fields.Char()  # 备注信息
 
-    maintain_location = fields.Char()  # 保养地点
+    warranty_location = fields.Char()  # 保养地点
 
     state = fields.Selection([ # 状态
         ('draft', "draft"),
@@ -59,7 +59,7 @@ class WarrantyOrder(models.Model): # 保养单
         ('done', "done"),
     ], default='draft')
 
-    plan_order_ids = fields.One2many('warranty_plan_order', 'maintain_sheet_id', 'maintainSheetId')  # 保养项目
+    plan_order_ids = fields.One2many('warranty_plan_order', 'maintain_sheet_id', 'Plan Order')  # 保养计划单
 
     @api.multi
     def action_confirm_effective(self): # 确认生效 生成保养单
@@ -134,42 +134,42 @@ class WarrantyOrder(models.Model): # 保养单
 
         for i in self.manhour_manage_ids:
             i.real_start_time = datetime.datetime.utcnow()
-        for item in self.item_ids:
-            item.state = 'maintain'
+        for project in self.project_ids:
+            project.state = 'maintain'
 
-        import_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0 and x.product_id.is_important)
-        no_import_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0 and not x.product_id.is_important)
-        picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
-
-        location_id = self.env.ref('stock.stock_location_stock').id # 库存
-        location_dest_id = self.env.ref('stock_picking_types.stock_location_ullage').id # 维修(生产)虚位
-        if import_products:
-            location_dest_id = self.vehicle_id.location_stock_id.id # 随车实位
-
-        for products in [import_products, no_import_products]:
-            if not products:
-                continue
-            move_lines = []
-            picking = []
-            for i in products:
-                vals = {
-                    'name': 'stock_move_repair',
-                    'product_id': i.product_id.id,
-                    'product_uom': i.product_id.uom_id.id,
-                    'product_uom_qty': i.change_count,
-                }
-                move_lines.append((0, 0, vals))
-            if move_lines:
-                picking = self.env['stock.picking'].create({
-                    'origin': self.name,
-                    'location_id': location_id,
-                    'location_dest_id': location_dest_id,
-                    'picking_type_id': picking_type.id,
-                    'warranty_order_id': self.id,
-                    'move_lines': move_lines
-                })
-            if picking:
-                picking.action_confirm()
+        # import_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0 and x.product_id.is_important)
+        # no_import_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0 and not x.product_id.is_important)
+        # picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
+        #
+        # location_id = self.env.ref('stock.stock_location_stock').id # 库存
+        # location_dest_id = self.env.ref('stock_picking_types.stock_location_ullage').id # 维修(生产)虚位
+        # if import_products:
+        #     location_dest_id = self.vehicle_id.location_stock_id.id # 随车实位
+        #
+        # for products in [import_products, no_import_products]:
+        #     if not products:
+        #         continue
+        #     move_lines = []
+        #     picking = []
+        #     for i in products:
+        #         vals = {
+        #             'name': 'stock_move_repair',
+        #             'product_id': i.product_id.id,
+        #             'product_uom': i.product_id.uom_id.id,
+        #             'product_uom_qty': i.change_count,
+        #         }
+        #         move_lines.append((0, 0, vals))
+        #     if move_lines:
+        #         picking = self.env['stock.picking'].create({
+        #             'origin': self.name,
+        #             'location_id': location_id,
+        #             'location_dest_id': location_dest_id,
+        #             'picking_type_id': picking_type.id,
+        #             'warranty_order_id': self.id,
+        #             'move_lines': move_lines
+        #         })
+        #     if picking:
+        #         picking.action_confirm()
 
     @api.multi
     def action_into_inspect(self):  # 保养单_全部报检
@@ -180,8 +180,8 @@ class WarrantyOrder(models.Model): # 保养单
 
         for i in self.manhour_manage_ids:
             i.real_end_time = datetime.datetime.utcnow()
-        for item in self.item_ids:
-            item.state = 'check'
+        for project in self.project_ids:
+            project.state = 'check'
 
     # @api.multi
     # def action_manage_handover_sheet(self):  # 管理交接单
@@ -192,17 +192,17 @@ class WarrantyOrder(models.Model): # 保养单
     #     action['views'] = [(self.env.ref('vehicle_warranty.fleet_warranty_handover_sheet_view_form').id, 'form')]
     #     return action
 
-    plan_id = fields.Many2one('warranty_plan', 'planId', required=True, ondelete='cascade')  # 车辆保养计划ID
+    plan_id = fields.Many2one('warranty_plan', 'Plan Id', required=True, ondelete='cascade')  # 车辆保养计划ID
 
-    item_ids = fields.One2many('warranty_order_item', 'warranty_order_id', 'maintainsheetId') # 保养项目
+    project_ids = fields.One2many('warranty_order_project', 'warranty_order_id', 'Warranty Order') # 保养项目
 
-    manhour_manage_ids = fields.One2many('warranty_order_manhour', 'warranty_order_id', 'maintainsheetId') # 工时管理
+    manhour_manage_ids = fields.One2many('warranty_order_manhour', 'warranty_order_id', 'Warranty Order') # 工时管理
 
-    available_product_ids = fields.One2many('warranty_order_product', 'warranty_order_id', 'maintainsheetId') # 可领物料
+    available_product_ids = fields.One2many('warranty_order_product', 'warranty_order_id', 'Warranty Order') # 可领物料
 
-    instruction_ids = fields.One2many('warranty_order_instruction', 'warranty_order_id', 'maintainsheetId') # 作业指导
+    instruction_ids = fields.One2many('warranty_order_instruction', 'warranty_order_id', 'Warranty Order') # 作业指导
 
-    return_record_ids = fields.One2many('warranty_order_reject', 'warranty_order_id', 'maintainsheetId') # 退检记录
+    return_record_ids = fields.One2many('warranty_order_reject', 'warranty_order_id', 'Warranty Order') # 退检记录
 
 
     @api.model
@@ -211,13 +211,12 @@ class WarrantyOrder(models.Model): # 保养单
             vals['name'] = self.env['ir.sequence'].next_by_code('warranty_plan.order') or 'New'
 
         result = super(WarrantyOrder, self.with_context(mail_create_nolog=True)).create(vals)
-        result.message_post(body=_('%s has been added to the maintain sheet!') % (result.name,))
+        result.message_post(body=_('%s has been added to the Warranty Order!') % (result.name,))
         return result
 
     def if_complete_dispatch(self):
-        print 'complete_dispatch!!!!'
         total_manhour = sum([manhour.percentage_work for manhour in self.manhour_manage_ids])
-        sum_manhour = len(self.item_ids)*100
+        sum_manhour = len(self.project_ids)*100
         if total_manhour == sum_manhour:
             return True
         elif total_manhour > sum_manhour:
@@ -228,7 +227,7 @@ class WarrantyOrder(models.Model): # 保养单
     def action_batch_dispatch(self): # 保养单_批量派工
 
         return {
-            'name': _('PLPG'),
+            'name': _('Batch Dispatch'),
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
             'res_model': 'wizard_batch_dispatch', # 'res_model': 'hr.expense.sheet',
@@ -260,23 +259,23 @@ class WarrantyOrder(models.Model): # 保养单
         return False
 
 
-class WarrantyOrderItem(models.Model): # 保养单_保养项目
-    _name = 'warranty_order_item'
+class WarrantyOrderProject(models.Model): # 保养单_保养项目
+    _name = 'warranty_order_project'
     _order = "sequence"
 
-    name = fields.Char(related='item_id.name') # related='item_id.name', store=True
+    name = fields.Char(related='project_id.name') # related='project_id.name', store=True
 
-    sequence = fields.Integer('Sequence', default=1)
+    sequence = fields.Integer(default=1)
 
     warranty_order_id = fields.Many2one('warranty_order', index=True) # 所属保养单
 
     category_id = fields.Many2one('warranty_category') # 保养类别
 
-    item_id = fields.Many2one('warranty_item', 'WarrantyItem', required=True) # 保养项目
+    project_id = fields.Many2one('warranty_project', 'Warranty Project', required=True) # 保养项目
 
-    important_product_id = fields.Many2one('product.product', related='item_id.important_product_id',string="Important Product")
+    # important_product_id = fields.Many2one('product.product', related='project_id.important_product_id',string="Important Product")
 
-    maintenance_mode = fields.Many2one('warranty_mode', 'Maintenance Mode', related='item_id.mode')  # 保修方式
+    warranty_mode = fields.Many2one('warranty_mode', 'Warranty Mode', related='project_id.mode')  # 保修方式
 
     vehicle_id = fields.Many2one('fleet.vehicle', related='warranty_order_id.vehicle_id')  # 车号
 
@@ -307,7 +306,7 @@ class WarrantyOrderItem(models.Model): # 保养单_保养项目
         ('inspection', "inspection"),
     ], default='noinspection')
 
-    return_record_ids = fields.One2many("warranty_order_reject", 'sheet_item', string='Return Record Ids')
+    return_record_ids = fields.One2many("warranty_order_reject", 'order_project', string='Return Record Ids')
 
     rework_count = fields.Integer("Rework Count", help="Rework Count", compute="_get_rework_count")  # 重检次数
 
@@ -347,10 +346,10 @@ class WarrantyOrderItem(models.Model): # 保养单_保养项目
             manhour_percentage_work += manhour_manage.percentage_work
         self.percentage_work = 100-manhour_percentage_work
 
-    component_ids = fields.Many2many('product.component', 'fleet_warranty_sheet_item_component_rel', 'item_component_id', 'component_id', 'Component',
-        readonly=True, domain="[('product_id', '=', important_product_id),('parent_vehicle','=',vehicle_id)]")
+    # component_ids = fields.Many2many('product.component', 'warranty_order_item_component_rel', 'project_component_id', 'component_id', 'Component',
+    #     readonly=True, domain="[('product_id', '=', important_product_id),('parent_vehicle','=',vehicle_id)]")
 
-    manhour_manage_ids = fields.One2many("warranty_order_manhour", 'item_id', string='ManhourManageIds')
+    manhour_manage_ids = fields.One2many("warranty_order_manhour", 'project_id', string='Manhour Manage')
 
     @api.multi
     def dispatch(self): # 派工
@@ -388,7 +387,7 @@ class WarrantyOrderItem(models.Model): # 保养单_保养项目
         self.write({'manhour_manage_ids': [(0, 0, vals)]})
 
         # total_manhour = sum([manhour.percentage_work for manhour in self.warranty_order_id.manhour_manage_ids])
-        # sum_manhour = len(self.warranty_order_id.item_ids)*100
+        # sum_manhour = len(self.warranty_order_id.project_ids)*100
         # if total_manhour == sum_manhour:
         #     print 'send!'
 
@@ -407,17 +406,17 @@ class WarrantyOrderManhour(models.Model): # 保养单_工时管理
     _name = 'warranty_order_manhour'
     _order = "sequence"
 
-    name = fields.Char("Job Name", help="Job Name")
+    name = fields.Char("Manhour")
 
-    sequence = fields.Integer("Sequence", help="Sequence")
+    sequence = fields.Integer()
 
-    item_id = fields.Many2one("warranty_order_item", ondelete='cascade',string="WarrantyItem") # 所属保养项目
+    project_id = fields.Many2one("warranty_order_project", ondelete='cascade',string="WarrantyProject") # 所属保养项目
 
-    item_category_id = fields.Many2one('warranty_category', related='item_id.category_id') # 所属保养项目的保养类别
+    project_category_id = fields.Many2one('warranty_category', related='project_id.category_id') # 所属保养项目的保养类别
 
-    item_item_id = fields.Many2one('warranty_item', 'WarrantyItem', related='item_id.item_id') # 所属保养项目的保养项目
+    project_project_id = fields.Many2one('warranty_project', 'Warranty Project', related='project_id.project_id') # 所属保养项目的保养项目
 
-    user_id = fields.Many2one('hr.employee', string="Repair Name", required=True) # 保养人员
+    user_id = fields.Many2one('hr.employee', string="Warranty Man", required=True) # 保养人员
 
     plan_start_time = fields.Datetime("Plan Start Time") # 计划开工时间
 
@@ -457,19 +456,19 @@ class WarrantyOrderManhour(models.Model): # 保养单_工时管理
 class WarrantyOrderProduct(models.Model): # 保养单_可领物料
     _name = 'warranty_order_product'
 
-    sequence = fields.Integer("Sequence", help="Sequence")
+    sequence = fields.Integer("Sequence")
 
-    warranty_order_id = fields.Many2one('warranty_order', ondelete='set null', string="WarrantyOrderId", index=True) # 所属保养单
+    warranty_order_id = fields.Many2one('warranty_order', ondelete='set null', string="Warranty Order", index=True) # 所属保养单
 
     category_id = fields.Many2one('warranty_category') # 保养类别
 
-    item_id = fields.Many2one('warranty_item', 'WarrantyItem')  # 保养项目
+    project_id = fields.Many2one('warranty_project', 'Warranty Project')  # 保养项目
 
     product_id = fields.Many2one('product.product', 'Product', required=True) # 物资
 
     product_code = fields.Char('Product Code', related='product_id.default_code') # 物资编码 , store=True, readonly=True
 
-    categ_id = fields.Many2one('product.category', related='product_id.categ_id', string='Product WarrantyCategory')
+    categ_id = fields.Many2one('product.category', related='product_id.categ_id', string='Warranty Category')
 
     uom_id = fields.Many2one('product.uom', 'Unit of Measure', related='product_id.uom_id')
 
@@ -504,16 +503,16 @@ class WarrantyOrderInstruction(models.Model): # 保养单_作业指导
 
     category_id = fields.Many2one('warranty_category') # 保养类别
 
-    item_id = fields.Many2one('warranty_item', 'WarrantyItem', required=True) # 保养项目
+    project_id = fields.Many2one('warranty_project', 'WarrantyProject', required=True) # 保养项目
 
-    maintenance_mode = fields.Many2one('warranty_mode', 'Maintenance Mode', related='item_id.mode')  # 保修方式
+    warranty_mode = fields.Many2one('warranty_mode', 'Warranty Mode', related='project_id.mode')  # 保修方式
 
     operational_manual = fields.Text() # 作业手册
 
 
 class WarrantyInspectOrder(models.Model): # 检验单
 
-    _inherit = 'warranty_order_item'
+    _inherit = 'warranty_order_project'
 
     inspect_result = fields.Selection([
         ('qualified', 'qualified'), # 合格
@@ -530,31 +529,30 @@ class WarrantyInspectOrder(models.Model): # 检验单
 
     inspect_user_id = fields.Many2one('hr.employee', string="Inspect User", default=_default_employee) # 检验员
 
-    inspection_criteria = fields.Text(related='item_id.inspection_criteria')  # 检验标准
+    inspection_criteria = fields.Text(related='project_id.inspection_criteria')  # 检验标准
 
-    item_name = fields.Char(related='item_id.name')  # 项目名称
+    item_name = fields.Char(related='project_id.name')  # 项目名称
 
     @api.multi
     def action_into_check(self):  # 报检
-        for item in self:
-            if item.state != 'maintain': # not in ('check','done')
-                raise exceptions.UserError(_("Selected item cannot be check as they are not in 'maintain' state"))
-            item.state = 'check'
-            item.start_inspect_time = fields.Datetime.now()
-            for manhour_manage in item.manhour_manage_ids:
+        for project in self:
+            if project.state != 'maintain': # not in ('check','done')
+                raise exceptions.UserError(_("Selected project cannot be check as they are not in 'maintain' state"))
+            project.state = 'check'
+            project.start_inspect_time = fields.Datetime.now()
+            for manhour_manage in project.manhour_manage_ids:
                 manhour_manage.real_end_time = fields.Datetime.now()
 
     @api.multi
     def action_batch_check_pass(self):  # 批量检验通过
         for i in self:
-            # item.state = 'maintain'
             if i.state != 'check': # not in ('check','done')
-                raise exceptions.UserError(_("Selected item cannot be complete as they are not in 'check' state"))
+                raise exceptions.UserError(_("Selected project cannot be complete as they are not in 'check' state"))
             i.state = 'complete'
             i.inspect_result = 'qualified'
             i.end_inspect_time = fields.Datetime.now()
 
-            if all(item.state == 'complete' for item in i.warranty_order_id.item_ids):
+            if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
                 i.warranty_order_id.state = 'done'
                 i.warranty_order_id.plan_order_ids.state = 'done'
                 plan = i.warranty_order_id.plan_order_ids.parent_id
@@ -565,12 +563,12 @@ class WarrantyInspectOrder(models.Model): # 检验单
     def action_check_pass(self):
         for i in self:
             if i.state != 'check':  # not in ('check','done')
-                raise exceptions.UserError(_("Selected item cannot be complete as they are not in 'check' state"))
+                raise exceptions.UserError(_("Selected project cannot be complete as they are not in 'check' state"))
             i.state = 'complete'
             i.inspect_result = 'qualified'
             i.end_inspect_time = fields.Datetime.now()
 
-            if all(item.state == 'complete' for item in i.warranty_order_id.item_ids):
+            if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
                 i.warranty_order_id.state = 'done'
                 i.warranty_order_id.plan_order_ids.state = 'done'
                 plan = i.warranty_order_id.plan_order_ids.parent_id
@@ -581,7 +579,7 @@ class WarrantyInspectOrder(models.Model): # 检验单
     def action_return(self, reason=''): # 退回重修
         inspect_return_time = fields.Datetime.now()
         vals = {
-            "sheet_item": self.id,
+            "order_project": self.id,
             "inspect_return_time": inspect_return_time,
             "return_reason": reason,
             "sequence": len(self.return_record_ids) + 1,
@@ -598,13 +596,13 @@ class WarrantyInspectOrder(models.Model): # 检验单
 class WarrantyOrderReject(models.Model): # 保养单_退检记录
     _name = 'warranty_order_reject'
 
-    sheet_item = fields.Many2one('warranty_order_item', string="Sheet WarrantyItem")
+    order_project = fields.Many2one('warranty_order_project', string="Sheet WarrantyProject")
 
-    maintainsheet_name = fields.Char(string='Maintainsheet Name', related='sheet_item.warranty_order_id.name')
+    maintainsheet_name = fields.Char(string='Maintainsheet Name', related='order_project.warranty_order_id.name')
 
-    inspect_user_id = fields.Many2one('hr.employee', related='sheet_item.inspect_user_id', string="Inspect User")
+    inspect_user_id = fields.Many2one('hr.employee', related='order_project.inspect_user_id', string="Inspect User")
 
-    maintenance_personnel = fields.Char(string='Maintenance Personnel',related='sheet_item.maintenance_personnel')
+    maintenance_personnel = fields.Char(string='Maintenance Personnel',related='order_project.maintenance_personnel')
 
     return_reason = fields.Text("Return Reason")
 
@@ -624,17 +622,17 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
 
     sheetId=fields.Char(default=_default_sheetId)
 
-    def _default_item(self):
-        active_id=self._context.get('active_id')
-        maintain_sheet = self.env['warranty_order'].search([('id', '=', active_id)])
-        item_ids=maintain_sheet.item_ids.search([('warranty_order_id', '=', active_id), ('state', '=', 'nodispatch')])
-        return item_ids
+    # def _default_item(self):
+    #     active_id=self._context.get('active_id')
+    #     maintain_sheet = self.env['warranty_order'].search([('id', '=', active_id)])
+    #     project_ids=maintain_sheet.project_ids.search([('warranty_order_id', '=', active_id), ('state', '=', 'nodispatch')])
+    #     return project_ids
 
-    item_id = fields.Many2many('warranty_order_item', string='WarrantyItem', required=True) # , default=_default_item
+    project_id = fields.Many2many('warranty_order_project', string='WarrantyProject', required=True) # , default=_default_item
 
-    def _default_user(self):
-        employees = self.env['hr.employee'].browse([16, 5, 1])
-        return employees
+    # def _default_user(self):
+    #     employees = self.env['hr.employee'].browse([16, 5, 1])
+    #     return employees
 
     user_id = fields.Many2many('hr.employee', string="User", required=True) # , default=_default_user
 
@@ -648,8 +646,8 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
 
         user_count=len(self.user_id)
 
-        for item in self.item_id:
-            sum_manhour_percentage_work = sum(item.manhour_manage_ids.mapped('percentage_work'))
+        for project in self.project_id:
+            sum_manhour_percentage_work = sum(project.manhour_manage_ids.mapped('percentage_work'))
 
             if sum_manhour_percentage_work == 100:
                 continue
@@ -665,22 +663,22 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
                 manhour_count+=1
 
                 plan_start_time = datetime.datetime.utcnow()
-                plan_end_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=item.work_time * 60)
+                plan_end_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=project.work_time * 60)
 
                 manhour = {
                     'name': manhour_count,
                     'sequence': manhour_count,
-                    'item_id': item.id,
+                    'project_id': project.id,
                     'user_id': user.id,
                     'plan_start_time': plan_start_time,
                     'plan_end_time': plan_end_time,
-                    'work_time': item.work_time,
+                    'work_time': project.work_time,
                     'percentage_work': val_manhour_percentage_work,
                     # 'self_work': self_work,
                     'warranty_order_id':sheetId
                 }
                 manhours.append((0, 0, manhour))
-            item.update({
+            project.update({
                 'state': 'dispatch',
                 'percentage_work':100-(sum_manhour_percentage_work+val_manhour_percentage_work*user_count)
             })
@@ -699,9 +697,9 @@ class WizardInspectOrderReject(models.TransientModel): # 检验单_退回重修
         context = dict(self._context or {})
         # print context
         active_id = context.get('active_id', '') or ''
-        record = self.env['warranty_order_item'].browse(active_id)
+        record = self.env['warranty_order_project'].browse(active_id)
         if record.state != 'check':
-            raise UserError(_("Selected item cannot be return as they are not in 'check' state."))
+            raise UserError(_("Selected project cannot be return as they are not in 'check' state."))
         record.action_return(self.return_reason)
         return {'type': 'ir.actions.act_window_close'}
 
@@ -710,21 +708,21 @@ class WizardInspectOrderBatchReject(models.TransientModel): # 检验单_批量�
     _name = 'wizard_inspect_order_batch_reject'
 
     def _default_item(self):
-        item_ids=self._context.get('active_ids')
-        items = self.env['warranty_order_item'].browse(item_ids)
-        return items
+        project_ids=self._context.get('active_ids')
+        project_ids = self.env['warranty_order_project'].browse(project_ids)
+        return project_ids
 
-    item_ids = fields.Many2many('warranty_order_item', string='WarrantyItem Ids', required=True, default=_default_item)
+    project_ids = fields.Many2many('warranty_order_project', string='WarrantyProject Ids', required=True, default=_default_item)
 
     return_reason = fields.Text("Return Reason")
 
     @api.multi
     def reject(self):
-        item_ids = self._context.get('active_ids')
-        items = self.env['warranty_order_item'].browse(item_ids)
+        project_ids = self._context.get('active_ids')
+        project_ids = self.env['warranty_order_project'].browse(project_ids)
 
-        for item in items:
-            if item.state != 'check':
-                raise UserError(_("Selected item cannot be return as they are not in 'check' state."))
-            item.action_return(self.return_reason)
+        for project in project_ids:
+            if project.state != 'check':
+                raise UserError(_("Selected project cannot be return as they are not in 'check' state."))
+            project.action_return(self.return_reason)
 

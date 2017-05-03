@@ -17,7 +17,7 @@
                     <field name="auditor_time"/>
                     <field name="approval_id"/>
                     <field name="approval_time"/>
-                    <field name="state"/>
+                    <field name="state" string="MyState"/>
                 </tree>
             </field>
         </record>
@@ -48,16 +48,16 @@
                         </div>
                         <group col="2">
                             <group>
-                                <field name="plan_month" class="oe_edit_only"
+                                <field name="plan_month" string="plan_month_time" class="oe_edit_only"
                                        attrs="{'invisible': [('state', '!=', 'draft')]}"/>
                                 <field name="month" readonly="1"/>
-                                <field name="create_date" readonly="1"/>
-                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" string="Tabulation Date" readonly="1"/>
+                                <field name="create_uid" string="Tabulation Man" readonly="1"/>
                                 <field name="made_company_id" readonly="1"/>
                                 <field name="remark"/>
                             </group>
                             <group>
-                                <field name="company_id" attrs="{'readonly':[('state','!=','draft')]}"
+                                <field name="company_id" string="Branch Office" attrs="{'readonly':[('state','!=','draft')]}"
                                        options="{'no_create': True, 'no_open': True}"/>
                                 <field name="auditor_time" readonly="1"/>
                                 <field name="auditor_id" readonly="1"/>
@@ -66,18 +66,18 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Plan Order Ids">
+                            <page string="Plan Detail">
                                 <field name="plan_order_ids" widget="one2many_list"
                                        attrs="{'readonly':[('state','=','execute')]}">
                                     <tree string="Plan Order Ids" editable="bottom">
                                         <field name="sequence" widget="handle"/>
                                         <field name="vehicle_id" options="{'no_create': True, 'no_open': True}"
                                                attrs="{'readonly':[('state','!=','draft')]}"/>
-                                        <field name="vehicle_type"/>
+                                        <field name="vehicle_type" string="Vehicle Model"/>
                                         <field name="license_plate"/>
                                         <field name="fleet" attrs="{'readonly':[('state','!=','draft')]}"/>
                                         <field name="operating_mileage" attrs="{'readonly':[('state','!=','draft')]}"/>
-                                        <field name="warranty_category" options="{'no_create': True, 'no_open': True}"
+                                        <field name="warranty_category" string="Create Warranty Category" options="{'no_create': True, 'no_open': True}"
                                                attrs="{'readonly':[('state','!=','draft')]}"/>
                                         <field name="approval_warranty_category"
                                                options="{'no_create': True, 'no_open': True}"
@@ -87,8 +87,8 @@
                                         <field name="average_daily_kilometer"
                                                attrs="{'readonly':[('state','!=','draft')]}"/>
                                         <field name="line" attrs="{'readonly':[('state','!=','draft')]}"/>
-                                        <field name="maintain_location" attrs="{'readonly':[('state','!=','draft')]}"/>
-                                        <field name="maintain_sheet_id" readonly="1"/>
+                                        <field name="warranty_location" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="maintain_sheet_id" string="Warranty Order No" readonly="1"/>
                                         <field name="state" invisible="1"/>
                                     </tree>
                                 </field>
@@ -119,7 +119,7 @@
         </record>
 
         <!-- 车辆保养计划管理 menu -->
-        <menuitem name="Warranty Plan" id="warranty_plan" sequence="40"
+        <menuitem name="Warranty Plan Manage" id="warranty_plan" sequence="40"
                   parent="vehicle_manage_menu.vehicle_use_manage"
                   action="warranty_plan_action"/>
 

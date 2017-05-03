@@ -8,10 +8,10 @@
             <field name="arch" type="xml">
                 <tree string="Warranty Category">
                     <field name="code"/>
-                    <field name="display_name"/>
+                    <field name="display_name" string="Warranty Category Name"/>
                     <field name="create_uid"/>
                     <field name="create_date"/>
-                    <field name="state"/>
+                    <field name="state" string="MyState"/>
                 </tree>
             </field>
         </record>
@@ -54,9 +54,9 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Warranty Item">
-                                <field name="items" options="{'no_create': True, 'no_open': True}">
-                                    <tree string="Warranty Item">
+                            <page string="Warranty Project">
+                                <field name="project_ids" options="{'no_create': True, 'no_open': True}">
+                                    <tree string="Warranty Project">
                                         <field name="code"/>
                                         <field name="name"/>
                                         <field name="mode"/>
@@ -66,7 +66,7 @@
                                 </field>
                                 <div class="oe_right">
                                     <group>
-                                        <field name="sum_items_manhour"/>
+                                        <field name="sum_project_manhour"/>
                                     </group>
                                 </div>
                             </page>
@@ -80,7 +80,7 @@
                                 </field>
                                 <div class="oe_right">
                                     <group>
-                                        <field name="sum_categories_manhour"/>
+                                        <field name="sum_categorie_manhour"/>
                                     </group>
                                 </div>
                             </page>

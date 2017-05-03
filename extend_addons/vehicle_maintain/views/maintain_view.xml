@@ -563,7 +563,7 @@
 
         <record id="maintain_inspect_action_server_submit" model="ir.values">
             <field name="name">Comfirm Inspect</field>
-            <field name="model_id" ref="model_maintain_repair"/>
+            <field name="model_id" ref="model_maintain_manage_repair"/>
             <field name="model">maintain.manage.repair</field>
             <field name="key2">client_action_multi</field>
             <field eval="'ir.actions.server,%d'%maintain_inspect_action_server" name="value"/>

@@ -5,7 +5,7 @@ import datetime
 class WarrantyPlan(models.Model): # 车辆保养计划
     _inherit = 'mail.thread'
     _name = 'warranty_plan'
-    name = fields.Char(string='BYJH', required=True, index=True)
+    name = fields.Char(string='Warranty Plan', required=True, index=True)
 
     plan_month = fields.Date(default=datetime.datetime.utcnow())
 
@@ -17,14 +17,14 @@ class WarrantyPlan(models.Model): # 车辆保养计划
 
     month = fields.Char(compute='_compute_month') # 月度
 
-    company_id = fields.Many2one('hr.department', string='Company Id', required=True, default=lambda self: self.env.user.company_id)
+    company_id = fields.Many2one('hr.department', string='Company', required=True, default=lambda self: self.env.user.company_id)
 
-    made_company_id = fields.Many2one('hr.department', string='Made Company Id', required=True, default=lambda self: self.env.user.company_id)
+    made_company_id = fields.Many2one('hr.department', string='Made Company', required=True, default=lambda self: self.env.user.company_id)
 
-    auditor_id = fields.Many2one('hr.employee', string="Auditor Id")
+    auditor_id = fields.Many2one('hr.employee', string="Auditor Man")
     auditor_time = fields.Datetime(string="Auditor Time")
 
-    approval_id = fields.Many2one('hr.employee', string="Approval Id")
+    approval_id = fields.Many2one('hr.employee', string="Approval Man")
     approval_time = fields.Datetime(string="Approval Time")
 
     remark = fields.Char()
@@ -40,15 +40,15 @@ class WarrantyPlan(models.Model): # 车辆保养计划
     @api.multi
     def action_draft(self):
         self.state = 'draft'
-        for item in self.plan_order_ids:
-            item.state = 'draft'
+        for plan_order in self.plan_order_ids:
+            plan_order.state = 'draft'
 
     @api.multi
     def action_commit(self):
         self.state = 'commit'
-        for item in self.plan_order_ids:
-            if item.state == 'draft':
-                item.state = 'commit'
+        for plan_order in self.plan_order_ids:
+            if plan_order.state == 'draft':
+                plan_order.state = 'commit'
 
 
     @api.multi
@@ -62,9 +62,9 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         self.state = 'execute'
         self.approval_id = self.env.uid
         self.approval_time = datetime.datetime.utcnow()
-        for item in self.plan_order_ids:
-            if item.state == 'commit':
-                item.state = 'wait'
+        for plan_order in self.plan_order_ids:
+            if plan_order.state == 'commit':
+                plan_order.state = 'wait'
 
     @api.multi
     def action_done(self):

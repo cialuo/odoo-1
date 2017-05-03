@@ -3,27 +3,27 @@
 
         <!-- 维保项目 tree -->
         <record model="ir.ui.view" id="warranty_item_tree">
-            <field name="name">Warranty Item</field>
-            <field name="model">warranty_item</field>
+            <field name="name">Warranty Project</field>
+            <field name="model">warranty_project</field>
             <field name="arch" type="xml">
-                <tree string="Warranty Item">
+                <tree string="Warranty Project">
                     <field name="code"/>
                     <field name="name"/>
                     <field name="mode"/>
                     <field name="manhour"/>
                     <field name="create_uid"/>
                     <field name="create_date"/>
-                    <field name="state"/>
+                    <field name="state" string="MyState"/>
                 </tree>
             </field>
         </record>
 
         <!-- 维保项目 form -->
         <record model="ir.ui.view" id="warranty_item_form">
-            <field name="name">Warranty Item</field>
-            <field name="model">warranty_item</field>
+            <field name="name">Warranty Project</field>
+            <field name="model">warranty_project</field>
             <field name="arch" type="xml">
-                <form string="Warranty Item">
+                <form string="Warranty Project">
                     <header>
                         <button name="action_filing" type="object"
                                 string="filing"
@@ -50,9 +50,9 @@
                                 <field name="code"/>
                                 <field name="create_uid" readonly="1"/>
                                 <field name="create_date" readonly="1"/>
-                                <field name="is_important_product"/>
-                                <field name="important_product_id"
-                                       attrs="{'invisible':[('is_important_product','=',False)]}" widget="selection"/>
+                                <!--<field name="is_important_product"/>-->
+                                <!--<field name="important_product_id"-->
+                                       <!--attrs="{'invisible':[('is_important_product','=',False)]}" widget="selection"/>-->
                             </group>
                         </group>
                         <notebook>
@@ -61,7 +61,7 @@
                                     <tree editable="bottom">
                                         <field name="product_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="product_code"/>
-                                        <field name="categ_id"/>
+                                        <field name="categ_id" string="Product Category"/>
                                         <field name="description"/>
                                         <field name="uom_id"/>
                                         <field name="change_count"/>
@@ -95,13 +95,13 @@
 
         <!-- 维保项目 action -->
         <record model="ir.actions.act_window" id="warranty_item_action">
-            <field name="name">Warranty Item</field>
-            <field name="res_model">warranty_item</field>
+            <field name="name">Warranty Project</field>
+            <field name="res_model">warranty_project</field>
             <field name="view_mode">tree,form</field>
         </record>
 
         <!-- 维保项目 menu -->
-        <menuitem name="Warranty Item" id="warranty_item" sequence="30"
+        <menuitem name="Warranty Project Menu" id="warranty_project" sequence="30"
                   parent="warranty_system"
                   action="warranty_item_action"/>
 
@@ -134,26 +134,26 @@
 
         <!-- 保养工艺管理 Action -->
         <record model="ir.actions.act_window" id="warranty_item_craft_action">
-            <field name="name">Warranty Item Craft</field>
-            <field name="res_model">warranty_item</field>
+            <field name="name">Warranty Project Craft</field>
+            <field name="res_model">warranty_project</field>
             <field name="view_mode">tree,form</field>
         </record>
 
         <!-- 保养工艺管理 menu -->
-        <menuitem name="Warranty Item Craft" id="warranty_item_craft" sequence="30"
+        <menuitem name="Warranty Project Craft" id="warranty_item_craft" sequence="30"
                   parent="vehicle_manage_menu.vehicle_basic_manage"
                   action="warranty_item_craft_action"/>
 
 
         <!-- 保养工时定额 Action -->
         <record model="ir.actions.act_window" id="warranty_item_quota_action">
-            <field name="name">Warranty Item Quota</field>
-            <field name="res_model">warranty_item</field>
+            <field name="name">Warranty Project Quota</field>
+            <field name="res_model">warranty_project</field>
             <field name="view_mode">tree,form</field>
         </record>
 
         <!-- 保养工时定额 menu -->
-        <menuitem name="Warranty Item Quota" id="warranty_item_quota" sequence="20"
+        <menuitem name="Warranty Project Quota" id="warranty_item_quota" sequence="20"
                   parent="vehicle_manage_menu.quota_manage"
                   action="warranty_item_quota_action"/>
 

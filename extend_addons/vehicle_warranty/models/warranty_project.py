@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, exceptions, _
 
-class WarrantyItem(models.Model): # 保修项目
-    _name = 'warranty_item'
+class WarrantyProject(models.Model): # 保修项目
+    _name = 'warranty_project'
 
-    name = fields.Char() # 项目名称
-    code = fields.Char() # 项目编码
+    name = fields.Char(string='Project Name') # 项目名称
+    code = fields.Char(string='Project Code', required=True) # 项目编码
 
     state = fields.Selection([ # 状态
         ('in_use', "in_use"), # 在用
@@ -26,25 +26,25 @@ class WarrantyItem(models.Model): # 保修项目
 
     remark = fields.Char()  # 备注
 
-    is_important_product = fields.Boolean() # 是否重要部件
+    # is_important_product = fields.Boolean() # 是否重要部件
 
-    important_product_id = fields.Many2one('product.product', string="Important Product", domain=[('is_important', '=', True)]) # 重要部件
+    # important_product_id = fields.Many2one('product.product', string="Important Product", domain=[('is_important', '=', True)]) # 重要部件
 
-    avail_ids = fields.One2many('warranty_item_product', 'item_id', string="Products") # 用料清单
+    avail_ids = fields.One2many('warranty_project_product', 'project_id', string="Products") # 用料清单
 
     operational_manual = fields.Text() # 作业手册
 
     inspection_criteria = fields.Text() # 检验标准
 
 
-class WarrantyItemProduct(models.Model): # 维保项目_用料清单
-    _name = 'warranty_item_product'
+class WarrantyProjectProduct(models.Model): # 维保项目_用料清单
+    _name = 'warranty_project_product'
 
-    item_id = fields.Many2one('warranty_item', ondelete='cascade', string="WarrantyItem Id")  # 保养项目
+    project_id = fields.Many2one('warranty_project', ondelete='cascade', string="Warranty Project")  # 保养项目
 
     product_id = fields.Many2one('product.product', string="Product")
     product_code = fields.Char("Product Code", related='product_id.default_code', readonly=True)
-    categ_id = fields.Many2one('product.category', related='product_id.categ_id', string='Product WarrantyCategory', readonly=True)
+    categ_id = fields.Many2one('product.category', related='product_id.categ_id', string='Warranty Category', readonly=True)
     uom_id = fields.Many2one('product.uom', 'Unit of Measure', related='product_id.uom_id', readonly=True)
     onhand_qty = fields.Float('Quantity On Hand', related='product_id.qty_available', readonly=True)
     virtual_available = fields.Float('Forecast Quantity', related='product_id.virtual_available', readonly=True)

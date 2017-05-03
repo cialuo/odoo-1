@@ -5,8 +5,8 @@ class WarrantyCategory(models.Model): # 维保类别
     _name = 'warranty_category'
     _order = "idpath asc"
 
-    name = fields.Char() # 名称
-    code = fields.Char() # 代码
+    name = fields.Char(string="Warranty Category Name") # 名称
+    code = fields.Char(string='Warranty Category Code', required=True) # 代码
 
     idpath = fields.Char() # id路径
     level = fields.Integer() # 层级
@@ -28,14 +28,14 @@ class WarrantyCategory(models.Model): # 维保类别
 
     remark = fields.Char()  # 备注
 
-    parent_id = fields.Many2one('warranty_category', index=True, domain=[('state','=','in_use')]) # 父分类
+    parent_id = fields.Many2one('warranty_category', index=True, domain=[('state','=','in_use')],readonly="true") # 父分类
     child_ids = fields.One2many('warranty_category', 'parent_id') # 子分类
 
-    items = fields.Many2many('warranty_item', domain=[('state','=','in_use')]) # 保修项目 domain=[('type_tax_use','!=','none'), '|', ('active', '=', False), ('active', '=', True)],)
+    project_ids = fields.Many2many('warranty_project', domain=[('state','=','in_use')]) # 保修项目
 
-    sum_categories_manhour = fields.Float(digits=(6, 1), default=0, compute='_compute_manhour') # 子类工时汇总
+    sum_categorie_manhour = fields.Float(digits=(6, 1), default=0, compute='_compute_manhour') # 子类工时汇总
 
-    sum_items_manhour = fields.Float(digits=(6, 1), default=0, compute='_compute_manhour') # 项目工时汇总
+    sum_project_manhour = fields.Float(digits=(6, 1), default=0, compute='_compute_manhour') # 项目工时汇总
 
     def category_manhour_get(self):
         result = []
@@ -43,20 +43,18 @@ class WarrantyCategory(models.Model): # 维保类别
             sum_manhour = 0
             if record.child_ids:
                 for child_record in record.child_ids:
-                    sum_manhour += sum(child_record.items.mapped('manhour'))
-                    # print sum_manhour
+                    sum_manhour += sum(child_record.project_ids.mapped('manhour'))
                     sum_manhour += child_record.category_manhour_get()[0][1]
             result.append((record.id, sum_manhour))
         return result
 
-    @api.depends('items', 'child_ids')
+    @api.depends('project_ids', 'child_ids')
     def _compute_manhour(self):
         for category in self:
-            temp_category_manhour=category.category_manhour_get()
-            # print temp_category_manhour
-            category.sum_categories_manhour = category.category_manhour_get()[0][1]
-            category.sum_items_manhour = sum(category.items.mapped('manhour'))
-            category.manhour=category.sum_categories_manhour+category.sum_items_manhour
+            # temp_category_manhour=category.category_manhour_get()
+            category.sum_categorie_manhour = category.category_manhour_get()[0][1]
+            category.sum_project_manhour = sum(category.project_ids.mapped('manhour'))
+            category.manhour=category.sum_categorie_manhour+category.sum_project_manhour
 
     @api.multi
     def name_get(self):
