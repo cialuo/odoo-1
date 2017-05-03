@@ -307,11 +307,11 @@
 
                         <notebook>
                             <!--行车记录-->
-                            <page  string="drive records">
+                            <page  string="drive records" name="driverecords">
                                 <field name="driverecords" />
                             </page>
                             <!--抛锚记录-->
-                            <page  string="drop anchor records">
+                            <page  string="drop anchor records" name="dropanchorrecords">
                                 <field name="dropanchorrecords" />
                             </page>
                         </notebook>
