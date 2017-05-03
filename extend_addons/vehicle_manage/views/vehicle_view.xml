@@ -239,10 +239,12 @@
             <field name="arch" type="xml">
                 <form string="EmissionStandard Form">
                     <sheet>
-                        <group>
-                            <field name="level_code"/>
-                            <field name="name"/>
-                            <field name="remark"/>
+                        <group col="2">
+                            <group>
+                                <field name="level_code"/>
+                                <field name="name"/>
+                                <field name="remark"/>
+                            </group>
                         </group>
                     </sheet>
                 </form>

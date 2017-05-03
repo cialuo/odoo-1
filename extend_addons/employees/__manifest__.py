@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "employees",
+    'name': "人力资源",
 
     'summary': """
-    LTY hr
+    人力资源
         """,
 
     'description': """
-        LTY hr
+        人力资源
     """,
 
     'author': "深圳市蓝泰源信息技术股份有限公司",
@@ -16,7 +16,7 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'employees',
+    'category': 'Basic Edition',
     'version': '1.0',
 
     # any module necessary for this one to work correctly
@@ -30,6 +30,7 @@
         'views/templates.xml',
         'views/ltyhr_employee_document.xml',
         'views/lty_groups.xml',
+        'views/salarymanage.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
