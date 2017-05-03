@@ -35,6 +35,5 @@ install/win32/meta.py
 /man/
 /share/
 /src/
-odoo.conf
-/odoo.conf
-xl_odoo.conf
+!odoo.conf
+!xl_odoo.conf
