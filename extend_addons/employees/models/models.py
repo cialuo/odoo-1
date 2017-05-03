@@ -314,11 +314,11 @@ class department(models.Model):
             item.record_createdate = item.create_date
 
     departmenttype = fields.Selection([
-        ('headquarters', _('department type headquarters')),
-        ('branch', _('department type branch')),
-        ('subsidiary', _('department type subsidiary')),
-        ('department', _('department type department')),
-        ('group', _('department type group')),
+        ('headquarters', _('department type headquarters')),    # 总公司
+        ('branch', _('department type branch')),                # 分公司
+        ('subsidiary', _('department type subsidiary')),        # 子公司
+        ('department', _('department type department')),        # 部门
+        ('group', _('department type group')),                  # 组
     ], _('department type'))
 
     # 部门岗位列表

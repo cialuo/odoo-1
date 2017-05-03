@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <!-- coin_revenue Tree -->
+        <record model="ir.ui.view" id="coin_revenue_tree_view">
+            <field name="name">coin_revenue tree view</field>
+            <field name="model">coin_revenue.coin_revenue</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="c_date"/>
+                    <field name="route"/>
+                    <field name="licensePlateNumber"/>
+                    <field name="driver"/>
+                    <field name="revenue"/>
+                    <field name="remark"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- coin_revenue Form -->
+        <record model="ir.ui.view" id="coin_revenue_form_view">
+            <field name="name">coin_revenue form view</field>
+            <field name="model">coin_revenue.coin_revenue</field>
+            <field name="arch" type="xml">
+                <form>
+
+                    <sheet>
+                        <group>
+                            <field name="c_date"/>
+                            <field name="route"/>
+                            <field name="licensePlateNumber"/>
+                            <field name="driver"/>
+                            <field name="revenue"/>
+                            <field name="remark"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ic_revenue Tree -->
+        <record model="ir.ui.view" id="ic_revenue_tree_view">
+            <field name="name">ic_revenue tree view</field>
+            <field name="model">ic_revenue.ic_revenue</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="c_date"/>
+                    <field name="route"/>
+                    <field name="licensePlateNumber"/>
+                    <field name="driver"/>
+                    <field name="revenue"/>
+                    <field name="remark"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ic_revenue Form -->
+        <record model="ir.ui.view" id="ic_revenue_form_view">
+            <field name="name">ic_revenue form view</field>
+            <field name="model">ic_revenue.ic_revenue</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="c_date"/>
+                            <field name="route"/>
+                            <field name="licensePlateNumber"/>
+                            <field name="driver"/>
+                            <field name="revenue"/>
+                            <field name="remark"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- chartered_revenue Tree -->
+        <record model="ir.ui.view" id="chartered_revenue_tree_view">
+            <field name="name">chartered_revenue tree view</field>
+            <field name="model">chartered_revenue.chartered_revenue</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="c_date"/>
+                    <field name="route"/>
+                    <field name="licensePlateNumber"/>
+                    <field name="driver"/>
+                    <field name="revenue"/>
+                    <field name="remark"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- chartered_revenue Form -->
+        <record model="ir.ui.view" id="chartered_revenue_form_view">
+            <field name="name">chartered_revenue form view</field>
+            <field name="model">chartered_revenue.chartered_revenue</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="c_date"/>
+                            <field name="route"/>
+                            <field name="licensePlateNumber"/>
+                            <field name="driver"/>
+                            <field name="revenue"/>
+                            <field name="remark"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- total_revenue Tree -->
+        <record model="ir.ui.view" id="total_revenue_tree_view">
+            <field name="name">total_revenue tree view</field>
+            <field name="model">total_revenue.total_revenue</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="c_date"/>
+                    <field name="route"/>
+                    <field name="licensePlateNumber"/>
+                    <field name="driver"/>
+                    <field name="coin_revenue"/>
+                    <field name="ic_revenue"/>
+                    <field name="chartered_revenue"/>
+                    <field name="total_income"/>
+                    <field name="remark"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- total_revenue Form -->
+        <record model="ir.ui.view" id="total_revenue_form_view">
+            <field name="name">total_revenue form view</field>
+            <field name="model">total_revenue.total_revenue</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="c_date"/>
+                            <field name="route"/>
+                            <field name="licensePlateNumber"/>
+                            <field name="driver"/>
+                            <field name="coin_revenue"/>
+                            <field name="ic_revenue"/>
+                            <field name="chartered_revenue"/>
+                            <field name="total_income"/>
+                            <field name="remark"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="act_coin_revenue">
+            <field name="name">Coin revenue management</field>
+            <field name="res_model">coin_revenue.coin_revenue</field>
+            <field name="view_model">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_ic_revenue">
+            <field name="name">IC card revenue management</field>
+            <field name="res_model">ic_revenue.ic_revenue</field>
+            <field name="view_model">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_chartered_revenue">
+            <field name="name">Chartered revenue management</field>
+            <field name="res_model">chartered_revenue.chartered_revenue</field>
+            <field name="view_model">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_total_revenue">
+            <field name="name">Integrated revenue management</field>
+            <field name="res_model">total_revenue.total_revenue</field>
+            <field name="view_model">tree,form</field>
+        </record>
+
+
+        <!-- 营收管理菜单 -->
+        <menuitem id="menu_coin_revenue" name="Coin revenue management" parent="operation_menu.revenue_menu" action="act_coin_revenue"/>
+        <menuitem id="menu_ic_revenue" name="IC card revenue management" parent="operation_menu.revenue_menu" action="act_ic_revenue"/>
+        <menuitem id="menu_chartered_revenue" name="Chartered revenue management" parent="operation_menu.revenue_menu" action="act_chartered_revenue"/>
+        <menuitem id="menu_total_revenue" name="Integrated revenue management" parent="operation_menu.revenue_menu" action="act_total_revenue"/>
+    </data>
+</odoo>
