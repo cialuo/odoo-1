@@ -25,6 +25,7 @@
     # always loaded
     'data': [
         #  'security/employees_security.xml',
+        'data/transfer_number.xml',
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
