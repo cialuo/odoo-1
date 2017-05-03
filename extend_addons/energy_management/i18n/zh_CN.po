@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-25 08:53+0000\n"
-"PO-Revision-Date: 2017-04-25 16:57+0800\n"
+"POT-Creation-Date: 2017-05-02 07:56+0000\n"
+"PO-Revision-Date: 2017-05-02 16:00+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,16 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 "Language: zh_CN\n"
 "X-Generator: Poedit 2.0\n"
-
-#. module: energy_management
-#: model:ir.ui.view,arch_db:energy_management.energy_pile_kanban
-#: model:ir.ui.view,arch_db:energy_management.energy_station_kanban
-msgid ""
-"<span class=\"o_unfollow\">Unfollow</span>\n"
-"                                        <span class=\"o_following\">Following</span>"
-msgstr ""
-"<span class=\"o_unfollow\">Unfollow</span>\n"
-"                                        <span class=\"o_following\">Following</span>"
 
 #. module: energy_management
 #: selection:energy.security_check_details,check_result:0
@@ -125,6 +115,12 @@ msgid "Created on"
 msgstr "创建时间"
 
 #. module: energy_management
+#: model:ir.model.fields,help:energy_management.field_energy_pile_companyc_id
+#: model:ir.model.fields,help:energy_management.field_energy_usage_record_companyc_id
+msgid "Default Unit of Measure used for all stock operation."
+msgstr "所有库存作业的默认计量单位"
+
+#. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_security_check_department_id
 msgid "Department Id"
 msgstr "隶属部门"
@@ -203,20 +199,7 @@ msgid "Filling Station"
 msgstr "加气站"
 
 #. module: energy_management
-#: model:ir.ui.view,arch_db:energy_management.energy_pile_kanban
-#: model:ir.ui.view,arch_db:energy_management.energy_station_kanban
-msgid "Follow"
-msgstr "关注"
-
-#. module: energy_management
-#: model:ir.ui.view,arch_db:energy_management.energy_pile_kanban
-#: model:ir.ui.view,arch_db:energy_management.energy_station_kanban
-msgid "Followers"
-msgstr "关注者"
-
-#. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_fuel_capacity
-#: model:ir.model.fields,help:energy_management.field_energy_usage_record_fuel_capacity
 msgid "Fuel Capacity"
 msgstr "额度油箱容量"
 
@@ -337,12 +320,6 @@ msgid "Medium-sized photo of the employee. It is automatically resized as a 128x
 msgstr "员工的中等尺寸照片。保留纵横比例，自动缩放为128x128px的图像。这个字段用在表单视图和某些看板视图。"
 
 #. module: energy_management
-#: model:ir.ui.view,arch_db:energy_management.energy_pile_kanban
-#: model:ir.ui.view,arch_db:energy_management.energy_station_kanban
-msgid "Messages"
-msgstr "信息"
-
-#. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_name
 msgid "Name"
 msgstr "名字"
@@ -359,6 +336,11 @@ msgstr "正常"
 #: selection:energy.security_check,check_type:0
 msgid "Normal inspection"
 msgstr "正常巡检"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_operator
+msgid "Operator"
+msgstr "操作员"
 
 #. module: energy_management
 #: selection:energy.pile,pile_type:0
@@ -500,7 +482,7 @@ msgstr "Security Check Ids"
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_security_check_item_id
 msgid "Security Check Item Id"
-msgstr "Security Check Item Id"
+msgstr "检查项目ID"
 
 #. module: energy_management
 #: model:ir.model,name:energy_management.model_energy_security_check
@@ -647,12 +629,7 @@ msgstr "库位管理"
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.security_check_form
 msgid "auditing"
-msgstr "审核"
-
-#. module: energy_management
-#: model:ir.ui.view,arch_db:energy_management.security_check_form
-msgid "draft"
-msgstr "草稿"
+msgstr "已审核"
 
 #. module: energy_management
 #: model:ir.actions.act_window,name:energy_management.aw_energy_pile
@@ -680,7 +657,7 @@ msgstr "正常"
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.security_check_form
 msgid "refer"
-msgstr "提交"
+msgstr "已提交"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_security_check

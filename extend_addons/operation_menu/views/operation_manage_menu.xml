@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <!-- 运营管理 -->
+        <menuitem name="operation manage" sequence="1" id="operation_menu_root"/>
+		<menuitem name="schedule manage" id="schedule_menu" parent="operation_menu_root" sequence="1"/> <!--调度参数设置-->
+        <menuitem name="operation plan manage" id="operation_plan_menu" parent="operation_menu_root" sequence="2"/> <!--运营计划管理-->
+        <menuitem name="revenue manage" id="revenue_menu" parent="operation_menu_root" sequence="3"/> <!--营收管理-->
+
+    </data>
+</odoo>

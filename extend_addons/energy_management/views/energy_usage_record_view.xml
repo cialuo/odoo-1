@@ -52,6 +52,7 @@
                         <field name="fuel_capacity"/>
                         <field name="companyc_id"/>
                         <field name="energy_type"/>
+                        <field name="operator"/>
                     </group>
                 </group>
            </sheet>
