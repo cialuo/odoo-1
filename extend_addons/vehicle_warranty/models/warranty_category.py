@@ -37,6 +37,13 @@ class WarrantyCategory(models.Model): # 维保类别
 
     sum_project_manhour = fields.Float(digits=(6, 1), default=0, compute='_compute_manhour') # 项目工时汇总
 
+    warranty_type = fields.Selection([ # 维保类型
+        ('warranty', 'Warranty'),
+        ('maintain', 'Maintain'),
+        ], string="Warranty Type", default="warranty")
+
+    warranty_level = fields.Many2one('warranty_level', 'Warranty Level', ondelete="set null") # 维保级别
+
     def category_manhour_get(self):
         result = []
         for record in self:

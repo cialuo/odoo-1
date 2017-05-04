@@ -10,11 +10,13 @@
 
     'depends': ['employees', 'vehicle_manage','materials_product','stock_picking_types'], # 'product','stock'
     'data': [
+        'data/vehicle_warranty_data.xml',
         'views/warranty_category_view.xml',
         'views/warranty_project_view.xml',
         'views/warranty_plan_view.xml',
         'views/warranty_plan_order_view.xml',
         'views/warranty_order_view.xml',
+        'views/warranty_interval_view.xml',
     ],
     'installable': True,
     'application': True,

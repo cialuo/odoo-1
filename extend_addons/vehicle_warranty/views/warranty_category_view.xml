@@ -41,16 +41,16 @@
                         <group col="2">
                             <group>
                                 <field name="parent_id"/>
+                                <field name="code"/>
                                 <field name="manhour"/>
                                 <field name="remark"/>
                             </group>
                             <group>
-                                <label for="code"/>
-                                <div class="o_row">
-                                    <field name="code"/>
-                                </div>
                                 <field name="create_uid" readonly="1"/>
                                 <field name="create_date" readonly="1"/>
+                                <field name="warranty_type" widget="radio" />
+                                <field name="warranty_level" attrs="{'invisible':[('warranty_type','=','warranty')] }" options="{'no_create': True, 'no_open': True}"/>
+
                             </group>
                         </group>
                         <notebook>
