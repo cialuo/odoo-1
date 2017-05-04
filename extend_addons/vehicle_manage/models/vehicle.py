@@ -166,15 +166,6 @@ class FleetVehicleModel(models.Model):
     emission_standard = fields.Many2one('vehicle_manage.emission_standard', 'Emission Standard')
 
 
-class FleetVehicleRoute(models.Model):
-    """
-    线路
-    """
-    _name = 'vehicle_manage.route'
-
-    name = fields.Char("Route Name", help='Route Name')
-
-
 class VehicleEmissionStandard(models.Model):
     """
     排放标准

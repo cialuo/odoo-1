@@ -28,13 +28,15 @@ class StockMove(models.Model):
                         })
         return res
 
-# class StockPicking(models.Model):
-#     _inherit = 'stock.picking'
-#
-#     @api.multi
-#     def action_confirm(self):
-#         for order in self:
-#             import_products = order.move_lines.mapped('product_id').filtered(lambda x: x.is_important)
-#             if not import_products:
-#                 return super(StockPicking, self).action_confirm()
-#             else:
+class StockPicking(models.Model):
+    _inherit = 'stock.picking'
+
+    @api.multi
+    def action_confirm(self):
+        """
+        加入重要部件管理
+        :return: 
+        """
+        for order in self:
+            if all([p.is_important == True for p in order.move_lines]):
+                pass
