@@ -312,10 +312,35 @@ class VehicleAnchor(models.Model):
     route_id = fields.Many2one(related='vehicle_id.route_id', readonly=True)
     # 抛锚时间
     anchortime = fields.Datetime(string=_('anchor time'))
+    # 抛锚结束时间
+    anchorend = fields.Datetime(string=_('anchor end time'))
     # 抛锚路段
     anchorroad = fields.Char(string=_('anchor road'))
     # 抛锚原因
     anchorreason = fields.Char(string=_('anchor reason'))
+    # 解决方案
+    solution = fields.Char(string=_('anchor solution'))
+    # 抛锚时长
+    anchorduration = fields.Char(compute='_computeAnchortime',string=_('anchor duration'))
+    # 司机
+    driver = fields.Many2one('hr.employee', string=_('driver'))
+
+    @api.multi
+    def _computeAnchortime(self):
+        """
+        计算抛锚时长
+        """
+        for item in self:
+            try:
+                start = time.mktime(time.strptime(item.anchortime, "%Y-%m-%d %H:%M:%S"))
+                end = time.mktime(time.strptime(item.anchorend, "%Y-%m-%d %H:%M:%S"))
+                if end <= start:
+                    item.anchorduration = ''
+                else:
+                    hours = (end-start)/3600
+                    item.anchorduration = '%.1f 小时' % hours
+            except Exception:
+                item.anchorduration = ''
 
 
 class DriveRecords(models.Model):
@@ -328,16 +353,18 @@ class DriveRecords(models.Model):
     vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'), required=True)
     # 线路
     route_id = fields.Many2one(related='vehicle_id.route_id', readonly=True)
+    # 车牌号
+    license_plate = fields.Char(related='vehicle_id.license_plate', readonly=True)
     # 司机
     driver_id = fields.Many2one('hr.employee', string=_('driver'))
     # 方向
     direction = fields.Char(string=_('drive direction'))
     # 计划里程
-    planmileage = fields.Integer(string=_('plan mileage'))
+    planmileage = fields.Float(string=_('plan mileage'))
     # GPS里程
-    GPSmileage = fields.Integer(string=_('GPS mileage'))
+    GPSmileage = fields.Float(string=_('GPS mileage'))
     # 趟次
-    dirvetimes = fields.Integer(string=_('drive times'))
+    dirvetimes = fields.Char(string=_('drive times'))
     # 计划发车
     plandepart = fields.Datetime(string=_('plan depart'))
     # 实际发车
@@ -352,7 +379,14 @@ class DriveRecords(models.Model):
         ('refuel',_('drive type refuel')),      # 加油
         ('empty',_('drive type empty'))         # 空驶
     ],string=_('drive type'))
-    # 日期
-    drivedate = fields.Datetime(string=_('drive date'))
 
 
+    @api.model
+    def create(self, vals):
+        res = super(DriveRecords, self).create(vals)
+        odometer = self.env['fleet.vehicle.odometer']
+        vechileinfo = odometer.search([('vehicle_id', '=', vals['vehicle_id'])], limit=1)
+        if len(vechileinfo) > 0:
+            instance = vechileinfo[0]
+            instance.write({'value':instance.value+vals['GPSmileage']})
+        return res

@@ -22,7 +22,7 @@ class Vehicle(models.Model):
     correct_value = fields.Float(compute='_get_correct_value', readonly=True, copy=False)
     route_correct_value = fields.Float(store=True, copy=False)
 
-    fuel_consumption = fields.Float('Model Fuel Consumption', compute='_get_fuel_consumption',
+    fuel_consumption = fields.Float('Fuel Consumption', compute='_get_fuel_consumption',
                                     store=True, readonly=True, copy=False)
     real_consumption = fields.Float('Real Consumption', copy=False)
 

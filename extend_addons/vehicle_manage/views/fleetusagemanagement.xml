@@ -251,6 +251,7 @@
                 <field name="anchortime" />
                 <field name="anchorroad" />
                 <field name="anchorreason" />
+                <field name="solution" />
             </tree>
         </field>
     </record>
@@ -268,6 +269,7 @@
                             <field name="anchortime" />
                             <field name="anchorroad" />
                             <field name="anchorreason" />
+                            <field name="solution" />
                         </group>
                         <group>
                             <field name="license_plate" />
@@ -288,8 +290,20 @@
             <field name="model">fleet.vehicle</field>
             <field name="arch" type="xml">
                 <form string="Vehicle">
+                    <header>
+                        <field name="state"  widget="statusbar"/>
+                    </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
+                            <button name="return_action_to_open"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-tachometer"
+                                    attrs="{'invisible': [('total_odometer', '=', 0)]}"
+                                    context="{'xml_id':'fleet_vehicle_odometer_action'}"
+                                    help="show the odometer logs for this vehicle" >
+                                    <field name="total_odometer" widget="statinfo" string="Odometer"/>
+                            </button>
                         </div>
                         <field name="image_medium" widget='image' class="oe_avatar"/>
                         <div class="oe_title">
@@ -308,11 +322,52 @@
                         <notebook>
                             <!--行车记录-->
                             <page  string="drive records" name="driverecords">
-                                <field name="driverecords" />
+                                <field name="driverecords" >
+                                    <form string="anchile drive Form">
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="direction" />
+                                                    <field name="GPSmileage" />
+                                                    <field name="plandepart" />
+                                                    <field name="realitydepart" />
+                                                    <field name="driver_id" />
+                                                </group>
+                                                <group>
+                                                    <field name="planarrive" />
+                                                    <field name="realityarrive" />
+                                                    <field name="dirvetimes" />
+                                                    <field name="drivetype" />
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
                             </page>
                             <!--抛锚记录-->
                             <page  string="drop anchor records" name="dropanchorrecords">
-                                <field name="dropanchorrecords" />
+                                <field name="dropanchorrecords" >
+                                    <form string="drop anchile item Form">
+                                        <sheet>
+                                            <group>
+                                                <field name="anchortime"/>
+                                                <field name="anchorend"/>
+                                                <field name="anchorroad"/>
+                                                <field name="anchorreason"/>
+                                                <field name="solution"/>
+                                                <field name="driver"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                    <tree>
+                                        <field name="anchortime" />
+                                        <field name="anchorroad" />
+                                        <field name="anchorreason" />
+                                        <field name="solution" />
+                                        <field name="driver" />
+                                        <field name="anchorduration" />
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
@@ -368,7 +423,7 @@
         <field name="name">vehicle drive records tree list</field>
         <field name="model">vehicleusage.driverecords</field>
         <field name="arch" type="xml">
-            <tree string="Vehicle">
+            <tree string="Vehicle drive records">
                 <field name="route_id" />
                 <field name="driver_id" />
                 <field name="direction" />
@@ -380,8 +435,37 @@
                 <field name="planarrive" />
                 <field name="realityarrive" />
                 <field name="drivetype" />
-                <field name="drivedate" />
             </tree>
+        </field>
+    </record>
+
+    <!-- 车辆行驶记录表单 -->
+    <record model="ir.ui.view" id="vechile_drive_records_form_view">
+        <field name="name">vechile drive form view</field>
+        <field name="model">vehicleusage.driverecords</field>
+        <field name="arch" type="xml">
+            <form string="anchile drive Form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="vehicle_id" readonly="1"/>
+                            <field name="direction" />
+                            <field name="GPSmileage" />
+                            <field name="plandepart" />
+                            <field name="realitydepart" />
+                            <field name="driver_id" />
+                            <field name="license_plate" />
+                        </group>
+                        <group>
+                            <field name="planarrive" />
+                            <field name="realityarrive" />
+                            <field name="dirvetimes" />
+                            <field name="drivetype" />
+                            <field name="route_id" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 
