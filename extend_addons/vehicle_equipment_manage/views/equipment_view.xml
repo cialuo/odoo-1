@@ -6,7 +6,7 @@
             <field name="model">maintenance.equipment.category</field>
             <field name="arch" type="xml">
                 <tree string="Assign To User">
-                    <field name="name" string="Name"/>
+                    <field name="name" string="Equipment Name"/>
                     <field name="note"/>
                     <field name="technician_user_id"/>
                     <field name="create_date"/>

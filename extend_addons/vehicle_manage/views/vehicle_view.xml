@@ -283,13 +283,19 @@
                 action = "vehicle_manage_action" sequence="10"/>
 
 
+
+        <menuitem name="vehicle_manage_model_brand" id="vehicle_manage_model_brand"
+                  action="fleet.fleet_vehicle_model_brand_action"
+                  parent="vehicle_manage_menu.warranty_maintain_basic_manage"
+                  sequence="20"/>
+
         <menuitem name="vehicle_manage_model" id="vehicle_manage_model" parent="vehicle_manage_menu.warranty_maintain_basic_manage"
-				  action = "vehicle_manage_model_action" sequence="30"
+				  action = "vehicle_manage_model_action" sequence="25"
 				  />
         <menuitem name="vehicle_manage_emission_standard" id="vehicle_manage_emission_standard"
 				  parent="vehicle_manage_menu.warranty_maintain_basic_manage"
 				  action="vehicle_manage_emission_standard_action"
-				  sequence="40"
+				  sequence="50"
 				  />
     </data>
 </odoo>
