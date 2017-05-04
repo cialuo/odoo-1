@@ -21,7 +21,7 @@ class Vehicle(models.Model):
     name = fields.Char("Vehicle Number", compute="_cumpute_model_name", store=True)
     inner_code = fields.Char(string="Inner Code", help="Inner Code", required=True)
     route_id = fields.Many2one('vehicle_manage.route', string="Route")
-    company_id = fields.Many2one('res.company', 'Company')
+    company_id = fields.Many2one('hr.department', 'Company')
     # trainman = fields.Many2one('hr.employee', string="Trainman Name")
     # driver = fields.Many2one('hr.employee', string="Driver Name", required=True)
     engine_no = fields.Char('Engine No', help='Engine No')
