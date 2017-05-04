@@ -19,7 +19,7 @@ class security_check_item(models.Model):
     state = fields.Selection([
         ('use', _('Use')),
         ('archive', _("Archive")),
-    ], default='use',string=_('security_check_item_state'))
+    ], default='use', string=_('security_check_item_state'))
 
     @api.multi
     def action_to_default(self):
@@ -48,7 +48,7 @@ class security_check_table(models.Model):
         ('draft', _('Draft_check_table')),
         ('execute', _('Execute_check_table')),
         ('archive', _("Archive_check_table")),
-    ], default='draft',string=_('security_check_table_state'))
+    ], default='draft', string=_('security_check_table_state'))
 
     @api.multi
     def action_to_draft(self):
@@ -79,7 +79,7 @@ class archives_class_manage(models.Model):
     state = fields.Selection([
         ('use', _('Use')),
         ('archive', _("Archive")),
-    ], default='use',string=_('archives_class_manage_state'))
+    ], default='use', string=_('archives_class_manage_state'))
 
     @api.multi
     def action_to_default(self):

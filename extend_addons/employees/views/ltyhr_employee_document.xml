@@ -213,13 +213,13 @@
                                     <field name="post_id"/>
                                 </page>
                                 <page name="members" string="members in department">
-<<<<<<< HEAD
+
                                     <field name="member_id">
 
                                     </field>
-=======
+
                                     <field name="member_id"/>
->>>>>>> huwei
+
                                 </page>
                             </notebook>
                         </sheet>

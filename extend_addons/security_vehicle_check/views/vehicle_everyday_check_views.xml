@@ -1,0 +1,75 @@
+<openerp>
+    <data>
+
+
+        <!--车辆出车前检查列表-->
+        <record id="security_vehicle_everyday_check_tree" model="ir.ui.view">
+            <field name="name">security.vehicle_everyday_check.tree</field>
+            <field name="model">security.vehicle_everyday_check</field>
+            <field name="arch" type="xml">
+                <tree string="vehicle everyday check list">
+                    <field name="name"/>
+                    <field name="plate"/>
+                    <field name="route"/>
+                    <field name="checkout_date"/>
+                    <field name="inspector"/>
+                    <field name="vehicle_manager"/>
+                    <field name="check_result"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <!--车辆出车前检查编辑表单-->
+        <record id="security_vehicle_everyday_check_form" model="ir.ui.view">
+            <field name="name">security.vehicle_everyday_check.form</field>
+            <field name="model">security.vehicle_everyday_check</field>
+            <field name="arch" type="xml">
+                <form string="vehicle everyday check">
+                    <header>
+                        <button name="action_done" type="object"
+                                string="vehicle_check_submit" states="draft"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <!--<div class="oe_title">-->
+                    <sheet>
+                        <!--<label for="name" class="oe_edit_only"/>-->
+                        <!--<h1>-->
+                        <!--<field name="name" placeholder="unit_name"/>-->
+                        <!--</h1>-->
+                        <!--</div>-->
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="inspector"/>
+                                <field name="vehicle_manager"/>
+                                <field name="checkout_date"/>
+                                <field name="check_type"/>
+                            </group>
+                            <group>
+                                <field name="plate"/>
+                                <field name="route"/>
+                                <field name="check_result"/>
+                                <field name="remark"/>
+                                <field name="check_form"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="vehicle_check_plan_details" string="plan_details">
+
+                                <group>
+
+                                    <!--<field name="plan_details"/>-->
+
+                                </group>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
