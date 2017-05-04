@@ -291,7 +291,7 @@ class InspectionRecords(models.Model):
         res = super(InspectionRecords, self).create(vals)
         planItem = self.getPlanItem(vehicleinfo['id'])
         if planItem!=False:
-            planItem.write({'state':'done'})
+            planItem.write({'state':'done','actualdate':vals['inspectiondate']})
         return res
 
 
