@@ -45,12 +45,10 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-
                             <button name="return_action_to_open"
                                     type="object"
                                     class="oe_stat_button"
                                     icon="fa-tachometer"
-                                    attrs="{'invisible': [('total_odometer', '=', 0)]}"
                                     context="{'xml_id':'fleet_vehicle_odometer_action'}"
                                     help="show the odometer logs for this vehicle" >
                                     <field name="total_odometer" widget="statinfo" string="Odometer"/>
