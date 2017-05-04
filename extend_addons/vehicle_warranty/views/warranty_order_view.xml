@@ -292,7 +292,7 @@
                     <field name="sheetId" invisible="1"/>
                     <notebook>
                         <page string="Warranty Project" >
-                                <field name='project_id'  options="{'no_create': True, 'no_open': True}"  /><!--domain="[('warranty_order_id.id', '=', sheetId)]"-->
+                                <field name='project_id'  options="{'no_create': True, 'no_open': True}" domain="[('warranty_order_id.id', '=', sheetId)]" />
                         </page>
                     </notebook>
                     <notebook>

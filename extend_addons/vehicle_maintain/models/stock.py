@@ -41,7 +41,7 @@ class StockPicking(models.Model):
                     '''
                     if type == u'领料':
                         res_get = self.env['stock.picking'].search([('repair_id', '=', self.repair_id.id),
-                                                                ('state', 'not in', ['draft', 'cancel']),
+                                                                ('state', 'not in', ['cancel']),
                                                                 ('picking_type_id.name', 'in', [u'发料', u'领料']),
                                                                 ])
                         res_back = self.env['stock.picking'].search([('repair_id', '=', self.repair_id.id),
@@ -56,7 +56,7 @@ class StockPicking(models.Model):
 
                             get_ct = back_ct = count = 0
                             for j in res_get:
-                                products = j.move_lines.filtered(lambda x:x.product_id == i.product_id)
+                                products = j.move_lines.filtered(lambda x:x.product_id == i.product_id and x.state not in ['draft', 'cancel'])
                                 get_ct= get_ct + sum(products.mapped('product_uom_qty'))
 
                             for k in res_back:
