@@ -10,7 +10,7 @@
     'author': "He",
     'category': 'Warehouse',
     'version': '0.1',
-    'depends': ['materials_manage'],
+    'depends': ['materials_menu'],
     'data': [
         # 'security/ir.model.access.csv',
         'data/picking_types.xml',
