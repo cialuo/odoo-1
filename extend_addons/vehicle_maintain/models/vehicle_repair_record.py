@@ -9,6 +9,8 @@ class FleetVehicle(models.Model):
     """
     _inherit = 'fleet.vehicle'
 
+    repair_ids = fields.One2many("maintain.manage.repair", 'vehicle_id', string='Repairs',
+                                                            domain = [('state', 'in', ['completed'])])
     repair_count = fields.Integer(compute="_compute_repair_count", string='Repairs')
 
     def _compute_repair_count(self):

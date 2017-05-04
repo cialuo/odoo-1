@@ -95,7 +95,7 @@ class WarrantyOrder(models.Model): # 保养单
     def create_get_picking(self): # 创建领料单
         self.ensure_one()
         context = dict(self.env.context,
-            default_maintainsheet_id=self.id,
+            default_warranty_order_id=self.id,
             default_origin=self.name,
             default_picking_type_id=self.env.ref('stock_picking_types.picking_type_picking_material').id,
         )
@@ -112,7 +112,7 @@ class WarrantyOrder(models.Model): # 保养单
     def create_back_picking(self): # 创建退料单
         self.ensure_one()
         context = dict(self.env.context,
-            default_maintainsheet_id=self.id,
+            default_warranty_order_id=self.id,
             default_origin=self.name,
             default_picking_type_id=self.env.ref('stock_picking_types.picking_type_return_material').id,
         )
@@ -126,7 +126,7 @@ class WarrantyOrder(models.Model): # 保养单
         }
 
     @api.multi
-    def action_into_maintain(self):  # 保养单_进入保养状态
+    def action_into_maintain(self):  # 保养单_进入保养状态 开工
         self.ensure_one()
         if not self.manhour_manage_ids:
             raise exceptions.UserError(_("Maintain Repair Jobs Required!"))
@@ -136,6 +136,39 @@ class WarrantyOrder(models.Model): # 保养单
             i.real_start_time = datetime.datetime.utcnow()
         for project in self.project_ids:
             project.state = 'maintain'
+
+        avail_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0)
+        location_dest_id = self.env.ref('stock_picking_types.stock_location_ullage').id  # 维修(生产)虚位
+        self._generate_picking(avail_products, location_dest_id)
+
+    def _generate_picking(self, products, location):
+        picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
+        location_id = self.env.ref('stock.stock_location_stock').id  # 库存
+
+        for products in [products]:
+            if not products:
+                continue
+            move_lines = []
+            picking = []
+            for i in products:
+                vals = {
+                    'name': 'stock_move_repair',
+                    'product_id': i.product_id.id,
+                    'product_uom': i.product_id.uom_id.id,
+                    'product_uom_qty': i.change_count,
+                }
+                move_lines.append((0, 0, vals))
+            if move_lines:
+                picking = self.env['stock.picking'].create({
+                    'origin': self.name,
+                    'location_id': location_id,
+                    'location_dest_id': location,
+                    'picking_type_id': picking_type.id,
+                    'warranty_order_id': self.id,
+                    'move_lines': move_lines
+                })
+            if picking:
+                picking.action_confirm()
 
         # import_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0 and x.product_id.is_important)
         # no_import_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0 and not x.product_id.is_important)
@@ -361,11 +394,8 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
         for manhour_manage in self.manhour_manage_ids:
             manhour_percentage_work += manhour_manage.percentage_work
 
-        print manhour_percentage_work
 
         percentage_work=self.percentage_work+manhour_percentage_work
-
-        print percentage_work
 
         if percentage_work < 0 or percentage_work > 100:
             raise exceptions.ValidationError(_('"percentage_work" may not be Incorrect'))

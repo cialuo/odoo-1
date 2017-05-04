@@ -1066,11 +1066,11 @@ msgid "Miles"
 msgstr "里程"
 
 #. module: fleet
-#: model:ir.model.fields,field_description:fleet.field_fleet_vehicle_model_id_2896
+#: model:ir.model.fields,field_description:fleet.field_fleet_vehicle_model_id
 #: model:ir.ui.view,arch_db:fleet.fleet_vehicle_model_view_form
 #: model:ir.ui.view,arch_db:fleet.fleet_vehicle_view_search
 msgid "Model"
-msgstr "型号"
+msgstr "车型"
 
 #. module: fleet
 #: model:ir.ui.view,arch_db:fleet.fleet_vehicle_model_brand_view_form

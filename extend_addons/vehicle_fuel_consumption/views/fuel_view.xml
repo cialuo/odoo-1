@@ -11,7 +11,7 @@
                     <field name="license_plate" />
                     <field name="inner_code" />
                     <field name="company_id" />
-                    <field name="model_id" />
+                    <field name="model_id" string="vehicle model"/>
                     <field name="service_year" />
                     <field name="route_id" />
                     <field name="model_fuel_consumption" />
