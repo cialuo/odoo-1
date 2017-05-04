@@ -111,7 +111,7 @@
 
                         <button name="action_into_maintain" states="dispatch" string="Into Maintain" type="object" class="oe_highlight o_expense_submit"/> <!-- 进入保养状态 -->
 
-                        <button name="return_action_to_open" states="maintain,inspect,done" type="object" class="oe_highlight" string="Query Inspect Bill" context="{'xml_id':'WarrantyItemSheet_action_id'}"/> <!--查看检验单 -->
+                        <button name="action_to_open" states="maintain,inspect,done" type="object" class="oe_highlight" string="Query Inspect Bill" context="{'xml_id':'WarrantyItemSheet_action_id'}"/> <!--查看检验单 -->
 
                         <button name="action_into_inspect" states="maintain" string="Into Inspect" type="object" class="oe_highlight o_expense_submit"/> <!-- 全部报检 -->
 

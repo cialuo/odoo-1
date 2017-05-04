@@ -323,7 +323,7 @@ class WarrantyMaintainSheet(models.Model): # 保养单
 
 
     @api.multi
-    def return_action_to_open(self): # 查看检验单
+    def action_to_open(self): # 查看检验单
         self.ensure_one()
         xml_id = self.env.context.get('xml_id')
         if xml_id:

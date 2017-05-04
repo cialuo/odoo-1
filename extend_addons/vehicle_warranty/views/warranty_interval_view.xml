@@ -1,0 +1,142 @@
+<odoo>
+    <data>
+
+        <!-- 维保间隔循环图 tree -->
+        <record model="ir.ui.view" id="warranty_interval_tree">
+            <field name="name">Warranty Interval Cycle Diagram</field>
+            <field name="model">warranty_interval</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence"/>
+                    <field name="warranty_category_id" string="Warranty Category Name" />
+                    <field name="interval_mileage"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                    <field name="state" string="MyState"/>
+                    <field name="vehicle_model_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 维保间隔循环图 form -->
+        <record model="ir.ui.view" id="warranty_interval_form">
+            <field name="name">Warranty Interval Cycle Diagram</field>
+            <field name="model">warranty_interval</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_filing" type="object"
+                                string="filing" states="in_use"/>
+                        <button name="action_in_use" type="object"
+                                string="in_use" states="filing" class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="sequence"/>
+                                <field name="warranty_category_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="interval_mileage"/>
+                            </group>
+                            <group>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                                <field name="vehicle_model_id" options="{'no_create': True, 'no_open': True}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 维保间隔循环图 action -->
+        <record model="ir.actions.act_window" id="warranty_interval_action">
+            <field name="name">Warranty Interval Cycle Diagram</field>
+            <field name="res_model">warranty_interval</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 维保间隔循环图 menu -->
+        <menuitem name="Warranty Interval Cycle Diagram" id="warranty_interval_menu" sequence="50"
+                  parent="warranty_system"
+                  action="warranty_interval_action"/>
+
+
+        <!-- 保养能力参数设置 tree -->
+        <record model="ir.ui.view" id="warranty_capability_tree">
+            <field name="name">Warranty Capability Setting</field>
+            <field name="model">warranty_capability</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence"/>
+                    <field name="warranty_category_id" string="Warranty Category Name"/>
+                    <field name="company_id"/>
+                    <field name="warranty_vehicle_count"/>
+                    <field name="remark"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 保养能力参数设置 form -->
+        <record model="ir.ui.view" id="warranty_capability_form">
+            <field name="name">Warranty Capability Setting</field>
+            <field name="model">warranty_capability</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <!--<field name="sequence"/>-->
+                                <field name="warranty_category_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="company_id" options="{'no_create': True, 'no_open': True}"/>
+                    <field name="remark"/>
+                            </group>
+                            <group>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                                <field name="warranty_vehicle_count"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 保养能力参数设置 action -->
+        <record model="ir.actions.act_window" id="warranty_capability_action">
+            <field name="name">Warranty Capability Setting</field>
+            <field name="res_model">warranty_capability</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 保养能力参数设置 menu -->
+        <menuitem name="Warranty Capability Setting" id="warranty_capability_menu" sequence="60"
+                  parent="warranty_system"
+                  action="warranty_capability_action"/>
+
+
+        <!-- 维保级别 tree -->
+        <record model="ir.ui.view" id="warranty_level_tree">
+            <field name="name">Warranty Level</field>
+            <field name="model">warranty_level</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 维保级别 action -->
+        <record model="ir.actions.act_window" id="warranty_level_action">
+            <field name="name">Warranty Level</field>
+            <field name="res_model">warranty_level</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- 维保级别 menu -->
+        <menuitem name="Repair Category" id="warranty_level_menu" sequence="70"
+                  parent="warranty_system"
+                  action="warranty_level_action"/>
+
+    </data>
+</odoo>

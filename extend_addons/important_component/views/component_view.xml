@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--物资管理界面增加重要部件-->
+        <record id="important_component_product_extend_form" model="ir.ui.view">
+            <field name="name">Important component</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="materials_product.materials_manage_important_product_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='supply_info']" position="after">
+                    <page name="component_info" string="Component Info" attrs="{'invisible': ['|', ('important_type', '!=', 'component'), ('is_important', '=', False)]}">
+                        <field name="component_ids">
+                            <tree editable="top" create="false" delete="false">
+                                <field name="code"/>
+                                <field name="product_id" readonly="1"/>
+                                <field name="odometer" readonly="1"/>
+                                <field name="state" readonly="1"/>
+                                <field name="location_id" readonly="1"/>
+                                <field name="create_date" readonly="1" string="Create order Date"/>
+                                <field name="checkout_date" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//div[@name='options']/div" position="inside">
+                    <div>
+                        <field name="is_important"/>
+                        <label for="is_important"/>
+                    </div>
+                </xpath>
+                <xpath expr="//div[@name='options']" position="inside">
+                    <div class="col-sm-6">
+                        <field name="important_type" widget="radio" attrs="{'invisible': [('is_important', '=', False)]}"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

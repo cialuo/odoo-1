@@ -104,7 +104,7 @@ msgstr "创建领料单"
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_delivery_report_user_id
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_report_create_name
 msgid "Create Name"
-msgstr "报修人"
+msgstr "填单人"
 
 #. module: fleet_manage_maintain
 #: model:ir.model.fields,field_description:fleet_manage_maintain.field_fleet_manage_maintain_available_product_create_uid

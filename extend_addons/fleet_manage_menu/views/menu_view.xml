@@ -9,7 +9,10 @@
 		<menuitem name="fleet_manage_warranty_maintain" id="fleet_manage_warranty_maintain" parent="fleet_manage_menu_root" sequence="3"/> <!--车辆维保管理-->
 
     	<menuitem name="fleet_important_component" id="fleet_important_component" parent="fleet_manage_menu_root" sequence="5"/> <!--重要部件管理-->
-		<menuitem name="fleet_manage_data" id="fleet_manage_menu_data" parent="fleet_manage_menu_root" sequence="7"/> <!--维保体系管理-->
+		<menuitem name="fleet_manage_data" id="fleet_manage_menu_data" parent="fleet_manage_menu_root" sequence="7"/><!--维保体系管理-->
+
+		<!-- 车辆使用管理 -->
+		<menuitem name="fleet_vehicle_usage" id="fleet_vehicle_usage_management" parent="fleet_manage_menu_root" sequence="6"/>
 
 
 	</data>

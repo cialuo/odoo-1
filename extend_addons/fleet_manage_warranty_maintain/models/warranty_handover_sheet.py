@@ -74,7 +74,7 @@ class WarrantyHandoverSheet(models.Model): # 交接单
         self.device_return_ids = device_lines
 
     @api.multi
-    def return_action_to_open(self): # 交接单跳转到维修单
+    def action_to_open(self): # 交接单跳转到维修单
         self.ensure_one()
         xml_id = self.env.context.get('xml_id')
         if xml_id:

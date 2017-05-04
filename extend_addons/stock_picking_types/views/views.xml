@@ -86,10 +86,10 @@
 
 
     <!--新增领料管理菜单-->
-    <menuitem id="materials_menu_pick_type" name="materials_menu_pick_type_name" parent="materials_manage.materials_menu_root" sequence="30" />
+    <menuitem id="materials_menu_pick_type" name="materials_menu_pick_type_name" parent="materials_menu.materials_menu_root" sequence="30" />
 
     <!--新增基础资料-->
-    <menuitem id="materials_menu_config" name="materials_menu_config_name" parent="materials_manage.materials_menu_root" sequence="60" />
+    <menuitem id="materials_menu_config" name="materials_menu_config_name" parent="materials_menu.materials_menu_root" sequence="60" />
 
     <!--新增三个查询菜单-->
     <menuitem id="issuance_of_material_picking" name="Issuance Of Material" parent="materials_menu_pick_type" sequence="3" action="stock_picking_types.issuance_of_material_action_window" />

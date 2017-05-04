@@ -1,0 +1,29 @@
+<openerp>
+  <data>
+
+    <!-- 能源管理 -->
+    <menuitem name="Energy management" id="energy_management.menu_energy_management"
+              parent="materials_manage.materials_menu_root" sequence="1000" />
+
+    <!--能源站-->
+    <menuitem name="Energy station" id="energy_management.menu_energy_station"
+              parent="energy_management.menu_energy_management" sequence="1" action="energy_management.aw_energy_station"/>
+
+    <!--安全检查-->
+    <menuitem name="Security check" id="energy_management.security_check"
+              parent="energy_management.menu_energy_management" sequence="2" action="energy_management.aw_security_check"/>
+
+    <!--能源桩-->
+    <menuitem name="Energy pile" id="energy_management.energy_pile"
+              parent="energy_management.menu_energy_management" sequence="3" action="energy_management.aw_energy_pile"/>
+
+    <!--能源使用记录-->
+    <menuitem name="Energy usage record" id="energy_management.energy_usage_record"
+              parent="energy_management.menu_energy_management" sequence="4" action="energy_management.aw_energy_usage_record"/>
+
+    <!--能源库位-->
+    <menuitem name="Warehouse location" id="energy_management.warehouse_location"
+              parent="energy_management.menu_energy_management" sequence="5" action="energy_management.aw_warehouse_location"/>
+
+  </data>
+</openerp>
