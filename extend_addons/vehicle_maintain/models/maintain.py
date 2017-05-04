@@ -558,7 +558,7 @@ class MaintainInspect(models.Model):
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
         return emp_ids and emp_ids[0] or False
-    inspect_user_id = fields.Many2one('hr.employee', string="Inspect Name", default=_default_employee, required=True)
+    inspect_user_id = fields.Many2one('hr.employee', string="Inspect Name")
     rework_count = fields.Integer("Rework Count", compute="_get_rework_count")
 
     def _get_rework_count(self):
@@ -584,6 +584,7 @@ class MaintainInspect(models.Model):
             i.state = 'completed'
             i.inspect_result = 'qualified'
             i.end_inspect_time = fields.Datetime.now()
+            i.inspect_user_id = self._default_employee()
 
             if all(repair.state in ['completed'] for repair in i.report_id.repair_ids):
                 i.report_id.state = 'completed'
@@ -602,12 +603,14 @@ class MaintainInspect(models.Model):
             "repair_id": self.id,
             "inspect_return_time": inspect_return_time,
             "return_reason": reason,
+            "inspect_user_id":self._default_employee(),
             "sequence": len(self.return_record_ids) + 1
         }
         self.write({
             "state":'repair',
             "end_inspect_time": inspect_return_time,
             "inspect_result": "defective",
+            "inspect_user_id": self._default_employee(),
             "return_record_ids": [(0, 0, vals)]
         })
 
@@ -619,7 +622,7 @@ class MaintainReturnRecord(models.Model):
     _name = 'maintain.manage.return_record'
     repair_id = fields.Many2one('maintain.manage.repair', string="Repair Order",
                                 required=True, readonly=True)
-    inspect_user_id = fields.Many2one('hr.employee', related='repair_id.inspect_user_id', string="Inspect Name",
+    inspect_user_id = fields.Many2one('hr.employee',  string="Inspect Name",
                                       required=True, readonly=True)
     repair_names = fields.Char(string='Repair Names',related='repair_id.repair_names')
     fault_method_id = fields.Many2one("maintain.fault.method", related='repair_id.fault_method_id',

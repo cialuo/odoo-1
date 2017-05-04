@@ -45,12 +45,10 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-
                             <button name="return_action_to_open"
                                     type="object"
                                     class="oe_stat_button"
                                     icon="fa-tachometer"
-                                    attrs="{'invisible': [('total_odometer', '=', 0)]}"
                                     context="{'xml_id':'fleet_vehicle_odometer_action'}"
                                     help="show the odometer logs for this vehicle" >
                                     <field name="total_odometer" widget="statinfo" string="Odometer"/>
@@ -87,6 +85,10 @@
 
                                         <field name="service_year"/>
                                         <field name="salvage_rate"/>
+
+                                        <field name="conductor" widget="many2many_tags"/>
+                                        <field name="driver"  widget="many2many_tags"/>
+
                                         <field name="vehicle_label"/>
                                     </group>
                                 </group>
@@ -239,10 +241,12 @@
             <field name="arch" type="xml">
                 <form string="EmissionStandard Form">
                     <sheet>
-                        <group>
-                            <field name="level_code"/>
-                            <field name="name"/>
-                            <field name="remark"/>
+                        <group col="2">
+                            <group>
+                                <field name="level_code"/>
+                                <field name="name"/>
+                                <field name="remark"/>
+                            </group>
                         </group>
                     </sheet>
                 </form>
@@ -283,13 +287,19 @@
                 action = "vehicle_manage_action" sequence="10"/>
 
 
+
+        <menuitem name="vehicle_manage_model_brand" id="vehicle_manage_model_brand"
+                  action="fleet.fleet_vehicle_model_brand_action"
+                  parent="vehicle_manage_menu.warranty_maintain_basic_manage"
+                  sequence="30"/>
+
         <menuitem name="vehicle_manage_model" id="vehicle_manage_model" parent="vehicle_manage_menu.warranty_maintain_basic_manage"
-				  action = "vehicle_manage_model_action" sequence="30"
+				  action = "vehicle_manage_model_action" sequence="40"
 				  />
         <menuitem name="vehicle_manage_emission_standard" id="vehicle_manage_emission_standard"
 				  parent="vehicle_manage_menu.warranty_maintain_basic_manage"
 				  action="vehicle_manage_emission_standard_action"
-				  sequence="40"
+				  sequence="60"
 				  />
     </data>
 </odoo>

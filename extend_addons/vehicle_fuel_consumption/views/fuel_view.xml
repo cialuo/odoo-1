@@ -11,7 +11,7 @@
                     <field name="license_plate" />
                     <field name="inner_code" />
                     <field name="company_id" />
-                    <field name="model_id" />
+                    <field name="model_id" string="vehicle model"/>
                     <field name="service_year" />
                     <field name="route_id" />
                     <field name="model_fuel_consumption" />
@@ -57,18 +57,13 @@
             <field name="arch" type="xml">
                 <form string="Vehicle">
                     <sheet>
-                        <notebook>
-                            <page>
-                                <group col="2">
-                                    <group>
-                                        <field name="route_correct_value"/>
-                                        <field name="real_consumption"/>
-                                    </group>
-                                </group>
-                            </page>
-                        </notebook>
+                        <group col="2">
+                            <group>
+                                <field name="route_correct_value"/>
+                                <field name="real_consumption"/>
+                            </group>
+                        </group>
                     </sheet>
-
                 </form>
 
             </field>
@@ -104,6 +99,7 @@
         <!--油耗跟踪与考核-->
         <menuitem name="fuel_consumption_check" id="fuel_consumption_check" parent="vehicle_manage_menu.vehicle_use_manage"
                   action = "fuel_consumption_check_action" sequence="60"/>
+
 
     </data>
 </odoo>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-28 05:39+0000\n"
-"PO-Revision-Date: 2017-04-28 05:39+0000\n"
+"POT-Creation-Date: 2017-05-04 05:53+0000\n"
+"PO-Revision-Date: 2017-05-04 05:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,12 @@ msgstr ""
 #, python-format
 msgid "%s has been added to the report!"
 msgstr "%s 添加到报修单!"
+
+#. module: vehicle_maintain
+#: code:addons/vehicle_maintain/models/stock.py:68
+#, python-format
+msgid "%s more than max_count %s"
+msgstr "%s 超过领用上限%s个"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_fault_available_product_description
@@ -166,7 +172,7 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_create_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_create_date
 msgid "Created on"
-msgstr "建档时间"
+msgstr "创建时间"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_fault_available_product_onhand_qty
@@ -211,7 +217,7 @@ msgid "Dispatch to Precheck"
 msgstr "退回检验"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:332
+#: code:addons/vehicle_maintain/models/maintain.py:334
 #, python-format
 msgid "Dispatching the proportion of more than 100"
 msgstr "派工比例超过了100%"
@@ -596,13 +602,13 @@ msgid "Maintain Repair Jobs"
 msgstr "工时管理"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:376
+#: code:addons/vehicle_maintain/models/maintain.py:378
 #, python-format
 msgid "Maintain Repair Jobs Required!"
 msgstr "维修工时不存在，请先派工"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:327
+#: code:addons/vehicle_maintain/models/maintain.py:329
 #, python-format
 msgid "Maintain Repair Names Required!"
 msgstr "请选择维修人员"
@@ -614,7 +620,7 @@ msgid "Maintain Repair Required!"
 msgstr "请填写维修故障"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:329
+#: code:addons/vehicle_maintain/models/maintain.py:331
 #, python-format
 msgid "Maintain Repair StartTime Required!"
 msgstr "请选择计划开始时间"
@@ -918,7 +924,9 @@ msgstr "维修类型"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_fleet_vehicle_repair_count
+#: model:ir.model.fields,field_description:vehicle_maintain.field_fleet_vehicle_repair_ids
 #: model:ir.ui.view,arch_db:vehicle_maintain.vehicle_maintain_repair_inherit
+#: model:ir.ui.view,arch_db:vehicle_maintain.vehicle_usage_records_view_form_inherit
 msgid "Repairs"
 msgstr "维修记录"
 
@@ -978,7 +986,7 @@ msgid "Select category for the current product"
 msgstr "为当前产品选择一个类别"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:581
+#: code:addons/vehicle_maintain/models/maintain.py:583
 #, python-format
 msgid "Selected inspect(s) cannot be confirmed as they are not in 'inspect' state"
 msgstr "选择检验单中存在不是待检状态的记录"
@@ -1055,7 +1063,7 @@ msgstr "两人作业"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_uom_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_uom_id
 msgid "Unit of Measure"
-msgstr "计量单位"
+msgstr "单位"
 
 #. module: vehicle_maintain
 #: selection:maintain.fault.appearance,state:0
@@ -1301,6 +1309,12 @@ msgstr "正常报修"
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_repair_percentage_work
 msgid "percentage_work"
 msgstr "工时比例"
+
+#. module: vehicle_maintain
+#: code:addons/vehicle_maintain/models/stock.py:55
+#, python-format
+msgid "product is not exist,please remove:%s"
+msgstr "添加的物资不存在，不能添加，请移除:%s"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_category_reason_ids

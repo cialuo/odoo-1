@@ -571,7 +571,7 @@
 
 		<!--抢修管理-->
 		<menuitem name="maintain_manage" id="maintain_manage"
-				  parent="vehicle_manage_menu.warranty_maintain_manage"/>
+				  parent="vehicle_manage_menu.warranty_maintain_manage"  sequence="20"/>
 
 		<!--报修单-->
         <menuitem name="maintain_report_order" id="maintain_report_order" parent="maintain_manage"
