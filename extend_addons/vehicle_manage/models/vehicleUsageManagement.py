@@ -325,20 +325,22 @@ class VehicleAnchor(models.Model):
     # 司机
     driver = fields.Many2one('hr.employee', string=_('driver'))
 
+    @api.multi
     def _computeAnchortime(self):
         """
         计算抛锚时长
         """
-        try:
-            start = time.mktime(time.strptime(self.anchortime, "%Y-%m-%d %H:%M:%S"))
-            end = time.mktime(time.strptime(self.anchorend, "%Y-%m-%d %H:%M:%S"))
-            if end <= start:
-                self.anchorduration = ''
-            else:
-                hours = (end-start)/3600
-                self.anchorduration = '%f 小时' % hours
-        except Exception:
-            self.anchorduration = ''
+        for item in self:
+            try:
+                start = time.mktime(time.strptime(item.anchortime, "%Y-%m-%d %H:%M:%S"))
+                end = time.mktime(time.strptime(item.anchorend, "%Y-%m-%d %H:%M:%S"))
+                if end <= start:
+                    item.anchorduration = ''
+                else:
+                    hours = (end-start)/3600
+                    item.anchorduration = '%.1f 小时' % hours
+            except Exception:
+                item.anchorduration = ''
 
 
 class DriveRecords(models.Model):
@@ -351,6 +353,8 @@ class DriveRecords(models.Model):
     vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'), required=True)
     # 线路
     route_id = fields.Many2one(related='vehicle_id.route_id', readonly=True)
+    # 车牌号
+    license_plate = fields.Char(related='vehicle_id.license_plate', readonly=True)
     # 司机
     driver_id = fields.Many2one('hr.employee', string=_('driver'))
     # 方向
@@ -360,7 +364,7 @@ class DriveRecords(models.Model):
     # GPS里程
     GPSmileage = fields.Float(string=_('GPS mileage'))
     # 趟次
-    dirvetimes = fields.Integer(string=_('drive times'))
+    dirvetimes = fields.Char(string=_('drive times'))
     # 计划发车
     plandepart = fields.Datetime(string=_('plan depart'))
     # 实际发车
@@ -375,8 +379,6 @@ class DriveRecords(models.Model):
         ('refuel',_('drive type refuel')),      # 加油
         ('empty',_('drive type empty'))         # 空驶
     ],string=_('drive type'))
-    # 日期
-    drivedate = fields.Datetime(string=_('drive date'))
 
 
     @api.model

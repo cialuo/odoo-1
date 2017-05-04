@@ -783,7 +783,7 @@ msgstr "行车记录"
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:363
 #, python-format
 msgid "drive times"
-msgstr "时间"
+msgstr "趟次"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:377
