@@ -36,9 +36,10 @@ class StockPicking(models.Model):
 
                 if order.move_lines:
                     products = order.move_lines.filtered(lambda x: x.product_id.require_trans == True)
+                    location_id = self.env.ref('stock_picking_types.stock_location_ullage').id  # 维修(生产)虚位
                     location_dest_id = self.env.ref('stock_picking_types.stock_location_old_to_new').id  # 存货/旧料
 
-                    self._gen_old_new_picking_warranty(order, products, location_dest_id)
+                    self._gen_old_new_picking_warranty(order, products,location_id, location_dest_id)
 
         return super(StockPicking, self).action_confirm()
 
@@ -79,9 +80,9 @@ class StockPicking(models.Model):
                 if count > 0:
                     raise UserError(_('%s more than max_count %s') % (i.name, count))
 
-    def _gen_old_new_picking_warranty(self, order, products, location_dest_id):
+    def _gen_old_new_picking_warranty(self, order, products, location_id, location_dest_id):
         picking_type = self.env.ref('stock_picking_types.picking_old_to_new_material')  # 交旧领新分拣类型
-        location_id = self.env.ref('stock_picking_types.stock_location_ullage').id  # 维修(生产)虚位
+
         move_lines = []
         picking = []
         for i in products:
