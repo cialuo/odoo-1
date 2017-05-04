@@ -1,0 +1,58 @@
+<openerp>
+    <data>
+
+        <!--二级菜单 消防设施分布图 action-->
+        <record model="ir.actions.act_window" id="act_fire_device_map">
+            <field name="name">fire_device_map menu</field>
+            <field name="res_model">sfs.fire_device_map</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--二级菜单 消防危险源管理 action-->
+        <record model="ir.actions.act_window" id="act_fire_danger_src">
+            <field name="name">fire_danger_src menu</field>
+            <field name="res_model">sfs.fire_danger_src</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--二级菜单 消防设施管理 action-->
+        <record model="ir.actions.act_window" id="act_fire_device_manage">
+            <field name="name">fire_device_manage menu</field>
+            <field name="res_model">sfs.fire_device_manage</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--二级菜单 消防设施管理 action-->
+        <record model="ir.actions.act_window" id="act_fire_emergency_plan">
+            <field name="name">fire_emergency_plan menu</field>
+            <field name="res_model">sfs.fire_plan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!--消防安全 start-->
+        <!--一级菜单 消防安全-->
+        <!--引用了security_manage模块的top nemu-->
+        <menuitem name="fire  safety" id="fire_safety_first_menu"
+                  parent="security_manage.security_manage_menu_root"/>
+
+        <!--二级菜单 消防设施分布图-->
+        <menuitem name="fire fighting device map" id="fire_device_map_second_menu"
+                  parent="fire_safety_first_menu"
+                  action="act_fire_device_map"/>
+        <!--二级菜单 消防危险源管理-->
+        <menuitem name="fire danger source manage" id="fire_danger_source_second_menu"
+                  parent="fire_safety_first_menu"
+                  action="act_fire_danger_src"/>
+        <!--二级菜单 消防设施管理-->
+        <menuitem name="fire fight device manage" id="fire_device_manage_second_menu"
+                  parent="fire_safety_first_menu"
+                  action="act_fire_device_manage"/>
+        <!--二级菜单 消防应急预案-->
+        <menuitem name="fire emergency plan" id="fire_emergency_plan_second_menu"
+                  parent="fire_safety_first_menu"
+                  action="act_fire_emergency_plan"/>
+
+        <!--消防安全 end-->
+
+
+    </data>
+</openerp>

@@ -346,7 +346,7 @@
                             </page>
                             <!--抛锚记录-->
                             <page  string="drop anchor records" name="dropanchorrecords">
-                                <field name="dropanchorrecords" >
+                                <field name="dropanchorrecords">
                                     <form string="drop anchile item Form">
                                         <sheet>
                                             <group>

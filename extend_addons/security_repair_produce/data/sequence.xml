@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+
+        <!-- Sequences for repair quality -->
+        <record id="seq_repair_quality_archive_id" model="ir.sequence">
+            <field name="name">Archive Id</field>
+            <field name="code">srp.repair_quality</field>
+            <field name="prefix">AQA</field>
+            <field name="padding">6</field>
+        </record>
+
+    </data>
+</odoo>

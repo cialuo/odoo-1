@@ -85,6 +85,10 @@
 
                                         <field name="service_year"/>
                                         <field name="salvage_rate"/>
+
+                                        <field name="conductor" widget="many2many_tags"/>
+                                        <field name="driver"  widget="many2many_tags"/>
+
                                         <field name="vehicle_label"/>
                                     </group>
                                 </group>

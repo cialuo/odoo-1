@@ -2,11 +2,11 @@
     <data>
         <record model="ir.ui.view" id="security_manage.security_archives_class_manage_list">
             <field name="name">security_manage list</field>
-            <field name="model">security_manage.archives_class_manage</field>
+            <field name="model">security_manage.cls_manage</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="item_id"/>
-                    <field name="class_name"/>
+                    <field name="name"/>
                     <field name="class_type"/>
                     <field name="parent"/>
                     <field name="state"/>
@@ -16,7 +16,7 @@
 
         <record model="ir.ui.view" id="security_manage.security_archives_class_manage_form">
             <field name="name">security_manage list</field>
-            <field name="model">security_manage.archives_class_manage</field>
+            <field name="model">security_manage.cls_manage</field>
             <field name="arch" type="xml">
                 <form string="Idea form">
                     <header>
@@ -33,7 +33,7 @@
                         <div class="oe_title">
                             <!--<label for="name"/>-->
                             <h1>
-                                <field name="name" readonly="1"/>
+                                <field name="item_name" readonly="True"/>
                             </h1>
                         </div>
 
@@ -41,9 +41,9 @@
                             <group name="group_left">
                                 <!--<separator string="General stuff" colspan="2"/>-->
                                 <field name="item_id"/>
-                                <field name="item_name"/>
-                                <field name="class_type"/>
-                                <field name="parent"/>
+                                <field name="name"/>
+                                <field name="class_type" />
+                                <field name="parent" attrs="{'required':[('class_type','=','little_class')]}"/>
                             </group>
 
                             <group name="group_right">

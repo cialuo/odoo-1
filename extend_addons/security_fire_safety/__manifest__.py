@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 {
-    'name': "security_manage",
+    'name': "security_fire_safety",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -19,22 +20,19 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','hr'],
+    'depends': ['base', 'security_manage'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/menu_views.xml',
-        'views/security_check_item_views.xml',
-        'views/security_check_table_views.xml',
-        'views/security_archives_class_manage_views.xml',
+        'views/menu.xml',
+        'views/fire_danger_source_views.xml',
+        'views/fire_device_map_views.xml',
+        'views/fire_device_manage_views.xml',
+        'views/fire_plan_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
-
-    'installable': True,
-    'application': True,
 }
-# -*- coding: utf-8 -*-
