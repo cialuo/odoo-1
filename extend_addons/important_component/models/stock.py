@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api, fields, models
+from odoo.exceptions import UserError
+from odoo.tools.translate import _
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
@@ -38,5 +40,15 @@ class StockPicking(models.Model):
         :return: 
         """
         for order in self:
-            if all([p.is_important == True for p in order.move_lines]):
-                pass
+            type = order.picking_type_id.name
+            if type in [u'发料', u'领料', u'退料']:
+                if all([p.is_important == False for p in order.move_lines]):
+                    return super(StockPicking, self).action_confirm()
+                elif all([p.is_important == True for p in order.move_lines]):
+                    obj = order.repair_id or order.warranty_order_id
+                    if type == u'退料':
+                        order.write({'location_id': obj.vehicle_id.location_stock_id.id})
+                    if type == u'领料':
+                        pass
+                else:
+                    raise UserError(_('There are important & not important components '))
