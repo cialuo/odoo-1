@@ -391,7 +391,7 @@ msgstr "最大爬坡度"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_vehicleanchor_model_id
 msgid "Model"
-msgstr "型号"
+msgstr "车型"
 
 #. module: vehicle_manage
 #: model:ir.model,name:vehicle_manage.model_fleet_vehicle_model
