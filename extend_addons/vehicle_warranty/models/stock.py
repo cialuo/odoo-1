@@ -86,7 +86,7 @@ class StockPicking(models.Model):
         picking = []
         for i in products:
             vals = {
-                'name': 'stock_move_repair',
+                'name': 'stock_move_warranty',
                 'product_id': i.product_id.id,
                 'product_uom': i.product_uom.id,
                 'product_uom_qty': i.product_uom_qty,
