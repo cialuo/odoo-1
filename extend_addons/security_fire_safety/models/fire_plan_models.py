@@ -6,7 +6,6 @@ from odoo import models, fields, api,_
 class fire_plan(models.Model):
     _name = 'sfs.fire_plan'
 
-
     name = fields.Char()
 
     archives_class_big = fields.Many2one('security_manage.cls_manage', ondelete='set null',
