@@ -79,5 +79,5 @@ class FuelConsumptionCorrection(models.Model):
     year = fields.Integer('years', readonly=1)
     correct_value = fields.Float('Correct Value')
     user_id = fields.Many2one('hr.employee', string="User Name", default=_default_employee, readonly=1)
-    write_date = fields.Datetime(readonly=1)
+    write_date = fields.Datetime('last set date',readonly=1)
 
