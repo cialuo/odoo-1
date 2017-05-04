@@ -14,7 +14,8 @@
         'views/component_view.xml',
         'views/vehicle_component_view.xml',
         'views/maintain_view.xml',
+        'views/warranty_view.xml',
     ],
-    'depends': ['vehicle_maintain', 'vehicle_manage'],
+    'depends': ['vehicle_maintain', 'vehicle_manage', 'vehicle_warranty'],
     'application': True,
 }

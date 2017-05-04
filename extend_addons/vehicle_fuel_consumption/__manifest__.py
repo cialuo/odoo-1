@@ -18,6 +18,7 @@
     'data': [
         # 'data/fuel_data.xml',
         'views/fuel_view.xml',
+        'views/fuel_consumption_update.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,

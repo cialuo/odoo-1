@@ -280,8 +280,8 @@ msgstr "安全检查设置"
 #: code:addons/security_manage/models/models.py:36
 #: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_check_table_id
 #, python-format
-msgid "check_table_id"
-msgstr "安全检查设置"
+msgid "security_check_table_id"
+msgstr "编号"
 
 #. module: security_manage
 #: code:addons/security_manage/models/models.py:39

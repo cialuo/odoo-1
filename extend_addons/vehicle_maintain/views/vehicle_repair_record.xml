@@ -14,11 +14,34 @@
                             attrs="{'invisible': [('repair_count', '=', 0)]}"
                             context="{'xml_id':'vehicle_manage_action'}">
                             <field name="repair_count" widget="statinfo" string="Repairs"/>
-
-
                     </button>
                 </div>
             </field>
         </record>
+
+
+        <record id='vehicle_usage_records_view_form_inherit' model='ir.ui.view'>
+            <field name="name">fleet_vehicle.usage.form.inherit</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="vehicle_manage.vehicle_usage_records_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[2]" position="after">
+                    <page name="repair_record" string="Repairs">
+                        <field name="repair_ids">
+                            <tree string="Repairs" create="false" delete="false">
+                                <field name="report_id"/>
+                                <field name="create_date"/>
+                                <field name="repair_names"/>
+                                <field name="inspect_user_id"/>
+                                <field name="end_inspect_time"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+
     </data>
 </odoo>

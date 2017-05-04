@@ -2,10 +2,10 @@
     <data>
         <record model="ir.ui.view" id="security_manage.security_check_table_list">
             <field name="name">security_manage list</field>
-            <field name="model">security_manage.security_check_table</field>
+            <field name="model">security_manage.check_table</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="check_table_id"/>
+                    <field name="id"/>
                     <field name="function_module"/>
                     <field name="state"/>
                     <field name="remarks"/>
@@ -16,7 +16,7 @@
 
         <record model="ir.ui.view" id="security_manage.security_check_table_form">
             <field name="name">security_manage list</field>
-            <field name="model">security_manage.security_check_table</field>
+            <field name="model">security_manage.check_table</field>
             <field name="arch" type="xml">
                 <form string="Idea form">
                     <header>
@@ -34,9 +34,9 @@
 
                     <sheet>
                         <div class="oe_title">
-                            <label for="check_table_id"/>
+                            <!--<label for="check_table_id"/>-->
                             <h1>
-                                <field name="name" readonly="1"/>
+                                <field name="function_module" placeholder="check_table"/>
                             </h1>
                         </div>
 
