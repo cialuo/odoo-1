@@ -46,9 +46,17 @@ class StockPicking(models.Model):
                     return super(StockPicking, self).action_confirm()
                 elif all([p.is_important == True for p in order.move_lines]):
                     obj = order.repair_id or order.warranty_order_id
+                    location_id = obj.vehicle_id.location_stock_id.id  # 车的实库
+                    location_dest_id = self.env.ref('stock_picking_types.stock_location_old_to_new').id
                     if type == u'退料':
                         order.write({'location_id': obj.vehicle_id.location_stock_id.id})
                     if type == u'领料':
-                        pass
+                        try:
+                            if obj > self.env['maintain.manage.repair']:
+                                self.check_product_avail_repair(type, order)
+                                self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
+                        except:
+                            self.check_product_avail_warranty(type, order)
+                            self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
                 else:
                     raise UserError(_('There are important & not important components '))
