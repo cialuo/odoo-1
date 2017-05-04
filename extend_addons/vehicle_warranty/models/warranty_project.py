@@ -72,6 +72,6 @@ class WarrantyMode(models.Model): # 维保方式
 
     name = fields.Char(required=True)
 
-    code = fields.Char() # 编码
+    code = fields.Char(required=True) # 编码
 
     _sql_constraints = [('warranty_mode_name_unique', 'unique(name)', 'Mode name already exists')]
