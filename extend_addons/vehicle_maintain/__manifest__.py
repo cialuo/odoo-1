@@ -24,7 +24,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['vehicle_manage', 'materials_product','stock_picking_types'],
+    'depends': ['vehicle_manage', 'materials_product','stock_picking_types','employees'],
 
     # always loaded
     'data': [
