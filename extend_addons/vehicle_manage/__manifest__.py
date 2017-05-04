@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "车辆管理",
 
@@ -25,4 +26,4 @@
     'application': True,
     'auto_install': False,
 }
-# -*- coding: utf-8 -*-
+

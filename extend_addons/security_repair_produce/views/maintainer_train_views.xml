@@ -1,0 +1,78 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="srp_maintainer_train_tree">
+            <field name="name">maintainer_train tree name</field>
+            <field name="model">srp.maintainer_train</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="course_id"/>
+                    <field name="course_name"/>
+                    <field name="course_type"/>
+                    <field name="train_type"/>
+                    <field name="course_start_time"/>
+                    <field name="course_end_time"/>
+                    <field name="course_place"/>
+                    <field name="state"/>
+                    <field name="student_desc"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="srp_maintainer_train_form">
+            <field name="name">maintainer_train form name</field>
+            <field name="model">srp.maintainer_train</field>
+            <field name="arch" type="xml">
+                <form string="Idea form">
+                    <header>
+                        <button name="action_to_default" type="object"
+                                string="Reset to default"
+                                states="sign_in,done"/>
+                        <button name="action_sign_in" type="object"
+                                string="Mark as sign in" states="start_course"
+                                class="oe_highlight"/>
+                        <button name="action_exam" type="object"
+                                string="Mark as exam" states="sign_in"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Mark as done" states="exam"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <!--<label for="name"/>-->
+                            <h1>
+                                <field name="name" placeholder="placeholder"/>
+                            </h1>
+                        </div>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="course_id"/>
+                                <field name="course_name"/>
+                                <field name="course_start_time"/>
+                                <field name="course_end_time"/>
+                            </group>
+
+                            <group name="group_right">
+                                <field name="train_type"/>
+                                <field name="course_type"/>
+                                <field name="teacher"/>
+                                <field name="course_place"/>
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page string="students can sign in">
+                            </page>
+                            <page string="student signed">
+                            </page>
+                            <page string="student exam details">
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

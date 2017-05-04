@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-04 04:17+0000\n"
-"PO-Revision-Date: 2017-05-04 04:17+0000\n"
+"POT-Creation-Date: 2017-05-04 09:56+0000\n"
+"PO-Revision-Date: 2017-05-04 09:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgstr "新增计划单%s"
 #: code:addons/vehicle_warranty/models/stock.py:67
 #, python-format
 msgid "%s more than max_count %s"
-msgstr "%s more than max_count %s"
+msgstr "%s超过最大数量%s"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,help:vehicle_warranty.field_warranty_order_product_product_size
@@ -165,6 +165,7 @@ msgid "Code"
 msgstr "代码"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability_company_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_company_id
 msgid "Company"
 msgstr "公司"
@@ -201,7 +202,10 @@ msgid "Create Warranty Order"
 msgstr "生成保养单"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability_create_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_create_uid
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval_create_uid
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_level_create_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_mode_create_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_create_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_instruction_create_uid
@@ -221,7 +225,10 @@ msgid "Created by"
 msgstr "创建人"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability_create_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_create_date
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval_create_date
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_level_create_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_mode_create_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_create_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_instruction_create_date
@@ -254,6 +261,11 @@ msgstr "当前产品数量。 \n"
 "另外，包括了所有'内部'类型位置的产品。"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval_sequence
+msgid "Cycle Sequence"
+msgstr "循环序号"
+
+#. module: vehicle_warranty
 #: model:ir.model.fields,help:vehicle_warranty.field_warranty_order_product_uom_id
 #: model:ir.model.fields,help:vehicle_warranty.field_warranty_project_product_uom_id
 msgid "Default Unit of Measure used for all stock operation."
@@ -265,7 +277,10 @@ msgid "Dispatch"
 msgstr "派工"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability_display_name
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_display_name
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval_display_name
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_level_display_name
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_mode_display_name
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_display_name
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_instruction_display_name
@@ -334,7 +349,10 @@ msgstr "预测数量(计算为 在手数量 - 出货 + 进货) \n"
 "否则，这包括存储在任何“内部”类型位置的货物。"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_id
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval_id
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_level_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_mode_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_instruction_id
@@ -423,6 +441,11 @@ msgid "Instruction"
 msgstr "作业指导"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval_interval_mileage
+msgid "Interval Mileage"
+msgstr "Interval Mileage"
+
+#. module: vehicle_warranty
 #: model:ir.actions.server,name:vehicle_warranty.warranty_order_item_into_check_action
 msgid "Into Check"
 msgstr "报检"
@@ -438,7 +461,10 @@ msgid "Into Maintain"
 msgstr "进入保养状态"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability___last_update
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category___last_update
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval___last_update
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_level___last_update
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_mode___last_update
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order___last_update
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_instruction___last_update
@@ -458,7 +484,10 @@ msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability_write_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_write_uid
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval_write_uid
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_level_write_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_mode_write_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_instruction_write_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_manhour_write_uid
@@ -478,7 +507,10 @@ msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability_write_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_write_date
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval_write_date
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_level_write_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_mode_write_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_instruction_write_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_manhour_write_date
@@ -501,6 +533,11 @@ msgstr "最后更新时间"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_level
 msgid "Level"
 msgstr "层级"
+
+#. module: vehicle_warranty
+#: sql_constraint:warranty_level:0
+msgid "Level name already exists"
+msgstr "维修级别名称已经存在"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_license_plate
@@ -526,6 +563,11 @@ msgstr "线路"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_made_company_id
 msgid "Made Company"
 msgstr "制表单位"
+
+#. module: vehicle_warranty
+#: selection:warranty_category,warranty_type:0
+msgid "Maintain"
+msgstr "Maintain"
 
 #. module: vehicle_warranty
 #: code:addons/vehicle_warranty/models/warranty_order.py:132
@@ -625,8 +667,10 @@ msgid "More Info"
 msgstr "更多信息"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval_state
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_category_tree
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_inspect_order_tree
+#: model:ir.ui.view,arch_db:vehicle_warranty.warranty_interval_tree
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_item_tree
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_form
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_project_view_tree
@@ -637,6 +681,9 @@ msgid "MyState"
 msgstr "状态"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability_name
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval_name
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_level_name
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_mode_name
 msgid "Name"
 msgstr "名字"
@@ -816,14 +863,21 @@ msgid "Reject"
 msgstr "退回重修"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability_remark
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_remark
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_remark
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_remark
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_project_product_remark
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_project_remark
+#: model:ir.model.fields,help:vehicle_warranty.field_warranty_capability_remark
 #: model:ir.model.fields,help:vehicle_warranty.field_warranty_project_product_remark
 msgid "Remark"
 msgstr "备注"
+
+#. module: vehicle_warranty
+#: model:ir.ui.menu,name:vehicle_warranty.warranty_level_menu
+msgid "Repair Category"
+msgstr "维修类别"
 
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_inspect_order_tree
@@ -923,6 +977,7 @@ msgid "Self work"
 msgstr "本人工时"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability_sequence
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_instruction_sequence
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_manhour_sequence
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_sequence
@@ -1049,12 +1104,30 @@ msgid "Vehicle No"
 msgstr "车号"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval_vehicle_model_id
+msgid "Vehicle model id"
+msgstr "车型编号"
+
+#. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_order_vin
 msgid "Vin"
 msgstr "车架号"
 
 #. module: vehicle_warranty
+#: selection:warranty_category,warranty_type:0
+msgid "Warranty"
+msgstr "保养"
+
+#. module: vehicle_warranty
+#: model:ir.actions.act_window,name:vehicle_warranty.warranty_capability_action
+#: model:ir.ui.menu,name:vehicle_warranty.warranty_capability_menu
+msgid "Warranty Capability Setting"
+msgstr "维保间隔循环图"
+
+#. module: vehicle_warranty
 #: model:ir.actions.act_window,name:vehicle_warranty.warranty_category_action
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability_warranty_category_id
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_interval_warranty_category_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_categ_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_warranty_category
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_order_warranty_category
@@ -1072,7 +1145,9 @@ msgstr "保修类别代码"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_name
+#: model:ir.ui.view,arch_db:vehicle_warranty.warranty_capability_tree
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_category_tree
+#: model:ir.ui.view,arch_db:vehicle_warranty.warranty_interval_tree
 msgid "Warranty Category Name"
 msgstr "保修类别名称"
 
@@ -1087,6 +1162,18 @@ msgstr "检验单"
 #: model:ir.ui.menu,name:vehicle_warranty.warranty_inspect_sheet
 msgid "Warranty Inspect Sheet"
 msgstr "检验单"
+
+#. module: vehicle_warranty
+#: model:ir.actions.act_window,name:vehicle_warranty.warranty_interval_action
+#: model:ir.ui.menu,name:vehicle_warranty.warranty_interval_menu
+msgid "Warranty Interval Cycle Diagram"
+msgstr "维保间隔循环图"
+
+#. module: vehicle_warranty
+#: model:ir.actions.act_window,name:vehicle_warranty.warranty_level_action
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_warranty_level
+msgid "Warranty Level"
+msgstr "维修级别"
 
 #. module: vehicle_warranty
 #: model:ir.ui.menu,name:vehicle_warranty.warranty_maintain_manage_sub
@@ -1208,9 +1295,19 @@ msgid "Warranty System"
 msgstr "维保体系"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_warranty_type
+msgid "Warranty Type"
+msgstr "维保类型"
+
+#. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.wizard_batch_dispatch_form
 msgid "Warranty User"
 msgstr "保养人员"
+
+#. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_capability_warranty_vehicle_count
+msgid "Warranty Vehicle Count"
+msgstr "保养车辆数(台/每天)"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_warranty_location
@@ -1322,16 +1419,20 @@ msgstr "正在执行"
 
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_category_form
+#: model:ir.ui.view,arch_db:vehicle_warranty.warranty_interval_form
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_item_form
 #: selection:warranty_category,state:0
+#: selection:warranty_interval,state:0
 #: selection:warranty_project,state:0
 msgid "filing"
 msgstr "归档"
 
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_category_form
+#: model:ir.ui.view,arch_db:vehicle_warranty.warranty_interval_form
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_item_form
 #: selection:warranty_category,state:0
+#: selection:warranty_interval,state:0
 #: selection:warranty_project,state:0
 msgid "in_use"
 msgstr "在用"
@@ -1345,6 +1446,12 @@ msgstr "检验"
 #: selection:warranty_order_project,inspection_operation:0
 msgid "inspection"
 msgstr "报检"
+
+#. module: vehicle_warranty
+#: code:addons/vehicle_warranty/models/warranty_interval.py:34
+#, python-format
+msgid "interval_mileage must be greater than or equal to zero"
+msgstr "间隔里程必须大于0"
 
 #. module: vehicle_warranty
 #: selection:warranty_order,state:0
@@ -1403,9 +1510,24 @@ msgid "wait"
 msgstr "等待执行"
 
 #. module: vehicle_warranty
+#: model:ir.model,name:vehicle_warranty.model_warranty_capability
+msgid "warranty_capability"
+msgstr "维保能力"
+
+#. module: vehicle_warranty
 #: model:ir.model,name:vehicle_warranty.model_warranty_category
 msgid "warranty_category"
 msgstr "维保类别"
+
+#. module: vehicle_warranty
+#: model:ir.model,name:vehicle_warranty.model_warranty_interval
+msgid "warranty_interval"
+msgstr "维保间隔"
+
+#. module: vehicle_warranty
+#: model:ir.model,name:vehicle_warranty.model_warranty_level
+msgid "warranty_level"
+msgstr "维保级别"
 
 #. module: vehicle_warranty
 #: model:ir.model,name:vehicle_warranty.model_warranty_mode
