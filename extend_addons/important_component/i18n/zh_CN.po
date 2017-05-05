@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-24 08:35+0000\n"
-"PO-Revision-Date: 2017-04-24 08:35+0000\n"
+"POT-Creation-Date: 2017-05-05 06:02+0000\n"
+"PO-Revision-Date: 2017-05-05 06:02+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,8 @@ msgstr "部件编码已存在"
 
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_fleet_vehicle_component_ids
+#: model:ir.model.fields,field_description:important_component.field_maintain_manage_repair_component_ids
+#: model:ir.model.fields,field_description:important_component.field_warranty_order_project_component_ids
 #: selection:product.product,important_type:0
 msgid "Component"
 msgstr "作为重要部件管理"
@@ -117,6 +119,10 @@ msgid "Important"
 msgstr "特别管理"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_maintain_fault_method_important_product_id
+#: model:ir.model.fields,field_description:important_component.field_maintain_manage_repair_important_product_id
+#: model:ir.model.fields,field_description:important_component.field_warranty_order_project_important_product_id
+#: model:ir.model.fields,field_description:important_component.field_warranty_project_important_product_id
 #: model:ir.ui.view,arch_db:important_component.fleet_vehicle_view_form_product
 msgid "Important Product"
 msgstr "重要部件"
@@ -148,9 +154,20 @@ msgid "Inuse"
 msgstr "正在服役"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_maintain_fault_method_is_important_product
+#: model:ir.model.fields,field_description:important_component.field_maintain_manage_repair_is_important_product
+msgid "Is Important Product"
+msgstr "重要部件作业"
+
+#. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_is_update
 msgid "Is Update"
 msgstr "需更新"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_warranty_project_is_important_product
+msgid "Is important product"
+msgstr "重要部件作业"
 
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_product_component___last_update
@@ -239,6 +256,17 @@ msgid "Stock Move"
 msgstr "库存移动"
 
 #. module: important_component
+#: code:addons/important_component/models/stock.py:70
+#, python-format
+msgid "There are important & not important components,please remove: %s "
+msgstr "重要部件和非重要不能不能同时申领,请移除非重要部件: %s "
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_stock_picking
+msgid "Transfer"
+msgstr "调拨"
+
+#. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_uom_id
 msgid "Uom"
 msgstr "单位"
@@ -270,6 +298,16 @@ msgid "can not update model,you could add a new vehicle"
 msgstr "车辆创建后，车型不能更改！"
 
 #. module: important_component
+#: model:ir.model,name:important_component.model_maintain_fault_method
+msgid "maintain.fault.method"
+msgstr "维修方法"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_maintain_manage_repair
+msgid "maintain.manage.repair"
+msgstr "抢修单"
+
+#. module: important_component
 #: model:ir.model,name:important_component.model_product_component
 msgid "product.component"
 msgstr "product.component"
@@ -278,4 +316,14 @@ msgstr "product.component"
 #: model:ir.model,name:important_component.model_vehicle_model_product
 msgid "vehicle.model.product"
 msgstr "vehicle.model.product"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_warranty_order_project
+msgid "warranty_order_project"
+msgstr "保养项目"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_warranty_project
+msgid "warranty_project"
+msgstr "保养项目"
 

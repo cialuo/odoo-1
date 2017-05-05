@@ -42,23 +42,30 @@ class StockPicking(models.Model):
         for order in self:
             type = order.picking_type_id.name
             if type in [u'发料', u'领料', u'退料']:
-                if all([p.is_important == False for p in order.move_lines.mapping('product_id')]):
+                if all([p.is_important == False for p in order.move_lines.mapped('product_id')]):
                     return super(StockPicking, self).action_confirm()
-                elif all([p.is_important == True for p in order.move_lines.mapping('product_id')]):
+                elif all([p.is_important == True for p in order.move_lines.mapped('product_id')]):
                     obj = order.repair_id or order.warranty_order_id
                     location_id = obj.vehicle_id.location_stock_id.id  # 车的实库
                     location_dest_id = self.env.ref('stock_picking_types.stock_location_old_to_new').id
                     if type == u'退料':
                         order.write({'location_id': obj.vehicle_id.location_stock_id.id})
-                    if type == u'领料':
+                    elif type == u'领料':
                         try:
                             if obj > self.env['maintain.manage.repair']:
                                 self.check_product_avail_repair(type, order)
                                 self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
-                        except:
+                        except TypeError:
                             self.check_product_avail_warranty(type, order)
-                            self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
+                            self._gen_old_new_picking_warranty(order, order.move_lines, location_id, location_dest_id)
+                    else:
+                        try:
+                            if obj > self.env['maintain.manage.repair']:
+                                self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
+                        except TypeError:
+                            self._gen_old_new_picking_warranty(order, order.move_lines, location_id, location_dest_id)
                 else:
-                    no_import_products = order.move_lines.mapping('product_id').filtered(lambda x: not x.is_important)
+                    no_import_products = order.move_lines.mapped('product_id').filtered(lambda x: not x.is_important)
                     remove_products = ','.join([i.name for i in no_import_products])
                     raise UserError(_('There are important & not important components,please remove: %s ') % remove_products)
+        return super(StockPicking, self).action_confirm()

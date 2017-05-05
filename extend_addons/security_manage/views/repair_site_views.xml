@@ -2,7 +2,7 @@
     <data>
 
         <record model="ir.ui.view" id="srp_repair_site_tree">
-            <field name="name">树</field>
+            <field name="name">repair_site tree</field>
             <field name="model">srp.repair_site</field>
             <field name="arch" type="xml">
                 <tree>
@@ -18,7 +18,7 @@
         </record>
 
         <record model="ir.ui.view" id="srp_repair_site_form">
-            <field name="name">哈哈</field>
+            <field name="name">repair_site form</field>
             <field name="model">srp.repair_site</field>
             <field name="arch" type="xml">
                 <form string="Idea form">

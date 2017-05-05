@@ -2,7 +2,7 @@
     <data>
 
         <record model="ir.ui.view" id="sfs_fire_device_map_tree">
-            <field name="name">树</field>
+            <field name="name">fire_device_map tree</field>
             <field name="model">sfs.fire_device_map</field>
             <field name="arch" type="xml">
                 <tree>

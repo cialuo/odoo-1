@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "security_fire_safety",
+    'name': "security_manage_memu",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,16 +20,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'security_manage'],
+    'depends': ['base'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/menu.xml',
-        'views/fire_danger_source_views.xml',
-        'views/fire_device_map_views.xml',
-        'views/fire_device_manage_views.xml',
-        'views/fire_plan_views.xml',
+        'views/menu_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

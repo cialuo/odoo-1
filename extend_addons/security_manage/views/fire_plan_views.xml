@@ -1,9 +1,9 @@
 <openerp>
     <data>
 
-        <record model="ir.ui.view" id="srp_emergency_plan_tree">
-            <field name="name">树</field>
-            <field name="model">srp.emergency_plan</field>
+        <record model="ir.ui.view" id="srp_fire_plan_tree">
+            <field name="name">fire_plan tree</field>
+            <field name="model">sfs.fire_plan</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="archives_class_big"/>
@@ -17,9 +17,9 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="srp_emergency_plan_form">
-            <field name="name">哈哈</field>
-            <field name="model">srp.emergency_plan</field>
+        <record model="ir.ui.view" id="srp_fire_plan_form">
+            <field name="name">fire_plan form</field>
+            <field name="model">sfs.fire_plan</field>
             <field name="arch" type="xml">
                 <form string="Idea form">
                     <header>
