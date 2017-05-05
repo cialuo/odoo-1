@@ -22,8 +22,8 @@
     'data': [
         # 'security/ir.model.access.csv',
         # 'views/schedule_menu.xml',
-        'views/schedule.xml',
         'views/schedule_employee.xml',
+        'views/schedule.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
