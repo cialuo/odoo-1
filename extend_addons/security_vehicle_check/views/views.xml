@@ -1,0 +1,58 @@
+<openerp>
+    <data>
+
+        <record model="ir.actions.act_window" id="vehicle_front_check_action">
+            <field name="name">vehicle_front_check</field>
+            <field name="res_model">security.vehicle_front_check</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="vehicle_everyday_check_action">
+            <field name="name">vehicle_everyday_check</field>
+            <field name="res_model">security.vehicle_everyday_check</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="vehicle_special_check_action">
+            <field name="name">vehicle_special_check</field>
+            <field name="res_model">security.vehicle_special_check</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="vehicle_abarbeitung_check_action">
+            <field name="name">vehicle_abarbeitung_check</field>
+            <field name="res_model">security.vehicle_abarbeitung_check</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="vehicle_detection_check_action">
+            <field name="name">vehicle_detection_check</field>
+            <field name="res_model">security.vehicle_detection_check</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="security_vehicle_check" id="security_vehicle_check_menu"
+                  parent="security_manage.security_manage_menu_root"/>
+        <!-- 车辆出车前检查 -->
+        <menuitem name="vehicle_front_check" id="security_vehicle_front_check"
+                  parent="security_vehicle_check_menu"
+                  action="vehicle_front_check_action"/>
+        <!-- 每日安全专项检查 -->
+        <menuitem name="vehicle_everyday_check" id="security_vehicle_everyday_check"
+                  parent="security_vehicle_check_menu"
+                  action="vehicle_everyday_check_action"/>
+        <!-- 安全技术专项抽查 -->
+        <menuitem name="vehicle_special_check" id="security_vehicle_special_check"
+                  parent="security_vehicle_check_menu"
+                  action="vehicle_special_check_action"/>
+        <!-- 车辆专项整改检查 -->
+        <menuitem name="vehicle_abarbeitung_check" id="security_vehicle_abarbeitung_check"
+                  parent="security_vehicle_check_menu"
+                  action="vehicle_abarbeitung_check_action"/>
+        <!-- 检查线上线检查 -->
+        <menuitem name="vehicle_detection_check" id="security_vehicle_detection_check"
+                  parent="security_vehicle_check_menu"
+                  action="vehicle_detection_check_action"/>
+
+    </data>
+</openerp>
