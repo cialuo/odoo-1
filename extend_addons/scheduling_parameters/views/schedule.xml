@@ -234,13 +234,14 @@
                                 <field name="platform_resource"/>
                             </page>
                             <page string="vehicle resource"></page>
-                            <page string="human resource"></page>
+                            <page string="human resource">
+                                <field name="human_resource"/>
+                            </page>
                             <page string="people per cars">
                                 <group>
                                     <field name="driver_per_vehicle"/>
                                     <field name="steward_per_vehicle"/>
                                     <field name="line_synthesis_person_per_vehicle"/>
-
                                 </group>
                             </page>
                         </notebook>
@@ -248,7 +249,6 @@
                 </form>
             </field>
         </record>
-
 
         <!-- 调度参数管理——Action -->
         <record model="ir.actions.act_window" id="act_region">

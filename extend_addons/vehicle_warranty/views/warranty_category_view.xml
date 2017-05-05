@@ -12,6 +12,7 @@
                     <field name="create_uid"/>
                     <field name="create_date"/>
                     <field name="state" string="MyState"/>
+                    <field name="is_top_level"/>
                 </tree>
             </field>
         </record>
@@ -48,6 +49,7 @@
                             <group>
                                 <field name="create_uid" readonly="1"/>
                                 <field name="create_date" readonly="1"/>
+                                <field name="is_top_level" readonly="1"/>
                                 <field name="warranty_type" widget="radio" />
                                 <field name="warranty_level" attrs="{'invisible':[('warranty_type','=','warranty')] }" options="{'no_create': True, 'no_open': True}"/>
 

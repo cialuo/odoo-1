@@ -17,6 +17,7 @@
         'views/warranty_plan_order_view.xml',
         'views/warranty_order_view.xml',
         'views/warranty_interval_view.xml',
+        'views/vehicle_warranty_record.xml',
     ],
     'installable': True,
     'application': True,

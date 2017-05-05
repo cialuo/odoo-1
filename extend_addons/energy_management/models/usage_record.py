@@ -55,6 +55,18 @@ class usage_record(models.Model):
     location_id = fields.Many2one('stock.location', related='pile_id.location_id', store=False, readonly=True,
                                   string='Location Id')
 
+    #运营里程
+    working_mileage = fields.Float(string='Working Mileage')
+
+    #gps里程
+    gps_mileage = fields.Float(string='GPS Mileage')
+
+    #运营油耗
+    working_oil_wear  = fields.Float(string='Working Oil Wear ')
+
+    #gps油耗
+    gps_oil_wear = fields.Float(string='GPS Oil Wear ')
+
     @api.multi
     def normal_to_stop(self):
         self.state = 'stop'
@@ -96,3 +108,72 @@ class usage_record(models.Model):
         }
         moves = self.env['stock.move'].create(move_vals)
         moves.action_done()
+
+    @api.onchange('vehicle_id','fuel_capacity')
+    def _onchange_vehicle_id(self):
+        """
+            当车辆变更的时候,计算并修改车辆的运营里程、GPS里程、运营油耗、GPS油耗
+        :return:
+        """
+        #行车记录
+        driverecords = None
+
+        domain = [('vehicle_id', '=', self.vehicle_id.id)]
+
+        #获取车辆的最后一次能源使用记录id
+        usage_record = self.env['energy.usage_record'].search(domain,limit=1,order="create_date desc")
+
+        if usage_record:
+            domain += [('create_date', '>=', usage_record.create_date)]
+            driverecords = self.env['vehicleusage.driverecords'].search(domain)
+        else:
+            driverecords = self.env['vehicleusage.driverecords'].search(domain)
+
+        #叠加运营里程和GPS里程
+        working_mileage = 0
+        gps_mileage = 0
+        for driverecord in driverecords:
+            working_mileage += driverecord.planmileage
+            gps_mileage += driverecord.GPSmileage
+
+        #计算油耗
+        if usage_record and self.working_mileage >0:
+            """
+                上次加油量/当前里程 * 100
+            """
+            self.working_oil_wear = usage_record.fuel_capacity / self.working_mileage * 100
+            self.gps_oil_wear = usage_record.fuel_capacity / self.gps_mileage * 100
+
+        self.working_mileage = working_mileage
+        self.gps_mileage = gps_mileage
+
+
+
+class vehicle_usage_record(models.Model):
+
+    _inherit = ['fleet.vehicle']
+
+    """
+        继承车辆信息,新增能源记录
+    """
+
+    #能源记录
+    energy_usage_record_ids = fields.One2many('energy.usage_record','vehicle_id',string='energy_usage_record_ids')
+
+    @api.multi
+    def action_to_usage_record(self):
+        """
+            跳转到能源使用记录
+        :return:
+        """
+        self.ensure_one()
+        xml_id = self.env.context.get('xml_id')
+        if xml_id:
+            res = self.env['ir.actions.act_window'].for_xml_id('energy_management', xml_id)
+            res.update(
+                context=dict(self.env.context),
+                domain=[('vehicle_id', '=', self.id)]
+            )
+            return res
+        return False
+

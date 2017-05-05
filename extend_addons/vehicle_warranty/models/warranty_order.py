@@ -57,7 +57,7 @@ class WarrantyOrder(models.Model): # 保养单
         ('maintain', "maintain"),
         ('inspect', "inspect"),
         ('done', "done"),
-    ], default='draft')
+    ], default='draft', string="MyState")
 
     plan_order_ids = fields.One2many('warranty_plan_order', 'maintain_sheet_id', 'Plan Order')  # 保养计划单
 
@@ -294,7 +294,7 @@ class WarrantyOrder(models.Model): # 保养单
 
 class WarrantyOrderProject(models.Model): # 保养单_保养项目
     _name = 'warranty_order_project'
-    _order = "sequence"
+    _order = "warranty_order_id,sequence"
 
     name = fields.Char(related='project_id.name') # related='project_id.name', store=True
 
@@ -310,7 +310,7 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
 
     warranty_mode = fields.Many2one('warranty_mode', 'Warranty Mode', related='project_id.mode')  # 保修方式
 
-    vehicle_id = fields.Many2one('fleet.vehicle', related='warranty_order_id.vehicle_id')  # 车号
+    vehicle_id = fields.Many2one('fleet.vehicle', related='warranty_order_id.vehicle_id', store=True, readonly=True)  # 车号
 
     vehicle_type = fields.Many2one("fleet.vehicle.model", related='warranty_order_id.vehicle_id.model_id')  # 车型
 
@@ -332,7 +332,7 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
         ('maintain', "maintain"), # 保养
         ('check', "check"), # 检验
         ('complete', "complete"), # 完成
-    ], default='nodispatch')
+    ], default='nodispatch', string="MyState")
 
     inspection_operation = fields.Selection([ # 报检操作
         ('noinspection', ""),
