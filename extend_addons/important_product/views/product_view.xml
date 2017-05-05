@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--在原有的分类中增加分类编码-->
+        <record id="important_product_category_extend_form" model="ir.ui.view">
+            <field name="name">Important product category extend form</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="code"/>
+                </xpath>
+            </field>
+        </record>
+        <!--新增一张默认产品视图，动作没定义form的话，默认打开此视图-->
+        <record id="materials_manage_important_product_form" model="ir.ui.view">
+            <field name="name">Import product form</field>
+            <field name="model">product.product</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="%(procurement.procurement_order_action_product_template_stat)d"
+                                    icon="fa-truck" string="Procurements" type="action"
+                                    groups="stock.group_adv_location"
+                                    attrs="{'invisible':[('type', '=', 'service')]}"/>
+                            <button class="oe_stat_button" name="%(purchase.action_purchase_line_product_tree)d"
+                                    type="action" icon="fa-shopping-cart">
+                                <field string="Purchases" name="purchase_count" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button"
+                               name="%(stock.product_open_quants)d"
+                               icon="fa-building-o"
+                               type="action" attrs="{'invisible':[('type', '!=', 'product')]}">
+                                <field name="qty_available" widget="statinfo" string="On Hand"/>
+                            </button>
+                            <button type="action"
+                                name="%(stock.action_stock_level_forecast_report_product)d"
+                                attrs="{'invisible':[('type', '!=', 'product')]}"
+                                class="oe_stat_button" icon="fa-building-o">
+                                <div class="o_form_field o_stat_info">
+                                    <span class="o_stat_value"><field name="virtual_available" widget="statinfo" nolabel="1"/>
+                                        <span attrs="{'invisible':[('outgoing_qty', '=', 0),('incoming_qty','=',0)]}">
+                                            (-<field name="outgoing_qty" widget="statinfo" nolabel="1"/>
+                                            +<field name="incoming_qty" widget="statinfo" nolabel="1"/>)
+                                        </span>
+                                    </span>
+                                    <span class="o_stat_text">Forecasted</span>
+                                </div>
+                            </button>
+                            <button string="Traceability"
+                                    type="action"
+                                    name= "%(stock.act_product_stock_move_open)d"
+                                    attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}"
+                                    class="oe_stat_button" icon="fa-arrows-v"
+                                    groups="stock.group_stock_user"/>
+                            <button type="action"
+                                    name="%(stock.product_open_orderpoint)d"
+                                    attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '==', 1)]}"
+                                    class="oe_stat_button" icon="fa-refresh">
+                                    <field name="nbr_reordering_rules" widget="statinfo"/>
+                            </button>
+                            <button name="%(stock.product_open_orderpoint)d" type="action"
+                                    attrs="{'invisible':['|',('type', '!=', ['product', 'consu']),('nbr_reordering_rules', '!=', 1)]}"
+                                    class="oe_stat_button" icon="fa-refresh">
+                                    <div class="o_form_field o_stat_info mr4">
+                                        <span class="o_stat_text">Min :</span>
+                                        <span class="o_stat_text">Max:</span>
+                                    </div>
+                                    <div class="o_form_field o_stat_info">
+                                        <span class="o_stat_value"><field name="reordering_min_qty"/></span>
+                                        <span class="o_stat_value"><field name="reordering_max_qty"/></span>
+                                    </div>
+                            </button>
+                            <button string="Routes" type="object"
+                                    name="action_view_routes"
+                                    attrs="{'invisible':[('type', '!=', 'product')]}"
+                                    class="oe_stat_button" icon="fa-cogs" groups="stock.group_adv_location"/>
+                        </div>
+                        <field name="image_medium" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" string="Product Name"/>
+                            <h1><field name="name" placeholder="Product Name"/></h1>
+                            <div name="options" groups="base.group_user">
+                                <div class="col-sm-6">
+                                    <div>
+                                        <field name="sale_ok"/>
+                                        <label for="sale_ok"/>
+                                    </div>
+                                    <div>
+                                        <field name="purchase_ok"/>
+                                        <label for="purchase_ok"/>
+                                    </div>
+                                    <div>
+                                        <field name="is_important"/>
+                                        <label for="is_important"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <field name="important_type" widget="radio" attrs="{'invisible': [('is_important', '=', False)]}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <notebook>
+                            <page string="General Information" name="general_info">
+                                <separator string="Description"/>
+                                <field name="description"/>
+                                <group name="general_top">
+                                    <group name="general_top_left">
+                                        <field name="categ_id" string="Materials Type"/>
+                                        <field name="parent_id"  attrs="{'invisible': [('is_important', '=', True)]}"/>
+                                        <field name="inter_code"/>
+                                        <field name="default_code" string="Materials Code"/>
+                                        <field name="barcode"/>
+                                    </group>
+                                    <group name="general_top_right">
+                                        <field name="list_price"/>
+                                        <field name="standard_price"/>
+                                        <field name="contract_price"/>
+                                    </group>
+                                </group>
+                                <group name="general_bottom">
+                                    <group name="general_bottom_left">
+                                        <field name="require_trans"/>
+                                        <field name="lifetime"/>
+                                        <field name="vehicle_model" widget="many2many_tags"/>
+                                    </group>
+                                    <group name="general_bottom_right">
+                                        <field name="weight"/>
+                                        <field name="volume"/>
+                                        <field name="special_attributes"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Tech Information" name="tech_info">
+                                <field name="tech_ids">
+                                    <tree editable="top">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="standard"/>
+                                        <field name="compare1"/>
+                                        <field name="parameter1"/>
+                                        <field name="compare2"/>
+                                        <field name="parameter2"/>
+                                        <field name="description"/>
+                                        <field name="note"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Supply Info" name="supply_info">
+                                <group name="supply_top">
+                                    <group name="supply_top_left">
+                                        <field name="type"/>
+                                        <field name="shelf"/>
+                                        <field name="keeper_id" options="{'no_create_edit': True}"/>
+                                    </group>
+                                    <group name="supply_top_right">
+                                        <field name="route_ids" widget="many2many_checkboxes" attrs="{'invisible':[('type', 'in', ['service', 'digital'])]}"/>
+                                    </group>
+                                </group>
+                                <separator string="Vendors"/>
+                                <field name="seller_ids">
+                                    <tree name="sell_tree">
+                                        <field name="name"/>
+                                        <field name="min_qty"/>
+                                        <field name="price"/>
+                                        <field name="date_start"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="component_info" string="Component Info"
+                                  attrs="{'invisible': ['|', ('important_type', '!=', 'component'), ('is_important', '=', False)]}">
+                                <field name="component_ids">
+                                    <tree editable="top" create="false" delete="false">
+                                        <field name="code"/>
+                                        <field name="product_id" readonly="1"/>
+                                        <field name="odometer" readonly="1"/>
+                                        <field name="state" readonly="1"/>
+                                        <field name="location_id" readonly="1"/>
+                                        <field name="create_date" readonly="1"/>
+                                        <field name="checkout_date" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="materials_manage_important_product_tree" model="ir.ui.view">
+            <field name="name">Materials product tree</field>
+            <field name="model">product.product</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!--<field name="default_code" string="Materials Code"/>-->
+                    <field name="display_name" string="Materials Name"/>
+                    <field name="categ_id" string="Materials Type"/>
+                    <field name="vehicle_model"/>
+                    <field name="require_trans"/>
+                    <field name="keeper_id"/>
+                    <field name="special_attributes"/>
+                    <field name="qty_available"/>
+                    <field name="virtual_available"/>
+                </tree>
+            </field>
+        </record>
+        <!--定义打开产品的动作，默认加入按父产品分组-->
+        <record id="materials_manage_important_product" model="ir.actions.act_window">
+            <field name="name">Important product</field>
+            <field name="res_model">product.product</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="materials_menu_product"
+                      sequence="25"
+                      name="product_menu"
+                      parent="materials_manage.materials_menu_stock"
+                      action="materials_manage_important_product"
+        />
+    </data>
+</odoo>

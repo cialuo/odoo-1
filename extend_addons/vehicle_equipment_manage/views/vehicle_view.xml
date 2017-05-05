@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <!--车辆技术档案中加入随车设备-->
+        <record id="vehicle_view_form_product" model="ir.ui.view">
+            <field name="name">vehicle form extend</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="vehicle_manage.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="vehicle_equipment" string="Vehicle Equipment">
+                        <field name="equipment_ids">
+                            <tree editable="bottom">
+                               <field name="equipment_id" required='1' options="{'no_open':True,'no_create':True}"/>
+                                <field name="serial_no" readonly="1"/>
+                                <field name="fixed_asset_number"/>
+                                <field name="create_date_ext" required='1' readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

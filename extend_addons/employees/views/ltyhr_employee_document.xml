@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 重载hr中的员工信息表单 -->
+        <record id="lty_view_employee_form" model="ir.ui.view">
+            <field name="name">ltyhr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet" position="replace">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box" groups="hr.group_hr_user">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <field name="image" widget='image' class="oe_avatar"
+                               options='{"preview_image":"image_medium"}'/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Employee's Name"/>
+                            </h1>
+                        </div>
+                        <field name="category_ids" widget="many2many_tags" placeholder="e.g. Part Time"
+                               options="{'no_create_edit': True}" groups="hr.group_hr_user"/>
+                        <notebook>
+                            <page name="public" string="Public Information">
+                                <group>
+                                    <group string="Contact Information">
+                                        <field name="address_id"
+                                               context="{'show_address': 1}"
+                                               options='{"always_reload": True, "highlight_first_line": True}'/>
+                                        <field name="mobile_phone"/>
+                                        <field name="work_location"/>
+                                        <field name="work_email" widget="email"/>
+                                        <field name="work_phone"/>
+                                    </group>
+                                    <group string="Position">
+                                        <field name="department_id"/>
+                                        <field name="job_id"/>
+                                        <field name="parent_id"/>
+                                        <field name="coach_id"/>
+                                        <field name="calendar_id"/>
+                                    </group>
+                                </group>
+                                <field name="notes" placeholder="Other Information ..." colspan="4"/>
+                            </page>
+                            <page string="Basic Infomation" groups="hr.group_hr_user">
+                                <notebook>
+                                    <page name="famlies" string="employees's family">
+                                        <field name="families"/>
+                                    </page>
+                                    <page name="famlies" string="employees's family">
+                                    </page>
+                                    <page name="famlies" string="employees's family">
+                                    </page>
+                                    <page name="famlies" string="employees's family">
+                                    </page>
+                                </notebook>
+                            </page>
+                            <page name="workinfo" string="employee work infomation">
+                                <group>
+                                    <group>
+                                        <field name="jobnumber"/>
+                                        <field name="employer"/>
+                                        <field name="title"/>
+                                    </group>
+                                    <group>
+                                        <field name="drivelicense"/>
+                                        <field name="drivelicensenumber"/>
+                                        <field name="drivelicensedata"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="entrydate"/>
+                                    <field name="passdate"/>
+                                    <field name="employeestate"/>
+                                    <field name="employeeattr"/>
+                                    <field name="bargain"/>
+                                </group>
+
+                            </page>
+                            <page string="HR Settings" groups="hr.group_hr_user">
+                                <group>
+                                    <group name="active_group">
+                                        <field name="socialsecurityaccount"/>
+                                        <field name="salaryaccount"/>
+                                        <field name="workpost" domain="[('department','=',department_id)]"/>
+                                        <field name="user_id" string="Related User"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- 员工家属列表 -->
+        <record model="ir.ui.view" id="employee_family_infolist">
+            <field name="name">family.tree</field>
+            <field name="model">employees.employeefamily</field>
+            <field name="arch" type="xml">
+                <tree string="Course Tree">
+                    <field name="name"/>
+                    <field name="relation"/>
+                    <field name="sex"/>
+                    <field name="profession"/>
+                    <field name="phone"/>
+                    <field name="employer"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 员工家属表单 -->
+        <record model="ir.ui.view" id="message_of_the_day_form">
+            <field name="name">employee.family.form</field>
+            <field name="model">employees.employeefamily</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="my family">
+                    <group>
+                        <field name="name"/>
+                        <field name="relation"/>
+                        <field name="sex"/>
+                        <field name="profession"/>
+                        <field name="phone"/>
+                        <field name="employer"/>
+                        <field name="employee_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- 员工列表视图 -->
+        <record id="ltyhr_view_employee_tree" model="ir.ui.view">
+            <field name="name">hr.employee.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="priority">0</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="/tree" position="replace">
+                    <tree string="Employees" >
+                        <field name="name"/>
+                        <field name="work_phone"/>
+                        <field name="work_email"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="department_id"/>
+                        <field name="workpost"/>
+                        <field name="title"/>
+                        <field name="parent_id"/>
+                        <field name="coach_id" invisible="1"/>
+                        <field name="employeestate" />
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- 组织架构列表 -->
+        <record id="ltyhr_view_department_tree" model="ir.ui.view">
+            <field name="name">ltyhr.department.tree</field>
+            <field name="model">hr.department</field>
+            <field name="field_parent">child_ids</field>
+            <field name="inherit_id" ref="hr.view_department_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="/tree" position="replace">
+                    <tree string="Companies">
+                        <field name="display_name"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="parent_id"/>
+                        <field name="departmenttype"/>
+                        <field name="membercount"/>
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+
+        <!--组织架构编辑表单-->
+        <record id="ltyhr_view_department_form" model="ir.ui.view">
+            <field name="name">ltyhr.department.form</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form" position="replace">
+                    <form string="department">
+                        <sheet>
+                            <div class="oe_button_box" name="button_box">
+                                <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                    <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                                </button>
+                            </div>
+                            <div class="oe_title">
+                                <label for="name" class="oe_edit_only"/>
+                                <h1>
+                                    <field name="name" placeholder="department's Name"/>
+                                </h1>
+                            </div>
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"/>
+                                    <field name="record_createdate" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="parent_id"/>
+                                    <field name="departmenttype"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page name="post" string="post in department">
+                                    <field name="post_id"/>
+                                </page>
+                                <page name="members" string="members in department">
+
+                                    <field name="member_id">
+
+                                    </field>
+
+                                    <field name="member_id"/>
+
+                                </page>
+                            </notebook>
+                        </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </form>
+                </xpath>
+            </field>
+        </record>
+
+        <!--岗位设置编辑表单-->
+        <record id="ltyhr_view_post_form" model="ir.ui.view">
+            <field name="name">ltyhr.post.form</field>
+            <field name="model">employees.post</field>
+            <field name="arch" type="xml">
+                <form string="department">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="post Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="department"/>
+                                <field name="direct_leader"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="higher_level"/>
+                                <field name="posttype"/>
+                                <field name="group_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="members" string="members in post">
+                                <field name="members"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!--岗位列表 -->
+        <record id="ltyhr_view_post_tree" model="ir.ui.view">
+            <field name="name">ltyhr.post.tree</field>
+            <field name="model">employees.post</field>
+            <field name="arch" type="xml">
+                <tree string="post list">
+                    <field name="name"/>
+                    <field name="department"/>
+                    <field name="posttype"/>
+                    <field name="direct_leader"/>
+                    <field name="group_id"/>
+                    <field name="membercount"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!--单位调动列表-->
+        <record id="ltyhr_view_unit_transfer_tree" model="ir.ui.view">
+            <field name="name">employees.unit.tree</field>
+            <field name="model">employees.unit</field>
+            <field name="arch" type="xml">
+                <tree string="unit list">
+                    <field name="name"/>
+                    <field name="entering_date"/>
+                    <field name="record_person"/>
+                    <field name="original_unit"/>
+                    <field name="original_post"/>
+                    <field name="new_unit"/>
+                    <field name="new_post"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--单位调动编辑表单-->
+        <record id="ltyhr_view_unit_transfer_form" model="ir.ui.view">
+            <field name="name">employees.unit.form</field>
+            <field name="model">employees.unit</field>
+            <field name="arch" type="xml">
+                <form string="unit">
+                    <header>
+                        <button name="action_draft" type="object"
+                                string="back_draft"
+                                states="confirmed"/>
+                        <button name="action_confirm" type="object"
+                                string="submit" states="draft"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="confirmed" states="confirmed"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+
+
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="unit_name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="record_person"/>
+                                <field name="transfer_reason"/>
+                            </group>
+                            <group>
+                                <field name="entering_date"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="transfer_details" string="transfer_details">
+
+                                <group>
+                                    <group>
+                                        <field name="original_unit"/>
+                                        <field name="original_section"/>
+                                        <field name="original_post"/>
+                                        <field name="original_wage"/>
+                                    </group>
+                                    <group>
+                                        <field name="new_unit"/>
+                                        <field name="new_section"/>
+                                        <field name="new_post"/>
+                                        <field name="new_wage"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                            <page name="confirmed_countersign" string="confirmed_countersign">
+                                <group>
+
+                                    <field name="countersign_person" widget="many2many_tags" />
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!--岗位调动列表-->
+        <record id="ltyhr_view_post_transfer_tree" model="ir.ui.view">
+            <field name="name">employees.post.transfer.tree</field>
+            <field name="model">employees.post.transfer</field>
+            <field name="arch" type="xml">
+                <tree string="post transfer list">
+                    <field name="name"/>
+                    <field name="entering_date"/>
+                    <field name="record_person"/>
+                    <field name="original_unit"/>
+                    <field name="original_post"/>
+                    <field name="new_post"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--岗位调动编辑表单-->
+        <record id="ltyhr_view_post_transfer_form" model="ir.ui.view">
+            <field name="name">employees.post.transfer.form</field>
+            <field name="model">employees.post.transfer</field>
+            <field name="arch" type="xml">
+                <form string="post_transfer">
+                    <header>
+                        <button name="action_draft" type="object"
+                                string="back_draft"
+                                states="confirmed"/>
+                        <button name="action_confirm" type="object"
+                                string="submit" states="draft"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="confirmed" states="confirmed"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+
+
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="unit_name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="record_person"/>
+                                <field name="transfer_reason"/>
+                            </group>
+                            <group>
+                                <field name="entering_date"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="transfer_details" string="transfer_details">
+
+                                <group>
+                                    <group>
+                                        <field name="original_unit"/>
+                                        <field name="original_post"/>
+                                        <field name="original_wage"/>
+                                    </group>
+                                    <group>
+                                        <field name="post_section"/>
+                                        <field name="new_post"/>
+                                        <field name="new_wage"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                            <page name="confirmed_countersign" string="confirmed_countersign">
+                                <group>
+
+                                    <field name="countersign_person" widget="many2many_tags" />
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--对外调动列表-->
+        <record id="ltyhr_view_foreign_transfer_tree" model="ir.ui.view">
+            <field name="name">employees.foreign.tree</field>
+            <field name="model">employees.foreign</field>
+            <field name="arch" type="xml">
+                <tree string="foreign transfer list">
+                    <field name="name"/>
+                    <field name="entering_date"/>
+                    <field name="record_person"/>
+                    <field name="original_unit"/>
+                    <field name="original_post"/>
+                    <field name="transfer_type"/>
+                    <field name="new_unit"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--对外调动编辑表单-->
+        <record id="ltyhr_view_foreign_transfer_form" model="ir.ui.view">
+            <field name="name">employees.foreign.form</field>
+            <field name="model">employees.foreign</field>
+            <field name="arch" type="xml">
+                <form string="foreign_transfer">
+                    <header>
+                        <button name="action_draft" type="object"
+                                string="back_draft"
+                                states="confirmed"/>
+                        <button name="action_confirm" type="object"
+                                string="submit" states="draft"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="confirmed" states="confirmed"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+
+
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="unit_name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="record_person"/>
+                                <field name="transfer_reason"/>
+                            </group>
+                            <group>
+                                <field name="entering_date"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="transfer_details" string="transfer_details">
+
+                                <group>
+                                    <group>
+                                        <field name="original_unit"/>
+                                        <field name="original_post"/>
+                                        <field name="wage"/>
+                                    </group>
+                                    <group>
+                                        <field name="foreign_section"/>
+                                        <field name="transfer_type"/>
+                                        <field name="new_unit"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                            <page name="confirmed_countersign" string="confirmed_countersign">
+                                <group>
+
+                                    <field name="countersign_person" widget="many2many_tags" />
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--调动记录列表-->
+        <record id="ltyhr_view_transfer_record_tree" model="ir.ui.view">
+            <field name="name">employees.transfer.record.tree</field>
+            <field name="model">employees.transfer.record</field>
+            <field name="arch" type="xml">
+                <tree string="transfer record list">
+                    <field name="name"/>
+                    <field name="entering_date"/>
+                    <field name="record_person"/>
+                    <field name="transfer_type"/>
+                    <field name="original_unit"/>
+                    <field name="original_post"/>
+                    <field name="new_unit"/>
+                    <field name="new_post"/>
+                    <field name="transfer_reason"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <!--调动记录编辑表单-->
+        <record id="ltyhr_view_employees_transfer_record_form" model="ir.ui.view">
+            <field name="name">employees.transfer.record.form</field>
+            <field name="model">employees.transfer.record</field>
+            <field name="arch" type="xml">
+                <form string="transfer_record">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="unit_name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="record_person"/>
+                                <field name="transfer_reason"/>
+                            </group>
+                            <group>
+                                <field name="entering_date"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="transfer_details" string="transfer_details">
+
+                                <group>
+                                    <group>
+                                        <field name="original_unit"/>
+                                        <field name="original_section"/>
+                                        <field name="original_post"/>
+                                        <field name="original_wage"/>
+                                    </group>
+                                    <group>
+                                        <field name="new_unit"/>
+                                        <field name="new_section"/>
+                                        <field name="new_post"/>
+                                        <field name="new_wage"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                            <page name="confirmed_countersign" string="confirmed_countersign">
+                                <group>
+
+                                    <field name="countersign_person" widget="many2many_tags" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="ltyhr_employee_information">
+            <field name="name">employee</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="ltyhr_employee_department">
+            <field name="name">department</field>
+            <field name="res_model">hr.department</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="ltyhr_employee_post">
+            <field name="name">post</field>
+            <field name="res_model">employees.post</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="ltyhr_employees_unit_transfer">
+            <field name="name">employees_unit_transfer</field>
+            <field name="res_model">employees.unit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="ltyhr_employees_post_transfer">
+            <field name="name">employees_post_transfer</field>
+            <field name="res_model">employees.post.transfer</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="ltyhr_employees_foreign_transfer">
+            <field name="name">employees_foreign_transfer</field>
+            <field name="res_model">employees.foreign</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="ltyhr_employees_transfer_record">
+            <field name="name">employees_transfer_record</field>
+            <field name="res_model">employees.transfer.record</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 人力资源档案 -->
+        <menuitem id="ltyhr_top_menu" name="LTY human resource"/>
+        <menuitem id="ltyhr_employee_document_menu" name="employee document"
+                  parent="ltyhr_top_menu"/>
+        <menuitem id="ltyhr_employee_document_employeeinfo_menu" name="employee infomation"
+                  parent="ltyhr_employee_document_menu" action="ltyhr_employee_information"/>
+        <menuitem id="ltyhr_employee_document_department_menu" name="employee department"
+                  parent="ltyhr_employee_document_menu" action="ltyhr_employee_department"/>
+        <menuitem id="ltyhr_employee_document_post_menu" name="employee post"
+                  parent="ltyhr_employee_document_menu" action="ltyhr_employee_post"/>
+
+        <!-- 档案与调动 -->
+        <menuitem id="ltyhr_employee_document_transfer_menu" name="_document_transfer"
+                  sequence="50"
+                  parent="ltyhr_employee_document_menu"/>
+
+        <!--劳动合同档案-->
+        <menuitem
+                id="ltyhr_employee_contract_menu"
+                name="_contracts_document"
+                action="hr_contract.action_hr_contract"
+                parent="ltyhr_employee_document_transfer_menu"
+                sequence="10"/>
+
+        <!--单位调动-->
+        <menuitem id="ltyhr_employee_unit_transfer_menu" name="_unit_transfer"
+                  sequence="20"
+                  action="ltyhr_employees_unit_transfer"
+                  parent="ltyhr_employee_document_transfer_menu"/>
+
+        <!--岗位调动-->
+        <menuitem id="ltyhr_employee_post_transfer_menu" name="_post_transfer"
+                  sequence="30"
+                  action="ltyhr_employees_post_transfer"
+                  parent="ltyhr_employee_document_transfer_menu"/>
+
+        <!--对外调动-->
+        <menuitem id="ltyhr_employee_foreign_transfer_menu" name="_foreign_transfer"
+                  sequence="40"
+                  action="ltyhr_employees_foreign_transfer"
+                  parent="ltyhr_employee_document_transfer_menu"/>
+
+        <!--调动记录-->
+        <menuitem id="ltyhr_employee_transfer_record_menu" name="_transfer_record"
+                  sequence="50"
+                  action="ltyhr_employees_transfer_record"
+                  parent="ltyhr_employee_document_transfer_menu"/>
+
+    </data>
+</odoo>

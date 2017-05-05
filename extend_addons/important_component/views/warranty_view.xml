@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- 维保项目 form 继承增加重要部件-->
+        <record model="ir.ui.view" id="warranty_item_form_extend">
+            <field name="name">Warranty Project Extend</field>
+            <field name="model">warranty_project</field>
+            <field name="inherit_id" ref="vehicle_warranty.warranty_item_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='create_date']" position="after">
+                    <field name="is_important_product"/>
+                    <field name="important_product_id" attrs="{'invisible':[('is_important_product','=',False)]}"
+                           widget="selection"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- 保养单_保养项目派工 增加重要部件-->
+        <record model="ir.ui.view" id="warranty_order_item_dispatch_action_extend">
+            <field name="name">Warranty Project Dispatch</field>
+            <field name="model">warranty_order_project</field>
+            <field name="inherit_id" ref="vehicle_warranty.warranty_order_item_dispatch_action"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vehicle_id']" position="after">
+                    <field name="important_product_id" invisible="1"/>
+                </xpath>
+                <xpath expr="/form/sheet/group[2]/group" position="before">
+                    <group>
+                        <field name="component_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

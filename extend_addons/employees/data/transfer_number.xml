@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--调动序列-->
+        <record id="hr_employees_transfer" model="ir.sequence">
+            <field name="name">Employees Transfer Sequence</field>
+            <field name="code">hr_employees.transfer</field>
+            <field name="prefix">NBDD%(year)s%(month)s</field>
+            <field name="padding">4</field>
+        </record>
+
+    </data>
+</odoo>

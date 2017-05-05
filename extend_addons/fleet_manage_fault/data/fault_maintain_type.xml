@@ -1,0 +1,13 @@
+<odoo>
+    <data noupdate="1">
+        <record model="fleet_manage_fault.fault_maintain_type" id="fault_maintain_type1">
+            <field name="name">repair</field>
+        </record>
+        <record model="fleet_manage_fault.fault_maintain_type" id="fault_maintain_type2">
+            <field name="name">back repair</field>
+        </record>
+        <record model="fleet_manage_fault.fault_maintain_type" id="fault_maintain_type3">
+            <field name="name">rush repair</field>
+        </record>
+    </data>
+</odoo>

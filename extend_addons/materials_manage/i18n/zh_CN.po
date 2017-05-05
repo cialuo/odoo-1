@@ -1,0 +1,122 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* materials_manage
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-27 03:19+0000\n"
+"PO-Revision-Date: 2017-03-27 03:19+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: materials_manage
+#: model:ir.actions.act_window,name:materials_manage.extend_stock_picking_type_action
+msgid "Extend picking type action"
+msgstr "采购入库"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_location
+msgid "Location Menu"
+msgstr "仓库管理"
+
+#. module: materials_manage
+#: model:ir.module.category,name:materials_manage.module_purchase_plan
+msgid "Purchase Plan"
+msgstr "采购计划"
+
+#. module: materials_manage
+#: model:ir.module.category,description:materials_manage.module_purchase_plan
+msgid "Purchase Plan order"
+msgstr "采购计划单"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_sublocation
+msgid "Sub Location Menu"
+msgstr "库位"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_warehouse
+msgid "WareHouse Menu"
+msgstr "仓库"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_analysis
+msgid "analysis_menu"
+msgstr "核算分析"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_config
+msgid "config_menu"
+msgstr "基础资料"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_fuel
+msgid "fuel_menu"
+msgstr "燃料管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_root
+msgid "materials_menu"
+msgstr "物资管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_pick
+msgid "pick_menu"
+msgstr "领用管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_purchase
+msgid "purchase_menu"
+msgstr "采购管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_purchase_order
+msgid "purchase_order_menu"
+msgstr "采购管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_purchase_pick
+msgid "purchase_pick_menu"
+msgstr "采购入库"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_purchase_rfq
+msgid "purchase_rfq_menu"
+msgstr "询价管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_purchase_vendor
+msgid "purchase_vendor_menu"
+msgstr "供应商管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_reorder
+msgid "reorder_menu"
+msgstr "补货管理"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_reorder_rules
+msgid "reorder_rules_menu"
+msgstr "补货规则"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_run_procurement
+msgid "run_procurement_menu"
+msgstr "运行调拨"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_run_reorder_rules
+msgid "run_reorder_rules_menu"
+msgstr "运行规则"
+
+#. module: materials_manage
+#: model:ir.ui.menu,name:materials_manage.materials_menu_stock
+msgid "stock_menu"
+msgstr "仓储管理"
+

@@ -1,0 +1,163 @@
+<odoo>
+    <data>
+
+        <!-- 保修项目 tree -->
+        <record model="ir.ui.view" id="fleet_manage_warranty_item_view_tree">
+            <field name="name">Item.tree</field>
+            <field name="model">fleet_manage_warranty.item</field>
+            <field name="arch" type="xml">
+                <tree string="Item Tree">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="mode" />
+                    <field name="manhour" />
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 保修项目 form -->
+        <record model="ir.ui.view" id="fleet_manage_warranty_item_view_form">
+            <field name="name">Item.form</field>
+            <field name="model">fleet_manage_warranty.item</field>
+            <field name="arch" type="xml">
+                <form string="Warranty Form">
+                    <header>
+                        <button name="action_filing" type="object"
+                                string="filing"
+                                states="in_use"/>
+                        <button name="action_in_use" type="object"
+                                string="in_use"
+                                states="filing" class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+
+                    <sheet>
+
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" />
+                            <h1><field name="name" /></h1>
+                        </div>
+                        <group col="2">
+                            <group >
+                                <field name="mode"/>
+                                <field name="manhour"/>
+                                <field name="remark"/>
+                            </group>
+                            <group >
+                                <field name="code"/>
+                                <field name="create_uid" readonly="1" />
+                                <field name="create_date" readonly="1" />
+                                <field name="is_important_product"/>
+								<field name="important_product_id" attrs="{'invisible':[('is_important_product','=',False)]}" widget="selection"/>
+                            </group>
+                        </group>
+                        <notebook>
+							<page name="AvailProducts" string="AvailProducts">
+								<field name="avail_ids"  >
+									<tree editable="bottom">
+										<field name="product_id" options="{'no_open':True,'no_create':True}"/>
+										<field name="product_code"/>
+										<field name="categ_id"/>
+										<field name="description"/>
+										<field name="uom_id"/>
+										<field name="change_count"/>
+										<field name="max_count"/>
+										<field name="vehicle_model" widget="many2many_tags"/>
+										<field name="require_trans"/>
+										<field name="remark"/>
+										<field name="onhand_qty" invisible="1"/>
+										<field name="virtual_available" invisible="1"/>
+									</tree>
+								</field>
+							</page>
+
+                            <!--<page string="Components">-->
+                                <!--<field name="bom_line_ids" widget="one2many_list">-->
+                                    <!--<tree string="Components" editable="bottom">-->
+                                        <!--<field name="sequence" widget="handle"/>-->
+                                        <!--<field name="product_id" context="{'default_type': 'product'}"/>-->
+                                        <!--<field name="product_code" />-->
+                                        <!--<field name="product_category_id" />-->
+                                        <!--<field name="product_type" />-->
+                                        <!--<field name="product_uom_id" options="{'no_open':True,'no_create':True}"/>-->
+                                        <!--<field name="default_usage"/>-->
+                                        <!--<field name="collar_cap"/>-->
+                                        <!--<field name="vehicle_type"/>-->
+                                        <!--<field name="post_old_get_new"/>-->
+                                        <!--<field name="remark"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                            <!--</page>-->
+                            <page string="Operational Manual" name="operationalManual">
+                                <group >
+                                    <separator string="" colspan="4"/>
+                                    <field name="operational_manual" colspan="4" nolabel="1"
+                                        placeholder="This note will be displayed on the quotations."/>
+                                </group>
+                            </page>
+                            <page string="Inspection Criteria" name="inspectionCriteria">
+                                <group >
+                                    <separator string="" colspan="4"/>
+                                    <field name="inspection_criteria" colspan="4" nolabel="1"
+                                        placeholder="This note will be displayed on the quotations."/>
+                                </group>
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 保修项目 action -->
+        <record model="ir.actions.act_window" id="fleet_manage_warranty_item_action">
+            <field name="name">Warranty Item</field>
+            <field name="res_model">fleet_manage_warranty.item</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 保修项目 menu -->
+        <menuitem name="Warranty Item"
+                  id="fleet_manage_warranty_item" sequence="22"
+                  parent="fleet_manage_menu.fleet_manage_menu_data"
+                  action="fleet_manage_warranty_item_action"/>
+
+
+        <!-- 保修方式 tree -->
+        <record id='fleet_manage_warranty_mode_view_tree' model='ir.ui.view'>
+            <field name="name">fleet_manage_warranty.mode.tree</field>
+            <field name="model">fleet_manage_warranty.mode</field>
+            <field name="arch" type="xml">
+                <tree string="Mode" editable="bottom">
+                    <field name="code" />
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- 保修方式 action -->
+        <record id='fleet_manage_warranty_mode_action' model='ir.actions.act_window'>
+            <field name="name">Warranty Mode</field>
+            <field name="res_model">fleet_manage_warranty.mode</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a warranty mode.
+              </p><p>
+                You can customize available mode to track the evolution of
+                each warranty mode. Example: Active, Being Repaired, Sold.
+              </p>
+            </field>
+        </record>
+
+        <!-- 保修方式 menu -->
+        <menuitem action="fleet_manage_warranty_mode_action" sequence="24"
+            parent="fleet_manage_menu.fleet_manage_menu_data" id="fleet_manage_warranty_mode_menu" />
+
+    </data>
+</odoo>

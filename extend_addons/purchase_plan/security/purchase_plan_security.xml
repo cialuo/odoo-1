@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--制单人组-->
+        <record id="purchase_plan_user" model="res.groups">
+            <field name="name">Plan User</field>
+            <field name="category_id" ref="module_purchase_plan"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        <!--审核人组-->
+        <record id="purchase_plan_checker" model="res.groups">
+            <field name="name">Plan Checker</field>
+            <field name="category_id" ref="module_purchase_plan"/>
+            <field name="implied_ids" eval="[(4, ref('purchase_plan_user'))]"/>
+        </record>
+        <!--审批人组-->
+        <record id="purchase_plan_approver" model="res.groups">
+            <field name="name">Plan Approver</field>
+            <field name="category_id" ref="module_purchase_plan"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="implied_ids" eval="[(4, ref('purchase_plan_checker')), (4, ref('purchase.group_purchase_manager'))]"/>
+        </record>
+        <!--制单人只能查看自己的计划单-->
+        <record id="purchase_plan_user_only" model="ir.rule">
+            <field name="name">Plan user only</field>
+            <field ref="model_purchase_plan" name="model_id"/>
+            <field name="domain_force">['|', ('login_user','=',user.id), ('login_user','=',False)]</field>
+            <field name="groups" eval="[(4, ref('purchase_plan_user'))]"/>
+        </record>
+        <!--审核人只能查看自己审核的或者审核人为空的计划单-->
+        <record id="purchase_plan_checker_only" model="ir.rule">
+            <field name="name">Plan Checker Only</field>
+            <field ref="model_purchase_plan" name="model_id"/>
+            <field name="domain_force">['|',('checker_login','=',user.id),('checker_id','=',False)]</field>
+            <field name="groups" eval="[(4, ref('purchase_plan_checker'))]"/>
+        </record>
+        <record id="purchase_plan_approver_all" model="ir.rule">
+            <field name="name">approver all</field>
+            <field ref="model_purchase_plan" name="model_id"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('purchase_plan_approver'))]"/>
+        </record>
+    </data>
+</odoo>

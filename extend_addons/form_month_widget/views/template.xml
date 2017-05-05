@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="form_month_widget_assets" name="web_form_month assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript"
+                        src="/form_month_widget/static/src/js/form_month_widget.js"
+                        charset="utf-8"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

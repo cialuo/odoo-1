@@ -1,0 +1,109 @@
+<openerp>
+  <data>
+
+    <!--新增发料搜索视图-->
+    <record id="view_issuance_of_material_search" model="ir.ui.view">
+      <field name="name">search.issuance_of_material</field>
+      <field name="model">stock.picking</field>
+      <field name="arch" type="xml">
+        <search string="Search Issuance Of Material">
+          <filter string="发料" name="issuance_of_material" domain="[('picking_type_id','=','发料')]" />
+        </search>
+      </field>
+    </record>
+    <!-- 新增发料菜单的动作 -->
+    <record model="ir.actions.act_window" id="stock_picking_types.issuance_of_material_action_window">
+      <field name="name">issuance_of_material window</field>
+      <field name="res_model">stock.picking</field>
+      <field name="view_mode">tree,form</field>
+      <!--给动作指定搜索视图-->
+      <field name="search_view_id" ref="view_issuance_of_material_search"/>
+      <!--指定默认参数，name与felter里的name相同-->
+      <field name="context">{'search_default_issuance_of_material':'发料'}</field>
+    </record>
+
+
+    <!--新增领料搜索视图-->
+    <record id="view_picking_material_search" model="ir.ui.view">
+      <field name="name">search.picking_material</field>
+      <field name="model">stock.picking</field>
+      <field name="arch" type="xml">
+        <search string="Search Picking Material">
+          <filter string="领料" name="picking_material" domain="[('picking_type_id','=','领料')]" />
+        </search>
+      </field>
+    </record>
+    <!-- 新增领料菜单的动作 -->
+    <record model="ir.actions.act_window" id="stock_picking_types.picking_material_action_window">
+      <field name="name">picking_material window</field>
+      <field name="res_model">stock.picking</field>
+      <field name="view_mode">tree,form</field>
+      <!--给动作指定搜索视图-->
+      <field name="search_view_id" ref="view_picking_material_search"/>
+      <field name="context">{'search_default_picking_material':'领料'}</field>
+    </record>
+
+
+    <!--新增退料搜索视图-->
+    <record id="view_return_of_material_search" model="ir.ui.view">
+      <field name="name">search.return_of_material</field>
+      <field name="model">stock.picking</field>
+      <field name="arch" type="xml">
+        <search string="Search Return Of Material">
+          <filter name="return_of_material" string="退料" domain="[('picking_type_id','=','退料')]"/>
+        </search>
+      </field>
+    </record>
+    <!-- 新增退料菜单的动作 -->
+    <record model="ir.actions.act_window" id="stock_picking_types.return_of_material_action_window">
+      <field name="name">return_of_material window</field>
+      <field name="res_model">stock.picking</field>
+      <field name="view_mode">tree,form</field>
+      <!--给动作指定搜索视图-->
+      <field name="search_view_id" ref="view_return_of_material_search"/>
+      <field name="context">{'search_default_return_of_material':'退料'}</field>
+    </record>
+
+    <!--新增交旧领新视图-->
+    <record id="view_old_to_new_search" model="ir.ui.view">
+      <field name="name">search.old_to_new</field>
+      <field name="model">stock.picking</field>
+      <field name="arch" type="xml">
+        <search string="Search Return Of Material">
+          <filter name="odl_to_new_material" string="交旧领新" domain="[('picking_type_id','=','交旧领新')]"/>
+        </search>
+      </field>
+    </record>
+    <!-- 新增交旧领新的动作 -->
+    <record model="ir.actions.act_window" id="stock_picking_types.old_to_new_action_window">
+      <field name="name">old_to_new window</field>
+      <field name="res_model">stock.picking</field>
+      <field name="view_mode">tree,form</field>
+      <!--给动作指定搜索视图-->
+      <field name="search_view_id" ref="view_old_to_new_search"/>
+      <field name="context">{'search_default_odl_to_new_material':'交旧领新'}</field>
+    </record>
+
+
+    <!--新增领料管理菜单-->
+    <menuitem id="materials_menu_pick_type" name="materials_menu_pick_type_name" parent="materials_menu.materials_menu_root" sequence="30" />
+
+    <!--新增基础资料-->
+    <menuitem id="materials_menu_config" name="materials_menu_config_name" parent="materials_menu.materials_menu_root" sequence="60" />
+
+    <!--新增三个查询菜单-->
+    <menuitem id="issuance_of_material_picking" name="Issuance Of Material" parent="materials_menu_pick_type" sequence="3" action="stock_picking_types.issuance_of_material_action_window" />
+    <menuitem id="picking_material_picking" name="Picking Material" parent="materials_menu_pick_type" sequence="4" action="stock_picking_types.picking_material_action_window" />
+    <menuitem id="return_of_material_picking" name="Return Of Material" parent="materials_menu_pick_type" sequence="5" action="stock_picking_types.return_of_material_action_window"/>
+    <menuitem id="old_to_new_picking" name="old_to_new_picking_name" parent="materials_menu_pick_type" sequence="6" action="stock_picking_types.old_to_new_action_window"/>
+
+
+    <!--物资分类-->
+    <menuitem id="picking_material_picking_types1" name="picking_material_picking_types1_name" parent="materials_menu_config" sequence="3" action="product.product_category_action_form"/>
+     <!--计量单位管理-->
+    <menuitem id="menu_units_of_measure" name="menu_units_of_measure_name" parent="materials_menu_config" sequence="4" action="product.product_uom_form_action"/>
+    <!--新增分拣类型查询-->
+    <menuitem id="picking_material_picking_types" name="picking_material_picking_types_name" parent="materials_menu_config" sequence="5" action="stock.action_picking_type_list"/>
+
+  </data>
+</openerp>

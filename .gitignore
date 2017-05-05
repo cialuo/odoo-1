@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .project
 .pydevproject
 .settings/*
@@ -37,4 +38,5 @@ install/win32/meta.py
 /src/
 my_odoo.conf
 myodoo.conf
+odoo.conf
 

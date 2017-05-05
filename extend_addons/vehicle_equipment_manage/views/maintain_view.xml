@@ -1,0 +1,127 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="maintain_delivery_view_tree">
+            <field name="name">MaintainDelivery.tree</field>
+            <field name="model">vehicle_equipment.maintain.delivery</field>
+            <field name="arch" type="xml">
+                <tree string="MaintainDelivery Tree">
+					<field name="name"/>
+					<field name="report_id"/>
+					<field name="vehicle_id"/>
+					<field name="vehicle_type"/>
+					<field name="license_plate"/>
+					<field name="report_user_id"/>
+					<field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- MaintainPrecheck form view -->
+        <record model="ir.ui.view" id="maintain_precheck_view_form_ext">
+            <field name="name">MaintainPrecheck.form</field>
+            <field name="model">maintain.manage.report</field>
+            <field name="inherit_id" ref="vehicle_maintain.maintain_precheck_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_precheck_to_draft']" position="after">
+                   <button type="object"
+                            name="delivery_manage"
+                            string="Delivery Manage"
+                            states="repair"
+                            class="oe_highlight"/>  <!--管理交接单-->
+                </xpath>
+                <xpath expr="//button[@name='action_precheck_to_repair']" position="attributes">
+                    <attribute name="string">Precheck Success And Create Delivery</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="maintain_delivery_view_form">
+            <field name="name">MaintainDelivery.form</field>
+            <field name="model">vehicle_equipment.maintain.delivery</field>
+            <field name="arch" type="xml">
+                <form string="MaintainDelivery Form">
+                	<header>
+						<button name="action_delivery" type="object" string="Comfirm Delivery"
+								states="draft" class="oe_highlight"/> <!-- 确认交接-->
+
+						<button name="action_return" type="object" string="delivery to Return"
+								states="delivery" class="oe_highlight"/> <!-- 确认交回-->
+
+						<button name="action_delivery_to_repair" type="object" class="oe_highlight"
+                                states="return" string="Query Repair Bill"
+                                context="{'xml_id':'maintain_repair_action'}"/>
+                    	<field name="state"  widget="statusbar"/>
+                	</header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name"/>
+							<h1><field name="name" readonly="1"/></h1>
+	                    </div>
+                        <group col="2">
+                            <group>
+                                <field name="report_id" readonly="1"/>
+                                <!--<field name="fault_method_id" />-->
+                                <!--<field name="repair_category" />-->
+                                <!--<field name="report_id" />-->
+                            </group>
+                            <group>
+                                <field name="vehicle_id" options="{'no_open':True}"/>
+                                <field name="license_plate" />
+                                <field name="vehicle_type" />
+                            </group>
+                        </group>
+						<notebook>
+							<page string="Deliverys">
+                                <field name="equipment_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree string="Deliverys">
+										<field name="equipment_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date"/>
+                                    </tree>
+                                </field>
+                            </page>
+							<page string="ReturnDeliverys" >
+                                <field name="equipment_return_ids">
+                                    <tree string="ReturnDeliverys">
+										<field name="equipment_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date"/>
+                                    </tree>
+                                </field>
+                            </page>
+							<page string="Other Information">
+								<group col="1">
+									<group>
+										<field name="create_date" readonly='1'/>
+										<field name="report_user_id"/>
+										<field name="delivery_time"/>
+										<field name="delivery_return_time"/>
+									</group>
+								</group>
+                            </page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- 抢修交接单 Action-->
+		<record model="ir.actions.act_window" id="maintain_delivery_action">
+			<field name="name">maintain_delivery_action</field>
+			<field name="res_model">vehicle_equipment.maintain.delivery</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+        <!--抢修交接单-->
+        <menuitem name="maintain_equipment_deliver" id="maintain_equipment_deliver" parent="vehicle_maintain.maintain_manage"
+				  action="maintain_delivery_action" sequence="40" />
+    </data>
+
+</odoo>

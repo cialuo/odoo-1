@@ -1,0 +1,397 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* security_manage
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-24 09:05+0000\n"
+"PO-Revision-Date: 2017-04-24 09:05+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:21
+#: code:addons/security_manage/models/models.py:50
+#: code:addons/security_manage/models/models.py:81
+#, python-format
+msgid "Archive"
+msgstr "归档"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_check_table_id
+msgid "Check table id"
+msgstr ""
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.security_check_table_form
+msgid "Confirm"
+msgstr "提交审核"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_create_uid
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_create_uid
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_create_date
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_create_date
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_display_name
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_display_name
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:48
+#: selection:security_manage.security_check_table,state:0
+#, python-format
+msgid "Draft_check_table"
+msgstr "草稿"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:48
+#: selection:security_manage.security_check_table,state:1
+#, python-format
+msgid "Execute_check_table"
+msgstr "执行中"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:48
+#: selection:security_manage.security_check_table,state:2
+#, python-format
+msgid "Archive_check_table"
+msgstr "存档"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_id
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_id
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_id
+msgid "ID"
+msgstr ""
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.security_archives_class_manage_form
+#: model:ir.ui.view,arch_db:security_manage.security_check_item_form
+#: model:ir.ui.view,arch_db:security_manage.security_check_table_form
+msgid "Idea form"
+msgstr ""
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage___last_update
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item___last_update
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_write_uid
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_write_uid
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_write_date
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_write_date
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.security_archives_class_manage_form
+#: model:ir.ui.view,arch_db:security_manage.security_check_item_form
+msgid "Mark as archive"
+msgstr "归档"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.security_check_table_form
+msgid "Mark as done"
+msgstr "审核通过"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_parent_company
+msgid "Parent company"
+msgstr ""
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.security_archives_class_manage_form
+#: model:ir.ui.view,arch_db:security_manage.security_check_item_form
+msgid "Reset to default"
+msgstr "重新启用"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.security_check_table_form
+msgid "Reset to draft"
+msgstr "退回"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_responser
+msgid "Responser"
+msgstr ""
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_state
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_state
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_state
+msgid "State"
+msgstr ""
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:20
+#: code:addons/security_manage/models/models.py:80
+#: selection:security_manage.archives_class_manage,state:0
+#: selection:security_manage.security_check_item,state:0
+#, python-format
+msgid "Use"
+msgstr "在用"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.archives_class_manage
+msgid "archives_class_manage"
+msgstr "档案类别管理"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:71
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_class_name
+#, python-format
+msgid "archives_class_manage_class_name"
+msgstr "类别名称"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:73
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_class_type
+#, python-format
+msgid "archives_class_manage_class_type"
+msgstr "档案类别"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:77
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_create_time
+#, python-format
+msgid "archives_class_manage_create_time"
+msgstr "制单时间"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:76
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_form_creator
+#, python-format
+msgid "archives_class_manage_form_creator"
+msgstr "制单人"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:69
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_item_id
+#, python-format
+msgid "archives_class_manage_item_id"
+msgstr "编号"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:70
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_item_name
+#, python-format
+msgid "archives_class_manage_item_name"
+msgstr "名称"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:75
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_parent
+#, python-format
+msgid "archives_class_manage_parent"
+msgstr "所属上级"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:68
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_name
+#, python-format
+msgid "archives_class_manage_table"
+msgstr "档案类别列表"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:11
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_check_content
+#, python-format
+msgid "check_content"
+msgstr "检查内容"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:9
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_check_id
+#, python-format
+msgid "check_id"
+msgstr "编号"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:8
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_name
+#, python-format
+msgid "check_info"
+msgstr "安全检查"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:10
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_check_item_name
+#, python-format
+msgid "check_item_name"
+msgstr "检查项目"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:41
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_responser
+#, python-format
+msgid "check_responser"
+msgstr "责任人"
+
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:43
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_parent_company
+#, python-format
+msgid "check_parent_company"
+msgstr "隶属公司"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:12
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_check_standards
+#, python-format
+msgid "check_standards"
+msgstr "检查标准"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:35
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_name
+#, python-format
+msgid "check_table"
+msgstr "安全检查设置"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:36
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_check_table_id
+#, python-format
+msgid "security_check_table_id"
+msgstr "编号"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:39
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_check_type
+#, python-format
+msgid "check_type"
+msgstr "检查类型"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:14
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_create_time
+#, python-format
+msgid "create_time"
+msgstr "制单时间"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:13
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_form_creator
+#, python-format
+msgid "form_creator"
+msgstr "制单人"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:37
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_function_module
+#, python-format
+msgid "function_module"
+msgstr "功能模块"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:45
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_plan_detail
+#: model:ir.ui.view,arch_db:security_manage.security_check_table_form
+#, python-format
+msgid "plan_detail"
+msgstr "计划详情"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:38
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_remarks
+#, python-format
+msgid "remarks"
+msgstr "备注"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.security_check_items
+msgid "security_check_items"
+msgstr "安全检查项目"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.security_check_settings
+msgid "security_check_settings"
+msgstr "安全检查设置"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.security_check_table
+msgid "security_check_table"
+msgstr "安全检查表"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.menu_root
+msgid "security_manage"
+msgstr "安全管理"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:51
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_table_state
+#, python-format
+msgid "security_check_table_state"
+msgstr "状态"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:82
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_archives_class_manage_state
+#, python-format
+msgid "archives_class_manage_state"
+msgstr "状态"
+
+#. module: security_manage
+#: code:addons/security_manage/models/models.py:22
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_security_check_item_state
+#, python-format
+msgid "security_check_item_state"
+msgstr "状态"
+
+#. module: security_manage
+#: model:ir.actions.act_window,name:security_manage.action_security_archives_class_manage
+#: model:ir.actions.act_window,name:security_manage.action_security_check_items
+#: model:ir.actions.act_window,name:security_manage.action_security_check_table
+msgid "security_manage_security_check_item_window"
+msgstr "安全检查项目"
+
+msgid "security_manage_security_check_table_window"
+msgstr "安全检查设置"
+
+msgid "security_manage_security_archives_class_manage_window"
+msgstr "档案类别列表"
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_security_manage_archives_class_manage
+msgid "security_manage.archives_class_manage"
+msgstr ""
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_security_manage_security_check_item
+msgid "security_manage.security_check_item"
+msgstr ""
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_security_manage_security_check_table
+msgid "security_manage.security_check_table"
+msgstr ""
+
