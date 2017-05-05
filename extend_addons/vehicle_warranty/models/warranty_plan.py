@@ -35,7 +35,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         ('audit', 'audit'), # 已审核
         ('execute', 'execute'), # 执行中
         ('done', 'done'), # 完成
-    ], readonly=True, default='draft')
+    ], readonly=True, default='draft', string="MyState")
 
     @api.multi
     def action_draft(self):

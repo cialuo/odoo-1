@@ -46,7 +46,7 @@ class WarrantyPlanOrder(models.Model): # 计划单
         ('wait', "wait"), # 等待执行
         ('executing', "executing"), # 正在执行
         ('done', "done"), # 执行完毕
-    ], default='draft')
+    ], default='draft', string="MyState")
 
     @api.multi
     def action_draft(self):
