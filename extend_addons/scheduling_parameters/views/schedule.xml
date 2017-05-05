@@ -92,10 +92,11 @@
                         <group col="2">
                             <group>
                                 <field name="road_coding"/>
-                                <field name="book_runner"/>
+                                <field name="region_id"/>
                             </group>
                             <group>
                                 <field name="create_date"/>
+                                <field name="book_runner"/>
                             </group>
                         </group>
                         <notebook>
@@ -164,6 +165,7 @@
                                 <field name="platform_number"/>
                                 <field name="platform_status"/>
                                 <field name="electronic_bus_board_number"/>
+                                <field name="Road_id"/>
                             </group>
                         </group>
 
