@@ -196,3 +196,6 @@ class energy_pile(models.Model):
     @api.multi
     def stop_to_normal(self):
         self.state = 'normal'
+
+
+
