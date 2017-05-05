@@ -36,5 +36,10 @@ install/win32/meta.py
 /share/
 /src/
 odoo.conf
+<<<<<<< HEAD
 /my_odoo.conf
+=======
+my_odoo.conf
+myodoo.conf
+>>>>>>> d520c96e50e3c46a6481492cda36b0dd1b00929a
 
