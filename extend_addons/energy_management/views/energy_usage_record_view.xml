@@ -47,12 +47,16 @@
                         <field name="license_plate"/>
                         <field name="record_date"/>
                         <field name="user_use"/>
+                        <field name="working_mileage"/>
+                        <field name="working_oil_wear"/>
                     </group>
                     <group string="Collar information">
                         <field name="fuel_capacity"/>
                         <field name="companyc_id"/>
                         <field name="energy_type"/>
                         <field name="operator"/>
+                        <field name="gps_mileage"/>
+                        <field name="gps_oil_wear"/>
                     </group>
                 </group>
            </sheet>

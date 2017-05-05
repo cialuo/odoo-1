@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+
+    <!--
+
+           继承车辆运行管理:
+
+            写入车辆相关联的能源使用记录！
+
+    -->
+    <record model = "ir.ui.view" id = "energy_management.vehicle_usage_records_form">
+        <field name = "name" >vehicle_usage_records form</field >
+        <field name = "model" >fleet.vehicle</field >
+        <field name = "inherit_id" ref = "vehicle_manage.vehicle_usage_records_view_form"/>
+        <field name = "arch" type = "xml" >
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_to_usage_record"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-tachometer"
+                        context="{'xml_id':'aw_energy_usage_record_inherit'}"
+                        >
+                    <field name="license_plate" widget="statinfo" string="百里油耗"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//page[@name='driverecords']" position="after">
+                 <page  string="vehicle_usage_record" name="vehicle_usage_record">
+                     <field name="energy_usage_record_ids">
+                        <tree create="false" delete="false">
+                            <field name="station_id"/>
+                            <field name="pile_id"/>
+                            <field name="fuel_capacity"/>
+                            <field name="energy_type"/>
+                            <field name="user_use"/>
+                            <field name="operator"/>
+                            <field name="create_date"/>
+                            <field name="working_mileage"/>
+                            <field name="gps_mileage"/>
+                            <field name="working_oil_wear"/>
+                            <field name="gps_oil_wear"/>
+                        </tree>
+                     </field>
+                 </page>
+             </xpath>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="aw_energy_usage_record_inherit">
+        <field name="name">energy_usage_record window</field>
+        <field name="res_model">energy.usage_record</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</data>
+</openerp>
