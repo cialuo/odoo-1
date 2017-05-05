@@ -2,7 +2,7 @@
     <data>
 
         <record model="ir.ui.view" id="srp_produce_map_tree">
-            <field name="name">树</field>
+            <field name="name">produce_map tree</field>
             <field name="model">srp.produce_map</field>
             <field name="arch" type="xml">
                 <tree>

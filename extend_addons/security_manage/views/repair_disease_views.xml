@@ -2,8 +2,8 @@
     <data>
 
         <record model="ir.ui.view" id="srp_disease_tree">
-            <field name="name">树</field>
-            <field name="model">sfs.fire_plan</field>
+            <field name="name">disease tree</field>
+            <field name="model">srp.disease</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="archives_class_big"/>
@@ -18,8 +18,8 @@
         </record>
 
         <record model="ir.ui.view" id="srp_disease_form">
-            <field name="name">哈哈</field>
-            <field name="model">sfs.fire_plan</field>
+            <field name="name">disease form</field>
+            <field name="model">srp.disease</field>
             <field name="arch" type="xml">
                 <form string="Idea form">
                     <header>

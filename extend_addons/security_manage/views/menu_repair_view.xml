@@ -1,6 +1,6 @@
 <openerp>
     <data>
-
+        <!--维修生产安全act start-->
         <!--二级菜单 维修质量安全管理 action-->
         <record model="ir.actions.act_window" id="act_repair_quality">
             <field name="name">repair_quality menu</field>
@@ -53,51 +53,47 @@
             <field name="res_model">srp.emergency_plan</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <!--维修生产安全 start-->
-        <!--一级菜单 维修生产安全-->
-        <!--引用了security_manage模块的top nemu-->
-        <menuitem name="repair produce security" id="repair_produce_first_menu"
-                  parent="security_manage.security_manage_menu_root"/>
+        <!--维修生产安全act end-->
 
+
+        <!--维修生产安全 start-->
         <!--二级菜单 维修质量安全管理-->
         <menuitem name="repair quality security manage" id="repair_quality_second_menu"
-                  parent="repair_produce_first_menu"
+                  parent="security_manage_memu.repair_produce_first_menu"
                   action="act_repair_quality"/>
 
         <!--二级菜单 维修车间现场安全-->
         <menuitem name="repair site security manage" id="repair_site_second_menu"
-                  parent="repair_produce_first_menu"
+                  parent="security_manage_memu.repair_produce_first_menu"
                   action="act_repair_site"/>
 
         <!--二级菜单 职业病管理-->
         <menuitem name="occupational disease manage" id="disease_second_menu"
-                  parent="repair_produce_first_menu"
+                  parent="security_manage_memu.repair_produce_first_menu"
                   action="act_disease"/>
         <!--二级菜单 维修工安全培训-->
         <menuitem name="maintainer security train" id="maintainer_train_second_menu"
-                  parent="repair_produce_first_menu"
+                  parent="security_manage_memu.repair_produce_first_menu"
                   action="act_maintainer_train"/>
         <!--二级菜单 生产现场位置分布图-->
         <menuitem name="produce field map" id="produce_map_second_menu"
-                  parent="repair_produce_first_menu"
+                  parent="security_manage_memu.repair_produce_first_menu"
                   action="act_produce_map"/>
         <!--二级菜单 生产现场危险源管理-->
         <menuitem name="produce field danger manage" id="source_of_danger_second_menu"
-                  parent="repair_produce_first_menu"
+                  parent="security_manage_memu.repair_produce_first_menu"
                   action="act_source_of_danger"/>
 
         <!--二级菜单 生产安全技术措施管理-->
         <menuitem name="produce safety  manage" id="safety_manage_second_menu"
-                  parent="repair_produce_first_menu"
+                  parent="security_manage_memu.repair_produce_first_menu"
                   action="act_safety_tec_manage"/>
 
         <!--二级菜单 安全应急预案管理-->
         <menuitem name="safety emergency plan manage" id="emergency_plan_second_menu"
-                  parent="repair_produce_first_menu"
+                  parent="security_manage_memu.repair_produce_first_menu"
                   action="act_emergency_plan"/>
-
         <!--维修生产安全 end-->
-
 
     </data>
 </openerp>
