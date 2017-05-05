@@ -63,6 +63,7 @@ class road_manage(models.Model):
         self.state = 'archive'
         return True
 
+
 # 站台管理
 class platform_manage(models.Model):
     _name = 'platform_manage.platform_manage'
@@ -163,8 +164,6 @@ class route_manage(models.Model):
     def do_archive(self):
         self.state = 'archive'
         return True
-
-
 
 
 
