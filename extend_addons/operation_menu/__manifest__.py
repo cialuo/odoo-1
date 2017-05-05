@@ -3,15 +3,16 @@
     'name': "operation_menu",
 
     'description': """
-        operation_manage_menu
+        运营管理菜单
     """,
 
     'author': "youmy",
+    'website': "http://www.lantaiyuan.com/",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'Basic Edition',
     'version': '0.1',
 
     # any module necessary for this one to work correctly

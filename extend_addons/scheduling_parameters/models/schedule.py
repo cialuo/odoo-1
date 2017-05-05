@@ -110,6 +110,7 @@ class platform_manage(models.Model):
 # 线路管理
 class route_manage(models.Model):
     _name = 'route_manage.route_manage'
+    _rec_name = 'route'
 
     route = fields.Char('Route')  # 线路名称
     routeNO = fields.Char('Route NO.')  # 线路编码
@@ -138,6 +139,7 @@ class route_manage(models.Model):
     subsidiary = fields.Char('Subsidiary')  # 隶属公司
 
     platform_resource = fields.One2many('platform_manage.platform_manage', 'platform_resource', string='Platform')
+    human_resource = fields.One2many('hr.employee', 'human_resource', string='Human resource')
 
     driver_per_vehicle = fields.Char('Driver per vehicle')
     steward_per_vehicle = fields.Char('Steward per vehicle')
@@ -165,7 +167,12 @@ class route_manage(models.Model):
         self.state = 'archive'
         return True
 
+# 人力资源
+class human_resource(models.Model):
+    _inherit = 'hr.employee'
 
+    human_resource = fields.Many2one('route_manage.route_manage', string='Human resource')
+    lines = fields.Many2many('route_manage.route_manage', 'route', string='Lines')
 
 
 
