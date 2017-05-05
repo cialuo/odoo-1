@@ -57,13 +57,13 @@ class StockPicking(models.Model):
                                 self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
                         except TypeError:
                             self.check_product_avail_warranty(type, order)
-                            self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
+                            self._gen_old_new_picking_warranty(order, order.move_lines, location_id, location_dest_id)
                     else:
                         try:
                             if obj > self.env['maintain.manage.repair']:
                                 self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
-                        except:
-                            self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
+                        except TypeError:
+                            self._gen_old_new_picking_warranty(order, order.move_lines, location_id, location_dest_id)
                 else:
                     no_import_products = order.move_lines.mapped('product_id').filtered(lambda x: not x.is_important)
                     remove_products = ','.join([i.name for i in no_import_products])
