@@ -1,0 +1,74 @@
+<odoo>
+    <data>
+        <!--Vehicle Form-->
+        <!--<record id='vehicle_maintain_repair_inherit' model='ir.ui.view'>-->
+            <!--<field name="name">fleet_vehicle.form.inherit</field>-->
+            <!--<field name="model">fleet.vehicle</field>-->
+            <!--<field name="inherit_id" ref="vehicle_manage.fleet_vehicle_view_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<div name="button_box" position="inside">-->
+                    <!--<button name="action_to_open"-->
+                            <!--type="object"-->
+                            <!--class="oe_stat_button"-->
+                            <!--icon="fa-book"-->
+                            <!--attrs="{'invisible': [('repair_count', '=', 0)]}"-->
+                            <!--context="{'xml_id':'vehicle_manage_action'}">-->
+                            <!--<field name="repair_count" widget="statinfo" string="Repairs"/>-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</field>-->
+        <!--</record>-->
+
+
+        <!-- 车辆使用档案_维保日志-->
+        <record id='warranty_vehicle_usage_records_view_form_inherit' model='ir.ui.view'>
+            <field name="name">warranty_fleet_vehicle.usage.form.inherit</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="vehicle_manage.vehicle_usage_records_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[3]" position="after">
+                    <page string="Warranty Log">
+                        <field name="warranty_order_project_ids">
+                            <tree create="false" delete="false">
+                               <field name="warranty_order_id"/>
+                                <field name="category_id"/>
+                                <field name="project_id"/>
+                                <field name="warranty_mode"/>
+                                <field name="create_date"/>
+                                <field name="maintenance_personnel"/>
+                                <field name="inspect_user_id"/>
+                                <field name="end_inspect_time"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--&lt;!&ndash; 车型管理_保养间隔&ndash;&gt;-->
+        <!--<record id='warranty_vehicle_manage_model_view_form_ext_inherit' model='ir.ui.view'>-->
+            <!--<field name="name">warranty_vehicle_manage_model_view_form_ext_inherit</field>-->
+            <!--<field name="model">fleet.vehicle.model</field>-->
+            <!--<field name="inherit_id" ref="fleet.fleet_vehicle_model_view_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//notebook/page[0]" position="after">-->
+                    <!--<page string="Warranty Interval">-->
+                        <!--<field name="warranty_interval_ids">-->
+                            <!--<tree > &lt;!&ndash; create="false" delete="false" &ndash;&gt;-->
+                                <!--<field name="sequence"/>-->
+                                <!--<field name="warranty_category_id" string="Warranty Category Name" />-->
+                                <!--<field name="interval_mileage"/>-->
+                                <!--<field name="create_uid"/>-->
+                                <!--<field name="create_date"/>-->
+                                <!--<field name="state" string="MyState"/>-->
+                                <!--<field name="vehicle_model_id"/>-->
+                            <!--</tree>-->
+                        <!--</field>-->
+                    <!--</page>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+    </data>
+</odoo>

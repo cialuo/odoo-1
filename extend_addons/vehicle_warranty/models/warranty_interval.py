@@ -44,7 +44,7 @@ class WarrantyCapability(models.Model): # 保养能力参数设置
 
     warranty_category_id = fields.Many2one('warranty_category', 'Warranty Category', domain=[('level', '=', '1')], ondelete='set null', required=True)  # 保养类别
 
-    company_id = fields.Many2one('hr.department', string='Company', required=True)
+    company_id = fields.Many2one('hr.department', string='United', required=True)
 
     warranty_vehicle_count = fields.Integer('Warranty Vehicle Count', default=1)
 
