@@ -20,7 +20,7 @@ status
 # odoo filestore
 odoo/filestore
 # maintenance migration scripts
-odoo/addons/base/maintenance
+
 
 # generated for windows installer?
 install/win32/*.bat
@@ -35,7 +35,6 @@ install/win32/meta.py
 /man/
 /share/
 /src/
-/odoo.conf
 /my_odoo.conf
 
 

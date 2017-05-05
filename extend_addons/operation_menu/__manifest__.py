@@ -3,10 +3,11 @@
     'name': "operation_menu",
 
     'description': """
-        运营管理简单
+        运营管理菜单
     """,
 
     'author': "youmy",
+    'website': "http://www.lantaiyuan.com/",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml

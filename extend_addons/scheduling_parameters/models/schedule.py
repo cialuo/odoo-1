@@ -9,8 +9,9 @@ class region_manage(models.Model):
     region_coding = fields.Char('Region coding')
     region_name = fields.Char('Region name')
     create_time = fields.Datetime('Creation time')
-    book_runner = fields.Char('Book runner')
-    road_id = fields.One2many('road_manage.road_manage', 'region_id', ondelete='cascade', string="Road")
+    book_runner = fields.Many2one('res.users', string='Book runner')
+    # road_id = fields.One2many('road_manage.road_manage', 'region_id', ondelete='cascade', string="Road")
+    road_id = fields.Many2many('road_manage.road_manage', ondelete='cascade', string="Road")
 
     WORKFLOW_STATE_SELECTION = [
         ('inuse', 'In-use'),
@@ -39,10 +40,11 @@ class road_manage(models.Model):
     road_coding = fields.Char('Road coding')    # 道路编码
     road_name = fields.Char('Road name')    # 道路名称
     create_date = fields.Date('Creation date')   # 建立日期
-    book_runner = fields.Char('Book runner')    # 建档人
+    book_runner = fields.Many2one('res.users', string='Book runner')    # 建档人
 
-    platform_id = fields.One2many("platform_manage.platform_manage", 'platform_id', string="Station")
-    region_id = fields.Many2one('region_manage.region_manage', ondelete='cascade', string='Region')
+    platform_id = fields.Many2many("platform_manage.platform_manage", string="Station")
+    # platform_id = fields.One2many("platform_manage.platform_manage", 'platform_id', string="Station")
+    # region_id = fields.Many2one('region_manage.region_manage', ondelete='cascade', string='Region')
     WORKFLOW_STATE_SELECTION = [
         ('inuse', 'In-use'),
         ('archive', 'Archive')
@@ -63,6 +65,7 @@ class road_manage(models.Model):
         self.state = 'archive'
         return True
 
+
 # 站台管理
 class platform_manage(models.Model):
     _name = 'platform_manage.platform_manage'
@@ -80,11 +83,15 @@ class platform_manage(models.Model):
     platform_status = fields.Char('Platform status')    # 站台状况
     electronic_bus_board_number = fields.Char('electronic bus-board number')    # 电子站牌编号
 
-    platform_id = fields.Many2one('road_manage.road_manage', ondelete='cascade', string='Platform')
+    # platform_id = fields.Many2one('road_manage.road_manage', ondelete='cascade', string='Platform')
 
-    route_id = fields.One2many('route_manage.route_manage', 'route_id', string='Route')
+    # route_id = fields.One2many('route_manage.route_manage', 'route_id', string='Route')
 
-    platform_resource = fields.Many2one('route_manage.route_manage', string="Platform resource")
+    # platform_resource = fields.Many2one('route_manage.route_manage', string="Platform resource")
+
+    route_id = fields.Many2many('route_manage.route_manage', string='Route')
+
+
 
     WORKFLOW_STATE_SELECTION = [
         ('inuse', 'In-use'),
@@ -109,6 +116,7 @@ class platform_manage(models.Model):
 # 线路管理
 class route_manage(models.Model):
     _name = 'route_manage.route_manage'
+    _rec_name = 'route'
 
     route = fields.Char('Route')  # 线路名称
     routeNO = fields.Char('Route NO.')  # 线路编码
@@ -136,8 +144,6 @@ class route_manage(models.Model):
 
     subsidiary = fields.Char('Subsidiary')  # 隶属公司
 
-    platform_resource = fields.One2many('platform_manage.platform_manage', 'platform_resource', string='Platform')
-
     driver_per_vehicle = fields.Char('Driver per vehicle')
     steward_per_vehicle = fields.Char('Steward per vehicle')
     line_synthesis_person_per_vehicle = fields.Char('Line synthesis person per vehicle')
@@ -152,7 +158,10 @@ class route_manage(models.Model):
                              string='State',
                              readonly=True)
 
-    route_id = fields.Many2one('platform_manage.platform_manage', string='Route id')
+    # route_id = fields.Many2one('platform_manage.platform_manage', string='Route id')
+    # platform_resource = fields.One2many('platform_manage.platform_manage', 'platform_resource', string='Platform')
+    platform_resource = fields.Many2many('platform_manage.platform_manage', string='Platform')
+    human_resource = fields.Many2many('hr.employee', string='Human resource')
 
     @api.multi
     def do_inuse(self):
@@ -164,9 +173,12 @@ class route_manage(models.Model):
         self.state = 'archive'
         return True
 
+# 人力资源
+class human_resource(models.Model):
+    _inherit = 'hr.employee'
 
-
-
+    # human_resource = fields.Many2one('route_manage.route_manage', string='Human resource')
+    lines = fields.Many2many('route_manage.route_manage', string='Lines')
 
 
 

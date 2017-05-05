@@ -6,3 +6,4 @@ import warranty_plan_order
 import warranty_order
 import warranty_interval
 import stock
+import vehicle_warranty_record

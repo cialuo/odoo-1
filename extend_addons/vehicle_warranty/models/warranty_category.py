@@ -5,16 +5,16 @@ class WarrantyCategory(models.Model): # 维保类别
     _name = 'warranty_category'
     _order = "idpath asc"
 
-    name = fields.Char(string="Warranty Category Name") # 名称
+    name = fields.Char(string="Warranty Category Name", required=True) # 名称
     code = fields.Char(string='Warranty Category Code', required=True) # 代码
 
-    idpath = fields.Char() # id路径
+    idpath = fields.Char(string="ID Path") # id路径
     level = fields.Integer() # 层级
 
     state = fields.Selection([ # 状态
         ('in_use', "in_use"), # 在用
         ('filing', "filing"),  # 归档
-    ], default='in_use')
+    ], default='in_use', string="MyState")
 
     @api.multi
     def action_in_use(self):
@@ -36,6 +36,8 @@ class WarrantyCategory(models.Model): # 维保类别
     sum_categorie_manhour = fields.Float(digits=(6, 1), default=0, compute='_compute_manhour') # 子类工时汇总
 
     sum_project_manhour = fields.Float(digits=(6, 1), default=0, compute='_compute_manhour') # 项目工时汇总
+
+    is_top_level = fields.Boolean(string='Is Top Level', default=False) # 是否是顶级类别
 
     warranty_type = fields.Selection([ # 维保类型
         ('warranty', 'Warranty'),
@@ -87,12 +89,22 @@ class WarrantyCategory(models.Model): # 维保类别
         result = super(WarrantyCategory, self).create(vals)
         idpath = "/" + str(result.idpath_get()[0][1]) + "/"
         result.idpath=idpath
-        result.level=idpath.count("/")-1
+        count = idpath.count("/")-1
+        result.level = count
+        if count == 1:
+            result.is_top_level=True
+        else:
+            result.is_top_level = False
         return result
 
     @api.multi
     def write(self, vals):
         idpath ="/"+str(self.idpath_get()[0][1])+"/"
         vals['idpath'] = idpath
-        vals['level'] = idpath.count("/")-1
+        count = idpath.count("/")-1
+        vals['level'] = count
+        if count == 1:
+            vals['is_top_level']=True
+        else:
+            vals['is_top_level'] = False
         return super(WarrantyCategory, self).write(vals)

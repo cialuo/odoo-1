@@ -4,13 +4,13 @@ from odoo import models, fields, api, exceptions, _
 class WarrantyProject(models.Model): # 保修项目
     _name = 'warranty_project'
 
-    name = fields.Char(string='Project Name') # 项目名称
+    name = fields.Char(string='Project Name', required=True) # 项目名称
     code = fields.Char(string='Project Code', required=True) # 项目编码
 
     state = fields.Selection([ # 状态
         ('in_use', "in_use"), # 在用
         ('filing', "filing"),  # 归档
-    ], default='in_use')
+    ], default='in_use', string="MyState")
 
     @api.multi
     def action_in_use(self):
