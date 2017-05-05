@@ -277,7 +277,6 @@
             <field name="view_model">tree,form</field>
         </record>
 
-
         <!-- 调度参数管理——Menu -->
         <menuitem id="menu_region" name="Regional management" parent="operation_menu.schedule_menu"
                   action="act_region"/>

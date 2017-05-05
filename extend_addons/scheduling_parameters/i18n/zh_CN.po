@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-04 11:06+0000\n"
-"PO-Revision-Date: 2017-05-05 17:24+0800\n"
+"POT-Creation-Date: 2017-05-05 09:44+0000\n"
+"PO-Revision-Date: 2017-05-05 17:50+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -144,7 +144,6 @@ msgid "Flexible scheduling"
 msgstr "灵活调度"
 
 #. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_hr_employee_human_resource
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_human_resource
 msgid "Human resource"
 msgstr "人力资源"
@@ -231,7 +230,6 @@ msgstr "计划调度"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_platform
-#: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_platform_id
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_platform_resource
 #: model:ir.ui.view,arch_db:scheduling_parameters.station_form_view
 msgid "Platform"
@@ -251,11 +249,6 @@ msgstr "站台管理"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_platform_number
 msgid "Platform number"
 msgstr "站台编号"
-
-#. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_platform_resource
-msgid "Platform resource"
-msgstr "站台资源"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_platform_status
@@ -297,6 +290,7 @@ msgid "Reset"
 msgstr "重新启用"
 
 #. module: scheduling_parameters
+#: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_Road_id
 #: model:ir.model.fields,field_description:scheduling_parameters.field_region_manage_region_manage_road_id
 msgid "Road"
 msgstr "道路"
@@ -334,11 +328,6 @@ msgstr "线路"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_routeNO
 msgid "Route NO."
 msgstr "线路编号"
-
-#. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_route_id
-msgid "Route id"
-msgstr "线路"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_route_type
@@ -392,6 +381,46 @@ msgstr "乘务员人车比"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_subsidiary
 msgid "Subsidiary"
 msgstr "隶属公司"
+
+#. module: scheduling_parameters
+#: sql_constraint:platform_manage.platform_manage:0
+msgid "The platform must be unique!"
+msgstr "站台必须是唯一的！"
+
+#. module: scheduling_parameters
+#: sql_constraint:platform_manage.platform_manage:0
+msgid "The platform number must be unique!"
+msgstr "总台编号必须是唯一的！"
+
+#. module: scheduling_parameters
+#: sql_constraint:region_manage.region_manage:0
+msgid "The region coding must be unique!"
+msgstr "区域编码必须是唯一的！"
+
+#. module: scheduling_parameters
+#: sql_constraint:region_manage.region_manage:0
+msgid "The region name must be unique!"
+msgstr "区域名称必须是唯一的！"
+
+#. module: scheduling_parameters
+#: sql_constraint:road_manage.road_manage:0
+msgid "The road coding must be unique!"
+msgstr "道路编码必须是唯一的！"
+
+#. module: scheduling_parameters
+#: sql_constraint:road_manage.road_manage:0
+msgid "The road name must be unique!"
+msgstr "道路名称必须是唯一的！"
+
+#. module: scheduling_parameters
+#: sql_constraint:route_manage.route_manage:0
+msgid "The route name must be unique!"
+msgstr "线路名称必须是唯一的！"
+
+#. module: scheduling_parameters
+#: sql_constraint:route_manage.route_manage:0
+msgid "The route number must be unique!"
+msgstr "线路编码必须是唯一的！"
 
 #. module: scheduling_parameters
 #: selection:route_manage.route_manage,class_system:0
