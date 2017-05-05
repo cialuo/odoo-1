@@ -37,4 +37,5 @@ install/win32/meta.py
 /src/
 odoo.conf
 my_odoo.conf
+myodoo.conf
 
