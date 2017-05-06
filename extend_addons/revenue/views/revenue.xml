@@ -11,7 +11,7 @@
                 <tree>
                     <field name="c_date"/>
                     <field name="route"/>
-                    <field name="licensePlateNumber"/>
+                    <field name="license_plate"/>
                     <field name="driver"/>
                     <field name="revenue"/>
                     <field name="remark"/>
@@ -25,12 +25,11 @@
             <field name="model">coin_revenue.coin_revenue</field>
             <field name="arch" type="xml">
                 <form>
-
                     <sheet>
                         <group>
                             <field name="c_date"/>
                             <field name="route"/>
-                            <field name="licensePlateNumber"/>
+                            <field name="license_plate"/>
                             <field name="driver"/>
                             <field name="revenue"/>
                             <field name="remark"/>
@@ -48,7 +47,7 @@
                 <tree>
                     <field name="c_date"/>
                     <field name="route"/>
-                    <field name="licensePlateNumber"/>
+                    <field name="license_plate"/>
                     <field name="driver"/>
                     <field name="revenue"/>
                     <field name="remark"/>
@@ -66,7 +65,7 @@
                         <group>
                             <field name="c_date"/>
                             <field name="route"/>
-                            <field name="licensePlateNumber"/>
+                            <field name="license_plate"/>
                             <field name="driver"/>
                             <field name="revenue"/>
                             <field name="remark"/>
@@ -84,7 +83,7 @@
                 <tree>
                     <field name="c_date"/>
                     <field name="route"/>
-                    <field name="licensePlateNumber"/>
+                    <field name="license_plate"/>
                     <field name="driver"/>
                     <field name="revenue"/>
                     <field name="remark"/>
@@ -102,7 +101,7 @@
                         <group>
                             <field name="c_date"/>
                             <field name="route"/>
-                            <field name="licensePlateNumber"/>
+                            <field name="license_plate"/>
                             <field name="driver"/>
                             <field name="revenue"/>
                             <field name="remark"/>
@@ -120,7 +119,7 @@
                 <tree>
                     <field name="c_date"/>
                     <field name="route"/>
-                    <field name="licensePlateNumber"/>
+                    <field name="license_plate"/>
                     <field name="driver"/>
                     <field name="coin_revenue"/>
                     <field name="ic_revenue"/>
@@ -141,7 +140,7 @@
                         <group>
                             <field name="c_date"/>
                             <field name="route"/>
-                            <field name="licensePlateNumber"/>
+                            <field name="license_plate"/>
                             <field name="driver"/>
                             <field name="coin_revenue"/>
                             <field name="ic_revenue"/>

@@ -55,5 +55,31 @@
                 </xpath>
             </field>
         </record>
+        <!--车辆使用档案中增加重要部件变更记录-->
+        <record id="vehicle_usage_records_view_form_extend" model="ir.ui.view">
+            <field name="name">usage records extend</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="vehicle_manage.vehicle_usage_records_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='dropanchorrecords']" position="after">
+                    <page name="component_dismantle" string="Component Dismantle">
+                        <field name="dismantle_ids">
+                            <tree create="false" delete="false">
+                                <field name="component_code"/>
+                                <field name="product_id"/>
+                                <field name="install_date"/>
+                                <field name="install_type"/>
+                                <field name="install_user"/>
+                                <field name="dismantle_type"/>
+                                <field name="dismantle_date"/>
+                                <field name="dismantle_user"/>
+                                <field name="operate_days"/>
+                                <field name="operate_mileage"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
     </data>
 </odoo>

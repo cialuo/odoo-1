@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-04 11:06+0000\n"
-"PO-Revision-Date: 2017-05-05 13:52+0800\n"
+"POT-Creation-Date: 2017-05-06 03:29+0000\n"
+"PO-Revision-Date: 2017-05-06 11:30+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,10 @@ msgstr ""
 "X-Generator: Poedit 1.8.3\n"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:21
+#: code:addons/scheduling_parameters/models/schedule.py:62
+#: code:addons/scheduling_parameters/models/schedule.py:115
+#: code:addons/scheduling_parameters/models/schedule.py:176
 #: model:ir.ui.view,arch_db:scheduling_parameters.region_form_view
 #: model:ir.ui.view,arch_db:scheduling_parameters.road_form_view
 #: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
@@ -26,12 +30,16 @@ msgstr ""
 #: selection:region_manage.region_manage,state:0
 #: selection:road_manage.road_manage,state:0
 #: selection:route_manage.route_manage,state:0
+#, python-format
 msgid "Archive"
 msgstr "归档"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:15
+#: code:addons/scheduling_parameters/models/schedule.py:55
 #: model:ir.model.fields,field_description:scheduling_parameters.field_region_manage_region_manage_book_runner
 #: model:ir.model.fields,field_description:scheduling_parameters.field_road_manage_road_manage_book_runner
+#, python-format
 msgid "Book runner"
 msgstr "建档人"
 
@@ -56,12 +64,16 @@ msgid "Created on"
 msgstr "创建时间"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:54
 #: model:ir.model.fields,field_description:scheduling_parameters.field_road_manage_road_manage_create_date
+#, python-format
 msgid "Creation date"
 msgstr "设立日期"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:14
 #: model:ir.model.fields,field_description:scheduling_parameters.field_region_manage_region_manage_create_time
+#, python-format
 msgid "Creation time"
 msgstr "设立时间"
 
@@ -79,22 +91,30 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:147
 #: selection:route_manage.route_manage,route_type:0
+#, python-format
 msgid "Double circle"
 msgstr "双向环线"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:161
 #: selection:route_manage.route_manage,shunt_mode:0
+#, python-format
 msgid "Double shunt"
 msgstr "双头调车"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:151
 #: selection:route_manage.route_manage,first_half_class:0
+#, python-format
 msgid "Down line"
 msgstr "下行"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:170
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_driver_per_vehicle
+#, python-format
 msgid "Driver per vehicle"
 msgstr "驾驶员人车比"
 
@@ -104,32 +124,44 @@ msgid "Employee"
 msgstr "员工"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:96
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_entrance_azimuth
+#, python-format
 msgid "Entrance azimuth"
 msgstr "进站方位角"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:98
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_entrance_latitude
+#, python-format
 msgid "Entrance latitude"
 msgstr "进站纬度"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:97
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_entrance_longitude
+#, python-format
 msgid "Entrance longitude"
 msgstr "进站经度"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:99
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_exit_azimuth
+#, python-format
 msgid "Exit azimuth"
 msgstr "出站方位角"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:101
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_exit_latitude
+#, python-format
 msgid "Exit latitude"
 msgstr "出站纬度"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:100
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_exit_longitude
+#, python-format
 msgid "Exit longitude"
 msgstr "出站经度"
 
@@ -139,18 +171,23 @@ msgid "First half class"
 msgstr "首班半趟"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:163
 #: selection:route_manage.route_manage,schedule_type:0
+#, python-format
 msgid "Flexible scheduling"
 msgstr "灵活调度"
 
 #. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_hr_employee_human_resource
+#: code:addons/scheduling_parameters/models/schedule.py:187
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_human_resource
+#, python-format
 msgid "Human resource"
 msgstr "人力资源"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:165
 #: selection:route_manage.route_manage,schedule_type:0
+#, python-format
 msgid "Hybrid scheduling"
 msgstr "混合调度"
 
@@ -163,10 +200,15 @@ msgid "ID"
 msgstr "ID"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:20
+#: code:addons/scheduling_parameters/models/schedule.py:61
+#: code:addons/scheduling_parameters/models/schedule.py:114
+#: code:addons/scheduling_parameters/models/schedule.py:175
 #: selection:platform_manage.platform_manage,state:0
 #: selection:region_manage.region_manage,state:0
 #: selection:road_manage.road_manage,state:0
 #: selection:route_manage.route_manage,state:0
+#, python-format
 msgid "In-use"
 msgstr "在用"
 
@@ -205,35 +247,47 @@ msgid "Line management"
 msgstr "线路管理"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:172
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_line_synthesis_person_per_vehicle
+#, python-format
 msgid "Line synthesis person per vehicle"
 msgstr "线路综合人车比"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:210
 #: model:ir.model.fields,field_description:scheduling_parameters.field_hr_employee_lines
+#, python-format
 msgid "Lines"
 msgstr "所属线路"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:153
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_oil_wear_coefficient
+#, python-format
 msgid "Oil wear coefficient"
 msgstr "油耗系数"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:155
 #: selection:route_manage.route_manage,class_system:0
+#, python-format
 msgid "One-shift"
 msgstr "一班制"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:164
 #: selection:route_manage.route_manage,schedule_type:0
+#, python-format
 msgid "Planning scheduling"
 msgstr "计划调度"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:95
+#: code:addons/scheduling_parameters/models/schedule.py:186
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_platform
-#: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_platform_id
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_platform_resource
 #: model:ir.ui.view,arch_db:scheduling_parameters.station_form_view
+#, python-format
 msgid "Platform"
 msgstr "站台"
 
@@ -248,27 +302,30 @@ msgid "Platform management"
 msgstr "站台管理"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:94
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_platform_number
+#, python-format
 msgid "Platform number"
 msgstr "站台编号"
 
 #. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_platform_resource
-msgid "Platform resource"
-msgstr "站台资源"
-
-#. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:102
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_platform_status
+#, python-format
 msgid "Platform status"
 msgstr "站台状况"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:59
 #: model:ir.model.fields,field_description:scheduling_parameters.field_road_manage_road_manage_region_id
+#, python-format
 msgid "Region"
 msgstr "区域"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:12
 #: model:ir.model.fields,field_description:scheduling_parameters.field_region_manage_region_manage_region_coding
+#, python-format
 msgid "Region coding"
 msgstr "区域编码"
 
@@ -278,8 +335,10 @@ msgid "Region list"
 msgstr "区域列表"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:13
 #: model:ir.model.fields,field_description:scheduling_parameters.field_region_manage_region_manage_region_name
 #: model:ir.ui.view,arch_db:scheduling_parameters.region_form_view
+#, python-format
 msgid "Region name"
 msgstr "区域名称"
 
@@ -297,12 +356,18 @@ msgid "Reset"
 msgstr "重新启用"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:17
+#: code:addons/scheduling_parameters/models/schedule.py:105
+#: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_Road_id
 #: model:ir.model.fields,field_description:scheduling_parameters.field_region_manage_region_manage_road_id
+#, python-format
 msgid "Road"
 msgstr "道路"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:52
 #: model:ir.model.fields,field_description:scheduling_parameters.field_road_manage_road_manage_road_coding
+#, python-format
 msgid "Road coding"
 msgstr "道路编码"
 
@@ -318,27 +383,29 @@ msgid "Road management"
 msgstr "道路管理"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:53
 #: model:ir.model.fields,field_description:scheduling_parameters.field_road_manage_road_manage_road_name
 #: model:ir.ui.view,arch_db:scheduling_parameters.road_form_view
+#, python-format
 msgid "Road name"
 msgstr "道路名称"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:111
+#: code:addons/scheduling_parameters/models/schedule.py:144
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_route_id
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_route
 #: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
+#, python-format
 msgid "Route"
 msgstr "线路"
 
 #. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_routeNO
+#: code:addons/scheduling_parameters/models/schedule.py:145
+#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_route_coding
+#, python-format
 msgid "Route NO."
 msgstr "线路编号"
-
-#. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_route_id
-msgid "Route id"
-msgstr "线路"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_route_type
@@ -356,25 +423,36 @@ msgid "Shunt mode"
 msgstr "调车模式"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:146
 #: selection:route_manage.route_manage,route_type:0
+#, python-format
 msgid "Single circle"
 msgstr "单向环线"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:160
 #: selection:route_manage.route_manage,shunt_mode:0
+#, python-format
 msgid "Single shunt"
 msgstr "单头调车"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:26
+#: code:addons/scheduling_parameters/models/schedule.py:67
+#: code:addons/scheduling_parameters/models/schedule.py:120
+#: code:addons/scheduling_parameters/models/schedule.py:181
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_state
 #: model:ir.model.fields,field_description:scheduling_parameters.field_region_manage_region_manage_state
 #: model:ir.model.fields,field_description:scheduling_parameters.field_road_manage_road_manage_state
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_state
+#, python-format
 msgid "State"
 msgstr "状态"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:58
 #: model:ir.model.fields,field_description:scheduling_parameters.field_road_manage_road_manage_platform_id
+#, python-format
 msgid "Station"
 msgstr "站台"
 
@@ -384,32 +462,100 @@ msgid "Station List"
 msgstr "站台列表"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:171
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_steward_per_vehicle
+#, python-format
 msgid "Steward per vehicle"
 msgstr "乘务员人车比"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:168
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_subsidiary
+#, python-format
 msgid "Subsidiary"
 msgstr "隶属公司"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:135
+#: sql_constraint:platform_manage.platform_manage:0
+#, python-format
+msgid "The platform must be unique!"
+msgstr "站台必须是唯一的！"
+
+#. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:136
+#: sql_constraint:platform_manage.platform_manage:0
+#, python-format
+msgid "The platform number must be unique!"
+msgstr "总台编号必须是唯一的！"
+
+#. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:42
+#: sql_constraint:region_manage.region_manage:0
+#, python-format
+msgid "The region coding must be unique!"
+msgstr "区域编码必须是唯一的！"
+
+#. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:41
+#: sql_constraint:region_manage.region_manage:0
+#, python-format
+msgid "The region name must be unique!"
+msgstr "区域名称必须是唯一的！"
+
+#. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:83
+#: sql_constraint:road_manage.road_manage:0
+#, python-format
+msgid "The road coding must be unique!"
+msgstr "道路编码必须是唯一的！"
+
+#. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:82
+#: sql_constraint:road_manage.road_manage:0
+#, python-format
+msgid "The road name must be unique!"
+msgstr "道路名称必须是唯一的！"
+
+#. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:201
+#: sql_constraint:route_manage.route_manage:0
+#, python-format
+msgid "The route coding must be unique!"
+msgstr "线路编码必须是唯一的！"
+
+#. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:202
+#: sql_constraint:route_manage.route_manage:0
+#, python-format
+msgid "The route name must be unique!"
+msgstr "线路名称必须是唯一的！"
+
+#. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:157
 #: selection:route_manage.route_manage,class_system:0
+#, python-format
 msgid "Three-shift"
 msgstr "三班制"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:156
 #: selection:route_manage.route_manage,class_system:0
+#, python-format
 msgid "Two-shift"
 msgstr "两班制"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:150
 #: selection:route_manage.route_manage,first_half_class:0
+#, python-format
 msgid "Up line"
 msgstr "上行"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:103
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_electronic_bus_board_number
+#, python-format
 msgid "electronic bus-board number"
 msgstr "电子站牌编号"
 
@@ -419,12 +565,16 @@ msgid "human resource"
 msgstr "人力资源"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:93
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_latitude
+#, python-format
 msgid "latitude"
 msgstr "纬度"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:92
 #: model:ir.model.fields,field_description:scheduling_parameters.field_platform_manage_platform_manage_longitude
+#, python-format
 msgid "longitude"
 msgstr "经度"
 

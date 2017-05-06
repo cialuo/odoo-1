@@ -92,10 +92,11 @@
                         <group col="2">
                             <group>
                                 <field name="road_coding"/>
-                                <field name="book_runner"/>
+                                <field name="region_id"/>
                             </group>
                             <group>
                                 <field name="create_date"/>
+                                <field name="book_runner"/>
                             </group>
                         </group>
                         <notebook>
@@ -164,6 +165,7 @@
                                 <field name="platform_number"/>
                                 <field name="platform_status"/>
                                 <field name="electronic_bus_board_number"/>
+                                <field name="Road_id"/>
                             </group>
                         </group>
 
@@ -184,7 +186,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="route"/>
-                    <field name="routeNO"/>
+                    <field name="route_coding"/>
                     <field name="route_type"/>
                     <field name="first_half_class"/>
                     <field name="oil_wear_coefficient"/>
@@ -216,7 +218,7 @@
 
                         <group col="2">
                             <group>
-                                <field name="routeNO"/>
+                                <field name="route_coding"/>
                                 <field name="route_type"/>
                                 <field name="first_half_class"/>
                                 <field name="oil_wear_coefficient"/>
@@ -233,16 +235,8 @@
                             <page string="platform resource">
                                 <field name="platform_resource"/>
                             </page>
-                            <page string="vehicle resource"></page>
                             <page string="human resource">
                                 <field name="human_resource"/>
-                            </page>
-                            <page string="people per cars">
-                                <group>
-                                    <field name="driver_per_vehicle"/>
-                                    <field name="steward_per_vehicle"/>
-                                    <field name="line_synthesis_person_per_vehicle"/>
-                                </group>
                             </page>
                         </notebook>
                     </sheet>
@@ -274,7 +268,6 @@
             <field name="res_model">route_manage.route_manage</field>
             <field name="view_model">tree,form</field>
         </record>
-
 
         <!-- 调度参数管理——Menu -->
         <menuitem id="menu_region" name="Regional management" parent="operation_menu.schedule_menu"
