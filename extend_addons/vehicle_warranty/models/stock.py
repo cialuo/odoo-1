@@ -91,6 +91,7 @@ class StockPicking(models.Model):
                 'product_id': i.product_id.id,
                 'product_uom': i.product_uom.id,
                 'product_uom_qty': i.product_uom_qty,
+                'picking_type_id': picking_type.id,
             }
             move_lines.append((0, 0, vals))
         if move_lines:
@@ -104,6 +105,7 @@ class StockPicking(models.Model):
             })
         if picking:
             picking.action_confirm()
+        return picking
 
 
 

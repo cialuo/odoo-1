@@ -1,0 +1,105 @@
+<odoo>
+    <data>
+
+        <record id='vehicle_usage_records_anchor_view_form_inherit' model='ir.ui.view'>
+            <field name="name">fleet_vehicle.usage.form.inherit</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="vehicle_manage.vehicle_usage_records_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <!--抛锚记录-->
+                    <page  string="drop anchor records" name="dropanchorrecords">
+                        <field name="dropanchorrecords">
+                            <form string="drop anchile item Form">
+                                <sheet>
+                                    <group>
+                                        <field name="anchortime"/>
+                                        <field name="anchorend"/>
+                                        <field name="anchorroad"/>
+                                        <field name="anchorreason"/>
+                                        <field name="solution"/>
+                                        <field name="driver"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                            <tree>
+                                <field name="anchortime" />
+                                <field name="anchorroad" />
+                                <field name="anchorreason" />
+                                <field name="solution" />
+                                <field name="driver" />
+                                <field name="anchorduration" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <!-- 车辆抛锚记录tree视图 -->
+        <record id='vehicle_dorpanchor_records_tree_list' model='ir.ui.view'>
+            <field name="name">vehicle dorpanchor records</field>
+            <field name="model">vehicle_usage.vehicleanchor</field>
+            <field name="arch" type="xml">
+                <tree string="inspection plan" >
+                    <field name="license_plate" />
+                    <field name="inner_code" />
+                    <field name="company_id" />
+                    <field name="model_id" />
+                    <field name="route_id" />
+                    <field name="anchortime" />
+                    <field name="anchorroad" />
+                    <field name="anchorreason" />
+                    <field name="solution" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- 车辆抛锚记录表单 -->
+        <record model="ir.ui.view" id="vechile_dropanchor_item_form_view">
+            <field name="name">vechile dropanchor item form view</field>
+            <field name="model">vehicle_usage.vehicleanchor</field>
+            <field name="arch" type="xml">
+                <form string="drop anchile item Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="vehicle_id" />
+                                <field name="anchortime" />
+                                <field name="anchorroad" />
+                                <field name="anchorreason" />
+                                <field name="solution" />
+                            </group>
+                            <group>
+                                <field name="license_plate" />
+                                <field name="inner_code" />
+                                <field name="company_id" />
+                                <field name="model_id" />
+                                <field name="route_id" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    <!-- 车辆抛锚记录action -->
+    <record id='vehicle_dropanchor_records_action' model='ir.actions.act_window'>
+        <field name="name">vehicle dropanchor records</field>
+        <field name="res_model">vehicle_usage.vehicleanchor</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- 车辆抛锚记录 -->
+    <menuitem name="vehicle drop anchor records"
+              id="vehicle_drop_anchor_records"
+              parent="vehicle_manage_menu.vehicle_use_manage"
+              action="vehicle_dropanchor_records_action"
+              sequence="80"/>
+
+    </data>
+</odoo>
