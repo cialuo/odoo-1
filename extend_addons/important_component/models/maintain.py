@@ -58,6 +58,7 @@ class MaintainRepare(models.Model):
                     'product_uom': p.product_id.uom_id.id,
                     'product_uom_qty': p.change_count,
                     'component_ids': [(6,0, component_ids)],
+                    'picking_type_id': picking_type.id,
                 }
                 move_lines.append((0, 0, vals))
                 if move_lines:

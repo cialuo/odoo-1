@@ -12,6 +12,10 @@ class StockMove(models.Model):
     @api.multi
     @api.constrains('product_uom_qty', 'component_ids')
     def _check_component_qty(self):
+        """
+        重要部件选择 数量约束
+        :return: 
+        """
         for move in self:
             if len(move.component_ids) > move.product_uom_qty:
                 raise UserError(_('Component qty can not greate than product qty!'))
@@ -46,9 +50,11 @@ class StockMove(models.Model):
                 vals['location_id'] = move.picking_id.location_dest_id.id
                 if move.picking_id and move.picking_id.location_dest_id.is_vehicle:
                     vals['state'] = 'inuse'
-                location_old = self.env.ref('stock_picking_types.stock_location_old_to_new').id
+                    vals['parent_vehicle'] = move.picking_id.repair_id.vehicle_id.id
+                location_old = self.env.ref('stock_picking_types.stock_location_old_to_new')
                 if move.picking_id and move.picking_id.location_dest_id == location_old:
                     vals['state'] = 'waiting_repare'
+                    vals['parent_vehicle'] = None
                 move.component_ids.write(vals)
         return res
 
@@ -73,6 +79,7 @@ class StockPicking(models.Model):
                     if type == u'退料':
                         order.write({'location_id': obj.vehicle_id.location_stock_id.id})
                     elif type == u'领料':
+                        order.write({'location_id': obj.vehicle_id.location_stock_id.id})
                         try:
                             if obj > self.env['maintain.manage.repair']:
                                 self.check_product_avail_repair(type, order)
