@@ -338,6 +338,7 @@
                                                     <field name="realityarrive" />
                                                     <field name="dirvetimes" />
                                                     <field name="drivetype" />
+                                                    <field name="planmileage" />
                                                 </group>
                                             </group>
                                         </sheet>
