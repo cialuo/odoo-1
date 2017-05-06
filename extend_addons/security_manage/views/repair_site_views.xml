@@ -10,8 +10,8 @@
                     <field name="archives_class_little"/>
                     <field name="name"/>
                     <field name="archvies_id"/>
-                    <field name="archives_creator_date"/>
-                    <field name="archives_creator"/>
+                    <field name="create_date" readonly="1"/>
+                    <field name="create_uid" readonly="1"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -24,7 +24,7 @@
                 <form string="Idea form">
                     <header>
                         <button name="action_to_default" type="object"
-                                string="Reset to default"
+                                string="Reset to use"
                                 states="archive"/>
                         <button name="action_archive" type="object"
                                 string="Mark as archive" states="use"
@@ -35,7 +35,7 @@
                         <div class="oe_title">
                             <!--<label for="name"/>-->
                             <h1>
-                                <field name="name" placeholder="placeholder"/>
+                                <field name="name" placeholder="archive name"/>
                             </h1>
                         </div>
                         <group name="group_top">
@@ -46,8 +46,8 @@
 
                             <group name="group_right">
                                 <field name="archvies_id"/>
-                                <field name="archives_creator"/>
-                                <field name="archives_creator_date"/>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
                             </group>
 
                         </group>
