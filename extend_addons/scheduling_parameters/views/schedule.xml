@@ -186,7 +186,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="route"/>
-                    <field name="routeNO"/>
+                    <field name="route_coding"/>
                     <field name="route_type"/>
                     <field name="first_half_class"/>
                     <field name="oil_wear_coefficient"/>
@@ -218,7 +218,7 @@
 
                         <group col="2">
                             <group>
-                                <field name="routeNO"/>
+                                <field name="route_coding"/>
                                 <field name="route_type"/>
                                 <field name="first_half_class"/>
                                 <field name="oil_wear_coefficient"/>
