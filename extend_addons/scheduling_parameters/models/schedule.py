@@ -12,7 +12,7 @@ class region_manage(models.Model):
     region_coding = fields.Char(_('Region coding'), required=True)
     region_name = fields.Char(_('Region name'), required=True)
     create_time = fields.Datetime(_('Creation time'))
-    book_runner = fields.Many2one('res.users', string=_('Book runner'))
+    book_runner = fields.Many2one('res.users', string=_('Book runner'), default=lambda self: self.env.user)
     # road_id = fields.One2many('road_manage.road_manage', 'region_id', ondelete='cascade', string="Road")
     road_id = fields.One2many('road_manage.road_manage', 'region_id', ondelete='cascade', string=_("Road"))
 
@@ -52,11 +52,11 @@ class road_manage(models.Model):
     road_coding = fields.Char(_('Road coding'), required=True)    # 道路编码
     road_name = fields.Char(_('Road name'), required=True)    # 道路名称
     create_date = fields.Date(_('Creation date'))   # 建立日期
-    book_runner = fields.Many2one('res.users', string=_('Book runner'))    # 建档人
+    book_runner = fields.Many2one('res.users', string=_('Book runner'), default=lambda self: self.env.user)    # 建档人
 
     # platform_id = fields.Many2many("platform_manage.platform_manage", string="Station")
     platform_id = fields.One2many("platform_manage.platform_manage", 'Road_id', string=_("Station"))
-    region_id = fields.Many2one('region_manage.region_manage', ondelete='cascade', string=_('Region'))
+    region_id = fields.Many2one('region_manage.region_manage', ondelete='cascade', string=_('Region'), required=True)
     WORKFLOW_STATE_SELECTION = [
         ('inuse', _('In-use')),
         ('archive', _('Archive'))
@@ -102,7 +102,7 @@ class platform_manage(models.Model):
     platform_status = fields.Char(_('Platform status'))    # 站台状况
     electronic_bus_board_number = fields.Char(_('electronic bus-board number'))    # 电子站牌编号
 
-    Road_id = fields.Many2one('road_manage.road_manage', ondelete='cascade', string=_('Road'))
+    Road_id = fields.Many2one('road_manage.road_manage', ondelete='cascade', string=_('Road'), required=True)
 
     # route_id = fields.One2many('route_manage.route_manage', 'route_id', string='Route')
 
@@ -142,7 +142,7 @@ class route_manage(models.Model):
     _rec_name = 'route'
 
     route = fields.Char(_('Route'), required=True)  # 线路名称
-    routeNO = fields.Char(_('Route NO.'), required=True)  # 线路编码
+    route_coding = fields.Char(_('Route NO.'), required=True)  # 线路编码
     route_type = fields.Selection([('single circle', _('Single circle')),  # 线路类型
                                    ('double circle', _('Double circle'))],
                                   default='double circle')
@@ -198,8 +198,8 @@ class route_manage(models.Model):
 
     # sql 约束，效率高
     _sql_constraints = [
+        ('coding_unique', 'unique(route_coding)', _('The route coding must be unique!')),
         ('route_unique', 'unique(route)', _('The route name must be unique!')),
-        ('routeNO_unique', 'unique(routeNO)', _('The route number must be unique!'))
     ]
 
 # 人力资源

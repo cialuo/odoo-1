@@ -23,4 +23,8 @@
         # 'security/ir.model.access.csv',
         'views/operation_manage_menu.xml',
     ],
+    # only loaded in demonstration mode
+    'installable': True,
+    'application': True,
+    'auto_install': False,
 }
