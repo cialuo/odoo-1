@@ -105,3 +105,4 @@ class StockPicking(models.Model):
             })
         if picking:
             picking.action_confirm()
+        return picking
