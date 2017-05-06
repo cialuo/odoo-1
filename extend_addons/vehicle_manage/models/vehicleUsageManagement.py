@@ -20,7 +20,7 @@ class FleetVehicle(models.Model):
                 timeArray = time.strptime(d, "%Y-%m-%d")
                 timeStamp = int(time.mktime(timeArray))
                 currenttime = int(time.time())
-                if ( currenttime + 15552000 )> timeStamp :
+                if ( currenttime + 7776000 )> timeStamp :   # 三个月内年检到期就标红
                     item.warnning = True
                 else:
                     item.warnning = False
@@ -31,7 +31,26 @@ class FleetVehicle(models.Model):
     driverecords = fields.One2many('vehicleusage.driverecords', 'vehicle_id', string=_('drive records'))
     # 抛锚记录
     dropanchorrecords = fields.One2many('vehicle_usage.vehicleanchor', 'vehicle_id', string=_('drop anchor record'))
+    # 年检状态
+    inspectionState = fields.Char(compute='_getInspectionState', string=_('vehicle inspection state'))
 
+    def getPlanItem(self, vid):
+        item = self.env['vehicle_usage.planitem']
+        vechileinfo = item.search([('vehicle_id', '=', vid),('state', '=', 'execution')], limit=1)
+        if len(vechileinfo) == 0:
+            return False
+        else:
+            return vechileinfo[0]
+
+    @api.multi
+    def _getInspectionState(self):
+        for item in self:
+            planitem = self.env['vehicle_usage.planitem']
+            count = planitem.search_count([('vehicle_id', '=', item.id), ('state', '=', 'execution')])
+            if count > 0:
+                item.inspectionState = _('checking')
+            else:
+                item.inspectionState = _('checking done')
 
 class InspectionPlan(models.Model):
     _name = 'vehicle_usage.inspectionplan'
@@ -233,6 +252,14 @@ class InspectionRecords(models.Model):
         else:
             return vechileinfo[0]
 
+    def getVehicleIdById(self, id):
+        vehicle = self.env['fleet.vehicle']
+        vechileinfo = vehicle.search([('id', '=', id)], limit=1)
+        if len(vechileinfo) == 0:
+            return False
+        else:
+            return vechileinfo[0]
+
     def buidMessage(self, type='error', message='', moreinfo=''):
         return dict(
             {'record': 0, 'rows': {'to': 0, 'from': 0}},
@@ -267,8 +294,8 @@ class InspectionRecords(models.Model):
             vehicleinfo = self.getVehicleIdByInnercode(innerCode)
             if vehicleinfo == False:
                 returnVal['messages'].append(
-                    self.buidMessage(message=_('inner code not exist %s ' % innerCode),
-                                     moreinfo=_('can not found inner code %s in system ' % innerCode))
+                    self.buidMessage(message=_('inner code not exist %s ') % innerCode,
+                                     moreinfo=_('can not found inner code %s in system ') % innerCode)
                 )
                 return returnVal
 
@@ -277,7 +304,7 @@ class InspectionRecords(models.Model):
 
     def getPlanItem(self, vid):
         item = self.env['vehicle_usage.planitem']
-        vechileinfo = item.search([('vehicle_id', '=', vid),('state', '<=', 'execution')], limit=1)
+        vechileinfo = item.search([('vehicle_id', '=', vid),('state', '=', 'execution')], limit=1)
         if len(vechileinfo) == 0:
             return False
         else:
@@ -285,7 +312,10 @@ class InspectionRecords(models.Model):
 
     @api.model
     def create(self, vals):
-        vehicleinfo = self.getVehicleIdByInnercode(vals['inner_code'])
+        if vals.get('vehicle_id',None) != None:
+            vehicleinfo = self.getVehicleIdById(vals['vehicle_id'])
+        elif vals.get('inner_code', None) != None:
+            vehicleinfo = self.getVehicleIdByInnercode(vals['inner_code'])
         vals['vehicle_id'] = vehicleinfo['id']
         vehicleinfo.write({'annual_inspection_date':vals['inspectionexpire']})
         res = super(InspectionRecords, self).create(vals)
