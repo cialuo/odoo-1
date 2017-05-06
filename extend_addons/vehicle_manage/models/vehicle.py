@@ -64,9 +64,9 @@ class Vehicle(models.Model):
     salvage_rate = fields.Float(string='Salvage Rate', compute='_get_salvage_rate')  # 年限残值
 
     # 售票员
-    conductor = fields.Many2many('hr.employee', string=_('conductor'))
+    conductor = fields.Many2many('hr.employee', relation='vehicle_conductor_employee', string=_('conductor'))
     # 司机
-    driver = fields.Many2many('hr.employee', string=_('driver'))
+    driver = fields.Many2many('hr.employee', relation='vehicle_driver_employee', string=_('driver'))
 
     @api.depends('start_service_date')
     def _get_salvage_rate(self):

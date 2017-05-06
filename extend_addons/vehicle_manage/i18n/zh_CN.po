@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* vehicle_manage
+# 	* vehicle_manage
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-04 10:07+0000\n"
-"PO-Revision-Date: 2017-05-04 10:07+0000\n"
+"POT-Creation-Date: 2017-05-06 02:00+0000\n"
+"PO-Revision-Date: 2017-05-06 10:01+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.fleet_vehicle_view_form
@@ -388,7 +390,7 @@ msgstr "最大爬坡度"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_vehicleanchor_model_id
 msgid "Model"
-msgstr "车型"
+msgstr "型号"
 
 #. module: vehicle_manage
 #: model:ir.model,name:vehicle_manage.model_fleet_vehicle_model
@@ -426,7 +428,8 @@ msgstr "里程表"
 
 #. module: vehicle_manage
 #: model:ir.actions.act_window,help:vehicle_manage.vehicle_inspection_list_action
-msgid "Odoo will warn you when services or contract have to be\n"
+msgid ""
+"Odoo will warn you when services or contract have to be\n"
 "                renewed."
 msgstr "当服务和合约必须更新时，Odoo会提醒你。"
 
@@ -521,7 +524,7 @@ msgid "Specifications"
 msgstr "型号规格"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:174
+#: code:addons/vehicle_manage/models/vehicle.py:179
 #, python-format
 msgid "Standard code already exists"
 msgstr "排放等级编码已经存在"
@@ -534,7 +537,7 @@ msgstr "投入日期"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_state
 msgid "State"
-msgstr "状态"
+msgstr "省/ 州"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_location_stock_id
@@ -611,7 +614,7 @@ msgstr "标志"
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.vehicle_drive_records_tree_list
 msgid "Vehicle drive records"
-msgstr "Vehicle drive records"
+msgstr "行车记录"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_vehicle_label
@@ -650,7 +653,8 @@ msgstr "黄标"
 
 #. module: vehicle_manage
 #: model:ir.actions.act_window,help:vehicle_manage.vehicle_inspection_list_action
-msgid "You will be able to manage your fleet by keeping track of the\n"
+msgid ""
+"You will be able to manage your fleet by keeping track of the\n"
 "                contracts, services, fixed and recurring costs, odometers and\n"
 "                fuel logs associated to each vehicle."
 msgstr "您保留每辆车的相关的合同，服务，固定和定期的费用,里程数和加油记录的轨迹来管理您的车队."
@@ -665,18 +669,16 @@ msgstr "实际年检日期"
 #: model:ir.ui.view,arch_db:vehicle_manage.vechile_drive_records_form_view
 #: model:ir.ui.view,arch_db:vehicle_manage.vehicle_usage_records_view_form
 msgid "anchile drive Form"
-msgstr "anchile drive Form"
+msgstr "行车记录表单"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:324
-#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_vehicleanchor_anchorduration
 #, python-format
 msgid "anchor duration"
 msgstr "抛锚时长"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:316
-#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_vehicleanchor_anchorend
 #, python-format
 msgid "anchor end time"
 msgstr "抛锚结束时间"
@@ -695,7 +697,6 @@ msgstr "抛锚路段"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:322
-#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_vehicleanchor_solution
 #, python-format
 msgid "anchor solution"
 msgstr "解决方法"
@@ -736,6 +737,13 @@ msgstr "不存在的车辆自编号 %s  "
 #, python-format
 msgid "checked"
 msgstr "已审批"
+
+#. module: vehicle_manage
+#: code:addons/vehicle_manage/models/vehicle.py:67
+#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_conductor
+#, python-format
+msgid "conductor"
+msgstr "售票员"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:73
@@ -799,6 +807,7 @@ msgid "drive type working"
 msgstr "运营"
 
 #. module: vehicle_manage
+#: code:addons/vehicle_manage/models/vehicle.py:69
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:326
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:359
 #, python-format
@@ -1176,11 +1185,6 @@ msgid "vehicle_manage.emission_standard"
 msgstr "排放标准"
 
 #. module: vehicle_manage
-#: model:ir.model,name:vehicle_manage.model_vehicle_manage_route
-msgid "vehicle_manage.route"
-msgstr "vehicle_manage.route"
-
-#. module: vehicle_manage
 #: model:ir.actions.act_window,name:vehicle_manage.vehicle_manage_action
 msgid "vehicle_manage_action"
 msgstr "车辆技术档案"
@@ -1239,4 +1243,3 @@ msgstr "行车记录"
 #: selection:fleet.vehicle,state:0
 msgid "warrantly"
 msgstr "保养"
-
