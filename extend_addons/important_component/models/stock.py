@@ -42,7 +42,7 @@ class StockMove(models.Model):
                 1：调拨单目标库位为车辆库位，重要部件更新为 正在服役，位置为：车辆实库
                 2：调拨单目标库位为旧货库位，重要部件更新为 在库待修，位置为：旧货库位
                 """
-                vals={}
+                vals = {}
                 vals['location_id'] = move.picking_id.location_dest_id.id
                 if move.picking_id and move.picking_id.location_dest_id.is_vehicle:
                     vals['state'] = 'inuse'
@@ -83,15 +83,17 @@ class StockPicking(models.Model):
                     else:
                         try:
                             if obj > self.env['maintain.manage.repair']:
-                                order.move_lines.write({'component_ids': [(6,0,order.repair_id.component_ids.ids)]})
-                                self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
-                                
+                                # order.move_lines.write({'component_ids': [(6,0,order.repair_id.component_ids.ids)]})
+                                o2n_picking = self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
+                                if o2n_picking:
+                                    o2n_picking.move_lines.write({'component_ids': [(6, 0, order.repair_id.component_ids.ids)]})
+
                         except TypeError:
-                            self._gen_old_new_picking_warranty(order, order.move_lines, location_id, location_dest_id)
+                            o2n_picking = self._gen_old_new_picking_warranty(order, order.move_lines, location_id, location_dest_id)
+                            if o2n_picking:
+                                o2n_picking.move_lines.write({'component_ids': [(6, 0, order.warranty_order_id.component_ids.ids)]})
                 else:
                     no_import_products = order.move_lines.mapped('product_id').filtered(lambda x: not x.is_important)
                     remove_products = ','.join([i.name for i in no_import_products])
                     raise UserError(_('There are important & not important components,please remove: %s ') % remove_products)
         return super(StockPicking, self).action_confirm()
-
-    def _gen_old_new_picking_repair(self, order, products, location_id, location_dest_id):
