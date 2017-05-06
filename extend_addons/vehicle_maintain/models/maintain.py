@@ -400,6 +400,7 @@ class MaintainRepair(models.Model):
                         'product_id': i.product_id.id,
                         'product_uom': i.product_id.uom_id.id,
                         'product_uom_qty': i.change_count,
+                        'picking_type_id': picking_type.id,
                     }
                     move_lines.append((0, 0, vals))
                 if move_lines:
