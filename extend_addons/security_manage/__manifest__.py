@@ -19,12 +19,30 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','hr'],
+    'depends': ['base', 'hr', 'security_manage_memu'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/menu_views.xml',
+        'data/sequence.xml',
+
+        'views/menu_repair_view.xml',
+        'views/repair_disease_views.xml',
+        'views/repair_emergency_plan_views.xml',
+        'views/repair_maintainer_train_views.xml',
+        'views/repair_produce_map_views.xml',
+        'views/repair_quality_views.xml',
+        'views/repair_safety_manage_views.xml',
+        'views/repair_site_views.xml',
+        'views/repair_source_of_danger_views.xml',
+
+        'views/menu_fire_view.xml',
+        'views/fire_danger_source_views.xml',
+        'views/fire_device_manage_views.xml',
+        'views/fire_device_map_views.xml',
+        'views/fire_plan_views.xml',
+
+        'views/menu_security_view.xml',
         'views/security_check_item_views.xml',
         'views/security_check_table_views.xml',
         'views/security_archives_class_manage_views.xml',

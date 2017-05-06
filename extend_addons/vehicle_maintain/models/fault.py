@@ -15,8 +15,6 @@ class FaultCategory(models.Model):
 
     fault_category_code = fields.Char("Fault Category Code", help='Fault Category Code',required=True)
     name = fields.Char("Fault Category Name", help='Fault Category Name',required=True)
-    user_id = fields.Many2one('hr.employee', string="Create Name",default=_default_employee, required=True,readonly=True)
-    create_date = fields.Date("Create Date",help='Create Date',default=fields.Date.context_today,readonly=True)
     state = fields.Selection([('use', "Use"), ('done', "Done")], default='use')
     
     active = fields.Boolean(default=True)
@@ -52,9 +50,6 @@ class FaultAppearance(models.Model):
     fault_appearance_code = fields.Char("Fault appearance Code", compute="_get_fault_code",
                                         help='Fault appearance Code', required=True)
     name = fields.Char("Fault appearance Name", help='Fault appearance Name',required=True)
-    user_id = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, required=True,
-                              readonly=True)
-    create_date = fields.Date("Create Date", help='Create Date', default=fields.Date.context_today, readonly=True)
 
     state = fields.Selection([('use', "Use"),('done', "Done")], default='use')
     active = fields.Boolean(default=True)
@@ -114,9 +109,6 @@ class FaultReason(models.Model):
     fault_reason_code = fields.Char("Fault Reason Code",help='Fault Reason Code',
                                     compute="_get_fault_code",required=True)
     name = fields.Char("Fault Reason Name", help='Fault Reason Name',required=True)
-    user_id = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, required=True,
-                              readonly=True)
-    create_date = fields.Date("Create Date", help='Create Date', default=fields.Date.context_today, readonly=True)
     state = fields.Selection([('use', "Use"),('done', "Done")], default='use')
     active = fields.Boolean(default=True)
     appearance_id = fields.Many2one('maintain.fault.appearance',
@@ -187,9 +179,6 @@ class FaultMethod(models.Model):
     fault_method_code = fields.Char("Fault Method Code",help='Fault Method Code',
                                     compute="_get_fault_code",required=True)
     name = fields.Char("Fault Method Name", help='Fault Method Name', required=True)
-    user_id = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, required=True,
-                              readonly=True)
-    create_date = fields.Date("Create Date", help='Create Date', default=fields.Date.context_today, readonly=True)
     state = fields.Selection([('use', "Use"),('done', "Done")], default='use')
     active = fields.Boolean(default=True)
     remark = fields.Text("Remark", help='Remark')

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_security_manage_memu_security_manage_memu,security_manage_memu.security_manage_memu,model_security_manage_memu_security_manage_memu,,1,0,0,0

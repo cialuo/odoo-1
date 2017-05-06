@@ -1,18 +1,22 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "operation_menu",
+    'name': "security_manage_memu",
+
+    'summary': """
+        Short (1 phrase/line) summary of the module's purpose, used as
+        subtitle on modules listing or apps.openerp.com""",
 
     'description': """
-        运营管理菜单
+        Long description of module's purpose
     """,
 
-    'author': "youmy",
-    'website': "http://www.lantaiyuan.com/",
+    'author': "My Company",
+    'website': "http://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Basic Edition',
+    'category': 'Uncategorized',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -21,10 +25,10 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/operation_manage_menu.xml',
+        'views/menu_views.xml',
     ],
     # only loaded in demonstration mode
-    'installable': True,
-    'application': True,
-    'auto_install': False,
+    'demo': [
+        'demo/demo.xml',
+    ],
 }
