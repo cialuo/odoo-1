@@ -20,12 +20,12 @@
         </record>
 
 
-        <record id='vehicle_usage_records_view_form_inherit' model='ir.ui.view'>
+        <record id='vehicle_usage_records_repair_view_form_inherit' model='ir.ui.view'>
             <field name="name">fleet_vehicle.usage.form.inherit</field>
             <field name="model">fleet.vehicle</field>
             <field name="inherit_id" ref="vehicle_manage.vehicle_usage_records_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//notebook/page[2]" position="after">
+                <xpath expr="//notebook" position="inside">
                     <page name="repair_record" string="Repairs">
                         <field name="repair_ids">
                             <tree string="Repairs" create="false" delete="false">
