@@ -2,10 +2,47 @@
     <data>
 
         <!-- Sequences for repair quality -->
-        <record id="seq_repair_quality_archive_id" model="ir.sequence">
-            <field name="name">Archive Id</field>
-            <field name="code">srp.repair_quality</field>
-            <field name="prefix">AQA</field>
+        <record id="seq_repair_quality_id" model="ir.sequence">
+            <field name="name">repair_quality Id</field>
+            <field name="code">srp_repair_quality</field>
+            <field name="prefix">RPQ</field>
+            <field name="padding">6</field>
+        </record>
+
+        <!-- Sequences for repair site -->
+        <record id="seq_repair_site_id" model="ir.sequence">
+            <field name="name">repair_site Id</field>
+            <field name="code">srp_repair_site</field>
+            <field name="prefix">RSS</field>
+            <field name="padding">6</field>
+        </record>
+        <!-- Sequences for disease -->
+        <record id="seq_repair_disease_id" model="ir.sequence">
+            <field name="name">repair_disease Id</field>
+            <field name="code">srp_disease</field>
+            <field name="prefix">ODM</field>
+            <field name="padding">6</field>
+        </record>
+        <!-- Sequences for safety manage -->
+        <record id="seq_safety_manage_id" model="ir.sequence">
+            <field name="name">safety_manage Id</field>
+            <field name="code">srp_safety_manage</field>
+            <field name="prefix">PSM</field>
+            <field name="padding">6</field>
+        </record>
+
+        <!-- Sequences for safety manage -->
+        <record id="seq_emergency_plan_id" model="ir.sequence">
+            <field name="name">emergency_plan Id</field>
+            <field name="code">srp_emergency_plan</field>
+            <field name="prefix">SEP</field>
+            <field name="padding">6</field>
+        </record>
+        <!-- Sequences for fire plan -->
+        <record id="seq_fire_plan_id" model="ir.sequence">
+            <field name="name">fire_plan Id</field>
+            <field name="code">sfs_fire_plan</field>
+            <field name="prefix">SFP</field>
             <field name="padding">6</field>
         </record>
 

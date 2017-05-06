@@ -14,6 +14,4 @@ from . import repair_safety_manage_models
 from . import repair_site_models
 from . import repair_source_of_danger_models
 
-from . import security_check_item
-from . import security_check_table
 from . import security_archives_manage

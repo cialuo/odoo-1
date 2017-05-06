@@ -45,7 +45,31 @@ class MaintainRepare(models.Model):
         im_products = products.filtered(lambda x: x.product_id.is_important == True)
         if im_products:
             im_location = self.vehicle_id.location_stock_id.id
-            super(MaintainRepare, self)._generate_picking(im_products, im_location)
+            picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
+            for p in im_products:
+                #找到对应物资的在库备用重要部件，选取更换数量 加入到库存移动中
+                domain = [('state', '=', 'avaliable'), ('product_id', '=', p.product_id.id)]
+                component_ids = self.env['product.component'].search(domain, limit=p.change_count).ids
+                move_lines = []
+                picking = []
+                vals = {
+                    'name': 'stock_move_repair',
+                    'product_id': p.product_id.id,
+                    'product_uom': p.product_id.uom_id.id,
+                    'product_uom_qty': p.change_count,
+                    'component_ids': [(6,0, component_ids)],
+                    'picking_type_id': picking_type.id,
+                }
+                move_lines.append((0, 0, vals))
+                if move_lines:
+                    picking = self.env['stock.picking'].create({
+                        'origin': self.name,
+                        'location_id': self.env.ref('stock.stock_location_stock').id,
+                        'location_dest_id': im_location,
+                        'picking_type_id': picking_type.id,
+                        'repair_id': self.id,
+                        'move_lines': move_lines
+                    })
             super(MaintainRepare, self)._generate_picking(products - im_products, location)
         else:
             super(MaintainRepare, self)._generate_picking(products, location)

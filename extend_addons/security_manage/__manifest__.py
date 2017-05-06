@@ -1,21 +1,23 @@
 {
-    'name': "security_manage",
+    'name': "安全管理",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        安全管理
+        """,
 
     'description': """
-        Long description of module's purpose
+        1）维修生产安全
+        2）消防安全
+        3）安全检查设置
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Chen",
+    'website': "http://www.lantaiyuan.com/",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'Optional Edition',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -43,8 +45,8 @@
         'views/fire_plan_views.xml',
 
         'views/menu_security_view.xml',
-        'views/security_check_item_views.xml',
-        'views/security_check_table_views.xml',
+        # 'views/security_check_item_views.xml',
+        # 'views/security_check_table_views.xml',
         'views/security_archives_class_manage_views.xml',
     ],
     # only loaded in demonstration mode
