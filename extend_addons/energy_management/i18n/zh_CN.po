@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* energy_management
+#	* energy_management
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-02 07:56+0000\n"
-"PO-Revision-Date: 2017-05-02 16:00+0800\n"
+"POT-Creation-Date: 2017-05-06 10:03+0000\n"
+"PO-Revision-Date: 2017-05-06 10:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 2.0\n"
 
 #. module: energy_management
 #: selection:energy.security_check_details,check_result:0
@@ -31,6 +29,17 @@ msgstr "额外的信息"
 #: selection:energy.security_check,state:0
 msgid "Auditing"
 msgstr "审核"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_average_day_number
+msgid "Average Day Number"
+msgstr "计算百里油耗的天数"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_average_oil_wear
+#: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_model_model_average_oil_wear
+msgid "Average Oil Wear"
+msgstr "百里油耗"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_check_content
@@ -80,6 +89,11 @@ msgid "Collar information"
 msgstr "领用信息"
 
 #. module: energy_management
+#: selection:energy.station,station_property:0
+msgid "Company"
+msgstr "公司"
+
+#. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_companyc_id
 #: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_companyc_id
 msgid "Companyc Id"
@@ -123,7 +137,7 @@ msgstr "所有库存作业的默认计量单位"
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_security_check_department_id
 msgid "Department Id"
-msgstr "隶属部门"
+msgstr "使用单位"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_display_name
@@ -204,6 +218,22 @@ msgid "Fuel Capacity"
 msgstr "额度油箱容量"
 
 #. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.fleet_vehicle_form
+#: model:ir.ui.view,arch_db:energy_management.vehicle_usage_records_form
+msgid "Fuel consumption per mile"
+msgstr "百里油耗"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_gps_mileage
+msgid "GPS Mileage"
+msgstr "GPS 里程"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_gps_oil_wear
+msgid "GPS Oil Wear "
+msgstr "GPS 油耗"
+
+#. module: energy_management
 #: selection:energy.pile,pile_type:0
 msgid "Gasoline Pile"
 msgstr "加油"
@@ -221,6 +251,11 @@ msgstr "加油站"
 #: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_id
 msgid "ID"
 msgstr "ID"
+
+#. module: energy_management
+#: model:ir.model,name:energy_management.model_fleet_vehicle
+msgid "Information on a vehicle"
+msgstr "车辆上的信息"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_inner_code
@@ -320,6 +355,11 @@ msgid "Medium-sized photo of the employee. It is automatically resized as a 128x
 msgstr "员工的中等尺寸照片。保留纵横比例，自动缩放为128x128px的图像。这个字段用在表单视图和某些看板视图。"
 
 #. module: energy_management
+#: model:ir.model,name:energy_management.model_fleet_vehicle_model
+msgid "Model of a vehicle"
+msgstr "车辆型号"
+
+#. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_name
 msgid "Name"
 msgstr "名字"
@@ -327,7 +367,8 @@ msgstr "名字"
 #. module: energy_management
 #: selection:energy.pile,state:0
 #: selection:energy.security_check_details,check_result:0
-#: selection:energy.station,state:0 selection:energy.usage_record,state:0
+#: selection:energy.station,state:0
+#: selection:energy.usage_record,state:0
 #: selection:stock.location,state:0
 msgid "Normal"
 msgstr "正常"
@@ -399,7 +440,7 @@ msgstr "能源站类型"
 #: model:ir.ui.view,arch_db:energy_management.energy_pile_form
 #: model:ir.ui.view,arch_db:energy_management.energy_station_form
 msgid "Pile form"
-msgstr "Pile form"
+msgstr "能源桩"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_pile_type
@@ -535,6 +576,16 @@ msgid "Station No"
 msgstr "能源站编号"
 
 #. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_station_partner
+msgid "Station Partner"
+msgstr "供应商"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_station_property
+msgid "Station Property"
+msgstr "能源站归属"
+
+#. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_security_check_station_type
 msgid "Station Type"
 msgstr "能源站类型"
@@ -562,8 +613,10 @@ msgid "Station's No"
 msgstr "能源站编号"
 
 #. module: energy_management
-#: selection:energy.pile,state:0 selection:energy.station,state:0
-#: selection:energy.usage_record,state:0 selection:stock.location,state:0
+#: selection:energy.pile,state:0
+#: selection:energy.station,state:0
+#: selection:energy.usage_record,state:0
+#: selection:stock.location,state:0
 msgid "Stop"
 msgstr "报停"
 
@@ -571,6 +624,11 @@ msgstr "报停"
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_department_id
 msgid "Subordinate unit"
 msgstr "隶属部门"
+
+#. module: energy_management
+#: selection:energy.station,station_property:0
+msgid "Supplier"
+msgstr "供应商"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_station_tab_date
@@ -627,6 +685,16 @@ msgid "Warehouse location"
 msgstr "库位管理"
 
 #. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_working_mileage
+msgid "Working Mileage"
+msgstr "运营里程"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_working_oil_wear
+msgid "Working Oil Wear "
+msgstr "运营油耗"
+
+#. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.security_check_form
 msgid "auditing"
 msgstr "已审核"
@@ -643,8 +711,14 @@ msgstr "能源站"
 
 #. module: energy_management
 #: model:ir.actions.act_window,name:energy_management.aw_energy_usage_record
+#: model:ir.actions.act_window,name:energy_management.aw_energy_usage_record_inherit
 msgid "energy_usage_record window"
 msgstr "能源使用记录"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_energy_usage_record_ids
+msgid "energy_usage_record_ids"
+msgstr "energy_usage_record_ids"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.energy_pile_form
@@ -678,6 +752,12 @@ msgid "stop"
 msgstr "报停"
 
 #. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.vehicle_usage_records_form
+msgid "vehicle_usage_record"
+msgstr "能源记录"
+
+#. module: energy_management
 #: model:ir.actions.act_window,name:energy_management.aw_warehouse_location
 msgid "warehouse_location window"
 msgstr "库位"
+

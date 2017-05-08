@@ -181,6 +181,9 @@
                 <field name="inner_code" />
                 <field name="company_id" />
                 <field name="route_id" />
+                <field name="inspectiondate" />
+                <field name="inspectionexpire" />
+                <field name="total_odometer" />
             </tree>
         </field>
     </record>
@@ -230,7 +233,7 @@
 
     <!-- 车辆年检action -->
     <record id='vehicle_inspection_records_action' model='ir.actions.act_window'>
-        <field name="name">vehicle inspection records</field>
+        <field name="name">vehicle inspection result</field>
         <field name="res_model">vehicle_usage.inspectionrecords</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>

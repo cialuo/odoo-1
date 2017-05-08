@@ -11,7 +11,7 @@
     """,
 
     'author': "He",
-    'category': 'Optional Edition',
+    'category': 'Basic Edition',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -26,11 +26,12 @@
         'views/energy_usage_record_view.xml',
         'views/warehouse_location_view.xml',
         'views/fleetusagemanagement.xml',
+        'views/vehicle_view.xml',
         'views/menus_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/demo.xml',
+
     ],
     'application': True
 }

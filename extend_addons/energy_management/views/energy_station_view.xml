@@ -87,17 +87,19 @@
                     <page name="conventional_attributes" string="Conventional attributes">
                         <group>
                             <group>
-                                <field name="department_id" options='{"preview_image":"image_medium"}'/>
+                                <field name="station_property" options="{'horizontal': true}" class="oe_edit_only" widget="radio" />
                                 <field name="station_type"/>
                                 <field name="station_address"/>
                                 <field name="station_scale"/>
-                                <field name="security_check" options='{"preview_image":"image_medium"}'/>
+                                <field name="station_remarks"/>
                             </group>
                             <group>
-                                <field name="station_person_liable" options='{"preview_image":"image_medium"}'/>
-                                <field name="station_lister"/>
+                                <field name="security_check" attrs="{'invisible': [('station_property', '=', 'supplier')]}" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="station_partner" attrs="{'invisible': [('station_property', '=', 'company')]}" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="station_person_liable" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="department_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="station_lister" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="station_tab_date"/>
-                                <field name="station_remarks"/>
                             </group>
                         </group>
                     </page>

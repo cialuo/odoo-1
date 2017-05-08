@@ -231,6 +231,8 @@ class InspectionRecords(models.Model):
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code')
+    # 总里程
+    total_odometer = fields.Float(related='vehicle_id.total_odometer')
     # 车牌号
     license_plate = fields.Char(related='vehicle_id.license_plate', readonly=True)
     # 登记证号
