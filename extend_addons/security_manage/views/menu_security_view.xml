@@ -26,15 +26,15 @@
         <!--安全检查设置 start-->
         <!--&lt;!&ndash;二级菜单 安全检查项目&ndash;&gt;-->
         <!--<menuitem name="security_check_items" id="security_manage.security_check_items"-->
-                  <!--parent="security_manage_memu.security_check_settings"-->
+                  <!--parent="security_manage_menu.security_check_settings"-->
                   <!--action="security_manage.action_security_check_items"/>-->
         <!--&lt;!&ndash;二级菜单 安全检查表&ndash;&gt;-->
         <!--<menuitem name="security_check_table" id="security_manage.security_check_table"-->
-                  <!--parent="security_manage_memu.security_check_settings"-->
+                  <!--parent="security_manage_menu.security_check_settings"-->
                   <!--action="security_manage.action_security_check_table"/>-->
         <!--二级菜单 档案类别管理-->
         <menuitem name="archives_class_manage" id="security_manage.archives_class_manage"
-                  parent="security_manage_memu.security_check_settings"
+                  parent="security_manage_menu.security_check_settings"
                   action="security_manage.action_security_archives_class_manage"/>
         <!--安全检查设置 end-->
 
