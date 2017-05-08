@@ -18,7 +18,7 @@
                     <field name="correct_value" />
                     <field name="route_correct_value" />
                     <field name="fuel_consumption" />
-                    <field name="real_consumption" />
+                    <field name="working_oil_wear" />
                     <field name="excess_consumption"/>
                 </tree>
             </field>
@@ -31,7 +31,6 @@
             <field name="inherit_id" ref="vehicle_manage.vehicle_manage_model_view_form_ext"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='wheel_count']" position="after">
-                    <field name="ave_fuel_consumption"/>
                     <field name="fuel_consumption"/>
                  </xpath>
 
@@ -51,23 +50,23 @@
         </record>
 
 
-        <record id="fuel_consumption_manage_form" model="ir.ui.view">
-            <field name="name">fuel_consumption_manage_form</field>
-            <field name="model">fleet.vehicle</field>
-            <field name="arch" type="xml">
-                <form string="Vehicle">
-                    <sheet>
-                        <group col="2">
-                            <group>
-                                <field name="route_correct_value"/>
-                                <field name="real_consumption"/>
-                            </group>
-                        </group>
-                    </sheet>
-                </form>
+        <!--<record id="fuel_consumption_manage_form" model="ir.ui.view">-->
+            <!--<field name="name">fuel_consumption_manage_form</field>-->
+            <!--<field name="model">fleet.vehicle</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Vehicle">-->
+                    <!--<sheet>-->
+                        <!--<group col="2">-->
+                            <!--<group>-->
+                                <!--<field name="route_correct_value"/>-->
+                                <!--<field name="real_consumption"/>-->
+                            <!--</group>-->
+                        <!--</group>-->
+                    <!--</sheet>-->
+                <!--</form>-->
 
-            </field>
-        </record>
+            <!--</field>-->
+        <!--</record>-->
 
 
 
@@ -77,8 +76,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('fuel_consumption_manage_tree')}),
-                (0, 0, {'view_mode': 'form', 'view_id': ref('fuel_consumption_manage_form')})]"/>
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('fuel_consumption_manage_tree')})]"/>
         </record>
 
 
