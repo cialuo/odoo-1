@@ -5,3 +5,4 @@ import maintain
 import warranty_order
 import warranty_project
 import dismantle_component
+import repair_record

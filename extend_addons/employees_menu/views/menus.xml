@@ -1,0 +1,9 @@
+<odoo>
+	<data>
+        <!--人力资源-->
+        <menuitem id="ltyhr_top_menu" name="LTY human resource"/>
+        <!--人力资源档案-->
+        <menuitem id="ltyhr_employee_document_menu" name="employee document"
+                  parent="ltyhr_top_menu"/>
+	</data>
+</odoo>

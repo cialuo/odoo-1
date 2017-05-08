@@ -81,6 +81,7 @@
                                         <field name="start_service_date"/>
                                     </group>
                                     <group>
+                                        <field name="route_correct_value"/>
                                         <field name="deadline"/>
 
                                         <field name="service_year"/>
@@ -182,7 +183,7 @@
 							<field name="deadline"/>
                         </group>
                         <group>
-                        	<field name="engine_type_no" />
+                        	<field name="engine_no" />
 							<field name="fuel_type_ext" />
 							<label for="width"/>
 							<div class="o_row">
