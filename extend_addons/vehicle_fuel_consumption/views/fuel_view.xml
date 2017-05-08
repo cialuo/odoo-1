@@ -18,7 +18,7 @@
                     <field name="correct_value" />
                     <field name="route_correct_value" />
                     <field name="fuel_consumption" />
-                    <field name="working_oil_wear" />
+                    <field name="average_oil_wear" />
                     <field name="excess_consumption"/>
                 </tree>
             </field>
@@ -86,8 +86,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('fuel_consumption_manage_tree')}),
-                (0, 0, {'view_mode': 'form', 'view_id': ref('fuel_consumption_manage_form')})]"/>
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('fuel_consumption_manage_tree')})]"/>
         </record>
 
         <!--油耗定额管理-->
