@@ -16,27 +16,27 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: security_manage_memu
-#: model:ir.ui.menu,name:security_manage_memu.fire_safety_first_menu
+#: model:ir.ui.menu,name:security_manage_menu.fire_safety_first_menu
 msgid "fire  safety"
 msgstr "消防安全"
 
 #. module: security_manage_memu
-#: model:ir.ui.menu,name:security_manage_memu.repair_produce_first_menu
+#: model:ir.ui.menu,name:security_manage_menu.repair_produce_first_menu
 msgid "repair produce security"
 msgstr "维修生产安全"
 
 #. module: security_manage_memu
-#: model:ir.ui.menu,name:security_manage_memu.security_check_settings
+#: model:ir.ui.menu,name:security_manage_menu.security_check_settings
 msgid "security_check_settings"
 msgstr "安全检查设置"
 
 #. module: security_manage_memu
-#: model:ir.ui.menu,name:security_manage_memu.security_manage_menu_root
+#: model:ir.ui.menu,name:security_manage_menu.security_manage_menu_root
 msgid "security_manage"
 msgstr "安全管理"
 
 #. module: security_manage_memu
-#: model:ir.ui.menu,name:security_manage_memu.security_vehicle_check_menu
+#: model:ir.ui.menu,name:security_manage_menu.security_vehicle_check_menu
 msgid "security_vehicle_check"
 msgstr "车辆安全检查"
 

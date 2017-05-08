@@ -21,7 +21,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'hr', 'security_manage_memu'],
+    'depends': ['base', 'hr', 'security_manage_menu'],
 
     # always loaded
     'data': [
