@@ -33,19 +33,19 @@
         <!--二级菜单 消防设施分布图-->
         <menuitem name="fire fighting device map" id="fire_device_map_second_menu"
                   parent="security_manage_memu.fire_safety_first_menu"
-                  action="act_fire_device_map"/>
+                  action="act_fire_device_map" sequence="10"/>
         <!--二级菜单 消防危险源管理-->
         <menuitem name="fire danger source manage" id="fire_danger_source_second_menu"
                   parent="security_manage_memu.fire_safety_first_menu"
-                  action="act_fire_danger_src"/>
-        <!--二级菜单 消防设施管理-->
-        <menuitem name="fire fight device manage" id="fire_device_manage_second_menu"
-                  parent="security_manage_memu.fire_safety_first_menu"
-                  action="act_fire_device_manage"/>
+                  action="act_fire_danger_src" sequence="20"/>
+        <!--&lt;!&ndash;二级菜单 消防设施管理&ndash;&gt;-->
+        <!--<menuitem name="fire fight device manage" id="fire_device_manage_second_menu"-->
+                  <!--parent="security_manage_memu.fire_safety_first_menu"-->
+                  <!--action="act_fire_device_manage" sequence="30"/>-->
         <!--二级菜单 消防应急预案-->
         <menuitem name="fire emergency plan" id="fire_emergency_plan_second_menu"
                   parent="security_manage_memu.fire_safety_first_menu"
-                  action="act_fire_emergency_plan"/>
+                  action="act_fire_emergency_plan" sequence="40"/>
         <!--消防安全 end-->
 
     </data>

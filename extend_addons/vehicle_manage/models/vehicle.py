@@ -185,4 +185,61 @@ class VehicleEmissionStandard(models.Model):
     level_code = fields.Char('Level Code', help='Level Code', required=True)
 
 
+# 线路管理
+class route_manage(models.Model):
+    _inherit = 'route_manage.route_manage'
+
+    # 车辆资源
+    vehicle_res = fields.One2many('fleet.vehicle', 'route_id', string=_('vehicle resource'))
+
+    # 驾驶员比例
+    driver_rate = fields.Float(compute='_getDriverRate' ,string=_('driver rate'))
+
+    # 获取线路驾驶员数量
+    def getDriverNumber(self, routeid):
+        hrmode = self.env['hr.employee']
+        return hrmode.search_count([('lines', '=', routeid),('workpost.posttype', '=', 'driver')])
+
+    # 获取售票员数量
+    def getConductorNumber(self, routeid):
+        hrmode = self.env['hr.employee']
+        return hrmode.search_count([('lines', '=', routeid),('workpost.posttype', '=', 'conductor')])
+
+    # 获取车辆数量
+    def getVehicleNumber(self, routeid):
+        vehiclemode = self.env['fleet.vehicle']
+        return vehiclemode.search_count([('route_id', '=', routeid)])
+
+    # 获取线路下所有人员数量
+    def getAllHumanNumber(self, routeid):
+        hrmode = self.env['hr.employee']
+        return hrmode.search_count([('lines', '=', routeid)])
+
+    @api.multi
+    def _getDriverRate(self):
+        for item in self:
+            vehiclenum = self.getVehicleNumber(item.id)
+            drivernum = self.getDriverNumber(item.id)
+            item.driver_rate = round(drivernum/vehiclenum,1)
+
+    # 售票员比例
+    conductor_rate = fields.Float(compute='_getConductorRate',string=_('conductor rate'))
+
+    @api.multi
+    def _getConductorRate(self):
+        for item in self:
+            vehiclenum = self.getVehicleNumber(item.id)
+            conductornum = self.getConductorNumber(item.id)
+            item.conductor_rate = round(conductornum/vehiclenum, 1)
+
+    # 综合比例
+    synthesize_rate = fields.Float(compute='_getSynthesizeRate' ,string=_('synthesize rate'))
+
+    @api.multi
+    def _getSynthesizeRate(self):
+        for item in self:
+            vehiclenum = self.getVehicleNumber(item.id)
+            all = self.getAllHumanNumber(item.id)
+            item.synthesize_rate = round(all/vehiclenum, 1)
+
 

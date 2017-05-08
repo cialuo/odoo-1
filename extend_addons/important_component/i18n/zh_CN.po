@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-05 06:02+0000\n"
-"PO-Revision-Date: 2017-05-05 06:02+0000\n"
+"POT-Creation-Date: 2017-05-06 09:55+0000\n"
+"PO-Revision-Date: 2017-05-06 09:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,7 @@ msgid "Code already exists"
 msgstr "部件编码已存在"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_component_id
 #: model:ir.model.fields,field_description:important_component.field_fleet_vehicle_component_ids
 #: model:ir.model.fields,field_description:important_component.field_maintain_manage_repair_component_ids
 #: model:ir.model.fields,field_description:important_component.field_warranty_order_project_component_ids
@@ -49,15 +50,37 @@ msgid "Component"
 msgstr "作为重要部件管理"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_component_code
 #: model:ir.model.fields,field_description:important_component.field_product_component_code
 msgid "Component Code"
 msgstr "部件编码"
+
+#. module: important_component
+#: model:ir.ui.view,arch_db:important_component.vehicle_usage_records_view_form_extend
+msgid "Component Dismantle"
+msgstr "要件变更"
 
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_product_product_component_ids
 #: model:ir.ui.view,arch_db:important_component.important_component_product_extend_form
 msgid "Component Info"
 msgstr "部件清单"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_product_id
+msgid "Component Type"
+msgstr "要件分类"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_stock_move_component_ids
+msgid "Component ids"
+msgstr "要件清单"
+
+#. module: important_component
+#: code:addons/important_component/models/stock.py:21
+#, python-format
+msgid "Component qty can not greate than product qty!"
+msgstr "要件清单数量不能大于处理移动数量!"
 
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_fleet_vehicle_model_control_import
@@ -70,12 +93,14 @@ msgid "Create order Date"
 msgstr "建档日期"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_create_uid
 #: model:ir.model.fields,field_description:important_component.field_product_component_create_uid
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_create_date
 #: model:ir.model.fields,field_description:important_component.field_product_component_create_date
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_create_date
 msgid "Created on"
@@ -92,6 +117,27 @@ msgid "Description"
 msgstr "规格描述"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_fleet_vehicle_dismantle_ids
+msgid "Dismantle"
+msgstr "要件变更"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_dismantle_date
+msgid "Dismantle Date"
+msgstr "卸载时间"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_dismantle_user
+msgid "Dismantle User"
+msgstr "装卸工"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_dismantle_type
+msgid "Dismantle type"
+msgstr "卸载原因"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_display_name
 #: model:ir.model.fields,field_description:important_component.field_product_component_display_name
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_display_name
 msgid "Display Name"
@@ -108,6 +154,12 @@ msgid "Equipment"
 msgstr "作为设备管理"
 
 #. module: important_component
+#: selection:dismantle.component,dismantle_type:0
+msgid "Fault"
+msgstr "部件故障"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_id
 #: model:ir.model.fields,field_description:important_component.field_product_component_id
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_id
 msgid "ID"
@@ -144,6 +196,21 @@ msgid "Information on a vehicle"
 msgstr "车辆上的信息"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_install_date
+msgid "Install Date"
+msgstr "装配时间"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_install_user
+msgid "Install User"
+msgstr "装卸工"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_install_type
+msgid "Install type"
+msgstr "装配原因"
+
+#. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_default_code
 msgid "Internal Reference"
 msgstr "物资编码"
@@ -170,18 +237,21 @@ msgid "Is important product"
 msgstr "重要部件作业"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component___last_update
 #: model:ir.model.fields,field_description:important_component.field_product_component___last_update
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_write_uid
 #: model:ir.model.fields,field_description:important_component.field_product_component_write_uid
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_write_date
 #: model:ir.model.fields,field_description:important_component.field_product_component_write_date
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_write_date
 msgid "Last Updated on"
@@ -203,7 +273,7 @@ msgid "Move lines"
 msgstr "移动明细"
 
 #. module: important_component
-#: code:addons/important_component/models/fleet.py:122
+#: code:addons/important_component/models/fleet.py:132
 #, python-format
 msgid "Not have any vehicles!"
 msgstr "该车型无车辆!"
@@ -217,6 +287,21 @@ msgstr "备注"
 #: model:ir.model.fields,field_description:important_component.field_product_component_odometer
 msgid "Odometer"
 msgstr "服役里程数"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_operate_days
+msgid "Operating Days"
+msgstr "时长"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_operate_mileage
+msgid "Operating Mileage"
+msgstr "增加里程"
+
+#. module: important_component
+#: selection:dismantle.component,dismantle_type:0
+msgid "Other"
+msgstr "其他"
 
 #. module: important_component
 #: model:ir.model,name:important_component.model_product_product
@@ -241,6 +326,11 @@ msgid "Qty"
 msgstr "装配数量"
 
 #. module: important_component
+#: selection:dismantle.component,install_type:0
+msgid "Repair"
+msgstr "维修换件"
+
+#. module: important_component
 #: selection:product.component,state:0
 msgid "Repareing"
 msgstr "正在维修"
@@ -256,7 +346,7 @@ msgid "Stock Move"
 msgstr "库存移动"
 
 #. module: important_component
-#: code:addons/important_component/models/stock.py:70
+#: code:addons/important_component/models/stock.py:105
 #, python-format
 msgid "There are important & not important components,please remove: %s "
 msgstr "重要部件和非重要不能不能同时申领,请移除非重要部件: %s "
@@ -277,6 +367,7 @@ msgid "Update Product"
 msgstr "更新部件"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_dismantle_component_vehicle_id
 #: model:ir.model.fields,field_description:important_component.field_product_component_parent_vehicle
 msgid "Vehicle"
 msgstr "车辆"
@@ -292,10 +383,20 @@ msgid "Waiting Repare"
 msgstr "在库待修"
 
 #. module: important_component
-#: code:addons/important_component/models/fleet.py:31
+#: selection:dismantle.component,install_type:0
+msgid "Within Vehicle"
+msgstr "新车入库"
+
+#. module: important_component
+#: code:addons/important_component/models/fleet.py:32
 #, python-format
 msgid "can not update model,you could add a new vehicle"
 msgstr "车辆创建后，车型不能更改！"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_dismantle_component
+msgid "dismantle.component"
+msgstr "dismantle.component"
 
 #. module: important_component
 #: model:ir.model,name:important_component.model_maintain_fault_method
@@ -316,6 +417,11 @@ msgstr "product.component"
 #: model:ir.model,name:important_component.model_vehicle_model_product
 msgid "vehicle.model.product"
 msgstr "vehicle.model.product"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_warranty_order
+msgid "warranty_order"
+msgstr "保养单"
 
 #. module: important_component
 #: model:ir.model,name:important_component.model_warranty_order_project

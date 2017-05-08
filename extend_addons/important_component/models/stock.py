@@ -7,6 +7,18 @@ from odoo.tools.translate import _
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
+    component_ids = fields.Many2many('product.component', 'component_move_rec', id1='move_id', id2='component_id',
+                                     domain="[('product_id', '=', product_id), ('state', '=', 'avaliable')])")
+    @api.multi
+    @api.constrains('product_uom_qty', 'component_ids')
+    def _check_component_qty(self):
+        """
+        重要部件选择 数量约束
+        :return: 
+        """
+        for move in self:
+            if len(move.component_ids) > move.product_uom_qty:
+                raise UserError(_('Component qty can not greate than product qty!'))
     @api.multi
     def action_done(self):
         """
@@ -28,6 +40,22 @@ class StockMove(models.Model):
                             'move_id': move.id,
                             'state': 'avaliable',
                         })
+            if move.component_ids:
+                """
+                如果库存移动中，有重要部件清单
+                1：调拨单目标库位为车辆库位，重要部件更新为 正在服役，位置为：车辆实库
+                2：调拨单目标库位为旧货库位，重要部件更新为 在库待修，位置为：旧货库位
+                """
+                vals = {}
+                vals['location_id'] = move.picking_id.location_dest_id.id
+                if move.picking_id and move.picking_id.location_dest_id.is_vehicle:
+                    vals['state'] = 'inuse'
+                    vals['parent_vehicle'] = move.picking_id.repair_id.vehicle_id.id
+                location_old = self.env.ref('stock_picking_types.stock_location_old_to_new')
+                if move.picking_id and move.picking_id.location_dest_id == location_old:
+                    vals['state'] = 'waiting_repare'
+                    vals['parent_vehicle'] = None
+                move.component_ids.write(vals)
         return res
 
 class StockPicking(models.Model):
@@ -51,6 +79,7 @@ class StockPicking(models.Model):
                     if type == u'退料':
                         order.write({'location_id': obj.vehicle_id.location_stock_id.id})
                     elif type == u'领料':
+                        order.write({'location_id': obj.vehicle_id.location_stock_id.id})
                         try:
                             if obj > self.env['maintain.manage.repair']:
                                 self.check_product_avail_repair(type, order)
@@ -61,9 +90,15 @@ class StockPicking(models.Model):
                     else:
                         try:
                             if obj > self.env['maintain.manage.repair']:
-                                self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
+                                # order.move_lines.write({'component_ids': [(6,0,order.repair_id.component_ids.ids)]})
+                                o2n_picking = self._gen_old_new_picking_repair(order, order.move_lines, location_id, location_dest_id)
+                                if o2n_picking:
+                                    o2n_picking.move_lines.write({'component_ids': [(6, 0, order.repair_id.component_ids.ids)]})
+
                         except TypeError:
-                            self._gen_old_new_picking_warranty(order, order.move_lines, location_id, location_dest_id)
+                            o2n_picking = self._gen_old_new_picking_warranty(order, order.move_lines, location_id, location_dest_id)
+                            if o2n_picking:
+                                o2n_picking.move_lines.write({'component_ids': [(6, 0, order.warranty_order_id.component_ids.ids)]})
                 else:
                     no_import_products = order.move_lines.mapped('product_id').filtered(lambda x: not x.is_important)
                     remove_products = ','.join([i.name for i in no_import_products])

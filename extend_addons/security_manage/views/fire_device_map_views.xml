@@ -9,58 +9,42 @@
                     <field name="area"/>
                     <field name="place"/>
                     <field name="name"/>
-                    <field name="creator"/>
-                    <field name="update_date"/>
+                    <field name="create_uid" readonly="1"/>
+                    <field name="create_date" readonly="1"/>
                 </tree>
             </field>
         </record>
 
-        <!--<record model="ir.ui.view" id="srp_produce_map_form">-->
-            <!--<field name="name">哈哈</field>-->
-            <!--<field name="model">srp.produce_map</field>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<form string="Idea form">-->
-                    <!--<header>-->
-                        <!--<button name="action_to_default" type="object"-->
-                                <!--string="Reset to default"-->
-                                <!--states="archive"/>-->
-                        <!--<button name="action_archive" type="object"-->
-                                <!--string="Mark as archive" states="use"-->
-                                <!--class="oe_highlight"/>-->
-                        <!--<field name="state" widget="statusbar"/>-->
-                    <!--</header>-->
-                    <!--<sheet>-->
-                        <!--<div class="oe_title">-->
-                            <!--&lt;!&ndash;<label for="name"/>&ndash;&gt;-->
-                            <!--<h1>-->
-                                <!--<field name="name" placeholder="placeholder"/>-->
-                            <!--</h1>-->
-                        <!--</div>-->
-                        <!--<group name="group_top">-->
-                            <!--<group name="group_left">-->
-                                <!--<field name="archives_class_big"/>-->
-                                <!--<field name="archives_class_little"/>-->
-                            <!--</group>-->
+        <record model="ir.ui.view" id="fire_device_map_form">
+            <field name="name">fire_device_map form</field>
+            <field name="model">sfs.fire_device_map</field>
+            <field name="arch" type="xml">
+                <form string="Idea form">
+                    <sheet>
+                        <div class="oe_title">
+                            <!--<label for="name"/>-->
+                            <h1>
+                                <field name="name" placeholder="fire fight device map name hint"/>
+                            </h1>
+                        </div>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="area"/>
+                            </group>
 
-                            <!--<group name="group_right">-->
-                                <!--<field name="archvies_id"/>-->
-                                <!--<field name="archives_creator"/>-->
-                                <!--<field name="archives_creator_date"/>-->
-                            <!--</group>-->
+                            <group name="group_right">
+                                <field name="place"/>
 
-                        <!--</group>-->
-                        <!--<notebook>-->
-                            <!--<page string="Archive Content">-->
-                                <!--<field name="description" widget="html" options="{'style-inline': true}"/>-->
-                                <!--<div>-->
-                                    <!--<field name="attachment_ids" widget="many2many_binary" string="Attach a file"-->
-                                           <!--class="oe_inline"/>-->
-                                <!--</div>-->
-                            <!--</page>-->
-                        <!--</notebook>-->
-                    <!--</sheet>-->
-                <!--</form>-->
-            <!--</field>-->
-        <!--</record>-->
+                            </group>
+
+                        </group>
+                        <div>
+                            <field name="attachment_ids" widget="many2many_binary" string="Attach a file"
+                                   class="oe_inline"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
     </data>
 </openerp>

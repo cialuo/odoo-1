@@ -232,19 +232,11 @@
                         </group>
 
                         <notebook>
-                            <page string="platform resource">
+                            <page string="platform resource" name="platform_page">
                                 <field name="platform_resource"/>
                             </page>
-                            <page string="vehicle resource"></page>
-                            <page string="human resource">
+                            <page string="human resource" name="hr_page">
                                 <field name="human_resource"/>
-                            </page>
-                            <page string="people per cars">
-                                <group>
-                                    <field name="driver_per_vehicle"/>
-                                    <field name="steward_per_vehicle"/>
-                                    <field name="line_synthesis_person_per_vehicle"/>
-                                </group>
                             </page>
                         </notebook>
                     </sheet>

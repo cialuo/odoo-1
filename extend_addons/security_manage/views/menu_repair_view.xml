@@ -60,39 +60,39 @@
         <!--二级菜单 维修质量安全管理-->
         <menuitem name="repair quality security manage" id="repair_quality_second_menu"
                   parent="security_manage_memu.repair_produce_first_menu"
-                  action="act_repair_quality"/>
+                  action="act_repair_quality" sequence="10"/>
 
         <!--二级菜单 维修车间现场安全-->
         <menuitem name="repair site security manage" id="repair_site_second_menu"
                   parent="security_manage_memu.repair_produce_first_menu"
-                  action="act_repair_site"/>
+                  action="act_repair_site" sequence="20"/>
 
         <!--二级菜单 职业病管理-->
         <menuitem name="occupational disease manage" id="disease_second_menu"
                   parent="security_manage_memu.repair_produce_first_menu"
-                  action="act_disease"/>
-        <!--二级菜单 维修工安全培训-->
-        <menuitem name="maintainer security train" id="maintainer_train_second_menu"
-                  parent="security_manage_memu.repair_produce_first_menu"
-                  action="act_maintainer_train"/>
+                  action="act_disease" sequence="30"/>
+        <!--&lt;!&ndash;二级菜单 维修工安全培训&ndash;&gt;-->
+        <!--<menuitem name="maintainer security train" id="maintainer_train_second_menu"-->
+                  <!--parent="security_manage_memu.repair_produce_first_menu"-->
+                  <!--action="act_maintainer_train" sequence="40"/>-->
         <!--二级菜单 生产现场位置分布图-->
         <menuitem name="produce field map" id="produce_map_second_menu"
                   parent="security_manage_memu.repair_produce_first_menu"
-                  action="act_produce_map"/>
+                  action="act_produce_map" sequence="50"/>
         <!--二级菜单 生产现场危险源管理-->
         <menuitem name="produce field danger manage" id="source_of_danger_second_menu"
                   parent="security_manage_memu.repair_produce_first_menu"
-                  action="act_source_of_danger"/>
+                  action="act_source_of_danger" sequence="60"/>
 
         <!--二级菜单 生产安全技术措施管理-->
         <menuitem name="produce safety  manage" id="safety_manage_second_menu"
                   parent="security_manage_memu.repair_produce_first_menu"
-                  action="act_safety_tec_manage"/>
+                  action="act_safety_tec_manage" sequence="70"/>
 
         <!--二级菜单 安全应急预案管理-->
         <menuitem name="safety emergency plan manage" id="emergency_plan_second_menu"
                   parent="security_manage_memu.repair_produce_first_menu"
-                  action="act_emergency_plan"/>
+                  action="act_emergency_plan"  sequence="80"/>
         <!--维修生产安全 end-->
 
     </data>

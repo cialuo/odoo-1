@@ -48,8 +48,8 @@
 
                             <group name="group_right">
                                 <!--<separator string="Dates" colspan="2"/>-->
-                                <field name="form_creator"/>
-                                <field name="create_time"/>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
                                 <!--<field name="invent_date" readonly="1"/>-->
                             </group>
 

@@ -167,10 +167,6 @@ class route_manage(models.Model):
 
     subsidiary = fields.Char(_('Subsidiary'))  # 隶属公司
 
-    driver_per_vehicle = fields.Char(_('Driver per vehicle'))
-    steward_per_vehicle = fields.Char(_('Steward per vehicle'))
-    line_synthesis_person_per_vehicle = fields.Char(_('Line synthesis person per vehicle'))
-
     WORKFLOW_STATE_SELECTION = [
             ('inuse', _('In-use')),
             ('archive', _('Archive'))

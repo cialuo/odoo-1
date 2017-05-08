@@ -24,6 +24,7 @@
                            attrs="{'invisible': [('is_important_product', '=', False)],'required': [('is_important_product','=', True)]}"/>
                     <field name="is_important_product" invisible="1"/>
                     <field name="important_product_id" invisible="1"/>
+                    <field name="vehicle_id" invisible="1"/>
                 </xpath>
             </field>
         </record>

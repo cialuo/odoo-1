@@ -15,6 +15,7 @@
         'views/vehicle_component_view.xml',
         'views/maintain_view.xml',
         'views/warranty_view.xml',
+        'views/stock_move.xml',
     ],
     'depends': ['vehicle_maintain', 'vehicle_manage', 'vehicle_warranty'],
     'application': True,

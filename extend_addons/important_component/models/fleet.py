@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api, fields, models, exceptions
 from odoo.tools.translate import _
+import datetime
 
 class Vehicle(models.Model):
     _inherit = 'fleet.vehicle'
@@ -58,6 +59,7 @@ class VehicleModel(models.Model):
         moves = self.env['stock.move'].create(move_vals)
         moves.action_done()
 
+
     def _vehicle_update_component(self, vehicles, update=True):
         """
 
@@ -83,11 +85,19 @@ class VehicleModel(models.Model):
                 # 数量增加，则增加部件清单
                 for v in vehicles:
                     for line in range(lines):
-                        com_obj.create({
+                        com = com_obj.create({
                             'product_id': l.product_id.id,
                             'parent_vehicle': v.id,
                             'location_id': v.location_stock_id.id,
                         })
+                        dismantle_obj = self.env['dismantle.component']
+                        dismantle_vals = {
+                            'component_id': com.id,
+                            'install_type': 'within_vehicle',
+                            'install_date': fields.Date.today(),
+                            'vehicle_id': v.id,
+                        }
+                        dismantle_obj.create(dismantle_vals)
                     #创建重要部件清，同时需要做对应的库存移动
                     self._vehicle_move(v, l.product_id, lines)
             else:

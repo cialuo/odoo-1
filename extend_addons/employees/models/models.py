@@ -211,8 +211,10 @@ class post(models.Model):
     description = fields.Char(string=_('post infomation'))
     # 岗位类型
     posttype = fields.Selection([
-        ('manager', _('post title manager')),  # 经理
-        ('labour', _('post title labour'))  # 员工
+        ('manager', _('post title manager')),       # 经理
+        ('labour', _('post title labour')),         # 员工
+        ('driver', _('post title driver')),         # 司机
+        ('conductor', _('post title conductor'))    # 售票员
     ], string=_('post title list'), required=True)
     # 岗位员工
     members = fields.One2many('hr.employee', 'workpost', string=_('post members'))
