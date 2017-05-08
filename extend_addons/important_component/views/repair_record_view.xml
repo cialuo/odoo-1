@@ -1,0 +1,91 @@
+<odoo>
+    <data>
+        <!--importproduct Form-->
+        <record id='fleet_vehicle_repair_inherit' model='ir.ui.view'>
+            <field name="name">product.component.form.inherit</field>
+            <field name="model">product.component</field>
+            <field name="inherit_id" ref="fleet_important_detailed_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button name="return_warranty_action_to_open"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            context="{'xml_id':'warranty_order_item_action'}" >
+                            <field name="warranty_count" widget="statinfo" string="Warrantys"/>
+                    </button>
+                    <button name="action_to_open"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            context="{'xml_id':'maintain_repair_action'}" >
+                            <field name="repair_count" widget="statinfo" string="Repairs"/>
+                    </button>
+                </div>
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="warranty_record" string="Warranty Record">
+                        <field name="warranty_ids">
+                            <tree string="Warranty Record" create="false" delete="false">
+                                <field name="warranty_order_id"/>
+                                <field name="category_id"/>
+                                <field name="project_id"/>
+                                <field name="warranty_mode"/>
+                                <field name="create_date"/>
+                                <field name="maintenance_personnel"/>
+                                <field name="inspect_user_id"/>
+                                <field name="end_inspect_time"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="repair_record" string="Repair Record">
+                        <field name="repair_ids">
+                            <tree string="Repair Record" create="false" delete="false">
+                                <field name="report_id"/>
+                                <field name="repair_type"/>
+                                <field name="create_date"/>
+                                <field name="repair_names"/>
+                                <field name="inspect_user_id"/>
+                                <field name="end_inspect_time"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+        <!--&lt;!&ndash;importproduct Form&ndash;&gt;-->
+        <!--<record id='fleet_vehicle_repair_inherit' model='ir.ui.view'>-->
+            <!--<field name="name">product.component.form.inherit</field>-->
+            <!--<field name="model">product.component</field>-->
+            <!--<field name="inherit_id" ref="fleet_important_detailed_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<div name="button_box" position="inside">-->
+                    <!--<button name="action_to_open"-->
+                            <!--type="object"-->
+                            <!--class="oe_stat_button"-->
+                            <!--icon="fa-book"-->
+                            <!--context="{'xml_id':'maintain_repair_action'}" >-->
+                            <!--<field name="repair_count" widget="statinfo" string="Repairs"/>-->
+                    <!--</button>-->
+                <!--</div>-->
+
+                <!--<xpath expr="//notebook" position="inside">-->
+                    <!--<page name="repair_record" string="Repair Record">-->
+                        <!--<field name="repair_ids">-->
+                            <!--<tree string="Repair Record" create="false" delete="false">-->
+                                <!--<field name="report_id"/>-->
+                                <!--<field name="repair_type"/>-->
+                                <!--<field name="create_date"/>-->
+                                <!--<field name="repair_names"/>-->
+                                <!--<field name="inspect_user_id"/>-->
+                                <!--<field name="end_inspect_time"/>-->
+                            <!--</tree>-->
+                        <!--</field>-->
+                    <!--</page>-->
+                <!--</xpath>-->
+
+            <!--</field>-->
+        <!--</record>-->
+    </data>
+</odoo>
