@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+import time,datetime
 
 class usage_record(models.Model):
 
@@ -24,8 +25,8 @@ class usage_record(models.Model):
     #状态
     state = fields.Selection([('normal', 'Normal'), ('stop', 'Stop')],default='normal')
 
-    #使用
-    record_date = fields.Date(string='Record Date')
+    #使用能源时间
+    record_date = fields.Datetime(string='Record Date',default=fields.Datetime.now())
 
     #加油人
     operator = fields.Many2one('hr.employee',string='Operator')
@@ -45,7 +46,7 @@ class usage_record(models.Model):
     #车辆编号
     inner_code = fields.Char(string='Inner Code',related='vehicle_id.inner_code', store=False, readonly=True)
 
-    #额定油耗
+    #使用量
     fuel_capacity = fields.Float(string='Fuel Capacity',required=True)
 
     #单位
@@ -66,6 +67,21 @@ class usage_record(models.Model):
 
     #gps油耗
     gps_oil_wear = fields.Float(string='GPS Oil Wear ')
+
+    #库位单价
+    location_price = fields.Float(string='Location Price',digits=(12,2))
+
+    # 使用总价
+    total_price = fields.Float(string='Total Price',digits=(12,2))
+
+    @api.onchange('location_price','fuel_capacity')
+    def _compute_total_price(self):
+        """
+            根据使用量和单价计算总价：
+                总价 = 单价 * 使用量
+        :return:
+        """
+        self.total_price = self.location_price * self.fuel_capacity
 
     @api.multi
     def normal_to_stop(self):
@@ -157,8 +173,47 @@ class vehicle_usage_record(models.Model):
         继承车辆信息,新增能源记录
     """
 
+    @api.depends('average_day_number')
+    def _compute_average_oil_wear(self):
+        """
+            根据天数计算百里油耗
+        :return:
+        """
+
+        today = datetime.datetime.now()
+
+        for i in self:
+
+            yesterday = today - datetime.timedelta(days=i.average_day_number)
+
+
+            domain = ['&',('vehicle_id', '=', i.id),('create_date', '>=', yesterday)]
+
+            records = self.env['energy.usage_record'].search(domain)
+
+            # 叠加运营里程和GPS里程
+            working_mileage = 0
+            working_oil_wear = 0
+            for record in records:
+                working_mileage += record.working_mileage
+                working_oil_wear += record.fuel_capacity
+
+            # 计算油耗
+            if working_mileage > 0:
+                """
+                        总加油量 / 总里程 * 100
+                """
+                i.average_oil_wear = round(working_oil_wear / working_mileage,4) * 100
+
+
     #能源记录
     energy_usage_record_ids = fields.One2many('energy.usage_record','vehicle_id',string='energy_usage_record_ids')
+
+    #平均百里油耗
+    average_oil_wear = fields.Float(string='Average Oil Wear',compute=_compute_average_oil_wear,digits=(12,4))
+
+    #平均油耗天数
+    average_day_number = fields.Integer(string='Average Day Number',default=30)
 
     @api.multi
     def action_to_usage_record(self):
@@ -176,4 +231,28 @@ class vehicle_usage_record(models.Model):
             )
             return res
         return False
+
+class fleet_vehicle_model(models.Model):
+
+    _inherit = 'fleet.vehicle.model'
+
+    """
+        继承车型，在车型里新增平均油耗,并计算值
+    """
+
+    @api.multi
+    def _compute_model_average_oil_wear(self):
+
+        """
+            默认计算值:
+            1.获取车型下的所有所有车辆信息
+            2.获取每一辆的平均百里油耗
+            3.(车辆1的百里油耗 + ... 车辆N的百里油耗) / 车辆数 = 车型平均油耗
+        :return:
+        """
+        for i in self:
+            vehicles = self.env['fleet.vehicle'].search([('model_id','=',i.id)])
+            i.model_average_oil_wear = sum(vehicles.mapped('average_oil_wear')) / len(vehicles)
+
+    model_average_oil_wear = fields.Float(string='Average Oil Wear', compute=_compute_model_average_oil_wear)
 
