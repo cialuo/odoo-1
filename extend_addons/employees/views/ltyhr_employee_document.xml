@@ -659,20 +659,17 @@
         </record>
 
         <!-- 人力资源档案 -->
-        <menuitem id="ltyhr_top_menu" name="LTY human resource"/>
-        <menuitem id="ltyhr_employee_document_menu" name="employee document"
-                  parent="ltyhr_top_menu"/>
         <menuitem id="ltyhr_employee_document_employeeinfo_menu" name="employee infomation"
-                  parent="ltyhr_employee_document_menu" action="ltyhr_employee_information"/>
+                  parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_information"/>
         <menuitem id="ltyhr_employee_document_department_menu" name="employee department"
-                  parent="ltyhr_employee_document_menu" action="ltyhr_employee_department"/>
+                  parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_department"/>
         <menuitem id="ltyhr_employee_document_post_menu" name="employee post"
-                  parent="ltyhr_employee_document_menu" action="ltyhr_employee_post"/>
+                  parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_post"/>
 
         <!-- 档案与调动 -->
         <menuitem id="ltyhr_employee_document_transfer_menu" name="_document_transfer"
                   sequence="50"
-                  parent="ltyhr_employee_document_menu"/>
+                  parent="employees_menu.ltyhr_employee_document_menu"/>
 
         <!--劳动合同档案-->
         <menuitem
