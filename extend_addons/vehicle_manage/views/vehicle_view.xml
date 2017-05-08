@@ -81,6 +81,7 @@
                                         <field name="start_service_date"/>
                                     </group>
                                     <group>
+                                        <field name="oil_wear_coefficient"/>
                                         <field name="deadline"/>
 
                                         <field name="service_year"/>

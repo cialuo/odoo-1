@@ -68,6 +68,8 @@ class Vehicle(models.Model):
     # 司机
     driver = fields.Many2many('hr.employee', relation='vehicle_driver_employee', string=_('driver'))
 
+    oil_wear_coefficient = fields.Float(related='route_id.oil_wear_coefficient', string="oil_wear_coefficient")
+
     @api.depends('start_service_date')
     def _get_salvage_rate(self):
         for i in self:
@@ -176,11 +178,11 @@ class VehicleEmissionStandard(models.Model):
     排放标准
     """
     _name = 'vehicle_manage.emission_standard'
-    _sql_constraints = [('stand_code_unique', 'unique(code)', _('Standard code already exists'))]
+    _sql_constraints = [('stand_code_unique', 'unique(level_code)', _('Standard code already exists'))]
 
-    name = fields.Char("Emission Level", help="Emission Level")
+    name = fields.Char("Emission Level", help="Emission Level", required=True)
     remark = fields.Text("Remark", help="Remark")
-    level_code = fields.Char('Level Code', help='Level Code')
+    level_code = fields.Char('Level Code', help='Level Code', required=True)
 
 
 

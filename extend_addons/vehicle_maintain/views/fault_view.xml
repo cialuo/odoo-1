@@ -258,11 +258,8 @@
 	                        <group>
 								<field name="inner_code" />
 								<field name="category_id" options="{'no_open':True,'no_create':True}"/>
-								<field name="appearance_id" options="{'no_open':True,'no_create':True}" domain="[('category_id', '=', category_id)]"/>
-								<field name="reason_id" options="{'no_open':True,'no_create':True}"
-									   domain="['|',('appearance_id', '=', False),('appearance_id', '=', appearance_id)]"/>
-									   <!--domain="['|',('team_id','=',False),('team_id','=',team_id)]"-->
-
+								<field name="appearance_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="reason_id" options="{'no_open':True,'no_create':True}"/>
 	                        </group>
 	                        <group>
 	                            <field name="fault_method_code" />
