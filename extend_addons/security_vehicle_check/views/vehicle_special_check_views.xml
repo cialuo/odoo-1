@@ -52,19 +52,21 @@
                                 <field name="route"/>
                                 <field name="check_result"/>
                                 <field name="remark"/>
-                                <field name="check_form"/>
                             </group>
                         </group>
 
                         <notebook>
                             <page name="vehicle_check_plan_details" string="plan_details">
-
-                                <group>
-
-                                    <!--<field name="plan_details"/>-->
-
-                                </group>
-
+                                <field name="plan_details_id">
+                                    <tree string="plan_details" editable='bottom' create="false" delete="false">
+                                        <field name="item_id"/>
+                                        <field name="check_item_name"/>
+                                        <field name="check_content"/>
+                                        <field name="check_standards"/>
+                                        <field name="check_result"/>
+                                        <field name="remark"/>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
