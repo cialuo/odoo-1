@@ -206,5 +206,6 @@ class StockMove(models.Model):
             if move.procurement_id:
                 plan = plan_obj.search([('name', '=', move.procurement_id.origin)])
                 if all([a.state == 'done' for a in plan.line_ids]):
-                    plan.state = 'done'
+                    plan.write({'state': 'done'})
+                    # plan.state = 'done'
         return res
