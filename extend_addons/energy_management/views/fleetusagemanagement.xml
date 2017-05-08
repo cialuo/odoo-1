@@ -15,14 +15,15 @@
         <field name = "inherit_id" ref = "vehicle_manage.vehicle_usage_records_view_form"/>
         <field name = "arch" type = "xml" >
 
+
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button name="action_to_usage_record"
                         type="object"
                         class="oe_stat_button"
-                        icon="fa-tachometer"
+                        icon="fa-flask"
                         context="{'xml_id':'aw_energy_usage_record_inherit'}"
                         >
-                    <field name="license_plate" widget="statinfo" string="百里油耗"/>
+                        <field name="average_oil_wear" widget="statinfo" string="Fuel consumption per mile "/>
                 </button>
             </xpath>
 
@@ -47,8 +48,35 @@
              </xpath>
         </field>
     </record>
+    <!--
+        继承车辆信息档案：
+            新增百里油耗的显示
+    -->
+    <record model = "ir.ui.view" id = "energy_management.fleet_vehicle_form">
+        <field name = "name" >fleet_vehicle_form form</field >
+        <field name = "model" >fleet.vehicle</field >
+        <field name = "inherit_id" ref = "vehicle_manage.fleet_vehicle_view_form"/>
+        <field name = "arch" type = "xml" >
 
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_to_usage_record"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-flask"
+                        context="{'xml_id':'aw_energy_usage_record_inherit'}"
+                        >
+                    <field name="average_oil_wear" widget="statinfo" string="Fuel consumption per mile "/>
+                </button>
+            </xpath>
 
+        </field>
+    </record>
+
+    <!--
+
+        点击百里油耗的的图表跳转动作
+
+    -->
     <record model="ir.actions.act_window" id="aw_energy_usage_record_inherit">
         <field name="name">energy_usage_record window</field>
         <field name="res_model">energy.usage_record</field>
