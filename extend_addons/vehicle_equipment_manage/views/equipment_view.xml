@@ -90,7 +90,7 @@
             action="hr_equipment_action" sequence="20"/>
 
         <!--消防设备档案管理-->
-        <menuitem id="fire_equipment" name="fire_equipment" parent="security_manage_memu.fire_safety_first_menu"
+        <menuitem id="fire_equipment" name="fire_equipment" parent="security_manage_menu.fire_safety_first_menu"
             action="fire_equipment_action" sequence="30"/>
 
     </data>
