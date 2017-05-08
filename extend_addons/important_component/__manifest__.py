@@ -16,6 +16,11 @@
         'views/maintain_view.xml',
         'views/warranty_view.xml',
         'views/stock_move.xml',
+        'views/important_roster_views.xml',
+        'views/important_classification_views.xml',
+        'views/important_detailed_views.xml',
+        'views/repair_record_view.xml',
+
     ],
     'depends': ['vehicle_maintain', 'vehicle_manage', 'vehicle_warranty'],
     'application': True,

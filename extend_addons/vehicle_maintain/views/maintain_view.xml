@@ -175,10 +175,10 @@
 								states="precheck"/>     <!-- 检验退回-->
 
 
-						<button name="action_repair_to_precheck"
-								type="object"
-                                string="Dispatch to Precheck"
-                                states="repair"/> 		<!-- 退回检验-->
+						<!--<button name="action_repair_to_precheck"-->
+								<!--type="object"-->
+                                <!--string="Dispatch to Precheck"-->
+                                <!--states="repair"/> 		&lt;!&ndash; 退回检验&ndash;&gt;-->
 
                     	<field name="state"  widget="statusbar"  statusbar_visible="draft,precheck,repair,completed"/>
                 	</header>
