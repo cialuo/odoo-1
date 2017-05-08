@@ -9,6 +9,7 @@ class vehicle_front_check(models.Model):
     @api.multi
     def _add_plan_details(self):
         res = self.env['security_manage.check_table'].search([("function_module", "=", u"车辆出车前检查")])
+        print 11111111111, res
         datas = []
         for i in res[0].plan_detail:
             data = {

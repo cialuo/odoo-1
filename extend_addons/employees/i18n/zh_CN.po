@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* employees
+#	* employees
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-06 10:29+0000\n"
-"PO-Revision-Date: 2017-05-06 18:29+0800\n"
+"POT-Creation-Date: 2017-05-08 03:11+0000\n"
+"PO-Revision-Date: 2017-05-08 03:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 2.0.1\n"
 
 #. module: employees
 #: model:ir.model,name:employees.model_res_groups
@@ -180,36 +178,6 @@ msgid "Users of this group automatically inherit those groups"
 msgstr "这个群组的用户自动继承那些群组"
 
 #. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_employee_contract_menu
-msgid "_contracts_document"
-msgstr "_contracts_document"
-
-#. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_employee_document_transfer_menu
-msgid "_document_transfer"
-msgstr "_document_transfer"
-
-#. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_employee_foreign_transfer_menu
-msgid "_foreign_transfer"
-msgstr "_foreign_transfer"
-
-#. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_employee_post_transfer_menu
-msgid "_post_transfer"
-msgstr "_post_transfer"
-
-#. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_employee_transfer_record_menu
-msgid "_transfer_record"
-msgstr "_transfer_record"
-
-#. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_employee_unit_transfer_menu
-msgid "_unit_transfer"
-msgstr "_unit_transfer"
-
-#. module: employees
 #: code:addons/employees/models/models.py:449
 #, python-format
 msgid "a group that bind with a post can not be delete"
@@ -256,6 +224,11 @@ msgstr "confirmed"
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_unit_transfer_form
 msgid "confirmed_countersign"
 msgstr "confirmed_countersign"
+
+#. module: employees
+#: model:ir.ui.menu,name:employees.ltyhr_employee_contract_menu
+msgid "contracts_document"
+msgstr "contracts_document"
 
 #. module: employees
 #: code:addons/employees/models/models.py:235
@@ -328,6 +301,11 @@ msgstr "子公司"
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_department_form
 msgid "department's Name"
 msgstr "部门名称"
+
+#. module: employees
+#: model:ir.ui.menu,name:employees.ltyhr_employee_document_transfer_menu
+msgid "document_transfer"
+msgstr "document_transfer"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.lty_view_employee_form
@@ -611,7 +589,7 @@ msgstr "employees_record_person"
 #: model:ir.model.fields,help:employees.field_employees_post_transfer_name
 #: model:ir.model.fields,help:employees.field_employees_unit_name
 msgid "employees_transfer_code"
-msgstr "employees_transfer_code"
+msgstr "调动单编码"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_entering_date
@@ -638,19 +616,22 @@ msgstr "employees_transfer_record"
 
 #. module: employees
 #: selection:employees.foreign,state:0
-#: selection:employees.post.transfer,state:0 selection:employees.unit,state:0
+#: selection:employees.post.transfer,state:0
+#: selection:employees.unit,state:0
 msgid "employees_unit_confirmed"
 msgstr "employees_unit_confirmed"
 
 #. module: employees
 #: selection:employees.foreign,state:0
-#: selection:employees.post.transfer,state:0 selection:employees.unit,state:0
+#: selection:employees.post.transfer,state:0
+#: selection:employees.unit,state:0
 msgid "employees_unit_done"
 msgstr "employees_unit_done"
 
 #. module: employees
 #: selection:employees.foreign,state:0
-#: selection:employees.post.transfer,state:0 selection:employees.unit,state:0
+#: selection:employees.post.transfer,state:0
+#: selection:employees.unit,state:0
 msgid "employees_unit_draft"
 msgstr "employees_unit_draft"
 
@@ -760,6 +741,7 @@ msgid "foreign transfer list"
 msgstr "foreign transfer list"
 
 #. module: employees
+#: model:ir.ui.menu,name:employees.ltyhr_employee_foreign_transfer_menu
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_foreign_transfer_form
 msgid "foreign_transfer"
 msgstr "foreign_transfer"
@@ -861,14 +843,12 @@ msgstr "关联权限"
 
 #. module: employees
 #: code:addons/employees/models/models.py:217
-#: selection:employees.post,posttype:0
 #, python-format
 msgid "post title conductor"
 msgstr "乘务员"
 
 #. module: employees
 #: code:addons/employees/models/models.py:216
-#: selection:employees.post,posttype:0
 #, python-format
 msgid "post title driver"
 msgstr "司机"
@@ -897,6 +877,7 @@ msgid "post transfer list"
 msgstr "post transfer list"
 
 #. module: employees
+#: model:ir.ui.menu,name:employees.ltyhr_employee_post_transfer_menu
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_post_transfer_form
 msgid "post_transfer"
 msgstr "post_transfer"
@@ -934,6 +915,7 @@ msgid "transfer_details"
 msgstr "transfer_details"
 
 #. module: employees
+#: model:ir.ui.menu,name:employees.ltyhr_employee_transfer_record_menu
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_employees_transfer_record_form
 msgid "transfer_record"
 msgstr "transfer_record"
@@ -955,3 +937,9 @@ msgstr "unit list"
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_unit_transfer_form
 msgid "unit_name"
 msgstr "unit_name"
+
+#. module: employees
+#: model:ir.ui.menu,name:employees.ltyhr_employee_unit_transfer_menu
+msgid "unit_transfer"
+msgstr "unit_transfer"
+
