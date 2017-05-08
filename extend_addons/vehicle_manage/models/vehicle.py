@@ -22,9 +22,8 @@ class Vehicle(models.Model):
     inner_code = fields.Char(string="Inner Code", help="Inner Code", required=True)
     route_id = fields.Many2one('route_manage.route_manage', string="Route")
     company_id = fields.Many2one('hr.department', 'Company')
-    # trainman = fields.Many2one('hr.employee', string="Trainman Name")
-    # driver = fields.Many2one('hr.employee', string="Driver Name", required=True)
-    engine_no = fields.Char('Engine No', help='Engine No')
+
+    engine_no = fields.Char("Engine No",related='model_id.engine_no')
     transmission_ext = fields.Char(related='model_id.transmission_ext', store=True, readonly=True, copy=False)
     fuel_type_ext = fields.Char(related='model_id.fuel_type_ext', store=True, readonly=True, copy=False)
     co2_ext = fields.Float(related='model_id.co2_ext', store=True, readonly=True, copy=False)
@@ -67,6 +66,8 @@ class Vehicle(models.Model):
     conductor = fields.Many2many('hr.employee', relation='vehicle_conductor_employee', string=_('conductor'))
     # 司机
     driver = fields.Many2many('hr.employee', relation='vehicle_driver_employee', string=_('driver'))
+
+    route_correct_value = fields.Float(related='route_id.oil_wear_coefficient', string="oil_wear_coefficient")
 
     @api.depends('start_service_date')
     def _get_salvage_rate(self):
@@ -146,8 +147,8 @@ class FleetVehicleModel(models.Model):
 
     home_entry_date = fields.Date("Home Entry Date", help='Home Entry Date')
     specifications = fields.Char("Specifications", help='Specifications')
-    engine_type_no = fields.Char("Engine Type No", help='Engine Type No')
-    chassis_no = fields.Integer('Chassis No', help='Chassis No')
+    engine_no = fields.Char("Engine No")
+    chassis_no = fields.Char('Chassis No')
     length = fields.Integer("Length", help='Length')
     width = fields.Integer("Width", help='Width')
     height = fields.Integer("Height", help='Height')
@@ -176,11 +177,11 @@ class VehicleEmissionStandard(models.Model):
     排放标准
     """
     _name = 'vehicle_manage.emission_standard'
-    _sql_constraints = [('stand_code_unique', 'unique(code)', _('Standard code already exists'))]
+    _sql_constraints = [('stand_code_unique', 'unique(level_code)', _('Standard code already exists'))]
 
-    name = fields.Char("Emission Level", help="Emission Level")
+    name = fields.Char("Emission Level", help="Emission Level", required=True)
     remark = fields.Text("Remark", help="Remark")
-    level_code = fields.Char('Level Code', help='Level Code')
+    level_code = fields.Char('Level Code', help='Level Code', required=True)
 
 
 # 线路管理

@@ -2,8 +2,8 @@
 
 from odoo import models, fields, api
 
-# class security_manage_memu(models.Model):
-#     _name = 'security_manage_memu.security_manage_memu'
+# class security_manage_menu(models.Model):
+#     _name = 'security_manage_menu.security_manage_menu'
 
 #     name = fields.Char()
 #     value = fields.Integer()
