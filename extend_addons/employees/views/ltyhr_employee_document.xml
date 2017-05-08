@@ -667,38 +667,38 @@
                   parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_post"/>
 
         <!-- 档案与调动 -->
-        <menuitem id="ltyhr_employee_document_transfer_menu" name="_document_transfer"
+        <menuitem id="ltyhr_employee_document_transfer_menu" name="document_transfer"
                   sequence="50"
                   parent="employees_menu.ltyhr_employee_document_menu"/>
 
         <!--劳动合同档案-->
         <menuitem
                 id="ltyhr_employee_contract_menu"
-                name="_contracts_document"
+                name="contracts_document"
                 action="hr_contract.action_hr_contract"
                 parent="ltyhr_employee_document_transfer_menu"
                 sequence="10"/>
 
         <!--单位调动-->
-        <menuitem id="ltyhr_employee_unit_transfer_menu" name="_unit_transfer"
+        <menuitem id="ltyhr_employee_unit_transfer_menu" name="unit_transfer"
                   sequence="20"
                   action="ltyhr_employees_unit_transfer"
                   parent="ltyhr_employee_document_transfer_menu"/>
 
         <!--岗位调动-->
-        <menuitem id="ltyhr_employee_post_transfer_menu" name="_post_transfer"
+        <menuitem id="ltyhr_employee_post_transfer_menu" name="post_transfer"
                   sequence="30"
                   action="ltyhr_employees_post_transfer"
                   parent="ltyhr_employee_document_transfer_menu"/>
 
         <!--对外调动-->
-        <menuitem id="ltyhr_employee_foreign_transfer_menu" name="_foreign_transfer"
+        <menuitem id="ltyhr_employee_foreign_transfer_menu" name="foreign_transfer"
                   sequence="40"
                   action="ltyhr_employees_foreign_transfer"
                   parent="ltyhr_employee_document_transfer_menu"/>
 
         <!--调动记录-->
-        <menuitem id="ltyhr_employee_transfer_record_menu" name="_transfer_record"
+        <menuitem id="ltyhr_employee_transfer_record_menu" name="transfer_record"
                   sequence="50"
                   action="ltyhr_employees_transfer_record"
                   parent="ltyhr_employee_document_transfer_menu"/>

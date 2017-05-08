@@ -17,7 +17,7 @@ class security_check(models.Model):
     name = fields.Char(string='Check No',required=True)
 
     # 能源站
-    station_id = fields.Many2one('energy.station', string='Station Id',required=True)
+    station_id = fields.Many2one('energy.station', string='Station Id',required=True,domain=[('station_property','=','company')])
 
     # 能源站类别
     station_type = fields.Selection(string='Station Type', related='station_id.station_type', store=False, readonly=True)
