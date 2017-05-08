@@ -1,11 +1,11 @@
 <openerp>
     <data>
-        <record model="ir.ui.view" id="security_manage.security_check_item_list">
+        <record model="ir.ui.view" id="security_check_item_list">
             <field name="name">security_manage list</field>
             <field name="model">security_manage.check_item</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="check_id"/>
+                    <field name="name"/>
                     <field name="check_item_name"/>
                     <field name="check_content"/>
                     <field name="check_standards"/>
@@ -14,7 +14,7 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="security_manage.security_check_item_form">
+        <record model="ir.ui.view" id="security_check_item_form">
             <field name="name">security_manage list</field>
             <field name="model">security_manage.check_item</field>
             <field name="arch" type="xml">
@@ -33,14 +33,14 @@
                         <div class="oe_title">
                             <!--<label for="name"/>-->
                             <h1>
-                                <field name="name" readonly="True"/>
+                                <field name="check_info" readonly="True"/>
                             </h1>
                         </div>
 
                         <group name="group_top">
                             <group name="group_left">
                                 <!--<separator string="General stuff" colspan="2"/>-->
-                                <field name="check_id"/>
+                                <field name="name"/>
                                 <field name="check_item_name"/>
                                 <field name="check_content"/>
                                 <field name="check_standards"/>
@@ -48,8 +48,8 @@
 
                             <group name="group_right">
                                 <!--<separator string="Dates" colspan="2"/>-->
-                                <field name="form_creator"/>
-                                <field name="create_time"/>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
                                 <!--<field name="invent_date" readonly="1"/>-->
                             </group>
 

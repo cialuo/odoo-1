@@ -46,7 +46,7 @@ class energy_station(models.Model):
      station_address = fields.Char(string='Station address')
 
      # 安全检查项
-     security_check = fields.Many2one('security_manage.security_check_table','security_check')
+     security_check = fields.Many2one('security_manage.check_table','security_check')
 
      # 能源站规模
      station_scale = fields.Char(string='Person scale')
@@ -64,10 +64,16 @@ class energy_station(models.Model):
      station_remarks = fields.Char(string='Remarks')
 
      # 能源站类型
-     station_type = fields.Selection([('gasolineStation', 'Gasoline Station'), ('fillingStation', 'Filling Station'), ('powerStation', 'Power Station'), ('otherStation', 'Other Station')])
+     station_type = fields.Selection([('gasolineStation', 'Gasoline Station'), ('fillingStation', 'Filling Station'), ('powerStation', 'Power Station'), ('otherStation', 'Other Station')],default='gasolineStation')
 
      # 能源站状态
      state = fields.Selection([('normal', 'Normal'), ('stop', 'Stop')],default='normal')
+
+     #能源站的属性
+     station_property = fields.Selection([('company', 'Company'), ('supplier', 'Supplier')],default='company',string='Station Property')
+
+     #供应商
+     station_partner = fields.Many2one('res.partner',string='Station Partner',domain=[('supplier', '=', True)])
 
      # image: all image fields are base64 encoded and PIL-supported
      image = fields.Binary("Photo", attachment=True,
@@ -127,10 +133,10 @@ class energy_pile(models.Model):
         return res
 
     # 能源站
-    station_id = fields.Many2one('energy.station',string='Station Id')
+    station_id = fields.Many2one('energy.station',string='Station Id',required=True)
 
     # 所属库位
-    location_id = fields.Many2one('stock.location',string='Location Id',domain="[('station_id', '=', station_id)]")
+    location_id = fields.Many2one('stock.location',string='Location Id',domain="[('station_id', '=', station_id)]",required=True)
 
     # 单位
     companyc_id = fields.Many2one('product.uom',related = 'energy_type.uom_id',store = False, readonly = True,string='Companyc Id')
@@ -145,10 +151,10 @@ class energy_pile(models.Model):
     pile_no = fields.Char(string='Pile No',required=True)
 
     # 能源桩类型
-    pile_type = fields.Selection([('gasolinePile','Gasoline Pile'),('fillingPile','Filling Pile'),('powerPile','Power Pile'),('otherPile','Other Pile')])
+    pile_type = fields.Selection([('gasolinePile','Gasoline Pile'),('fillingPile','Filling Pile'),('powerPile','Power Pile'),('otherPile','Other Pile')],required=True)
 
     # 能源类型
-    energy_type = fields.Many2one('product.product',string='Energy Type',domain="[('important_type', '=', 'energy')]")
+    energy_type = fields.Many2one('product.product',string='Energy Type',domain="[('important_type', '=', 'energy')]",required=True)
 
     # 备注
     remark = fields.Char(string='Remark')

@@ -232,10 +232,10 @@
                         </group>
 
                         <notebook>
-                            <page string="platform resource">
+                            <page string="platform resource" name="platform_page">
                                 <field name="platform_resource"/>
                             </page>
-                            <page string="human resource">
+                            <page string="human resource" name="hr_page">
                                 <field name="human_resource"/>
                             </page>
                         </notebook>

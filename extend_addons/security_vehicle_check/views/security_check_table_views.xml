@@ -1,6 +1,6 @@
 <openerp>
     <data>
-        <record model="ir.ui.view" id="security_manage.security_check_table_list">
+        <record model="ir.ui.view" id="security_check_table_list">
             <field name="name">security_manage list</field>
             <field name="model">security_manage.check_table</field>
             <field name="arch" type="xml">
@@ -14,7 +14,7 @@
         </record>
 
 
-        <record model="ir.ui.view" id="security_manage.security_check_table_form">
+        <record model="ir.ui.view" id="security_check_table_form">
             <field name="name">security_manage list</field>
             <field name="model">security_manage.check_table</field>
             <field name="arch" type="xml">
@@ -54,9 +54,20 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="plan_detail">
-                                <field name="plan_detail"/>
+
+
+                            <page name="plan_detail" string="plan_detail">
+                                <field name="plan_detail">
+                                    <tree string="plan_detail" editable='bottom'>
+                                        <field name="item_id"/>
+                                        <field name="check_item_name"/>
+                                        <field name="check_content"/>
+                                        <field name="check_standards"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
                             </page>
+
                         </notebook>
                     </sheet>
                 </form>

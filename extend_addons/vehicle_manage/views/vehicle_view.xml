@@ -253,6 +253,37 @@
             </field>
         </record>
 
+        <!-- 继承线路管理模块 -->
+        <record id="schedule_route_manage_form" model="ir.ui.view">
+            <field name="name">schedule route manage</field>
+            <field name="model">route_manage.route_manage</field>
+            <field name="inherit_id" ref="scheduling_parameters.route_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='platform_page']" position="after">
+                    <page string="vehicle resource" name="vehicle_page">
+                        <field name="vehicle_res">
+                            <tree>
+                                <field name="license_plate"/>
+                                <field name="inner_code"/>
+                                <field name="annual_inspection_date"/>
+                                <field name="state"/>
+                                <field name="salvage_rate" widget="progressbar"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='hr_page']" position="after">
+                    <page string="human vehcile rate">
+                        <group>
+                            <field name="driver_rate"/>
+                            <field name="conductor_rate"/>
+                            <field name="synthesize_rate"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
 
         <!-- Vehicle Action -->
         <record id='vehicle_manage_action' model='ir.actions.act_window'>

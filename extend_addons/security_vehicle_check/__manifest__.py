@@ -1,31 +1,26 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "security_vehicle_check",
-
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+    'name': "车辆安全检查",
 
     'description': """
-        Long description of module's purpose
+        车辆安全检查
     """,
 
     'author': "hu wei",
-    'website': "http://www.yourcompany.com",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
-    # for the full list
     'category': 'Basic Edition',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'security_manage'],
+    'depends': ['security_manage_memu', 'vehicle_manage'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
+        'views/security_check_item_views.xml',
+        'views/security_check_table_views.xml',
+
         'views/vehicle_front_check_views.xml',
         'views/vehicle_everyday_check_views.xml',
         'views/vehicle_special_check_views.xml',
@@ -35,6 +30,10 @@
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/demo.xml',
+        # 'demo/demo.xml',
     ],
+
+    'installable': True,
+    'application': True,
+    'auto_install': False,
 }

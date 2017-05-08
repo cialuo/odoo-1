@@ -1,0 +1,59 @@
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="employees_menu.list">
+      <field name="name">employees_menu list</field>
+      <field name="model">employees_menu.employees_menu</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="employees_menu.action_window">
+      <field name="name">employees_menu window</field>
+      <field name="res_model">employees_menu.employees_menu</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="employees_menu.action_server">
+      <field name="name">employees_menu server</field>
+      <field name="model_id" ref="model_employees_menu_employees_menu"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="employees_menu" id="employees_menu.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="employees_menu.menu_1" parent="employees_menu.menu_root"/>
+    <menuitem name="Menu 2" id="employees_menu.menu_2" parent="employees_menu.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="employees_menu.menu_1_list" parent="employees_menu.menu_1"
+              action="employees_menu.action_window"/>
+    <menuitem name="Server to list" id="employees_menu" parent="employees_menu.menu_2"
+              action="employees_menu.action_server"/>
+    -->
+  </data>
+</openerp>
