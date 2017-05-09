@@ -101,7 +101,7 @@
                             </h1>
                             <label for="license_plate" class="oe_edit_only"/>
                             <h2>
-                                <field name="license_plate" class="oe_inline" placeholder="e.g. B88888"/>
+                                <field name="license_plate" class="oe_inline"/>
                             </h2>
                             <label for="tag_ids" class="oe_edit_only"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>

@@ -3,16 +3,18 @@
     'name': "车辆管理",
 
     'description': """
-        a）车辆技术管理,车型管理,排放标准
+        1）车辆技术管理,车型管理,排放标准
+        2）车辆使用档案,车辆生命周期,车辆年检管理
     """,
 
-    'author': "Xiang",
+    'author': "Xiang,Tu,You",
+    'website': "",
 
     'category': 'Basic Edition',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['hr', 'fleet', 'vehicle_manage_menu', 'stock', 'employees', 'scheduling_parameters'],
+    'depends': ['fleet', 'vehicle_manage_menu', 'stock_extend', 'employees', 'scheduling_parameters'],
 
     # always loaded
     'data': [

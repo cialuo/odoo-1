@@ -11,14 +11,14 @@ class FleetVehicle(models.Model):
     _inherit = "fleet.vehicle"
 
     # 抛锚记录
-    dropanchorrecords = fields.One2many('vehicle_usage.vehicleanchor', 'vehicle_id', string=_('drop anchor record'))
+    dropanchorrecords = fields.One2many('vehicle_usage.vehicleanchor', 'vehicle_id', string='drop anchor record')
 
 
 class VehicleAnchor(models.Model):
     _name = 'vehicle_usage.vehicleanchor'
 
     # 关联的车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'), required=True)
+    vehicle_id = fields.Many2one('fleet.vehicle', required=True)
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
     # 车牌号
@@ -30,19 +30,19 @@ class VehicleAnchor(models.Model):
     # 线路
     route_id = fields.Many2one(related='vehicle_id.route_id', readonly=True)
     # 抛锚时间
-    anchortime = fields.Datetime(string=_('anchor time'))
+    anchortime = fields.Datetime(string='anchor time')
     # 抛锚结束时间
-    anchorend = fields.Datetime(string=_('anchor end time'))
+    anchorend = fields.Datetime(string='anchor end time')
     # 抛锚路段
-    anchorroad = fields.Char(string=_('anchor road'))
+    anchorroad = fields.Char(string='anchor road')
     # 抛锚原因
-    anchorreason = fields.Char(string=_('anchor reason'))
+    anchorreason = fields.Char(string='anchor reason')
     # 解决方案
-    solution = fields.Char(string=_('anchor solution'))
+    solution = fields.Char(string='anchor solution')
     # 抛锚时长
-    anchorduration = fields.Char(compute='_computeAnchortime',string=_('anchor duration'))
+    anchorduration = fields.Char('anchor duration', compute='_computeAnchortime')
     # 司机
-    driver = fields.Many2one('hr.employee', string=_('driver'))
+    driver = fields.Many2one('hr.employee', string='driver')
 
     @api.multi
     def _computeAnchortime(self):
