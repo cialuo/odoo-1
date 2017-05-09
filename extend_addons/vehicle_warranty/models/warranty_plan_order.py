@@ -9,7 +9,7 @@ class WarrantyPlanOrder(models.Model): # 计划单
 
     sequence = fields.Integer('Sequence', default=1)
 
-    vehicle_id = fields.Many2one('fleet.vehicle',string="Vehicle No", required=True,) # 车号
+    vehicle_id = fields.Many2one('fleet.vehicle',string="Vehicle No", required=True, domain = "[('vehicle_life_state', '=', 'operation_period')]") # 车号
     vehicle_type = fields.Many2one("fleet.vehicle.model",related='vehicle_id.model_id', store=True, readonly=True) # 车型
     license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True, readonly=True) # 车牌
 
