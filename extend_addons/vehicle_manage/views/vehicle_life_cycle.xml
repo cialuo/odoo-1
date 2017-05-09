@@ -26,14 +26,16 @@
                 <form create="false" delete="false">
                     <header>
                         <button name="action_operation"
-                                vehicle_life_state="operation_period"
+                                vehicle_life_state="invest_period"
                                 string="Invest operation"
                                 type="object"
-                                class="oe_highlight" />
+                                class="oe_highlight"
+                                attrs="{'invisible':[('vehicle_life_state', '!=', 'invest_period')]}" />
                         <button name="action_scrap"
-                                vehicle_life_state="action_scrap"
+                                vehicle_life_state="operation_period"
                                 string="Scrap" type="object"
-                                class="oe_highlight"/>
+                                class="oe_highlight"
+                                attrs="{'invisible':[('vehicle_life_state', '!=', 'operation_period')]}"/>
                         <field name="vehicle_life_state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -69,7 +71,6 @@
                                             <field name="cost_amount" attrs="{'required':[('is_required','=','Yes')]}" sum="total_amount"/>
                                             <field name="cost_name"/>
                                             <field name="occurrence_time"/>
-                                            <!--<field name="total_amount" readonly="1" widget="monetary"/>-->
                                             <field name="is_required" invisible="1"/>
                                         </tree>
                                     </field>
