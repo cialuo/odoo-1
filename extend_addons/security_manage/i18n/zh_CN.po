@@ -1,0 +1,588 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* security_manage
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-09 10:30+0000\n"
+"PO-Revision-Date: 2017-05-09 10:30+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: security_manage
+#: selection:security_manage.cls_manage,state:0
+#: selection:sfs.fire_plan,state:0
+#: selection:srp.disease,state:0
+#: selection:srp.emergency_plan,state:0
+#: selection:srp.repair_quality,state:0
+#: selection:srp.repair_site,state:0
+#: selection:srp.safety_manage,state:0
+msgid "Archive"
+msgstr "归档"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.srp_disease_form
+#: model:ir.ui.view,arch_db:security_manage.srp_emergency_plan_form
+#: model:ir.ui.view,arch_db:security_manage.srp_fire_plan_form
+#: model:ir.ui.view,arch_db:security_manage.srp_repair_quality_form
+#: model:ir.ui.view,arch_db:security_manage.srp_repair_site_form
+#: model:ir.ui.view,arch_db:security_manage.srp_safety_manage_form
+msgid "Archive Content"
+msgstr "文档内容"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_area
+msgid "Area"
+msgstr "区域"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.fire_device_map_form
+#: model:ir.ui.view,arch_db:security_manage.srp_disease_form
+#: model:ir.ui.view,arch_db:security_manage.srp_emergency_plan_form
+#: model:ir.ui.view,arch_db:security_manage.srp_fire_plan_form
+#: model:ir.ui.view,arch_db:security_manage.srp_repair_quality_form
+#: model:ir.ui.view,arch_db:security_manage.srp_repair_site_form
+#: model:ir.ui.view,arch_db:security_manage.srp_safety_manage_form
+#: model:ir.ui.view,arch_db:security_manage.worksite_map_form
+msgid "Attach a file"
+msgstr "附加一个文件"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_attachment_ids
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_attachment_ids
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_attachment_ids
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_attachment_ids
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_attachment_ids
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_attachment_ids
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_attachment_ids
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_attachment_ids
+msgid "Attachments"
+msgstr "附件"
+
+#. module: security_manage
+#: selection:security_manage.cls_manage,class_type:0
+msgid "Big class"
+msgstr "大类型"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_create_uid
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_create_uid
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_create_uid
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_create_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_create_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_create_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_create_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_create_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_create_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_create_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_create_date
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_create_date
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_create_date
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_create_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_create_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_create_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_create_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_create_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_create_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_create_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_description
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_description
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_description
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_description
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_description
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_description
+msgid "Description"
+msgstr "说明"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_display_name
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_display_name
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_display_name
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_display_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_display_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_display_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_display_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_display_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_display_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_display_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_id
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_id
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_id
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_id
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_id
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_id
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_id
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_id
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_id
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_id
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_id
+msgid "ID"
+msgstr "编号"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.fire_device_map_form
+#: model:ir.ui.view,arch_db:security_manage.security_archives_class_manage_form
+#: model:ir.ui.view,arch_db:security_manage.sfs_fire_danger_src_form
+#: model:ir.ui.view,arch_db:security_manage.srp_disease_form
+#: model:ir.ui.view,arch_db:security_manage.srp_emergency_plan_form
+#: model:ir.ui.view,arch_db:security_manage.srp_fire_plan_form
+#: model:ir.ui.view,arch_db:security_manage.srp_repair_quality_form
+#: model:ir.ui.view,arch_db:security_manage.srp_repair_site_form
+#: model:ir.ui.view,arch_db:security_manage.srp_safety_manage_form
+#: model:ir.ui.view,arch_db:security_manage.srp_source_of_danger_form
+#: model:ir.ui.view,arch_db:security_manage.worksite_map_form
+msgid "Idea form"
+msgstr "Idea form"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage___last_update
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src___last_update
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map___last_update
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan___last_update
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease___last_update
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan___last_update
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map___last_update
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality___last_update
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site___last_update
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage___last_update
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_write_uid
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_write_uid
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_write_uid
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_write_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_write_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_write_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_write_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_write_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_write_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_write_uid
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_write_date
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_write_date
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_write_date
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_write_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_write_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_write_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_write_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_write_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_write_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_write_date
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: security_manage
+#: selection:security_manage.cls_manage,class_type:0
+msgid "Little class"
+msgstr "小类型"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.security_archives_class_manage_form
+#: model:ir.ui.view,arch_db:security_manage.srp_disease_form
+#: model:ir.ui.view,arch_db:security_manage.srp_emergency_plan_form
+#: model:ir.ui.view,arch_db:security_manage.srp_fire_plan_form
+#: model:ir.ui.view,arch_db:security_manage.srp_repair_quality_form
+#: model:ir.ui.view,arch_db:security_manage.srp_repair_site_form
+#: model:ir.ui.view,arch_db:security_manage.srp_safety_manage_form
+msgid "Mark as archive"
+msgstr "归档"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_place
+msgid "Place"
+msgstr "位置"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.security_archives_class_manage_form
+#: model:ir.ui.view,arch_db:security_manage.srp_emergency_plan_form
+#: model:ir.ui.view,arch_db:security_manage.srp_fire_plan_form
+msgid "Reset to default"
+msgstr "重新启用"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.srp_disease_form
+#: model:ir.ui.view,arch_db:security_manage.srp_repair_quality_form
+#: model:ir.ui.view,arch_db:security_manage.srp_repair_site_form
+#: model:ir.ui.view,arch_db:security_manage.srp_safety_manage_form
+msgid "Reset to use"
+msgstr "重新启用"
+
+#. module: security_manage
+#: sql_constraint:security_manage.cls_manage:0
+msgid "The id must be unique"
+msgstr "Id 不能重复"
+
+#. module: security_manage
+#: selection:security_manage.cls_manage,state:0
+#: selection:sfs.fire_plan,state:0
+#: selection:srp.disease,state:0
+#: selection:srp.emergency_plan,state:0
+#: selection:srp.repair_quality,state:0
+#: selection:srp.repair_site,state:0
+#: selection:srp.safety_manage,state:0
+msgid "Use"
+msgstr "使用中"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_archives_class_big
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_archives_class_big
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_archives_class_big
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_archives_class_big
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_archives_class_big
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_archives_class_big
+msgid "archive big class"
+msgstr "档案大类"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_archvies_id
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_archvies_id
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_archvies_id
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_archvies_id
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_archvies_id
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_archvies_id
+msgid "archive id"
+msgstr "档案编号"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_archives_class_little
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_archives_class_little
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_archives_class_little
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_archives_class_little
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_archives_class_little
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_archives_class_little
+msgid "archive little class"
+msgstr "档案小类"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_name
+#: model:ir.ui.view,arch_db:security_manage.srp_disease_form
+#: model:ir.ui.view,arch_db:security_manage.srp_repair_site_form
+msgid "archive name"
+msgstr "档案名称"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.srp_emergency_plan_form
+#: model:ir.ui.view,arch_db:security_manage.srp_repair_quality_form
+#: model:ir.ui.view,arch_db:security_manage.srp_safety_manage_form
+msgid "archive name hint"
+msgstr "档案名称"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_state
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_state
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_state
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_state
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_state
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_state
+msgid "archive workflow state"
+msgstr "档案状态"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.archives_class_manage
+msgid "archives_class_manage"
+msgstr "档案类别管理"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_class_name
+msgid "archives_class_manage_class_name"
+msgstr "类别名称"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_class_type
+msgid "archives_class_manage_class_type"
+msgstr "类别类型"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_create_time
+msgid "archives_class_manage_create_time"
+msgstr "制单时间"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_form_creator
+msgid "archives_class_manage_form_creator"
+msgstr "制单人"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_item_id
+msgid "archives_class_manage_item_id"
+msgstr "编号"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_name
+msgid "archives_class_manage_item_name"
+msgstr "名称"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_parent
+msgid "archives_class_manage_parent"
+msgstr "所属上级"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_state
+msgid "archives_class_manage_state"
+msgstr "状态"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_item_name
+msgid "archives_class_manage_table"
+msgstr "类别信息"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_area
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_area
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_area
+msgid "area"
+msgstr "区域"
+
+#. module: security_manage
+#: model:ir.actions.act_window,name:security_manage.act_disease
+msgid "disease menu"
+msgstr "职业病管理"
+
+#. module: security_manage
+#: model:ir.actions.act_window,name:security_manage.act_emergency_plan
+msgid "emergency_plan menu"
+msgstr "安全应急预案管理"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.fire_danger_source_second_menu
+msgid "fire danger source manage"
+msgstr "消防危险源管理"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.fire_emergency_plan_second_menu
+msgid "fire emergency plan"
+msgstr "消防应急预案"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_name
+msgid "fire fight device map name"
+msgstr "分布图名称"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.fire_device_map_form
+#: model:ir.ui.view,arch_db:security_manage.worksite_map_form
+msgid "fire fight device map name hint"
+msgstr "分布图名称"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.fire_device_map_second_menu
+msgid "fire fighting device map"
+msgstr "消防设施分布图"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.srp_fire_plan_form
+msgid "fire plan hint"
+msgstr "消防应急预案"
+
+#. module: security_manage
+#: model:ir.actions.act_window,name:security_manage.act_fire_danger_src
+msgid "fire_danger_src menu"
+msgstr "消防危险源管理"
+
+#. module: security_manage
+#: model:ir.actions.act_window,name:security_manage.act_fire_device_map
+msgid "fire_device_map menu"
+msgstr "消防设施分布图"
+
+#. module: security_manage
+#: model:ir.actions.act_window,name:security_manage.act_fire_emergency_plan
+msgid "fire_emergency_plan menu"
+msgstr "消防设施管理"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_risk_evaluate
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_risk_evaluate
+msgid "harmful"
+msgstr "危害性"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_danger_desc
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_danger_desc
+msgid "harmful description"
+msgstr "危害描述"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.disease_second_menu
+msgid "occupational disease manage"
+msgstr "职业病管理"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_place
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_place
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_place
+msgid "place"
+msgstr "位置"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_precautions
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_precautions
+msgid "preventive measures"
+msgstr "防范措施"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.source_of_danger_second_menu
+msgid "produce field danger manage"
+msgstr "生产现场危险源管理"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.produce_map_second_menu
+msgid "produce field map"
+msgstr "生产现场位置分布图"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.safety_manage_second_menu
+msgid "produce safety  manage"
+msgstr "生产安全技术措施管理"
+
+#. module: security_manage
+#: model:ir.actions.act_window,name:security_manage.act_produce_map
+msgid "produce_map menu"
+msgstr "生产现场位置分布图"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.repair_quality_second_menu
+msgid "repair quality security manage"
+msgstr "维修质量安全管理"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.repair_site_second_menu
+msgid "repair site security manage"
+msgstr "维修车间现场安全"
+
+#. module: security_manage
+#: model:ir.actions.act_window,name:security_manage.act_repair_quality
+msgid "repair_quality menu"
+msgstr "维修质量安全管理"
+
+#. module: security_manage
+#: model:ir.actions.act_window,name:security_manage.act_repair_site
+msgid "repair_site menu"
+msgstr "维修车间现场安全管理"
+
+#. module: security_manage
+#: model:ir.ui.menu,name:security_manage.emergency_plan_second_menu
+msgid "safety emergency plan manage"
+msgstr "安全应急预案管理"
+
+#. module: security_manage
+#: model:ir.actions.act_window,name:security_manage.act_safety_tec_manage
+msgid "safety_manage menu"
+msgstr "生产安全技术措施管理"
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_security_manage_cls_manage
+msgid "security_manage.cls_manage"
+msgstr "security_manage.cls_manage"
+
+#. module: security_manage
+#: model:ir.actions.act_window,name:security_manage.action_security_archives_class_manage
+msgid "security_manage_security_archives_class_manage_window"
+msgstr "档案类别"
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_sfs_fire_danger_src
+msgid "sfs.fire_danger_src"
+msgstr "sfs.fire_danger_src"
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_sfs_fire_device_map
+msgid "sfs.fire_device_map"
+msgstr "sfs.fire_device_map"
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_sfs_fire_plan
+msgid "sfs.fire_plan"
+msgstr "sfs.fire_plan"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_name
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_name
+msgid "source of dange name"
+msgstr "危险源名称"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.sfs_fire_danger_src_form
+#: model:ir.ui.view,arch_db:security_manage.srp_source_of_danger_form
+msgid "source of dange name hint"
+msgstr "危险源名称"
+
+#. module: security_manage
+#: model:ir.actions.act_window,name:security_manage.act_source_of_danger
+msgid "source_of_danger menu"
+msgstr "危险源名称"
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_srp_disease
+msgid "srp.disease"
+msgstr "srp.disease"
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_srp_emergency_plan
+msgid "srp.emergency_plan"
+msgstr "srp.emergency_plan"
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_srp_produce_map
+msgid "srp.produce_map"
+msgstr "srp.produce_map"
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_srp_repair_quality
+msgid "srp.repair_quality"
+msgstr "srp.repair_quality"
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_srp_repair_site
+msgid "srp.repair_site"
+msgstr "srp.repair_site"
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_srp_safety_manage
+msgid "srp.safety_manage"
+msgstr "srp.safety_manage"
+
+#. module: security_manage
+#: model:ir.model,name:security_manage.model_srp_source_of_danger
+msgid "srp.source_of_danger"
+msgstr "srp.source_of_danger"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_name
+msgid "worksite map name"
+msgstr "分布图名称"
+
