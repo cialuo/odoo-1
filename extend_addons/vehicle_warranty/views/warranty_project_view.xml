@@ -42,7 +42,7 @@
                         </div>
                         <group col="2">
                             <group>
-                                <field name="mode" options="{'no_open':True,'no_create':True}"/>
+                                <field name="mode"/>
                                 <field name="manhour"/>
                                 <field name="remark"/>
                             </group>
