@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api,_
 
 
 class warehouse_location(models.Model):
 
     _inherit = ['stock.location']
 
+
     """
        继承库位
     """
 
     # 能源站
-    station_id = fields.Many2one('energy.station', string='Station Id',domain="[('state', '=', 'normal')]")
+    station_id = fields.Many2one('energy.station', string='Station Id',domain=['&',('state', '=', 'normal'),('station_property','=','company')])
 
     #能源站编号
     station_no = fields.Char(string='Station No', related='station_id.station_no', store=False, readonly=True)
@@ -36,3 +37,6 @@ class warehouse_location(models.Model):
     @api.multi
     def stop_to_normal(self):
         self.state = 'normal'
+
+    _sql_constraints = [('location_no_unique', 'unique (location_no)', _("Location no already exists")),
+                        ('location_name_unique', 'unique (name)', _("Location name already exists"))]

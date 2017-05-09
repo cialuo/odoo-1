@@ -74,13 +74,13 @@
                 <field name="image" widget='image' class="oe_avatar" options='{"preview_image":"image_medium"}'/>
                 <div class="oe_title">
                     <label for="pile_no" class="oe_edit_only"/>
-                    <h1>
-                        <field name="pile_no" placeholder="Pile's No"/>
-                    </h1>
-                    <label for="name" class="oe_edit_only"/>
                     <h2>
-                        <field name="name" placeholder="Pile's Name"/>
+                        <field name="pile_no" placeholder="Pile's No"/>
                     </h2>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" placeholder="Pile's Name"/>
+                    </h1>
                 </div>
                 <notebook>
                     <page name="conventional_attributes" string="Conventional attributes">
@@ -89,14 +89,14 @@
                                 <field name="station_id" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="location_id" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="pile_type"/>
-                                <field name="energy_type"/>
-                                <field name="companyc_id"/>
+                                <field name="energy_type" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="companyc_id" options="{'no_open': True, 'no_create': True}"/>
                             </group>
                             <group>
-                                <field name="station_person_liable"/>
+                                <field name="station_person_liable" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="remark"/>
                                 <field name="station_tab_date"/>
-                                <field name="station_lister"/>
+                                <field name="station_lister" options="{'no_open': True, 'no_create': True}"/>
                             </group>
                         </group>
                     </page>

@@ -34,11 +34,11 @@
                 <div class="oe_title">
                     <label for="station_id" class="oe_edit_only" />
                     <h1>
-                        <field name="station_id" placeholder="Station's No" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="station_id" placeholder="Select Station's Name" options="{'no_open': True, 'no_create': True}"/>
                     </h1>
                     <label for="pile_id" class="oe_edit_only"/>
                     <h2>
-                        <field name="pile_id" placeholder="Pile's Name" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="pile_id" placeholder="Select Pile's Name" options="{'no_open': True, 'no_create': True}"/>
                     </h2>
                 </div>
                 <group>
@@ -46,18 +46,18 @@
                         <field name="vehicle_id" options="{'no_open': True, 'no_create': True}"/>
                         <field name="license_plate"/>
                         <field name="record_date"/>
-                        <field name="user_use" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="user_use" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
                         <field name="working_mileage"/>
-                        <field name="working_oil_wear"/>
+                        <field name="working_oil_wear" invisible="True"/>
                         <field name="location_price"/>
                     </group>
                     <group string="Collar information">
                         <field name="fuel_capacity"/>
-                        <field name="companyc_id"/>
-                        <field name="energy_type"/>
+                        <field name="companyc_id" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="energy_type" options="{'no_open': True, 'no_create': True}"/>
                         <field name="operator" options="{'no_open': True, 'no_create': True}"/>
                         <field name="gps_mileage"/>
-                        <field name="gps_oil_wear"/>
+                        <field name="gps_oil_wear" invisible="True"/>
                         <field name="total_price"/>
                     </group>
                 </group>

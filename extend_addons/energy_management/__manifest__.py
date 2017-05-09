@@ -15,7 +15,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['materials_manage','security_vehicle_check','vehicle_manage'],
+    'depends': ['materials_product','security_vehicle_check','vehicle_manage'],
 
     # always loaded
     'data': [
@@ -27,6 +27,7 @@
         'views/warehouse_location_view.xml',
         'views/fleetusagemanagement.xml',
         'views/vehicle_view.xml',
+        'views/product.xml',
         'views/menus_view.xml',
     ],
     # only loaded in demonstration mode

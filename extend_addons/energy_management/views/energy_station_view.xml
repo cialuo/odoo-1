@@ -75,13 +75,13 @@
                 <field name="image" widget='image' class="oe_avatar" options='{"preview_image":"image_medium"}'/>
                 <div class="oe_title">
                     <label for="station_no" class="oe_edit_only"/>
-                    <h1>
-                        <field name="station_no" placeholder="Station's No"/>
-                    </h1>
-                    <label for="name" class="oe_edit_only"/>
                     <h2>
-                        <field name="name" placeholder="Station's Name" />
+                        <field name="station_no" placeholder="Station's No"/>
                     </h2>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" placeholder="Station's Name" />
+                    </h1>
                 </div>
                 <notebook>
                     <page name="conventional_attributes" string="Conventional attributes">
@@ -103,7 +103,7 @@
                             </group>
                         </group>
                     </page>
-                    <page names="energy_pile" string="Energy pile">
+                    <page names="energy_pile" string="Energy pile" attrs="{'invisible': [('station_property', '=', 'supplier')]}">
                         <field name="pile_ids" >
                             <tree editable="top" create="false" delete="false">
                                 <field name="pile_no"/>
@@ -115,7 +115,7 @@
                             </tree>
                         </field>
                     </page>
-                    <page names="energy_location" string="Energy location">
+                    <page names="energy_location" string="Energy location" attrs="{'invisible': [('station_property', '=', 'supplier')]}">
                         <field name="location_ids">
                             <tree editable="top" create="false" delete="false">
                                 <field name="location_no"/>
@@ -126,7 +126,7 @@
                             </tree>
                         </field>
                     </page>
-                    <page names="usage_record" string="Usage record">
+                    <page names="usage_record" string="Usage record" attrs="{'invisible': [('station_property', '=', 'supplier')]}">
                         <field name="usage_record_ids">
                             <tree editable="top" create="false" delete="false">
                                 <field name="inner_code"/>
@@ -139,7 +139,7 @@
                             </tree>
                         </field>
                     </page>
-                    <page names="security_check" string="Security checks">
+                    <page names="security_check" string="Security checks" attrs="{'invisible': [('station_property', '=', 'supplier')]}">
                         <field name="security_check_ids">
                             <tree editable="top" create="false" delete="false">
                                 <field name="station_id"/>
