@@ -22,24 +22,24 @@
 #
 ##############################################################################
 {
-    'name': 'Odoo Web Login Screen',
-    'summary': 'The new configurable Odoo Web Login Screen',
-    'version': '10.0.1.0',
-    'category': 'Website',
-    'summary': """
-The new configurable Odoo Web Login Screen
-""",
-    'author': "binhnguyenxuan (www.xubi.me)",
-    'website': 'http://www.xubi.me',
+    'name': 'Login Interface',
+    'description': """
+        登录界面风格修改
+    """,
+    'version': '1.0',
+    'category': 'Optional Edition',
+    'author': "XJM",
+    'website': 'http://www.lty.com',
     'license': 'AGPL-3',
-    'depends': [
-    ],
+    'depends': [],
     'data': [
         'data/ir_config_parameter.xml',
         'templates/webclient_templates.xml',
-        'templates/website_templates.xml',
+        # 'templates/website_templates.xml',
+        'views/login_config_settings.xml',
     ],
     'qweb': [
+        "static/src/xml/rw-web-menu.xml"
     ],
     'installable': True,
     'application': True,

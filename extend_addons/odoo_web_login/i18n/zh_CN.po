@@ -1,0 +1,229 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* odoo_web_login
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-08 11:37+0000\n"
+"PO-Revision-Date: 2017-05-08 11:37+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: odoo_web_login
+#: selection:login_config_settings,banner_img_offset_src:0
+msgid "10"
+msgstr "10"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_config_settings_form
+msgid "<span>height configuration value added to 100.</span>"
+msgstr "<span>高度设置的值总和为100</span>"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_config_settings_form
+msgid "Apply"
+msgstr "应用"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_background_img_src
+msgid "Background Img Src"
+msgstr "背景图片"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_layout
+msgid "Banner Img"
+msgstr "横幅图片"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_banner_img_offset_src
+msgid "Banner Img Offset Src"
+msgstr "横幅图片向左偏移量"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_banner_img_src
+msgid "Banner Img Src"
+msgstr "横幅图片"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_body_login_height_src
+msgid "Body Login Height Src"
+msgstr "中心登录窗体界面高度"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_config_settings_form
+msgid "Cancel"
+msgstr "取消"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_layout
+msgid "Complex Font"
+msgstr "繁体"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_config_settings_form
+msgid "Configure Purchases"
+msgstr "配置采购"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_layout
+msgid "English"
+msgstr "English"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_layout
+msgid "FAQ"
+msgstr "常见问题"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_footer_height_src
+msgid "Footer Height Src"
+msgstr "底部高度"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_layout
+msgid "Forget Password"
+msgstr "忘记密码？"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_header_height_src
+msgid "Header Height Src"
+msgstr "横幅图片"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_config_settings_form
+msgid "Height Configuration"
+msgstr "高度设置"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_id
+msgid "ID"
+msgstr "ID"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_config_settings_form
+msgid "Img Configuration"
+msgstr "图片设置"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_layout
+msgid "Introduce"
+msgstr "管理数据库 版本V1.0由蓝泰源提供技术支持"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login
+msgid "Login"
+msgstr "登录"
+
+#. module: odoo_web_login
+#: model:ir.actions.act_window,name:odoo_web_login.action_login_config_settings
+#: model:ir.ui.menu,name:odoo_web_login.menu_login_config_settings
+msgid "Login Config Settings"
+msgstr "登陆界面设置"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_login_dialog_offset_src
+msgid "Login Dialog Offset Src"
+msgstr "中心登陆窗体向左偏移量"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_layout
+msgid "Login Img"
+msgstr "中心登陆图片"
+
+#. module: odoo_web_login
+#: model:ir.model.fields,field_description:odoo_web_login.field_login_config_settings_login_img_src
+msgid "Login Img Src"
+msgstr "中心登陆图片"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_layout
+msgid "Manage Databases"
+msgstr "管理数据库"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_config_settings_form
+msgid "Offset Configuration"
+msgstr "偏移设置"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login
+msgid "Password"
+msgstr "密码为6-16个字符(数字、字母、符号至少包含两种)"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_layout
+msgid "Powered by <span>Odoo</span>"
+msgstr "由<span>蓝泰源</span>提供技术支持"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_layout
+msgid "Register"
+msgstr "注册"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login
+msgid "Select"
+msgstr "选择"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login_layout
+msgid "Simplified Style"
+msgstr "简体"
+
+#. module: odoo_web_login
+#: code:addons/odoo_web_login/models/login_config_settings.py:70
+#, python-format
+msgid "The height value may not be incorrect"
+msgstr "高度设置不正确"
+
+#. module: odoo_web_login
+#: model:ir.ui.view,arch_db:odoo_web_login.login
+msgid "User Name"
+msgstr "邮箱/手机号码/用户名"
+
+#. module: odoo_web_login
+#: model:ir.model,name:odoo_web_login.model_login_config_settings
+msgid "login_config_settings"
+msgstr "登陆界面设置"
+
