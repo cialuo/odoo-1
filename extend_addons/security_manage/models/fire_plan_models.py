@@ -14,7 +14,7 @@ class fire_plan(models.Model):
                                             ondelete='set null',
                                             domain=[('class_type', '=', 'little_class')])
 
-    archvies_id = fields.Char(string=_('archive id'), required=True, index=True,
+    archvies_id = fields.Char(string='archive id', required=True, index=True,
                               copy=False, default=' ', readonly=True)
 
     description = fields.Text()
@@ -22,8 +22,8 @@ class fire_plan(models.Model):
     attachment_ids = fields.Many2many('ir.attachment', string='Attachments')
 
     state = fields.Selection([
-        ('use', _('Use')),
-        ('archive', _("Archive")),
+        ('use', 'Use'),
+        ('archive', "Archive"),
     ], default='use', string='archive workflow state')
 
     @api.multi
