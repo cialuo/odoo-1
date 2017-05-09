@@ -39,4 +39,5 @@ class warehouse_location(models.Model):
         self.state = 'normal'
 
     _sql_constraints = [('location_no_unique', 'unique (location_no)', _("Location no already exists")),
-                        ('location_name_unique', 'unique (name)', _("Location name already exists"))]
+                        # ('location_name_unique', 'unique (name)', _("Location name already exists")),
+                        ]
