@@ -537,7 +537,7 @@ msgstr "车牌"
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_license_plate
 msgid "License plate"
-msgstr "车辆"
+msgstr "车牌"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_report_license_plate
