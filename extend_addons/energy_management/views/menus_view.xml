@@ -3,7 +3,7 @@
 
     <!-- 能源管理 -->
     <menuitem name="Energy management" id="energy_management.menu_energy_management"
-              parent="materials_manage.materials_menu_root" sequence="1000" />
+              parent="materials_menu.materials_menu_root" sequence="1000" />
 
     <!--能源站-->
     <menuitem name="Energy station" id="energy_management.menu_energy_station"

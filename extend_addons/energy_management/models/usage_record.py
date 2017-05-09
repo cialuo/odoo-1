@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api,exceptions,_
 import time,datetime
 
 class usage_record(models.Model):
@@ -17,7 +17,7 @@ class usage_record(models.Model):
     station_id = fields.Many2one('energy.station',string='Station Id',required=True)
 
     #能源桩
-    pile_id = fields.Many2one('energy.pile',string='Pile Id',domain="[('station_id', '=', station_id)]",required=True)
+    pile_id = fields.Many2one('energy.pile',string='Pile Id',domain="[('station_id', '=', station_id)]")
 
     #车辆
     vehicle_id = fields.Many2one('fleet.vehicle',string='Vehicle Id',required=True)
@@ -31,26 +31,26 @@ class usage_record(models.Model):
     #加油人
     operator = fields.Many2one('hr.employee',string='Operator')
 
-    #使用人
-    user_use = fields.Many2one('res.partner',related='vehicle_id.driver_id',string='User Use')
+    #使用人:司机
+    user_use = fields.Many2many('hr.employee',related='vehicle_id.driver',string='User Use')
 
     #能源型号
-    energy_type = fields.Many2one('product.product',string='Energy Type',related='pile_id.energy_type', store=False, readonly=True)
+    energy_type = fields.Many2one('product.product',string='Energy Type',related='pile_id.energy_type', store=True,required=True)
 
     #能源桩类型
-    pile_type = fields.Selection(string='Pile Type', related='pile_id.pile_type', store=False, readonly=True)
+    pile_type = fields.Selection(string='Pile Type', related='pile_id.pile_type', store=True,)
 
     #车牌号
-    license_plate = fields.Char(string='License Plate',related='vehicle_id.license_plate', store=False, readonly=True)
+    license_plate = fields.Char(string='License Plate',related='vehicle_id.license_plate', store=True,)
 
     #车辆编号
-    inner_code = fields.Char(string='Inner Code',related='vehicle_id.inner_code', store=False, readonly=True)
+    inner_code = fields.Char(string='Inner Code',related='vehicle_id.inner_code', store=True,)
 
     #使用量
     fuel_capacity = fields.Float(string='Fuel Capacity',required=True)
 
     #单位
-    companyc_id = fields.Many2one('product.uom',related='pile_id.energy_type.uom_id', store=False, readonly=True,string='Companyc Id')
+    companyc_id = fields.Many2one('product.uom',related='pile_id.energy_type.uom_id', store=True,string='Companyc Id',required=True)
 
     #库位
     location_id = fields.Many2one('stock.location', related='pile_id.location_id', store=False, readonly=True,
@@ -69,7 +69,7 @@ class usage_record(models.Model):
     gps_oil_wear = fields.Float(string='GPS Oil Wear ')
 
     #库位单价
-    location_price = fields.Float(string='Location Price',digits=(12,2))
+    location_price = fields.Float(string='Location Price',digits=(12,2),related='energy_type.list_price',)
 
     # 使用总价
     total_price = fields.Float(string='Total Price',digits=(12,2))
@@ -108,19 +108,37 @@ class usage_record(models.Model):
         :param vals:
         :return:
         """
-        #获取能源桩信息
-        pile = self.env['energy.pile'].search([('id', '=', vals.get('pile_id'))])
-        product_id = pile.energy_type
+
+        station = self.env['energy.station'].search([('id', '=', vals.get('station_id'))])
+
+        if station.station_property == 'company':
+            """
+                公司内部的能源站
+            """
+            if vals.get('pile_id'):
+                # 获取能源桩信息
+                pile = self.env['energy.pile'].search([('id', '=', vals.get('pile_id'))])
+                product_id = pile.energy_type
+                location_id = pile.location_id.id
+            else:
+                raise exceptions.UserError(_("Companies to provide energy, the need to choose energy piles!"))
+        else:
+            """
+                供应商的能源站
+            """
+            product_id = self.env['product.product'].search([('id', '=', vals.get('energy_type'))])
+            location_id =self.env.ref('stock.stock_location_suppliers').id
+
         #获取车辆信息
         vehicle = self.env['fleet.vehicle'].search([('id', '=', vals.get('vehicle_id'))])
 
         move_vals = {
-            'name': 'CONSUME-' + product_id.display_name,
-            'product_id': product_id.id,
-            'product_uom_qty': vals.get('fuel_capacity'),
-            'product_uom': product_id.uom_id.id,
-            'location_id':pile.location_id.id,
-            'location_dest_id':vehicle.location_id.id,
+                'name': 'CONSUME-' + product_id.display_name,
+                'product_id': product_id.id,
+                'product_uom_qty': vals.get('fuel_capacity'),
+                'product_uom': product_id.uom_id.id,
+                'location_id':location_id,
+                'location_dest_id':vehicle.location_id.id,
         }
         moves = self.env['stock.move'].create(move_vals)
         moves.action_done()
@@ -250,9 +268,10 @@ class fleet_vehicle_model(models.Model):
             3.(车辆1的百里油耗 + ... 车辆N的百里油耗) / 车辆数 = 车型平均油耗
         :return:
         """
-        for i in self:
-            vehicles = self.env['fleet.vehicle'].search([('model_id','=',i.id)])
-            i.model_average_oil_wear = sum(vehicles.mapped('average_oil_wear')) / len(vehicles)
+        for model in self:
+            vehicles = self.env['fleet.vehicle'].search([('model_id','=',model.id)])
+            if len(vehicles) > 0:
+                model.model_average_oil_wear = sum(vehicles.mapped('average_oil_wear')) / len(vehicles)
 
     model_average_oil_wear = fields.Float(string='Average Oil Wear', compute=_compute_model_average_oil_wear)
 

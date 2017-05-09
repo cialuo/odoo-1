@@ -17,6 +17,7 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'data/check_default_data.xml',
         'views/views.xml',
         'views/security_check_item_views.xml',
         'views/security_check_table_views.xml',
