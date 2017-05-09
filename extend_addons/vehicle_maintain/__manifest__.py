@@ -19,6 +19,7 @@
     """,
 
     'author': "Xiang",
+    'website': "",
 
     'category': 'Advanced Edition',
     'version': '0.1',

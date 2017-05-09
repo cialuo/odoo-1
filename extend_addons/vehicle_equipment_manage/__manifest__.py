@@ -14,6 +14,7 @@
     """,
 
     'author': "Xiang",
+    'website': "",
 
     'category': 'Optional Edition',
     'version': '0.1',

@@ -3,11 +3,12 @@
     'name': "车辆管理",
 
     'description': """
-        a）车辆技术管理,车型管理,排放标准
-        a）车辆使用档案,车辆生命周期,车辆年检管理
+        1）车辆技术管理,车型管理,排放标准
+        2）车辆使用档案,车辆生命周期,车辆年检管理
     """,
 
     'author': "Xiang,Tu,You",
+    'website': "",
 
     'category': 'Basic Edition',
     'version': '0.1',
