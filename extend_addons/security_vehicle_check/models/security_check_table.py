@@ -6,7 +6,7 @@ class security_check_table(models.Model):
     _name = 'security_manage.check_table'
     # name = fields.Char(string=_('check_table'), default=_('check_table'))
     check_table_id = fields.Char(string=_('security_check_table_id'))
-    name = fields.Char(string=_('function_module'))
+    name = fields.Char(string=_('function_module'), readonly=True)
     # function_module = fields.Char(string=_('function_module'))
     remarks = fields.Char(string=_('remarks'))
     check_type = fields.Char(string=_('check_type'))

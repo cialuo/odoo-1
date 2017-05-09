@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 03:11+0000\n"
-"PO-Revision-Date: 2017-05-08 03:11+0000\n"
+"POT-Creation-Date: 2017-05-08 08:16+0000\n"
+"PO-Revision-Date: 2017-05-08 08:16+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -118,11 +118,6 @@ msgid "Inherits reversal"
 msgstr "Inherits reversal"
 
 #. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_top_menu
-msgid "LTY human resource"
-msgstr "人力资源"
-
-#. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_foreign___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_post___last_update
@@ -194,7 +189,7 @@ msgstr "超级管理员不能绑定到员工"
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_post_transfer_form
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_unit_transfer_form
 msgid "back_draft"
-msgstr "back_draft"
+msgstr "退回草稿"
 
 #. module: employees
 #: code:addons/employees/models/models.py:365
@@ -215,7 +210,7 @@ msgstr "一个系统用户不能绑定到两个员工"
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_post_transfer_form
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_unit_transfer_form
 msgid "confirmed"
-msgstr "confirmed"
+msgstr "审核通过"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_employees_transfer_record_form
@@ -223,12 +218,12 @@ msgstr "confirmed"
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_post_transfer_form
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_unit_transfer_form
 msgid "confirmed_countersign"
-msgstr "confirmed_countersign"
+msgstr "审批/会签"
 
 #. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_contract_menu
 msgid "contracts_document"
-msgstr "contracts_document"
+msgstr "劳动合同档案"
 
 #. module: employees
 #: code:addons/employees/models/models.py:235
@@ -305,7 +300,7 @@ msgstr "部门名称"
 #. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_document_transfer_menu
 msgid "document_transfer"
-msgstr "document_transfer"
+msgstr "档案与调动"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.lty_view_employee_form
@@ -321,11 +316,6 @@ msgstr "员工"
 #: model:ir.ui.menu,name:employees.ltyhr_employee_document_department_menu
 msgid "employee department"
 msgstr "组织架构"
-
-#. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_employee_document_menu
-msgid "employee document"
-msgstr "员工档案"
 
 #. module: employees
 #: code:addons/employees/models/models.py:13
@@ -467,67 +457,67 @@ msgstr "employees.unit"
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_countersign_person
 #: model:ir.model.fields,field_description:employees.field_employees_unit_countersign_person
 msgid "employees_countersign_person"
-msgstr "employees_countersign_person"
+msgstr "审批/会签人员"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_entering_date
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_entering_date
 #: model:ir.model.fields,field_description:employees.field_employees_unit_entering_date
 msgid "employees_entering_date"
-msgstr "employees_entering_date"
+msgstr "录入时间"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_new_unit
 msgid "employees_foreign_new_unit"
-msgstr "employees_foreign_new_unit"
+msgstr "对方单位"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_foreign_section
 msgid "employees_foreign_section"
-msgstr "employees_foreign_section"
+msgstr "部门"
 
 #. module: employees
 #: selection:employees.transfer.record,transfer_type:0
 #: model:ir.actions.act_window,name:employees.ltyhr_employees_foreign_transfer
 msgid "employees_foreign_transfer"
-msgstr "employees_foreign_transfer"
+msgstr "对外调动"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_transfer_type
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_transfer_type
 msgid "employees_foreign_transfer_type"
-msgstr "employees_foreign_transfer_type"
+msgstr "调动类型"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_wage
 msgid "employees_foreign_wage"
-msgstr "employees_foreign_wage"
+msgstr "工资结构"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_new_post
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_new_post
 #: model:ir.model.fields,field_description:employees.field_employees_unit_new_post
 msgid "employees_new_post"
-msgstr "employees_new_post"
+msgstr "新单位岗位"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_new_section
 #: model:ir.model.fields,field_description:employees.field_employees_unit_new_section
 msgid "employees_new_section"
-msgstr "employees_new_section"
+msgstr "新部门"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_new_unit
 #: model:ir.model.fields,field_description:employees.field_employees_unit_new_unit
 msgid "employees_new_unit"
-msgstr "employees_new_unit"
+msgstr "新单位"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_new_wage
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_new_wage
 #: model:ir.model.fields,field_description:employees.field_employees_unit_new_wage
 msgid "employees_new_wage"
-msgstr "employees_new_wage"
+msgstr "新工资结构"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_original_post
@@ -535,50 +525,50 @@ msgstr "employees_new_wage"
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_original_post
 #: model:ir.model.fields,field_description:employees.field_employees_unit_original_post
 msgid "employees_original_post"
-msgstr "employees_original_post"
+msgstr "原单位岗位"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_original_section
 #: model:ir.model.fields,field_description:employees.field_employees_unit_original_section
 msgid "employees_original_section"
-msgstr "employees_original_section"
+msgstr "原部门"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_original_unit
 #: model:ir.model.fields,field_description:employees.field_employees_unit_original_unit
 msgid "employees_original_unit"
-msgstr "employees_original_unit"
+msgstr "原单位"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_original_wage
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_original_wage
 #: model:ir.model.fields,field_description:employees.field_employees_unit_original_wage
 msgid "employees_original_wage"
-msgstr "employees_original_wage"
+msgstr "原工资结构"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_post_section
 msgid "employees_post_section"
-msgstr "employees_post_section"
+msgstr "部门"
 
 #. module: employees
 #: selection:employees.transfer.record,transfer_type:0
 #: model:ir.actions.act_window,name:employees.ltyhr_employees_post_transfer
 msgid "employees_post_transfer"
-msgstr "employees_post_transfer"
+msgstr "岗位调动"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_original_unit
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_original_unit
 msgid "employees_post_unit"
-msgstr "employees_post_unit"
+msgstr "单位"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_record_person
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_record_person
 #: model:ir.model.fields,field_description:employees.field_employees_unit_record_person
 msgid "employees_record_person"
-msgstr "employees_record_person"
+msgstr "录单人"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_name
@@ -594,12 +584,12 @@ msgstr "调动单编码"
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_entering_date
 msgid "employees_transfer_date"
-msgstr "employees_transfer_date"
+msgstr "调动时间"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_record_person
 msgid "employees_transfer_person"
-msgstr "employees_transfer_person"
+msgstr "调动人"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_transfer_reason
@@ -607,40 +597,40 @@ msgstr "employees_transfer_person"
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_transfer_reason
 #: model:ir.model.fields,field_description:employees.field_employees_unit_transfer_reason
 msgid "employees_transfer_reason"
-msgstr "employees_transfer_reason"
+msgstr "调动原因"
 
 #. module: employees
 #: model:ir.actions.act_window,name:employees.ltyhr_employees_transfer_record
 msgid "employees_transfer_record"
-msgstr "employees_transfer_record"
+msgstr "调动记录"
 
 #. module: employees
 #: selection:employees.foreign,state:0
 #: selection:employees.post.transfer,state:0
 #: selection:employees.unit,state:0
 msgid "employees_unit_confirmed"
-msgstr "employees_unit_confirmed"
+msgstr "待审批"
 
 #. module: employees
 #: selection:employees.foreign,state:0
 #: selection:employees.post.transfer,state:0
 #: selection:employees.unit,state:0
 msgid "employees_unit_done"
-msgstr "employees_unit_done"
+msgstr "已完成"
 
 #. module: employees
 #: selection:employees.foreign,state:0
 #: selection:employees.post.transfer,state:0
 #: selection:employees.unit,state:0
 msgid "employees_unit_draft"
-msgstr "employees_unit_draft"
+msgstr "草稿"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_state
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_state
 #: model:ir.model.fields,field_description:employees.field_employees_unit_state
 msgid "employees_unit_status"
-msgstr "employees_unit_status"
+msgstr "状态"
 
 #. module: employees
 #: code:addons/employees/models/models.py:50
@@ -649,7 +639,7 @@ msgstr "employees_unit_status"
 #: model:ir.model.fields,field_description:employees.field_hr_employee_unit_transfer
 #, python-format
 msgid "employees_unit_transfer"
-msgstr "employees_unit_transfer"
+msgstr "单位调动"
 
 #. module: employees
 #: code:addons/employees/models/models.py:30
@@ -744,7 +734,7 @@ msgstr "foreign transfer list"
 #: model:ir.ui.menu,name:employees.ltyhr_employee_foreign_transfer_menu
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_foreign_transfer_form
 msgid "foreign_transfer"
-msgstr "foreign_transfer"
+msgstr "对外调动"
 
 #. module: employees
 #: code:addons/employees/models/models.py:454
@@ -880,7 +870,7 @@ msgstr "post transfer list"
 #: model:ir.ui.menu,name:employees.ltyhr_employee_post_transfer_menu
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_post_transfer_form
 msgid "post_transfer"
-msgstr "post_transfer"
+msgstr "岗位调动"
 
 #. module: employees
 #: code:addons/employees/models/models.py:349
@@ -899,7 +889,7 @@ msgstr "性别"
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_post_transfer_form
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_unit_transfer_form
 msgid "submit"
-msgstr "submit"
+msgstr "提交"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_transfer_record_tree
@@ -912,18 +902,18 @@ msgstr "transfer record list"
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_post_transfer_form
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_unit_transfer_form
 msgid "transfer_details"
-msgstr "transfer_details"
+msgstr "调动详情"
 
 #. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_transfer_record_menu
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_employees_transfer_record_form
 msgid "transfer_record"
-msgstr "transfer_record"
+msgstr "调动记录"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_unit_transfer_form
 msgid "unit"
-msgstr "unit"
+msgstr "单位调动"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_unit_transfer_tree
@@ -936,10 +926,10 @@ msgstr "unit list"
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_post_transfer_form
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_unit_transfer_form
 msgid "unit_name"
-msgstr "unit_name"
+msgstr "新建调动单编码"
 
 #. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_unit_transfer_menu
 msgid "unit_transfer"
-msgstr "unit_transfer"
+msgstr "单位调动"
 
