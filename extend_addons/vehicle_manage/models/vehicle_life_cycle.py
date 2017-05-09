@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-import datetime
 
 # 车辆生命周期
 class vehicle_life(models.Model):
@@ -40,7 +39,6 @@ class vehicle_life(models.Model):
     def action_operation(self):
         print('operation_period')
         self.vehicle_life_state = 'operation_period'
-        self.start_service_date = datetime.date.today()
         return True
 
     @api.multi
