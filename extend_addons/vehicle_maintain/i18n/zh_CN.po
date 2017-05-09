@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-06 03:36+0000\n"
-"PO-Revision-Date: 2017-05-06 03:36+0000\n"
+"POT-Creation-Date: 2017-05-08 09:59+0000\n"
+"PO-Revision-Date: 2017-05-08 09:59+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -88,7 +88,7 @@ msgstr "检验通过"
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_company_id
 msgid "Company"
-msgstr "公司"
+msgstr "隶属公司"
 
 #. module: vehicle_maintain
 #: selection:maintain.manage.repair,state:0
@@ -138,12 +138,34 @@ msgid "Create Name Department"
 msgstr "填单人单位"
 
 #. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_appearance_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_category_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_method_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_reason_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_create_uid
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_inspect_return_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_appearance_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_category_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_method_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_reason_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_create_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_inspect_return_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_create_date
 msgid "Created on"
 msgstr "创建时间"
 
@@ -183,11 +205,6 @@ msgstr "派工"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_dispatch_count
 msgid "Dispatch Count"
 msgstr "待派工故障"
-
-#. module: vehicle_maintain
-#: model:ir.ui.view,arch_db:vehicle_maintain.maintain_precheck_view_form
-msgid "Dispatch to Precheck"
-msgstr "退回检验"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/maintain.py:334
@@ -421,7 +438,18 @@ msgid "Group Works"
 msgstr "群体作业"
 
 #. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_appearance_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_category_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_method_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_reason_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_inspect_return_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_id
 msgid "ID"
 msgstr "ID"
 
@@ -513,12 +541,34 @@ msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_appearance_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_category_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_method_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_reason_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_write_uid
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_inspect_return_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_appearance_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_category_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_method_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_reason_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_write_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_inspect_return_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
 
@@ -532,7 +582,7 @@ msgstr "车牌"
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_license_plate
 msgid "License plate"
-msgstr "车辆牌照"
+msgstr "车牌"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_report_license_plate
@@ -740,13 +790,13 @@ msgstr "预检通过"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_product_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_product_id
 msgid "Product"
-msgstr "产品"
+msgstr "可用物料"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_categ_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_categ_id
 msgid "Product Category"
-msgstr "产品类别"
+msgstr "物资类别"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_product_code
@@ -768,7 +818,7 @@ msgstr "领退料单"
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_method_avail_ids
 msgid "Products"
-msgstr "产品"
+msgstr "可用物料"
 
 #. module: vehicle_maintain
 #: selection:maintain.manage.repair,inspect_result:0
@@ -946,7 +996,7 @@ msgid "Select category for the current product"
 msgstr "为当前产品选择一个类别"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:583
+#: code:addons/vehicle_maintain/models/maintain.py:584
 #, python-format
 msgid "Selected inspect(s) cannot be confirmed as they are not in 'inspect' state"
 msgstr "选择检验单中存在不是待检状态的记录"
@@ -991,7 +1041,7 @@ msgstr "开工"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_state
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_state
 msgid "State"
-msgstr "省/ 州"
+msgstr "状态"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_picking_ids
@@ -1023,7 +1073,7 @@ msgstr "两人作业"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_uom_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_uom_id
 msgid "Unit of Measure"
-msgstr "计量单位"
+msgstr "单位"
 
 #. module: vehicle_maintain
 #: selection:maintain.fault.appearance,state:0
@@ -1073,19 +1123,19 @@ msgstr "事故报修"
 #: code:addons/vehicle_maintain/models/vehicle_anchor.py:43
 #, python-format
 msgid "anchor duration"
-msgstr "anchor duration"
+msgstr "抛锚时长"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/vehicle_anchor.py:35
 #, python-format
 msgid "anchor end time"
-msgstr "anchor end time"
+msgstr "抛锚结束时间"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/vehicle_anchor.py:39
 #, python-format
 msgid "anchor reason"
-msgstr "anchor reason"
+msgstr "抛锚原因"
 
 #. module: vehicle_maintain
 #: selection:maintain.manage.report,repair_category:0
@@ -1096,19 +1146,19 @@ msgstr "抛锚报修"
 #: code:addons/vehicle_maintain/models/vehicle_anchor.py:37
 #, python-format
 msgid "anchor road"
-msgstr "anchor road"
+msgstr "抛锚路段"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/vehicle_anchor.py:41
 #, python-format
 msgid "anchor solution"
-msgstr "anchor solution"
+msgstr "解决方案"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/vehicle_anchor.py:33
 #, python-format
 msgid "anchor time"
-msgstr "anchor time"
+msgstr "抛锚时间"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_category_appearance_ids
@@ -1124,7 +1174,7 @@ msgstr "总成专修"
 #: code:addons/vehicle_maintain/models/vehicle_anchor.py:45
 #, python-format
 msgid "driver"
-msgstr "driver"
+msgstr "司机"
 
 #. module: vehicle_maintain
 #: model:ir.ui.view,arch_db:vehicle_maintain.vechile_dropanchor_item_form_view
@@ -1136,7 +1186,7 @@ msgstr "抛锚记录表单"
 #: code:addons/vehicle_maintain/models/vehicle_anchor.py:14
 #, python-format
 msgid "drop anchor record"
-msgstr "drop anchor record"
+msgstr "抛锚记录"
 
 #. module: vehicle_maintain
 #: model:ir.ui.view,arch_db:vehicle_maintain.vehicle_usage_records_anchor_view_form_inherit
