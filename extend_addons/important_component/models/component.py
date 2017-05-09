@@ -8,8 +8,8 @@ from odoo.tools.translate import _
 class Product(models.Model):
     _inherit = 'product.product'
 
-    is_important = fields.Boolean(string='Important', default=False)
-    important_type = fields.Selection([('equipment', 'Equipment'), ('component', 'Component'), ('energy', 'Energy')],
+    # is_important = fields.Boolean(string='Important', default=False)
+    important_type = fields.Selection([('component', 'Component'), ('energy', 'Energy')],
                                       string='Important Type')
     component_ids = fields.One2many('product.component', 'product_id', string='Component Info')
     # 要件类型
