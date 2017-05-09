@@ -229,7 +229,10 @@ class route_manage(models.Model):
         for item in self:
             vehiclenum = self.getVehicleNumber(item.id)
             conductornum = self.getConductorNumber(item.id)
-            item.conductor_rate = round(conductornum/vehiclenum, 1)
+            if vehiclenum != 0 :
+                item.conductor_rate = round(conductornum/vehiclenum, 1)
+            else:
+                item.conductor_rate = 0
 
     # 综合比例
     synthesize_rate = fields.Float(compute='_getSynthesizeRate' ,string=_('synthesize rate'))

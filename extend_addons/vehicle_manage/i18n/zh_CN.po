@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 01:46+0000\n"
-"PO-Revision-Date: 2017-05-08 01:46+0000\n"
+"POT-Creation-Date: 2017-05-09 01:59+0000\n"
+"PO-Revision-Date: 2017-05-09 01:59+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,6 @@ msgstr "车辆的CO2排放量"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_chassis_no
-#: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_chassis_no
 msgid "Chassis No"
 msgstr "底盘型号"
 
@@ -170,15 +169,9 @@ msgstr "排量"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_engine_no
-#: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_engine_no
+#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_engine_no
 msgid "Engine No"
 msgstr "发动机号"
-
-#. module: vehicle_manage
-#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_engine_type_no
-#: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_engine_type_no
-msgid "Engine Type No"
-msgstr "发动机型号"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_fuel_consumption_pre_hund
@@ -410,13 +403,13 @@ msgstr "备注"
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_doors_ext
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_doors_ext
 msgid "Number of doors of the vehicle"
-msgstr "车门数量"
+msgstr "车辆车门数量"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_seats_ext
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_seats_ext
 msgid "Number of seats of the vehicle"
-msgstr "座位数量"
+msgstr "车辆座位数"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.fleet_vehicle_view_form
@@ -434,7 +427,7 @@ msgstr "当服务和合约必须更新时，Odoo会提醒你。"
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_power_ext
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_power_ext
 msgid "Power"
-msgstr "车辆总功率"
+msgstr "幂数"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_power_ext
@@ -501,7 +494,7 @@ msgstr "年限残值"
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_seats_ext
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_seats_ext
 msgid "Seats Number"
-msgstr "座位数量"
+msgstr "座位数"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_service_year
@@ -521,7 +514,7 @@ msgid "Specifications"
 msgstr "型号规格"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:179
+#: code:addons/vehicle_manage/models/vehicle.py:180
 #, python-format
 msgid "Standard code already exists"
 msgstr "排放等级编码已经存在"
@@ -534,7 +527,7 @@ msgstr "投入日期"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_state
 msgid "State"
-msgstr "状态"
+msgstr "省/ 州"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_location_stock_id
@@ -713,13 +706,13 @@ msgid "checking done"
 msgstr "已年检"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:67
+#: code:addons/vehicle_manage/models/vehicle.py:66
 #, python-format
 msgid "conductor"
 msgstr "售票员"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:224
+#: code:addons/vehicle_manage/models/vehicle.py:225
 #, python-format
 msgid "conductor rate"
 msgstr "乘务员人车比"
@@ -786,14 +779,14 @@ msgid "drive type working"
 msgstr "运营"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:69
+#: code:addons/vehicle_manage/models/vehicle.py:68
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:343
 #, python-format
 msgid "driver"
 msgstr "司机"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:194
+#: code:addons/vehicle_manage/models/vehicle.py:195
 #, python-format
 msgid "driver rate"
 msgstr "驾驶员人车比"
@@ -979,6 +972,11 @@ msgid "normal"
 msgstr "正常"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_route_correct_value
+msgid "oil_wear_coefficient"
+msgstr "oil_wear_coefficient"
+
+#. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:357
 #, python-format
 msgid "plan arrive"
@@ -1082,7 +1080,7 @@ msgid "submitted"
 msgstr "已提交"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:234
+#: code:addons/vehicle_manage/models/vehicle.py:235
 #, python-format
 msgid "synthesize rate"
 msgstr "线路综合人车比"
@@ -1108,9 +1106,13 @@ msgstr "已提交"
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:182
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:230
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:337
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_vehicle_id
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_vehicle_id
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_vehicleanchor_vehicle_id
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicleusage_driverecords_vehicle_id
 #, python-format
 msgid "vehicle info"
-msgstr "信息"
+msgstr "车辆"
 
 #. module: vehicle_manage
 #: model:ir.ui.menu,name:vehicle_manage.vehicle_inspection_list
@@ -1145,7 +1147,7 @@ msgid "vehicle inspection state"
 msgstr "年检状态"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:191
+#: code:addons/vehicle_manage/models/vehicle.py:192
 #: model:ir.ui.view,arch_db:vehicle_manage.schedule_route_manage_form
 #, python-format
 msgid "vehicle resource"
