@@ -1416,7 +1416,7 @@ msgstr "车辆抛锚记录"
 #: code:addons/vehicle_maintain/models/vehicle_anchor.py:21
 #, python-format
 msgid "vehicle info"
-msgstr "vehicle info"
+msgstr "车辆"
 
 #. module: vehicle_maintain
 #: selection:maintain.manage.repair,repair_type:0

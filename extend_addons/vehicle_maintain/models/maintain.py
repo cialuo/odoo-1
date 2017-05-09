@@ -16,7 +16,8 @@ class MaintainReport(models.Model):
         return emp_ids and emp_ids[0] or False
 
     name = fields.Char(string="Report Order", help='Report Order', required=True, index=True, copy=False, default='New')
-    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True)
+    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True,
+                                    domain = "[('vehicle_life_state', '=', 'operation_period')]")
     vehicle_type = fields.Many2one("fleet.vehicle.model", related='vehicle_id.model_id', store=True,
                                    readonly=True, copy=False)
     license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True,
