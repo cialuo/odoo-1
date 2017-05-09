@@ -66,10 +66,10 @@
                                     <field name="investment_ids" >
                                         <tree string="Inspect Return Records" create="false" delete="false" editable='bottom'>
                                             <field name="cost_type" readonly="1"/>
-                                            <field name="cost_amount" attrs="{'required':[('is_required','=','Yes')]}"/>
+                                            <field name="cost_amount" attrs="{'required':[('is_required','=','Yes')]}" sum="total_amount"/>
                                             <field name="cost_name"/>
                                             <field name="occurrence_time"/>
-                                            <field name="total_amount" readonly="1" widget="monetary"/>
+                                            <!--<field name="total_amount" readonly="1" widget="monetary"/>-->
                                             <field name="is_required" invisible="1"/>
                                         </tree>
                                     </field>

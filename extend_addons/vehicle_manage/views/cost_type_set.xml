@@ -41,6 +41,13 @@
             </field>
         </record>
 
+        <!-- 费用类型设置Action -->
+        <record id="cost_type_set_act" model="ir.actions.act_window">
+            <field name="name">Cost type set</field>
+            <field name="res_model">cost_type_set.cost_type_set</field>
+            <field name="view_model">tree,form</field>
+        </record>
+
         <!-- 菜单 -->
         <menuitem name="Cost type set"
                   id="cost_type_set_menu"

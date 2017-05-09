@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "operation_menu",
+    'name': "运营管理菜单",
 
     'description': """
         运营管理菜单
     """,
+
+    'summary': """
+        运营管理菜单
+        """,
 
     'author': "youmy",
     'website': "http://www.lantaiyuan.com/",
