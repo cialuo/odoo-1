@@ -22,6 +22,6 @@
         'views/repair_record_view.xml',
 
     ],
-    'depends': ['vehicle_maintain', 'vehicle_manage', 'vehicle_warranty'],
+    'depends': ['vehicle_maintain', 'vehicle_manage', 'vehicle_warranty', 'energy_management'],
     'application': True,
 }

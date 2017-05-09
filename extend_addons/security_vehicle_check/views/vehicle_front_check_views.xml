@@ -8,7 +8,7 @@
             <field name="model">security.vehicle_front_check</field>
             <field name="arch" type="xml">
                 <tree string="vehicle front check list">
-                    <field name="name"/>
+                    <field name="vehicle_id"/>
                     <field name="plate"/>
                     <field name="route"/>
                     <field name="checkout_date"/>
@@ -40,7 +40,7 @@
                         <!--</div>-->
                         <group>
                             <group>
-                                <field name="name"/>
+                                <field name="vehicle_id"/>
                                 <field name="inspector"/>
                                 <field name="vehicle_manager"/>
                                 <field name="checkout_date"/>
@@ -72,5 +72,27 @@
                 </form>
             </field>
         </record>
+
+        <!-- 车辆管理 例行检查 -->
+        <record model="ir.ui.view" id="vehicle_manage_vehicle_front_check">
+            <field name="name">vehicle_manage_vehicle_front_check form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="vehicle_manage.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_security_vehicle_check"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-flask"
+                            context="{'xml_id':'vehicle_front_check_action'}">
+                        <field name="vehicle_front_check_count" widget="statinfo" string="routine_check"/>
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+
+
     </data>
 </openerp>

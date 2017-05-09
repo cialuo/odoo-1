@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api,tools
+from odoo import models, fields, api,tools,_
 from odoo.modules.module import get_module_resource
 
 class energy_station(models.Model):
@@ -8,6 +8,8 @@ class energy_station(models.Model):
      _name = 'energy.station'
      _inherit = ['mail.thread']
      _description = 'Energy Station'
+     _sql_constraints = [('station_name_unique', 'unique (name)', _('Station name already exists')),
+                         ('station_no_unique', 'unique (station_no)', _('Station no already exists'))]
 
      """
         能源站
@@ -119,6 +121,8 @@ class energy_pile(models.Model):
     _name = 'energy.pile'
     _inherit = ['mail.thread']
     _description = 'Energy Pile'
+    _sql_constraints = [('pile_name_unique', 'unique(name)', _('Pile name already exists')),
+                        ('pile_no_unique', 'unique(pile_no)', _('Pile no already exists'))]
 
     """
        能源桩
@@ -133,13 +137,13 @@ class energy_pile(models.Model):
         return res
 
     # 能源站
-    station_id = fields.Many2one('energy.station',string='Station Id',required=True)
+    station_id = fields.Many2one('energy.station',string='Station Id',required=True,domain=[('station_property','=','company')])
 
     # 所属库位
     location_id = fields.Many2one('stock.location',string='Location Id',domain="[('station_id', '=', station_id)]",required=True)
 
     # 单位
-    companyc_id = fields.Many2one('product.uom',related = 'energy_type.uom_id',store = False, readonly = True,string='Companyc Id')
+    companyc_id = fields.Many2one('product.uom',related = 'energy_type.uom_id',store = False,string='Companyc Id')
 
     # 使用记录
     usage_record_ids = fields.One2many('energy.usage_record','pile_id',string='Usage record ids')
@@ -151,7 +155,7 @@ class energy_pile(models.Model):
     pile_no = fields.Char(string='Pile No',required=True)
 
     # 能源桩类型
-    pile_type = fields.Selection([('gasolinePile','Gasoline Pile'),('fillingPile','Filling Pile'),('powerPile','Power Pile'),('otherPile','Other Pile')],required=True)
+    pile_type = fields.Selection([('gasolinePile','Gasoline Pile'),('fillingPile','Filling Pile'),('powerPile','Power Pile'),('otherPile','Other Pile')],required=True,default='gasolinePile')
 
     # 能源类型
     energy_type = fields.Many2one('product.product',string='Energy Type',domain="[('important_type', '=', 'energy')]",required=True)
@@ -184,6 +188,16 @@ class energy_pile(models.Model):
                                 help="Small-sized photo of the employee. It is automatically "
                                      "resized as a 64x64px image, with aspect ratio preserved. "
                                      "Use this field anywhere a small image is required.")
+
+
+
+    @api.onchange('station_id')
+    def _onchange_station_id(self):
+        """
+            能源站修改时,移除已经选择的库位数据
+        :return:
+        """
+        self.location_id = False
 
     @api.model
     def create(self, vals):

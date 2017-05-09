@@ -7,6 +7,10 @@ class WarrantyProject(models.Model):
     is_important_product = fields.Boolean(string='Is important product')
     important_product_id = fields.Many2one('product.product', string="Important Product", domain=[('is_important', '=', True)])
 
+
+class WizardCreateWarrantyOrder(models.TransientModel):
+    _inherit = 'wizard_create_warranty_order'
+
     @api.multi
     def create_warranty_order(self):
         sheetIds = self._context.get('active_ids')
@@ -93,3 +97,5 @@ class WarrantyProject(models.Model):
                                   'instruction_ids': sheet_instructions})
             plan_sheet.update({'maintain_sheet_id': maintain_sheet.id,
                                'state': 'executing'})  # 'maintain_sheet_no': maintain_sheet.name,
+
+

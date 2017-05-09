@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api,_
 
 class security_check(models.Model):
 
     _name = 'energy.security_check'
     _inherit = ['mail.thread']
     _description = 'Security check'
+    _sql_constraints = [('security_check_name_unique', 'unique (name)', _('Security check already exists'))]
 
     """
        安全检查
@@ -20,10 +21,10 @@ class security_check(models.Model):
     station_id = fields.Many2one('energy.station', string='Station Id',required=True,domain=[('station_property','=','company')])
 
     # 能源站类别
-    station_type = fields.Selection(string='Station Type', related='station_id.station_type', store=False, readonly=True)
+    station_type = fields.Selection(string='Station Type', related='station_id.station_type', store=False,)
 
     # 隶属部门
-    department_id = fields.Many2one('hr.department',related='station_id.department_id', store=False, readonly=True,string='Department Id')
+    department_id = fields.Many2one('hr.department',related='station_id.department_id', store=False,string='Department Id')
 
     # 巡检人
     patrol_man = fields.Many2one('hr.employee', string='Patrol Man')
@@ -41,7 +42,7 @@ class security_check(models.Model):
     state = fields.Selection([('draft','Draft'),('refer','Refer'),('auditing','Auditing'),('complete','Complete')],default='draft',string='Check Result')
 
     # 巡检类型
-    check_type = fields.Selection([('normalinspection','Normal inspection'),('sampling','Sampling')],string='Check Type',required=True)
+    check_type = fields.Selection([('normalinspection','Normal inspection'),('sampling','Sampling')],string='Check Type',required=True,default='normalinspection')
 
     # 备注
     remarks = fields.Char('Remarks')

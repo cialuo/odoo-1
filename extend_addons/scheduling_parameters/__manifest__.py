@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "scheduling_parameters",
+    'name': "调度参数设置",
 
     'description': """
         调度参数设置
     """,
+
+    'summary': """
+        调度参数设置
+        """,
 
     'author': "youmy",
     'website': "http://www.lantaiyuan.com/",
@@ -21,7 +25,6 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        # 'views/schedule_menu.xml',
         'views/schedule_employee.xml',
         'views/schedule.xml',
     ],

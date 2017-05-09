@@ -152,7 +152,7 @@
 	                        <group>
 								<field name="inner_code" options="{'no_open':True,'no_create':True}"/>
 	                        	<field name="category_id" options="{'no_open':True,'no_create':True}"/>
-								<field name="sequence"/>
+								<!--<field name="sequence"/>-->
 	                        </group>
 	                        <group>
 

@@ -12,7 +12,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['hr', 'fleet', 'vehicle_manage_menu','stock','employees', 'scheduling_parameters'],
+    'depends': ['hr', 'fleet', 'vehicle_manage_menu', 'stock', 'employees', 'scheduling_parameters'],
 
     # always loaded
     'data': [
@@ -20,6 +20,10 @@
         'views/vehicle_view.xml',
         'views/stock_location.xml',
         'views/fleetusagemanagement.xml',
+        # 费用类型设置
+        'views/cost_type_set.xml',
+        # 车辆生命周期
+        'views/vehicle_life_cycle.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,

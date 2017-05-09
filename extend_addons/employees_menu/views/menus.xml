@@ -5,5 +5,9 @@
         <!--人力资源档案-->
         <menuitem id="ltyhr_employee_document_menu" name="employee document"
                   parent="ltyhr_top_menu"/>
+
+        <!-- 系统设置 -->
+        <menuitem id="ltyhr_system_configuration_menu" name="System Configuration"
+                  parent="ltyhr_top_menu" sequence="80"/>
 	</data>
 </odoo>

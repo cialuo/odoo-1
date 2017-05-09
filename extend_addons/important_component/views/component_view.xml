@@ -22,17 +22,17 @@
                         </field>
                     </page>
                 </xpath>
-                <xpath expr="//div[@name='options']/div" position="inside">
-                    <div>
-                        <field name="is_important"/>
-                        <label for="is_important"/>
-                    </div>
-                </xpath>
-                <xpath expr="//div[@name='options']" position="inside">
-                    <div class="col-sm-6">
-                        <field name="important_type" widget="radio" attrs="{'invisible': [('is_important', '=', False)]}"/>
-                    </div>
-                </xpath>
+                <!--<xpath expr="//div[@name='options']/div" position="inside">-->
+                    <!--<div>-->
+                        <!--<field name="is_important"/>-->
+                        <!--<label for="is_important"/>-->
+                    <!--</div>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//div[@name='options']" position="inside">-->
+                    <!--<div class="col-sm-6">-->
+                        <!--<field name="important_type" widget="radio" attrs="{'invisible': [('is_important', '=', False)]}"/>-->
+                    <!--</div>-->
+                <!--</xpath>-->
             </field>
         </record>
     </data>
