@@ -18,7 +18,7 @@ class VehicleAnchor(models.Model):
     _name = 'vehicle_usage.vehicleanchor'
 
     # 关联的车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string='vehicle info', required=True)
+    vehicle_id = fields.Many2one('fleet.vehicle', required=True)
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
     # 车牌号
