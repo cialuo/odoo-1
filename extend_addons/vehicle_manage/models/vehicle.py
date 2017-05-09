@@ -219,9 +219,12 @@ class route_manage(models.Model):
         for item in self:
             vehiclenum = self.getVehicleNumber(item.id)
             drivernum = self.getDriverNumber(item.id)
-            item.driver_rate = round(drivernum/vehiclenum,1)
+            if vehiclenum != 0:
+                item.driver_rate = round(drivernum/vehiclenum,1)
+            else:
+                item.driver_rate = 0
 
-    # 售票员比例
+                # 售票员比例
     conductor_rate = fields.Float(compute='_getConductorRate',string=_('conductor rate'))
 
     @api.multi
@@ -242,6 +245,9 @@ class route_manage(models.Model):
         for item in self:
             vehiclenum = self.getVehicleNumber(item.id)
             all = self.getAllHumanNumber(item.id)
-            item.synthesize_rate = round(all/vehiclenum, 1)
+            if vehiclenum != 0:
+                item.synthesize_rate = round(all/vehiclenum, 1)
+            else:
+                item.synthesize_rate = 0
 
 
