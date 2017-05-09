@@ -1,9 +1,16 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 class archives_class_manage(models.Model):
     _name = 'security_manage.cls_manage'
-    name = fields.Char(string=_('archives_class_manage_item_name'))
-    item_id = fields.Char(string=_('archives_class_manage_item_id'))
+    # _sql_constraints = [('item_id_unique', 'unique(item_id)', _('id  already exists'))]
+    _sql_constraints = [
+        ('item_id_unique',
+         'UNIQUE(item_id)',
+         "The id must be unique"),
+    ]
+    name = fields.Char(string=_('archives_class_manage_item_name'),required=True)
+    item_id = fields.Char(string=_('archives_class_manage_item_id'),required=True)
     item_name = fields.Char(string=_('archives_class_manage_table'),default=_('archives_class_manage_table'))
     class_name = fields.Char(string=_('archives_class_manage_class_name'))
     # TODO 这是一个Many2one
@@ -14,7 +21,10 @@ class archives_class_manage(models.Model):
     ], string=_('archives_class_manage_class_type'))
 
     # TODO 这是一个Many2one
-    parent = fields.Char(string=_('archives_class_manage_parent'))
+    # parent = fields.Char(string=_('archives_class_manage_parent'))
+    parent = fields.Many2one('security_manage.cls_manage', string=_('archives_class_manage_parent'),
+                                            ondelete='set null',
+                                            domain=[('class_type', '=', 'big_class')])
 
     # form_creator= fields.Char()
     form_creator =  fields.Many2one('res.users',string=_('archives_class_manage_form_creator'),required=True, default=lambda
@@ -37,3 +47,9 @@ class archives_class_manage(models.Model):
     @api.onchange
     def onTypeChange(self):
         pass
+
+    # @api.constrains('item_id')
+    # def _check_something(self):
+    #     for record in self:
+    #         if record.item_id == item_id:
+    #             raise ValidationError("record should unique: %s" % record.item_id)
