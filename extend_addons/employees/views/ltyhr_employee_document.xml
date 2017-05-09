@@ -348,13 +348,13 @@
                                         <field name="original_unit"/>
                                         <field name="original_section"/>
                                         <field name="original_post"/>
-                                        <field name="original_wage"/>
+                                        <!--<field name="original_wage"/>-->
                                     </group>
                                     <group>
                                         <field name="new_unit"/>
                                         <field name="new_section"/>
                                         <field name="new_post"/>
-                                        <field name="new_wage"/>
+                                        <!--<field name="new_wage"/>-->
                                     </group>
                                 </group>
 
@@ -434,12 +434,12 @@
                                     <group>
                                         <field name="original_unit"/>
                                         <field name="original_post"/>
-                                        <field name="original_wage"/>
+                                        <!--<field name="original_wage"/>-->
                                     </group>
                                     <group>
                                         <field name="post_section"/>
                                         <field name="new_post"/>
-                                        <field name="new_wage"/>
+                                        <!--<field name="new_wage"/>-->
                                     </group>
                                 </group>
 
@@ -519,12 +519,13 @@
                                     <group>
                                         <field name="original_unit"/>
                                         <field name="original_post"/>
-                                        <field name="wage"/>
+                                        <!--<field name="wage"/>-->
+                                         <field name="new_unit"/>
                                     </group>
                                     <group>
                                         <field name="foreign_section"/>
                                         <field name="transfer_type"/>
-                                        <field name="new_unit"/>
+
                                     </group>
                                 </group>
 
@@ -593,13 +594,13 @@
                                         <field name="original_unit"/>
                                         <field name="original_section"/>
                                         <field name="original_post"/>
-                                        <field name="original_wage"/>
+                                        <!--<field name="original_wage"/>-->
                                     </group>
                                     <group>
                                         <field name="new_unit"/>
                                         <field name="new_section"/>
                                         <field name="new_post"/>
-                                        <field name="new_wage"/>
+                                        <!--<field name="new_wage"/>-->
                                     </group>
                                 </group>
 

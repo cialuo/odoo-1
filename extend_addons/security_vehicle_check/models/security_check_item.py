@@ -5,7 +5,7 @@ from odoo import models, fields, api, _
 
 class security_check_item(models.Model):
     _name = 'security_manage.check_item'
-    name = fields.Char(string=_('check_id'))
+    name = fields.Char(string=_('check_id'), required=True)
     check_info = fields.Char(string='', default=_('check_info'))
     check_item_name = fields.Char(string=_('check_item_name'))
     check_content = fields.Char(string=_('check_content'))

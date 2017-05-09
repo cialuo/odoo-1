@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+
+        <!-- 登陆设置 form -->
+        <record id="login_config_settings_form" model="ir.ui.view">
+            <field name="name">Login Config Settings</field>
+            <field name="model">login_config_settings</field>
+            <field name="arch" type="xml">
+                <form string="Configure Purchases" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <group string="Img Configuration">
+                        <group>
+                            <field name="banner_img_src"/>
+                            <field name="background_img_src"/>
+                            <field name="login_img_src"/>
+                        </group>
+                    </group>
+                    <group string="Offset Configuration">
+                        <group>
+                            <field name="banner_img_offset_src"/><!--widget="radio"-->
+                            <field name="login_dialog_offset_src"/>
+                        </group>
+                    </group>
+                    <group string="Height Configuration">
+                        <group>
+                            <field name="header_height_src"/>
+                            <field name="footer_height_src"/>
+                            <field name="body_login_height_src"/>
+                        </group>
+                    </group>
+                    <div>
+                        <span>height configuration value added to 100.</span>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- 登陆设置 action -->
+        <record id="action_login_config_settings" model="ir.actions.act_window">
+            <field name="name">Login Config Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">login_config_settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <!-- 登陆设置 menu -->
+        <menuitem id="menu_login_config_settings" name="Login Config Settings" parent="employees_menu.ltyhr_system_configuration_menu"
+            sequence="10" action="action_login_config_settings" />
+
+    </data>
+</odoo>

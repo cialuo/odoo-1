@@ -158,3 +158,24 @@ class WizardCreateWarrantyOrder(models.TransientModel): # 计划单生成保养�
 
 
 
+class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生成关联司机的保养单
+    _name = 'wizard_create_warranty_order_by_driver'
+
+    def _default_plan_order(self):
+        active_ids=self._context.get('active_ids')
+        plan_order_ids = self.env['warranty_plan_order'].browse(active_ids)
+        return plan_order_ids
+
+    plan_order_ids = fields.Many2many('warranty_plan_order', string='Warranty Plan Order', required=True, default=_default_plan_order)
+
+    return_reason = fields.Text("Return Reason")
+
+    @api.multi
+    def reject(self):
+        project_ids = self._context.get('active_ids')
+        # project_ids = self.env['warranty_order_project'].browse(project_ids)
+        #
+        # for project in project_ids:
+        #     if project.state != 'check':
+        #         raise UserError(_("Selected project cannot be return as they are not in 'check' state."))
+        #     project.action_return(self.return_reason)
