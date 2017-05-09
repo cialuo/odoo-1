@@ -31,7 +31,7 @@
     'author': "XJM",
     'website': 'http://www.lty.com',
     'license': 'AGPL-3',
-    'depends': [],
+    'depends': ['employees_menu'],
     'data': [
         'data/ir_config_parameter.xml',
         'templates/webclient_templates.xml',

@@ -104,7 +104,7 @@
 	<template id="rw_menu_secondary" inherit_id="web.menu_secondary" name="Menu Secondary">
    		<xpath expr="//div[@class='o_sub_menu_footer']" position="replace">
 			<div class="o_sub_menu_footer">
-				Powered by <a href="#"><span>LTY</span></a>
+				<a href="#"><span>蓝泰源</span></a>提供技术支持
 			</div>
    		</xpath>
 	</template>
