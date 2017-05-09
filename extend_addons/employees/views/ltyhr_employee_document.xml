@@ -213,13 +213,7 @@
                                     <field name="post_id"/>
                                 </page>
                                 <page name="members" string="members in department">
-
-                                    <field name="member_id">
-
-                                    </field>
-
                                     <field name="member_id"/>
-
                                 </page>
                             </notebook>
                         </sheet>
