@@ -7,8 +7,8 @@
     'author': "XJM",
     'category': 'Advanced Edition',
     'version': '1.0',
-
-    'depends': ['employees', 'vehicle_manage','materials_product','stock_picking_types'], # 'product','stock'
+    # 'depends': ['employees', 'vehicle_manage','materials_product','stock_picking_types'], # 'product','stock'
+    'depends': ['vehicle_manage','materials_product','stock_picking_types'], # 'product','stock'
     'data': [
         'data/vehicle_warranty_data.xml',
         'views/warranty_category_view.xml',

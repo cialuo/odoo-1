@@ -341,15 +341,16 @@
                                 </field>
 								<center>
 									 <button name="create_get_picking"
-										type="object"
-										string="Create Get Picking"
+											 type="object"
+											 string="Create Get Picking"
+											 states="repair,inspect,completed"
 										class="oe_highlight">
 									 </button>
 
 									 <button name="create_back_picking"
-										type="object"
-										string="Create Back Picking"
-										/>
+											 type="object"
+											 states="repair,inspect,completed"
+											 string="Create Back Picking"/>
 								</center>
 								  <separator/>
                              </page>

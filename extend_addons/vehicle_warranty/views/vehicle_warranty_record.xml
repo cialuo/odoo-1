@@ -26,7 +26,7 @@
             <field name="model">fleet.vehicle</field>
             <field name="inherit_id" ref="vehicle_manage.vehicle_usage_records_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//notebook/page[3]" position="after">
+                <xpath expr="//notebook" position="inside">
                     <page string="Warranty Log">
                         <field name="warranty_order_project_ids">
                             <tree create="false" delete="false">

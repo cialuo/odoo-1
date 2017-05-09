@@ -71,5 +71,57 @@
                     target='new'
                     key2='client_action_multi'/>
 
+
+        <!-- 计划单生成关联司机的保养单 -->
+        <record model='ir.ui.view' id='wizard_create_warranty_order_by_driver_form'>
+            <field name='name'>Wizard Create Warranty Order By Driver</field>
+            <field name='model'>wizard_create_warranty_order_by_driver</field>
+            <field name='arch' type='xml'>
+                <form>
+                    <notebook>
+                        <page string="Wizard Plan Order" >
+                            <field name="plan_order_ids">
+                                <tree create="false" editable="false">
+                                <field name="parent_id" string="Warranty Plan No"/>
+                                <field name="vehicle_id"/>
+                                <field name="vehicle_type" string="Vehicle Model"/>
+                                <field name="license_plate"/>
+                                <field name="fleet"/>
+                                <field name="operating_mileage"/>
+                                <field name="warranty_category"/>
+                                <field name="planned_date"/>
+                                <field name="vin"/>
+                                <field name="average_daily_kilometer"/>
+                                <field name="line"/>
+                                <field name="warranty_location"/>
+                                <field name="maintain_sheet_id"/>
+                                <field name="state" string="MyState"/>
+                                </tree>
+                            </field>
+
+                        </page>
+                    </notebook>
+                    <group>
+                        <field name="return_reason"/>
+                    </group>
+                    <footer>
+                        <button name="reject" type="object"
+                                string="Reject" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id='wizard_create_warranty_order_by_driver_act'
+                    name='Wizard Create Warranty Order By Driver'
+                    src_model='warranty_plan_order'
+                    res_model='wizard_create_warranty_order_by_driver'
+                    view_mode='form'
+                    target='new'
+                    key2='client_action_multi'/>
+
+
     </data>
 </odoo>

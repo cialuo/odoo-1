@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "revenue",
+    'name': "营收管理",
 
     'description': """
         营收管理
     """,
+
+    'summary': """
+        营收管理
+        """,
 
     'author': "youmy",
     'website': "http://www.lantaiyuan.com/",

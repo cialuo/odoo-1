@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-04 06:09+0000\n"
-"PO-Revision-Date: 2017-05-04 06:09+0000\n"
+"POT-Creation-Date: 2017-05-08 10:08+0000\n"
+"PO-Revision-Date: 2017-05-08 10:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,7 @@ msgid "Click to add a new equipment category."
 msgstr "点击创建一个新的设备种类"
 
 #. module: vehicle_equipment_manage
+#: model:ir.actions.act_window,help:vehicle_equipment_manage.fire_equipment_action
 #: model:ir.actions.act_window,help:vehicle_equipment_manage.hr_equipment_action
 msgid "Click to add a new equipment."
 msgstr "点击创建一个新的设备"
@@ -68,7 +69,7 @@ msgstr "创建时间"
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_delivery_id
 #: selection:vehicle_equipment.maintain.delivery,state:0
 msgid "Delivery"
-msgstr "交货"
+msgstr "已交接"
 
 #. module: vehicle_equipment_manage
 #: model:ir.ui.view,arch_db:vehicle_equipment_manage.maintain_precheck_view_form_ext
@@ -114,6 +115,7 @@ msgstr "草稿"
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_equipment_equipment_id
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_equipment_id
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_equipment_id
+#: model:ir.ui.view,arch_db:vehicle_equipment_manage.view_equipment_view_search
 msgid "Equipment"
 msgstr "设备名称"
 
@@ -291,6 +293,16 @@ msgstr "设备档案管理"
 #: model:ir.ui.menu,name:vehicle_equipment_manage.equipment_categories
 msgid "equipment_categories"
 msgstr "设备分类管理"
+
+#. module: vehicle_equipment_manage
+#: model:ir.ui.menu,name:vehicle_equipment_manage.fire_equipment
+msgid "fire_equipment"
+msgstr "消防设施管理"
+
+#. module: vehicle_equipment_manage
+#: model:ir.actions.act_window,name:vehicle_equipment_manage.fire_equipment_action
+msgid "fire_equipment_action"
+msgstr "消防设施管理"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model,name:vehicle_equipment_manage.model_maintain_manage_report
