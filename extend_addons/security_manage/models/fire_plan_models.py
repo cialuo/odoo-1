@@ -5,12 +5,12 @@ from odoo import models, fields, api, _
 
 class fire_plan(models.Model):
     _name = 'sfs.fire_plan'
-    name = fields.Char(string=_('archive name'))
+    name = fields.Char(string='archive name')
 
-    archives_class_big = fields.Many2one('security_manage.cls_manage', string=_('archive big class'),
+    archives_class_big = fields.Many2one('security_manage.cls_manage', string='archive big class',
                                          ondelete='set null',
                                          domain=[('class_type', '=', 'big_class')])
-    archives_class_little = fields.Many2one('security_manage.cls_manage', string=_('archive little class'),
+    archives_class_little = fields.Many2one('security_manage.cls_manage', string='archive little class',
                                             ondelete='set null',
                                             domain=[('class_type', '=', 'little_class')])
 
@@ -24,7 +24,7 @@ class fire_plan(models.Model):
     state = fields.Selection([
         ('use', _('Use')),
         ('archive', _("Archive")),
-    ], default='use', string=_('archive workflow state'))
+    ], default='use', string='archive workflow state')
 
     @api.multi
     def action_to_default(self):
