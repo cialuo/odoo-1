@@ -22,12 +22,13 @@ class vehicle_detection_check(models.Model):
         return datas
 
     # 车辆编号
-    name = fields.Many2one('fleet.vehicle', string="vehicle_check_number", required=True)
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle_check_number", required=True,
+                                 domain="[('vehicle_life_state', '=', 'operation_period')]")
     # 车牌号
-    plate = fields.Char(string="vehicle_check_plate", related='name.license_plate', store=False, readonly=True)
+    plate = fields.Char(string="vehicle_check_plate", related='vehicle_id.license_plate', store=False, readonly=True)
     # 线路
-    route = fields.Char(string='vehicle_check_route')
-    # route = fields.Many2one('vehicle_manage.route', related='name.route_id', store=False)
+    # route = fields.Char(string='vehicle_check_route')
+    route = fields.Many2one('route_manage.route_manage', related='vehicle_id.route_id', store=False, readonly=True)
     # 检验日期
     checkout_date = fields.Date(string="vehicle_check_checkout_date")
     # 检查人员

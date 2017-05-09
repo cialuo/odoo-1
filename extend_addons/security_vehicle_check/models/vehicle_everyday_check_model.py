@@ -22,12 +22,13 @@ class vehicle_everyday_check(models.Model):
         return datas
 
     # 车辆编号
-    name = fields.Many2one('fleet.vehicle', string="vehicle_check_number", required=True)
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle_check_number", required=True,
+                                 domain="[('vehicle_life_state', '=', 'operation_period')]")
     # 车牌号
-    plate = fields.Char(string="vehicle_check_plate", related='name.license_plate', store=False, readonly=True)
+    plate = fields.Char(string="vehicle_check_plate", related='vehicle_id.license_plate', store=False, readonly=True)
     # 线路
-    route = fields.Char(string='vehicle_check_route')
-    # route = fields.Many2one('vehicle_manage.route', related='name.route_id', store=False)
+    # route = fields.Char(string='vehicle_check_route')
+    route = fields.Many2one('route_manage.route_manage', related='vehicle_id.route_id', store=False, readonly=True)
     # 检验日期
     checkout_date = fields.Date(string="vehicle_check_checkout_date")
     # 检查人员
@@ -44,7 +45,8 @@ class vehicle_everyday_check(models.Model):
     # # 关联检查表
     # check_form = fields.Many2one('security.vehicle_plan_details')
     # 计划详情
-    plan_details_id = fields.One2many("security.vehicle_plan_details", "vehicle_everyday_check_id", default=_add_plan_details)
+    plan_details_id = fields.One2many("security.vehicle_plan_details", "vehicle_everyday_check_id",
+                                      default=_add_plan_details)
     # 工作流
     state = fields.Selection([("draft", "vehicle_check_draft"),  # 草稿
                               ("done", "vehicle_check_done"),  # 已检查
