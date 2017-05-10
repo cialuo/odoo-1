@@ -155,10 +155,10 @@ class usage_record(models.Model):
         domain = [('vehicle_id', '=', self.vehicle_id.id)]
 
         #获取车辆的最后一次能源使用记录id
-        usage_record = self.env['energy.usage_record'].search(domain,limit=1,order="create_date desc")
+        usage_record = self.env['energy.usage_record'].search(domain,limit=1,order="record_date desc")
 
         if usage_record:
-            domain += [('create_date', '>=', usage_record.create_date)]
+            domain += [('realitydepart', '>=', usage_record.record_date)]
             driverecords = self.env['vehicleusage.driverecords'].search(domain)
         else:
             driverecords = self.env['vehicleusage.driverecords'].search(domain)

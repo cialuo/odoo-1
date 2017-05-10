@@ -19,7 +19,8 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/energe_security.xml',
+        'security/ir.model.access.csv',
         'views/energy_station_view.xml',
         'views/security_check_view.xml',
         'views/energy_pile_view.xml',

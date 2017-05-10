@@ -65,8 +65,8 @@
       <field name="arch" type="xml">
         <form string="Pile form">
            <header>
-               <button name="normal_to_stop" type="object" string="stop" states="normal"/>
-               <button name="stop_to_normal" type="object" string="normal" states="stop"/>
+               <button name="normal_to_stop" type="object" string="stop" states="normal" groups="energy_management.energy_management_stationmaster"/>
+               <button name="stop_to_normal" type="object" string="normal" states="stop" groups="energy_management.energy_management_stationmaster"/>
                <field name="state"  widget="statusbar"/>
            </header>
 

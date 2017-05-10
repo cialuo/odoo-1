@@ -24,8 +24,8 @@
       <field name="arch" type="xml">
         <form>
           <header>
-              <button name="refer_to_auditing" type="object" string="refer" states="draft"/>
-              <button name="auditing_to_complete" type="object" string="auditing" states="refer"/>
+              <button name="refer_to_auditing" type="object" string="refer" states="draft" groups="energy_management.energy_management_security_inspector"/>
+              <button name="auditing_to_complete" type="object" string="auditing" states="refer" groups="energy_management.energy_management_stationmaster"/>
               <field name="state"  widget="statusbar"/>
           </header>
           <sheet>

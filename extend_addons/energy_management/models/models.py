@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api,tools,_
+from odoo import models, fields, api,tools
+from odoo.tools.translate import _
 from odoo.modules.module import get_module_resource
 
 class energy_station(models.Model):
@@ -8,8 +9,8 @@ class energy_station(models.Model):
      _name = 'energy.station'
      _inherit = ['mail.thread']
      _description = 'Energy Station'
-     _sql_constraints = [('station_name_unique', 'unique (name)', _('Station name already exists')),
-                         ('station_no_unique', 'unique (station_no)', _('Station no already exists'))]
+     _sql_constraints = [('station_name_unique', 'unique (name)', '能源站名字已经存在!'),
+                         ('station_no_unique', 'unique (station_no)', '能源站编号已经存在!')]
 
      """
         能源站
@@ -121,8 +122,8 @@ class energy_pile(models.Model):
     _name = 'energy.pile'
     _inherit = ['mail.thread']
     _description = 'Energy Pile'
-    _sql_constraints = [('pile_name_unique', 'unique(name)', _('Pile name already exists')),
-                        ('pile_no_unique', 'unique(pile_no)', _('Pile no already exists'))]
+    _sql_constraints = [('pile_name_unique', 'unique(name)', '能源桩名字已经存在!'),
+                        ('pile_no_unique', 'unique(pile_no)', '能源桩编号已经存在!')]
 
     """
        能源桩

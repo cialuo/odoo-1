@@ -7,7 +7,7 @@ class security_check(models.Model):
     _name = 'energy.security_check'
     _inherit = ['mail.thread']
     _description = 'Security check'
-    _sql_constraints = [('security_check_name_unique', 'unique (name)', _('Security check already exists'))]
+    _sql_constraints = [('security_check_name_unique', 'unique (name)', '检查编号已经存在!')]
 
     """
        安全检查
