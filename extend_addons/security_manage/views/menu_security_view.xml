@@ -36,7 +36,8 @@
         <!--groups="maintain_group_settings"-->
         <menuitem name="archives_class_manage" id="security_manage.archives_class_manage"
                   parent="security_manage_menu.security_check_settings"
-                  action="security_manage.action_security_archives_class_manage"/>
+                  action="security_manage.action_security_archives_class_manage"
+                  groups="archives_group_browser,archives_group_typer,maintain_group_settings"/>
         <!--安全检查设置 end-->
 
     </data>
