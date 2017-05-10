@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <record id="manage_warranty_group" model="ir.module.category">
+            <field name="name">Warranty</field>
+            <field name="sequence">17</field>
+        </record>
+
+        <record id="warranty_basic" model="res.groups">
+            <field name="name">Warranty Basic</field>
+            <field name="category_id" ref="manage_warranty_group"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('fleet.fleet_group_user')), (4, ref('stock.group_stock_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+
+        <record id="warranty_technology_manager" model="res.groups">
+            <field name="name">Technology Manager</field>
+            <field name="category_id" ref="manage_warranty_group"/>
+            <field name="implied_ids" eval="[(4, ref('warranty_basic'))]"/>
+        </record>
+
+
+        <record id="warranty_technology_chief" model="res.groups">
+            <field name="name">Technology Chief</field>
+            <field name="category_id" ref="manage_warranty_group"/>
+            <field name="implied_ids" eval="[(4, ref('warranty_basic'))]"/>
+        </record>
+
+        <record id="warranty_driver" model="res.groups">
+            <field name="name">Driver</field>
+            <field name="category_id" ref="manage_warranty_group"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('stock.group_stock_user')), (4, ref('fleet.fleet_group_user'))]"/>
+        </record>
+
+        <record id="warranty_depot" model="res.groups">
+            <field name="name">Depot</field>
+            <field name="category_id" ref="manage_warranty_group"/>
+            <field name="implied_ids" eval="[(4, ref('warranty_driver'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+
+        <record id="warranty_repair" model="res.groups">
+            <field name="name">Repair</field>
+            <field name="category_id" ref="manage_warranty_group"/>
+            <field name="implied_ids" eval="[(4, ref('stock.group_stock_user')), (4, ref('fleet.fleet_group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <!--<record id="warranty_dispatch" model="res.groups">-->
+            <!--<field name="name">Dispatch</field>-->
+            <!--<field name="category_id" ref="manage_warranty_group"/>-->
+            <!--<field name="implied_ids" eval="[(4, ref('warranty_repair'))]"/>-->
+            <!--<field name="users" eval="[(4, ref('base.user_root'))]"/>-->
+        <!--</record>-->
+
+        <record id="warranty_inspect" model="res.groups">
+            <field name="name">Inspect</field>
+            <field name="category_id" ref="manage_warranty_group"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+    </data>
+</odoo>
