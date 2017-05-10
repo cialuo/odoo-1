@@ -40,9 +40,9 @@
                         <!--</div>-->
                         <group>
                             <group>
-                                <field name="vehicle_id"/>
-                                <field name="inspector"/>
-                                <field name="vehicle_manager"/>
+                                <field name="vehicle_id" options="{'no_open':True,'no_create':True}"/>
+                                <field name="inspector" options="{'no_open':True,'no_create':True}"/>
+                                <field name="vehicle_manager" options="{'no_open':True,'no_create':True}"/>
                                 <field name="checkout_date"/>
                                 <field name="check_type"/>
                             </group>
@@ -84,7 +84,7 @@
                     <button name="action_security_vehicle_check"
                             type="object"
                             class="oe_stat_button"
-                            icon="fa-flask"
+                            icon="fa-book"
                             context="{'xml_id':'vehicle_front_check_action'}">
                         <field name="vehicle_front_check_count" widget="statinfo" string="routine_check"/>
                     </button>
