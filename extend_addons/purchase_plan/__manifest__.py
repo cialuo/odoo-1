@@ -11,7 +11,7 @@
     """,
     'data': [
         'data/purchase_plan.xml',
-        'security/purchase_plan_security.xml',
+        # 'security/purchase_plan_security.xml',
         'security/ir.model.access.csv',
         'views/purchase_plan_view.xml',
     ],

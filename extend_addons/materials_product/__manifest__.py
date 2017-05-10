@@ -10,6 +10,9 @@
     物资管理
     """,
     'data': [
+        'data/data.xml',
+        'security/security.xml',
+        'security/ir.model.access.csv',
         'views/product_view.xml',
     ],
     'depends': ['materials_menu', 'stock', 'purchase', 'fleet'],

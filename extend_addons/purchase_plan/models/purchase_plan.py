@@ -17,7 +17,7 @@ class PuchasePlan(models.Model):
         """
         user = self.env.user
         if user.employee_ids:
-            return user.employee_ids[0]
+            return user.employee_ids[0].id
         else:
             return False
     @api.model
@@ -87,7 +87,7 @@ class PuchasePlan(models.Model):
         checker = self._get_default_user()
         self.write({
             'state': 'confirm',
-            'checker_id': checker.id or False,
+            'checker_id': checker,
             'checker_login': self.env.uid,
             'check_date': datetime.utcnow()
         })
@@ -109,7 +109,7 @@ class PuchasePlan(models.Model):
         approver = self._get_default_user()
         self.write({
             'state': 'process',
-            'approver_id': approver.id or False,
+            'approver_id': approver,
             'approve_date': datetime.utcnow()
         })
 
