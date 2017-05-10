@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-24 03:47+0000\n"
-"PO-Revision-Date: 2017-04-24 03:47+0000\n"
+"POT-Creation-Date: 2017-05-10 10:27+0000\n"
+"PO-Revision-Date: 2017-05-10 10:27+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -240,9 +240,25 @@ msgid "Tec Info"
 msgstr "技术参数"
 
 #. module: materials_product
+#: model:ir.module.category,description:materials_product.module_tech_extend
+#: model:ir.module.category,name:materials_product.module_tech_extend
+msgid "Tech"
+msgstr "技术机务"
+
+#. module: materials_product
 #: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
 msgid "Tech Information"
 msgstr "技术参数"
+
+#. module: materials_product
+#: model:res.groups,name:materials_product.base_extend_tech_manager
+msgid "Tech manager"
+msgstr "技术机务经理"
+
+#. module: materials_product
+#: model:res.groups,name:materials_product.base_extend_tech_user
+msgid "Tech user"
+msgstr "技术机务员"
 
 #. module: materials_product
 #: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
@@ -256,7 +272,6 @@ msgstr "供应商"
 
 #. module: materials_product
 #: code:addons/materials_product/models/product.py:33
-#: sql_constraint:product.product:0
 #, python-format
 msgid "inter code must unique per product and category"
 msgstr "每个类别下的每个产品内部编码必须唯一"
