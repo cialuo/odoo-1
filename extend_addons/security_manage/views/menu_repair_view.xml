@@ -22,12 +22,12 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <!--二级菜单 维修工安全培训 action-->
+<!--        &lt;!&ndash;二级菜单 维修工安全培训 action&ndash;&gt;
         <record model="ir.actions.act_window" id="act_maintainer_train">
             <field name="name">maintainer_train menu</field>
             <field name="res_model">srp.maintainer_train</field>
             <field name="view_mode">tree,form</field>
-        </record>
+        </record>-->
         <!--二级菜单 生产现场位置分布图 action-->
         <record model="ir.actions.act_window" id="act_produce_map">
             <field name="name">produce_map menu</field>

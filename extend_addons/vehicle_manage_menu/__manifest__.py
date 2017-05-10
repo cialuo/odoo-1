@@ -7,6 +7,7 @@
     """,
 
     'author': "Xiang",
+    'website': "",
 
     'category': 'Basic Edition',
     'version': '0.1',

@@ -9,9 +9,12 @@
     b）车辆随车设备
 
     c）维修管理的交接单
+
+    d)消防安全的消防设备管理
     """,
 
     'author': "Xiang",
+    'website': "",
 
     'category': 'Optional Edition',
     'version': '0.1',

@@ -14,12 +14,12 @@
             <field name="res_model">sfs.fire_danger_src</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <!--二级菜单 消防设施管理 action-->
-        <record model="ir.actions.act_window" id="act_fire_device_manage">
-            <field name="name">fire_device_manage menu</field>
-            <field name="res_model">sfs.fire_device_manage</field>
-            <field name="view_mode">tree,form</field>
-        </record>
+        <!--&lt;!&ndash;二级菜单 消防设施管理 action&ndash;&gt;-->
+        <!--<record model="ir.actions.act_window" id="act_fire_device_manage">-->
+            <!--<field name="name">fire_device_manage menu</field>-->
+            <!--<field name="res_model">sfs.fire_device_manage</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+        <!--</record>-->
 
         <!--二级菜单 消防设施管理 action-->
         <record model="ir.actions.act_window" id="act_fire_emergency_plan">

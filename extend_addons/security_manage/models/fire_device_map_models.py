@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api
 
 
 class fire_device_map(models.Model):
     _name = 'sfs.fire_device_map'
     # 分布图名称  string=_('')
-    name = fields.Char(string=_('fire fight device map name'))
+    name = fields.Char('fire fight device map name')
     # 区域
-    area = fields.Char(string=_('area'))
+    area = fields.Char('area')
     # 位置
-    place = fields.Char(string=_('place'))
+    place = fields.Char('place')
     # 制作人 create_uid
     # 上传日期 create_date
     # 附件
