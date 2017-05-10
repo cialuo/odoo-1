@@ -32,9 +32,10 @@
                     <sheet>
                         <div class="oe_title">
                             <!--<label for="name"/>-->
-                            <h1>
-                                <field name="item_name" readonly="True"/>
-                            </h1>
+                            <h1>class info</h1>
+                            <!--<h1>-->
+                                <!--<field name="item_name" readonly="True"/>-->
+                            <!--</h1>-->
                         </div>
 
                         <group name="group_top">
@@ -43,7 +44,7 @@
                                 <field name="item_id"/>
                                 <field name="name"/>
                                 <field name="class_type" />
-                                <field name="parent" attrs="{'required':[('class_type','=','little_class')]}"/>
+                                <field name="parent" attrs="{'required':[('class_type','=','little_class')],'invisible': [('class_type', '=', 'big_class')]}" options="{'no_open':True,'no_create':True}"/>
                             </group>
 
                             <group name="group_right">

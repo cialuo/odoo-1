@@ -19,17 +19,18 @@
     """,
 
     'author': "Xiang",
+    'website': "",
 
     'category': 'Advanced Edition',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['vehicle_manage', 'materials_product','stock_picking_types','employees'],
+    'depends': ['vehicle_manage', 'materials_product','stock_picking_types'],
 
     # always loaded
     'data': [
-        # 'security/maintain_security.xml',
-        # # 'security/ir.model.access.csv',
+        'security/maintain_security.xml',
+        'security/ir.model.access.csv',
 
         'views/fault_view.xml',
 

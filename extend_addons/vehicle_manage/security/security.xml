@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record id="vehicle_usage_manager" model="res.groups">
+            <field name="name">vehicle / usage mangare</field>
+        </record>
+        <record id="vehicle_usage_user" model="res.groups">
+            <field name="name">vehicle / usage user</field>
+        </record>
+    </data>
+</odoo>

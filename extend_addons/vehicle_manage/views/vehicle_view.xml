@@ -49,6 +49,7 @@
                                     type="object"
                                     class="oe_stat_button"
                                     icon="fa-tachometer"
+                                    attrs="{'invisible': [('total_odometer', '=', 0)]}"
                                     context="{'xml_id':'fleet_vehicle_odometer_action'}"
                                     help="show the odometer logs for this vehicle" >
                                     <field name="total_odometer" widget="statinfo" string="Odometer"/>
@@ -62,7 +63,7 @@
                             </h1>
                             <label for="license_plate" class="oe_edit_only"/>
                             <h2>
-                                <field name="license_plate" class="oe_inline" placeholder="e.g. B88888"/>
+                                <field name="license_plate" class="oe_inline"/>
                             </h2>
                             <label for="tag_ids" class="oe_edit_only"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
@@ -78,13 +79,13 @@
                                         <field name="length_width_height"/>
                                         <field name="emission_standard"/>
                                         <field name="model_id" options="{'no_open':True,'no_create':True}" string="车型"/>
-                                        <field name="start_service_date"/>
+                                        <field name="start_service_date" readonly="1"/>
                                     </group>
                                     <group>
-                                        <field name="route_correct_value"/>
+                                        <!--<field name="route_correct_value"/>-->
                                         <field name="deadline"/>
 
-                                        <field name="service_year"/>
+                                        <!--<field name="service_year"/>-->
                                         <field name="salvage_rate"/>
 
                                         <field name="conductor" widget="many2many_tags" domain="[('lines','=',route_id)]"/>

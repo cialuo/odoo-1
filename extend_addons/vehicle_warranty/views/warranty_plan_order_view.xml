@@ -42,34 +42,34 @@
                   parent="warranty_maintain_manage_sub"
                   action="warranty_plan_order_action"/>
 
-        <!-- 生成保养单 wizard -->
-        <record model='ir.ui.view' id='wizard_create_maintain_sheet_form'>
-            <field name='name'>Create Warranty Order</field>
-            <field name='model'>wizard_create_warranty_order</field>
-            <field name='arch' type='xml'>
-                <form string='Create Warranty Order'>
-                    <notebook>
-                        <page string="Warranty Plan Order">
-                            <field name='plan_order_ids' readonly="1"/>
-                        </page>
-                    </notebook>
-                    <footer>
-                        <button name="create_warranty_order" type="object"
-                                string="Create Warranty Order" class="oe_highlight"/>
-                        or
-                        <button special="cancel" string="Cancel"/>
-                    </footer>
-                </form>
-            </field>
-        </record>
+        <!--&lt;!&ndash; 生成保养单 wizard &ndash;&gt;-->
+        <!--<record model='ir.ui.view' id='wizard_create_maintain_sheet_form'>-->
+            <!--<field name='name'>Create Warranty Order</field>-->
+            <!--<field name='model'>wizard_create_warranty_order</field>-->
+            <!--<field name='arch' type='xml'>-->
+                <!--<form string='Create Warranty Order'>-->
+                    <!--<notebook>-->
+                        <!--<page string="Warranty Plan Order">-->
+                            <!--<field name='plan_order_ids' readonly="1"/>-->
+                        <!--</page>-->
+                    <!--</notebook>-->
+                    <!--<footer>-->
+                        <!--<button name="create_warranty_order" type="object"-->
+                                <!--string="Create Warranty Order" class="oe_highlight"/>-->
+                        <!--or-->
+                        <!--<button special="cancel" string="Cancel"/>-->
+                    <!--</footer>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
 
-        <act_window id='wizard_create_warranty_order'
-                    name='Create Warranty Order'
-                    src_model='warranty_plan_order'
-                    res_model='wizard_create_warranty_order'
-                    view_mode='form'
-                    target='new'
-                    key2='client_action_multi'/>
+        <!--<act_window id='wizard_create_warranty_order'-->
+                    <!--name='Create Warranty Order'-->
+                    <!--src_model='warranty_plan_order'-->
+                    <!--res_model='wizard_create_warranty_order'-->
+                    <!--view_mode='form'-->
+                    <!--target='new'-->
+                    <!--key2='client_action_multi'/>-->
 
 
         <!-- 计划单生成关联司机的保养单 -->
@@ -82,31 +82,32 @@
                         <page string="Wizard Plan Order" >
                             <field name="plan_order_ids">
                                 <tree create="false" editable="false">
-                                <field name="parent_id" string="Warranty Plan No"/>
-                                <field name="vehicle_id"/>
-                                <field name="vehicle_type" string="Vehicle Model"/>
-                                <field name="license_plate"/>
-                                <field name="fleet"/>
-                                <field name="operating_mileage"/>
-                                <field name="warranty_category"/>
-                                <field name="planned_date"/>
-                                <field name="vin"/>
-                                <field name="average_daily_kilometer"/>
-                                <field name="line"/>
-                                <field name="warranty_location"/>
-                                <field name="maintain_sheet_id"/>
-                                <field name="state" string="MyState"/>
+                                    <field name="parent_id" string="Warranty Plan No" readonly="1"/>
+                                    <field name="vehicle_id" readonly="1"/>
+                                    <field name="vehicle_type" string="Vehicle Model" readonly="1"/>
+                                    <field name="license_plate" readonly="1"/>
+                                    <field name="fleet" readonly="1"/>
+                                    <field name="operating_mileage" readonly="1"/>
+                                    <field name="warranty_category" readonly="1"/>
+                                    <field name="planned_date" readonly="1"/>
+                                    <field name="vin" readonly="1"/>
+                                    <field name="average_daily_kilometer" readonly="1"/>
+                                    <field name="line" readonly="1"/>
+                                    <field name="warranty_location" readonly="1"/>
+                                    <field name="maintain_sheet_id" readonly="1"/>
+                                    <field name="state" string="MyState" readonly="1"/>
+                                    <field name="report_repair_user"/>
                                 </tree>
                             </field>
 
                         </page>
                     </notebook>
-                    <group>
-                        <field name="return_reason"/>
-                    </group>
+                    <!--<group>-->
+                        <!--<field name="return_reason"/>-->
+                    <!--</group>-->
                     <footer>
-                        <button name="reject" type="object"
-                                string="Reject" class="oe_highlight"/>
+                        <button name="create_warranty_order_by_driver" type="object"
+                                string="Create Warranty Order By Driver" class="oe_highlight"/>
                         or
                         <button special="cancel" string="Cancel"/>
                     </footer>

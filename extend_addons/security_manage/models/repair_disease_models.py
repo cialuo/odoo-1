@@ -5,16 +5,16 @@ from odoo import models, fields, api, _
 
 class disease(models.Model):
     _name = 'srp.disease'
-    name = fields.Char(string=_('archive name'))
+    name = fields.Char(string='archive name')
 
-    archives_class_big = fields.Many2one('security_manage.cls_manage', string=_('archive big class'),
+    archives_class_big = fields.Many2one('security_manage.cls_manage', string='archive big class',
                                          ondelete='set null',
                                          domain=[('class_type', '=', 'big_class')])
-    archives_class_little = fields.Many2one('security_manage.cls_manage', string=_('archive little class'),
+    archives_class_little = fields.Many2one('security_manage.cls_manage', string='archive little class',
                                             ondelete='set null',
                                             domain=[('class_type', '=', 'little_class')])
 
-    archvies_id = fields.Char(string=_('archive id'), required=True, index=True,
+    archvies_id = fields.Char(string='archive id', required=True, index=True,
                               copy=False, default=' ', readonly=True)
 
     description = fields.Text()
@@ -22,9 +22,9 @@ class disease(models.Model):
     attachment_ids = fields.Many2many('ir.attachment', string='Attachments')
 
     state = fields.Selection([
-        ('use', _('Use')),
-        ('archive', _("Archive")),
-    ], default='use', string=_('archive workflow state'))
+        ('use', 'Use'),
+        ('archive', "Archive"),
+    ], default='use', string='archive workflow state')
 
     @api.multi
     def action_to_default(self):
