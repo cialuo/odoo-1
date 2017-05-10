@@ -43,7 +43,7 @@
                         <group name="group_top">
                             <group name="group_left">
                                 <!--<separator string="General stuff" colspan="2"/>-->
-                                <field name="responser"/>
+                                <field name="responser" options="{'no_open':True,'no_create':True}"/>
                                 <field name="check_type"/>
                             </group>
                             <group name="group_right">

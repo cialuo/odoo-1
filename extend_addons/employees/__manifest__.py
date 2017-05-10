@@ -27,6 +27,7 @@
         #  'security/employees_security.xml',
         'data/transfer_number.xml',
         'security/ir.model.access.csv',
+        'security/transfer/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
         'views/ltyhr_employee_document.xml',
