@@ -4,16 +4,16 @@
         <!--安全检查设置 act start-->
         <!--&lt;!&ndash;二级菜单 安全检查项目 action&ndash;&gt;-->
         <!--<record model="ir.actions.act_window" id="security_manage.action_security_check_items">-->
-            <!--<field name="name">security_manage_security_check_item_window</field>-->
-            <!--<field name="res_model">security_manage.check_item</field>-->
-            <!--<field name="view_mode">tree,form</field>-->
+        <!--<field name="name">security_manage_security_check_item_window</field>-->
+        <!--<field name="res_model">security_manage.check_item</field>-->
+        <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
 
         <!--&lt;!&ndash;二级菜单 安全检查表 action&ndash;&gt;-->
         <!--<record model="ir.actions.act_window" id="security_manage.action_security_check_table">-->
-            <!--<field name="name">security_manage_security_check_table_window</field>-->
-            <!--<field name="res_model">security_manage.check_table</field>-->
-            <!--<field name="view_mode">tree,form</field>-->
+        <!--<field name="name">security_manage_security_check_table_window</field>-->
+        <!--<field name="res_model">security_manage.check_table</field>-->
+        <!--<field name="view_mode">tree,form</field>-->
         <!--</record>-->
         <!--二级菜单 档案类别管理 action-->
         <record model="ir.actions.act_window" id="security_manage.action_security_archives_class_manage">
@@ -26,13 +26,14 @@
         <!--安全检查设置 start-->
         <!--&lt;!&ndash;二级菜单 安全检查项目&ndash;&gt;-->
         <!--<menuitem name="security_check_items" id="security_manage.security_check_items"-->
-                  <!--parent="security_manage_menu.security_check_settings"-->
-                  <!--action="security_manage.action_security_check_items"/>-->
+        <!--parent="security_manage_menu.security_check_settings"-->
+        <!--action="security_manage.action_security_check_items"/>-->
         <!--&lt;!&ndash;二级菜单 安全检查表&ndash;&gt;-->
         <!--<menuitem name="security_check_table" id="security_manage.security_check_table"-->
-                  <!--parent="security_manage_menu.security_check_settings"-->
-                  <!--action="security_manage.action_security_check_table"/>-->
+        <!--parent="security_manage_menu.security_check_settings"-->
+        <!--action="security_manage.action_security_check_table"/>-->
         <!--二级菜单 档案类别管理-->
+        <!--groups="maintain_group_settings"-->
         <menuitem name="archives_class_manage" id="security_manage.archives_class_manage"
                   parent="security_manage_menu.security_check_settings"
                   action="security_manage.action_security_archives_class_manage"/>
