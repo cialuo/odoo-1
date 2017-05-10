@@ -17,7 +17,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['vehicle_maintain', 'maintenance','security_manage_menu'],
+    'depends': ['vehicle_maintain', 'vehicle_warranty', 'maintenance','security_manage_menu'],
 
     # always loaded
     'data': [
@@ -25,7 +25,8 @@
 
         'views/equipment_view.xml',
         'views/vehicle_view.xml',
-        'views/maintain_view.xml'
+        'views/maintain_view.xml',
+        'views/warranty_view.xml'
     ],
     # only loaded in demonstration mode
     'installable': True,
