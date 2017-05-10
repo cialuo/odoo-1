@@ -27,7 +27,7 @@ class FleetVehicle(models.Model):
         self.ensure_one()
         xml_id = self.env.context.get('xml_id')
         if xml_id:
-            res = self.env['ir.actions.act_window'].for_xml_id('maintain_manage', xml_id)
+            res = self.env['ir.actions.act_window'].for_xml_id('vehicle_maintain', xml_id)
             res.update(
                 context=dict(self.env.context, default_vehicle_id=self.id),
                 domain=[('vehicle_id', '=', self.id), ('state', 'in', ['completed'])]

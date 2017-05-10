@@ -3,10 +3,11 @@ from odoo import models, fields, api, exceptions, _
 
 class WarrantyInterval(models.Model): # 维保间隔
     _name = 'warranty_interval'
+    _order = 'vehicle_model_id,interval_mileage'
 
     name = fields.Char()
 
-    sequence = fields.Integer('Cycle Sequence', default=1, readonly="true")
+    sequence = fields.Integer('Cycle Sequence', default=1)
 
     warranty_category_id = fields.Many2one('warranty_category', 'Warranty Category', domain=[('level', '=', '1')], ondelete='set null', required=True)  # 保养类别
 
@@ -33,6 +34,14 @@ class WarrantyInterval(models.Model): # 维保间隔
             if r.interval_mileage <= 0:
                 raise exceptions.ValidationError(_("interval_mileage must be greater than or equal to zero"))
 
+    _sql_constraints = [
+        ('category_interval_mileage_unique', 'unique(vehicle_model_id, warranty_category_id, interval_mileage)', _('The category and mileage must be unique!'))
+    ]
+
+
+class FleetVehicleModel(models.Model): # 车型管理
+    _inherit = 'fleet.vehicle.model'
+    warranty_interval_ids = fields.One2many('warranty_interval', 'vehicle_model_id', string="Warranty Interval Ids")
 
 
 class WarrantyCapability(models.Model): # 保养能力参数设置

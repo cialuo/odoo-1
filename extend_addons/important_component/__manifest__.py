@@ -11,6 +11,7 @@
     """,
     'data': [
         'data/component_data.xml',
+        'security/ir.model.access.csv',
         'views/component_view.xml',
         'views/vehicle_component_view.xml',
         'views/maintain_view.xml',

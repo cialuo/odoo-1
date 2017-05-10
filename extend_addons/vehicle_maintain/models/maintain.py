@@ -601,18 +601,19 @@ class MaintainInspect(models.Model):
             判断该检验单对应的报修单是否完工
         """
         inspect_return_time = fields.Datetime.now()
+        inspect_user_id = self._default_employee().id if self._default_employee() else ''
         vals = {
             "repair_id": self.id,
             "inspect_return_time": inspect_return_time,
             "return_reason": reason,
-            "inspect_user_id":self._default_employee(),
+            "inspect_user_id":inspect_user_id,
             "sequence": len(self.return_record_ids) + 1
         }
         self.write({
             "state":'repair',
             "end_inspect_time": inspect_return_time,
             "inspect_result": "defective",
-            "inspect_user_id": self._default_employee(),
+            "inspect_user_id": inspect_user_id,
             "return_record_ids": [(0, 0, vals)]
         })
 

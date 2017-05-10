@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-09 07:45+0000\n"
-"PO-Revision-Date: 2017-05-09 07:45+0000\n"
+"POT-Creation-Date: 2017-05-10 07:54+0000\n"
+"PO-Revision-Date: 2017-05-10 07:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -132,7 +132,7 @@ msgstr "所有库存作业的默认计量单位"
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_description
 msgid "Description"
-msgstr "规格描述"
+msgstr "说明"
 
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_fleet_vehicle_dismantle_ids
@@ -167,11 +167,6 @@ msgstr "显示名称"
 #: selection:product.product,important_type:0
 msgid "Energy"
 msgstr "作为能源管理"
-
-#. module: important_component
-#: selection:product.product,important_type:0
-msgid "Equipment"
-msgstr "作为设备管理"
 
 #. module: important_component
 #: model:ir.ui.view,arch_db:important_component.fleet_important_detailed_tree
@@ -319,7 +314,7 @@ msgstr "最后更新时间"
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_product_component_location_id
 msgid "Location"
-msgstr "物理位置"
+msgstr "地点"
 
 #. module: important_component
 #: model:ir.model,name:important_component.model_fleet_vehicle_model
@@ -351,7 +346,7 @@ msgstr "在库数量"
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_product_component_odometer
 msgid "Odometer"
-msgstr "服役里程数"
+msgstr "里程表"
 
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_dismantle_component_operate_days
@@ -378,7 +373,7 @@ msgstr "零件列表"
 #: model:ir.model.fields,field_description:important_component.field_product_component_product_id
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_product_id
 msgid "Product"
-msgstr "物资名称"
+msgstr "产品"
 
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_fleet_vehicle_model_product_lines
@@ -440,7 +435,7 @@ msgstr "零件"
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_product_component_state
 msgid "State"
-msgstr "状态"
+msgstr "省/ 州"
 
 #. module: important_component
 #: model:ir.model,name:important_component.model_stock_move
@@ -560,11 +555,6 @@ msgid "dismantle.component"
 msgstr "dismantle.component"
 
 #. module: important_component
-#: model:ir.ui.view,arch_db:important_component.fleet_important_detailed_form
-msgid "e.g. B88888"
-msgstr "例如： B88888"
-
-#. module: important_component
 #: model:ir.model,name:important_component.model_fleet_important_classification
 msgid "fleet.important_classification"
 msgstr "要件分类"
@@ -650,6 +640,12 @@ msgid "remarks"
 msgstr "备注"
 
 #. module: important_component
+#: code:addons/important_component/models/warranty_project.py:111
+#, python-format
+msgid "report_repair_user Required!"
+msgstr "保修人必填！"
+
+#. module: important_component
 #: model:ir.model,name:important_component.model_vehicle_model_product
 msgid "vehicle.model.product"
 msgstr "vehicle.model.product"
@@ -668,4 +664,14 @@ msgstr "保养项目"
 #: model:ir.model,name:important_component.model_warranty_project
 msgid "warranty_project"
 msgstr "保养项目"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_wizard_create_warranty_order
+msgid "wizard_create_warranty_order"
+msgstr "生成保养单"
+
+#. module: important_component
+#: model:ir.model,name:important_component.model_wizard_create_warranty_order_by_driver
+msgid "wizard_create_warranty_order_by_driver"
+msgstr "创建保养单"
 
