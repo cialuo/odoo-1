@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-09 10:30+0000\n"
-"PO-Revision-Date: 2017-05-09 10:30+0000\n"
+"POT-Creation-Date: 2017-05-10 02:02+0000\n"
+"PO-Revision-Date: 2017-05-10 02:02+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -138,7 +138,7 @@ msgstr "显示名称"
 #: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_id
 #: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_id
 msgid "ID"
-msgstr "编号"
+msgstr "ID"
 
 #. module: security_manage
 #: model:ir.ui.view,arch_db:security_manage.fire_device_map_form
@@ -357,7 +357,9 @@ msgid "archives_class_manage_state"
 msgstr "状态"
 
 #. module: security_manage
+#: code:addons/security_manage/models/security_archives_manage.py:13
 #: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_item_name
+#, python-format
 msgid "archives_class_manage_table"
 msgstr "类别信息"
 
@@ -367,6 +369,11 @@ msgstr "类别信息"
 #: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_area
 msgid "area"
 msgstr "区域"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.security_archives_class_manage_form
+msgid "class info"
+msgstr "类别信息"
 
 #. module: security_manage
 #: model:ir.actions.act_window,name:security_manage.act_disease

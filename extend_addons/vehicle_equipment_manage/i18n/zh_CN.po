@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 10:08+0000\n"
-"PO-Revision-Date: 2017-05-08 10:08+0000\n"
+"POT-Creation-Date: 2017-05-10 02:33+0000\n"
+"PO-Revision-Date: 2017-05-10 02:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,30 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: vehicle_equipment_manage
+#: code:addons/vehicle_equipment_manage/models/warranty.py:89
+#, python-format
+msgid "%s has been added to the handover_order!"
+msgstr "%s添加到交接单!"
+
+#. module: vehicle_equipment_manage
 #: model:ir.ui.view,arch_db:vehicle_equipment_manage.hr_equipment_category_view_tree_ext
 msgid "Assign To User"
 msgstr "分派给用户"
+
+#. module: vehicle_equipment_manage
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_back_list_ids
+msgid "Back List Ids"
+msgstr "交回清单"
+
+#. module: vehicle_equipment_manage
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_branch_office
+msgid "Branch Office"
+msgstr "分公司"
+
+#. module: vehicle_equipment_manage
+#: model:ir.ui.view,arch_db:vehicle_equipment_manage.warranty_handover_order_form
+msgid "Check Warranty Bill"
+msgstr "查看保养单"
 
 #. module: vehicle_equipment_manage
 #: model:ir.actions.act_window,help:vehicle_equipment_manage.hr_equipment_category_action
@@ -37,9 +58,23 @@ msgid "Comfirm Delivery"
 msgstr "确认交接"
 
 #. module: vehicle_equipment_manage
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_commitment_unit
+msgid "Commitment Unit"
+msgstr "承接单位"
+
+#. module: vehicle_equipment_manage
+#: model:ir.ui.view,arch_db:vehicle_equipment_manage.warranty_handover_order_form
+msgid "Confirm Delivery"
+msgstr "确认交接"
+
+#. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_equipment_create_date_ext
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_create_date_ext
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_create_date_ext
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_create_date_ext
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_create_date_ext
+#: model:ir.model.fields,help:vehicle_equipment_manage.field_warranty_handover_back_list_create_date_ext
+#: model:ir.model.fields,help:vehicle_equipment_manage.field_warranty_handover_list_create_date_ext
 msgid "Create Date"
 msgstr "创建日期"
 
@@ -49,10 +84,18 @@ msgid "Create Name"
 msgstr "建档人"
 
 #. module: vehicle_equipment_manage
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_create_sheet_user
+msgid "Create Sheet User"
+msgstr "建单人"
+
+#. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_equipment_create_uid
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_create_uid
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_create_uid
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_create_uid
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_create_uid
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_create_uid
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_create_uid
 msgid "Created by"
 msgstr "创建人"
 
@@ -61,6 +104,9 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_create_date
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_create_date
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_create_date
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_create_date
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_create_date
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_create_date
 msgid "Created on"
 msgstr "创建时间"
 
@@ -68,11 +114,13 @@ msgstr "创建时间"
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_delivery_id
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_delivery_id
 #: selection:vehicle_equipment.maintain.delivery,state:0
+#: selection:warranty_handover_order,state:0
 msgid "Delivery"
 msgstr "已交接"
 
 #. module: vehicle_equipment_manage
 #: model:ir.ui.view,arch_db:vehicle_equipment_manage.maintain_precheck_view_form_ext
+#: model:ir.ui.view,arch_db:vehicle_equipment_manage.warranty_warranty_order_form_ext
 msgid "Delivery Manage"
 msgstr "管理交接单"
 
@@ -83,18 +131,27 @@ msgid "Delivery Order"
 msgstr "交接单"
 
 #. module: vehicle_equipment_manage
+#: model:ir.ui.view,arch_db:vehicle_equipment_manage.warranty_handover_order_form
+#: selection:warranty_handover_order,state:0
+msgid "Delivery Return"
+msgstr "确认交回"
+
+#. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_delivery_return_time
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_delivery_return_time
 msgid "Delivery Return Time"
 msgstr "交回时间"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_delivery_time
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_delivery_time
 msgid "Delivery Time"
 msgstr "交接时间"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_equipment_ids
 #: model:ir.ui.view,arch_db:vehicle_equipment_manage.maintain_delivery_view_form
+#: model:ir.ui.view,arch_db:vehicle_equipment_manage.warranty_handover_order_form
 msgid "Deliverys"
 msgstr "交接清单"
 
@@ -103,18 +160,29 @@ msgstr "交接清单"
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_display_name
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_display_name
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_display_name
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_display_name
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_display_name
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_display_name
 msgid "Display Name"
 msgstr "显示名称"
 
 #. module: vehicle_equipment_manage
 #: selection:vehicle_equipment.maintain.delivery,state:0
+#: selection:warranty_handover_order,state:0
 msgid "Draft"
 msgstr "草稿"
+
+#. module: vehicle_equipment_manage
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_driver
+msgid "Driver"
+msgstr "驾驶员"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_equipment_equipment_id
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_equipment_id
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_equipment_id
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_equipment_id
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_equipment_id
 #: model:ir.ui.view,arch_db:vehicle_equipment_manage.view_equipment_view_search
 msgid "Equipment"
 msgstr "设备名称"
@@ -138,7 +206,11 @@ msgstr "设备档案管理"
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_equipment_fixed_asset_number
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_fixed_asset_number
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_fixed_asset_number
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_fixed_asset_number
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_fixed_asset_number
 #: model:ir.model.fields,help:vehicle_equipment_manage.field_vehicle_equipment_equipment_fixed_asset_number
+#: model:ir.model.fields,help:vehicle_equipment_manage.field_warranty_handover_back_list_fixed_asset_number
+#: model:ir.model.fields,help:vehicle_equipment_manage.field_warranty_handover_list_fixed_asset_number
 msgid "Fixed Asset Number"
 msgstr "固定资产编码"
 
@@ -147,6 +219,9 @@ msgstr "固定资产编码"
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_id
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_id
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_id
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_id
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_id
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_id
 msgid "ID"
 msgstr "ID"
 
@@ -156,10 +231,18 @@ msgid "Information on a vehicle"
 msgstr "车辆上的信息"
 
 #. module: vehicle_equipment_manage
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_name
+msgid "JJD"
+msgstr "交接单"
+
+#. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_equipment___last_update
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery___last_update
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment___last_update
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment___last_update
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list___last_update
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list___last_update
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
@@ -168,6 +251,9 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_write_uid
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_write_uid
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_write_uid
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_write_uid
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_write_uid
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
@@ -176,47 +262,73 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_write_date
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_write_date
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_write_date
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_write_date
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_write_date
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_license_plate
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_license_plate
 msgid "License Plate"
 msgstr "车牌"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,help:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_license_plate
+#: model:ir.model.fields,help:vehicle_equipment_manage.field_warranty_handover_order_license_plate
 msgid "License plate number of the vehicle (i = plate number for a car)"
 msgstr "车牌"
 
 #. module: vehicle_equipment_manage
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_list_ids
+msgid "List Ids"
+msgstr "清单"
+
+#. module: vehicle_equipment_manage
 #: model:ir.ui.view,arch_db:vehicle_equipment_manage.maintain_delivery_view_form
 msgid "MaintainDelivery Form"
-msgstr "MaintainDelivery Form"
+msgstr "交接单"
 
 #. module: vehicle_equipment_manage
 #: model:ir.ui.view,arch_db:vehicle_equipment_manage.maintain_delivery_view_tree
 msgid "MaintainDelivery Tree"
-msgstr "MaintainDelivery Tree"
+msgstr "交接单"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_vehicle_type
 msgid "Model"
-msgstr "车型"
+msgstr "型号"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,help:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_vehicle_type
+#: model:ir.model.fields,help:vehicle_equipment_manage.field_warranty_handover_order_vehicle_type
 msgid "Model of the vehicle"
 msgstr "车型"
 
 #. module: vehicle_equipment_manage
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_state
+msgid "MyState"
+msgstr "状态"
+
+#. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_name
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_name
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_name
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_name
+#: model:ir.model.fields,help:vehicle_equipment_manage.field_warranty_handover_back_list_name
+#: model:ir.model.fields,help:vehicle_equipment_manage.field_warranty_handover_list_name
 msgid "Name"
 msgstr "名字"
 
 #. module: vehicle_equipment_manage
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_maintenance_personnel
+msgid "Operator"
+msgstr "操作员"
+
+#. module: vehicle_equipment_manage
 #: model:ir.ui.view,arch_db:vehicle_equipment_manage.maintain_delivery_view_form
+#: model:ir.ui.view,arch_db:vehicle_equipment_manage.warranty_handover_order_form
 msgid "Other Information"
 msgstr "其他信息"
 
@@ -247,6 +359,7 @@ msgstr "交回清单"
 
 #. module: vehicle_equipment_manage
 #: model:ir.ui.view,arch_db:vehicle_equipment_manage.maintain_delivery_view_form
+#: model:ir.ui.view,arch_db:vehicle_equipment_manage.warranty_handover_order_form
 msgid "ReturnDeliverys"
 msgstr "交回清单"
 
@@ -254,16 +367,22 @@ msgstr "交回清单"
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_equipment_serial_no
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_equipment_serial_no
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_return_equipment_serial_no
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_serial_no
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_serial_no
+#: model:ir.model.fields,help:vehicle_equipment_manage.field_warranty_handover_back_list_serial_no
+#: model:ir.model.fields,help:vehicle_equipment_manage.field_warranty_handover_list_serial_no
 msgid "Serial No"
 msgstr "设备编号"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_state
 msgid "State"
-msgstr "状态"
+msgstr "省/ 州"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_equipment_vehicle_id
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_handover_order_id
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_handover_order_id
 msgid "Vehicle"
 msgstr "车辆"
 
@@ -274,10 +393,31 @@ msgid "Vehicle Equipment"
 msgstr "随车设备"
 
 #. module: vehicle_equipment_manage
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_vehicle_type
+msgid "Vehicle Model"
+msgstr "车型"
+
+#. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_vehicle_id
 #: model:ir.model.fields,help:vehicle_equipment_manage.field_vehicle_equipment_maintain_delivery_vehicle_id
 msgid "Vehicle No"
 msgstr "车号"
+
+#. module: vehicle_equipment_manage
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_vehicle_id
+msgid "VehicleNo"
+msgstr "车号"
+
+#. module: vehicle_equipment_manage
+#: model:ir.actions.act_window,name:vehicle_equipment_manage.warranty_handover_order_action
+#: model:ir.ui.menu,name:vehicle_equipment_manage.warranty_handover_order_menu
+msgid "Warranty Handover Order"
+msgstr "交接单"
+
+#. module: vehicle_equipment_manage
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_warranty_order_id
+msgid "Warranty order id"
+msgstr "保养单"
 
 #. module: vehicle_equipment_manage
 #: model:ir.ui.view,arch_db:vehicle_equipment_manage.maintain_delivery_view_form
@@ -338,4 +478,24 @@ msgstr "vehicle_equipment.maintain.equipment"
 #: model:ir.model,name:vehicle_equipment_manage.model_vehicle_equipment_maintain_return_equipment
 msgid "vehicle_equipment.maintain.return_equipment"
 msgstr "vehicle_equipment.maintain.return_equipment"
+
+#. module: vehicle_equipment_manage
+#: model:ir.model,name:vehicle_equipment_manage.model_warranty_handover_back_list
+msgid "warranty_handover_back_list"
+msgstr "清单"
+
+#. module: vehicle_equipment_manage
+#: model:ir.model,name:vehicle_equipment_manage.model_warranty_handover_list
+msgid "warranty_handover_list"
+msgstr "清单"
+
+#. module: vehicle_equipment_manage
+#: model:ir.model,name:vehicle_equipment_manage.model_warranty_handover_order
+msgid "warranty_handover_order"
+msgstr "保养单"
+
+#. module: vehicle_equipment_manage
+#: model:ir.model,name:vehicle_equipment_manage.model_warranty_order
+msgid "warranty_order"
+msgstr "保养单"
 

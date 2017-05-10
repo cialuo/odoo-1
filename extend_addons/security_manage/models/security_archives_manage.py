@@ -10,7 +10,7 @@ class archives_class_manage(models.Model):
     ]
     name = fields.Char(string='archives_class_manage_item_name',required=True)
     item_id = fields.Char(string='archives_class_manage_item_id',required=True)
-    item_name = fields.Char(string='archives_class_manage_table',default='archives_class_manage_table')
+    item_name = fields.Char(string='archives_class_manage_table',default=_('archives_class_manage_table'))
     class_name = fields.Char(string='archives_class_manage_class_name')
     # TODO 这是一个Many2one
     # class_type = fields.Char(string=_('archives_class_manage_class_type'))
