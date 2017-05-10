@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--技术机务员-->
+        <record id="base_extend_tech_user" model="res.groups">
+            <field name="name">Tech user</field>
+            <field name="category_id" ref="module_tech_extend"/>
+            <!--<field name="users" eval="[(4, ref(''))]"/>-->
+            <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>
+        </record>
+        <!--技术机务经理-->
+        <record id="base_extend_tech_manager" model="res.groups">
+            <field name="name">Tech manager</field>
+            <field name="category_id" ref="module_tech_extend"/>
+            <!--<field name="users" eval="[(4, ref(''))]"/>-->
+            <field name="implied_ids" eval="[(4, ref('base_extend_tech_user'))]"/>
+        </record>
+    </data>
+</odoo>

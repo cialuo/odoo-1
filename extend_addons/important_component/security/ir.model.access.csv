@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_component_tech_user,product.component.tech.user,model_product_component,materials_product.base_extend_tech_user,1,1,1,1
+access_important_classification_tech_user,important.classification.tech.user,model_fleet_important_classification,materials_product.base_extend_tech_user,1,0,0,0
+access_important_classification_tech_manager,important.classification.tech.manager,model_fleet_important_classification,materials_product.base_extend_tech_manager,1,1,1,1
+access_product_parts_list_tech_user,parts_list_tech_user,model_product_parts_list,materials_product.base_extend_tech_user,1,1,1,1

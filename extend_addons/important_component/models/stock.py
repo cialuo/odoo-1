@@ -27,10 +27,14 @@ class StockMove(models.Model):
         """
         res = super(StockMove, self).action_done()
         com_obj = self.env['product.component']
-        receipts = self.env['stock.picking.type'].with_context({'lang': 'en'}).sudo().search([('name', 'ilike', 'Receipts')])
+        # location = self.env.ref('stock.stock_location_suppliers')
+        # receipts = self.env['stock.picking.type'].with_context({'lang': 'en'}).sudo().search(['|', ('name', 'ilike', 'Receipts'), ('')])
         for move in self:
             #库存移动是收货
-            if move.picking_type_id in receipts:
+            #如果库存移动是来源于采购单
+            # if move.picking_type_id in receipts:
+            # if move.location_id == location:
+            if 'PO' in (move.origin or move.group_id.name):
                 #物资是特别管理，且是重要部件管理
                 if move.product_id.is_important and move.product_id.important_type == 'component':
                     for x in range(int(move.product_uom_qty)):
