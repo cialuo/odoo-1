@@ -12,7 +12,7 @@
                             class="oe_stat_button"
                             icon="fa-book"
                             attrs="{'invisible': [('repair_count', '=', 0)]}"
-                            context="{'xml_id':'vehicle_manage_action'}">
+                            context="{'xml_id':'maintain_repair_action'}">
                             <field name="repair_count" widget="statinfo" string="Repairs"/>
                     </button>
                 </div>
