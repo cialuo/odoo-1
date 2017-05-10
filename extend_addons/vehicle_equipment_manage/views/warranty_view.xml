@@ -1,0 +1,147 @@
+<odoo>
+    <data>
+
+        <!-- 保养单 form view -->
+        <record model="ir.ui.view" id="warranty_warranty_order_form_ext">
+            <field name="name">Warranty Order</field>
+            <field name="model">warranty_order</field>
+            <field name="inherit_id" ref="vehicle_warranty.warranty_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_confirm_effective']" position="after">
+                   <button type="object"
+                            name="action_manage_handover_sheet"
+                            string="Delivery Manage"
+                            states="dispatch,maintain,inspect"
+                            class="oe_highlight"/>  <!--管理交接单-->
+                </xpath>
+                <!--<xpath expr="//button[@name='action_precheck_to_repair']" position="attributes">-->
+                    <!--<attribute name="string">Precheck Success And Create Delivery</attribute>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+
+        <!-- 交接单 form -->
+        <record model="ir.ui.view" id="warranty_handover_order_form">
+            <field name="name">Warranty Handover Order</field>
+            <field name="model">warranty_handover_order</field>
+            <field name="arch" type="xml">
+                <form>
+                	<header>
+						<button name="action_delivery" type="object"
+                                string="Confirm Delivery"
+								states="draft"
+                                class="oe_highlight"/>
+
+						<button name="action_delivery_return" type="object"
+                                string="Delivery Return"
+								states="delivery"
+                                class="oe_highlight"/> <!-- 提交检验-->
+
+						<button name="action_to_open"
+                            type="object"
+                            class="oe_highlight"
+                            states="delivery_return"
+							string="Check Warranty Bill"
+                            context="{'xml_id':'warranty_order_action'}"/>
+
+                    	<field name="state"  widget="statusbar"/>
+                	</header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name"/>
+							<h1><field name="name" readonly="1"/></h1>
+	                    </div>
+						 <group col="2">
+	                        <group>
+	                        	<field name="warranty_order_id" readonly="1" />
+	                        	<field name="branch_office" readonly="1"/>
+	                        	<field name="driver" readonly="1"/>
+	                        	<field name="maintenance_personnel" readonly="1"/>
+	                        </group>
+	                        <group>
+	                            <field name="vehicle_id" readonly="1" />
+								<field name="license_plate" />
+								<field name="vehicle_type" />
+	                        </group>
+                   		 </group>
+						<notebook>
+							<page string="Deliverys">
+                                <field name="list_ids">
+                                    <tree string="Deliverys">
+										<field name="equipment_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+							<page string="ReturnDeliverys" >
+                                <field name="back_list_ids">
+                                    <tree string="ReturnDeliverys">
+										<field name="equipment_id"/>
+										<field name="serial_no"/>
+										<field name="fixed_asset_number"/>
+										<field name="create_date_ext"/>
+                                    </tree>
+                                </field>
+                            </page>
+							<page string="Other Information">
+								<group col="1">
+									<group>
+										<field name="create_sheet_user" readonly="1"/>
+										<field name="create_date" readonly="1"/>
+										<field name="delivery_time" readonly="1"/>
+										<field name="delivery_return_time" readonly="1"/>
+									</group>
+								</group>
+                            </page>
+
+						</notebook>
+
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+		<!-- 交接单 tree -->
+        <record model="ir.ui.view" id="warranty_handover_order_tree">
+            <field name="name">Warranty Handover Order</field>
+            <field name="model">warranty_handover_order</field>
+            <field name="arch" type="xml">
+                <tree create="false">
+					<field name="name"/>
+					<field name="warranty_order_id"/>
+					<field name="vehicle_id"/>
+					<field name="vehicle_type"/>
+					<field name="license_plate"/>
+					<field name="branch_office"/>
+					<field name="driver"/>
+					<field name="commitment_unit"/>
+					<field name="maintenance_personnel"/>
+					<field name="create_date"/>
+					<field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 交接单 action -->
+		<record model="ir.actions.act_window" id="warranty_handover_order_action">
+			<field name="name">Warranty Handover Order</field>
+			<field name="res_model">warranty_handover_order</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+        <!-- 交接单 menu -->
+        <menuitem name="Warranty Handover Order"
+            id="warranty_handover_order_menu" sequence="40"
+            parent="vehicle_warranty.warranty_maintain_manage_sub"
+            action="warranty_handover_order_action"/>
+
+    </data>
+
+</odoo>
