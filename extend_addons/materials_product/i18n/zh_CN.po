@@ -279,7 +279,7 @@ msgstr "参数2"
 #. module: materials_product
 #: model:ir.model,name:materials_product.model_product_tech_info
 msgid "product.tech.info"
-msgstr "product.tech.info"
+msgstr "产品技术参数"
 
 #. module: materials_product
 #: model:ir.ui.menu,name:materials_product.materials_menu_product
