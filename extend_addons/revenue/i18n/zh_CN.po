@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-06 03:31+0000\n"
-"PO-Revision-Date: 2017-05-06 11:33+0800\n"
+"POT-Creation-Date: 2017-05-10 12:04+0000\n"
+"PO-Revision-Date: 2017-05-10 20:04+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,10 +18,13 @@ msgstr ""
 "X-Generator: Poedit 1.8.3\n"
 
 #. module: revenue
+#: model:res.groups,name:revenue.banknote_counter
+msgid "Banknote counter"
+msgstr "点钞员"
+
+#. module: revenue
 #: code:addons/revenue/models/revenue.py:50
 #: code:addons/revenue/models/revenue.py:71
-#: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_revenue
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_chartered_revenue
 #, python-format
 msgid "Chartered income（CNY）"
 msgstr "包车收入（元）"
@@ -35,8 +38,6 @@ msgstr "包车收入管理"
 #. module: revenue
 #: code:addons/revenue/models/revenue.py:14
 #: code:addons/revenue/models/revenue.py:69
-#: model:ir.model.fields,field_description:revenue.field_coin_revenue_coin_revenue_revenue
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_coin_revenue
 #, python-format
 msgid "Coin income（CNY）"
 msgstr "投币收入（元）"
@@ -68,10 +69,6 @@ msgstr "创建时间"
 #: code:addons/revenue/models/revenue.py:28
 #: code:addons/revenue/models/revenue.py:46
 #: code:addons/revenue/models/revenue.py:65
-#: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_c_date
-#: model:ir.model.fields,field_description:revenue.field_coin_revenue_coin_revenue_c_date
-#: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_c_date
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_c_date
 #, python-format
 msgid "Date"
 msgstr "日期"
@@ -89,10 +86,6 @@ msgstr "显示名称"
 #: code:addons/revenue/models/revenue.py:31
 #: code:addons/revenue/models/revenue.py:49
 #: code:addons/revenue/models/revenue.py:68
-#: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_driver
-#: model:ir.model.fields,field_description:revenue.field_coin_revenue_coin_revenue_driver
-#: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_driver
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_driver
 #, python-format
 msgid "Driver"
 msgstr "驾驶员"
@@ -106,10 +99,14 @@ msgstr "IC卡收入管理"
 #. module: revenue
 #: code:addons/revenue/models/revenue.py:32
 #: code:addons/revenue/models/revenue.py:70
-#: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_revenue
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_ic_revenue
 #, python-format
 msgid "IC income（CNY）"
+msgstr "IC卡收入（元）"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_ic_revenue
+msgid "IC卡收入（元）"
 msgstr "IC卡收入（元）"
 
 #. module: revenue
@@ -155,10 +152,6 @@ msgstr "最后更新时间"
 #: code:addons/revenue/models/revenue.py:30
 #: code:addons/revenue/models/revenue.py:48
 #: code:addons/revenue/models/revenue.py:67
-#: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_license_plate
-#: model:ir.model.fields,field_description:revenue.field_coin_revenue_coin_revenue_license_plate
-#: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_license_plate
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_license_plate
 #, python-format
 msgid "License plate"
 msgstr "车牌号"
@@ -168,10 +161,6 @@ msgstr "车牌号"
 #: code:addons/revenue/models/revenue.py:33
 #: code:addons/revenue/models/revenue.py:51
 #: code:addons/revenue/models/revenue.py:73
-#: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_remark
-#: model:ir.model.fields,field_description:revenue.field_coin_revenue_coin_revenue_remark
-#: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_remark
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_remark
 #, python-format
 msgid "Remark"
 msgstr "备注"
@@ -181,10 +170,6 @@ msgstr "备注"
 #: code:addons/revenue/models/revenue.py:29
 #: code:addons/revenue/models/revenue.py:47
 #: code:addons/revenue/models/revenue.py:66
-#: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_route
-#: model:ir.model.fields,field_description:revenue.field_coin_revenue_coin_revenue_route
-#: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_route
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_route
 #, python-format
 msgid "Route"
 msgstr "线路"
@@ -194,10 +179,6 @@ msgstr "线路"
 #: code:addons/revenue/models/revenue.py:38
 #: code:addons/revenue/models/revenue.py:56
 #: code:addons/revenue/models/revenue.py:78
-#: sql_constraint:chartered_revenue.chartered_revenue:0
-#: sql_constraint:coin_revenue.coin_revenue:0
-#: sql_constraint:ic_revenue.ic_revenue:0
-#: sql_constraint:total_revenue.total_revenue:0
 #, python-format
 msgid "The license plate must be unique!"
 msgstr "车牌号必须是唯一的！"
@@ -207,17 +188,12 @@ msgstr "车牌号必须是唯一的！"
 #: code:addons/revenue/models/revenue.py:37
 #: code:addons/revenue/models/revenue.py:55
 #: code:addons/revenue/models/revenue.py:77
-#: sql_constraint:chartered_revenue.chartered_revenue:0
-#: sql_constraint:coin_revenue.coin_revenue:0
-#: sql_constraint:ic_revenue.ic_revenue:0
-#: sql_constraint:total_revenue.total_revenue:0
 #, python-format
 msgid "The route must be unique!"
 msgstr "线路名称必须是唯一的！"
 
 #. module: revenue
 #: code:addons/revenue/models/revenue.py:72
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_total_income
 #, python-format
 msgid "Total Income（CNY）"
 msgstr "合计营收（元）"
