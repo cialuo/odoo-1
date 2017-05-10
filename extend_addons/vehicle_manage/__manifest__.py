@@ -19,6 +19,8 @@
     # always loaded
     'data': [
         # 'data/fleet_data.xml',
+        'security/security.xml',
+        'security/ir.model.access.csv',
         'views/vehicle_view.xml',
         'views/stock_location.xml',
         'views/fleetusagemanagement.xml',
