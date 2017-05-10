@@ -31,7 +31,7 @@
                                 <field name="category_id"/>
                                 <field name="project_id"/>
                                 <field name="warranty_mode"/>
-                                <field name="create_date"/>
+                                <field name="create_date" string="Warranty Date"/>
                                 <field name="maintenance_personnel"/>
                                 <field name="inspect_user_id"/>
                                 <field name="end_inspect_time"/>
@@ -43,7 +43,7 @@
                             <tree string="Repair Record" create="false" delete="false">
                                 <field name="report_id"/>
                                 <field name="repair_type"/>
-                                <field name="create_date"/>
+                                <field name="create_date" string="Repair Date"/>
                                 <field name="repair_names"/>
                                 <field name="inspect_user_id"/>
                                 <field name="end_inspect_time"/>
