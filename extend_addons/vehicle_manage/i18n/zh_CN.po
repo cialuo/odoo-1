@@ -1180,7 +1180,7 @@ msgstr "实际到达"
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:355
 #, python-format
 msgid "reality depart"
-msgstr "时间离开"
+msgstr "实际离开"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:76
