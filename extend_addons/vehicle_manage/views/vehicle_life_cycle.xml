@@ -30,12 +30,14 @@
                                 string="Invest operation"
                                 type="object"
                                 class="oe_highlight"
-                                attrs="{'invisible':[('vehicle_life_state', '!=', 'invest_period')]}" />
+                                attrs="{'invisible':[('vehicle_life_state', '!=', 'invest_period')]}"
+                                groups="vehicle_manage.vehicle_usage_manager"/>
                         <button name="action_scrap"
                                 vehicle_life_state="operation_period"
                                 string="Scrap" type="object"
                                 class="oe_highlight"
-                                attrs="{'invisible':[('vehicle_life_state', '!=', 'operation_period')]}"/>
+                                attrs="{'invisible':[('vehicle_life_state', '!=', 'operation_period')]}"
+                                groups="vehicle_manage.vehicle_usage_manager"/>
                         <field name="vehicle_life_state" widget="statusbar"/>
                     </header>
                     <sheet>
