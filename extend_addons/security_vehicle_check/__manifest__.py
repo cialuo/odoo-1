@@ -16,12 +16,12 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/security_check.xml',
+        'security/ir.model.access.csv',
         'data/check_default_data.xml',
         'views/views.xml',
         'views/security_check_item_views.xml',
         'views/security_check_table_views.xml',
-
         'views/vehicle_front_check_views.xml',
         'views/vehicle_everyday_check_views.xml',
         'views/vehicle_special_check_views.xml',
