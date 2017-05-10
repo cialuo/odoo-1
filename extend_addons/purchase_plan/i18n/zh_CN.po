@@ -267,7 +267,7 @@ msgstr "安排补货"
 #. module: purchase_plan
 #: model:ir.model.fields,field_description:purchase_plan.field_purchase_plan_is_run
 msgid "Run Procurement?"
-msgstr "Run Procurement?"
+msgstr "安排补货?"
 
 #. module: purchase_plan
 #: model:ir.model.fields,help:purchase_plan.field_purchase_plan_line_category
@@ -318,12 +318,12 @@ msgstr "计划编号"
 #. module: purchase_plan
 #: model:ir.model,name:purchase_plan.model_purchase_plan
 msgid "purchase.plan"
-msgstr "purchase.plan"
+msgstr "采购计划"
 
 #. module: purchase_plan
 #: model:ir.model,name:purchase_plan.model_purchase_plan_line
 msgid "purchase.plan.line"
-msgstr "purchase.plan.line"
+msgstr "采购计划明细"
 
 #. module: purchase_plan
 #: model:ir.model.fields,field_description:purchase_plan.field_purchase_plan_line_qty

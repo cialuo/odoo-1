@@ -1,2 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_scheduling_parameters_scheduling_parameters,scheduling_parameters.scheduling_parameters,model_scheduling_parameters_scheduling_parameters,,1,0,0,0
+access_scheduling_parameters,region_manage.region_manage,model_region_manage_region_manage,operation_manager,1,1,1,1
+access_scheduling_parameters,road_manage.road_manage,model_road_manage_road_manage,operation_manager,1,1,1,1
+access_scheduling_parameters,platform_manage.platform_manage,model_platform_manage_platform_manage,operation_manager,1,1,1,1
+access_scheduling_parameters,route_manage.route_manage,model_route_manage_route_manage,operation_manager,1,1,1,1
