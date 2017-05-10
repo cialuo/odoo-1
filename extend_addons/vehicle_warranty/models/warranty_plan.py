@@ -15,6 +15,10 @@ class WarrantyPlan(models.Model): # 车辆保养计划
             tmp_plan_month = datetime.datetime.strftime(datetime.datetime.strptime(plan.plan_month, '%Y-%m-%d'), '%Y-%m')
             plan.month=tmp_plan_month
 
+    def _default_employee(self):
+        emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
+        return emp_ids and emp_ids[0] or False
+
     month = fields.Char(compute='_compute_month') # 月度
 
     company_id = fields.Many2one('hr.department', string='Company', required=True, default=lambda self: self.env.user.company_id)
@@ -54,13 +58,13 @@ class WarrantyPlan(models.Model): # 车辆保养计划
     @api.multi
     def action_audit(self):
         self.state = 'audit'
-        self.auditor_id = self.env.uid
+        self.auditor_id = self._default_employee()
         self.auditor_time = datetime.datetime.utcnow()
 
     @api.multi
     def action_execute(self):
         self.state = 'execute'
-        self.approval_id = self.env.uid
+        self.approval_id = self._default_employee()
         self.approval_time = datetime.datetime.utcnow()
         for plan_order in self.plan_order_ids:
             if plan_order.state == 'commit':

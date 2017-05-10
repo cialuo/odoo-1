@@ -10,6 +10,8 @@
     # 'depends': ['employees', 'vehicle_manage','materials_product','stock_picking_types'], # 'product','stock'
     'depends': ['vehicle_manage','materials_product','stock_picking_types'], # 'product','stock'
     'data': [
+        'security/warranty_security.xml',
+        'security/ir.model.access.csv',
         'data/vehicle_warranty_data.xml',
         'views/warranty_category_view.xml',
         'views/warranty_project_view.xml',
