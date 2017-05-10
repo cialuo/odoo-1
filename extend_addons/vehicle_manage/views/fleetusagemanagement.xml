@@ -48,7 +48,7 @@
                             class="oe_highlight"/>
                     <button name="action_checked" type="object"
                             string="checked" states="submitted"
-                            class="oe_highlight"/>
+                            class="oe_highlight" groups="vehicle_manage.vehicle_usage_manager" />
                     <button name="action_execution" type="object"
                             string="to execution" states="checked"
                             class="oe_highlight"/>
