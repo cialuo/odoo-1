@@ -91,8 +91,13 @@
             <field name="arch" type="xml">
                 <form string="MaintainReport Form">
                 	<header>
-						<button name="action_submit_precheck" type="object" string="Submit Precheck"
-								states="draft" class="oe_highlight"/> <!-- 提交检验-->
+						<button name="action_submit_precheck"
+								type="object"
+								string="Submit Precheck"
+								states="draft"
+								class="oe_highlight"
+								groups="vehicle_maintain.maintain_manage_driver,vehicle_maintain.maintain_manage_depot"
+								/> <!-- 提交检验-->
                     	<field name="state" widget="statusbar" statusbar_visible="draft,precheck,repair,completed"/>
                 	</header>
 					<sheet>
@@ -157,21 +162,23 @@
             <field name="arch" type="xml">
                 <form string="MaintainPrecheck Form" create="false">
                 	<header>
-						<button name="action_submit_precheck"
-								type="object"
-                                string="Precheck"
-								states="draft"
-                                class="oe_highlight"/> <!-- 提交检验-->
+						<!--<button name="action_submit_precheck"-->
+								<!--type="object"-->
+                                <!--string="Precheck"-->
+								<!--states="draft"-->
+                                <!--class="oe_highlight"/> &lt;!&ndash; 提交检验&ndash;&gt;-->
 
 						<button name="action_precheck_to_repair"
 								type="object"
                                 string="Precheck Success"
                                 states="precheck"
+								groups="vehicle_maintain.maintain_manage_inspect"
 								class="oe_highlight"/>  <!-- 预检通过并创建交接单-->
 
 						<button name="action_precheck_to_draft"
 								type="object"
                                 string="Reset to draft"
+								groups="vehicle_maintain.maintain_manage_inspect"
 								states="precheck"/>     <!-- 检验退回-->
 
 
@@ -213,7 +220,7 @@
                    		 </group>
   						 <notebook>
 							 <page string="Maintain Repair">
-								<field name="repair_ids" context="{'form_view_ref': 'maintain.maintain_repair_view_form_action'}">
+								<field name="repair_ids" context="{'form_view_ref': 'maintain_repair_view_form_action'}">
 									<tree string="Maintain Repair">
 										<field name="name"/>
 										<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
@@ -262,11 +269,13 @@
 						<button name="action_start_repair" type="object"
                                 string="Start Repair"
 								states="wait_repair"
+								groups="vehicle_maintain.maintain_manage_repair"
                                 class="oe_highlight"/> <!-- 开工-->
 
 						<button name="action_start_inspect" type="object"
                                 string="Start Inspect"
 								states="repair"
+								groups="vehicle_maintain.maintain_manage_repair"
                                 class="oe_highlight"/> <!-- 报检-->
 
                     	<field name="state"  widget="statusbar" statusbar_visible="wait_repair,repair,inspect,completed" />
@@ -344,12 +353,14 @@
 											 type="object"
 											 string="Create Get Picking"
 											 states="repair,inspect,completed"
-										class="oe_highlight">
+											 groups="vehicle_maintain.maintain_manage_repair"
+											 class="oe_highlight">
 									 </button>
 
 									 <button name="create_back_picking"
 											 type="object"
 											 states="repair,inspect,completed"
+											 groups="vehicle_maintain.maintain_manage_repair"
 											 string="Create Back Picking"/>
 								</center>
 								  <separator/>
@@ -390,7 +401,7 @@
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
 					<sheet>
-						<notebook>
+						<notebook groups="vehicle_maintain.maintain_manage_dispatch">
 							<page string="MaintainRepair Jobs" >
                                 <field name="job_ids">
                                     <tree string="MaintainRepair Jobs" create="false" editable="bottom">
@@ -416,12 +427,12 @@
 								<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="fault_reason_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="fault_method_id" required="1" options="{'no_open':True,'no_create':True}"/>
-								<field name="work_time"/>
+								<field name="work_time" groups="vehicle_maintain.maintain_manage_dispatch"/>
 								<field name="operation_manual" invisible="1"/>
 								<field name="inspect_standard" invisible="1"/>
 
 	                        </group>
-	                        <group class="oe_edit_only">
+	                        <group class="oe_edit_only" groups="vehicle_maintain.maintain_manage_dispatch">
 								<field name="plan_start_time"/>
 								<field name="plan_end_time"/>
 								<field name="fault_method_code" invisible="1"/>
@@ -436,10 +447,11 @@
                    		 </group>
 
 						 <button name="dispatch"
-								type="object"
-								string="Dispatch"
-								states="dispatch,wait_repair"
-								class="oe_edit_only oe_highlight oe_right"/>
+								 type="object"
+								 string="Dispatch"
+								 states="dispatch,wait_repair"
+								 groups="vehicle_maintain.maintain_manage_dispatch"
+								 class="oe_edit_only oe_highlight oe_right"/>
 					</sheet>
                 </form>
             </field>
@@ -457,11 +469,13 @@
 						<button name="action_completed" type="object"
                                 string="Inspect Complete"
 								states="inspect"
+								groups="vehicle_maintain.maintain_manage_inspect"
                                 class="oe_highlight"/> <!-- 检验完成-->
 
 						<button name="%(maintain_inspect_return)d"
 								type="action"
                                 string="Back To Repair"
+								groups="vehicle_maintain.maintain_manage_inspect"
 								states="inspect"/> <!-- 退回重修-->
 
                     	<field name="state"  widget="statusbar"  statusbar_visible="repair,inspect,completed" />
