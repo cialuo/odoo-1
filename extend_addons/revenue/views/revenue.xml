@@ -180,9 +180,21 @@
 
 
         <!-- 营收管理菜单 -->
-        <menuitem id="menu_coin_revenue" name="Coin revenue management" parent="operation_menu.revenue_menu" action="act_coin_revenue"/>
-        <menuitem id="menu_ic_revenue" name="IC card revenue management" parent="operation_menu.revenue_menu" action="act_ic_revenue"/>
-        <menuitem id="menu_chartered_revenue" name="Chartered revenue management" parent="operation_menu.revenue_menu" action="act_chartered_revenue"/>
-        <menuitem id="menu_total_revenue" name="Integrated revenue management" parent="operation_menu.revenue_menu" action="act_total_revenue"/>
+        <menuitem id="menu_coin_revenue"
+                  name="Coin revenue management"
+                  parent="operation_menu.revenue_menu"
+                  action="act_coin_revenue" groups="revenue.banknote_counter"/>
+        <menuitem id="menu_ic_revenue"
+                  name="IC card revenue management"
+                  parent="operation_menu.revenue_menu"
+                  action="act_ic_revenue" groups="revenue.banknote_counter"/>
+        <menuitem id="menu_chartered_revenue"
+                  name="Chartered revenue management"
+                  parent="operation_menu.revenue_menu"
+                  action="act_chartered_revenue" groups="revenue.banknote_counter"/>
+        <menuitem id="menu_total_revenue"
+                  name="Integrated revenue management"
+                  parent="operation_menu.revenue_menu"
+                  action="act_total_revenue" groups="revenue.banknote_counter"/>
     </data>
 </odoo>
