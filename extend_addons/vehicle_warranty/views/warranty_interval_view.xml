@@ -6,9 +6,9 @@
             <field name="name">Warranty Interval Cycle Diagram</field>
             <field name="model">warranty_interval</field>
             <field name="arch" type="xml">
-                <tree>
-                    <field name="sequence"/>
-                    <field name="warranty_category_id" string="Warranty Category Name" />
+                <tree create="false">
+                    <!--<field name="sequence"/>-->
+                    <field name="warranty_category_id" string="Warranty Category Name"/>
                     <field name="interval_mileage"/>
                     <field name="create_uid"/>
                     <field name="create_date"/>
@@ -137,6 +137,28 @@
         <menuitem name="Repair Category" id="warranty_level_menu" sequence="70"
                   parent="warranty_system"
                   action="warranty_level_action"/>
+
+        <!-- 车型管理增加保养间隔 -->
+        <record id="warranty_interval_vehicle_manage_model_view_form_ext" model="ir.ui.view">
+            <field name="name">Fleet model extend</field>
+            <field name="model">fleet.vehicle.model</field>
+            <field name="inherit_id" ref="vehicle_manage.vehicle_manage_model_view_form_ext"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[1]" position="before">
+                    <page string="Warranty Interval">
+                        <field name="warranty_interval_ids">
+                            <tree editable="bottom" ><!-- delete="false" default_order="interval_mileage"-->
+                                <field name="sequence" widget="handle"/>
+                                <field name="warranty_category_id" string="Warranty Category Name"  options="{'no_create': True, 'no_open': True}"/>
+                                <field name="interval_mileage"/>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
 
     </data>
 </odoo>
