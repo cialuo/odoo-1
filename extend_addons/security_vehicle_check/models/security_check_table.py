@@ -8,8 +8,8 @@ class security_check_table(models.Model):
     check_table_id = fields.Char(string='security_check_table_id')
     name = fields.Char(string='function_module', readonly=True)
     # function_module = fields.Char(string=_('function_module'))
-    remarks = fields.Char(string=_('remarks'))
-    check_type = fields.Char(string=_('check_type'))
+    remarks = fields.Char(string='remarks')
+    check_type = fields.Char(string='check_type')
     # TODO many2one
     responser = fields.Many2one('hr.employee', string='check_responser')
     # TODO many2one

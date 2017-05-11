@@ -7,14 +7,14 @@ class vehicle_plan_details(models.Model):
 
     # 序号
     item_id = fields.Many2one('security_manage.check_item', ondelete='cascade', string='item_id', readonly=1)
-    check_item_name = fields.Char(string=_('check_item_name'), readonly=1)
-    check_content = fields.Char(string=_('check_content'), readonly=1)
-    check_standards = fields.Char(string=_('check_standards'), readonly=1)
+    check_item_name = fields.Char(string='check_item_name', readonly=1)
+    check_content = fields.Char(string='check_content', readonly=1)
+    check_standards = fields.Char(string='check_standards', readonly=1)
 
     check_result = fields.Selection([("check_normal", "check_normal"),  # 正常
                                      ("check_abnormal", "check_abnormal"),  # 异常
-                                     ], string=_('check_result'))
-    remark = fields.Text(string=_('remark'))
+                                     ], string='check_result')
+    remark = fields.Text(string='remark')
 
     vehicle_front_check_id = fields.Many2one('security.vehicle_front_check', ondelete='set null')
     vehicle_everyday_check_id = fields.Many2one('security.vehicle_everyday_check', ondelete='set null')
