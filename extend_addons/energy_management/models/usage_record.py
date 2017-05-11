@@ -25,8 +25,15 @@ class usage_record(models.Model):
     #状态
     state = fields.Selection([('normal', 'Normal'), ('stop', 'Stop')],default='normal')
 
+    def _default_utcnow(self):
+        """
+            获取当前UTC时间
+        :return:
+        """
+        return datetime.datetime.utcnow()
+
     #使用能源时间
-    record_date = fields.Datetime(string='Record Date',default=fields.Datetime.now())
+    record_date = fields.Datetime(string='Record Date',default=_default_utcnow)
 
     #加油人
     operator = fields.Many2one('hr.employee',string='Operator')
@@ -73,6 +80,8 @@ class usage_record(models.Model):
 
     # 使用总价
     total_price = fields.Float(string='Total Price',digits=(12,2))
+
+
 
     @api.onchange('location_price','fuel_capacity')
     def _compute_total_price(self):
@@ -151,15 +160,18 @@ class usage_record(models.Model):
         """
         #行车记录
         driverecords = None
-
         domain = [('vehicle_id', '=', self.vehicle_id.id)]
 
         #获取车辆的最后一次能源使用记录id
         usage_record = self.env['energy.usage_record'].search(domain,limit=1,order="record_date desc")
 
         if usage_record:
-            domain += [('realitydepart', '>=', usage_record.record_date)]
+
+            DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S.%f"
+            print usage_record.record_date
+            domain += [('realityarrive', '>=', usage_record.record_date)]
             driverecords = self.env['vehicleusage.driverecords'].search(domain)
+
         else:
             driverecords = self.env['vehicleusage.driverecords'].search(domain)
 

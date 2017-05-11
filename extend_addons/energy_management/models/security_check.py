@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api,_
-
+import datetime
 class security_check(models.Model):
 
     _name = 'energy.security_check'
@@ -12,6 +12,13 @@ class security_check(models.Model):
     """
        安全检查
     """
+
+    def _default_utcnow(self):
+        """
+            获取当前UTC时间
+        :return:
+        """
+        return datetime.datetime.utcnow()
 
     security_check_detail_ids = fields.One2many('energy.security_check_details','security_check_id',string='Security Check Detail Ids')
 
@@ -33,7 +40,7 @@ class security_check(models.Model):
     person_liable = fields.Many2one('hr.employee', string='Person liable',required=True)
 
     # 巡检日期
-    check_date = fields.Datetime(string='Check Date',default=fields.Datetime.now())
+    check_date = fields.Datetime(string='Check Date',default=_default_utcnow)
 
     # 检查结果
     check_result = fields.Char(string='Check Result')
