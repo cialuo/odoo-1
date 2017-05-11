@@ -8,7 +8,7 @@
         领料管理、发料管理、退料管理、交旧领新
     """,
     'author': "He",
-    'category': 'Warehouse',
+    'category': 'Basic Edition',
     'version': '0.1',
     'depends': ['materials_menu', 'stock'],
     'data': [
