@@ -669,3 +669,8 @@ msgstr "生成保养单"
 msgid "wizard_create_warranty_order_by_driver"
 msgstr "创建保养单"
 
+
+#. module: important_component
+#: selection:product.product,important_type:1
+msgid "Component"
+msgstr "作为重要部件管理"

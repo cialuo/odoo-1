@@ -55,7 +55,7 @@ class StockMove(models.Model):
                 vals['location_id'] = move.picking_id.location_dest_id.id
                 if move.picking_id and move.picking_id.location_dest_id.is_vehicle:
                     vals['state'] = 'inuse'
-                    vals['parent_vehicle'] = move.picking_id.repair_id.vehicle_id.id
+                    vals['parent_vehicle'] = move.picking_id.repair_id.vehicle_id.id or move.picking_id.warranty_order_id.vehicle_id.id
                 location_old = self.env.ref('stock_picking_types.stock_location_old_to_new')
                 if move.picking_id and move.picking_id.location_dest_id == location_old:
                     vals['state'] = 'waiting_repare'
@@ -103,7 +103,7 @@ class StockPicking(models.Model):
                         except TypeError:
                             o2n_picking = self._gen_old_new_picking_warranty(order, order.move_lines, location_id, location_dest_id)
                             if o2n_picking:
-                                o2n_picking.move_lines.write({'component_ids': [(6, 0, order.warranty_order_id.component_ids.ids)]})
+                                o2n_picking.move_lines.write({'component_ids': [(6, 0, order.warranty_order_id.project_ids.mapped('component_ids').ids)]})
                 else:
                     no_import_products = order.move_lines.mapped('product_id').filtered(lambda x: not x.is_important)
                     remove_products = ','.join([i.name for i in no_import_products])

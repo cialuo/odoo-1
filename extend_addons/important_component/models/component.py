@@ -9,8 +9,7 @@ class Product(models.Model):
     _inherit = 'product.product'
 
     # is_important = fields.Boolean(string='Important', default=False)
-    important_type = fields.Selection([('component', 'Component'), ('energy', 'Energy')],
-                                      string='Important Type')
+    important_type = fields.Selection(selection_add=[('component', 'Component')])
     component_ids = fields.One2many('product.component', 'product_id', string='Component Info')
     # 要件类型
     classification_id = fields.Many2one('fleet.important_classification', 'classification_id')

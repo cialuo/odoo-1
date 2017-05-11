@@ -1,50 +1,50 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* revenue
+#	* revenue
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-11 02:31+0000\n"
-"PO-Revision-Date: 2017-05-11 10:33+0800\n"
+"POT-Creation-Date: 2017-05-11 01:34+0000\n"
+"PO-Revision-Date: 2017-05-11 01:34+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 1.8.3\n"
 
 #. module: revenue
 #: model:res.groups,name:revenue.banknote_counter
 msgid "Banknote counter"
-msgstr "点钞员"
+msgstr ""
 
 #. module: revenue
-#: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_revenue
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_chartered_revenue
+#: code:addons/revenue/models/revenue.py:50
+#: code:addons/revenue/models/revenue.py:71
+#, python-format
 msgid "Chartered income（CNY）"
-msgstr "包车收入（元）"
+msgstr ""
 
 #. module: revenue
 #: model:ir.actions.act_window,name:revenue.act_chartered_revenue
 #: model:ir.ui.menu,name:revenue.menu_chartered_revenue
 msgid "Chartered revenue management"
-msgstr "包车收入管理"
+msgstr ""
 
 #. module: revenue
-#: model:ir.model.fields,field_description:revenue.field_coin_revenue_coin_revenue_revenue
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_coin_revenue
+#: code:addons/revenue/models/revenue.py:14
+#: code:addons/revenue/models/revenue.py:69
+#, python-format
 msgid "Coin income（CNY）"
-msgstr "投币收入（元）"
+msgstr ""
 
 #. module: revenue
 #: model:ir.actions.act_window,name:revenue.act_coin_revenue
 #: model:ir.ui.menu,name:revenue.menu_coin_revenue
 msgid "Coin revenue management"
-msgstr "投币收入管理"
+msgstr ""
 
 #. module: revenue
 #: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_create_uid
@@ -52,7 +52,7 @@ msgstr "投币收入管理"
 #: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_create_uid
 #: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_create_uid
 msgid "Created by"
-msgstr "创建人"
+msgstr ""
 
 #. module: revenue
 #: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_create_date
@@ -60,15 +60,16 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_create_date
 #: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_create_date
 msgid "Created on"
-msgstr "创建时间"
+msgstr ""
 
 #. module: revenue
-#: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_c_date
-#: model:ir.model.fields,field_description:revenue.field_coin_revenue_coin_revenue_c_date
-#: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_c_date
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_c_date
+#: code:addons/revenue/models/revenue.py:10
+#: code:addons/revenue/models/revenue.py:28
+#: code:addons/revenue/models/revenue.py:46
+#: code:addons/revenue/models/revenue.py:65
+#, python-format
 msgid "Date"
-msgstr "日期"
+msgstr ""
 
 #. module: revenue
 #: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_display_name
@@ -76,27 +77,35 @@ msgstr "日期"
 #: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_display_name
 #: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_display_name
 msgid "Display Name"
-msgstr "显示名称"
+msgstr ""
 
 #. module: revenue
-#: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_driver
-#: model:ir.model.fields,field_description:revenue.field_coin_revenue_coin_revenue_driver
-#: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_driver
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_driver
+#: code:addons/revenue/models/revenue.py:13
+#: code:addons/revenue/models/revenue.py:31
+#: code:addons/revenue/models/revenue.py:49
+#: code:addons/revenue/models/revenue.py:68
+#, python-format
 msgid "Driver"
-msgstr "驾驶员"
+msgstr ""
 
 #. module: revenue
 #: model:ir.actions.act_window,name:revenue.act_ic_revenue
 #: model:ir.ui.menu,name:revenue.menu_ic_revenue
 msgid "IC card revenue management"
-msgstr "IC卡收入管理"
+msgstr ""
+
+#. module: revenue
+#: code:addons/revenue/models/revenue.py:32
+#: code:addons/revenue/models/revenue.py:70
+#, python-format
+msgid "IC income（CNY）"
+msgstr ""
 
 #. module: revenue
 #: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_revenue
 #: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_ic_revenue
-msgid "IC income（CNY）"
-msgstr "IC卡收入（元）"
+msgid "IC卡收入（元）"
+msgstr ""
 
 #. module: revenue
 #: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_id
@@ -104,13 +113,13 @@ msgstr "IC卡收入（元）"
 #: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_id
 #: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: revenue
 #: model:ir.actions.act_window,name:revenue.act_total_revenue
 #: model:ir.ui.menu,name:revenue.menu_total_revenue
 msgid "Integrated revenue management"
-msgstr "营收综合管理"
+msgstr ""
 
 #. module: revenue
 #: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue___last_update
@@ -118,7 +127,7 @@ msgstr "营收综合管理"
 #: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue___last_update
 #: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue___last_update
 msgid "Last Modified on"
-msgstr "最后修改日"
+msgstr ""
 
 #. module: revenue
 #: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_write_uid
@@ -126,7 +135,7 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_write_uid
 #: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_write_uid
 msgid "Last Updated by"
-msgstr "最后更新人"
+msgstr ""
 
 #. module: revenue
 #: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_write_date
@@ -134,69 +143,84 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_write_date
 #: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_write_date
 msgid "Last Updated on"
-msgstr "最后更新时间"
+msgstr ""
 
 #. module: revenue
-#: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_license_plate
-#: model:ir.model.fields,field_description:revenue.field_coin_revenue_coin_revenue_license_plate
-#: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_license_plate
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_license_plate
+#: code:addons/revenue/models/revenue.py:12
+#: code:addons/revenue/models/revenue.py:30
+#: code:addons/revenue/models/revenue.py:48
+#: code:addons/revenue/models/revenue.py:67
+#, python-format
 msgid "License plate"
-msgstr "车牌号"
+msgstr ""
 
 #. module: revenue
-#: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_remark
-#: model:ir.model.fields,field_description:revenue.field_coin_revenue_coin_revenue_remark
-#: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_remark
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_remark
+#: code:addons/revenue/models/revenue.py:15
+#: code:addons/revenue/models/revenue.py:33
+#: code:addons/revenue/models/revenue.py:51
+#: code:addons/revenue/models/revenue.py:73
+#, python-format
 msgid "Remark"
-msgstr "备注"
+msgstr ""
 
 #. module: revenue
-#: model:ir.model.fields,field_description:revenue.field_chartered_revenue_chartered_revenue_route
-#: model:ir.model.fields,field_description:revenue.field_coin_revenue_coin_revenue_route
-#: model:ir.model.fields,field_description:revenue.field_ic_revenue_ic_revenue_route
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_route
+#: code:addons/revenue/models/revenue.py:11
+#: code:addons/revenue/models/revenue.py:29
+#: code:addons/revenue/models/revenue.py:47
+#: code:addons/revenue/models/revenue.py:66
+#, python-format
 msgid "Route"
-msgstr "线路"
+msgstr ""
 
 #. module: revenue
+#: code:addons/revenue/models/revenue.py:20
+#: code:addons/revenue/models/revenue.py:38
+#: code:addons/revenue/models/revenue.py:56
+#: code:addons/revenue/models/revenue.py:78
 #: sql_constraint:chartered_revenue.chartered_revenue:0
 #: sql_constraint:coin_revenue.coin_revenue:0
 #: sql_constraint:ic_revenue.ic_revenue:0
 #: sql_constraint:total_revenue.total_revenue:0
+#, python-format
 msgid "The license plate must be unique!"
-msgstr "车牌号必须是唯一的！"
+msgstr ""
 
 #. module: revenue
+#: code:addons/revenue/models/revenue.py:19
+#: code:addons/revenue/models/revenue.py:37
+#: code:addons/revenue/models/revenue.py:55
+#: code:addons/revenue/models/revenue.py:77
 #: sql_constraint:chartered_revenue.chartered_revenue:0
 #: sql_constraint:coin_revenue.coin_revenue:0
 #: sql_constraint:ic_revenue.ic_revenue:0
 #: sql_constraint:total_revenue.total_revenue:0
+#, python-format
 msgid "The route must be unique!"
-msgstr "线路名称必须是唯一的！"
+msgstr ""
 
 #. module: revenue
-#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_revenue_total_income
+#: code:addons/revenue/models/revenue.py:72
+#, python-format
 msgid "Total Income（CNY）"
-msgstr "合计营收（元）"
+msgstr ""
 
 #. module: revenue
 #: model:ir.model,name:revenue.model_chartered_revenue_chartered_revenue
 msgid "chartered_revenue.chartered_revenue"
-msgstr "chartered_revenue.chartered_revenue"
+msgstr ""
 
 #. module: revenue
 #: model:ir.model,name:revenue.model_coin_revenue_coin_revenue
 msgid "coin_revenue.coin_revenue"
-msgstr "coin_revenue.coin_revenue"
+msgstr ""
 
 #. module: revenue
 #: model:ir.model,name:revenue.model_ic_revenue_ic_revenue
 msgid "ic_revenue.ic_revenue"
-msgstr "ic_revenue.ic_revenue"
+msgstr ""
 
 #. module: revenue
 #: model:ir.model,name:revenue.model_total_revenue_total_revenue
 msgid "total_revenue.total_revenue"
-msgstr "total_revenue.total_revenue"
+msgstr ""
+
