@@ -65,6 +65,7 @@
                 <tree>
                     <field name="road_coding"/>
                     <field name="road_name"/>
+                    <field name="region_id"/>
                     <field name="create_date"/>
                     <field name="book_runner"/>
                     <field name="state"/>

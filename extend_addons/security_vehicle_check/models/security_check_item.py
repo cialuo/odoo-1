@@ -14,8 +14,8 @@ class security_check_item(models.Model):
     create_time = fields.Date(string='create_time', required=True, default=fields.Date.today())
 
     state = fields.Selection([
-        ('use', _('Use')),
-        ('archive', _("Archive")),
+        ('use', 'Use'),
+        ('archive', "Archive"),
     ], default='use', string='security_check_item_state')
 
     @api.multi
