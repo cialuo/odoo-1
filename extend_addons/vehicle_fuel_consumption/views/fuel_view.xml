@@ -31,7 +31,7 @@
             <field name="inherit_id" ref="vehicle_manage.vehicle_manage_model_view_form_ext"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='wheel_count']" position="after">
-                    <field name="fuel_consumption"/>
+                    <field name="model_fuel_consumption"/>
                  </xpath>
 
                 <xpath expr="//notebook/page[1]" position="before">

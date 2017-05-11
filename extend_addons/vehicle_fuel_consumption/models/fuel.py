@@ -17,14 +17,12 @@ class Vehicle(models.Model):
         营运油耗
         超额
     '''
-    model_fuel_consumption = fields.Float('Model Fuel Consumption', related='model_id.fuel_consumption', store=True,
+    model_fuel_consumption = fields.Float('Model Fuel Consumption', related='model_id.model_fuel_consumption', store=True,
                                           readonly=True, copy=False)
     correct_value = fields.Float(compute='_get_correct_value', readonly=True, copy=False)
-    # route_correct_value = fields.Float(related='route_id.oil_wear_coefficient', store=True, copy=False)
 
     fuel_consumption = fields.Float('Fuel Consumption', compute='_get_fuel_consumption',
                                     store=True, readonly=True, copy=False)
-    # real_consumption = fields.Float('Real Consumption', copy=False)
 
     excess_consumption = fields.Float('Excess Consumption', compute='_get_fuel_consumption',
                                       readonly=True, copy=False)
@@ -58,8 +56,7 @@ class FleetVehicleModel(models.Model):
             corrent_list.append((0, 0, {'year': i, 'correct_value': 1}))
         return corrent_list
 
-    ave_fuel_consumption = fields.Float(string="Ave Fuel Consumption")
-    fuel_consumption = fields.Float('Fuel Consumption', help='Fuel Consumption')
+    model_fuel_consumption = fields.Float('Model Fuel Consumption')
 
     correct_ids = fields.One2many('vehicle.fuel_consumption_correction', 'model_id', string="Corrections",
                                   default=_default_corrent_ids)
