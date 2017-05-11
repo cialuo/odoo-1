@@ -7,14 +7,18 @@ class region_manage(models.Model):
 
     _rec_name = 'region_name'
 
-    # 区域编码 区域名称 设立时间 建档人 状态
+    # 区域编码
     region_coding = fields.Char('Region coding', required=True)
+    # 区域名称
     region_name = fields.Char('Region name', required=True)
+    # 设立时间
     create_time = fields.Datetime('Creation time')
+    # 建档人
     book_runner = fields.Many2one('res.users', string='Book runner', default=lambda self: self.env.user)
-    # road_id = fields.One2many('road_manage.road_manage', 'region_id', ondelete='cascade', string="Road")
+    # 所辖道路
     road_id = fields.One2many('road_manage.road_manage', 'region_id', ondelete='cascade', string="Road")
 
+    # 状态
     WORKFLOW_STATE_SELECTION = [
         ('inuse', 'In-use'),
         ('archive', 'Archive')
@@ -47,7 +51,6 @@ class road_manage(models.Model):
 
     _rec_name = 'road_name'
 
-    # 道路编码 道路名称 区域 区域编码 设立日期 设立人 状态
     # 道路编码
     road_coding = fields.Char('Road coding', required=True)
     # 道路名称

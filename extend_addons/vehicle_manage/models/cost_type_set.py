@@ -17,6 +17,7 @@ class cost_type_set(models.Model):
     is_required = fields.Selection([('yes', 'Yes'), ('no', 'No')], default='yes', string='Is_required')
 
     cost_type_id = fields.Many2one('investment_cost', string='investment period cost id')
+
     # 状态
     WORKFLOW_STATE_SELECTION = [
         ('inuse', 'In-use'),

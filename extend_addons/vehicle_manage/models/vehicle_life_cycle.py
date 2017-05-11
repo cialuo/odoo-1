@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-import datetime
 
+import datetime
 
 # 车辆生命周期
 class vehicle_life(models.Model):
+
     # 表名(继承fleet.vehicle)
     _inherit = "fleet.vehicle"
 
+    # 从'cost_type_set.cost_type_set'表中，获取inuse状态的数据，将其中'type_name'字段的值
+    # 复制到'investment_cost'表中的'cost_type'字段
     @api.multi
     def _add_default_value(self):
         print('-------------------')
@@ -23,9 +26,10 @@ class vehicle_life(models.Model):
             datas.append((0, 0, data))
         return datas
 
+    # 投入期费用
     investment_ids = fields.One2many('investment_cost', 'vehicle_id', string='Investments', default=_add_default_value)
 
-    # 状态
+    # 状态（车辆生命周期）
     WORKFLOW_STATE_SELECTION = [
         ('invest_period', 'Invest period'),
         ('operation_period', 'Operation period'),
@@ -41,6 +45,7 @@ class vehicle_life(models.Model):
     def action_operation(self):
         print('operation_period')
         self.vehicle_life_state = 'operation_period'
+        # 设置投入日期
         self.start_service_date = datetime.date.today()
         return True
 
@@ -52,6 +57,7 @@ class vehicle_life(models.Model):
 
 # 投入期费用
 class investment_period_cost(models.Model):
+
     _name = 'investment_cost'
 
     _rec_name = 'cost_name'
