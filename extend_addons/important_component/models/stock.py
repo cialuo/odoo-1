@@ -34,16 +34,17 @@ class StockMove(models.Model):
             #如果库存移动是来源于采购单
             # if move.picking_type_id in receipts:
             # if move.location_id == location:
-            if 'PO' in (move.origin or move.group_id.name):
-                #物资是特别管理，且是重要部件管理
-                if move.product_id.is_important and move.product_id.important_type == 'component':
-                    for x in range(int(move.product_uom_qty)):
-                        com_obj.create({
-                            'product_id': move.product_id.id,
-                            'location_id': move.location_dest_id.id,
-                            'move_id': move.id,
-                            'state': 'avaliable',
-                        })
+            if move.origin or move.group_id.name:
+                if 'PO' in (move.origin or move.group_id.name):
+                    #物资是特别管理，且是重要部件管理
+                    if move.product_id.is_important and move.product_id.important_type == 'component':
+                        for x in range(int(move.product_uom_qty)):
+                            com_obj.create({
+                                'product_id': move.product_id.id,
+                                'location_id': move.location_dest_id.id,
+                                'move_id': move.id,
+                                'state': 'avaliable',
+                            })
             if move.component_ids:
                 """
                 如果库存移动中，有重要部件清单

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-10 07:54+0000\n"
-"PO-Revision-Date: 2017-05-10 07:54+0000\n"
+"POT-Creation-Date: 2017-05-10 11:49+0000\n"
+"PO-Revision-Date: 2017-05-10 11:49+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,6 @@ msgstr "部件编码已存在"
 #: model:ir.model.fields,field_description:important_component.field_fleet_vehicle_component_ids
 #: model:ir.model.fields,field_description:important_component.field_maintain_manage_repair_component_ids
 #: model:ir.model.fields,field_description:important_component.field_warranty_order_project_component_ids
-#: selection:product.product,important_type:0
 msgid "Component"
 msgstr "作为重要部件管理"
 
@@ -164,11 +163,6 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: important_component
-#: selection:product.product,important_type:0
-msgid "Energy"
-msgstr "作为能源管理"
-
-#. module: important_component
 #: model:ir.ui.view,arch_db:important_component.fleet_important_detailed_tree
 #: model:ir.ui.view,arch_db:important_component.fleet_important_roster_tree
 msgid "Essential code"
@@ -199,11 +193,6 @@ msgid "Image of the product variant (Medium-sized image of product template if f
 msgstr "产品变型的图像(如果为Flase,采用产品模板的中尺寸图像)"
 
 #. module: important_component
-#: model:ir.model.fields,field_description:important_component.field_product_product_is_important
-msgid "Important"
-msgstr "特别管理"
-
-#. module: important_component
 #: model:ir.actions.act_window,name:important_component.act_fleet_important_classification
 msgid "Important Classification"
 msgstr "重要部件分类"
@@ -226,11 +215,6 @@ msgstr "重要部件"
 #: model:ir.actions.act_window,name:important_component.act_fleet_important_roster
 msgid "Important Roster"
 msgstr "重要部件名册"
-
-#. module: important_component
-#: model:ir.model.fields,field_description:important_component.field_product_product_important_type
-msgid "Important Type"
-msgstr "管理类型"
 
 #. module: important_component
 #: code:addons/important_component/models/component.py:82
@@ -412,6 +396,11 @@ msgstr "维修换件"
 
 #. module: important_component
 #: model:ir.ui.view,arch_db:important_component.fleet_vehicle_repair_inherit
+msgid "Repair Date"
+msgstr "维修日期"
+
+#. module: important_component
+#: model:ir.ui.view,arch_db:important_component.fleet_vehicle_repair_inherit
 msgid "Repair Record"
 msgstr "维修记录"
 
@@ -443,7 +432,7 @@ msgid "Stock Move"
 msgstr "库存移动"
 
 #. module: important_component
-#: code:addons/important_component/models/stock.py:105
+#: code:addons/important_component/models/stock.py:110
 #, python-format
 msgid "There are important & not important components,please remove: %s "
 msgstr "重要部件和非重要不能不能同时申领,请移除非重要部件: %s "
@@ -490,6 +479,11 @@ msgstr "车型"
 #: selection:product.component,state:0
 msgid "Waiting Repare"
 msgstr "在库待修"
+
+#. module: important_component
+#: model:ir.ui.view,arch_db:important_component.fleet_vehicle_repair_inherit
+msgid "Warranty Date"
+msgstr "保养日期"
 
 #. module: important_component
 #: model:ir.ui.view,arch_db:important_component.fleet_vehicle_repair_inherit

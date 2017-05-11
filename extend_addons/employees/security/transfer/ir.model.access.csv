@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employees_unit_user,employees.unit.user,model_employees_unit,hr.group_hr_user,1,1,1,0
+access_employees_unit_manager,employees.unit.manager,model_employees_unit,hr.group_hr_manager,1,1,1,1
+access_employees_unit_user_base,employees.unit.user.base,model_employees_unit,base.group_user,1,0,0,0
+access_employees_post_transfer_user,employees.post.transfer.user,model_employees_post_transfer,hr.group_hr_user,1,1,1,0
+access_employees_post_transfer_manager,employees.post.transfer.manager,model_employees_post_transfer,hr.group_hr_manager,1,1,1,1
+access_employees_post_transfer_user_base,employees.post.transfer.user.base,model_employees_post_transfer,base.group_user,1,0,0,0
+access_employees_foreign_user,employees.foreign.user,model_employees_foreign,hr.group_hr_user,1,1,1,0
+access_employees_foreign_manager,employees.foreign.manager,model_employees_foreign,hr.group_hr_manager,1,1,1,1
+access_employees_foreign_user_base,employees.foreign.user.base,model_employees_foreign,base.group_user,1,0,0,0
+access_employees_transfer_record_user,employees.transfer.record.user,model_employees_transfer_record,hr.group_hr_user,1,1,1,0
+access_employees_transfer_record_manager,employees.transfer.record.manager,model_employees_transfer_record,hr.group_hr_manager,1,1,1,1
+access_employees_transfer_record_user_base,employees.transfer.record.user.base,model_employees_transfer_record,base.group_user,1,0,0,0
