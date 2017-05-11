@@ -211,10 +211,10 @@ class post(models.Model):
     description = fields.Char(string=_('post infomation'))
     # 岗位类型
     posttype = fields.Selection([
-        ('manager', _('post title manager')),       # 经理
-        ('labour', _('post title labour')),         # 员工
-        ('driver', _('post title driver')),         # 司机
-        ('conductor', _('post title conductor'))    # 售票员
+        ('manager', _('post title manager')),  # 经理
+        ('labour', _('post title labour')),  # 员工
+        ('driver', _('post title driver')),  # 司机
+        ('conductor', _('post title conductor'))  # 售票员
     ], string=_('post title list'), required=True)
     # 岗位员工
     members = fields.One2many('hr.employee', 'workpost', string=_('post members'))
@@ -323,11 +323,11 @@ class department(models.Model):
             item.record_createdate = item.create_date
 
     departmenttype = fields.Selection([
-        ('headquarters', _('department type headquarters')),    # 总公司
-        ('branch', _('department type branch')),                # 分公司
-        ('subsidiary', _('department type subsidiary')),        # 子公司
-        ('department', _('department type department')),        # 部门
-        ('group', _('department type group')),                  # 组
+        ('headquarters', _('department type headquarters')),  # 总公司
+        ('branch', _('department type branch')),  # 分公司
+        ('subsidiary', _('department type subsidiary')),  # 子公司
+        ('department', _('department type department')),  # 部门
+        ('group', _('department type group')),  # 组
     ], _('department type'))
 
     # 部门岗位列表
@@ -500,24 +500,30 @@ class UnitTransfer(models.Model):
                        copy=False, default='New', readonly=True)
     # 关联的员工
     employee_id = fields.Many2one('hr.employee', ondelete='cascade')
-    # 录入时间
-    entering_date = fields.Date(string="employees_entering_date")
-    # 录单人
-    record_person = fields.Char(string="employees_record_person")
+    # # 录入时间
+    # entering_date = fields.Date(string="employees_entering_date")
+    # # 录单人
+    # record_person = fields.Char(string="employees_record_person")
     # 原单位
-    original_unit = fields.Char(string="employees_original_unit")
+    original_unit = fields.Many2one('hr.department', related="employee_id.department_id",
+                                    string="employees_original_unit", store=False)
     # 原单位岗位
-    original_post = fields.Char(string="employees_original_post")
+    original_post = fields.Many2one('employees.post', ondelete='restrict', related="employee_id.workpost",
+                                    string="employees_original_post", store=False)
     # 原部门
-    original_section = fields.Char(string="employees_original_section")
+    original_section = fields.Many2one('hr.department', related="employee_id.department_id",
+                                       string="employees_original_section", store=False)
     # 原工资结构
     original_wage = fields.Char(string="employees_original_wage")
     # 新单位
-    new_unit = fields.Char(string="employees_new_unit")
+    new_unit = fields.Many2one('hr.department', related="employee_id.department_id",
+                               string="employees_new_unit", store=False)
     # 新单位岗位
-    new_post = fields.Char(string="employees_new_post")
+    new_post = fields.Many2one('employees.post', ondelete='restrict', related="employee_id.workpost",
+                               string="employees_new_post", store=False)
     # 新部门
-    new_section = fields.Char(string="employees_new_section")
+    new_section = fields.Many2one('hr.department', related="employee_id.department_id",
+                                  string="employees_new_section", store=False)
     # 新工资结构
     new_wage = fields.Char(string="employees_new_wage")
     # 状态
@@ -563,19 +569,25 @@ class PostTransfer(models.Model):
     # 调动单编码
     name = fields.Char(string="employees_transfer_code", help='employees_transfer_code', required=True, index=True,
                        copy=False, default='New', readonly=True)
+    # 关联的员工
+    employee_id = fields.Many2one('hr.employee', ondelete='cascade')
     # 录入时间
-    entering_date = fields.Date(string="employees_entering_date")
-    # 录单人
-    record_person = fields.Char(string="employees_record_person")
+    # entering_date = fields.Date(string="employees_entering_date")
+    # # 录单人
+    # record_person = fields.Char(string="employees_record_person")
     # 单位
-    original_unit = fields.Char(string="employees_post_unit")
+    original_unit = fields.Many2one('hr.department', related="employee_id.department_id",
+                                    string="employees_post_unit")
     # 原单位岗位
-    original_post = fields.Char(string="employees_original_post")
+    original_post = fields.Many2one('employees.post', ondelete='restrict', related="employee_id.workpost",
+                                    string="employees_original_post")
     # 新单位岗位
-    new_post = fields.Char(string="employees_new_post")
+    new_post = fields.Many2one('employees.post', ondelete='restrict', related="employee_id.workpost",
+                               string="employees_new_post")
 
     # 部门
-    post_section = fields.Char(string="employees_post_section")
+    post_section = fields.Many2one('hr.department', related="employee_id.department_id",
+                                   string="employees_post_section")
     # 原工资结构
     original_wage = fields.Char(string="employees_original_wage")
     # 新工资结构
@@ -624,20 +636,28 @@ class ForeignTransfer(models.Model):
     # 调动单编码
     name = fields.Char(string="employees_transfer_code", help='employees_transfer_code', required=True, index=True,
                        copy=False, default='New', readonly=True)
-    # 录入时间
-    entering_date = fields.Date(string="employees_entering_date")
-    # 录单人
-    record_person = fields.Char(string="employees_record_person")
+    # 关联的员工
+    employee_id = fields.Many2one('hr.employee', ondelete='cascade')
+    # # 录入时间
+    # entering_date = fields.Date(string="employees_entering_date")
+    # # 录单人
+    # record_person = fields.Char(string="employees_record_person")
     # 单位
-    original_unit = fields.Char(string="employees_post_unit")
+    original_unit = fields.Many2one('hr.department', related="employee_id.department_id",
+                                    string="employees_post_unit")
     # 原单位岗位
-    original_post = fields.Char(string="employees_original_post")
+    original_post = fields.Many2one('employees.post', ondelete='restrict', related="employee_id.workpost",
+                                    string="employees_original_post")
     # 对方单位
-    new_unit = fields.Char(string="employees_foreign_new_unit")
+    new_unit = fields.Many2one('hr.department', related="employee_id.department_id",
+                               string="employees_foreign_new_unit")
     # 调动类型
-    transfer_type = fields.Char(string="employees_foreign_transfer_type")
+    transfer_type = fields.Selection([("transfer_out", "transfer_out"),  # 迁出
+                                      ("transfer_in", "transfer_in"),  # 迁入
+                                      ], string="employees_foreign_transfer_type")
     # 部门
-    foreign_section = fields.Char(string="employees_foreign_section")
+    foreign_section = fields.Many2one('hr.department', related="employee_id.department_id",
+                                      string="employees_foreign_section")
     # 工资结构
     wage = fields.Char(string="employees_foreign_wage")
     # 状态
@@ -685,23 +705,29 @@ class TransferRecord(models.Model):
     # 关联的员工
     employee_id = fields.Many2one('hr.employee', ondelete='cascade')
     # 调动时间
-    entering_date = fields.Date(string="employees_transfer_date")
-    # 调动人
-    record_person = fields.Char(string="employees_transfer_person")
+    # entering_date = fields.Date(string="employees_transfer_date")
+    # # 调动人
+    # record_person = fields.Char(string="employees_transfer_person")
     # 原单位
-    original_unit = fields.Char(string="employees_original_unit")
+    original_unit = fields.Many2one('hr.department', related="employee_id.department_id",
+                                    string="employees_original_unit")
     # 原单位岗位
-    original_post = fields.Char(string="employees_original_post")
+    original_post = fields.Many2one('employees.post', ondelete='restrict', related="employee_id.workpost",
+                                    string="employees_original_post")
     # 原部门
-    original_section = fields.Char(string="employees_original_section")
+    original_section = fields.Many2one('hr.department', related="employee_id.department_id",
+                                       string="employees_original_section")
     # 原工资结构
     original_wage = fields.Char(string="employees_original_wage")
     # 新单位
-    new_unit = fields.Char(string="employees_new_unit")
+    new_unit = fields.Many2one('hr.department', related="employee_id.department_id",
+                               string="employees_new_unit")
     # 新单位岗位
-    new_post = fields.Char(string="employees_new_post")
+    new_post = fields.Many2one('employees.post', ondelete='restrict', related="employee_id.workpost",
+                               string="employees_new_post")
     # 新部门
-    new_section = fields.Char(string="employees_new_section")
+    new_section = fields.Many2one('hr.department', related="employee_id.department_id",
+                                  string="employees_new_section")
     # 新工资结构
     new_wage = fields.Char(string="employees_new_wage")
     # 调动类型

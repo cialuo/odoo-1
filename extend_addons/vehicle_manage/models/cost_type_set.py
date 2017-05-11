@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api
 
 # 费用类型设置
 class cost_type_set(models.Model):
@@ -10,22 +10,23 @@ class cost_type_set(models.Model):
 
     _rec_name = 'type_name'
     # 类型名称
-    type_name = fields.Char(_('Type name'), required=True)
+    type_name = fields.Char('Type name', required=True)
     # 备注
-    remark = fields.Text(_('Remark'))
+    remark = fields.Text('Remark')
     # 是否必选
-    is_required = fields.Selection([('yes', 'Yes'), ('no', 'No')], default='yes', string=_('Is_required'))
+    is_required = fields.Selection([('yes', 'Yes'), ('no', 'No')], default='yes', string='Is_required')
 
     cost_type_id = fields.Many2one('investment_cost', string='investment period cost id')
+
     # 状态
     WORKFLOW_STATE_SELECTION = [
-        ('inuse', _('In-use')),
-        ('archive', _('Archive'))
+        ('inuse', 'In-use'),
+        ('archive', 'Archive')
     ]
 
     state = fields.Selection(WORKFLOW_STATE_SELECTION,
                              default='inuse',
-                             string=_('State'),
+                             string='State',
                              readonly=True)
 
     @api.multi

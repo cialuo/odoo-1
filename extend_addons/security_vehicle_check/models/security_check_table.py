@@ -8,8 +8,8 @@ class security_check_table(models.Model):
     check_table_id = fields.Char(string='security_check_table_id')
     name = fields.Char(string='function_module', readonly=True)
     # function_module = fields.Char(string=_('function_module'))
-    remarks = fields.Char(string=_('remarks'))
-    check_type = fields.Char(string=_('check_type'))
+    remarks = fields.Char(string='remarks')
+    check_type = fields.Char(string='check_type')
     # TODO many2one
     responser = fields.Many2one('hr.employee', string='check_responser')
     # TODO many2one
@@ -41,7 +41,7 @@ class security_check_table_item(models.Model):
     check_table_item_id = fields.Many2one('security_manage.check_table', ondelete='cascade')
     # name = fields.Char(string=_('check_table'), default=_('check_table'))
     item_id = fields.Many2one('security_manage.check_item', ondelete='cascade')
-    check_item_name = fields.Char(related='item_id.check_item_name')
-    check_content = fields.Char(related='item_id.check_content')
-    check_standards = fields.Char(related='item_id.check_standards')
-    state = fields.Selection(related='item_id.state')
+    check_item_name = fields.Char(related='item_id.check_item_name', readonly=1)
+    check_content = fields.Char(related='item_id.check_content', readonly=1)
+    check_standards = fields.Char(related='item_id.check_standards', readonly=1)
+    state = fields.Selection(related='item_id.state', readonly=1)
