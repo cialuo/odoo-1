@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 # 区域管理
 class region_manage(models.Model):
     _name = 'region_manage.region_manage'
@@ -14,7 +14,7 @@ class region_manage(models.Model):
     # 设立时间
     create_time = fields.Datetime('Creation time')
     # 建档人
-    book_runner = fields.Many2one('res.users', string='Book runner', default=lambda self: self.env.user)
+    book_runner = fields.Many2one('res.users', string='Book runner', default=lambda self: self.env.user, readonly=True)
     # 所辖道路
     road_id = fields.One2many('road_manage.road_manage', 'region_id', ondelete='cascade', string="Road")
 
@@ -29,20 +29,24 @@ class region_manage(models.Model):
                              string='State',
                              readonly=True)
 
+    active = fields.Boolean(default=True)
+
     @api.multi
     def do_inuse(self):
         self.state = 'inuse'
+        self.active = True
         return True
 
     @api.multi
     def do_archive(self):
         self.state = 'archive'
+        self.active = False
         return True
 
     # sql 约束，效率高
     _sql_constraints = [
-        ('name_unique', 'unique(region_name)', 'The region name must be unique!'),
-        ('coding_unique', 'unique(region_coding)', 'The region coding must be unique!')
+        ('name_unique', 'unique(region_name)', _('The region name must be unique!')),
+        ('coding_unique', 'unique(region_coding)', _('The region coding must be unique!'))
     ]
 
 # 道路管理
@@ -60,7 +64,7 @@ class road_manage(models.Model):
     # 设立日期
     create_date = fields.Date('Create date')
     # 建档人
-    book_runner = fields.Many2one('res.users', string='Book runner', default=lambda self: self.env.user)
+    book_runner = fields.Many2one('res.users', string='Book runner', default=lambda self: self.env.user, readonly=True)
 
     # platform_id = fields.Many2many("platform_manage.platform_manage", string="Station")
     platform_id = fields.One2many("platform_manage.platform_manage", 'Road_id', string="Station")
@@ -75,20 +79,24 @@ class road_manage(models.Model):
                              string='State',
                              readonly=True)
 
+    active = fields.Boolean(default=True)
+
     @api.multi
     def do_inuse(self):
         self.state = 'inuse'
+        self.active = True
         return True
 
     @api.multi
     def do_archive(self):
         self.state = 'archive'
+        self.active = False
         return True
 
     # sql 约束，效率高
     _sql_constraints = [
-        ('name_unique', 'unique(road_name)', 'The road name must be unique!'),
-        ('coding_unique', 'unique(road_coding)', 'The road coding must be unique!')
+        ('name_unique', 'unique(road_name)', _('The road name must be unique!')),
+        ('coding_unique', 'unique(road_coding)', _('The road coding must be unique!'))
     ]
 
 # 站台管理
@@ -139,25 +147,33 @@ class platform_manage(models.Model):
                              string='State',
                              readonly=True)
 
+    active = fields.Boolean(default=True)
+
     @api.multi
     def do_inuse(self):
         self.state = 'inuse'
+        self.active = True
         return True
 
     @api.multi
     def do_archive(self):
         self.state = 'archive'
+        self.active = False
         return True
 
     # sql 约束，效率高
     _sql_constraints = [
-        ('platform_unique', 'unique(platform)', 'The platform must be unique!'),
-        ('platform_number_unique', 'unique(platform_number)', 'The platform number must be unique!')
+        ('platform_unique', 'unique(platform)', _('The platform must be unique!')),
+        ('platform_number_unique', 'unique(platform_number)', _('The platform number must be unique!'))
     ]
 
 # 线路管理
 class route_manage(models.Model):
     _name = 'route_manage.route_manage'
+
+    @api.multi
+    def _people_number(self):
+        self.people_number = len(self.human_resource)
 
     # 显示名称
     _rec_name = 'route'
@@ -209,21 +225,27 @@ class route_manage(models.Model):
     platform_resource = fields.Many2many('platform_manage.platform_manage', string='Platform')
     # 人力资源
     human_resource = fields.Many2many('hr.employee', string='Human resource')
+    # 人员数量
+    people_number = fields.Integer('People number', compute="_people_number")
+
+    active = fields.Boolean(default=True)
 
     @api.multi
     def do_inuse(self):
         self.state = 'inuse'
+        self.active = True
         return True
 
     @api.multi
     def do_archive(self):
         self.state = 'archive'
+        self.active = False
         return True
 
     # sql 约束，效率高
     _sql_constraints = [
-        ('coding_unique', 'unique(route_coding)', 'The route coding must be unique!'),
-        ('route_unique', 'unique(route)', 'The route name must be unique!'),
+        ('coding_unique', 'unique(route_coding)', _('The route coding must be unique!')),
+        ('route_unique', 'unique(route)', _('The route name must be unique!')),
     ]
 
 # 人力资源

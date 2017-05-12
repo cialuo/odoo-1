@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 class coin_revenue(models.Model):
 
@@ -23,8 +23,8 @@ class coin_revenue(models.Model):
 
     # sql 约束，效率高
     _sql_constraints = [
-        ('route_unique', 'unique(route)', 'The route must be unique!'),
-        ('license_plate_unique', 'unique(license_plate)', 'The license plate must be unique!'),
+        ('route_unique', 'unique(route)', _('The route must be unique!')),
+        ('license_plate_unique', 'unique(license_plate)', _('The license plate must be unique!')),
     ]
 
 class ic_revenue(models.Model):
@@ -48,8 +48,8 @@ class ic_revenue(models.Model):
 
     # sql 约束，效率高
     _sql_constraints = [
-        ('route_unique', 'unique(route)', 'The route must be unique!'),
-        ('license_plate_unique', 'unique(license_plate)', 'The license plate must be unique!'),
+        ('route_unique', 'unique(route)', _('The route must be unique!')),
+        ('license_plate_unique', 'unique(license_plate)', _('The license plate must be unique!')),
     ]
 
 class chartered_revenue(models.Model):
@@ -73,8 +73,8 @@ class chartered_revenue(models.Model):
 
     # sql 约束，效率高
     _sql_constraints = [
-        ('route_unique', 'unique(route)', 'The route must be unique!'),
-        ('license_plate_unique', 'unique(license_plate)', 'The license plate must be unique!'),
+        ('route_unique', 'unique(route)', _('The route must be unique!')),
+        ('license_plate_unique', 'unique(license_plate)', _('The license plate must be unique!')),
     ]
 
 class total_revenue(models.Model):
@@ -104,6 +104,6 @@ class total_revenue(models.Model):
 
     # sql 约束，效率高
     _sql_constraints = [
-        ('route_unique', 'unique(route)', 'The route must be unique!'),
-        ('license_plate_unique', 'unique(license_plate)', 'The license plate must be unique!'),
+        ('route_unique', 'unique(route)', _('The route must be unique!')),
+        ('license_plate_unique', 'unique(license_plate)', _('The license plate must be unique!')),
     ]
