@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-11 09:32+0000\n"
-"PO-Revision-Date: 2017-05-11 09:32+0000\n"
+"POT-Creation-Date: 2017-05-12 07:07+0000\n"
+"PO-Revision-Date: 2017-05-12 07:07+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgstr "Course Tree"
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_unit_create_uid
 msgid "Created by"
-msgstr "录单人"
+msgstr "创建人"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_create_date
@@ -58,7 +58,7 @@ msgstr "录单人"
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_unit_create_date
 msgid "Created on"
-msgstr "录单时间"
+msgstr "创建时间"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_display_name
@@ -73,7 +73,7 @@ msgstr "显示名称"
 #. module: employees
 #: model:ir.model,name:employees.model_hr_employee
 msgid "Employee"
-msgstr "员工"
+msgstr "员工档案"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_employee_id
@@ -310,11 +310,6 @@ msgid "e.g. Part Time"
 msgstr "例如： 部分时间"
 
 #. module: employees
-#: model:ir.actions.act_window,name:employees.ltyhr_employee_information
-msgid "employee"
-msgstr "员工"
-
-#. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_document_department_menu
 msgid "employee department"
 msgstr "组织架构"
@@ -388,6 +383,11 @@ msgstr "退休"
 #, python-format
 msgid "employee state retired pay"
 msgstr "退养"
+
+#. module: employees
+#: model:ir.actions.act_window,name:employees.ltyhr_employee_information
+msgid "employee view"
+msgstr "员工档案"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.lty_view_employee_form

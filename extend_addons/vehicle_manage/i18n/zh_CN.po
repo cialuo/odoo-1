@@ -6,17 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-11 06:04+0000\n"
-"PO-Revision-Date: 2017-05-11 14:08+0800\n"
-
+"POT-Creation-Date: 2017-05-12 01:50+0000\n"
+"PO-Revision-Date: 2017-05-12 01:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 1.8.3\n"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.fleet_vehicle_view_form
@@ -98,21 +95,6 @@ msgstr "代码"
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_company_id
 msgid "Company"
 msgstr "隶属公司"
-
-#. module: vehicle_manage
-#: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_cost_amount
-msgid "Cost amount"
-msgstr "费用金额"
-
-#. module: vehicle_manage
-#: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_cost_name
-msgid "Cost name"
-msgstr "费用名称"
-
-#. module: vehicle_manage
-#: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_cost_type
-msgid "Cost type"
-msgstr "费用类型"
 
 #. module: vehicle_manage
 #: model:ir.actions.act_window,name:vehicle_manage.cost_type_set_act
@@ -364,12 +346,6 @@ msgid "Investments"
 msgstr "Investments"
 
 #. module: vehicle_manage
-#: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_is_required
-#: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_is_required
-msgid "Is_required"
-msgstr "是否必填"
-
-#. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set___last_update
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost___last_update
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_manage_emission_standard___last_update
@@ -426,7 +402,6 @@ msgstr "等级代码"
 msgid "License plate"
 msgstr "车牌"
 
-
 #. module: vehicle_manage
 #: model:ir.model.fields,help:vehicle_manage.field_vehicle_usage_inspectionrecords_license_plate
 #: model:ir.model.fields,help:vehicle_manage.field_vehicle_usage_planitem_license_plate
@@ -481,18 +456,13 @@ msgid "Number of seats of the vehicle"
 msgstr "车辆座位数"
 
 #. module: vehicle_manage
-#: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_occurrence_time
-msgid "Occurrence time"
-msgstr "发生时间"
-
-#. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.fleet_vehicle_view_form
 #: model:ir.ui.view,arch_db:vehicle_manage.vehicle_life_cycle_form
 #: model:ir.ui.view,arch_db:vehicle_manage.vehicle_usage_records_view_form
 msgid "Odometer"
 msgstr "里程表"
 
-
+#. module: vehicle_manage
 #: selection:fleet.vehicle,vehicle_life_state:0
 msgid "Operation period"
 msgstr "运营期"
@@ -545,7 +515,6 @@ msgid "Register Information"
 msgstr "登记信息"
 
 #. module: vehicle_manage
-#: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_remark
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_manage_emission_standard_remark
 #: model:ir.model.fields,help:vehicle_manage.field_vehicle_manage_emission_standard_remark
 msgid "Remark"
@@ -562,7 +531,7 @@ msgstr "重新启用"
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_route_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicleusage_driverecords_route_id
 msgid "Route"
-msgstr "线路"
+msgstr "路线"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_salvage_rate
@@ -588,7 +557,7 @@ msgstr "座位数"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_service_year
 msgid "Service Year"
-msgstr "服务年限"
+msgstr "年限"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_shaft_distance
@@ -614,7 +583,6 @@ msgid "Start Service Date"
 msgstr "投入日期"
 
 #. module: vehicle_manage
-#: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_state
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_state
 msgid "State"
 msgstr "状态"
@@ -660,11 +628,6 @@ msgid "Total Odometer"
 msgstr "累计里程"
 
 #. module: vehicle_manage
-#: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_total_amount
-msgid "Total amount"
-msgstr "总金额"
-
-#. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_transmission_ext
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_transmission_ext
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_transmission_ext
@@ -677,11 +640,6 @@ msgstr "变速器"
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_turn_radius
 msgid "Turn Radius"
 msgstr "转弯半径"
-
-#. module: vehicle_manage
-#: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_type_name
-msgid "Type name"
-msgstr "类型名称"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_location_id
@@ -728,11 +686,6 @@ msgstr "标志"
 #: model:ir.ui.menu,name:vehicle_manage.vehicle_life_cycle_menu
 msgid "Vehicle life cycle"
 msgstr "车辆生命周期"
-
-#. module: vehicle_manage
-#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_vehicle_life_state
-msgid "Vehicle life cycle state"
-msgstr "状态"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_warnning
