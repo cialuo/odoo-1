@@ -5,10 +5,10 @@ from odoo import models, fields, api, _
 
 class repair_quality(models.Model):
     _name = 'srp.repair_quality'
-    name = fields.Char(string='archive name',required=True)
+    name = fields.Char(string='archive name', required=True)
 
     archives_class_big = fields.Many2one('security_manage.cls_manage', string='archive big class',
-                                         ondelete='set null',required=True,
+                                         ondelete='set null', required=True,
                                          domain=[('class_type', '=', 'big_class')])
     archives_class_little = fields.Many2one('security_manage.cls_manage', string='archive little class',
                                             ondelete='set null',
@@ -26,13 +26,18 @@ class repair_quality(models.Model):
         ('archive', "Archive"),
     ], default='use', string='archive workflow state')
 
+    # 归档标志
+    active = fields.Boolean(default=True)
+
     @api.multi
     def action_to_default(self):
         self.state = 'use'
+        self.active = True
 
     @api.multi
     def action_archive(self):
         self.state = 'archive'
+        self.active = False
 
     @api.model
     def create(self, vals):
