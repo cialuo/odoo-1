@@ -137,7 +137,7 @@
 
         <!-- 员工列表视图 -->
         <record id="ltyhr_view_employee_tree" model="ir.ui.view">
-            <field name="name">hr.employee.tree</field>
+            <field name="name">employee tree list</field>
             <field name="model">hr.employee</field>
             <field name="priority">0</field>
             <field name="inherit_id" ref="hr.view_employee_tree"/>
@@ -635,7 +635,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="ltyhr_employee_information">
-            <field name="name">employee</field>
+            <field name="name">employee view</field>
             <field name="res_model">hr.employee</field>
             <field name="view_mode">kanban,tree,form</field>
         </record>

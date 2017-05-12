@@ -286,6 +286,23 @@
             </field>
         </record>
 
+        <!-- 继承线路管理模块action页面tree视图 -->
+        <record id="schedule_route_manage_action" model="ir.ui.view">
+            <field name="model">route_manage.route_manage</field>
+            <field name="inherit_id" ref="scheduling_parameters.route_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='schedule_type']" position="after">
+                    <field name="synthesize_rate" />
+                </xpath>
+                <xpath expr="//field[@name='schedule_type']" position="after">
+                    <field name="labournumber" />
+                </xpath>
+                <xpath expr="//field[@name='schedule_type']" position="after">
+                    <field name="vehiclenums" />
+                </xpath>
+            </field>
+        </record>
+
 
         <!-- Vehicle Action -->
         <record id='vehicle_manage_action' model='ir.actions.act_window'>
