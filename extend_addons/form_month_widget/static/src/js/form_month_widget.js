@@ -32,6 +32,8 @@ odoo.define('form_month_widget', function (require) {
                     minViewMode: 1,
                     forceParse: false,
                     language: 'zh-CN'
+                }).change(function() {
+                    self.internal_set_value(self.$("input").val());
                 });
             }
         },
