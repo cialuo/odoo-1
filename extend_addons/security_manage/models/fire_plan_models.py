@@ -21,6 +21,9 @@ class fire_plan(models.Model):
 
     attachment_ids = fields.Many2many('ir.attachment', string='Attachments')
 
+    # 归档标志
+    active = fields.Boolean(default=True)
+
     state = fields.Selection([
         ('use', 'Use'),
         ('archive', "Archive"),
@@ -29,10 +32,12 @@ class fire_plan(models.Model):
     @api.multi
     def action_to_default(self):
         self.state = 'use'
+        self.active = True
 
     @api.multi
     def action_archive(self):
         self.state = 'archive'
+        self.active = False
 
     @api.model
     def create(self, vals):

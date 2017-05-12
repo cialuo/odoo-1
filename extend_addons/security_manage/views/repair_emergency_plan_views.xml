@@ -25,6 +25,7 @@
                     <header>
                         <button name="action_to_default" type="object"
                                 string="Reset to default"
+                                 class="oe_highlight"
                                 states="archive"/>
                         <button name="action_archive" type="object"
                                 string="Mark as archive" states="use"
