@@ -189,11 +189,9 @@
                     <field name="route"/>
                     <field name="route_coding"/>
                     <field name="route_type"/>
-                    <field name="first_half_class"/>
-                    <field name="oil_wear_coefficient"/>
                     <field name="class_system"/>
-                    <field name="shunt_mode"/>
                     <field name="schedule_type"/>
+                    <field name="people_number"/>
                     <field name="subsidiary"/>
                 </tree>
             </field>
