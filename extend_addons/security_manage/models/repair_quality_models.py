@@ -5,10 +5,10 @@ from odoo import models, fields, api, _
 
 class repair_quality(models.Model):
     _name = 'srp.repair_quality'
-    name = fields.Char(string='archive name')
+    name = fields.Char(string='archive name',required=True)
 
     archives_class_big = fields.Many2one('security_manage.cls_manage', string='archive big class',
-                                         ondelete='set null',
+                                         ondelete='set null',required=True,
                                          domain=[('class_type', '=', 'big_class')])
     archives_class_little = fields.Many2one('security_manage.cls_manage', string='archive little class',
                                             ondelete='set null',
