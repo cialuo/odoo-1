@@ -137,7 +137,7 @@
 
         <!-- 员工列表视图 -->
         <record id="ltyhr_view_employee_tree" model="ir.ui.view">
-            <field name="name">hr.employee.tree</field>
+            <field name="name">employee tree list</field>
             <field name="model">hr.employee</field>
             <field name="priority">0</field>
             <field name="inherit_id" ref="hr.view_employee_tree"/>
@@ -286,8 +286,10 @@
             <field name="arch" type="xml">
                 <tree string="unit list">
                     <field name="name"/>
-                    <field name="entering_date"/>
-                    <field name="record_person"/>
+                    <!--<field name="entering_date"/>-->
+                    <!--<field name="record_person"/>-->
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
                     <field name="original_unit"/>
                     <field name="original_post"/>
                     <field name="new_unit"/>
@@ -328,11 +330,13 @@
                         </div>
                         <group>
                             <group>
-                                <field name="record_person"/>
+                                <!--<field name="record_person"/>-->
+                                <field name="create_uid" readonly="1"/>
                                 <field name="transfer_reason"/>
                             </group>
                             <group>
-                                <field name="entering_date"/>
+                                <!--<field name="entering_date"/>-->
+                                <field name="create_date" readonly="1"/>
                             </group>
                         </group>
 
@@ -376,8 +380,10 @@
             <field name="arch" type="xml">
                 <tree string="post transfer list">
                     <field name="name"/>
-                    <field name="entering_date"/>
-                    <field name="record_person"/>
+                    <!--<field name="entering_date"/>-->
+                    <!--<field name="record_person"/>-->
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
                     <field name="original_unit"/>
                     <field name="original_post"/>
                     <field name="new_post"/>
@@ -417,11 +423,14 @@
                         </div>
                         <group>
                             <group>
-                                <field name="record_person"/>
+                               <field name="create_uid" readonly="1"/>
+                                <!--<field name="record_person"/>-->
                                 <field name="transfer_reason"/>
+
                             </group>
                             <group>
-                                <field name="entering_date"/>
+                                <field name="create_date" readonly="1"/>
+                                <!--<field name="entering_date"/>-->
                             </group>
                         </group>
 
@@ -462,8 +471,10 @@
             <field name="arch" type="xml">
                 <tree string="foreign transfer list">
                     <field name="name"/>
-                    <field name="entering_date"/>
-                    <field name="record_person"/>
+                    <!--<field name="entering_date"/>-->
+                    <!--<field name="record_person"/>-->
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
                     <field name="original_unit"/>
                     <field name="original_post"/>
                     <field name="transfer_type"/>
@@ -504,11 +515,13 @@
                         </div>
                         <group>
                             <group>
-                                <field name="record_person"/>
+                                <!--<field name="record_person"/>-->
+                                 <field name="create_uid" readonly="1"/>
                                 <field name="transfer_reason"/>
                             </group>
                             <group>
-                                <field name="entering_date"/>
+                                <field name="create_date" readonly="1"/>
+                                <!--<field name="entering_date"/>-->
                             </group>
                         </group>
 
@@ -550,8 +563,10 @@
             <field name="arch" type="xml">
                 <tree string="transfer record list">
                     <field name="name"/>
-                    <field name="entering_date"/>
-                    <field name="record_person"/>
+                    <!--<field name="entering_date"/>-->
+                    <!--<field name="record_person"/>-->
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
                     <field name="transfer_type"/>
                     <field name="original_unit"/>
                     <field name="original_post"/>
@@ -578,11 +593,13 @@
                         </div>
                         <group>
                             <group>
-                                <field name="record_person"/>
+                                <!--<field name="record_person"/>-->
+                                <field name="create_uid" readonly="1"/>
                                 <field name="transfer_reason"/>
                             </group>
                             <group>
-                                <field name="entering_date"/>
+                                <!--<field name="entering_date"/>-->
+                                <field name="create_date" readonly="1"/>
                             </group>
                         </group>
 
@@ -618,7 +635,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="ltyhr_employee_information">
-            <field name="name">employee</field>
+            <field name="name">employee view</field>
             <field name="res_model">hr.employee</field>
             <field name="view_mode">kanban,tree,form</field>
         </record>

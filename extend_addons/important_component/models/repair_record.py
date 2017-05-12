@@ -44,8 +44,8 @@ class ImportProductRepairRecord(models.Model):
     _inherit = 'product.component'
 
     warranty_count = fields.Integer(compute="_compute_warranty_count", string='Warrantys')
-    warranty_ids = fields.Many2many('warranty_order_project', 'fleet_warranty_sheet_item_component_rel',
-                                     'component_id', 'item_component_id', 'Warrantys',
+    warranty_ids = fields.Many2many('warranty_order_project', 'warranty_order_item_component_rel',
+                                     'component_id', 'project_component_id', 'Warrantys',
                                   domain=[('state', '=', 'complete')])
 
     @api.multi

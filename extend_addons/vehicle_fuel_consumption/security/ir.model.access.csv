@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vehicle_fuel_consumption_correction_tech_user,vehicle.fuel_consumption_correction,model_vehicle_fuel_consumption_correction,materials_product.base_extend_tech_user,1,1,1,1
+access_fleet_vehicle_tech_user,fleet.vehicle,vehicle_manage.model_fleet_vehicle,materials_product.base_extend_tech_user,1,1,1,1
+access_fleet_vehicle_model_tech_user,fleet.vehicle.model,vehicle_manage.model_fleet_vehicle_model,materials_product.base_extend_tech_user,1,1,1,1
+access_energy_usage_record_tech_user,energy.usage_record,energy_management.model_energy_usage_record,materials_product.base_extend_tech_user,1,0,0,0
+
