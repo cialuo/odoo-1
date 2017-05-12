@@ -11,6 +11,7 @@
                     <field name="name"/>
                     <field name="create_uid" readonly="1"/>
                     <field name="create_date" readonly="1"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -20,6 +21,18 @@
             <field name="model">sfs.fire_device_map</field>
             <field name="arch" type="xml">
                 <form string="Idea form">
+                    <header>
+                        <button name="action_use" type="object"
+                                string="Reset"
+                                states="done"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Mark as done"
+                                states="use"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+
                     <sheet>
                         <div class="oe_title">
                             <!--<label for="name"/>-->
