@@ -69,11 +69,6 @@ class PuchasePlan(models.Model):
             if not order.state == 'draft':
                 raise exceptions.UserError(_('In order to delete a purchase plan order, you must set it draft first.'))
 
-    @api.onchange('month')
-    def _onchange_month(self):
-        if not self.month.isdigit():
-            raise exceptions.UserError('sss')
-
     @api.multi
     def action_submit(self):
         """
