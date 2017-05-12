@@ -295,9 +295,6 @@
                     <field name="synthesize_rate" />
                 </xpath>
                 <xpath expr="//field[@name='schedule_type']" position="after">
-                    <field name="labournumber" />
-                </xpath>
-                <xpath expr="//field[@name='schedule_type']" position="after">
                     <field name="vehiclenums" />
                 </xpath>
             </field>

@@ -173,7 +173,8 @@ class route_manage(models.Model):
 
     @api.multi
     def _people_number(self):
-        self.people_number = len(self.human_resource)
+        for item in self:
+            item.people_number = len(item.human_resource)
 
     # 显示名称
     _rec_name = 'route'
