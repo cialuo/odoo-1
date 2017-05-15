@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api,_
+from odoo import models, fields, api,_,exceptions
 import datetime
 class security_check(models.Model):
 
@@ -81,6 +81,18 @@ class security_check(models.Model):
     @api.multi
     def auditing_to_complete(self):
         self.state = 'complete'
+
+    @api.multi
+    def unlink(self):
+        """
+            删除数据时判断检查表的状态
+        :return:
+        """
+        for order in self:
+            if not  order.state == 'draft':
+                raise exceptions.UserError(_('Not draft data cannot be deleted!'))
+
+        return super(security_check,self).unlink()
 
 class security_check_details(models.Model):
 

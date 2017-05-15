@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 10:30+0000\n"
-"PO-Revision-Date: 2017-05-08 19:25+0800\n"
+"POT-Creation-Date: 2017-05-15 10:03+0000\n"
+"PO-Revision-Date: 2017-05-15 18:11+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.0\n"
+"X-Generator: Poedit 2.0.2\n"
 
 #. module: energy_management
 #: selection:energy.security_check_details,check_result:0
@@ -101,7 +101,7 @@ msgid "Collar information"
 msgstr "领用信息"
 
 #. module: energy_management
-#: code:addons/energy_management/models/usage_record.py:124
+#: code:addons/energy_management/models/usage_record.py:134
 #, python-format
 msgid "Companies to provide energy, the need to choose energy piles!"
 msgstr "公司提供的能源，需要选择能源桩!"
@@ -121,6 +121,11 @@ msgstr "单位"
 #: selection:energy.security_check,state:0
 msgid "Complete"
 msgstr "完成"
+
+#. module: energy_management
+#: selection:product.product,important_type:0
+msgid "Component"
+msgstr "Component"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.energy_pile_form
@@ -172,9 +177,19 @@ msgid "Draft"
 msgstr "草稿"
 
 #. module: energy_management
+#: model:res.groups,name:energy_management.energy_management_driver
+msgid "Driver"
+msgstr "司机"
+
+#. module: energy_management
 #: selection:product.product,important_type:0
 msgid "Energy"
 msgstr "作为能源管理"
+
+#. module: energy_management
+#: model:ir.module.category,name:energy_management.energy_management_group
+msgid "Energy Management"
+msgstr "能源管理"
 
 #. module: energy_management
 #: model:ir.model,name:energy_management.model_energy_pile
@@ -371,18 +386,6 @@ msgid "Location Price"
 msgstr "库存单价"
 
 #. module: energy_management
-#: code:addons/energy_management/models/warehouse_location.py:42
-#, python-format
-msgid "Location name already exists"
-msgstr "库位名字已经存在!"
-
-#. module: energy_management
-#: code:addons/energy_management/models/warehouse_location.py:41
-#, python-format
-msgid "Location no already exists"
-msgstr "库位编号已经存在!"
-
-#. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.location_form
 msgid "Location's Name"
 msgstr "库位名称"
@@ -421,6 +424,17 @@ msgstr "正常"
 #: selection:energy.security_check,check_type:0
 msgid "Normal inspection"
 msgstr "正常巡检"
+
+#. module: energy_management
+#: code:addons/energy_management/models/security_check.py:93
+#, python-format
+msgid "Not draft data cannot be deleted!"
+msgstr "只有草稿状态才能删除!"
+
+#. module: energy_management
+#: model:res.groups,name:energy_management.energy_management_oiler
+msgid "Oiler"
+msgstr "加油员"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_operator
@@ -485,20 +499,6 @@ msgstr "能源站类型"
 #: model:ir.ui.view,arch_db:energy_management.energy_station_form
 msgid "Pile form"
 msgstr "能源桩"
-
-#. module: energy_management
-#: code:addons/energy_management/models/models.py:124
-#: sql_constraint:energy.pile:0
-#, python-format
-msgid "Pile name already exists"
-msgstr "能源桩名字已经存在!"
-
-#. module: energy_management
-#: code:addons/energy_management/models/models.py:125
-#: sql_constraint:energy.pile:0
-#, python-format
-msgid "Pile no already exists"
-msgstr "能源桩编号已经存在!"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_pile_type
@@ -588,17 +588,15 @@ msgid "Security Check Item Id"
 msgstr "检查项目ID"
 
 #. module: energy_management
+#: model:res.groups,name:energy_management.energy_management_security_inspector
+msgid "Security Inspector"
+msgstr "安检员"
+
+#. module: energy_management
 #: model:ir.model,name:energy_management.model_energy_security_check
 #: model:ir.ui.menu,name:energy_management.security_check
 msgid "Security check"
 msgstr "安全检查"
-
-#. module: energy_management
-#: code:addons/energy_management/models/security_check.py:10
-#: sql_constraint:energy.security_check:0
-#, python-format
-msgid "Security check already exists"
-msgstr "巡检编号已经存在!"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.energy_station_form
@@ -676,20 +674,6 @@ msgid "Station address"
 msgstr "地址"
 
 #. module: energy_management
-#: code:addons/energy_management/models/models.py:11
-#: sql_constraint:energy.station:0
-#, python-format
-msgid "Station name already exists"
-msgstr "能源站名字已经存在!"
-
-#. module: energy_management
-#: code:addons/energy_management/models/models.py:12
-#: sql_constraint:energy.station:0
-#, python-format
-msgid "Station no already exists"
-msgstr "能源站编号已经存在!"
-
-#. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_station_type
 msgid "Station type"
 msgstr "能源站类型"
@@ -705,9 +689,9 @@ msgid "Station's No"
 msgstr "能源站编号"
 
 #. module: energy_management
-#: sql_constraint:stock.location:0
-msgid "Station_no already exists"
-msgstr "能源站编号已经存在!"
+#: model:res.groups,name:energy_management.energy_management_stationmaster
+msgid "Stationmaster"
+msgstr "站长"
 
 #. module: energy_management
 #: selection:energy.pile,state:0 selection:energy.station,state:0
@@ -730,6 +714,13 @@ msgstr "供应商"
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_station_tab_date
 msgid "Tab date"
 msgstr "制表日期"
+
+#. module: energy_management
+#: code:addons/energy_management/models/security_check.py:10
+#: sql_constraint:energy.security_check:0
+#, python-format
+msgid "The check number already exists!"
+msgstr "检查编号已经存在!"
 
 #. module: energy_management
 #: model:ir.model.fields,help:energy_management.field_energy_pile_image
