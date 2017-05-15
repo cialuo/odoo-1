@@ -8,14 +8,14 @@
 
         <!--文档浏览-->
         <record id="archives_group_browser" model="res.groups">
-            <field name="name">Browser</field>
+            <field name="name">Archive Browser</field>
             <field name="category_id" ref="archives_module_access_group"/>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         </record>
 
         <!--文档录入-->
         <record id="archives_group_typer" model="res.groups">
-            <field name="name">Typer</field>
+            <field name="name">Archive Typer</field>
             <field name="category_id" ref="archives_module_access_group"/>
             <field name="implied_ids" eval="[(4, ref('archives_group_browser'))]"/>
         </record>
@@ -23,7 +23,7 @@
 
         <!--文档设置-->
         <record id="maintain_group_settings" model="res.groups">
-            <field name="name">Settings</field>
+            <field name="name">Archive Settings</field>
             <field name="implied_ids" eval="[(4, ref('archives_group_typer'))]"/>
             <field name="category_id" ref="archives_module_access_group"/>
             <field name="users" eval="[(4, ref('base.user_root'))]"/>

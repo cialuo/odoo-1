@@ -9,16 +9,19 @@ class StockMove(models.Model):
 
     component_ids = fields.Many2many('product.component', 'component_move_rec', id1='move_id', id2='component_id',
                                      domain="[('product_id', '=', product_id), ('state', '=', 'avaliable')])")
-    @api.multi
-    @api.constrains('product_uom_qty', 'component_ids')
-    def _check_component_qty(self):
-        """
-        重要部件选择 数量约束
-        :return: 
-        """
-        for move in self:
-            if len(move.component_ids) > move.product_uom_qty:
-                raise UserError(_('Component qty can not greate than product qty!'))
+    # @api.multi
+    # @api.constrains('product_uom_qty', 'component_ids')
+    # def _check_component_qty(self):
+    #     """
+    #     重要部件选择 数量约束
+    #     :return:
+    #     """
+    #     self.ensure_one()
+    #     # for move in self:
+    #     #     print len(move.component_ids)
+    #     #     print move.product_uom_qty
+    #     if len(self.component_ids) > self.product_uom_qty:
+    #         raise UserError(_('Component qty can not greate than product qty!'))
     @api.multi
     def action_done(self):
         """
@@ -55,7 +58,7 @@ class StockMove(models.Model):
                 vals['location_id'] = move.picking_id.location_dest_id.id
                 if move.picking_id and move.picking_id.location_dest_id.is_vehicle:
                     vals['state'] = 'inuse'
-                    vals['parent_vehicle'] = move.picking_id.repair_id.vehicle_id.id
+                    vals['parent_vehicle'] = move.picking_id.repair_id.vehicle_id.id or move.picking_id.warranty_order_id.vehicle_id.id
                 location_old = self.env.ref('stock_picking_types.stock_location_old_to_new')
                 if move.picking_id and move.picking_id.location_dest_id == location_old:
                     vals['state'] = 'waiting_repare'
@@ -103,7 +106,7 @@ class StockPicking(models.Model):
                         except TypeError:
                             o2n_picking = self._gen_old_new_picking_warranty(order, order.move_lines, location_id, location_dest_id)
                             if o2n_picking:
-                                o2n_picking.move_lines.write({'component_ids': [(6, 0, order.warranty_order_id.component_ids.ids)]})
+                                o2n_picking.move_lines.write({'component_ids': [(6, 0, order.warranty_order_id.project_ids.mapped('component_ids').ids)]})
                 else:
                     no_import_products = order.move_lines.mapped('product_id').filtered(lambda x: not x.is_important)
                     remove_products = ','.join([i.name for i in no_import_products])

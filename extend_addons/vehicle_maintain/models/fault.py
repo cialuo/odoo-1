@@ -62,7 +62,7 @@ class FaultAppearance(models.Model):
 
     reason_ct = fields.Integer(string="Fault Reason Count", compute='_get_reason_count')
 
-    @api.depends("inner_code")
+    @api.depends("inner_code", 'category_id')
     def _get_fault_code(self):
         for i in self:
             if i.category_id and i.category_id.fault_category_code and  i.inner_code:
@@ -120,7 +120,7 @@ class FaultReason(models.Model):
     sequence = fields.Integer("Sequence", help="Sequence", readonly=True)
     method_ct = fields.Integer(string="Fault Method Count", compute='_get_method_count')
 
-    @api.depends("inner_code", 'appearance_id.fault_appearance_code', 'category_id.fault_category_code')
+    @api.depends("inner_code", 'appearance_id', 'category_id')
     def _get_fault_code(self):
         for i in self:
             if i.inner_code:
@@ -217,7 +217,7 @@ class FaultMethod(models.Model):
         self.state = 'done'
         self.active = False
 
-    @api.depends("inner_code",'reason_id.fault_reason_code')
+    @api.depends("inner_code", 'reason_id')
     def _get_fault_code(self):
         for i in self:
             if i.inner_code and i.reason_id.fault_reason_code and i.reason_id:

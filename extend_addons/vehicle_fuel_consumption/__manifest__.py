@@ -17,7 +17,8 @@
 
     # always loaded
     'data': [
-        # 'data/fuel_data.xml',
+
+        'security/ir.model.access.csv',
         'views/fuel_view.xml',
         'views/fuel_consumption_update.xml',
     ],

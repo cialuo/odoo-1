@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 # 费用类型设置
 class cost_type_set(models.Model):
@@ -29,12 +29,18 @@ class cost_type_set(models.Model):
                              string='State',
                              readonly=True)
 
+    active = fields.Boolean(default=True)
+
     @api.multi
     def do_inuse(self):
         self.state = 'inuse'
+        self.active = True
         return True
 
     @api.multi
     def do_archive(self):
         self.state = 'archive'
+        self.active = False
         return True
+
+    _sql_constraints = [('name_unique', 'unique(type_name)', _('Type name must be unique!'))]

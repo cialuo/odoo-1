@@ -194,6 +194,14 @@ class route_manage(models.Model):
     # 驾驶员比例
     driver_rate = fields.Float(compute='_getDriverRate' ,string=_('driver rate'))
 
+    # 车辆数量
+    vehiclenums = fields.Integer("vehicle number", compute='_getVehicleNums')
+
+    @api.multi
+    def _getVehicleNums(self):
+        for item in self:
+            item.vehiclenums = self.getVehicleNumber(item.id)
+
     # 获取线路驾驶员数量
     def getDriverNumber(self, routeid):
         hrmode = self.env['hr.employee']
@@ -209,28 +217,24 @@ class route_manage(models.Model):
         vehiclemode = self.env['fleet.vehicle']
         return vehiclemode.search_count([('route_id', '=', routeid)])
 
-    # 获取线路下所有人员数量
-    def getAllHumanNumber(self, routeid):
-        hrmode = self.env['hr.employee']
-        return hrmode.search_count([('lines', '=', routeid)])
-
     @api.multi
     def _getDriverRate(self):
         for item in self:
-            vehiclenum = self.getVehicleNumber(item.id)
+            # vehiclenum = self.getVehicleNumber(item.id)
+            vehiclenum = item.vehiclenums
             drivernum = self.getDriverNumber(item.id)
             if vehiclenum != 0:
                 item.driver_rate = round(drivernum/vehiclenum,1)
             else:
                 item.driver_rate = 0
 
-                # 售票员比例
+    # 售票员比例
     conductor_rate = fields.Float(compute='_getConductorRate',string=_('conductor rate'))
 
     @api.multi
     def _getConductorRate(self):
         for item in self:
-            vehiclenum = self.getVehicleNumber(item.id)
+            vehiclenum = item.vehiclenums
             conductornum = self.getConductorNumber(item.id)
             if vehiclenum != 0 :
                 item.conductor_rate = round(conductornum/vehiclenum, 1)
@@ -244,7 +248,7 @@ class route_manage(models.Model):
     def _getSynthesizeRate(self):
         for item in self:
             vehiclenum = self.getVehicleNumber(item.id)
-            all = self.getAllHumanNumber(item.id)
+            all = item.people_number
             if vehiclenum != 0:
                 item.synthesize_rate = round(all/vehiclenum, 1)
             else:

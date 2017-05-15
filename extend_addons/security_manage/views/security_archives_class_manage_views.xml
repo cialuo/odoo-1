@@ -22,6 +22,7 @@
                     <header>
                         <button name="action_to_default" type="object"
                                 string="Reset to default"
+                                class="oe_highlight"
                                 states="archive"/>
                         <button name="action_archive" type="object"
                                 string="Mark as archive" states="use"
@@ -34,7 +35,7 @@
                             <!--<label for="name"/>-->
                             <h1>class info</h1>
                             <!--<h1>-->
-                                <!--<field name="item_name" readonly="True"/>-->
+                            <!--<field name="item_name" readonly="True"/>-->
                             <!--</h1>-->
                         </div>
 
@@ -43,8 +44,10 @@
                                 <!--<separator string="General stuff" colspan="2"/>-->
                                 <field name="item_id"/>
                                 <field name="name"/>
-                                <field name="class_type" />
-                                <field name="parent" attrs="{'required':[('class_type','=','little_class')],'invisible': [('class_type', '=', 'big_class')]}" options="{'no_open':True,'no_create':True}"/>
+                                <field name="class_type"/>
+                                <field name="parent"
+                                       attrs="{'required':[('class_type','=','little_class')],'invisible': [('class_type', '=', 'big_class')]}"
+                                       options="{'no_open':True,'no_create':True}"/>
                             </group>
 
                             <group name="group_right">

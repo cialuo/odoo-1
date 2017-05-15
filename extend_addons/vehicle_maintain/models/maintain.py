@@ -65,6 +65,19 @@ class MaintainReport(models.Model):
 
     dispatch_count = fields.Integer("Dispatch Count",compute="_get_dispatch_count")
 
+
+    @api.multi
+    def unlink(self):
+        """
+        控制单据的删除，只能删除草稿状态的单据
+        :return:
+        """
+        for order in self:
+            if not order.state == 'draft':
+                raise exceptions.UserError(_('In order to delete a report order, you must set it draft first.'))
+
+        return super(MaintainReport, self).unlink()
+
     def _get_dispatch_count(self):
         """
         功能：计算待派工的维修单
@@ -237,10 +250,21 @@ class MaintainRepair(models.Model):
     inspect_standard = fields.Text("Inspect Standard", related='fault_method_id.inspect_standard',
                                    help="Inspect Standard",store=True, readonly=True, copy=False)
 
-
-
     picking_ids = fields.One2many("stock.picking", 'repair_id', string='Stock Pickings')
 
+
+
+    @api.multi
+    def unlink(self):
+        """
+        控制单据的删除，只能删除草稿状态的单据
+        :return:
+        """
+        for order in self:
+            if not order.state == 'draft':
+                raise exceptions.UserError(_('In order to delete a repair order, you must set it draft first.'))
+
+        return super(MaintainReport, self).unlink()
 
     @api.depends('plan_start_time', 'work_time')
     def _get_end_datetime(self):

@@ -678,7 +678,7 @@ msgstr "额外的信息"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_partner_id
 msgid "Address"
-msgstr "地址"
+msgstr "所属单位"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -6437,7 +6437,7 @@ msgstr "调拨"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_picking_partner_id
 msgid "Transfer Destination Address"
-msgstr "调拨目的地址"
+msgstr "调拨对象"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_picking_id
@@ -7132,7 +7132,7 @@ msgstr "你必须选择产品默认计量单位的类型一样的计量单位。
 msgid ""
 "You haven't set processed (<i>done</i>) quantities. Click <i>apply</i> and\n"
 "                        Odoo will process all quantities to do."
-msgstr ""
+msgstr "您未填写【完成】数，点击 【应用】 将处理所有【待办】数。"
 
 #. module: stock
 #: code:addons/stock/wizard/stock_picking_return.py:43
