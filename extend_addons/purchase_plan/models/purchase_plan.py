@@ -68,6 +68,7 @@ class PuchasePlan(models.Model):
         for order in self:
             if not order.state == 'draft':
                 raise exceptions.UserError(_('In order to delete a purchase plan order, you must set it draft first.'))
+        return super(PuchasePlan, self).unlink()
 
     @api.multi
     def action_submit(self):
