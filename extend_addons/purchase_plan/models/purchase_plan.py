@@ -58,6 +58,17 @@ class PuchasePlan(models.Model):
             vals['name'] = self.env['ir.sequence'].next_by_code('purchase_plan_seq') or 'New'
         res = super(PuchasePlan, self).create(vals)
         return res
+
+    @api.multi
+    def unlink(self):
+        """
+        控制单据的删除，只能删除草稿状态的单据
+        :return: 
+        """
+        for order in self:
+            if not order.state == 'draft':
+                raise exceptions.UserError(_('In order to delete a purchase plan order, you must set it draft first.'))
+
     @api.multi
     def action_submit(self):
         """
