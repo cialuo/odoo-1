@@ -293,6 +293,22 @@ class WarrantyOrder(models.Model): # 保养单
         return False
 
 
+
+    @api.multi
+    def unlink(self):
+        for order in self:
+            if not order.state=='draft':
+                raise exceptions.UserError(_('warranty order not in draft state can not delete'))
+
+            for plan_order_id in order.plan_order_ids:
+                plan_order_id.maintain_sheet_id=''
+                plan_order_id.state='wait'
+
+        return super(WarrantyOrder, self).unlink()
+
+
+
+
 class WarrantyOrderProject(models.Model): # 保养单_保养项目
     _name = 'warranty_order_project'
     _order = "warranty_order_id,sequence"
@@ -538,7 +554,7 @@ class WarrantyOrderInstruction(models.Model): # 保养单_作业指导
 
     warranty_mode = fields.Many2one('warranty_mode', 'Warranty Mode', related='project_id.mode')  # 保修方式
 
-    operational_manual = fields.Text() # 作业手册
+    operational_manual = fields.Text(related='project_id.operational_manual') # 作业手册
 
 
 class WarrantyInspectOrder(models.Model): # 检验单
@@ -567,7 +583,7 @@ class WarrantyInspectOrder(models.Model): # 检验单
     @api.multi
     def action_into_check(self):  # 报检
         for project in self:
-            if project.state != 'maintain': # not in ('check','done')
+            if project.state != 'maintain':
                 raise exceptions.UserError(_("Selected project cannot be check as they are not in 'maintain' state"))
             project.state = 'check'
             project.start_inspect_time = fields.Datetime.now()
@@ -577,7 +593,7 @@ class WarrantyInspectOrder(models.Model): # 检验单
     @api.multi
     def action_batch_check_pass(self):  # 批量检验通过
         for i in self:
-            if i.state != 'check': # not in ('check','done')
+            if i.state != 'check':
                 raise exceptions.UserError(_("Selected project cannot be complete as they are not in 'check' state"))
             i.state = 'complete'
             i.inspect_result = 'qualified'
@@ -593,7 +609,7 @@ class WarrantyInspectOrder(models.Model): # 检验单
     @api.multi
     def action_check_pass(self):
         for i in self:
-            if i.state != 'check':  # not in ('check','done')
+            if i.state != 'check':
                 raise exceptions.UserError(_("Selected project cannot be complete as they are not in 'check' state"))
             i.state = 'complete'
             i.inspect_result = 'qualified'

@@ -26,9 +26,9 @@
                 <form>
                     <header>
                         <button name="action_filing" type="object"
-                                string="filing" states="in_use"/>
+                                string="Filing" states="use"/>
                         <button name="action_in_use" type="object"
-                                string="in_use" states="filing" class="oe_highlight"/>
+                                string="use" states="done" class="oe_highlight"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>

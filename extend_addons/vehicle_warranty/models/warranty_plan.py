@@ -99,3 +99,46 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         return result
 
 
+class WizardWarrantyPlan(models.TransientModel): # 自动生成保养计划
+    _name = "wizard_warranty_plan"
+
+    @api.multi
+    def create_warranty_plan(self):
+        tmp_plan_month = datetime.datetime.strftime(datetime.datetime.utcnow(), '%Y-%m')
+        warranty_plan_count=self.env['warranty_plan'].search_count([('month', '=', tmp_plan_month)])
+        warranty_plan_count+=1
+        warranty_plan_val = {
+            'name': 'BYJH'+'-'+tmp_plan_month+'-'+str(warranty_plan_count),  # plan.name + '_' + str(maintain_sheets_count + 1),  # +''+str(maintain_sheets_count)
+            'month': tmp_plan_month,
+            'company_id': self.env.user.company_id.id,
+            'made_company_id': self.env.user.company_id.id,
+            'state': 'draft'
+        }
+        warranty_plan = self.env['warranty_plan'].create(warranty_plan_val)
+
+        warranty_plan_order_list = []
+        vehicles = self.env['fleet.vehicle'].search([])
+        for vehicle in vehicles:
+            if vehicle.model_id:
+                odometer_count = vehicle.total_odometer
+                interval_mileage = 0
+                warranty_category_id = 0
+                if vehicle.model_id.warranty_interval_ids:
+                    for warranty_interval_id in vehicle.model_id.warranty_interval_ids:
+                        if odometer_count>warranty_interval_id.interval_mileage:
+                            interval_mileage=warranty_interval_id.interval_mileage
+                            warranty_category_id = warranty_interval_id.warranty_category_id.id
+                    if odometer_count>0 and interval_mileage>0 and warranty_category_id>0:
+                        warranty_plan_order_val = {
+                            'name': 'New',
+                            'parent_id': warranty_plan.id,
+                            'vehicle_id': vehicle.id,
+                            'warranty_category': warranty_category_id,
+                            'state': 'draft'
+                        }
+                        warranty_plan_order_list.append((0, 0, warranty_plan_order_val))
+
+        if len(warranty_plan_order_list) > 0:
+            warranty_plan.write({'plan_order_ids': warranty_plan_order_list})
+
+        return False

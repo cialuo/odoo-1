@@ -123,5 +123,40 @@
                   parent="vehicle_manage_menu.vehicle_use_manage"
                   action="warranty_plan_action"/>
 
+
+        <!-- 自动生成保养计划 start -->
+
+        <record id="wizard_warranty_plan_form" model="ir.ui.view">
+            <field name="name">Wizard Warranty Plan</field>
+            <field name="model">wizard_warranty_plan</field>
+            <field name="arch" type="xml">
+                <form string="Wizard Warranty Plan">
+                    <group>
+                        <label string="Click on Create below to create the warranty plan..." />
+                    </group>
+                    <footer>
+                        <div>
+                            <button name="create_warranty_plan" string="Create" type="object" class="btn-primary"/>
+                            <button special="cancel" string="Cancel" class="btn-default"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_warranty_plan_action" model="ir.actions.act_window">
+            <field name="name">Wizard Warranty Plan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard_warranty_plan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Wizard Warranty Plan" id="wizard_warranty_plan_menu" parent="vehicle_manage_menu.vehicle_setting"
+                  action="wizard_warranty_plan_action" sequence="40"/>
+
+        <!-- 自动生成保养计划 end -->
+
     </data>
 </odoo>
