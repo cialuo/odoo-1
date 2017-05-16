@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
-
+from odoo import models, fields, api, exceptions, _
 import datetime
 
 # 车辆生命周期
@@ -44,9 +43,23 @@ class vehicle_life(models.Model):
     @api.multi
     def action_operation(self):
         print('operation_period')
-        self.vehicle_life_state = 'operation_period'
         # 设置投入日期
         self.start_service_date = datetime.date.today()
+
+        res = self.env['investment_cost'].search([])
+
+        tag = fields.Boolean()
+
+        for item in res:
+            if (item.cost_amount > 0):
+                tag = True
+            else:
+                tag = False
+                raise exceptions.except_orm(_('Error'), _('The cost must be greater than zero'))
+
+        if tag:
+            self.vehicle_life_state = 'operation_period'
+
         return True
 
     @api.multi
@@ -62,7 +75,7 @@ class investment_period_cost(models.Model):
 
     _rec_name = 'cost_name'
     # 费用金额
-    cost_amount = fields.Integer('Cost amount')
+    cost_amount = fields.Float('Cost amount', digits=(10, 2))
     # 费用名称
     cost_name = fields.Char('Cost name')
     # 发生时间
@@ -72,7 +85,7 @@ class investment_period_cost(models.Model):
     # 是否必填
     is_required = fields.Selection([('yes', 'Yes'), ('no', 'No')], default='yes', string='Is_required')
     # 总金额
-    total_amount = fields.Integer('Total amount')
+    total_amount = fields.Float('Total amount', digits=(10, 2))
 
     # 状态
     WORKFLOW_STATE_SELECTION = [
@@ -80,6 +93,3 @@ class investment_period_cost(models.Model):
         ('archive', 'Archive')
     ]
     vehicle_id = fields.Many2one('fleet.vehicle', string='Investment id')
-
-
-
