@@ -699,6 +699,7 @@ class TransferRecord(models.Model):
     调动记录
     """
     _name = 'employees.transfer.record'
+    _description = ''
 
     # 调动单编码
     name = fields.Char(string="employees_transfer_code")
@@ -721,7 +722,7 @@ class TransferRecord(models.Model):
     original_wage = fields.Char(string="employees_original_wage")
     # 新单位
     new_unit = fields.Many2one('hr.department', related="employee_id.department_id",
-                               string="employees_new_unit")
+                                string="employees_new_unit")
     # 新单位岗位
     new_post = fields.Many2one('employees.post', ondelete='restrict', related="employee_id.workpost",
                                string="employees_new_post")
