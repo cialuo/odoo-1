@@ -141,7 +141,7 @@ msgstr "合计营收（元）"
 #. module: revenue
 #: model:ir.model.fields,field_description:revenue.field_total_revenue_vehicle_number
 msgid "Vehicle number"
-msgstr "车辆数量"
+msgstr "车辆编号"
 
 #. module: revenue
 #: model:ir.model,name:revenue.model_chartered_revenue_chartered_revenue

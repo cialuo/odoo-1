@@ -13,7 +13,7 @@ class total_revenue(models.Model):
     def _getVehicleNumber(self):
         res = self.env['fleet.vehicle'].search([])
         for item in res:
-            print '========' + item.license_plate
+            print '========%s'%item.license_plate
 
     # @api.multi
     # def _set_license_plate(self, route):
@@ -29,9 +29,9 @@ class total_revenue(models.Model):
     # 线路
     route = fields.Many2one('route_manage.route_manage', string='Route', required=True)
     # 车辆编号
-    vehicle_number = fields.Many2one('fleet.vehicle', string='Vehicle number')
+    vehicle_number = fields.Many2one('fleet.vehicle', string='Vehicle number', required=True)
     # 车牌号
-    license_plate = fields.Many2one('fleet.vehicle', string='License plate', required=True)
+    license_plate = fields.Char(related='vehicle_number.license_plate', string='License plate', readonly=True)
     # 驾驶员
     driver = fields.Char('Driver')
     # 投币收入（元）
