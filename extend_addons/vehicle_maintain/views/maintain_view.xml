@@ -123,7 +123,7 @@
                                     <tree string="Maintain Repair" editable="bottom">
 										<field name="name"/>
 										<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
-										<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
+										<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}" domain="[('category_id', '=', fault_category_id)]"/>
 										<field name="state"/>
                                     </tree>
                                 </field>
@@ -425,8 +425,8 @@
 	                        <group>
 								<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
-								<field name="fault_reason_id" options="{'no_open':True,'no_create':True}"/>
-								<field name="fault_method_id" required="1" options="{'no_open':True,'no_create':True}"/>
+								<field name="fault_reason_id" options="{'no_open':True,'no_create':True}" domain="[('appearance_id', '=', fault_appearance_id),('category_id', '=', fault_category_id)]"/>
+								<field name="fault_method_id" required="1" options="{'no_open':True,'no_create':True}" domain="[('reason_id', '=', fault_reason_id)]"/>
 								<field name="work_time" groups="vehicle_maintain.maintain_manage_dispatch"/>
 								<field name="operation_manual" invisible="1"/>
 								<field name="inspect_standard" invisible="1"/>

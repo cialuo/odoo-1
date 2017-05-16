@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--供应商序列-->
+        <record id="seq_energy_management_supplier" model="ir.sequence">
+            <field name="name">Energy Management Supplier Sequence</field>
+            <!--前缀-->
+            <field name="prefix">GYSE</field>
+            <!--后缀-->
+            <field name="suffix">%(year)s%(y)s</field>
+            <!--流水-->
+            <field name="padding">4</field>
+            <!--序列代码-->
+            <field name="code">energy.management.supplier.sequence</field>
+        </record>
+
+        <!--公司序列-->
+        <record id="seq_energy_management_company" model="ir.sequence">
+            <field name="name">Energy Management Company Sequence</field>
+            <!--前缀-->
+            <field name="prefix">GSNB</field>
+            <!--后缀-->
+            <field name="suffix">%(year)s%(y)s</field>
+            <!--流水-->
+            <field name="padding">4</field>
+            <!--序列代码-->
+            <field name="code">energy.management.company.sequence</field>
+        </record>
+
+        <!--供应商能源使用-->
+         <record id="picking_energy_management_supplier" model="stock.picking.type">
+            <field name="name">供应商充能</field>
+             <!--序列规则-->
+            <field name="sequence_id" ref="seq_energy_management_supplier"/>
+             <!--仓库-->
+            <field name="warehouse_id" ref="stock.warehouse0"/>
+             <!--作业类型：内部-->
+             <field name="code">incoming</field>
+        </record>
+
+        <!--公司能源使用-->
+        <record id="picking_energy_management_company" model="stock.picking.type">
+            <field name="name">内部充能</field>
+            <!--序列规则-->
+            <field name="sequence_id" ref="seq_energy_management_company"/>
+            <!--仓库-->
+            <field name="warehouse_id" ref="stock.warehouse0"/>
+            <!--作业类型：内部-->
+            <field name="code">internal</field>
+        </record>
+
+
+    </data>
+</odoo>

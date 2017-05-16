@@ -23,71 +23,76 @@
                             <h1>
                                 <field name="name" placeholder="Employee's Name"/>
                             </h1>
+                            <h1>
+                                <field name="sex" options="{'horizontal': true}" class="oe_edit_only" widget="radio" />
+                            </h1>
                         </div>
-                        <field name="category_ids" widget="many2many_tags" placeholder="e.g. Part Time"
-                               options="{'no_create_edit': True}" groups="hr.group_hr_user"/>
+
                         <notebook>
                             <page name="public" string="Public Information">
                                 <group>
-                                    <group string="Contact Information">
-                                        <field name="address_id"
-                                               context="{'show_address': 1}"
-                                               options='{"always_reload": True, "highlight_first_line": True}'/>
-                                        <field name="mobile_phone"/>
-                                        <field name="work_location"/>
+                                    <group>
                                         <field name="work_email" widget="email"/>
-                                        <field name="work_phone"/>
+                                        <field name="marital_status"/>
+                                        <field name="birthday"/>
+                                        <field name="native_place"/>
+                                        <field name="specialty"/>
+                                        <field name="nation"/>
                                     </group>
-                                    <group string="Position">
+                                    <group>
+                                        <field name="mobile_phone"/>
+                                        <field name="work_phone"/>
+                                        <field name="id_card"/>
+                                        <field name="education"/>
+                                        <field name="political_status"/>
+                                        <!--
                                         <field name="department_id"/>
                                         <field name="job_id"/>
                                         <field name="parent_id"/>
                                         <field name="coach_id"/>
                                         <field name="calendar_id"/>
+                                        -->
                                     </group>
+                                    <field name="live_address"/>
                                 </group>
-                                <field name="notes" placeholder="Other Information ..." colspan="4"/>
-                            </page>
-                            <page string="Basic Infomation" groups="hr.group_hr_user">
-                                <notebook>
-                                    <page name="famlies" string="employees's family">
-                                        <field name="families"/>
-                                    </page>
-                                    <page name="famlies" string="employees's family">
-                                    </page>
-                                    <page name="famlies" string="employees's family">
-                                    </page>
-                                    <page name="famlies" string="employees's family">
-                                    </page>
-                                </notebook>
                             </page>
                             <page name="workinfo" string="employee work infomation">
                                 <group>
                                     <group>
                                         <field name="jobnumber"/>
-                                        <field name="employer"/>
-                                        <field name="title"/>
+                                        <field name="parent_id"/>
                                     </group>
                                     <group>
+                                        <field name="title"/>
                                         <field name="drivelicense"/>
                                         <field name="drivelicensenumber"/>
                                         <field name="drivelicensedata"/>
                                     </group>
                                 </group>
                                 <group>
-                                    <field name="entrydate"/>
-                                    <field name="passdate"/>
-                                    <field name="employeestate"/>
-                                    <field name="employeeattr"/>
-                                    <field name="bargain"/>
+                                    <group>
+                                        <field name="entrydate"/>
+                                        <field name="passdate"/>
+                                        <field name="employeestate"/>
+                                        <field name="employeeattr"/>
+                                        <field name="bargain"/>
+                                    </group>
                                 </group>
 
+                            </page>
+                            <page string="Basic Infomation" groups="hr.group_hr_user">
+                                <notebook>
+                                    <page name="famlies" string="employees's family">
+                                        <field name="families"/>
+                                    </page>
+                                </notebook>
                             </page>
                             <page string="HR Settings" groups="hr.group_hr_user">
                                 <group>
                                     <group name="active_group">
                                         <field name="socialsecurityaccount"/>
                                         <field name="salaryaccount"/>
+                                        <field name="department_id"/>
                                         <field name="workpost" domain="[('department','=',department_id)]"/>
                                         <field name="user_id" string="Related User"/>
                                     </group>
@@ -137,7 +142,7 @@
 
         <!-- 员工列表视图 -->
         <record id="ltyhr_view_employee_tree" model="ir.ui.view">
-            <field name="name">hr.employee.tree</field>
+            <field name="name">employee tree list</field>
             <field name="model">hr.employee</field>
             <field name="priority">0</field>
             <field name="inherit_id" ref="hr.view_employee_tree"/>
@@ -635,7 +640,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="ltyhr_employee_information">
-            <field name="name">employee</field>
+            <field name="name">employee view</field>
             <field name="res_model">hr.employee</field>
             <field name="view_mode">kanban,tree,form</field>
         </record>

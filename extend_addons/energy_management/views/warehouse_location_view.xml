@@ -21,11 +21,12 @@
     <record model="ir.ui.view" id="energy_management.location_form">
       <field name="name">location form</field>
       <field name="model">stock.location</field>
+      <field name="priority">100</field>
       <field name="arch" type="xml">
         <form>
           <header>
-              <button name="normal_to_stop" type="object" string="stop" states="normal"/>
-              <button name="stop_to_normal" type="object" string="normal" states="stop"/>
+              <button name="normal_to_stop" type="object" string="stop" states="normal" groups="energy_management.energy_management_stationmaster"/>
+              <button name="stop_to_normal" type="object" string="normal" states="stop" groups="energy_management.energy_management_stationmaster"/>
               <field name="state"  widget="statusbar"/>
           </header>
           <sheet>
@@ -64,9 +65,11 @@
         <field name="res_model">stock.location</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('station_id','!=',None)]</field>
+        <!--
         <field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('energy_management.location_list')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('energy_management.location_form')})]"/>
+                -->
     </record>
 
   </data>

@@ -20,18 +20,18 @@ class Product(models.Model):
     lifetime = fields.Float(string='Lifetime odomter')
     odometer = fields.Float(string='Odometer')
     parent_id = fields.Many2one('product.product', string='Parent Product')
-    inter_code = fields.Char(string='Inter Code', required=True)
+    inter_code = fields.Char(string='Inter Code')
     default_code = fields.Char(compute='_compute_default_code')
     keeper_id = fields.Many2one('res.users', string='Keeper')
     shelf = fields.Char(string='Shelf')
     contract_price = fields.Float(string='Contract Price')
     tech_ids = fields.One2many('product.tech.info', 'product_id', string='Tec Info')
 
-    _sql_constraints = [
-        ('code_parent_category_uniq',
-         'unique (inter_code, parent_id, categ_id)',
-         _('inter code must unique per product and category'))
-    ]
+    # _sql_constraints = [
+    #     ('code_parent_category_uniq',
+    #      'unique (inter_code, parent_id, categ_id)',
+    #      _('inter code must unique per product and category'))
+    # ]
 
     @api.depends('inter_code', 'categ_id.code', 'parent_id.default_code')
     def _compute_default_code(self):

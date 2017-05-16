@@ -9,16 +9,19 @@ class StockMove(models.Model):
 
     component_ids = fields.Many2many('product.component', 'component_move_rec', id1='move_id', id2='component_id',
                                      domain="[('product_id', '=', product_id), ('state', '=', 'avaliable')])")
-    @api.multi
-    @api.constrains('product_uom_qty', 'component_ids')
-    def _check_component_qty(self):
-        """
-        重要部件选择 数量约束
-        :return: 
-        """
-        for move in self:
-            if len(move.component_ids) > move.product_uom_qty:
-                raise UserError(_('Component qty can not greate than product qty!'))
+    # @api.multi
+    # @api.constrains('product_uom_qty', 'component_ids')
+    # def _check_component_qty(self):
+    #     """
+    #     重要部件选择 数量约束
+    #     :return:
+    #     """
+    #     self.ensure_one()
+    #     # for move in self:
+    #     #     print len(move.component_ids)
+    #     #     print move.product_uom_qty
+    #     if len(self.component_ids) > self.product_uom_qty:
+    #         raise UserError(_('Component qty can not greate than product qty!'))
     @api.multi
     def action_done(self):
         """

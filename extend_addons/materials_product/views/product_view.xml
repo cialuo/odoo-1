@@ -183,6 +183,17 @@
                 </tree>
             </field>
         </record>
+        <record id="search_mterials_manage_product_view" model="ir.ui.view">
+            <field name="name">product search</field>
+            <field name="model">product.product</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="inter_code"/>
+                </search>
+            </field>
+        </record>
         <!--定义打开产品的动作，默认加入按父产品分组-->
         <record id="materials_manage_important_product" model="ir.actions.act_window">
             <field name="name">Important product</field>

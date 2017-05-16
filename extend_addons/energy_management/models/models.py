@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api,tools,_
+from odoo import models, fields, api,tools
+from odoo.tools.translate import _
 from odoo.modules.module import get_module_resource
+import datetime
 
 class energy_station(models.Model):
 
      _name = 'energy.station'
      _inherit = ['mail.thread']
      _description = 'Energy Station'
-     _sql_constraints = [('station_name_unique', 'unique (name)', _('Station name already exists')),
-                         ('station_no_unique', 'unique (station_no)', _('Station no already exists'))]
+     _sql_constraints = [('station_name_unique', 'unique (name)', '能源站名字已经存在!'),
+                         ('station_no_unique', 'unique (station_no)', '能源站编号已经存在!')]
 
      """
         能源站
@@ -22,6 +24,13 @@ class energy_station(models.Model):
         uid = self.env.uid
         res = self.env['res.users'].search([('id', '=', uid)])
         return  res
+
+     def _default_utcnow(self):
+         """
+             获取当前UTC时间
+         :return:
+         """
+         return datetime.datetime.utcnow()
 
      # 能源桩ids
      pile_ids = fields.One2many('energy.pile','station_id',string='Pile Ids')
@@ -60,7 +69,7 @@ class energy_station(models.Model):
      station_lister = fields.Many2one('res.users',string='Lister',default=_default_lister)
 
      # 制表日期
-     station_tab_date = fields.Datetime(string='Tab date',default=fields.Datetime.now())
+     station_tab_date = fields.Datetime(string='Tab date',default=_default_utcnow)
 
      # 备注
      station_remarks = fields.Char(string='Remarks')
@@ -121,8 +130,8 @@ class energy_pile(models.Model):
     _name = 'energy.pile'
     _inherit = ['mail.thread']
     _description = 'Energy Pile'
-    _sql_constraints = [('pile_name_unique', 'unique(name)', _('Pile name already exists')),
-                        ('pile_no_unique', 'unique(pile_no)', _('Pile no already exists'))]
+    _sql_constraints = [('pile_name_unique', 'unique(name)', '能源桩名字已经存在!'),
+                        ('pile_no_unique', 'unique(pile_no)', '能源桩编号已经存在!')]
 
     """
        能源桩
@@ -135,6 +144,13 @@ class energy_pile(models.Model):
         uid = self.env.uid
         res = self.env['res.users'].search([('id', '=', uid)])
         return res
+
+    def _default_utcnow(self):
+        """
+            获取当前UTC时间
+        :return:
+        """
+        return datetime.datetime.utcnow()
 
     # 能源站
     station_id = fields.Many2one('energy.station',string='Station Id',required=True,domain=[('station_property','=','company')])
@@ -173,7 +189,7 @@ class energy_pile(models.Model):
     station_lister = fields.Many2one('res.users', string='Lister',default=_default_lister)
 
     # 制表日期
-    station_tab_date = fields.Datetime(string='Tab date',default=fields.Datetime.now())
+    station_tab_date = fields.Datetime(string='Tab date',default=_default_utcnow)
 
     # image: all image fields are base64 encoded and PIL-supported
     image = fields.Binary("Photo", attachment=True,

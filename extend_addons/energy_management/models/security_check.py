@@ -1,17 +1,24 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api,_
-
+from odoo import models, fields, api,_,exceptions
+import datetime
 class security_check(models.Model):
 
     _name = 'energy.security_check'
     _inherit = ['mail.thread']
     _description = 'Security check'
-    _sql_constraints = [('security_check_name_unique', 'unique (name)', _('Security check already exists'))]
+    _sql_constraints = [('security_check_name_unique', 'unique (name)', '检查编号已经存在!')]
 
     """
        安全检查
     """
+
+    def _default_utcnow(self):
+        """
+            获取当前UTC时间
+        :return:
+        """
+        return datetime.datetime.utcnow()
 
     security_check_detail_ids = fields.One2many('energy.security_check_details','security_check_id',string='Security Check Detail Ids')
 
@@ -33,7 +40,7 @@ class security_check(models.Model):
     person_liable = fields.Many2one('hr.employee', string='Person liable',required=True)
 
     # 巡检日期
-    check_date = fields.Datetime(string='Check Date',default=fields.Datetime.now())
+    check_date = fields.Datetime(string='Check Date',default=_default_utcnow)
 
     # 检查结果
     check_result = fields.Char(string='Check Result')
@@ -74,6 +81,18 @@ class security_check(models.Model):
     @api.multi
     def auditing_to_complete(self):
         self.state = 'complete'
+
+    @api.multi
+    def unlink(self):
+        """
+            删除数据时判断检查表的状态
+        :return:
+        """
+        for order in self:
+            if not  order.state == 'draft':
+                raise exceptions.UserError(_('Not draft data cannot be deleted!'))
+
+        return super(security_check,self).unlink()
 
 class security_check_details(models.Model):
 

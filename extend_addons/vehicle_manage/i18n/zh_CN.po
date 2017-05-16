@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-11 06:04+0000\n"
-"PO-Revision-Date: 2017-05-11 14:08+0800\n"
+"POT-Creation-Date: 2017-05-16 06:05+0000\n"
+"PO-Revision-Date: 2017-05-16 14:07+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,11 @@ msgstr "<span>kg</span>"
 #: model:ir.ui.view,arch_db:vehicle_manage.vehicle_manage_model_view_form_ext
 msgid "<span>mm</span>"
 msgstr "<span>mm</span>"
+
+#. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_active
+msgid "Active"
+msgstr "有效"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_annual_inspection_date
@@ -202,6 +207,12 @@ msgstr "排量"
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_engine_no
 msgid "Engine No"
 msgstr "发动机号"
+
+#. module: vehicle_manage
+#: code:addons/vehicle_manage/models/vehicle_life_cycle.py:58
+#, python-format
+msgid "Error"
+msgstr "錯誤"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_fuel_consumption_pre_hund
@@ -634,6 +645,12 @@ msgid "The annual inspection date"
 msgstr "年检日期"
 
 #. module: vehicle_manage
+#: code:addons/vehicle_manage/models/vehicle_life_cycle.py:58
+#, python-format
+msgid "The cost must be greater than zero"
+msgstr "费用金额必须大于零！"
+
+#. module: vehicle_manage
 #: sql_constraint:fleet.vehicle:0
 msgid "The license_plate must be unique !"
 msgstr "车辆编号必须唯一"
@@ -682,6 +699,12 @@ msgid "Type name"
 msgstr "类型名称"
 
 #. module: vehicle_manage
+#: code:addons/vehicle_manage/models/cost_type_set.py:46
+#, python-format
+msgid "Type name must be unique!"
+msgstr "类型名称必须是唯一的！"
+
+#. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_location_id
 msgid "V Location"
 msgstr "虚库"
@@ -704,12 +727,12 @@ msgstr "标志"
 #. module: vehicle_manage
 #: model:res.groups,name:vehicle_manage.vehicle_usage_manager
 msgid "Vehicle Manager"
-msgstr "技术机务经理"
+msgstr "机务经理"
 
 #. module: vehicle_manage
 #: model:res.groups,name:vehicle_manage.vehicle_usage_user
 msgid "Vehicle User"
-msgstr "技术机务"
+msgstr "机务员"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.vehicle_drive_records_tree_list
@@ -830,7 +853,7 @@ msgid "conductor"
 msgstr "售票员"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:228
+#: code:addons/vehicle_manage/models/vehicle.py:232
 #, python-format
 msgid "conductor rate"
 msgstr "乘务员人车比"
@@ -1101,7 +1124,7 @@ msgstr "正常"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_route_correct_value
 msgid "oil_wear_coefficient"
-msgstr "oil_wear_coefficient"
+msgstr "油耗系数"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:357
@@ -1208,10 +1231,10 @@ msgid "submitted"
 msgstr "已提交"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:241
+#: code:addons/vehicle_manage/models/vehicle.py:245
 #, python-format
 msgid "synthesize rate"
-msgstr "线路综合人车比"
+msgstr "人车比"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:163
@@ -1279,6 +1302,11 @@ msgstr "年检状态"
 #: model:ir.module.category,name:vehicle_manage.vehicle_manage_group_category
 msgid "vehicle manage"
 msgstr "车辆管理"
+
+#. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_route_manage_route_manage_vehiclenums
+msgid "vehicle number"
+msgstr "车辆数量"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicle.py:192

@@ -8,9 +8,7 @@ class employee(models.Model):
     _inherit = 'hr.employee'
 
     # 工号
-    jobnumber = fields.Char(string=_('employee work number'))
-    # 工作单位
-    employer = fields.Char(string=_('employee employer'))
+    jobnumber = fields.Char(string=_('employee work number'), required=True)
     # 职称
     title = fields.Char(string=_('emplyee title'))
     # 入职时间
@@ -44,16 +42,38 @@ class employee(models.Model):
     # 员工家属信息
     families = fields.One2many('employees.employeefamily', 'employee_id', string=_("employees's families"))
     # 员工所在岗位
-    workpost = fields.Many2one('employees.post', ondelete='restrict', string=_('employee work post'))
+    workpost = fields.Many2one('employees.post', ondelete='restrict', string=_('employee work post'), required=True)
+
+    # 婚姻状况
+    marital_status = fields.Selection([
+        ('married','married'),              # 已婚
+        ('spinsterhood','spinsterhood'),    # 未婚
+    ], string='marital status')
+
+    # 生日
+    birthday = fields.Date('birth day')
+    # 籍贯
+    native_place = fields.Char('native place')
+    # 专业
+    specialty = fields.Char('specialty')
+    # 民族
+    nation = fields.Char('nation')
+    # 身份证号
+    id_card = fields.Char('ID Card')
+    # 学历
+    education = fields.Char('education')
+    # 政治面貌
+    political_status = fields.Char('political status')
+    # 住址
+    live_address = fields.Char('live address')
+    # 性别
+    sex = fields.Selection([
+        ('male','male'),                    # 男
+        ('female','female')                 # 女
+    ], string='sex', required=True)
 
     # 员工单位调动
     unit_transfer = fields.One2many('employees.unit', 'employee_id', string=_("employees_unit_transfer"))
-
-    #  @api.onchange('department_id')
-    #  def _restrictPost(self):
-    #      return {
-    #              'domain': {'workpost': [('department', '=', self.department_id.id)]},
-    #          }
 
     @api.constrains('user_id')
     def _relateone2one(self):

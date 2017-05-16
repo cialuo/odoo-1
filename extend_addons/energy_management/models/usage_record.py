@@ -25,8 +25,15 @@ class usage_record(models.Model):
     #状态
     state = fields.Selection([('normal', 'Normal'), ('stop', 'Stop')],default='normal')
 
+    def _default_utcnow(self):
+        """
+            获取当前UTC时间
+        :return:
+        """
+        return datetime.datetime.utcnow()
+
     #使用能源时间
-    record_date = fields.Datetime(string='Record Date',default=fields.Datetime.now())
+    record_date = fields.Datetime(string='Record Date',default=_default_utcnow)
 
     #加油人
     operator = fields.Many2one('hr.employee',string='Operator')
@@ -74,6 +81,8 @@ class usage_record(models.Model):
     # 使用总价
     total_price = fields.Float(string='Total Price',digits=(12,2))
 
+
+
     @api.onchange('location_price','fuel_capacity')
     def _compute_total_price(self):
         """
@@ -120,6 +129,7 @@ class usage_record(models.Model):
                 pile = self.env['energy.pile'].search([('id', '=', vals.get('pile_id'))])
                 product_id = pile.energy_type
                 location_id = pile.location_id.id
+                picking_type_id = self.env.ref('energy_management.picking_energy_management_company').id
             else:
                 raise exceptions.UserError(_("Companies to provide energy, the need to choose energy piles!"))
         else:
@@ -128,6 +138,7 @@ class usage_record(models.Model):
             """
             product_id = self.env['product.product'].search([('id', '=', vals.get('energy_type'))])
             location_id =self.env.ref('stock.stock_location_suppliers').id
+            picking_type_id = self.env.ref('energy_management.picking_energy_management_supplier').id
 
         #获取车辆信息
         vehicle = self.env['fleet.vehicle'].search([('id', '=', vals.get('vehicle_id'))])
@@ -139,6 +150,7 @@ class usage_record(models.Model):
                 'product_uom': product_id.uom_id.id,
                 'location_id':location_id,
                 'location_dest_id':vehicle.location_id.id,
+                'picking_type_id':picking_type_id
         }
         moves = self.env['stock.move'].create(move_vals)
         moves.action_done()
@@ -149,16 +161,13 @@ class usage_record(models.Model):
             当车辆变更的时候,计算并修改车辆的运营里程、GPS里程、运营油耗、GPS油耗
         :return:
         """
-        #行车记录
-        driverecords = None
-
         domain = [('vehicle_id', '=', self.vehicle_id.id)]
 
         #获取车辆的最后一次能源使用记录id
-        usage_record = self.env['energy.usage_record'].search(domain,limit=1,order="create_date desc")
+        usage_record = self.env['energy.usage_record'].search(domain,limit=1,order="record_date desc")
 
         if usage_record:
-            domain += [('create_date', '>=', usage_record.create_date)]
+            domain += [('realityarrive', '>=', usage_record.record_date)]
             driverecords = self.env['vehicleusage.driverecords'].search(domain)
         else:
             driverecords = self.env['vehicleusage.driverecords'].search(domain)
@@ -273,5 +282,5 @@ class fleet_vehicle_model(models.Model):
             if len(vehicles) > 0:
                 model.model_average_oil_wear = sum(vehicles.mapped('average_oil_wear')) / len(vehicles)
 
-    model_average_oil_wear = fields.Float(string='Average Oil Wear', compute=_compute_model_average_oil_wear)
+    model_average_oil_wear = fields.Float(string='Average Oil Wear', compute=_compute_model_average_oil_wear,digits=(12,2))
 

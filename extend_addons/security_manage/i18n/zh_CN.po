@@ -6,14 +6,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-10 02:02+0000\n"
-"PO-Revision-Date: 2017-05-10 02:02+0000\n"
+"POT-Creation-Date: 2017-05-12 08:51+0000\n"
+"PO-Revision-Date: 2017-05-12 08:51+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_active
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_active
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_active
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_plan_active
+#: model:ir.model.fields,field_description:security_manage.field_srp_disease_active
+#: model:ir.model.fields,field_description:security_manage.field_srp_emergency_plan_active
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_active
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_quality_active
+#: model:ir.model.fields,field_description:security_manage.field_srp_repair_site_active
+#: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_active
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_active
+msgid "Active"
+msgstr "有效"
 
 #. module: security_manage
 #: selection:security_manage.cls_manage,state:0
@@ -27,6 +42,11 @@ msgid "Archive"
 msgstr "归档"
 
 #. module: security_manage
+#: model:res.groups,name:security_manage.archives_group_browser
+msgid "Archive Browser"
+msgstr "文档浏览"
+
+#. module: security_manage
 #: model:ir.ui.view,arch_db:security_manage.srp_disease_form
 #: model:ir.ui.view,arch_db:security_manage.srp_emergency_plan_form
 #: model:ir.ui.view,arch_db:security_manage.srp_fire_plan_form
@@ -35,6 +55,21 @@ msgstr "归档"
 #: model:ir.ui.view,arch_db:security_manage.srp_safety_manage_form
 msgid "Archive Content"
 msgstr "文档内容"
+
+#. module: security_manage
+#: model:res.groups,name:security_manage.maintain_group_settings
+msgid "Archive Settings"
+msgstr "文档设置"
+
+#. module: security_manage
+#: model:res.groups,name:security_manage.archives_group_typer
+msgid "Archive Typer"
+msgstr "文档录入"
+
+#. module: security_manage
+#: model:ir.module.category,name:security_manage.archives_module_access_group
+msgid "Archives Access"
+msgstr "文档权限组"
 
 #. module: security_manage
 #: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_area
@@ -126,6 +161,14 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: security_manage
+#: selection:sfs.fire_danger_src,state:0
+#: selection:sfs.fire_device_map,state:0
+#: selection:srp.produce_map,state:0
+#: selection:srp.source_of_danger,state:0
+msgid "Done"
+msgstr "归档"
+
+#. module: security_manage
 #: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_id
 #: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_id
 #: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_id
@@ -138,7 +181,7 @@ msgstr "显示名称"
 #: model:ir.model.fields,field_description:security_manage.field_srp_safety_manage_id
 #: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_id
 msgid "ID"
-msgstr "ID"
+msgstr "编号"
 
 #. module: security_manage
 #: model:ir.ui.view,arch_db:security_manage.fire_device_map_form
@@ -217,9 +260,25 @@ msgid "Mark as archive"
 msgstr "归档"
 
 #. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.fire_device_map_form
+#: model:ir.ui.view,arch_db:security_manage.sfs_fire_danger_src_form
+#: model:ir.ui.view,arch_db:security_manage.srp_source_of_danger_form
+#: model:ir.ui.view,arch_db:security_manage.worksite_map_form
+msgid "Mark as done"
+msgstr "归档"
+
+#. module: security_manage
 #: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_place
 msgid "Place"
 msgstr "位置"
+
+#. module: security_manage
+#: model:ir.ui.view,arch_db:security_manage.fire_device_map_form
+#: model:ir.ui.view,arch_db:security_manage.sfs_fire_danger_src_form
+#: model:ir.ui.view,arch_db:security_manage.srp_source_of_danger_form
+#: model:ir.ui.view,arch_db:security_manage.worksite_map_form
+msgid "Reset"
+msgstr "重新启用"
 
 #. module: security_manage
 #: model:ir.ui.view,arch_db:security_manage.security_archives_class_manage_form
@@ -237,18 +296,30 @@ msgid "Reset to use"
 msgstr "重新启用"
 
 #. module: security_manage
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_state
+#: model:ir.model.fields,field_description:security_manage.field_sfs_fire_device_map_state
+#: model:ir.model.fields,field_description:security_manage.field_srp_produce_map_state
+#: model:ir.model.fields,field_description:security_manage.field_srp_source_of_danger_state
+msgid "State"
+msgstr "状态"
+
+#. module: security_manage
 #: sql_constraint:security_manage.cls_manage:0
 msgid "The id must be unique"
 msgstr "Id 不能重复"
 
 #. module: security_manage
 #: selection:security_manage.cls_manage,state:0
+#: selection:sfs.fire_danger_src,state:0
+#: selection:sfs.fire_device_map,state:0
 #: selection:sfs.fire_plan,state:0
 #: selection:srp.disease,state:0
 #: selection:srp.emergency_plan,state:0
+#: selection:srp.produce_map,state:0
 #: selection:srp.repair_quality,state:0
 #: selection:srp.repair_site,state:0
 #: selection:srp.safety_manage,state:0
+#: selection:srp.source_of_danger,state:0
 msgid "Use"
 msgstr "使用中"
 
@@ -357,7 +428,7 @@ msgid "archives_class_manage_state"
 msgstr "状态"
 
 #. module: security_manage
-#: code:addons/security_manage/models/security_archives_manage.py:13
+#: code:addons/security_manage/models/security_archives_manage.py:15
 #: model:ir.model.fields,field_description:security_manage.field_security_manage_cls_manage_item_name
 #, python-format
 msgid "archives_class_manage_table"

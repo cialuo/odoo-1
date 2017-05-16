@@ -38,6 +38,6 @@ class warehouse_location(models.Model):
     def stop_to_normal(self):
         self.state = 'normal'
 
-    _sql_constraints = [('location_no_unique', 'unique (location_no)', _("Location no already exists")),
+    _sql_constraints = [('location_no_unique', 'unique (location_no)', "库位编号已经存在!"),
                         # ('location_name_unique', 'unique (name)', _("Location name already exists")),
                         ]

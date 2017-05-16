@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-10 11:15+0000\n"
-"PO-Revision-Date: 2017-05-10 11:15+0000\n"
+"POT-Creation-Date: 2017-05-15 09:14+0000\n"
+"PO-Revision-Date: 2017-05-15 09:14+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:101
+#: code:addons/vehicle_maintain/models/maintain.py:114
 #, python-format
 msgid "%s has been added to the report!"
 msgstr "%s 添加到报修单!"
@@ -43,6 +43,7 @@ msgstr "有效"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/fault.py:43
+#: sql_constraint:maintain.fault.appearance:0
 #, python-format
 msgid "Appearance code already exists"
 msgstr "故障现象编码已存在"
@@ -70,6 +71,7 @@ msgstr "取消"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/fault.py:10
+#: sql_constraint:maintain.fault.category:0
 #, python-format
 msgid "Category code already exists"
 msgstr "故障分类编码已存在"
@@ -194,16 +196,10 @@ msgid "Defective"
 msgstr "不合格"
 
 #. module: vehicle_maintain
-#: model:res.groups,name:vehicle_maintain.maintain_manage_depot
-msgid "Depot"
-msgstr "站务"
-
-#. module: vehicle_maintain
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_precheck_view_form
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_repair_view_form_action
 #: selection:maintain.manage.repair,state:0
 #: selection:maintain.manage.report,state:0
-#: model:res.groups,name:vehicle_maintain.maintain_manage_dispatch
 msgid "Dispatch"
 msgstr "派工"
 
@@ -213,7 +209,7 @@ msgid "Dispatch Count"
 msgstr "待派工故障"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:335
+#: code:addons/vehicle_maintain/models/maintain.py:359
 #, python-format
 msgid "Dispatching the proportion of more than 100"
 msgstr "派工比例超过了100%"
@@ -249,11 +245,6 @@ msgid "Draft"
 msgstr "草稿"
 
 #. module: vehicle_maintain
-#: model:res.groups,name:vehicle_maintain.maintain_manage_driver
-msgid "Driver"
-msgstr "司机"
-
-#. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_end_inspect_time
 msgid "End Inspect Time"
 msgstr "检验结束时间"
@@ -263,11 +254,6 @@ msgstr "检验结束时间"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_fault_appearance_id
 msgid "Fault Appearance"
 msgstr "故障现象"
-
-#. module: vehicle_maintain
-#: model:res.groups,name:vehicle_maintain.maintain_fault_basic
-msgid "Fault Basic"
-msgstr "技术机务(抢修)"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_fault_category_id
@@ -470,6 +456,18 @@ msgid "ID"
 msgstr "ID"
 
 #. module: vehicle_maintain
+#: code:addons/vehicle_maintain/models/maintain.py:265
+#, python-format
+msgid "In order to delete a repair order, you must set it draft first."
+msgstr "只能删除草稿状态下的维修单."
+
+#. module: vehicle_maintain
+#: code:addons/vehicle_maintain/models/maintain.py:77
+#, python-format
+msgid "In order to delete a report order, you must set it draft first."
+msgstr "只能删除草稿状态下的报修单."
+
+#. module: vehicle_maintain
 #: model:ir.model,name:vehicle_maintain.model_fleet_vehicle
 msgid "Information on a vehicle"
 msgstr "车辆信息"
@@ -489,7 +487,6 @@ msgstr "自编号码"
 #. module: vehicle_maintain
 #: selection:maintain.manage.repair,state:0
 #: selection:maintain.manage.report,state:0
-#: model:res.groups,name:vehicle_maintain.maintain_manage_inspect
 msgid "Inspect"
 msgstr "检验"
 
@@ -608,9 +605,24 @@ msgid "License plate number of the vehicle (i = plate number for a car)"
 msgstr "车牌"
 
 #. module: vehicle_maintain
-#: model:ir.module.category,name:vehicle_maintain.manage_maintain_group
-msgid "Maintain"
-msgstr "抢修管理"
+#: model:res.groups,name:vehicle_maintain.maintain_manage_depot
+msgid "Maintain Depot"
+msgstr "站务"
+
+#. module: vehicle_maintain
+#: model:res.groups,name:vehicle_maintain.maintain_manage_dispatch
+msgid "Maintain Dispatch"
+msgstr "车间调度"
+
+#. module: vehicle_maintain
+#: model:res.groups,name:vehicle_maintain.maintain_manage_driver
+msgid "Maintain Driver"
+msgstr "司机"
+
+#. module: vehicle_maintain
+#: model:res.groups,name:vehicle_maintain.maintain_manage_inspect
+msgid "Maintain Inspect"
+msgstr "车间质检"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_repair_id
@@ -618,6 +630,7 @@ msgstr "抢修管理"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_repair_ids
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_precheck_view_form
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_report_view_form
+#: model:res.groups,name:vehicle_maintain.maintain_manage_repair
 msgid "Maintain Repair"
 msgstr "维修故障"
 
@@ -627,25 +640,25 @@ msgid "Maintain Repair Jobs"
 msgstr "工时管理"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:379
+#: code:addons/vehicle_maintain/models/maintain.py:403
 #, python-format
 msgid "Maintain Repair Jobs Required!"
 msgstr "维修工时不存在，请先派工"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:330
+#: code:addons/vehicle_maintain/models/maintain.py:354
 #, python-format
 msgid "Maintain Repair Names Required!"
 msgstr "请选择维修人员"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:113
+#: code:addons/vehicle_maintain/models/maintain.py:126
 #, python-format
 msgid "Maintain Repair Required!"
 msgstr "请填写维修故障"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:332
+#: code:addons/vehicle_maintain/models/maintain.py:356
 #, python-format
 msgid "Maintain Repair StartTime Required!"
 msgstr "请选择计划开始时间"
@@ -719,6 +732,7 @@ msgstr "领用上限"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/fault.py:172
+#: sql_constraint:maintain.fault.method:0
 #, python-format
 msgid "Method code already exists"
 msgstr "维修方法编码已存在"
@@ -881,6 +895,7 @@ msgstr "实际工时(分钟)"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/fault.py:102
+#: sql_constraint:maintain.fault.reason:0
 #, python-format
 msgid "Reason code already exists"
 msgstr "故障原因编码已存在"
@@ -904,7 +919,6 @@ msgstr "备注"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_stock_picking_repair_id
 #: selection:maintain.manage.repair,state:0
 #: selection:maintain.manage.report,state:0
-#: model:res.groups,name:vehicle_maintain.maintain_manage_repair
 msgid "Repair"
 msgstr "维修"
 
@@ -1018,7 +1032,7 @@ msgid "Select category for the current product"
 msgstr "为当前产品选择一个类别"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:585
+#: code:addons/vehicle_maintain/models/maintain.py:609
 #, python-format
 msgid "Selected inspect(s) cannot be confirmed as they are not in 'inspect' state"
 msgstr "选择检验单中存在不是待检状态的记录"
@@ -1068,7 +1082,7 @@ msgstr "状态"
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_picking_ids
 msgid "Stock Pickings"
-msgstr "Stock Pickings"
+msgstr "库存"
 
 #. module: vehicle_maintain
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_report_view_form
@@ -1080,6 +1094,11 @@ msgstr "提交预检"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_vehicle_model
 msgid "Suitable Vehicle"
 msgstr "适用车型"
+
+#. module: vehicle_maintain
+#: model:res.groups,name:vehicle_maintain.maintain_fault_basic
+msgid "Technical maintenance"
+msgstr "技术机务"
 
 #. module: vehicle_maintain
 #: model:ir.model,name:vehicle_maintain.model_stock_picking
@@ -1095,7 +1114,7 @@ msgstr "两人作业"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_uom_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_uom_id
 msgid "Unit of Measure"
-msgstr "单位"
+msgstr "计量单位"
 
 #. module: vehicle_maintain
 #: selection:maintain.fault.appearance,state:0
@@ -1104,6 +1123,11 @@ msgstr "单位"
 #: selection:maintain.fault.reason,state:0
 msgid "Use"
 msgstr "在用"
+
+#. module: vehicle_maintain
+#: model:ir.module.category,name:vehicle_maintain.manage_maintain_group
+msgid "Vehicle Maintain"
+msgstr "车辆抢修"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_vehicle_id
