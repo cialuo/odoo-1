@@ -19,6 +19,25 @@
             <!--</field>-->
         <!--</record>-->
 
+        <!-- 车辆技术档案_维保日志-->
+        <record id='vehicle_warranty_order_project_count_inherit' model='ir.ui.view'>
+            <field name="name">Vehicle Warranty Order Project Count</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="vehicle_manage.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button name="action_to_open_warranty"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            attrs="{'invisible': [('warranty_order_project_count', '=', 0)]}"
+                            context="{'xml_id':'warranty_inspect_order_action'}">
+                            <field name="warranty_order_project_count" widget="statinfo" string="Warrantys"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+
 
         <!-- 车辆使用档案_维保日志-->
         <record id='warranty_vehicle_usage_records_view_form_inherit' model='ir.ui.view'>

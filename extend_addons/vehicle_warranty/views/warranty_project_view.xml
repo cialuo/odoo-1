@@ -26,11 +26,11 @@
                 <form string="Warranty Project">
                     <header>
                         <button name="action_filing" type="object"
-                                string="filing"
-                                states="in_use"/>
+                                string="Filing"
+                                states="use"/>
                         <button name="action_in_use" type="object"
-                                string="in_use"
-                                states="filing" class="oe_highlight"/>
+                                string="use"
+                                states="done" class="oe_highlight"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -42,7 +42,7 @@
                         </div>
                         <group col="2">
                             <group>
-                                <field name="mode"/>
+                                <field name="mode" options="{'no_open':True,'no_create':True}"/>
                                 <field name="manhour"/>
                                 <field name="remark"/>
                             </group>
