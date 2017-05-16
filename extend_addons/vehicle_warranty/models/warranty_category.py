@@ -12,26 +12,30 @@ class WarrantyCategory(models.Model): # 维保类别
     level = fields.Integer() # 层级
 
     state = fields.Selection([ # 状态
-        ('in_use', "in_use"), # 在用
-        ('filing', "filing"),  # 归档
-    ], default='in_use', string="MyState")
+        ('use', "use"), # 在用
+        ('done', "Filing"),  # 归档
+    ], default='use', string="MyState")
+
+    active = fields.Boolean(string="MyActive", default=True)
 
     @api.multi
     def action_in_use(self):
-        self.state = 'in_use'
+        self.state = 'use'
+        self.active = True
 
     @api.multi
     def action_filing(self):
-        self.state = 'filing'
+        self.state = 'done'
+        self.active = False
 
     manhour = fields.Float(digits=(6, 1), default=0 , compute='_compute_manhour') # 工时定额
 
     remark = fields.Char()  # 备注
 
-    parent_id = fields.Many2one('warranty_category', index=True, domain=[('state','=','in_use')],readonly="true") # 父分类
+    parent_id = fields.Many2one('warranty_category', index=True, domain=[('state','=','use')],readonly="true") # 父分类
     child_ids = fields.One2many('warranty_category', 'parent_id') # 子分类
 
-    project_ids = fields.Many2many('warranty_project', domain=[('state','=','in_use')]) # 保修项目
+    project_ids = fields.Many2many('warranty_project', domain=[('state','=','use')]) # 保修项目
 
     sum_categorie_manhour = fields.Float(digits=(6, 1), default=0, compute='_compute_manhour') # 子类工时汇总
 

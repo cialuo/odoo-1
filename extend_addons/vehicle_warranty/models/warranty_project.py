@@ -8,21 +8,25 @@ class WarrantyProject(models.Model): # 保修项目
     code = fields.Char(string='Project Code', required=True) # 项目编码
 
     state = fields.Selection([ # 状态
-        ('in_use', "in_use"), # 在用
-        ('filing', "filing"),  # 归档
-    ], default='in_use', string="MyState")
+        ('use', "use"), # 在用
+        ('done', "Filing"),  # 归档
+    ], default='use', string="MyState")
+
+    active = fields.Boolean(string="MyActive", default=True)
 
     @api.multi
     def action_in_use(self):
-        self.state = 'in_use'
+        self.state = 'use'
+        self.active = True
 
     @api.multi
     def action_filing(self):
-        self.state = 'filing'
+        self.state = 'done'
+        self.active = False
 
     mode = fields.Many2one('warranty_mode', 'Mode', ondelete="set null") # 保修方式
 
-    manhour = fields.Float(digits=(6, 1)) # 工时定额
+    manhour = fields.Float(digits=(6, 1), default=1) # 工时定额
 
     remark = fields.Char()  # 备注
 

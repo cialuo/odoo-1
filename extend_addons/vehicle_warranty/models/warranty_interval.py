@@ -5,7 +5,7 @@ class WarrantyInterval(models.Model): # 维保间隔
     _name = 'warranty_interval'
     _order = 'vehicle_model_id,interval_mileage'
 
-    name = fields.Char()
+    name = fields.Char(default="")
 
     sequence = fields.Integer('Cycle Sequence', default=1)
 
@@ -14,19 +14,23 @@ class WarrantyInterval(models.Model): # 维保间隔
     interval_mileage = fields.Float(digits=(6, 1), string="Interval Mileage", default=10000)  # 间隔里程
 
     state = fields.Selection([ # 状态
-        ('in_use', "in_use"), # 在用
-        ('filing', "filing"),  # 归档
-    ], default='in_use',string="MyState")
+        ('use', "use"), # 在用
+        ('done', "Filing"),  # 归档
+    ], default='use',string="MyState")
+
+    active = fields.Boolean(string="MyActive", default=True)
 
     vehicle_model_id = fields.Many2one("fleet.vehicle.model", ondelete='set null', required=True)  # 车型
 
     @api.multi
     def action_in_use(self):
-        self.state = 'in_use'
+        self.state = 'use'
+        self.active = True
 
     @api.multi
     def action_filing(self):
-        self.state = 'filing'
+        self.state = 'done'
+        self.active = False
 
     @api.constrains('interval_mileage')
     def _check_interval_mileage(self):
@@ -47,7 +51,7 @@ class FleetVehicleModel(models.Model): # 车型管理
 class WarrantyCapability(models.Model): # 保养能力参数设置
     _name = 'warranty_capability'
 
-    name = fields.Char()
+    name = fields.Char(default="")
 
     sequence = fields.Integer('Sequence', default=0, readonly="true")
 

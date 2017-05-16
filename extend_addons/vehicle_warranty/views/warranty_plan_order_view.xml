@@ -42,36 +42,6 @@
                   parent="warranty_maintain_manage_sub"
                   action="warranty_plan_order_action"/>
 
-        <!--&lt;!&ndash; 生成保养单 wizard &ndash;&gt;-->
-        <!--<record model='ir.ui.view' id='wizard_create_maintain_sheet_form'>-->
-            <!--<field name='name'>Create Warranty Order</field>-->
-            <!--<field name='model'>wizard_create_warranty_order</field>-->
-            <!--<field name='arch' type='xml'>-->
-                <!--<form string='Create Warranty Order'>-->
-                    <!--<notebook>-->
-                        <!--<page string="Warranty Plan Order">-->
-                            <!--<field name='plan_order_ids' readonly="1"/>-->
-                        <!--</page>-->
-                    <!--</notebook>-->
-                    <!--<footer>-->
-                        <!--<button name="create_warranty_order" type="object"-->
-                                <!--string="Create Warranty Order" class="oe_highlight"/>-->
-                        <!--or-->
-                        <!--<button special="cancel" string="Cancel"/>-->
-                    <!--</footer>-->
-                <!--</form>-->
-            <!--</field>-->
-        <!--</record>-->
-
-        <!--<act_window id='wizard_create_warranty_order'-->
-                    <!--name='Create Warranty Order'-->
-                    <!--src_model='warranty_plan_order'-->
-                    <!--res_model='wizard_create_warranty_order'-->
-                    <!--view_mode='form'-->
-                    <!--target='new'-->
-                    <!--key2='client_action_multi'/>-->
-
-
         <!-- 计划单生成关联司机的保养单 -->
         <record model='ir.ui.view' id='wizard_create_warranty_order_by_driver_form'>
             <field name='name'>Wizard Create Warranty Order By Driver</field>
