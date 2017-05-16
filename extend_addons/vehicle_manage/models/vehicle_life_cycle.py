@@ -42,23 +42,17 @@ class vehicle_life(models.Model):
 
     @api.multi
     def action_operation(self):
-        print('operation_period')
         # 设置投入日期
         self.start_service_date = datetime.date.today()
 
-        res = self.env['investment_cost'].search([])
+        # 费用金额必须大于零
+        for item in self.investment_ids:
 
-        tag = fields.Boolean()
+            if (item.cost_amount <= 0):
 
-        for item in res:
-            if (item.cost_amount > 0):
-                tag = True
-            else:
-                tag = False
                 raise exceptions.except_orm(_('Error'), _('The cost must be greater than zero'))
 
-        if tag:
-            self.vehicle_life_state = 'operation_period'
+        self.vehicle_life_state = 'operation_period'
 
         return True
 
