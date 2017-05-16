@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['operation_menu'],
+    'depends': ['operation_menu', 'scheduling_parameters', 'vehicle_manage'],
 
     # always loaded
     'data': [
