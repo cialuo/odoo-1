@@ -28,10 +28,10 @@ class FleetVehicle(models.Model):
                 item.warnning = False
 
     # 行车记录
-    driverecords = fields.One2many('vehicleusage.driverecords', 'vehicle_id', string=_('drive records'))
+    driverecords = fields.One2many('vehicleusage.driverecords', 'vehicle_id', string="drive records")
 
     # 年检状态
-    inspectionState = fields.Char(compute='_getInspectionState', string=_('vehicle inspection state'))
+    inspectionState = fields.Char(compute='_getInspectionState', string="vehicle inspection state")
 
 
     def getPlanItem(self, vid):
@@ -56,32 +56,32 @@ class InspectionPlan(models.Model):
     _name = 'vehicle_usage.inspectionplan'
 
     # 年检计划名称
-    name = fields.Char(string=_('inspection plan name'), required=True)
+    name = fields.Char(string="inspection plan name", required=True)
     # 开始日期
-    startdate = fields.Date(string=_('inspection start date'), required=True)
+    startdate = fields.Date(string="inspection start date", required=True)
     # 结束日期
-    enddate = fields.Date(string=_('inspection end date'), required=True)
+    enddate = fields.Date(string="inspection end date", required=True)
     # 制表日期
-    create_date = fields.Datetime(string=_('plan create date'))
+    create_date = fields.Datetime(string="plan create date")
     # 审批时间
-    approvaldate = fields.Datetime(string=_('approval date'))
+    approvaldate = fields.Datetime(string="approval date")
     # 分公司
-    branchcompany = fields.Many2one('hr.department', string=_('branch company'), required=True)
+    branchcompany = fields.Many2one('hr.department', string="branch company", required=True)
     # 审批人
-    approver = fields.Many2one('res.users', string=_('approver'))
+    approver = fields.Many2one('res.users', string="approver")
     # 制表人
-    maker = fields.Many2one('res.users', string=_('maker'), default=lambda self: self._uid)
+    maker = fields.Many2one('res.users', string="maker", default=lambda self: self._uid)
 
     # 备注
-    remark = fields.Char(string=_('remark'))
+    remark = fields.Char(string="remark")
     # 计划详情
     planitem_id = fields.One2many('vehicle_usage.planitem', 'inspectionplan_id',
                                   string=_("plan detail"))
     # 年检计划
-    subject = fields.Char(string=_('plan subject'))
+    subject = fields.Char(string="plan subject")
 
     # 年检负责人
-    principal = fields.Many2one('hr.employee', string=_('inspection principal'))
+    principal = fields.Many2one('hr.employee', string="inspection principal")
 
     # 状态表
     state = fields.Selection([
@@ -90,7 +90,7 @@ class InspectionPlan(models.Model):
         ('checked',_('checked')),       # 已审批
         ('execution',_('execution')),   # 执行中
         ('done',_('done')),             # 已完成
-    ], string=_('inspection plan state'),default='draft')
+    ], string="inspection plan state",default='draft')
 
     @api.multi
     def action_draft(self):
@@ -179,7 +179,7 @@ class PlanItem(models.Model):
     _name = 'vehicle_usage.planitem'
 
     # 车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'), required=True)
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True)
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
@@ -195,18 +195,18 @@ class PlanItem(models.Model):
     state = fields.Selection([
         ('execution', _('execution')),  # 进行中
         ('done', _('done')),            # 已完成
-    ], string=_('plan item state'), default='execution')
+    ], string="plan item state", default='execution')
 
     # 年检计划
     inspectionplan_id = fields.Many2one('vehicle_usage.inspectionplan',
-                                        string=_('inspection plan'),ondelete='cascade')
+                                        string="inspection plan",ondelete='cascade')
 
     # 送检司机
-    inspectiondriver = fields.Char(string=_('inspection driver'))
+    inspectiondriver = fields.Char(string="inspection driver")
     # 计划日期
-    plandate = fields.Date(string=_('plan to inspection date'))
+    plandate = fields.Date(string="plan to inspection date")
     # 实际年检日期
-    actualdate = fields.Date(string=_('actual inspection date'))
+    actualdate = fields.Date(string="actual inspection date")
 
 
 
@@ -220,14 +220,14 @@ class InspectionRecords(models.Model):
     _rec_name = 'inner_code'
 
     # 年检执行日期
-    inspectiondate = fields.Date(string=_('inspection date'))
+    inspectiondate = fields.Date(string="inspection date")
     # 年检过期日期
-    inspectionexpire = fields.Date(string=_('inspection expire'))
+    inspectionexpire = fields.Date(string="inspection expire")
     # 备注
-    inspectionremark = fields.Char(string=_('inspection remark'))
+    inspectionremark = fields.Char(string="inspection remark")
 
     # 车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'))
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info")
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code')
@@ -334,35 +334,35 @@ class DriveRecords(models.Model):
     _name = 'vehicleusage.driverecords'
 
     # 关联的车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string=_('vehicle info'), required=True)
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True)
     # 线路
     route_id = fields.Many2one(related='vehicle_id.route_id', readonly=True)
     # 车牌号
     license_plate = fields.Char(related='vehicle_id.license_plate', readonly=True)
     # 司机
-    driver_id = fields.Many2one('hr.employee', string=_('driver'))
+    driver_id = fields.Many2one('hr.employee', string="driver")
     # 方向
-    direction = fields.Char(string=_('drive direction'))
+    direction = fields.Char(string="drive direction")
     # 计划里程
-    planmileage = fields.Float(string=_('plan mileage'))
+    planmileage = fields.Float(string="plan mileage")
     # GPS里程
-    GPSmileage = fields.Float(string=_('GPS mileage'))
+    GPSmileage = fields.Float(string="GPS mileage")
     # 趟次
-    dirvetimes = fields.Char(string=_('drive times'))
+    dirvetimes = fields.Char(string="drive times")
     # 计划发车
-    plandepart = fields.Datetime(string=_('plan depart'))
+    plandepart = fields.Datetime(string="plan depart")
     # 实际发车
-    realitydepart = fields.Datetime(string=_('reality depart'))
+    realitydepart = fields.Datetime(string="reality depart")
     # 计划到达
-    planarrive = fields.Datetime(string=_('plan arrive'))
+    planarrive = fields.Datetime(string="plan arrive")
     # 实际到达
-    realityarrive = fields.Datetime(string=_('reality arrive'))
+    realityarrive = fields.Datetime(string="reality arrive")
     # 类型
     drivetype = fields.Selection([
         ('working',_('drive type working')),    # 运营
         ('refuel',_('drive type refuel')),      # 加油
         ('empty',_('drive type empty'))         # 空驶
-    ],string=_('drive type'))
+    ],string="drive type")
 
 
     @api.model
