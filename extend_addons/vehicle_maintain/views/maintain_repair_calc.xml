@@ -1,0 +1,139 @@
+<odoo>
+    <data>
+
+        <record id="maintain_calc_view_tree" model="ir.ui.view">
+            <field name="name">Maintain Calc</field>
+            <field name="model">maintain.manage.repair</field>
+            <field name="arch" type="xml">
+                <tree string="Maintain Calc Tree">
+					<field name="name"/>
+					<field name="report_id"/>
+					<field name="vehicle_id"/>
+					<field name="vehicle_type"/>
+					<field name="license_plate"/>
+					<field name="calculate_time"/>
+					<field name="total_product_fee"/>
+					<field name="total_work_fee"/>
+					<field name="total_fee"/>
+					<field name="calculate_result"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="maintain_calc_view_form" model="ir.ui.view">
+            <field name="name">Maintain Calc Form</field>
+            <field name="model">maintain.manage.repair</field>
+            <field name="arch" type="xml">
+                <form string="MaintainRepair Form">
+                	<header>
+						<button name="action_calcuate" type="object"
+                                string="Confirm Calcuate"
+                                attrs="{'invisible': [('calculate_result', '=', 'calculated')]}"
+                                class="oe_highlight"/> <!-- 确认结算-->
+
+						<button name="action_refresh" type="object"
+                                string="Refresh"
+								attrs="{'invisible': [('calculate_result', '=', 'calculated')]}"
+                               /> <!-- 刷新-->
+
+                    	<field name="calculate_result"  widget="statusbar" statusbar_visible="calculated,calculating" />
+                	</header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="name"/>
+							<h1><field name="name" readonly="1"/></h1>
+	                    </div>
+						 <group col="2">
+	                        <group>
+                                <field name="vehicle_id" />
+								<field name="vehicle_type" />
+	                        	<field name="fault_reason_id" readonly="1"/>
+								<field name="fault_method_id" readonly="1"/>
+								<field name="report_id" />
+	                        </group>
+	                        <group>
+
+								<field name="total_work_time" />
+								<field name="total_product_fee" />
+								<field name="total_work_fee" />
+                                <field name="total_fee" />
+	                        </group>
+                   		 </group>
+  						 <notebook>
+							 <page string="MaintainRepair Jobs">
+                                <field name="job_ids" readonly="1">
+                                    <tree string="MaintainRepair Jobs" create="false" delete="false">
+										<field name="sequence"/>
+										<field name="fault_method_id"/>
+										<field name="user_id"/>
+										<field name="real_start_time"/>
+										<field name="real_end_time"/>
+										<field name="work_time"/>
+										<field name="percentage_work"/>
+										<field name="my_work"/>
+										<field name="real_work"/>
+										 <!--<field name="complex_level"/>-->
+
+                                    </tree>
+                                </field>
+                             </page>
+
+							 <page string="AvailProducts" name="AvailProducts">
+                                <field name="available_product_ids" readonly="1">
+                                    <tree string="AvailProducts" create="false" delete="false">
+										<field name="product_id"/>
+										<field name="product_code"/>
+										<field name="max_count"/>
+										<field name="change_count"/>
+										<field name="onhand_qty"/>
+										<field name="virtual_available"/>
+										<field name="require_trans"/>
+										<field name="vehicle_model" widget="many2many_tags"/>
+                                    </tree>
+                                </field>
+                             </page>
+
+							 <page string="ProductLists" name="ProductLists">
+                                <field name="picking_ids">
+                                    <tree string="ProductLists" create="false" delete="false">
+										<field name="picking_type_id"/>
+										<field name="name"/>
+										<field name="location_id"/>
+										<field name="min_date"/>
+										<field name="date_done"/>
+										<field name="origin"/>
+										<field name="state"/>
+                                    </tree>
+                                </field>
+                             </page>
+			            </notebook>
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+
+		<record model="ir.actions.act_window" id="maintain_calc_action">
+			<field name="name">maintain_calc_action</field>
+			<field name="res_model">maintain.manage.repair</field>
+			<field name="view_mode">tree,form</field>
+			<!--<field name="domain">[('state', 'not in', ['completed'])]</field>-->
+			<field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('maintain_calc_view_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('maintain_calc_view_form')})]"/>
+
+
+		</record>
+
+		<!--结算单-->
+        <menuitem name="maintain_calc_order" id="maintain_calc_order" parent="maintain_manage"
+				  action="maintain_calc_action" sequence="60" />
+    </data>
+</odoo>
