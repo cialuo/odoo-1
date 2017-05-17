@@ -13,11 +13,9 @@ class vehicle_life(models.Model):
     # 复制到'investment_cost'表中的'cost_type'字段
     @api.multi
     def _add_default_value(self):
-        print('-------------------')
         res = self.env['cost_type_set.cost_type_set'].search([('state', '=', 'inuse')])
         datas = []
         for i in res:
-            print ("=======%s" % i.type_name)
             data = {
                 'is_required': i.is_required,
                 'cost_type': i.type_name,
