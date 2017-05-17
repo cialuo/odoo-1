@@ -56,7 +56,6 @@ class vehicle_life(models.Model):
 
     @api.multi
     def action_scrap(self):
-        print('scrap_period')
         self.vehicle_life_state = 'scrap_period'
         return True
 

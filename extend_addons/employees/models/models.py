@@ -8,41 +8,41 @@ class employee(models.Model):
     _inherit = 'hr.employee'
 
     # 工号
-    jobnumber = fields.Char(string=_('employee work number'), required=True)
+    jobnumber = fields.Char(string='employee work number', required=True)
     # 职称
-    title = fields.Char(string=_('emplyee title'))
+    title = fields.Char(string='emplyee title')
     # 入职时间
-    entrydate = fields.Date(string=_('employee entry date'))
+    entrydate = fields.Date(string='employee entry date')
     # 转正时间
-    passdate = fields.Date(string=_('emplyee pass time'))
+    passdate = fields.Date(string='emplyee pass time')
     # 员工状态
     employeestate = fields.Selection([
-        ('in_work', _('employee state in work')),  # 在职
-        ('retired', _('employee state retired')),  # 退休
-        ('inner_retired', _('employee state inner retired')),  # 内退
-        ('retired_pay', _('employee state retired pay')),  # 退养
-        ('injured', _('employee state injured')),  # 工伤
-        ('other', _('employee state other')),  # 其他
-    ], string=_('emplyee state'))
+        ('in_work', 'employee state in work'),  # 在职
+        ('retired', 'employee state retired'),  # 退休
+        ('inner_retired', 'employee state inner retired'),  # 内退
+        ('retired_pay', 'employee state retired pay'),  # 退养
+        ('injured', 'employee state injured'),  # 工伤
+        ('other', 'employee state other'),  # 其他
+    ], string='emplyee state')
     # 人员属性
-    employeeattr = fields.Char(string=_('emplyee attribute'))
+    employeeattr = fields.Char(string='emplyee attribute')
     # 劳动合同
-    bargain = fields.Char(string=_('emplyee bargain'))
+    bargain = fields.Char(string='emplyee bargain')
     # 驾驶证类别
-    drivelicense = fields.Char(string=_('emplyee drivelicense type'))
+    drivelicense = fields.Char(string='emplyee drivelicense type')
     # 驾驶证号码
-    drivelicensenumber = fields.Char(string=_('emplyee drivelicense number'))
+    drivelicensenumber = fields.Char(string='emplyee drivelicense number')
     # 驾驶证领证日期
-    drivelicensedata = fields.Date(string=_('emplyee drivelicense date'))
+    drivelicensedata = fields.Date(string='emplyee drivelicense date')
     # 社保账户
-    socialsecurityaccount = fields.Char(string=_('employee socialsecurity account'))
+    socialsecurityaccount = fields.Char(string='employee socialsecurity account')
     # 工资账户
-    salaryaccount = fields.Char(string=_('employee salary account'))
+    salaryaccount = fields.Char(string='employee salary account')
 
     # 员工家属信息
-    families = fields.One2many('employees.employeefamily', 'employee_id', string=_("employees's families"))
+    families = fields.One2many('employees.employeefamily', 'employee_id', string="employees's families")
     # 员工所在岗位
-    workpost = fields.Many2one('employees.post', ondelete='restrict', string=_('employee work post'), required=True)
+    workpost = fields.Many2one('employees.post', ondelete='restrict', string='employee work post', required=True)
 
     # 婚姻状况
     marital_status = fields.Selection([
@@ -73,7 +73,7 @@ class employee(models.Model):
     ], string='sex', required=True)
 
     # 员工单位调动
-    unit_transfer = fields.One2many('employees.unit', 'employee_id', string=_("employees_unit_transfer"))
+    unit_transfer = fields.One2many('employees.unit', 'employee_id', string="employees_unit_transfer")
 
     @api.constrains('user_id')
     def _relateone2one(self):
@@ -199,20 +199,20 @@ class EmployeeFamily(models.Model):
     _name = 'employees.employeefamily'
 
     # 名称
-    name = fields.Char(string=_('family name'))
+    name = fields.Char(string='family name')
     # 家庭关系
-    relation = fields.Char(string=_('family relation'))
+    relation = fields.Char(string='family relation')
     # 性别
     sex = fields.Selection([
-        ('male', _('male')),
-        ('female', _('female'))
-    ], string=_('sex'))
+        ('male', 'male'),
+        ('female', 'female')
+    ], string='sex')
     # 职业
-    profession = fields.Char(string=_('family profession'))
+    profession = fields.Char(string='family profession')
     # 电话
-    phone = fields.Char(string=_('family phone'))
+    phone = fields.Char(string='family phone')
     # 工作单位
-    employer = fields.Char(string=_('family employer'))
+    employer = fields.Char(string='family employer')
     # 关联的员工
     employee_id = fields.Many2one('hr.employee', ondelete='cascade')
 
@@ -224,22 +224,22 @@ class post(models.Model):
     _name = 'employees.post'
 
     # 岗位名称
-    name = fields.Char(_('employees post name'))
+    name = fields.Char('employees post name')
     # 岗位所在部门
-    department = fields.Many2one('hr.department', ondelete='restrict', string=_('post department'), required=True)
+    department = fields.Many2one('hr.department', ondelete='restrict', string='post department', required=True)
     # 岗位信息
-    description = fields.Char(string=_('post infomation'))
+    description = fields.Char(string='post infomation')
     # 岗位类型
     posttype = fields.Selection([
-        ('manager', _('post title manager')),  # 经理
-        ('labour', _('post title labour')),  # 员工
-        ('driver', _('post title driver')),  # 司机
-        ('conductor', _('post title conductor'))  # 售票员
-    ], string=_('post title list'), required=True)
+        ('manager', 'post title manager'),  # 经理
+        ('labour', 'post title labour'),  # 员工
+        ('driver', 'post title driver'),  # 司机
+        ('conductor', 'post title conductor')  # 售票员
+    ], string='post title list', required=True)
     # 岗位员工
-    members = fields.One2many('hr.employee', 'workpost', string=_('post members'))
+    members = fields.One2many('hr.employee', 'workpost', string='post members')
     # 关联群组
-    group_id = fields.Char(compute='_getRelateGroup', string=_('post relate group'))
+    group_id = fields.Char(compute='_getRelateGroup', string='post relate group')
 
     @api.multi
     def _getRelateGroup(self):
@@ -252,7 +252,7 @@ class post(models.Model):
                 item.group_id = ''
 
     # 直接领导
-    direct_leader = fields.Char(compute='_getDirectLeader', string=_('deirect leader'))
+    direct_leader = fields.Char(compute='_getDirectLeader', string='deirect leader')
 
     @api.onchange('department')
     def _getDirectLeader(self):
@@ -288,7 +288,7 @@ class post(models.Model):
         return [{'id': item.id, 'name': item.name} for item in employeeList]
 
     # 上级部门
-    higher_level = fields.Char(compute='_getHigherLevel', string=_('higher level'))
+    higher_level = fields.Char(compute='_getHigherLevel', string='higher level')
 
     @api.onchange('department')
     def _getHigherLevel(self):
@@ -312,7 +312,7 @@ class post(models.Model):
                     self.getParentDepartment(record.parent_id.id, container)
 
     # 岗位下的员工数量
-    membercount = fields.Char(compute='_countpostmember', string=_('member count of post'))
+    membercount = fields.Char(compute='_countpostmember', string='member count of post')
 
     def _countpostmember(self):
         for item in self:
@@ -325,7 +325,7 @@ class department(models.Model):
     _inherit = 'hr.department'
 
     # 岗位数量
-    membercount = fields.Char(compute='_countmember', string=_('post count in department'))
+    membercount = fields.Char(compute='_countmember', string='post count in department')
 
     @api.multi
     def _countmember(self):
@@ -335,7 +335,7 @@ class department(models.Model):
 
     # 建档时间
     record_createdate = fields.Date(compute='_getRecordCreateTime',
-                                    string=_('department record create time'))
+                                    string='department record create time')
 
     @api.multi
     def _getRecordCreateTime(self):
@@ -343,17 +343,17 @@ class department(models.Model):
             item.record_createdate = item.create_date
 
     departmenttype = fields.Selection([
-        ('headquarters', _('department type headquarters')),  # 总公司
-        ('branch', _('department type branch')),  # 分公司
-        ('subsidiary', _('department type subsidiary')),  # 子公司
-        ('department', _('department type department')),  # 部门
-        ('group', _('department type group')),  # 组
-    ], _('department type'))
+        ('headquarters', 'department type headquarters'),  # 总公司
+        ('branch', 'department type branch'),  # 分公司
+        ('subsidiary', 'department type subsidiary'),  # 子公司
+        ('department', 'department type department'),  # 部门
+        ('group', 'department type group'),  # 组
+    ], string='department type')
 
     # 部门岗位列表
-    post_id = fields.One2many('employees.post', 'department', string=_('department post list'))
+    post_id = fields.One2many('employees.post', 'department', string='department post list')
     # 岗位成员
-    member_id = fields.One2many('hr.employee', 'department_id', string=_('department employees'))
+    member_id = fields.One2many('hr.employee', 'department_id', string='department employees')
 
 
 class LtyGroups(models.Model):
@@ -363,10 +363,10 @@ class LtyGroups(models.Model):
     _inherit = "res.groups"
 
     # 是否可以作为角色
-    isrole = fields.Boolean(default=False, string=_('is role'))
+    isrole = fields.Boolean(default=False, string='is role')
 
     # 关联的岗位
-    post_id = fields.Many2one('employees.post', string=_('related post'))
+    post_id = fields.Many2one('employees.post', string='related post')
 
     implied_ids_r = fields.Many2many('res.groups', 'res_groups_implied_rel', 'hid', 'gid',
                                      string='Inherits reversal',

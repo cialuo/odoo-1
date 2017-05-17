@@ -10,7 +10,7 @@ class Vehicle(models.Model):
     """
     _inherit = "fleet.vehicle"
     _sql_constraints = [('code_uniq', 'unique (inner_code)', _("inner code already exists")),
-                        ('license_plate_uniq', 'unique(license_plate)', 'The license_plate must be unique !'),]
+                        ('license_plate_uniq', 'unique(license_plate)', _('The license_plate must be unique !')),]
 
     state = fields.Selection([('warrantly', "warrantly"),
                               ('normal', "normal"),
@@ -63,9 +63,9 @@ class Vehicle(models.Model):
     salvage_rate = fields.Float(string='Salvage Rate', compute='_get_salvage_rate')  # 年限残值
 
     # 售票员
-    conductor = fields.Many2many('hr.employee', relation='vehicle_conductor_employee', string=_('conductor'))
+    conductor = fields.Many2many('hr.employee', relation='vehicle_conductor_employee', string="conductor")
     # 司机
-    driver = fields.Many2many('hr.employee', relation='vehicle_driver_employee', string=_('driver'))
+    driver = fields.Many2many('hr.employee', relation='vehicle_driver_employee', string="driver")
 
     route_correct_value = fields.Float(related='route_id.oil_wear_coefficient', string="oil_wear_coefficient")
 
@@ -189,10 +189,10 @@ class route_manage(models.Model):
     _inherit = 'route_manage.route_manage'
 
     # 车辆资源
-    vehicle_res = fields.One2many('fleet.vehicle', 'route_id', string=_('vehicle resource'))
+    vehicle_res = fields.One2many('fleet.vehicle', 'route_id', string="vehicle resource")
 
     # 驾驶员比例
-    driver_rate = fields.Float(compute='_getDriverRate' ,string=_('driver rate'))
+    driver_rate = fields.Float(compute='_getDriverRate' ,string="driver rate")
 
     # 车辆数量
     vehiclenums = fields.Integer("vehicle number", compute='_getVehicleNums')
@@ -229,7 +229,7 @@ class route_manage(models.Model):
                 item.driver_rate = 0
 
     # 售票员比例
-    conductor_rate = fields.Float(compute='_getConductorRate',string=_('conductor rate'))
+    conductor_rate = fields.Float(compute='_getConductorRate',string="conductor rate")
 
     @api.multi
     def _getConductorRate(self):
@@ -242,7 +242,7 @@ class route_manage(models.Model):
                 item.conductor_rate = 0
 
     # 综合比例
-    synthesize_rate = fields.Float(compute='_getSynthesizeRate' ,string=_('synthesize rate'))
+    synthesize_rate = fields.Float(compute='_getSynthesizeRate' ,string="synthesize rate")
 
     @api.multi
     def _getSynthesizeRate(self):

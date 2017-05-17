@@ -125,7 +125,7 @@ msgstr "完成"
 #. module: energy_management
 #: selection:product.product,important_type:0
 msgid "Component"
-msgstr "Component"
+msgstr "作为重要部件管理"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.energy_pile_form
