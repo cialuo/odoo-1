@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-16 11:35+0000\n"
-"PO-Revision-Date: 2017-05-16 11:35+0000\n"
+"POT-Creation-Date: 2017-05-17 01:08+0000\n"
+"PO-Revision-Date: 2017-05-17 01:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -835,16 +835,12 @@ msgid "checking done"
 msgstr "已年检"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:66
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_conductor
-#, python-format
 msgid "conductor"
 msgstr "售票员"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:232
 #: model:ir.model.fields,field_description:vehicle_manage.field_route_manage_route_manage_conductor_rate
-#, python-format
 msgid "conductor rate"
 msgstr "乘务员人车比"
 
@@ -911,17 +907,13 @@ msgid "drive type working"
 msgstr "运营"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:68
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_driver
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicleusage_driverecords_driver_id
-#, python-format
 msgid "driver"
 msgstr "司机"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:195
 #: model:ir.model.fields,field_description:vehicle_manage.field_route_manage_route_manage_driver_rate
-#, python-format
 msgid "driver rate"
 msgstr "驾驶员人车比"
 
@@ -1120,7 +1112,6 @@ msgstr "计划离开"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:79
-#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionplan_planitem_id
 #, python-format
 msgid "plan detail"
 msgstr "明细"
@@ -1199,9 +1190,7 @@ msgid "submitted"
 msgstr "已提交"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:245
 #: model:ir.model.fields,field_description:vehicle_manage.field_route_manage_route_manage_synthesize_rate
-#, python-format
 msgid "synthesize rate"
 msgstr "人车比"
 
@@ -1276,10 +1265,8 @@ msgid "vehicle number"
 msgstr "车辆数量"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:192
 #: model:ir.model.fields,field_description:vehicle_manage.field_route_manage_route_manage_vehicle_res
 #: model:ir.ui.view,arch_db:vehicle_manage.schedule_route_manage_form
-#, python-format
 msgid "vehicle resource"
 msgstr "车辆资源"
 
