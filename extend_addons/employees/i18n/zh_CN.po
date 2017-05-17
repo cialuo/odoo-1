@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* employees
+#	* employees
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 06:34+0000\n"
-"PO-Revision-Date: 2017-05-15 14:37+0800\n"
+"POT-Creation-Date: 2017-05-17 02:09+0000\n"
+"PO-Revision-Date: 2017-05-17 02:09+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 2.0.1\n"
 
 #. module: employees
 #: model:ir.model,name:employees.model_res_groups
@@ -220,8 +218,7 @@ msgid "contracts_document"
 msgstr "劳动合同档案"
 
 #. module: employees
-#: code:addons/employees/models/models.py:255
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_post_direct_leader
 msgid "deirect leader"
 msgstr "直接领导"
 
@@ -233,56 +230,47 @@ msgid "department"
 msgstr "部门"
 
 #. module: employees
-#: code:addons/employees/models/models.py:356
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_department_member_id
 msgid "department employees"
 msgstr "部门员工"
 
 #. module: employees
-#: code:addons/employees/models/models.py:354
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_department_post_id
 msgid "department post list"
 msgstr "部门岗位列表"
 
 #. module: employees
-#: code:addons/employees/models/models.py:338
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_department_record_createdate
 msgid "department record create time"
 msgstr "创建时间"
 
 #. module: employees
-#: code:addons/employees/models/models.py:351
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_department_departmenttype
 msgid "department type"
 msgstr "部门类型"
 
 #. module: employees
-#: code:addons/employees/models/models.py:347
-#, python-format
+#: selection:hr.department,departmenttype:0
 msgid "department type branch"
 msgstr "分公司"
 
 #. module: employees
-#: code:addons/employees/models/models.py:349
-#, python-format
+#: selection:hr.department,departmenttype:0
 msgid "department type department"
 msgstr "部门"
 
 #. module: employees
-#: code:addons/employees/models/models.py:350
-#, python-format
+#: selection:hr.department,departmenttype:0
 msgid "department type group"
 msgstr "组"
 
 #. module: employees
-#: code:addons/employees/models/models.py:346
-#, python-format
+#: selection:hr.department,departmenttype:0
 msgid "department type headquarters"
 msgstr "总公司"
 
 #. module: employees
-#: code:addons/employees/models/models.py:348
-#, python-format
+#: selection:hr.department,departmenttype:0
 msgid "department type subsidiary"
 msgstr "子公司"
 
@@ -307,8 +295,7 @@ msgid "employee department"
 msgstr "组织架构"
 
 #. module: employees
-#: code:addons/employees/models/models.py:15
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_entrydate
 msgid "employee entry date"
 msgstr "入职时间"
 
@@ -323,50 +310,42 @@ msgid "employee post"
 msgstr "岗位设置"
 
 #. module: employees
-#: code:addons/employees/models/models.py:40
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_salaryaccount
 msgid "employee salary account"
 msgstr "工资账户"
 
 #. module: employees
-#: code:addons/employees/models/models.py:38
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_socialsecurityaccount
 msgid "employee socialsecurity account"
 msgstr "社保账号"
 
 #. module: employees
-#: code:addons/employees/models/models.py:20
-#, python-format
+#: selection:hr.employee,employeestate:0
 msgid "employee state in work"
 msgstr "在职"
 
 #. module: employees
-#: code:addons/employees/models/models.py:24
-#, python-format
+#: selection:hr.employee,employeestate:0
 msgid "employee state injured"
 msgstr "工伤"
 
 #. module: employees
-#: code:addons/employees/models/models.py:22
-#, python-format
+#: selection:hr.employee,employeestate:0
 msgid "employee state inner retired"
 msgstr "内退"
 
 #. module: employees
-#: code:addons/employees/models/models.py:25
-#, python-format
+#: selection:hr.employee,employeestate:0
 msgid "employee state other"
 msgstr "其他"
 
 #. module: employees
-#: code:addons/employees/models/models.py:21
-#, python-format
+#: selection:hr.employee,employeestate:0
 msgid "employee state retired"
 msgstr "退休"
 
 #. module: employees
-#: code:addons/employees/models/models.py:23
-#, python-format
+#: selection:hr.employee,employeestate:0
 msgid "employee state retired pay"
 msgstr "退养"
 
@@ -381,26 +360,22 @@ msgid "employee work infomation"
 msgstr "工作相关"
 
 #. module: employees
-#: code:addons/employees/models/models.py:11
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_jobnumber
 msgid "employee work number"
 msgstr "工号"
 
 #. module: employees
-#: code:addons/employees/models/models.py:45
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_workpost
 msgid "employee work post"
 msgstr "岗位"
 
 #. module: employees
-#: code:addons/employees/models/models.py:227
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_post_name
 msgid "employees post name"
 msgstr "岗位名称"
 
 #. module: employees
-#: code:addons/employees/models/models.py:43
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_families
 msgid "employees's families"
 msgstr "家庭成员"
 
@@ -570,19 +545,22 @@ msgstr "调动记录"
 
 #. module: employees
 #: selection:employees.foreign,state:0
-#: selection:employees.post.transfer,state:0 selection:employees.unit,state:0
+#: selection:employees.post.transfer,state:0
+#: selection:employees.unit,state:0
 msgid "employees_unit_confirmed"
 msgstr "待审批"
 
 #. module: employees
 #: selection:employees.foreign,state:0
-#: selection:employees.post.transfer,state:0 selection:employees.unit,state:0
+#: selection:employees.post.transfer,state:0
+#: selection:employees.unit,state:0
 msgid "employees_unit_done"
 msgstr "已完成"
 
 #. module: employees
 #: selection:employees.foreign,state:0
-#: selection:employees.post.transfer,state:0 selection:employees.unit,state:0
+#: selection:employees.post.transfer,state:0
+#: selection:employees.unit,state:0
 msgid "employees_unit_draft"
 msgstr "草稿"
 
@@ -594,94 +572,80 @@ msgid "employees_unit_status"
 msgstr "状态"
 
 #. module: employees
-#: code:addons/employees/models/models.py:76
 #: selection:employees.transfer.record,transfer_type:0
 #: model:ir.actions.act_window,name:employees.ltyhr_employees_unit_transfer
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_unit_transfer
 msgid "employees_unit_transfer"
 msgstr "单位调动"
 
 #. module: employees
-#: code:addons/employees/models/models.py:28
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_employeeattr
 msgid "emplyee attribute"
 msgstr "人员属性"
 
 #. module: employees
-#: code:addons/employees/models/models.py:30
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_bargain
 msgid "emplyee bargain"
 msgstr "劳动合同"
 
 #. module: employees
-#: code:addons/employees/models/models.py:36
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_drivelicensedata
 msgid "emplyee drivelicense date"
 msgstr "领证日期"
 
 #. module: employees
-#: code:addons/employees/models/models.py:34
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_drivelicensenumber
 msgid "emplyee drivelicense number"
 msgstr "驾照号码"
 
 #. module: employees
-#: code:addons/employees/models/models.py:32
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_drivelicense
 msgid "emplyee drivelicense type"
 msgstr "驾照类型"
 
 #. module: employees
-#: code:addons/employees/models/models.py:17
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_passdate
 msgid "emplyee pass time"
 msgstr "转正日期"
 
 #. module: employees
-#: code:addons/employees/models/models.py:26
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_employeestate
 msgid "emplyee state"
 msgstr "员工状态"
 
 #. module: employees
-#: code:addons/employees/models/models.py:13
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_employee_title
 msgid "emplyee title"
 msgstr "职称"
 
 #. module: employees
-#: code:addons/employees/models/models.py:215
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_employeefamily_employer
 msgid "family employer"
 msgstr "工作单位"
 
 #. module: employees
-#: code:addons/employees/models/models.py:202
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_employeefamily_name
 msgid "family name"
 msgstr "姓名"
 
 #. module: employees
-#: code:addons/employees/models/models.py:213
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_employeefamily_phone
 msgid "family phone"
 msgstr "电话"
 
 #. module: employees
-#: code:addons/employees/models/models.py:211
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_employeefamily_profession
 msgid "family profession"
 msgstr "职业"
 
 #. module: employees
-#: code:addons/employees/models/models.py:204
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_employeefamily_relation
 msgid "family relation"
 msgstr "关系"
 
 #. module: employees
-#: code:addons/employees/models/models.py:208 selection:hr.employee,sex:0
-#, python-format
+#: selection:employees.employeefamily,sex:0
+#: selection:hr.employee,sex:0
 msgid "female"
 msgstr "女"
 
@@ -703,14 +667,12 @@ msgid "groups are inherited by other groups, can not be delete!"
 msgstr "该组目前被其他群组继承，不能被删除！"
 
 #. module: employees
-#: code:addons/employees/models/models.py:291
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_post_higher_level
 msgid "higher level"
 msgstr "上级"
 
 #. module: employees
-#: code:addons/employees/models/models.py:366
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_res_groups_isrole
 msgid "is role"
 msgstr "角色"
 
@@ -720,8 +682,8 @@ msgid "live address"
 msgstr "住址"
 
 #. module: employees
-#: code:addons/employees/models/models.py:207 selection:hr.employee,sex:0
-#, python-format
+#: selection:employees.employeefamily,sex:0
+#: selection:hr.employee,sex:0
 msgid "male"
 msgstr "男"
 
@@ -736,8 +698,7 @@ msgid "married"
 msgstr "已婚"
 
 #. module: employees
-#: code:addons/employees/models/models.py:315
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_post_membercount
 msgid "member count of post"
 msgstr "成员数量"
 
@@ -782,14 +743,12 @@ msgid "post Name"
 msgstr "岗位名称"
 
 #. module: employees
-#: code:addons/employees/models/models.py:328
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_hr_department_membercount
 msgid "post count in department"
 msgstr "岗位数量"
 
 #. module: employees
-#: code:addons/employees/models/models.py:229
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_post_department
 msgid "post department"
 msgstr "岗位所属部门"
 
@@ -799,8 +758,7 @@ msgid "post in department"
 msgstr "岗位设置"
 
 #. module: employees
-#: code:addons/employees/models/models.py:231
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_post_description
 msgid "post infomation"
 msgstr "岗位信息"
 
@@ -810,44 +768,37 @@ msgid "post list"
 msgstr "岗位列表"
 
 #. module: employees
-#: code:addons/employees/models/models.py:240
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_post_members
 msgid "post members"
 msgstr "成员列表"
 
 #. module: employees
-#: code:addons/employees/models/models.py:242
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_post_group_id
 msgid "post relate group"
 msgstr "关联权限"
 
 #. module: employees
-#: code:addons/employees/models/models.py:237
-#, python-format
+#: selection:employees.post,posttype:0
 msgid "post title conductor"
 msgstr "乘务员"
 
 #. module: employees
-#: code:addons/employees/models/models.py:236
-#, python-format
+#: selection:employees.post,posttype:0
 msgid "post title driver"
 msgstr "司机"
 
 #. module: employees
-#: code:addons/employees/models/models.py:235
-#, python-format
+#: selection:employees.post,posttype:0
 msgid "post title labour"
 msgstr "员工"
 
 #. module: employees
-#: code:addons/employees/models/models.py:238
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_employees_post_posttype
 msgid "post title list"
 msgstr "岗位类型"
 
 #. module: employees
-#: code:addons/employees/models/models.py:234
-#, python-format
+#: selection:employees.post,posttype:0
 msgid "post title manager"
 msgstr "经理"
 
@@ -863,15 +814,13 @@ msgid "post_transfer"
 msgstr "岗位调动"
 
 #. module: employees
-#: code:addons/employees/models/models.py:369
-#, python-format
+#: model:ir.model.fields,field_description:employees.field_res_groups_post_id
 msgid "related post"
 msgstr "岗位"
 
 #. module: employees
-#: code:addons/employees/models/models.py:209
+#: model:ir.model.fields,field_description:employees.field_employees_employeefamily_sex
 #: model:ir.model.fields,field_description:employees.field_hr_employee_sex
-#, python-format
 msgid "sex"
 msgstr "性别"
 
@@ -942,3 +891,4 @@ msgstr "新建调动单编码"
 #: model:ir.ui.menu,name:employees.ltyhr_employee_unit_transfer_menu
 msgid "unit_transfer"
 msgstr "单位调动"
+
