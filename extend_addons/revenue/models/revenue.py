@@ -8,13 +8,6 @@ class total_revenue(models.Model):
 
     _rec_name = 'route'
 
-    # 获取车牌号，暂未用
-    @api.depends('route')
-    def _getVehicleNumber(self):
-        res = self.env['fleet.vehicle'].search([])
-        for item in res:
-            print '========%s'%item.license_plate
-
     # @api.multi
     # def _set_license_plate(self, route):
 

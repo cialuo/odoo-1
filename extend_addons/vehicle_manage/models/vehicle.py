@@ -10,7 +10,7 @@ class Vehicle(models.Model):
     """
     _inherit = "fleet.vehicle"
     _sql_constraints = [('code_uniq', 'unique (inner_code)', _("inner code already exists")),
-                        ('license_plate_uniq', 'unique(license_plate)', 'The license_plate must be unique !'),]
+                        ('license_plate_uniq', 'unique(license_plate)', _('The license_plate must be unique !')),]
 
     state = fields.Selection([('warrantly', "warrantly"),
                               ('normal', "normal"),

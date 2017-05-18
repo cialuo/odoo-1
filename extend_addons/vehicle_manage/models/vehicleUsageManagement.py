@@ -76,7 +76,7 @@ class InspectionPlan(models.Model):
     remark = fields.Char(string="remark")
     # 计划详情
     planitem_id = fields.One2many('vehicle_usage.planitem', 'inspectionplan_id',
-                                  string=_("plan detail"))
+                                  string="plan detail")
     # 年检计划
     subject = fields.Char(string="plan subject")
 
@@ -85,11 +85,11 @@ class InspectionPlan(models.Model):
 
     # 状态表
     state = fields.Selection([
-        ('draft',_('draft')),           # 草稿
-        ('submitted',_('submitted')),   # 已提交
-        ('checked',_('checked')),       # 已审批
-        ('execution',_('execution')),   # 执行中
-        ('done',_('done')),             # 已完成
+        ('draft','draft'),           # 草稿
+        ('submitted','submitted'),   # 已提交
+        ('checked','checked'),       # 已审批
+        ('execution','execution'),   # 执行中
+        ('done','done'),             # 已完成
     ], string="inspection plan state",default='draft')
 
     @api.multi
@@ -193,8 +193,8 @@ class PlanItem(models.Model):
     annual_inspection_date = fields.Date(related='vehicle_id.annual_inspection_date', readonly=True)
     # 状态表
     state = fields.Selection([
-        ('execution', _('execution')),  # 进行中
-        ('done', _('done')),            # 已完成
+        ('execution', 'execution'),  # 进行中
+        ('done', 'done'),            # 已完成
     ], string="plan item state", default='execution')
 
     # 年检计划
@@ -359,9 +359,9 @@ class DriveRecords(models.Model):
     realityarrive = fields.Datetime(string="reality arrive")
     # 类型
     drivetype = fields.Selection([
-        ('working',_('drive type working')),    # 运营
-        ('refuel',_('drive type refuel')),      # 加油
-        ('empty',_('drive type empty'))         # 空驶
+        ('working','drive type working'),    # 运营
+        ('refuel','drive type refuel'),      # 加油
+        ('empty','drive type empty')         # 空驶
     ],string="drive type")
 
 

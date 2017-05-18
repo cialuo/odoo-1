@@ -106,7 +106,7 @@ class security_check_details(models.Model):
     security_check_id = fields.Many2one('energy.security_check',string='Security Check Id')
 
     #安全检查项
-    security_check_item_id = fields.Many2one('security_manage.check_item',string='Security Check Item Id')
+    security_check_item_id = fields.Many2one('security_manage.check_item_detail',string='Security Check Item Id')
 
     #检查项目名称
     check_item_name = fields.Char(string='Check Item Name',related='security_check_item_id.check_item_name', store=False, readonly=True)
