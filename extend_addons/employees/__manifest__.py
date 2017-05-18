@@ -30,7 +30,6 @@
         'security/transfer/ir.model.access.csv',
         'views/ltyhr_employee_document.xml',
         'views/lty_groups.xml',
-        'views/salarymanage.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
