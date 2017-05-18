@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* employees
+# 	* employees
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-17 02:09+0000\n"
-"PO-Revision-Date: 2017-05-17 02:09+0000\n"
+"POT-Creation-Date: 2017-05-18 09:09+0000\n"
+"PO-Revision-Date: 2017-05-18 17:12+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #. module: employees
 #: model:ir.model,name:employees.model_res_groups
@@ -38,6 +40,7 @@ msgstr "Course Tree"
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_create_uid
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_post_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_create_uid
@@ -48,6 +51,7 @@ msgstr "创建人"
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_create_date
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_post_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_create_date
@@ -58,6 +62,7 @@ msgstr "创建时间"
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_display_name
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_post_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_display_name
@@ -68,7 +73,7 @@ msgstr "显示名称"
 #. module: employees
 #: model:ir.model,name:employees.model_hr_employee
 msgid "Employee"
-msgstr "员工档案"
+msgstr "员工"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_employee_id
@@ -100,8 +105,29 @@ msgid "Hr Department"
 msgstr "部门"
 
 #. module: employees
+#: model:ir.actions.act_window,name:employees.ICCard_manage_cardlist_action
+msgid "IC Card"
+msgstr "IC卡"
+
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.ICCard_manage_tree_view
+msgid "IC Card list"
+msgstr "IC卡库"
+
+#. module: employees
+#: model:ir.ui.menu,name:employees.employee_ICCard_manage_menu
+msgid "IC Card manage"
+msgstr "IC卡管理"
+
+#. module: employees
+#: model:ir.ui.menu,name:employees.employee_ICCard_manage_list_menu
+msgid "IC Card storage"
+msgstr "IC卡库"
+
+#. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_id
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_id
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_id
 #: model:ir.model.fields,field_description:employees.field_employees_post_id
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_id
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_id
@@ -122,6 +148,7 @@ msgstr "Inherits reversal"
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_foreign___last_update
+#: model:ir.model.fields,field_description:employees.field_employees_iccards___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_post___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record___last_update
@@ -132,6 +159,7 @@ msgstr "最后修改日"
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_write_uid
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_post_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_write_uid
@@ -142,6 +170,7 @@ msgstr "最后更新人"
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_write_date
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_post_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_write_date
@@ -171,6 +200,16 @@ msgid "a group that bind with a post can not be delete"
 msgstr "状态为角色的组不能被删除"
 
 #. module: employees
+#: selection:employees.iccards,status:0
+msgid "active"
+msgstr "启用"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_active_date
+msgid "active date"
+msgstr "启用日期"
+
+#. module: employees
 #: code:addons/employees/models/models.py:87
 #, python-format
 msgid "administrator can not be bind to an employee"
@@ -182,6 +221,17 @@ msgstr "超级管理员不能绑定到员工"
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_unit_transfer_form
 msgid "back_draft"
 msgstr "退回草稿"
+
+#. module: employees
+#: selection:employees.iccards,status:0
+msgid "blockup"
+msgstr "停用"
+
+#. module: employees
+#: selection:employees.iccards,inactive_reason:0
+#: selection:employees.iccards,status:0
+msgid "broken"
+msgstr "损坏"
 
 #. module: employees
 #: code:addons/employees/models/models.py:385
@@ -196,6 +246,11 @@ msgstr "一个岗位不能同时绑定到两个组"
 #, python-format
 msgid "can't set system user to employee in twice"
 msgstr "一个系统用户不能绑定到两个员工"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_cardsn
+msgid "card SN"
+msgstr "卡号"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_foreign_transfer_form
@@ -224,6 +279,7 @@ msgstr "直接领导"
 
 #. module: employees
 #: model:ir.actions.act_window,name:employees.ltyhr_employee_department
+#: model:ir.ui.view,arch_db:employees.ICCard_manage_form_view
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_department_form
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_post_form
 msgid "department"
@@ -288,6 +344,11 @@ msgstr "档案与调动"
 #: model:ir.model.fields,field_description:employees.field_hr_employee_education
 msgid "education"
 msgstr "学历"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_employee_id
+msgid "employee"
+msgstr "员工"
 
 #. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_document_department_menu
@@ -393,6 +454,11 @@ msgstr "家庭成员"
 #: model:ir.model,name:employees.model_employees_foreign
 msgid "employees.foreign"
 msgstr "employees.foreign"
+
+#. module: employees
+#: model:ir.model,name:employees.model_employees_iccards
+msgid "employees.iccards"
+msgstr "employees.iccards"
 
 #. module: employees
 #: model:ir.model,name:employees.model_employees_post
@@ -545,22 +611,19 @@ msgstr "调动记录"
 
 #. module: employees
 #: selection:employees.foreign,state:0
-#: selection:employees.post.transfer,state:0
-#: selection:employees.unit,state:0
+#: selection:employees.post.transfer,state:0 selection:employees.unit,state:0
 msgid "employees_unit_confirmed"
 msgstr "待审批"
 
 #. module: employees
 #: selection:employees.foreign,state:0
-#: selection:employees.post.transfer,state:0
-#: selection:employees.unit,state:0
+#: selection:employees.post.transfer,state:0 selection:employees.unit,state:0
 msgid "employees_unit_done"
 msgstr "已完成"
 
 #. module: employees
 #: selection:employees.foreign,state:0
-#: selection:employees.post.transfer,state:0
-#: selection:employees.unit,state:0
+#: selection:employees.post.transfer,state:0 selection:employees.unit,state:0
 msgid "employees_unit_draft"
 msgstr "草稿"
 
@@ -644,8 +707,7 @@ msgid "family relation"
 msgstr "关系"
 
 #. module: employees
-#: selection:employees.employeefamily,sex:0
-#: selection:hr.employee,sex:0
+#: selection:employees.employeefamily,sex:0 selection:hr.employee,sex:0
 msgid "female"
 msgstr "女"
 
@@ -672,6 +734,22 @@ msgid "higher level"
 msgstr "上级"
 
 #. module: employees
+#: selection:employees.iccards,inactive_reason:0
+#: selection:employees.iccards,status:0
+msgid "inactive"
+msgstr "未启用"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_inactive_date
+msgid "inactive date"
+msgstr "停用日期"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_inactive_reason
+msgid "inactive reason"
+msgstr "停用原因"
+
+#. module: employees
 #: model:ir.model.fields,field_description:employees.field_res_groups_isrole
 msgid "is role"
 msgstr "角色"
@@ -682,8 +760,13 @@ msgid "live address"
 msgstr "住址"
 
 #. module: employees
-#: selection:employees.employeefamily,sex:0
-#: selection:hr.employee,sex:0
+#: selection:employees.iccards,inactive_reason:0
+#: selection:employees.iccards,status:0
+msgid "loss"
+msgstr "丢失"
+
+#. module: employees
+#: selection:employees.employeefamily,sex:0 selection:hr.employee,sex:0
 msgid "male"
 msgstr "男"
 
@@ -835,6 +918,11 @@ msgid "spinsterhood"
 msgstr "未婚"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_status
+msgid "status"
+msgstr "状态"
+
+#. module: employees
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_foreign_transfer_form
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_post_transfer_form
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_unit_transfer_form
@@ -891,4 +979,3 @@ msgstr "新建调动单编码"
 #: model:ir.ui.menu,name:employees.ltyhr_employee_unit_transfer_menu
 msgid "unit_transfer"
 msgstr "单位调动"
-
