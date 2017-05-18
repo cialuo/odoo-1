@@ -1,5 +1,117 @@
 <odoo>
 
+
+    <!-- 继承工资表工资结构action页面tree视图 -->
+    <record id="salary_manage_payroll_structure_tree" model="ir.ui.view">
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payroll_structure_list_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='code']" position="replace">
+                <field name="code" string="structure code" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 继承工资表工资结构action页面form表单 -->
+    <record id="salary_manage_payroll_structure_form" model="ir.ui.view">
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='code']" position="replace">
+                <field name="code" string="structure code" />
+            </xpath>
+            <xpath expr="//tree/field[@name='code']" position="replace">
+                <field name="code" string="code" />
+            </xpath>
+            <xpath expr="//tree/field[@name='category_id']" position="replace">
+                <field name="category_id" string="category code" />
+            </xpath>
+        </field>
+    </record>
+    <!--继承工资规则form表单页面-->
+    <record id="salary_manage_salary_rule_form" model="ir.ui.view">
+        <field name="model">hr.salary.rule</field>
+        <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form" position="replace">
+                <form string="Salary Rules">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="category_id" string="rule category"/>
+                            <field name="sequence"/>
+                            <field name="appears_on_payslip"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                            <field name="active"/>
+                            <field name="parent_rule_id"/>
+                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="General">
+                            <group col="4">
+                                <separator colspan="4" string="Conditions"/>
+                                <field name="condition_select"/>
+                                <newline/>
+                                <field name="condition_python"
+                                       attrs="{'invisible':[('condition_select','&lt;&gt;','python')], 'required': [('condition_select','=','python')]}"
+                                       colspan="4"/>
+                                <newline/>
+                                <field name="condition_range"
+                                       attrs="{'invisible':[('condition_select','&lt;&gt;','range')], 'required':[('condition_select','=','range')]}"/>
+                                <newline/>
+                                <field name="condition_range_min" colspan="2"
+                                       attrs="{'invisible':[('condition_select','&lt;&gt;','range')], 'required':[('condition_select','=','range')]}"/>
+                                <newline/>
+                                <field name="condition_range_max" colspan="2"
+                                       attrs="{'invisible':[('condition_select','&lt;&gt;','range')], 'required':[('condition_select','=','range')]}"/>
+                                <newline/>
+                                <separator colspan="4" string="Computation"/>
+                                <field name="amount_select"/>
+                                <newline/>
+                                <field name="amount_percentage_base"
+                                       attrs="{'invisible':[('amount_select','&lt;&gt;','percentage')], 'required': [('amount_select','=','percentage')]}"/>
+                                <newline/>
+                                <field name="quantity"
+                                       attrs="{'invisible':[('amount_select','=','code')], 'required':[('amount_select','!=','code')]}"/>
+                                <newline/>
+                                <field name="amount_fix"
+                                       attrs="{'invisible':[('amount_select','&lt;&gt;','fix')], 'required':[('amount_select','=','fix')]}"/>
+                                <newline/>
+                                <field colspan="4" name="amount_python_compute"
+                                       attrs="{'invisible':[('amount_select','&lt;&gt;','code')], 'required':[('amount_select','=','code')]}"/>
+                                <field name="amount_percentage"
+                                       attrs="{'invisible':[('amount_select','&lt;&gt;','percentage')], 'required':[('amount_select','=','percentage')]}"/>
+                                <separator colspan="4" string="Company Contribution"/>
+                                <field name="register_id"/>
+                            </group>
+                        </page>
+                        <page name="rules" string="Child Rules">
+                            <field name="child_ids"/>
+                        </page>
+                        <page string="Inputs">
+                            <field name="input_ids" mode="tree">
+                                <tree string="Input Data" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Description">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </form>
+            </xpath>
+        </field>
+    </record>
+
+
     <menuitem id="ltyhr_salary_system_menu" name="salary system"
               parent="employees_menu.salary_manage" />
     <menuitem id="ltyhr_salary_constructure_menu" name="salary constructure"
