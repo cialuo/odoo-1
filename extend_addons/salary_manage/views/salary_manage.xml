@@ -1,0 +1,7 @@
+<odoo>
+    <!-- 车辆年检管理 -->
+    <menuitem name="salary manage"
+              id="salary_manage"
+              parent=".ltyhr_top_menu"
+              sequence="50"/>
+</odoo>
