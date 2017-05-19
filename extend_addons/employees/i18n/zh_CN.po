@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-18 09:09+0000\n"
-"PO-Revision-Date: 2017-05-18 17:12+0800\n"
+"POT-Creation-Date: 2017-05-19 06:16+0000\n"
+"PO-Revision-Date: 2017-05-19 14:18+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,9 +23,19 @@ msgid "Access Groups"
 msgstr "访问组"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_active
+msgid "Active"
+msgstr "有效"
+
+#. module: employees
 #: model:ir.ui.view,arch_db:employees.lty_view_employee_form
 msgid "Basic Infomation"
 msgstr "基本信息"
+
+#. module: employees
+#: sql_constraint:employees.iccards:0
+msgid "Card SN Can not duplication"
+msgstr "IC卡号不能重复"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_department_tree
@@ -41,6 +51,7 @@ msgstr "Course Tree"
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_create_uid
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_usage_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_post_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_create_uid
@@ -52,6 +63,7 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_create_date
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_usage_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_post_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_create_date
@@ -63,6 +75,7 @@ msgstr "创建时间"
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_display_name
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_usage_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_post_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_display_name
@@ -106,6 +119,7 @@ msgstr "部门"
 
 #. module: employees
 #: model:ir.actions.act_window,name:employees.ICCard_manage_cardlist_action
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_usage_iccar_id
 msgid "IC Card"
 msgstr "IC卡"
 
@@ -120,14 +134,26 @@ msgid "IC Card manage"
 msgstr "IC卡管理"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_usage_returndate
+msgid "IC Card return date"
+msgstr "还卡日期"
+
+#. module: employees
 #: model:ir.ui.menu,name:employees.employee_ICCard_manage_list_menu
 msgid "IC Card storage"
 msgstr "IC卡库"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_usage_records
+#: model:ir.ui.view,arch_db:employees.ICCard_manage_form_view
+msgid "IC Card usage records"
+msgstr "IC卡使用记录"
+
+#. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_id
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_id
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_id
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_usage_id
 #: model:ir.model.fields,field_description:employees.field_employees_post_id
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_id
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_id
@@ -149,6 +175,7 @@ msgstr "Inherits reversal"
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_foreign___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_iccards___last_update
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_usage___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_post___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record___last_update
@@ -159,6 +186,7 @@ msgstr "最后修改日"
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_write_uid
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_usage_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_post_write_uid
@@ -170,6 +198,7 @@ msgstr "最后更新人"
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_write_date
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_usage_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_post_transfer_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_post_write_date
@@ -251,6 +280,16 @@ msgstr "一个系统用户不能绑定到两个员工"
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_cardsn
 msgid "card SN"
 msgstr "卡号"
+
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.ICCard_manage_form_view
+msgid "card return date"
+msgstr "还卡日期"
+
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.ICCard_manage_form_view
+msgid "card user"
+msgstr "使用人"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_foreign_transfer_form
@@ -459,6 +498,11 @@ msgstr "employees.foreign"
 #: model:ir.model,name:employees.model_employees_iccards
 msgid "employees.iccards"
 msgstr "employees.iccards"
+
+#. module: employees
+#: model:ir.model,name:employees.model_employees_iccards_usage
+msgid "employees.iccards.usage"
+msgstr "employees.iccards.usage"
 
 #. module: employees
 #: model:ir.model,name:employees.model_employees_post
@@ -734,6 +778,11 @@ msgid "higher level"
 msgstr "上级"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_iccards_usage_user
+msgid "ic Card User"
+msgstr "使用人"
+
+#. module: employees
 #: selection:employees.iccards,inactive_reason:0
 #: selection:employees.iccards,status:0
 msgid "inactive"
@@ -900,6 +949,11 @@ msgstr "岗位调动"
 #: model:ir.model.fields,field_description:employees.field_res_groups_post_id
 msgid "related post"
 msgstr "岗位"
+
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.ICCard_manage_form_view
+msgid "return Card"
+msgstr "还卡"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_sex

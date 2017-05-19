@@ -3,6 +3,7 @@
 # ic卡管理
 
 from odoo import models, fields, api, _
+from datetime import datetime
 
 class ICCard(models.Model):
     """
@@ -13,6 +14,7 @@ class ICCard(models.Model):
 
     _sql_constraints = [('card sn unique', 'unique (cardsn)', 'Card SN Can not duplication')]
 
+    active = fields.Boolean('Active', default=True)
     # 卡号
     cardsn = fields.Char('card SN')
     # 状态
@@ -24,7 +26,7 @@ class ICCard(models.Model):
         ('blockup','blockup'),      # 停用
     ], string='status', default='inactive')
     # 员工
-    employee_id = fields.Many2one('hr.employee', string='employee')
+    employee_id = fields.Many2one('hr.employee', string='employee', default=None)
     # 启用日期
     active_date = fields.Date(string='active date')
     # 停用日期
@@ -35,3 +37,41 @@ class ICCard(models.Model):
         ('broken','broken'),        # 损坏
         ('inactive','inactive'),    # 停用
     ],string='inactive reason')
+    # IC卡使用记录
+    usage_records = fields.One2many('employees.iccards.usage', 'iccar_id', string='IC Card usage records')
+
+    def toggle_active(self):
+        self.inactive_date = datetime.today()
+        return super(ICCard, self).toggle_active()
+
+    @api.multi
+    def returnCard(self):
+        for item in self:
+            if item.employee_id.id != False:
+                record = [(0, _, {'user':item.employee_id.id,'returndate':datetime.today()})]
+                item.write({'usage_records':record,'status':'inactive'})
+        return True
+
+class CardReturnRecords(models.Model):
+    """
+    IC卡使用记录
+    """
+    _name = 'employees.iccards.usage'
+
+    iccar_id = fields.Many2one('employees.iccards', string='IC Card')
+    # 使用人
+    user = fields.Many2one('hr.employee', string='ic Card User')
+    # IC卡归还日期
+    returndate = fields.Date('IC Card return date')
+
+
+class CardDispatchRecords(models.Model):
+    _name = 'employees.iccards.usage'
+
+    iccar_id = fields.Many2one('employees.iccards', string='IC Card')
+
+    user = fields.Many2one('hr.employee', string='ic Card User')
+
+    dispatchtime = fields.Date('dispatch date')
+
+    reason = fields.Char('dispatch reasion')
