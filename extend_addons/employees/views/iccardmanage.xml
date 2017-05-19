@@ -78,7 +78,7 @@
         <field name="arch" type="xml">
             <search>
                 <field name="active"/>
-                <filter name="in_active_cards" domain="[('active','=', False)]"/>
+                <filter name="in_active_cards" string="in_active_cards" domain="[('active','=', False)]"/>
             </search>
         </field>
     </record>
@@ -91,11 +91,56 @@
         <field name="context" eval="{'search_default_in_active_cards':1}"/>
     </record>
 
+    <!--IC卡发卡编辑表单-->
+    <record id="ICCard_dispatch_form_view" model="ir.ui.view">
+        <field name="name">IC Card dispatch form</field>
+        <field name="model">employees.iccards.dispatch</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="iccar_id" options="{'no_open': True, 'no_create': True}"
+                        domain="[('status','=','inactive')]" required="1"/>
+                        <field name="user" options="{'no_open': True, 'no_create': True}" required="1"/>
+                        <field name="reason" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 发卡记录列表 -->
+    <record id="ICcard_dispatch_tree" model="ir.ui.view">
+        <field name="name">IC card dispatch tree</field>
+        <field name="model">employees.iccards.dispatch</field>
+        <field name="arch" type="xml">
+            <tree string="dispatch list">
+                <field name="iccar_id"/>
+                <field name="user"/>
+                <field name="dispatchtime"/>
+                <field name="reason"/>
+                <field name="operator"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--ic卡发卡action页面-->
+    <record model="ir.actions.act_window" id="ICCard_manage_card_dispatch_action">
+        <field name="name">IC Card dispatch </field>
+        <field name="res_model">employees.iccards.dispatch</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--IC卡管理-->
     <menuitem id="employee_ICCard_manage_menu" name="IC Card manage"
               parent="employees_menu.ltyhr_employee_document_menu"/>
-
+    <!--IC卡库-->
     <menuitem id="employee_ICCard_manage_list_menu" name="IC Card storage"
               parent="employee_ICCard_manage_menu" action="ICCard_manage_cardlist_action"/>
+    <!--挂失记录-->
     <menuitem id="employee_ICCard_manage_lapsed_list_menu" name="IC Card storage"
               parent="employee_ICCard_manage_menu" action="ICCard_manage_cardlist_lapsed_action"/>
+    <!--发卡记录-->
+    <menuitem id="employee_ICCard_dispatch_list_menu" name="IC Card dispatch"
+              parent="employee_ICCard_manage_menu" action="ICCard_manage_card_dispatch_action"/>
 </odoo>

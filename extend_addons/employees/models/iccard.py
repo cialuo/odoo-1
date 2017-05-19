@@ -66,12 +66,31 @@ class CardReturnRecords(models.Model):
 
 
 class CardDispatchRecords(models.Model):
-    _name = 'employees.iccards.usage'
+    _name = 'employees.iccards.dispatch'
+    _rec_name = 'iccar_id'
 
+    # 关联的ic卡
     iccar_id = fields.Many2one('employees.iccards', string='IC Card')
-
+    # 领卡用户
     user = fields.Many2one('hr.employee', string='ic Card User')
+    # 发卡时间
+    dispatchtime = fields.Date('dispatch date', default=lambda self:datetime.today())
+    # 发卡原因
+    reason = fields.Char('dispatch reasion',)
+    # 操作员
+    operator = fields.Many2one('res.users', string='card dispatch operator', default=lambda self: self._uid)
 
-    dispatchtime = fields.Date('dispatch date')
-
-    reason = fields.Char('dispatch reasion')
+    @api.model
+    def create(self, vals):
+        iccard = self.env['employees.iccards']
+        cardinfo  = iccard.browse([vals['iccar_id']])
+        if len(cardinfo) > 0 :
+            ins = cardinfo[0]
+            newdata = {}
+            newdata['status'] = 'active'
+            newdata['employee_id'] = vals['user']
+            if ins.active_date == False:
+                newdata['active_date'] = datetime.today()
+            ins.write(newdata)
+        res = super(CardDispatchRecords, self).create(vals)
+        return res
