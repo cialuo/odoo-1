@@ -31,6 +31,7 @@
         'views/ltyhr_employee_document.xml',
         'views/lty_groups.xml',
         'views/iccardmanage.xml',
+        'views/assets.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

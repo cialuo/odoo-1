@@ -131,9 +131,76 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <!-- 证件列表tree视图 -->
+    <record model="ir.ui.view" id="employee_certificate_tree">
+        <field name="name">employees.certificate.tree</field>
+        <field name="model">employees.certificate</field>
+        <field name="arch" type="xml">
+            <tree string="Course Tree">
+                <field name="jobnumber"/>
+                <field name="username"/>
+                <field name="workpost"/>
+                <field name="title"/>
+                <field name="department_id"/>
+                <field name="employeestate"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <!--特种工证照编辑表单-->
+    <record id="employees_certificate_form_view" model="ir.ui.view">
+        <field name="name">employees certificate form</field>
+        <field name="model">employees.certificate</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="userimage" widget='image' class="oe_avatar"
+                           options='{"preview_image":"image_medium"}' readonly="1"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="username" placeholder="Employee's Name"/>
+                        </h1>
+                        <div>
+                            <label for="jobnumber"/>
+                            <field name="jobnumber" />
+                        </div>
+                    </div>
+                    <group>
+                        <group string="employee info">
+                            <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="name"/>
+                            <field name="expiredate"/>
+                            <field name="department_id" readonly="1"/>
+                            <field name="title" readonly="1"/>
+                            <field name="mobile_phone" readonly="1"/>
+                            <field name="work_email" readonly="1"/>
+                        </group>
+                        <group string="upload image">
+                            <div>
+                                <field name="image" widget='image' class="certificate_img" />
+                            </div>
+                        </group>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--特种工证照action页面-->
+    <record model="ir.actions.act_window" id="certificate_action">
+        <field name="name">certificate</field>
+        <field name="res_model">employees.certificate</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <!--IC卡管理-->
     <menuitem id="employee_ICCard_manage_menu" name="IC Card manage"
               parent="employees_menu.ltyhr_employee_document_menu"/>
+    <!--IC卡管理-->
+    <menuitem id="employee_certificate_menu" name="employee certificate"
+              parent="employees_menu.ltyhr_employee_document_menu" action="certificate_action"/>
     <!--IC卡库-->
     <menuitem id="employee_ICCard_manage_list_menu" name="IC Card storage"
               parent="employee_ICCard_manage_menu" action="ICCard_manage_cardlist_action"/>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-19 08:07+0000\n"
-"PO-Revision-Date: 2017-05-19 16:08+0800\n"
+"POT-Creation-Date: 2017-05-19 11:16+0000\n"
+"PO-Revision-Date: 2017-05-19 19:19+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -43,11 +43,13 @@ msgid "Companies"
 msgstr "公司"
 
 #. module: employees
+#: model:ir.ui.view,arch_db:employees.employee_certificate_tree
 #: model:ir.ui.view,arch_db:employees.employee_family_infolist
 msgid "Course Tree"
 msgstr "Course Tree"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_create_uid
@@ -61,6 +63,7 @@ msgid "Created by"
 msgstr "创建人"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_create_date
@@ -74,6 +77,12 @@ msgid "Created on"
 msgstr "创建时间"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_department_id
+msgid "Department"
+msgstr "部门"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_dispatch_display_name
@@ -165,6 +174,7 @@ msgid "IC Card usage records"
 msgstr "IC卡使用记录"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_id
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_id
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_id
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_dispatch_id
@@ -188,6 +198,7 @@ msgid "Inherits reversal"
 msgstr "Inherits reversal"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_foreign___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_iccards___last_update
@@ -201,6 +212,7 @@ msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_dispatch_write_uid
@@ -214,6 +226,7 @@ msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_dispatch_write_date
@@ -225,6 +238,11 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:employees.field_employees_unit_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_username
+msgid "Name"
+msgstr "名字"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.lty_view_employee_form
@@ -240,6 +258,16 @@ msgstr "相关用户"
 #: model:ir.model.fields,help:employees.field_res_groups_implied_ids_r
 msgid "Users of this group automatically inherit those groups"
 msgstr "这个群组的用户自动继承那些群组"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_work_email
+msgid "Work Email"
+msgstr "工作Email"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_mobile_phone
+msgid "Work Mobile"
+msgstr "办公手机"
 
 #. module: employees
 #: code:addons/employees/models/models.py:469
@@ -302,7 +330,6 @@ msgstr "卡号"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_dispatch_operator
-#: model:ir.model.fields,field_description:employees.field_employees_iccards_dispatch_operator_name
 msgid "card dispatch operator"
 msgstr "操作员"
 
@@ -315,6 +342,26 @@ msgstr "还卡日期"
 #: model:ir.ui.view,arch_db:employees.ICCard_manage_form_view
 msgid "card user"
 msgstr "使用人"
+
+#. module: employees
+#: model:ir.actions.act_window,name:employees.certificate_action
+msgid "certificate"
+msgstr "特种工证照管理"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_expiredate
+msgid "certificate expire date"
+msgstr "到期日期"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_image
+msgid "certificate image"
+msgstr "证照信息"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_name
+msgid "certificate name"
+msgstr "证件名称"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_foreign_transfer_form
@@ -425,9 +472,15 @@ msgid "education"
 msgstr "学历"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_employee_id
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_employee_id
 msgid "employee"
 msgstr "员工"
+
+#. module: employees
+#: model:ir.ui.menu,name:employees.employee_certificate_menu
+msgid "employee certificate"
+msgstr "特种工证照管理"
 
 #. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_document_department_menu
@@ -438,6 +491,11 @@ msgstr "组织架构"
 #: model:ir.model.fields,field_description:employees.field_hr_employee_entrydate
 msgid "employee entry date"
 msgstr "入职时间"
+
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.employees_certificate_form_view
+msgid "employee info"
+msgstr "人员信息"
 
 #. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_document_employeeinfo_menu
@@ -500,11 +558,13 @@ msgid "employee work infomation"
 msgstr "工作相关"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_jobnumber
 #: model:ir.model.fields,field_description:employees.field_hr_employee_jobnumber
 msgid "employee work number"
 msgstr "工号"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_workpost
 #: model:ir.model.fields,field_description:employees.field_hr_employee_workpost
 msgid "employee work post"
 msgstr "岗位"
@@ -523,6 +583,11 @@ msgstr "家庭成员"
 #: model:ir.ui.view,arch_db:employees.lty_view_employee_form
 msgid "employees's family"
 msgstr "家庭成员"
+
+#. module: employees
+#: model:ir.model,name:employees.model_employees_certificate
+msgid "employees.certificate"
+msgstr "工证照"
 
 #. module: employees
 #: model:ir.model,name:employees.model_employees_employeefamily
@@ -761,11 +826,13 @@ msgid "emplyee pass time"
 msgstr "转正日期"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_employeestate
 #: model:ir.model.fields,field_description:employees.field_hr_employee_employeestate
 msgid "emplyee state"
 msgstr "员工状态"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_certificate_title
 #: model:ir.model.fields,field_description:employees.field_hr_employee_title
 msgid "emplyee title"
 msgstr "职称"
@@ -1089,3 +1156,8 @@ msgstr "新建调动单编码"
 #: model:ir.ui.menu,name:employees.ltyhr_employee_unit_transfer_menu
 msgid "unit_transfer"
 msgstr "单位调动"
+
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.employees_certificate_form_view
+msgid "upload image"
+msgstr "上传图片"

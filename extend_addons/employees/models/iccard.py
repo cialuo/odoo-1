@@ -94,3 +94,36 @@ class CardDispatchRecords(models.Model):
             ins.write(newdata)
         res = super(CardDispatchRecords, self).create(vals)
         return res
+
+class certificate(models.Model):
+    _name = 'employees.certificate'
+
+    # 证件名称
+    name = fields.Char('certificate name')
+    # 过期日期
+    expiredate = fields.Date('certificate expire date')
+
+    # 图片
+    image = fields.Binary('certificate image')
+    # 工号
+    jobnumber = fields.Char(related='employee_id.jobnumber', readonly=True)
+    # 用户名
+    username = fields.Char(related='employee_id.name', readonly=True)
+    # 岗位
+    workpost = fields.Many2one(related='employee_id.workpost', readonly=True)
+    # 员工状态
+    employeestate = fields.Selection(related='employee_id.employeestate', readonly=True)
+    # 用户图片
+    userimage = fields.Binary(related='employee_id.image', readonly=True)
+
+
+    # 关联员工
+    employee_id = fields.Many2one('hr.employee', string='employee', default=None)
+    # 部门
+    department_id = fields.Many2one(related='employee_id.department_id', readonly=True)
+    # 职称
+    title = fields.Char(related='employee_id.title', readonly=True)
+    # 电话
+    mobile_phone = fields.Char(related='employee_id.mobile_phone', readonly=True)
+    # 邮箱
+    work_email = fields.Char(related='employee_id.work_email', readonly=True)
