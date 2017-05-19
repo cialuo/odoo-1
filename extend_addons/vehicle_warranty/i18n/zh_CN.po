@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-16 04:50+0000\n"
-"PO-Revision-Date: 2017-05-16 04:50+0000\n"
+"POT-Creation-Date: 2017-05-19 03:49+0000\n"
+"PO-Revision-Date: 2017-05-19 03:49+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgid "%s has been added to the Warranty Order!"
 msgstr "新增保养单%s"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_plan.py:98
+#: code:addons/vehicle_warranty/models/warranty_plan.py:106
 #, python-format
 msgid "%s has been added to the plan!"
 msgstr "新增计划单%s"
@@ -199,6 +199,11 @@ msgstr "创建退料单"
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_form
 msgid "Create Get Picking"
 msgstr "创建领料单"
+
+#. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_create_name
+msgid "Create Name"
+msgstr "填单人"
 
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_plan_form
@@ -1132,7 +1137,6 @@ msgstr "机务技术经理"
 
 #. module: vehicle_warranty
 #: code:addons/vehicle_warranty/models/warranty_interval.py:42
-#: sql_constraint:warranty_interval:0
 #, python-format
 msgid "The category and mileage must be unique!"
 msgstr "保养类别和间隔里程确保唯一!"
@@ -1735,11 +1739,6 @@ msgstr "用料清单"
 #: model:ir.model,name:vehicle_warranty.model_wizard_batch_dispatch
 msgid "wizard_batch_dispatch"
 msgstr "批量派工"
-
-#. module: vehicle_warranty
-#: model:ir.model,name:vehicle_warranty.model_wizard_create_warranty_order
-msgid "wizard_create_warranty_order"
-msgstr "生成保养单"
 
 #. module: vehicle_warranty
 #: model:ir.model,name:vehicle_warranty.model_wizard_create_warranty_order_by_driver
