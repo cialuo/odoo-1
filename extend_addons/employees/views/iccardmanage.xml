@@ -143,7 +143,6 @@
                 <field name="title"/>
                 <field name="department_id"/>
                 <field name="employeestate"/>
-
             </tree>
         </field>
     </record>
@@ -205,7 +204,7 @@
     <menuitem id="employee_ICCard_manage_list_menu" name="IC Card storage"
               parent="employee_ICCard_manage_menu" action="ICCard_manage_cardlist_action"/>
     <!--挂失记录-->
-    <menuitem id="employee_ICCard_manage_lapsed_list_menu" name="IC Card storage"
+    <menuitem id="employee_ICCard_manage_lapsed_list_menu" name="lapsed IC Card"
               parent="employee_ICCard_manage_menu" action="ICCard_manage_cardlist_lapsed_action"/>
     <!--发卡记录-->
     <menuitem id="employee_ICCard_dispatch_list_menu" name="IC Card dispatch"

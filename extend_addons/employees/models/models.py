@@ -74,6 +74,15 @@ class employee(models.Model):
 
     # 员工单位调动
     unit_transfer = fields.One2many('employees.unit', 'employee_id', string="employees_unit_transfer")
+    # 教育经历
+    educationexperience = fields.One2many('employees.educationexperience', 'employee_id', string='education experience')
+    # 工作履历
+    workexperience = fields.One2many('employee.workexperience', 'employee_id', string='work experience')
+    # 奖惩记录
+    rewardspunishment = fields.One2many('employee.rewardspunishment', 'employee_id', string='rewards punishment records')
+    # 调动记录
+    transferrecord = fields.One2many('employees.transfer.record', 'employee_id', string='transfer record')
+
 
     @api.constrains('user_id')
     def _relateone2one(self):
@@ -171,6 +180,51 @@ class employee(models.Model):
         if workpost != False and user_id != False:
             self._powerRebuild(user_id, workpost, 'add')
         return super(employee, self).create(vals)
+
+
+class EducationExperience(models.Model):
+    _name = 'employees.educationexperience'
+
+    employee_id = fields.Many2one('hr.employee')
+    # 学校
+    school = fields.Char('school')
+    # 专业
+    specialty = fields.Char('specialty')
+    # 开始时间
+    starttime = fields.Date('start time')
+    # 结束时间
+    endtime = fields.Date('end time')
+    # 学历
+    education = fields.Char('education')
+    # 学位
+    degree = fields.Char('degree')
+
+class WorkExperience(models.Model):
+    _name = 'employee.workexperience'
+
+    employee_id = fields.Many2one('hr.employee')
+    # 开始时间
+    starttime = fields.Date('start time')
+    # 结束时间
+    endtime = fields.Date('end time')
+    # 岗位
+    post = fields.Char('post')
+    # 工作信息
+    workinfo = fields.Char('work info')
+
+class Rewards_Punishment(models.Model):
+    _name = 'employee.rewardspunishment'
+
+    employee_id = fields.Many2one('hr.employee')
+    # 时间
+    time = fields.Date('time')
+    # 奖惩类型
+    type = fields.Selection([
+        ('rewards','rewards'),              # 奖励
+        ('punishment','punishment')         # 惩罚
+    ],string='Rewards Punishment type')
+    # 内容
+    info = fields.Char('Rewards Punishment info')
 
 
 def deleteUserGroup(self, userid):

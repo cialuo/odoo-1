@@ -674,11 +674,13 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <!-- 人力资源档案 -->
+        <!-- 员工档案档案 -->
         <menuitem id="ltyhr_employee_document_employeeinfo_menu" name="employee infomation"
                   parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_information"/>
+        <!--组织架构-->
         <menuitem id="ltyhr_employee_document_department_menu" name="employee department"
                   parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_department"/>
+        <!--岗位设置-->
         <menuitem id="ltyhr_employee_document_post_menu" name="employee post"
                   parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_post"/>
 
