@@ -24,6 +24,9 @@ class FaultCategory(models.Model):
     reason_ids = fields.One2many(
        'maintain.fault.reason', 'category_id', string="reasons", domain=[('appearance_id','=',None)])
 
+
+
+
     @api.multi
     def action_use(self):
         self.state = 'use'
@@ -244,6 +247,7 @@ class AvailableProduct(models.Model):
     uom_id = fields.Many2one('product.uom', 'Unit of Measure', related='product_id.uom_id', readonly=True)
     onhand_qty = fields.Float('Quantity On Hand', related='product_id.qty_available', readonly=True)
     virtual_available = fields.Float('Forecast Quantity', related='product_id.virtual_available', readonly=True)
+    list_price = fields.Float(related='product_id.list_price', readonly=True)
 
     require_trans = fields.Boolean("Require Trans", related='product_id.require_trans', readonly=True)
     vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec',

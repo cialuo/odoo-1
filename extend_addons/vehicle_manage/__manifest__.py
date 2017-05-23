@@ -28,6 +28,7 @@
         'views/cost_type_set.xml',
         # 车辆生命周期
         'views/vehicle_life_cycle.xml',
+        'views/vehicle_config_settings_view.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,

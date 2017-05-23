@@ -15,7 +15,7 @@
 					<field name="total_product_fee"/>
 					<field name="total_work_fee"/>
 					<field name="total_fee"/>
-					<field name="calculate_result"/>
+					<field name="calculate_state"/>
                 </tree>
             </field>
         </record>
@@ -30,15 +30,20 @@
                 	<header>
 						<button name="action_calcuate" type="object"
                                 string="Confirm Calcuate"
-                                attrs="{'invisible': [('calculate_result', '=', 'calculated')]}"
+                                attrs="{'invisible': [('calculate_state', '=', 'calculated')]}"
                                 class="oe_highlight"/> <!-- 确认结算-->
 
 						<button name="action_refresh" type="object"
                                 string="Refresh"
-								attrs="{'invisible': [('calculate_result', '=', 'calculated')]}"
+								attrs="{'invisible': [('calculate_state', '=', 'calculated')]}"
                                /> <!-- 刷新-->
 
-                    	<field name="calculate_result"  widget="statusbar" statusbar_visible="calculated,calculating" />
+						<button name="action_back" type="object"
+                                string="action_back"
+								attrs="{'invisible': [('calculate_state', '!=', 'calculated')]}"
+                               /> <!-- 退回-->
+
+                    	<field name="calculate_state"  widget="statusbar" statusbar_visible="calculated,calculating" />
                 	</header>
 					<sheet>
 						<div class="oe_title">
@@ -54,7 +59,7 @@
 								<field name="report_id" />
 	                        </group>
 	                        <group>
-
+								<field name="work_fee"/>
 								<field name="total_work_time" />
 								<field name="total_product_fee" />
 								<field name="total_work_fee" />
@@ -62,6 +67,21 @@
 	                        </group>
                    		 </group>
   						 <notebook>
+
+
+							 <page string="Materials Product">
+                                <field name="materials_product_ids" readonly="1">
+                                    <tree string="Materials Product" create="false" delete="false">
+										<field name="sequence"/>
+										<field name="product_code"/>
+										<field name="product_id"/>
+										<field name="usage_ct"/>
+										<field name="list_price"/>
+										<field name="product_fee" sum="total" widget="monetary"/>
+                                    </tree>
+                                </field>
+                             </page>
+
 							 <page string="MaintainRepair Jobs">
                                 <field name="job_ids" readonly="1">
                                     <tree string="MaintainRepair Jobs" create="false" delete="false">
@@ -72,39 +92,8 @@
 										<field name="real_end_time"/>
 										<field name="work_time"/>
 										<field name="percentage_work"/>
-										<field name="my_work"/>
 										<field name="real_work"/>
-										 <!--<field name="complex_level"/>-->
-
-                                    </tree>
-                                </field>
-                             </page>
-
-							 <page string="AvailProducts" name="AvailProducts">
-                                <field name="available_product_ids" readonly="1">
-                                    <tree string="AvailProducts" create="false" delete="false">
-										<field name="product_id"/>
-										<field name="product_code"/>
-										<field name="max_count"/>
-										<field name="change_count"/>
-										<field name="onhand_qty"/>
-										<field name="virtual_available"/>
-										<field name="require_trans"/>
-										<field name="vehicle_model" widget="many2many_tags"/>
-                                    </tree>
-                                </field>
-                             </page>
-
-							 <page string="ProductLists" name="ProductLists">
-                                <field name="picking_ids">
-                                    <tree string="ProductLists" create="false" delete="false">
-										<field name="picking_type_id"/>
-										<field name="name"/>
-										<field name="location_id"/>
-										<field name="min_date"/>
-										<field name="date_done"/>
-										<field name="origin"/>
-										<field name="state"/>
+										<field name="real_work_fee" sum="total" widget="monetary"/>
                                     </tree>
                                 </field>
                              </page>

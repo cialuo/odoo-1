@@ -15,7 +15,7 @@ class MaintainReport(models.Model):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
         return emp_ids and emp_ids[0] or False
 
-    name = fields.Char(string="Report Order", help='Report Order', required=True, index=True, copy=False, default='New')
+    name = fields.Char(string="Report Order", help='Report Order', required=True, index=True, copy=False, default='/')
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True,
                                     domain = "[('vehicle_life_state', '=', 'operation_period')]")
     vehicle_type = fields.Many2one("fleet.vehicle.model", related='vehicle_id.model_id', store=True,
@@ -108,7 +108,7 @@ class MaintainReport(models.Model):
         报修单:
             功能：自动生成订单号：前缀BXD+序号
         """
-        if data.get('name', 'New') == 'New':
+        if data.get('name', '/') == '/':
             data['name'] = self.env['ir.sequence'].next_by_code('maintain.manage.report') or '/'
         report = super(MaintainReport, self.with_context(mail_create_nolog=True)).create(data)
         report.message_post(body=_('%s has been added to the report!') % (report.name,))
@@ -174,7 +174,7 @@ class MaintainRepair(models.Model):
     _name = 'maintain.manage.repair'
 
     name = fields.Char(string="Repair Order", help='Repair Order', required=True, index=True,
-                       copy=False, default='New', readonly=True)
+                       copy=False, default='/', readonly=True)
     report_id = fields.Many2one("maintain.manage.report", ondelete='cascade',
                                 string="Report Order", required=True, readonly=True)
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
@@ -294,6 +294,7 @@ class MaintainRepair(models.Model):
                         'change_count': j.change_count,
                         'max_count': j.max_count,
                         'require_trans': j.require_trans,
+                        'list_price':j.list_price,
                     }
                     datas.append((0, 0, data))
             vals.update({'available_product_ids': datas, 'materials_control':method.materials_control})
@@ -336,7 +337,7 @@ class MaintainRepair(models.Model):
         维修单:
             自动生成订单号：前缀WXD+序号
         """
-        if vals.get('name', 'New') == 'New':
+        if vals.get('name', '/') == '/':
             vals['name'] = self.env['ir.sequence'].next_by_code('maintain.manage.repair') or '/'
         return super(MaintainRepair, self).create(vals)
 
@@ -366,6 +367,7 @@ class MaintainRepair(models.Model):
             "plan_start_time": self.plan_start_time,
             "plan_end_time": self.plan_end_time,
             "work_time": self.work_time,
+            'my_work':self.work_time*self.percentage_work/100/60,
             "percentage_work": self.percentage_work,
             "user_id": self.user_id.id,
             "sequence": len(self.job_ids)+1
@@ -507,7 +509,7 @@ class MaintainAvailableProduct(models.Model):
     method_id = fields.Many2one('maintain.fault.method',
                                 ondelete='set null', string="Fault Method Name")
 
-    product_id = fields.Many2one('product.product', string="Product")
+    product_id = fields.Many2one('product.product', string="Product Name")
     product_code = fields.Char("Product Code", related='product_id.default_code')
     categ_id = fields.Many2one('product.category', related='product_id.categ_id',
                                string='Product Category')
@@ -518,7 +520,7 @@ class MaintainAvailableProduct(models.Model):
     vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec',
                                       string='Suitable Vehicle', readonly=True)
     product_size = fields.Text("Product Size", related='product_id.description', readonly=True)
-
+    list_price = fields.Float("Stock Price")
     change_count = fields.Integer("Change Count")
     max_count = fields.Integer("Max Count")
 
@@ -539,15 +541,17 @@ class MaintainRepairJobs(models.Model):
     fault_reason_id = fields.Many2one("maintain.fault.reason", ondelete='set null', string="Fault Reason")
     fault_method_id = fields.Many2one("maintain.fault.method", ondelete='set null', string="Fault Method")
     user_id = fields.Many2one('hr.employee', string="Repair Name", required=True)
-    plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
-    plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time")
-    real_start_time = fields.Datetime("Real Start Time", help="Real Start Time")
-    real_end_time = fields.Datetime("Real End Time", help="Real End Time")
-    percentage_work = fields.Float('Percentage Work', help='Percentage Work')
+    plan_start_time = fields.Datetime("Plan Start Time")
+    plan_end_time = fields.Datetime("Plan End Time")
+    real_start_time = fields.Datetime("Real Start Time")
+    real_end_time = fields.Datetime("Real End Time")
+    percentage_work = fields.Float('Percentage Work')
+    work_time = fields.Float('Work Time(Min)', digits=(10, 2))
+    my_work = fields.Float('My Work(Hour)', digits=(10, 2), compute='_get_my_work')
 
-    work_time = fields.Float('Work Time', help='Work Time')
-    my_work = fields.Float('My Work', help='My Work', compute="_get_my_work")
-    real_work = fields.Float('Real Work', help='Real Work', compute="_get_real_work")
+    real_work = fields.Float('Real Work(Hour)', digits=(10, 2), compute="_get_real_work")
+    real_work_fee = fields.Float('Real Work Fee', digits=(10, 2))
+
 
     @api.depends('real_start_time', 'real_end_time')
     def _get_real_work(self):
@@ -555,16 +559,12 @@ class MaintainRepairJobs(models.Model):
             if i.real_start_time and i.real_end_time:
                 start_time = fields.Datetime.from_string(i.real_start_time)
                 end_time = fields.Datetime.from_string(i.real_end_time)
-                i.real_work = (end_time-start_time).seconds/60.0
+                i.real_work = (end_time-start_time).seconds/3600
 
-    @api.depends('plan_start_time', 'plan_end_time','percentage_work',)
+    @api.depends('work_time', 'percentage_work')
     def _get_my_work(self):
         for i in self:
-            if i.plan_start_time and i.plan_end_time:
-                start_time = fields.Datetime.from_string(i.plan_start_time)
-                end_time = fields.Datetime.from_string(i.plan_end_time)
-                work_time = (end_time - start_time).seconds / 60.0
-                i.my_work = work_time * i.percentage_work/100
+            i.my_work = i.work_time/60 * i.percentage_work/100
 
 
 class MaintainInspect(models.Model):
