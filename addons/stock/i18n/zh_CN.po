@@ -4322,7 +4322,7 @@ msgid ""
 "            available per location. You can use it once a year when you do\n"
 "            the general inventory or whenever you need it, to adapt the\n"
 "            current inventory level of a product."
-msgstr ""
+msgstr "周期性盘点用于计算每个库位的物资数量，可以按年，按月计算"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -4746,7 +4746,7 @@ msgstr "产品只有一个计量单位"
 msgid ""
 "Products you scrap will be removed from the stock and moved to a specific "
 "scrap location, for reporting purposes."
-msgstr ""
+msgstr "报废的产品将从库存移动到报废库位，便于报表统计"
 
 #. module: stock
 #: code:addons/stock/models/product.py:326
@@ -5155,7 +5155,7 @@ msgstr "保留"
 #. module: stock
 #: selection:stock.config.settings,module_procurement_jit:0
 msgid "Reserve products immediately after the sale order confirmation"
-msgstr ""
+msgstr "销售单确认后，立即保留产品"
 
 #. module: stock
 #: selection:stock.config.settings,module_procurement_jit:0
@@ -6625,7 +6625,7 @@ msgid ""
 "                    product. According to the product configuration, this may\n"
 "                    trigger a draft purchase order, a manufacturing order or\n"
 "                    a new task."
-msgstr ""
+msgstr "为此产品生成需求单。根据产品配置，将触发 草稿采购单，生产单或任务"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_type_sequence
