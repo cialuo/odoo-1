@@ -73,7 +73,7 @@ class employee(models.Model):
     ], string='sex', required=True)
 
     # 员工单位调动
-    unit_transfer = fields.One2many('employees.unit', 'employee_id', string="employees_unit_transfer")
+    unit_transfer = fields.One2many('employees.innertransfer', 'employee_id', string="employees_unit_transfer")
     # 教育经历
     educationexperience = fields.One2many('employees.educationexperience', 'employee_id', string='education experience')
     # 工作履历
