@@ -33,6 +33,7 @@
         'views/iccardmanage.xml',
         'views/experiencemanagement.xml',
         'views/assets.xml',
+        'views/transfer.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -21,9 +21,17 @@ class WarrantyPlan(models.Model): # 车辆保养计划
 
     month = fields.Char(compute='_compute_month') # 月度
 
-    company_id = fields.Many2one('hr.department', string='Company', required=True, default=lambda self: self.env.user.company_id)
+    # company_id = fields.Many2one('hr.department', string='Company', required=True, default=lambda self: self.env.user.company_id)
+    #
+    # made_company_id = fields.Many2one('hr.department', string='Made Company', required=True, default=lambda self: self.env.user.company_id)
 
-    made_company_id = fields.Many2one('hr.department', string='Made Company', required=True, default=lambda self: self.env.user.company_id)
+    create_name = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, required=True,
+                                  readonly=True)
+
+    company_id = fields.Many2one('hr.department', string='Company', related='create_name.department_id')
+
+    made_company_id = fields.Many2one('hr.department', string='Made Company', related='create_name.department_id')
+
 
     auditor_id = fields.Many2one('hr.employee', string="Auditor Man")
     auditor_time = fields.Datetime(string="Auditor Time")
@@ -102,16 +110,24 @@ class WarrantyPlan(models.Model): # 车辆保养计划
 class WizardWarrantyPlan(models.TransientModel): # 自动生成保养计划
     _name = "wizard_warranty_plan"
 
+    def _default_employee(self):
+        emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
+        return emp_ids and emp_ids[0] or False
+
     @api.multi
     def create_warranty_plan(self):
         tmp_plan_month = datetime.datetime.strftime(datetime.datetime.utcnow(), '%Y-%m')
         warranty_plan_count=self.env['warranty_plan'].search_count([('month', '=', tmp_plan_month)])
         warranty_plan_count+=1
+        company_id=''
+        if self._default_employee():
+            company_id=self._default_employee().department_id
+
         warranty_plan_val = {
             'name': 'BYJH'+'-'+tmp_plan_month+'-'+str(warranty_plan_count),  # plan.name + '_' + str(maintain_sheets_count + 1),  # +''+str(maintain_sheets_count)
             'month': tmp_plan_month,
-            'company_id': self.env.user.company_id.id,
-            'made_company_id': self.env.user.company_id.id,
+            'company_id': company_id,
+            'made_company_id': company_id,
             'state': 'draft'
         }
         warranty_plan = self.env['warranty_plan'].create(warranty_plan_val)
