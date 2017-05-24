@@ -3,19 +3,27 @@ from odoo import models, fields, api, _
 
 
 class security_check_table(models.Model):
+
     _name = 'security_manage.check_table'
-    # name = fields.Char(string=_('check_table'), default=_('check_table'))
+    _sql_constraints = [('check_item_detail_name_unique', 'unique (name)', u"名字已经存在!")]
+
     check_table_id = fields.Char(string='security_check_table_id')
-    name = fields.Char(string='function_module', readonly=True)
-    # function_module = fields.Char(string=_('function_module'))
+
+    name = fields.Char(string='function_module',required=True)
+
     remarks = fields.Char(string='remarks')
+
     check_type = fields.Char(string='check_type')
+
     # TODO many2one
     responser = fields.Many2one('hr.employee', string='check_responser')
+
     # TODO many2one
     parent_company = fields.Many2one('hr.department', related="responser.department_id", string='check_parent_company')
 
     plan_detail = fields.One2many('security_manage.check_item_detail', 'check_table_item_id')
+
+    active = fields.Boolean(string="MyActive", default=True)
 
     state = fields.Selection([
         ('draft', 'Draft_check_table'),
@@ -26,6 +34,7 @@ class security_check_table(models.Model):
     @api.multi
     def action_to_draft(self):
         self.state = 'draft'
+        self.active = True
 
     @api.multi
     def action_execute(self):
@@ -34,14 +43,24 @@ class security_check_table(models.Model):
     @api.multi
     def action_archive(self):
         self.state = 'archive'
+        self.active = False
 
 
 class security_check_table_item(models.Model):
+
     _name = 'security_manage.check_item_detail'
-    check_table_item_id = fields.Many2one('security_manage.check_table', ondelete='cascade')
-    # name = fields.Char(string=_('check_table'), default=_('check_table'))
+    _sql_constraints = [('check_item_detail_item_unique', 'unique (check_table_item_id,item_id)', u"存在相同的检查项!")]
+
+    check_table_item_id = fields.Many2one('security_manage.check_table', ondelete='cascade',required=True)
+
     item_id = fields.Many2one('security_manage.check_item', ondelete='cascade')
+
     check_item_name = fields.Char(related='item_id.check_item_name', readonly=1)
+
     check_content = fields.Char(related='item_id.check_content', readonly=1)
+
     check_standards = fields.Char(related='item_id.check_standards', readonly=1)
+
     state = fields.Selection(related='item_id.state', readonly=1)
+
+

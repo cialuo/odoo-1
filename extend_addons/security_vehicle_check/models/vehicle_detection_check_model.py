@@ -4,11 +4,13 @@ from odoo import models, fields, api
 
 
 class vehicle_detection_check(models.Model):
+
     _name = 'security.vehicle_detection_check'
+    _rec_name = 'vehicle_id'
 
     @api.multi
     def _add_plan_details(self):
-        res = self.env['security_manage.check_table'].search([("name", "=", u"检测线上线检查")])
+        res = self.env['security_manage.check_table'].search(['&',("name", "=", u"检测线上线检查"),("state", "=", "execute")])
         datas = []
         if len(res) != 0:
             for i in res[0].plan_detail:
@@ -51,6 +53,7 @@ class vehicle_detection_check(models.Model):
     state = fields.Selection([("draft", "vehicle_check_draft"),  # 草稿
                               ("done", "vehicle_check_done"),  # 已检查
                               ], default='draft')
+
 
     @api.multi
     def action_draft(self):
