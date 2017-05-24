@@ -35,17 +35,18 @@ class UnitTransfer(models.Model):
     # 制表人
     create_user = fields.Many2one('res.users', string='create user')
 
-    # 原单位岗位
-    original_post = fields.Many2one(related='employee_id.department_id', store=True, ondelete='restrict',
+    # 原岗位
+    original_post = fields.Many2one(related='employee_id.workpost', store=True, ondelete='restrict',
                                     string="employees_original_post")
     # 原部门
-    original_section = fields.Many2one(related='employee_id.workpost', store=True, ondelete='restrict',
+    original_section = fields.Many2one(related='employee_id.department_id', store=True, ondelete='restrict',
                                        string="employees_original_section")
 
     # 新单位岗位
     new_post = fields.Many2one('employees.post', ondelete='restrict', string="employees_new_post")
     # 新部门
     new_section = fields.Many2one('hr.department', string="employees_new_section")
+
     # 状态
     state = fields.Selection([("draft", "employees_unit_draft"),  # 草稿
                               ("confirmed", "employees_unit_confirmed"),  # 待审批
@@ -64,7 +65,7 @@ class UnitTransfer(models.Model):
     transfer_type = fields.Selection([
         ('unit','unit transfer'),               # 单位调动
         ('post','post transfer')                # 岗位调动
-    ], string='tranfer type', default=_defaultType)
+    ], string='tranfer type', default=_defaultType, index=True)
 
     # 调动原因
     transfer_reason = fields.Text(string="employees_transfer_reason")
@@ -85,19 +86,22 @@ class UnitTransfer(models.Model):
             'name':self.name,
             'transferdate' : self.create_date,
             'employee_id':self.employee_id.id,
-            'original_unit':self.original_post.id,
+            'original_unit':self.original_section.id,
             'original_post' :self.original_post.id,
             'new_section' : self.new_section.id,
             'new_post' :self.new_post.id,
             'transfer_reason' : self.transfer_reason,
-            'countersign_person':self.countersign_person
         }
-
         if self.transfer_type == 'unit':
             record['transfer_type'] = 'unit_transfer'
         elif self.transfer_type == 'post':
             record['transfer_type'] = 'post_transfer'
-        self.env['employees.transfer.record'].create(record)
+        recins = self.env['employees.transfer.record'].create(record)
+        countersign_person = []
+        for item in self.countersign_person:
+            countersign_person.append((4, item.id,))
+        recins.write({'countersign_person': countersign_person})
+        self.employee_id.write({'department_id': self.new_section.id, 'workpost': self.new_post.id})
         self.state = 'done'
 
 

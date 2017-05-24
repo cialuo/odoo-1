@@ -61,10 +61,12 @@
                                     <field name="original_post" readonly="1"/>
                                 </group>
                                 <group>
-                                    <field name="new_section"
+                                    <field name="new_section"  required="1"
+                                           options="{'no_open': True, 'no_create': True}"
                                     />
-                                    <field name="new_post"
-                                           domain="[('department','=',new_section)]"
+                                    <field name="new_post"  required="1"
+                                           options="{'no_open': True, 'no_create': True}"
+                                           domain="[('department','=',new_section),('id', '!=', original_post)]"
                                     />
                                 </group>
                             </group>
@@ -77,6 +79,19 @@
                     </notebook>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="transfer_search_view">
+        <field name="name">transfer search</field>
+        <field name="model">employees.innertransfer</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="unit_transfer" string="unit transfer"
+                            domain="[('transfer_type', '=', 'unit')]"/>
+                <filter name="post_transfer" string="post transfer"
+                            domain="[('transfer_type', '=', 'post')]"/>
+            </search>
         </field>
     </record>
 
@@ -117,8 +132,6 @@
                             groups="hr.group_hr_manager"/>
                     <field name="state" widget="statusbar"/>
                 </header>
-
-
                 <sheet>
                     <group>
                         <group>
@@ -139,8 +152,8 @@
                                     <field name="original_post"/>
                                 </group>
                                 <group>
-                                    <field name="new_unit"/>
-                                    <field name="new_post"/>
+                                    <field name="new_unit" required="1"/>
+                                    <field name="new_post" required="1"/>
                                 </group>
                             </group>
                         </page>
@@ -209,7 +222,7 @@
         <field name="name">employees_unit_transfer</field>
         <field name="res_model">employees.innertransfer</field>
         <field name="view_mode">tree,form</field>
-        <field name="context" eval="{'transtype': 'unit'}"/>
+        <field name="context" eval="{'transtype': 'unit', 'search_default_unit_transfer': 1}"/>
     </record>
 
     <!--岗位调动action页面-->
@@ -217,7 +230,7 @@
         <field name="name">employees_post_transfer</field>
         <field name="res_model">employees.innertransfer</field>
         <field name="view_mode">tree,form</field>
-        <field name="context" eval="{'transtype': 'post'}"/>
+        <field name="context" eval="{'transtype': 'post', 'search_default_post_transfer': 1}"/>
     </record>
 
     <!--对外调动-->
