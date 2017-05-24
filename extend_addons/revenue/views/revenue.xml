@@ -10,10 +10,10 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="c_date"/>
-                    <field name="route"/>
-                    <field name="vehicle_number"/>
+                    <field name="route_id"/>
+                    <field name="vehicle_id"/>
                     <field name="license_plate"/>
-                    <field name="driver"/>
+                    <field name="driver_ids" widget="many2many_tags"/>
                     <field name="coin_revenue"/>
                     <field name="ic_revenue"/>
                     <field name="chartered_revenue"/>
@@ -30,10 +30,10 @@
             <field name="arch" type="xml">
                 <tree create="false" edit="false" delete="false">
                     <field name="c_date"/>
-                    <field name="route"/>
-                    <field name="vehicle_number"/>
+                    <field name="route_id"/>
+                    <field name="vehicle_id"/>
                     <field name="license_plate"/>
-                    <field name="driver"/>
+                    <field name="driver_ids" widget="many2many_tags"/>
                     <field name="coin_revenue"/>
                     <field name="remark"/>
                 </tree>
@@ -47,10 +47,10 @@
             <field name="arch" type="xml">
                 <tree create="false" edit="false" delete="false">
                     <field name="c_date"/>
-                    <field name="route"/>
-                    <field name="vehicle_number"/>
+                    <field name="route_id"/>
+                    <field name="vehicle_id"/>
                     <field name="license_plate"/>
-                    <field name="driver"/>
+                    <field name="driver_ids" widget="many2many_tags"/>
                     <field name="ic_revenue"/>
                     <field name="remark"/>
                 </tree>
@@ -64,10 +64,10 @@
             <field name="arch" type="xml">
                 <tree create="false" edit="false" delete="false">
                     <field name="c_date"/>
-                    <field name="route"/>
-                    <field name="vehicle_number"/>
+                    <field name="route_id"/>
+                    <field name="vehicle_id"/>
                     <field name="license_plate"/>
-                    <field name="driver"/>
+                    <field name="driver_ids" widget="many2many_tags"/>
                     <field name="chartered_revenue"/>
                     <field name="remark"/>
                 </tree>
@@ -84,10 +84,10 @@
                         <group col="2">
                             <group>
                                 <field name="c_date"/>
-                                <field name="route"/>
-                                <field name="vehicle_number"/>
+                                <field name="vehicle_id" options="{'no_create':True}"/>
+                                <field name="route_id"/>
                                 <field name="license_plate"/>
-                                <field name="driver"/>
+                                <field name="driver_ids" widget="many2many_tags" options="{'no_create':True}"/>
                             </group>
                             <group>
                                 <field name="coin_revenue"/>

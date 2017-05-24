@@ -18,6 +18,8 @@ class Vehicle(models.Model):
                               ('repair', "repair"),
                               ('stop', "stop"),], default='normal',
                                help='Current state of the vehicle', ondelete="set null")
+
+    license_plate = fields.Char(required=True, help='License plate')
     name = fields.Char("Vehicle Number", compute="_cumpute_model_name", store=True)
     inner_code = fields.Char(string="Inner Code", help="Inner Code", required=True)
     route_id = fields.Many2one('route_manage.route_manage', string="Route")
@@ -143,7 +145,7 @@ class FleetVehicleModel(models.Model):
     power_ext = fields.Integer('Power', help='Power in KW of the vehicle')
     weight = fields.Integer('Weight', help='Weight')
     doors_ext = fields.Integer('Doors Number', help='Number of doors of the vehicle')
-    seats_ext = fields.Integer('Seats Number', help='Number of seats of the vehicle', default=5)
+    seats_ext = fields.Integer('Seats Number', help='Number of seats of the vehicle')
 
     home_entry_date = fields.Date("Home Entry Date", help='Home Entry Date')
     specifications = fields.Char("Specifications", help='Specifications')

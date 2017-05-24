@@ -207,7 +207,8 @@ class route_manage(models.Model):
                                       ('hybrid scheduling', 'Hybrid scheduling')],
                                      default='flexible scheduling')
     # 隶属公司
-    subsidiary = fields.Char('Subsidiary')
+    subsidiary = fields.Many2one('hr.department', 'Subsidiary')
+
 
     # 状态
     WORKFLOW_STATE_SELECTION = [
