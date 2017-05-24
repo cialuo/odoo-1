@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-24 06:25+0000\n"
-"PO-Revision-Date: 2017-05-24 14:29+0800\n"
+"POT-Creation-Date: 2017-05-24 06:57+0000\n"
+"PO-Revision-Date: 2017-05-24 14:58+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -210,6 +210,11 @@ msgid "confirmed_countersign"
 msgstr "审批/会签"
 
 #. module: employees
+#: model:ir.ui.view,arch_db:employees.lty_view_constract_form
+msgid "constract type id"
+msgstr "合同类型"
+
+#. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_contract_menu
 msgid "contracts_document"
 msgstr "劳动合同档案"
@@ -301,6 +306,8 @@ msgstr "学历"
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_employee_id
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_foreign_transfer_form
+#: model:ir.ui.view,arch_db:employees.ltyhr_view_inner_transfer_form
+#: model:ir.ui.view,arch_db:employees.ltyhr_view_transfer_record_form
 msgid "employee"
 msgstr "员工"
 
@@ -412,7 +419,7 @@ msgstr "家庭成员"
 #. module: employees
 #: model:ir.model,name:employees.model_employees_foreign
 msgid "employees.foreign"
-msgstr "外部调动"
+msgstr "employees.foreign"
 
 #. module: employees
 #: model:ir.model,name:employees.model_employees_innertransfer
@@ -427,7 +434,7 @@ msgstr "岗位"
 #. module: employees
 #: model:ir.model,name:employees.model_employees_transfer_record
 msgid "employees.transfer.record"
-msgstr "调动记录"
+msgstr "employees.transfer.record"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_countersign_person
