@@ -4,11 +4,13 @@ from odoo import models, fields, api
 
 
 class vehicle_front_check(models.Model):
+
     _name = 'security.vehicle_front_check'
+    _rec_name = 'vehicle_id'
 
     @api.multi
     def _add_plan_details(self):
-        res = self.env['security_manage.check_table'].search([("name", "=", u"车辆出车前检查")])
+        res = self.env['security_manage.check_table'].search(['&',("name", "=", u"车辆出车前检查"),("state", "=", "execute")])
         datas = []
         if len(res) != 0:
             for i in res[0].plan_detail:
@@ -22,13 +24,12 @@ class vehicle_front_check(models.Model):
         return datas
 
     # 车辆编号
-    # name = fields.Many2one('fleet.vehicle', string="vehicle_check_number")
+
     vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle_check_number", required=True ,
                                  domain="[('vehicle_life_state', '=', 'operation_period')]")
     # 车牌号
     plate = fields.Char(string="vehicle_check_plate", related='vehicle_id.license_plate', store=False, readonly=True)
     # 线路
-    # route = fields.Char(string='vehicle_check_route')
     route = fields.Many2one('route_manage.route_manage', related='vehicle_id.route_id', store=False, readonly=True)
     # 检验日期
     checkout_date = fields.Date(string="vehicle_check_checkout_date")

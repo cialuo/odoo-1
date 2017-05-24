@@ -2,13 +2,13 @@
 
 from odoo import models, fields, api
 
-
 class vehicle_special_check(models.Model):
     _name = 'security.vehicle_special_check'
+    _rec_name = 'vehicle_id'
 
     @api.multi
     def _add_plan_details(self):
-        res = self.env['security_manage.check_table'].search([("name", "=", u"安全技术专项抽查")])
+        res = self.env['security_manage.check_table'].search(['&',("name", "=", u"安全技术专项抽查"),("state", "=", "execute")])
         datas = []
         if len(res) != 0:
             for i in res[0].plan_detail:
