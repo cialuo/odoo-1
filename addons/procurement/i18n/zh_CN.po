@@ -266,7 +266,7 @@ msgid ""
 "Most common exceptions are products to purchase without\n"
 "                having a vendor defined on the product, and products to\n"
 "                manufacture without having a bill of materials."
-msgstr ""
+msgstr "异常的普遍原因是物资没有设置对应的供应商，用于生产的物资没有BOM表。"
 
 #. module: procurement
 #: model:ir.model.fields,field_description:procurement.field_procurement_rule_name

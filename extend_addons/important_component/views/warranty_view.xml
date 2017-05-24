@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='create_date']" position="after">
                     <field name="is_important_product"/>
-                    <field name="important_product_id" attrs="{'invisible':[('is_important_product','=',False)]}"
+                    <field name="important_product_id" attrs="{'invisible':[('is_important_product','=',False)], 'required': [('is_important_product','=',True)]}"
                            widget="selection"/>
                 </xpath>
             </field>
