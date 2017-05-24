@@ -33,7 +33,7 @@ class UnitTransfer(models.Model):
     create_date = fields.Datetime(string='create time', default = lambda self : datetime.now())
 
     # 制表人
-    create_user = fields.Many2one('res.users', string='create user')
+    create_user = fields.Many2one('res.users', string='create user', default=lambda self: self._uid)
 
     # 原岗位
     original_post = fields.Many2one(related='employee_id.workpost', store=True, ondelete='restrict',
@@ -86,10 +86,10 @@ class UnitTransfer(models.Model):
             'name':self.name,
             'transferdate' : self.create_date,
             'employee_id':self.employee_id.id,
-            'original_unit':self.original_section.id,
-            'original_post' :self.original_post.id,
-            'new_section' : self.new_section.id,
-            'new_post' :self.new_post.id,
+            'original_unit':self.original_section.name,
+            'original_post' :self.original_post.name,
+            'new_section' : self.new_section.name,
+            'new_post' :self.new_post.name,
             'transfer_reason' : self.transfer_reason,
         }
         if self.transfer_type == 'unit':
@@ -121,13 +121,20 @@ class ForeignTransfer(models.Model):
     name = fields.Char(string="employees_transfer_code", index=True, copy=False, default=_getSN)
 
     # 关联的员工
-    employee_id = fields.Many2one('hr.employee', ondelete='cascade')
+    employee_id = fields.Many2one('hr.employee', ondelete='cascade', string='employee')
 
-    # 原部门
-    original_unit = fields.Many2one('hr.department', string="employees_post_unit")
+    # 制表人
+    create_user = fields.Many2one('res.users', string='create user', default=lambda self: self._uid)
+
+    # 创建时间
+    create_date = fields.Datetime(string='create time', default=lambda self: datetime.now())
 
     # 原岗位
-    original_post = fields.Many2one('employees.post', ondelete='restrict', string="employees_original_post")
+    original_post = fields.Many2one(related='employee_id.workpost', store=True, ondelete='restrict',
+                                    string="employees_original_post")
+    # 原部门
+    original_unit = fields.Many2one(related='employee_id.department_id', store=True, ondelete='restrict',
+                                       string="employees_original_section")
 
     # 对方单位
     new_unit = fields.Char(string='target unit')
@@ -160,6 +167,25 @@ class ForeignTransfer(models.Model):
 
     @api.multi
     def action_done(self):
+        record = {
+            'name': self.name,
+            'transferdate': self.create_date,
+            'employee_id': self.employee_id.id,
+            'original_unit': self.original_unit.name,
+            'original_post': self.original_post.name,
+            'new_section': self.new_unit,
+            'new_post': self.new_post,
+            'transfer_reason': self.transfer_reason,
+            'transfer_type':'foreign_transfer'
+        }
+        recins = self.env['employees.transfer.record'].create(record)
+        countersign_person = []
+        for item in self.countersign_person:
+            countersign_person.append((4, item.id,))
+        recins.write({'countersign_person': countersign_person})
+
+        self.employee_id.write({'active': False})
+
         self.state = 'done'
 
 
@@ -179,14 +205,14 @@ class TransferRecord(models.Model):
     employee_id = fields.Many2one('hr.employee', ondelete='cascade')
 
     # 原部门
-    original_unit = fields.Many2one('hr.department', string="employees_original_unit")
+    original_unit = fields.Char(string="employees_original_unit")
     # 原单位岗位
-    original_post = fields.Many2one('employees.post', string="employees_original_post")
+    original_post = fields.Char(string="employees_original_post")
 
     # 新部门
-    new_section = fields.Many2one('hr.department', string="employees_new_section")
+    new_section = fields.Char(string="employees_new_section")
     # 新单位岗位
-    new_post = fields.Many2one('employees.post', ondelete='restrict', string="employees_new_post")
+    new_post = fields.Char(string="employees_new_post")
 
     # 调动类型
     transfer_type = fields.Selection([("post_transfer", "employees_post_transfer"),         # 岗位调动
