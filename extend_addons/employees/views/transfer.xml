@@ -41,7 +41,7 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="employee_id" string="employee" options="{'no_open': True, 'no_create': True}"/>
                             <field name="jobnumber"/>
                             <field name="transfer_reason"/>
                         </group>
@@ -202,7 +202,7 @@
                         <field name="new_post"/>
                     </group>
                     <group>
-                        <field name="employee_id"/>
+                        <field name="employee_id" string="employee"/>
                         <field name="original_unit"/>
                         <field name="original_post"/>
                         <field name="transfer_type"/>

@@ -294,7 +294,17 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-
+        <!-- 重载hr constract 表单 -->
+        <record id="lty_view_constract_form" model="ir.ui.view">
+            <field name="name">ltyhr constract form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <field name="type_id" position="replace">
+                    <field name="type_id" string="constract type id"/>
+                </field>
+            </field>
+        </record>
 
         <!-- 人力资源档案 -->
         <menuitem id="ltyhr_employee_document_employeeinfo_menu" name="employee infomation"
