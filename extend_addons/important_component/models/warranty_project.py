@@ -5,7 +5,7 @@ class WarrantyProject(models.Model):
     _inherit = 'warranty_project'
 
     is_important_product = fields.Boolean(string='Is important product')
-    important_product_id = fields.Many2one('product.product', string="Important Product", domain=[('is_important', '=', True)])
+    important_product_id = fields.Many2one('product.product', string="Important Product", domain=[('is_important', '=', True), ('important_type', '=', 'component')])
 
 class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生成关联司机的保养单
     _inherit = 'wizard_create_warranty_order_by_driver'

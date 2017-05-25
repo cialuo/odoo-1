@@ -264,7 +264,7 @@
                 <xpath expr="//page[@name='platform_page']" position="after">
                     <page string="vehicle resource" name="vehicle_page">
                         <field name="vehicle_res">
-                            <tree>
+                            <tree create="false" delete="false">
                                 <field name="license_plate"/>
                                 <field name="inner_code"/>
                                 <field name="annual_inspection_date"/>

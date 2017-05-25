@@ -17,8 +17,8 @@ class Vehicle(models.Model):
         营运油耗
         超额
     '''
-    model_fuel_consumption = fields.Float('Model Fuel Consumption', related='model_id.model_fuel_consumption', store=True,
-                                          readonly=True, copy=False)
+    model_fuel_consumption = fields.Float('Model Fuel Consumption', related='model_id.model_fuel_consumption',
+                                          store=True, readonly=True, copy=False)
     correct_value = fields.Float(compute='_get_correct_value', readonly=True, copy=False)
 
     fuel_consumption = fields.Float('Fuel Consumption', compute='_get_fuel_consumption',
@@ -34,7 +34,6 @@ class Vehicle(models.Model):
                                                             ('year', '=', i.service_year)])
             if res:
                 i.correct_value= res[0].correct_value
-
 
     @api.depends('model_fuel_consumption','correct_value','route_correct_value','average_oil_wear')
     def _get_fuel_consumption(self):

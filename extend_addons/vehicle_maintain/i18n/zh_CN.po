@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 09:14+0000\n"
-"PO-Revision-Date: 2017-05-15 09:14+0000\n"
+"POT-Creation-Date: 2017-05-24 06:55+0000\n"
+"PO-Revision-Date: 2017-05-24 06:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,6 @@ msgstr "有效"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/fault.py:43
-#: sql_constraint:maintain.fault.appearance:0
 #, python-format
 msgid "Appearance code already exists"
 msgstr "故障现象编码已存在"
@@ -71,7 +70,6 @@ msgstr "取消"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/fault.py:10
-#: sql_constraint:maintain.fault.category:0
 #, python-format
 msgid "Category code already exists"
 msgstr "故障分类编码已存在"
@@ -470,7 +468,7 @@ msgstr "只能删除草稿状态下的报修单."
 #. module: vehicle_maintain
 #: model:ir.model,name:vehicle_maintain.model_fleet_vehicle
 msgid "Information on a vehicle"
-msgstr "车辆信息"
+msgstr "车辆上的信息"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_appearance_inner_code
@@ -595,13 +593,9 @@ msgstr "车牌"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_license_plate
-msgid "License plate"
-msgstr "车牌"
-
-#. module: vehicle_maintain
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_report_license_plate
 #: model:ir.model.fields,help:vehicle_maintain.field_vehicle_usage_vehicleanchor_license_plate
-msgid "License plate number of the vehicle (i = plate number for a car)"
+msgid "License plate"
 msgstr "车牌"
 
 #. module: vehicle_maintain
@@ -732,7 +726,6 @@ msgstr "领用上限"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/fault.py:172
-#: sql_constraint:maintain.fault.method:0
 #, python-format
 msgid "Method code already exists"
 msgstr "维修方法编码已存在"
@@ -895,7 +888,6 @@ msgstr "实际工时(分钟)"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/fault.py:102
-#: sql_constraint:maintain.fault.reason:0
 #, python-format
 msgid "Reason code already exists"
 msgstr "故障原因编码已存在"
@@ -1023,7 +1015,7 @@ msgstr "返工数"
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_route_id
 msgid "Route"
-msgstr "路线"
+msgstr "线路"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_fault_available_product_categ_id
@@ -1114,7 +1106,7 @@ msgstr "两人作业"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_uom_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_uom_id
 msgid "Unit of Measure"
-msgstr "计量单位"
+msgstr "单位"
 
 #. module: vehicle_maintain
 #: selection:maintain.fault.appearance,state:0
@@ -1132,15 +1124,11 @@ msgstr "车辆抢修"
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_vehicle_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_vehicle_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_vehicle_id
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_repair_vehicle_id
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_report_vehicle_id
 msgid "Vehicle No"
 msgstr "车号"
-
-#. module: vehicle_maintain
-#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_vehicle_id
-msgid "Vehicle id"
-msgstr "车辆"
 
 #. module: vehicle_maintain
 #: selection:maintain.manage.repair,state:0
