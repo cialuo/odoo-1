@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-24 06:57+0000\n"
-"PO-Revision-Date: 2017-05-24 14:58+0800\n"
+"POT-Creation-Date: 2017-05-25 06:28+0000\n"
+"PO-Revision-Date: 2017-05-25 14:31+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,6 +57,11 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_create_date
 msgid "Created on"
 msgstr "创建时间"
+
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.lty_message_user_assigned
+msgid "Dear User："
+msgstr "尊敬的用户："
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_display_name
@@ -846,3 +851,8 @@ msgstr "单位调动"
 #: model:ir.ui.menu,name:employees.ltyhr_employee_unit_transfer_menu
 msgid "unit_transfer"
 msgstr "单位调动"
+
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.lty_message_user_assigned
+msgid "you have been assigned to"
+msgstr "您已经被关联到用户"
