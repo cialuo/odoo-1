@@ -8,16 +8,14 @@ class UnitTransfer(models.Model):
      内部调动
      """
     _name = 'employees.innertransfer'
-    #
-    # def _getSN(self):
-    #     return self.env['ir.sequence'].next_by_code('hr_employees.transfer') or '/'
 
     # 调动单编码
     name = fields.Char(string="employees_transfer_code",  required=True, index=True, default='/')
 
+
     def _applyUser(self):
         userid = self._uid
-        users = self.env['hr.employee'].browse([userid])
+        users = self.env['hr.employee'].search({'user_id':userid})
         if len(users) != 0:
             return users[0].id
         else:
@@ -35,12 +33,30 @@ class UnitTransfer(models.Model):
     # 制表人
     create_user = fields.Many2one('res.users', string='create user', default=lambda self: self._uid)
 
+    def _defaultpost(self):
+        userid = self._uid
+        users = self.env['hr.employee'].search({'user_id': userid})
+        if len(users) != 0:
+            return users[0].workpost.id
+        else:
+            return None
+
     # 原岗位
-    original_post = fields.Many2one(related='employee_id.workpost', store=True, ondelete='restrict',
-                                    string="employees_original_post")
+    original_post = fields.Many2one('employees.post', ondelete='restrict',
+                                    string="employees_original_post", default=_defaultpost)
+
+    def _defaultdepartment(self):
+        userid = self._uid
+        users = self.env['hr.employee'].search({'user_id': userid})
+        if len(users) != 0:
+            did = users[0].department_id.id
+            return did
+        else:
+            return None
+
     # 原部门
-    original_section = fields.Many2one(related='employee_id.department_id', store=True, ondelete='restrict',
-                                       string="employees_original_section")
+    original_section = fields.Many2one('hr.department', ondelete='restrict',
+                                       string="employees_original_section", default=_defaultdepartment)
 
     # 新单位岗位
     new_post = fields.Many2one('employees.post', ondelete='restrict', string="employees_new_post")
@@ -60,6 +76,13 @@ class UnitTransfer(models.Model):
         elif type == 'post':
             return 'post'
 
+    @api.onchange('employee_id')
+    def _changeRelatedField(self):
+        employeeInfo = self.env['hr.employee'].browse([self.employee_id.id])
+        if len(employeeInfo)>0:
+            employeeInfo = employeeInfo[0]
+            self.original_post = employeeInfo.workpost.id
+            self.original_section = employeeInfo.department_id.id
 
     # 调动类型
     transfer_type = fields.Selection([
@@ -76,6 +99,12 @@ class UnitTransfer(models.Model):
     def create(self, vals):
         if vals.get('name', '/') == '/':
             vals['name'] = self.env['ir.sequence'].next_by_code('hr_employees.transfer') or '/'
+        employeeid = vals.get('employee_id')
+        employeeInfo = self.env['hr.employee'].browse([employeeid])
+        if len(employeeInfo) > 0:
+            employeeInfo = employeeInfo[0]
+            vals['original_post'] = employeeInfo.workpost.id
+            vals['original_section'] = employeeInfo.department_id.id
         return super(UnitTransfer, self).create(vals)
 
     @api.multi
