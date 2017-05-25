@@ -3,7 +3,7 @@ from odoo import models, fields, api, exceptions, _
 
 class WarrantyPlanOrder(models.Model): # 计划单
     _name = 'warranty_plan_order'
-    name = fields.Char(string="Warranty Plan Order", required=True, index=True, default='New')
+    name = fields.Char(string="Warranty Plan Order", required=True, index=True, default='/')
 
     parent_id = fields.Many2one('warranty_plan', 'Warranty Plan', required=True, ondelete='cascade') # 车辆保养计划ID
 
