@@ -55,6 +55,8 @@
                                 <field name="create_uid" string="Tabulation Man" readonly="1"/>
                                 <field name="made_company_id" readonly="1"/>
                                 <field name="remark"/>
+
+                                <field name="create_name" invisible="1"/>
                             </group>
                             <group>
                                 <field name="company_id" string="Branch Office" attrs="{'readonly':[('state','!=','draft')]}"

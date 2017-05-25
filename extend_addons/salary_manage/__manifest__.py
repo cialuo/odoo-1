@@ -1,34 +1,35 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "人力资源菜单",
+    'name': "薪资管理",
 
-    'summary': """人力资源菜单""",
+    'summary': """
+        员工薪资管理""",
 
     'description': """
-        人力资源菜单
+        员工薪资管理
     """,
 
-    'author': "深圳市蓝泰源股份信息有限公司",
-    'website': "http://www.lantaiyuan.com/",
+    'author': "深圳市蓝泰源信息股份有限公司",
+    'website': "http://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Basic Edition',
+    'category': 'Optional Edition',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'hr_payroll'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/menus.xml',
+        'views/salary_manage.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
     'installable': True,
-    'application': True
+    'application': True,
 }
