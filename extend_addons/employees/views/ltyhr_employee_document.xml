@@ -99,6 +99,18 @@
             </field>
         </record>
 
+        <template id="lty_message_user_assigned" inherit_id="mail.message_user_assigned">
+            <xpath expr="//*" position="replace">
+                <div>
+                    <p>Dear User：  <t t-esc="object.user_id.name"/>,
+                    </p>
+                    <p>you have been assigned to
+                        <t t-esc="object.name_get()[0][1]"/>.
+                    </p>
+                </div>
+            </xpath>
+        </template>
+
         <!-- 员工家属列表 -->
         <record model="ir.ui.view" id="employee_family_infolist">
             <field name="name">family.tree</field>
