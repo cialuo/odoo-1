@@ -205,7 +205,7 @@ msgstr "内部讲师"
 #. module: employees_growth_manage
 #: selection:employees_growth.test_paper_detail,question_type:0
 msgid "Judge question"
-msgstr "Judge question"
+msgstr "判断题"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_judge_question_count
@@ -302,7 +302,7 @@ msgstr "单选题"
 #. module: employees_growth_manage
 #: selection:employees_growth.test_paper_detail,question_type:0
 msgid "Multiselect question"
-msgstr "Multiselect question"
+msgstr "多选题"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_multiselect_question_count
@@ -442,7 +442,7 @@ msgstr "题库名称"
 #. module: employees_growth_manage
 #: selection:employees_growth.test_paper_detail,question_type:0
 msgid "Radio question"
-msgstr "Radio question"
+msgstr "单选题"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_radio_question_count
