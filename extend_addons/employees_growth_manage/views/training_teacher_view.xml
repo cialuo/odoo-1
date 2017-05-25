@@ -1,0 +1,132 @@
+<openerp>
+  <data>
+
+    <!-- 列表 -->
+    <record model="ir.ui.view" id="employees_growth_manage.training_teacher_list">
+      <field name="name">training_teacher list</field>
+      <field name="model">employees_growth.training_teacher</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="teacher_no"/>
+          <field name="teacher_type"/>
+          <field name="teacher_title"/>
+          <field name="teacher_post"/>
+          <field name="teacher_gender"/>
+          <field name="teacher_age"/>
+          <field name="teacher_telephone"/>
+          <field name="teacher_email"/>
+          <field name="teacher_organization"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--看板视图-->
+    <record id="employees_growth_manage.training_teacher_kanban" model="ir.ui.view">
+        <field name="name">training_teacher kanban</field>
+        <field name="model">employees_growth.training_teacher</field>
+        <field name="arch" type="xml">
+            <kanban class="o_hr_employee_kanban">
+                <field name="message_is_follower"/>
+                <field name="message_follower_ids"/>
+                <field name="message_ids"/>
+                <field name="message_needaction_counter"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('employees_growth.training_teacher', 'image_medium', record.id.value)"/>
+                                <div class="o_employee_summary_icons">
+                                    <t t-if="record.message_needaction_counter.raw_value">
+                                        <span class='oe_kanban_mail_new' title='Unread Messages'>
+                                            <i class='fa fa-comments'/>
+                                            <t t-raw="record.message_needaction_counter.raw_value"/>
+                                        </span>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="teacher_no"/> : <field name="name"/>
+                                </strong>
+                                <ul>
+                                    <li t-if="record.teacher_telephone.raw_value"><field name="teacher_telephone"/></li>
+                                    <li t-if="record.teacher_email.raw_value"><field name="teacher_email"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!--表单-->
+    <record model="ir.ui.view" id="employees_growth_manage.training_teacher_form">
+      <field name="name">training_teacher form</field>
+      <field name="model">employees_growth.training_teacher</field>
+      <field name="arch" type="xml">
+        <form>
+
+            <sheet>
+                <field name="image" widget='image' class="oe_avatar" options='{"preview_image":"image_medium"}'/>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" placeholder="Teacher's Name" />
+                    </h1>
+                </div>
+                <notebook>
+                    <page name="teacher_Career_information" string="Teacher career information">
+                        <group>
+                            <group string="group_title">
+                                <field name="teacher_type"/>
+                                <field name="teacher_title"/>
+                                <field name="teacher_organization"/>
+                            </group>
+                            <group string="group_post">
+                                <field name="teacher_no"/>
+                                <field name="teacher_post"/>
+                                <field name="induction_time"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page names="teacher_personal_information" string="Teacher personal information">
+                        <group>
+                            <group string="group_Essential information">
+                                <field name="teacher_gender"/>
+                                <field name="teacher_age"/>
+                                <field name="teacher_marriage"/>
+                            </group>
+                            <group string="group_Contact information">
+                                <field name="teacher_telephone"/>
+                                <field name="teacher_email"/>
+                                <field name="teacher_address"/>
+                            </group>
+                        </group>
+                        <div class="oe_title">
+                            <label for="personal_introduction" class="oe_edit_only"/>
+                            <h1>
+                                <field name="personal_introduction"/>
+                            </h1>
+                        </div>
+                    </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- 动作 -->
+    <record model="ir.actions.act_window" id="employees_growth_manage.action_training_teacher">
+      <field name="name">training_teacher window</field>
+      <field name="res_model">employees_growth.training_teacher</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+  </data>
+</openerp>

@@ -1,0 +1,40 @@
+<odoo>
+	<data>
+
+        <!--员工成功管理-->
+        <menuitem id="employees_growth_manage.menu_root" name="Employee Growth Manage"
+                  parent="employees_menu.ltyhr_top_menu" sequence="79"/>
+
+        <!-- 培训计划 -->
+        <menuitem id="employees_growth_manage.menu_plan" name="Training Plan"
+                  parent="employees_growth_manage.menu_root" sequence="1"/>
+        <!-- 培训管理 -->
+        <menuitem id="employees_growth_manage.menu_manage" name="Training Manage"
+                  parent="employees_growth_manage.menu_root" sequence="2"/>
+        <!-- 培训设置 -->
+        <menuitem id="employees_growth_manage.menu_configuration" name="Training Configuration"
+                  parent="employees_growth_manage.menu_root" sequence="3"/>
+
+        <!--培训老师-->
+        <menuitem id="employees_growth_manage.menu_training_teacher" name="Training Teacher Menu"
+                  parent="employees_growth_manage.menu_configuration"
+                  sequence="1" action="employees_growth_manage.action_training_teacher"/>
+        <!--课程-->
+        <menuitem id="employees_growth_manage.menu_course" name="Course Menu"
+                  parent="employees_growth_manage.menu_configuration"
+                  sequence="2" action="employees_growth_manage.action_course"/>
+        <!--题库-->
+        <menuitem id="employees_growth_manage.menu_questions" name="Questions Menu"
+                  parent="employees_growth_manage.menu_configuration"
+                  sequence="3" action="employees_growth_manage.action_questions"/>
+        <!--试卷-->
+        <menuitem id="employees_growth_manage.menu_test_paper" name="Test Paper Menu"
+                  parent="employees_growth_manage.menu_configuration"
+                  sequence="4" action="employees_growth_manage.action_test_paper"/>
+
+        <!--课程类型-->
+        <menuitem id="employees_growth_manage.menu_course_type" name="Course Type Menu"
+                  parent="employees_growth_manage.menu_configuration"
+                  sequence="5" action="employees_growth_manage.action_course_type"/>
+	</data>
+</odoo>

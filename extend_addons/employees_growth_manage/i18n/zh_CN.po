@@ -1,0 +1,711 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* employees_growth_manage
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-22 07:32+0000\n"
+"PO-Revision-Date: 2017-05-22 16:36+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.2\n"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_aggregate_score
+msgid "Aggregate score"
+msgstr "总分"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_answer
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_answer
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_answer
+msgid "Answer"
+msgstr "正确答案"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_course
+msgid "Course"
+msgstr "课程"
+
+#. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_course
+msgid "Course Menu"
+msgstr "课程管理"
+
+#. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_course_type
+msgid "Course Type Menu"
+msgstr "类型设置"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_course_content
+msgid "Course content"
+msgstr "课程内容"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_course_credit
+msgid "Course credit"
+msgstr "学分"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_course_enclosure
+#: model:ir.ui.view,arch_db:employees_growth_manage.course_form
+msgid "Course enclosure"
+msgstr "上传课件"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_course_founder
+msgid "Course founder"
+msgstr "创建人"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_course_introduce
+#: model:ir.ui.view,arch_db:employees_growth_manage.course_form
+msgid "Course introduce"
+msgstr "课程介绍"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_course_no
+msgid "Course no"
+msgstr "编号"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_course_objective
+msgid "Course objective"
+msgstr "教学目的"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.course_form
+msgid "Course outline"
+msgstr "大纲"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_training_teacher
+msgid "Course training teacher"
+msgstr "讲师"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_course_type
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_manage_course_type
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_course_type
+msgid "Course type"
+msgstr "课程类别"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.course_form
+msgid "Course's Name"
+msgstr "课程名称"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_creat_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_creat_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_creat_date
+msgid "Creat date"
+msgstr "创建时间"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.training_teacher,teacher_marriage:0
+msgid "Divorce"
+msgstr "离异"
+
+#. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_root
+msgid "Employee Growth Manage"
+msgstr "员工成长管理"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.training_teacher,teacher_type:0
+msgid "External"
+msgstr "外部讲师"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.training_teacher,teacher_gender:0
+msgid "Female"
+msgstr "女"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_founder
+msgid "Founder"
+msgstr "Founder"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_id
+msgid "ID"
+msgstr "ID"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_induction_time
+msgid "Induction time"
+msgstr "入职时间"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.course_type_form
+msgid "Input type name"
+msgstr "类型名称"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.training_teacher,teacher_type:0
+msgid "Inside"
+msgstr "内部讲师"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.test_paper_detail,question_type:0
+msgid "Judge question"
+msgstr "判断题"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_judge_question_count
+msgid "Judge question count"
+msgstr "判断题数量"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_judge_questions
+msgid "Judge question id"
+msgstr "Judge question id"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.questions_form
+msgid "Judge questions"
+msgstr "判断题"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.training_teacher,teacher_gender:0
+msgid "Male"
+msgstr "男"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.training_teacher,teacher_marriage:0
+msgid "Married"
+msgstr "已婚"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_image_medium
+msgid "Medium-sized photo"
+msgstr "中等尺寸照片"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,help:employees_growth_manage.field_employees_growth_training_teacher_image_medium
+msgid "Medium-sized photo of the employee. It is automatically resized as a 128x128px image, with aspect ratio preserved. Use this field in form views or some kanban views."
+msgstr "员工的中等尺寸照片。保留纵横比例，自动缩放为128x128px的图像。这个字段用在表单视图和某些看板视图。"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_judge_question
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_manage_judge_question
+msgid "Model_Judge question"
+msgstr "判断题"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_manage_multiselect_question
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_multiselect_question
+msgid "Model_Multiselect question"
+msgstr "多选题"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_manage_radio_question
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_radio_question
+msgid "Model_Radio question"
+msgstr "单选题"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.test_paper_detail,question_type:0
+msgid "Multiselect question"
+msgstr "多选题"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_multiselect_question_count
+msgid "Multiselect question count"
+msgstr "多选题"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_multiselect_questions
+msgid "Multiselect question id"
+msgstr "Multiselect question id"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.questions_form
+msgid "Multiselect questions"
+msgstr "多选题"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_name
+msgid "Name"
+msgstr "名字"
+
+#. module: employees_growth_manage
+#: code:addons/employees_growth_manage/models/course_type.py:10
+#: sql_constraint:employees_growth.course_type:0
+#, python-format
+msgid "Number already exists."
+msgstr "编号已经存在!"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_option_A
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_option_A
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_option_A
+msgid "Option A"
+msgstr "A"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_option_B
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_option_B
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_option_B
+msgid "Option B"
+msgstr "B"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_option_C
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_option_C
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_option_C
+msgid "Option C"
+msgstr "C"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_option_D
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_option_D
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_option_D
+msgid "Option D"
+msgstr "D"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_passing_grade
+msgid "Passing grade"
+msgstr "及格分数"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_personal_introduction
+msgid "Personal introduction"
+msgstr "个人介绍"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_image
+msgid "Photo"
+msgstr "照片"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_question_count
+msgid "Question count"
+msgstr "题目数量"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_name
+msgid "Question name"
+msgstr "题目"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_question_type
+msgid "Question type"
+msgstr "题型"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.test_paper_form
+msgid "Question type setting"
+msgstr "题型设置"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_manage_questions
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_questions
+msgid "Questions"
+msgstr "题库"
+
+#. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_questions
+msgid "Questions Menu"
+msgstr "题库管理"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_questions_founder
+msgid "Questions founder"
+msgstr "Questions founder"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_questions_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_questions_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_questions_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_questions_id
+msgid "Questions id"
+msgstr "题库"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_questions_no
+msgid "Questions no"
+msgstr "编号"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_questions_total_score
+msgid "Questions total score"
+msgstr "合计总分"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.questions_form
+msgid "Questions's Name"
+msgstr "题库名称"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.test_paper_detail,question_type:0
+msgid "Radio question"
+msgstr "单选题"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_radio_question_count
+msgid "Radio question count"
+msgstr "单选题数量"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_radio_questions
+msgid "Radio question id"
+msgstr "Radio question id"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.questions_form
+msgid "Radio questions"
+msgstr "单选题"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_score
+msgid "Score"
+msgstr "分值"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_image_small
+msgid "Small-sized photo"
+msgstr "小尺寸照片"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,help:employees_growth_manage.field_employees_growth_training_teacher_image_small
+msgid "Small-sized photo of the employee. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
+msgstr "小尺寸的员工照片。保留纵横比，自动缩放为64x64px。用在任何需要小图像的场合"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_teacher_address
+msgid "Teacher address"
+msgstr "住址"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_teacher_age
+msgid "Teacher age"
+msgstr "年龄"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.training_teacher_form
+msgid "Teacher career information"
+msgstr "职业信息"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_teacher_email
+msgid "Teacher email"
+msgstr "电邮"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_teacher_gender
+msgid "Teacher gender"
+msgstr "性别"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_teacher_marriage
+msgid "Teacher marriage"
+msgstr "婚姻"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_teacher_no
+msgid "Teacher no"
+msgstr "编号"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_teacher_organization
+msgid "Teacher organization"
+msgstr "所在机构"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.training_teacher_form
+msgid "Teacher personal information"
+msgstr "个人信息"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_teacher_post
+msgid "Teacher post"
+msgstr "岗位"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_teacher_telephone
+msgid "Teacher telephone"
+msgstr "电话"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_teacher_title
+msgid "Teacher title"
+msgstr "职称"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_teacher_type
+msgid "Teacher type"
+msgstr "类型"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.training_teacher_form
+msgid "Teacher's Name"
+msgstr "培训师名称"
+
+#. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_test_paper
+msgid "Test Paper Menu"
+msgstr "试卷管理"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_manage_test_paper
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_test_paper
+msgid "Test paper"
+msgstr "试卷"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_manage_test_paper_detail
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_test_paper_detail
+msgid "Test paper detail"
+msgstr "试卷明细"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_test_paper_founder
+msgid "Test paper founder"
+msgstr "Test paper founder"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_test_paper_id
+msgid "Test paper id"
+msgstr "试卷"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_test_paper_no
+msgid "Test paper no"
+msgstr "编号"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.test_paper_form
+msgid "Test paper's Name"
+msgstr "试卷名称"
+
+#. module: employees_growth_manage
+#: code:addons/employees_growth_manage/models/course_type.py:9
+#: sql_constraint:employees_growth.course_type:0
+#, python-format
+msgid "The name already exists."
+msgstr "名称已近存在!"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,help:employees_growth_manage.field_employees_growth_training_teacher_image
+msgid "This field holds the image used as photo for the employee, limited to 1024x1024px."
+msgstr "这个字段保存员工的照片，限制为 1024x1024px"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_total_count
+msgid "Total count"
+msgstr "题目总数量"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_total_score
+msgid "Total score"
+msgstr "分值合计"
+
+#. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_configuration
+msgid "Training Configuration"
+msgstr "培训设置"
+
+#. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_manage
+msgid "Training Manage"
+msgstr "培训管理"
+
+#. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_plan
+msgid "Training Plan"
+msgstr "培训计划"
+
+#. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_training_teacher
+msgid "Training Teacher Menu"
+msgstr "培训师管理"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_manage_training_teacher
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_training_teacher
+msgid "Training teacher"
+msgstr "Training teacher"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_type_explain
+msgid "Type explain"
+msgstr "类型说明"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_type_no
+msgid "Type no"
+msgstr "编号"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.training_teacher,teacher_marriage:0
+msgid "Unmarried"
+msgstr "未婚"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.training_teacher_kanban
+msgid "Unread Messages"
+msgstr "未读消息"
+
+#. module: employees_growth_manage
+#: model:ir.actions.act_window,name:employees_growth_manage.action_course_type
+msgid "action_course_type window"
+msgstr "类型设置"
+
+#. module: employees_growth_manage
+#: model:ir.actions.act_window,name:employees_growth_manage.action_course
+msgid "course window"
+msgstr "课程管理"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.training_teacher_form
+msgid "group_Contact information"
+msgstr "联系信息"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.training_teacher_form
+msgid "group_Essential information"
+msgstr "基本信息"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.training_teacher_form
+msgid "group_post"
+msgstr "岗位"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.training_teacher_form
+msgid "group_title"
+msgstr "职称"
+
+#. module: employees_growth_manage
+#: model:ir.actions.act_window,name:employees_growth_manage.action_questions
+msgid "questions window"
+msgstr "题库"
+
+#. module: employees_growth_manage
+#: model:ir.actions.client,name:employees_growth_manage.action_report
+#: model:ir.ui.menu,name:employees_growth_manage.report_menu
+msgid "report"
+msgstr "report"
+
+#. module: employees_growth_manage
+#: model:ir.actions.act_window,name:employees_growth_manage.action_test_paper
+msgid "test_paper window"
+msgstr "试卷管理"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_test_paper_details
+msgid "test_paper_details"
+msgstr "test_paper_details"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_test_paper_id
+msgid "test_paper_id"
+msgstr "test_paper_id"
+
+#. module: employees_growth_manage
+#: model:ir.actions.act_window,name:employees_growth_manage.action_training_teacher
+msgid "training_teacher window"
+msgstr "培训师管理"

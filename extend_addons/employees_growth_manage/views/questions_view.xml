@@ -1,0 +1,93 @@
+<openerp>
+  <data>
+
+    <!-- 表单 -->
+    <record model="ir.ui.view" id="employees_growth_manage.questions_list">
+      <field name="name">questions list</field>
+      <field name="model">employees_growth.questions</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="questions_no"/>
+          <field name="total_count"/>
+          <field name="questions_founder"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--表单-->
+    <record model="ir.ui.view" id="employees_growth_manage.questions_form">
+      <field name="name">questions form</field>
+      <field name="model">employees_growth.questions</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" placeholder="Questions's Name" />
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="questions_no"/>
+                        <field name="radio_question_count"/>
+                        <field name="questions_founder" options="{'no_open': True, 'no_create': True}"/>
+                    </group>
+                    <group>
+                        <field name="multiselect_question_count"/>
+                        <field name="judge_question_count"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page name="radio_questions" string="Radio questions">
+                         <field name="radio_questions" >
+                            <tree editable="top">
+                                <field name="name"/>
+                                <field name="option_A"/>
+                                <field name="option_B"/>
+                                <field name="option_C"/>
+                                <field name="option_D"/>
+                                <field name="answer"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page names="multiselect_questions" string="Multiselect questions">
+                        <field name="multiselect_questions" >
+                            <tree editable="top">
+                                <field name="name"/>
+                                <field name="option_A"/>
+                                <field name="option_B"/>
+                                <field name="option_C"/>
+                                <field name="option_D"/>
+                                <field name="answer"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page names="judge_questions" string="Judge questions">
+                        <field name="judge_questions" >
+                            <tree editable="top">
+                                <field name="name"/>
+                                <field name="option_A"/>
+                                <field name="option_B"/>
+                                <field name="option_C"/>
+                                <field name="option_D"/>
+                                <field name="answer"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- 动作 -->
+    <record model="ir.actions.act_window" id="employees_growth_manage.action_questions">
+      <field name="name">questions window</field>
+      <field name="res_model">employees_growth.questions</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+  </data>
+</openerp>
