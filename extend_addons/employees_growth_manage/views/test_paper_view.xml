@@ -1,0 +1,72 @@
+<openerp>
+  <data>
+
+    <!-- 列表 -->
+    <record model="ir.ui.view" id="employees_growth_manage.test_paper_list">
+      <field name="name">test_paper list</field>
+      <field name="model">employees_growth.test_paper</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="test_paper_no"/>
+          <field name="questions_id"/>
+          <field name="aggregate_score"/>
+          <field name="passing_grade"/>
+          <field name="test_paper_founder"/>
+          <field name="creat_date"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--表单-->
+    <record model="ir.ui.view" id="employees_growth_manage.test_paper_form">
+      <field name="name">test_paper form</field>
+      <field name="model">employees_growth.test_paper</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" placeholder="Test paper's Name" />
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="test_paper_no"/>
+                        <field name="test_paper_founder" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="creat_date" />
+                    </group>
+                    <group>
+                        <field name="questions_id" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="aggregate_score"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page name="question_type_setting" string="Question type setting">
+                         <field name="test_paper_details" >
+                            <tree editable="top">
+                                <field name="question_type"/>
+                                <field name="question_count"/>
+                                <field name="score"/>
+                                <field name="total_score"/>
+                                <field name="questions_total_score"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- 动作 -->
+    <record model="ir.actions.act_window" id="employees_growth_manage.action_test_paper">
+      <field name="name">test_paper window</field>
+      <field name="res_model">employees_growth.test_paper</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+  </data>
+</openerp>
