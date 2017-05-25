@@ -18,6 +18,8 @@ class Vehicle(models.Model):
                               ('repair', "repair"),
                               ('stop', "stop"),], default='normal',
                                help='Current state of the vehicle', ondelete="set null")
+
+    license_plate = fields.Char(required=True, help='车牌')
     name = fields.Char("Vehicle Number", compute="_cumpute_model_name", store=True)
     inner_code = fields.Char(string="Inner Code", help="Inner Code", required=True)
     route_id = fields.Many2one('route_manage.route_manage', string="Route")
@@ -48,7 +50,7 @@ class Vehicle(models.Model):
                               ('green', "Green")], default='green',
                                help='Vehicle Label')
 
-    deadline = fields.Integer(string="Deadline",related='model_id.deadline') #使用寿命
+    deadline = fields.Integer(string="Deadline",related='model_id.deadline', readonly=True) #使用寿命
 
 
     emission_standard = fields.Many2one(related='model_id.emission_standard')
@@ -57,7 +59,7 @@ class Vehicle(models.Model):
     location_stock_id = fields.Many2one('stock.location', string='Stock Location')
 
     start_service_date = fields.Date(string='Start Service Date')   #投入日期
-    # service_float_year = fields.Float('Service Float Year', compute='_get_service_year')
+
     service_year = fields.Integer('Service Year', compute='_get_salvage_rate')
 
     salvage_rate = fields.Float(string='Salvage Rate', compute='_get_salvage_rate')  # 年限残值
@@ -67,6 +69,7 @@ class Vehicle(models.Model):
     # 司机
     driver = fields.Many2many('hr.employee', relation='vehicle_driver_employee', string="driver")
 
+    #线路修正系数
     route_correct_value = fields.Float(related='route_id.oil_wear_coefficient', string="oil_wear_coefficient")
 
     @api.depends('start_service_date')
@@ -143,7 +146,7 @@ class FleetVehicleModel(models.Model):
     power_ext = fields.Integer('Power', help='Power in KW of the vehicle')
     weight = fields.Integer('Weight', help='Weight')
     doors_ext = fields.Integer('Doors Number', help='Number of doors of the vehicle')
-    seats_ext = fields.Integer('Seats Number', help='Number of seats of the vehicle', default=5)
+    seats_ext = fields.Integer('Seats Number', help='Number of seats of the vehicle')
 
     home_entry_date = fields.Date("Home Entry Date", help='Home Entry Date')
     specifications = fields.Char("Specifications", help='Specifications')

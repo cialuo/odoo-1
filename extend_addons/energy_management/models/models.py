@@ -57,7 +57,7 @@ class energy_station(models.Model):
      station_address = fields.Char(string='Station address')
 
      # 安全检查项
-     security_check = fields.Many2one('security_manage.check_table','security_check')
+     security_check = fields.Many2one('security_manage.check_table','security_check',domain=[("state", "=", "execute")])
 
      # 能源站规模
      station_scale = fields.Char(string='Person scale')

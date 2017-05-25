@@ -1,0 +1,7 @@
+<odoo>
+    <template id="employees-style" name="employees style" inherit_id="web.assets_backend">
+        <xpath expr="link[last()]" position="after">
+            <link href="/employees/static/less/style.less" rel="stylesheet" type="text/less"/>
+        </xpath>
+    </template>
+</odoo>

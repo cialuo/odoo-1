@@ -8,6 +8,7 @@ class usage_record(models.Model):
     _name = 'energy.usage_record'
     _inherit = ['mail.thread']
     _description = 'Energy usage record'
+    _rec_name = 'vehicle_id'
 
     """
        使用记录
@@ -48,7 +49,7 @@ class usage_record(models.Model):
     pile_type = fields.Selection(string='Pile Type', related='pile_id.pile_type', store=True,)
 
     #车牌号
-    license_plate = fields.Char(string='License Plate',related='vehicle_id.license_plate', store=True,)
+    license_plate = fields.Char(string='License Plate',related='vehicle_id.license_plate', store=False,)
 
     #车辆编号
     inner_code = fields.Char(string='Inner Code',related='vehicle_id.inner_code', store=True,)
@@ -80,6 +81,7 @@ class usage_record(models.Model):
 
     # 使用总价
     total_price = fields.Float(string='Total Price',digits=(12,2))
+
 
 
 
@@ -144,7 +146,7 @@ class usage_record(models.Model):
         vehicle = self.env['fleet.vehicle'].search([('id', '=', vals.get('vehicle_id'))])
 
         move_vals = {
-                'name': 'CONSUME-' + product_id.display_name,
+                'name': 'CN-' + product_id.display_name,
                 'product_id': product_id.id,
                 'product_uom_qty': vals.get('fuel_capacity'),
                 'product_uom': product_id.uom_id.id,

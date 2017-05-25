@@ -1,21 +1,18 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "调度参数设置",
+    'name': "调度参数",
 
     'description': """
-        调度参数设置
+        调度参数
     """,
 
     'summary': """
-        调度参数设置
+        调度参数
         """,
 
     'author': "youmy",
     'website': "http://www.lantaiyuan.com/",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
-    # for the full list
     'category': 'Basic Edition',
     'version': '0.1',
 
@@ -29,11 +26,7 @@
         'views/schedule_employee.xml',
         'views/schedule.xml',
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
-    # only loaded in demonstration mode
+
     'installable': True,
     'application': True,
     'auto_install': False,

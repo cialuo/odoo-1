@@ -6,7 +6,7 @@
             <field name="name">vehicle.tree</field>
             <field name="model">fleet.vehicle</field>
             <field name="arch" type="xml">
-                <tree string="Vehicle" decoration-danger="excess_consumption>0" decoration-info="excess_consumption &lt; 0">
+                <tree string="Vehicle" create="false" decoration-danger="excess_consumption>0" decoration-info="excess_consumption &lt; 0">
                     <field name="active" invisible="1"/>
                     <field name="license_plate" />
                     <field name="inner_code" />

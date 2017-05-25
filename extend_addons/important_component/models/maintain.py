@@ -80,4 +80,4 @@ class RepareMethod(models.Model):
 
     is_important_product = fields.Boolean("Is Important Product")
     important_product_id = fields.Many2one('product.product', string="Important Product",
-                                           domain=[('is_important', '=', True)])
+                                           domain=[('is_important', '=', True), ('important_type', '=', 'component')])

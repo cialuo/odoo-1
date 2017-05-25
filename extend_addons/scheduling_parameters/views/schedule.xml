@@ -226,7 +226,7 @@
                                 <field name="class_system"/>
                                 <field name="shunt_mode"/>
                                 <field name="schedule_type"/>
-                                <field name="subsidiary"/>
+                                <field name="subsidiary" options="{'no_create':True}"/>
                             </group>
                         </group>
 

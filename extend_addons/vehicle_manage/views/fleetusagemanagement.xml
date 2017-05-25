@@ -327,9 +327,6 @@
                 ]"/>
     </record>
 
-
-
-
     <!-- 车辆行驶记录tree视图 -->
     <record id='vehicle_drive_records_tree_list' model='ir.ui.view'>
         <field name="name">vehicle drive records tree list</field>
