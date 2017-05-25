@@ -46,7 +46,9 @@
                                         <field name="education"/>
                                         <field name="political_status"/>
                                     </group>
-                                    <field name="live_address"/>
+                                </group>
+                                <group>
+                                    <field name="live_address" col="4"/>
                                 </group>
                             </page>
                             <page name="workinfo" string="employee work infomation">

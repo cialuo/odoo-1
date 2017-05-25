@@ -8,12 +8,12 @@ class UnitTransfer(models.Model):
      内部调动
      """
     _name = 'employees.innertransfer'
-
-    def _getSN(self):
-        return self.env['ir.sequence'].next_by_code('hr_employees.transfer') or '/'
+    #
+    # def _getSN(self):
+    #     return self.env['ir.sequence'].next_by_code('hr_employees.transfer') or '/'
 
     # 调动单编码
-    name = fields.Char(string="employees_transfer_code",  required=True, index=True, default=_getSN)
+    name = fields.Char(string="employees_transfer_code",  required=True, index=True, default='/')
 
     def _applyUser(self):
         userid = self._uid
@@ -72,6 +72,12 @@ class UnitTransfer(models.Model):
     # 审批/会签人员
     countersign_person = fields.Many2many('hr.employee', string="employees_countersign_person")
 
+    @api.model
+    def create(self, vals):
+        if vals.get('name', '/') == '/':
+            vals['name'] = self.env['ir.sequence'].next_by_code('hr_employees.transfer') or '/'
+        return super(UnitTransfer, self).create(vals)
+
     @api.multi
     def action_draft(self):
         self.state = 'draft'
@@ -111,14 +117,8 @@ class ForeignTransfer(models.Model):
     """
     _name = 'employees.foreign'
 
-    def _getSN(self):
-        """
-        自动生成订单号：前缀NBDD+序号
-        """
-        return self.env['ir.sequence'].next_by_code('hr_employees.transfer') or '/'
-
     # 调动单编码
-    name = fields.Char(string="employees_transfer_code", index=True, copy=False, default=_getSN)
+    name = fields.Char(string="employees_transfer_code", index=True, copy=False, default='/')
 
     # 关联的员工
     employee_id = fields.Many2one('hr.employee', ondelete='cascade', string='employee')
@@ -155,6 +155,8 @@ class ForeignTransfer(models.Model):
 
     @api.model
     def create(self, vals):
+        if vals.get('name', '/') == '/':
+            vals['name'] = self.env['ir.sequence'].next_by_code('hr_employees.transfer') or '/'
         return super(ForeignTransfer, self).create(vals)
 
     @api.multi
