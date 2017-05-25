@@ -58,17 +58,17 @@ class usage_record(models.Model):
     fuel_capacity = fields.Float(string='Fuel Capacity',required=True)
 
     #单位
-    companyc_id = fields.Many2one('product.uom',related='pile_id.energy_type.uom_id', store=True,string='Companyc Id',required=True)
+    companyc_id = fields.Many2one('product.uom',related='pile_id.energy_type.uom_id', store=True,string='Companyc Id',required=True,readonly=True)
 
     #库位
     location_id = fields.Many2one('stock.location', related='pile_id.location_id', store=False, readonly=True,
                                   string='Location Id')
 
     #运营里程
-    working_mileage = fields.Float(string='Working Mileage')
+    working_mileage = fields.Float(string='Working Mileage',readonly=True)
 
     #gps里程
-    gps_mileage = fields.Float(string='GPS Mileage')
+    gps_mileage = fields.Float(string='GPS Mileage',readonly=True)
 
     #运营油耗
     working_oil_wear  = fields.Float(string='Working Oil Wear ')
@@ -80,7 +80,7 @@ class usage_record(models.Model):
     location_price = fields.Float(string='Location Price',digits=(12,2),related='energy_type.list_price',)
 
     # 使用总价
-    total_price = fields.Float(string='Total Price',digits=(12,2))
+    total_price = fields.Float(string='Total Price',digits=(12,2),readonly=True)
 
 
 

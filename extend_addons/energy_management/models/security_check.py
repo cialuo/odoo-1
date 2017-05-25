@@ -28,7 +28,7 @@ class security_check(models.Model):
     station_id = fields.Many2one('energy.station', string='Station Id',required=True,domain=[('station_property','=','company')])
 
     # 能源站类别
-    station_type = fields.Selection(string='Station Type', related='station_id.station_type', store=False,)
+    station_type = fields.Selection(string='Station Type', related='station_id.station_type', store=False,readonly=True)
 
     # 隶属部门
     department_id = fields.Many2one('hr.department',related='station_id.department_id', store=False,string='Department Id')

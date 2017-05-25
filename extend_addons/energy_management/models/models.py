@@ -159,7 +159,7 @@ class energy_pile(models.Model):
     location_id = fields.Many2one('stock.location',string='Location Id',domain="[('station_id', '=', station_id)]",required=True)
 
     # 单位
-    companyc_id = fields.Many2one('product.uom',related = 'energy_type.uom_id',store = False,string='Companyc Id')
+    companyc_id = fields.Many2one('product.uom',related = 'energy_type.uom_id',store = False,string='Companyc Id',readonly=True)
 
     # 使用记录
     usage_record_ids = fields.One2many('energy.usage_record','pile_id',string='Usage record ids')

@@ -248,7 +248,7 @@ msgstr "加气站"
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_fuel_capacity
 msgid "Fuel Capacity"
-msgstr "额度油箱容量"
+msgstr "使用量"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.fleet_vehicle_form
