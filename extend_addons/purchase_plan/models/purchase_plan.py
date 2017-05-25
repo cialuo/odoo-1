@@ -27,7 +27,7 @@ class PuchasePlan(models.Model):
 
 
 
-    name = fields.Char(string='name', default='New', readonly=True)
+    name = fields.Char(string='name', default='/', readonly=True)
     month = fields.Char(string='Month', readonly=True, states={'draft': [('readonly', False)]}, required=True, default=_get_month)
     user_id = fields.Many2one('hr.employee', string='Create User', required=True, readonly=True,
                               states={'draft': [('readonly', False)]}, default=_get_default_user)
@@ -54,8 +54,8 @@ class PuchasePlan(models.Model):
         :param vals:
         :return:
         """
-        if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code('purchase_plan_seq') or 'New'
+        if vals.get('name', '/') == '/':
+            vals['name'] = self.env['ir.sequence'].next_by_code('purchase_plan_seq') or '/'
         res = super(PuchasePlan, self).create(vals)
         return res
 

@@ -146,7 +146,7 @@ class WizardWarrantyPlan(models.TransientModel): # 自动生成保养计划
                             warranty_category_id = warranty_interval_id.warranty_category_id.id
                     if odometer_count>0 and interval_mileage>0 and warranty_category_id>0:
                         warranty_plan_order_val = {
-                            'name': 'New',
+                            'name': '/',
                             'parent_id': warranty_plan.id,
                             'vehicle_id': vehicle.id,
                             'warranty_category': warranty_category_id,
