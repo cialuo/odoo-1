@@ -53,7 +53,7 @@ class Vehicle(models.Model):
     deadline = fields.Integer(string="Deadline",related='model_id.deadline', readonly=True) #使用寿命
 
 
-    emission_standard = fields.Many2one(related='model_id.emission_standard')
+    emission_standard = fields.Many2one(related='model_id.emission_standard', readonly=True)
 
     location_id = fields.Many2one('stock.location', string='V Location')
     location_stock_id = fields.Many2one('stock.location', string='Stock Location')
@@ -70,7 +70,7 @@ class Vehicle(models.Model):
     driver = fields.Many2many('hr.employee', relation='vehicle_driver_employee', string="driver")
 
     #线路修正系数
-    route_correct_value = fields.Float(related='route_id.oil_wear_coefficient', string="oil_wear_coefficient")
+    route_correct_value = fields.Float(related='route_id.oil_wear_coefficient', string="oil_wear_coefficient", readonly=True)
 
     @api.depends('start_service_date')
     def _get_salvage_rate(self):
