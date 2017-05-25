@@ -10,8 +10,8 @@
                 <field name="create_uid"/>
                 <field name="original_section"/>
                 <field name="original_post"/>
-                <field name="new_post"/>
                 <field name="new_section"/>
+                <field name="new_post"/>
                 <field name="state"/>
             </tree>
         </field>
