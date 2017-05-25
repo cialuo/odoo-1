@@ -75,12 +75,24 @@ class security_check(models.Model):
         self.security_check_detail_ids = data
 
     @api.multi
-    def refer_to_auditing(self):
+    def draft_to_refer(self):
         self.state = 'refer'
+
+    @api.multi
+    def refer_to_auditing(self):
+        self.state = 'auditing'
+
+    @api.multi
+    def refer_to_draft(self):
+        self.state = 'draft'
 
     @api.multi
     def auditing_to_complete(self):
         self.state = 'complete'
+
+    @api.multi
+    def auditing_to_refer(self):
+        self.state = 'refer'
 
     @api.multi
     def unlink(self):

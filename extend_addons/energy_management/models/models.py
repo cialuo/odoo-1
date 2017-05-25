@@ -100,6 +100,7 @@ class energy_station(models.Model):
                                       "resized as a 64x64px image, with aspect ratio preserved. "
                                       "Use this field anywhere a small image is required.")
 
+     active = fields.Boolean(string="MyActive", default=True)
 
      @api.model
      def create(self, vals):
@@ -120,10 +121,12 @@ class energy_station(models.Model):
          :return:
          """
          self.state = 'stop'
+         self.active = False
 
      @api.multi
      def stop_to_normal(self):
          self.state = 'normal'
+         self.active = True
 
 class energy_pile(models.Model):
 
@@ -205,7 +208,7 @@ class energy_pile(models.Model):
                                      "resized as a 64x64px image, with aspect ratio preserved. "
                                      "Use this field anywhere a small image is required.")
 
-
+    active = fields.Boolean(string="MyActive", default=True)
 
     @api.onchange('station_id')
     def _onchange_station_id(self):
@@ -228,10 +231,12 @@ class energy_pile(models.Model):
     @api.multi
     def normal_to_stop(self):
         self.state = 'stop'
+        self.active = False
 
     @api.multi
     def stop_to_normal(self):
         self.state = 'normal'
+        self.active = True
 
 
 

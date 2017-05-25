@@ -30,7 +30,7 @@ msgstr "额外的信息"
 #. module: energy_management
 #: selection:energy.security_check,state:0
 msgid "Auditing"
-msgstr "审核"
+msgstr "已审核"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_average_day_number
@@ -543,7 +543,7 @@ msgstr "日期"
 #. module: energy_management
 #: selection:energy.security_check,state:0
 msgid "Refer"
-msgstr "提交"
+msgstr "已提交"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_remark
@@ -697,7 +697,7 @@ msgstr "站长"
 #: selection:energy.pile,state:0 selection:energy.station,state:0
 #: selection:energy.usage_record,state:0 selection:stock.location,state:0
 msgid "Stop"
-msgstr "报停"
+msgstr "归档"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_department_id
@@ -788,7 +788,7 @@ msgstr "运营油耗"
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.security_check_form
 msgid "auditing"
-msgstr "审核"
+msgstr "已审核"
 
 #. module: energy_management
 #: model:ir.actions.act_window,name:energy_management.aw_energy_pile
@@ -822,7 +822,7 @@ msgstr "正常"
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.security_check_form
 msgid "refer"
-msgstr "提交"
+msgstr "已提交"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_security_check
@@ -840,7 +840,7 @@ msgstr "安全检查"
 #: model:ir.ui.view,arch_db:energy_management.location_form
 #: model:ir.ui.view,arch_db:energy_management.usage_record_form
 msgid "stop"
-msgstr "报停"
+msgstr "归档"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.vehicle_usage_records_form

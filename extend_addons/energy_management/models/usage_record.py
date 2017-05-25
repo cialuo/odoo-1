@@ -82,7 +82,7 @@ class usage_record(models.Model):
     # 使用总价
     total_price = fields.Float(string='Total Price',digits=(12,2),readonly=True)
 
-
+    active = fields.Boolean(string="MyActive", default=True)
 
 
     @api.onchange('location_price','fuel_capacity')
@@ -97,10 +97,12 @@ class usage_record(models.Model):
     @api.multi
     def normal_to_stop(self):
         self.state = 'stop'
+        self.active = False
 
     @api.multi
     def stop_to_normal(self):
         self.state = 'normal'
+        self.active = True
 
     @api.model
     def create(self, vals):
