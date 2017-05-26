@@ -193,6 +193,9 @@
                 <search>
                     <field name="name"/>
                     <field name="inter_code"/>
+                    <group>
+                        <filter string="物资类别" domain="[]" context="{'group_by': 'categ_id'}"/>
+                    </group>
                 </search>
             </field>
         </record>
