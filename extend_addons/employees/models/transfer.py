@@ -15,7 +15,7 @@ class UnitTransfer(models.Model):
 
     def _applyUser(self):
         userid = self._uid
-        users = self.env['hr.employee'].search({'user_id':userid})
+        users = self.env['hr.employee'].search([('user_id', '=',userid)])
         if len(users) != 0:
             return users[0].id
         else:
@@ -35,7 +35,7 @@ class UnitTransfer(models.Model):
 
     def _defaultpost(self):
         userid = self._uid
-        users = self.env['hr.employee'].search({'user_id': userid})
+        users = self.env['hr.employee'].search([('user_id', '=',userid)])
         if len(users) != 0:
             return users[0].workpost.id
         else:
@@ -47,7 +47,7 @@ class UnitTransfer(models.Model):
 
     def _defaultdepartment(self):
         userid = self._uid
-        users = self.env['hr.employee'].search({'user_id': userid})
+        users = self.env['hr.employee'].search([('user_id', '=',userid)])
         if len(users) != 0:
             did = users[0].department_id.id
             return did

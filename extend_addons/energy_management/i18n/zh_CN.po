@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 10:03+0000\n"
-"PO-Revision-Date: 2017-05-15 18:11+0800\n"
+"POT-Creation-Date: 2017-05-25 13:50+0000\n"
+"PO-Revision-Date: 2017-05-25 21:53+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "额外的信息"
 #. module: energy_management
 #: selection:energy.security_check,state:0
 msgid "Auditing"
-msgstr "审核"
+msgstr "已审核"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_average_day_number
@@ -47,11 +47,6 @@ msgstr "百里油耗"
 #: model:ir.ui.view,arch_db:energy_management.fleet_vehicle_model_form
 msgid "AverageOilWear"
 msgstr "平均油耗"
-
-#. module: energy_management
-#: model:ir.model.fields,help:energy_management.field_energy_usage_record_location_price
-msgid "Base price to compute the customer price. Sometimes called the catalog price."
-msgstr "计算客户报价的基准价格。也叫目录价格"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_check_content
@@ -101,7 +96,7 @@ msgid "Collar information"
 msgstr "领用信息"
 
 #. module: energy_management
-#: code:addons/energy_management/models/usage_record.py:134
+#: code:addons/energy_management/models/usage_record.py:165
 #, python-format
 msgid "Companies to provide energy, the need to choose energy piles!"
 msgstr "公司提供的能源，需要选择能源桩!"
@@ -121,11 +116,6 @@ msgstr "单位"
 #: selection:energy.security_check,state:0
 msgid "Complete"
 msgstr "完成"
-
-#. module: energy_management
-#: selection:product.product,important_type:0
-msgid "Component"
-msgstr "作为重要部件管理"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.energy_pile_form
@@ -248,7 +238,7 @@ msgstr "加气站"
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_fuel_capacity
 msgid "Fuel Capacity"
-msgstr "额度油箱容量"
+msgstr "使用量"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.fleet_vehicle_form
@@ -344,11 +334,6 @@ msgid "License Plate"
 msgstr "车牌"
 
 #. module: energy_management
-#: model:ir.model.fields,help:energy_management.field_energy_usage_record_license_plate
-msgid "License plate number of the vehicle (i = plate number for a car)"
-msgstr "车牌"
-
-#. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_station_lister
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_station_lister
 msgid "Lister"
@@ -408,6 +393,13 @@ msgid "Model of a vehicle"
 msgstr "车辆型号"
 
 #. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_active
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_active
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_active
+msgid "MyActive"
+msgstr "有效"
+
+#. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_name
 msgid "Name"
 msgstr "名字"
@@ -426,7 +418,7 @@ msgid "Normal inspection"
 msgstr "正常巡检"
 
 #. module: energy_management
-#: code:addons/energy_management/models/security_check.py:93
+#: code:addons/energy_management/models/security_check.py:105
 #, python-format
 msgid "Not draft data cannot be deleted!"
 msgstr "只有草稿状态才能删除!"
@@ -543,7 +535,7 @@ msgstr "日期"
 #. module: energy_management
 #: selection:energy.security_check,state:0
 msgid "Refer"
-msgstr "提交"
+msgstr "已提交"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_remark
@@ -697,7 +689,7 @@ msgstr "站长"
 #: selection:energy.pile,state:0 selection:energy.station,state:0
 #: selection:energy.usage_record,state:0 selection:stock.location,state:0
 msgid "Stop"
-msgstr "报停"
+msgstr "归档"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_department_id
@@ -714,13 +706,6 @@ msgstr "供应商"
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_station_tab_date
 msgid "Tab date"
 msgstr "制表日期"
-
-#. module: energy_management
-#: code:addons/energy_management/models/security_check.py:10
-#: sql_constraint:energy.security_check:0
-#, python-format
-msgid "The check number already exists!"
-msgstr "检查编号已经存在!"
 
 #. module: energy_management
 #: model:ir.model.fields,help:energy_management.field_energy_pile_image
@@ -787,8 +772,18 @@ msgstr "运营油耗"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.security_check_form
-msgid "auditing"
-msgstr "审核"
+msgid "auditing_to_complete"
+msgstr "审批通过"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.security_check_form
+msgid "auditing_to_refer"
+msgstr "返回重审"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.security_check_form
+msgid "draft_to_refer"
+msgstr "确定提交"
 
 #. module: energy_management
 #: model:ir.actions.act_window,name:energy_management.aw_energy_pile
@@ -821,8 +816,13 @@ msgstr "正常"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.security_check_form
-msgid "refer"
-msgstr "提交"
+msgid "refer_to_auditing"
+msgstr "审核通过"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.security_check_form
+msgid "refer_to_draft"
+msgstr "返回重做"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_security_check
@@ -840,7 +840,7 @@ msgstr "安全检查"
 #: model:ir.ui.view,arch_db:energy_management.location_form
 #: model:ir.ui.view,arch_db:energy_management.usage_record_form
 msgid "stop"
-msgstr "报停"
+msgstr "归档"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.vehicle_usage_records_form

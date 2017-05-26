@@ -224,7 +224,7 @@ msgstr "<span class=\"oe_logo_edit\">编辑公司数据</span>"
 #. module: web
 #: model:ir.ui.view,arch_db:web.menu_secondary
 msgid "<span>Odoo</span>"
-msgstr "<span>Odoo</span>"
+msgstr "<span>LTY</span>"
 
 #. module: web
 #. openerp-web
@@ -1366,7 +1366,7 @@ msgstr "上移"
 #: code:addons/web/static/src/xml/base.xml:1272
 #, python-format
 msgid "My Odoo.com account"
-msgstr "在Odoo.com官方网站帐户"
+msgstr "官方网站帐户"
 
 #. module: web
 #. openerp-web
@@ -1510,26 +1510,26 @@ msgstr "对象:"
 #: code:addons/web/static/src/js/framework/dialog.js:37
 #, python-format
 msgid "Odoo"
-msgstr "Odoo"
+msgstr "系统"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/apps.js:195
 #, python-format
 msgid "Odoo Apps will be available soon"
-msgstr "Odoo Apps 将马上可用"
+msgstr "Apps 将马上可用"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/views/form_upgrade_widgets.js:53
 #, python-format
 msgid "Odoo Enterprise"
-msgstr "Odoo 企业版"
+msgstr "企业版"
 
 #. module: web
 #: model:ir.ui.view,arch_db:web.qunit_suite
 msgid "Odoo Web Tests"
-msgstr "Odoo Web 测试"
+msgstr "Web 测试"
 
 #. module: web
 #. openerp-web
@@ -2133,7 +2133,7 @@ msgstr "该向导将导出所有符合当前的搜索条件为CSV文件。您可
 msgid ""
 "Timezone Mismatch : The timezone of your browser doesn't match the selected "
 "one. The time in Odoo is displayed according to your field timezone."
-msgstr "时区不匹配：您的浏览器的时区选择不匹配。在Odoo的时间是根据你的领域时区显示。"
+msgstr "时区不匹配：您的浏览器的时区选择不匹配。在系统的时间是根据你的领域时区显示。"
 
 #. module: web
 #. openerp-web

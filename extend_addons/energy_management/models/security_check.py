@@ -28,7 +28,7 @@ class security_check(models.Model):
     station_id = fields.Many2one('energy.station', string='Station Id',required=True,domain=[('station_property','=','company')])
 
     # 能源站类别
-    station_type = fields.Selection(string='Station Type', related='station_id.station_type', store=False,)
+    station_type = fields.Selection(string='Station Type', related='station_id.station_type', store=False,readonly=True)
 
     # 隶属部门
     department_id = fields.Many2one('hr.department',related='station_id.department_id', store=False,string='Department Id')
@@ -66,8 +66,11 @@ class security_check(models.Model):
         for detail in details:
             vals = {
                 "security_check_id": self.id,
-                "security_check_item_id": detail.id,
+                "security_check_item_id": detail.item_id,
                 "check_result": 'normal',
+                "check_item_name":detail.check_item_name,
+                "check_content":detail.check_content,
+                "check_standards":detail.check_standards,
                 "remarks": ''
             }
             data.append((0, 0, vals))
@@ -75,12 +78,24 @@ class security_check(models.Model):
         self.security_check_detail_ids = data
 
     @api.multi
-    def refer_to_auditing(self):
+    def draft_to_refer(self):
         self.state = 'refer'
+
+    @api.multi
+    def refer_to_auditing(self):
+        self.state = 'auditing'
+
+    @api.multi
+    def refer_to_draft(self):
+        self.state = 'draft'
 
     @api.multi
     def auditing_to_complete(self):
         self.state = 'complete'
+
+    @api.multi
+    def auditing_to_refer(self):
+        self.state = 'refer'
 
     @api.multi
     def unlink(self):
@@ -109,13 +124,13 @@ class security_check_details(models.Model):
     security_check_item_id = fields.Many2one('security_manage.check_item',string='Security Check Item Id')
 
     #检查项目名称
-    check_item_name = fields.Char(string='Check Item Name',related='security_check_item_id.check_item_name', store=False, readonly=True)
+    check_item_name = fields.Char(string='Check Item Name',readonly=True)
 
     #检查内容
-    check_content = fields.Char(string='Check Content',related='security_check_item_id.check_content', store=False, readonly=True)
+    check_content = fields.Char(string='Check Content', readonly=True)
 
     #检查标准
-    check_standards = fields.Char(string='Check Standards',related='security_check_item_id.check_standards', store=False, readonly=True)
+    check_standards = fields.Char(string='Check Standards', readonly=True)
 
     #结果
     check_result = fields.Selection([('normal','Normal'),('abnormal','Abnormal')],string='Check Result')
