@@ -15,7 +15,7 @@ class MaintainReport(models.Model):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
         return emp_ids and emp_ids[0] or False
 
-    name = fields.Char(string="Report Order", help='Report Order', required=True, index=True, copy=False, default='New')
+    name = fields.Char(string="Report Order", help='Report Order', required=True, index=True, copy=False, default='/')
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True,
                                     domain = "[('vehicle_life_state', '=', 'operation_period')]")
     vehicle_type = fields.Many2one("fleet.vehicle.model", related='vehicle_id.model_id', store=True,
@@ -108,7 +108,7 @@ class MaintainReport(models.Model):
         报修单:
             功能：自动生成订单号：前缀BXD+序号
         """
-        if data.get('name', 'New') == 'New':
+        if data.get('name', '/') == '/':
             data['name'] = self.env['ir.sequence'].next_by_code('maintain.manage.report') or '/'
         report = super(MaintainReport, self.with_context(mail_create_nolog=True)).create(data)
         report.message_post(body=_('%s has been added to the report!') % (report.name,))
@@ -174,7 +174,7 @@ class MaintainRepair(models.Model):
     _name = 'maintain.manage.repair'
 
     name = fields.Char(string="Repair Order", help='Repair Order', required=True, index=True,
-                       copy=False, default='New', readonly=True)
+                       copy=False, default='/', readonly=True)
     report_id = fields.Many2one("maintain.manage.report", ondelete='cascade',
                                 string="Report Order", required=True, readonly=True)
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
@@ -336,7 +336,7 @@ class MaintainRepair(models.Model):
         维修单:
             自动生成订单号：前缀WXD+序号
         """
-        if vals.get('name', 'New') == 'New':
+        if vals.get('name', '/') == '/':
             vals['name'] = self.env['ir.sequence'].next_by_code('maintain.manage.repair') or '/'
         return super(MaintainRepair, self).create(vals)
 

@@ -41,7 +41,7 @@ class LoginConfigSettings(models.TransientModel):
         ('col-md-offset-8', '8'),
         ('col-md-offset-9', '9'),
         ('col-md-offset-10', '10')
-        ], string="Banner Img Offset Src", default='col-md-offset-10')
+        ], string="Banner Img Offset Src", default='col-md-offset-0')
 
     login_dialog_offset_src = fields.Selection([
         ('col-md-offset-0', '0'),
@@ -54,7 +54,7 @@ class LoginConfigSettings(models.TransientModel):
         ('col-md-offset-7', '7'),
         ('col-md-offset-8', '8'),
         ('col-md-offset-9', '9')
-        ], string="Login Dialog Offset Src", default='col-md-offset-9')
+        ], string="Login Dialog Offset Src", default='col-md-offset-7')
 
     header_height_src = fields.Integer(string="Header Height Src", default="5")
 

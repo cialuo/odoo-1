@@ -72,7 +72,7 @@ class MaintainDelivery(models.Model):
     _name = 'vehicle_equipment.maintain.delivery'
 
     name = fields.Char(string="Delivery Order", help='Delivery Order', required=True, index=True,
-                       copy=False, default='New')
+                       copy=False, default='/')
     report_id = fields.Many2one("maintain.manage.report", ondelete='cascade', string="Report Order")
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
                                  related='report_id.vehicle_id', store=True, readonly=True, copy=False)
@@ -97,7 +97,7 @@ class MaintainDelivery(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('name', 'New') == 'New':
+        if vals.get('name', '/') == '/':
             vals['name'] = self.env['ir.sequence'].next_by_code('vehicle_equipment.maintain.delivery') or '/'
         return super(MaintainDelivery, self).create(vals)
 

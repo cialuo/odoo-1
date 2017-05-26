@@ -21,7 +21,7 @@ class usage_record(models.Model):
     pile_id = fields.Many2one('energy.pile',string='Pile Id',domain="[('station_id', '=', station_id)]")
 
     #车辆
-    vehicle_id = fields.Many2one('fleet.vehicle',string='Vehicle Id',required=True)
+    vehicle_id = fields.Many2one('fleet.vehicle',string='Vehicle Id',required=True,domain="[('vehicle_life_state', '=', 'operation_period')]")
 
     #状态
     state = fields.Selection([('normal', 'Normal'), ('stop', 'Stop')],default='normal')
@@ -40,35 +40,35 @@ class usage_record(models.Model):
     operator = fields.Many2one('hr.employee',string='Operator')
 
     #使用人:司机
-    user_use = fields.Many2many('hr.employee',related='vehicle_id.driver',string='User Use')
+    user_use = fields.Many2many('hr.employee',string='User Use')
 
     #能源型号
-    energy_type = fields.Many2one('product.product',string='Energy Type',related='pile_id.energy_type', store=True,required=True)
+    energy_type = fields.Many2one('product.product',string='Energy Type',required=True)
 
     #能源桩类型
     pile_type = fields.Selection(string='Pile Type', related='pile_id.pile_type', store=True,)
 
     #车牌号
-    license_plate = fields.Char(string='License Plate',related='vehicle_id.license_plate', store=False,)
+    license_plate = fields.Char(string='License Plate',related='vehicle_id.license_plate', store=False,readonly=True)
 
     #车辆编号
-    inner_code = fields.Char(string='Inner Code',related='vehicle_id.inner_code', store=True,)
+    inner_code = fields.Char(string='Inner Code',related='vehicle_id.inner_code', store=True,readonly=True)
 
     #使用量
     fuel_capacity = fields.Float(string='Fuel Capacity',required=True)
 
     #单位
-    companyc_id = fields.Many2one('product.uom',related='pile_id.energy_type.uom_id', store=True,string='Companyc Id',required=True)
+    companyc_id = fields.Many2one(related='energy_type.uom_id',store=True,string='Companyc Id',readonly=True)
 
     #库位
     location_id = fields.Many2one('stock.location', related='pile_id.location_id', store=False, readonly=True,
                                   string='Location Id')
 
     #运营里程
-    working_mileage = fields.Float(string='Working Mileage')
+    working_mileage = fields.Float(string='Working Mileage',readonly=True)
 
     #gps里程
-    gps_mileage = fields.Float(string='GPS Mileage')
+    gps_mileage = fields.Float(string='GPS Mileage',readonly=True)
 
     #运营油耗
     working_oil_wear  = fields.Float(string='Working Oil Wear ')
@@ -77,15 +77,41 @@ class usage_record(models.Model):
     gps_oil_wear = fields.Float(string='GPS Oil Wear ')
 
     #库位单价
-    location_price = fields.Float(string='Location Price',digits=(12,2),related='energy_type.list_price',)
+    location_price = fields.Float(string='Location Price',digits=(12,2))
 
     # 使用总价
-    total_price = fields.Float(string='Total Price',digits=(12,2))
+    total_price = fields.Float(string='Total Price',digits=(12,2),readonly=True,compute='_compute_total_price')
 
+    active = fields.Boolean(string="MyActive", default=True)
 
+    @api.onchange('pile_id')
+    def _onchange_pile_id(self):
+        """
+            能源桩变更修改能源信息
+        :return:
+        """
+        if self.pile_id != None:
+            self.energy_type = self.pile_id.energy_type
 
+    @api.onchange('vehicle_id')
+    def _onchange_vehicle_id_driver(self):
+        """
+            车辆变更时,修改司机的数据
+        :return:
+        """
+        if self.vehicle_id != None:
+            self.user_use = self.vehicle_id.driver
 
-    @api.onchange('location_price','fuel_capacity')
+    @api.onchange('energy_type')
+    def _onchange_energy_type(self):
+        """
+            能源变更时修改单价
+        :return:
+        """
+        if self.energy_type != None:
+            self.location_price = self.energy_type.list_price
+
+    @api.depends('location_price','fuel_capacity')
     def _compute_total_price(self):
         """
             根据使用量和单价计算总价：
@@ -97,10 +123,12 @@ class usage_record(models.Model):
     @api.multi
     def normal_to_stop(self):
         self.state = 'stop'
+        self.active =False
 
     @api.multi
     def stop_to_normal(self):
         self.state = 'normal'
+        self.active = True
 
     @api.model
     def create(self, vals):
@@ -109,6 +137,7 @@ class usage_record(models.Model):
         :param vals:
         :return:
         """
+        vals = self._onchange_vehicle_id(vals)
         res = super(usage_record, self).create(vals)
         self._vehicle_move(vals)
         return res
@@ -157,13 +186,13 @@ class usage_record(models.Model):
         moves = self.env['stock.move'].create(move_vals)
         moves.action_done()
 
-    @api.onchange('vehicle_id','fuel_capacity')
-    def _onchange_vehicle_id(self):
+    #@api.onchange('vehicle_id','fuel_capacity')
+    def _onchange_vehicle_id(self,vals):
         """
             当车辆变更的时候,计算并修改车辆的运营里程、GPS里程、运营油耗、GPS油耗
         :return:
         """
-        domain = [('vehicle_id', '=', self.vehicle_id.id)]
+        domain = [('vehicle_id', '=', vals.get('vehicle_id'))]
 
         #获取车辆的最后一次能源使用记录id
         usage_record = self.env['energy.usage_record'].search(domain,limit=1,order="record_date desc")
@@ -182,15 +211,18 @@ class usage_record(models.Model):
             gps_mileage += driverecord.GPSmileage
 
         #计算油耗
-        if usage_record and self.working_mileage >0:
+        if usage_record and working_mileage >0 and gps_mileage > 0:
             """
                 上次加油量/当前里程 * 100
             """
-            self.working_oil_wear = usage_record.fuel_capacity / self.working_mileage * 100
-            self.gps_oil_wear = usage_record.fuel_capacity / self.gps_mileage * 100
+            vals['working_oil_wear'] = usage_record.fuel_capacity / working_mileage * 100
+            vals['gps_oil_wear'] = usage_record.fuel_capacity / gps_mileage * 100
 
-        self.working_mileage = working_mileage
-        self.gps_mileage = gps_mileage
+        vals['working_mileage'] = working_mileage
+        vals['gps_mileage'] = gps_mileage
+
+
+        return vals
 
 
 

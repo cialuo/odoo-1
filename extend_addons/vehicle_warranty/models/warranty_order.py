@@ -7,7 +7,7 @@ from odoo.exceptions import UserError
 class WarrantyOrder(models.Model): # 保养单
     _inherit = 'mail.thread'
     _name = 'warranty_order'
-    name = fields.Char(string='Warranty Order', required=True, index=True, default='New')
+    name = fields.Char(string='Warranty Order', required=True, index=True, default='/')
 
     sequence = fields.Integer('Sequence', default=1)
 
@@ -241,8 +241,8 @@ class WarrantyOrder(models.Model): # 保养单
 
     @api.model
     def create(self, vals):
-        if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code('warranty_plan.order') or 'New'
+        if vals.get('name', '/') == '/':
+            vals['name'] = self.env['ir.sequence'].next_by_code('warranty_plan.order') or '/'
 
         result = super(WarrantyOrder, self.with_context(mail_create_nolog=True)).create(vals)
         result.message_post(body=_('%s has been added to the Warranty Order!') % (result.name,))
