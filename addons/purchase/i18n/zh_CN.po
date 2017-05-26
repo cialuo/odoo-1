@@ -1591,7 +1591,7 @@ msgstr "此说明将显示在询价单。"
 msgid ""
 "This purchase order has been created from: <a href=# data-oe-"
 "model=procurement.order data-oe-id=%d>%s</a>"
-msgstr ""
+msgstr "采购订单创建于："
 
 #. module: purchase
 #: code:addons/purchase/models/purchase.py:986

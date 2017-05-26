@@ -100,6 +100,7 @@ class energy_station(models.Model):
                                       "resized as a 64x64px image, with aspect ratio preserved. "
                                       "Use this field anywhere a small image is required.")
 
+     active = fields.Boolean(string="MyActive", default=True)
 
      @api.model
      def create(self, vals):
@@ -120,10 +121,12 @@ class energy_station(models.Model):
          :return:
          """
          self.state = 'stop'
+         self.active = False
 
      @api.multi
      def stop_to_normal(self):
          self.state = 'normal'
+         self.active = True
 
 class energy_pile(models.Model):
 
@@ -159,7 +162,7 @@ class energy_pile(models.Model):
     location_id = fields.Many2one('stock.location',string='Location Id',domain="[('station_id', '=', station_id)]",required=True)
 
     # 单位
-    companyc_id = fields.Many2one('product.uom',related = 'energy_type.uom_id',store = False,string='Companyc Id')
+    companyc_id = fields.Many2one('product.uom',related = 'energy_type.uom_id',store = False,string='Companyc Id',readonly=True)
 
     # 使用记录
     usage_record_ids = fields.One2many('energy.usage_record','pile_id',string='Usage record ids')
@@ -205,7 +208,7 @@ class energy_pile(models.Model):
                                      "resized as a 64x64px image, with aspect ratio preserved. "
                                      "Use this field anywhere a small image is required.")
 
-
+    active = fields.Boolean(string="MyActive", default=True)
 
     @api.onchange('station_id')
     def _onchange_station_id(self):
@@ -228,10 +231,12 @@ class energy_pile(models.Model):
     @api.multi
     def normal_to_stop(self):
         self.state = 'stop'
+        self.active = False
 
     @api.multi
     def stop_to_normal(self):
         self.state = 'normal'
+        self.active = True
 
 
 

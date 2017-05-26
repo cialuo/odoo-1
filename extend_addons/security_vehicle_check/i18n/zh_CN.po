@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-24 06:52+0000\n"
-"PO-Revision-Date: 2017-05-24 14:54+0800\n"
+"POT-Creation-Date: 2017-05-25 02:36+0000\n"
+"PO-Revision-Date: 2017-05-25 10:39+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #. module: security_vehicle_check
 #: selection:security_manage.check_item,state:0
@@ -30,7 +30,7 @@ msgstr "存档"
 #. module: security_vehicle_check
 #: model:res.groups,name:security_vehicle_check.security_check_browse
 msgid "Browser"
-msgstr "Browser"
+msgstr "浏览"
 
 #. module: security_vehicle_check
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_check_info
@@ -94,19 +94,12 @@ msgstr "草稿"
 #. module: security_vehicle_check
 #: model:res.groups,name:security_vehicle_check.security_check_entering
 msgid "Entering"
-msgstr "Entering"
+msgstr "录入"
 
 #. module: security_vehicle_check
 #: selection:security_manage.check_table,state:0
 msgid "Execute_check_table"
 msgstr "执行中"
-
-#. module: security_vehicle_check
-#: code:addons/security_vehicle_check/models/security_check_table.py:52
-#: sql_constraint:security_manage.check_item_detail:0
-#, python-format
-msgid "Has the same inspection item"
-msgstr "存在相同的检查项目!"
 
 #. module: security_vehicle_check
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_detail_id
@@ -177,15 +170,6 @@ msgid "Last Updated on"
 msgstr "最后更新时间"
 
 #. module: security_vehicle_check
-#: model:ir.model.fields,help:security_vehicle_check.field_security_vehicle_abarbeitung_check_plate
-#: model:ir.model.fields,help:security_vehicle_check.field_security_vehicle_detection_check_plate
-#: model:ir.model.fields,help:security_vehicle_check.field_security_vehicle_everyday_check_plate
-#: model:ir.model.fields,help:security_vehicle_check.field_security_vehicle_front_check_plate
-#: model:ir.model.fields,help:security_vehicle_check.field_security_vehicle_special_check_plate
-msgid "License plate number of the vehicle (i = plate number for a car)"
-msgstr "车牌"
-
-#. module: security_vehicle_check
 #: model:ir.ui.view,arch_db:security_vehicle_check.security_check_item_form
 msgid "Mark as archive"
 msgstr "归档"
@@ -200,13 +184,6 @@ msgstr "归档"
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_table_active
 msgid "MyActive"
 msgstr "有效"
-
-#. module: security_vehicle_check
-#: code:addons/security_vehicle_check/models/security_check_item.py:8
-#: sql_constraint:security_manage.check_item:0
-#, python-format
-msgid "Number already exists"
-msgstr "编号已经存在!"
 
 #. module: security_vehicle_check
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_table_plan_detail
@@ -244,7 +221,7 @@ msgstr "路线"
 #. module: security_vehicle_check
 #: model:ir.module.category,name:security_vehicle_check.security_check_module_group
 msgid "Security Check"
-msgstr "Security Check"
+msgstr "车辆安全检查"
 
 #. module: security_vehicle_check
 #: model:res.groups,name:security_vehicle_check.security_check_setting
@@ -259,15 +236,6 @@ msgstr "设置"
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_special_check_state
 msgid "State"
 msgstr "省/ 州"
-
-#. module: security_vehicle_check
-#: code:addons/security_vehicle_check/models/security_check_item.py:9
-#: code:addons/security_vehicle_check/models/security_check_table.py:8
-#: sql_constraint:security_manage.check_item:0
-#: sql_constraint:security_manage.check_table:0
-#, python-format
-msgid "The name already exists"
-msgstr "名称已经存在!"
 
 #. module: security_vehicle_check
 #: selection:security_manage.check_item,state:0
