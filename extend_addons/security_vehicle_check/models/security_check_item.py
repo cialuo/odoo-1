@@ -33,3 +33,11 @@ class security_check_item(models.Model):
     def action_archive(self):
         self.state = 'archive'
         self.active = False
+
+    @api.multi
+    def name_get(self):
+        result = []
+        for record in self:
+            name = "%s / %s" % (record.name, record.check_item_name)
+            result.append((record.id, name))
+        return result
