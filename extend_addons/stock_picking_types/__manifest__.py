@@ -17,8 +17,5 @@
         'views/views.xml',
 
     ],
-    'demo': [
-        # 'data/picking_types.xml',
-    ],
     'application': True,
 }
