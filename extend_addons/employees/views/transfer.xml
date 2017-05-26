@@ -10,8 +10,8 @@
                 <field name="create_uid"/>
                 <field name="original_section"/>
                 <field name="original_post"/>
-                <field name="new_post"/>
                 <field name="new_section"/>
+                <field name="new_post"/>
                 <field name="state"/>
             </tree>
         </field>
@@ -140,6 +140,7 @@
                         </group>
                         <group>
                             <field name="create_user" readonly="1"/>
+                            <field name="name" readonly="1"/>
                             <field name="create_date" readonly="1"/>
                         </group>
                     </group>
