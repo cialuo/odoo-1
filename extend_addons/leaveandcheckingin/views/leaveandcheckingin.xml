@@ -1,0 +1,11 @@
+<odoo>
+
+    
+
+    <!--考勤表-->
+    <menuitem id="ltyhr_employee_transfer_record_menu" name="transfer_record"
+              sequence="50"
+              action="ltyhr_employees_transfer_record"
+              parent="ltyhr_employee_document_transfer_menu"/>
+
+</odoo>
