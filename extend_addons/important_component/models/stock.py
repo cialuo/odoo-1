@@ -87,7 +87,7 @@ class StockPicking(models.Model):
                     if type == u'退料':
                         order.write({'location_id': obj.vehicle_id.location_stock_id.id})
                     elif type == u'领料':
-                        order.write({'location_id': obj.vehicle_id.location_stock_id.id})
+                        order.write({'location_dest_id': obj.vehicle_id.location_stock_id.id})
                         try:
                             if obj > self.env['maintain.manage.repair']:
                                 self.check_product_avail_repair(type, order)
