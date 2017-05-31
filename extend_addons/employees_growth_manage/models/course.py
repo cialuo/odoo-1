@@ -25,10 +25,6 @@ class course(models.Model):
 
      course_credit = fields.Float(string='Course credit')
 
-     creat_date = fields.Datetime(string='Creat date')
-
-     course_founder = fields.Many2one('employees_growth.training_teacher', string='Course founder')
-
      course_introduce = fields.Text(string='Course introduce')
 
      course_objective = fields.Char(string='Course objective')
