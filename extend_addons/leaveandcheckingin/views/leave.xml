@@ -97,7 +97,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="employee_id"/>
-                <field name="type" widget="radio"/>
+                <field name="type"/>
                 <field name="start"/>
                 <field name="end"/>
                 <field name="create_user"/>

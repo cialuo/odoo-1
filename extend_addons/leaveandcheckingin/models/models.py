@@ -100,7 +100,7 @@ class WorkOvertime(models.Model):
     create_user = fields.Many2one('res.users', string='create user', default=lambda self: self._uid)
 
     # 审批/会签人员
-    countersign_person = fields.Many2many('hr.employee', string="employees_countersign_person")
+    countersign_person = fields.Many2one('res.users', string="employees_countersign_person")
 
     @api.multi
     def action_draft(self):
@@ -112,5 +112,5 @@ class WorkOvertime(models.Model):
 
     @api.multi
     def action_done(self):
-        self.write({'countersign_person': self._uid})
+        self.countersign_person = self._uid
         self.state = 'done'
