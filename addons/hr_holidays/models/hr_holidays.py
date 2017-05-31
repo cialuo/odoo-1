@@ -23,7 +23,7 @@ class HolidaysType(models.Model):
     _name = "hr.holidays.status"
     _description = "Leave Type"
 
-    name = fields.Char('Leave Type', required=True, translate=True)
+    name = fields.Char('Leave Type', required=True)
     categ_id = fields.Many2one('calendar.event.type', string='Meeting Type',
         help='Once a leave is validated, Odoo will create a corresponding meeting of this type in the calendar.')
     color_name = fields.Selection([
