@@ -24,7 +24,9 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'data/leavesettings.xml',
         'views/leaveandcheckingin.xml',
+        'views/leave.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

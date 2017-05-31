@@ -1,0 +1,35 @@
+<odoo>
+
+    <record id="view_leave_configuration" model="ir.ui.view">
+        <field name="name">leave.config.view</field>
+        <field name="model">leave.config.settings</field>
+        <field name="arch" type="xml">
+            <form string="Configure leave" class="oe_form_configuration">
+                <header>
+                    <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                </header>
+                <group string="leave configration">
+                    <field name="expiretime"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_leave_configuration" model="ir.actions.act_window">
+        <field name="name">Configure leave</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">leave.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="res_id" ref="leaveandcheckingin.leave_default_settings"></field>
+    </record>
+
+    <!--休假类型-->
+    <menuitem id="ltyhr_leave_type_menu" name="leave type"
+              sequence="60"
+              action="hr_holidays.open_view_holiday_status"
+              parent="employees_menu.leave_and_checking_in"/>
+
+    <menuitem id="menu_leave_general_settings" name="Settings" parent="employees_menu.leave_and_checking_in"
+            sequence="70" action="action_leave_configuration"/>
+</odoo>

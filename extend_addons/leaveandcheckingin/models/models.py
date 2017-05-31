@@ -48,3 +48,11 @@ class attencededucted(models.Model):
 
     # 扣款金额
     deducted = fields.Integer(string='deducted money')
+
+
+class LeaveConfig(models.TransientModel):
+    _name = 'leave.config.settings'
+    _inherit = 'res.config.settings'
+
+    # 加班转调休过期天数
+    expiretime = fields.Integer(string='overtime expire time')
