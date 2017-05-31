@@ -10,7 +10,7 @@
           <field name="name"/>
           <field name="questions_no"/>
           <field name="total_count"/>
-          <field name="questions_founder"/>
+          <field name="create_uid"/>
         </tree>
       </field>
     </record>
@@ -32,7 +32,7 @@
                     <group>
                         <field name="questions_no"/>
                         <field name="radio_question_count"/>
-                        <field name="questions_founder" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="create_uid" options="{'no_open': True, 'no_create': True}"/>
                     </group>
                     <group>
                         <field name="multiselect_question_count"/>

@@ -37,8 +37,8 @@
                         <field name="test_paper_id" options="{'no_open': True, 'no_create': True}"/>
                     </group>
                     <group>
-                        <field name="course_founder" options="{'no_open': True, 'no_create': True}"/>
-                        <field name="creat_date"/>
+                        <field name="create_uid" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="create_date"/>
                         <field name="course_credit"/>
                     </group>
                 </group>
