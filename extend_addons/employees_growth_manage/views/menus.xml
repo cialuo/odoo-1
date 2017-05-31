@@ -11,6 +11,13 @@
         <!-- 培训管理 -->
         <menuitem id="employees_growth_manage.menu_manage" name="Training Manage"
                   parent="employees_growth_manage.menu_root" sequence="2"/>
+
+        <!--课程表-->
+        <menuitem id="employees_growth_manage.menu_curriculum_schedule" name="Curriculum Schedule Menu"
+                  parent="employees_growth_manage.menu_manage"
+                  sequence="1" action="employees_growth_manage.action_curriculum_schedule"/>
+
+
         <!-- 培训设置 -->
         <menuitem id="employees_growth_manage.menu_configuration" name="Training Configuration"
                   parent="employees_growth_manage.menu_root" sequence="3"/>

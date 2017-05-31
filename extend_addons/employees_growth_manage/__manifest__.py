@@ -17,12 +17,14 @@
     'version': '0.1',
     'depends': ['base','employees'],
     'data': [
+         'security/security_data.xml',
         # 'security/ir.model.access.csv',
         'views/course_typ_view.xml',
         'views/training_teacher_view.xml',
         'views/questions_view.xml',
         'views/test_paper_view.xml',
         'views/course_view.xml',
+        'views/curriculum_schedule_view.xml',
         'views/menus.xml',
     ],
     'application': True
