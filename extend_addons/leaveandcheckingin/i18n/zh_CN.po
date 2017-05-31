@@ -1,0 +1,146 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* leaveandcheckingin
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-31 02:33+0000\n"
+"PO-Revision-Date: 2017-05-31 10:36+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.1\n"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_create_uid
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_create_date
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_display_name
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_id
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_id
+msgid "ID"
+msgstr "ID"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted___last_update
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_write_uid
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_write_date
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_absence
+msgid "attence absence"
+msgstr "缺勤时长"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_month
+msgid "attence month"
+msgstr "考勤月份"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.menu,name:leaveandcheckingin.ltyhr_attencededucted_records_menu
+msgid "attencededucted record"
+msgstr "考勤扣款记录"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.menu,name:leaveandcheckingin.ltyhr_checkingin_records_menu
+msgid "checkingin record"
+msgstr "考勤记录"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_checkingin
+msgid "checkingin time"
+msgstr "上班打卡时间"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_checkinginout
+msgid "checkingout time"
+msgstr "下班打卡时间"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_deducted
+msgid "deducted money"
+msgstr "扣款金额"
+
+#. module: leaveandcheckingin
+#: selection:employee.attencerecords,status:0
+msgid "early"
+msgstr "早退"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_employee_id
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_employee_id
+msgid "employee"
+msgstr "员工"
+
+#. module: leaveandcheckingin
+#: model:ir.actions.act_window,name:leaveandcheckingin.ltyhr_attencededucted_records
+msgid "employee attencededucted records"
+msgstr "员工考勤扣款记录"
+
+#. module: leaveandcheckingin
+#: model:ir.actions.act_window,name:leaveandcheckingin.ltyhr_checkingin_records
+msgid "employee checkingint records"
+msgstr "员工打卡记录"
+
+#. module: leaveandcheckingin
+#: model:ir.model,name:leaveandcheckingin.model_employee_attencededucted
+msgid "employee.attencededucted"
+msgstr "考勤扣款"
+
+#. module: leaveandcheckingin
+#: model:ir.model,name:leaveandcheckingin.model_employee_attencerecords
+msgid "employee.attencerecords"
+msgstr "考勤记录"
+
+#. module: leaveandcheckingin
+#: selection:employee.attencerecords,status:0
+msgid "late"
+msgstr "迟到"
+
+#. module: leaveandcheckingin
+#: selection:employee.attencerecords,status:0
+msgid "late+early"
+msgstr "迟到+早退"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_status
+msgid "status"
+msgstr "状态"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_length
+msgid "time length"
+msgstr "时长"
