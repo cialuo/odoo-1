@@ -52,6 +52,8 @@
         <menuitem name="Cost type set"
                   id="cost_type_set_menu"
                   parent="vehicle_manage_menu.vehicle_setting"
-                  action="cost_type_set_act"/>
+                  action="cost_type_set_act"
+                  sequence="10"
+                  groups="materials_product.base_extend_tech_user"/>
     </data>
 </odoo>

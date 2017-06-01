@@ -3,7 +3,7 @@
         <!-- Sequences for vehicle_equipment.delivery -->
         <record id="seq_maintain_delivery" model="ir.sequence">
             <field name="name">Maintain Delivery</field>
-            <field name="code">vehicle_equipment.maintain.delivery</field>
+            <field name="code">vehicle_equipment.delivery</field>
             <field name="prefix">JJD</field>
             <field name="padding">6</field>
             <field name="company_id" eval="False"/>

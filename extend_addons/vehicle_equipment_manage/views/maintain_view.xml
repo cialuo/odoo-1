@@ -2,9 +2,9 @@
     <data>
         <record model="ir.ui.view" id="maintain_delivery_view_tree">
             <field name="name">MaintainDelivery.tree</field>
-            <field name="model">vehicle_equipment.maintain.delivery</field>
+            <field name="model">vehicle_equipment.delivery</field>
             <field name="arch" type="xml">
-                <tree string="MaintainDelivery Tree">
+                <tree string="MaintainDelivery Tree" create="false">
 					<field name="name"/>
 					<field name="report_id"/>
 					<field name="vehicle_id"/>
@@ -37,7 +37,7 @@
 
         <record model="ir.ui.view" id="maintain_delivery_view_form">
             <field name="name">MaintainDelivery.form</field>
-            <field name="model">vehicle_equipment.maintain.delivery</field>
+            <field name="model">vehicle_equipment.delivery</field>
             <field name="arch" type="xml">
                 <form string="MaintainDelivery Form">
                 	<header>
@@ -115,13 +115,16 @@
         <!-- 抢修交接单 Action-->
 		<record model="ir.actions.act_window" id="maintain_delivery_action">
 			<field name="name">maintain_delivery_action</field>
-			<field name="res_model">vehicle_equipment.maintain.delivery</field>
+			<field name="res_model">vehicle_equipment.delivery</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 
         <!--抢修交接单-->
-        <menuitem name="maintain_equipment_deliver" id="maintain_equipment_deliver" parent="vehicle_maintain.maintain_manage"
-				  action="maintain_delivery_action" sequence="40" />
+        <menuitem name="maintain_equipment_deliver" id="maintain_equipment_deliver"
+                  parent="vehicle_maintain.maintain_manage"
+				  action="maintain_delivery_action" sequence="40"
+                  groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_inspect"
+        />
     </data>
 
 </odoo>

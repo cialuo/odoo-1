@@ -99,7 +99,8 @@
               id="vehicle_drop_anchor_records"
               parent="vehicle_manage_menu.vehicle_use_manage"
               action="vehicle_dropanchor_records_action"
-              sequence="80"/>
+              sequence="80"
+              groups="vehicle_group.vehicle_driver"/>
 
     </data>
 </odoo>

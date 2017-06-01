@@ -25,7 +25,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['vehicle_manage', 'materials_product','stock_picking_types'],
+    'depends': ['vehicle_manage', 'materials_product','stock_picking_types','vehicle_group'],
 
     # always loaded
     'data': [
@@ -37,13 +37,9 @@
         "data/maintain_sequence.xml",
         'views/maintain_inspect_view.xml',
 
-
         "views/maintain_view.xml",
         'views/vehicle_repair_record.xml',
         'views/vehicle_anchor.xml',
-
-
-
 
     ],
     # only loaded in demonstration mode

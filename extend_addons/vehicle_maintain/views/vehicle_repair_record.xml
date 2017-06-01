@@ -38,10 +38,7 @@
                         </field>
                     </page>
                 </xpath>
-
             </field>
         </record>
-
-
     </data>
 </odoo>

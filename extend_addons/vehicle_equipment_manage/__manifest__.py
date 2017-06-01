@@ -24,6 +24,8 @@
 
     # always loaded
     'data': [
+        'security/equipment_security.xml',
+        'security/ir.model.access.csv',
         'data/maintain_delivery_sequence.xml',
 
         'views/equipment_view.xml',

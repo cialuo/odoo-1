@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, api,fields, _
+from odoo import models, api, fields, _
 from odoo.exceptions import UserError
 
 
@@ -18,7 +18,7 @@ class MaintainInspectReturn(models.TransientModel):
         context = dict(self._context or {})
         active_id = context.get('active_id', '') or ''
         record = self.env['maintain.manage.repair'].browse(active_id)
-        if record.state not in ('inspect'):
+        if record.state not in ('inspect',):
             raise UserError(_("Selected inspect(s) cannot be confirmed as they are not in 'inspect' state."))
         record.action_return(self.return_reason)
         return {'type': 'ir.actions.act_window_close'}
