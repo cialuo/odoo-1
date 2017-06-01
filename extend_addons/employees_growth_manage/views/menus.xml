@@ -8,6 +8,12 @@
         <!-- 培训计划 -->
         <menuitem id="employees_growth_manage.menu_plan" name="Training Plan"
                   parent="employees_growth_manage.menu_root" sequence="1"/>
+
+        <!--培训计划-->
+        <menuitem id="employees_growth_manage.menu_training_plan" name="Taining Plan Menu"
+                  parent="employees_growth_manage.menu_plan"
+                  sequence="1" action="employees_growth_manage.action_training_plan"/>
+
         <!-- 培训管理 -->
         <menuitem id="employees_growth_manage.menu_manage" name="Training Manage"
                   parent="employees_growth_manage.menu_root" sequence="2"/>
