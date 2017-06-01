@@ -1,47 +1,25 @@
 <odoo>
     <data>
-        <record id="manage_maintain_group" model="ir.module.category">
-            <field name="name">Vehicle Maintain</field>
-            <field name="sequence">17</field>
+        <record id="vehicle_group.vehicle_driver" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_manager'))]"/>
         </record>
 
-        <record id="maintain_fault_basic" model="res.groups">
-            <field name="name">Technical maintenance</field>
-            <field name="category_id" ref="manage_maintain_group"/>
-            <field name="implied_ids" eval="[(4, ref('base.group_user')),(4, ref('fleet.fleet_group_manager'))]"/>
-        </record>
-
-        <record id="maintain_manage_driver" model="res.groups">
-            <field name="name">Maintain Driver</field>
-            <field name="category_id" ref="manage_maintain_group"/>
-            <field name="implied_ids" eval="[(4, ref('base.group_user')),(4, ref('fleet.fleet_group_manager'))]"/>
-        </record>
-
-        <record id="maintain_manage_depot" model="res.groups">
-            <field name="name">Maintain Depot</field>
-            <field name="category_id" ref="manage_maintain_group"/>
-            <field name="implied_ids" eval="[(4, ref('maintain_manage_driver'))]"/>
+        <record id="vehicle_group.vehicle_depot" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('vehicle_group.vehicle_driver'))]"/>
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
         </record>
-
-
-        <record id="maintain_manage_repair" model="res.groups">
-            <field name="name">Maintain Repair</field>
-            <field name="category_id" ref="manage_maintain_group"/>
+        
+        <record id="vehicle_group.vehicle_repair" model="res.groups">
             <field name="implied_ids" eval="[(4, ref('stock.group_stock_user')),(4, ref('fleet.fleet_group_manager'))]"/>
         </record>
 
-        <record id="maintain_manage_dispatch" model="res.groups">
-            <field name="name">Maintain Dispatch</field>
-            <field name="category_id" ref="manage_maintain_group"/>
-            <field name="implied_ids" eval="[(4, ref('maintain_manage_repair'))]"/>
+        <record id="vehicle_group.vehicle_dispatch" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('vehicle_group.vehicle_repair'))]"/>
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
         </record>
 
-        <record id="maintain_manage_inspect" model="res.groups">
-            <field name="name">Maintain Inspect</field>
-            <field name="category_id" ref="manage_maintain_group"/>
-            <field name="implied_ids" eval="[(4, ref('base.group_user')),(4, ref('fleet.fleet_group_manager'))]"/>
+        <record id="vehicle_group.vehicle_inspect" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_manager'))]"/>
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
         </record>
     </data>

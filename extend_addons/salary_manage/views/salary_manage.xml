@@ -111,18 +111,24 @@
         </field>
     </record>
 
-
+    <!--工资管理-->
     <menuitem id="ltyhr_salary_system_menu" name="salary system"
-              parent="employees_menu.salary_manage" />
+                  parent="employees_menu.salary_manage" />
+
+    <!--薪资结构-->
     <menuitem id="ltyhr_salary_constructure_menu" name="salary constructure"
               parent="ltyhr_salary_system_menu" action="hr_payroll.action_view_hr_payroll_structure_list_form"/>
+    <!--薪资规则-->
     <menuitem id="ltyhr_salary_rule_menu" name="salary rule"
               parent="ltyhr_salary_system_menu" action="hr_payroll.action_salary_rule_form"/>
+    <!--薪资规则分类-->
     <menuitem id="ltyhr_salary_rule_category_menu" name="salary rule category"
               parent="ltyhr_salary_system_menu" action="hr_payroll.action_hr_salary_rule_category"/>
-
+    <!--薪资批处理-->
     <menuitem id="ltyhr_salary_batch_handle_menu" name="salary batch handle"
               parent="employees_menu.salary_manage" action="hr_payroll.action_hr_payslip_run_tree" />
+    <!--员工工资条-->
     <menuitem id="ltyhr_salary_slip_menu" name="salary slip"
               parent="employees_menu.salary_manage" action="hr_payroll.action_view_hr_payslip_form" />
+
 </odoo>

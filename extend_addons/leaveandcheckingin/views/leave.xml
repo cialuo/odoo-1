@@ -1,0 +1,179 @@
+<odoo>
+
+    <record id="view_leave_configuration" model="ir.ui.view">
+        <field name="name">leave.config.view</field>
+        <field name="model">leave.config.settings</field>
+        <field name="arch" type="xml">
+            <form string="Configure leave" class="oe_form_configuration">
+                <header>
+                    <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                </header>
+                <group string="leave configration">
+                    <field name="expiretime"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!--假期管理全局配置项-->
+    <record id="action_leave_configuration" model="ir.actions.act_window">
+        <field name="name">Configure leave</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">leave.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="res_id" ref="leaveandcheckingin.leave_default_settings"></field>
+    </record>
+
+    <!-- 重载 hr holidays 休假类型表单 -->
+    <record id="lty_leave_type_form" model="ir.ui.view">
+        <field name="name">ltyhr leave type form</field>
+        <field name="model">hr.holidays.status</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/group" position="replace">
+                <group>
+                    <field name="namestr"/>
+                    <field name="name" string="type code"/>
+                    <field name="limit"/>
+                    <field name="active"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 重载休假类型tree视图 -->
+    <record id="ltyhr_view_leave_type_tree" model="ir.ui.view">
+        <field name="name">employee leave type tree</field>
+        <field name="model">hr.holidays.status</field>
+        <field name="inherit_id" ref="hr_holidays.view_holiday_status_normal_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="/tree" position="replace">
+                <tree>
+                    <field name="namestr"/>
+                    <field name="name" string="type code"/>
+                    <field name="limit"/>
+                </tree>
+            </xpath>
+        </field>
+    </record>
+
+    <!--加班申请表单-->
+    <record id="work_overtime_form" model="ir.ui.view">
+        <field name="name">work overtime form</field>
+        <field name="model">leave.workovertime</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_draft" type="object"
+                            string="back_draft"
+                            states="confirmed"
+                            groups="hr.group_hr_manager"/>
+                    <button name="action_confirm" type="object"
+                            string="submit" states="draft"
+                            class="oe_highlight"/>
+                    <button name="action_done" type="object"
+                            string="confirmed" states="confirmed"
+                            class="oe_highlight"
+                            groups="hr.group_hr_manager"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <group>
+                    <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="start"/>
+                    <field name="end"/>
+                    <field name="length" placeholder="unit hour"/>
+                    <field name="type"/>
+                    <field name="create_user" readonly="1"/>
+                    <field name="countersign_person" readonly="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!--加班列表 -->
+    <record id="ltyhr_work_overtime_tree" model="ir.ui.view">
+        <field name="name">ltyhr work overtime tree</field>
+        <field name="model">leave.workovertime</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                <field name="type"/>
+                <field name="start"/>
+                <field name="end"/>
+                <field name="create_user"/>
+                <field name="countersign_person"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--加班申请-->
+    <record model="ir.actions.act_window" id="ltyhr_work_overtime_action">
+        <field name="name">work overtime view</field>
+        <field name="res_model">leave.workovertime</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- 可调休小时tree视图 -->
+    <record id='offset_days_tree_list' model='ir.ui.view'>
+        <field name="name">offset days list</field>
+        <field name="model">hr.employee</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="name"/>
+                <field name="offsetHours"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--可调休小时数表单页-->
+    <record id='offset_days_form' model='ir.ui.view'>
+        <field name="name">vehicle usage records form</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <form string="Vehicle" create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="offsetHours" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 调休小时数action -->
+    <record id='offset_days_action' model='ir.actions.act_window'>
+        <field name="name">offset days</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('offset_days_tree_list')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('offset_days_form')})
+                ]"/>
+    </record>
+
+    <!--休假类型-->
+    <menuitem id="ltyhr_leave_type_menu" name="leave type"
+              sequence="60"
+              action="hr_holidays.open_view_holiday_status"
+              parent="employees_menu.leave_and_checking_in"/>
+
+    <!--加班申请-->
+    <menuitem id="ltyhr_work_overtime_menu" name="work overtime"
+              sequence="50"
+              action="ltyhr_work_overtime_action"
+              parent="employees_menu.leave_and_checking_in"/>
+
+    <!--可调休天数-->
+    <menuitem id="ltyhr_offset_days_menu" name="offset days"
+              sequence="60"
+              action="offset_days_action"
+              parent="employees_menu.leave_and_checking_in"/>
+
+    <!--休假系统设置-->
+    <menuitem id="menu_leave_general_settings" name="Settings" parent="employees_menu.leave_and_checking_in"
+            sequence="70" action="action_leave_configuration"/>
+</odoo>

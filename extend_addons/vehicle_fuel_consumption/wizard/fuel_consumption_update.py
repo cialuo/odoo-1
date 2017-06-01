@@ -20,8 +20,7 @@ class FuelConsumptionUpdate(models.TransientModel):
             if not i.correct_ids:
                 i.correct_ids = self._default_corrent_ids()
             else:
-                if i.correct_ids[0].year==0:
-                    print 111111111111111111
+                if i.correct_ids[0].year == 0:
                     for j in i.correct_ids:
                         j.unlink()
                     i.correct_ids = self._default_corrent_ids()

@@ -92,17 +92,19 @@
 
 
         <!--设备分类-->
-        <menuitem
-            id="equipment_categories" name="equipment_categories" parent="vehicle_manage_menu.equipment_manage"
-            action="hr_equipment_category_action" sequence="10"/>
+        <menuitem id="equipment_categories" name="equipment_categories" parent="vehicle_manage_menu.equipment_manage"
+                  action="hr_equipment_category_action" sequence="10"
+                  groups="materials_product.base_extend_tech_user"/>
 
         <!--设备档案-->
         <menuitem id="equipment" name="equipment" parent="vehicle_manage_menu.equipment_manage"
-            action="hr_equipment_action" sequence="20"/>
+                  action="hr_equipment_action" sequence="20"
+                  groups="materials_product.base_extend_tech_user"/>
 
         <!--消防设备档案管理-->
         <menuitem id="fire_equipment" name="fire_equipment" parent="security_manage_menu.fire_safety_first_menu"
-            action="fire_equipment_action" sequence="30"/>
+                  action="fire_equipment_action" sequence="30"
+                  groups="materials_product.base_extend_tech_user"/>/>
 
     </data>
 </odoo>
