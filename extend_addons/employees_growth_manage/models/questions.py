@@ -24,8 +24,6 @@ class questions(models.Model):
 
      total_count = fields.Integer(string='Total count',compute="_compute_total_count")
 
-     questions_founder = fields.Many2one('employees_growth.training_teacher',string='Questions founder')
-
      multiselect_questions = fields.One2many('employees_growth.multiselect_question',
                                             'questions_id',string='Multiselect question id')
 

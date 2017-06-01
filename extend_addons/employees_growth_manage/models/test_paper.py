@@ -20,10 +20,6 @@ class test_paper(models.Model):
 
     passing_grade = fields.Integer(string='Passing grade')
 
-    test_paper_founder = fields.Many2one('employees_growth.training_teacher', string='Test paper founder')
-
-    creat_date = fields.Datetime(string='Creat date')
-
     test_paper_details = fields.One2many('employees_growth.test_paper_detail','test_paper_id',string='test_paper_details')
 
 

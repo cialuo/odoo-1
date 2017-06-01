@@ -42,6 +42,18 @@ class warehouse_location(models.Model):
         self.state = 'normal'
         self.active = True
 
+    @api.model
+    def create(self, vals):
+        """
+            复写创建：默认赋值仓库
+        :param vals:
+        :return:
+        """
+        if vals.has_key('station_id'):
+            vals['location_id'] = self.env.ref('stock.stock_location_stock').id
+        return super(warehouse_location, self).create(vals)
+
+
     _sql_constraints = [('location_no_unique', 'unique (location_no)', "库位编号已经存在!"),
                         # ('location_name_unique', 'unique (name)', _("Location name already exists")),
                         ]

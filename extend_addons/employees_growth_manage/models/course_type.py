@@ -17,10 +17,6 @@ class course_type(models.Model):
 
      type_no = fields.Char(string='Type no')
 
-     founder = fields.Many2one('employees_growth.training_teacher',string='Founder')
-
      type_explain = fields.Char(string='Type explain')
-
-     creat_date = fields.Datetime(string='Creat date')
 
 
