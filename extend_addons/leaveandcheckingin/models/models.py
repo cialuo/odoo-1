@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
-from datetime import datetime
-
+from odoo import models, fields, api, _, exceptions
+from datetime import datetime, timedelta, date
+from odoo.exceptions import ValidationError
+import odoo.tools.misc
 # 休假与考勤
 
 class attence(models.Model):
@@ -15,7 +16,7 @@ class attence(models.Model):
     employee_id = fields.Many2one('hr.employee', string='employee')
 
     # 上班打卡时间
-    checkingin= fields.Datetime(string='checkingin time')
+    checkingin = fields.Datetime(string='checkingin time')
 
     # 下班打卡时间
     checkinginout = fields.Datetime(string='checkingout time')
@@ -25,10 +26,10 @@ class attence(models.Model):
 
     # 状态
     status = fields.Selection([
-        ('late','late'),
-        ('early','early'),
-        ('late+early','late+early')
-    ],string='status')
+        ('late', 'late'),
+        ('early', 'early'),
+        ('late+early', 'late+early')
+    ], string='status')
 
 
 class attencededucted(models.Model):
@@ -49,6 +50,7 @@ class attencededucted(models.Model):
     # 扣款金额
     deducted = fields.Integer(string='deducted money')
 
+
 class LeaveType(models.Model):
     """
     请假类型
@@ -61,8 +63,8 @@ class LeaveType(models.Model):
     # 类型名称
     namestr = fields.Char(string='type name')
 
-class LeaveConfig(models.TransientModel):
 
+class LeaveConfig(models.TransientModel):
     _name = 'leave.config.settings'
     _inherit = 'res.config.settings'
 
@@ -71,36 +73,84 @@ class LeaveConfig(models.TransientModel):
 
 
 class WorkOvertime(models.Model):
-
     _name = 'leave.workovertime'
+    _rec_name = 'employee_id'
 
-    employee_id = fields.Many2one('hr.employee', string='employee')
+    def init(self):
+        cr = self._cr
+        cr.execute("""SELECT indexname FROM pg_indexes WHERE indexname = 'leave_workovertime_statusfilter_idx'""")
+        if not cr.fetchone():
+            cr.execute("""CREATE INDEX leave_workovertime_statusfilter_idx
+                          ON leave_workovertime
+                          (type, useup, expiretime)""")
+
+    def _applyUser(self):
+        userid = self._uid
+        users = self.env['hr.employee'].search([('user_id', '=', userid)])
+        if len(users) != 0:
+            return users[0].id
+        else:
+            return None
+
+    employee_id = fields.Many2one('hr.employee', string='employee', default=_applyUser, required=True, readonly=True,
+                                  states={'draft': [('readonly', False)]})
 
     # 开始时间
-    start = fields.Datetime(string='start time')
+    start = fields.Datetime(string='start time', required=True, readonly=True,
+                            states={'draft': [('readonly', False)]})
 
     # 结束时间
-    end = fields.Datetime(string='end time')
+    end = fields.Datetime(string='end time', required=True, readonly=True,
+                          states={'draft': [('readonly', False)]})
 
     # 状态
     state = fields.Selection([
-        ('draft', 'draft'),             # 草稿
-        ('confirmed', 'confirmed'),     # 已确认
-        ('done', 'done')                # 已完成
+        ('draft', 'draft'),  # 草稿
+        ('confirmed', 'confirmed'),  # 已确认
+        ('done', 'done')  # 已完成
     ], string="status", default='draft')
 
     # 加班类型
     type = fields.Selection([
-        ('default','default'),          # 默认
-        ('money','money'),              # 加班费
-        ('offset','offset'),            # 调休
-    ], string='overtime type')
+        ('default', 'default'),  # 默认
+        ('money', 'money'),  # 加班费
+        ('offset', 'offset'),  # 调休
+    ], string='overtime type', required=True, default='default', readonly=True,
+        states={'draft': [('readonly', False)]})
 
     # 制表人
     create_user = fields.Many2one('res.users', string='create user', default=lambda self: self._uid)
 
     # 审批/会签人员
     countersign_person = fields.Many2one('res.users', string="employees_countersign_person")
+
+    # 加班时长 小时单位
+    length = fields.Integer(string='work overtime length(hour)', required=True, readonly=True,
+                            states={'draft': [('readonly', False)]})
+
+    # 剩余可扣除假期
+    residue = fields.Integer(string='residue time')
+
+    # 若调休用完 则置为False
+    useup = fields.Boolean(string='time use up', default=False)
+
+    # 转调休过期时间
+    expiretime = fields.Datetime(string='expire time')
+
+    @api.multi
+    def unlink(self):
+        for order in self:
+            if not order.state == 'draft':
+                raise exceptions.UserError(_('only delete in state draft'))
+        return super(WorkOvertime, self).unlink()
+
+    @api.one
+    @api.constrains('start', 'end', 'length')
+    def _check_description(self):
+        if self.start > self.end:
+            raise ValidationError(_("start time must earlier then end time"))
+        if self.length <= 0:
+            raise ValidationError(_("worker overtime must more then one hour"))
 
     @api.multi
     def action_draft(self):
@@ -110,7 +160,46 @@ class WorkOvertime(models.Model):
     def action_confirm(self):
         self.state = 'confirmed'
 
+    def _calculateExpireTime(self):
+        confid = self.env.ref('leaveandcheckingin.leave_default_settings')
+        configurs = self.env['leave.config.settings'].browse([confid])
+        if len(configurs) > 0:
+            x = configurs.ids[0]
+            return x.expiretime
+        else:
+            return -1
+
     @api.multi
     def action_done(self):
-        self.countersign_person = self._uid
-        self.state = 'done'
+        for item in self:
+            expiretime = item._calculateExpireTime()
+            if self.type == 'offset':
+                self.useup = True
+                if expiretime < 0:
+                    self.expiretime = date.today()+timedelta(days=365*1000)
+                else:
+                    self.expiretime = date.today() + timedelta(days=expiretime)
+            item.residue = self.length
+            item.countersign_person = self._uid
+            item.state = 'done'
+
+class offsetDays(models.Model):
+
+    _inherit = 'hr.employee'
+
+    @api.multi
+    def _offsetHours(self):
+        for item in self:
+            workovertime = item.env['leave.workovertime'].search([
+                ('type', '=', 'offset'),
+                ('useup', '=', True),
+                ('expiretime', '>', datetime.now().strftime(odoo.tools.misc.DEFAULT_SERVER_DATETIME_FORMAT)),
+                ('employee_id', '=', item.id)
+            ])
+            total = 0
+            for item2 in workovertime:
+                total += item2.residue
+            item.offsetHours = total
+
+    # 可调休小时数
+    offsetHours = fields.Integer(compute='_offsetHours',string='offset hours')

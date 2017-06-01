@@ -79,9 +79,10 @@
                     <field name="state" widget="statusbar"/>
                 </header>
                 <group>
-                    <field name="employee_id"/>
+                    <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
                     <field name="start"/>
                     <field name="end"/>
+                    <field name="length" placeholder="unit hour"/>
                     <field name="type"/>
                     <field name="create_user" readonly="1"/>
                     <field name="countersign_person" readonly="1"/>
@@ -96,7 +97,7 @@
         <field name="model">leave.workovertime</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="employee_id"/>
+                <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
                 <field name="type"/>
                 <field name="start"/>
                 <field name="end"/>
@@ -114,6 +115,46 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <!-- 可调休小时tree视图 -->
+    <record id='offset_days_tree_list' model='ir.ui.view'>
+        <field name="name">offset days list</field>
+        <field name="model">hr.employee</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="name"/>
+                <field name="offsetHours"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--可调休小时数表单页-->
+    <record id='offset_days_form' model='ir.ui.view'>
+        <field name="name">vehicle usage records form</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <form string="Vehicle" create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="offsetHours" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 调休小时数action -->
+    <record id='offset_days_action' model='ir.actions.act_window'>
+        <field name="name">offset days</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('offset_days_tree_list')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('offset_days_form')})
+                ]"/>
+    </record>
+
     <!--休假类型-->
     <menuitem id="ltyhr_leave_type_menu" name="leave type"
               sequence="60"
@@ -124,6 +165,12 @@
     <menuitem id="ltyhr_work_overtime_menu" name="work overtime"
               sequence="50"
               action="ltyhr_work_overtime_action"
+              parent="employees_menu.leave_and_checking_in"/>
+
+    <!--可调休天数-->
+    <menuitem id="ltyhr_offset_days_menu" name="offset days"
+              sequence="60"
+              action="offset_days_action"
               parent="employees_menu.leave_and_checking_in"/>
 
     <!--休假系统设置-->
