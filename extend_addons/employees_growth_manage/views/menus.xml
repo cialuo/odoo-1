@@ -7,12 +7,8 @@
 
         <!-- 培训计划 -->
         <menuitem id="employees_growth_manage.menu_plan" name="Training Plan"
-                  parent="employees_growth_manage.menu_root" sequence="1"/>
-
-        <!--培训计划-->
-        <menuitem id="employees_growth_manage.menu_training_plan" name="Taining Plan Menu"
-                  parent="employees_growth_manage.menu_plan"
-                  sequence="1" action="employees_growth_manage.action_training_plan"/>
+                  parent="employees_growth_manage.menu_root" sequence="1"
+                  action="employees_growth_manage.action_training_plan"/>
 
         <!-- 培训管理 -->
         <menuitem id="employees_growth_manage.menu_manage" name="Training Manage"
@@ -22,6 +18,26 @@
         <menuitem id="employees_growth_manage.menu_curriculum_schedule" name="Curriculum Schedule Menu"
                   parent="employees_growth_manage.menu_manage"
                   sequence="1" action="employees_growth_manage.action_curriculum_schedule"/>
+
+        <!--签到记录汇总-->
+        <menuitem id="employees_growth_manage.menu_check_the_record_summary" name="Check The Record Summary Menu"
+                  parent="employees_growth_manage.menu_manage"
+                  sequence="2"/>
+
+        <!--签到表管理-->
+        <menuitem id="employees_growth_manage.menu_time_arrangement" name="Time Arrangement Menu"
+                  parent="employees_growth_manage.menu_check_the_record_summary"
+                  sequence="1" action="employees_growth_manage.action_time_arrangement"/>
+
+        <!--考试详情-->
+        <menuitem id="employees_growth_manage.menu_summary_of_exams" name="Summary Of Exams Menu"
+                  parent="employees_growth_manage.menu_manage"
+                  sequence="3"/>
+
+        <!--考试详情-->
+        <menuitem id="employees_growth_manage.menu_examination" name="Examination Menu"
+                  parent="employees_growth_manage.menu_summary_of_exams"
+                  sequence="1" action="employees_growth_manage.action_examination"/>
 
 
         <!-- 培训设置 -->

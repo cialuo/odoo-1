@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
   <data>
 
     <!-- 列表 -->
@@ -49,19 +49,21 @@
                         <field name="return_remarks"/>
                     </group>
                 </group>
-                <!--<notebook>
-                    <page name="question_type_setting" string="Question type setting">
-                         <field name="test_paper_details" >
+                <notebook>
+                    <page name="course_arrangement" string="Course arrangement">
+                         <field name="curriculum_schedules" >
                             <tree editable="top">
-                                <field name="question_type"/>
-                                <field name="question_count"/>
-                                <field name="score"/>
-                                <field name="total_score"/>
-                                <field name="questions_total_score"/>
+                                <field name="name"/>
+                                <field name="course_id"/>
+                                <field name="course_type"/>
+                                <field name="train_type"/>
+                                <field name="teacher_id"/>
+                                <field name="train_date"/>
+                                <field name="address"/>
                             </tree>
                         </field>
                     </page>
-                </notebook>-->
+                </notebook>
             </sheet>
         </form>
       </field>
@@ -76,4 +78,4 @@
 
 
   </data>
-</openerp>
+</odoo>

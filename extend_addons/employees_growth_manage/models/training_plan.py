@@ -3,7 +3,6 @@
 from odoo import models, fields, api,tools
 
 class training_plan(models.Model):
-
      _name = 'employees_growth.training_plan'
      _description = 'Training plan'
 
@@ -14,16 +13,15 @@ class training_plan(models.Model):
      """
 
      name = fields.Char(string='Name')
-
      training_cycle = fields.Char(string='Training cycle')
-
      return_remarks = fields.Char(string='Return remarks')
-
      auditor = fields.Many2one('hr.employee',string='Auditor')
-
      state = fields.Selection([('draft','Draft'),('pendingAudit','Pending audit'),
-                               ('pendingExecution','Pending execution'),('complete','Complete')],default='draft')
+                               ('pendingExecution','Pending execution'),
+                               ('complete','Complete')],default='draft')
 
+     curriculum_schedules = fields.One2many('employees_growth.curriculum_schedule','plan_id',
+                                            string='Curriculum schedules')
 
 
 
@@ -46,10 +44,3 @@ class training_plan(models.Model):
      @api.multi
      def pendingExecution_to_pendingAudit(self):
          self.state = 'pendingAudit'
-
-
-
-
-
-
-

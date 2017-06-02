@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
   <data>
 
     <!-- 表单 -->
@@ -11,8 +11,7 @@
           <field name="name"/>
           <field name="train_type"/>
           <field name="teacher_id"/>
-          <field name="start_time"/>
-          <field name="end_time"/>
+          <field name="train_date"/>
           <field name="address"/>
           <field name="state"/>
         </tree>
@@ -42,8 +41,7 @@
                     <group>
                         <field name="curriculum_no"/>
                         <field name="course_id" options="{'no_open': True, 'no_create': True}"/>
-                        <field name="start_time" />
-                        <field name="end_time" />
+                        <field name="train_date" />
                     </group>
                     <group>
                         <field name="train_type"/>
@@ -52,46 +50,36 @@
                         <field name="address"/>
                     </group>
                 </group>
-                <!--
                 <notebook>
-                    <page name="radio_questions" string="Radio questions">
-                         <field name="radio_questions" >
+                    <page name="class_arrangement" string="Class arrangement">
+                         <field name="time_arrangements" >
                             <tree editable="top">
-                                <field name="name"/>
-                                <field name="option_A"/>
-                                <field name="option_B"/>
-                                <field name="option_C"/>
-                                <field name="option_D"/>
-                                <field name="answer"/>
+                                <field name="teacher_id"/>
+                                <field name="start_time"/>
+                                <field name="end_time"/>
+                                <field name="address"/>
+                                <field name="state"/>
                             </tree>
                         </field>
                     </page>
-                    <page names="multiselect_questions" string="Multiselect questions">
-                        <field name="multiselect_questions" >
+                    <page names="page_trainers" string="Trainers page">
+                        <field name="students" >
                             <tree editable="top">
-                                <field name="name"/>
-                                <field name="option_A"/>
-                                <field name="option_B"/>
-                                <field name="option_C"/>
-                                <field name="option_D"/>
-                                <field name="answer"/>
+                                <field name="student_id"/>
+                                <field name="department_id"/>
                             </tree>
                         </field>
                     </page>
-                    <page names="judge_questions" string="Judge questions">
-                        <field name="judge_questions" >
+                    <page names="exam_situation" string="Exam situation">
+                        <field name="examiners_details" >
                             <tree editable="top">
-                                <field name="name"/>
-                                <field name="option_A"/>
-                                <field name="option_B"/>
-                                <field name="option_C"/>
-                                <field name="option_D"/>
-                                <field name="answer"/>
+                                <field name="student_id"/>
+                                <field name="department_id"/>
+                                <field name="ways_of_registration"/>
                             </tree>
                         </field>
                     </page>
                 </notebook>
-                -->
             </sheet>
         </form>
       </field>
@@ -105,4 +93,4 @@
     </record>
 
   </data>
-</openerp>
+</odoo>

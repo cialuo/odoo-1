@@ -4,14 +4,17 @@ from odoo import models, fields, api,_
 
 class punch_recording(models.Model):
 
-     _name = 'employees_growth.punch_recording'
-     _description = 'Punch recording'
+     _name = 'employees_growth.time_arrangement'
+     _description = 'Time arrangement'
 
      """
-        签到记录表：
-            课程、上课时间、课程表、地点
+          课程表的课时安排：
+               一个课时对应一个签到表
+               多个课时，对应一个考试列表
      """
      name = fields.Char(string='Name')
+
+     time_no = fields.Char(string='Time no')
 
      course_id = fields.Many2one('employees_growth.course',string='Course id')
 
@@ -21,8 +24,11 @@ class punch_recording(models.Model):
 
      start_time = fields.Datetime(string='Start time')
 
-     state = fields.Selection([('start','Start'),('sign','Sign'),
-                               ('examination','Examination'),('complete','Complete')],default='start')
+     end_time = fields.Datetime(string='End time')
+
+     state = fields.Selection([('wait', 'Wait'), ('ingSign', 'Ing Sign'),
+                               ('havingClass', 'Having Class'), ('complete', 'Complete')],
+                              default='wait')
 
      total_student = fields.Integer(string='Total student')
 
@@ -33,6 +39,14 @@ class punch_recording(models.Model):
      sign_rate = fields.Float(string='Sign rate')
 
      details = fields.One2many('employees_growth.punch_recording_details','punch_recording_id',string='Punch recording details')
+
+     curriculum_schedule_id = fields.Many2one('employees_growth.curriculum_schedule', string='Curriculum schedule id')
+
+
+
+
+
+
 
 class punch_recording_details(models.Model):
 
@@ -48,9 +62,7 @@ class punch_recording_details(models.Model):
 
      student_id = fields.Many2one('hr.employee',string='Student id')
 
-     company_id = fields.Many2one('',string='Company id')
-
-     department_id = fields.Many2one('',string='Department id')
+     department_id = fields.Many2one('hr.department', string='Department id')
 
      is_sign = fields.Boolean(default=False)
 
