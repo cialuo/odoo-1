@@ -96,6 +96,10 @@
                         </notebook>
                     </sheet>
                 </xpath>
+
+                <xpath expr="/form/div" position="replace">
+                    <div></div>
+                </xpath>
             </field>
         </record>
 

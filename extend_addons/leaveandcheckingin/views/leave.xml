@@ -155,6 +155,29 @@
                 ]"/>
     </record>
 
+    <!-- 重载休假申请表单 -->
+    <record id="lty_leave_apply_form" model="ir.ui.view">
+        <field name="name">ltyhr leave apply form</field>
+        <field name="model">hr.holidays</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='holiday_type']" position="replace">
+                <field name="holiday_type" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='payslip_status']" position="replace">
+                <field name="payslip_status" invisible="1"/>
+            </xpath>
+            <xpath expr="/form/sheet/group/group[1]/div/div[2]" position="replace">
+                <div>
+                    <field name="number_of_days_temp" invisible="1"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='payslip_status']" position="after">
+                <field name="length" required="1"/>
+            </xpath>
+        </field>
+    </record>
+
     <!--休假类型-->
     <menuitem id="ltyhr_leave_type_menu" name="leave type"
               sequence="60"
@@ -169,11 +192,17 @@
 
     <!--可调休天数-->
     <menuitem id="ltyhr_offset_days_menu" name="offset days"
-              sequence="60"
+              sequence="70"
               action="offset_days_action"
+              parent="employees_menu.leave_and_checking_in"/>
+
+    <!--休假申请-->
+    <menuitem id="apply_for_leave_menu" name="leave apply"
+              sequence="40"
+              action="hr_holidays.open_department_holidays_approve"
               parent="employees_menu.leave_and_checking_in"/>
 
     <!--休假系统设置-->
     <menuitem id="menu_leave_general_settings" name="Settings" parent="employees_menu.leave_and_checking_in"
-            sequence="70" action="action_leave_configuration"/>
+            sequence="80" action="action_leave_configuration"/>
 </odoo>

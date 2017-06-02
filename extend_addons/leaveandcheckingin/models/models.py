@@ -202,4 +202,18 @@ class offsetDays(models.Model):
             item.offsetHours = total
 
     # 可调休小时数
-    offsetHours = fields.Integer(compute='_offsetHours',string='offset hours')
+    offsetHours = fields.Integer(compute='_offsetHours',string='offset hours(hour)')
+
+
+class Holidays(models.Model):
+
+    _inherit = 'hr.holidays'
+
+    # 请假时长 小时单位
+    length = fields.Integer(string='leave length')
+
+    @api.one
+    @api.constrains('length')
+    def _check_description(self):
+        if self.length <= 0:
+            raise ValidationError(_("leave time must more then one hour"))
