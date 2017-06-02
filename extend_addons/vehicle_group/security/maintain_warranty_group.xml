@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--司机-->
+        <record id="vehicle_driver" model="res.groups">
+            <field name="name">Driver</field>
+            <field name="category_id" ref="module_vehicle_group"/>
+        </record>
+
+        <!--站务-->
+        <record id="vehicle_depot" model="res.groups">
+            <field name="name">Depot</field>
+            <field name="category_id" ref="module_vehicle_group"/>
+        </record>
+
+        <!--车间维修-->
+        <record id="vehicle_repair" model="res.groups">
+            <field name="name">Repair</field>
+            <field name="category_id" ref="module_vehicle_group"/>
+        </record>
+
+        <!--车间调度-->
+        <record id="vehicle_dispatch" model="res.groups">
+            <field name="name">Dispatch</field>
+            <field name="category_id" ref="module_vehicle_group"/>
+        </record>
+
+        <!--车间质检-->
+        <record id="vehicle_inspect" model="res.groups">
+            <field name="name">Inspect</field>
+            <field name="category_id" ref="module_vehicle_group"/>
+        </record>
+
+    </data>
+</odoo>

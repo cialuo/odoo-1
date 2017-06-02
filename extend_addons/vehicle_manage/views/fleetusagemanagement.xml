@@ -48,7 +48,7 @@
                             class="oe_highlight"/>
                     <button name="action_checked" type="object"
                             string="checked" states="submitted"
-                            class="oe_highlight" groups="vehicle_manage.vehicle_usage_manager" />
+                            class="oe_highlight" />
                     <button name="action_execution" type="object"
                             string="to execution" states="checked"
                             class="oe_highlight"/>
@@ -383,32 +383,37 @@
               id="vehicle_usage_records"
               parent="vehicle_manage_menu.vehicle_use_manage"
               action="vehicle_usage_records_action"
-              sequence="10"/>
+              sequence="10"
+              groups="materials_product.base_extend_tech_user"/>
 
     <!-- 车辆年检管理 -->
     <menuitem name="vehicle inspection manage"
               id="vehicle_inspection_manage"
               parent="vehicle_manage_menu.vehicle_use_manage"
-              sequence="50"/>
+              sequence="50"
+              groups="materials_product.base_extend_tech_user"/>
 
     <!-- 车辆年检查询 -->
     <menuitem name="vehicle inspection list"
               id="vehicle_inspection_list"
               parent="vehicle_inspection_manage"
               action="vehicle_inspection_list_action"
-              sequence="10"/>
+              sequence="10"
+              groups="materials_product.base_extend_tech_user"/>
 
     <!-- 车辆年检计划 -->
     <menuitem name="vehicle inspection plan"
               id="vehicle_inspection_plan"
               parent="vehicle_inspection_manage"
               action="vehicle_inspection_plan_action"
-              sequence="20"/>
+              sequence="20"
+              groups="materials_product.base_extend_tech_user"/>
 
     <!-- 车辆年检 -->
     <menuitem name="vehicle inspection records"
               id="vehicle_inspection_records"
               parent="vehicle_inspection_manage"
               action="vehicle_inspection_records_action"
-              sequence="30"/>
+              sequence="30"
+              groups="materials_product.base_extend_tech_user"/>
 </odoo>

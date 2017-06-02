@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
   <data>
 
     <!-- 列表 -->
@@ -129,4 +129,4 @@
     </record>
 
   </data>
-</openerp>
+</odoo>

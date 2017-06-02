@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
   <data>
 
     <!-- 列表 -->
@@ -68,4 +68,4 @@
 
 
   </data>
-</openerp>
+</odoo>

@@ -1,0 +1,89 @@
+<odoo>
+  <data>
+
+    <!-- 表单 -->
+    <record model="ir.ui.view" id="employees_growth_manage.time_arrangement_list">
+      <field name="name">time_arrangement list</field>
+      <field name="model">employees_growth.time_arrangement</field>
+      <field name="arch" type="xml">
+        <tree create="false">
+          <field name="time_no"/>
+          <field name="name"/>
+          <field name="course_id"/>
+          <field name="teacher_id"/>
+          <field name="start_time"/>
+          <field name="end_time"/>
+          <field name="address"/>
+          <field name="state"/>
+          <field name="sign_rate"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--表单-->
+    <record model="ir.ui.view" id="employees_growth_manage.time_arrangement_form">
+      <field name="name">time_arrangement form</field>
+      <field name="model">employees_growth.time_arrangement</field>
+      <field name="arch" type="xml">
+        <form>
+             <header>
+              <button name="start_to_sign" type="object" string="start_to_sign" states="start" class="oe_highlight"/>
+              <button name="sign_to_examination" type="object" string="sign_to_examination" states="sign" class="oe_highlight"/>
+              <button name="examination_to_complete" type="object" string="examination_to_complete" states="examination" class="oe_highlight"/>
+              <field name="state"  widget="statusbar"/>
+            </header>
+            <sheet>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" placeholder="Time Arrangement's Name" />
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="time_no"/>
+                        <field name="course_id" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="teacher_id" />
+                    </group>
+                    <group>
+                        <field name="start_time"/>
+                        <field name="address"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page names="page_punch_recording_details" string="Page punch recording details">
+                        <field name="details" >
+                            <tree editable="top">
+                                <field name="student_id"/>
+                                <field name="department_id"/>
+                                <field name="is_sign"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="sign_in_statistics" string="Sign in statistics">
+                         <group>
+                             <group>
+                                <field name="total_student"/>
+                                <field name="sign_number"/>
+                             </group>
+                             <group>
+                                <field name="unsign_number"/>
+                                <field name="sign_rate"/>
+                             </group>
+                         </group>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- 动作 -->
+    <record model="ir.actions.act_window" id="employees_growth_manage.action_time_arrangement">
+      <field name="name">time_arrangement window</field>
+      <field name="res_model">employees_growth.time_arrangement</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+  </data>
+</odoo>

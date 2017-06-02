@@ -650,7 +650,7 @@ class MaintainReturnRecord(models.Model):
     repair_id = fields.Many2one('maintain.manage.repair', string="Repair Order",
                                 required=True, readonly=True)
     inspect_user_id = fields.Many2one('hr.employee',  string="Inspect Name",
-                                      required=True, readonly=True)
+                                      readonly=True)
     repair_names = fields.Char(string='Repair Names',related='repair_id.repair_names')
     fault_method_id = fields.Many2one("maintain.fault.method", related='repair_id.fault_method_id',
                                       ondelete='set null', string="Fault Method")

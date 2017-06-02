@@ -31,7 +31,8 @@
 
         <!--更新车型油耗-->
         <menuitem name="fuel_consumption_update" id="fuel_consumption_update" parent="vehicle_manage_menu.warranty_maintain_basic_manage"
-                  action="fuel_consumption_update_action" sequence="40"/>
+                  action="fuel_consumption_update_action" sequence="40"
+                  groups="materials_product.base_extend_tech_user"/>
 
     </data>
 </odoo>

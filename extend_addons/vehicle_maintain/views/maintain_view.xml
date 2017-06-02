@@ -96,7 +96,7 @@
 								string="Submit Precheck"
 								states="draft"
 								class="oe_highlight"
-								groups="vehicle_maintain.maintain_manage_driver,vehicle_maintain.maintain_manage_depot"
+								groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_depot"
 								/> <!-- 提交检验-->
                     	<field name="state" widget="statusbar" statusbar_visible="draft,precheck,repair,completed"/>
                 	</header>
@@ -172,13 +172,13 @@
 								type="object"
                                 string="Precheck Success"
                                 states="precheck"
-								groups="vehicle_maintain.maintain_manage_inspect"
+								groups="vehicle_group.vehicle_inspect"
 								class="oe_highlight"/>  <!-- 预检通过并创建交接单-->
 
 						<button name="action_precheck_to_draft"
 								type="object"
                                 string="Reset to draft"
-								groups="vehicle_maintain.maintain_manage_inspect"
+								groups="vehicle_group.vehicle_inspect"
 								states="precheck"/>     <!-- 检验退回-->
 
 
@@ -269,13 +269,13 @@
 						<button name="action_start_repair" type="object"
                                 string="Start Repair"
 								states="wait_repair"
-								groups="vehicle_maintain.maintain_manage_repair"
+								groups="vehicle_group.vehicle_repair"
                                 class="oe_highlight"/> <!-- 开工-->
 
 						<button name="action_start_inspect" type="object"
                                 string="Start Inspect"
 								states="repair"
-								groups="vehicle_maintain.maintain_manage_repair"
+								groups="vehicle_group.vehicle_repair"
                                 class="oe_highlight"/> <!-- 报检-->
 
                     	<field name="state"  widget="statusbar" statusbar_visible="wait_repair,repair,inspect,completed" />
@@ -353,14 +353,14 @@
 											 type="object"
 											 string="Create Get Picking"
 											 states="repair,inspect,completed"
-											 groups="vehicle_maintain.maintain_manage_repair"
+											 groups="vehicle_group.vehicle_repair"
 											 class="oe_highlight">
 									 </button>
 
 									 <button name="create_back_picking"
 											 type="object"
 											 states="repair,inspect,completed"
-											 groups="vehicle_maintain.maintain_manage_repair"
+											 groups="vehicle_group.vehicle_repair"
 											 string="Create Back Picking"/>
 								</center>
 								  <separator/>
@@ -401,7 +401,7 @@
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
 					<sheet>
-						<notebook groups="vehicle_maintain.maintain_manage_dispatch">
+						<notebook groups="vehicle_group.vehicle_dispatch">
 							<page string="MaintainRepair Jobs" >
                                 <field name="job_ids">
                                     <tree string="MaintainRepair Jobs" create="false" editable="bottom">
@@ -427,12 +427,12 @@
 								<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="fault_reason_id" options="{'no_open':True,'no_create':True}" domain="[('appearance_id', '=', fault_appearance_id),('category_id', '=', fault_category_id)]"/>
 								<field name="fault_method_id" required="1" options="{'no_open':True,'no_create':True}" domain="[('reason_id', '=', fault_reason_id)]"/>
-								<field name="work_time" groups="vehicle_maintain.maintain_manage_dispatch"/>
+								<field name="work_time" groups="vehicle_group.vehicle_dispatch"/>
 								<field name="operation_manual" invisible="1"/>
 								<field name="inspect_standard" invisible="1"/>
 
 	                        </group>
-	                        <group class="oe_edit_only" groups="vehicle_maintain.maintain_manage_dispatch">
+	                        <group class="oe_edit_only" groups="vehicle_group.vehicle_dispatch">
 								<field name="plan_start_time"/>
 								<field name="plan_end_time"/>
 								<field name="fault_method_code" invisible="1"/>
@@ -450,7 +450,7 @@
 								 type="object"
 								 string="Dispatch"
 								 states="dispatch,wait_repair"
-								 groups="vehicle_maintain.maintain_manage_dispatch"
+								 groups="vehicle_group.vehicle_dispatch"
 								 class="oe_edit_only oe_highlight oe_right"/>
 					</sheet>
                 </form>
@@ -469,13 +469,13 @@
 						<button name="action_completed" type="object"
                                 string="Inspect Complete"
 								states="inspect"
-								groups="vehicle_maintain.maintain_manage_inspect"
+								groups="vehicle_group.vehicle_inspect"
                                 class="oe_highlight"/> <!-- 检验完成-->
 
 						<button name="%(maintain_inspect_return)d"
 								type="action"
                                 string="Back To Repair"
-								groups="vehicle_maintain.maintain_manage_inspect"
+								groups="vehicle_group.vehicle_inspect"
 								states="inspect"/> <!-- 退回重修-->
 
                     	<field name="state"  widget="statusbar"  statusbar_visible="repair,inspect,completed" />
@@ -590,18 +590,22 @@
 
 		<!--报修单-->
         <menuitem name="maintain_report_order" id="maintain_report_order" parent="maintain_manage"
-				  action="maintain_report_action" sequence="10" />
+				  action="maintain_report_action" sequence="10"
+				  groups="vehicle_group.vehicle_driver" />
 
 		<!--预检单-->
 		<menuitem name="maintain_precheck_order" id="maintain_precheck_order" parent="maintain_manage"
-				  action="maintain_precheck_action" sequence="20" />
+				  action="maintain_precheck_action" sequence="20"
+				  groups="vehicle_group.vehicle_repair,vehicle_group.vehicle_inspect" />
 
 		<!--抢修单-->
         <menuitem name="maintain_repair_order" id="maintain_repair_order" parent="maintain_manage"
-				  action="maintain_repair_action" sequence="30" />
+				  action="maintain_repair_action" sequence="30"
+				  groups="vehicle_group.vehicle_repair" />
 
 		<!--检验单-->
         <menuitem name="maintain_inspect_order" id="maintain_inspect_order" parent="maintain_manage"
-				  action="maintain_inspect_action" sequence="50" />
+				  action="maintain_inspect_action" sequence="50"
+				  groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_inspect" />
     </data>
 </odoo>
