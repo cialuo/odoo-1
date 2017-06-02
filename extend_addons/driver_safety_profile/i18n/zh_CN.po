@@ -1,0 +1,278 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* driver_safety_profile
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-02 07:36+0000\n"
+"PO-Revision-Date: 2017-06-02 07:36+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_accident_cause
+#: model:ir.model.fields,help:driver_safety_profile.field_accident_record_accident_cause
+msgid "Accident Cause"
+msgstr "事故原因"
+
+#. module: driver_safety_profile
+#: model:ir.actions.act_window,name:driver_safety_profile.accident_record_action
+#: model:ir.ui.menu,name:driver_safety_profile.accident_record_menu
+msgid "Accident Record"
+msgstr "事故记录"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_accident_type
+#: model:ir.model.fields,help:driver_safety_profile.field_accident_record_accident_type
+msgid "Accident Type"
+msgstr "事故类型"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_accumulated_safe_kilometer
+#: model:ir.model.fields,help:driver_safety_profile.field_safe_kilometer_accumulated_safe_kilometer
+msgid "Accumulated Safe Kilometer"
+msgstr "累计安全公里"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_create_uid
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_create_uid
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_create_uid
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_create_date
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_create_date
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_create_date
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_display_name
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_display_name
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_display_name
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: driver_safety_profile
+#: model:ir.ui.menu,name:driver_safety_profile.driver_safety_profile_menu
+msgid "Driver Safety Profile"
+msgstr "驾驶员安全档案"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_employee_id
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_employee_id
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_employee_id
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_employee_id
+#: model:ir.model.fields,help:driver_safety_profile.field_accident_record_employee_id
+#: model:ir.model.fields,help:driver_safety_profile.field_endorsement_employee_id
+#: model:ir.model.fields,help:driver_safety_profile.field_overspeed_record_employee_id
+#: model:ir.model.fields,help:driver_safety_profile.field_safe_kilometer_employee_id
+msgid "Employee Name"
+msgstr "名称"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_end_time
+#: model:ir.model.fields,help:driver_safety_profile.field_safe_kilometer_end_time
+msgid "End Time"
+msgstr "结束时间"
+
+#. module: driver_safety_profile
+#: model:ir.actions.act_window,name:driver_safety_profile.endorsement_action
+#: model:ir.ui.menu,name:driver_safety_profile.endorsement_menu
+msgid "Endorsement"
+msgstr "违章记录"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_handle_result
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_handle_result
+#: model:ir.model.fields,help:driver_safety_profile.field_accident_record_handle_result
+#: model:ir.model.fields,help:driver_safety_profile.field_endorsement_handle_result
+msgid "Handle Result"
+msgstr "处理结果"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_id
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_id
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_id
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_id
+msgid "ID"
+msgstr "ID"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_illegal_reason
+#: model:ir.model.fields,help:driver_safety_profile.field_endorsement_illegal_reason
+msgid "Illegal Reason"
+msgstr "违章原因"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_job_number
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_job_number
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_job_number
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_job_number
+#: model:ir.model.fields,help:driver_safety_profile.field_accident_record_job_number
+#: model:ir.model.fields,help:driver_safety_profile.field_endorsement_job_number
+#: model:ir.model.fields,help:driver_safety_profile.field_overspeed_record_job_number
+#: model:ir.model.fields,help:driver_safety_profile.field_safe_kilometer_job_number
+msgid "Job Number"
+msgstr "工号"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record___last_update
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement___last_update
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record___last_update
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_write_uid
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_write_uid
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_write_uid
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_write_date
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_write_date
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_write_date
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_location
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_location
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_location
+#: model:ir.model.fields,help:driver_safety_profile.field_accident_record_location
+#: model:ir.model.fields,help:driver_safety_profile.field_endorsement_location
+#: model:ir.model.fields,help:driver_safety_profile.field_overspeed_record_location
+msgid "Location"
+msgstr "地点"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_name
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_name
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_name
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_name
+msgid "Name"
+msgstr "名字"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_occurrence_time
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_occurrence_time
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_occurrence_time
+#: model:ir.model.fields,help:driver_safety_profile.field_accident_record_occurrence_time
+#: model:ir.model.fields,help:driver_safety_profile.field_endorsement_occurrence_time
+#: model:ir.model.fields,help:driver_safety_profile.field_overspeed_record_occurrence_time
+msgid "Occurrence Time"
+msgstr "时间"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_outrageous
+#: model:ir.model.fields,help:driver_safety_profile.field_overspeed_record_outrageous
+msgid "Outrageous"
+msgstr "超出范围"
+
+#. module: driver_safety_profile
+#: model:ir.actions.act_window,name:driver_safety_profile.overspeed_record_action
+#: model:ir.ui.menu,name:driver_safety_profile.overspeed_record_menu
+msgid "Overspeed Record"
+msgstr "超速记录"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_route_id
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_route_id
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_route_id
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_route_id
+#: model:ir.model.fields,help:driver_safety_profile.field_accident_record_route_id
+#: model:ir.model.fields,help:driver_safety_profile.field_endorsement_route_id
+#: model:ir.model.fields,help:driver_safety_profile.field_overspeed_record_route_id
+#: model:ir.model.fields,help:driver_safety_profile.field_safe_kilometer_route_id
+msgid "Route"
+msgstr "线路"
+
+#. module: driver_safety_profile
+#: model:ir.actions.act_window,name:driver_safety_profile.safe_kilometer_action
+#: model:ir.ui.menu,name:driver_safety_profile.safe_kilometer_menu
+msgid "Safe Kilometer"
+msgstr "安全公里"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_serial_number
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_serial_number
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_serial_number
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_serial_number
+#: model:ir.model.fields,help:driver_safety_profile.field_accident_record_serial_number
+#: model:ir.model.fields,help:driver_safety_profile.field_endorsement_serial_number
+#: model:ir.model.fields,help:driver_safety_profile.field_overspeed_record_serial_number
+#: model:ir.model.fields,help:driver_safety_profile.field_safe_kilometer_serial_number
+msgid "Serial Number"
+msgstr "编号"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_speed
+#: model:ir.model.fields,help:driver_safety_profile.field_overspeed_record_speed
+msgid "Speed"
+msgstr "车速"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_speed_limit
+#: model:ir.model.fields,help:driver_safety_profile.field_overspeed_record_speed_limit
+msgid "Speed Limit"
+msgstr "限速"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_start_time
+#: model:ir.model.fields,help:driver_safety_profile.field_safe_kilometer_start_time
+msgid "Start Time"
+msgstr "开始时间"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_vehicle_id
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_vehicle_id
+#: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_vehicle_id
+#: model:ir.model.fields,field_description:driver_safety_profile.field_safe_kilometer_vehicle_id
+#: model:ir.model.fields,help:driver_safety_profile.field_accident_record_vehicle_id
+#: model:ir.model.fields,help:driver_safety_profile.field_endorsement_vehicle_id
+#: model:ir.model.fields,help:driver_safety_profile.field_overspeed_record_vehicle_id
+#: model:ir.model.fields,help:driver_safety_profile.field_safe_kilometer_vehicle_id
+msgid "Vehicle No"
+msgstr "车号"
+
+#. module: driver_safety_profile
+#: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_violation_type
+#: model:ir.model.fields,help:driver_safety_profile.field_endorsement_violation_type
+msgid "Violation Type"
+msgstr "违章类型"
+
+#. module: driver_safety_profile
+#: model:ir.model,name:driver_safety_profile.model_accident_record
+msgid "accident_record"
+msgstr "事故记录"
+
+#. module: driver_safety_profile
+#: model:ir.model,name:driver_safety_profile.model_endorsement
+msgid "endorsement"
+msgstr "违章记录"
+
+#. module: driver_safety_profile
+#: model:ir.model,name:driver_safety_profile.model_overspeed_record
+msgid "overspeed_record"
+msgstr "超速记录"
+
+#. module: driver_safety_profile
+#: model:ir.model,name:driver_safety_profile.model_safe_kilometer
+msgid "safe_kilometer"
+msgstr "安全公里"
+
