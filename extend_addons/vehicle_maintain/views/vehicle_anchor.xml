@@ -67,6 +67,7 @@
                         <group>
                             <group>
                                 <field name="vehicle_id" options="{'no_create':True}"/>
+                                <field name="driver" required="1"/>
                                 <field name="anchortime" />
                                 <field name="anchorroad" />
                                 <field name="anchorreason" />

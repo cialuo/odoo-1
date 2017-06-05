@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* employees
+# 	* employees
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-24 07:11+0000\n"
-"PO-Revision-Date: 2017-05-24 07:11+0000\n"
+"POT-Creation-Date: 2017-06-05 05:34+0000\n"
+"PO-Revision-Date: 2017-06-05 13:36+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #. module: employees
 #: model:ir.model,name:employees.model_res_groups
@@ -82,6 +84,11 @@ msgid "Created on"
 msgstr "创建时间"
 
 #. module: employees
+#: model:ir.ui.view,arch_db:employees.lty_message_user_assigned
+msgid "Dear User："
+msgstr "尊敬的用户："
+
+#. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_certificate_department_id
 msgid "Department"
 msgstr "部门"
@@ -142,6 +149,7 @@ msgstr "部门"
 #: model:ir.actions.act_window,name:employees.ICCard_manage_cardlist_action
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_dispatch_iccar_id
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_usage_iccar_id
+#: model:ir.model.fields,field_description:employees.field_hr_employee_iccard
 msgid "IC Card"
 msgstr "IC卡"
 
@@ -311,7 +319,7 @@ msgid "Work Mobile"
 msgstr "办公手机"
 
 #. module: employees
-#: code:addons/employees/models/models.py:524
+#: code:addons/employees/models/models.py:528
 #, python-format
 msgid "a group that bind with a post can not be delete"
 msgstr "状态为角色的组不能被删除"
@@ -327,7 +335,7 @@ msgid "active date"
 msgstr "启用日期"
 
 #. module: employees
-#: code:addons/employees/models/models.py:97
+#: code:addons/employees/models/models.py:101
 #, python-format
 msgid "administrator can not be bind to an employee"
 msgstr "超级管理员不能绑定到员工"
@@ -350,15 +358,15 @@ msgid "broken"
 msgstr "损坏"
 
 #. module: employees
-#: code:addons/employees/models/models.py:440
+#: code:addons/employees/models/models.py:444
 #, python-format
 msgid "can't set post's group in twice"
 msgstr "一个岗位不能同时绑定到两个组"
 
 #. module: employees
-#: code:addons/employees/models/models.py:101
-#: code:addons/employees/models/models.py:111
-#: code:addons/employees/models/models.py:180
+#: code:addons/employees/models/models.py:105
+#: code:addons/employees/models/models.py:115
+#: code:addons/employees/models/models.py:184
 #, python-format
 msgid "can't set system user to employee in twice"
 msgstr "一个系统用户不能绑定到两个员工"
@@ -670,7 +678,7 @@ msgstr "工作经历"
 #: model:ir.ui.view,arch_db:employees.rewards_punishment_form
 #: model:ir.ui.view,arch_db:employees.work_experience_form
 msgid "employee_id"
-msgstr "employee_id"
+msgstr "员工"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_post_name
@@ -915,8 +923,7 @@ msgid "family relation"
 msgstr "关系"
 
 #. module: employees
-#: selection:employees.employeefamily,sex:0
-#: selection:hr.employee,sex:0
+#: selection:employees.employeefamily,sex:0 selection:hr.employee,sex:0
 msgid "female"
 msgstr "女"
 
@@ -932,7 +939,7 @@ msgid "foreign_transfer"
 msgstr "对外调动"
 
 #. module: employees
-#: code:addons/employees/models/models.py:529
+#: code:addons/employees/models/models.py:533
 #, python-format
 msgid "groups are inherited by other groups, can not be delete!"
 msgstr "该组目前被其他群组继承，不能被删除！"
@@ -1001,8 +1008,7 @@ msgid "loss"
 msgstr "丢失"
 
 #. module: employees
-#: selection:employees.employeefamily,sex:0
-#: selection:hr.employee,sex:0
+#: selection:employees.employeefamily,sex:0 selection:hr.employee,sex:0
 msgid "male"
 msgstr "男"
 
@@ -1050,6 +1056,13 @@ msgstr "籍贯"
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_new_post
 msgid "new post"
 msgstr "新岗位"
+
+#. module: employees
+#: code:addons/employees/models/transfer.py:156
+#: code:addons/employees/models/transfer.py:253
+#, python-format
+msgid "only delete in state draft"
+msgstr "草稿状态下才能被删除"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_hr_employee_political_status
@@ -1272,3 +1285,7 @@ msgstr "工作经历"
 msgid "work info"
 msgstr "内容"
 
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.lty_message_user_assigned
+msgid "you have been assigned to"
+msgstr "您被关联到"

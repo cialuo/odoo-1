@@ -63,6 +63,14 @@ class LeaveType(models.Model):
     # 类型名称
     namestr = fields.Char(string='type name')
 
+    @api.multi
+    def name_get(self):
+        res = []
+        for record in self:
+            name = record.namestr
+            res.append((record.id, name))
+        return res
+
 
 class LeaveConfig(models.TransientModel):
     _name = 'leave.config.settings'
@@ -73,6 +81,9 @@ class LeaveConfig(models.TransientModel):
 
 
 class WorkOvertime(models.Model):
+    """
+    加班申请
+    """
     _name = 'leave.workovertime'
     _rec_name = 'employee_id'
 
@@ -184,22 +195,72 @@ class WorkOvertime(models.Model):
             item.state = 'done'
 
 class offsetDays(models.Model):
-
+    """
+    可调休天数
+    """
     _inherit = 'hr.employee'
+
+    @staticmethod
+    def getOffsetHours(modelObj, employee_id):
+        timestr = (datetime.now()-timedelta(hours=8)).strftime(odoo.tools.misc.DEFAULT_SERVER_DATETIME_FORMAT)
+        workovertime = modelObj.env['leave.workovertime'].search([
+            ('type', '=', 'offset'),
+            ('useup', '=', True),
+            ('expiretime', '>', timestr),
+            ('employee_id', '=', employee_id)
+        ])
+        total = 0
+        for item2 in workovertime:
+            total += item2.residue
+        return total
 
     @api.multi
     def _offsetHours(self):
         for item in self:
-            workovertime = item.env['leave.workovertime'].search([
-                ('type', '=', 'offset'),
-                ('useup', '=', True),
-                ('expiretime', '>', datetime.now().strftime(odoo.tools.misc.DEFAULT_SERVER_DATETIME_FORMAT)),
-                ('employee_id', '=', item.id)
-            ])
-            total = 0
-            for item2 in workovertime:
-                total += item2.residue
+            total = self.getOffsetHours(item, item.id)
             item.offsetHours = total
 
     # 可调休小时数
-    offsetHours = fields.Integer(compute='_offsetHours',string='offset hours')
+    offsetHours = fields.Integer(compute='_offsetHours',string='offset hours(hour)')
+
+
+class Holidays(models.Model):
+
+    _inherit = 'hr.holidays'
+
+    # 请假时长 小时单位
+    length = fields.Integer(string='leave length')
+
+    @api.one
+    @api.constrains('length')
+    def _check_description(self):
+        if self.length <= 0:
+            raise ValidationError(_("leave time must more then one hour"))
+
+        # 如果选择的是调休 则需要验证调休时间是否够用
+        if self.holiday_status_id.name == 'TX':
+            offsetHours = offsetDays.getOffsetHours(self, self.employee_id.id)
+            if self.length > offsetHours:
+                raise ValidationError(_("No more offset "))
+
+    @api.multi
+    def action_approve(self):
+        timestr = (datetime.now() - timedelta(hours=8)).strftime(odoo.tools.misc.DEFAULT_SERVER_DATETIME_FORMAT)
+        workovertime = self.env['leave.workovertime'].search([
+            ('type', '=', 'offset'),
+            ('useup', '=', True),
+            ('expiretime', '>', timestr),
+            ('employee_id', '=', self.employee_id.id)
+        ])
+
+        length = self.length
+        for item in workovertime:
+            length = length-item.residue
+            if length < 0:
+                item.residue = abs(length)
+                break
+            else:
+                item.residue = 0
+                item.useup = False
+
+        return super(Holidays, self).action_approve()

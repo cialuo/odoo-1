@@ -44,6 +44,10 @@ class employee(models.Model):
     # 员工所在岗位
     workpost = fields.Many2one('employees.post', ondelete='restrict', string='employee work post', required=True)
 
+    # IC 卡
+    iccard = fields.Many2one("employees.iccards", string="IC Card")
+
+
     # 婚姻状况
     marital_status = fields.Selection([
         ('married','married'),              # 已婚
