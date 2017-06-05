@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--维修安全培训-->
+        <record id="course_type_maintenance_safety" model="employees_growth.course_type">
+            <field name="name">维修安全</field>
+            <!--前缀-->
+            <field name="type_no">0001</field>
+            <!--后缀-->
+            <field name="type_explain">维修工安全培训</field>
+        </record>
+
+        <!--车辆技术-->
+        <record id="course_type_vehicle_technology" model="employees_growth.course_type">
+            <field name="name">车辆技术</field>
+            <!--前缀-->
+            <field name="type_no">0002</field>
+            <!--后缀-->
+            <field name="type_explain">驾驶员车辆技术培训</field>
+        </record>
+
+    </data>
+</odoo>

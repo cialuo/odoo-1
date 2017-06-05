@@ -12,9 +12,9 @@ class questions(models.Model):
             判断题、创建人、创建时间、题目总数
      """
 
-     name = fields.Char(string='Name')
+     name = fields.Char(string='Name',required=True)
 
-     questions_no = fields.Char(string='Questions no')
+     questions_no = fields.Char(string='Questions no',required=True)
 
      multiselect_question_count = fields.Integer(string='Multiselect question count',compute="_compute_multiselect_question_count")
 
@@ -58,14 +58,14 @@ class multiselect_question(models.Model):
     """
     questions_id = fields.Many2one('employees_growth.questions')
 
-    name = fields.Char(string='Question name')
+    name = fields.Char(string='Question name',required=True)
 
-    option_A = fields.Char(string='Option A')
-    option_B = fields.Char(string='Option B')
-    option_C = fields.Char(string='Option C')
-    option_D = fields.Char(string='Option D')
+    option_A = fields.Char(string='Option A',required=True)
+    option_B = fields.Char(string='Option B',required=True)
+    option_C = fields.Char(string='Option C',required=True)
+    option_D = fields.Char(string='Option D',required=True)
 
-    answer = fields.Char(string='Answer')
+    answer = fields.Char(string='Answer',required=True)
 
 class radio_question(models.Model):
 
@@ -76,14 +76,14 @@ class radio_question(models.Model):
     """
     questions_id = fields.Many2one('employees_growth.questions')
 
-    name = fields.Char(string='Question name')
+    name = fields.Char(string='Question name',required=True)
 
-    option_A = fields.Char(string='Option A')
-    option_B = fields.Char(string='Option B')
-    option_C = fields.Char(string='Option C')
-    option_D = fields.Char(string='Option D')
+    option_A = fields.Char(string='Option A',required=True)
+    option_B = fields.Char(string='Option B',required=True)
+    option_C = fields.Char(string='Option C',required=True)
+    option_D = fields.Char(string='Option D',required=True)
 
-    answer = fields.Char(string='Answer')
+    answer = fields.Char(string='Answer',required=True)
 
 class judge_question(models.Model):
 
@@ -94,14 +94,14 @@ class judge_question(models.Model):
     """
     questions_id = fields.Many2one('employees_growth.questions')
 
-    name = fields.Char(string='Question name')
+    name = fields.Char(string='Question name',required=True)
 
-    option_A = fields.Char(string='Option A')
-    option_B = fields.Char(string='Option B')
-    option_C = fields.Char(string='Option C')
-    option_D = fields.Char(string='Option D')
+    option_A = fields.Char(string='Option A',required=True)
+    option_B = fields.Char(string='Option B',required=True)
+    option_C = fields.Char(string='Option C',required=True)
+    option_D = fields.Char(string='Option D',required=True)
 
-    answer = fields.Char(string='Answer')
+    answer = fields.Char(string='Answer',required=True)
 
 
 

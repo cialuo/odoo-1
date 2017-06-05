@@ -19,6 +19,7 @@
     'data': [
         'security/security_data.xml',
         # 'security/ir.model.access.csv',
+        'data/data.xml',
         'views/course_typ_view.xml',
         'views/training_teacher_view.xml',
         'views/questions_view.xml',

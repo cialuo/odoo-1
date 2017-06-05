@@ -13,15 +13,15 @@ class course(models.Model):
             讲师、学分、试卷、课程介绍、课件、
             教学目的、教课内容
      """
-     name = fields.Char(string='Name')
+     name = fields.Char(string='Name',required=True)
 
      course_no = fields.Char(string='Course no')
 
-     course_type = fields.Many2one('employees_growth.course_type',string='Course type')
+     course_type = fields.Many2one('employees_growth.course_type',string='Course type',required=True)
 
-     training_teacher = fields.Many2many('employees_growth.training_teacher',string='Course training teacher')
+     training_teacher = fields.Many2many('employees_growth.training_teacher',string='Course training teacher',required=True)
 
-     test_paper_id = fields.Many2one('employees_growth.test_paper',string='Test paper id')
+     test_paper_id = fields.Many2one('employees_growth.test_paper',string='Test paper id',required=True)
 
      course_credit = fields.Float(string='Course credit')
 
