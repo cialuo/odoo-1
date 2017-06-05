@@ -1,0 +1,248 @@
+<odoo>
+    <data>
+
+        <!-- 驾驶员安全档案 menu -->
+        <menuitem name="Driver Safety Profile" id="driver_safety_profile_menu" parent="security_manage_menu.traffic_safety_menu" sequence="10"/>
+
+
+        <!-- 安全公里 tree -->
+        <record model="ir.ui.view" id="safe_kilometer_tree">
+            <field name="name">Safe Kilometer</field>
+            <field name="model">safe_kilometer</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="serial_number"/>
+                    <field name="start_time"/>
+                    <field name="end_time"/>
+                    <field name="route_id"/>
+                    <field name="vehicle_id"/>
+                    <field name="job_number"/>
+                    <field name="employee_id"/>
+                    <field name="accumulated_safe_kilometer"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 安全公里 form -->
+        <record model="ir.ui.view" id="safe_kilometer_form">
+            <field name="name">Safe Kilometer</field>
+            <field name="model">safe_kilometer</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="serial_number" readonly="1"/>
+                                <field name="start_time"/>
+                                <field name="end_time"/>
+                                <field name="route_id" options="{'no_create': True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="vehicle_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="job_number"/>
+                                <field name="employee_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="accumulated_safe_kilometer"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 安全公里 action -->
+        <record model="ir.actions.act_window" id="safe_kilometer_action">
+            <field name="name">Safe Kilometer</field>
+            <field name="res_model">safe_kilometer</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 安全公里 menu -->
+        <menuitem name="Safe Kilometer" id="safe_kilometer_menu" sequence="10"
+                  parent="driver_safety_profile_menu"
+                  action="safe_kilometer_action"/>
+
+
+        <!-- 违章记录 tree -->
+        <record model="ir.ui.view" id="endorsement_tree">
+            <field name="name">Endorsement</field>
+            <field name="model">endorsement</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="serial_number"/>
+                    <field name="occurrence_time"/>
+                    <field name="location"/>
+                    <field name="route_id"/>
+                    <field name="vehicle_id"/>
+                    <field name="job_number"/>
+                    <field name="employee_id"/>
+                    <field name="violation_type"/>
+                    <field name="illegal_reason"/>
+                    <field name="handle_result"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 违章记录 form -->
+        <record model="ir.ui.view" id="endorsement_form">
+            <field name="name">Endorsement</field>
+            <field name="model">endorsement</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="serial_number" readonly="1"/>
+                                <field name="occurrence_time"/>
+                                <field name="location"/>
+                                <field name="route_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="vehicle_id" options="{'no_create': True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="job_number"/>
+                                <field name="employee_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="violation_type"/>
+                                <field name="illegal_reason"/>
+                                <field name="handle_result"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 违章记录 action -->
+        <record model="ir.actions.act_window" id="endorsement_action">
+            <field name="name">Endorsement</field>
+            <field name="res_model">endorsement</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 违章记录 menu -->
+        <menuitem name="Endorsement" id="endorsement_menu" sequence="20"
+                  parent="driver_safety_profile_menu"
+                  action="endorsement_action"/>
+
+
+        <!-- 事故记录 tree -->
+        <record model="ir.ui.view" id="accident_record_tree">
+            <field name="name">Accident Record</field>
+            <field name="model">accident_record</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="serial_number"/>
+                    <field name="occurrence_time"/>
+                    <field name="location"/>
+                    <field name="route_id"/>
+                    <field name="vehicle_id"/>
+                    <field name="job_number"/>
+                    <field name="employee_id"/>
+                    <field name="accident_type"/>
+                    <field name="accident_cause"/>
+                    <field name="handle_result"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 事故记录 form -->
+        <record model="ir.ui.view" id="accident_record_form">
+            <field name="name">Accident Record</field>
+            <field name="model">accident_record</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="serial_number" readonly="1"/>
+                                <field name="occurrence_time"/>
+                                <field name="location"/>
+                                <field name="route_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="vehicle_id" options="{'no_create': True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="job_number"/>
+                                <field name="employee_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="accident_type"/>
+                                <field name="accident_cause"/>
+                                <field name="handle_result"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 事故记录 action -->
+        <record model="ir.actions.act_window" id="accident_record_action">
+            <field name="name">Accident Record</field>
+            <field name="res_model">accident_record</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 事故记录 menu -->
+        <menuitem name="Accident Record" id="accident_record_menu" sequence="30"
+                  parent="driver_safety_profile_menu"
+                  action="accident_record_action"/>
+
+
+        <!-- 超速记录 tree -->
+        <record model="ir.ui.view" id="overspeed_record_tree">
+            <field name="name">Overspeed Record</field>
+            <field name="model">overspeed_record</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="serial_number"/>
+                    <field name="occurrence_time"/>
+                    <field name="location"/>
+                    <field name="route_id"/>
+                    <field name="vehicle_id"/>
+                    <field name="job_number"/>
+                    <field name="employee_id"/>
+                    <field name="speed"/>
+                    <field name="speed_limit"/>
+                    <field name="outrageous"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 超速记录 form -->
+        <record model="ir.ui.view" id="overspeed_record_form">
+            <field name="name">Overspeed Record</field>
+            <field name="model">overspeed_record</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="serial_number" readonly="1"/>
+                                <field name="occurrence_time"/>
+                                <field name="location"/>
+                                <field name="route_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="vehicle_id" options="{'no_create': True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="job_number"/>
+                                <field name="employee_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="speed"/>
+                                <field name="speed_limit"/>
+                                <field name="outrageous"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 超速记录 action -->
+        <record model="ir.actions.act_window" id="overspeed_record_action">
+            <field name="name">Overspeed Record</field>
+            <field name="res_model">overspeed_record</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 超速记录 menu -->
+        <menuitem name="Overspeed Record" id="overspeed_record_menu" sequence="40"
+                  parent="driver_safety_profile_menu"
+                  action="overspeed_record_action"/>
+
+    </data>
+</odoo>

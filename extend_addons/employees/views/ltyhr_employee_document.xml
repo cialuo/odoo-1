@@ -72,6 +72,9 @@
                                         <field name="employeeattr"/>
                                         <field name="bargain"/>
                                     </group>
+                                    <group>
+                                        <field name="iccard" readonly="1"/>
+                                    </group>
                                 </group>
 
                             </page>
@@ -95,6 +98,10 @@
                             </page>
                         </notebook>
                     </sheet>
+                </xpath>
+
+                <xpath expr="/form/div" position="replace">
+                    <div></div>
                 </xpath>
             </field>
         </record>

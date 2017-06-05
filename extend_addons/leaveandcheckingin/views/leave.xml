@@ -155,6 +155,61 @@
                 ]"/>
     </record>
 
+    <!-- 重载休假申请表单 -->
+    <record id="lty_leave_apply_form" model="ir.ui.view">
+        <field name="name">ltyhr leave apply form</field>
+        <field name="model">hr.holidays</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='holiday_type']" position="replace">
+                <field name="holiday_type" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='payslip_status']" position="replace">
+                <field name="payslip_status" invisible="1"/>
+            </xpath>
+            <xpath expr="/form/sheet/group/group[1]/div/div[2]" position="replace">
+                <div>
+                    <field name="number_of_days_temp" invisible="1"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='payslip_status']" position="after">
+                <field name="length" required="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 重载请假tree视图 -->
+    <record id="view_holiday_apply_tree" model="ir.ui.view">
+        <field name="name">hr.holidays.tree</field>
+        <field name="model">hr.holidays</field>
+        <field name="inherit_id" ref="hr_holidays.view_holiday_allocation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="/tree" position="replace">
+                <tree decoration-danger="state == 'refuse'" decoration-info="state == 'draft'" string="Allocation Requests"
+                       decoration-bf="message_needaction == True">
+                    <field name="employee_id"/>
+                    <field name="department_id" invisible="1"/>
+                    <field name="holiday_status_id"/>
+                    <field name="name"/>
+                    <field name="manager_id" invisible="1"/>
+                    <field name="user_id" invisible="1"/>
+                    <field name="length" />
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="message_needaction" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </xpath>
+        </field>
+    </record>
+
+    <!--休假申请 action页面-->
+    <record model="ir.actions.act_window" id="ltyhr_leave_apply_records">
+        <field name="name">employee leave apply</field>
+        <field name="res_model">hr.holidays</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <!--休假类型-->
     <menuitem id="ltyhr_leave_type_menu" name="leave type"
               sequence="60"
@@ -169,11 +224,17 @@
 
     <!--可调休天数-->
     <menuitem id="ltyhr_offset_days_menu" name="offset days"
-              sequence="60"
+              sequence="70"
               action="offset_days_action"
+              parent="employees_menu.leave_and_checking_in"/>
+
+    <!--休假申请-->
+    <menuitem id="apply_for_leave_menu" name="leave apply"
+              sequence="40"
+              action="ltyhr_leave_apply_records"
               parent="employees_menu.leave_and_checking_in"/>
 
     <!--休假系统设置-->
     <menuitem id="menu_leave_general_settings" name="Settings" parent="employees_menu.leave_and_checking_in"
-            sequence="70" action="action_leave_configuration"/>
+            sequence="80" action="action_leave_configuration"/>
 </odoo>
