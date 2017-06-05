@@ -81,6 +81,9 @@ class LeaveConfig(models.TransientModel):
 
 
 class WorkOvertime(models.Model):
+    """
+    加班申请
+    """
     _name = 'leave.workovertime'
     _rec_name = 'employee_id'
 
@@ -192,7 +195,9 @@ class WorkOvertime(models.Model):
             item.state = 'done'
 
 class offsetDays(models.Model):
-
+    """
+    可调休天数
+    """
     _inherit = 'hr.employee'
 
     @staticmethod
