@@ -46,7 +46,9 @@
                                         <field name="education"/>
                                         <field name="political_status"/>
                                     </group>
-                                    <field name="live_address"/>
+                                </group>
+                                <group>
+                                    <field name="live_address" col="4"/>
                                 </group>
                             </page>
                             <page name="workinfo" string="employee work infomation">
@@ -69,6 +71,9 @@
                                         <field name="employeestate"/>
                                         <field name="employeeattr"/>
                                         <field name="bargain"/>
+                                    </group>
+                                    <group>
+                                        <field name="iccard" readonly="1"/>
                                     </group>
                                 </group>
 
@@ -94,8 +99,24 @@
                         </notebook>
                     </sheet>
                 </xpath>
+
+                <xpath expr="/form/div" position="replace">
+                    <div></div>
+                </xpath>
             </field>
         </record>
+
+        <template id="lty_message_user_assigned" inherit_id="mail.message_user_assigned">
+            <xpath expr="//*" position="replace">
+                <div>
+                    <p>Dear User：  <t t-esc="object.user_id.name"/>,
+                    </p>
+                    <p>you have been assigned to
+                        <t t-esc="object.name_get()[0][1]"/>.
+                    </p>
+                </div>
+            </xpath>
+        </template>
 
         <!-- 员工家属列表 -->
         <record model="ir.ui.view" id="employee_family_infolist">

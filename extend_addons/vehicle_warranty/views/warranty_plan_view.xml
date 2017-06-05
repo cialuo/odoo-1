@@ -156,7 +156,8 @@
         </record>
 
         <menuitem name="Wizard Warranty Plan" id="wizard_warranty_plan_menu" parent="vehicle_manage_menu.vehicle_setting"
-                  action="wizard_warranty_plan_action" sequence="40"/>
+                  action="wizard_warranty_plan_action" sequence="40"
+                  groups="materials_product.base_extend_tech_user"/>
 
         <!-- 自动生成保养计划 end -->
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- 维修 保养-->
+        <record id="module_vehicle_group" model="ir.module.category">
+            <field name="name">Vehicle Maintain Warranty</field>
+            <field name="sequence">50</field>
+        </record>
+    </data>
+</odoo>

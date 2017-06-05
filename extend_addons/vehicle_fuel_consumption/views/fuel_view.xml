@@ -91,11 +91,13 @@
 
         <!--油耗定额管理-->
         <menuitem name="fuel_consumption_manage" id="fuel_consumption_manage" parent="vehicle_manage_menu.quota_manage"
-                  action = "fuel_consumption_manage_action" sequence="30"/>
+                  action = "fuel_consumption_manage_action" sequence="30"
+                  groups="materials_product.base_extend_tech_user"/>
 
         <!--油耗跟踪与考核-->
         <menuitem name="fuel_consumption_check" id="fuel_consumption_check" parent="vehicle_manage_menu.vehicle_use_manage"
-                  action = "fuel_consumption_check_action" sequence="60"/>
+                  action = "fuel_consumption_check_action" sequence="60"
+                  groups="materials_product.base_extend_tech_user"/>
 
 
     </data>

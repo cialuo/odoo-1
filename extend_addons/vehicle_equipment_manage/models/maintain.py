@@ -45,9 +45,9 @@ class MaintainReport(models.Model):
             'equipment_ids': equipment_lines
         }
 
-        deliverys = self.env['vehicle_equipment.maintain.delivery'].search([("report_id", '=', self.id)])
+        deliverys = self.env['vehicle_equipment.delivery'].search([("report_id", '=', self.id)])
         if not deliverys:
-            self.env['vehicle_equipment.maintain.delivery'].create(data)
+            self.env['vehicle_equipment.delivery'].create(data)
         return res
 
     @api.multi
@@ -57,7 +57,7 @@ class MaintainReport(models.Model):
             功能：跳转到交接单
         """
         self.ensure_one()
-        deliverys = self.env['vehicle_equipment.maintain.delivery'].search([("report_id", '=', self.id)])
+        deliverys = self.env['vehicle_equipment.delivery'].search([("report_id", '=', self.id)])
         action = self.env.ref('vehicle_equipment_manage.maintain_delivery_action').read()[0]
         action['res_id'] = deliverys.id
         action['views'] = [(self.env.ref('vehicle_equipment_manage.maintain_delivery_view_form').id, 'form')]
@@ -69,10 +69,10 @@ class MaintainDelivery(models.Model):
     车辆维修管理：交接单
     """
     _inherit = 'mail.thread'
-    _name = 'vehicle_equipment.maintain.delivery'
+    _name = 'vehicle_equipment.delivery'
 
     name = fields.Char(string="Delivery Order", help='Delivery Order', required=True, index=True,
-                       copy=False, default='New')
+                       copy=False, default='/')
     report_id = fields.Many2one("maintain.manage.report", ondelete='cascade', string="Report Order")
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
                                  related='report_id.vehicle_id', store=True, readonly=True, copy=False)
@@ -91,14 +91,14 @@ class MaintainDelivery(models.Model):
         ('delivery', "Delivery"),
         ('return', "Return")], default='draft')
 
-    equipment_ids = fields.One2many('vehicle_equipment.maintain.equipment', 'delivery_id', string='Deliverys')
-    equipment_return_ids = fields.One2many('vehicle_equipment.maintain.return_equipment', 'delivery_id',
+    equipment_ids = fields.One2many('maintain.delivery_equipment', 'delivery_id', string='Deliverys')
+    equipment_return_ids = fields.One2many('maintain.delivery_return_equipment', 'delivery_id',
                                            string='Return Deliverys')
 
     @api.model
     def create(self, vals):
-        if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code('vehicle_equipment.maintain.delivery') or '/'
+        if vals.get('name', '/') == '/':
+            vals['name'] = self.env['ir.sequence'].next_by_code('vehicle_equipment.delivery') or '/'
         return super(MaintainDelivery, self).create(vals)
 
     @api.multi
@@ -135,7 +135,6 @@ class MaintainDelivery(models.Model):
                 context=dict(self.env.context, default_report_id=self.report_id.id),
                 domain=[('report_id', '=', self.report_id.id)]
             )
-            print res
             return res
         return False
 
@@ -144,9 +143,9 @@ class VehicleEquipmentMaintain(models.Model):
     """
     交接清单
     """
-    _name = 'vehicle_equipment.maintain.equipment'
+    _name = 'maintain.delivery_equipment'
 
-    delivery_id = fields.Many2one('vehicle_equipment.maintain.delivery', ondelete='cascade', string="Delivery")
+    delivery_id = fields.Many2one('vehicle_equipment.delivery', ondelete='cascade', string="Delivery")
 
     equipment_id = fields.Many2one('maintenance.equipment', string="Equipment")
     serial_no = fields.Char("Serial No")
@@ -159,9 +158,9 @@ class VehicleEquipmentMaintainReturn(models.Model):
     """
     交回清单
     """
-    _name = 'vehicle_equipment.maintain.return_equipment'
+    _name = 'maintain.delivery_return_equipment'
 
-    delivery_id = fields.Many2one('vehicle_equipment.maintain.delivery', ondelete='cascade', string="Delivery")
+    delivery_id = fields.Many2one('vehicle_equipment.delivery', ondelete='cascade', string="Delivery")
     equipment_id = fields.Many2one('maintenance.equipment', string="Equipment")
     serial_no = fields.Char("Serial No")
     name = fields.Char("Name")

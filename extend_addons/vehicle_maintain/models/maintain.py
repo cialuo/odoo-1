@@ -177,6 +177,7 @@ class MaintainRepair(models.Model):
                        copy=False, default='/', readonly=True)
     report_id = fields.Many2one("maintain.manage.report", ondelete='cascade',
                                 string="Report Order", required=True, readonly=True)
+    report_user_id = fields.Many2one('hr.employee', string="Report Name", related='report_id.report_user_id')
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
                                  related='report_id.vehicle_id', store=True, readonly=True, copy=False)
     vehicle_type = fields.Many2one("fleet.vehicle.model", related='report_id.vehicle_id.model_id',
@@ -367,7 +368,6 @@ class MaintainRepair(models.Model):
             "plan_start_time": self.plan_start_time,
             "plan_end_time": self.plan_end_time,
             "work_time": self.work_time,
-            'my_work':self.work_time*self.percentage_work/100/60,
             "percentage_work": self.percentage_work,
             "user_id": self.user_id.id,
             "sequence": len(self.job_ids)+1
@@ -552,19 +552,18 @@ class MaintainRepairJobs(models.Model):
     real_work = fields.Float('Real Work(Hour)', digits=(10, 2), compute="_get_real_work")
     real_work_fee = fields.Float('Real Work Fee', digits=(10, 2))
 
-
     @api.depends('real_start_time', 'real_end_time')
     def _get_real_work(self):
         for i in self:
             if i.real_start_time and i.real_end_time:
                 start_time = fields.Datetime.from_string(i.real_start_time)
                 end_time = fields.Datetime.from_string(i.real_end_time)
-                i.real_work = (end_time-start_time).seconds/3600
+                i.real_work = (end_time-start_time).seconds/3600.0
 
     @api.depends('work_time', 'percentage_work')
     def _get_my_work(self):
         for i in self:
-            i.my_work = i.work_time/60 * i.percentage_work/100
+            i.my_work = i.work_time/60.0 * i.percentage_work/100
 
 
 class MaintainInspect(models.Model):
@@ -650,7 +649,7 @@ class MaintainReturnRecord(models.Model):
     repair_id = fields.Many2one('maintain.manage.repair', string="Repair Order",
                                 required=True, readonly=True)
     inspect_user_id = fields.Many2one('hr.employee',  string="Inspect Name",
-                                      required=True, readonly=True)
+                                      readonly=True)
     repair_names = fields.Char(string='Repair Names',related='repair_id.repair_names')
     fault_method_id = fields.Many2one("maintain.fault.method", related='repair_id.fault_method_id',
                                       ondelete='set null', string="Fault Method")

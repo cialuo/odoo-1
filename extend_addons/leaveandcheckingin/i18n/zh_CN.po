@@ -1,0 +1,400 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* leaveandcheckingin
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-05 05:33+0000\n"
+"PO-Revision-Date: 2017-06-05 05:33+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.view,arch_db:leaveandcheckingin.view_holiday_apply_tree
+msgid "Allocation Requests"
+msgstr "分配申请"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.view,arch_db:leaveandcheckingin.view_leave_configuration
+msgid "Apply"
+msgstr "应用"
+
+#. module: leaveandcheckingin
+#: model:ir.actions.act_window,name:leaveandcheckingin.action_leave_configuration
+#: model:ir.ui.view,arch_db:leaveandcheckingin.view_leave_configuration
+msgid "Configure leave"
+msgstr "配置"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_create_uid
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_create_uid
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_config_settings_create_uid
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_create_date
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_create_date
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_config_settings_create_date
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_display_name
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_display_name
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_config_settings_display_name
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: leaveandcheckingin
+#: model:ir.model,name:leaveandcheckingin.model_hr_employee
+msgid "Employee"
+msgstr "员工"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_id
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_id
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_config_settings_id
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_id
+msgid "ID"
+msgstr "ID"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted___last_update
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords___last_update
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_config_settings___last_update
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_write_uid
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_write_uid
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_config_settings_write_uid
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_write_date
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_write_date
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_config_settings_write_date
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: leaveandcheckingin
+#: model:ir.model,name:leaveandcheckingin.model_hr_holidays
+msgid "Leave"
+msgstr "休假"
+
+#. module: leaveandcheckingin
+#: model:ir.model,name:leaveandcheckingin.model_hr_holidays_status
+msgid "Leave Type"
+msgstr "休假类型"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:244
+#, python-format
+msgid "No more offset "
+msgstr "没有可调休假"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.menu,name:leaveandcheckingin.menu_leave_general_settings
+msgid "Settings"
+msgstr "设置"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.view,arch_db:leaveandcheckingin.offset_days_form
+msgid "Vehicle"
+msgstr "车辆"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_absence
+msgid "attence absence"
+msgstr "缺勤时长"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_month
+msgid "attence month"
+msgstr "考勤月份"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.menu,name:leaveandcheckingin.ltyhr_attencededucted_records_menu
+msgid "attencededucted record"
+msgstr "考勤扣款记录"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.view,arch_db:leaveandcheckingin.work_overtime_form
+msgid "back_draft"
+msgstr "退回草稿"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.menu,name:leaveandcheckingin.ltyhr_checkingin_records_menu
+msgid "checkingin record"
+msgstr "考勤记录"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_checkingin
+msgid "checkingin time"
+msgstr "上班打卡时间"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_checkinginout
+msgid "checkingout time"
+msgstr "下班打卡时间"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.view,arch_db:leaveandcheckingin.work_overtime_form
+#: selection:leave.workovertime,state:0
+msgid "confirmed"
+msgstr "审核通过"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_create_user
+msgid "create user"
+msgstr "制表人"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_deducted
+msgid "deducted money"
+msgstr "扣款金额"
+
+#. module: leaveandcheckingin
+#: selection:leave.workovertime,type:0
+msgid "default"
+msgstr "默认"
+
+#. module: leaveandcheckingin
+#: selection:leave.workovertime,state:0
+msgid "done"
+msgstr "完成"
+
+#. module: leaveandcheckingin
+#: selection:leave.workovertime,state:0
+msgid "draft"
+msgstr "草稿"
+
+#. module: leaveandcheckingin
+#: selection:employee.attencerecords,status:0
+msgid "early"
+msgstr "早退"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_employee_id
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_employee_id
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_employee_id
+msgid "employee"
+msgstr "员工"
+
+#. module: leaveandcheckingin
+#: model:ir.actions.act_window,name:leaveandcheckingin.ltyhr_attencededucted_records
+msgid "employee attencededucted records"
+msgstr "员工考勤扣款记录"
+
+#. module: leaveandcheckingin
+#: model:ir.actions.act_window,name:leaveandcheckingin.ltyhr_checkingin_records
+msgid "employee checkingint records"
+msgstr "员工打卡记录"
+
+#. module: leaveandcheckingin
+#: model:ir.actions.act_window,name:leaveandcheckingin.ltyhr_leave_apply_records
+msgid "employee leave apply"
+msgstr "休假申请"
+
+#. module: leaveandcheckingin
+#: model:ir.model,name:leaveandcheckingin.model_employee_attencededucted
+msgid "employee.attencededucted"
+msgstr "考勤扣款"
+
+#. module: leaveandcheckingin
+#: model:ir.model,name:leaveandcheckingin.model_employee_attencerecords
+msgid "employee.attencerecords"
+msgstr "考勤记录"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_countersign_person
+msgid "employees_countersign_person"
+msgstr "审批/会签人员"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_end
+msgid "end time"
+msgstr "结束时间"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_expiretime
+msgid "expire time"
+msgstr "转调休过期时间"
+
+#. module: leaveandcheckingin
+#: selection:employee.attencerecords,status:0
+msgid "late"
+msgstr "迟到"
+
+#. module: leaveandcheckingin
+#: selection:employee.attencerecords,status:0
+msgid "late+early"
+msgstr "迟到+早退"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.menu,name:leaveandcheckingin.apply_for_leave_menu
+msgid "leave apply"
+msgstr "休假申请"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.view,arch_db:leaveandcheckingin.view_leave_configuration
+msgid "leave configration"
+msgstr "配置"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_hr_holidays_length
+msgid "leave length"
+msgstr "休假时长(小时)"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:238
+#, python-format
+msgid "leave time must more then one hour"
+msgstr "休假时长至少1小时"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.menu,name:leaveandcheckingin.ltyhr_leave_type_menu
+msgid "leave type"
+msgstr "假期类型设置"
+
+#. module: leaveandcheckingin
+#: sql_constraint:hr.holidays.status:0
+msgid "leave type code Can not duplication"
+msgstr "假期类型代码必须唯一"
+
+#. module: leaveandcheckingin
+#: model:ir.model,name:leaveandcheckingin.model_leave_config_settings
+msgid "leave.config.settings"
+msgstr "配置设置"
+
+#. module: leaveandcheckingin
+#: model:ir.model,name:leaveandcheckingin.model_leave_workovertime
+msgid "leave.workovertime"
+msgstr "加班"
+
+#. module: leaveandcheckingin
+#: selection:leave.workovertime,type:0
+msgid "money"
+msgstr "转加班费"
+
+#. module: leaveandcheckingin
+#: selection:leave.workovertime,type:0
+msgid "offset"
+msgstr "调休"
+
+#. module: leaveandcheckingin
+#: model:ir.actions.act_window,name:leaveandcheckingin.offset_days_action
+#: model:ir.ui.menu,name:leaveandcheckingin.ltyhr_offset_days_menu
+msgid "offset days"
+msgstr "可调休天数"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_hr_employee_offsetHours
+msgid "offset hours(hour)"
+msgstr "调休时长(小时)"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:155
+#, python-format
+msgid "only delete in state draft"
+msgstr "草稿状态下才能被删除"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_config_settings_expiretime
+msgid "overtime expire time"
+msgstr "转调休过期时间"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_type
+msgid "overtime type"
+msgstr "加班类型"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_residue
+msgid "residue time"
+msgstr "剩余可调休时间"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_start
+msgid "start time"
+msgstr "开始"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:162
+#, python-format
+msgid "start time must earlier then end time"
+msgstr "开始时间必须早于结束时间"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_status
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_state
+msgid "status"
+msgstr "状态"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.view,arch_db:leaveandcheckingin.work_overtime_form
+msgid "submit"
+msgstr "提交"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_length
+msgid "time length"
+msgstr "时长"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_useup
+msgid "time use up"
+msgstr "扣尽"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.view,arch_db:leaveandcheckingin.lty_leave_type_form
+#: model:ir.ui.view,arch_db:leaveandcheckingin.ltyhr_view_leave_type_tree
+msgid "type code"
+msgstr "代码"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_hr_holidays_status_namestr
+msgid "type name"
+msgstr "名称"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.view,arch_db:leaveandcheckingin.work_overtime_form
+msgid "unit hour"
+msgstr "单位(小时)"
+
+#. module: leaveandcheckingin
+#: model:ir.ui.menu,name:leaveandcheckingin.ltyhr_work_overtime_menu
+msgid "work overtime"
+msgstr "加班申请"
+
+#. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_length
+msgid "work overtime length(hour)"
+msgstr "加班时长(小时)"
+
+#. module: leaveandcheckingin
+#: model:ir.actions.act_window,name:leaveandcheckingin.ltyhr_work_overtime_action
+msgid "work overtime view"
+msgstr "加班申请"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:164
+#, python-format
+msgid "worker overtime must more then one hour"
+msgstr "加班时长必须大于等于1小时"
+

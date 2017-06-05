@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<template xml:space="preserve">
+    <t t-name="RoportTest">
+        <div>
+            <iframe id="report" src="" width="100%" height="928"></iframe>
+        </div>
+        <script type="text/javascript">
+            var Url = "http://127.0.0.1:8080/jasperserver/flow.html?_flowId=viewReportFlow&amp;_flowId=viewReportFlow&amp;ParentFolderUri=%2Freports%2Finteractive&amp;reportUnit=%2Freports%2Finteractive%2FCoffee_Landscape&amp;standAlone=true"
+
+
+            window.frames['report'].src =Url;
+        </script>
+    </t>
+</template>

@@ -49,6 +49,7 @@ class ICCard(models.Model):
         for item in self:
             if item.employee_id.id != False:
                 record = [(0, _, {'user':item.employee_id.id,'returndate':datetime.today()})]
+                item.employee_id.iccard = False
                 item.write({'usage_records':record,'status':'inactive'})
         return True
 
@@ -83,6 +84,8 @@ class CardDispatchRecords(models.Model):
     @api.model
     def create(self, vals):
         iccard = self.env['employees.iccards']
+        employee = self.env['hr.employee']
+        user  = employee.browse([vals['user']])
         cardinfo  = iccard.browse([vals['iccar_id']])
         if len(cardinfo) > 0 :
             ins = cardinfo[0]
@@ -92,10 +95,17 @@ class CardDispatchRecords(models.Model):
             if ins.active_date == False:
                 newdata['active_date'] = datetime.today()
             ins.write(newdata)
+
+        if user:
+            user.write({'iccard':vals['iccar_id']})
+
         res = super(CardDispatchRecords, self).create(vals)
         return res
 
 class certificate(models.Model):
+    """
+    特种工证照
+    """
     _name = 'employees.certificate'
 
     # 证件名称

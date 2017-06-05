@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-24 07:36+0000\n"
-"PO-Revision-Date: 2017-05-24 07:36+0000\n"
+"POT-Creation-Date: 2017-06-05 08:03+0000\n"
+"PO-Revision-Date: 2017-06-05 08:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -52,6 +52,11 @@ msgid "Appearance Properties"
 msgstr "外观属性"
 
 #. module: vehicle_manage
+#: model:ir.ui.view,arch_db:vehicle_manage.view_vehicle_config_settings
+msgid "Apply"
+msgstr "应用"
+
+#. module: vehicle_manage
 #: selection:cost_type_set.cost_type_set,state:0
 #: model:ir.ui.view,arch_db:vehicle_manage.cost_type_set_form
 msgid "Archive"
@@ -72,7 +77,12 @@ msgstr "二氧化碳排放量"
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_co2_ext
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_co2_ext
 msgid "CO2 emissions of the vehicle"
-msgstr "车辆的CO2排放量"
+msgstr "二氧化碳排放量"
+
+#. module: vehicle_manage
+#: model:ir.ui.view,arch_db:vehicle_manage.view_vehicle_config_settings
+msgid "Cancel"
+msgstr "取消"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_chassis_no
@@ -96,10 +106,22 @@ msgid "Code"
 msgstr "代码"
 
 #. module: vehicle_manage
+#: model:ir.model,name:vehicle_manage.model_res_company
+msgid "Companies"
+msgstr "公司"
+
+#. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_company_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_company_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_company_id
 msgid "Company"
-msgstr "隶属公司"
+msgstr "公司"
+
+#. module: vehicle_manage
+#: model:ir.actions.act_window,name:vehicle_manage.action_vehicle_config_settings
+#: model:ir.ui.view,arch_db:vehicle_manage.view_vehicle_config_settings
+msgid "Configure Vehicle"
+msgstr "配置"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_cost_amount
@@ -125,6 +147,7 @@ msgstr "费用类型设置"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_create_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_create_uid
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_create_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_manage_emission_standard_create_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionplan_create_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_create_uid
@@ -136,6 +159,7 @@ msgstr "建档人"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_create_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_create_date
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_create_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_manage_emission_standard_create_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_create_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_create_date
@@ -157,6 +181,7 @@ msgstr "使用年限"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_display_name
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_display_name
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_display_name
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_manage_emission_standard_display_name
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionplan_display_name
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_display_name
@@ -199,6 +224,11 @@ msgstr "排放标准"
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_emissions
 msgid "Emissions"
 msgstr "排量"
+
+#. module: vehicle_manage
+#: model:ir.ui.view,arch_db:vehicle_manage.view_vehicle_config_settings
+msgid "Employee"
+msgstr "人员信息"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_engine_no
@@ -245,7 +275,7 @@ msgstr "前桥负荷量"
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_fuel_capacity
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_fuel_capacity
 msgid "Fuel Capacity"
-msgstr "额度油箱容量"
+msgstr "使用量"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_fuel_type_ext
@@ -296,6 +326,7 @@ msgstr "马力"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_id
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_manage_emission_standard_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionplan_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_id
@@ -312,7 +343,7 @@ msgstr "在用"
 #. module: vehicle_manage
 #: model:ir.model,name:vehicle_manage.model_fleet_vehicle
 msgid "Information on a vehicle"
-msgstr "车辆上的信息"
+msgstr "车辆信息"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_inner_code
@@ -374,6 +405,7 @@ msgstr "是否必填"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set___last_update
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost___last_update
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings___last_update
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_manage_emission_standard___last_update
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionplan___last_update
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords___last_update
@@ -385,6 +417,7 @@ msgstr "最后修改日"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_write_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_write_uid
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_write_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_manage_emission_standard_write_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionplan_write_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_write_uid
@@ -396,6 +429,7 @@ msgstr "最后更新人"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_write_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_write_date
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_write_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_manage_emission_standard_write_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionplan_write_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_write_date
@@ -425,11 +459,8 @@ msgstr "等级代码"
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_license_plate
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_license_plate
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicleusage_driverecords_license_plate
-#: model:ir.model.fields,help:vehicle_manage.field_vehicle_usage_inspectionrecords_license_plate
-#: model:ir.model.fields,help:vehicle_manage.field_vehicle_usage_planitem_license_plate
-#: model:ir.model.fields,help:vehicle_manage.field_vehicleusage_driverecords_license_plate
 msgid "License plate"
-msgstr "车牌"
+msgstr "车辆牌照"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.fleet_vehicle_view_form
@@ -451,7 +482,7 @@ msgstr "最大爬坡度"
 #. module: vehicle_manage
 #: model:ir.model,name:vehicle_manage.model_fleet_vehicle_model
 msgid "Model of a vehicle"
-msgstr "车型"
+msgstr "车辆型号"
 
 #. module: vehicle_manage
 #: selection:cost_type_set.cost_type_set,is_required:0
@@ -588,6 +619,11 @@ msgid "Service Year"
 msgstr "年限"
 
 #. module: vehicle_manage
+#: model:ir.ui.menu,name:vehicle_manage.Settings
+msgid "Settings"
+msgstr "设置"
+
+#. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_shaft_distance
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_shaft_distance
 msgid "Shaft Distance"
@@ -600,7 +636,8 @@ msgid "Specifications"
 msgstr "型号规格"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:182
+#: code:addons/vehicle_manage/models/vehicle.py:183
+#: sql_constraint:vehicle_manage.emission_standard:0
 #, python-format
 msgid "Standard code already exists"
 msgstr "排放等级编码已经存在"
@@ -640,6 +677,7 @@ msgstr "费用金额必须大于零！"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicle.py:13
+#: sql_constraint:fleet.vehicle:0
 #, python-format
 msgid "The license_plate must be unique !"
 msgstr "车辆编号必须唯一"
@@ -689,6 +727,7 @@ msgstr "类型名称"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/cost_type_set.py:46
+#: sql_constraint:cost_type_set.cost_type_set:0
 #, python-format
 msgid "Type name must be unique!"
 msgstr "类型名称必须是唯一的！"
@@ -712,16 +751,6 @@ msgstr "车辆"
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_vehicle_label
 msgid "Vehicle Label"
 msgstr "标志"
-
-#. module: vehicle_manage
-#: model:res.groups,name:vehicle_manage.vehicle_usage_manager
-msgid "Vehicle Manager"
-msgstr "机务经理"
-
-#. module: vehicle_manage
-#: model:res.groups,name:vehicle_manage.vehicle_usage_user
-msgid "Vehicle User"
-msgstr "机务员"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.vehicle_drive_records_tree_list
@@ -768,6 +797,12 @@ msgstr "车轮总数"
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_width
 msgid "Width"
 msgstr "宽度"
+
+#. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_res_company_work_fee
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_work_fee
+msgid "Work fee"
+msgstr "工时费率(元/时)"
 
 #. module: vehicle_manage
 #: selection:fleet.vehicle,vehicle_label:0
@@ -926,6 +961,7 @@ msgstr "人车比"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicle.py:12
+#: sql_constraint:fleet.vehicle:0
 #, python-format
 msgid "inner code already exists"
 msgstr "自编号已存在"
@@ -1243,11 +1279,6 @@ msgid "vehicle inspection state"
 msgstr "年检状态"
 
 #. module: vehicle_manage
-#: model:ir.module.category,name:vehicle_manage.vehicle_manage_group_category
-msgid "vehicle manage"
-msgstr "车辆管理"
-
-#. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_route_manage_route_manage_vehiclenums
 msgid "vehicle number"
 msgstr "车辆数量"
@@ -1263,6 +1294,11 @@ msgstr "车辆资源"
 #: model:ir.ui.menu,name:vehicle_manage.vehicle_usage_records
 msgid "vehicle usage records"
 msgstr "车辆使用档案"
+
+#. module: vehicle_manage
+#: model:ir.model,name:vehicle_manage.model_vehicle_config_settings
+msgid "vehicle.config.settings"
+msgstr "设置"
 
 #. module: vehicle_manage
 #: model:ir.actions.act_window,name:vehicle_manage.vehicle_inspection_list_action

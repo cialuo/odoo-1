@@ -31,17 +31,20 @@
 						<button name="action_calcuate" type="object"
                                 string="Confirm Calcuate"
                                 attrs="{'invisible': [('calculate_state', '=', 'calculated')]}"
-                                class="oe_highlight"/> <!-- 确认结算-->
+                                class="oe_highlight"
+								groups="vehicle_group.vehicle_dispatch"
+								/> <!-- 确认结算-->
 
 						<button name="action_refresh" type="object"
                                 string="Refresh"
 								attrs="{'invisible': [('calculate_state', '=', 'calculated')]}"
-                               /> <!-- 刷新-->
+								groups="vehicle_group.vehicle_dispatch"
+                                /> <!-- 刷新-->
 
-						<button name="action_back" type="object"
-                                string="action_back"
-								attrs="{'invisible': [('calculate_state', '!=', 'calculated')]}"
-                               /> <!-- 退回-->
+						<!--<button name="action_back" type="object"-->
+                                <!--string="action_back"-->
+								<!--attrs="{'invisible': [('calculate_state', '!=', 'calculated')]}"-->
+                               <!--/> &lt;!&ndash; 退回&ndash;&gt;-->
 
                     	<field name="calculate_state"  widget="statusbar" statusbar_visible="calculated,calculating" />
                 	</header>
@@ -113,16 +116,16 @@
 			<field name="name">maintain_calc_action</field>
 			<field name="res_model">maintain.manage.repair</field>
 			<field name="view_mode">tree,form</field>
-			<!--<field name="domain">[('state', 'not in', ['completed'])]</field>-->
+			<field name="domain">[('state', 'in', ['completed'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('maintain_calc_view_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('maintain_calc_view_form')})]"/>
-
-
 		</record>
 
-		<!--结算单-->
-        <menuitem name="maintain_calc_order" id="maintain_calc_order" parent="maintain_manage"
-				  action="maintain_calc_action" sequence="60" />
+		<!--抢修结算单-->
+        <menuitem name="maintain_calc_order" id="maintain_calc_order"
+				  parent="maintain_manage"
+				  action="maintain_calc_action" sequence="60"
+				  groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_dispatch"/>
     </data>
 </odoo>

@@ -31,13 +31,13 @@
                                 type="object"
                                 class="oe_highlight"
                                 attrs="{'invisible':[('vehicle_life_state', '!=', 'invest_period')]}"
-                                groups="vehicle_manage.vehicle_usage_manager"/>
+                                />
                         <button name="action_scrap"
                                 vehicle_life_state="operation_period"
                                 string="Scrap" type="object"
                                 class="oe_highlight"
                                 attrs="{'invisible':[('vehicle_life_state', '!=', 'operation_period')]}"
-                                groups="vehicle_manage.vehicle_usage_manager"/>
+                                />
                         <field name="vehicle_life_state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -149,6 +149,8 @@
         <menuitem name="Vehicle life cycle"
                   id="vehicle_life_cycle_menu"
                   parent="vehicle_manage_menu.vehicle_use_manage"
-                  action="vehicle_life_cycle_act"/>
+                  action="vehicle_life_cycle_act"
+                  sequence="20"
+                  groups="materials_product.base_extend_tech_user"/>/>
     </data>
 </odoo>

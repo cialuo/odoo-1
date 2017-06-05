@@ -47,7 +47,7 @@ class WarrantyHandoverOrder(models.Model): # 交接单
     _inherit = 'mail.thread'
     _name = 'warranty_handover_order'
 
-    name = fields.Char(string="JJD", required=True, index=True, default='New')
+    name = fields.Char(string="JJD", required=True, index=True, default='/')
 
     branch_office = fields.Char(string="Branch Office") # 分公司
 
@@ -82,7 +82,7 @@ class WarrantyHandoverOrder(models.Model): # 交接单
 
     @api.model
     def create(self, vals):
-        if vals.get('name', 'New') == 'New':
+        if vals.get('name', '/') == '/':
             vals['name'] = self.env['ir.sequence'].next_by_code('warranty_handover_order') or '/'
 
         result = super(WarrantyHandoverOrder, self.with_context(mail_create_nolog=True)).create(vals)

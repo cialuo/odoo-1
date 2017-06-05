@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+       <!--人力资源：培训模块权限-->
+        <record id="module_training_group" model="ir.module.category">
+            <field name="name">Training</field>
+            <field name="sequence">10</field>
+        </record>
+
+       <!--培训学员-->
+        <record id="training_student" model="res.groups">
+            <field name="name">Training Student</field>
+            <field name="category_id" ref="module_training_group"/>
+        </record>
+
+        <!--培训讲师-->
+        <record id="training_teacher" model="res.groups">
+            <field name="name">Training Teacher</field>
+            <field name="category_id" ref="module_training_group"/>
+            <field name="implied_ids" eval="[(4, ref('training_student'))]"/>
+        </record>
+
+        <!--培训管理员-->
+        <record id="training_manager" model="res.groups">
+            <field name="name">Training manager</field>
+            <field name="category_id" ref="module_training_group"/>
+            <field name="implied_ids" eval="[(4, ref('training_teacher'))]"/>
+        </record>
+
+    </data>
+</odoo>
