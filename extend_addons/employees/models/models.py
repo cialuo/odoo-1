@@ -74,7 +74,7 @@ class employee(models.Model):
     sex = fields.Selection([
         ('male','male'),                    # 男
         ('female','female')                 # 女
-    ], string='sex', required=True)
+    ], string='sex', required=True, default='male')
 
     # 员工单位调动
     unit_transfer = fields.One2many('employees.innertransfer', 'employee_id', string="employees_unit_transfer")
