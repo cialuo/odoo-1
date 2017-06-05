@@ -25,6 +25,7 @@
         'views/test_paper_view.xml',
         'views/course_view.xml',
         'views/curriculum_schedule_view.xml',
+        'views/pendingAudit_return_view.xml',
         'views/training_plan_view.xml',
         'views/punch_recording.xml',
         'views/examination_view.xml',

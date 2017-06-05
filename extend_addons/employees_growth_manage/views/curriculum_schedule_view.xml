@@ -22,6 +22,7 @@
     <record model="ir.ui.view" id="employees_growth_manage.curriculum_schedule_form">
       <field name="name">curriculum_schedule form</field>
       <field name="model">employees_growth.curriculum_schedule</field>
+      <!--<field name="priority">100</field>-->
       <field name="arch" type="xml">
         <form>
              <header>

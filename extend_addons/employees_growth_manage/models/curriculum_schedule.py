@@ -11,18 +11,18 @@ class curriculum_schedule(models.Model):
         培训课程表：
             培训时间、培训地点、讲师、学生
      """
-     name = fields.Char(string='Name')
+     name = fields.Char(string='Name',required=True)
 
      curriculum_no = fields.Char(string='Curriculum no')
 
      train_type = fields.Selection([('inside','Inside Train'),('external','External Train')],
                                    string='Train type',default='inside')
 
-     course_id = fields.Many2one('employees_growth.course',string='Course id')
+     course_id = fields.Many2one('employees_growth.course',string='Course id',required=True)
 
      course_type = fields.Many2one(string='Course type',related='course_id.course_type', store=False,readonly=True)
 
-     teacher_id = fields.Many2one('employees_growth.training_teacher',string='Teacher id')
+     teacher_id = fields.Many2one('employees_growth.training_teacher',string='Teacher id',required=True)
 
      address = fields.Char(string='Curriculum address')
 
@@ -51,6 +51,7 @@ class curriculum_schedule(models.Model):
      @api.multi
      def examination_to_complete(self):
           self.state = 'complete'
+
 
 class students(models.Model):
 
