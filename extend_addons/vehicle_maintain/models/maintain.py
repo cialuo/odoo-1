@@ -177,6 +177,7 @@ class MaintainRepair(models.Model):
                        copy=False, default='/', readonly=True)
     report_id = fields.Many2one("maintain.manage.report", ondelete='cascade',
                                 string="Report Order", required=True, readonly=True)
+    report_user_id = fields.Many2one('hr.employee', string="Report Name", related='report_id.report_user_id')
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No',
                                  related='report_id.vehicle_id', store=True, readonly=True, copy=False)
     vehicle_type = fields.Many2one("fleet.vehicle.model", related='report_id.vehicle_id.model_id',
