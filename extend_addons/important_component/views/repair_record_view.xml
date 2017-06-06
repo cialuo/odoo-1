@@ -46,6 +46,7 @@
                                 <field name="create_date" string="Repair Date"/>
                                 <field name="repair_names"/>
                                 <field name="inspect_user_id"/>
+                                <field name="total_fee"/>
                                 <field name="end_inspect_time"/>
                             </tree>
                         </field>
