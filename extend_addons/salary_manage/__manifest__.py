@@ -20,7 +20,8 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
+        'security/security.xml',
         'views/salary_manage.xml'
     ],
     # only loaded in demonstration mode
