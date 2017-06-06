@@ -51,7 +51,7 @@
                          </group>
                     </page>
                     <page names="exam_registration" string="Exam registration">
-                        <field name="examiners_details" >
+                        <field name="students" >
                             <tree editable="top">
                                 <field name="student_id"/>
                                 <field name="department_id"/>

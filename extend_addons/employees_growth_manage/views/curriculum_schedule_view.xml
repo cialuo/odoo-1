@@ -67,11 +67,13 @@
                         <field name="students" >
                             <tree editable="top">
                                 <field name="student_id"/>
+                                <field name="jobnumber"/>
                                 <field name="department_id"/>
+                                <field name="post_id"/>
                             </tree>
                         </field>
                     </page>
-                    <page names="exam_situation" string="Exam situation">
+                   <!-- <page names="exam_situation" string="Exam situation">
                         <field name="examiners_details" >
                             <tree editable="top">
                                 <field name="student_id"/>
@@ -79,7 +81,7 @@
                                 <field name="ways_of_registration"/>
                             </tree>
                         </field>
-                    </page>
+                    </page>-->
                 </notebook>
             </sheet>
         </form>

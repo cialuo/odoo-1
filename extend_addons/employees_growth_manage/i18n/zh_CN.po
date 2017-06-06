@@ -779,7 +779,7 @@ msgstr "序号"
 #. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,state:0
 msgid "Sign"
-msgstr "开课中"
+msgstr "上课中"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
@@ -809,7 +809,7 @@ msgstr "小尺寸的员工照片。保留纵横比，自动缩放为64x64px。�
 #. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,state:0
 msgid "Start"
-msgstr "开课"
+msgstr "签到中"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_start_time
@@ -1123,7 +1123,7 @@ msgstr "未签到人数"
 #. module: employees_growth_manage
 #: selection:employees_growth.time_arrangement,state:0
 msgid "Wait"
-msgstr "Wait"
+msgstr "等待开课"
 
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_course_type
