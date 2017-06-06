@@ -166,10 +166,17 @@ class ForeignTransfer(models.Model):
     # 调动单编码
     name = fields.Char(string="employees_transfer_code", index=True, copy=False, default='/', readonly=True,
                        states={'draft': [('readonly', False)]})
+    def _applyUser(self):
+        userid = self._uid
+        users = self.env['hr.employee'].search([('user_id', '=', userid)])
+        if len(users) != 0:
+            return users[0].id
+        else:
+            return None
 
     # 关联的员工
     employee_id = fields.Many2one('hr.employee', ondelete='cascade', string='employee', readonly=True,
-                                  states={'draft': [('readonly', False)]})
+                                  states={'draft': [('readonly', False)]}, default=_applyUser,)
 
     # 制表人
     create_user = fields.Many2one('res.users', string='create user', default=lambda self: self._uid, readonly=True,

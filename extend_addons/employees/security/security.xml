@@ -1,7 +1,7 @@
 <odoo>
     <data>
 
-        <!--普通员工只能看到自己的档案-->
+        <!--员工档案-->
         <record id="user_readonly_rule" model="ir.rule">
             <field name="name">self read only</field>
             <field name="model_id" ref="model_hr_employee"/>
@@ -13,7 +13,7 @@
             <field name="domain_force">[('user_id', '=', user.id)]</field>
         </record>
 
-        <record id="user_readonly_manager_rule" model="ir.rule">
+        <record id="user_readonly_officer_rule" model="ir.rule">
             <field name="name">self read only</field>
             <field name="model_id" ref="model_hr_employee"/>
             <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
@@ -24,18 +24,7 @@
             <field name="domain_force">[(1, '=', 1)]</field>
         </record>
 
-        <record id="user_readonly_manager_rule" model="ir.rule">
-            <field name="name">self read only</field>
-            <field name="model_id" ref="model_hr_employee"/>
-            <field name="groups" eval="[(4, ref('hr.group_hr_manager'))]"/>
-            <field name="perm_read" eval="1"/>
-            <field name="perm_create" eval="0"/>
-            <field name="perm_write" eval="0"/>
-            <field name="perm_unlink" eval="0"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
-        </record>
-
-        <!--普通员工只能看到自己的调动记录-->
+        <!--调动-->
         <record id="user_readonly_innertransfer_rule" model="ir.rule">
             <field name="name">innertransfer self read only</field>
             <field name="model_id" ref="model_employees_innertransfer"/>
@@ -45,6 +34,63 @@
             <field name="perm_write" eval="0"/>
             <field name="perm_unlink" eval="0"/>
             <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        </record>
+
+        <record id="officer_readonly_officer_rule_innertransfer" model="ir.rule">
+            <field name="name">self read only</field>
+            <field name="model_id" ref="model_employees_innertransfer"/>
+            <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+        <!--对外调动-->
+        <record id="user_readonly_innertransfer_rule_foreign" model="ir.rule">
+            <field name="name">foreign user</field>
+            <field name="model_id" ref="model_employees_foreign"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        </record>
+
+        <record id="officer_readonly_innertransfer_rule_foreign" model="ir.rule">
+            <field name="name">foreign officer</field>
+            <field name="model_id" ref="model_employees_foreign"/>
+            <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+        <!--调动记录-->
+        <record id="user_readonly_transferrecords_rule_foreign" model="ir.rule">
+            <field name="name">transferrecords user</field>
+            <field name="model_id" ref="model_employees_transfer_record"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        </record>
+
+        <record id="officer_readonly_transferrecords_rule_foreign" model="ir.rule">
+            <field name="name">foreign officer</field>
+            <field name="model_id" ref="model_employees_transfer_record"/>
+            <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
         </record>
 
     </data>
