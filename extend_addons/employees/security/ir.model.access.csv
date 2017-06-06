@@ -3,3 +3,13 @@ access_hr_employee_post_user,hr.employee.post.user,model_employees_post,hr.group
 access_hr_employee_post_emp,hr.employee.post.emp,model_employees_post,base.group_user,1,0,0,0
 access_hr_employee_employeefamily_user,hr.employee.employeefamily.user,model_employees_employeefamily,hr.group_hr_user,1,1,1,1
 access_hr_employee_employeefamily_emp,hr.employee.employeefamily.emp,model_employees_employeefamily,base.group_user,1,0,0,0
+access_hr_employee_users_user,hr.employee.resusers.user,base.model_res_users,hr.group_hr_user,1,1,1,1
+access_hr_employee_resgroups_user,hr.employee.resgroups.user,base.model_res_groups,hr.group_hr_user,1,1,1,1
+access_hr_employee_hremployee_user,hr.employee.hremployee.user,hr.model_hr_employee,hr.group_hr_user,1,1,1,1
+access_employees_iccards_base_groupuser,access_employees_iccards_base_groupuser,model_employees_iccards,base.group_user,1,0,0,0
+access_employees_iccards_hr_user,access_employees_iccards_hr_user,model_employees_iccards,hr.group_hr_user,1,1,1,1
+access_employees_iccards_usage_hr_user,access_employees_iccards_usage_hr_user,model_employees_iccards_usage,hr.group_hr_user,1,1,1,1
+access_employees_iccards_usage_groupuser,access_employees_iccards_usage_groupuser,model_employees_iccards_usage,base.group_user,1,0,0,0
+access_employees_iccards_dispatch_hr_user,access_employees_iccards_dispatch_hr_user,model_employees_iccards_dispatch,hr.group_hr_user,1,1,1,1
+access_employees_certificate_hr_user,access_employees_certificate_hr_user,model_employees_certificate,hr.group_hr_user,1,1,1,1
+access_employees_certificate_groupuser,access_employees_certificate_groupuser,model_employees_certificate,base.group_user,1,0,0,0

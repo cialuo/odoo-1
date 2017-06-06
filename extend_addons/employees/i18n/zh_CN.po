@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-05 05:34+0000\n"
-"PO-Revision-Date: 2017-06-05 13:36+0800\n"
+"POT-Creation-Date: 2017-06-06 07:57+0000\n"
+"PO-Revision-Date: 2017-06-06 15:57+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -129,6 +129,16 @@ msgstr "ID"
 #: model:ir.ui.view,arch_db:employees.lty_view_employee_form
 msgid "Employee's Name"
 msgstr "员工姓名"
+
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.ltyhr_view_foreign_transfer_form
+#: model:ir.ui.view,arch_db:employees.ltyhr_view_foreign_transfer_tree
+#: model:ir.ui.view,arch_db:employees.ltyhr_view_inner_transfer_form
+#: model:ir.ui.view,arch_db:employees.ltyhr_view_innner_transfer_tree
+#: model:ir.ui.view,arch_db:employees.ltyhr_view_transfer_record_form
+#: model:ir.ui.view,arch_db:employees.ltyhr_view_transfer_record_tree
+msgid "Employee_id"
+msgstr "员工"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_employee_tree
@@ -549,9 +559,6 @@ msgstr "教育经历"
 #: model:ir.model.fields,field_description:employees.field_employees_certificate_employee_id
 #: model:ir.model.fields,field_description:employees.field_employees_foreign_employee_id
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_employee_id
-#: model:ir.ui.view,arch_db:employees.ltyhr_view_foreign_transfer_form
-#: model:ir.ui.view,arch_db:employees.ltyhr_view_inner_transfer_form
-#: model:ir.ui.view,arch_db:employees.ltyhr_view_transfer_record_form
 msgid "employee"
 msgstr "员工"
 
@@ -1059,7 +1066,7 @@ msgstr "新岗位"
 
 #. module: employees
 #: code:addons/employees/models/transfer.py:156
-#: code:addons/employees/models/transfer.py:253
+#: code:addons/employees/models/transfer.py:260
 #, python-format
 msgid "only delete in state draft"
 msgstr "草稿状态下才能被删除"
