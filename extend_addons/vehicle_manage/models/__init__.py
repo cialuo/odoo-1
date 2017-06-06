@@ -8,3 +8,5 @@ import vehicleUsageManagement
 import cost_type_set
 # 车辆生命周期
 import vehicle_life_cycle
+
+import vehicle_config_setting
