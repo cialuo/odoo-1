@@ -19,4 +19,5 @@
         'maintenance',
     ],
     'auto_install': True,
+    'application': True,
 }
