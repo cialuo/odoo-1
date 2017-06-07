@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+
+        <!--考勤记录-->
+        <record id="user_readonly_rule_employee_attencerecords" model="ir.rule">
+            <field name="name">user</field>
+            <field name="model_id" ref="model_employee_attencerecords"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        </record>
+
+        <record id="user_readonly_officer_rule" model="ir.rule">
+            <field name="name">hr officer</field>
+            <field name="model_id" ref="model_employee_attencerecords"/>
+            <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+        <!--考勤扣款记录-->
+        <record id="user_readonly_rule_employee_attencededucted" model="ir.rule">
+            <field name="name">user</field>
+            <field name="model_id" ref="model_employee_attencededucted"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        </record>
+
+        <record id="officer_readonly_officer_rule_employee_attencededucted" model="ir.rule">
+            <field name="name">hr officer</field>
+            <field name="model_id" ref="model_employee_attencededucted"/>
+            <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+    </data>
+</odoo>

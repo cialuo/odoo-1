@@ -40,6 +40,7 @@
         "views/maintain_view.xml",
         'views/vehicle_repair_record.xml',
         'views/vehicle_anchor.xml',
+        'views/maintain_repair_calc.xml',
 
     ],
     # only loaded in demonstration mode

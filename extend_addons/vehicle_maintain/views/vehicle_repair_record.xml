@@ -32,6 +32,7 @@
                                 <field name="report_id"/>
                                 <field name="create_date"/>
                                 <field name="repair_names"/>
+                                <field name="total_fee"/>
                                 <field name="inspect_user_id"/>
                                 <field name="end_inspect_time"/>
                             </tree>

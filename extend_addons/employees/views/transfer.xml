@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree string="inner transfer list">
                 <field name="name"/>
+                <field name="employee_id" string="Employee_id"/>
                 <field name="create_date"/>
                 <field name="create_uid"/>
                 <field name="original_section"/>
@@ -27,13 +28,13 @@
                     <button name="action_draft" type="object"
                             string="back_draft"
                             states="confirmed"
-                            groups="hr.group_hr_manager"/>
+                            groups="hr.group_hr_user"/>
                     <button name="action_confirm" type="object"
                             string="submit" states="draft"
                             class="oe_highlight"/>
                     <button name="action_done" type="object"
                             string="confirmed" states="confirmed"
-                            groups="hr.group_hr_manager"
+                            groups="hr.group_hr_user"
                             class="oe_highlight"/>
                     <field name="state" widget="statusbar"/>
                 </header>
@@ -41,7 +42,7 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="employee_id" string="employee" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="employee_id" string="Employee_id" options="{'no_open': True, 'no_create': True}"/>
                             <field name="jobnumber"/>
                             <field name="transfer_reason"/>
                         </group>
@@ -102,6 +103,7 @@
         <field name="arch" type="xml">
             <tree string="foreign transfer list">
                 <field name="name"/>
+                <field name="employee_id" string="Employee_id"/>
                 <field name="create_date"/>
                 <field name="create_uid"/>
                 <field name="original_unit"/>
@@ -122,20 +124,20 @@
                     <button name="action_draft" type="object"
                             string="back_draft"
                             states="confirmed"
-                            groups="hr.group_hr_manager"/>
+                            groups="hr.group_hr_user"/>
                     <button name="action_confirm" type="object"
                             string="submit" states="draft"
                             class="oe_highlight"/>
                     <button name="action_done" type="object"
                             string="confirmed" states="confirmed"
                             class="oe_highlight"
-                            groups="hr.group_hr_manager"/>
+                            groups="hr.group_hr_user"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <group>
                         <group>
-                            <field name="employee_id" string="employee" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="employee_id" string="Employee_id" options="{'no_open': True, 'no_create': True}"/>
                             <field name="transfer_reason"/>
                         </group>
                         <group>
@@ -177,6 +179,7 @@
         <field name="arch" type="xml">
             <tree edit="0" create="0">
                 <field name="name"/>
+                <field name="employee_id" string="Employee_id"/>
                 <field name="create_date"/>
                 <field name="create_uid"/>
                 <field name="transfer_type"/>
@@ -203,7 +206,7 @@
                         <field name="new_post"/>
                     </group>
                     <group>
-                        <field name="employee_id" string="employee"/>
+                        <field name="employee_id" string="Employee_id"/>
                         <field name="original_unit"/>
                         <field name="original_post"/>
                         <field name="transfer_type"/>

@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+
+        <!--员工工资条-->
+        <record id="user_readonly_rule" model="ir.rule">
+            <field name="name">self read only</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        </record>
+
+        <record id="user_readonly_officer_rule" model="ir.rule">
+            <field name="name">self read only</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+    </data>
+</odoo>

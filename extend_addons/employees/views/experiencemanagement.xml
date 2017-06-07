@@ -215,12 +215,40 @@
                 (0, 0, {'view_mode': 'form', 'view_id': ref('employee_experience_form')})]"/>
     </record>
 
+    <!--工作台账表单视图-->
+    <record id="employee_work_records_form" model="ir.ui.view">
+        <field name="name">employee experience form</field>
+        <field name="model">hr.employee</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group string="traffic safety">
+                        <notebook name="top1notbook" >
+                        </notebook>
+                    </group>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <!--工作台账action视图-->
-    <!--<record model="ir.actions.act_window" id="employee_work_records_action">
+    <record model="ir.actions.act_window" id="employee_work_records_action">
         <field name="name">employee work records</field>
         <field name="res_model">hr.employee</field>
         <field name="view_mode">tree,form</field>
-    </record>-->
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('experience_employee_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('employee_work_records_form')})]"/>
+    </record>
 
     <!--工作履历-->
     <menuitem id="employee_experience_menu" name="employee experience"
@@ -231,7 +259,7 @@
               parent="employee_experience_menu"
               action="employee_experience_management_action"/>
     <!--个人工作台账-->
-    <!--<menuitem id="employee_work_records_menu" name="employee work records"
+    <menuitem id="employee_work_records_menu" name="employee work records"
               parent="employee_experience_menu"
-              action="employee_work_records_action"/>-->
+              action="employee_work_records_action"/>
 </odoo>

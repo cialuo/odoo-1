@@ -90,7 +90,7 @@
                                     <group name="active_group">
                                         <field name="socialsecurityaccount"/>
                                         <field name="salaryaccount"/>
-                                        <field name="department_id" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="department_id" options="{'no_open': True, 'no_create': True}" required="1"/>
                                         <field name="workpost" options="{'no_open': True, 'no_create': True}" domain="[('department','=',department_id)]"/>
                                         <field name="user_id" options="{'no_open': True, 'no_create': True}" string="Related User"/>
                                     </group>
@@ -332,10 +332,12 @@
                   parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_information"/>
         <!--组织架构-->
         <menuitem id="ltyhr_employee_document_department_menu" name="employee department"
-                  parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_department"/>
+                  parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_department"
+                  groups="hr.group_hr_user"/>
         <!--岗位设置-->
         <menuitem id="ltyhr_employee_document_post_menu" name="employee post"
-                  parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_post"/>
+                  parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_post"
+                  groups="hr.group_hr_user"/>
 
         <!-- 档案与调动 -->
         <menuitem id="ltyhr_employee_document_transfer_menu" name="document_transfer"

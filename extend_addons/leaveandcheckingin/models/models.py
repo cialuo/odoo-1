@@ -72,12 +72,16 @@ class LeaveType(models.Model):
         return res
 
 
-class LeaveConfig(models.TransientModel):
+class LeaveConfig(models.Model):
     _name = 'leave.config.settings'
-    _inherit = 'res.config.settings'
 
     # 加班转调休过期天数
     expiretime = fields.Integer(string='overtime expire time')
+
+
+    @api.multi
+    def action_save(self):
+        pass
 
 
 class WorkOvertime(models.Model):

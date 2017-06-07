@@ -74,7 +74,7 @@ class employee(models.Model):
     sex = fields.Selection([
         ('male','male'),                    # 男
         ('female','female')                 # 女
-    ], string='sex', required=True)
+    ], string='sex', required=True, default='male')
 
     # 员工单位调动
     unit_transfer = fields.One2many('employees.innertransfer', 'employee_id', string="employees_unit_transfer")
@@ -180,7 +180,7 @@ class employee(models.Model):
         user_id = vals.get('user_id', False)
         if user_id != False:
             count = self.search_count([('user_id', '=', user_id)])
-            if count > 1:
+            if count >= 1:
                 raise ValidationError(_("can't set system user to employee in twice"))
         if workpost != False and user_id != False:
             self._powerRebuild(user_id, workpost, 'add')

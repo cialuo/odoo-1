@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <form string="Configure leave" class="oe_form_configuration">
                 <header>
-                    <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                    <button string="Apply" type="object" name="action_save" class="oe_highlight"/>
                 </header>
                 <group string="leave configration">
                     <field name="expiretime"/>
