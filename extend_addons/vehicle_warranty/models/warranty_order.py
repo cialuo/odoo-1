@@ -487,6 +487,7 @@ class WarrantyOrderManhour(models.Model): # 保养单_工时管理
             r.self_work = r.percentage_work * r.work_time / 100
 
     real_work = fields.Float(digits=(6, 1), compute='_get_real_work') # 实际工时
+    real_work_fee = fields.Float('Real Work Fee', digits=(10, 2))
 
     @api.depends('real_start_time', 'real_end_time')
     def _get_real_work(self):
@@ -495,7 +496,7 @@ class WarrantyOrderManhour(models.Model): # 保养单_工时管理
                 continue
             start_time = fields.Datetime.from_string(r.real_start_time)
             end_time = fields.Datetime.from_string(r.real_end_time)
-            r.real_work = (end_time - start_time).seconds / 60.0
+            r.real_work = (end_time - start_time).seconds / 3600.0
 
     warranty_order_id = fields.Many2one('warranty_order', index=True)
 
@@ -528,6 +529,8 @@ class WarrantyOrderProduct(models.Model): # 保养单_可领物料
     vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec', string='Suitable Vehicle', readonly=True)
 
     product_size = fields.Text("Product Size", related='product_id.description', readonly=True)
+
+    list_price = fields.Float("Stock Price")
 
     change_count = fields.Integer("Change Count")
 

@@ -163,7 +163,8 @@ class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生�
                                 'product_id': bom.product_id.id,
                                 'change_count': bom.change_count,
                                 'max_count': bom.max_count,
-                                'require_trans': bom.require_trans
+                                'require_trans': bom.require_trans,
+                                'list_price': bom.list_price
                             }
                             available_products.append((0, 0, available_product))
 

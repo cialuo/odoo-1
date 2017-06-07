@@ -53,6 +53,8 @@ class WarrantyProjectProduct(models.Model): # 维保项目_用料清单
     onhand_qty = fields.Float('Quantity On Hand', related='product_id.qty_available', readonly=True)
     virtual_available = fields.Float('Forecast Quantity', related='product_id.virtual_available', readonly=True)
 
+    list_price = fields.Float(related='product_id.list_price', readonly=True)
+
     require_trans = fields.Boolean("Require Trans", related='product_id.require_trans', readonly=True)
     vehicle_model = fields.Many2many(related='product_id.vehicle_model', relation='product_vehicle_model_rec',
                                       string='Suitable Vehicle', readonly=True)
