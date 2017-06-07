@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-02 06:03+0000\n"
-"PO-Revision-Date: 2017-06-02 14:48+0800\n"
+"POT-Creation-Date: 2017-06-07 10:07+0000\n"
+"PO-Revision-Date: 2017-06-07 18:08+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,12 +30,20 @@ msgid "Answer"
 msgstr "正确答案"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_auditor
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_plan_auditor
 msgid "Auditor"
 msgstr "审核人"
 
 #. module: employees_growth_manage
-#: selection:employees_growth.examiners_details,ways_of_registration:0
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_auditor_time
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_plan_auditor_time
+msgid "Auditor time"
+msgstr "审核时间"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.external_students,ways_of_registration:0
+#: selection:employees_growth.students,ways_of_registration:0
 msgid "Autonomous Ways"
 msgstr "自主报名"
 
@@ -43,6 +51,12 @@ msgstr "自主报名"
 #: model:ir.ui.view,arch_db:employees_growth_manage.examination_form
 msgid "Basic Information"
 msgstr "基本信息"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_plan_return_form
+#: model:ir.ui.view,arch_db:employees_growth_manage.plan_return_form
+msgid "Cancel"
+msgstr "取消"
 
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_check_the_record_summary
@@ -55,16 +69,27 @@ msgid "Class arrangement"
 msgstr "课时安排"
 
 #. module: employees_growth_manage
-#: selection:employees_growth.examiners_details,ways_of_registration:0
+#: selection:employees_growth.external_students,ways_of_registration:0
+#: selection:employees_growth.students,ways_of_registration:0
 msgid "Company Ways"
-msgstr "公司安排"
+msgstr "公司报名"
 
 #. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,state:0
+#: selection:employees_growth.external_curriculum_schedule,state:0
+#: selection:employees_growth.external_training_plan,state:0
 #: selection:employees_growth.time_arrangement,state:0
 #: selection:employees_growth.training_plan,state:0
 msgid "Complete"
 msgstr "完成"
+
+#. module: employees_growth_manage
+#: model:ir.actions.act_window,name:employees_growth_manage.external_plan_return_wizard
+#: model:ir.actions.act_window,name:employees_growth_manage.pendingAudit_return_wizard
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_plan_return_form
+#: model:ir.ui.view,arch_db:employees_growth_manage.plan_return_form
+msgid "Confirm return"
+msgstr "退回原因"
 
 #. module: employees_growth_manage
 #: model:ir.model,name:employees_growth_manage.model_employees_growth_course
@@ -82,6 +107,7 @@ msgid "Course Type Menu"
 msgstr "类型设置"
 
 #. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_training_plan_form
 #: model:ir.ui.view,arch_db:employees_growth_manage.training_plan_form
 msgid "Course arrangement"
 msgstr "课程安排"
@@ -104,6 +130,7 @@ msgstr "上传课件"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_course_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_course_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_course_id
 msgid "Course id"
 msgstr "课程"
@@ -138,6 +165,7 @@ msgstr "讲师"
 #: model:ir.model,name:employees_growth_manage.model_employees_growth_course_type
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_course_type
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_course_type
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_course_type
 msgid "Course type"
 msgstr "课程类型"
 
@@ -150,9 +178,15 @@ msgstr "课程名称"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_create_uid
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_examiners_details_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_create_uid
@@ -169,9 +203,15 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_create_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_create_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_create_date
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_examiners_details_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_create_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_create_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record_create_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_create_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_create_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_create_date
@@ -191,12 +231,13 @@ msgstr "课程表"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_form
-#: model:ir.ui.view,arch_db:employees_growth_manage.examination_form
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_curriculum_schedule_form
 msgid "Curriculum Schedule's Name"
 msgstr "课程表名称"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_address
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_address
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_address
 msgid "Curriculum address"
 msgstr "上课地点"
@@ -209,22 +250,23 @@ msgstr "编号"
 #. module: employees_growth_manage
 #: model:ir.model,name:employees_growth_manage.model_employees_growth_curriculum_schedule
 msgid "Curriculum schedule"
-msgstr "Curriculum schedule"
+msgstr "课程表"
 
 #. module: employees_growth_manage
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_examiners_details_curriculum_schedule_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_curriculum_schedule_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_curriculum_schedule_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_curriculum_schedule_id
 msgid "Curriculum schedule id"
-msgstr "Curriculum schedule id"
+msgstr "课程表"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_curriculum_schedules
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_plan_curriculum_schedules
 msgid "Curriculum schedules"
-msgstr "Curriculum schedules"
+msgstr "课程表"
 
 #. module: employees_growth_manage
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_examiners_details_department_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_department_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_department_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_department_id
 msgid "Department id"
@@ -233,10 +275,15 @@ msgstr "部门"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_display_name
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_display_name
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_examiners_details_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_display_name
@@ -250,11 +297,23 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_display_code
+msgid "Display code"
+msgstr "编号"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_display_name
+msgid "Display name"
+msgstr "考试名称"
+
+#. module: employees_growth_manage
 #: selection:employees_growth.training_teacher,teacher_marriage:0
 msgid "Divorce"
 msgstr "离异"
 
 #. module: employees_growth_manage
+#: selection:employees_growth.external_curriculum_schedule,state:0
+#: selection:employees_growth.external_training_plan,state:0
 #: selection:employees_growth.training_plan,state:0
 msgid "Draft"
 msgstr "草稿"
@@ -275,11 +334,6 @@ msgid "Exam registration"
 msgstr "考试报名"
 
 #. module: employees_growth_manage
-#: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_form
-msgid "Exam situation"
-msgstr "考试情况"
-
-#. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,state:0
 msgid "Examination"
 msgstr "考试"
@@ -290,10 +344,14 @@ msgid "Examination Menu"
 msgstr "考试管理"
 
 #. module: employees_growth_manage
-#: model:ir.model,name:employees_growth_manage.model_employees_growth_examiners_details
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_examiners_details
-msgid "Examiners details"
-msgstr "Examiners details"
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_examination_datetime
+msgid "Examination datetime"
+msgstr "考试时间"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.external_curriculum_schedule,state:0
+msgid "Execution"
+msgstr "执行中"
 
 #. module: employees_growth_manage
 #: selection:employees_growth.training_teacher,teacher_type:0
@@ -301,9 +359,50 @@ msgid "External"
 msgstr "外部讲师"
 
 #. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_external_curriculum_schedule
+msgid "External Curriculum Schedule Menu"
+msgstr "外部培训课程"
+
+#. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,train_type:0
+#: selection:employees_growth.external_curriculum_schedule,train_type:0
 msgid "External Train"
-msgstr "External Train"
+msgstr "外部培训"
+
+#. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_external_training_manage
+msgid "External Training Manage Menu"
+msgstr "外部培训管理"
+
+#. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_external_training_plan
+msgid "External Training Plan Menu"
+msgstr "外部培训计划管理"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_external_curriculum_schedule
+msgid "External curriculum schedule"
+msgstr "外部培训课程"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_external_plan_return
+msgid "External plan return"
+msgstr "外部培训计划退回信息"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_external_plan_return_record
+msgid "External plan return record"
+msgstr "外部培训计划退回记录"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_external_students
+msgid "External students"
+msgstr "外部培训人员"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_external_training_plan
+msgid "External training plan"
+msgstr "外部培训计划"
 
 #. module: employees_growth_manage
 #: selection:employees_growth.training_teacher,teacher_gender:0
@@ -318,15 +417,21 @@ msgstr "允许最大考试次数"
 #. module: employees_growth_manage
 #: selection:employees_growth.time_arrangement,state:0
 msgid "Having Class"
-msgstr "Having Class"
+msgstr "正在上课"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_id
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_examiners_details_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_id
@@ -347,7 +452,7 @@ msgstr "入职时间"
 #. module: employees_growth_manage
 #: selection:employees_growth.time_arrangement,state:0
 msgid "Ing Sign"
-msgstr "Ing Sign"
+msgstr "正在签到"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.course_type_form
@@ -361,13 +466,35 @@ msgstr "内部讲师"
 
 #. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,train_type:0
+#: selection:employees_growth.external_curriculum_schedule,train_type:0
 msgid "Inside Train"
-msgstr "Inside Train"
+msgstr "内部培训"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_inspect_user_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record_inspect_user_id
+msgid "Inspect Name"
+msgstr "检验人"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_inspect_return_time
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record_inspect_return_time
+msgid "Inspect return time"
+msgstr "退回时间"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_is_sign
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_is_sign
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_is_sign
 msgid "Is sign"
 msgstr "签到"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_jobnumber
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_jobnumber
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_jobnumber
+msgid "Jobnumber"
+msgstr "工号"
 
 #. module: employees_growth_manage
 #: selection:employees_growth.test_paper_detail,question_type:0
@@ -382,7 +509,7 @@ msgstr "判断题数量"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_judge_questions
 msgid "Judge question id"
-msgstr "Judge question id"
+msgstr "所以判断题"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.questions_form
@@ -393,9 +520,15 @@ msgstr "判断题"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule___last_update
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_examiners_details___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question___last_update
@@ -412,9 +545,15 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_write_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_write_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_write_uid
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_examiners_details_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_write_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_write_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_write_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_write_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_write_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_write_uid
@@ -431,9 +570,15 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_write_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_write_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_write_date
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_examiners_details_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_write_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_write_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_write_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_write_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_write_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_write_date
@@ -445,6 +590,11 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
+
+#. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_maintenance_safety_training_page
+msgid "Maintenance Safety Training Page Menu"
+msgstr "维修工安全培训"
 
 #. module: employees_growth_manage
 #: selection:employees_growth.training_teacher,teacher_gender:0
@@ -494,7 +644,7 @@ msgstr "多选题"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_multiselect_questions
 msgid "Multiselect question id"
-msgstr "Multiselect question id"
+msgstr "所有多选题"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.questions_form
@@ -505,6 +655,8 @@ msgstr "多选题"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_name
@@ -519,6 +671,13 @@ msgstr "名字"
 #, python-format
 msgid "Number already exists."
 msgstr "编号已经存在!"
+
+#. module: employees_growth_manage
+#: code:addons/employees_growth_manage/models/external_training.py:45
+#: code:addons/employees_growth_manage/models/training_plan.py:44
+#, python-format
+msgid "Only the plan to delete the draft status."
+msgstr "只有草稿状态的单据才能删除."
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_option_A
@@ -564,11 +723,14 @@ msgid "Passing score"
 msgstr "及格分数"
 
 #. module: employees_growth_manage
+#: selection:employees_growth.external_training_plan,state:0
 #: selection:employees_growth.training_plan,state:0
 msgid "Pending audit"
 msgstr "待审核"
 
 #. module: employees_growth_manage
+#: selection:employees_growth.external_curriculum_schedule,state:0
+#: selection:employees_growth.external_training_plan,state:0
 #: selection:employees_growth.training_plan,state:0
 msgid "Pending execution"
 msgstr "待执行"
@@ -585,8 +747,31 @@ msgstr "照片"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_plan_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_plan_id
 msgid "Plan id"
-msgstr "Plan id"
+msgstr "计划ID"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_plan_return
+msgid "Plan return"
+msgstr "退回（辅表）"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_plan_return_record
+msgid "Plan return record"
+msgstr "计划退回记录"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_plan_return_record_ids
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_plan_plan_return_record_ids
+msgid "Plan return record ids"
+msgstr "计划退回记录"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_post_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_post_id
+msgid "Post id"
+msgstr "岗位"
 
 #. module: employees_growth_manage
 #: model:ir.model,name:employees_growth_manage.model_employees_growth_punch_recording_details
@@ -597,7 +782,7 @@ msgstr "学员签到"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_punch_recording_id
 msgid "Punch recording id"
-msgstr "Punch recording id"
+msgstr "签到表"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_question_count
@@ -645,11 +830,6 @@ msgid "Questions no"
 msgstr "编号"
 
 #. module: employees_growth_manage
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_questions_total_score
-msgid "Questions total score"
-msgstr "合计总分"
-
-#. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.questions_form
 msgid "Questions's Name"
 msgstr "题库名称"
@@ -667,7 +847,7 @@ msgstr "单选题数量"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_radio_questions
 msgid "Radio question id"
-msgstr "Radio question id"
+msgstr "单选题"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.questions_form
@@ -675,14 +855,53 @@ msgid "Radio questions"
 msgstr "单选题"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_plan_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record_plan_id
+msgid "Repair Order"
+msgstr "抢修单号"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record_name
+msgid "Repair names"
+msgstr "名称"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_return_reason
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_return_reason
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record_return_reason
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_return_reason
+#: model:ir.model.fields,help:employees_growth_manage.field_employees_growth_external_plan_return_return_reason
+#: model:ir.model.fields,help:employees_growth_manage.field_employees_growth_plan_return_return_reason
+msgid "Return reason"
+msgstr "退回备注"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_return_remarks
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_plan_return_remarks
 msgid "Return remarks"
 msgstr "退回备注"
 
 #. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_safety_training_page
+msgid "Safety Training Page Menu"
+msgstr "安全培训"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_safety_search
+msgid "Safety search"
+msgstr "安全培训"
+
+#. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_score
 msgid "Score"
 msgstr "分值"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_sequence
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_plan_return_record_sequence
+msgid "Sequence"
+msgstr "序号"
 
 #. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,state:0
@@ -707,7 +926,7 @@ msgstr "签到率"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_image_small
 msgid "Small-sized photo"
-msgstr "小尺寸照片"
+msgstr "当前数据的状态不对."
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,help:employees_growth_manage.field_employees_growth_training_teacher_image_small
@@ -726,13 +945,15 @@ msgstr "上课时间"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_state
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_state
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_state
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_state
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_plan_state
 msgid "State"
 msgstr "状态"
 
 #. module: employees_growth_manage
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_examiners_details_student_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_student_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_student_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_student_id
 msgid "Student id"
@@ -741,8 +962,9 @@ msgstr "姓名"
 #. module: employees_growth_manage
 #: model:ir.model,name:employees_growth_manage.model_employees_growth_students
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_students
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_students
 msgid "Students"
-msgstr "Students"
+msgstr "培训人员"
 
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_summary_of_exams
@@ -776,6 +998,7 @@ msgstr "性别"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_teacher_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_teacher_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_teacher_id
 msgid "Teacher id"
 msgstr "讲师"
@@ -826,6 +1049,16 @@ msgid "Teacher's Name"
 msgstr "培训师名称"
 
 #. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_technology_training_page
+msgid "Technology Training Page Menu"
+msgstr "驾驶员车辆技术培训"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_technology_search
+msgid "Technology search"
+msgstr "技术培训"
+
+#. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_test_paper
 msgid "Test Paper Menu"
 msgstr "试卷管理"
@@ -842,6 +1075,7 @@ msgstr "试卷明细"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_test_paper_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_test_paper_id
 msgid "Test paper id"
 msgstr "试卷"
 
@@ -863,6 +1097,18 @@ msgid "The name already exists."
 msgstr "名称已近存在!"
 
 #. module: employees_growth_manage
+#: code:addons/employees_growth_manage/wizard/plan_return.py:29
+#: code:addons/employees_growth_manage/wizard/plan_return.py:55
+#, python-format
+msgid "The selected document is not pending status."
+msgstr "选择的单据状态不正确."
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.training_plan_form
+msgid "Theme"
+msgstr "主题"
+
+#. module: employees_growth_manage
 #: model:ir.model.fields,help:employees_growth_manage.field_employees_growth_training_teacher_image
 msgid "This field holds the image used as photo for the employee, limited to 1024x1024px."
 msgstr "这个字段保存员工的照片，限制为 1024x1024px"
@@ -875,17 +1121,17 @@ msgstr "签到表管理"
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
 msgid "Time Arrangement's Name"
-msgstr "Time Arrangement's Name"
+msgstr "课时名称"
 
 #. module: employees_growth_manage
 #: model:ir.model,name:employees_growth_manage.model_employees_growth_time_arrangement
 msgid "Time arrangement"
-msgstr "Time arrangement"
+msgstr "课时"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_time_arrangements
 msgid "Time arrangements"
-msgstr "Time arrangements"
+msgstr "课时"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_time_limit
@@ -919,23 +1165,26 @@ msgstr "总学员人数"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_train_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_train_date
 msgid "Train date"
 msgstr "上课时间"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_train_type
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_train_type
 msgid "Train type"
 msgstr "培训类型"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_form
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_curriculum_schedule_form
 msgid "Trainers page"
 msgstr "培训人员"
 
 #. module: employees_growth_manage
 #: model:ir.module.category,name:employees_growth_manage.module_training_group
 msgid "Training"
-msgstr "Training"
+msgstr "职工培训"
 
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_configuration
@@ -944,7 +1193,7 @@ msgstr "培训设置"
 
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_manage
-msgid "Training Manage"
+msgid "Training Manage Menu"
 msgstr "培训管理"
 
 #. module: employees_growth_manage
@@ -953,19 +1202,20 @@ msgid "Training Plan"
 msgstr "培训计划"
 
 #. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_training_plan_form
 #: model:ir.ui.view,arch_db:employees_growth_manage.training_plan_form
 msgid "Training Plan's Name"
-msgstr "Training Plan's Name"
+msgstr "培训计划名字"
 
 #. module: employees_growth_manage
 #: model:res.groups,name:employees_growth_manage.training_student
 msgid "Training Student"
-msgstr "Training Student"
+msgstr "培训人员"
 
 #. module: employees_growth_manage
 #: model:res.groups,name:employees_growth_manage.training_teacher
 msgid "Training Teacher"
-msgstr "Training Teacher"
+msgstr "培训老师"
 
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_training_teacher
@@ -973,24 +1223,31 @@ msgid "Training Teacher Menu"
 msgstr "培训师管理"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_training_cycle
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_training_cycle
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_plan_training_cycle
 msgid "Training cycle"
 msgstr "计划周期"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_training_institutions
+msgid "Training institutions"
+msgstr "培训机构"
+
+#. module: employees_growth_manage
 #: model:res.groups,name:employees_growth_manage.training_manager
 msgid "Training manager"
-msgstr "Training manager"
+msgstr "培训管理"
 
 #. module: employees_growth_manage
 #: model:ir.model,name:employees_growth_manage.model_employees_growth_training_plan
 msgid "Training plan"
-msgstr "Training plan"
+msgstr "培训计划"
 
 #. module: employees_growth_manage
 #: model:ir.model,name:employees_growth_manage.model_employees_growth_training_teacher
 msgid "Training teacher"
-msgstr "Training teacher"
+msgstr "培训老师"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_type_explain
@@ -1020,7 +1277,7 @@ msgstr "未签到人数"
 #. module: employees_growth_manage
 #: selection:employees_growth.time_arrangement,state:0
 msgid "Wait"
-msgstr "Wait"
+msgstr "等待开课"
 
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_course_type
@@ -1034,10 +1291,14 @@ msgstr "课程管理"
 
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_curriculum_schedule
+#: model:ir.actions.act_window,name:employees_growth_manage.action_safety_training_page
+#: model:ir.actions.act_window,name:employees_growth_manage.action_technology_training_page
 msgid "curriculum_schedule window"
 msgstr "课程表"
 
 #. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_curriculum_schedule_form
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_training_plan_form
 #: model:ir.ui.view,arch_db:employees_growth_manage.training_plan_form
 msgid "draft_to_pendingAudit"
 msgstr "确认提交"
@@ -1049,10 +1310,23 @@ msgstr "考试管理"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_form
-#: model:ir.ui.view,arch_db:employees_growth_manage.examination_form
-#: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
 msgid "examination_to_complete"
-msgstr "examination_to_complete"
+msgstr "完成"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_curriculum_schedule_form
+msgid "execution_to_complete"
+msgstr "完成培训"
+
+#. module: employees_growth_manage
+#: model:ir.actions.act_window,name:employees_growth_manage.action_external_curriculum_schedule
+msgid "external_curriculum_schedule window"
+msgstr "外部培训课程"
+
+#. module: employees_growth_manage
+#: model:ir.actions.act_window,name:employees_growth_manage.action_external_training_plan
+msgid "external_training_plan window"
+msgstr "外部培训计划管理"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.training_teacher_form
@@ -1075,24 +1349,28 @@ msgid "group_title"
 msgstr "职称"
 
 #. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_training_plan_form
 #: model:ir.ui.view,arch_db:employees_growth_manage.training_plan_form
 msgid "pendingAudit_to_draft"
-msgstr "pendingAudit_to_draft"
+msgstr "退回重做"
 
 #. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_training_plan_form
 #: model:ir.ui.view,arch_db:employees_growth_manage.training_plan_form
 msgid "pendingAudit_to_pendingExecution"
-msgstr "pendingAudit_to_pendingExecution"
+msgstr "审核通过"
 
 #. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_training_plan_form
 #: model:ir.ui.view,arch_db:employees_growth_manage.training_plan_form
 msgid "pendingExecution_to_complete"
-msgstr "pendingExecution_to_complete"
+msgstr "执行"
 
 #. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_training_plan_form
 #: model:ir.ui.view,arch_db:employees_growth_manage.training_plan_form
 msgid "pendingExecution_to_pendingAudit"
-msgstr "pendingExecution_to_pendingAudit"
+msgstr "返回修正"
 
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_questions
@@ -1101,15 +1379,16 @@ msgstr "题库"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_form
-#: model:ir.ui.view,arch_db:employees_growth_manage.examination_form
-#: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
 msgid "sign_to_examination"
-msgstr "sign_to_examination"
+msgstr "可以考试"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_curriculum_schedule_form
+msgid "sign_to_execution"
+msgstr "准备执行"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_form
-#: model:ir.ui.view,arch_db:employees_growth_manage.examination_form
-#: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
 msgid "start_to_sign"
 msgstr "开课"
 
@@ -1121,12 +1400,12 @@ msgstr "试卷管理"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_test_paper_details
 msgid "test_paper_details"
-msgstr "test_paper_details"
+msgstr "试卷明细"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_test_paper_id
 msgid "test_paper_id"
-msgstr "test_paper_id"
+msgstr "试卷"
 
 #. module: employees_growth_manage
 #. openerp-web
@@ -1141,6 +1420,16 @@ msgid "time_arrangement window"
 msgstr "签到表管理"
 
 #. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
+msgid "to_complete"
+msgstr "完成签到"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.test_paper_form
+msgid "total"
+msgstr "合计总分"
+
+#. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_training_plan
 msgid "training_plan window"
 msgstr "培训计划表"
@@ -1151,6 +1440,7 @@ msgid "training_teacher window"
 msgstr "培训师管理"
 
 #. module: employees_growth_manage
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_examiners_details_ways_of_registration
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_ways_of_registration
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_ways_of_registration
 msgid "ways_of_registration"
 msgstr "报名方式"

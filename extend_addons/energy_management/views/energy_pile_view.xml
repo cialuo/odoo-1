@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
   <data>
 
     <!--tree-->
@@ -132,4 +132,4 @@
 
   </data>
 
-</openerp>
+</odoo>

@@ -49,8 +49,7 @@
                                 <field name="question_type"/>
                                 <field name="question_count"/>
                                 <field name="score"/>
-                                <field name="total_score"/>
-                                <field name="questions_total_score"/>
+                                <field name="total_score" sum="total" widget="monetary"/>
                             </tree>
                         </field>
                     </page>

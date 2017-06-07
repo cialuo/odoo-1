@@ -11,37 +11,40 @@ class examination_record(models.Model):
             及格线、所用试卷、答题现在时间、允许最大考试次数、考生须知
      """
 
-     examiners_details = fields.One2many('employees_growth.examiners_details',
-                                         'curriculum_schedule_id',string='Examiners details')
+     display_name = fields.Char(string='Display name',compute='_compute_display_name')
+
+     display_code = fields.Char(string='Display code',compute='_compute_display_code')
 
      passing_score = fields.Float(string='Passing score')
 
-     time_limit = fields.Integer(string='Time limit')
+     time_limit = fields.Integer(string='Time limit',default='60')
 
-     frequency = fields.Integer(string='Frequency')
+     frequency = fields.Integer(string='Frequency',default='1')
 
      tips_for_candidates = fields.Text(string='Tips for candidates')
 
+     test_paper_id = fields.Many2one(string='Test paper id',related='course_id.test_paper_id',store=True,readonly=True)
 
-class examiners_details(models.Model):
+     examination_datetime = fields.Datetime()
 
-    _name = 'employees_growth.examiners_details'
-    _description = 'Examiners details'
+     @api.multi
+     def _compute_display_name(self):
+          """
+               设置默认的名字
+          :return:
+          """
+          for order in self:
+               order.display_name = order.course_id.name + u"考试"
 
-    """
-        参考人员：
-            数据基于表数据
-    """
-
-    curriculum_schedule_id = fields.Many2one('employees_growth.curriculum_schedule',string='Curriculum schedule id')
-
-    student_id = fields.Many2one('hr.employee', string='Student id')
-
-    department_id = fields.Many2one('hr.department', string='Department id')
-
-    ways_of_registration = fields.Selection([('companyWays','Company Ways'),
-                                             ('AutonomousWays','Autonomous Ways')],string='ways_of_registration')
-
+     @api.multi
+     def _compute_display_code(self):
+          """
+               设置默认的名字
+          :return:
+          """
+          for order in self:
+               if order.train_date:
+                    order.display_code = order.train_date.replace('-', '').replace(' ', '')
 
 
 

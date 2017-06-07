@@ -13,10 +13,10 @@ class course_type(models.Model):
         培训课程类型：
             名称、编号、创建人、说明、创建时间
      """
-     name = fields.Char(string='Name')
+     name = fields.Char(string='Name',required=True)
 
-     type_no = fields.Char(string='Type no')
+     type_no = fields.Char(string='Type no',required=True)
 
-     type_explain = fields.Char(string='Type explain')
+     type_explain = fields.Char(string='Type explain',required=True)
 
 

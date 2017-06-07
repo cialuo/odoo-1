@@ -25,36 +25,35 @@
       <field name="name">time_arrangement form</field>
       <field name="model">employees_growth.time_arrangement</field>
       <field name="arch" type="xml">
-        <form>
+        <form create="false">
              <header>
-              <button name="start_to_sign" type="object" string="start_to_sign" states="start" class="oe_highlight"/>
-              <button name="sign_to_examination" type="object" string="sign_to_examination" states="sign" class="oe_highlight"/>
-              <button name="examination_to_complete" type="object" string="examination_to_complete" states="examination" class="oe_highlight"/>
+              <button name="to_complete" type="object" string="to_complete" states="wait" class="oe_highlight"/>
               <field name="state"  widget="statusbar"/>
             </header>
             <sheet>
                 <div class="oe_title">
                     <label for="name" class="oe_edit_only"/>
                     <h1>
-                        <field name="name" placeholder="Time Arrangement's Name" />
+                        <field name="name" placeholder="Time Arrangement's Name" readonly='True'/>
                     </h1>
                 </div>
                 <group>
                     <group>
-                        <field name="time_no"/>
+                        <field name="time_no" readonly='True'/>
                         <field name="course_id" options="{'no_open': True, 'no_create': True}"/>
-                        <field name="teacher_id" />
+                        <field name="teacher_id" readonly='True'/>
                     </group>
                     <group>
-                        <field name="start_time"/>
-                        <field name="address"/>
+                        <field name="start_time" readonly='True'/>
+                        <field name="address" readonly='True'/>
                     </group>
                 </group>
                 <notebook>
                     <page names="page_punch_recording_details" string="Page punch recording details">
                         <field name="details" >
-                            <tree editable="top">
+                            <tree editable="top" create="false" delete="false">
                                 <field name="student_id"/>
+                                <field name="jobnumber"/>
                                 <field name="department_id"/>
                                 <field name="is_sign"/>
                             </tree>
@@ -63,12 +62,12 @@
                     <page name="sign_in_statistics" string="Sign in statistics">
                          <group>
                              <group>
-                                <field name="total_student"/>
-                                <field name="sign_number"/>
+                                <field name="total_student" readonly='True'/>
+                                <field name="sign_number" readonly='True'/>
                              </group>
                              <group>
-                                <field name="unsign_number"/>
-                                <field name="sign_rate"/>
+                                <field name="unsign_number" readonly='True'/>
+                                <field name="sign_rate" readonly='True'/>
                              </group>
                          </group>
                     </page>
@@ -83,6 +82,9 @@
       <field name="name">time_arrangement window</field>
       <field name="res_model">employees_growth.time_arrangement</field>
       <field name="view_mode">tree,form</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('employees_growth_manage.time_arrangement_list')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('employees_growth_manage.time_arrangement_form')})]"/>
     </record>
 
   </data>

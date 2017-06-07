@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
   <data>
 
     <!-- 能源管理 -->
@@ -26,4 +26,4 @@
               parent="energy_management.menu_energy_management" sequence="5" action="energy_management.aw_warehouse_location"/>
 
   </data>
-</openerp>
+</odoo>

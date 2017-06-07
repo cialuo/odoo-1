@@ -22,13 +22,14 @@
     <record model="ir.ui.view" id="employees_growth_manage.curriculum_schedule_form">
       <field name="name">curriculum_schedule form</field>
       <field name="model">employees_growth.curriculum_schedule</field>
+      <!--<field name="priority">100</field>-->
       <field name="arch" type="xml">
         <form>
              <header>
-              <button name="start_to_sign" type="object" string="start_to_sign" states="start" class="oe_highlight"/>
-              <button name="sign_to_examination" type="object" string="sign_to_examination" states="sign" class="oe_highlight"/>
-              <button name="examination_to_complete" type="object" string="examination_to_complete" states="examination" class="oe_highlight"/>
-              <field name="state"  widget="statusbar"/>
+                 <button name="start_to_sign" type="object" string="start_to_sign" states="start" class="oe_highlight" groups="employees_growth_manage.training_teacher"/>
+                 <button name="sign_to_examination" type="object" string="sign_to_examination" states="sign" class="oe_highlight"/>
+                 <button name="examination_to_complete" type="object" string="examination_to_complete" states="examination" class="oe_highlight"/>
+                 <field name="state"  widget="statusbar"/>
             </header>
             <sheet>
                 <div class="oe_title">
@@ -66,11 +67,13 @@
                         <field name="students" >
                             <tree editable="top">
                                 <field name="student_id"/>
+                                <field name="jobnumber"/>
                                 <field name="department_id"/>
+                                <field name="post_id"/>
                             </tree>
                         </field>
                     </page>
-                    <page names="exam_situation" string="Exam situation">
+                   <!-- <page names="exam_situation" string="Exam situation">
                         <field name="examiners_details" >
                             <tree editable="top">
                                 <field name="student_id"/>
@@ -78,7 +81,7 @@
                                 <field name="ways_of_registration"/>
                             </tree>
                         </field>
-                    </page>
+                    </page>-->
                 </notebook>
             </sheet>
         </form>

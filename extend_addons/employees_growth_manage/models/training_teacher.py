@@ -13,11 +13,12 @@ class training_teacher(models.Model):
                名称、老师类型、编号、职称、岗位、组织、入职时间、性别
                年龄、电邮、地址、个人介绍
      """
-     name = fields.Char(string='Name')
+     name = fields.Char(string='Name',required=True)
 
-     teacher_type = fields.Selection([('inside','Inside'),('external','External')],string='Teacher type')
+     teacher_type = fields.Selection([('inside','Inside'),('external','External')],
+                                     string='Teacher type',required=True,default='inside')
 
-     teacher_no = fields.Char(string='Teacher no')
+     teacher_no = fields.Char(string='Teacher no',required=True)
 
      teacher_title = fields.Char(string='Teacher title')
 
@@ -27,9 +28,9 @@ class training_teacher(models.Model):
 
      induction_time = fields.Datetime(string='Induction time')
 
-     teacher_gender = fields.Selection([('male','Male'),('female','Female')],string='Teacher gender')
+     teacher_gender = fields.Selection([('male','Male'),('female','Female')],string='Teacher gender',required=True)
 
-     teacher_telephone = fields.Char(string='Teacher telephone')
+     teacher_telephone = fields.Char(string='Teacher telephone',required=True)
 
      teacher_age = fields.Integer(string='Teacher age')
 

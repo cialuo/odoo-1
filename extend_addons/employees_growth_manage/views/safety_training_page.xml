@@ -1,0 +1,65 @@
+<odoo>
+  <data>
+
+    <!--安全培训筛选-->
+    <record id="employees_growth_manage.curriculum_schedule_safety_search" model="ir.ui.view">
+      <field name="name">search.curriculum_schedule</field>
+      <field name="model">employees_growth.curriculum_schedule</field>
+      <field name="arch" type="xml">
+        <search string="Safety search">
+          <filter string="Safety search" name="safety_search" domain="[('course_type','=','安全教育')]" />
+        </search>
+      </field>
+    </record>
+
+    <!-- 安全培训 -->
+    <record model="ir.actions.act_window" id="employees_growth_manage.action_safety_training_page">
+      <field name="name">curriculum_schedule window</field>
+      <field name="res_model">employees_growth.curriculum_schedule</field>
+      <field name="view_mode">tree,form</field>
+      <!--给动作指定搜索视图-->
+      <field name="search_view_id" ref="employees_growth_manage.curriculum_schedule_safety_search"/>
+      <!--指定默认参数，name与felter里的name相同-->
+      <field name="context">{'search_default_safety_search':'安全教育'}</field>
+    </record>
+
+    <!--安全培训-->
+    <menuitem id="employees_growth_manage.menu_safety_training_page" name="Safety Training Page Menu"
+                  parent="security_manage_menu.traffic_safety_menu"
+                  sequence="3" action="employees_growth_manage.action_safety_training_page" groups="employees_growth_manage.training_student"/>
+
+    <!--维修工安全培训-->
+    <menuitem id="employees_growth_manage.menu_maintenance_safety_training_page" name="Maintenance Safety Training Page Menu"
+                  parent="security_manage_menu.repair_produce_first_menu"
+                  sequence="4" action="employees_growth_manage.action_safety_training_page" groups="employees_growth_manage.training_student"/>
+
+
+
+    <!--技术培训筛选-->
+    <record id="employees_growth_manage.curriculum_schedule_technology_search" model="ir.ui.view">
+      <field name="name">search.curriculum_schedule</field>
+      <field name="model">employees_growth.curriculum_schedule</field>
+      <field name="arch" type="xml">
+        <search string="Technology search">
+          <filter string="Technology search" name="technology_search" domain="[('course_type','=','技术培训')]" />
+        </search>
+      </field>
+    </record>
+
+    <!-- 技术培训 -->
+    <record model="ir.actions.act_window" id="employees_growth_manage.action_technology_training_page">
+      <field name="name">curriculum_schedule window</field>
+      <field name="res_model">employees_growth.curriculum_schedule</field>
+      <field name="view_mode">tree,form</field>
+      <!--给动作指定搜索视图-->
+      <field name="search_view_id" ref="employees_growth_manage.curriculum_schedule_technology_search"/>
+      <!--指定默认参数，name与felter里的name相同-->
+      <field name="context">{'search_default_technology_search':'技术培训'}</field>
+    </record>
+
+    <!--驾驶员车辆技术培训-->
+    <menuitem id="employees_growth_manage.menu_technology_training_page" name="Technology Training Page Menu"
+                  parent="vehicle_manage_menu.vehicle_use_manage"
+                  sequence="8" action="employees_growth_manage.action_technology_training_page" groups="employees_growth_manage.training_student"/>
+  </data>
+</odoo>

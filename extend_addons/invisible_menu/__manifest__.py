@@ -3,7 +3,7 @@
 {
     'name': 'Invisible Menu',
     'version': '1.0',
-    'category': 'Basic Version',
+    'category': 'Basic Edition',
     'summary': 'invisble menu',
     'author': 'Xiao',
     'description': """

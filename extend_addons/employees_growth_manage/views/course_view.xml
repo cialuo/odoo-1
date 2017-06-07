@@ -44,14 +44,18 @@
                 </group>
                 <notebook>
                     <page name="page_course_introduce" string="Course introduce">
-                        <field name="course_introduce"/>
+                        <group>
+                            <field name="course_introduce"/>
+                        </group>
                     </page>
                     <page name="page_course_enclosure" string="Course enclosure">
                         <field name="course_enclosure" widget="many2many_binary"/>
                     </page>
                     <page name="page_course_outline" string="Course outline">
-                        <field name="course_objective"/>
-                        <field name="course_content"/>
+                        <group>
+                            <field name="course_objective"/>
+                            <field name="course_content"/>
+                        </group>
                     </page>
                 </notebook>
             </sheet>
