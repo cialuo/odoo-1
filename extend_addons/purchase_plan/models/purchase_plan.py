@@ -175,6 +175,8 @@ class PlanLine(models.Model):
         :return: vals 需求单的数据
         """
         self.ensure_one()
+        ws = self.env['stock.warehouse'].search([('buy_to_resupply', '=', True)], limit=1)
+        location = ws.lot_stock_id
         return {
             'name': 'XQ-' + self.plan_id.name,
             'origin': self.plan_id.name,
@@ -182,7 +184,7 @@ class PlanLine(models.Model):
             'product_qty': self.qty,
             'product_uom': self.product_id.uom_id.id,
             'group_id': group_id,
-            'location_id': self.env.ref('stock.stock_location_stock').id,
+            'location_id': location.id,
         }
 
     @api.multi
