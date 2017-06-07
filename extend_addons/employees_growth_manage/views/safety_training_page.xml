@@ -26,12 +26,12 @@
     <!--安全培训-->
     <menuitem id="employees_growth_manage.menu_safety_training_page" name="Safety Training Page Menu"
                   parent="security_manage_menu.traffic_safety_menu"
-                  sequence="3" action="employees_growth_manage.action_safety_training_page"/>
+                  sequence="3" action="employees_growth_manage.action_safety_training_page" groups="employees_growth_manage.training_student"/>
 
     <!--维修工安全培训-->
     <menuitem id="employees_growth_manage.menu_maintenance_safety_training_page" name="Maintenance Safety Training Page Menu"
                   parent="security_manage_menu.repair_produce_first_menu"
-                  sequence="4" action="employees_growth_manage.action_safety_training_page"/>
+                  sequence="4" action="employees_growth_manage.action_safety_training_page" groups="employees_growth_manage.training_student"/>
 
 
 
@@ -60,6 +60,6 @@
     <!--驾驶员车辆技术培训-->
     <menuitem id="employees_growth_manage.menu_technology_training_page" name="Technology Training Page Menu"
                   parent="vehicle_manage_menu.vehicle_use_manage"
-                  sequence="8" action="employees_growth_manage.action_technology_training_page"/>
+                  sequence="8" action="employees_growth_manage.action_technology_training_page" groups="employees_growth_manage.training_student"/>
   </data>
 </odoo>

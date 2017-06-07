@@ -3,7 +3,7 @@
 
         <!--员工成功管理-->
         <menuitem id="employees_growth_manage.menu_root" name="Employee Growth Manage"
-                  parent="employees_menu.ltyhr_top_menu" sequence="79"/>
+                  parent="employees_menu.ltyhr_top_menu" sequence="79" groups="employees_growth_manage.training_student"/>
 
         <!-- 培训计划 -->
         <menuitem id="employees_growth_manage.menu_plan" name="Training Plan"
@@ -11,7 +11,7 @@
                   action="employees_growth_manage.action_training_plan"/>
 
         <!-- 培训管理 -->
-        <menuitem id="employees_growth_manage.menu_manage" name="Training Manage"
+        <menuitem id="employees_growth_manage.menu_manage" name="Training Manage Menu"
                   parent="employees_growth_manage.menu_root" sequence="2"/>
 
         <!--课程表-->
@@ -47,7 +47,7 @@
         <!--外部培训计划-->
         <menuitem id="employees_growth_manage.menu_external_training_plan" name="External Training Plan Menu"
                   parent="employees_growth_manage.menu_external_training_manage"
-                  sequence="1" action="employees_growth_manage.action_external_training_plan"/>
+                  sequence="1" action="employees_growth_manage.action_external_training_plan" groups="employees_growth_manage.training_teacher"/>
 
         <!--外部培训课程表-->
         <menuitem id="employees_growth_manage.menu_external_curriculum_schedule" name="External Curriculum Schedule Menu"

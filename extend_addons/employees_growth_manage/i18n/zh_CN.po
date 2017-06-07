@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-07 06:13+0000\n"
-"PO-Revision-Date: 2017-06-07 14:20+0800\n"
+"POT-Creation-Date: 2017-06-07 10:07+0000\n"
+"PO-Revision-Date: 2017-06-07 18:08+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1184,7 +1184,7 @@ msgstr "培训人员"
 #. module: employees_growth_manage
 #: model:ir.module.category,name:employees_growth_manage.module_training_group
 msgid "Training"
-msgstr "Training"
+msgstr "职工培训"
 
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_configuration
@@ -1193,7 +1193,7 @@ msgstr "培训设置"
 
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_manage
-msgid "Training Manage"
+msgid "Training Manage Menu"
 msgstr "培训管理"
 
 #. module: employees_growth_manage
@@ -1310,10 +1310,13 @@ msgstr "考试管理"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_form
-#: model:ir.ui.view,arch_db:employees_growth_manage.external_curriculum_schedule_form
-#: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
 msgid "examination_to_complete"
 msgstr "完成"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_curriculum_schedule_form
+msgid "execution_to_complete"
+msgstr "完成培训"
 
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_external_curriculum_schedule
@@ -1376,14 +1379,16 @@ msgstr "题库"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_form
-#: model:ir.ui.view,arch_db:employees_growth_manage.external_curriculum_schedule_form
-#: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
 msgid "sign_to_examination"
 msgstr "可以考试"
 
 #. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.external_curriculum_schedule_form
+msgid "sign_to_execution"
+msgstr "准备执行"
+
+#. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_form
-#: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
 msgid "start_to_sign"
 msgstr "开课"
 
@@ -1413,6 +1418,11 @@ msgstr "this...."
 #: model:ir.actions.act_window,name:employees_growth_manage.action_time_arrangement
 msgid "time_arrangement window"
 msgstr "签到表管理"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
+msgid "to_complete"
+msgstr "完成签到"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.test_paper_form
