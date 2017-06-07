@@ -1,64 +1,52 @@
 <odoo>
     <data>
-        <record id="manage_warranty_group" model="ir.module.category">
-            <field name="name">Warranty</field>
-            <field name="sequence">17</field>
+
+        <!-- 技术机务主管 -->
+        <record id="base_extend_tech_satrap" model="res.groups">
+            <field name="name">Tech Satrap</field>
+            <field name="category_id" ref="materials_product.module_tech_extend"/>
+            <field name="implied_ids" eval="[(4, ref('materials_product.base_extend_tech_user'))]"/>
         </record>
 
-        <record id="warranty_basic" model="res.groups">
-            <field name="name">Warranty Basic</field>
-            <field name="category_id" ref="manage_warranty_group"/>
-            <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('fleet.fleet_group_user')), (4, ref('stock.group_stock_user'))]"/>
-            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        <!--车间接车-->
+        <record id="vehicle_receiver" model="res.groups">
+            <field name="name">Receiver</field>
+            <field name="category_id" ref="vehicle_group.module_vehicle_group"/>
         </record>
 
-
-        <record id="warranty_technology_manager" model="res.groups">
-            <field name="name">Technology Manager</field>
-            <field name="category_id" ref="manage_warranty_group"/>
-            <field name="implied_ids" eval="[(4, ref('warranty_basic'))]"/>
+        <!-- 车间维修组长 -->
+        <record id="vehicle_repair_leader" model="res.groups">
+            <field name="name">Repair Leader</field>
+            <field name="category_id" ref="vehicle_group.module_vehicle_group"/>
+            <field name="implied_ids" eval="[(4, ref('vehicle_group.vehicle_repair'))]"/>
         </record>
 
-
-        <record id="warranty_technology_chief" model="res.groups">
-            <field name="name">Technology Chief</field>
-            <field name="category_id" ref="manage_warranty_group"/>
-            <field name="implied_ids" eval="[(4, ref('warranty_basic'))]"/>
-        </record>
-
-        <record id="warranty_driver" model="res.groups">
-            <field name="name">Driver</field>
-            <field name="category_id" ref="manage_warranty_group"/>
-            <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('stock.group_stock_user')), (4, ref('fleet.fleet_group_user'))]"/>
-        </record>
-
-        <record id="warranty_depot" model="res.groups">
-            <field name="name">Depot</field>
-            <field name="category_id" ref="manage_warranty_group"/>
-            <field name="implied_ids" eval="[(4, ref('warranty_driver'))]"/>
-            <field name="users" eval="[(4, ref('base.user_root'))]"/>
-        </record>
-
-
-        <record id="warranty_repair" model="res.groups">
-            <field name="name">Repair</field>
-            <field name="category_id" ref="manage_warranty_group"/>
-            <field name="implied_ids" eval="[(4, ref('stock.group_stock_user')), (4, ref('fleet.fleet_group_user'))]"/>
-            <field name="users" eval="[(4, ref('base.user_root'))]"/>
-        </record>
-
-        <!--<record id="warranty_dispatch" model="res.groups">-->
-            <!--<field name="name">Dispatch</field>-->
-            <!--<field name="category_id" ref="manage_warranty_group"/>-->
-            <!--<field name="implied_ids" eval="[(4, ref('warranty_repair'))]"/>-->
-            <!--<field name="users" eval="[(4, ref('base.user_root'))]"/>-->
+        <!--&lt;!&ndash;车间维修只能看到自己的维保项目&ndash;&gt;-->
+        <!--<record id="rule_warranty_order_project_vehicle_repair" model="ir.rule">-->
+            <!--<field name="name">Vehicle Repair can only see his/her Warranty Order Project</field>-->
+            <!--<field name="model_id" ref="model_warranty_order_project"/>-->
+            <!--<field name="domain_force">[('user_id','=',user.id)]</field>-->
+            <!--<field name="groups" eval="[(4, ref('vehicle_group.vehicle_repair'))]"/>-->
         <!--</record>-->
 
-        <record id="warranty_inspect" model="res.groups">
-            <field name="name">Inspect</field>
-            <field name="category_id" ref="manage_warranty_group"/>
-            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
-            <field name="users" eval="[(4, ref('base.user_root'))]"/>
-        </record>
+
+        <!--&lt;!&ndash;车间调度能看到所有的维保项目&ndash;&gt;-->
+        <!--<record id="rule_warranty_order_project_vehicle_dispatch" model="ir.rule">-->
+            <!--<field name="name">Vehicle Dispatch has all rights on warranty_order_project</field>-->
+            <!--<field name="model_id" ref="model_warranty_order_project"/>-->
+            <!--<field name="domain_force">[(1,'=',1)]</field>-->
+            <!--<field name="groups" eval="[(4, ref('vehicle_group.vehicle_dispatch'))]"/>-->
+        <!--</record>-->
+
+
+        <!--&lt;!&ndash;技术机务员只能看到自己的保养计划&ndash;&gt;-->
+        <!--<record id="rule_warranty_plan_tech_user" model="ir.rule">-->
+            <!--<field name="name">Tech User can only see his/her Warranty Plan</field>-->
+            <!--<field name="model_id" ref="model_warranty_plan"/>-->
+            <!--<field name="domain_force">[('create_uid','=',user.id)]</field>-->
+            <!--<field name="groups" eval="[(4, ref('materials_product.base_extend_tech_user'))]"/>-->
+        <!--</record>-->
+
+
     </data>
 </odoo>

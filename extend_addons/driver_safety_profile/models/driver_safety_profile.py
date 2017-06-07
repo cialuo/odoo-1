@@ -124,3 +124,15 @@ class OverspeedRecord(models.Model):  # 超速记录
             vals['serial_number'] = self.env['ir.sequence'].next_by_code('overspeed_record') or '/'
         return super(OverspeedRecord, self).create(vals)
 
+
+class employee(models.Model):
+    _inherit = 'hr.employee'
+
+    safe_kilometer_ids = fields.One2many("safe_kilometer", 'employee_id', string='Safe Kilometer')
+
+    endorsement_ids = fields.One2many("endorsement", 'employee_id', string='Endorsement')
+
+    accident_record_ids = fields.One2many("accident_record", 'employee_id', string='Accident Record')
+
+    overspeed_record_ids = fields.One2many("overspeed_record", 'employee_id', string='Overspeed Record')
+

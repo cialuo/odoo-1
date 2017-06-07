@@ -23,7 +23,7 @@
             <field name="name">Warranty Interval Cycle Diagram</field>
             <field name="model">warranty_interval</field>
             <field name="arch" type="xml">
-                <form>
+                <form create="false">
                     <header>
                         <button name="action_filing" type="object"
                                 string="Filing" states="use"/>

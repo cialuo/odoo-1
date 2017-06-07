@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-02 07:36+0000\n"
-"PO-Revision-Date: 2017-06-02 07:36+0000\n"
+"POT-Creation-Date: 2017-06-07 11:39+0000\n"
+"PO-Revision-Date: 2017-06-07 11:39+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,9 @@ msgstr "事故原因"
 
 #. module: driver_safety_profile
 #: model:ir.actions.act_window,name:driver_safety_profile.accident_record_action
+#: model:ir.model.fields,field_description:driver_safety_profile.field_hr_employee_accident_record_ids
 #: model:ir.ui.menu,name:driver_safety_profile.accident_record_menu
+#: model:ir.ui.view,arch_db:driver_safety_profile.safe_kilometer_view_form_inherit
 msgid "Accident Record"
 msgstr "事故记录"
 
@@ -69,6 +71,11 @@ msgid "Driver Safety Profile"
 msgstr "驾驶员安全档案"
 
 #. module: driver_safety_profile
+#: model:ir.model,name:driver_safety_profile.model_hr_employee
+msgid "Employee"
+msgstr "员工"
+
+#. module: driver_safety_profile
 #: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_employee_id
 #: model:ir.model.fields,field_description:driver_safety_profile.field_endorsement_employee_id
 #: model:ir.model.fields,field_description:driver_safety_profile.field_overspeed_record_employee_id
@@ -88,8 +95,14 @@ msgstr "结束时间"
 
 #. module: driver_safety_profile
 #: model:ir.actions.act_window,name:driver_safety_profile.endorsement_action
+#: model:ir.model.fields,field_description:driver_safety_profile.field_hr_employee_endorsement_ids
 #: model:ir.ui.menu,name:driver_safety_profile.endorsement_menu
 msgid "Endorsement"
+msgstr "违章记录"
+
+#. module: driver_safety_profile
+#: model:ir.ui.view,arch_db:driver_safety_profile.safe_kilometer_view_form_inherit
+msgid "Endorsement_ids"
 msgstr "违章记录"
 
 #. module: driver_safety_profile
@@ -186,7 +199,9 @@ msgstr "超出范围"
 
 #. module: driver_safety_profile
 #: model:ir.actions.act_window,name:driver_safety_profile.overspeed_record_action
+#: model:ir.model.fields,field_description:driver_safety_profile.field_hr_employee_overspeed_record_ids
 #: model:ir.ui.menu,name:driver_safety_profile.overspeed_record_menu
+#: model:ir.ui.view,arch_db:driver_safety_profile.safe_kilometer_view_form_inherit
 msgid "Overspeed Record"
 msgstr "超速记录"
 
@@ -204,7 +219,9 @@ msgstr "线路"
 
 #. module: driver_safety_profile
 #: model:ir.actions.act_window,name:driver_safety_profile.safe_kilometer_action
+#: model:ir.model.fields,field_description:driver_safety_profile.field_hr_employee_safe_kilometer_ids
 #: model:ir.ui.menu,name:driver_safety_profile.safe_kilometer_menu
+#: model:ir.ui.view,arch_db:driver_safety_profile.safe_kilometer_view_form_inherit
 msgid "Safe Kilometer"
 msgstr "安全公里"
 

@@ -55,7 +55,7 @@
                     </group>
                     <footer  attrs="{'invisible': [('percentage_work', '=', 0)]}">
                      <button name="dispatch" type="object"
-                          string="Dispatch" class="oe_highlight oe_edit_only pull-right"/>
+                          string="Dispatch" class="oe_highlight oe_edit_only pull-right" groups="vehicle_group.vehicle_dispatch" />
                     </footer>
                  </sheet>
                 </form>
@@ -94,10 +94,13 @@
                 <form create="false">
                     <header>
                         <button name="action_confirm_effective" states="draft" string="Confirm Effective" type="object" class="oe_highlight o_expense_submit"/> <!-- 确认生效 -->
-                        <button name="action_batch_dispatch" states="dispatch" string="Batch Dispatch" type="object" class="oe_highlight o_expense_submit"/> <!-- 批量派工 -->
-                        <button name="action_into_maintain" states="dispatch" string="Into Maintain" type="object" class="oe_highlight o_expense_submit"/> <!-- 进入保养状态 -->
+                        <button name="action_batch_dispatch" states="dispatch" string="Batch Dispatch" type="object" class="oe_highlight o_expense_submit"
+                            groups="vehicle_group.vehicle_dispatch"/> <!-- 批量派工 -->
+                        <button name="action_into_maintain" states="dispatch" string="Into Maintain" type="object" class="oe_highlight o_expense_submit"
+                            groups="vehicle_group.vehicle_dispatch"/> <!-- 进入保养状态 -->
                         <button name="action_inspect_order" states="maintain,inspect,done" type="object" class="oe_highlight" string="Query Inspect Bill" context="{'xml_id':'warranty_order_item_action'}"/> <!--查看检验单 -->
-                        <button name="action_into_inspect" states="maintain" string="Into Inspect" type="object" class="oe_highlight o_expense_submit"/> <!-- 全部报检 -->
+                        <button name="action_into_inspect" states="maintain" string="Into Inspect" type="object" class="oe_highlight o_expense_submit"
+                            groups="vehicle_warranty.vehicle_repair_leader"/> <!-- 全部报检 -->
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -369,11 +372,13 @@
 						<button name="action_check_pass" type="object"
                                 string="Check Pass"
 								states="check"
-                                class="oe_highlight"/> <!-- 检验通过-->
+                                class="oe_highlight"
+                                groups="vehicle_group.vehicle_inspect"/> <!-- 检验通过-->
 						<button name="%(wizard_inspect_order_reject)d"
 								type="action"
                                 string="Return To Repair"
-								states="check"/> <!-- 退回重修-->
+								states="check"
+                                groups="vehicle_group.vehicle_inspect"/> <!-- 退回重修-->
                     	<field name="state"  widget="statusbar" statusbar_visible="maintain,check,complete"/>
                 	</header>
 					<sheet>
@@ -447,7 +452,8 @@
         <!-- 保养项目 menu -->
         <menuitem name="Warranty Order Project" id="warranty_order_project" sequence="30"
             parent="warranty_maintain_manage_sub"
-            action="warranty_order_item_action"/>
+            action="warranty_order_item_action"
+            groups="vehicle_group.vehicle_repair"/>
 
         <!-- 保养项目、检验单 批量报检 -->
         <record id="warranty_order_item_into_check_action" model="ir.actions.server">
@@ -521,7 +527,8 @@
                     res_model='wizard_inspect_order_batch_reject'
                     view_mode='form'
                     target='new'
-                    key2='client_action_multi'/>
+                    key2='client_action_multi'
+                    groups="vehicle_group.vehicle_inspect"/>
 
     </data>
 </odoo>

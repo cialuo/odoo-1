@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-06 11:44+0000\n"
-"PO-Revision-Date: 2017-06-06 11:44+0000\n"
+"POT-Creation-Date: 2017-06-07 11:41+0000\n"
+"PO-Revision-Date: 2017-06-07 11:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -313,11 +313,6 @@ msgid "Default Unit of Measure used for all stock operation."
 msgstr "所有库存作业的默认计量单位"
 
 #. module: vehicle_warranty
-#: model:res.groups,name:vehicle_warranty.warranty_depot
-msgid "Depot"
-msgstr "站务"
-
-#. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_item_dispatch_action
 msgid "Dispatch"
 msgstr "派工"
@@ -346,11 +341,6 @@ msgstr "派工"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_warranty_plan_display_name
 msgid "Display Name"
 msgstr "显示名称"
-
-#. module: vehicle_warranty
-#: model:res.groups,name:vehicle_warranty.warranty_driver
-msgid "Driver"
-msgstr "司机"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_project_end_inspect_time
@@ -451,11 +441,6 @@ msgstr "工时比例错误"
 #: model:ir.model,name:vehicle_warranty.model_fleet_vehicle
 msgid "Information on a vehicle"
 msgstr "车辆上的信息"
-
-#. module: vehicle_warranty
-#: model:res.groups,name:vehicle_warranty.warranty_inspect
-msgid "Inspect"
-msgstr "检验"
 
 #. module: vehicle_warranty
 #: model:ir.actions.act_window,name:vehicle_warranty.wizard_inspect_order_reject
@@ -993,6 +978,11 @@ msgid "Real work"
 msgstr "实际工时"
 
 #. module: vehicle_warranty
+#: model:res.groups,name:vehicle_warranty.vehicle_receiver
+msgid "Receiver"
+msgstr "车间接车"
+
+#. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_account_view_form
 msgid "Refresh"
 msgstr "刷新"
@@ -1016,14 +1006,14 @@ msgid "Remark"
 msgstr "备注"
 
 #. module: vehicle_warranty
-#: model:res.groups,name:vehicle_warranty.warranty_repair
-msgid "Repair"
-msgstr "维修"
-
-#. module: vehicle_warranty
 #: model:ir.ui.menu,name:vehicle_warranty.warranty_level_menu
 msgid "Repair Category"
 msgstr "修理类别"
+
+#. module: vehicle_warranty
+#: model:res.groups,name:vehicle_warranty.vehicle_repair_leader
+msgid "Repair Leader"
+msgstr "车间维修组长"
 
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_account_view_form
@@ -1211,14 +1201,9 @@ msgid "Task count"
 msgstr "任务数"
 
 #. module: vehicle_warranty
-#: model:res.groups,name:vehicle_warranty.warranty_technology_chief
-msgid "Technology Chief"
-msgstr "机务技术主管"
-
-#. module: vehicle_warranty
-#: model:res.groups,name:vehicle_warranty.warranty_technology_manager
-msgid "Technology Manager"
-msgstr "机务技术经理"
+#: model:res.groups,name:vehicle_warranty.base_extend_tech_satrap
+msgid "Tech Satrap"
+msgstr "技术机务主管"
 
 #. module: vehicle_warranty
 #: code:addons/vehicle_warranty/models/warranty_interval.py:42
@@ -1323,7 +1308,6 @@ msgid "Vin"
 msgstr "车架号"
 
 #. module: vehicle_warranty
-#: model:ir.module.category,name:vehicle_warranty.manage_warranty_group
 #: selection:warranty_category,warranty_type:0
 msgid "Warranty"
 msgstr "保养"
@@ -1338,11 +1322,6 @@ msgstr "维保结算单"
 #: model:ir.ui.menu,name:vehicle_warranty.menue_warranty_account_order
 msgid "Warranty Account Order"
 msgstr "维保结算单"
-
-#. module: vehicle_warranty
-#: model:res.groups,name:vehicle_warranty.warranty_basic
-msgid "Warranty Basic"
-msgstr "技术机务"
 
 #. module: vehicle_warranty
 #: model:ir.actions.act_window,name:vehicle_warranty.warranty_capability_action

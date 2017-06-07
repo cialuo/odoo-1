@@ -127,6 +127,7 @@
 		<!--结算单-->
         <menuitem name="Warranty Account Order" id="menue_warranty_account_order"
 				  parent="warranty_maintain_manage_sub"
-				  action="warranty_account_action" sequence="60" /> <!--groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_dispatch"-->
+				  action="warranty_account_action" sequence="60"
+				  groups="vehicle_group.vehicle_dispatch"/> <!--groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_dispatch"-->
     </data>
 </odoo>

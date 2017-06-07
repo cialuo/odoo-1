@@ -244,5 +244,83 @@
                   parent="driver_safety_profile_menu"
                   action="overspeed_record_action"/>
 
+
+        <!-- 个人工作台账_安全公里 -->
+        <record id='safe_kilometer_view_form_inherit' model='ir.ui.view'>
+            <field name="name">Safe Kilometer</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="employees.employee_work_records_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Safe Kilometer">
+                        <field name="safe_kilometer_ids">
+                            <tree create="false" delete="false">
+                                <field name="serial_number"/>
+                                <field name="start_time"/>
+                                <field name="end_time"/>
+                                <field name="route_id"/>
+                                <field name="vehicle_id"/>
+                                <field name="job_number"/>
+                                <field name="employee_id"/>
+                                <field name="accumulated_safe_kilometer"/>
+                            </tree>
+                        </field>
+                    </page>
+
+                    <page string="Endorsement_ids">
+                        <field name="endorsement_ids">
+                            <tree create="false" delete="false">
+                                <field name="serial_number"/>
+                                <field name="occurrence_time"/>
+                                <field name="location"/>
+                                <field name="route_id"/>
+                                <field name="vehicle_id"/>
+                                <field name="job_number"/>
+                                <field name="employee_id"/>
+                                <field name="violation_type"/>
+                                <field name="illegal_reason"/>
+                                <field name="handle_result"/>
+                            </tree>
+                        </field>
+                    </page>
+
+                    <page string="Accident Record">
+                        <field name="accident_record_ids">
+                            <tree create="false" delete="false">
+                                <field name="serial_number"/>
+                                <field name="occurrence_time"/>
+                                <field name="location"/>
+                                <field name="route_id"/>
+                                <field name="vehicle_id"/>
+                                <field name="job_number"/>
+                                <field name="employee_id"/>
+                                <field name="accident_type"/>
+                                <field name="accident_cause"/>
+                                <field name="handle_result"/>
+                            </tree>
+                        </field>
+                    </page>
+
+                    <page string="Overspeed Record">
+                        <field name="overspeed_record_ids">
+                            <tree create="false" delete="false">
+                                <field name="serial_number"/>
+                                <field name="occurrence_time"/>
+                                <field name="location"/>
+                                <field name="route_id"/>
+                                <field name="vehicle_id"/>
+                                <field name="job_number"/>
+                                <field name="employee_id"/>
+                                <field name="speed"/>
+                                <field name="speed_limit"/>
+                                <field name="outrageous"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
     </data>
 </odoo>
