@@ -180,7 +180,7 @@ class employee(models.Model):
         user_id = vals.get('user_id', False)
         if user_id != False:
             count = self.search_count([('user_id', '=', user_id)])
-            if count > 1:
+            if count >= 1:
                 raise ValidationError(_("can't set system user to employee in twice"))
         if workpost != False and user_id != False:
             self._powerRebuild(user_id, workpost, 'add')

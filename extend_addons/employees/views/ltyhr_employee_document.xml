@@ -90,7 +90,7 @@
                                     <group name="active_group">
                                         <field name="socialsecurityaccount"/>
                                         <field name="salaryaccount"/>
-                                        <field name="department_id" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="department_id" options="{'no_open': True, 'no_create': True}" required="1"/>
                                         <field name="workpost" options="{'no_open': True, 'no_create': True}" domain="[('department','=',department_id)]"/>
                                         <field name="user_id" options="{'no_open': True, 'no_create': True}" string="Related User"/>
                                     </group>
