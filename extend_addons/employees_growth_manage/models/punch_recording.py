@@ -16,7 +16,7 @@ class punch_recording(models.Model):
 
      time_no = fields.Char(string='Time no',compute='_compute_time_no')
 
-     teacher_id = fields.Many2one('employees_growth.training_teacher',string='Teacher id',required=True)
+     teacher_id = fields.Many2one('employees_growth.training_teacher',string='Teacher id',required=True,)
 
      address = fields.Char(string='Curriculum address',required=True)
 

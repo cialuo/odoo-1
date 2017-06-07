@@ -56,7 +56,7 @@
 
         <!-- 培训设置 -->
         <menuitem id="employees_growth_manage.menu_configuration" name="Training Configuration"
-                  parent="employees_growth_manage.menu_root" sequence="3"/>
+                  parent="employees_growth_manage.menu_root" sequence="3" groups="employees_growth_manage.training_teacher"/>
 
         <!--培训老师-->
         <menuitem id="employees_growth_manage.menu_training_teacher" name="Training Teacher Menu"

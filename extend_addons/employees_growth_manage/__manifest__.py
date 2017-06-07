@@ -15,7 +15,7 @@
     'depends': ['base','employees','security_manage_menu','vehicle_manage_menu'],
     'data': [
         'security/security_data.xml',
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'data/data.xml',
         'views/course_typ_view.xml',
         'views/training_teacher_view.xml',
