@@ -1,13 +1,14 @@
 <odoo>
     <data>
 
-        <record id="maintain_calc_view_tree" model="ir.ui.view">
-            <field name="name">Maintain Calc</field>
-            <field name="model">maintain.manage.repair</field>
+        <record id="warranty_account_view_tree" model="ir.ui.view">
+            <field name="name">Warranty Account</field>
+            <field name="model">warranty_order</field>
             <field name="arch" type="xml">
-                <tree string="Maintain Calc Tree" create="false">
+                <tree string="Warranty Account" create="false">
 					<field name="name"/>
-					<field name="report_id"/>
+                    <field name="plan_id" string="Warranty Plan No"/>
+					<!--<field name="report_id"/>-->
 					<field name="vehicle_id"/>
 					<field name="vehicle_type"/>
 					<field name="license_plate"/>
@@ -20,13 +21,11 @@
             </field>
         </record>
 
-
-
-        <record id="maintain_calc_view_form" model="ir.ui.view">
-            <field name="name">Maintain Calc Form</field>
-            <field name="model">maintain.manage.repair</field>
+        <record id="warranty_account_view_form" model="ir.ui.view">
+            <field name="name">Warranty Account</field>
+            <field name="model">warranty_order</field>
             <field name="arch" type="xml">
-                <form string="MaintainRepair Form">
+                <form string="MaintainRepair Form" create="false">
                 	<header>
 						<button name="action_calcuate" type="object"
                                 string="Confirm Calcuate"
@@ -57,9 +56,12 @@
 	                        <group>
                                 <field name="vehicle_id" />
 								<field name="vehicle_type" />
-	                        	<field name="fault_reason_id" readonly="1"/>
-								<field name="fault_method_id" readonly="1"/>
-								<field name="report_id" />
+                                <field name="report_repair_user" string="Repair Man" readonly="1"/>
+                                <field name="warranty_category" readonly="1"/>
+                                <field name="calculate_time" readonly="1"/>
+	                        	<!--<field name="fault_reason_id" readonly="1"/>-->
+								<!--<field name="fault_method_id" readonly="1"/>-->
+								<!--<field name="report_id" />-->
 	                        </group>
 	                        <group>
 								<field name="work_fee"/>
@@ -70,7 +72,6 @@
 	                        </group>
                    		 </group>
   						 <notebook>
-
 
 							 <page string="Materials Product">
                                 <field name="materials_product_ids" readonly="1">
@@ -86,14 +87,16 @@
                              </page>
 
 							 <page string="MaintainRepair Jobs">
-                                <field name="job_ids" readonly="1">
+                                <field name="manhour_manage_ids" readonly="1">
                                     <tree string="MaintainRepair Jobs" create="false" delete="false">
 										<field name="sequence"/>
-										<field name="fault_method_id"/>
+                                        <field name="project_category_id" string="Category" readonly="1"/>
+                                        <field name="project_project_id" readonly="1"/>
+										<!--<field name="fault_method_id"/>-->
 										<field name="user_id"/>
 										<field name="real_start_time"/>
 										<field name="real_end_time"/>
-										<field name="work_time"/>
+										<field name="work_time" string="Standard Time"/>
 										<field name="percentage_work"/>
 										<field name="real_work"/>
 										<field name="real_work_fee" sum="total" widget="monetary"/>
@@ -110,22 +113,20 @@
             </field>
         </record>
 
-
-
-		<record model="ir.actions.act_window" id="maintain_calc_action">
-			<field name="name">maintain_calc_action</field>
-			<field name="res_model">maintain.manage.repair</field>
+		<record model="ir.actions.act_window" id="warranty_account_action">
+			<field name="name">Warranty Account</field>
+			<field name="res_model">warranty_order</field>
 			<field name="view_mode">tree,form</field>
-			<field name="domain">[('state', 'in', ['completed'])]</field>
+			<field name="domain">[('state', 'in', ['done'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('maintain_calc_view_tree')}),
-                (0, 0, {'view_mode': 'form', 'view_id': ref('maintain_calc_view_form')})]"/>
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('warranty_account_view_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('warranty_account_view_form')})]"/>
 		</record>
 
-		<!--抢修结算单-->
-        <menuitem name="maintain_calc_order" id="maintain_calc_order"
-				  parent="maintain_manage"
-				  action="maintain_calc_action" sequence="60"
-				  groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_dispatch"/>
+
+		<!--结算单-->
+        <menuitem name="Warranty Account Order" id="menue_warranty_account_order"
+				  parent="warranty_maintain_manage_sub"
+				  action="warranty_account_action" sequence="60" /> <!--groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_dispatch"-->
     </data>
 </odoo>
