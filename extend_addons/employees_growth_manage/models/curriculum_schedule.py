@@ -26,7 +26,7 @@ class curriculum_schedule(models.Model):
 
      address = fields.Char(string='Curriculum address')
 
-     train_date = fields.Date(string='Train date')
+     train_date = fields.Date(string='Train date',required=True)
 
      state = fields.Selection([('start','Start'),('sign','Sign'),
                                ('examination','Examination'),
@@ -136,6 +136,7 @@ class students(models.Model):
      post_id = fields.Many2one(related='student_id.workpost', store=True, readonly=True,string='Post id')
 
      ways_of_registration = fields.Selection([('companyWays', 'Company Ways'),
-                                              ('AutonomousWays', 'Autonomous Ways')], string='ways_of_registration')
+                                              ('AutonomousWays', 'Autonomous Ways')],
+                                             string='ways_of_registration',default='companyWays')
 
      is_sign = fields.Boolean(default=False)

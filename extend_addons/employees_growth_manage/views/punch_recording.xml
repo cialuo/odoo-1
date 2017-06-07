@@ -25,7 +25,7 @@
       <field name="name">time_arrangement form</field>
       <field name="model">employees_growth.time_arrangement</field>
       <field name="arch" type="xml">
-        <form>
+        <form create="false">
              <header>
               <button name="start_to_sign" type="object" string="start_to_sign" states="start" class="oe_highlight"/>
               <button name="sign_to_examination" type="object" string="sign_to_examination" states="sign" class="oe_highlight"/>
