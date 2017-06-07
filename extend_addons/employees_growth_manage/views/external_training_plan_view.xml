@@ -24,8 +24,8 @@
         <form>
             <header>
               <button name="draft_to_pendingAudit" type="object" string="draft_to_pendingAudit" states="draft" class="oe_highlight"/>
-              <button name="pendingAudit_to_pendingExecution" type="object" string="pendingAudit_to_pendingExecution" states="pendingAudit" class="oe_highlight"/>
-              <button name="%(external_plan_return_wizard)d" type="action" string="pendingAudit_to_draft" states="pendingAudit"/>
+              <button name="pendingAudit_to_pendingExecution" type="object" string="pendingAudit_to_pendingExecution" states="pendingAudit" class="oe_highlight" groups="employees_growth_manage.training_manager"/>
+              <button name="%(external_plan_return_wizard)d" type="action" string="pendingAudit_to_draft" states="pendingAudit" groups="employees_growth_manage.training_manager"/>
               <button name="pendingExecution_to_complete" type="object" string="pendingExecution_to_complete" states="pendingExecution" class="oe_highlight"/>
               <button name="pendingExecution_to_pendingAudit" type="object" string="pendingExecution_to_pendingAudit" states="pendingExecution"/>
               <field name="state"  widget="statusbar"/>
