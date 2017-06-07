@@ -5,7 +5,7 @@
             <field name="name">Maintain Calc</field>
             <field name="model">maintain.manage.repair</field>
             <field name="arch" type="xml">
-                <tree string="Maintain Calc Tree">
+                <tree string="Maintain Calc Tree" create="false">
 					<field name="name"/>
 					<field name="report_id"/>
 					<field name="vehicle_id"/>

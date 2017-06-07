@@ -26,7 +26,10 @@
             <field name="target">inline</field>
         </record>
 
-        <menuitem id="Settings" name="Settings" parent="vehicle_manage_menu.vehicle_setting"
-            sequence="20" action="action_vehicle_config_settings"/>
+        <menuitem id="Settings" name="Settings"
+                  parent="vehicle_manage_menu.vehicle_setting"
+                  sequence="20" action="action_vehicle_config_settings"
+                  groups="materials_product.base_extend_tech_user"
+        />
     </data>
 </odoo>
