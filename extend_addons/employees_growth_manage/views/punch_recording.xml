@@ -27,9 +27,7 @@
       <field name="arch" type="xml">
         <form create="false">
              <header>
-              <button name="start_to_sign" type="object" string="start_to_sign" states="start" class="oe_highlight"/>
-              <button name="sign_to_examination" type="object" string="sign_to_examination" states="sign" class="oe_highlight"/>
-              <button name="examination_to_complete" type="object" string="examination_to_complete" states="examination" class="oe_highlight"/>
+              <button name="to_complete" type="object" string="to_complete" states="wait" class="oe_highlight"/>
               <field name="state"  widget="statusbar"/>
             </header>
             <sheet>

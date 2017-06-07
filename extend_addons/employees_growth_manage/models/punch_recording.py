@@ -26,7 +26,7 @@ class punch_recording(models.Model):
 
      state = fields.Selection([('wait', 'Wait'), ('ingSign', 'Ing Sign'),
                                ('havingClass', 'Having Class'), ('complete', 'Complete')],
-                              default='wait',compute='_compute_state')
+                              default='wait')
 
      total_student = fields.Float(string='Total student',compute='_compute_total_student')
 
@@ -45,20 +45,6 @@ class punch_recording(models.Model):
      course_id = fields.Many2one('employees_growth.course',related='curriculum_schedule_id.course_id',
                                  string='Course id', store=True,
                                  readonly=True)
-
-     @api.multi
-     def _compute_state(self):
-          """
-               计算状态
-          :return:
-          """
-          for order in self:
-              if (order.total_student - order.sign_number) == 0:
-                   order.state = 'havingClass'
-              elif order.sign_number > 0 :
-                   order.state = 'ingSign'
-              else:
-                   order.state = 'wait'
 
      @api.multi
      def _compute_name(self):
@@ -121,6 +107,13 @@ class punch_recording(models.Model):
                else:
                     order.sign_rate = "0.0%"
 
+     @api.multi
+     def to_complete(self):
+          """
+               全部签到
+          :return:
+          """
+          self.state = 'havingClass'
 
 class punch_recording_details(models.Model):
 
