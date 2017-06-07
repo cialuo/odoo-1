@@ -4,6 +4,7 @@ from odoo import models, fields, api, _, exceptions
 from datetime import datetime, timedelta, date
 from odoo.exceptions import ValidationError
 import odoo.tools.misc
+import time
 # 休假与考勤
 
 class attence(models.Model):
@@ -39,16 +40,52 @@ class attencededucted(models.Model):
     _name = 'employee.attencededucted'
     _rec_name = 'employee_id'
 
-    employee_id = fields.Many2one('hr.employee', string='employee')
+    employee_id = fields.Many2one('hr.employee', string='employee', required=True)
 
     # 考勤月份
-    month = fields.Date(string='attence month')
+    month = fields.Date(string='attence month', required=True)
 
     # 缺勤时长 分钟单位
-    absence = fields.Integer(string='attence absence')
+    absence = fields.Integer(string='attence absence', required=True)
 
     # 扣款金额
-    deducted = fields.Integer(string='deducted money')
+    deducted = fields.Integer(string='deducted money', required=True)
+
+    @api.one
+    @api.constrains('absence', 'deducted')
+    def _check_description(self):
+        if self.absence < 0:
+            raise ValidationError(_("absence time must be an positive integer"))
+
+        if self.deducted < 0:
+            raise ValidationError(_("deducted must be an positive integer"))
+
+    @api.model
+    def _formatTime(self, month):
+        return time.strftime("%Y-%m-01",
+                      time.localtime(time.mktime(time.strptime(month, "%Y-%m-%d"))))
+
+    @api.model
+    def _isDuplicate(self, employee, month):
+        return self.search_count([('month' , '=', month), ('employee_id', '=', employee)])
+
+    @api.multi
+    def write(self, vals):
+        month = vals.get('month', None)
+        if month != None:
+            month = self._formatTime(month)
+        vals['month'] = month
+        for item in self:
+            if self._isDuplicate(item.employee_id.id, month) >= 1:
+                raise ValidationError(_("record duplicated"))
+        return super(attencededucted,self).write(vals)
+
+    @api.model
+    def create(self, vals):
+        vals['month'] = self._formatTime(vals['month'])
+        if self._isDuplicate(vals['employee_id'], vals['month']) >= 1:
+            raise ValidationError(_("record duplicated"))
+        return super(attencededucted,self).create(vals)
 
 
 class LeaveType(models.Model):
