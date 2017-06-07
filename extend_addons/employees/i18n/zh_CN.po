@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-06 07:57+0000\n"
-"PO-Revision-Date: 2017-06-06 15:57+0800\n"
+"POT-Creation-Date: 2017-06-07 01:52+0000\n"
+"PO-Revision-Date: 2017-06-07 09:53+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -122,7 +122,7 @@ msgstr "员工"
 #: model:ir.model.fields,field_description:employees.field_employees_innertransfer_employee_id
 #: model:ir.model.fields,field_description:employees.field_employees_transfer_record_employee_id
 msgid "Employee id"
-msgstr "ID"
+msgstr "员工"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.employees_certificate_form_view
@@ -669,6 +669,12 @@ msgstr "工号"
 #: model:ir.model.fields,field_description:employees.field_hr_employee_workpost
 msgid "employee work post"
 msgstr "岗位"
+
+#. module: employees
+#: model:ir.actions.act_window,name:employees.employee_work_records_action
+#: model:ir.ui.menu,name:employees.employee_work_records_menu
+msgid "employee work records"
+msgstr "个人工作台账"
 
 #. module: employees
 #: model:ir.model,name:employees.model_employee_rewardspunishment
@@ -1236,6 +1242,11 @@ msgstr "新单位"
 #: model:ir.model.fields,field_description:employees.field_employee_rewardspunishment_time
 msgid "time"
 msgstr "时间"
+
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.employee_work_records_form
+msgid "traffic safety"
+msgstr "交通安全"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_innertransfer_transfer_type
