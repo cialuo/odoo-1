@@ -52,7 +52,6 @@
                     <page name="course_arrangement" string="Course arrangement">
                          <field name="curriculum_schedules" >
                             <tree editable="top">
-                                <field name="name" string="Theme"/>
                                 <field name="course_id" />
                                 <field name="course_type"/>
                                 <field name="train_type"/>

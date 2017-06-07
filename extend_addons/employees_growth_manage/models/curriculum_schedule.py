@@ -63,7 +63,8 @@ class curriculum_schedule(models.Model):
           :return:
           """
           res = super(curriculum_schedule, self).write(vals)
-          if vals.has_key('time_arrangements') or vals.has_key('students'):
+          if (vals.has_key('time_arrangements') and len(vals.get('time_arrangements')) > 0) \
+                 or (vals.has_key('students') and len(vals.get('students')) > 0):
                self._create_punch_recording(vals)
           return res
 
@@ -76,7 +77,8 @@ class curriculum_schedule(models.Model):
          :return:
          """
          res = super(curriculum_schedule, self).create(vals)
-         if vals.has_key('time_arrangements') or vals.has_key('students'):
+         if (vals.has_key('time_arrangements') and len(vals.get('time_arrangements')) > 0) \
+                 or (vals.has_key('students') and len(vals.get('students')) > 0):
               self._create_punch_recording(vals)
          return res
 
@@ -95,23 +97,25 @@ class curriculum_schedule(models.Model):
                """
                     新建课程表
                """
-               id = vals.get('time_arrangements')[0][2].get('curriculum_schedule_id')
+               if len(vals.get('time_arrangements')) > 0:
+                    id = vals.get('time_arrangements')[0][2].get('curriculum_schedule_id')
 
-          # 根据课程表ID获取计划
-          schedule = self.env['employees_growth.curriculum_schedule'].search([('id', '=', id)])
-          students = schedule.students
-          times = schedule.time_arrangements
-          print 'students:',len(students)
-          print 'times:', len(times)
+          if id :
+               # 根据课程表ID获取计划
+               schedule = self.env['employees_growth.curriculum_schedule'].search([('id', '=', id)])
+               students = schedule.students
+               times = schedule.time_arrangements
+               print 'students:',len(students)
+               print 'times:', len(times)
 
-          for time in times:
-               time.details.unlink()
-               for student in students:
-                    detail_vals = {
-                         'punch_recording_id':time.id,
-                         'student_id':student.student_id.id
-                    }
-                    self.env['employees_growth.punch_recording_details'].create(detail_vals)
+               for time in times:
+                    time.details.unlink()
+                    for student in students:
+                         detail_vals = {
+                              'punch_recording_id':time.id,
+                              'student_id':student.student_id.id
+                         }
+                         self.env['employees_growth.punch_recording_details'].create(detail_vals)
 
 
 

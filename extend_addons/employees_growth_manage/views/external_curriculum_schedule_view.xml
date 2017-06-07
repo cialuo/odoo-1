@@ -7,12 +7,13 @@
       <field name="model">employees_growth.external_curriculum_schedule</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="curriculum_no"/>
           <field name="name"/>
-          <field name="train_type"/>
+          <field name="training_institutions"/>
           <field name="teacher_id"/>
           <field name="train_date"/>
           <field name="address"/>
+          <field name="create_uid"/>
+          <field name="create_date"/>
           <field name="state"/>
         </tree>
       </field>
@@ -25,7 +26,7 @@
       <field name="arch" type="xml">
         <form>
              <header>
-              <button name="start_to_sign" type="object" string="start_to_sign" states="start" class="oe_highlight"/>
+              <button name="start_to_sign" type="object" string="draft_to_pendingAudit" states="start" class="oe_highlight"/>
               <button name="sign_to_examination" type="object" string="sign_to_examination" states="sign" class="oe_highlight"/>
               <button name="examination_to_complete" type="object" string="examination_to_complete" states="examination" class="oe_highlight"/>
               <field name="state"  widget="statusbar"/>
@@ -39,14 +40,16 @@
                 </div>
                 <group>
                     <group>
-                        <field name="curriculum_no"/>
-                        <field name="course_id" options="{'no_open': True, 'no_create': True}"/>
-                        <field name="train_date" />
+                        <field name="training_cycle"/>
+                        <field name="create_uid" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="create_date"/>
                     </group>
                     <group>
-                        <field name="train_type"/>
-                        <field name="course_type"/>
+                        <field name="course_type" />
+                        <field name="course_id" />
+                        <field name="training_institutions"/>
                         <field name="teacher_id" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="train_date"/>
                         <field name="address"/>
                     </group>
                 </group>

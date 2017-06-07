@@ -84,6 +84,9 @@
       <field name="name">time_arrangement window</field>
       <field name="res_model">employees_growth.time_arrangement</field>
       <field name="view_mode">tree,form</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('employees_growth_manage.time_arrangement_list')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('employees_growth_manage.time_arrangement_form')})]"/>
     </record>
 
   </data>

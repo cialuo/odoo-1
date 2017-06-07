@@ -3,10 +3,7 @@
     'name': "员工成长管理",
 
     'summary': """
-        内部培训：
-            培训计划，培训课程，培训考试，培训签到，培训成绩管理，培训师管理
-        内部培训：
-            外部培训计划，外部培训课程
+        员工成长管理
     """,
 
     'description': """
@@ -15,7 +12,7 @@
     'website': "http://www.lantaiyuan.com/",
     'category': 'Optional Edition',
     'version': '0.1',
-    'depends': ['base','employees'],
+    'depends': ['base','employees','security_manage_menu','vehicle_manage_menu'],
     'data': [
         'security/security_data.xml',
         # 'security/ir.model.access.csv',
@@ -33,6 +30,7 @@
         'views/external_plan_return_view.xml',
         'views/external_training_plan_view.xml',
         'views/external_curriculum_schedule_view.xml',
+        'views/safety_training_page.xml',
         'views/menus.xml',
     ],
     #'qweb': ['static/src/xml/examination.xml'],

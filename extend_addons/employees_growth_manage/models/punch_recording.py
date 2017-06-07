@@ -57,6 +57,8 @@ class punch_recording(models.Model):
                    order.state = 'havingClass'
               elif order.sign_number > 0 :
                    order.state = 'ingSign'
+              else:
+                   order.state = 'wait'
 
      @api.multi
      def _compute_name(self):
