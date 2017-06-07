@@ -30,13 +30,18 @@
                 <form>
                     <header>
                         <button name="action_commit" type="object" string="Confirm Submit" states="draft"
-                                class="oe_highlight"/> <!-- 确认提交 -->
+                                class="oe_highlight"
+                                groups="materials_product.base_extend_tech_user"/> <!-- 确认提交 -->
                         <button name="action_audit" type="object" string="Audit Pass" states="commit"
-                                class="oe_highlight"/> <!-- 审核通过 -->
+                                class="oe_highlight"
+                                groups="vehicle_warranty.base_extend_tech_satrap"/> <!-- 审核通过 -->
                         <button name="action_execute" type="object" string="Approved" states="audit"
-                                class="oe_highlight"/> <!-- 审批通过 -->
-                        <button name="action_commit" type="object" string="Back To Audit" states="audit"/> <!-- 退回重审 -->
-                        <button name="action_draft" type="object" string="Rework" states="commit"/> <!-- 退回重做 -->
+                                class="oe_highlight"
+                                groups="materials_product.base_extend_tech_manager"/> <!-- 审批通过 -->
+                        <button name="action_commit" type="object" string="Back To Audit" states="audit"
+                                groups="materials_product.base_extend_tech_manager"/> <!-- 退回重审 -->
+                        <button name="action_draft" type="object" string="Rework" states="commit"
+                                groups="vehicle_warranty.base_extend_tech_satrap"/> <!-- 退回重做 -->
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
