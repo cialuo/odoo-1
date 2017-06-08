@@ -20,7 +20,7 @@ class curriculum_schedule(models.Model):
 
      course_id = fields.Many2one('employees_growth.course',string='Course id',required=True)
 
-     course_type = fields.Many2one(string='Course type',related='course_id.course_type', store=False,readonly=True)
+     course_type = fields.Many2one(string='Course type',related='course_id.course_type', store=True,readonly=True)
 
      teacher_id = fields.Many2one('employees_growth.training_teacher',string='Teacher id',required=True)
 
