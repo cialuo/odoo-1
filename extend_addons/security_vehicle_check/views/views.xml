@@ -52,39 +52,39 @@
         <!--二级菜单 安全检查项目-->
         <menuitem name="security_check_items" id="security_check_items"
                   parent="security_manage_menu.security_check_settings"
-                  groups="security_check_browse,security_check_entering,security_check_setting"
+                  groups="security_check_browse"
                   action="action_security_check_items"/>
 
         <!--二级菜单 安全检查表-->
         <menuitem name="security_check_table" id="security_check_table"
                   parent="security_manage_menu.security_check_settings"
-                  groups="security_check_browse,security_check_entering,security_check_setting"
+                  groups="security_check_browse"
                   action="action_security_check_table"/>
 
         <!-- 车辆出车前检查 -->
         <menuitem name="vehicle_front_check" id="security_vehicle_front_check"
                   parent="security_manage_menu.security_vehicle_check_menu"
-                  groups="security_check_browse,security_check_entering,security_check_setting"
+                  groups="security_check_browse"
                   action="vehicle_front_check_action"/>
         <!-- 每日安全专项检查 -->
         <menuitem name="vehicle_everyday_check" id="security_vehicle_everyday_check"
                   parent="security_manage_menu.security_vehicle_check_menu"
-                  groups="security_check_browse,security_check_entering,security_check_setting"
+                  groups="security_check_browse"
                   action="vehicle_everyday_check_action"/>
         <!-- 安全技术专项抽查 -->
         <menuitem name="vehicle_special_check" id="security_vehicle_special_check"
                   parent="security_manage_menu.security_vehicle_check_menu"
-                  groups="security_check_browse,security_check_entering,security_check_setting"
+                  groups="security_check_browse"
                   action="vehicle_special_check_action"/>
         <!-- 车辆专项整改检查 -->
         <menuitem name="vehicle_abarbeitung_check" id="security_vehicle_abarbeitung_check"
                   parent="security_manage_menu.security_vehicle_check_menu"
-                  groups="security_check_browse,security_check_entering,security_check_setting"
+                  groups="security_check_browse"
                   action="vehicle_abarbeitung_check_action"/>
         <!-- 检查线上线检查 -->
         <menuitem name="vehicle_detection_check" id="security_vehicle_detection_check"
                   parent="security_manage_menu.security_vehicle_check_menu"
-                  groups="security_check_browse,security_check_entering,security_check_setting"
+                  groups="security_check_browse"
                   action="vehicle_detection_check_action"/>
 
 
@@ -96,31 +96,31 @@
         <!-- 车辆出车前检查 -->
         <menuitem name="vehicle_front_check" id="vehicle_manage_front_check"
                   parent="vehicle_manage_vehicle_check"
-                  groups="security_check_browse,security_check_entering,security_check_setting"
+                  groups="security_check_browse"
                   action="vehicle_front_check_action"
                   sequence="10"/>
         <!-- 每日安全专项检查 -->
         <menuitem name="vehicle_everyday_check" id="vehicle_manage_everyday_check"
                   parent="vehicle_manage_vehicle_check"
-                  groups="security_check_browse,security_check_entering,security_check_setting"
+                  groups="security_check_browse"
                   action="vehicle_everyday_check_action"
                   sequence="20"/>
         <!-- 安全技术专项抽查 -->
         <menuitem name="vehicle_special_check" id="vehicle_manage_special_check"
                   parent="vehicle_manage_vehicle_check"
-                  groups="security_check_browse,security_check_entering,security_check_setting"
+                  groups="security_check_browse"
                   action="vehicle_special_check_action"
                   sequence="30"/>
         <!-- 车辆专项整改检查 -->
         <menuitem name="vehicle_abarbeitung_check" id="vehicle_manage_abarbeitung_check"
                   parent="vehicle_manage_vehicle_check"
-                  groups="security_check_browse,security_check_entering,security_check_setting"
+                  groups="security_check_browse"
                   action="vehicle_abarbeitung_check_action"
                   sequence="40"/>
         <!-- 检查线上线检查 -->
         <menuitem name="vehicle_detection_check" id="vehicle_manage_detection_check"
                   parent="vehicle_manage_vehicle_check"
-                  groups="security_check_browse,security_check_entering,security_check_setting"
+                  groups="security_check_browse"
                   action="vehicle_detection_check_action"
                   sequence="50"/>
 
