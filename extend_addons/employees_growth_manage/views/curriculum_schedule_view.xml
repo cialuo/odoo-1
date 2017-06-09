@@ -45,7 +45,7 @@
                         <field name="train_date" />
                     </group>
                     <group>
-                        <field name="train_type"/>
+                        <field name="train_type" readonly="True"/>
                         <field name="course_type"/>
                         <field name="teacher_id" options="{'no_open': True, 'no_create': True}"/>
                         <field name="address"/>

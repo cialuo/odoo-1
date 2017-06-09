@@ -39,6 +39,11 @@
                   parent="employees_growth_manage.menu_summary_of_exams"
                   sequence="1" action="employees_growth_manage.action_examination"/>
 
+        <!--员工考试-->
+        <menuitem id="employees_growth_manage.menu_examination_students" name="Examination Students Menu"
+                  parent="employees_growth_manage.menu_summary_of_exams"
+                  sequence="2" action="employees_growth_manage.action_students"/>
+
         <!--外部培训管理-->
         <menuitem id="employees_growth_manage.menu_external_training_manage" name="External Training Manage Menu"
                   parent="employees_growth_manage.menu_manage"

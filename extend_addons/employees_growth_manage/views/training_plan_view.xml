@@ -55,7 +55,7 @@
                                 <field name="name" string="Theme"/>
                                 <field name="course_id" />
                                 <field name="course_type"/>
-                                <field name="train_type"/>
+                                <field name="train_type" readonly="True"/>
                                 <field name="teacher_id" />
                                 <field name="train_date"/>
                                 <field name="address"/>

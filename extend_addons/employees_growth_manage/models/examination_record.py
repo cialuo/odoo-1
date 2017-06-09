@@ -39,7 +39,7 @@ class examination_record(models.Model):
      @api.multi
      def _compute_display_code(self):
           """
-               设置默认的名字
+               设置默认的编码
           :return:
           """
           for order in self:
@@ -49,3 +49,34 @@ class examination_record(models.Model):
 
 
 
+class examination_students(models.Model):
+
+     _inherit = ['employees_growth.students']
+
+     """
+          每个考生的考试情况信息
+     """
+
+
+
+     display_name = fields.Char(related='curriculum_schedule_id.display_name',string='Display name', store=True,readonly=True)
+
+     examination_datetime = fields.Datetime(related='curriculum_schedule_id.examination_datetime', store=True, readonly=True)
+
+     course_id = fields.Many2one(related='curriculum_schedule_id.course_id',string='Course_id', store=True, readonly=True)
+
+     passing_score = fields.Float(related='curriculum_schedule_id.passing_score', store=True, readonly=True)
+
+     test_score = fields.Float(string='Test score', default=0)
+
+     test_results = fields.Selection([('passingExam','Passing Exam'),('failedExam','Failed Exam')])
+
+     multiselect__score = fields.Float(default=0)
+
+     radio__score = fields.Float(default=0)
+
+     judge__score = fields.Float(default=0)
+
+     state = fields.Selection([('waitingExam','Waiting Exam'),
+                               ('canTest','Can Test'),
+                               ('examOver','Exam Over')],default='waitingExam')

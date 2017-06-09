@@ -31,6 +31,7 @@
         'views/external_training_plan_view.xml',
         'views/external_curriculum_schedule_view.xml',
         'views/safety_training_page.xml',
+        'views/staff_test.xml',
         'views/menus.xml',
     ],
     #'qweb': ['static/src/xml/examination.xml'],

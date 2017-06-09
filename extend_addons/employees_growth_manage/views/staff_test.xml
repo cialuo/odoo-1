@@ -1,0 +1,31 @@
+<odoo>
+  <data>
+
+    <!-- 列表 -->
+    <record model="ir.ui.view" id="employees_growth_manage.students_list">
+      <field name="name">students list</field>
+      <field name="model">employees_growth.students</field>
+      <field name="arch" type="xml">
+        <tree create="false">
+          <field name="student_id"/>
+          <field name="display_name"/>
+          <field name="examination_datetime"/>
+          <field name="course_id"/>
+          <field name="passing_score"/>
+          <field name="state"/>
+          <field name="test_score"/>
+          <field name="test_results"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- 动作 -->
+    <record model="ir.actions.act_window" id="employees_growth_manage.action_students">
+      <field name="name">students window</field>
+      <field name="res_model">employees_growth.students</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+
+  </data>
+</odoo>
