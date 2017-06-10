@@ -12,7 +12,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['security_manage_menu', 'vehicle_manage'],
+    'depends': ['security_manage_menu', 'vehicle_manage','vehicle_group','materials_product'],
 
     # always loaded
     'data': [

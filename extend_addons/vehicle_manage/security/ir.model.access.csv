@@ -9,3 +9,6 @@ access_investment_cost_user,investment_cost,model_investment_cost,materials_prod
 access_cost_type_set_user,cost_type_set,model_cost_type_set_cost_type_set,materials_product.base_extend_tech_user,1,1,1,1
 
 access_res_company_group_user_tech_user,res_company group_user,base.model_res_company,materials_product.base_extend_tech_user,1,1,0,0
+
+
+vehicle_usage_user_driver,vehicle_usage_user,model_vehicleusage_driverecords,vehicle_group.vehicle_driver,1,0,0,0
