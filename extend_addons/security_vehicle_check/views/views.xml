@@ -52,13 +52,17 @@
         <!--二级菜单 安全检查项目-->
         <menuitem name="security_check_items" id="security_check_items"
                   parent="security_manage_menu.security_check_settings"
-                  groups="security_check_browse"
+
+                  groups="security_check_setting"
+
                   action="action_security_check_items"/>
 
         <!--二级菜单 安全检查表-->
         <menuitem name="security_check_table" id="security_check_table"
                   parent="security_manage_menu.security_check_settings"
-                  groups="security_check_browse"
+
+                  groups="security_check_setting"
+
                   action="action_security_check_table"/>
 
         <!-- 车辆出车前检查 -->
@@ -92,17 +96,23 @@
         <menuitem name="vehicle_check"
                   id="vehicle_manage_vehicle_check"
                   parent="vehicle_manage_menu.vehicle_use_manage"
-                  sequence="50"/>
+                  sequence="50"
+                  groups="vehicle_group.vehicle_driver"
+        />
         <!-- 车辆出车前检查 -->
         <menuitem name="vehicle_front_check" id="vehicle_manage_front_check"
                   parent="vehicle_manage_vehicle_check"
+
                   groups="security_check_browse"
+
                   action="vehicle_front_check_action"
                   sequence="10"/>
         <!-- 每日安全专项检查 -->
         <menuitem name="vehicle_everyday_check" id="vehicle_manage_everyday_check"
                   parent="vehicle_manage_vehicle_check"
+
                   groups="security_check_browse"
+
                   action="vehicle_everyday_check_action"
                   sequence="20"/>
         <!-- 安全技术专项抽查 -->

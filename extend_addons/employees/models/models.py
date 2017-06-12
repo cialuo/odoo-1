@@ -5,6 +5,7 @@ from odoo.exceptions import ValidationError
 
 
 class employee(models.Model):
+
     _inherit = 'hr.employee'
 
     # 工号
@@ -86,6 +87,8 @@ class employee(models.Model):
     rewardspunishment = fields.One2many('employee.rewardspunishment', 'employee_id', string='rewards punishment records')
     # 调动记录
     transferrecord = fields.One2many('employees.transfer.record', 'employee_id', string='transfer record')
+    # 培训经历
+    triansexperience = fields.One2many('employee.trainexperience', 'employee_id', string='trians experience')
 
 
 
@@ -203,6 +206,29 @@ class EducationExperience(models.Model):
     education = fields.Char('education')
     # 学位
     degree = fields.Char('degree')
+
+
+class TrainExperience(models.Model):
+
+    _name = 'employee.trainexperience'
+
+    employee_id = fields.Many2one('hr.employee', string='employee')
+
+    # 培训机构
+    trainorg = fields.Char(string='train organization')
+
+    # 课程
+    course = fields.Char(string='course')
+
+    # 开始时间
+    starttime = fields.Date('start time')
+
+    # 结束时间
+    endtime = fields.Date('end time')
+
+    #证书
+    certificatename = fields.Char(string='certificatename')
+
 
 class WorkExperience(models.Model):
     _name = 'employee.workexperience'

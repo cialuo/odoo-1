@@ -81,7 +81,18 @@
                             <page string="Basic Infomation" groups="hr.group_hr_user">
                                 <notebook>
                                     <page name="famlies" string="employees's family">
-                                        <field name="families"/>
+                                        <field name="families">
+                                            <form string="my family">
+                                                <group>
+                                                    <field name="name"/>
+                                                    <field name="relation"/>
+                                                    <field name="sex"/>
+                                                    <field name="profession"/>
+                                                    <field name="phone"/>
+                                                    <field name="employer"/>
+                                                </group>
+                                            </form>
+                                        </field>
                                     </page>
                                 </notebook>
                             </page>

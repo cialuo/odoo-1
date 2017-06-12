@@ -384,7 +384,7 @@
               parent="vehicle_manage_menu.vehicle_use_manage"
               action="vehicle_usage_records_action"
               sequence="10"
-              groups="materials_product.base_extend_tech_user"/>
+              groups="materials_product.base_extend_tech_user,vehicle_group.vehicle_driver"/>
 
     <!-- 车辆年检管理 -->
     <menuitem name="vehicle inspection manage"
