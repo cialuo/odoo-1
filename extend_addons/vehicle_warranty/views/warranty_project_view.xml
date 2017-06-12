@@ -103,7 +103,8 @@
         <!-- 维保项目 menu -->
         <menuitem name="Warranty Project Menu" id="warranty_project" sequence="30"
                   parent="warranty_system"
-                  action="warranty_item_action"/>
+                  action="warranty_item_action"
+                  groups="materials_product.base_extend_tech_user"/>
 
 
         <!-- 维保方式 tree -->
@@ -129,7 +130,8 @@
         <!-- 维保方式 menu -->
         <menuitem name="Warranty Mode" id="warranty_mode" sequence="40"
                   parent="warranty_system"
-                  action="warranty_mode_action"/>
+                  action="warranty_mode_action"
+                  groups="materials_product.base_extend_tech_user"/>
 
 
         <!-- 保养工艺管理 Action -->
@@ -142,7 +144,8 @@
         <!-- 保养工艺管理 menu -->
         <menuitem name="Warranty Project Craft" id="warranty_item_craft" sequence="30"
                   parent="vehicle_manage_menu.vehicle_basic_manage"
-                  action="warranty_item_craft_action"/>
+                  action="warranty_item_craft_action"
+                  groups="materials_product.base_extend_tech_user"/>
 
 
         <!-- 保养工时定额 Action -->
@@ -155,7 +158,8 @@
         <!-- 保养工时定额 menu -->
         <menuitem name="Warranty Project Quota" id="warranty_item_quota" sequence="20"
                   parent="vehicle_manage_menu.quota_manage"
-                  action="warranty_item_quota_action"/>
+                  action="warranty_item_quota_action"
+                  groups="materials_product.base_extend_tech_user"/>
 
     </data>
 </odoo>
