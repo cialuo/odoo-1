@@ -7,23 +7,28 @@
 
     <!--能源站-->
     <menuitem name="Energy station" id="energy_management.menu_energy_station"
-              parent="energy_management.menu_energy_management" sequence="1" action="energy_management.aw_energy_station"/>
+              parent="energy_management.menu_energy_management" sequence="1"
+              action="energy_management.aw_energy_station" groups="energy_management_stationmaster"/>
 
     <!--安全检查-->
     <menuitem name="Security check" id="energy_management.security_check"
-              parent="energy_management.menu_energy_management" sequence="2" action="energy_management.aw_security_check"/>
+              parent="energy_management.menu_energy_management" sequence="2"
+              action="energy_management.aw_security_check" groups="security_vehicle_check.security_check_entering"/>
 
     <!--能源桩-->
     <menuitem name="Energy pile" id="energy_management.energy_pile"
-              parent="energy_management.menu_energy_management" sequence="3" action="energy_management.aw_energy_pile"/>
+              parent="energy_management.menu_energy_management" sequence="3"
+              action="energy_management.aw_energy_pile" groups="energy_management_stationmaster"/>
 
     <!--能源使用记录-->
     <menuitem name="Energy usage record" id="energy_management.energy_usage_record"
-              parent="energy_management.menu_energy_management" sequence="4" action="energy_management.aw_energy_usage_record"/>
+              parent="energy_management.menu_energy_management" sequence="4"
+              action="energy_management.aw_energy_usage_record" groups="energy_management_oiler"/>
 
     <!--能源库位-->
     <menuitem name="Warehouse location" id="energy_management.warehouse_location"
-              parent="energy_management.menu_energy_management" sequence="5" action="energy_management.aw_warehouse_location"/>
+              parent="energy_management.menu_energy_management" sequence="5"
+              action="energy_management.aw_warehouse_location" groups="energy_management_stationmaster"/>
 
   </data>
 </odoo>
