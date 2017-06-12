@@ -14,7 +14,8 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['fleet', 'vehicle_manage_menu', 'stock_extend', 'employees', 'scheduling_parameters','materials_product'],
+    'depends': ['fleet', 'vehicle_manage_menu', 'stock_extend', 'employees',
+                'scheduling_parameters','materials_product','vehicle_group'],
 
     # always loaded
     'data': [

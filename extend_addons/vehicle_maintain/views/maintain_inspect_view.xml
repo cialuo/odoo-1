@@ -23,5 +23,39 @@
             view_mode="form"
             target="new"
             view_type="form" />
+
+
+
+        <record id="maintain_inspect_confirm_view" model="ir.ui.view">
+            <field name="name">maintain.inspect.confirm.form</field>
+            <field name="model">vehicle_maintain.inspect.confirm</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Inspect">
+                    <p class="oe_grey">
+                        Once inspect repair are confirmed, you will not be able
+                        to modify them.
+                    </p>
+                    <footer>
+                        <button string="Confirm Insepct" name="inspect_confirm" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+
+        <act_window id="fleet_manage_maintain_inspect_confirm"
+            multi="True"
+            key2="client_action_multi"
+            name="Confirm Inspect"
+            res_model="vehicle_maintain.inspect.confirm"
+            src_model="maintain.manage.repair"
+            view_mode="form"
+            target="new"
+            view_type="form"
+            groups="vehicle_group.vehicle_inspect"
+        />
+
     </data>
 </odoo>

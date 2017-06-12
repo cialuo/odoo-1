@@ -378,7 +378,7 @@
                   parent="vehicle_manage_menu.vehicle_basic_manage"
                   action = "vehicle_manage_action"
                   sequence="10"
-                  groups="materials_product.base_extend_tech_user"/>
+                  groups="materials_product.base_extend_tech_user,vehicle_group.vehicle_driver"/>
 
         <menuitem name="vehicle_manage_model_brand" id="vehicle_manage_model_brand"
                   action="fleet.fleet_vehicle_model_brand_action"
