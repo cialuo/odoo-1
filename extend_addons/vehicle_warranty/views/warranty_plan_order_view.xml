@@ -40,7 +40,8 @@
         <!-- 计划单 menu -->
         <menuitem name="Warranty Plan Order" id="warranty_plan_order" sequence="10"
                   parent="warranty_maintain_manage_sub"
-                  action="warranty_plan_order_action"/>
+                  action="warranty_plan_order_action"
+                  groups="materials_product.base_extend_tech_user,vehicle_group.vehicle_driver,vehicle_warranty.vehicle_receiver"/>
 
         <!-- 计划单生成关联司机的保养单 -->
         <record model='ir.ui.view' id='wizard_create_warranty_order_by_driver_form'>
