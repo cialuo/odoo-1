@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-07 10:07+0000\n"
-"PO-Revision-Date: 2017-06-07 18:08+0800\n"
+"POT-Creation-Date: 2017-06-12 02:51+0000\n"
+"PO-Revision-Date: 2017-06-12 10:59+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,11 @@ msgstr "自主报名"
 #: model:ir.ui.view,arch_db:employees_growth_manage.examination_form
 msgid "Basic Information"
 msgstr "基本信息"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.students,state:0
+msgid "Can Test"
+msgstr "可以考试"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.external_plan_return_form
@@ -175,6 +180,11 @@ msgid "Course's Name"
 msgstr "课程名称"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_course_id
+msgid "Course_id"
+msgstr "课程"
+
+#. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_create_uid
@@ -287,7 +297,6 @@ msgstr "部门"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_display_name
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_display_name
@@ -303,6 +312,7 @@ msgstr "编号"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_display_name
 msgid "Display name"
 msgstr "考试名称"
 
@@ -329,6 +339,11 @@ msgid "End time"
 msgstr "下课时间"
 
 #. module: employees_growth_manage
+#: selection:employees_growth.students,state:0
+msgid "Exam Over"
+msgstr "考试结束"
+
+#. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.examination_form
 msgid "Exam registration"
 msgstr "考试报名"
@@ -344,7 +359,13 @@ msgid "Examination Menu"
 msgstr "考试管理"
 
 #. module: employees_growth_manage
+#: model:ir.ui.menu,name:employees_growth_manage.menu_examination_students
+msgid "Examination Students Menu"
+msgstr "员工考试"
+
+#. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_examination_datetime
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_examination_datetime
 msgid "Examination datetime"
 msgstr "考试时间"
 
@@ -403,6 +424,11 @@ msgstr "外部培训人员"
 #: model:ir.model,name:employees_growth_manage.model_employees_growth_external_training_plan
 msgid "External training plan"
 msgstr "外部培训计划"
+
+#. module: employees_growth_manage
+#: selection:employees_growth.students,test_results:0
+msgid "Failed Exam"
+msgstr "不及格"
 
 #. module: employees_growth_manage
 #: selection:employees_growth.training_teacher,teacher_gender:0
@@ -495,6 +521,11 @@ msgstr "签到"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_jobnumber
 msgid "Jobnumber"
 msgstr "工号"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge__score
+msgid "Judge  score"
+msgstr "判断题分数"
 
 #. module: employees_growth_manage
 #: selection:employees_growth.test_paper_detail,question_type:0
@@ -632,6 +663,11 @@ msgid "Model_Radio question"
 msgstr "单选题"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect__score
+msgid "Multiselect  score"
+msgstr "多选题分数"
+
+#. module: employees_growth_manage
 #: selection:employees_growth.test_paper_detail,question_type:0
 msgid "Multiselect question"
 msgstr "多选题"
@@ -713,12 +749,18 @@ msgid "Page punch recording details"
 msgstr "学员签到"
 
 #. module: employees_growth_manage
+#: selection:employees_growth.students,test_results:0
+msgid "Passing Exam"
+msgstr "及格"
+
+#. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_passing_grade
 msgid "Passing grade"
 msgstr "及格分数"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_passing_score
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_passing_score
 msgid "Passing score"
 msgstr "及格分数"
 
@@ -835,6 +877,11 @@ msgid "Questions's Name"
 msgstr "题库名称"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio__score
+msgid "Radio  score"
+msgstr "单选题分数"
+
+#. module: employees_growth_manage
 #: selection:employees_growth.test_paper_detail,question_type:0
 msgid "Radio question"
 msgstr "单选题"
@@ -888,11 +935,6 @@ msgid "Safety Training Page Menu"
 msgstr "安全培训"
 
 #. module: employees_growth_manage
-#: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_safety_search
-msgid "Safety search"
-msgstr "安全培训"
-
-#. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_score
 msgid "Score"
 msgstr "分值"
@@ -926,7 +968,7 @@ msgstr "签到率"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_teacher_image_small
 msgid "Small-sized photo"
-msgstr "当前数据的状态不对."
+msgstr "小尺寸照片"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,help:employees_growth_manage.field_employees_growth_training_teacher_image_small
@@ -947,6 +989,7 @@ msgstr "上课时间"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_state
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_state
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_state
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_state
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_state
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_plan_state
 msgid "State"
@@ -1054,11 +1097,6 @@ msgid "Technology Training Page Menu"
 msgstr "驾驶员车辆技术培训"
 
 #. module: employees_growth_manage
-#: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_technology_search
-msgid "Technology search"
-msgstr "技术培训"
-
-#. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_test_paper
 msgid "Test Paper Menu"
 msgstr "试卷管理"
@@ -1088,6 +1126,16 @@ msgstr "编号"
 #: model:ir.ui.view,arch_db:employees_growth_manage.test_paper_form
 msgid "Test paper's Name"
 msgstr "试卷名称"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_test_results
+msgid "Test results"
+msgstr "考试结果"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_test_score
+msgid "Test score"
+msgstr "考试成绩"
 
 #. module: employees_growth_manage
 #: code:addons/employees_growth_manage/models/course_type.py:9
@@ -1280,6 +1328,11 @@ msgid "Wait"
 msgstr "等待开课"
 
 #. module: employees_growth_manage
+#: selection:employees_growth.students,state:0
+msgid "Waiting Exam"
+msgstr "等待考试"
+
+#. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_course_type
 msgid "action_course_type window"
 msgstr "类型设置"
@@ -1391,6 +1444,11 @@ msgstr "准备执行"
 #: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_form
 msgid "start_to_sign"
 msgstr "开课"
+
+#. module: employees_growth_manage
+#: model:ir.actions.act_window,name:employees_growth_manage.action_students
+msgid "students window"
+msgstr "员工考试"
 
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_test_paper

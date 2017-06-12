@@ -11,7 +11,8 @@
 
     'author': "My Company",
     'website': "http://www.lantaiyuan.com/",
-    'category': 'Optional Edition',
+    #'category': 'Optional Edition',
+    'category': '720',
     'version': '0.1',
     'depends': ['base'],
     'data': [

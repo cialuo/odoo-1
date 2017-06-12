@@ -12,7 +12,7 @@
     'website': "http://www.lantaiyuan.com/",
     'category': 'Optional Edition',
     'version': '0.1',
-    'depends': ['base','employees','security_manage_menu','vehicle_manage_menu','vehicle_group'],
+    'depends': ['base','employees','security_manage_menu','vehicle_manage_menu','vehicle_group','security_manage'],
     'data': [
         'security/security_data.xml',
         'security/ir.model.access.csv',
