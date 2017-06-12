@@ -1,9 +1,6 @@
 <odoo>
     <data>
-        <!--司机-->
-        <record id="vehicle_group.vehicle_driver" model="res.groups">
-            <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_manager'))]"/>
-        </record>
+
         <!--站务-->
         <record id="vehicle_group.vehicle_depot" model="res.groups">
             <field name="implied_ids" eval="[(4, ref('vehicle_group.vehicle_driver'))]"/>
