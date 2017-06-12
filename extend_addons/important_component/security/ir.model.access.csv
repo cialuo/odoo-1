@@ -1,6 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_product_component_tech_user,product.component.tech.user,model_product_component,materials_product.base_extend_tech_user,1,1,1,1
-access_product_component_driver_user,product.component.driver.user,model_product_component,vehicle_group.vehicle_driver,1,1,1,1
+access_product_component_driver_user,product.component.driver.user,model_product_component,vehicle_group.vehicle_driver,1,0,0,0
 access_product_component_purchase_user,product.component.purchase.user,model_product_component,purchase.group_purchase_user,1,1,1,1
 access_product_component_stock_user,product.component.stock.user,model_product_component,stock.group_stock_user,1,1,1,1
 access_important_classification_tech_user,important.classification.tech.user,model_fleet_important_classification,materials_product.base_extend_tech_user,1,0,0,0
@@ -15,6 +15,6 @@ access_maintain_manage_repair_tech_user,maintain.manage.repair.tech.user,vehicle
 access_maintain_manage_repair_jobs_tech_user,maintain_manage_repair_jobstech_user,vehicle_maintain.model_maintain_manage_repair_jobs,materials_product.base_extend_tech_user,1,0,0,0
 access_warranty_order_project_tech_user,warranty.order.project.tech.user,vehicle_warranty.model_warranty_order_project,materials_product.base_extend_tech_user,1,0,0,0
 access_warranty_order_manhour_tech_user,warranty_order_manhourstech_user,vehicle_warranty.model_warranty_order_manhour,materials_product.base_extend_tech_user,1,0,0,0
-
+access_dismantle_component_driver_user,dismantle_component.driver_user,model_dismantle_component,vehicle_group.vehicle_driver,1,0,0,0
 access_product_componentmaintain_manage_inspect,product.component.maintain_manage_inspect,model_product_component,vehicle_group.vehicle_inspect,1,0,0,0
 
