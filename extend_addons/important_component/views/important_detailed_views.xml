@@ -97,7 +97,9 @@
     </record>
 
     <!--菜单-->
-    <menuitem name="fleet_important_detailed" id="fleet_important_detailed" sequence="40" parent="vehicle_manage_menu.important_component_manage" action="act_fleet_important_detailed"/>
+    <menuitem name="fleet_important_detailed" id="fleet_important_detailed"
+              sequence="40" parent="vehicle_manage_menu.important_component_manage"
+              action="act_fleet_important_detailed" groups="purchase.group_purchase_user,materials_product.base_extend_tech_user"/>
 
 
 

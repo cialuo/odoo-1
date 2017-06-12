@@ -209,6 +209,7 @@
                       name="product_menu"
                       parent="materials_menu.materials_menu_stock"
                       action="materials_manage_important_product"
+                  groups="purchase.group_purchase_user,stock.group_stock_user,materials_product.base_extend_tech_user"
         />
     </data>
 </odoo>

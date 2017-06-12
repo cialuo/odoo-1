@@ -113,7 +113,9 @@
 
 
     <!-- menu categories -->
-    <menuitem name="fleet_important_roster" id="fleet_important_roster" sequence="30" parent="vehicle_manage_menu.important_component_manage" action="act_fleet_important_roster"/>
+    <menuitem name="fleet_important_roster" id="fleet_important_roster"
+              sequence="30" parent="vehicle_manage_menu.important_component_manage"
+              action="act_fleet_important_roster" groups="purchase.group_purchase_user,materials_product.base_extend_tech_user"/>
 
 
 

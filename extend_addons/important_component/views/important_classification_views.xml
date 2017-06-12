@@ -49,7 +49,8 @@
     </record>
 
     <!--菜单-->
-    <menuitem name="fleet_important_classification" id="fleet_important_classification" sequence="50" parent="vehicle_manage_menu.important_component_manage" action="act_fleet_important_classification"/>
+    <menuitem name="fleet_important_classification" id="fleet_important_classification" sequence="50" parent="vehicle_manage_menu.important_component_manage" action="act_fleet_important_classification"
+              groups="purchase.group_purchase_user,materials_product.base_extend_tech_user"/>
 
 
 
