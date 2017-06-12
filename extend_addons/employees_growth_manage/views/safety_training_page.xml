@@ -31,6 +31,6 @@
     <!--驾驶员车辆技术培训-->
     <menuitem id="employees_growth_manage.menu_technology_training_page" name="Technology Training Page Menu"
                   parent="vehicle_manage_menu.vehicle_use_manage"
-                  sequence="8" action="employees_growth_manage.action_technology_training_page" groups="employees_growth_manage.training_student"/>
+                  sequence="8" action="employees_growth_manage.action_technology_training_page" groups="vehicle_group.vehicle_driver,employees_growth_manage.training_teacher"/>
   </data>
 </odoo>
