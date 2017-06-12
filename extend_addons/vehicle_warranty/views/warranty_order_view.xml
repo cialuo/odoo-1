@@ -256,7 +256,8 @@
         <!-- 保养单 menu -->
         <menuitem name="Warranty Order" id="warranty_order" sequence="20"
                   parent="warranty_maintain_manage_sub"
-                  action="warranty_order_action"/>
+                  action="warranty_order_action"
+                  groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_dispatch,vehicle_group.vehicle_repair,vehicle_group.vehicle_inspect"/>
 
 
         <!-- 保养单项目 tree -->
@@ -435,7 +436,8 @@
         <!-- 检验单 menu -->
         <menuitem name="Warranty Inspect Sheet" id="warranty_inspect_sheet" sequence="50"
             parent="warranty_maintain_manage_sub"
-            action="warranty_inspect_order_action"/>
+            action="warranty_inspect_order_action"
+            groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_repair,vehicle_group.vehicle_inspect"/>
 
 
         <!-- 保养项目 Action-->

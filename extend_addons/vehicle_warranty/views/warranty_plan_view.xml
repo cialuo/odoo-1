@@ -128,7 +128,8 @@
         <!-- 车辆保养计划管理 menu -->
         <menuitem name="Warranty Plan Manage" id="warranty_plan" sequence="40"
                   parent="vehicle_manage_menu.vehicle_use_manage"
-                  action="warranty_plan_action"/>
+                  action="warranty_plan_action"
+                  groups="materials_product.base_extend_tech_user"/>
 
 
         <!-- 自动生成保养计划 start -->

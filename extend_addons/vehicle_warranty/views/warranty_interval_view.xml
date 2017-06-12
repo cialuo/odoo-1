@@ -59,7 +59,8 @@
         <!-- 维保间隔循环图 menu -->
         <menuitem name="Warranty Interval Cycle Diagram" id="warranty_interval_menu" sequence="50"
                   parent="warranty_system"
-                  action="warranty_interval_action"/>
+                  action="warranty_interval_action"
+                  groups="materials_product.base_extend_tech_user"/>
 
 
         <!-- 保养能力参数设置 tree -->
@@ -112,7 +113,8 @@
         <!-- 保养能力参数设置 menu -->
         <menuitem name="Warranty Capability Setting" id="warranty_capability_menu" sequence="60"
                   parent="warranty_system"
-                  action="warranty_capability_action"/>
+                  action="warranty_capability_action"
+                  groups="materials_product.base_extend_tech_user"/>
 
 
         <!-- 维保级别 tree -->
@@ -136,7 +138,8 @@
         <!-- 维保级别 menu -->
         <menuitem name="Repair Category" id="warranty_level_menu" sequence="70"
                   parent="warranty_system"
-                  action="warranty_level_action"/>
+                  action="warranty_level_action"
+                  groups="materials_product.base_extend_tech_user"/>
 
         <!-- 车型管理增加保养间隔 -->
         <record id="warranty_interval_vehicle_manage_model_view_form_ext" model="ir.ui.view">
