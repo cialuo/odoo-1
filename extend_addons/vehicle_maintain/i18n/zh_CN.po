@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-06 06:57+0000\n"
-"PO-Revision-Date: 2017-06-06 06:57+0000\n"
+"POT-Creation-Date: 2017-06-12 02:30+0000\n"
+"PO-Revision-Date: 2017-06-12 02:30+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -43,6 +43,7 @@ msgstr "有效"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/fault.py:46
+#: sql_constraint:maintain.fault.appearance:0
 #, python-format
 msgid "Appearance code already exists"
 msgstr "故障现象编码已存在"
@@ -80,12 +81,14 @@ msgid "Calculate Time"
 msgstr "结算时间"
 
 #. module: vehicle_maintain
+#: model:ir.ui.view,arch_db:vehicle_maintain.maintain_inspect_confirm_view
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_inspect_return_view
 msgid "Cancel"
 msgstr "取消"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/fault.py:10
+#: sql_constraint:maintain.fault.category:0
 #, python-format
 msgid "Category code already exists"
 msgstr "故障分类编码已存在"
@@ -95,11 +98,6 @@ msgstr "故障分类编码已存在"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_change_count
 msgid "Change Count"
 msgstr "必换数量"
-
-#. module: vehicle_maintain
-#: model:ir.actions.server,name:vehicle_maintain.maintain_inspect_action_server
-msgid "Comfirm Inspect"
-msgstr "检验通过"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_company_id
@@ -124,6 +122,13 @@ msgid "Confirm Calcuate"
 msgstr "确认结算"
 
 #. module: vehicle_maintain
+#: model:ir.ui.view,arch_db:vehicle_maintain.maintain_inspect_confirm_view
+msgid "Confirm Insepct"
+msgstr "检验通过"
+
+#. module: vehicle_maintain
+#: model:ir.actions.act_window,name:vehicle_maintain.fleet_manage_maintain_inspect_confirm
+#: model:ir.ui.view,arch_db:vehicle_maintain.maintain_inspect_confirm_view
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_inspect_return_view
 msgid "Confirm Inspect"
 msgstr "检验通过"
@@ -138,6 +143,11 @@ msgstr "退回重修"
 #: model:ir.model,name:vehicle_maintain.model_maintain_manage_inspect_return
 msgid "Confirm return"
 msgstr "退回重修"
+
+#. module: vehicle_maintain
+#: model:ir.model,name:vehicle_maintain.model_vehicle_maintain_inspect_confirm
+msgid "Confirm the selected inspect"
+msgstr "检查通过"
 
 #. module: vehicle_maintain
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_repair_view_form
@@ -172,6 +182,7 @@ msgstr "填单人单位"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_materials_create_uid
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_create_uid
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm_create_uid
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_create_uid
 msgid "Created by"
 msgstr "建档人"
@@ -189,6 +200,7 @@ msgstr "建档人"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_materials_create_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_create_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm_create_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_create_date
 msgid "Created on"
 msgstr "建档时间"
@@ -249,6 +261,7 @@ msgstr "派工比例超过了100%"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_materials_display_name
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_display_name
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_display_name
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm_display_name
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -475,6 +488,7 @@ msgstr "群体作业"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_materials_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_id
 msgid "ID"
 msgstr "ID"
@@ -575,6 +589,7 @@ msgstr "名称"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_materials___last_update
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report___last_update
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record___last_update
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm___last_update
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
@@ -592,6 +607,7 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_write_uid
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_write_uid
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm_write_uid
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
@@ -609,6 +625,7 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_write_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_report_write_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm_write_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
@@ -746,6 +763,7 @@ msgstr "领用上限"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/fault.py:175
+#: sql_constraint:maintain.fault.method:0
 #, python-format
 msgid "Method code already exists"
 msgstr "维修方法编码已存在"
@@ -779,6 +797,12 @@ msgstr "我的工时(小时)"
 #: model:ir.ui.view,arch_db:vehicle_maintain.fault_category_view_form
 msgid "No FaultAppearance"
 msgstr "无表象故障"
+
+#. module: vehicle_maintain
+#: model:ir.ui.view,arch_db:vehicle_maintain.maintain_inspect_confirm_view
+msgid "Once inspect repair are confirmed, you will not be able\n"
+"                        to modify them."
+msgstr "检验通过后将不能修改"
 
 #. module: vehicle_maintain
 #: selection:maintain.fault.method,complex_level:0
@@ -885,7 +909,7 @@ msgstr "合格"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_onhand_qty
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_available_product_onhand_qty
 msgid "Quantity On Hand"
-msgstr "库存数量"
+msgstr "在手数量"
 
 #. module: vehicle_maintain
 #: model:ir.model,name:vehicle_maintain.model_stock_quant
@@ -918,6 +942,7 @@ msgstr "实际工时(小时)"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/fault.py:105
+#: sql_constraint:maintain.fault.reason:0
 #, python-format
 msgid "Reason code already exists"
 msgstr "故障原因编码已存在"
@@ -1072,7 +1097,8 @@ msgid "Selected inspect(s) cannot be confirmed as they are not in 'inspect' stat
 msgstr "选择检验单中存在不是待检状态的记录"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/wizard/maintain_inspect.py:22
+#: code:addons/vehicle_maintain/wizard/maintain_inspect.py:21
+#: code:addons/vehicle_maintain/wizard/maintain_inspect.py:42
 #, python-format
 msgid "Selected inspect(s) cannot be confirmed as they are not in 'inspect' state."
 msgstr "选择检验单中存在不是待检状态的记录"

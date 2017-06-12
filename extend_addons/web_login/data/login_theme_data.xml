@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+
+        <record id="default_theme1" model="login_config_settings">
+            <field name="name">默认样式</field>
+            <field name="banner_img_src" type="base64" file="web_login/static/src/img/banner_img.png"/>
+            <field name="background_img_src" type="base64" file="web_login/static/src/img/background_img.jpg"/>
+            <field name="login_img_src" type="base64" file="web_login/static/src/img/login_img.png"/>
+            <field name="header_height_src">10</field>
+            <field name="footer_height_src">15</field>
+            <field name="body_login_height_src">75</field>
+            <field name="state">using</field>
+        </record>
+    </data>
+</odoo>
