@@ -106,7 +106,8 @@
         <!-- 维保类别 menu -->
         <menuitem name="Warranty Category" id="warranty_category" sequence="10"
                   parent="warranty_system"
-                  action="warranty_category_action"/>
+                  action="warranty_category_action"
+                  groups="materials_product.base_extend_tech_user"/>
 
     </data>
 </odoo>
