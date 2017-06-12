@@ -43,6 +43,24 @@
                                 </form>
                             </field>
                         </page>
+                        <page string="trians experience">
+                            <field name="triansexperience">
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="trainorg"/>
+                                            <field name="course"/>
+                                            <field name="certificatename"/>
+                                        </group>
+                                        <group>
+                                            <field name="starttime"/>
+                                            <field name="endtime"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+
                         <page string="work experience">
                             <field name="workexperience">
                                 <form>
@@ -91,6 +109,22 @@
                 <field name="endtime"/>
                 <field name="education"/>
                 <field name="degree"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 培训经历tree视图 -->
+    <record id="employee_triansexpeirence_tree" model="ir.ui.view">
+        <field name="name">trians experience tree</field>
+        <field name="model">employee.trainexperience</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="trainorg"/>
+                <field name="course"/>
+                <field name="starttime"/>
+                <field name="endtime"/>
+                <field name="certificatename"/>
             </tree>
         </field>
     </record>
