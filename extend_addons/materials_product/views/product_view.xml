@@ -26,17 +26,19 @@
                                     groups="stock.group_adv_location"
                                     attrs="{'invisible':[('type', '=', 'service')]}"/>
                             <button class="oe_stat_button" name="%(purchase.action_purchase_line_product_tree)d"
-                                    type="action" icon="fa-shopping-cart">
-                                <field string="Purchases" name="purchase_count" widget="statinfo"/>
+                                    type="action" icon="fa-shopping-cart" groups="purchase.group_purchase_user">
+                                <field string="Purchases" name="purchase_count" widget="statinfo" />
                             </button>
                             <button class="oe_stat_button"
                                name="%(stock.product_open_quants)d"
                                icon="fa-building-o"
+                                    groups="stock.group_stock_user"
                                type="action" attrs="{'invisible':[('type', '!=', 'product')]}">
                                 <field name="qty_available" widget="statinfo" string="On Hand"/>
                             </button>
                             <button type="action"
                                 name="%(stock.action_stock_level_forecast_report_product)d"
+                                    groups="stock.group_stock_user"
                                 attrs="{'invisible':[('type', '!=', 'product')]}"
                                 class="oe_stat_button" icon="fa-building-o">
                                 <div class="o_form_field o_stat_info">
@@ -57,11 +59,13 @@
                                     groups="stock.group_stock_user"/>
                             <button type="action"
                                     name="%(stock.product_open_orderpoint)d"
+                                    groups="stock.group_stock_user"
                                     attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '==', 1)]}"
                                     class="oe_stat_button" icon="fa-refresh">
                                     <field name="nbr_reordering_rules" widget="statinfo"/>
                             </button>
                             <button name="%(stock.product_open_orderpoint)d" type="action"
+                                    groups="stock.group_stock_user"
                                     attrs="{'invisible':['|',('type', '!=', ['product', 'consu']),('nbr_reordering_rules', '!=', 1)]}"
                                     class="oe_stat_button" icon="fa-refresh">
                                     <div class="o_form_field o_stat_info mr4">
