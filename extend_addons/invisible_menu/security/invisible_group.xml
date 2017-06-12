@@ -38,5 +38,17 @@
         <record id="mail.mail_channel_menu_root_chat" model="ir.ui.menu">
             <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
         </record>
+        <!--休假菜单-->
+        <record id="hr_holidays.menu_hr_holidays_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+        <!--工资表菜单-->
+        <record id="hr_payroll.menu_hr_payroll_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+        <!--日历菜单-->
+        <record id="calendar.mail_menu_calendar" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
     </data>
 </odoo>
