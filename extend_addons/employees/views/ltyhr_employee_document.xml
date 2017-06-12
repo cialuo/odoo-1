@@ -311,13 +311,13 @@
         <record model="ir.actions.act_window" id="ltyhr_employee_information">
             <field name="name">employee view</field>
             <field name="res_model">hr.employee</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">tree,form</field>
         </record>
 
         <record model="ir.actions.act_window" id="ltyhr_employee_department">
             <field name="name">department</field>
             <field name="res_model">hr.department</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">tree,form</field>
         </record>
 
         <record model="ir.actions.act_window" id="ltyhr_employee_post">

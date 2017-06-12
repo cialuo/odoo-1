@@ -8,6 +8,7 @@
                   sequence="10"
                   parent="materials_menu.materials_menu_purchase"
                   action="base.action_partner_supplier_form"
+                  groups="purchase.group_purchase_user"
         />
         <!--询价管理-->
         <menuitem id="materials_menu_purchase_rfq"
@@ -15,6 +16,7 @@
                   sequence="20"
                   parent="materials_menu.materials_menu_purchase"
                   action="purchase.purchase_rfq"
+                  groups="purchase.group_purchase_user"
         />
         <!--采购管理-->
         <menuitem id="materials_menu_purchase_order"
@@ -22,6 +24,7 @@
                   sequence="30"
                   parent="materials_menu.materials_menu_purchase"
                   action="purchase.purchase_form_action"
+                  groups="purchase.group_purchase_user"
         />
         <!--采购入库-->
         <!--定义打开采购入库的动作-->
@@ -39,6 +42,7 @@
                   sequence="40"
                   parent="materials_menu.materials_menu_purchase"
                   action="extend_stock_picking_type_action"
+                  groups="purchase.group_purchase_user,stock.group_stock_user"
         />
     </data>
 </odoo>

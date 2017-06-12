@@ -214,7 +214,8 @@
     <menuitem id="ltyhr_leave_type_menu" name="leave type"
               sequence="60"
               action="hr_holidays.open_view_holiday_status"
-              parent="employees_menu.leave_and_checking_in"/>
+              parent="employees_menu.leave_and_checking_in"
+              groups="hr.group_hr_user"/>
 
     <!--加班申请-->
     <menuitem id="ltyhr_work_overtime_menu" name="work overtime"

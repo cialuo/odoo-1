@@ -568,24 +568,24 @@
 		</record>
 
 
-		<record id="maintain_inspect_action_server" model="ir.actions.server">
-            <field name="name">Comfirm Inspect</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_maintain_manage_repair"/>
-            <field name="state">code</field>
-            <field name="code">
-                if context.get('active_model') == 'maintain.manage.repair' and context.get('active_ids'):
-                    action = env['maintain.manage.repair'].browse(context['active_ids']).action_completed()
-            </field>
-        </record>
+		<!--<record id="maintain_inspect_action_server" model="ir.actions.server">-->
+            <!--<field name="name">Comfirm Inspect</field>-->
+            <!--<field name="type">ir.actions.server</field>-->
+            <!--<field name="model_id" ref="model_maintain_manage_repair"/>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="code">-->
+                <!--if context.get('active_model') == 'maintain.manage.repair' and context.get('active_ids'):-->
+                    <!--action = env['maintain.manage.repair'].browse(context['active_ids']).action_completed()-->
+            <!--</field>-->
+        <!--</record>-->
 
-        <record id="maintain_inspect_action_server_submit" model="ir.values">
-            <field name="name">Comfirm Inspect</field>
-            <field name="model_id" ref="model_maintain_manage_repair"/>
-            <field name="model">maintain.manage.repair</field>
-            <field name="key2">client_action_multi</field>
-            <field eval="'ir.actions.server,%d'%maintain_inspect_action_server" name="value"/>
-        </record>
+        <!--<record id="maintain_inspect_action_server_submit" model="ir.values">-->
+            <!--<field name="name">Comfirm Inspect</field>-->
+            <!--<field name="model_id" ref="model_maintain_manage_repair"/>-->
+            <!--<field name="model">maintain.manage.repair</field>-->
+            <!--<field name="key2">client_action_multi</field>-->
+            <!--<field eval="'ir.actions.server,%d'%maintain_inspect_action_server" name="value"/>-->
+        <!--</record>-->
 
 		<!--抢修管理-->
 		<menuitem name="maintain_manage" id="maintain_manage"
