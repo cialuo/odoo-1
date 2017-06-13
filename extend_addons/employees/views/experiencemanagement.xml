@@ -36,6 +36,7 @@
                                             <field name="degree"/>
                                         </group>
                                         <group>
+                                            <field name="education"/>
                                             <field name="starttime"/>
                                             <field name="endtime"/>
                                         </group>

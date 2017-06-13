@@ -30,6 +30,7 @@
             <field name="target">new</field>
         </record>
 
+<!--
         <record id="hr_holidays_summary_employee_value" model="ir.values">
             <field name="model_id" ref="hr.model_hr_employee" />
             <field name="name">Leaves Summary</field>
@@ -38,5 +39,6 @@
             <field name="key">action</field>
             <field name="model">hr.employee</field>
         </record>
+-->
 
 </odoo>

@@ -16,7 +16,7 @@ class ICCard(models.Model):
 
     active = fields.Boolean('Active', default=True)
     # 卡号
-    cardsn = fields.Char('card SN')
+    cardsn = fields.Char('card SN', copy=False, required=True)
     # 状态
     status = fields.Selection([
         ('inactive','inactive'),    # 未启用
@@ -26,7 +26,7 @@ class ICCard(models.Model):
         ('blockup','blockup'),      # 停用
     ], string='status', default='inactive')
     # 员工
-    employee_id = fields.Many2one('hr.employee', string='employee', default=None)
+    employee_id = fields.Many2one('hr.employee', string='employee', default=None, copy=False)
     # 启用日期
     active_date = fields.Date(string='active date')
     # 停用日期
