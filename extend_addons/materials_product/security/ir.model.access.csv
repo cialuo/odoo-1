@@ -9,3 +9,4 @@ access_purchase_report_stock_user,purchase_report_stock_user,purchase.model_purc
 access_purchase_report_tech_user,purchase_report_tech_user,purchase.model_purchase_report,base_extend_tech_user,1,1,1,0
 access_stock_move_tech_user,stock.move.tech.user,stock.model_stock_move,base_extend_tech_user,1,1,1,0
 access_stock_warehouse_orderpoint_tech_user,stock.warehouse.orderpoint.tech.user,stock.model_stock_warehouse_orderpoint,base_extend_tech_user,1,1,1,0
+access_stock_location_tech_user,stock_location.tech_user,stock.model_stock_location,base_extend_tech_user,1,1,1,0
