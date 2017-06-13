@@ -25,8 +25,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
     #
     # made_company_id = fields.Many2one('hr.department', string='Made Company', required=True, default=lambda self: self.env.user.company_id)
 
-    create_name = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, required=True,
-                                  readonly=True)
+    create_name = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, readonly=True) # required=True,
 
     company_id = fields.Many2one('hr.department', string='Company', related='create_name.department_id')
 

@@ -13,6 +13,7 @@
             <field name="name">Receiver</field>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
             <field name="category_id" ref="vehicle_group.module_vehicle_group"/>
+            <!--<field name="users" eval="[(4, ref('base.user_root'))]"/>-->
         </record>
 
         <!-- 车间维修组长 -->
@@ -21,6 +22,14 @@
             <field name="category_id" ref="vehicle_group.module_vehicle_group"/>
             <field name="implied_ids" eval="[(4, ref('vehicle_group.vehicle_repair'))]"/>
         </record>
+
+        <!--<record id="rule_vehicle_warranty.vehicle_receiver" model="ir.rule">-->
+            <!--<field name="name">rule vehicle receiver</field>-->
+            <!--<field name="model_id" ref="model_hr_employee"/>-->
+            <!--<field name="groups" eval="[(4, ref('vehicle_warranty.vehicle_receiver'))]"/>-->
+            <!--<field name="domain_force">[(1, '=', 1)]</field>-->
+        <!--</record>-->
+
 
         <!--&lt;!&ndash;车间维修只能看到自己的维保项目&ndash;&gt;-->
         <!--<record id="rule_warranty_order_project_vehicle_repair" model="ir.rule">-->
