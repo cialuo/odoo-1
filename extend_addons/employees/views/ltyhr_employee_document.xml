@@ -340,7 +340,8 @@
 
         <!-- 员工档案档案 -->
         <menuitem id="ltyhr_employee_document_employeeinfo_menu" name="employee infomation"
-                  parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_information"/>
+                  parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_information"
+                  groups="hr.group_hr_user"/>
         <!--组织架构-->
         <menuitem id="ltyhr_employee_document_department_menu" name="employee department"
                   parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_department"
