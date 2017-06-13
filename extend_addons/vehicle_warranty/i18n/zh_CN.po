@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-07 11:41+0000\n"
-"PO-Revision-Date: 2017-06-07 11:41+0000\n"
+"POT-Creation-Date: 2017-06-13 09:16+0000\n"
+"PO-Revision-Date: 2017-06-13 09:16+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgid "%s has been added to the Warranty Order!"
 msgstr "新增保养单%s"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_plan.py:106
+#: code:addons/vehicle_warranty/models/warranty_plan.py:105
 #, python-format
 msgid "%s has been added to the plan!"
 msgstr "新增计划单%s"
@@ -139,6 +139,8 @@ msgstr "结算时间"
 #: model:ir.ui.view,arch_db:vehicle_warranty.wizard_batch_dispatch_form
 #: model:ir.ui.view,arch_db:vehicle_warranty.wizard_create_warranty_order_by_driver_form
 #: model:ir.ui.view,arch_db:vehicle_warranty.wizard_inspect_order_batch_reject_form
+#: model:ir.ui.view,arch_db:vehicle_warranty.wizard_project_batch_check_pass_view
+#: model:ir.ui.view,arch_db:vehicle_warranty.wizard_project_batch_to_check_view
 #: model:ir.ui.view,arch_db:vehicle_warranty.wizard_reject_form
 #: model:ir.ui.view,arch_db:vehicle_warranty.wizard_warranty_plan_form
 msgid "Cancel"
@@ -167,7 +169,7 @@ msgid "Change Count"
 msgstr "必换数量"
 
 #. module: vehicle_warranty
-#: model:ir.actions.server,name:vehicle_warranty.warranty_order_item_check_pass_action
+#: model:ir.actions.act_window,name:vehicle_warranty.act_wizard_project_batch_check_pass
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_inspect_order_form
 msgid "Check Pass"
 msgstr "检验通过"
@@ -211,7 +213,7 @@ msgstr "确认提交"
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.wizard_warranty_plan_form
 msgid "Create"
-msgstr "生成保养计划"
+msgstr "创建"
 
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_form
@@ -259,6 +261,8 @@ msgstr "生成保养单"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_create_warranty_order_by_driver_create_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_batch_reject_create_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_reject_create_uid
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_check_pass_create_uid
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_to_check_create_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_warranty_plan_create_uid
 msgid "Created by"
 msgstr "创建人"
@@ -284,6 +288,8 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_create_warranty_order_by_driver_create_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_batch_reject_create_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_reject_create_date
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_check_pass_create_date
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_to_check_create_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_warranty_plan_create_date
 msgid "Created on"
 msgstr "创建时间"
@@ -338,6 +344,8 @@ msgstr "派工"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_create_warranty_order_by_driver_display_name
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_batch_reject_display_name
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_reject_display_name
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_check_pass_display_name
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_to_check_display_name
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_warranty_plan_display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -387,7 +395,7 @@ msgstr "车队"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_virtual_available
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_project_product_virtual_available
 msgid "Forecast Quantity"
-msgstr "预测数量"
+msgstr "可用数量"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,help:vehicle_warranty.field_warranty_order_product_virtual_available
@@ -422,6 +430,8 @@ msgstr "预测数量(计算为 在手数量 - 出货 + 进货) \n"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_create_warranty_order_by_driver_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_batch_reject_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_reject_id
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_check_pass_id
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_to_check_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_warranty_plan_id
 msgid "ID"
 msgstr "ID"
@@ -506,11 +516,6 @@ msgid "Interval Mileage"
 msgstr "间隔里程"
 
 #. module: vehicle_warranty
-#: model:ir.actions.server,name:vehicle_warranty.warranty_order_item_into_check_action
-msgid "Into Check"
-msgstr "报检"
-
-#. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_form
 msgid "Into Inspect"
 msgstr "全部报检"
@@ -546,6 +551,8 @@ msgstr "是否顶级类别"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_create_warranty_order_by_driver___last_update
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_batch_reject___last_update
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_reject___last_update
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_check_pass___last_update
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_to_check___last_update
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_warranty_plan___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
@@ -571,6 +578,8 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_create_warranty_order_by_driver_write_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_batch_reject_write_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_reject_write_uid
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_check_pass_write_uid
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_to_check_write_uid
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_warranty_plan_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
@@ -596,6 +605,8 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_create_warranty_order_by_driver_write_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_batch_reject_write_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_inspect_order_reject_write_date
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_check_pass_write_date
+#: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_project_batch_to_check_write_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_warranty_plan_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
@@ -791,6 +802,18 @@ msgstr "状态"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_mode_name
 msgid "Name"
 msgstr "名字"
+
+#. module: vehicle_warranty
+#: model:ir.ui.view,arch_db:vehicle_warranty.wizard_project_batch_check_pass_view
+msgid "Once project Check Pass, you will not be able\n"
+"                        to modify them."
+msgstr "项目报检之后不能改变他们的状态"
+
+#. module: vehicle_warranty
+#: model:ir.ui.view,arch_db:vehicle_warranty.wizard_project_batch_to_check_view
+msgid "Once project To Check, you will not be able\n"
+"                        to modify them."
+msgstr "项目检验通过之后不能改变他们的状态"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_operating_mileage
@@ -1096,13 +1119,18 @@ msgid "Select category for the current product"
 msgstr "为当前产品选择一个类别"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:590
+#: code:addons/vehicle_warranty/models/warranty_order.py:811
+#, python-format
+msgid "Selected project cannot be check as they are not in 'check' state"
+msgstr "Selected project cannot be check as they are not in 'check' state"
+
+#. module: vehicle_warranty
+#: code:addons/vehicle_warranty/models/warranty_order.py:791
 #, python-format
 msgid "Selected project cannot be check as they are not in 'maintain' state"
 msgstr "非保养状态的项目不能报检"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:600
 #: code:addons/vehicle_warranty/models/warranty_order.py:616
 #, python-format
 msgid "Selected project cannot be complete as they are not in 'check' state"
@@ -1207,6 +1235,7 @@ msgstr "技术机务主管"
 
 #. module: vehicle_warranty
 #: code:addons/vehicle_warranty/models/warranty_interval.py:42
+#: sql_constraint:warranty_interval:0
 #, python-format
 msgid "The category and mileage must be unique!"
 msgstr "保养类别和间隔里程确保唯一!"
@@ -1227,6 +1256,13 @@ msgstr "有未完成的库存单据"
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_form
 msgid "Timing"
 msgstr "额定工时"
+
+#. module: vehicle_warranty
+#: model:ir.actions.act_window,name:vehicle_warranty.act_wizard_project_batch_to_check
+#: model:ir.ui.view,arch_db:vehicle_warranty.wizard_project_batch_check_pass_view
+#: model:ir.ui.view,arch_db:vehicle_warranty.wizard_project_batch_to_check_view
+msgid "To Check"
+msgstr "报检"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_total_work_time
@@ -1886,6 +1922,16 @@ msgstr "退回返工"
 #: model:ir.model,name:vehicle_warranty.model_wizard_inspect_order_reject
 msgid "wizard_inspect_order_reject"
 msgstr "退回重修"
+
+#. module: vehicle_warranty
+#: model:ir.model,name:vehicle_warranty.model_wizard_project_batch_check_pass
+msgid "wizard_project_batch_check_pass"
+msgstr "批量报检"
+
+#. module: vehicle_warranty
+#: model:ir.model,name:vehicle_warranty.model_wizard_project_batch_to_check
+msgid "wizard_project_batch_to_check"
+msgstr "批量检验通过"
 
 #. module: vehicle_warranty
 #: model:ir.model,name:vehicle_warranty.model_wizard_warranty_plan
