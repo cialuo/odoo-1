@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* salary_manage
+#	* salary_manage
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-18 08:06+0000\n"
-"PO-Revision-Date: 2017-05-18 16:08+0800\n"
+"POT-Creation-Date: 2017-06-13 09:41+0000\n"
+"PO-Revision-Date: 2017-06-13 09:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 2.0.1\n"
 
 #. module: salary_manage
 #: model:ir.ui.view,arch_db:salary_manage.salary_manage_salary_rule_form
@@ -58,12 +56,42 @@ msgid "Inputs"
 msgstr "输入"
 
 #. module: salary_manage
+#: code:addons/salary_manage/models/models.py:23
+#, python-format
+msgid "Normal Working Days paid at 100%"
+msgstr "Normal Working Days paid at 100%"
+
+#. module: salary_manage
+#: model:ir.model,name:salary_manage.model_hr_payslip
+msgid "Pay Slip"
+msgstr "工资单"
+
+#. module: salary_manage
+#: code:addons/salary_manage/models/models.py:82
+#, python-format
+msgid "Payslip 'Date From' must be before 'Date To'."
+msgstr "Payslip 'Date From' must be before 'Date To'."
+
+#. module: salary_manage
 #: model:ir.ui.view,arch_db:salary_manage.salary_manage_salary_rule_form
 msgid "Salary Rules"
 msgstr "薪资规则"
 
 #. module: salary_manage
+#: code:addons/salary_manage/models/models.py:85
+#, python-format
+msgid "Salary Slip of %s for %s"
+msgstr "Salary Slip of %s for %s"
+
+#. module: salary_manage
+#: code:addons/salary_manage/models/models.py:129
+#, python-format
+msgid "absence record"
+msgstr "absence record"
+
+#. module: salary_manage
 #: model:ir.ui.view,arch_db:salary_manage.salary_manage_payroll_structure_form
+#: model:ir.ui.view,arch_db:salary_manage.salary_manage_payroll_structure_tree
 msgid "category code"
 msgstr "分类代码"
 
@@ -109,6 +137,6 @@ msgstr "薪资体系"
 
 #. module: salary_manage
 #: model:ir.ui.view,arch_db:salary_manage.salary_manage_payroll_structure_form
-#: model:ir.ui.view,arch_db:salary_manage.salary_manage_payroll_structure_tree
 msgid "structure code"
 msgstr "结构代码"
+

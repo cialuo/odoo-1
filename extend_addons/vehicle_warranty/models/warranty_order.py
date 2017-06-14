@@ -583,31 +583,31 @@ class WarrantyInspectOrder(models.Model): # 检验单
 
     item_name = fields.Char(related='project_id.name')  # 项目名称
 
-    @api.multi
-    def action_into_check(self):  # 报检
-        for project in self:
-            if project.state != 'maintain':
-                raise exceptions.UserError(_("Selected project cannot be check as they are not in 'maintain' state"))
-            project.state = 'check'
-            project.start_inspect_time = fields.Datetime.now()
-            for manhour_manage in project.manhour_manage_ids:
-                manhour_manage.real_end_time = fields.Datetime.now()
+    # @api.multi
+    # def action_into_check(self):  # 报检
+    #     for project in self:
+    #         if project.state != 'maintain':
+    #             raise exceptions.UserError(_("Selected project cannot be check as they are not in 'maintain' state"))
+    #         project.state = 'check'
+    #         project.start_inspect_time = fields.Datetime.now()
+    #         for manhour_manage in project.manhour_manage_ids:
+    #             manhour_manage.real_end_time = fields.Datetime.now()
 
-    @api.multi
-    def action_batch_check_pass(self):  # 批量检验通过
-        for i in self:
-            if i.state != 'check':
-                raise exceptions.UserError(_("Selected project cannot be complete as they are not in 'check' state"))
-            i.state = 'complete'
-            i.inspect_result = 'qualified'
-            i.end_inspect_time = fields.Datetime.now()
-
-            if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
-                i.warranty_order_id.state = 'done'
-                i.warranty_order_id.plan_order_ids.state = 'done'
-                plan = i.warranty_order_id.plan_order_ids.parent_id
-                if all(plan_sheet.state == 'done' for plan_sheet in plan.plan_order_ids):
-                    plan.state = 'done'
+    # @api.multi
+    # def action_batch_check_pass(self):  # 批量检验通过
+    #     for i in self:
+    #         if i.state != 'check':
+    #             raise exceptions.UserError(_("Selected project cannot be complete as they are not in 'check' state"))
+    #         i.state = 'complete'
+    #         i.inspect_result = 'qualified'
+    #         i.end_inspect_time = fields.Datetime.now()
+    #
+    #         if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
+    #             i.warranty_order_id.state = 'done'
+    #             i.warranty_order_id.plan_order_ids.state = 'done'
+    #             plan = i.warranty_order_id.plan_order_ids.parent_id
+    #             if all(plan_sheet.state == 'done' for plan_sheet in plan.plan_order_ids):
+    #                 plan.state = 'done'
 
     @api.multi
     def action_check_pass(self):
@@ -776,3 +776,48 @@ class WizardInspectOrderBatchReject(models.TransientModel): # 检验单_批量�
                 raise UserError(_("Selected project cannot be return as they are not in 'check' state."))
             project.action_return(self.return_reason)
 
+
+class WizardProjectBatchToCheck(models.TransientModel): # 保养项目_批量_报检
+    _name = "wizard_project_batch_to_check"
+
+    @api.multi
+    def confirm(self):
+        context = dict(self._context or {})
+        active_ids = context.get('active_ids', []) or []
+        project_ids = self.env['warranty_order_project'].browse(active_ids)
+
+        for project in project_ids:
+            if project.state != 'maintain':
+                raise UserError(_("Selected project cannot be check as they are not in 'maintain' state"))
+            project.state = 'check'
+            project.start_inspect_time = fields.Datetime.now()
+            for manhour_manage in project.manhour_manage_ids:
+                manhour_manage.real_end_time = fields.Datetime.now()
+
+        return {'type': 'ir.actions.act_window_close'}
+
+
+class WizardProjectBatchCheckPass(models.TransientModel):  # 保养项目_批量_检验通过
+    _name = "wizard_project_batch_check_pass"
+
+    @api.multi
+    def confirm(self):
+        context = dict(self._context or {})
+        active_ids = context.get('active_ids', []) or []
+        project_ids = self.env['warranty_order_project'].browse(active_ids)
+
+        for i in project_ids:
+            if i.state != 'check':
+                raise UserError(_("Selected project cannot be check as they are not in 'check' state"))
+            i.state = 'complete'
+            i.inspect_result = 'qualified'
+            i.end_inspect_time = fields.Datetime.now()
+
+            if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
+                i.warranty_order_id.state = 'done'
+                i.warranty_order_id.plan_order_ids.state = 'done'
+                plan = i.warranty_order_id.plan_order_ids.parent_id
+                if all(plan_sheet.state == 'done' for plan_sheet in plan.plan_order_ids):
+                    plan.state = 'done'
+
+        return {'type': 'ir.actions.act_window_close'}

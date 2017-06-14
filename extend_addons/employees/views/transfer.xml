@@ -42,7 +42,7 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="employee_id" string="Employee_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="employee_id" string="Employee_id" groups="hr.group_hr_user" options="{'no_open': True, 'no_create': True}"/>
                             <field name="jobnumber"/>
                             <field name="transfer_reason"/>
                         </group>
@@ -137,7 +137,7 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="employee_id" string="Employee_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="employee_id" string="Employee_id" groups="hr.group_hr_user"  options="{'no_open': True, 'no_create': True}"/>
                             <field name="transfer_reason"/>
                         </group>
                         <group>
