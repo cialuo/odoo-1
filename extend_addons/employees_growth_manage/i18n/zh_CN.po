@@ -675,7 +675,7 @@ msgstr "多选题"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_multiselect_question_count
 msgid "Multiselect question count"
-msgstr "多选题"
+msgstr "多选题数量"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_multiselect_questions
