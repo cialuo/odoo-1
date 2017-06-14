@@ -15,7 +15,7 @@
                                 <field name="product_id" readonly="1"/>
                                 <field name="odometer" readonly="1"/>
                                 <field name="state" readonly="1"/>
-                                <field name="location_id" readonly="1"/>
+                                <field name="location_id" readonly="1" groups="stock.group_stock_user"/>
                                 <field name="create_date" readonly="1" string="Create order Date"/>
                                 <field name="checkout_date" readonly="1"/>
                             </tree>

@@ -55,8 +55,6 @@ class employee(models.Model):
         ('spinsterhood','spinsterhood'),    # 未婚
     ], string='marital status')
 
-    # 生日
-    birthday = fields.Date('birth day')
     # 籍贯
     native_place = fields.Char('native place')
     # 专业

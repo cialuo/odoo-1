@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-05 06:26+0000\n"
-"PO-Revision-Date: 2017-06-05 14:26+0800\n"
+"POT-Creation-Date: 2017-06-12 09:11+0000\n"
+"PO-Revision-Date: 2017-06-12 17:14+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -167,6 +167,11 @@ msgstr "创建时间"
 #: model:ir.model.fields,field_description:hr.field_hr_job_no_of_employee
 msgid "Current Number of Employees"
 msgstr "当前员工数量"
+
+#. module: hr
+#: model:ir.model.fields,field_description:hr.field_hr_employee_birthday
+msgid "Date of Birth"
+msgstr "出生日期"
 
 #. module: hr
 #: model:ir.model.fields,help:hr.field_hr_employee_calendar_id
@@ -842,7 +847,7 @@ msgstr "你可以给一个工作岗位做调查，它被用在招聘流程中，
 #. module: hr
 #: model:mail.template,subject:hr.mail_template_data_unknown_employee_email_address
 msgid "Your document has not been created"
-msgstr "Your document has not been created"
+msgstr "您的档案尚未建立"
 
 #. module: hr
 #: model:mail.template,body_html:hr.mail_template_data_unknown_employee_email_address
@@ -854,11 +859,6 @@ msgstr "Your document has not been created because your email address is not rec
 #, python-format
 msgid "alias %s does not accept unknown employees"
 msgstr "alias %s does not accept unknown employees"
-
-#. module: hr
-#: model:ir.model.fields,field_description:hr.field_hr_employee_birthday
-msgid "birth day"
-msgstr "birth day"
 
 #. module: hr
 #: model:ir.ui.view,arch_db:hr.view_department_form

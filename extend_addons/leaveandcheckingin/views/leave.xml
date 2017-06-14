@@ -161,20 +161,46 @@
         <field name="model">hr.holidays</field>
         <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
         <field name="arch" type="xml">
+
+            <xpath expr="//div[@class='oe_title']" position="replace">
+                <div class="oe_title">
+                    <h1>leave request form</h1>
+                </div>
+            </xpath>
+
             <xpath expr="//field[@name='holiday_type']" position="replace">
                 <field name="holiday_type" invisible="1"/>
             </xpath>
+
+            <xpath expr="//field[@name='holiday_status_id']" position="replace">
+                <field name="holiday_status_id" context="{'employee_id':employee_id}"
+                       options="{'no_open': True, 'no_create': True}" />
+            </xpath>
+
+            <xpath expr="//field[@name='department_id']" position="replace">
+                <field name="department_id" groups="hr_holidays.group_hr_holidays_user" options="{'no_open': True, 'no_create': True}"
+                       attrs="{'readonly':['|','|' ,('type','=','add'),('holiday_type','=','category'),('state','=', 'validate')],'invisible':[('holiday_type','=','category')]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='employee_id']" position="replace">
+                <field name="employee_id" attrs="{'required':[('holiday_type','=','employee')],'invisible':[('holiday_type','=','category')]}"
+                       groups="hr_holidays.group_hr_holidays_user" options="{'no_open': True, 'no_create': True}" />
+            </xpath>
+
             <xpath expr="//field[@name='payslip_status']" position="replace">
                 <field name="payslip_status" invisible="1"/>
             </xpath>
+
             <xpath expr="/form/sheet/group/group[1]/div/div[2]" position="replace">
                 <div>
                     <field name="number_of_days_temp" invisible="1"/>
                 </div>
             </xpath>
+
             <xpath expr="//field[@name='payslip_status']" position="after">
                 <field name="length" required="1"/>
             </xpath>
+
         </field>
     </record>
 

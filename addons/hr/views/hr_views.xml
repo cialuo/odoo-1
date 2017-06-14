@@ -280,6 +280,7 @@
             <field name="view_type">tree</field>
             <field name="view_id" ref="view_partner_tree2"/>
         </record>
+<!--
 
         <record id="hr_employee_action_subordinate_hierachy_mutli" model="ir.values">
             <field name="name">Subordinate Hierarchy</field>
@@ -289,6 +290,7 @@
             <field name="key2">client_action_multi</field>
             <field name="model">hr.employee</field>
         </record>
+-->
 
         <!-- Employee Category -->
        <record id="view_employee_category_form" model="ir.ui.view">
