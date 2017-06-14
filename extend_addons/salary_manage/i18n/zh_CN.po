@@ -81,7 +81,7 @@ msgstr "薪资规则"
 #: code:addons/salary_manage/models/models.py:85
 #, python-format
 msgid "Salary Slip of %s for %s"
-msgstr "Salary Slip of %s for %s"
+msgstr "工资单 %s %s"
 
 #. module: salary_manage
 #: code:addons/salary_manage/models/models.py:129

@@ -186,11 +186,12 @@
 									 <button name="create_get_picking"
 										type="object"
 										string="Create Get Picking"
-										class="oe_highlight">
-									 </button>
+										class="oe_highlight"
+                                        groups="vehicle_group.vehicle_repair"/>
 									 <button name="create_back_picking"
 										type="object"
 										string="Create Back Picking"
+                                        groups="vehicle_group.vehicle_repair"
 										/>
 								</center>
 							    <separator/>
@@ -427,7 +428,7 @@
 			<field name="name">Warranty Inspect Order</field>
 			<field name="res_model">warranty_order_project</field>
 			<field name="view_mode">tree,form</field>
-			<field name="domain">[('state', 'in', ['maintain','check','complete'])]</field>
+			<field name="domain">[('state', 'in', ['check','complete'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('vehicle_warranty.warranty_inspect_order_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('vehicle_warranty.warranty_inspect_order_form')})]"/>
@@ -437,7 +438,7 @@
         <menuitem name="Warranty Inspect Sheet" id="warranty_inspect_sheet" sequence="50"
             parent="warranty_maintain_manage_sub"
             action="warranty_inspect_order_action"
-            groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_repair,vehicle_group.vehicle_inspect"/>
+            groups="vehicle_group.vehicle_repair,vehicle_group.vehicle_inspect"/>
 
 
         <!-- 保养项目 Action-->
@@ -458,45 +459,111 @@
             groups="vehicle_group.vehicle_repair"/>
 
         <!-- 保养项目、检验单 批量报检 -->
-        <record id="warranty_order_item_into_check_action" model="ir.actions.server">
-            <field name="name">Into Check</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_warranty_order_project"/>
-            <field name="state">code</field>
-            <field name="code">
-                if context.get('active_model') == 'warranty_order_project' and context.get('active_ids'):
-                    action = env['warranty_order_project'].browse(context['active_ids']).action_into_check()
-            </field>
-        </record>
+        <!--<record id="warranty_order_item_into_check_action" model="ir.actions.server">-->
+            <!--<field name="name">Into Check</field>-->
+            <!--<field name="type">ir.actions.server</field>-->
+            <!--<field name="model_id" ref="model_warranty_order_project"/>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="code">-->
+                <!--if context.get('active_model') == 'warranty_order_project' and context.get('active_ids'):-->
+                    <!--action = env['warranty_order_project'].browse(context['active_ids']).action_into_check()-->
+            <!--</field>-->
+        <!--</record>-->
 
-        <record id="warranty_order_item_into_check_operation" model="ir.values">
-            <field name="name">Into Check</field>
-            <field name="model_id" ref="model_warranty_order_project"/>
-            <field name="model">warranty_order_project</field>
-            <field name="key2">client_action_multi</field>
-            <field eval="'ir.actions.server,%d' % warranty_order_item_into_check_action" name="value"/>
-        </record>
+        <!--<record id="warranty_order_item_into_check_operation" model="ir.values">-->
+            <!--<field name="name">Into Check</field>-->
+            <!--<field name="model_id" ref="model_warranty_order_project"/>-->
+            <!--<field name="model">warranty_order_project</field>-->
+            <!--<field name="key2">client_action_multi</field>-->
+            <!--<field eval="'ir.actions.server,%d' % warranty_order_item_into_check_action" name="value"/>-->
+        <!--</record>-->
 
 
         <!-- 保养项目、检验单 批量检验通过 -->
-        <record id="warranty_order_item_check_pass_action" model="ir.actions.server">
-            <field name="name">Check Pass</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_warranty_order_project"/>
-            <field name="state">code</field>
-            <field name="code">
-                if context.get('active_model') == 'warranty_order_project' and context.get('active_ids'):
-                    action = env['warranty_order_project'].browse(context['active_ids']).action_batch_check_pass()
+        <!--<record id="warranty_order_item_check_pass_action" model="ir.actions.server">-->
+            <!--<field name="name">Check Pass</field>-->
+            <!--<field name="type">ir.actions.server</field>-->
+            <!--<field name="model_id" ref="model_warranty_order_project"/>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="code">-->
+                <!--if context.get('active_model') == 'warranty_order_project' and context.get('active_ids'):-->
+                    <!--action = env['warranty_order_project'].browse(context['active_ids']).action_batch_check_pass()-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="warranty_order_item_check_pass_operation" model="ir.values">-->
+            <!--<field name="name">Check Pass</field>-->
+            <!--<field name="model_id" ref="model_warranty_order_project"/>-->
+            <!--<field name="model">warranty_order_project</field>-->
+            <!--<field name="key2">client_action_multi</field>-->
+            <!--<field eval="'ir.actions.server,%d' % warranty_order_item_check_pass_action" name="value"/>-->
+        <!--</record>-->
+
+
+
+
+
+        <!-- 保养项目_批量_报检 -->
+        <record id="wizard_project_batch_to_check_view" model="ir.ui.view">
+            <field name="name">To Check</field>
+            <field name="model">wizard_project_batch_to_check</field>
+            <field name="arch" type="xml">
+                <form>
+                    <p class="oe_grey">
+                        Once project To Check, you will not be able
+                        to modify them.
+                    </p>
+                    <footer>
+                        <button string="To Check" name="confirm" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
             </field>
         </record>
 
-        <record id="warranty_order_item_check_pass_operation" model="ir.values">
+        <act_window id="act_wizard_project_batch_to_check"
+            multi="True"
+            key2="client_action_multi"
+            name="To Check"
+            res_model="wizard_project_batch_to_check"
+            src_model="warranty_order_project"
+            view_mode="form"
+            target="new"
+            view_type="form"
+            groups="vehicle_group.vehicle_repair"
+        />
+
+
+
+        <!-- 保养项目_批量_检验通过 -->
+        <record id="wizard_project_batch_check_pass_view" model="ir.ui.view">
             <field name="name">Check Pass</field>
-            <field name="model_id" ref="model_warranty_order_project"/>
-            <field name="model">warranty_order_project</field>
-            <field name="key2">client_action_multi</field>
-            <field eval="'ir.actions.server,%d' % warranty_order_item_check_pass_action" name="value"/>
+            <field name="model">wizard_project_batch_check_pass</field>
+            <field name="arch" type="xml">
+                <form>
+                    <p class="oe_grey">
+                        Once project Check Pass, you will not be able
+                        to modify them.
+                    </p>
+                    <footer>
+                        <button string="To Check" name="confirm" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
         </record>
+
+        <act_window id="act_wizard_project_batch_check_pass"
+            multi="True"
+            key2="client_action_multi"
+            name="Check Pass"
+            res_model="wizard_project_batch_check_pass"
+            src_model="warranty_order_project"
+            view_mode="form"
+            target="new"
+            view_type="form"
+            groups="vehicle_group.vehicle_inspect"
+        />
 
 
         <!-- 批量退检 -->
@@ -531,6 +598,7 @@
                     target='new'
                     key2='client_action_multi'
                     groups="vehicle_group.vehicle_inspect"/>
+
 
     </data>
 </odoo>

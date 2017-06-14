@@ -18,7 +18,6 @@ class VehicleAnchor(models.Model):
     _name = 'vehicle_usage.vehicleanchor'
     _rec_name = 'license_plate'
 
-    _rec_name = 'license_plate'
 
     # 关联的车辆信息
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", required=True,

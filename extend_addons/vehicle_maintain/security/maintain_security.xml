@@ -8,7 +8,8 @@
         </record>
         <!--车间维修-->
         <record id="vehicle_group.vehicle_repair" model="res.groups">
-            <field name="implied_ids" eval="[(4, ref('stock.group_stock_user')),(4, ref('fleet.fleet_group_manager'))]"/>
+            <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_manager'))]"/>
+            <!--<field name="implied_ids" eval="[(4, ref('stock.group_stock_user')),(4, ref('fleet.fleet_group_manager'))]"/>-->
         </record>
         <!--车间调度-->
         <record id="vehicle_group.vehicle_dispatch" model="res.groups">
@@ -21,45 +22,46 @@
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
         </record>
 
-        <!--司机只能看到自己的保修单-->
-        <record id="maintain_report_visibility_driver" model="ir.rule">
-            <field name="name">Driver can only see his/her report</field>
-            <field name="model_id" ref="model_maintain_manage_report"/>
-            <field name="groups" eval="[(4, ref('vehicle_group.vehicle_driver'))]"/>
-            <field name="domain_force">[('report_user_id.user_id','=',user.id)]</field>
-        </record>
+        <!--&lt;!&ndash;司机只能看到自己的保修单&ndash;&gt;-->
+        <!--<record id="maintain_report_visibility_driver" model="ir.rule">-->
+            <!--<field name="name">Driver can only see his/her report</field>-->
+            <!--<field name="model_id" ref="model_maintain_manage_report"/>-->
+            <!--<field name="groups" eval="[(4, ref('vehicle_group.vehicle_driver'))]"/>-->
+            <!--<field name="domain_force">[('report_user_id.user_id','=',user.id)]</field>-->
+        <!--</record>-->
 
-        <!--司机只能看到自己的抢修单-->
-        <record id="maintain_repair_visibility_driver" model="ir.rule">
-            <field name="name">Driver can only see his/her repair</field>
-            <field name="model_id" ref="model_maintain_manage_repair"/>
-            <field name="groups" eval="[(4, ref('vehicle_group.vehicle_driver'))]"/>
-            <field name="domain_force">[('report_user_id.user_id','=',user.id)]</field>
-        </record>
+        <!--&lt;!&ndash;司机只能看到自己的抢修单&ndash;&gt;-->
+        <!--<record id="maintain_repair_visibility_driver" model="ir.rule">-->
+            <!--<field name="name">Driver can only see his/her repair</field>-->
+            <!--<field name="model_id" ref="model_maintain_manage_repair"/>-->
+            <!--<field name="groups" eval="[(4, ref('vehicle_group.vehicle_driver'))]"/>-->
+            <!--<field name="domain_force">[('report_user_id.user_id','=',user.id)]</field>-->
+        <!--</record>-->
 
-        <!--司机只能看到自己的抛锚记录-->
-        <record id="maintain_anchor_visibility_driver" model="ir.rule">
-            <field name="name">Driver can only see his/her anchor</field>
-            <field name="model_id" ref="model_vehicle_usage_vehicleanchor"/>
-            <field name="groups" eval="[(4, ref('vehicle_group.vehicle_driver'))]"/>
-            <field name="domain_force">[('driver.user_id','=',user.id)]</field>
-        </record>
+        <!--&lt;!&ndash;司机只能看到自己的抛锚记录&ndash;&gt;-->
+        <!--<record id="maintain_anchor_visibility_driver" model="ir.rule">-->
+            <!--<field name="name">Driver can only see his/her anchor</field>-->
+            <!--<field name="model_id" ref="model_vehicle_usage_vehicleanchor"/>-->
+            <!--<field name="groups" eval="[(4, ref('vehicle_group.vehicle_driver'))]"/>-->
+            <!--<field name="perm_create" eval="0"/>-->
+            <!--<field name="domain_force">[('driver.user_id','=',user.id)]</field>-->
+        <!--</record>-->
 
-        <!--站务能看到所有的报修单-->
-        <record id="maintain_report_visibility_depot" model="ir.rule">
-            <field name="name">Depot has all rights on report</field>
-            <field name="model_id" ref="model_maintain_manage_report"/>
-            <field name="domain_force">[(1,'=',1)]</field>
-            <field name="groups" eval="[(4, ref('vehicle_group.vehicle_depot'))]"/>
-        </record>
+        <!--&lt;!&ndash;站务能看到所有的报修单&ndash;&gt;-->
+        <!--<record id="maintain_report_visibility_depot" model="ir.rule">-->
+            <!--<field name="name">Depot has all rights on report</field>-->
+            <!--<field name="model_id" ref="model_maintain_manage_report"/>-->
+            <!--<field name="domain_force">[(1,'=',1)]</field>-->
+            <!--<field name="groups" eval="[(4, ref('vehicle_group.vehicle_depot'))]"/>-->
+        <!--</record>-->
 
-        <!--站务能看到所有的抛锚记录-->
-        <record id="maintain_anchor_visibility_depot" model="ir.rule">
-            <field name="name">Depot has all rights on anchor</field>
-            <field name="model_id" ref="model_vehicle_usage_vehicleanchor"/>
-            <field name="domain_force">[(1,'=',1)]</field>
-            <field name="groups" eval="[(4, ref('vehicle_group.vehicle_depot'))]"/>
-        </record>
+        <!--&lt;!&ndash;站务能看到所有的抛锚记录&ndash;&gt;-->
+        <!--<record id="maintain_anchor_visibility_depot" model="ir.rule">-->
+            <!--<field name="name">Depot has all rights on anchor</field>-->
+            <!--<field name="model_id" ref="model_vehicle_usage_vehicleanchor"/>-->
+            <!--<field name="domain_force">[(1,'=',1)]</field>-->
+            <!--<field name="groups" eval="[(4, ref('vehicle_group.vehicle_depot'))]"/>-->
+        <!--</record>-->
 
     </data>
 </odoo>
