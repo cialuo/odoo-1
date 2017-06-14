@@ -144,3 +144,4 @@ class students(models.Model):
                                              string='ways_of_registration',default='companyWays')
 
      is_sign = fields.Boolean(default=False)
+
