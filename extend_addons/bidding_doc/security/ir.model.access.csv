@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bidding_doc_sale_user,bidding_doc.sale_user,model_bidding_doc,purchase.group_purchase_user,1,1,1,0
