@@ -71,12 +71,85 @@ class examination_students(models.Model):
 
      test_results = fields.Selection([('passingExam','Passing Exam'),('failedExam','Failed Exam')])
 
-     multiselect__score = fields.Float(default=0)
+     multiselect_score = fields.Float(default=0)
 
-     radio__score = fields.Float(default=0)
+     radio_score = fields.Float(default=0)
 
-     judge__score = fields.Float(default=0)
+     judge_score = fields.Float(default=0)
 
      state = fields.Selection([('waitingExam','Waiting Exam'),
                                ('canTest','Can Test'),
                                ('examOver','Exam Over')],default='waitingExam')
+
+     radio_question = fields.One2many('employees_growth.students_radio_question','student_id')
+
+     judge_question = fields.One2many('employees_growth.students_judge_question','student_id')
+
+     multiselect_question = fields.One2many('employees_growth.students_multiselect_question','student_id')
+
+     @api.model
+     def get_examination_info(self,id):
+
+          #获取考试数据
+          student = self.env['employees_growth.students'].search([('id', '=', id)])
+
+
+          print id
+          return '你好'
+
+class multiselect_question(models.Model):
+
+    _name = 'employees_growth.students_multiselect_question'
+    _description = 'Students_Multiselect question'
+    """
+        学生的多选题
+    """
+    student_id = fields.Many2one('employees_growth.students')
+
+    name = fields.Char(string='Question name',required=True)
+
+    option_A = fields.Char(string='Option A',required=True)
+    option_B = fields.Char(string='Option B',required=True)
+    option_C = fields.Char(string='Option C',required=True)
+    option_D = fields.Char(string='Option D',required=True)
+
+    answer = fields.Char(string='Answer',required=True)
+    student_answer = fields.Char(string='Student Answer',required=True)
+
+class radio_question(models.Model):
+
+    _name = 'employees_growth.students_radio_question'
+    _description = 'Students_Radio question'
+    """
+        学生的单选题
+    """
+    student_id = fields.Many2one('employees_growth.students')
+
+    name = fields.Char(string='Question name',required=True)
+
+    option_A = fields.Char(string='Option A',required=True)
+    option_B = fields.Char(string='Option B',required=True)
+    option_C = fields.Char(string='Option C',required=True)
+    option_D = fields.Char(string='Option D',required=True)
+
+    answer = fields.Char(string='Answer',required=True)
+    student_answer = fields.Char(string='Student Answer', required=True)
+
+class judge_question(models.Model):
+
+    _name = 'employees_growth.students_judge_question'
+    _description = 'Students_Judge question'
+    """
+        学生的判断题
+    """
+    student_id = fields.Many2one('employees_growth.students')
+
+    name = fields.Char(string='Question name',required=True)
+
+    option_A = fields.Char(string='Option A',required=True)
+    option_B = fields.Char(string='Option B',required=True)
+    option_C = fields.Char(string='Option C',required=True)
+    option_D = fields.Char(string='Option D',required=True)
+
+    answer = fields.Char(string='Answer',required=True)
+    student_answer = fields.Char(string='Student Answer', required=True)

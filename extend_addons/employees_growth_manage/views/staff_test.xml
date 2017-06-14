@@ -14,7 +14,7 @@
       <field name="name">Staff Test</field>
       <field name="tag">examinationTemplate_page</field>
       <field name="res_model">employees_growth.students</field>
-      <!--<field name="context">examinationTemplate_page</field>-->
+      <field name="context">{'student_ids': [active_id]}</field>
     </record>
 
     <!-- 列表 -->

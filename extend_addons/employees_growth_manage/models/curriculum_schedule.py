@@ -6,6 +6,7 @@ class curriculum_schedule(models.Model):
 
      _name = 'employees_growth.curriculum_schedule'
      _description = 'Curriculum schedule'
+     _rec_name = 'name'
 
      """
         培训课程表：
