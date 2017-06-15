@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-13 09:28+0000\n"
-"PO-Revision-Date: 2017-06-13 17:29+0800\n"
+"POT-Creation-Date: 2017-06-15 07:33+0000\n"
+"PO-Revision-Date: 2017-06-15 15:40+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -105,7 +105,7 @@ msgid "Leave Type"
 msgstr "休假类型"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:285
+#: code:addons/leaveandcheckingin/models/models.py:389
 #, python-format
 msgid "No more offset "
 msgstr "没有可调休假"
@@ -121,10 +121,22 @@ msgid "Vehicle"
 msgstr "车辆"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:58
+#: code:addons/leaveandcheckingin/models/models.py:158
+#, python-format
+msgid "absence must be an integer"
+msgstr "缺勤时长必须是个整数"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:172
+#, python-format
+msgid "absence must not negative"
+msgstr "缺勤时长必须是个正整数"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:62
 #, python-format
 msgid "absence time must be an positive integer"
-msgstr "确切时间必须是正整数"
+msgstr "缺席时长必须是正整数"
 
 #. module: leaveandcheckingin
 #: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_absence
@@ -178,10 +190,22 @@ msgid "deducted money"
 msgstr "扣款金额"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:61
+#: code:addons/leaveandcheckingin/models/models.py:149
+#, python-format
+msgid "deducted must be an integer"
+msgstr "扣款数必须是整数"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:65
 #, python-format
 msgid "deducted must be an positive integer"
 msgstr "考勤扣款必须是个正整数"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:165
+#, python-format
+msgid "deducted must not negative"
+msgstr "扣款数必须是正整数"
 
 #. module: leaveandcheckingin
 #: selection:leave.workovertime,type:0
@@ -226,6 +250,11 @@ msgid "employee leave apply"
 msgstr "休假申请"
 
 #. module: leaveandcheckingin
+#: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_jobnumber
+msgid "employee work number"
+msgstr "工号"
+
+#. module: leaveandcheckingin
 #: model:ir.model,name:leaveandcheckingin.model_employee_attencededucted
 msgid "employee.attencededucted"
 msgstr "考勤扣款"
@@ -249,6 +278,13 @@ msgstr "结束时间"
 #: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_expiretime
 msgid "expire time"
 msgstr "转调休过期时间"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:100
+#: code:addons/leaveandcheckingin/models/models.py:180
+#, python-format
+msgid "jobnumber notexist"
+msgstr "不存在的工号"
 
 #. module: leaveandcheckingin
 #: selection:employee.attencerecords,status:0
@@ -281,7 +317,7 @@ msgid "leave request form"
 msgstr "休假单"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:279
+#: code:addons/leaveandcheckingin/models/models.py:383
 #, python-format
 msgid "leave time must more then one hour"
 msgstr "休假时长至少1小时"
@@ -312,6 +348,54 @@ msgid "money"
 msgstr "转加班费"
 
 #. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:127
+#, python-format
+msgid "must have absence length in data file"
+msgstr "导入数据必须包含缺席时长"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:121
+#, python-format
+msgid "must have date in data file"
+msgstr "导入数据必须包含月份"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:133
+#, python-format
+msgid "must have deducted in data file"
+msgstr "导入数据必须包含扣款数据"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:139
+#, python-format
+msgid "must have jobnumber in data file"
+msgstr "导入数据必须包含员工工号"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:126
+#, python-format
+msgid "need absence length"
+msgstr "导入数据必须包含缺席时长"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:120
+#, python-format
+msgid "need date"
+msgstr "需要月份数据"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:132
+#, python-format
+msgid "need deducted"
+msgstr "需要扣款数据"
+
+#. module: leaveandcheckingin
+#: code:addons/leaveandcheckingin/models/models.py:138
+#, python-format
+msgid "need jobnumber"
+msgstr "需要工号"
+
+#. module: leaveandcheckingin
 #: selection:leave.workovertime,type:0
 msgid "offset"
 msgstr "调休"
@@ -328,7 +412,7 @@ msgid "offset hours(hour)"
 msgstr "调休时长(小时)"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:196
+#: code:addons/leaveandcheckingin/models/models.py:300
 #, python-format
 msgid "only delete in state draft"
 msgstr "草稿状态下才能被删除"
@@ -344,8 +428,9 @@ msgid "overtime type"
 msgstr "加班类型"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:80
-#: code:addons/leaveandcheckingin/models/models.py:87
+#: code:addons/leaveandcheckingin/models/models.py:84
+#: code:addons/leaveandcheckingin/models/models.py:105
+#: code:addons/leaveandcheckingin/models/models.py:187
 #, python-format
 msgid "record duplicated"
 msgstr "考勤扣款记录重复"
@@ -361,7 +446,7 @@ msgid "start time"
 msgstr "开始"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:203
+#: code:addons/leaveandcheckingin/models/models.py:307
 #, python-format
 msgid "start time must earlier then end time"
 msgstr "开始时间必须早于结束时间"
@@ -419,7 +504,7 @@ msgid "work overtime view"
 msgstr "加班申请"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:205
+#: code:addons/leaveandcheckingin/models/models.py:309
 #, python-format
 msgid "worker overtime must more then one hour"
 msgstr "加班时长必须大于等于1小时"
