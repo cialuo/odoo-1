@@ -43,6 +43,8 @@ class curriculum_schedule(models.Model):
 
      students = fields.One2many('employees_growth.students','curriculum_schedule_id',string='Students')
 
+     is_complete = fields.Boolean(default=True)
+
      @api.multi
      def _compute_state(self):
           """
@@ -53,36 +55,52 @@ class curriculum_schedule(models.Model):
           :return:
           """
           for order in self:
-               havingClassCount = 0
-               completeCount = 0
-               for time in order.time_arrangements:
-                    if time.state == 'havingClass':
-                         havingClassCount+=1
-                    if time.state == 'complete':
-                         completeCount+=1
 
-               if len(order.time_arrangements) == 0:
+               if order.is_complete:
+
+                    havingClassCount = 0
+                    completeCount = 0
+                    for time in order.time_arrangements:
+                         if time.state == 'havingClass':
+                              havingClassCount+=1
+                         if time.state == 'complete':
+                              completeCount+=1
+
+                    if len(order.time_arrangements) == 0:
+                         order.state = 'start'
+                         continue
+
+                    if completeCount == len(order.time_arrangements):
+                         order.state = 'examination'
+                         continue
+
+                    if havingClassCount > 0:
+                         order.state = 'sign'
+                         continue
+
                     order.state = 'start'
-                    continue
-
-               if completeCount == len(order.time_arrangements):
-                    order.state = 'examination'
-                    continue
-
-               if havingClassCount > 0:
-                    order.state = 'sign'
-                    continue
-
-               order.state = 'start'
-
-
+               else:
+                    order.state = 'complete'
      @api.multi
      def sign_to_examination(self):
           self.state = 'examination'
 
      @api.multi
      def examination_to_complete(self):
+          """
+               所有的课程完成时，修改培训计划的状态
+          :return:
+          """
           self.state = 'complete'
+          self.is_complete = False
+          curriculums = self.plan_id.curriculum_schedules
+          for curriculum in curriculums:
+               count = 0
+               if curriculum.state == 'complete':
+                    count+= 1
+               if count == len(curriculums):
+                    self.plan_id.state = 'complete'
+
 
      @api.multi
      def write(self, vals):

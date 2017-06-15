@@ -26,7 +26,7 @@ class punch_recording(models.Model):
 
      state = fields.Selection([('wait', 'Wait'), ('ingSign', 'Ing Sign'),
                                ('havingClass', 'Having Class'), ('complete', 'Complete')],
-                              default='wait')
+                              compute='_compute_state')
 
      total_student = fields.Float(string='Total student',compute='_compute_total_student')
 
@@ -46,6 +46,41 @@ class punch_recording(models.Model):
                                  string='Course id', store=True,
                                  readonly=True)
 
+     is_complete = fields.Boolean(default=True)
+
+     @api.multi
+     def _compute_state(self):
+          for order in self:
+               if order.is_complete:
+                    students = order.details
+                    sign = 0
+                    dis = 0
+                    for student in students:
+
+                         if student.dis_sign and student.is_sign:
+                              sign+= 1
+                         if student.dis_sign:
+                              dis+= 1
+
+                    if len(students) == 0:
+                         order.state = 'wait'
+                         continue
+
+                    if dis == len(students):
+                         order.state = 'havingClass'
+                         continue
+
+                    if sign == len(students):
+                         order.state = 'havingClass'
+                         continue
+
+                    if sign > 0:
+                         order.state = 'ingSign'
+                         continue
+
+                    order.state = 'wait'
+               else:
+                    order.state = 'complete'
      @api.multi
      def _compute_name(self):
           """
@@ -108,12 +143,19 @@ class punch_recording(models.Model):
                     order.sign_rate = "0.0%"
 
      @api.multi
-     def to_complete(self):
+     def ingSign_to_havingClass(self):
           """
                全部签到
           :return:
           """
           self.state = 'havingClass'
+          for order in self.details:
+               order.dis_sign = True
+
+     @api.multi
+     def to_complete(self):
+          self.state = 'complete'
+          self.is_complete = False
 
 class punch_recording_details(models.Model):
 
@@ -135,3 +177,5 @@ class punch_recording_details(models.Model):
 
      is_sign = fields.Boolean(default=False)
 
+     #用于流程的状态
+     dis_sign = fields.Boolean(default=False)

@@ -1480,7 +1480,7 @@ msgstr "签到表管理"
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
 msgid "to_complete"
-msgstr "完成签到"
+msgstr "上课完成"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.test_paper_form
