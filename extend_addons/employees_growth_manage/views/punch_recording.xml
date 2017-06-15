@@ -27,7 +27,7 @@
       <field name="arch" type="xml">
         <form create="false">
              <header>
-              <button name="ingSign_to_havingClass" type="object" string="ingSign_to_havingClass" states="wait" class="oe_highlight"/>
+              <button name="ingSign_to_havingClass" type="object" string="ingSign_to_havingClass" states="wait,ingSign" class="oe_highlight"/>
               <button name="to_complete" type="object" string="to_complete" states="havingClass" class="oe_highlight"/>
               <field name="state"  widget="statusbar"/>
             </header>

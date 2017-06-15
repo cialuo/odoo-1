@@ -57,7 +57,7 @@
                                 <field name="start_time"/>
                                 <field name="end_time"/>
                                 <field name="address"/>
-                                <field name="state"/>
+                                <field name="state" readonly="True"/>
                             </tree>
                         </field>
                     </page>

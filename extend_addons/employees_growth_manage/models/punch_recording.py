@@ -26,7 +26,7 @@ class punch_recording(models.Model):
 
      state = fields.Selection([('wait', 'Wait'), ('ingSign', 'Ing Sign'),
                                ('havingClass', 'Having Class'), ('complete', 'Complete')],
-                              compute='_compute_state')
+                              default='wait')
 
      total_student = fields.Float(string='Total student',compute='_compute_total_student')
 
@@ -45,42 +45,6 @@ class punch_recording(models.Model):
      course_id = fields.Many2one('employees_growth.course',related='curriculum_schedule_id.course_id',
                                  string='Course id', store=True,
                                  readonly=True)
-
-     is_complete = fields.Boolean(default=True)
-
-     @api.multi
-     def _compute_state(self):
-          for order in self:
-               if order.is_complete:
-                    students = order.details
-                    sign = 0
-                    dis = 0
-                    for student in students:
-
-                         if student.dis_sign and student.is_sign:
-                              sign+= 1
-                         if student.dis_sign:
-                              dis+= 1
-
-                    if len(students) == 0:
-                         order.state = 'wait'
-                         continue
-
-                    if dis == len(students):
-                         order.state = 'havingClass'
-                         continue
-
-                    if sign == len(students):
-                         order.state = 'havingClass'
-                         continue
-
-                    if sign > 0:
-                         order.state = 'ingSign'
-                         continue
-
-                    order.state = 'wait'
-               else:
-                    order.state = 'complete'
      @api.multi
      def _compute_name(self):
           """
@@ -149,13 +113,23 @@ class punch_recording(models.Model):
           :return:
           """
           self.state = 'havingClass'
-          for order in self.details:
-               order.dis_sign = True
 
      @api.multi
      def to_complete(self):
+          """
+               修改当前课时的状态为：完成
+               判断是否为当前课程表的最后一个课时
+          :return:
+          """
           self.state = 'complete'
-          self.is_complete = False
+
+          if self.curriculum_schedule_id.time_arrangements.mapped('state').count('complete') == len(self.curriculum_schedule_id.time_arrangements):
+
+
+
+               self.curriculum_schedule_id.state = 'examination'
+
+
 
 class punch_recording_details(models.Model):
 
@@ -167,7 +141,7 @@ class punch_recording_details(models.Model):
                编号、员工、公司、部门、是否签到
      """
 
-     punch_recording_id = fields.Many2one('employees_growth.punch_recording',string='Punch recording id')
+     punch_recording_id = fields.Many2one('employees_growth.time_arrangement',string='Punch recording id')
 
      student_id = fields.Many2one('hr.employee',string='Student id', readonly=True)
 
@@ -177,5 +151,20 @@ class punch_recording_details(models.Model):
 
      is_sign = fields.Boolean(default=False)
 
-     #用于流程的状态
-     dis_sign = fields.Boolean(default=False)
+     @api.multi
+     def write(self, vals):
+          """
+               修改签到详情时判断是否签到完成
+          :param vals:
+          :return:
+          """
+
+          res = super(punch_recording_details, self).write(vals)
+
+          if vals.has_key('is_sign'):
+               if self.punch_recording_id.details.mapped('is_sign').count(True) > 0:
+                    self.punch_recording_id.state = 'ingSign'
+               if self.punch_recording_id.details.mapped('is_sign').count(True) == len(self.punch_recording_id.details):
+                    self.punch_recording_id.state = 'havingClass'
+                    self.punch_recording_id.curriculum_schedule_id.state = 'sign'
+          return res

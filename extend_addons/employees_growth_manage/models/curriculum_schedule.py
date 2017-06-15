@@ -32,7 +32,7 @@ class curriculum_schedule(models.Model):
      state = fields.Selection([('start','Start'),('sign','Sign'),
                                ('examination','Examination'),
                                ('complete','Complete')],
-                              compute='_compute_state')
+                              default='start')
 
      plan_id = fields.Many2one('employees_growth.training_plan',string='Plan id')
 
@@ -43,44 +43,6 @@ class curriculum_schedule(models.Model):
 
      students = fields.One2many('employees_growth.students','curriculum_schedule_id',string='Students')
 
-     is_complete = fields.Boolean(default=True)
-
-     @api.multi
-     def _compute_state(self):
-          """
-               根据每一个课程表课时信息来修改课程表的状态：
-                    1、所有课时状态为完成时，课程表表状态为考试
-                    2、课程表里某一课时为正在上课时，课程表状态为上课
-                    3、课程表默认状态为准备
-          :return:
-          """
-          for order in self:
-
-               if order.is_complete:
-
-                    havingClassCount = 0
-                    completeCount = 0
-                    for time in order.time_arrangements:
-                         if time.state == 'havingClass':
-                              havingClassCount+=1
-                         if time.state == 'complete':
-                              completeCount+=1
-
-                    if len(order.time_arrangements) == 0:
-                         order.state = 'start'
-                         continue
-
-                    if completeCount == len(order.time_arrangements):
-                         order.state = 'examination'
-                         continue
-
-                    if havingClassCount > 0:
-                         order.state = 'sign'
-                         continue
-
-                    order.state = 'start'
-               else:
-                    order.state = 'complete'
      @api.multi
      def sign_to_examination(self):
           self.state = 'examination'
@@ -92,15 +54,10 @@ class curriculum_schedule(models.Model):
           :return:
           """
           self.state = 'complete'
-          self.is_complete = False
-          curriculums = self.plan_id.curriculum_schedules
-          for curriculum in curriculums:
-               count = 0
-               if curriculum.state == 'complete':
-                    count+= 1
-               if count == len(curriculums):
-                    self.plan_id.state = 'complete'
 
+          if self.plan_id:
+              if self.plan_id.curriculum_schedules.mapped('state').count('complete') == len(self.plan_id.curriculum_schedules):
+                    self.plan_id.state = 'complete'
 
      @api.multi
      def write(self, vals):
