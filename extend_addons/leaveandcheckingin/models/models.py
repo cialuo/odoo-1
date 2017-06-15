@@ -16,6 +16,7 @@ class attence(models.Model):
 
     employee_id = fields.Many2one('hr.employee', string='employee')
 
+
     # 上班打卡时间
     checkingin = fields.Datetime(string='checkingin time')
 
@@ -41,6 +42,9 @@ class attencededucted(models.Model):
     _rec_name = 'employee_id'
 
     employee_id = fields.Many2one('hr.employee', string='employee', required=True)
+
+    # 内部编号
+    jobnumber = fields.Char(related='employee_id.jobnumber')
 
     # 考勤月份
     month = fields.Date(string='attence month', required=True)
@@ -80,12 +84,112 @@ class attencededucted(models.Model):
                 raise ValidationError(_("record duplicated"))
         return super(attencededucted,self).write(vals)
 
+    def getEmployeeInfo(self, usercode):
+        employeemode = self.env['hr.employee']
+        vechileinfo = employeemode.search([('jobnumber', '=', usercode)], limit=1)
+        if len(vechileinfo) == 0:
+            return False
+        else:
+            return vechileinfo[0]
+
     @api.model
     def create(self, vals):
+        if vals.get('jobnumber', None) != None:
+            employeeinfo = self.getEmployeeInfo(vals['jobnumber'])
+            if employeeinfo == False:
+                raise ValidationError(_("jobnumber notexist"))
+            vals['employee_id'] = employeeinfo.id
+
         vals['month'] = self._formatTime(vals['month'])
         if self._isDuplicate(vals['employee_id'], vals['month']) >= 1:
             raise ValidationError(_("record duplicated"))
         return super(attencededucted,self).create(vals)
+
+    def buidMessage(self, type='error', message='', moreinfo='', to=-1, frm=-1):
+        return dict(
+            {'record': 0, 'rows': {'to': to, 'from': frm}},
+            type=type, message=message,
+            moreinfo=moreinfo
+        )
+
+    @api.model
+    def load(self, fields, data):
+        returnVal = {'ids': False, 'messages': []}
+        if 'month' not in fields:
+            returnVal['messages'].append(
+                self.buidMessage(message=_('need date'),
+                                 moreinfo=_('must have date in data file'))
+            )
+            return returnVal
+        elif 'absence' not in fields:
+            returnVal['messages'].append(
+                self.buidMessage(message=_('need absence length'),
+                                 moreinfo=_('must have absence length in data file'))
+            )
+            return returnVal
+        elif 'deducted' not in fields:
+            returnVal['messages'].append(
+                self.buidMessage(message=_('need deducted'),
+                                 moreinfo=_('must have deducted in data file'))
+            )
+            return returnVal
+        elif 'jobnumber' not in fields:
+            returnVal['messages'].append(
+                self.buidMessage(message=_('need jobnumber'),
+                                 moreinfo=_('must have jobnumber in data file'))
+            )
+            return returnVal
+
+        for index, item in enumerate(data):
+            item = dict(zip(fields, item))
+            try:
+                item['deducted'] = int(item['deducted'])
+            except exceptions:
+                returnVal['messages'].append(
+                    self.buidMessage(message=_('deducted must be an integer'),
+                                     moreinfo='',frm=index, to=index)
+                )
+                return returnVal
+
+            try:
+                item['absence'] = int(item['absence'])
+            except exceptions:
+                returnVal['messages'].append(
+                    self.buidMessage(message=_('absence must be an integer'),
+                                     moreinfo='',frm=index, to=index)
+                )
+                return returnVal
+
+            if item['deducted'] < 0:
+                returnVal['messages'].append(
+                    self.buidMessage(message=_('deducted must not negative'),
+                                     moreinfo='',frm=index, to=index)
+                )
+                return returnVal
+
+            if item['absence'] < 0:
+                returnVal['messages'].append(
+                    self.buidMessage(message=_('absence must not negative'),
+                                     moreinfo='',frm=index, to=index)
+                )
+                return returnVal
+
+            employeeinfo = self.getEmployeeInfo(item['jobnumber'])
+            if employeeinfo == False:
+                returnVal['messages'].append(
+                    self.buidMessage(message=_('jobnumber notexist'),
+                                     moreinfo='',frm=index, to=index)
+                )
+                return returnVal
+            month = self._formatTime(item['month'])
+            if self._isDuplicate(employeeinfo.id, month) >= 1:
+                returnVal['messages'].append(
+                    self.buidMessage(message=_('record duplicated') ,
+                                     moreinfo='',frm=index, to=index)
+                )
+                return returnVal
+        res = super(attencededucted, self).load(fields, data)
+        return res
 
 
 class LeaveType(models.Model):
