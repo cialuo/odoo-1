@@ -87,6 +87,8 @@ class examination_students(models.Model):
 
      multiselect_question = fields.One2many('employees_growth.students_multiselect_question','student_id')
 
+     curriculum_state = fields.Selection(related='curriculum_schedule_id.state', store=True, readonly=True)
+
      @api.model
      def get_examination_info(self,id):
 

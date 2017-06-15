@@ -1,7 +1,7 @@
 <odoo>
   <data>
 
-    <!-- 表单 -->
+    <!-- 课程表单 -->
     <record model="ir.ui.view" id="employees_growth_manage.curriculum_schedule_list">
       <field name="name">curriculum_schedule list</field>
       <field name="model">employees_growth.curriculum_schedule</field>
@@ -22,11 +22,9 @@
     <record model="ir.ui.view" id="employees_growth_manage.curriculum_schedule_form">
       <field name="name">curriculum_schedule form</field>
       <field name="model">employees_growth.curriculum_schedule</field>
-      <!--<field name="priority">100</field>-->
       <field name="arch" type="xml">
         <form>
              <header>
-                 <button name="start_to_sign" type="object" string="start_to_sign" states="start" class="oe_highlight" groups="employees_growth_manage.training_teacher"/>
                  <button name="sign_to_examination" type="object" string="sign_to_examination" states="sign" class="oe_highlight"/>
                  <button name="examination_to_complete" type="object" string="examination_to_complete" states="examination" class="oe_highlight"/>
                  <field name="state"  widget="statusbar"/>
@@ -93,6 +91,7 @@
       <field name="name">curriculum_schedule window</field>
       <field name="res_model">employees_growth.curriculum_schedule</field>
       <field name="view_mode">tree,form</field>
+      <field name="domain">['|',('plan_state','=','pendingExecution'),('plan_id','=',None)]</field>
     </record>
 
   </data>

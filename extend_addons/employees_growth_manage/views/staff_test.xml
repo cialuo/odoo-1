@@ -41,6 +41,7 @@
       <field name="name">students window</field>
       <field name="res_model">employees_growth.students</field>
       <field name="view_mode">tree</field>
+      <field name="domain">[('curriculum_state','=','examination')]</field>
     </record>
 
     <!-- 动作下拉框：定义动作

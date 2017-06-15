@@ -32,9 +32,11 @@ class curriculum_schedule(models.Model):
      state = fields.Selection([('start','Start'),('sign','Sign'),
                                ('examination','Examination'),
                                ('complete','Complete')],
-                              default='start')
+                              compute='_compute_state')
 
      plan_id = fields.Many2one('employees_growth.training_plan',string='Plan id')
+
+     plan_state = fields.Selection(related='plan_id.state', store=True,readonly=True,)
 
      time_arrangements = fields.One2many('employees_growth.time_arrangement',
                                          'curriculum_schedule_id',string='Time arrangements')
@@ -42,8 +44,37 @@ class curriculum_schedule(models.Model):
      students = fields.One2many('employees_growth.students','curriculum_schedule_id',string='Students')
 
      @api.multi
-     def start_to_sign(self):
-          self.state = 'sign'
+     def _compute_state(self):
+          """
+               根据每一个课程表课时信息来修改课程表的状态：
+                    1、所有课时状态为完成时，课程表表状态为考试
+                    2、课程表里某一课时为正在上课时，课程表状态为上课
+                    3、课程表默认状态为准备
+          :return:
+          """
+          for order in self:
+               havingClassCount = 0
+               completeCount = 0
+               for time in order.time_arrangements:
+                    if time.state == 'havingClass':
+                         havingClassCount+=1
+                    if time.state == 'complete':
+                         completeCount+=1
+
+               if len(order.time_arrangements) == 0:
+                    order.state = 'start'
+                    continue
+
+               if completeCount == len(order.time_arrangements):
+                    order.state = 'examination'
+                    continue
+
+               if havingClassCount > 0:
+                    order.state = 'sign'
+                    continue
+
+               order.state = 'start'
+
 
      @api.multi
      def sign_to_examination(self):
@@ -52,8 +83,6 @@ class curriculum_schedule(models.Model):
      @api.multi
      def examination_to_complete(self):
           self.state = 'complete'
-
-
 
      @api.multi
      def write(self, vals):
