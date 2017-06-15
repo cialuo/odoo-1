@@ -110,8 +110,6 @@ class curriculum_schedule(models.Model):
                schedule = self.env['employees_growth.curriculum_schedule'].search([('id', '=', id)])
                students = schedule.students
                times = schedule.time_arrangements
-               print 'students:',len(students)
-               print 'times:', len(times)
 
                for time in times:
                     time.details.unlink()

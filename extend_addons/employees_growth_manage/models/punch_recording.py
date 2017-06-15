@@ -118,14 +118,13 @@ class punch_recording(models.Model):
      def to_complete(self):
           """
                修改当前课时的状态为：完成
-               判断是否为当前课程表的最后一个课时
+               判断是否为当前课程表的最后一个课时,是的话修改课程表状态为：考试
+               并且为每一个培训人员生成考题
           :return:
           """
           self.state = 'complete'
 
           if self.curriculum_schedule_id.time_arrangements.mapped('state').count('complete') == len(self.curriculum_schedule_id.time_arrangements):
-
-
 
                self.curriculum_schedule_id.state = 'examination'
 
