@@ -1,6 +1,22 @@
 <odoo>
   <data>
 
+    <!--声明：加载QWEB界面-->
+    <template id="web.asset_backend" name="asset" inherit_id="web.assets_backend">
+      <xpath expr="." position="inside">
+        <link rel="stylesheet" href="/employees_growth_manage/static/src/css/examination.css" />
+        <script src="/employees_growth_manage/static/src/js/examination.js" type="text/javascript"></script>
+      </xpath>
+    </template>
+
+    <!--动作：连接加载好的QWEB-->
+    <record id="action_wiz_staff_test" model="ir.actions.client">
+      <field name="name">Staff Test</field>
+      <field name="tag">examinationTemplate_page</field>
+      <field name="res_model">employees_growth.students</field>
+      <field name="context">{'student_ids': [active_id]}</field>
+    </record>
+
     <!-- 列表 -->
     <record model="ir.ui.view" id="employees_growth_manage.students_list">
       <field name="name">students list</field>
@@ -25,22 +41,7 @@
       <field name="name">students window</field>
       <field name="res_model">employees_growth.students</field>
       <field name="view_mode">tree</field>
-    </record>
-
-    <!--声明：加载QWEB界面-->
-    <template id="web.asset_backend" name="asset" inherit_id="web.assets_backend">
-      <xpath expr="." position="inside">
-        <link rel="stylesheet" href="/employees_growth_manage/static/src/css/examination.css" />
-        <script src="/employees_growth_manage/static/src/js/examination.js" type="text/javascript"></script>
-      </xpath>
-    </template>
-
-    <!--动作：连接加载好的QWEB-->
-    <record id="action_wiz_staff_test" model="ir.actions.client">
-      <field name="name">Staff Test</field>
-      <field name="tag">examinationTemplate_page</field>
-      <field name="res_model">employees_growth.students</field>
-      <!--<field name="context">examinationTemplate_page</field>-->
+      <field name="domain">[('curriculum_state','=','examination')]</field>
     </record>
 
     <!-- 动作下拉框：定义动作

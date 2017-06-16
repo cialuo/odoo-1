@@ -6,6 +6,7 @@ class curriculum_schedule(models.Model):
 
      _name = 'employees_growth.curriculum_schedule'
      _description = 'Curriculum schedule'
+     _rec_name = 'name'
 
      """
         培训课程表：
@@ -35,14 +36,12 @@ class curriculum_schedule(models.Model):
 
      plan_id = fields.Many2one('employees_growth.training_plan',string='Plan id')
 
+     plan_state = fields.Selection(related='plan_id.state', store=True,readonly=True,)
+
      time_arrangements = fields.One2many('employees_growth.time_arrangement',
                                          'curriculum_schedule_id',string='Time arrangements')
 
      students = fields.One2many('employees_growth.students','curriculum_schedule_id',string='Students')
-
-     @api.multi
-     def start_to_sign(self):
-          self.state = 'sign'
 
      @api.multi
      def sign_to_examination(self):
@@ -50,9 +49,15 @@ class curriculum_schedule(models.Model):
 
      @api.multi
      def examination_to_complete(self):
+          """
+               所有的课程完成时，修改培训计划的状态
+          :return:
+          """
           self.state = 'complete'
 
-
+          if self.plan_id:
+              if self.plan_id.curriculum_schedules.mapped('state').count('complete') == len(self.plan_id.curriculum_schedules):
+                    self.plan_id.state = 'complete'
 
      @api.multi
      def write(self, vals):
@@ -105,8 +110,6 @@ class curriculum_schedule(models.Model):
                schedule = self.env['employees_growth.curriculum_schedule'].search([('id', '=', id)])
                students = schedule.students
                times = schedule.time_arrangements
-               print 'students:',len(students)
-               print 'times:', len(times)
 
                for time in times:
                     time.details.unlink()
