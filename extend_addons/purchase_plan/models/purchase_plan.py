@@ -47,6 +47,7 @@ class PuchasePlan(models.Model):
     procurement_group_id = fields.Many2one('procurement.group', string='Proc Group')
     line_ids = fields.One2many('purchase.plan.line', 'plan_id', string='Lines', readonly=True, states={'draft': [('readonly', False)]})
 
+
     @api.model
     def create(self, vals):
         """
@@ -165,6 +166,24 @@ class PlanLine(models.Model):
                                       ondelete='restrict')
     purchase_id = fields.Many2one('purchase.order', string='Purchase Order', related='procurement_id.purchase_id', ondelete='restrict')
     plan_id = fields.Many2one('purchase.plan', string='Purchase Plan', ondelete='cascade')
+    product_tmpl_id = fields.Many2one('product.template', related='product_id.product_tmpl_id', store=True)
+    seller_id = fields.Many2one('product.supplierinfo', string='Partner', domain="[('product_tmpl_id', '=', product_tmpl_id)]")
+    price_unit = fields.Float(string='Price Unit')
+
+
+
+
+    @api.onchange('seller_id')
+    def _onchange_price_unit(self):
+        """
+        根据选择的供应商及产品，提供默认的单价
+        :return: 
+        """
+        if self.seller_id:
+            self.price_unit = self.seller_id.price
+        else:
+            self.price_unit = 0.0
+
 
     @api.multi
     def _prepare_order_line_procurement(self, group_id=False):
