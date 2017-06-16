@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-15 07:33+0000\n"
-"PO-Revision-Date: 2017-06-15 15:40+0800\n"
+"POT-Creation-Date: 2017-06-16 07:32+0000\n"
+"PO-Revision-Date: 2017-06-16 15:33+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -136,7 +136,7 @@ msgstr "缺勤时长必须是个正整数"
 #: code:addons/leaveandcheckingin/models/models.py:62
 #, python-format
 msgid "absence time must be an positive integer"
-msgstr "缺席时长必须是正整数"
+msgstr "确切时间必须是正整数"
 
 #. module: leaveandcheckingin
 #: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_absence
@@ -211,11 +211,6 @@ msgstr "扣款数必须是正整数"
 #: selection:leave.workovertime,type:0
 msgid "default"
 msgstr "默认"
-
-#. module: leaveandcheckingin
-#: selection:leave.workovertime,state:0
-msgid "done"
-msgstr "完成"
 
 #. module: leaveandcheckingin
 #: selection:leave.workovertime,state:0
@@ -461,6 +456,11 @@ msgstr "状态"
 #: model:ir.ui.view,arch_db:leaveandcheckingin.work_overtime_form
 msgid "submit"
 msgstr "提交"
+
+#. module: leaveandcheckingin
+#: selection:leave.workovertime,state:0
+msgid "submitted"
+msgstr "已提交"
 
 #. module: leaveandcheckingin
 #: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencerecords_length

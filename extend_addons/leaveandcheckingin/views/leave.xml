@@ -69,11 +69,11 @@
                             string="back_draft"
                             states="confirmed"
                             groups="hr.group_hr_manager"/>
-                    <button name="action_confirm" type="object"
+                    <button name="action_submitted" type="object"
                             string="submit" states="draft"
                             class="oe_highlight"/>
-                    <button name="action_done" type="object"
-                            string="confirmed" states="confirmed"
+                    <button name="action_confirmed" type="object"
+                            string="confirmed" states="submitted"
                             class="oe_highlight"
                             groups="hr.group_hr_manager"/>
                     <field name="state" widget="statusbar"/>
