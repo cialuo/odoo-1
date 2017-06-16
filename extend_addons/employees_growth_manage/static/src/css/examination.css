@@ -1,0 +1,21 @@
+
+.question_title {
+    background-color: #b7e4ff;
+}
+
+.question_li {
+    display : inline
+}
+
+.question_body {
+    height:30%;
+    width:50%;
+    margin:0 auto;
+}
+
+.question_div {
+    border: 1px solid rgba(244, 244, 244, 1);
+    margin-bottom: 10px;
+    border-radius:1%;
+    background-color: white;
+}

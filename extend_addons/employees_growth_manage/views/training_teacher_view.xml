@@ -104,12 +104,9 @@
                                 <field name="teacher_address"/>
                             </group>
                         </group>
-                        <div class="oe_title">
-                            <label for="personal_introduction" class="oe_edit_only"/>
-                            <h1>
-                                <field name="personal_introduction"/>
-                            </h1>
-                        </div>
+                        <group>
+                            <field name="personal_introduction"/>
+                        </group>
                     </page>
                 </notebook>
             </sheet>

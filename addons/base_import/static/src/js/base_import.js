@@ -588,11 +588,16 @@ var DataImport = Widget.extend(ControlPanelMixin, {
                 at: function (rows) {
                     var from = rows.from + offset;
                     var to = rows.to + offset;
-                    if (from === to) {
-                        return _.str.sprintf(_t("at row %d"), from);
+                    if (rows.from>=0){
+                        if (from === to) {
+                            return _.str.sprintf(_t("at row %d"), from);
+                        }
+                        return _.str.sprintf(_t("between rows %d and %d"),
+                            from, to);
+                    } else {
+                        return ''
                     }
-                    return _.str.sprintf(_t("between rows %d and %d"),
-                                         from, to);
+
                 },
                 more: function (n) {
                     return _.str.sprintf(_t("(%d more)"), n);

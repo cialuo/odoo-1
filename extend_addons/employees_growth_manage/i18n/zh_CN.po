@@ -351,7 +351,7 @@ msgstr "考试报名"
 #. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,state:0
 msgid "Examination"
-msgstr "考试"
+msgstr "正在考试"
 
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_examination
@@ -675,7 +675,7 @@ msgstr "多选题"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_multiselect_question_count
 msgid "Multiselect question count"
-msgstr "多选题"
+msgstr "多选题数量"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_multiselect_questions
@@ -948,7 +948,7 @@ msgstr "序号"
 #. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,state:0
 msgid "Sign"
-msgstr "开课中"
+msgstr "正在上课"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
@@ -978,7 +978,7 @@ msgstr "小尺寸的员工照片。保留纵横比，自动缩放为64x64px。�
 #. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,state:0
 msgid "Start"
-msgstr "开课"
+msgstr "准备开课"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_start_time
@@ -1480,7 +1480,7 @@ msgstr "签到表管理"
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
 msgid "to_complete"
-msgstr "完成签到"
+msgstr "上课完成"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.test_paper_form

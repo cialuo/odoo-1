@@ -34,6 +34,6 @@
         'views/staff_test.xml',
         'views/menus.xml',
     ],
-    #'qweb': ['static/src/xml/examination.xml'],
+    'qweb': ['static/src/xml/examination.xml'],
     'application': True
 }

@@ -1,8 +1,61 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <template xml:space="preserve">
-    <t t-name="examinationTemplate">
+
+    <t t-name="messages">
+
+        <h1>考试</h1>
+        <button type="button" class="btn_jiaojuan">Click</button>
+
         <div>
-            <p>this....</p>
+
+            <div class="question_body">
+                <h1 class="question_title">一、单选题，每题仅有一个答案是正确的选项。（本题共有4题，共4分）</h1>
+
+                <t t-foreach="msgList" t-as="bo">
+
+                    <div class="question_div">
+                        <h5>
+                            <span><t t-esc="bo_index + 1"/>、</span><t t-esc="bo.name"/>
+                        </h5>
+                        <ol>
+
+                            <div>
+                                <input t-attf-name="q_{{bo_index}}" type="radio"/>
+                                <span>A.</span>
+                                <li class="question_li">
+                                    <t t-esc="bo.a"/>
+                                </li>
+                            </div>
+
+                            <div>
+                                <input t-attf-name="q_{{bo_index}}" type="radio"/>
+                                <span>B.</span>
+                                <li class="question_li">
+                                    <t t-esc="bo.b"/>
+                                </li>
+                            </div>
+
+                            <div>
+                                <input t-attf-name="q_{{bo_index}}" type="radio"/>
+                                <span>C.</span>
+                                <li class="question_li">
+                                    <t t-esc="bo.c"/>
+                                </li>
+                            </div>
+
+                            <div>
+                                <input t-attf-name="q_{{bo_index}}" type="radio"/>
+                                <span>D.</span>
+                                <li class="question_li">
+                                    <t t-esc="bo.d"/>
+                                </li>
+                            </div>
+                        </ol>
+                    </div>
+
+                </t>
+            </div>
         </div>
     </t>
+
 </template>

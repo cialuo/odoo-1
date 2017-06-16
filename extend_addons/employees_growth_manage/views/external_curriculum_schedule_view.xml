@@ -26,9 +26,9 @@
       <field name="arch" type="xml">
         <form>
              <header>
-              <button name="start_to_sign" type="object" string="draft_to_pendingAudit" states="draft" class="oe_highlight"/>
-              <button name="sign_to_examination" type="object" string="sign_to_execution" states="pendingExecution" class="oe_highlight"/>
-              <button name="examination_to_complete" type="object" string="execution_to_complete" states="execution" class="oe_highlight"/>
+              <button name="start_to_sign" type="object" string="draft_to_pendingAudit" states="draft" class="oe_highlight" groups="employees_growth_manage.training_teacher"/>
+              <button name="sign_to_examination" type="object" string="sign_to_execution" states="pendingExecution" class="oe_highlight" groups="employees_growth_manage.training_teacher"/>
+              <button name="examination_to_complete" type="object" string="execution_to_complete" states="execution" class="oe_highlight" groups="employees_growth_manage.training_teacher"/>
               <field name="state"  widget="statusbar"/>
             </header>
             <sheet>
@@ -55,7 +55,7 @@
                 </group>
                 <notebook>
                     <page names="page_trainers" string="Trainers page">
-                        <field name="students" >
+                        <field name="students">
                             <tree editable="top">
                                 <field name="student_id"/>
                                 <field name="jobnumber"/>
