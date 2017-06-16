@@ -25,7 +25,7 @@
       <field name="arch" type="xml">
         <form>
              <header>
-                 <button name="sign_to_examination" type="object" string="sign_to_examination" states="sign" class="oe_highlight"/>
+                 <button name="sign_to_examination" type="object" string="sign_to_examination" states="sign" class="oe_highlight" />
                  <button name="examination_to_complete" type="object" string="examination_to_complete" states="examination" class="oe_highlight"/>
                  <field name="state"  widget="statusbar"/>
             </header>

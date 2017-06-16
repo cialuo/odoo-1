@@ -100,7 +100,7 @@ class examination_students(models.Model):
           print r_questions
           return r_questions
 
-     def get_questions(self,test_paper):
+     def student(self,test_paper):
          """
             根据试卷信息获取题目列表
          :return:
@@ -177,7 +177,7 @@ class radio_question(models.Model):
     option_D = fields.Char(string='Option D',required=True)
 
     answer = fields.Char(string='Answer',required=True)
-    student_answer = fields.Char(string='Student Answer', required=True)
+    student_answer = fields.Char(string='Student Answer')
 
 class judge_question(models.Model):
 
