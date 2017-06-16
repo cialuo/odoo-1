@@ -27,8 +27,8 @@
       <field name="arch" type="xml">
         <form create="false">
              <header>
-              <button name="ingSign_to_havingClass" type="object" string="ingSign_to_havingClass" states="wait,ingSign" class="oe_highlight"/>
-              <button name="to_complete" type="object" string="to_complete" states="havingClass" class="oe_highlight"/>
+              <button name="ingSign_to_havingClass" type="object" string="ingSign_to_havingClass" states="wait,ingSign" class="oe_highlight" groups="employees_growth_manage.training_teacher"/>
+              <button name="to_complete" type="object" string="to_complete" states="havingClass" class="oe_highlight" groups="employees_growth_manage.training_teacher"/>
               <field name="state"  widget="statusbar"/>
             </header>
             <sheet>

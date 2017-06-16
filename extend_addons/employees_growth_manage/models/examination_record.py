@@ -158,7 +158,7 @@ class multiselect_question(models.Model):
     option_D = fields.Char(string='Option D',required=True)
 
     answer = fields.Char(string='Answer',required=True)
-    student_answer = fields.Char(string='Student Answer',required=True)
+    student_answer = fields.Char(string='Student Answer')
 
 class radio_question(models.Model):
 
@@ -196,4 +196,4 @@ class judge_question(models.Model):
     option_D = fields.Char(string='Option D',required=True)
 
     answer = fields.Char(string='Answer',required=True)
-    student_answer = fields.Char(string='Student Answer', required=True)
+    student_answer = fields.Char(string='Student Answer')
