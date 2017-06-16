@@ -47,5 +47,40 @@
                   parent="materials_menu_location"
                   groups="stock.group_stock_user"
         />
+        <!--extend Tree view for stock move-->
+        <record id="view_move_tree_extend" model="ir.ui.view">
+            <field name="name">View Move Tree</field>
+            <field name="model">stock.move</field>
+            <field name="arch" type="xml">
+                <tree decoration-muted="state == 'cancel'" default_order='date_expected, picking_id, sequence' string="Moves">
+                    <field name="product_id" string="Material Product"/>
+                    <field name="picking_type_id"/>
+                    <field name="location_id"/>
+                    <field name="location_dest_id"/>
+                    <field name="origin"/>
+                    <field name="product_uom_qty"/>
+                    <field name="price_unit"/>
+                    <field name="date"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <!--add action for the stock move menu-->
+        <act_window id="materials_stock_move_action" view_type="form" res_model="stock.move" name="Stock Move Action"/>
+        <!--Bind tree & form view -->
+        <record model="ir.actions.act_window.view" id="tree_materials_stock_move_action">
+            <field name="view_mode">tree</field>
+            <field name="sequence">0</field>
+            <field name="view_id" ref="view_move_tree_extend"/>
+            <field name="act_window_id" ref="materials_stock_move_action"/>
+        </record>
+        <!--出入库记录-->
+        <menuitem id="materials_menu_stock_move"
+                  name="Stock Move Menu"
+                  sequence="30"
+                  action="materials_stock_move_action"
+                  parent="materials_menu_location"
+                  groups="stock.group_stock_user"
+        />
     </data>
 </odoo>
