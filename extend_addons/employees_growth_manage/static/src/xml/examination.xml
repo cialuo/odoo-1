@@ -1,17 +1,131 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <template xml:space="preserve">
 
-    <t t-name="messages">
+    <t t-name="title_info">
+        <h1><t t-esc="title_info.display_name"/></h1>
+        <button type="button" class="btn_jiaojuan oe_highlight">提交考试</button>
+    </t>
 
-        <h1>考试</h1>
-        <button type="button" class="btn_jiaojuan">Click</button>
+    <t t-name="radio_info">
 
         <div>
 
             <div class="question_body">
-                <h1 class="question_title">一、单选题，每题仅有一个答案是正确的选项。（本题共有4题，共4分）</h1>
+                <h1 class="question_title">一、单选题，每题仅有一个答案是正确的选项。（本题共有<t t-esc="radio_info.count"/>题，共4分）</h1>
 
-                <t t-foreach="msgList" t-as="bo">
+                <t t-foreach="radio_info.questions" t-as="bo">
+
+                    <div class="question_div">
+                        <h5>
+                            <span><t t-esc="bo_index + 1"/>、</span><t t-esc="bo.name"/>
+                            <input t-attf-id="radio_question_{{bo_index}}" class="answer"/>
+                        </h5>
+                        <ol>
+
+                            <div>
+                                <input t-attf-name="radio_{{bo_index}}" t-attf-id="radio_{{bo_index}}_A" class='radio_answer' type="radio" value="A"/>
+                                <span>A.</span>
+                                <li class="question_li">
+                                    <t t-esc="bo.option_A"/>
+                                </li>
+                            </div>
+
+                            <div>
+                                <input t-attf-name="radio_{{bo_index}}" t-attf-id="radio_{{bo_index}}_B" class='radio_answer' type="radio" value="B"/>
+                                <span>B.</span>
+                                <li class="question_li">
+                                    <t t-esc="bo.option_B"/>
+                                </li>
+                            </div>
+
+                            <div>
+                                <input t-attf-name="radio_{{bo_index}}" t-attf-id="radio_{{bo_index}}_C" class='radio_answer' type="radio" value="C"/>
+                                <span>C.</span>
+                                <li class="question_li">
+                                    <t t-esc="bo.option_C"/>
+                                </li>
+                            </div>
+
+                            <div>
+                                <input t-attf-name="radio_{{bo_index}}" t-attf-id="radio_{{bo_index}}_D" class='radio_answer' type="radio" value="D"/>
+                                <span>D.</span>
+                                <li class="question_li">
+                                    <t t-esc="bo.option_D"/>
+                                </li>
+                            </div>
+                        </ol>
+                    </div>
+
+                </t>
+
+            </div>
+        </div>
+    </t>
+
+    <t t-name="multiselect_info">
+
+        <div>
+
+            <div class="question_body">
+                <h1 class="question_title">一、多选题，每题至少有两个答案是正确的选项。（本题共有<t t-esc="multiselect_info.count"/>题，共4分）</h1>
+
+                <t t-foreach="multiselect_info.questions" t-as="bo">
+
+                    <div class="question_div">
+                        <h5>
+                            <span><t t-esc="bo_index + 1"/>、</span><t t-esc="bo.name"/>
+                             <input t-attf-id="multiselect_question_{{bo_index}}" class="answer"/>
+                        </h5>
+                        <ol>
+
+                            <div>
+                                <input type="checkbox" t-attf-name="multiselect_{{bo_index}}" value="A" class="multiselect_answer"/>
+                                <span>A.</span>
+                                <li class="question_li">
+                                    <t t-esc="bo.option_A"/>
+                                </li>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" t-attf-name="multiselect_{{bo_index}}" value="B" class="multiselect_answer"/>
+                                <span>B.</span>
+                                <li class="question_li">
+                                    <t t-esc="bo.option_B"/>
+                                </li>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" t-attf-name="multiselect_{{bo_index}}" value="C" class="multiselect_answer"/>
+                                <span>C.</span>
+                                <li class="question_li">
+                                    <t t-esc="bo.option_C"/>
+                                </li>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" t-attf-name="multiselect_{{bo_index}}" value="D" class="multiselect_answer"/>
+                                <span>D.</span>
+                                <li class="question_li">
+                                    <t t-esc="bo.option_D"/>
+                                </li>
+                            </div>
+                        </ol>
+                    </div>
+
+                </t>
+
+            </div>
+        </div>
+    </t>
+
+    <t t-name="judge_info">
+
+        <div>
+
+            <div class="question_body">
+                <h1 class="question_title">三、判断题，请判断以下说法哪项是正确的。（本题共有<t t-esc="judge_info.count"/>题，共4分）</h1>
+
+                <t t-foreach="judge_info.questions" t-as="bo">
 
                     <div class="question_div">
                         <h5>
@@ -20,40 +134,41 @@
                         <ol>
 
                             <div>
-                                <input t-attf-name="q_{{bo_index}}" type="radio"/>
+                                <input t-attf-name="judge_{{bo_index}}" type="radio"/>
                                 <span>A.</span>
                                 <li class="question_li">
-                                    <t t-esc="bo.a"/>
+                                    <t t-esc="bo.option_A"/>
                                 </li>
                             </div>
 
                             <div>
-                                <input t-attf-name="q_{{bo_index}}" type="radio"/>
+                                <input t-attf-name="judge_{{bo_index}}" type="radio"/>
                                 <span>B.</span>
                                 <li class="question_li">
-                                    <t t-esc="bo.b"/>
+                                    <t t-esc="bo.option_B"/>
                                 </li>
                             </div>
 
                             <div>
-                                <input t-attf-name="q_{{bo_index}}" type="radio"/>
+                                <input t-attf-name="judge_{{bo_index}}" type="radio"/>
                                 <span>C.</span>
                                 <li class="question_li">
-                                    <t t-esc="bo.c"/>
+                                    <t t-esc="bo.option_C"/>
                                 </li>
                             </div>
 
                             <div>
-                                <input t-attf-name="q_{{bo_index}}" type="radio"/>
+                                <input t-attf-name="judge_{{bo_index}}" type="radio"/>
                                 <span>D.</span>
                                 <li class="question_li">
-                                    <t t-esc="bo.d"/>
+                                    <t t-esc="bo.option_D"/>
                                 </li>
                             </div>
                         </ol>
                     </div>
 
                 </t>
+
             </div>
         </div>
     </t>

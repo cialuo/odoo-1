@@ -95,51 +95,20 @@ class examination_students(models.Model):
 
           #获取考试数据
           student = self.env['employees_growth.students'].search([('id', '=', id)])
-          questions = student.curriculum_schedule_id.course_id.test_paper_id
-          r_questions = self.get_questions(questions)
-          print r_questions
-          return r_questions
+          questions= {}
 
-     def student(self,test_paper):
-         """
-            根据试卷信息获取题目列表
-         :return:
-         """
-         questions = {}
-         for detail in test_paper.test_paper_details:
-            if detail.question_type == 'radio_question':
-                #题目数量
-                radio_count = detail.question_count
-                #题目分值
-                radio_score = detail.score
-                #总的题目
-                radio_questions = test_paper.questions_id.radio_questions
-                #随机的题目
-                question = self.get_question(radio_questions,radio_count)
-                radio = {'radio_count':radio_count,'radio_score':radio_score,'radio_questions':question}
-                questions['radio'] =radio
+          questions['display_name'] = student.display_name
 
-                 #elif detail.question_type == 'multiselect_question':
-                     #multiselect_count = detail.question_count
-                 #elif detail.question_type == 'judge_question':
-                     #judge_count = detail.question_count
-         return questions
+          for detail in student.curriculum_schedule_id.course_id.test_paper_id.test_paper_details:
 
-     def get_question(self,questions,count):
-            """
-                遍历各个题库去值
-            """
-            array = []
-            indexArray = []
-            while len(array) < count:
-                index = random.randint(0, len(questions)-1)
-                if indexArray.count(index) > 0:
-                    continue
-                    indexArray.append(index)
-                array.append(questions[index])
+              if detail.question_type =='radio_question':
+                questions['radio'] = {'count': detail.question_count, 'score': detail.score, 'questions': student.radio_question.read()}
+              elif detail.question_type =='multiselect_question':
+                  questions['multiselect'] = {'count': detail.question_count, 'score': detail.score,'questions': student.multiselect_question.read()}
+              elif detail.question_type == 'judge_question':
+                  questions['judge'] = {'count': detail.question_count, 'score': detail.score,'questions': student.judge_question.read()}
 
-            return array
-
+          return questions
 
 class multiselect_question(models.Model):
 

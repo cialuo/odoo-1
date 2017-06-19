@@ -31,7 +31,7 @@
           <field name="state"/>
           <field name="test_score"/>
           <field name="test_results"/>
-          <button type="action" icon="fa-book" name="%(action_wiz_staff_test)d"></button>
+          <button type="action" string="btn_examination" name="%(action_wiz_staff_test)d" help="点我"></button>
         </tree>
       </field>
     </record>
