@@ -75,6 +75,7 @@
       <field name="name">external_curriculum_schedule window</field>
       <field name="res_model">employees_growth.external_curriculum_schedule</field>
       <field name="view_mode">tree,form</field>
+      <field name="domain">['|',('plan_state','=','pendingExecution'),'|',('plan_id','=',None),('plan_state','=','complete')]</field>
     </record>
 
   </data>

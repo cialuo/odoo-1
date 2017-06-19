@@ -132,6 +132,8 @@ class external_curriculum_schedule(models.Model):
 
     plan_id = fields.Many2one('employees_growth.external_training_plan', string='Plan id')
 
+    plan_state = fields.Selection(related='plan_id.state', store=True,readonly=True)
+
     name = fields.Char(string='Name', related='plan_id.name', store=True, readonly=True)
 
     training_cycle = fields.Char(related='plan_id.training_cycle', store=True, readonly=True,string='Training cycle')

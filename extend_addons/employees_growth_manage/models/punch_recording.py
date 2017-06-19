@@ -114,6 +114,7 @@ class punch_recording(models.Model):
           :return:
           """
           self.state = 'havingClass'
+          self.curriculum_schedule_id.state = 'sign'
 
      @api.multi
      def to_complete(self):

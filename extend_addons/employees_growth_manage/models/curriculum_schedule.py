@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api,_
+import random
 
 class curriculum_schedule(models.Model):
 
@@ -47,10 +48,85 @@ class curriculum_schedule(models.Model):
      def sign_to_examination(self):
           self.state = 'examination'
 
+          self.save_student_questions()
+
+
+     def save_student_questions(self):
+          """
+               保存当前课程表里的所有培训学员的考试题目
+          :return:
+          """
+          for student in self.students:
+               self.get_questions(student)
+
+     def save_radio_question(self,id,questions,type):
+          """
+               保存
+          :return:
+          """
+          for question in questions:
+
+               vals = {
+                    "student_id":id,
+                    "name":question.name,
+                    "option_A":question.option_A,
+                    "option_B":question.option_B,
+                    "option_C":question.option_C,
+                    "option_D":question.option_D,
+                    "answer":question.answer
+               }
+               if type == 'radio_question':
+                    self.env['employees_growth.students_radio_question'].create(vals)
+               elif type == 'multiselect_question':
+                    self.env['employees_growth.students_multiselect_question'].create(vals)
+               elif type =='judge_question':
+                    self.env['employees_growth.students_judge_question'].create(vals)
+
+     def get_questions(self,student):
+          """
+               获取题目
+          :return:
+          """
+          #试卷详情
+          details = student.curriculum_schedule_id.course_id.test_paper_id.test_paper_details
+          #题库
+          questions_id = student.curriculum_schedule_id.course_id.test_paper_id.questions_id
+
+          for detail in details:
+
+               if detail.question_type == 'radio_question':
+                    # 单选题
+                    self.save_radio_question(student.id, self.get_random_question(questions_id.radio_questions,
+                                                                                  detail.question_count),detail.question_type)
+               elif detail.question_type == 'multiselect_question':
+                    # 多选题
+                    self.save_radio_question(student.id, self.get_random_question(questions_id.multiselect_questions,
+                                                                                  detail.question_count),detail.question_type)
+               elif detail.question_type == 'judge_question':
+                    # 判断题
+                    self.save_radio_question(student.id, self.get_random_question(questions_id.judge_questions,
+                                                                                  detail.question_count),detail.question_type)
+
+
+     def get_random_question(self,questions,count):
+            """
+                遍历各个题库去值
+            """
+            array = []
+            indexArray = []
+            while len(array) < count:
+                index = random.randint(0, len(questions)-1)
+                if indexArray.count(index) > 0:
+                    continue
+                    indexArray.append(index)
+                array.append(questions[index])
+
+            return array
+
      @api.multi
      def examination_to_complete(self):
           """
-               所有的课程完成时，修改培训计划的状态
+               所有的课程完成时，修改培训计划的状态,修改所以课时状态为完成
           :return:
           """
           self.state = 'complete'
@@ -58,6 +134,9 @@ class curriculum_schedule(models.Model):
           if self.plan_id:
               if self.plan_id.curriculum_schedules.mapped('state').count('complete') == len(self.plan_id.curriculum_schedules):
                     self.plan_id.state = 'complete'
+
+          for time in self.time_arrangements:
+               time.state = 'complete'
 
      @api.multi
      def write(self, vals):
