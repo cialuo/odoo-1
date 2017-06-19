@@ -616,7 +616,7 @@ class WarrantyInspectOrder(models.Model): # 检验单
                 raise exceptions.UserError(_("Selected project cannot be complete as they are not in 'check' state"))
             i.state = 'complete'
             i.inspect_result = 'qualified'
-            i.end_inspect_time = fields.Datetime.now()
+            i.end_inspect_time = datetime.datetime.utcnow() # fields.Datetime.now()
 
             if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
                 i.warranty_order_id.state = 'done'
@@ -627,7 +627,7 @@ class WarrantyInspectOrder(models.Model): # 检验单
 
     @api.multi
     def action_return(self, reason=''): # 退回重修
-        inspect_return_time = fields.Datetime.now()
+        inspect_return_time = datetime.datetime.utcnow() # fields.Datetime.now()
         vals = {
             "order_project": self.id,
             "inspect_return_time": inspect_return_time,
@@ -790,9 +790,9 @@ class WizardProjectBatchToCheck(models.TransientModel): # 保养项目_批量_�
             if project.state != 'maintain':
                 raise UserError(_("Selected project cannot be check as they are not in 'maintain' state"))
             project.state = 'check'
-            project.start_inspect_time = fields.Datetime.now()
+            project.start_inspect_time = datetime.datetime.utcnow() # fields.Datetime.now()
             for manhour_manage in project.manhour_manage_ids:
-                manhour_manage.real_end_time = fields.Datetime.now()
+                manhour_manage.real_end_time = datetime.datetime.utcnow() # fields.Datetime.now()
 
         return {'type': 'ir.actions.act_window_close'}
 
@@ -811,7 +811,7 @@ class WizardProjectBatchCheckPass(models.TransientModel):  # 保养项目_批量
                 raise UserError(_("Selected project cannot be check as they are not in 'check' state"))
             i.state = 'complete'
             i.inspect_result = 'qualified'
-            i.end_inspect_time = fields.Datetime.now()
+            i.end_inspect_time = datetime.datetime.utcnow() # fields.Datetime.now()
 
             if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
                 i.warranty_order_id.state = 'done'

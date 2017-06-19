@@ -21,6 +21,7 @@
     'depends': ['security_manage_menu','employees', 'scheduling_parameters'],
 
     'data': [
+        'security/ir.model.access.csv',
         'data/sequence.xml',
         'views/driver_safety_profile_view.xml',
     ],
