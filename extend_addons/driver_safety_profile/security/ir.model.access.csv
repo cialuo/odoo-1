@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_accident_record_group_hr_user,accident_record_group_hr_user,model_accident_record,hr.group_hr_user,1,0,0,0
+access_endorsement_group_hr_user,endorsement_group_hr_user,model_endorsement,hr.group_hr_user,1,0,0,0
+access_safe_kilometer_group_hr_user,safe_kilometer_group_hr_user,model_safe_kilometer,hr.group_hr_user,1,0,0,0
+access_overspeed_record_group_hr_user,overspeed_record_group_hr_user,model_overspeed_record,hr.group_hr_user,1,0,0,0
