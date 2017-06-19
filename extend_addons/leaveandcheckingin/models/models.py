@@ -409,3 +409,10 @@ class Holidays(models.Model):
                 item.useup = False
 
         return super(Holidays, self).action_approve()
+
+    @api.multi
+    def name_get(self):
+        res = []
+        for leave in self:
+            res.append((leave.id, _("leave request form")))
+        return res

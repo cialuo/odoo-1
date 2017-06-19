@@ -162,12 +162,6 @@
         <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//div[@class='oe_title']" position="replace">
-                <div class="oe_title">
-                    <h1>leave request form</h1>
-                </div>
-            </xpath>
-
             <xpath expr="//field[@name='holiday_type']" position="replace">
                 <field name="holiday_type" invisible="1"/>
             </xpath>
@@ -199,6 +193,10 @@
 
             <xpath expr="//field[@name='payslip_status']" position="after">
                 <field name="length" required="1"/>
+            </xpath>
+
+            <xpath expr="//div[@class='oe_chatter']" position="replace">
+                <div></div>
             </xpath>
 
         </field>
