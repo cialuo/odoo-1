@@ -45,8 +45,12 @@
         <field name="model">hr.payslip</field>
         <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
         <field name="arch" type="xml">
+
             <xpath expr="//field[@name='number_of_days']" position="replace">
                 <field name="number_of_days" invisible="1" />
+            </xpath>
+            <xpath expr="//button[@name='refund_sheet']" position="replace">
+                <button string="Refund" name="refund_sheet" states="confirm,done" type='object' groups="hr.group_hr_user" />
             </xpath>
         </field>
     </record>
