@@ -171,6 +171,16 @@ class PlanLine(models.Model):
     price_unit = fields.Float(string='Price Unit')
 
 
+    @api.onchange('product_id')
+    def _onchange_vendor(self):
+        """
+        根据选择的产品，默认填入该产品的上一次采购供应商
+        :return: 
+        """
+        if self.product_id:
+            p_order = self.env['purchase.order.line'].search([('product_id', '=', self.product_id.id)], limit=1,order='id desc')
+            p_supplierinfo = self.env['product.supplierinfo'].search([('name', '=', p_order.partner_id.id)], limit=1)
+            self.seller_id = p_supplierinfo
 
 
     @api.onchange('seller_id')
