@@ -50,7 +50,7 @@ class curriculum_schedule(models.Model):
      @api.multi
      def examination_to_complete(self):
           """
-               所有的课程完成时，修改培训计划的状态
+               所有的课程完成时，修改培训计划的状态,修改所以课时状态为完成
           :return:
           """
           self.state = 'complete'
@@ -58,6 +58,9 @@ class curriculum_schedule(models.Model):
           if self.plan_id:
               if self.plan_id.curriculum_schedules.mapped('state').count('complete') == len(self.plan_id.curriculum_schedules):
                     self.plan_id.state = 'complete'
+
+          for time in self.time_arrangements:
+               time.state = 'complete'
 
      @api.multi
      def write(self, vals):
