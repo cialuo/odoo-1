@@ -251,7 +251,8 @@
     <menuitem id="ltyhr_offset_days_menu" name="offset days"
               sequence="70"
               action="offset_days_action"
-              parent="employees_menu.leave_and_checking_in"/>
+              parent="employees_menu.leave_and_checking_in"
+              groups="hr.group_hr_user"/>
 
     <!--休假申请-->
     <menuitem id="apply_for_leave_menu" name="leave apply"
