@@ -53,7 +53,7 @@
                     </page>
                     <page names="exam_registration" string="Exam registration">
                         <field name="students" >
-                            <tree editable="top" create="false" delete="false">
+                            <tree editable="top" create="false" delete="false" >
                                 <field name="student_id" readonly="True"/>
                                 <field name="jobnumber" readonly="True"/>
                                 <field name="department_id" readonly="True"/>

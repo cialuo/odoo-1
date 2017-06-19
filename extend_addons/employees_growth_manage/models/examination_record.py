@@ -35,7 +35,7 @@ class examination_record(models.Model):
           :return:
           """
           for order in self:
-               order.display_name = order.course_id.name + u"考试"
+               order.display_name = order.course_id.name
 
      @api.multi
      def _compute_display_code(self):
