@@ -166,7 +166,7 @@ class PlanLine(models.Model):
                                       ondelete='restrict')
     purchase_id = fields.Many2one('purchase.order', string='Purchase Order', related='procurement_id.purchase_id', ondelete='restrict')
     plan_id = fields.Many2one('purchase.plan', string='Purchase Plan', ondelete='cascade')
-    product_tmpl_id = fields.Many2one('product.template', related='product_id.product_tmpl_id', store=True)
+    product_tmpl_id = fields.Many2one('product.template')
     seller_id = fields.Many2one('product.supplierinfo', string='Partner', domain="[('product_tmpl_id', '=', product_tmpl_id)]")
     price_unit = fields.Float(string='Price Unit')
 
@@ -181,6 +181,7 @@ class PlanLine(models.Model):
             p_order = self.env['purchase.order.line'].search([('product_id', '=', self.product_id.id)], limit=1,order='id desc')
             p_supplierinfo = self.env['product.supplierinfo'].search([('name', '=', p_order.partner_id.id)], limit=1)
             self.seller_id = p_supplierinfo
+            self.product_tmpl_id = self.product_id.product_tmpl_id
 
 
     @api.onchange('seller_id')
