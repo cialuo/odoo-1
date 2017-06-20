@@ -16,7 +16,9 @@ class examination_record(models.Model):
 
      display_code = fields.Char(string='Display code',compute='_compute_display_code')
 
-     passing_score = fields.Float(string='Passing score')
+     passing_score = fields.Integer(string='Passing score')
+
+     total_score = fields.Integer(string='Aggregate score',related='course_id.test_paper_id.aggregate_score',store=True,readonly=True)
 
      time_limit = fields.Integer(string='Time limit',default='60')
 
@@ -47,7 +49,14 @@ class examination_record(models.Model):
                if order.train_date:
                     order.display_code = order.train_date.replace('-', '').replace(' ', '')
 
-
+     @api.onchange('passing_score')
+     def _onchanget_passing_score(self):
+        """
+            及格分数不能大于试卷总分数
+        :return:
+        """
+        if self.passing_score > self.total_score:
+            self.passing_score = self.total_score
 
 
 class examination_students(models.Model):
@@ -66,11 +75,14 @@ class examination_students(models.Model):
 
      course_id = fields.Many2one(related='curriculum_schedule_id.course_id',string='Course_id', store=True, readonly=True)
 
-     passing_score = fields.Float(related='curriculum_schedule_id.passing_score', store=True, readonly=True)
+     passing_score = fields.Integer(related='curriculum_schedule_id.passing_score', store=True, readonly=True)
 
-     test_score = fields.Float(string='Test score', default=0)
+     total_score = fields.Integer(string='Aggregate score', related='curriculum_schedule_id.total_score', store=True,
+                                readonly=True)
 
-     test_results = fields.Selection([('passingExam','Passing Exam'),('failedExam','Failed Exam')])
+     test_score = fields.Float(string='Test score', default=0,compute='compute_test_score')
+
+     test_results = fields.Selection([('passingExam','Passing Exam'),('failedExam','Failed Exam')],compute='compute_test_results')
 
      multiselect_score = fields.Float(default=0)
 
@@ -89,6 +101,39 @@ class examination_students(models.Model):
      multiselect_question = fields.One2many('employees_growth.students_multiselect_question','student_id')
 
      curriculum_state = fields.Selection(related='curriculum_schedule_id.state', store=True, readonly=True)
+
+     test_paper_id = fields.Many2one('employees_growth.test_paper')
+
+     radio_question_count = fields.Integer(related='test_paper_id.radio_question_count',store=True, readonly=True)
+
+     multiselect_question_count = fields.Integer(related='test_paper_id.multiselect_question_count',
+                                                 store=True, readonly=True)
+
+     judge_question_count = fields.Integer(related='test_paper_id.judge_question_count',
+                                           store=True, readonly=True)
+
+     radio_question_score = fields.Integer(related='test_paper_id.radio_question_score',
+                                           store=True, readonly=True)
+
+     multiselect_question_score = fields.Integer(related='test_paper_id.multiselect_question_score',
+                                                 store=True, readonly=True)
+
+     judge_question_score = fields.Integer(related='test_paper_id.judge_question_score',
+                                           store=True, readonly=True)
+
+     @api.multi
+     def compute_test_score(self):
+         for order in self:
+             order.test_score = order.multiselect_score + order.radio_score + order.judge_score
+
+     @api.multi
+     def compute_test_results(self):
+         for order in self:
+             if order.state == 'examOver':
+                 if order.test_score > order.passing_score or order.test_score == order.passing_score:
+                     order.test_results = 'passingExam'
+                 else:
+                     order.test_results = 'failedExam'
 
      @api.model
      def get_examination_info(self,id):
@@ -131,7 +176,7 @@ class examination_students(models.Model):
              if detail.question_type == 'radio_question':
                  student.radio_score = int(counts.get(detail.question_type)) * detail.score
              elif detail.question_type == 'multiselect_question':
-                 multiselect_score = int(counts.get(detail.question_type)) * detail.score
+                 student.multiselect_score = int(counts.get(detail.question_type)) * detail.score
              elif detail.question_type == 'judge_question':
                  student.judge_score  = int(counts.get(detail.question_type)) * detail.score
 
@@ -192,8 +237,6 @@ class examination_students(models.Model):
          return_val['judge_question'] = judge_count
 
          return return_val
-
-
 
 class multiselect_question(models.Model):
 

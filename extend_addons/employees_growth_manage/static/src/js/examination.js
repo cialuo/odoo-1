@@ -68,7 +68,13 @@ odoo.define('examinationTemplate.test', function (require) {
            var json = JSON.stringify(paramet);
            //获取后台数据
            self.model_students.call('test_calculation',[paramet]).then(function (data) {
-               console.log('分数结算完成...');
+               //跳转到详情界面
+               self.do_action({
+                    type: 'ir.actions.act_window',
+                    res_model: 'employees_growth.students',
+                    res_id: self.student_ids[0],
+                    views: [[false, 'form']],
+                });
            });
 
         },
