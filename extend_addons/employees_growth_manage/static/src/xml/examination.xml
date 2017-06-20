@@ -18,12 +18,12 @@
                     <div class="question_div">
                         <h5>
                             <span><t t-esc="bo_index + 1"/>、</span><t t-esc="bo.name"/>
-                            <input t-attf-id="radio_question_{{bo_index}}" class="answer"/>
+                            <input t-attf-id="radio_question_{{bo.id}}" class="answer"/>
                         </h5>
                         <ol>
 
                             <div>
-                                <input t-attf-name="radio_{{bo_index}}" t-attf-id="radio_{{bo_index}}_A" class='radio_answer' type="radio" value="A"/>
+                                <input t-attf-name="radio_{{bo_index}}" t-attf-id="radio_{{bo.id}}_A" class='radio_answer' type="radio" value="A"/>
                                 <span>A.</span>
                                 <li class="question_li">
                                     <t t-esc="bo.option_A"/>
@@ -31,7 +31,7 @@
                             </div>
 
                             <div>
-                                <input t-attf-name="radio_{{bo_index}}" t-attf-id="radio_{{bo_index}}_B" class='radio_answer' type="radio" value="B"/>
+                                <input t-attf-name="radio_{{bo_index}}" t-attf-id="radio_{{bo.id}}_B" class='radio_answer' type="radio" value="B"/>
                                 <span>B.</span>
                                 <li class="question_li">
                                     <t t-esc="bo.option_B"/>
@@ -39,7 +39,7 @@
                             </div>
 
                             <div>
-                                <input t-attf-name="radio_{{bo_index}}" t-attf-id="radio_{{bo_index}}_C" class='radio_answer' type="radio" value="C"/>
+                                <input t-attf-name="radio_{{bo_index}}" t-attf-id="radio_{{bo.id}}_C" class='radio_answer' type="radio" value="C"/>
                                 <span>C.</span>
                                 <li class="question_li">
                                     <t t-esc="bo.option_C"/>
@@ -47,7 +47,7 @@
                             </div>
 
                             <div>
-                                <input t-attf-name="radio_{{bo_index}}" t-attf-id="radio_{{bo_index}}_D" class='radio_answer' type="radio" value="D"/>
+                                <input t-attf-name="radio_{{bo_index}}" t-attf-id="radio_{{bo.id}}_D" class='radio_answer' type="radio" value="D"/>
                                 <span>D.</span>
                                 <li class="question_li">
                                     <t t-esc="bo.option_D"/>
@@ -74,12 +74,12 @@
                     <div class="question_div">
                         <h5>
                             <span><t t-esc="bo_index + 1"/>、</span><t t-esc="bo.name"/>
-                             <input t-attf-id="multiselect_question_{{bo_index}}" class="answer"/>
+                             <input t-attf-id="multiselect_question_{{bo.id}}" class="answer"/>
                         </h5>
                         <ol>
 
                             <div>
-                                <input type="checkbox" t-attf-name="multiselect_{{bo_index}}" value="A" class="multiselect_answer"/>
+                                <input type="checkbox" t-attf-name="multiselect_{{bo.id}}" value="A" class="multiselect_answer"/>
                                 <span>A.</span>
                                 <li class="question_li">
                                     <t t-esc="bo.option_A"/>
@@ -87,7 +87,7 @@
                             </div>
 
                             <div>
-                                <input type="checkbox" t-attf-name="multiselect_{{bo_index}}" value="B" class="multiselect_answer"/>
+                                <input type="checkbox" t-attf-name="multiselect_{{bo.id}}" value="B" class="multiselect_answer"/>
                                 <span>B.</span>
                                 <li class="question_li">
                                     <t t-esc="bo.option_B"/>
@@ -95,7 +95,7 @@
                             </div>
 
                             <div>
-                                <input type="checkbox" t-attf-name="multiselect_{{bo_index}}" value="C" class="multiselect_answer"/>
+                                <input type="checkbox" t-attf-name="multiselect_{{bo.id}}" value="C" class="multiselect_answer"/>
                                 <span>C.</span>
                                 <li class="question_li">
                                     <t t-esc="bo.option_C"/>
@@ -103,7 +103,7 @@
                             </div>
 
                             <div>
-                                <input type="checkbox" t-attf-name="multiselect_{{bo_index}}" value="D" class="multiselect_answer"/>
+                                <input type="checkbox" t-attf-name="multiselect_{{bo.id}}" value="D" class="multiselect_answer"/>
                                 <span>D.</span>
                                 <li class="question_li">
                                     <t t-esc="bo.option_D"/>
@@ -130,11 +130,12 @@
                     <div class="question_div">
                         <h5>
                             <span><t t-esc="bo_index + 1"/>、</span><t t-esc="bo.name"/>
+                             <input t-attf-id="judge_question_{{bo.id}}" class="answer"/>
                         </h5>
                         <ol>
 
                             <div>
-                                <input t-attf-name="judge_{{bo_index}}" type="radio"/>
+                                <input t-attf-name="judge_{{bo_index}}" t-attf-id="judge_{{bo.id}}_A" type="radio" value="A" class="judge_answer"/>
                                 <span>A.</span>
                                 <li class="question_li">
                                     <t t-esc="bo.option_A"/>
@@ -142,7 +143,7 @@
                             </div>
 
                             <div>
-                                <input t-attf-name="judge_{{bo_index}}" type="radio"/>
+                                <input t-attf-name="judge_{{bo_index}}" t-attf-id="judge_{{bo.id}}_B" type="radio" value="B" class="judge_answer"/>
                                 <span>B.</span>
                                 <li class="question_li">
                                     <t t-esc="bo.option_B"/>
@@ -150,7 +151,7 @@
                             </div>
 
                             <div>
-                                <input t-attf-name="judge_{{bo_index}}" type="radio"/>
+                                <input t-attf-name="judge_{{bo_index}}" t-attf-id="judge_{{bo.id}}_C" type="radio" value="C" class="judge_answer"/>
                                 <span>C.</span>
                                 <li class="question_li">
                                     <t t-esc="bo.option_C"/>
@@ -158,7 +159,7 @@
                             </div>
 
                             <div>
-                                <input t-attf-name="judge_{{bo_index}}" type="radio"/>
+                                <input t-attf-name="judge_{{bo_index}}" t-attf-id="judge_{{bo.id}}_D" type="radio" value="D" class="judge_answer"/>
                                 <span>D.</span>
                                 <li class="question_li">
                                     <t t-esc="bo.option_D"/>

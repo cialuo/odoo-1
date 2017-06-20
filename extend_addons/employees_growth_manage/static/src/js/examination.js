@@ -38,16 +38,38 @@ odoo.define('examinationTemplate.test', function (require) {
         events:{
             'click .btn_jiaojuan':'handle_click',
             'change .radio_answer':'radio_answer',
-            'change .multiselect_answer':'multiselect_answer'
+            'change .multiselect_answer':'multiselect_answer',
+            'change .judge_answer':'judge_answer'
+
         },
         handle_click:function () {
-           var answers = $("input.answer")
-
+            var self = this;
+            var answers = $("input.answer")
+            var paramet = {};
             for(var i =0;i<answers.length;i++){
-                console.log(answers[i].id)
-                console.log(answers[i].value)
-            }
+                var key = answers[i].id.split("_")[0];
+                var id = answers[i].id.split("_")[2];
+                var value = answers[i].value;
+                var array;
+                if(paramet.hasOwnProperty(key)){
+                    array = paramet[key];
+                }else{
+                    array = new Array();
+                }
 
+                var map = {};
+                map['id'] = id;
+                map['type'] = key;
+                map['value'] = value;
+                array.push(map);
+                paramet[key] = array;
+           }
+           paramet['student_id'] = self.student_ids;
+           var json = JSON.stringify(paramet);
+           //获取后台数据
+           self.model_students.call('test_calculation',[paramet]).then(function (data) {
+               console.log('分数结算完成...');
+           });
 
         },
         radio_answer:function () {
@@ -86,6 +108,12 @@ odoo.define('examinationTemplate.test', function (require) {
                }
                $("#multiselect_question_"+index).val(vallue);
            })
+        },
+        judge_answer:function () {
+            var radios = $('input[type="radio"][class="judge_answer"]:checked'); // 获取一组被选中的radio
+            for (var i=0;i<radios.length;i++){
+               $("#judge_question_"+radios[i].id.split("_")[1]).val(radios[i].value)
+            }
         }
 
 

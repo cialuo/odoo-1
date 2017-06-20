@@ -110,6 +110,91 @@ class examination_students(models.Model):
 
           return questions
 
+     @api.model
+     def test_calculation(self,vals):
+         """
+            分数统计
+         :param vals:
+         :return:
+         """
+         student = self.env['employees_growth.students'].search([('id', '=', vals.get('student_id')[0])])
+         self.calculate_scores(student,vals)
+
+     def calculate_scores(self,student,vals):
+         """
+            计算分值
+         :return:
+         """
+         counts = self.filter_count(student,vals)
+
+         for detail in student.curriculum_schedule_id.course_id.test_paper_id.test_paper_details:
+             if detail.question_type == 'radio_question':
+                 student.radio_score = int(counts.get(detail.question_type)) * detail.score
+             elif detail.question_type == 'multiselect_question':
+                 multiselect_score = int(counts.get(detail.question_type)) * detail.score
+             elif detail.question_type == 'judge_question':
+                 student.judge_score  = int(counts.get(detail.question_type)) * detail.score
+
+         student.state = 'examOver'
+
+
+     def filter_count(self,student,vals):
+         """
+            筛选正确的题目数量
+         :return:
+         """
+         multiselect_count = 0
+         radio_count = 0
+         judge_count = 0
+         return_val = {}
+
+         radio_questions = student.radio_question
+         multiselect_questions = student.multiselect_question
+         judge_questions = student.judge_question
+
+         for answer in vals.get('radio'):
+
+             if answer.get('value'):
+
+                 for radio in radio_questions:
+                     if radio.id == int(answer.get('id')):
+                         radio.student_answer = answer.get('value')
+
+                     if radio.answer == answer.get('value') and radio.id == int(answer.get('id')):
+                        radio_count+=1
+                        break
+
+         for answer in vals.get('multiselect'):
+
+             if answer.get('value'):
+
+                 for multiselect in multiselect_questions:
+
+                     if multiselect.id == int(answer.get('id')):
+                         multiselect.student_answer = answer.get('value')
+
+                     if multiselect.answer == answer.get('value') and multiselect.id == int(answer.get('id')):
+                        multiselect_count+=1
+                        break
+
+         for answer in vals.get('judge'):
+             if answer.get('value'):
+                 for judge in judge_questions:
+                     if judge.id == int(answer.get('id')):
+                         judge.student_answer = answer.get('value')
+
+                     if judge.answer == answer.get('value') and judge.id == int(answer.get('id')):
+                        judge_count+=1
+                        break
+
+         return_val['multiselect_question'] = multiselect_count
+         return_val['radio_question'] = radio_count
+         return_val['judge_question'] = judge_count
+
+         return return_val
+
+
+
 class multiselect_question(models.Model):
 
     _name = 'employees_growth.students_multiselect_question'
