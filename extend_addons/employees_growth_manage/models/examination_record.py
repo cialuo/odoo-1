@@ -142,16 +142,16 @@ class examination_students(models.Model):
           student = self.env['employees_growth.students'].search([('id', '=', id)])
           questions= {}
 
-          questions['display_name'] = student.display_name
+          questions['display_name'] = student.display_name + u'考试'
 
           for detail in student.curriculum_schedule_id.course_id.test_paper_id.test_paper_details:
 
               if detail.question_type =='radio_question':
-                questions['radio'] = {'count': detail.question_count, 'score': detail.score, 'questions': student.radio_question.read()}
+                questions['radio'] = {'count': detail.question_count, 'score': detail.total_score, 'questions': student.radio_question.read()}
               elif detail.question_type =='multiselect_question':
-                  questions['multiselect'] = {'count': detail.question_count, 'score': detail.score,'questions': student.multiselect_question.read()}
+                  questions['multiselect'] = {'count': detail.question_count, 'score': detail.total_score,'questions': student.multiselect_question.read()}
               elif detail.question_type == 'judge_question':
-                  questions['judge'] = {'count': detail.question_count, 'score': detail.score,'questions': student.judge_question.read()}
+                  questions['judge'] = {'count': detail.question_count, 'score': detail.total_score,'questions': student.judge_question.read()}
 
           return questions
 

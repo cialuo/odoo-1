@@ -191,7 +191,7 @@ class punch_recording(models.Model):
 
      def get_random_question(self,questions,count):
             """
-                遍历各个题库去值
+                遍历各个题库取值
             """
             array = []
             indexArray = []
@@ -199,7 +199,7 @@ class punch_recording(models.Model):
                 index = random.randint(0, len(questions)-1)
                 if indexArray.count(index) > 0:
                     continue
-                    indexArray.append(index)
+                indexArray.append(index)
                 array.append(questions[index])
 
             return array

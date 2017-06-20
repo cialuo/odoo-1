@@ -114,7 +114,7 @@ msgstr "课程"
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_course
 msgid "Course Menu"
-msgstr "课程管理"
+msgstr "课程设置"
 
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_course_type
@@ -923,7 +923,7 @@ msgstr "题库"
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_questions
 msgid "Questions Menu"
-msgstr "题库管理"
+msgstr "题库设置"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_questions_id
@@ -1208,7 +1208,7 @@ msgstr "驾驶员车辆技术培训"
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_test_paper
 msgid "Test Paper Menu"
-msgstr "试卷管理"
+msgstr "试卷设置"
 
 #. module: employees_growth_manage
 #: model:ir.model,name:employees_growth_manage.model_employees_growth_test_paper
@@ -1377,7 +1377,7 @@ msgstr "培训老师"
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_training_teacher
 msgid "Training Teacher Menu"
-msgstr "培训师管理"
+msgstr "培训师设置"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_training_cycle
@@ -1454,7 +1454,7 @@ msgstr "考试"
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_course
 msgid "course window"
-msgstr "课程管理"
+msgstr "课程设置"
 
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_curriculum_schedule
@@ -1547,7 +1547,7 @@ msgstr "返回修正"
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_questions
 msgid "questions window"
-msgstr "题库"
+msgstr "题库设置"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_form
@@ -1567,7 +1567,7 @@ msgstr "员工考试"
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_test_paper
 msgid "test_paper window"
-msgstr "试卷管理"
+msgstr "试卷设置"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_test_paper_details
@@ -1602,7 +1602,7 @@ msgstr "培训计划表"
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_training_teacher
 msgid "training_teacher window"
-msgstr "培训师管理"
+msgstr "培训师设置"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_ways_of_registration
