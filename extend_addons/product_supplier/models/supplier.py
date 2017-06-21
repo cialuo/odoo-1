@@ -38,6 +38,7 @@ class Supplier(models.Model):
 
     name = fields.Char(string='Name', default='/')
     partner_id = fields.Many2one('res.partner', required=True, readonly=True, states={'draft': [('readonly', False)]})
+    user_id = fields.Many2one('res.users', default=lambda self:self.env.uid)
     employee_id = fields.Many2one('hr.employee', default=_get_default_user, readonly=True, states={'draft': [('readonly', False)]})
     ref = fields.Char(string='Ref')
     line_ids = fields.One2many('supplier.order.line', 'order_id', string='Lines', readonly=True, states={'draft': [('readonly', False)]})

@@ -13,6 +13,7 @@
     'data': [
         'data/data.xml',
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/supplier_view.xml',
     ],
     'depends': ['base', 'materials_menu', 'hr', 'purchase'],
