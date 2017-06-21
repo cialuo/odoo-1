@@ -18,7 +18,7 @@ msgstr ""
 #. module: product_supplier
 #: model:ir.ui.view,arch_db:product_supplier.view_supplier_order_form
 msgid "Action Done"
-msgstr "审核"
+msgstr "审核通过"
 
 #. module: product_supplier
 #: model:ir.model.fields,field_description:product_supplier.field_supplier_order_create_uid

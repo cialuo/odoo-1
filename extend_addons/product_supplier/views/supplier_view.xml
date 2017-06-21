@@ -9,7 +9,7 @@
                 <form string="Supplier Order">
                     <header>
                         <button name="action_submit" states="draft" type="object" string="Submit"/>
-                        <button name="action_done" type="object" states="submitted" string="Action Done" groups="purchase.group_purchase_manager"/>
+                        <button name="action_done" type="object" class="oe_highlight" states="submitted" string="Action Done" groups="purchase.group_purchase_manager"/>
                         <field name="state" widget="statusbar" readonly="1"/>
                     </header>
                     <sheet>
