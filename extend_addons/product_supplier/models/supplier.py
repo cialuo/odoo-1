@@ -22,6 +22,7 @@ from odoo import models, api, fields, exceptions, _
 
 class Supplier(models.Model):
     _name = 'supplier.order'
+    _order = 'id desc'
 
     @api.model
     def _get_default_user(self):
@@ -71,13 +72,35 @@ class Supplier(models.Model):
         提交按钮
         :return: 
         """
+        for order in self:
+            if not order.line_ids:
+                raise exceptions.UserError(_('No lines to submit!'))
         self.write({'state': 'submitted'})
     @api.multi
     def action_done(self):
         """
         审核按钮
+        同一个产品同一个供应商的话，则只修改最小数量及单价，
+        不存在的话，则新建一个供应商信息
         :return: 
         """
+        for order in self:
+            for line in order.line_ids:
+                tmpl = line.product_id.product_tmpl_id
+                supplier = self.env['product.supplierinfo']
+                available_supplier = supplier.search([('product_tmpl_id', '=', tmpl.id), ('name', '=', order.partner_id.id)], limit=1)
+                vals = {
+                    'min_qty': line.qty,
+                    'price': line.price_unit,
+                }
+                if available_supplier:
+                    available_supplier.write(vals)
+                else:
+                    vals.update({
+                        'name': order.partner_id.id,
+                        'product_tmpl_id': tmpl.id,
+                    })
+                    supplier.create(vals)
         self.write({'state': 'done'})
 
 class SupplierLines(models.Model):
