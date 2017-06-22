@@ -1,3 +1,104 @@
 <odoo>
 
+    <!--社保缴费信息表单-->
+    <record id="social_security_form_view" model="ir.ui.view">
+        <field name="name">social security form</field>
+        <field name="model">social.socialsecurity</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="chargetime"/>
+                        <field name="money_company"/>
+                        <field name="money_employee"/>
+                        <field name="money" readonly="1"/>
+                        <field name="summary"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- 社保缴纳tree视图 -->
+    <record model="ir.ui.view" id="social_security_tree">
+        <field name="name">social security tree</field>
+        <field name="model">social.socialsecurity</field>
+        <field name="arch" type="xml">
+            <tree string="Course Tree">
+                <field name="summary"/>
+                <field name="employee_id"/>
+                <field name="id_card"/>
+                <field name="socialsecurityaccount"/>
+                <field name="chargetime"/>
+                <field name="money"/>
+                <field name="money_employee"/>
+                <field name="money_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--公积金缴费信息表单-->
+    <record id="housing_provident_form_view" model="ir.ui.view">
+        <field name="name">housing provident form</field>
+        <field name="model">social.housingprovident</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="chargetime"/>
+                        <field name="money_company"/>
+                        <field name="money_employee"/>
+                        <field name="money" readonly="1"/>
+                        <field name="summary"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- 社保缴纳tree视图 -->
+    <record model="ir.ui.view" id="housing_provident_tree">
+        <field name="name">social security tree</field>
+        <field name="model">social.housingprovident</field>
+        <field name="arch" type="xml">
+            <tree string="Course Tree">
+                <field name="summary"/>
+                <field name="employee_id"/>
+                <field name="id_card"/>
+                <field name="socialsecurityaccount"/>
+                <field name="chargetime"/>
+                <field name="money"/>
+                <field name="money_employee"/>
+                <field name="money_company"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--社保缴纳情况action页面-->
+    <record model="ir.actions.act_window" id="socialsecurity_action">
+        <field name="name">social security</field>
+        <field name="res_model">social.socialsecurity</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--公积金缴纳情况action页面-->
+    <record model="ir.actions.act_window" id="housing_provident_action">
+        <field name="name">housing provident</field>
+        <field name="res_model">social.housingprovident</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--社保缴纳情况-->
+    <menuitem id="employee_social_socialsecurity" name="social security charge info"
+              parent="employees_menu.social_security" action="socialsecurity_action"/>
+
+    <!--公积金缴纳情况-->
+    <menuitem id="employee_social_housingprovident" name="housing provident charge info"
+              parent="employees_menu.social_security" action="housing_provident_action"/>
+
 </odoo>
