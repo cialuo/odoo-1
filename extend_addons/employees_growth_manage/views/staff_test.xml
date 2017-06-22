@@ -31,16 +31,70 @@
           <field name="state"/>
           <field name="test_score"/>
           <field name="test_results"/>
-          <button type="action" string="btn_examination" name="%(action_wiz_staff_test)d"></button>
+          <button type="action" string="btn_examination" name="%(action_wiz_staff_test)d" states="waitingExam"></button>
         </tree>
       </field>
     </record>
 
+    <record model="ir.ui.view" id="employees_growth_manage.students_form">
+      <field name="name">students form</field>
+      <field name="model">employees_growth.students</field>
+      <field name="arch" type="xml">
+        <form create="false" delete="false">
+            <sheet>
+                <div class="oe_title">
+                    <label for="student_id" class="oe_edit_only"/>
+                    <h1>
+                        <field name="student_id" readonly="True"/>
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <!--<field name="test_paper_no"/>-->
+                        <field name="department_id" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="post_id" options="{'no_open': True, 'no_create': True}"/>
+                    </group>
+                    <group>
+                        <field name="course_id" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="total_score"/>
+                        <field name="passing_score"/>
+                        <field name="test_score" readonly="True"/>
+                        <field name="test_results" readonly="True"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page name="answer_details" string="Answer details">
+                         <group>
+                           <group string="Model_Radio question">
+                             <field name="radio_question_count" readonly="True"/>
+                             <field name="radio_question_score" readonly="True"/>
+                             <field name="radio_score" readonly="True"/>
+                           </group>
+                           <group string="Model_Multiselect question">
+                             <field name="multiselect_question_count" readonly="True"/>
+                             <field name="multiselect_question_score" readonly="True"/>
+                             <field name="multiselect_score" readonly="True"/>
+                           </group>
+                         </group>
+                         <group>
+                           <group string="Model_Judge question">
+                             <field name="judge_question_count" readonly="True"/>
+                             <field name="judge_question_score" readonly="True"/>
+                             <field name="judge_score" readonly="True"/>
+                           </group>
+                         </group>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
     <!-- 动作 -->
-    <record model="ir.actions.act_window" id="employees_growth_manage.action_students">
+    <record model="ir.actions.act_window" id="employees_action_students">
       <field name="name">students window</field>
       <field name="res_model">employees_growth.students</field>
-      <field name="view_mode">tree</field>
+      <field name="view_mode">tree,form</field>
       <field name="domain">['|',('curriculum_state','=','examination'),('curriculum_state','=','complete')]</field>
     </record>
 

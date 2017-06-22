@@ -119,7 +119,6 @@ class punch_recording(models.Model):
      @api.multi
      def to_complete(self):
           """
-               修改当前课时的状态为：完成
                判断是否为当前课程表的最后一个课时,是的话修改课程表状态为：考试
                并且为每一个培训人员生成考题
           :return:
@@ -138,6 +137,7 @@ class punch_recording(models.Model):
           :return:
           """
           for student in self.curriculum_schedule_id.students:
+               student.test_paper_id = self.curriculum_schedule_id.course_id.test_paper_id
                self.get_questions(student)
 
      def save_radio_question(self,id,questions,type):
@@ -191,7 +191,7 @@ class punch_recording(models.Model):
 
      def get_random_question(self,questions,count):
             """
-                遍历各个题库去值
+                遍历各个题库取值
             """
             array = []
             indexArray = []
@@ -199,7 +199,7 @@ class punch_recording(models.Model):
                 index = random.randint(0, len(questions)-1)
                 if indexArray.count(index) > 0:
                     continue
-                    indexArray.append(index)
+                indexArray.append(index)
                 array.append(questions[index])
 
             return array
