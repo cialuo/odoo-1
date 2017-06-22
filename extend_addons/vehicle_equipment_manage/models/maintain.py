@@ -41,7 +41,7 @@ class MaintainReport(models.Model):
 
         data = {
             "report_id": self.id,
-            "report_user_id": report_user_id.id,
+            "report_user_id": self.report_user_id.id,
             'equipment_ids': equipment_lines
         }
 

@@ -102,8 +102,7 @@ class UnitTransfer(models.Model):
     transfer_reason = fields.Text(string="employees_transfer_reason", readonly=True,
                                   states={'draft': [('readonly', False)]})
     # 审批/会签人员
-    countersign_person = fields.Many2many('hr.employee', string="employees_countersign_person", readonly=True,
-                                          states={'draft': [('readonly', False)]})
+    countersign_person = fields.Many2one('res.users', string="employees_countersign_person", readonly=True)
 
     @api.model
     def create(self, vals):
@@ -135,17 +134,15 @@ class UnitTransfer(models.Model):
             'original_post': self.original_post.name,
             'new_section': self.new_section.name,
             'new_post': self.new_post.name,
+            'countersign_person': self._uid,
             'transfer_reason': self.transfer_reason,
         }
         if self.transfer_type == 'unit':
             record['transfer_type'] = 'unit_transfer'
         elif self.transfer_type == 'post':
             record['transfer_type'] = 'post_transfer'
-        recins = self.env['employees.transfer.record'].create(record)
-        countersign_person = []
-        for item in self.countersign_person:
-            countersign_person.append((4, item.id,))
-        recins.write({'countersign_person': countersign_person})
+        self.env['employees.transfer.record'].create(record)
+        self.countersign_person = self._uid
         self.employee_id.write({'department_id': self.new_section.id, 'workpost': self.new_post.id})
         self.state = 'done'
 
@@ -213,8 +210,7 @@ class ForeignTransfer(models.Model):
     transfer_reason = fields.Text(string="employees_transfer_reason", readonly=True,
                                   states={'draft': [('readonly', False)]})
     # 审批/会签人员
-    countersign_person = fields.Many2many('hr.employee', string="employees_countersign_person", readonly=True,
-                                          states={'draft': [('readonly', False)]})
+    countersign_person = fields.Many2one('res.users', string="employees_countersign_person", readonly=True)
 
     @api.model
     def create(self, vals):
@@ -232,6 +228,7 @@ class ForeignTransfer(models.Model):
 
     @api.multi
     def action_done(self):
+
         record = {
             'name': self.name,
             'transferdate': self.create_date,
@@ -241,16 +238,12 @@ class ForeignTransfer(models.Model):
             'new_section': self.new_unit,
             'new_post': self.new_post,
             'transfer_reason': self.transfer_reason,
+            'countersign_person' : self._uid,
             'transfer_type': 'foreign_transfer'
         }
-        recins = self.env['employees.transfer.record'].create(record)
-        countersign_person = []
-        for item in self.countersign_person:
-            countersign_person.append((4, item.id,))
-        recins.write({'countersign_person': countersign_person})
-
+        self.env['employees.transfer.record'].create(record)
+        self.countersign_person = self._uid
         self.employee_id.write({'active': False})
-
         self.state = 'done'
 
     @api.multi
@@ -296,4 +289,4 @@ class TransferRecord(models.Model):
     transfer_reason = fields.Text(string="employees_transfer_reason")
 
     # 审批/会签人员
-    countersign_person = fields.Many2many('hr.employee', string="employees_countersign_person")
+    countersign_person = fields.Many2one('res.users', string="employees_countersign_person", readonly=True)

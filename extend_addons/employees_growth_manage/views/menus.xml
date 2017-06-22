@@ -1,7 +1,7 @@
 <odoo>
 	<data>
 
-        <!--员工成功管理-->
+        <!--员工成长管理-->
         <menuitem id="employees_growth_manage.menu_root" name="Employee Growth Manage"
                   parent="employees_menu.ltyhr_top_menu" sequence="79" groups="employees_growth_manage.training_student"/>
 

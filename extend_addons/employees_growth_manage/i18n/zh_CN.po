@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-12 02:51+0000\n"
-"PO-Revision-Date: 2017-06-12 10:59+0800\n"
+"POT-Creation-Date: 2017-06-19 08:32+0000\n"
+"PO-Revision-Date: 2017-06-19 16:37+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,9 @@ msgstr "总分"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_answer
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_answer
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_answer
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_answer
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_answer
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_answer
 msgid "Answer"
 msgstr "正确答案"
 
@@ -201,6 +204,9 @@ msgstr "课程"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_create_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_create_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_create_uid
@@ -226,6 +232,9 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_create_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_create_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_create_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_create_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_create_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_create_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_create_date
@@ -297,6 +306,9 @@ msgstr "部门"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_display_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_display_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_display_name
@@ -351,7 +363,7 @@ msgstr "考试报名"
 #. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,state:0
 msgid "Examination"
-msgstr "考试"
+msgstr "正在考试"
 
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_examination
@@ -462,6 +474,9 @@ msgstr "正在上课"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_id
@@ -523,12 +538,8 @@ msgid "Jobnumber"
 msgstr "工号"
 
 #. module: employees_growth_manage
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge__score
-msgid "Judge  score"
-msgstr "判断题分数"
-
-#. module: employees_growth_manage
 #: selection:employees_growth.test_paper_detail,question_type:0
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question
 msgid "Judge question"
 msgstr "判断题"
 
@@ -548,6 +559,11 @@ msgid "Judge questions"
 msgstr "判断题"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_score
+msgid "Judge score"
+msgstr "判断题分数"
+
+#. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_type___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule___last_update
@@ -564,6 +580,9 @@ msgstr "判断题"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question___last_update
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail___last_update
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement___last_update
@@ -588,6 +607,9 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_write_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_write_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_write_uid
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_write_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_write_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_write_uid
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_write_uid
@@ -613,6 +635,9 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_write_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_write_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_write_date
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_write_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_write_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_detail_write_date
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_write_date
@@ -663,19 +688,15 @@ msgid "Model_Radio question"
 msgstr "单选题"
 
 #. module: employees_growth_manage
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect__score
-msgid "Multiselect  score"
-msgstr "多选题分数"
-
-#. module: employees_growth_manage
 #: selection:employees_growth.test_paper_detail,question_type:0
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question
 msgid "Multiselect question"
 msgstr "多选题"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_multiselect_question_count
 msgid "Multiselect question count"
-msgstr "多选题"
+msgstr "多选题数量"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_questions_multiselect_questions
@@ -686,6 +707,11 @@ msgstr "所有多选题"
 #: model:ir.ui.view,arch_db:employees_growth_manage.questions_form
 msgid "Multiselect questions"
 msgstr "多选题"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_score
+msgid "Multiselect score"
+msgstr "多选题分数"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_name
@@ -719,6 +745,9 @@ msgstr "只有草稿状态的单据才能删除."
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_option_A
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_option_A
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_option_A
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_option_A
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_option_A
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_option_A
 msgid "Option A"
 msgstr "A"
 
@@ -726,6 +755,9 @@ msgstr "A"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_option_B
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_option_B
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_option_B
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_option_B
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_option_B
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_option_B
 msgid "Option B"
 msgstr "B"
 
@@ -733,6 +765,9 @@ msgstr "B"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_option_C
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_option_C
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_option_C
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_option_C
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_option_C
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_option_C
 msgid "Option C"
 msgstr "C"
 
@@ -740,6 +775,9 @@ msgstr "C"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_option_D
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_option_D
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_option_D
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_option_D
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_option_D
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_option_D
 msgid "Option D"
 msgstr "D"
 
@@ -835,6 +873,9 @@ msgstr "题目数量"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_multiselect_question_name
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_radio_question_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_name
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_name
 msgid "Question name"
 msgstr "题目"
 
@@ -877,12 +918,8 @@ msgid "Questions's Name"
 msgstr "题库名称"
 
 #. module: employees_growth_manage
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio__score
-msgid "Radio  score"
-msgstr "单选题分数"
-
-#. module: employees_growth_manage
 #: selection:employees_growth.test_paper_detail,question_type:0
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question
 msgid "Radio question"
 msgstr "单选题"
 
@@ -900,6 +937,11 @@ msgstr "单选题"
 #: model:ir.ui.view,arch_db:employees_growth_manage.questions_form
 msgid "Radio questions"
 msgstr "单选题"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_score
+msgid "Radio score"
+msgstr "单选题分数"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_plan_return_record_plan_id
@@ -948,7 +990,7 @@ msgstr "序号"
 #. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,state:0
 msgid "Sign"
-msgstr "开课中"
+msgstr "正在上课"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
@@ -976,9 +1018,14 @@ msgid "Small-sized photo of the employee. It is automatically resized as a 64x64
 msgstr "小尺寸的员工照片。保留纵横比，自动缩放为64x64px。用在任何需要小图像的场合"
 
 #. module: employees_growth_manage
+#: model:ir.actions.client,name:employees_growth_manage.action_wiz_staff_test
+msgid "Staff Test"
+msgstr "员工考试"
+
+#. module: employees_growth_manage
 #: selection:employees_growth.curriculum_schedule,state:0
 msgid "Start"
-msgstr "开课"
+msgstr "准备开课"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_start_time
@@ -986,9 +1033,11 @@ msgid "Start time"
 msgstr "上课时间"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_plan_state
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_state
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_state
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_training_plan_state
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_curriculum_state
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_state
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_state
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_plan_state
@@ -996,8 +1045,18 @@ msgid "State"
 msgstr "状态"
 
 #. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_student_answer
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_student_answer
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_student_answer
+msgid "Student Answer"
+msgstr "学员答案"
+
+#. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_student_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_punch_recording_details_student_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_judge_question_student_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_multiselect_question_student_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_radio_question_student_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_student_id
 msgid "Student id"
 msgstr "姓名"
@@ -1008,6 +1067,21 @@ msgstr "姓名"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_curriculum_schedule_students
 msgid "Students"
 msgstr "培训人员"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_students_judge_question
+msgid "Students_Judge question"
+msgstr "学员的判断题"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_students_multiselect_question
+msgid "Students_Multiselect question"
+msgstr "学员的多选题"
+
+#. module: employees_growth_manage
+#: model:ir.model,name:employees_growth_manage.model_employees_growth_students_radio_question
+msgid "Students_Radio question"
+msgstr "学员的单选题"
 
 #. module: employees_growth_manage
 #: model:ir.ui.menu,name:employees_growth_manage.menu_summary_of_exams
@@ -1338,6 +1412,11 @@ msgid "action_course_type window"
 msgstr "类型设置"
 
 #. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.students_list
+msgid "btn_examination"
+msgstr "考试"
+
+#. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_course
 msgid "course window"
 msgstr "课程管理"
@@ -1402,6 +1481,11 @@ msgid "group_title"
 msgstr "职称"
 
 #. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
+msgid "ingSign_to_havingClass"
+msgstr "完成签到"
+
+#. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.external_training_plan_form
 #: model:ir.ui.view,arch_db:employees_growth_manage.training_plan_form
 msgid "pendingAudit_to_draft"
@@ -1441,11 +1525,6 @@ msgid "sign_to_execution"
 msgstr "准备执行"
 
 #. module: employees_growth_manage
-#: model:ir.ui.view,arch_db:employees_growth_manage.curriculum_schedule_form
-msgid "start_to_sign"
-msgstr "开课"
-
-#. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_students
 msgid "students window"
 msgstr "员工考试"
@@ -1466,13 +1545,6 @@ msgid "test_paper_id"
 msgstr "试卷"
 
 #. module: employees_growth_manage
-#. openerp-web
-#: code:addons/employees_growth_manage/static/src/xml/examination.xml:5
-#, python-format
-msgid "this...."
-msgstr "this...."
-
-#. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_time_arrangement
 msgid "time_arrangement window"
 msgstr "签到表管理"
@@ -1480,7 +1552,7 @@ msgstr "签到表管理"
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.time_arrangement_form
 msgid "to_complete"
-msgstr "完成签到"
+msgstr "上课完成"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.test_paper_form

@@ -807,13 +807,13 @@ msgstr "名字"
 #: model:ir.ui.view,arch_db:vehicle_warranty.wizard_project_batch_check_pass_view
 msgid "Once project Check Pass, you will not be able\n"
 "                        to modify them."
-msgstr "项目报检之后不能改变他们的状态"
+msgstr "项目检验通过之后不能改变他们的状态"
 
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.wizard_project_batch_to_check_view
 msgid "Once project To Check, you will not be able\n"
 "                        to modify them."
-msgstr "项目检验通过之后不能改变他们的状态"
+msgstr "项目报检之后不能改变他们的状态"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_operating_mileage
@@ -1122,7 +1122,7 @@ msgstr "为当前产品选择一个类别"
 #: code:addons/vehicle_warranty/models/warranty_order.py:811
 #, python-format
 msgid "Selected project cannot be check as they are not in 'check' state"
-msgstr "Selected project cannot be check as they are not in 'check' state"
+msgstr "非检验状态的项目不能检验通过"
 
 #. module: vehicle_warranty
 #: code:addons/vehicle_warranty/models/warranty_order.py:791

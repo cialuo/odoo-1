@@ -148,7 +148,6 @@
                         <group>
                             <field name="reg_no" readonly="1"/>
                             <field name="reg_date" readonly="1"/>
-                            <field name="reg_date" readonly="1"/>
                             <field name="forced_destroy" readonly="1"/>
                         </group>
                     </group>

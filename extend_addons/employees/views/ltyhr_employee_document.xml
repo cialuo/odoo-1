@@ -335,6 +335,9 @@
                 <field name="type_id" position="replace">
                     <field name="type_id" string="constract type id"/>
                 </field>
+                <xpath expr="//div[@class='oe_chatter']" position="replace">
+                    <div></div>
+                </xpath>
             </field>
         </record>
 
