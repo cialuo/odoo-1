@@ -40,6 +40,7 @@ class Supplier(models.Model):
     partner_id = fields.Many2one('res.partner', required=True, readonly=True, states={'draft': [('readonly', False)]})
     user_id = fields.Many2one('res.users', default=lambda self:self.env.uid)
     employee_id = fields.Many2one('hr.employee', default=_get_default_user, readonly=True, states={'draft': [('readonly', False)]})
+    assign_user = fields.Many2one('res.users', default=lambda self:self.env.uid)
     ref = fields.Char(string='Ref')
     line_ids = fields.One2many('supplier.order.line', 'order_id', string='Lines', readonly=True, states={'draft': [('readonly', False)]})
     state = fields.Selection([('draft', 'Draft'), ('submitted', 'Submitted'), ('done', 'Done')], string='State', default='draft')
@@ -103,6 +104,12 @@ class Supplier(models.Model):
                     })
                     supplier.create(vals)
         self.write({'state': 'done'})
+
+    @api.onchange('employee_id')
+    def _onchange_assign_user(self):
+        if self.employee_id:
+            if self.employee_id.user_id:
+                self.assign_user = self.employee_id.user_id
 
 class SupplierLines(models.Model):
     _name = 'supplier.order.line'
