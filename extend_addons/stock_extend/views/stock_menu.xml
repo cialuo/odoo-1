@@ -52,7 +52,7 @@
             <field name="name">View Move Tree</field>
             <field name="model">stock.move</field>
             <field name="arch" type="xml">
-                <tree decoration-muted="state == 'cancel'" default_order='date_expected, picking_id, sequence' string="Moves">
+                <tree create='false' decoration-muted="state == 'cancel'" default_order='date_expected, picking_id, sequence' string="Moves">
                     <field name="product_id" string="Material Product"/>
                     <field name="picking_type_id"/>
                     <field name="location_id"/>
