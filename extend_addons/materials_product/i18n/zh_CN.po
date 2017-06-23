@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-10 10:27+0000\n"
-"PO-Revision-Date: 2017-05-10 10:27+0000\n"
+"POT-Creation-Date: 2017-06-23 03:34+0000\n"
+"PO-Revision-Date: 2017-06-23 03:34+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,11 @@ msgid "<span class=\"o_stat_text\">Min :</span>\n"
 "                                        <span class=\"o_stat_text\">Max:</span>"
 msgstr "<span class=\"o_stat_text\">Min :</span>\n"
 "                                        <span class=\"o_stat_text\">Max:</span>"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.search_mterials_manage_product_view
+msgid "Category"
+msgstr "分类"
 
 #. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_category_code
@@ -182,7 +187,7 @@ msgstr "物资名称"
 #. module: materials_product
 #: model:ir.model,name:materials_product.model_product_category
 msgid "Product Category"
-msgstr "物资分类"
+msgstr "产品类别"
 
 #. module: materials_product
 #: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
@@ -269,12 +274,6 @@ msgstr "追溯"
 #: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
 msgid "Vendors"
 msgstr "供应商"
-
-#. module: materials_product
-#: code:addons/materials_product/models/product.py:33
-#, python-format
-msgid "inter code must unique per product and category"
-msgstr "每个类别下的每个产品内部编码必须唯一"
 
 #. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_note
