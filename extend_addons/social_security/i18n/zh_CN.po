@@ -1,0 +1,144 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* social_security
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-22 08:55+0000\n"
+"PO-Revision-Date: 2017-06-22 17:00+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.1\n"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.housing_provident_tree
+#: model:ir.ui.view,arch_db:social_security.social_security_tree
+msgid "Course Tree"
+msgstr "Course Tree"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_create_uid
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_create_date
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_display_name
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_id
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_id
+msgid "ID"
+msgstr "ID"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident___last_update
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_write_uid
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_write_date
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_money
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_money
+msgid "charge money"
+msgstr "缴费金额"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_chargetime
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_chargetime
+msgid "charge time"
+msgstr "缴费时间"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_employee_id
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_employee_id
+msgid "employee"
+msgstr "员工"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_id_card
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_id_card
+msgid "employee id_card"
+msgstr "身份证号"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_socialsecurityaccount
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_socialsecurityaccount
+msgid "employee socialsecurityaccount"
+msgstr "社保账号"
+
+#. module: social_security
+#: model:ir.actions.act_window,name:social_security.housing_provident_action
+msgid "housing provident"
+msgstr "公积金"
+
+#. module: social_security
+#: model:ir.ui.menu,name:social_security.employee_social_housingprovident
+msgid "housing provident charge info"
+msgstr "公积金缴纳情况"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_money_company
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_money_company
+msgid "money compay"
+msgstr "单位缴纳(元)"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_money_employee
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_money_employee
+msgid "money employee"
+msgstr "个人缴纳(元)"
+
+#. module: social_security
+#: model:ir.actions.act_window,name:social_security.socialsecurity_action
+msgid "social security"
+msgstr "社保与养老"
+
+#. module: social_security
+#: model:ir.ui.menu,name:social_security.employee_social_socialsecurity
+msgid "social security charge info"
+msgstr "社保缴纳情况"
+
+#. module: social_security
+#: model:ir.model,name:social_security.model_social_housingprovident
+msgid "social.housingprovident"
+msgstr "公积金"
+
+#. module: social_security
+#: model:ir.model,name:social_security.model_social_socialsecurity
+msgid "social.socialsecurity"
+msgstr "社保"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_housingprovident_summary
+#: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_summary
+msgid "summary"
+msgstr "摘要"
