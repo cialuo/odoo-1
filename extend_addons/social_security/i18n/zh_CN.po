@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-22 08:55+0000\n"
-"PO-Revision-Date: 2017-06-22 17:00+0800\n"
+"POT-Creation-Date: 2017-06-23 09:44+0000\n"
+"PO-Revision-Date: 2017-06-23 17:50+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,52 +18,78 @@ msgstr ""
 "X-Generator: Poedit 2.0.1\n"
 
 #. module: social_security
+#: model:ir.actions.act_window,name:social_security.work_injury_checking_action
+#: model:ir.actions.act_window,name:social_security.work_injury_report_action
+msgid " work injury report "
+msgstr "工伤申报"
+
+#. module: social_security
 #: model:ir.ui.view,arch_db:social_security.housing_provident_tree
 #: model:ir.ui.view,arch_db:social_security.social_security_tree
+#: model:ir.ui.view,arch_db:social_security.work_injury_checking_tree
+#: model:ir.ui.view,arch_db:social_security.work_injury_tree
 msgid "Course Tree"
 msgstr "Course Tree"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_create_uid
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_create_uid
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_create_date
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_create_date
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_create_date
 msgid "Created on"
 msgstr "创建时间"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_display_name
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_display_name
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_display_name
 msgid "Display Name"
 msgstr "显示名称"
 
 #. module: social_security
+#: model:ir.ui.view,arch_db:social_security.work_injury_checking_form
+#: model:ir.ui.view,arch_db:social_security.work_injury_report_form
+msgid "Employee_id"
+msgstr "员工"
+
+#. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_id
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_id
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_id
 msgid "ID"
 msgstr "ID"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident___last_update
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity___last_update
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_write_uid
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_write_uid
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_write_date
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_write_date
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_accidenttime
+msgid "accidetn time"
+msgstr "事故时间"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_money
@@ -78,22 +104,114 @@ msgid "charge time"
 msgstr "缴费时间"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_attachments
+msgid "checking attachments"
+msgstr "认定附件"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.work_injury_checking_form
+msgid "checking info"
+msgstr "认定信息"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_checkingtime
+msgid "checking time"
+msgstr "诊断时间"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.work_injury_checking_form
+msgid "cmpany checking"
+msgstr "公司认定"
+
+#. module: social_security
+#: selection:social.workinjury,state_checking_state:0
+msgid "companychecking"
+msgstr "公司认定"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_description
+msgid "disease description"
+msgstr "受伤害经过简述"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_diseasename
+msgid "disease's name"
+msgstr "职业病名称"
+
+#. module: social_security
+#: selection:social.workinjury,state_checking_state:0
+msgid "done"
+msgstr "完成"
+
+#. module: social_security
+#: selection:social.workinjury,state:0
+msgid "draft"
+msgstr "草稿"
+
+#. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_employee_id
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_employee_id
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_employee_id
 msgid "employee"
 msgstr "员工"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_birthday
+msgid "employee birthday"
+msgstr "生日"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_department_id
+msgid "employee department"
+msgstr "部门"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_entrydate
+msgid "employee entrydate"
+msgstr "入职时间"
+
+#. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_id_card
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_id_card
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_id_card
 msgid "employee id_card"
 msgstr "身份证号"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_live_address
+msgid "employee live_address"
+msgstr "住址"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_mobile_phone
+msgid "employee mobile_phone"
+msgstr "联系电话"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_name
+msgid "employee name"
+msgstr "姓名"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_sex
+msgid "employee sex"
+msgstr "性别"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_socialsecurityaccount
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_socialsecurityaccount
 msgid "employee socialsecurityaccount"
 msgstr "社保账号"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_workpost
+msgid "employee workpost"
+msgstr "岗位"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.work_injury_report_form
+msgid "foreign_transfer"
+msgstr "对外调动"
 
 #. module: social_security
 #: model:ir.actions.act_window,name:social_security.housing_provident_action
@@ -106,6 +224,26 @@ msgid "housing provident charge info"
 msgstr "公积金缴纳情况"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_position
+msgid "hurt position"
+msgstr "受伤害部位"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_hurtpost
+msgid "hurt post"
+msgstr "接触职业病危害岗位"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_hurttime
+msgid "hurt time"
+msgstr "接触职业病危害时间"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_checkingimage
+msgid "injury checking report image"
+msgstr "认定报告预览图"
+
+#. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_money_company
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_money_company
 msgid "money compay"
@@ -116,6 +254,21 @@ msgstr "单位缴纳(元)"
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_money_employee
 msgid "money employee"
 msgstr "个人缴纳(元)"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.work_injury_checking_form
+msgid "report info"
+msgstr "申报信息"
+
+#. module: social_security
+#: selection:social.workinjury,state:0
+msgid "reporting"
+msgstr "申报"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.work_injury_checking_form
+msgid "social checking"
+msgstr "社保认定"
 
 #. module: social_security
 #: model:ir.actions.act_window,name:social_security.socialsecurity_action
@@ -138,7 +291,47 @@ msgid "social.socialsecurity"
 msgstr "社保"
 
 #. module: social_security
+#: model:ir.model,name:social_security.model_social_workinjury
+msgid "social.workinjury"
+msgstr "工伤"
+
+#. module: social_security
+#: selection:social.workinjury,state_checking_state:0
+msgid "socialchecking"
+msgstr "社保认定"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.work_injury_report_form
+msgid "submmit reporting"
+msgstr "提交申报"
+
+#. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_summary
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_summary
 msgid "summary"
 msgstr "摘要"
+
+#. module: social_security
+#: model:ir.ui.menu,name:social_security.employee_work_injury_checking
+msgid "work injury checking"
+msgstr "工伤认定"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_state_checking_state
+msgid "work injury checking state "
+msgstr "状态"
+
+#. module: social_security
+#: model:ir.ui.menu,name:social_security.employee_work_injury_manage
+msgid "work injury manage"
+msgstr "工伤管理"
+
+#. module: social_security
+#: model:ir.ui.menu,name:social_security.employee_work_injury_report
+msgid "work injury report"
+msgstr "工伤申报"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_state
+msgid "work injury state "
+msgstr "状态"

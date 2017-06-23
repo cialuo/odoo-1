@@ -78,6 +78,158 @@
         </field>
     </record>
 
+    <!-- 工伤申报tree视图 -->
+    <record model="ir.ui.view" id="work_injury_tree">
+        <field name="name">work injury tree</field>
+        <field name="model">social.workinjury</field>
+        <field name="priority">0</field>
+        <field name="arch" type="xml">
+            <tree string="Course Tree">
+                <field name="employee_id"/>
+                <field name="workpost"/>
+                <field name="id_card"/>
+                <field name="accidenttime"/>
+                <field name="checkingtime"/>
+                <field name="position"/>
+                <field name="state"/>
+                <field name="mobile_phone"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--工伤申报编辑表单-->
+    <record id="work_injury_report_form" model="ir.ui.view">
+        <field name="name">work injury report</field>
+        <field name="model">social.workinjury</field>
+        <field name="priority">0</field>
+        <field name="arch" type="xml">
+            <form string="foreign_transfer">
+                <header>
+                    <button name="action_reporting" type="object"
+                            string="submmit reporting"
+                            states="draft"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" string="Employee_id" groups="hr.group_hr_user"  options="{'no_open': True, 'no_create': True}"/>
+                            <field name="accidenttime"/>
+                            <field name="checkingtime"/>
+                            <field name="position"/>
+                            <field name="diseasename"/>
+                            <field name="hurtpost"/>
+                            <field name="hurttime"/>
+                        </group>
+                        <group>
+                            <field name="sex"/>
+                            <field name="birthday"/>
+                            <field name="id_card"/>
+                            <field name="mobile_phone"/>
+                            <field name="live_address"/>
+                            <field name="department_id"/>
+                            <field name="entrydate"/>
+                        </group>
+
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 工伤认定tree视图 -->
+    <record model="ir.ui.view" id="work_injury_checking_tree">
+        <field name="name">work injury checking tree</field>
+        <field name="model">social.workinjury</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <tree string="Course Tree" create="0" >
+                <field name="employee_id"/>
+                <field name="workpost"/>
+                <field name="id_card"/>
+                <field name="accidenttime"/>
+                <field name="checkingtime"/>
+                <field name="position"/>
+                <field name="state_checking_state"/>
+                <field name="mobile_phone"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--工伤认定编辑表单-->
+    <record id="work_injury_checking_form" model="ir.ui.view">
+        <field name="name">work injury checking form</field>
+        <field name="model">social.workinjury</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form create="0" >
+                <header>
+                    <button name="action_companychecking" type="object"
+                            string="cmpany checking"
+                            attrs="{'invisible':[('state_checking_state', '!=', 'companychecking')]}" />
+                    <button name="action_socialchecking" type="object"
+                            string="social checking"
+                            attrs="{'invisible':[('state_checking_state', '!=', 'socialchecking')]}" />
+                    <field name="state_checking_state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <notebook>
+
+                        <page string="report info" name="report info">
+                            <group>
+                                <group>
+                                    <field name="employee_id" string="Employee_id" readonly="1"/>
+                                    <field name="accidenttime" readonly="1"/>
+                                    <field name="checkingtime" readonly="1"/>
+                                    <field name="position" readonly="1"/>
+                                    <field name="diseasename" readonly="1"/>
+                                    <field name="hurtpost" readonly="1"/>
+                                    <field name="hurttime" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="sex"/>
+                                    <field name="birthday"/>
+                                    <field name="id_card"/>
+                                    <field name="mobile_phone"/>
+                                    <field name="live_address"/>
+                                    <field name="department_id"/>
+                                    <field name="entrydate"/>
+                                </group>
+
+                            </group>
+                            <group>
+                                <field name="description"/>
+                            </group>
+                        </page>
+                        <page string="checking info" name="checking info">
+                            <group>
+                                <group>
+                                    <div class="oe_title">
+                                        <label for="checkingimage" style="font-weight:bold"/>
+                                        <div>
+                                            <field name="checkingimage" widget='image' class="certificate_img"/>
+                                        </div>
+                                    </div>
+                                </group>
+                                <group>
+                                    <field name="attachments"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
     <!--社保缴纳情况action页面-->
     <record model="ir.actions.act_window" id="socialsecurity_action">
@@ -93,6 +245,26 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <!-- 工伤申报action页面 -->
+    <record model="ir.actions.act_window" id="work_injury_report_action">
+        <field name="name"> work injury report </field>
+        <field name="res_model">social.workinjury</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- 工伤认定action页面 -->
+    <record model="ir.actions.act_window" id="work_injury_checking_action">
+        <field name="name"> work injury report </field>
+        <field name="res_model">social.workinjury</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('work_injury_checking_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('work_injury_checking_form')})
+                ]"/>
+    </record>
+
+
     <!--社保缴纳情况-->
     <menuitem id="employee_social_socialsecurity" name="social security charge info"
               parent="employees_menu.social_security" action="socialsecurity_action"/>
@@ -100,5 +272,19 @@
     <!--公积金缴纳情况-->
     <menuitem id="employee_social_housingprovident" name="housing provident charge info"
               parent="employees_menu.social_security" action="housing_provident_action"/>
+
+    <!-- 工伤管理 -->
+    <menuitem id="employee_work_injury_manage" name="work injury manage"
+              parent="employees_menu.social_security"/>
+
+    <!-- 工伤申报 -->
+    <menuitem id="employee_work_injury_report" name="work injury report"
+              parent="employee_work_injury_manage" action="work_injury_report_action"/>
+
+
+    <!-- 工伤认定 -->
+    <menuitem id="employee_work_injury_checking" name="work injury checking"
+              parent="employee_work_injury_manage" action="work_injury_checking_action"/>
+
 
 </odoo>
