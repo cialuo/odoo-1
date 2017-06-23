@@ -126,7 +126,6 @@ class certificate(models.Model):
     # 用户图片
     userimage = fields.Binary(related='employee_id.image', readonly=True)
 
-
     # 关联员工
     employee_id = fields.Many2one('hr.employee', string='employee', default=None)
     # 部门

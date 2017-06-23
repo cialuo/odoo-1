@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-16 07:29+0000\n"
-"PO-Revision-Date: 2017-06-16 15:30+0800\n"
+"POT-Creation-Date: 2017-06-23 06:27+0000\n"
+"PO-Revision-Date: 2017-06-23 14:27+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -336,7 +336,7 @@ msgid "Work Mobile"
 msgstr "办公手机"
 
 #. module: employees
-#: code:addons/employees/models/models.py:554
+#: code:addons/employees/models/models.py:557
 #, python-format
 msgid "a group that bind with a post can not be delete"
 msgstr "状态为角色的组不能被删除"
@@ -352,7 +352,7 @@ msgid "active date"
 msgstr "启用日期"
 
 #. module: employees
-#: code:addons/employees/models/models.py:104
+#: code:addons/employees/models/models.py:107
 #, python-format
 msgid "administrator can not be bind to an employee"
 msgstr "超级管理员不能绑定到员工"
@@ -375,15 +375,15 @@ msgid "broken"
 msgstr "损坏"
 
 #. module: employees
-#: code:addons/employees/models/models.py:470
+#: code:addons/employees/models/models.py:473
 #, python-format
 msgid "can't set post's group in twice"
 msgstr "一个岗位不能同时绑定到两个组"
 
 #. module: employees
-#: code:addons/employees/models/models.py:108
-#: code:addons/employees/models/models.py:118
-#: code:addons/employees/models/models.py:187
+#: code:addons/employees/models/models.py:111
+#: code:addons/employees/models/models.py:121
+#: code:addons/employees/models/models.py:190
 #, python-format
 msgid "can't set system user to employee in twice"
 msgstr "一个系统用户不能绑定到两个员工"
@@ -438,12 +438,6 @@ msgstr "获得证书"
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_inner_transfer_form
 msgid "confirmed"
 msgstr "审核通过"
-
-#. module: employees
-#: model:ir.ui.view,arch_db:employees.ltyhr_view_foreign_transfer_form
-#: model:ir.ui.view,arch_db:employees.ltyhr_view_inner_transfer_form
-msgid "confirmed_countersign"
-msgstr "审批/会签"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.lty_view_constract_form
@@ -976,7 +970,7 @@ msgid "foreign_transfer"
 msgstr "对外调动"
 
 #. module: employees
-#: code:addons/employees/models/models.py:559
+#: code:addons/employees/models/models.py:562
 #, python-format
 msgid "groups are inherited by other groups, can not be delete!"
 msgstr "该组目前被其他群组继承，不能被删除！"
@@ -985,6 +979,11 @@ msgstr "该组目前被其他群组继承，不能被删除！"
 #: model:ir.model.fields,field_description:employees.field_employees_post_higher_level
 msgid "higher level"
 msgstr "上级"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_hr_employee_housingprovidentaccount
+msgid "housing provident account"
+msgstr "公积金账户"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_dispatch_user
@@ -1101,8 +1100,8 @@ msgid "new post"
 msgstr "新岗位"
 
 #. module: employees
-#: code:addons/employees/models/transfer.py:156
-#: code:addons/employees/models/transfer.py:260
+#: code:addons/employees/models/transfer.py:153
+#: code:addons/employees/models/transfer.py:253
 #, python-format
 msgid "only delete in state draft"
 msgstr "草稿状态下才能被删除"
