@@ -3,6 +3,7 @@
     'name': "设备管理",
 
     'description': """
+
     a）设备管理:
         1,设备管理
         2,设备分类
@@ -17,10 +18,10 @@
     'website': "",
 
     'category': 'Optional Edition',
-    'version': '0.1',
+    'version': 'V0.3',
 
     # any module necessary for this one to work correctly
-    'depends': ['vehicle_maintain', 'vehicle_warranty', 'maintenance','security_manage_menu'],
+    'depends': ['vehicle_maintain', 'vehicle_warranty', 'maintenance','security_manage_menu','vehicle_group'],
 
     # always loaded
     'data': [

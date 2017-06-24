@@ -10,7 +10,7 @@
     'website': "",
 
     'category': 'Optional Edition',
-    'version': '0.1',
+    'version': 'V0.3',
 
     # any module necessary for this one to work correctly
     'depends': ['energy_management'],

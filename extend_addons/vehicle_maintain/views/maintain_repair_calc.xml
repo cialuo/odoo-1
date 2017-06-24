@@ -55,26 +55,24 @@
 	                    </div>
 						 <group col="2">
 	                        <group>
-                                <field name="vehicle_id" />
-								<field name="vehicle_type" />
-	                        	<field name="fault_reason_id" readonly="1"/>
-								<field name="fault_method_id" readonly="1"/>
-								<field name="report_id" />
+                                <field name="vehicle_id" readonly="1" options="{'no_open':True,'no_create':True}"/>
+								<field name="vehicle_type" readonly="1" options="{'no_open':True,'no_create':True}"/>
+	                        	<field name="fault_reason_id" readonly="1" options="{'no_open':True,'no_create':True}"/>
+								<field name="fault_method_id" readonly="1" options="{'no_open':True,'no_create':True}"/>
+								<field name="report_id" readonly="1" options="{'no_open':True,'no_create':True}"/>
 	                        </group>
 	                        <group>
-								<field name="work_fee"/>
-								<field name="total_work_time" />
-								<field name="total_product_fee" />
-								<field name="total_work_fee" />
-                                <field name="total_fee" />
+								<field name="work_fee" readonly="1"/>
+								<field name="total_work_time" readonly="1"/>
+								<field name="total_product_fee" readonly="1"/>
+								<field name="total_work_fee" readonly="1"/>
+                                <field name="total_fee" readonly="1"/>
 	                        </group>
                    		 </group>
   						 <notebook>
-
-
 							 <page string="Materials Product">
                                 <field name="materials_product_ids" readonly="1">
-                                    <tree string="Materials Product" create="false" delete="false">
+                                    <tree string="Materials Product" create="false" delete="false" open="false">
 										<field name="sequence"/>
 										<field name="product_code"/>
 										<field name="product_id"/>
@@ -87,7 +85,7 @@
 
 							 <page string="MaintainRepair Jobs">
                                 <field name="job_ids" readonly="1">
-                                    <tree string="MaintainRepair Jobs" create="false" delete="false">
+                                    <tree string="MaintainRepair Jobs" create="false" delete="false" open="false">
 										<field name="sequence"/>
 										<field name="fault_method_id"/>
 										<field name="user_id"/>
@@ -126,6 +124,6 @@
         <menuitem name="maintain_calc_order" id="maintain_calc_order"
 				  parent="maintain_manage"
 				  action="maintain_calc_action" sequence="60"
-				  groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_dispatch"/>
+				  groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_repair"/>
     </data>
 </odoo>

@@ -58,9 +58,12 @@
                                         <field name="onhand_qty"/>
                                         <field name="virtual_available"/>
                                         <field name="qty"/>
+                                        <field name="seller_id" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="price_unit"/>
                                         <field name="state"/>
                                         <field name="procurement_id" readonly="1"/>
                                         <field name="purchase_id" readonly="1"/>
+                                        <field name="product_tmpl_id" invisible="1"/>
                                     </tree>
                                 </field>
                             </page>

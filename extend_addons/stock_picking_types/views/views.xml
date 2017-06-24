@@ -1,5 +1,16 @@
 <openerp>
   <data>
+    <!--在原有的picking单据中增加人员-->
+    <record id="view_form_picking_extend_user" model="ir.ui.view">
+      <field name="name">Picking Order</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='backorder_id']" position="after">
+          <field name="pick_user" options="{'no_open': True, 'no_create': True}"/>
+        </xpath>
+      </field>
+    </record>
 
     <!--新增发料搜索视图-->
     <record id="view_issuance_of_material_search" model="ir.ui.view">
