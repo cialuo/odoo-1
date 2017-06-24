@@ -42,6 +42,9 @@ class employee(models.Model):
     # 工资账户
     salaryaccount = fields.Char(string='employee salary account')
 
+    # 公积金账户
+    housingprovidentaccount = fields.Char(string='housing provident account')
+
     # 员工家属信息
     families = fields.One2many('employees.employeefamily', 'employee_id',  string="employees's families")
     # 员工所在岗位

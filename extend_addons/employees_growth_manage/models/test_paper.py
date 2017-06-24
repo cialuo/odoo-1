@@ -22,6 +22,69 @@ class test_paper(models.Model):
 
     test_paper_details = fields.One2many('employees_growth.test_paper_detail','test_paper_id',string='test_paper_details')
 
+    radio_question_count = fields.Integer(compute="_compute_radio_question_count")
+
+    multiselect_question_count = fields.Integer(compute='_compute_multiselect_question_count')
+
+    judge_question_count = fields.Integer(compute='_compute_judge_question_count')
+
+    radio_question_score = fields.Integer(compute='_compute_radio_question_score')
+
+    multiselect_question_score = fields.Integer(compute='_compute_multiselect_question_score')
+
+    judge_question_score = fields.Integer(compute='_compute_judge_question_score')
+
+
+    @api.multi
+    def _compute_radio_question_count(self):
+        """
+            计算各个题型的分数和个数
+        :return:
+        """
+        for order in self:
+            details = order.test_paper_details
+            for detail in details:
+                if detail.question_type == 'radio_question':
+                    order.radio_question_count =detail.question_count
+
+    @api.multi
+    def _compute_radio_question_score(self):
+        for order in self:
+            details = order.test_paper_details
+            for detail in details:
+                if detail.question_type == 'radio_question':
+                    order.radio_question_score = detail.total_score
+    @api.multi
+    def _compute_multiselect_question_count(self):
+        for order in self:
+            details = order.test_paper_details
+            for detail in details:
+                if detail.question_type == 'multiselect_question':
+                    order.multiselect_question_count = detail.question_count
+
+    @api.multi
+    def _compute_multiselect_question_score(self):
+        for order in self:
+            details = order.test_paper_details
+            for detail in details:
+                if detail.question_type == 'multiselect_question':
+                    order.multiselect_question_score = detail.total_score
+
+    @api.multi
+    def _compute_judge_question_count(self):
+        for order in self:
+            details = order.test_paper_details
+            for detail in details:
+                if detail.question_type == 'judge_question':
+                    order.judge_question_count = detail.question_count
+
+    def _compute_judge_question_score(self):
+        for order in self:
+            details = order.test_paper_details
+            for detail in details:
+                if detail.question_type == 'judge_question':
+                    order.judge_question_score = detail.total_score
+
     @api.multi
     def _compute_aggregate_score(self):
         """
@@ -30,7 +93,7 @@ class test_paper(models.Model):
         :return:
         """
         for test_paper in self:
-            details = self.env['employees_growth.test_paper_detail'].search([('test_paper_id', '=', test_paper.id)])
+            details = test_paper.test_paper_details
             if len(details) > 0:
                 test_paper.aggregate_score = sum(details.mapped('total_score'))
 

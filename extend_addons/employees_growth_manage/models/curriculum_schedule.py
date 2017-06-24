@@ -57,6 +57,7 @@ class curriculum_schedule(models.Model):
           :return:
           """
           for student in self.students:
+               student.test_paper_id = self.course_id.test_paper_id
                self.get_questions(student)
 
      def save_radio_question(self,id,questions,type):
