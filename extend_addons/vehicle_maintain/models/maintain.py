@@ -241,7 +241,7 @@ class MaintainRepair(models.Model):
                                   'inspect': [('readonly', True)],
                                   'repair': [('readonly', True)],
                               })
-    percentage_work = fields.Float(help='percentage_work', digits=(2, 1))
+    percentage_work = fields.Float(help='percentage_work', digits=(5, 1), default=100.0)
 
     materials_control = fields.Boolean("Materials Control", readonly=True, copy=False)
     available_product_ids = fields.One2many("maintain.manage.available_product", 'repair_id',
@@ -310,8 +310,8 @@ class MaintainRepair(models.Model):
         if self.percentage_work < 0 or self.percentage_work > 100:
             return {
                 'warning': {
-                    'title': "Incorrect 'percentage_work' value",
-                    'message': "The number of available percentage_work may not be negative",
+                    'title': "不正确的值",
+                    'message': "工时比例数必须大于0和小于100",
                 }
             }
 
@@ -373,7 +373,7 @@ class MaintainRepair(models.Model):
             "sequence": len(self.job_ids)+1
         }
         self.write({
-            'percentage_work': False,
+            'percentage_work': 100 - percentage_work - self.percentage_work,
             "user_id": False,
             # 'plan_start_time': False,
             'state': 'wait_repair',
