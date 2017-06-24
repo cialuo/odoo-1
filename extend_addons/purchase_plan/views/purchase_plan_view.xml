@@ -44,6 +44,8 @@
                                 <field name="approver_id"/>
                                 <field name="approve_date"/>
                                 <field name="is_run" invisible="1"/>
+                                <field name="total"/>
+                                <field name="no_suppliers"/>
                             </group>
                         </group>
                         <notebook>
@@ -58,9 +60,13 @@
                                         <field name="onhand_qty"/>
                                         <field name="virtual_available"/>
                                         <field name="qty"/>
+                                        <field name="seller_id" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="price_unit"/>
                                         <field name="state"/>
                                         <field name="procurement_id" readonly="1"/>
                                         <field name="purchase_id" readonly="1"/>
+                                        <field name="product_tmpl_id" invisible="1"/>
+                                        <field name="sub_total" sum="Total"/>
                                     </tree>
                                 </field>
                             </page>
@@ -85,6 +91,8 @@
                     <field name="user_department"/>
                     <field name="user_id"/>
                     <field name="create_date"/>
+                    <field name="no_suppliers"/>
+                    <field name="total"/>
                     <field name="checker_id"/>
                     <field name="check_date"/>
                     <field name="approver_id"/>

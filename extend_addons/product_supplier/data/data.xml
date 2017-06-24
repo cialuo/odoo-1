@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--定义报价单单号： QT+两位数年份+日期+序号-->
+        <record id="supplier_order_seq" model="ir.sequence">
+            <field name="name">Supplier Order</field>
+            <field name="code">supplier_order_seq</field>
+            <field name="prefix">QT%(y)s%(month)s%(day)s</field>
+            <field name="padding">0</field>
+            <field eval="1" name="number_increment"/>
+        </record>
+    </data>
+</odoo>

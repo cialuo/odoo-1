@@ -2,14 +2,8 @@
 
 from odoo import models, fields, api
 
-# class stock_picking_types(models.Model):
-#     _name = 'stock_picking_types.stock_picking_types'
+class StockPicking(models.Model):
+    _inherit = 'stock.picking'
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
+    pick_user = fields.Many2one('res.users', string='Pick User', default=lambda self: self.env.uid,
+                                readonly=True, states={'draft': [('readonly', False)]})

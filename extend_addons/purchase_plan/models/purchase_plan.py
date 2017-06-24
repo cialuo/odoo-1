@@ -46,6 +46,14 @@ class PuchasePlan(models.Model):
     is_run = fields.Boolean(string='Run Procurement?', default=False)
     procurement_group_id = fields.Many2one('procurement.group', string='Proc Group')
     line_ids = fields.One2many('purchase.plan.line', 'plan_id', string='Lines', readonly=True, states={'draft': [('readonly', False)]})
+    total = fields.Float(string='Total', compute='_compute_lines')
+    no_suppliers = fields.Integer(string='No supplier', compute='_compute_lines')
+
+    @api.depends('line_ids')
+    def _compute_lines(self):
+        for order in self:
+            order.total = sum([i.sub_total for i in order.line_ids])
+            order.no_suppliers = len(order.line_ids.filtered(lambda x: not x.seller_id))
 
     @api.model
     def create(self, vals):
@@ -165,6 +173,42 @@ class PlanLine(models.Model):
                                       ondelete='restrict')
     purchase_id = fields.Many2one('purchase.order', string='Purchase Order', related='procurement_id.purchase_id', ondelete='restrict')
     plan_id = fields.Many2one('purchase.plan', string='Purchase Plan', ondelete='cascade')
+    product_tmpl_id = fields.Many2one('product.template')
+    seller_id = fields.Many2one('product.supplierinfo', string='Partner', domain="[('product_tmpl_id', '=', product_tmpl_id)]")
+    price_unit = fields.Float(string='Price Unit')
+    sub_total = fields.Float(string='Sub total', compute='_compute_sub_total', store=True)
+
+
+
+    @api.depends('qty', 'price_unit')
+    def _compute_sub_total(self):
+        for line in self:
+            line.sub_total = line.qty * line.price_unit
+
+    @api.onchange('product_id')
+    def _onchange_vendor(self):
+        """
+        根据选择的产品，默认填入该产品的上一次采购供应商
+        :return: 
+        """
+        if self.product_id:
+            p_order = self.env['purchase.order.line'].search([('product_id', '=', self.product_id.id)], limit=1,order='id desc')
+            p_supplierinfo = self.env['product.supplierinfo'].search([('name', '=', p_order.partner_id.id)], limit=1)
+            self.seller_id = p_supplierinfo
+            self.product_tmpl_id = self.product_id.product_tmpl_id
+
+
+    @api.onchange('seller_id')
+    def _onchange_price_unit(self):
+        """
+        根据选择的供应商及产品，提供默认的单价
+        :return: 
+        """
+        if self.seller_id:
+            self.price_unit = self.seller_id.price
+        else:
+            self.price_unit = 0.0
+
 
     @api.multi
     def _prepare_order_line_procurement(self, group_id=False):
