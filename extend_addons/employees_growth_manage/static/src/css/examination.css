@@ -19,3 +19,7 @@
     border-radius:1%;
     background-color: white;
 }
+
+.answer {
+    display:none;
+}

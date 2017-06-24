@@ -46,7 +46,14 @@ class PuchasePlan(models.Model):
     is_run = fields.Boolean(string='Run Procurement?', default=False)
     procurement_group_id = fields.Many2one('procurement.group', string='Proc Group')
     line_ids = fields.One2many('purchase.plan.line', 'plan_id', string='Lines', readonly=True, states={'draft': [('readonly', False)]})
+    total = fields.Float(string='Total', compute='_compute_lines')
+    no_suppliers = fields.Integer(string='No supplier', compute='_compute_lines')
 
+    @api.depends('line_ids')
+    def _compute_lines(self):
+        for order in self:
+            order.total = sum([i.sub_total for i in order.line_ids])
+            order.no_suppliers = len(order.line_ids.filtered(lambda x: not x.seller_id))
 
     @api.model
     def create(self, vals):
@@ -169,7 +176,14 @@ class PlanLine(models.Model):
     product_tmpl_id = fields.Many2one('product.template')
     seller_id = fields.Many2one('product.supplierinfo', string='Partner', domain="[('product_tmpl_id', '=', product_tmpl_id)]")
     price_unit = fields.Float(string='Price Unit')
+    sub_total = fields.Float(string='Sub total', compute='_compute_sub_total', store=True)
 
+
+
+    @api.depends('qty', 'price_unit')
+    def _compute_sub_total(self):
+        for line in self:
+            line.sub_total = line.qty * line.price_unit
 
     @api.onchange('product_id')
     def _onchange_vendor(self):

@@ -28,10 +28,18 @@ odoo.define('examinationTemplate.test', function (require) {
             //获取后台数据
             self.model_students.call('get_examination_info',[active_ids]).then(function (data) {
                 data = eval(data)
+                console.log(data)
                 self.$el.append(QWeb.render("title_info",{title_info:data}));
-                self.$el.append(QWeb.render("radio_info",{radio_info:data.radio}));
-                self.$el.append(QWeb.render("multiselect_info",{multiselect_info:data.multiselect}));
-                self.$el.append(QWeb.render("judge_info",{judge_info:data.judge}));
+                if(data.radio!=null){
+                    self.$el.append(QWeb.render("radio_info",{radio_info:data.radio}));
+                }
+                if(data.multiselect!=null){
+                    self.$el.append(QWeb.render("multiselect_info",{multiselect_info:data.multiselect}));
+                }
+                if(data.judge!=null){
+                    self.$el.append(QWeb.render("judge_info",{judge_info:data.judge}));
+                }
+
             });
 
         },
@@ -68,7 +76,13 @@ odoo.define('examinationTemplate.test', function (require) {
            var json = JSON.stringify(paramet);
            //获取后台数据
            self.model_students.call('test_calculation',[paramet]).then(function (data) {
-               console.log('分数结算完成...');
+               //跳转到详情界面
+               self.do_action({
+                    type: 'ir.actions.act_window',
+                    res_model: 'employees_growth.students',
+                    res_id: self.student_ids[0],
+                    views: [[false, 'form']],
+                });
            });
 
         },

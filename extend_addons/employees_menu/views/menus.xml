@@ -5,8 +5,13 @@
         <!--人力资源档案-->
         <menuitem id="ltyhr_employee_document_menu" name="employee document"
                   parent="ltyhr_top_menu" sequence="10"/>
+
+        <!-- 社保与养老 -->
+        <menuitem name="social security " id="social_security" parent="ltyhr_top_menu" sequence="20"/>
+
         <!-- 工资管理 -->
         <menuitem name="salary manage" id="salary_manage" parent="ltyhr_top_menu" sequence="30"/>
+
         <!-- 假期与考勤 -->
         <menuitem name="leave and checking-in" id="leave_and_checking_in" parent="ltyhr_top_menu" sequence="40"/>
         <!-- 系统设置 -->

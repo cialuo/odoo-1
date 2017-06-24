@@ -3,7 +3,7 @@
 
     <t t-name="title_info">
         <h1><t t-esc="title_info.display_name"/></h1>
-        <button type="button" class="btn_jiaojuan oe_highlight">提交考试</button>
+        <button type="button" class="btn_jiaojuan oe_highlight">交卷</button>
     </t>
 
     <t t-name="radio_info">
@@ -11,7 +11,7 @@
         <div>
 
             <div class="question_body">
-                <h1 class="question_title">一、单选题，每题仅有一个答案是正确的选项。（本题共有<t t-esc="radio_info.count"/>题，共4分）</h1>
+                <h1 class="question_title">一、单选题，每题仅有一个答案是正确的选项。（本题共有<t t-esc="radio_info.count"/>题，共<t t-esc="radio_info.score"/>分）</h1>
 
                 <t t-foreach="radio_info.questions" t-as="bo">
 
@@ -67,7 +67,7 @@
         <div>
 
             <div class="question_body">
-                <h1 class="question_title">一、多选题，每题至少有两个答案是正确的选项。（本题共有<t t-esc="multiselect_info.count"/>题，共4分）</h1>
+                <h1 class="question_title">一、多选题，每题至少有两个答案是正确的选项。（本题共有<t t-esc="multiselect_info.count"/>题，共<t t-esc="multiselect_info.score"/>分）</h1>
 
                 <t t-foreach="multiselect_info.questions" t-as="bo">
 
@@ -123,7 +123,7 @@
         <div>
 
             <div class="question_body">
-                <h1 class="question_title">三、判断题，请判断以下说法哪项是正确的。（本题共有<t t-esc="judge_info.count"/>题，共4分）</h1>
+                <h1 class="question_title">三、判断题，请判断以下说法哪项是正确的。（本题共有<t t-esc="judge_info.count"/>题，共<t t-esc="judge_info.score"/>分）</h1>
 
                 <t t-foreach="judge_info.questions" t-as="bo">
 
