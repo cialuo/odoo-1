@@ -257,10 +257,10 @@
 						 <group col="2">
 	                        <group>
 								<field name="inner_code" />
-								<field name="category_id" options="{'no_open':True,'no_create':True}"/>
+								<field name="category_id" options="{'no_open':True,'no_create':True}" required="1"/>
 								<field name="appearance_id" options="{'no_open':True,'no_create':True}" domain="[('category_id', '=', category_id)]"/>
 								<field name="reason_id" options="{'no_open':True,'no_create':True}"
-											domain="[('appearance_id', '=', appearance_id),('category_id', '=', category_id)]"/>
+											domain="['|',('appearance_id', '=', appearance_id),('appearance_id', '=', False)]"/>
 
 	                        </group>
 	                        <group>
@@ -291,15 +291,15 @@
 
 							<page name="AvailProducts" string="AvailProducts" attrs="{'invisible':[('materials_control','=',False)] }">
 								<field name="avail_ids"  >
-									<tree editable="bottom">
-										<field name="product_id" required="1" options="{'no_open':True,'no_create':True}"/>
+									<tree editable="bottom" open="false">
+										<field name="product_id" required="1" options="{'no_open':True,'no_create':True}" />
 										<field name="product_code"/>
 										<field name="categ_id"/>
 										<field name="description"/>
 										<field name="uom_id"/>
 										<field name="change_count"/>
 										<field name="max_count"/>
-										<field name="vehicle_model" widget="many2many_tags"/>
+										<field name="vehicle_model" widget="many2many_tags"/>e
 										<field name="require_trans"/>
 										<field name="remark"/>
 										<field name="onhand_qty" invisible="1"/>
