@@ -10,19 +10,7 @@
                     <!--抛锚记录-->
                     <page  string="drop anchor records" name="dropanchorrecords">
                         <field name="dropanchorrecords">
-                            <form string="drop anchile item Form">
-                                <sheet>
-                                    <group>
-                                        <field name="anchortime"/>
-                                        <field name="anchorend"/>
-                                        <field name="anchorroad"/>
-                                        <field name="anchorreason"/>
-                                        <field name="solution"/>
-                                        <field name="driver"/>
-                                    </group>
-                                </sheet>
-                            </form>
-                            <tree>
+                            <tree open="false">
                                 <field name="anchortime" />
                                 <field name="anchorroad" />
                                 <field name="anchorreason" />

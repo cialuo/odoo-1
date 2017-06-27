@@ -42,14 +42,18 @@
                 <form string="MaintainDelivery Form">
                 	<header>
 						<button name="action_delivery" type="object" string="Comfirm Delivery"
-								states="draft" class="oe_highlight"/> <!-- 确认交接-->
+								states="draft" class="oe_highlight"
+                                groups="vehicle_group.vehicle_inspect"
+                        /> <!-- 确认交接-->
 
 						<button name="action_return" type="object" string="delivery to Return"
 								states="delivery" class="oe_highlight"/> <!-- 确认交回-->
 
 						<button name="action_delivery_to_repair" type="object" class="oe_highlight"
                                 states="return" string="Query Repair Bill"
-                                context="{'xml_id':'maintain_repair_action'}"/>
+                                context="{'xml_id':'maintain_repair_action'}"
+                                groups="vehicle_group.vehicle_inspect"
+                        />
                     	<field name="state"  widget="statusbar"/>
                 	</header>
 					<sheet>
