@@ -1,0 +1,153 @@
+<odoo>
+
+    <!--考核指标编辑表单-->
+    <record id="performance_checking_indicator_form" model="ir.ui.view">
+        <field name="name">performance checking indicator form</field>
+        <field name="model">performance.indicator</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="indicatorcode"/>
+                            <field name="create_date" readonly="1"/>
+                            <field name="highestscore"/>
+                        </group>
+                        <group>
+                            <field name="creator" readonly="1"/>
+                            <field name="indicatortype"/>
+                            <field name="lowest_score"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="standardofgrading"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 考核指标库tree视图 -->
+    <record model="ir.ui.view" id="checking_indicator_tree">
+        <field name="name">checking indicator tree</field>
+        <field name="model">performance.indicator</field>
+        <field name="arch" type="xml">
+            <tree string="Course Tree">
+                <field name="indicatorcode"/>
+                <field name="name"/>
+                <field name="highestscore"/>
+                <field name="lowest_score"/>
+                <field name="creator"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 考核指标库action页面 -->
+    <record model="ir.actions.act_window" id="performance_checking_indicator_action">
+        <field name="name">checking indicator</field>
+        <field name="res_model">performance.indicator</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--考核表编辑表单-->
+    <record id="performance_checking_table_form" model="ir.ui.view">
+        <field name="name">performance checking table form</field>
+        <field name="model">performance.checkingtable</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tablecode"/>
+                            <field name="cycletype" />
+                            <field name="department_id"  options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="post_id" options="{'no_open': True, 'no_create': True}" domain="[('department','=',department_id)]"/>
+                            <field name="creator" readonly="1"/>
+                            <field name="create_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="checking indicator">
+                            <field name="indicators">
+                                <tree>
+                                    <field name="indicator_code"/>
+                                    <field name="indicator_name"/>
+                                    <field name="indicator_standardofgrading"/>
+                                    <field name="weight"/>
+                                    <field name="judge"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 考核表tree视图 -->
+    <record model="ir.ui.view" id="checking_table_tree">
+        <field name="name">checking table tree</field>
+        <field name="model">performance.checkingtable</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="tablecode"/>
+                <field name="name"/>
+                <field name="cycletype"/>
+                <field name="department_id"/>
+                <field name="post_id"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 考核表action页面 -->
+    <record model="ir.actions.act_window" id="performance_checking_table_action">
+        <field name="name">checking table</field>
+        <field name="res_model">performance.checkingtable</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--考核表指标编辑表单-->
+    <record id="performance_checkingtable_indicator_form" model="ir.ui.view">
+        <field name="name">performance checking table indicator form</field>
+        <field name="model">performance.indecatorfortable</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="weight"/>
+                        <field name="judge" widget="many2many_tags"  options="{'no_open': True, 'no_create': True}"/>
+                        <field name="indicator_id"/>
+                        <field name="indicator_code"/>
+                        <field name="indicator_name"/>
+                        <field name="indicator_standardofgrading"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 考核指标库 -->
+    <menuitem id="performance_indicator_menu" name="performance indicators menu"
+              parent="employees_menu.performance_checking_system" action="performance_checking_indicator_action"/>
+
+    <!-- 考核表管理 -->
+    <menuitem id="performance_checking_table_menu" name="performance checking table menu"
+              parent="employees_menu.performance_checking_system" action="performance_checking_table_action"/>
+
+</odoo>
