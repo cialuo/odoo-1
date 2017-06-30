@@ -178,6 +178,12 @@ class PerformanceChecking(models.Model):
     employees = fields.Many2many("hr.employee", string="employees to checking", readonly=True,
                                   states={'draft': [('readonly', False)]})
 
+    # 部门
+    department_id = fields.Many2one(string="department", related="table_id.department_id")
+
+    # 岗位
+    post_id = fields.Many2one(string="post", related="table_id.post_id")
+
     # 备注
     remark = fields.Text(string="checking remarks")
 
@@ -209,6 +215,18 @@ class PerformanceChecking(models.Model):
 
     @api.multi
     def action_checking(self):
+        resultmodel = self.env['perf.checkingresult']
+        for item in self.employees:
+            data = {
+                'checking_id':self.id,
+                'employee_id':item.id,
+                'name':self.table_id.name,
+            }
+            indis = []
+            for indicator in self.indicators:
+                indis.append((0, 0, {'indicator_id': indicator.id, 'point': 0}))
+            data['indicators'] = indis
+            resultmodel.create(data)
         self.state = 'cheking'
 
     @api.multi
@@ -262,8 +280,11 @@ class CheckingResult(models.Model):
     # 关联的考核表
     checking_id = fields.Many2one("perf.checking", string="checking plan", ondelete="cascade")
 
+    # 考核名称
+    name = fields.Char(string="checking name")
+
     # 员工
-    employee_id = fields.Many2many("hr.employee", string="employee")
+    employee_id = fields.Many2one("hr.employee", string="employee")
 
     # 编码
     checkingcode = fields.Char(string="checking code", related="checking_id.checkingcode")
@@ -277,6 +298,32 @@ class CheckingResult(models.Model):
     # 考核指标
     indicators = fields.One2many("perf.resultindicator", 'result_id', string="checking indicators")
 
+    # 部门
+    department_id = fields.Many2one(string="department", related="checking_id.department_id")
+
+    # 岗位
+    post_id = fields.Many2one(string="post", related="checking_id.post_id")
+
+    # 状态
+    state = fields.Selection([("checking", "checking on the way"),      # 考核总
+                              ("checkingdone", "checking done"),        # 考核完成
+                              ], default='checking', string="checking status")
+
+    # 考核结果总分
+    totalpoint = fields.Float(string="checking total point", compute="_computeTotalPoint")
+
+    @api.multi
+    def _computeTotalPoint(self):
+        for item in self:
+            total = 0
+            for point in item.indicators:
+                total += point.point
+            item.totalpoint = total
+
+    @api.multi
+    def action_done(self):
+        self.state = 'checkingdone'
+
 
 
 class CheckingResultIndicator(models.Model):
@@ -289,18 +336,27 @@ class CheckingResultIndicator(models.Model):
     # 评分
     point = fields.Float(string="result point", required=True)
 
-    # 考核名称
-    name = fields.Char(string="checking name")
-
     # 关联指标
-    indicator_id = fields.Many2one("performance.indicator", string="indicator", required=True)
+    indicator_id = fields.Many2one("perf.indi_check", string="indicator", required=True)
 
     # 指标编码
-    indicator_code = fields.Char(string="indecator code", related="indicator_id.indicatorcode", readonly=True)
+    indicator_code = fields.Char(string="indecator code", related="indicator_id.indicator_code", readonly=True)
 
     # 指标名称
-    indicator_name = fields.Char(string="indecator name", related="indicator_id.name", readonly=True)
+    indicator_name = fields.Char(string="indecator name", related="indicator_id.indicator_name", readonly=True)
 
     # 指标标准
     indicator_standardofgrading = fields.Text(string="indecator standardofgrading",
-                                              related="indicator_id.standardofgrading", readonly=True)
+                                              related="indicator_id.indicator_standardofgrading", readonly=True)
+
+    # 评价人
+    judge = fields.Many2many(string="checking judge", related="indicator_id.judge")
+
+    @api.one
+    @api.constrains('point')
+    def _check_description(self):
+        if self.point > self.indicator_id.indicator_id.highestscore:
+            raise ValidationError(_("point must less then highest score"))
+
+        if self.point < self.indicator_id.indicator_id.lowest_score:
+            raise ValidationError(_("point must higher then lowest score"))
