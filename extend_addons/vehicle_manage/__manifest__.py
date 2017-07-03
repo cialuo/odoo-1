@@ -11,7 +11,7 @@
     'website': "",
 
     'category': 'Basic Edition',
-    'version': 'V0.3',
+    'version': '0.3.1',
 
     # any module necessary for this one to work correctly
     'depends': ['fleet', 'vehicle_manage_menu', 'stock_extend', 'employees',
