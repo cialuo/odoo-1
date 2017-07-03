@@ -22,10 +22,12 @@
     'website': "",
 
     'category': 'Advanced Edition',
-    'version': '0.1',
+    'version': '0.3.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['vehicle_manage', 'materials_product','stock_picking_types','vehicle_group'],
+    'depends': ['vehicle_manage', 'materials_product',
+                'stock_picking_types','vehicle_group',
+                'web_tree_no_open',],
 
     # always loaded
     'data': [

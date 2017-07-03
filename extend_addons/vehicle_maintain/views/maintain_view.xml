@@ -120,7 +120,7 @@
   						 <notebook>
 							 <page string="Maintain Repair">
                                 <field name="repair_ids">
-                                    <tree string="Maintain Repair" editable="bottom">
+                                    <tree string="Maintain Repair" editable="bottom" open="false">
 										<field name="name"/>
 										<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
 										<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}" domain="[('category_id', '=', fault_category_id)]"/>
@@ -262,7 +262,7 @@
         <record model="ir.ui.view" id="maintain_repair_view_form">
             <field name="name">MaintainRepair.form</field>
             <field name="model">maintain.manage.repair</field>
-			<field name="priority">1</field>
+			<field name="priority">0</field>
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
                 	<header>
@@ -303,7 +303,7 @@
   						 <notebook>
 							 <page string="MaintainRepair Jobs">
                                 <field name="job_ids" readonly="1">
-                                    <tree string="MaintainRepair Jobs" create="false" delete="false">
+                                    <tree string="MaintainRepair Jobs" create="false" delete="false" open="false">
 										<field name="sequence"/>
 										<field name="fault_method_id"/>
 										<field name="user_id"/>
@@ -324,7 +324,7 @@
 
 							 <page string="AvailProducts" name="AvailProducts">
                                 <field name="available_product_ids" readonly="1">
-                                    <tree string="AvailProducts" create="false" delete="false">
+                                    <tree string="AvailProducts" create="false" delete="false" open="false">
 										<field name="product_id"/>
 										<field name="product_code"/>
 										<field name="max_count"/>
@@ -374,7 +374,7 @@
 							 </page>
 							 <page string="Inspect Return Records" >
                                 <field name="return_record_ids" readonly="1">
-                                    <tree string="Inspect Return Records" create="false" delete="false">
+                                    <tree string="Inspect Return Records" create="false" delete="false" open="false">
 										<field name="repair_id"/>
 										<field name="repair_names"/>
 										<field name="fault_method_id"/>
@@ -400,14 +400,14 @@
         <record model="ir.ui.view" id="maintain_repair_view_form_action">
             <field name="name">MaintainRepair.form</field>
             <field name="model">maintain.manage.repair</field>
-			<field name="priority">0</field>
+			<field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
 					<sheet>
 						<notebook groups="vehicle_group.vehicle_dispatch">
 							<page string="MaintainRepair Jobs" >
                                 <field name="job_ids">
-                                    <tree string="MaintainRepair Jobs" create="false" editable="bottom">
+                                    <tree string="MaintainRepair Jobs" create="false" editable="bottom" open="false">
 										<field name="sequence" readonly="1"/>
 										<field name="fault_method_id" readonly="1"/>
 										<field name="user_id" readonly="1"/>
@@ -428,7 +428,7 @@
 	                        <group>
 								<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
 								<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
-								<field name="fault_reason_id" options="{'no_open':True,'no_create':True}" domain="[('appearance_id', '=', fault_appearance_id),('category_id', '=', fault_category_id)]"/>
+								<field name="fault_reason_id" required="1" options="{'no_open':True,'no_create':True}" domain="['|',('appearance_id', '=', fault_appearance_id),('appearance_id', '=', False)]"/>
 								<field name="fault_method_id" required="1" options="{'no_open':True,'no_create':True}" domain="[('reason_id', '=', fault_reason_id)]"/>
 								<field name="work_time" groups="vehicle_group.vehicle_dispatch"/>
 								<field name="operation_manual" invisible="1"/>
@@ -505,7 +505,7 @@
                             </page>
 							<page string="Inspect Return Records" >
                                 <field name="return_record_ids" readonly="1">
-                                    <tree string="Inspect Return Records" create="false" delete="false">
+                                    <tree string="Inspect Return Records" create="false" delete="false" open="false">
 										<field name="repair_id"/>
 										<field name="repair_names"/>
 										<field name="fault_method_id"/>
@@ -609,6 +609,6 @@
 		<!--检验单-->
         <menuitem name="maintain_inspect_order" id="maintain_inspect_order" parent="maintain_manage"
 				  action="maintain_inspect_action" sequence="50"
-				  groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_inspect" />
+				  groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_inspect,vehicle_group.vehicle_repair" />
     </data>
 </odoo>

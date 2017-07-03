@@ -7,11 +7,11 @@
         2）车辆使用档案,车辆生命周期,车辆年检管理
     """,
 
-    'author': "Xiang,Tu,You",
+    'author': "Xiang,Tu,You V0.3",
     'website': "",
 
     'category': 'Basic Edition',
-    'version': '0.1',
+    'version': '0.3.1',
 
     # any module necessary for this one to work correctly
     'depends': ['fleet', 'vehicle_manage_menu', 'stock_extend', 'employees',

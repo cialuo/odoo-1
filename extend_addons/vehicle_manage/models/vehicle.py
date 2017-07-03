@@ -72,6 +72,30 @@ class Vehicle(models.Model):
     #线路修正系数
     route_correct_value = fields.Float(related='route_id.oil_wear_coefficient', string="oil_wear_coefficient", readonly=True)
 
+    @api.multi
+    def copy(self, default=None):
+        default = dict(default or {})
+
+        lp_copied_count = self.search_count(
+            [('license_plate', '=like', _(u"Copy of {}%").format(self.license_plate))])
+        if not lp_copied_count:
+            new_license_plate = _(u"Copy of {}").format(self.license_plate)
+        else:
+            new_license_plate = _(u"Copy of {} ({})").format(self.license_plate, lp_copied_count)
+
+        default['license_plate'] = new_license_plate
+
+        inc_copied_count = self.search_count(
+            [('inner_code', '=like', _(u"Copy of {}%").format(self.inner_code))])
+        if not inc_copied_count:
+            new_inner_code = _(u"Copy of {}").format(self.inner_code)
+        else:
+            new_inner_code = _(u"Copy of {} ({})").format(self.inner_code, inc_copied_count)
+
+        default['inner_code'] = new_inner_code
+
+        return super(Vehicle, self).copy(default)
+
     @api.depends('start_service_date')
     def _get_salvage_rate(self):
         for i in self:
