@@ -200,22 +200,22 @@
                         <page string="checking indicator">
                             <field name="indicators">
                                 <tree>
-                                    <field name="indicator_code"/>
-                                    <field name="indicator_name"/>
-                                    <field name="indicator_standardofgrading"/>
-                                    <field name="weight"/>
-                                    <field name="judge"/>
+                                    <field name="indicator_code" string="indicator code"/>
+                                    <field name="indicator_name" string="indicator name"/>
+                                    <field name="indicator_standardofgrading" string="indicator standardofgrading"/>
+                                    <field name="weight" string="indicator weight(%)"/>
+                                    <field name="judge" string="indicator judge"/>
                                 </tree>
                                 <form>
                                     <sheet>
                                         <group>
-                                            <field name="weight"/>
+                                            <field name="weight" string="indicator weight"/>
                                             <field name="judge" widget="many2many_tags"
-                                                   options="{'no_open': True, 'no_create': True}"/>
-                                            <field name="indicator_id"/>
-                                            <field name="indicator_code"/>
-                                            <field name="indicator_name"/>
-                                            <field name="indicator_standardofgrading"/>
+                                                   options="{'no_open': True, 'no_create': True}" string="indicator judge"/>
+                                            <field name="indicator_id" string="indicator"/>
+                                            <field name="indicator_code" string="indicator code"/>
+                                            <field name="indicator_name" string="indicator name"/>
+                                            <field name="indicator_standardofgrading" string="indicator standardofgrading"/>
                                         </group>
                                     </sheet>
                                 </form>
