@@ -1,0 +1,463 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* performance_assessment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-30 07:54+0000\n"
+"PO-Revision-Date: 2017-06-30 15:54+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.1\n"
+
+#. module: performance_assessment
+#: model:ir.ui.view,arch_db:performance_assessment.checking_indicator_tree
+msgid "Course Tree"
+msgstr "Course Tree"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_create_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_create_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_create_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_create_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_create_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_create_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_create_date
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_create_date
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_create_date
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_display_name
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_display_name
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_display_name
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_display_name
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_display_name
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_display_name
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_id
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_id
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_id
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_id
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_id
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_id
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_id
+msgid "ID"
+msgstr "ID"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking___last_update
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult___last_update
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check___last_update
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator___last_update
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable___last_update
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable___last_update
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_write_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_write_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_write_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_write_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_write_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_write_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_write_date
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_write_date
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_write_date
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_write_date
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_write_date
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_write_date
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_checkingcode
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_checkingcode
+msgid "checking code"
+msgstr "编码"
+
+#. module: performance_assessment
+#: sql_constraint:perf.checking:0
+msgid "checking code Can not duplication"
+msgstr "重复的考核编码"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_checkingcycle
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_checkingcycle
+msgid "checking cycle"
+msgstr "考核周期"
+
+#. module: performance_assessment
+#: model:ir.ui.view,arch_db:performance_assessment.checkingresult_search_view
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_form
+#: selection:perf.checking,state:0 selection:perf.checkingresult,state:0
+msgid "checking done"
+msgstr "完成"
+
+#. module: performance_assessment
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_form
+msgid "checking employees"
+msgstr "考核员工"
+
+#. module: performance_assessment
+#: model:ir.actions.act_window,name:performance_assessment.performance_checking_indicator_action
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_form
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_table_form
+#: model:ir.ui.view,arch_db:performance_assessment.performance_invite_checking_form
+msgid "checking indicator"
+msgstr "考核指标"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_indicators
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_indicators
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_indicators
+msgid "checking indicators"
+msgstr "考核指标"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_judge
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_judge
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_judge
+msgid "checking judge"
+msgstr "评价人"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_name
+msgid "checking name"
+msgstr "考核名称"
+
+#. module: performance_assessment
+#: model:ir.ui.view,arch_db:performance_assessment.checkingresult_search_view
+#: selection:perf.checkingresult,state:0
+msgid "checking on the way"
+msgstr "考核中"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_checking_id
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_checking_id
+msgid "checking plan"
+msgstr "考核表"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_remark
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_form
+msgid "checking remarks"
+msgstr "备注"
+
+#. module: performance_assessment
+#: model:ir.actions.act_window,name:performance_assessment.checking_result_action
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_result_id
+msgid "checking result"
+msgstr "结果"
+
+#. module: performance_assessment
+#: model:ir.ui.menu,name:performance_assessment.checking_result_menu
+msgid "checking result menu"
+msgstr "考核结果管理"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_state
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_state
+msgid "checking status"
+msgstr "状态"
+
+#. module: performance_assessment
+#: model:ir.actions.act_window,name:performance_assessment.performance_checking_action
+#: model:ir.actions.act_window,name:performance_assessment.performance_checking_table_action
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_table_id
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_table_id
+msgid "checking table"
+msgstr "考核表"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_tablecode
+msgid "checking table code"
+msgstr "编码"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_name
+msgid "checking table name"
+msgstr "名称"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_totalpoint
+msgid "checking total point"
+msgstr "总分"
+
+#. module: performance_assessment
+#: selection:perf.checking,state:0
+msgid "cheking on the way"
+msgstr "考核中"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_create_date
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_create_date
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_create_date
+msgid "create time"
+msgstr "制表时间"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_creator
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_creator
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_creator
+msgid "creator"
+msgstr "创建人"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_cycletype
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_cycletype
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_cycletype
+msgid "cycle type"
+msgstr "周期类型"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_department_id
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_department_id
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_department_id
+msgid "department"
+msgstr "部门"
+
+#. module: performance_assessment
+#: model:ir.ui.view,arch_db:performance_assessment.performance_invite_checking_form
+msgid "done checking"
+msgstr "完成"
+
+#. module: performance_assessment
+#: selection:perf.checking,state:0
+msgid "draft"
+msgstr "草稿"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_employee_id
+msgid "employee"
+msgstr "员工"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_employees
+msgid "employees to checking"
+msgstr "考核员工"
+
+#. module: performance_assessment
+#: selection:perf.checking,cycletype:0
+#: selection:performance.checkingtable,cycletype:0
+msgid "halfyear"
+msgstr "半年"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_highestscore
+msgid "highest score"
+msgstr "最高分"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_indicator_code
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_indicator_code
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_indicator_code
+msgid "indecator code"
+msgstr "编码"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_indicator_name
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_indicator_name
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_indicator_name
+msgid "indecator name"
+msgstr "名称"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_indicator_standardofgrading
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_indicator_standardofgrading
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_indicator_standardofgrading
+msgid "indecator standardofgrading"
+msgstr "评分标准"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_indicator_id
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_indicator_id
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_indicator_id
+msgid "indicator"
+msgstr "指标"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_indicatorcode
+msgid "indicator code"
+msgstr "编码"
+
+#. module: performance_assessment
+#: sql_constraint:performance.indicator:0
+msgid "indicator code Can not duplication"
+msgstr "已存在指标编码"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_name
+msgid "indicator name"
+msgstr "名称"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_indicatortype
+msgid "indicator type"
+msgstr "指标类型"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_weight
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_weight
+msgid "indicator weight(%)"
+msgstr "指标权重(%)"
+
+#. module: performance_assessment
+#: model:ir.actions.act_window,name:performance_assessment.invite_checking_action
+msgid "invite checking"
+msgstr "邀请考核"
+
+#. module: performance_assessment
+#: model:ir.ui.menu,name:performance_assessment.invite_checking_menu
+msgid "invite checking menu"
+msgstr "邀请考核"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_lowest_score
+msgid "lowest score"
+msgstr "最低分"
+
+#. module: performance_assessment
+#: selection:perf.checking,cycletype:0
+#: selection:performance.checkingtable,cycletype:0
+msgid "month"
+msgstr "月"
+
+#. module: performance_assessment
+#: model:ir.model,name:performance_assessment.model_perf_checking
+msgid "perf.checking"
+msgstr "考核"
+
+#. module: performance_assessment
+#: model:ir.model,name:performance_assessment.model_perf_checkingresult
+msgid "perf.checkingresult"
+msgstr "考核结果"
+
+#. module: performance_assessment
+#: model:ir.model,name:performance_assessment.model_perf_indi_check
+msgid "perf.indi_check"
+msgstr "考核指标"
+
+#. module: performance_assessment
+#: model:ir.model,name:performance_assessment.model_perf_resultindicator
+msgid "perf.resultindicator"
+msgstr "考核指标"
+
+#. module: performance_assessment
+#: model:ir.ui.menu,name:performance_assessment.performance_checking_menu
+msgid "performance checking menu"
+msgstr "考核管理"
+
+#. module: performance_assessment
+#: model:ir.ui.menu,name:performance_assessment.performance_checking_table_menu
+msgid "performance checking table menu"
+msgstr "考核表管理"
+
+#. module: performance_assessment
+#: model:ir.ui.menu,name:performance_assessment.performance_indicator_menu
+msgid "performance indicators menu"
+msgstr "考核指标库"
+
+#. module: performance_assessment
+#: model:ir.model,name:performance_assessment.model_performance_checkingtable
+msgid "performance.checkingtable"
+msgstr "考核表"
+
+#. module: performance_assessment
+#: model:ir.model,name:performance_assessment.model_performance_indecatorfortable
+msgid "performance.indecatorfortable"
+msgstr "考核表指标"
+
+#. module: performance_assessment
+#: model:ir.model,name:performance_assessment.model_performance_indicator
+msgid "performance.indicator"
+msgstr "考核表指标"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_plandonetime
+msgid "plan done time"
+msgstr "计划完成时间"
+
+#. module: performance_assessment
+#: code:addons/performance_assessment/models/models.py:362
+#, python-format
+msgid "point must higher then lowest score"
+msgstr "分数必须高于最低分"
+
+#. module: performance_assessment
+#: code:addons/performance_assessment/models/models.py:359
+#, python-format
+msgid "point must less then highest score"
+msgstr "分数必须低于最高分"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_post_id
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_post_id
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_post_id
+msgid "post"
+msgstr "岗位"
+
+#. module: performance_assessment
+#: selection:perf.checking,cycletype:0
+#: selection:performance.checkingtable,cycletype:0
+msgid "quarter"
+msgstr "季度"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_point
+msgid "result point"
+msgstr "评分"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_standardofgrading
+msgid "standard of grading"
+msgstr "考核标准"
+
+#. module: performance_assessment
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_form
+msgid "submit"
+msgstr "提交"
+
+#. module: performance_assessment
+#: sql_constraint:performance.checkingtable:0
+msgid "table code Can not duplication"
+msgstr "重复的考核表代码"
+
+#. module: performance_assessment
+#: code:addons/performance_assessment/models/models.py:112
+#: code:addons/performance_assessment/models/models.py:195
+#, python-format
+msgid "weight count must be 100"
+msgstr "考核指标权重总和必须是100"
+
+#. module: performance_assessment
+#: selection:perf.checking,cycletype:0
+#: selection:performance.checkingtable,cycletype:0
+msgid "year"
+msgstr "年"

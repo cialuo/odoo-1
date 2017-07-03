@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-22 09:03+0000\n"
-"PO-Revision-Date: 2017-06-22 17:03+0800\n"
+"POT-Creation-Date: 2017-06-28 08:37+0000\n"
+"PO-Revision-Date: 2017-06-28 16:37+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,11 @@ msgstr "员工档案"
 #: model:ir.ui.menu,name:employees_menu.leave_and_checking_in
 msgid "leave and checking-in"
 msgstr "假期与考勤"
+
+#. module: employees_menu
+#: model:ir.ui.menu,name:employees_menu.performance_checking_system
+msgid "performance checking system"
+msgstr "绩效考核系统"
 
 #. module: employees_menu
 #: model:ir.ui.menu,name:employees_menu.salary_manage
