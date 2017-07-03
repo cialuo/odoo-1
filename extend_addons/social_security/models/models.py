@@ -10,6 +10,8 @@ class SocialSecurity(models.Model):
 
     _name = 'social.socialsecurity'
 
+    _rec_name = "employee_id"
+
     employee_id = fields.Many2one('hr.employee', string='employee', default=None, required=True)
 
     # 摘要
@@ -47,6 +49,8 @@ class HousingProvident(models.Model):
     """
 
     _name = 'social.housingprovident'
+
+    _rec_name = "employee_id"
 
     employee_id = fields.Many2one('hr.employee', string='employee', default=None, required=True)
 

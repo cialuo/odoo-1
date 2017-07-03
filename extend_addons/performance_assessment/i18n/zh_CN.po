@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-30 07:54+0000\n"
-"PO-Revision-Date: 2017-06-30 15:54+0800\n"
+"POT-Creation-Date: 2017-07-03 07:05+0000\n"
+"PO-Revision-Date: 2017-07-03 15:06+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "Course Tree"
 #. module: performance_assessment
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_create_uid
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_create_uid
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_create_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_create_uid
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_create_uid
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_create_uid
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_create_uid
@@ -35,7 +35,7 @@ msgstr "创建人"
 
 #. module: performance_assessment
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_create_date
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_create_date
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_create_date
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_create_date
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_create_date
 msgid "Created on"
@@ -44,7 +44,7 @@ msgstr "创建时间"
 #. module: performance_assessment
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_display_name
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_display_name
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_display_name
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_display_name
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_display_name
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_display_name
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_display_name
@@ -55,7 +55,7 @@ msgstr "显示名称"
 #. module: performance_assessment
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_id
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_id
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_id
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_id
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_id
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_id
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_id
@@ -66,7 +66,7 @@ msgstr "ID"
 #. module: performance_assessment
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checking___last_update
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult___last_update
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check___last_update
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck___last_update
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator___last_update
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable___last_update
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable___last_update
@@ -77,7 +77,7 @@ msgstr "最后修改日"
 #. module: performance_assessment
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_write_uid
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_write_uid
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_write_uid
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_write_uid
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_write_uid
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_write_uid
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_write_uid
@@ -88,7 +88,7 @@ msgstr "最后更新人"
 #. module: performance_assessment
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checking_write_date
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_write_date
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_write_date
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_write_date
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_write_date
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_checkingtable_write_date
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_write_date
@@ -141,7 +141,7 @@ msgid "checking indicators"
 msgstr "考核指标"
 
 #. module: performance_assessment
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_judge
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_judge
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_judge
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_judge
 msgid "checking judge"
@@ -160,7 +160,7 @@ msgstr "考核中"
 
 #. module: performance_assessment
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_checkingresult_checking_id
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_checking_id
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_checking_id
 msgid "checking plan"
 msgstr "考核表"
 
@@ -275,35 +275,37 @@ msgid "highest score"
 msgstr "最高分"
 
 #. module: performance_assessment
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_indicator_code
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_indicator_code
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_indicator_code
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_indicator_code
 msgid "indecator code"
 msgstr "编码"
 
 #. module: performance_assessment
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_indicator_name
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_indicator_name
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_indicator_name
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_indicator_name
 msgid "indecator name"
 msgstr "名称"
 
 #. module: performance_assessment
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_indicator_standardofgrading
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_indicator_standardofgrading
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_indicator_standardofgrading
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_indicator_standardofgrading
 msgid "indecator standardofgrading"
 msgstr "评分标准"
 
 #. module: performance_assessment
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_indicator_id
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_indicator_id
 #: model:ir.model.fields,field_description:performance_assessment.field_perf_resultindicator_indicator_id
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_indicator_id
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_form
 msgid "indicator"
 msgstr "指标"
 
 #. module: performance_assessment
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_indicatorcode
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_form
 msgid "indicator code"
 msgstr "编码"
 
@@ -313,9 +315,20 @@ msgid "indicator code Can not duplication"
 msgstr "已存在指标编码"
 
 #. module: performance_assessment
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_form
+msgid "indicator judge"
+msgstr "评价人"
+
+#. module: performance_assessment
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_name
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_form
 msgid "indicator name"
 msgstr "名称"
+
+#. module: performance_assessment
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_form
+msgid "indicator standardofgrading"
+msgstr "评分标准"
 
 #. module: performance_assessment
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indicator_indicatortype
@@ -323,8 +336,14 @@ msgid "indicator type"
 msgstr "指标类型"
 
 #. module: performance_assessment
-#: model:ir.model.fields,field_description:performance_assessment.field_perf_indi_check_weight
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_form
+msgid "indicator weight"
+msgstr "权重"
+
+#. module: performance_assessment
+#: model:ir.model.fields,field_description:performance_assessment.field_perf_indicheck_weight
 #: model:ir.model.fields,field_description:performance_assessment.field_performance_indecatorfortable_weight
+#: model:ir.ui.view,arch_db:performance_assessment.performance_checking_form
 msgid "indicator weight(%)"
 msgstr "指标权重(%)"
 
@@ -360,9 +379,9 @@ msgid "perf.checkingresult"
 msgstr "考核结果"
 
 #. module: performance_assessment
-#: model:ir.model,name:performance_assessment.model_perf_indi_check
-msgid "perf.indi_check"
-msgstr "考核指标"
+#: model:ir.model,name:performance_assessment.model_perf_indicheck
+msgid "perf.indicheck"
+msgstr "perf.indicheck"
 
 #. module: performance_assessment
 #: model:ir.model,name:performance_assessment.model_perf_resultindicator
