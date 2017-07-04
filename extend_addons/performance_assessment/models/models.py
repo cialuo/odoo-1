@@ -48,7 +48,7 @@ class IndicatorForTable(models.Model):
     table_id = fields.Many2one("performance.checkingtable", string="checking table", ondelete="cascade")
 
     # 权重
-    weight = fields.Integer("indicator weight(%)", required=True)
+    weight = fields.Integer(string="indicator weight(%)", required=True)
 
     # 评价人
     judge = fields.Many2many("hr.employee", string="checking judge")
@@ -165,7 +165,7 @@ class PerformanceChecking(models.Model):
     create_date = fields.Datetime(string="create time")
 
     # 考核指标
-    indicators = fields.One2many("perf.indi_check", 'checking_id', string="checking indicators", readonly=True,
+    indicators = fields.One2many("perf.indicheck", 'checking_id', string="checking indicators", readonly=True,
                                   states={'draft': [('readonly', False)]})
 
     # 状态
@@ -249,7 +249,7 @@ class IndicatorForChecking(models.Model):
     """
     考核指标
     """
-    _name = "perf.indi_check"
+    _name = "perf.indicheck"
 
     # 关联的考核表
     checking_id = fields.Many2one("perf.checking", string="checking plan", ondelete="cascade")
@@ -337,7 +337,7 @@ class CheckingResultIndicator(models.Model):
     point = fields.Float(string="result point", required=True)
 
     # 关联指标
-    indicator_id = fields.Many2one("perf.indi_check", string="indicator", required=True)
+    indicator_id = fields.Many2one("perf.indicheck", string="indicator", required=True)
 
     # 指标编码
     indicator_code = fields.Char(string="indecator code", related="indicator_id.indicator_code", readonly=True)
