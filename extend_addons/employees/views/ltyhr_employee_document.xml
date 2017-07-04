@@ -279,6 +279,7 @@
                             <group>
                                 <field name="higher_level"/>
                                 <field name="posttype"/>
+                                <field name="posttitle"/>
                                 <field name="group_id"/>
                             </group>
                         </group>
