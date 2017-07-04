@@ -5,6 +5,8 @@ import time
 from odoo.exceptions import ValidationError
 import  datetime
 import odoo.tools.misc
+
+
 class FleetVehicle(models.Model):
     """
     车辆档案
@@ -32,6 +34,17 @@ class FleetVehicle(models.Model):
 
     # 年检状态
     inspectionState = fields.Char(compute='_getInspectionState', string="vehicle inspection state")
+
+    # 到期天数
+    deadlinedays = fields.Integer(compute="_deadlinedays", string="dead line days")
+
+    @api.multi
+    def _deadlinedays(self):
+        for item in self:
+            today = datetime.datetime.today()
+            if item.annual_inspection_date:
+                item.deadlinedays = (datetime.datetime.strptime(item.annual_inspection_date, "%Y-%m-%d")-today).days
+
 
 
     def getPlanItem(self, vid):
@@ -123,13 +136,15 @@ class InspectionPlan(models.Model):
         for item in self:
             startdate = item.startdate
             enddate = item.enddate
+            companyid = item.branchcompany
             externdate = time.strftime("%Y-%m-%d",
                                        time.localtime(time.mktime(time.strptime(enddate, "%Y-%m-%d")) + 7776000))
 
             vehiclelist = vehiclemode.search(
                 [
                     ('annual_inspection_date', '>=', startdate),
-                    ('annual_inspection_date', '<=', externdate)
+                    ('annual_inspection_date', '<=', externdate),
+                    ('company_id', '=', companyid.id)
                 ]
             )
             items = []
@@ -246,6 +261,14 @@ class InspectionRecords(models.Model):
     # 线路
     route_id = fields.Many2one(related='vehicle_id.route_id', readonly=True)
 
+    # 到期日期
+    annual_inspection_date = fields.Date(string="inspection end date")
+
+    @api.onchange('vehicle_id')
+    def _onchange_vehicle_id(self):
+        self.annual_inspection_date = self.vehicle_id.annual_inspection_date
+
+
     def getVehicleIdByInnercode(self, code):
         vehicle = self.env['fleet.vehicle']
         vechileinfo = vehicle.search([('inner_code', '=', code)], limit=1)
@@ -319,6 +342,7 @@ class InspectionRecords(models.Model):
         elif vals.get('inner_code', None) != None:
             vehicleinfo = self.getVehicleIdByInnercode(vals['inner_code'])
         vals['vehicle_id'] = vehicleinfo['id']
+        vals['annual_inspection_date'] = vehicleinfo.annual_inspection_date
         vehicleinfo.write({'annual_inspection_date':vals['inspectionexpire']})
         res = super(InspectionRecords, self).create(vals)
         planItem = self.getPlanItem(vehicleinfo['id'])
