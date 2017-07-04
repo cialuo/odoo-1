@@ -1357,7 +1357,7 @@ msgstr "通道(X)"
 msgid ""
 "Could not reserve all requested products. Please use the 'Mark as Todo' "
 "button to handle the reservation manually."
-msgstr "不能保留所需要的产品。请使用‘标记为待做’按钮手工的处理保留"
+msgstr "当前单据所需要的库存数量不足 无法为您做出库存预留。请使用‘标记为待做’按钮手工的处理保留"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_count_picking
