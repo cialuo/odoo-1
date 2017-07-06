@@ -30,7 +30,7 @@ var ExtendedSearchProposition = Widget.extend(/** @lends instance.web.search.Ext
         this._super(parent);
         this.fields = _(fields).chain()
             .map(function(val, key) { return _.extend({}, val, {'name': key}); })
-            .filter(function (field) { return !field.deprecated && field.searchable; })
+            .filter(function (field) { return !field.deprecated && field.searchable  && field.name !== 'create_uid' && field.name !== 'write_uid'; })
             .sortBy(function(field) {return field.string;})
             .value();
         this.attrs = {_: _, fields: this.fields, selected: null};

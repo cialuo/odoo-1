@@ -317,13 +317,22 @@ class post(models.Model):
     department = fields.Many2one('hr.department', ondelete='restrict', string='post department', required=True)
     # 岗位信息
     description = fields.Char(string='post infomation')
-    # 岗位类型
+
+    # 岗位职能类型
     posttype = fields.Selection([
-        ('manager', 'post title manager'),  # 经理
-        ('labour', 'post title labour'),  # 员工
+        ('maintainer', 'post title maintainer'),  # 维修工
         ('driver', 'post title driver'),  # 司机
         ('conductor', 'post title conductor')  # 售票员
+    ], string='post function list', required=True)
+
+    # 岗位级别
+    posttitle = fields.Selection([
+        ('manager', 'post title manager'),  # 经理
+        ('labour', 'post title labour'),  # 员工
     ], string='post title list', required=True)
+
+
+
     # 岗位员工
     members = fields.One2many('hr.employee', 'workpost', string='post members')
     # 关联群组
@@ -436,6 +445,7 @@ class department(models.Model):
         ('subsidiary', 'department type subsidiary'),  # 子公司
         ('department', 'department type department'),  # 部门
         ('group', 'department type group'),  # 组
+        ('maintainfactory', 'department type maintainfactory'),  # 维修厂
     ], string='department type')
 
     # 部门岗位列表

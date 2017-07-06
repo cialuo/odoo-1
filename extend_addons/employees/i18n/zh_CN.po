@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-23 06:27+0000\n"
-"PO-Revision-Date: 2017-06-23 14:27+0800\n"
+"POT-Creation-Date: 2017-07-04 06:31+0000\n"
+"PO-Revision-Date: 2017-07-04 14:32+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -336,7 +336,7 @@ msgid "Work Mobile"
 msgstr "办公手机"
 
 #. module: employees
-#: code:addons/employees/models/models.py:557
+#: code:addons/employees/models/models.py:567
 #, python-format
 msgid "a group that bind with a post can not be delete"
 msgstr "状态为角色的组不能被删除"
@@ -375,7 +375,7 @@ msgid "broken"
 msgstr "损坏"
 
 #. module: employees
-#: code:addons/employees/models/models.py:473
+#: code:addons/employees/models/models.py:483
 #, python-format
 msgid "can't set post's group in twice"
 msgstr "一个岗位不能同时绑定到两个组"
@@ -523,6 +523,11 @@ msgstr "组"
 #: selection:hr.department,departmenttype:0
 msgid "department type headquarters"
 msgstr "总公司"
+
+#. module: employees
+#: selection:hr.department,departmenttype:0
+msgid "department type maintainfactory"
+msgstr "维修厂"
 
 #. module: employees
 #: selection:hr.department,departmenttype:0
@@ -970,7 +975,7 @@ msgid "foreign_transfer"
 msgstr "对外调动"
 
 #. module: employees
-#: code:addons/employees/models/models.py:562
+#: code:addons/employees/models/models.py:572
 #, python-format
 msgid "groups are inherited by other groups, can not be delete!"
 msgstr "该组目前被其他群组继承，不能被删除！"
@@ -1133,6 +1138,11 @@ msgid "post department"
 msgstr "岗位所属部门"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employees_post_posttype
+msgid "post function list"
+msgstr "岗位职能"
+
+#. module: employees
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_department_form
 msgid "post in department"
 msgstr "岗位设置"
@@ -1168,17 +1178,22 @@ msgid "post title driver"
 msgstr "司机"
 
 #. module: employees
-#: selection:employees.post,posttype:0
+#: selection:employees.post,posttitle:0
 msgid "post title labour"
 msgstr "员工"
 
 #. module: employees
-#: model:ir.model.fields,field_description:employees.field_employees_post_posttype
+#: model:ir.model.fields,field_description:employees.field_employees_post_posttitle
 msgid "post title list"
 msgstr "岗位类型"
 
 #. module: employees
 #: selection:employees.post,posttype:0
+msgid "post title maintainer"
+msgstr "维修工"
+
+#. module: employees
+#: selection:employees.post,posttitle:0
 msgid "post title manager"
 msgstr "经理"
 

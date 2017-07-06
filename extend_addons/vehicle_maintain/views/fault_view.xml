@@ -299,7 +299,7 @@
 										<field name="uom_id"/>
 										<field name="change_count"/>
 										<field name="max_count"/>
-										<field name="vehicle_model" widget="many2many_tags"/>e
+										<field name="vehicle_model" widget="many2many_tags"/>
 										<field name="require_trans"/>
 										<field name="remark"/>
 										<field name="onhand_qty" invisible="1"/>

@@ -9,7 +9,7 @@
     """,
     'author': "He",
     'category': 'Basic Edition',
-    'version': '0.1',
+    'version': '1.2',
     'depends': ['materials_menu', 'stock'],
     'data': [
         # 'security/ir.model.access.csv',
