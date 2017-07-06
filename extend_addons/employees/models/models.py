@@ -8,7 +8,7 @@ class employee(models.Model):
 
     _inherit = 'hr.employee'
 
-    _sql_constraints = [('jobnumber unique', 'unique (jobnumber)', 'jobnumber Can not duplication')]
+    _sql_constraints = [('jobnumber unique', 'unique (jobnumber)', '工号不能重复')]
 
     # 工号
     jobnumber = fields.Char(string='employee work number', required=True)
