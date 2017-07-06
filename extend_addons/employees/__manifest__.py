@@ -20,7 +20,7 @@
     'version': '1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'hr', 'hr_contract', 'employees_menu'],
+    'depends': ['base', 'web_duplicate_visibility', 'hr', 'hr_contract', 'employees_menu'],
 
     # always loaded
     'data': [
