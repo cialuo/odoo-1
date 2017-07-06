@@ -155,7 +155,7 @@
             <form>
                 <sheet>
                     <field name="userimage" widget='image' class="oe_avatar"
-                           options='{"preview_image":"image_medium"}' readonly="1"/>
+                           options='{"preview_image":"userimage"}' />
                     <div class="oe_title">
                         <h1>
                             <field name="username" placeholder="Employee's Name"/>
