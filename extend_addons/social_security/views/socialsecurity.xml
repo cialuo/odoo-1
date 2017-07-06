@@ -265,6 +265,66 @@
     </record>
 
 
+    <!--退休申请编辑表单-->
+    <record id="retire_apply_form" model="ir.ui.view">
+        <field name="name">retire apply</field>
+        <field name="model">retire.retiremanage</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <header>
+                    <button name="action_submitted" type="object"
+                            string="submmit apply"
+                            states="draft"/>
+                    <button name="action_checked" type="object"
+                            string="checking apply"
+                            states="submitted"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <field name="userimage" widget='image' class="oe_avatar"
+                           options='{"preview_image":"userimage"}' />
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Employee's Name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="employee_id" string="Employee_id" groups="hr.group_hr_user"
+                               options="{'no_open': True, 'no_create': True}"/>
+                        <field name="reason"/>
+                        <field name="creator" readonly="1"/>
+                        <field name="create_date" readonly="1"/>
+                        <field name="remark"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 退休申请tree视图 -->
+    <record model="ir.ui.view" id="retire_apply_tree">
+        <field name="name">retire apply tree</field>
+        <field name="model">retire.retiremanage</field>
+        <field name="arch" type="xml">
+            <tree string="Course Tree" >
+                <field name="employee_id"/>
+                <field name="retiredate"/>
+                <field name="reason"/>
+                <field name="state"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- 退休申请单action页面 -->
+    <record model="ir.actions.act_window" id="retire_apply_action">
+        <field name="name"> retire apply </field>
+        <field name="res_model">retire.retiremanage</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
     <!--社保缴纳情况-->
     <menuitem id="employee_social_socialsecurity" name="social security charge info"
               parent="employees_menu.social_security" action="socialsecurity_action"/>
@@ -285,6 +345,10 @@
     <!-- 工伤认定 -->
     <menuitem id="employee_work_injury_checking" name="work injury checking"
               parent="employee_work_injury_manage" action="work_injury_checking_action"/>
+
+    <!--退休申请-->
+    <menuitem id="employee_retire_apply" name="retire apply menu"
+              parent="employees_menu.social_security" action="retire_apply_action"/>
 
 
 </odoo>

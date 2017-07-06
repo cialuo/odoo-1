@@ -178,3 +178,62 @@ class WorkInjury(models.Model):
     @api.multi
     def action_socialchecking(self):
         self.state_checking_state = 'done'
+
+
+class RetireManage(models.Model):
+
+    _name = 'retire.retiremanage'
+
+    def _applyUser(self):
+        userid = self._uid
+        users = self.env['hr.employee'].search([('user_id', '=', userid)])
+        if len(users) != 0:
+            return users[0].id
+        else:
+            return None
+
+    employee_id = fields.Many2one('hr.employee', string='employee', default=_applyUser, required=True)
+
+    # 退休日期
+    retiredate = fields.Date(string='retire date')
+
+    # 备注
+    remark = fields.Text(string="remark info")
+
+    # 名称
+    name = fields.Char(string="employee name", related="employee_id.name")
+
+    # 退休原因
+    reason = fields.Selection([("normal", "normal retire"),         # 正常
+                              ("ill", "ill retire"),                # 生病
+                              ("other", "other retire"),            # 其他原因
+                              ], string="retire reason", required=True)
+
+
+    # 状态
+    state = fields.Selection([("draft", "draft"),               # 草稿
+                              ("submitted", "submitted"),       # 申请中
+                              ("checked", "checked"),           # 申报中
+                              ], default='draft', string="work injury state ")
+
+    # 创建人
+    creator = fields.Many2one('res.users', string="creator", default=lambda self: self._uid)
+
+    # 创建时间
+    create_date = fields.Datetime(string="create time")
+
+    # 用户图片
+    userimage = fields.Binary(related='employee_id.image', readonly=True)
+
+    # 工号
+    jobnumber = fields.Char(related='employee_id.jobnumber', readonly=True)
+
+    @api.multi
+    def action_submitted(self):
+        self.state = 'submitted'
+
+    @api.multi
+    def action_checked(self):
+        self.employee_id.active = False
+        self.employee_id.employeestate = 'retired'
+        self.state = 'checked'
