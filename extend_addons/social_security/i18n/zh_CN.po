@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-06 08:57+0000\n"
-"PO-Revision-Date: 2017-07-06 16:59+0800\n"
+"POT-Creation-Date: 2017-07-07 06:55+0000\n"
+"PO-Revision-Date: 2017-07-07 14:55+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,11 @@ msgstr ""
 #: model:ir.actions.act_window,name:social_security.retire_apply_action
 msgid " retire apply "
 msgstr "退休申请"
+
+#. module: social_security
+#: model:ir.actions.act_window,name:social_security.retire_employees_action
+msgid " retired employees "
+msgstr "退休员工管理"
 
 #. module: social_security
 #: model:ir.actions.act_window,name:social_security.work_injury_checking_action
@@ -120,6 +125,11 @@ msgid "accidetn time"
 msgstr "事故时间"
 
 #. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_apply_form
+msgid "back to draft"
+msgstr "退回草稿"
+
+#. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_money
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_money
 msgid "charge money"
@@ -135,11 +145,6 @@ msgstr "缴费时间"
 #: selection:retire.retiremanage,state:0
 msgid "checked"
 msgstr "审批通过"
-
-#. module: social_security
-#: model:ir.ui.view,arch_db:social_security.retire_apply_form
-msgid "checking apply"
-msgstr "申请"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_attachments
@@ -165,6 +170,11 @@ msgstr "公司认定"
 #: selection:social.workinjury,state_checking_state:0
 msgid "companychecking"
 msgstr "公司认定"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_apply_form
+msgid "confirm apply"
+msgstr "审核通过"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_create_date
@@ -349,6 +359,11 @@ msgstr "退休申请管理"
 #: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_retiredate
 msgid "retire date"
 msgstr "退休日期"
+
+#. module: social_security
+#: model:ir.ui.menu,name:social_security.retire_employee_list
+msgid "retire employees menu"
+msgstr "退休员工管理"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_reason

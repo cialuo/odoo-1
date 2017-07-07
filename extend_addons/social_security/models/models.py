@@ -192,13 +192,16 @@ class RetireManage(models.Model):
         else:
             return None
 
-    employee_id = fields.Many2one('hr.employee', string='employee', default=_applyUser, required=True)
+    employee_id = fields.Many2one('hr.employee', string='employee', default=_applyUser, required=True,
+                                  readonly=True, states={'draft': [('readonly', False)]})
 
     # 退休日期
-    retiredate = fields.Date(string='retire date')
+    retiredate = fields.Date(string='retire date', readonly=True,
+                                  states={'draft': [('readonly', False)]})
 
     # 备注
-    remark = fields.Text(string="remark info")
+    remark = fields.Text(string="remark info", readonly=True,
+                                  states={'draft': [('readonly', False)]})
 
     # 名称
     name = fields.Char(string="employee name", related="employee_id.name")
@@ -207,7 +210,8 @@ class RetireManage(models.Model):
     reason = fields.Selection([("normal", "normal retire"),         # 正常
                               ("ill", "ill retire"),                # 生病
                               ("other", "other retire"),            # 其他原因
-                              ], string="retire reason", required=True)
+                              ], string="retire reason", required=True,
+                              readonly=True, states={'draft': [('readonly', False)]})
 
 
     # 状态
@@ -231,6 +235,10 @@ class RetireManage(models.Model):
     @api.multi
     def action_submitted(self):
         self.state = 'submitted'
+
+    @api.multi
+    def action_draft(self):
+        self.state = 'draft'
 
     @api.multi
     def action_checked(self):
