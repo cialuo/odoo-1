@@ -81,7 +81,8 @@ class fleet_vehicle(models.Model):
             res = self.env['ir.actions.act_window'].for_xml_id('security_vehicle_check', xml_id)
             res.update(
                 context=dict(self.env.context),
-                domain=[('vehicle_id', '=', self.id)]
+                domain=[('vehicle_id', '=', self.id),
+                 ('state', 'in', ['done'])]
             )
             return res
         return False
