@@ -1214,6 +1214,11 @@ msgid "related post"
 msgstr "岗位"
 
 #. module: employees
+#: model:ir.ui.view,arch_db:employees.employees_search_view
+msgid "retired employees"
+msgstr "退休员工"
+
+#. module: employees
 #: model:ir.ui.view,arch_db:employees.ICCard_manage_form_view
 #: model:ir.ui.view,arch_db:employees.ICCard_manage_form_view_forlost
 msgid "return Card"
