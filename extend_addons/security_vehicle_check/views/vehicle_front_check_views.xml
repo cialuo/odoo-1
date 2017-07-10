@@ -7,13 +7,14 @@
             <field name="name">security.vehicle_front_check.tree</field>
             <field name="model">security.vehicle_front_check</field>
             <field name="arch" type="xml">
-                <tree string="vehicle front check list">
+                <tree>
                     <field name="vehicle_id"/>
                     <field name="plate"/>
                     <field name="route"/>
                     <field name="checkout_date"/>
                     <field name="inspector"/>
                     <field name="vehicle_manager"/>
+                    <field name="state"/>
                     <field name="check_result"/>
                 </tree>
             </field>
