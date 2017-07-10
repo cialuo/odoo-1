@@ -25,7 +25,7 @@
             <field name="name">security.vehicle_special_check.form</field>
             <field name="model">security.vehicle_special_check</field>
             <field name="arch" type="xml">
-                <form string="vehicle special check">
+                <form string="vehicle special check" duplicate="0">
                     <header>
                         <button name="action_done" type="object"
                                 string="vehicle_check_submit" states="draft"

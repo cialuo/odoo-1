@@ -25,7 +25,7 @@
             <field name="name">security.vehicle_detection_check.form</field>
             <field name="model">security.vehicle_detection_check</field>
             <field name="arch" type="xml">
-                <form string="vehicle detection check">
+                <form string="vehicle detection check" duplicate="0">
                     <header>
                         <button name="action_done" type="object"
                                 string="vehicle_check_submit" states="draft"
