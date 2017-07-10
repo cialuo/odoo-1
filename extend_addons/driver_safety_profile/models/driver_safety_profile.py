@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api,exceptions
 
 class SafeKilometer(models.Model): # 安全公里
     _name = 'safe_kilometer'
@@ -28,6 +28,17 @@ class SafeKilometer(models.Model): # 安全公里
             vals['serial_number'] = self.env['ir.sequence'].next_by_code('safe_kilometer') or '/'
         return super(SafeKilometer, self).create(vals)
 
+    @api.constrains('start_time','end_time')
+    def check_datetime(self):
+        for r in self:
+            if r.start_time > r.end_time:
+                raise exceptions.ValidationError("Start can not be greater than the end time")
+
+    @api.constrains('accumulated_safe_kilometer')
+    def check_accumulated_safe_kilometer(self):
+        for r in self:
+            if r.accumulated_safe_kilometer < 0:
+                raise exceptions.ValidationError("Can not be negative")
 
 class Endorsement(models.Model):  # 违章记录
     _name = 'endorsement'
