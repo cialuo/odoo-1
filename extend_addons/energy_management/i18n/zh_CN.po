@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-25 13:50+0000\n"
-"PO-Revision-Date: 2017-05-25 21:53+0800\n"
+"POT-Creation-Date: 2017-07-10 07:40+0000\n"
+"PO-Revision-Date: 2017-07-10 15:42+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -165,11 +165,6 @@ msgstr "显示名称"
 #: selection:energy.security_check,state:0
 msgid "Draft"
 msgstr "草稿"
-
-#. module: energy_management
-#: model:res.groups,name:energy_management.energy_management_driver
-msgid "Driver"
-msgstr "司机"
 
 #. module: energy_management
 #: selection:product.product,important_type:0
@@ -358,7 +353,7 @@ msgstr "关联库位"
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_location_ids
 msgid "Location Ids"
-msgstr "Location Ids"
+msgstr "库位记录"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_stock_location_location_no
@@ -418,7 +413,7 @@ msgid "Normal inspection"
 msgstr "正常巡检"
 
 #. module: energy_management
-#: code:addons/energy_management/models/security_check.py:105
+#: code:addons/energy_management/models/security_check.py:108
 #, python-format
 msgid "Not draft data cannot be deleted!"
 msgstr "只有草稿状态才能删除!"
@@ -474,7 +469,7 @@ msgstr "能源桩"
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_pile_ids
 msgid "Pile Ids"
-msgstr "Pile Ids"
+msgstr "能源桩记录"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_pile_no
@@ -557,7 +552,7 @@ msgstr "抽检"
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_security_check_security_check_detail_ids
 msgid "Security Check Detail Ids"
-msgstr "Security Check Detail Ids"
+msgstr "巡检记录详情"
 
 #. module: energy_management
 #: model:ir.model,name:energy_management.model_energy_security_check_details
@@ -567,22 +562,17 @@ msgstr "检查详情"
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_security_check_id
 msgid "Security Check Id"
-msgstr "Security Check Id"
+msgstr "安全检查项"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_security_check_ids
 msgid "Security Check Ids"
-msgstr "Security Check Ids"
+msgstr "巡检记录"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_security_check_item_id
 msgid "Security Check Item Id"
-msgstr "检查项目ID"
-
-#. module: energy_management
-#: model:res.groups,name:energy_management.energy_management_security_inspector
-msgid "Security Inspector"
-msgstr "安检员"
+msgstr "检查项目"
 
 #. module: energy_management
 #: model:ir.model,name:energy_management.model_energy_security_check
@@ -727,7 +717,7 @@ msgstr "未读消息"
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_station_usage_record_ids
 msgid "Usage Record Ids"
-msgstr "Usage Record Ids"
+msgstr "能源使用记录"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.energy_pile_form
@@ -738,7 +728,7 @@ msgstr "使用记录"
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_pile_usage_record_ids
 msgid "Usage record ids"
-msgstr "Usage record ids"
+msgstr "能源使用记录"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_user_use
@@ -804,7 +794,7 @@ msgstr "能源使用记录"
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_energy_usage_record_ids
 msgid "energy_usage_record_ids"
-msgstr "energy_usage_record_ids"
+msgstr "能源是用记录"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.energy_pile_form
@@ -833,6 +823,11 @@ msgstr "安全检查项"
 #: model:ir.actions.act_window,name:energy_management.aw_security_check
 msgid "security_check window"
 msgstr "安全检查"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.security_check_list
+msgid "st_check_no"
+msgstr "安全检查编号"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.energy_pile_form

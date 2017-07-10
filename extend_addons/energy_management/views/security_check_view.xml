@@ -7,6 +7,7 @@
       <field name="model">energy.security_check</field>
       <field name="arch" type="xml">
         <tree>
+          <field name="name" string="st_check_no"/>
           <field name="station_id"/>
           <field name="check_type"/>
           <field name="check_date"/>
