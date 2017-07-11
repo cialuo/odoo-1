@@ -23,14 +23,14 @@
             attachment_use="False"
         />
 
-        <report 
-            id="action_report_print_overdue"
-            model="res.partner"
-            report_type="qweb-pdf"
-            string="Due Payments"
-            name="account.report_overdue"
-            file="account.report_overdue"
-            />
+        <!--<report -->
+            <!--id="action_report_print_overdue"-->
+            <!--model="res.partner"-->
+            <!--report_type="qweb-pdf"-->
+            <!--string="Due Payments"-->
+            <!--name="account.report_overdue"-->
+            <!--file="account.report_overdue"-->
+            <!--/>-->
 
         <report 
             id="action_report_general_ledger"

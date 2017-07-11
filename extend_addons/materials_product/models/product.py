@@ -4,6 +4,7 @@ from odoo import api, fields, models, exceptions
 from lxml import etree
 from datetime import datetime
 from odoo.tools.translate import _
+from odoo.exceptions import ValidationError
 
 class Product(models.Model):
     _inherit = 'product.product'
@@ -77,3 +78,15 @@ class TechInfo(models.Model):
     parameter2 = fields.Char(string='parameter2')
     description = fields.Text(string='Description')
     note = fields.Char(string='note')
+
+
+class InventoryOverload(models.Model):
+
+    _inherit = "stock.inventory"
+
+    @api.multi
+    def unlink(self):
+        for item in self:
+            if item.state != 'draft':
+                raise ValidationError(_("can not deleted with not in draft state"))
+        return super(InventoryOverload, self).unlink()

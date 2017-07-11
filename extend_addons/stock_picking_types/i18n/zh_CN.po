@@ -6,14 +6,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-21 03:10+0000\n"
-"PO-Revision-Date: 2017-06-21 03:10+0000\n"
+"POT-Creation-Date: 2017-07-04 02:19+0000\n"
+"PO-Revision-Date: 2017-07-04 02:19+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: stock_picking_types
+#: model:ir.ui.menu,name:stock_picking_types.menu_internal_trans
+msgid "Internal Trans"
+msgstr "内部调拨"
+
+#. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.view_internal_trans_search
+msgid "Internal trans"
+msgstr "内部调拨"
 
 #. module: stock_picking_types
 #: model:ir.ui.menu,name:stock_picking_types.issuance_of_material_picking
@@ -37,9 +47,14 @@ msgid "Return Of Material"
 msgstr "退料调拨"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.view_internal_trans_search
+msgid "Search Internal Trans"
+msgstr "内部调拨"
+
+#. module: stock_picking_types
 #: model:ir.ui.view,arch_db:stock_picking_types.view_issuance_of_material_search
 msgid "Search Issuance Of Material"
-msgstr "Search Issuance Of Material"
+msgstr "内部调拨"
 
 #. module: stock_picking_types
 #: model:ir.ui.view,arch_db:stock_picking_types.view_picking_material_search
@@ -61,6 +76,11 @@ msgstr "调拨"
 #: model:stock.location,name:stock_picking_types.stock_location_ullage
 msgid "Ullage"
 msgstr "Ullage"
+
+#. module: stock_picking_types
+#: model:ir.actions.act_window,name:stock_picking_types.action_internal_trans
+msgid "internal trans"
+msgstr "内部调拨"
 
 #. module: stock_picking_types
 #: model:ir.ui.view,arch_db:stock_picking_types.view_issuance_of_material_search
