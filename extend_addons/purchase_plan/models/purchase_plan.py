@@ -159,7 +159,7 @@ class PuchasePlan(models.Model):
 class PlanLine(models.Model):
     _name = 'purchase.plan.line'
 
-    product_id = fields.Many2one('product.product', string='Product', ondelete='set null')
+    product_id = fields.Many2one('product.product', string='Product', ondelete='set null', required=True)
     default_code = fields.Char(related='product_id.default_code', string='Default Code')
     category = fields.Many2one(related='product_id.categ_id')
     barcode = fields.Char(related='product_id.barcode')
