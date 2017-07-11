@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* materials_product
+# 	* materials_product
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-23 03:34+0000\n"
-"PO-Revision-Date: 2017-06-23 03:34+0000\n"
+"POT-Creation-Date: 2017-07-11 01:37+0000\n"
+"PO-Revision-Date: 2017-07-11 09:37+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #. module: materials_product
 #: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
@@ -22,15 +24,17 @@ msgstr "<span class=\"o_stat_text\">预测</span>"
 
 #. module: materials_product
 #: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
-msgid "<span class=\"o_stat_text\">Min :</span>\n"
+msgid ""
+"<span class=\"o_stat_text\">Min :</span>\n"
 "                                        <span class=\"o_stat_text\">Max:</span>"
-msgstr "<span class=\"o_stat_text\">Min :</span>\n"
+msgstr ""
+"<span class=\"o_stat_text\">Min :</span>\n"
 "                                        <span class=\"o_stat_text\">Max:</span>"
 
 #. module: materials_product
 #: model:ir.ui.view,arch_db:materials_product.search_mterials_manage_product_view
 msgid "Category"
-msgstr "分类"
+msgstr "类别"
 
 #. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_category_code
@@ -40,7 +44,7 @@ msgstr "分类编码"
 #. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_code
 msgid "Code"
-msgstr "参数编码"
+msgstr "代码"
 
 #. module: materials_product
 #: selection:product.product,special_attributes:0
@@ -76,7 +80,7 @@ msgstr "创建时间"
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_description
 #: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
 msgid "Description"
-msgstr "规格描述"
+msgstr "说明"
 
 #. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_display_name
@@ -107,6 +111,11 @@ msgstr "物资清单"
 #: model:ir.model.fields,field_description:materials_product.field_product_product_inter_code
 msgid "Inter Code"
 msgstr "内部编码"
+
+#. module: materials_product
+#: model:ir.model,name:materials_product.model_stock_inventory
+msgid "Inventory"
+msgstr "库存"
 
 #. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_product_keeper_id
@@ -152,7 +161,7 @@ msgstr "物资分类"
 #. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_name
 msgid "Name"
-msgstr "参数名称"
+msgstr "名字"
 
 #. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_product_odometer
@@ -182,7 +191,7 @@ msgstr "补货"
 #. module: materials_product
 #: model:ir.model,name:materials_product.model_product_product
 msgid "Product"
-msgstr "物资名称"
+msgstr "产品"
 
 #. module: materials_product
 #: model:ir.model,name:materials_product.model_product_category
@@ -276,6 +285,12 @@ msgid "Vendors"
 msgstr "供应商"
 
 #. module: materials_product
+#: code:addons/materials_product/models/product.py:91
+#, python-format
+msgid "can not deleted with not in draft state"
+msgstr "非草稿状态下不能删除"
+
+#. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_note
 msgid "note"
 msgstr "备注"
@@ -299,4 +314,3 @@ msgstr "产品技术参数"
 #: model:ir.ui.menu,name:materials_product.materials_menu_product
 msgid "product_menu"
 msgstr "物资管理"
-

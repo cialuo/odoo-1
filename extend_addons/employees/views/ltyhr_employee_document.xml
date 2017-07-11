@@ -7,8 +7,8 @@
             <field name="model">hr.employee</field>
             <field name="arch" type="xml">
                 <search>
-                    <filter name="retired_employees" string="retired employees"
-                            domain="[('employeestate', '=', 'retired'),('active', '=', False)]"/>
+                    <field name="jobnumber"/>
+                    <field name="name"/>
                 </search>
             </field>
         </record>
