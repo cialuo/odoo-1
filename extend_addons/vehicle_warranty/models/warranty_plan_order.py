@@ -14,6 +14,7 @@ class WarrantyPlanOrder(models.Model): # 计划单
     license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True, readonly=True) # 车牌
 
     fleet = fields.Char()  # 车队
+    fleet = fields.Many2one("hr.department", related='vehicle_id.company_id', store=True, readonly=True) # 车队
 
     operating_mileage = fields.Float(digits=(6, 1), string="Operating Mileage") # 运营里程
 
@@ -30,11 +31,13 @@ class WarrantyPlanOrder(models.Model): # 计划单
 
     planned_date = fields.Date('Planned Date', default=fields.Date.context_today) # 计划日期
 
-    vin = fields.Char() # 车架号
+    # vin = fields.Char() # 车架号
+    vin = fields.Char(related='vehicle_id.vin_sn', store=True, readonly=True) # 车架号
 
     average_daily_kilometer = fields.Float(digits=(6, 1), string="Average Daily Kilometer") # 平均日公里
 
-    line = fields.Char() # 线路
+    # line = fields.Char() # 线路
+    line = fields.Many2one("route_manage.route_manage", related='vehicle_id.route_id', store=True, readonly=True) # 线路
 
     warranty_location = fields.Char() # 保养地点
 

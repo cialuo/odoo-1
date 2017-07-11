@@ -4,6 +4,7 @@
     <record id="ICCard_manage_form_view" model="ir.ui.view">
         <field name="name">IC Card form</field>
         <field name="model">employees.iccards</field>
+        <field name="priority">0</field>
         <field name="arch" type="xml">
             <form string="department">
                 <sheet>
@@ -54,6 +55,7 @@
     <record id="ICCard_manage_tree_view" model="ir.ui.view">
         <field name="name">IC Card tree view</field>
         <field name="model">employees.iccards</field>
+        <field name="priority">0</field>
         <field name="arch" type="xml">
             <tree string="IC Card list">
                 <field name="cardsn"/>
@@ -65,6 +67,7 @@
             </tree>
         </field>
     </record>
+
     <!--ic卡库action页面-->
     <record model="ir.actions.act_window" id="ICCard_manage_cardlist_action">
         <field name="name">IC Card</field>
@@ -72,23 +75,84 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <record model="ir.ui.view" id="iccard_search_view">
-        <field name="name">iccard.search</field>
+    <!--IC卡编辑表单  [挂失记录] -->
+    <record id="ICCard_manage_form_view_forlost" model="ir.ui.view">
+        <field name="name">IC Card form</field>
         <field name="model">employees.iccards</field>
+        <field name="priority">1</field>
         <field name="arch" type="xml">
-            <search>
-                <field name="active"/>
-                <filter name="in_active_cards" string="in_active_cards" domain="[('active','=', False)]"/>
-            </search>
+            <form string="department"  create="0" edit="0" delete="0" duplicate="0">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="returnCard" type="object"
+                                class="oe_stat_button"
+                                string="return Card"
+                                attrs="{'invisible': [('employee_id', '=', False)]}"
+                                icon="fa-archive">
+                        </button>
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button"
+                                attrs="{'invisible': [('inactive_reason', '=', False)]}"
+                                icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                   options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="cardsn" />
+                            <field name="status" readonly="1"/>
+                            <field name="employee_id" options="{'no_open': True, 'no_create': True}" readonly="1" />
+                        </group>
+                        <group>
+                            <field name="active_date" readonly="1"/>
+                            <field name="inactive_date" readonly="1"/>
+                            <field name="inactive_reason"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="IC Card usage records">
+                            <field name="usage_records">
+                                <tree>
+                                    <field name="iccar_id" />
+                                    <field name="user" string="card user"/>
+                                    <field name="returndate" string="card return date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
         </field>
     </record>
 
-    <!--ic停用action页面-->
+    <!--IC卡tree视图  挂失记录 -->
+    <record id="ICCard_manage_tree_view_forlost" model="ir.ui.view">
+        <field name="name">IC Card tree view</field>
+        <field name="model">employees.iccards</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <tree string="IC Card list" create="0" edit="0" delete="0" duplicate="0">
+                <field name="cardsn"/>
+                <field name="status"/>
+                <field name="employee_id"/>
+                <field name="active_date"/>
+                <field name="inactive_date"/>
+                <field name="inactive_reason"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--ic挂失记录action页面-->
     <record model="ir.actions.act_window" id="ICCard_manage_cardlist_lapsed_action">
         <field name="name">lapsed IC Card  </field>
         <field name="res_model">employees.iccards</field>
         <field name="view_mode">tree,form</field>
-        <field name="context" eval="{'search_default_in_active_cards':1}"/>
+        <field name="domain">[('active','=', False)]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('ICCard_manage_tree_view_forlost')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('ICCard_manage_form_view_forlost')})
+                ]"/>
     </record>
 
     <!--IC卡发卡编辑表单-->

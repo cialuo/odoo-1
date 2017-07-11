@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-23 09:44+0000\n"
-"PO-Revision-Date: 2017-06-23 17:50+0800\n"
+"POT-Creation-Date: 2017-07-07 06:55+0000\n"
+"PO-Revision-Date: 2017-07-07 14:55+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,16 @@ msgstr ""
 "X-Generator: Poedit 2.0.1\n"
 
 #. module: social_security
+#: model:ir.actions.act_window,name:social_security.retire_apply_action
+msgid " retire apply "
+msgstr "退休申请"
+
+#. module: social_security
+#: model:ir.actions.act_window,name:social_security.retire_employees_action
+msgid " retired employees "
+msgstr "退休员工管理"
+
+#. module: social_security
 #: model:ir.actions.act_window,name:social_security.work_injury_checking_action
 #: model:ir.actions.act_window,name:social_security.work_injury_report_action
 msgid " work injury report "
@@ -25,6 +35,7 @@ msgstr "工伤申报"
 
 #. module: social_security
 #: model:ir.ui.view,arch_db:social_security.housing_provident_tree
+#: model:ir.ui.view,arch_db:social_security.retire_apply_tree
 #: model:ir.ui.view,arch_db:social_security.social_security_tree
 #: model:ir.ui.view,arch_db:social_security.work_injury_checking_tree
 #: model:ir.ui.view,arch_db:social_security.work_injury_tree
@@ -32,6 +43,7 @@ msgid "Course Tree"
 msgstr "Course Tree"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_create_uid
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_create_uid
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_create_uid
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_create_uid
@@ -46,6 +58,7 @@ msgid "Created on"
 msgstr "创建时间"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_display_name
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_display_name
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_display_name
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_display_name
@@ -53,12 +66,19 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_apply_form
+msgid "Employee's Name"
+msgstr "员工姓名"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_apply_form
 #: model:ir.ui.view,arch_db:social_security.work_injury_checking_form
 #: model:ir.ui.view,arch_db:social_security.work_injury_report_form
 msgid "Employee_id"
 msgstr "员工"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_id
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_id
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_id
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_id
@@ -66,6 +86,7 @@ msgid "ID"
 msgstr "ID"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage___last_update
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident___last_update
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity___last_update
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury___last_update
@@ -73,6 +94,7 @@ msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_write_uid
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_write_uid
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_write_uid
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_write_uid
@@ -80,6 +102,7 @@ msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_write_date
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_write_date
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_write_date
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_write_date
@@ -87,9 +110,24 @@ msgid "Last Updated on"
 msgstr "最后更新时间"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_userimage
+msgid "Photo"
+msgstr "照片"
+
+#. module: social_security
+#: model:ir.model.fields,help:social_security.field_retire_retiremanage_userimage
+msgid "This field holds the image used as photo for the employee, limited to 1024x1024px."
+msgstr "这个字段保存员工的照片，限制为 1024x1024px"
+
+#. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_accidenttime
 msgid "accidetn time"
 msgstr "事故时间"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_apply_form
+msgid "back to draft"
+msgstr "退回草稿"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_money
@@ -102,6 +140,11 @@ msgstr "缴费金额"
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_chargetime
 msgid "charge time"
 msgstr "缴费时间"
+
+#. module: social_security
+#: selection:retire.retiremanage,state:0
+msgid "checked"
+msgstr "审批通过"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_attachments
@@ -129,6 +172,21 @@ msgid "companychecking"
 msgstr "公司认定"
 
 #. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_apply_form
+msgid "confirm apply"
+msgstr "审核通过"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_create_date
+msgid "create time"
+msgstr "制表时间"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_creator
+msgid "creator"
+msgstr "创建人"
+
+#. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_description
 msgid "disease description"
 msgstr "受伤害经过简述"
@@ -144,11 +202,12 @@ msgid "done"
 msgstr "完成"
 
 #. module: social_security
-#: selection:social.workinjury,state:0
+#: selection:retire.retiremanage,state:0 selection:social.workinjury,state:0
 msgid "draft"
 msgstr "草稿"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_employee_id
 #: model:ir.model.fields,field_description:social_security.field_social_housingprovident_employee_id
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_employee_id
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_employee_id
@@ -188,6 +247,7 @@ msgid "employee mobile_phone"
 msgstr "联系电话"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_name
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_name
 msgid "employee name"
 msgstr "姓名"
@@ -202,6 +262,11 @@ msgstr "性别"
 #: model:ir.model.fields,field_description:social_security.field_social_socialsecurity_socialsecurityaccount
 msgid "employee socialsecurityaccount"
 msgstr "社保账号"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_jobnumber
+msgid "employee work number"
+msgstr "工号"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_workpost
@@ -239,6 +304,11 @@ msgid "hurt time"
 msgstr "接触职业病危害时间"
 
 #. module: social_security
+#: selection:retire.retiremanage,reason:0
+msgid "ill retire"
+msgstr "病退"
+
+#. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_checkingimage
 msgid "injury checking report image"
 msgstr "认定报告预览图"
@@ -256,6 +326,21 @@ msgid "money employee"
 msgstr "个人缴纳(元)"
 
 #. module: social_security
+#: selection:retire.retiremanage,reason:0
+msgid "normal retire"
+msgstr "正常退休"
+
+#. module: social_security
+#: selection:retire.retiremanage,reason:0
+msgid "other retire"
+msgstr "其他"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_remark
+msgid "remark info"
+msgstr "备注"
+
+#. module: social_security
 #: model:ir.ui.view,arch_db:social_security.work_injury_checking_form
 msgid "report info"
 msgstr "申报信息"
@@ -264,6 +349,31 @@ msgstr "申报信息"
 #: selection:social.workinjury,state:0
 msgid "reporting"
 msgstr "申报"
+
+#. module: social_security
+#: model:ir.ui.menu,name:social_security.employee_retire_apply
+msgid "retire apply menu"
+msgstr "退休申请管理"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_retiredate
+msgid "retire date"
+msgstr "退休日期"
+
+#. module: social_security
+#: model:ir.ui.menu,name:social_security.retire_employee_list
+msgid "retire employees menu"
+msgstr "退休员工管理"
+
+#. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_reason
+msgid "retire reason"
+msgstr "退休原因"
+
+#. module: social_security
+#: model:ir.model,name:social_security.model_retire_retiremanage
+msgid "retire.retiremanage"
+msgstr "退休管理"
 
 #. module: social_security
 #: model:ir.ui.view,arch_db:social_security.work_injury_checking_form
@@ -301,6 +411,16 @@ msgid "socialchecking"
 msgstr "社保认定"
 
 #. module: social_security
+#: selection:retire.retiremanage,state:0
+msgid "submitted"
+msgstr "已提交"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_apply_form
+msgid "submmit apply"
+msgstr "提交申请"
+
+#. module: social_security
 #: model:ir.ui.view,arch_db:social_security.work_injury_report_form
 msgid "submmit reporting"
 msgstr "提交申报"
@@ -332,6 +452,7 @@ msgid "work injury report"
 msgstr "工伤申报"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_state
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_state
 msgid "work injury state "
 msgstr "状态"

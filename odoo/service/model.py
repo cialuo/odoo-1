@@ -140,7 +140,8 @@ def check(f):
                     if key in inst[0]:
                         raise ValidationError(tr(registry._sql_error[key], 'sql_constraint') or inst[0])
                 if inst.pgcode in (errorcodes.NOT_NULL_VIOLATION, errorcodes.FOREIGN_KEY_VIOLATION, errorcodes.RESTRICT_VIOLATION):
-                    msg = _('The operation cannot be completed, probably due to the following:\n- deletion: you may be trying to delete a record while other records still reference it\n- creation/update: a mandatory field is not correctly set')
+                    msg = u"操作无法完成，可能的原因如下：\n- 删除：试图删除一个被引用的单据\n- 创建：必填项未填写"
+                    # msg = _('The operation cannot be completed, probably due to the following:\n- deletion: you may be trying to delete a record while other records still reference it\n- creation/update: a mandatory field is not correctly set')
                     _logger.debug("IntegrityError", exc_info=True)
                     try:
                         errortxt = inst.pgerror.replace('«','"').replace('»','"')
@@ -155,7 +156,8 @@ def check(f):
                         if model in registry:
                             model_class = registry[model]
                             model_name = model_class._description or model_class._name
-                        msg += _('\n\n[object with reference: %s - %s]') % (model_name, model)
+                        msg += u"\n\n[引用对象： %s - %s]" % (model_name, model)
+                        # msg += _('\n\n[object with reference: %s - %s]') % (model_name, model)
                     except Exception:
                         pass
                     raise ValidationError(msg)

@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': '采购计划',
-    'version': '1.2',
+    'version': '1.3',
     'category': 'Advanced Edition',
     'summary': 'Purchase Plan',
     'author': 'Xiao',

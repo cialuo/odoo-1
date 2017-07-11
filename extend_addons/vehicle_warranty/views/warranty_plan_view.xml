@@ -82,7 +82,7 @@
                                                attrs="{'readonly':[('state','!=','draft')]}"/>
                                         <field name="vehicle_type" string="Vehicle Model"/>
                                         <field name="license_plate"/>
-                                        <field name="fleet" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="fleet" readonly="1"/> <!--attrs="{'readonly':[('state','!=','draft')]}"-->
                                         <field name="operating_mileage" attrs="{'readonly':[('state','!=','draft')]}"/>
                                         <field name="warranty_category" string="Create Warranty Category" options="{'no_create': True, 'no_open': True}"
                                                attrs="{'readonly':[('state','!=','draft')]}"/>
@@ -90,10 +90,10 @@
                                                options="{'no_create': True, 'no_open': True}"
                                                attrs="{'readonly':[('state','not in',['commit'])]}"/>
                                         <field name="planned_date" attrs="{'readonly':[('state','!=','draft')]}"/>
-                                        <field name="vin" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="vin" readonly="1"/> <!--attrs="{'readonly':[('state','!=','draft')]}"-->
                                         <field name="average_daily_kilometer"
                                                attrs="{'readonly':[('state','!=','draft')]}"/>
-                                        <field name="line" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="line" readonly="1"/> <!--attrs="{'readonly':[('state','!=','draft')]}"-->
                                         <field name="warranty_location" attrs="{'readonly':[('state','!=','draft')]}"/>
                                         <field name="maintain_sheet_id" string="Warranty Order No" readonly="1"/>
                                         <field name="state" invisible="1"/>

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+        <record model="ir.ui.view" id="employees_search_view">
+            <field name="name">employees</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="jobnumber"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
         <!-- 重载hr中的员工信息表单 -->
         <record id="lty_view_employee_form" model="ir.ui.view">
             <field name="name">ltyhr.employee.form</field>
