@@ -228,6 +228,7 @@
 										<field name="fault_reason_id" options="{'no_open':True,'no_create':True}"/>
 										<field name="fault_method_id" options="{'no_open':True,'no_create':True}"/>
 										<field name="fault_method_code"/>
+										<field name="return_repair_state"/>
 										<field name="repair_names"/>
 										<field name="state"/>
 									</tree>
@@ -433,6 +434,21 @@
 								<field name="work_time" groups="vehicle_group.vehicle_dispatch"/>
 								<field name="operation_manual" invisible="1"/>
 								<field name="inspect_standard" invisible="1"/>
+								<field name="vehicle_id" invisible="1"/>
+
+								<field name="warranty_deadline" attrs="{'invisible': [('return_repair_state', '=', 'no')]}"/>
+								<field name="return_repair_state" attrs="{'invisible': [('return_repair_state', '=', 'no')],
+																		  'required': [('return_repair_state','!=','no')]}"/>
+								<field name="return_repair_ids" options="{'no_open':True,'no_create':True}" widget="many2many_tags"
+									   			attrs="{'invisible': [('return_repair_state', '=', 'no')],'required': [('return_repair_state','=','yes')]}"
+												domain = "[('vehicle_id', '=', vehicle_id),
+													 ('state', '=', 'completed'),
+													 ('fault_method_id', '=', fault_method_id),
+													 ('end_inspect_time', '&gt;=',  (context_today() - datetime.timedelta(days=warranty_deadline)).strftime('%%Y-%%m-%%d'))
+													 ]"/>
+								<field name="return_repair_type" attrs="{'invisible': [('return_repair_state', '!=', 'yes')],
+																		'required': [('return_repair_state','=','yes')]}"/>
+
 
 	                        </group>
 	                        <group class="oe_edit_only" groups="vehicle_group.vehicle_dispatch">
