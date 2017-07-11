@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': '采购管理',
-    'version': '1.0',
+    'version': '1.1',
     'category': 'Basic Edition',
     'summary': '采购管理',
     'author': 'Xiao',
