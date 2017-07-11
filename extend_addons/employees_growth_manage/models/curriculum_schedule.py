@@ -24,7 +24,7 @@ class curriculum_schedule(models.Model):
 
      course_type = fields.Many2one(string='Course type',related='course_id.course_type', store=True,readonly=True)
 
-     teacher_id = fields.Many2one('employees_growth.training_teacher',string='Teacher id',required=True)
+     teacher_id = fields.Many2one('employees_growth.training_teacher',string='Teacher id',required=True,domain=[('teacher_type','=','inside')])
 
      address = fields.Char(string='Curriculum address')
 
@@ -206,7 +206,7 @@ class students(models.Model):
 
      _name = 'employees_growth.students'
      _description = 'Students'
-
+     _sql_constraints = [('check_students_unique', 'unique (curriculum_schedule_id,student_id)', u"存在相同的培训人员!")]
      """
           参加培训的人员：
                姓名，工号，部门
