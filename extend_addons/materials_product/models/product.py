@@ -54,7 +54,8 @@ class Product(models.Model):
 
     def _search_default_code(self, operator, value):
         """
-        由于default_code 字段，之前的name search 方法不能筛选过滤产品
+        由于default_code 字段，之前的name search 方法不能筛选过滤产品。
+        后期如果会影响效率，则可把default_code 加个 store=True,则无需另写 search方法
         :param operator: 
         :param value: 
         :return: 
