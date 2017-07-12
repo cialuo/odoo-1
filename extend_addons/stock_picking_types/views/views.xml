@@ -1,18 +1,59 @@
 <openerp>
   <data>
+
     <!--在原有的picking单据中增加人员-->
     <record id="view_form_picking_extend_user" model="ir.ui.view">
       <field name="name">Picking Order</field>
       <field name="model">stock.picking</field>
+      <field name="priority">100</field>
       <field name="inherit_id" ref="stock.view_picking_form"/>
       <field name="arch" type="xml">
+
+        <!--移动分拣类型位置-->
+        <xpath expr="//field[@name='location_id']" position="before">
+          <field name="picking_type_id"/>
+        </xpath>
+        <xpath expr="/form/sheet/notebook/page/group/group/field[@name='picking_type_id']" position="replace">
+
+        </xpath>
+
+        <!--移动合作伙伴-->
+        <xpath expr="//field[@name='min_date']" position="before">
+          <field name="partner_id" attrs="{'invisible': [('picking_type_code', '=', 'internal')]}"/>
+        </xpath>
+        <xpath expr="/form/sheet/group/group/field[@name='partner_id']" position="replace">
+
+        </xpath>
+
         <xpath expr="//field[@name='backorder_id']" position="after">
           <field name="pick_user" options="{'no_open': True, 'no_create': True}"/>
         </xpath>
       </field>
     </record>
 
+    <!--在原有的stock.move里新增批次和单价显示-->
+    <record id="view_tree_stock_move" model="ir.ui.view">
+      <field name="name">stock.move.inherit.tree</field>
+      <field name="model">stock.move</field>
+      <field name="priority">100</field>
+      <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+      <field name="arch" type="xml">
+
+        <!--新增批次字段显示-->
+        <xpath expr="//field[@name='product_id']" position="after">
+          <field name="tracking" invisible="1"/>
+          <field name="restrict_lot_id" attrs="{'invisible': [('tracking', '!=', ('lot'))]}" options="{'no_open': True, 'no_create': True}"/>
+        </xpath>
+
+        <!--新增单价字段显示-->
+        <xpath expr="//field[@name='product_uom_qty']" position="after">
+            <field name="price_unit"/>
+        </xpath>
+
+      </field>
+    </record>
     <!--新增发料搜索视图-->
+    <!--
     <record id="view_issuance_of_material_search" model="ir.ui.view">
       <field name="name">search.issuance_of_material</field>
       <field name="model">stock.picking</field>
@@ -22,19 +63,23 @@
         </search>
       </field>
     </record>
+    -->
+
     <!-- 新增发料菜单的动作 -->
     <record model="ir.actions.act_window" id="stock_picking_types.issuance_of_material_action_window">
       <field name="name">issuance_of_material window</field>
       <field name="res_model">stock.picking</field>
       <field name="view_mode">tree,form</field>
       <!--给动作指定搜索视图-->
-      <field name="search_view_id" ref="view_issuance_of_material_search"/>
+      <!--<field name="search_view_id" ref="view_issuance_of_material_search"/>-->
       <!--指定默认参数，name与felter里的name相同-->
-      <field name="context">{'search_default_issuance_of_material':'发料'}</field>
+      <!--<field name="context">{'search_default_issuance_of_material':'发料'}</field>-->
+      <field name="domain">[('picking_type_id','ilike','发料')]</field>
     </record>
 
 
     <!--新增领料搜索视图-->
+    <!--
     <record id="view_picking_material_search" model="ir.ui.view">
       <field name="name">search.picking_material</field>
       <field name="model">stock.picking</field>
@@ -44,18 +89,24 @@
         </search>
       </field>
     </record>
+    -->
+
     <!-- 新增领料菜单的动作 -->
     <record model="ir.actions.act_window" id="stock_picking_types.picking_material_action_window">
       <field name="name">picking_material window</field>
       <field name="res_model">stock.picking</field>
       <field name="view_mode">tree,form</field>
       <!--给动作指定搜索视图-->
+      <!--
       <field name="search_view_id" ref="view_picking_material_search"/>
       <field name="context">{'search_default_picking_material':'领料'}</field>
+      -->
+      <field name="domain">[('picking_type_id','ilike','领料')]</field>
     </record>
 
 
     <!--新增退料搜索视图-->
+    <!--
     <record id="view_return_of_material_search" model="ir.ui.view">
       <field name="name">search.return_of_material</field>
       <field name="model">stock.picking</field>
@@ -65,17 +116,23 @@
         </search>
       </field>
     </record>
+    -->
+
     <!-- 新增退料菜单的动作 -->
     <record model="ir.actions.act_window" id="stock_picking_types.return_of_material_action_window">
       <field name="name">return_of_material window</field>
       <field name="res_model">stock.picking</field>
       <field name="view_mode">tree,form</field>
       <!--给动作指定搜索视图-->
+      <!--
       <field name="search_view_id" ref="view_return_of_material_search"/>
       <field name="context">{'search_default_return_of_material':'退料'}</field>
+      -->
+      <field name="domain">[('picking_type_id','ilike','退料')]</field>
     </record>
 
     <!--新增交旧领新视图-->
+    <!--
     <record id="view_old_to_new_search" model="ir.ui.view">
       <field name="name">search.old_to_new</field>
       <field name="model">stock.picking</field>
@@ -85,20 +142,26 @@
         </search>
       </field>
     </record>
+    -->
+
     <!-- 新增交旧领新的动作 -->
     <record model="ir.actions.act_window" id="stock_picking_types.old_to_new_action_window">
       <field name="name">old_to_new window</field>
       <field name="res_model">stock.picking</field>
       <field name="view_mode">tree,form</field>
       <!--给动作指定搜索视图-->
+      <!--
       <field name="search_view_id" ref="view_old_to_new_search"/>
       <field name="context">{'search_default_odl_to_new_material':'交旧领新'}</field>
+      -->
+      <field name="domain">[('picking_type_id','ilike','交旧领新')]</field>
     </record>
 
     <!--继承替换描述-->
     <record model="ir.ui.view" id="stock_picking_types.inherit_form">
         <field name="name">stock.picking.inherit_form</field>
         <field name="model">stock.picking</field>
+        <field name="priority">100</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
             <xpath expr="/form/sheet/notebook/page/field[@name='note'] " position="replace">
@@ -141,7 +204,9 @@
     <menuitem id="old_to_new_picking" name="old_to_new_picking_name"
               parent="materials_menu_pick_type" sequence="6"
               action="stock_picking_types.old_to_new_action_window" groups="stock.group_stock_user"/>
+
     <!--新增内部调拨视图-->
+    <!--
     <record id="view_internal_trans_search" model="ir.ui.view">
       <field name="name">search.internal_tras</field>
       <field name="model">stock.picking</field>
@@ -151,15 +216,21 @@
         </search>
       </field>
     </record>
+    -->
+
     <!-- 新增内部调拨的动作 -->
     <record model="ir.actions.act_window" id="action_internal_trans">
       <field name="name">internal trans</field>
       <field name="res_model">stock.picking</field>
       <field name="view_mode">tree,form</field>
       <!--给动作指定搜索视图-->
+      <!--
       <field name="search_view_id" ref="view_internal_trans_search"/>
       <field name="context">{'search_default_internal_trans':1}</field>
+      -->
+      <field name="domain">[('picking_type_id','ilike','内部调拨')]</field>
     </record>
+
     <menuitem id="menu_internal_trans" name="Internal Trans"
               parent="materials_menu_pick_type" sequence="20"
               action="action_internal_trans" groups="stock.group_stock_user"/>
