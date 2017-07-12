@@ -25,21 +25,18 @@ class StockPicking(models.Model):
     def action_confirm(self):
         for order in self:
             type = order.picking_type_id.name
+            if order.repair_id:
+                self.check_product_avail_repair(type, order)  #判断是否可以领退料单
             if type in [u'退料'] and order.repair_id:
-                self.check_product_avail_repair(type, order)
                 location_id = self.env.ref('stock_picking_types.stock_location_ullage').id  # 维修(生产)虚位
                 order.write({
                     'location_id': location_id
                 })
-
             elif type in [u'发料', u'领料'] and order.repair_id:
-                self.check_product_avail_repair(type, order)
-
                 if order.move_lines:
                     products = order.move_lines.filtered(lambda x: x.product_id.require_trans == True)
                     location_id = self.env.ref('stock_picking_types.stock_location_ullage').id  # 维修(生产)虚位
                     location_dest_id = self.env.ref('stock_picking_types.stock_location_old_to_new').id  # 存货/旧料
-
                     self._gen_old_new_picking_repair(order, products, location_id, location_dest_id)
 
         return super(StockPicking, self).action_confirm()
