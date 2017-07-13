@@ -272,22 +272,25 @@ class MaintainRepair(models.Model):
                         )
 
     return_repair_ids = fields.Many2many('maintain.manage.repair', 'maintain_manage_repair_return_rel', 'return_repair_id',
-                                   'repair_id', string='Return Repair Order',states={
+                                         'repair_id', string='Return Repair Order', states={
                                                         'completed': [('readonly', True)],
                                                         'inspect': [('readonly', True)],
                                                         'repair': [('readonly', True)],}
                                          )
 
-    return_repair_names = fields.Char()
+    return_repair_names = fields.Char("Return Repair Names")
 
     @api.onchange('return_repair_ids')
     def _get_return_repair_names(self):
+        """
+        获取返修单中的返修人员
+        :return:
+        """
         for i in self:
             repair_names_list=[]
             for j in i.return_repair_ids:
                 repair_names_list.append(j.repair_names)
             i.return_repair_names = ':'.join(list(set(repair_names_list)))
-            print i.return_repair_names
 
 
     @api.multi
@@ -316,8 +319,14 @@ class MaintainRepair(models.Model):
 
     @api.multi
     def write(self, vals):
-        if 'return_repair_state' in vals and vals.get('return_repair_state') == 'doubt':
-            raise exceptions.UserError(_('Maintenance exists the type is doubt, please set to yes or no'))
+        if 'return_repair_state' in vals:
+            return_repair_state = vals.get('return_repair_state')
+            if return_repair_state == 'doubt':
+                raise exceptions.UserError(_('Maintenance exists the type is doubt, please set to yes or no'))
+            elif return_repair_state == 'yes':
+                if self.name.startswith("WXD"):
+                    vals.update({'name': self.name.replace('WXD', 'FXD')})
+
         if "fault_method_id" in vals and vals.get('fault_method_id'):
             for i in self.available_product_ids:  # 维修单存在物料清单，要删除
                 i.unlink()
@@ -375,9 +384,7 @@ class MaintainRepair(models.Model):
                          ('end_inspect_time', '>=', fields.Datetime.to_string(fields.datetime.now() - timedelta(days=self.warranty_deadline)))
                          ]
 
-            print 111111111111111111111111,domain
             res = self.search(domain)
-            print res
             if res:
                 self.return_repair_state = 'doubt'
                 self.return_repair_ids = [(6, 0, res.ids)]
