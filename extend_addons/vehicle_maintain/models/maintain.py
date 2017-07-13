@@ -184,7 +184,7 @@ class MaintainRepair(models.Model):
     license_plate = fields.Char(string="License Plate", help='License Plate',
                                 related='report_id.vehicle_id.license_plate', store=True, readonly=True, copy=False)
     repair_category = fields.Selection(string="repair category", help='repair category',
-                                   related='report_id.repair_category', store=True, readonly=True, copy=False)
+                                       related='report_id.repair_category', store=True, readonly=True, copy=False)
     fault_category_id = fields.Many2one("maintain.fault.category", ondelete='set null', string="Fault Category",
                                         required=True, states={
                                           'completed': [('readonly', True)],
@@ -193,9 +193,9 @@ class MaintainRepair(models.Model):
                                         })
     fault_appearance_id = fields.Many2one("maintain.fault.appearance", ondelete='set null',
                                           string="Fault Appearance", states={
-                                          'completed': [('readonly', True)],
-                                          'inspect': [('readonly', True)],
-                                          'repair': [('readonly', True)],
+                                              'completed': [('readonly', True)],
+                                              'inspect': [('readonly', True)],
+                                              'repair': [('readonly', True)],
                                         })
     fault_reason_id = fields.Many2one("maintain.fault.reason", ondelete='set null',
                                       string="Fault Reason", states={
@@ -244,13 +244,13 @@ class MaintainRepair(models.Model):
     available_product_ids = fields.One2many("maintain.manage.available_product", 'repair_id',
                                             string='Available Product')
     operation_manual = fields.Text("Operation Manual", related='fault_method_id.operation_manual',
-                                   help="Operation Manual",store=True, readonly=True, copy=False)
+                                   help="Operation Manual", store=True, readonly=True, copy=False)
     inspect_standard = fields.Text("Inspect Standard", related='fault_method_id.inspect_standard',
-                                   help="Inspect Standard",store=True, readonly=True, copy=False)
+                                   help="Inspect Standard", store=True, readonly=True, copy=False)
 
     picking_ids = fields.One2many("stock.picking", 'repair_id', string='Stock Pickings')
 
-    return_repair_state = fields.Selection([ ('yes', "yes"), ('no', "no"), ('doubt', "doubt")],
+    return_repair_state = fields.Selection([('yes', "yes"), ('no', "no"), ('doubt', "doubt")],
                                            default='no', string="Return Repair State",states={
                                           'completed': [('readonly', True)],
                                           'inspect': [('readonly', True)],
