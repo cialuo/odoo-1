@@ -447,7 +447,7 @@
 													 ('end_inspect_time', '&gt;=',  (context_today() - datetime.timedelta(days=warranty_deadline)).strftime('%%Y-%%m-%%d'))
 													 ]"/>
 
-								<field name="return_repair_names" attrs="{'invisible': [('return_repair_state', '=', 'no')]}"/>
+								<field name="return_repair_names" readonly="1" attrs="{'invisible': [('return_repair_state', '=', 'no')]}"/>
 
 								<field name="return_repair_type" attrs="{'invisible': [('return_repair_state', '!=', 'yes')],
 																		'required': [('return_repair_state','=','yes')]}"/>

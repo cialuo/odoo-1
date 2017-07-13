@@ -26,7 +26,7 @@ class StockPicking(models.Model):
         for order in self:
             type = order.picking_type_id.name
             if order.repair_id:
-                self.check_product_avail_repair(type, order)  #判断是否可以领退料单
+                self.check_product_avail_repair(type, order)  # 判断是否可以领退料单
             if type in [u'退料'] and order.repair_id:
                 location_id = self.env.ref('stock_picking_types.stock_location_ullage').id  # 维修(生产)虚位
                 order.write({
