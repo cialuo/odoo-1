@@ -32,26 +32,62 @@
     </record>
 
     <!--在原有的stock.move里新增批次和单价显示-->
+    <!--
     <record id="view_tree_stock_move" model="ir.ui.view">
       <field name="name">stock.move.inherit.tree</field>
       <field name="model">stock.move</field>
       <field name="priority">100</field>
       <field name="inherit_id" ref="stock.view_move_picking_tree"/>
       <field name="arch" type="xml">
-
+     -->
         <!--新增批次字段显示-->
+        <!--
         <xpath expr="//field[@name='product_id']" position="after">
           <field name="tracking" invisible="1"/>
           <field name="restrict_lot_id" attrs="{'invisible': [('tracking', '!=', ('lot'))]}" options="{'no_open': True, 'no_create': True}"/>
         </xpath>
-
+        -->
         <!--新增单价字段显示-->
+        <!--
         <xpath expr="//field[@name='product_uom_qty']" position="after">
             <field name="price_unit"/>
         </xpath>
 
       </field>
     </record>
+    -->
+    <!--在原有的stock.pack.operation里新增批次和单价显示-->
+    <record id="view_tree_stock_pack_operation" model="ir.ui.view">
+      <field name="name">stock.pack.operation.inherit.tree</field>
+      <field name="model">stock.pack.operation</field>
+      <field name="priority">100</field>
+      <field name="inherit_id" ref="stock.view_pack_operation_lot_form"/>
+      <field name="arch" type="xml">
+
+        <!--新增单价字段显示-->
+        <xpath expr="//field[@name='lot_id']" position="after">
+            <field name="lot_price_unit"/>
+        </xpath>
+
+      </field>
+    </record>
+
+    <!--在原有的stock.pack.operation.lot里新增批次和单价显示-->
+    <record id="view_tree_stock_pack_operation_lot" model="ir.ui.view">
+      <field name="name">stock.pack.operation.lot.inherit.tree</field>
+      <field name="model">stock.pack.operation.lot</field>
+      <field name="priority">100</field>
+      <field name="inherit_id" ref="stock.view_pack_operation_lot_lot_form"/>
+      <field name="arch" type="xml">
+
+        <!--新增单价字段显示-->
+        <xpath expr="//field[@name='lot_id']" position="after">
+            <field name="lot_price_unit"/>
+        </xpath>
+
+      </field>
+    </record>
+
     <!--新增发料搜索视图-->
     <!--
     <record id="view_issuance_of_material_search" model="ir.ui.view">

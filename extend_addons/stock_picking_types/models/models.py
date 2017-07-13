@@ -47,3 +47,31 @@ class StockMove(models.Model):
 
 
 
+class PackOperationLot(models.Model):
+
+    _inherit = "stock.pack.operation.lot"
+
+    """
+        重新打包批次管理；
+            新增批次单价
+    """
+
+    lot_price_unit = fields.Float(strint="Lot Price Unit",compute="_compute_lot")
+
+    product_id = fields.Many2one(related='operation_id.product_id', store=True,readonly=True,string='Product Id')
+
+    @api.depends('lot_id')
+    def _compute_lot(self):
+        """
+            在系统启用批次的情况下：
+                1、物资的批次发生变化时修改单价
+                2、如果当前仓库没有当前批次的信息记录单价为0
+        :return:
+        """
+        for order in self:
+            if order.lot_id:
+                origins = order.lot_id.mapped('quant_ids').mapped('history_ids').mapped('origin')
+                order_lines = self.env['purchase.order'].search([('name', 'in', origins)]).mapped('order_line')
+                line = order_lines.filtered(lambda x: x.product_id == order.product_id)
+                if line:
+                    order.lot_price_unit = line[0].price_unit
