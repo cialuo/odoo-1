@@ -60,7 +60,7 @@ class Product(models.Model):
         :param value: 
         :return: 
         """
-        products = self.env['product.product'].search([]).filtered(lambda x: value in x.default_code)
+        products = self.env['product.product'].search([], limit=100).filtered(lambda x: value in x.default_code)
         return [('id', 'in', products.ids)]
 
 class ProductCategory(models.Model):
