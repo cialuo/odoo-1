@@ -175,13 +175,20 @@ var ViewManagerAction = WidgetAction.extend({
      * @param {int} [scrollTop] the number of pixels to scroll
      */
     set_scrollTop: function(scrollTop) {
-        this.widget.active_view.controller.set_scrollTop(scrollTop);
+        if (this.widget.active_view && this.widget.active_view.controller) {
+             this.widget.active_view.controller.set_scrollTop(scrollTop);
+         }
+        // this.widget.active_view.controller.set_scrollTop(scrollTop);
     },
     /**
      * @return {int} the number of pixels the webclient is scrolled when leaving the action
      */
     get_scrollTop: function() {
-        return this.widget.active_view.controller.get_scrollTop();
+        if (this.widget.active_view && this.widget.active_view.controller) {
+             return this.widget.active_view.controller.get_scrollTop();
+         }
+         return this._super.apply(this, arguments);
+        // return this.widget.active_view.controller.get_scrollTop();
     },
     /**
      * @return {Array} array of Objects that will be interpreted to display the breadcrumbs
