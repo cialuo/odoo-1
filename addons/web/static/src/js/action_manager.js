@@ -178,6 +178,7 @@ var ViewManagerAction = WidgetAction.extend({
         if (this.widget.active_view && this.widget.active_view.controller) {
              this.widget.active_view.controller.set_scrollTop(scrollTop);
          }
+         //7e98e32959231b68985b444afbcde06bf64a5fb7 @aab-odoo aab-odoo committed on 9 May
         // this.widget.active_view.controller.set_scrollTop(scrollTop);
     },
     /**
@@ -188,6 +189,7 @@ var ViewManagerAction = WidgetAction.extend({
              return this.widget.active_view.controller.get_scrollTop();
          }
          return this._super.apply(this, arguments);
+        // commit 7e98e32959231b68985b444afbcde06bf64a5fb7 @aab-odoo aab-odoo committed on 9 May
         // return this.widget.active_view.controller.get_scrollTop();
     },
     /**
