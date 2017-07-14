@@ -15,7 +15,7 @@
     'category': 'Basic Edition',
     'version': '0.1',
 
-    'depends': ['operation_menu', 'scheduling_parameters', 'vehicle_manage'],
+    'depends': ['scheduling_parameters', 'vehicle_manage'],
 
     # always loaded
     'data': [
