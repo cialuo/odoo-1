@@ -1,0 +1,60 @@
+body,
+input,
+textarea,
+select {
+    font-size: 14px;
+    font-family: "microsoft yahei";
+}
+
+body,
+table,
+tr,
+td,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+dl,
+dd,
+form {
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+ol,
+li {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+input,
+textarea,
+select {
+    outline: none;
+    vertical-align: bottom;
+}
+
+img {
+    border: none;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+    color: #434a5d;
+    display: block;
+}
+
+label {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: normal;
+}
+
+.mR10 {
+	margin-right: 10px;
+}

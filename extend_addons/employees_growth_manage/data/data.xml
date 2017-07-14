@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--安全教育-->
+        <record id="course_type_maintenance_safety" model="employees_growth.course_type">
+            <field name="name">安全教育</field>
+            <!--前缀-->
+            <field name="type_no">0001</field>
+            <!--后缀-->
+            <field name="type_explain">安全教育</field>
+        </record>
+
+        <!--技术培训-->
+        <record id="course_type_vehicle_technology" model="employees_growth.course_type">
+            <field name="name">技术培训</field>
+            <!--前缀-->
+            <field name="type_no">0002</field>
+            <!--后缀-->
+            <field name="type_explain">技术培训</field>
+        </record>
+
+
+    </data>
+</odoo>

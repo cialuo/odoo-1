@@ -1,0 +1,95 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* bidding_doc
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-01 02:49+0000\n"
+"PO-Revision-Date: 2017-06-01 02:49+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bidding_doc
+#: model:ir.ui.view,arch_db:bidding_doc.bidding_doc_form_view
+msgid "Attach a file"
+msgstr "附加一个文件"
+
+#. module: bidding_doc
+#: model:ir.ui.view,arch_db:bidding_doc.bidding_doc_form_view
+#: model:ir.ui.view,arch_db:bidding_doc.bidding_doc_tree_view
+msgid "Bidding Create Date"
+msgstr "建档日期"
+
+#. module: bidding_doc
+#: model:ir.ui.view,arch_db:bidding_doc.bidding_doc_form_view
+#: model:ir.ui.view,arch_db:bidding_doc.bidding_doc_tree_view
+msgid "Bidding Create User"
+msgstr "建档人"
+
+#. module: bidding_doc
+#: model:ir.actions.act_window,name:bidding_doc.action_bidding_doc
+#: model:ir.ui.menu,name:bidding_doc.menu_bidding_doc
+msgid "Bidding Doc"
+msgstr "招标文件"
+
+#. module: bidding_doc
+#: model:ir.model.fields,field_description:bidding_doc.field_bidding_doc_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: bidding_doc
+#: model:ir.model.fields,field_description:bidding_doc.field_bidding_doc_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: bidding_doc
+#: model:ir.model.fields,field_description:bidding_doc.field_bidding_doc_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: bidding_doc
+#: model:ir.model.fields,field_description:bidding_doc.field_bidding_doc_code
+msgid "Doc Code"
+msgstr "文件编号"
+
+#. module: bidding_doc
+#: model:ir.model.fields,field_description:bidding_doc.field_bidding_doc_attach_ids
+msgid "Doc file"
+msgstr "文件附件"
+
+#. module: bidding_doc
+#: model:ir.model.fields,field_description:bidding_doc.field_bidding_doc_name
+msgid "Doc name"
+msgstr "文件名称"
+
+#. module: bidding_doc
+#: model:ir.model.fields,field_description:bidding_doc.field_bidding_doc_id
+msgid "ID"
+msgstr "ID"
+
+#. module: bidding_doc
+#: model:ir.model.fields,field_description:bidding_doc.field_bidding_doc___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: bidding_doc
+#: model:ir.model.fields,field_description:bidding_doc.field_bidding_doc_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: bidding_doc
+#: model:ir.model.fields,field_description:bidding_doc.field_bidding_doc_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: bidding_doc
+#: model:ir.model,name:bidding_doc.model_bidding_doc
+msgid "bidding.doc"
+msgstr "招标文件"
+

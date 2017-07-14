@@ -2174,7 +2174,7 @@ var manualReconciliation = abstractReconciliation.extend({
     start: function() {
         var self = this;
         return $.when(this._super()).then(function(){
-            return self.model_aml.call("get_data_for_manual_reconciliation_widget", [self.partner_ids, self.account_ids]).then(function(data){
+            return self.model_aml.call("get_data_for_manual_reconciliation_widget", [sel0f.partner_ids, self.account_ids]).then(function(data){
                 var data_customers_len = data.customers ? data.customers.length : 0;
                 var data_suppliers_len = data.suppliers ? data.suppliers.length : 0;
                 var data_accounts_len = data.accounts ? data.accounts.length : 0;

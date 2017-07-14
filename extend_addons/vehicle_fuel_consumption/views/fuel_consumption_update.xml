@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+
+        <record id="fuel_consumption_update_form" model="ir.ui.view">
+            <field name="name">fuel_consumption_update_form</field>
+            <field name="model">fuel_consumption.update</field>
+            <field name="arch" type="xml">
+                <form string="Update Module List">
+                    <group>
+                        <label string="Click on Update below to start the process..." />
+                    </group>
+                    <footer>
+                        <div>
+                            <button name="update_fuel_consumption" string="Update" type="object" class="btn-primary"/>
+                            <button special="cancel" string="Cancel" class="btn-default"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="fuel_consumption_update_action" model="ir.actions.act_window">
+            <field name="name">fuel_consumption_update_action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fuel_consumption.update</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <!--更新车型油耗-->
+        <menuitem name="fuel_consumption_update" id="fuel_consumption_update"
+                  parent="vehicle_manage_menu.warranty_maintain_basic_manage"
+                  action="fuel_consumption_update_action" sequence="40"
+                  groups="materials_product.base_extend_tech_user"/>
+
+    </data>
+</odoo>

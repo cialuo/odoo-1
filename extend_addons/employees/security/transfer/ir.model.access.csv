@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employees_unit_user_base,employees.unit.user.base,model_employees_innertransfer,base.group_user,1,1,1,1
+access_employees_foreign_user_base,employees.foreign.user.base,model_employees_foreign,base.group_user,1,1,1,1
+access_employees_transfer_record_user_base,employees.transfer.record.user.base,model_employees_transfer_record,base.group_user,1,0,0,0
+access_employees_transfer_record_officer_base,employees.transfer.record.officer.base,model_employees_transfer_record,hr.group_hr_user,1,1,1,1

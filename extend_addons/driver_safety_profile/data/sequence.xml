@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+	
+        <!-- 安全公里 -->
+        <record id="seq_safe_kilometer_id" model="ir.sequence">
+            <field name="name">Safe Kilometer</field>
+            <field name="code">safe_kilometer</field>
+            <field name="prefix"></field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+        </record>
+
+        <!-- 违章记录 -->
+        <record id="seq_endorsement_id" model="ir.sequence">
+            <field name="name">Endorsement</field>
+            <field name="code">endorsement</field>
+            <field name="prefix"></field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+        </record>
+
+        <!-- 事故记录 -->
+        <record id="seq_accident_record_id" model="ir.sequence">
+            <field name="name">Accident Record</field>
+            <field name="code">accident_record</field>
+            <field name="prefix"></field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+        </record>
+
+        <!-- 超速记录 -->
+        <record id="seq_overspeed_record_id" model="ir.sequence">
+            <field name="name">Overspeed Record</field>
+            <field name="code">overspeed_record</field>
+            <field name="prefix"></field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+        </record>
+
+    </data>
+</odoo>

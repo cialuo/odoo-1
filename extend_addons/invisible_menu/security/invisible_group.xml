@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--隐藏菜单权限组-->
+        <record id="invisible_menu_group" model="res.groups">
+            <field name="name">Invisible Menu</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+        <!--库存菜单-->
+        <record id="stock.menu_stock_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+        <!--会计菜单-->
+        <record id="account.menu_finance" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+        <!--采购菜单-->
+        <record id="purchase.menu_purchase_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+        <!--车辆菜单-->
+        <record id="fleet.menu_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+        <!--项目菜单-->
+        <record id="project.menu_main_pm" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+        <!--员工菜单-->
+        <record id="hr.menu_hr_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+        <!--保养菜单-->
+        <record id="maintenance.menu_maintenance_title" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+        <!--讨论菜单-->
+        <record id="mail.mail_channel_menu_root_chat" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+        <!--休假菜单-->
+        <record id="hr_holidays.menu_hr_holidays_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+        <!--工资表菜单-->
+        <record id="hr_payroll.menu_hr_payroll_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+        <!--日历菜单-->
+        <record id="calendar.mail_menu_calendar" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,0,0),(4, ref('invisible_menu_group'))]"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+       <!--人力资源：培训模块权限-->
+        <record id="module_training_group" model="ir.module.category">
+            <field name="name">Training</field>
+            <field name="sequence">10</field>
+        </record>
+
+       <!--培训学员-->
+        <record id="training_student" model="res.groups">
+            <field name="name">Training Student</field>
+            <field name="category_id" ref="module_training_group"/>
+        </record>
+
+        <!--培训讲师-->
+        <record id="training_teacher" model="res.groups">
+            <field name="name">Training Teacher</field>
+            <field name="category_id" ref="module_training_group"/>
+            <field name="implied_ids" eval="[(4, ref('training_student'))]"/>
+        </record>
+
+        <!--培训管理员-->
+        <record id="training_manager" model="res.groups">
+            <field name="name">Training manager</field>
+            <field name="category_id" ref="module_training_group"/>
+            <field name="implied_ids" eval="[(4, ref('training_teacher'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+
+        <!--员工只能看到自己的签到单-->
+        <record id="student_recording_rule" model="ir.rule">
+            <field name="name">Student can only see his/her recording</field>
+            <field name="model_id" ref="model_employees_growth_punch_recording_details"/>
+            <field name="groups" eval="[(4, ref('training_student'))]"/>
+            <field name="domain_force">[('student_id.user_id','=',user.id)]</field>
+        </record>
+
+        <!--员工只能看到自己的考试信息-->
+        <record id="student_examination_rule" model="ir.rule">
+            <field name="name">Student can only see his/her examination</field>
+            <field name="model_id" ref="model_employees_growth_students"/>
+            <field name="groups" eval="[(4, ref('training_student'))]"/>
+            <field name="domain_force">[('student_id.user_id','=',user.id)]</field>
+        </record>
+
+    </data>
+</odoo>

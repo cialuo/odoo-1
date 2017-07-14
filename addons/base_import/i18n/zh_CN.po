@@ -54,13 +54,13 @@ msgstr "取消"
 #, python-format
 msgid ""
 "Column %s contains incorrect values (value: %s does not match date format"
-msgstr ""
+msgstr "%s 列包含不正确的值(值： %s 不匹配数据格式"
 
 #. module: base_import
 #: code:addons/base_import/models/base_import.py:590
 #, python-format
 msgid "Column %s contains incorrect values (value: %s)"
-msgstr ""
+msgstr "%s 列包含不正确的值 （值： %s）"
 
 #. module: base_import
 #. openerp-web
@@ -124,10 +124,24 @@ msgstr "数据格式："
 
 #. module: base_import
 #. openerp-web
-#: code:addons/base_import/static/src/js/base_import.js:127
+#: code:addons/base_import/static/src/js/base_import.js:126
+#, python-format
+msgid "Datetime Format:"
+msgstr "时间格式化："
+
+#. module: base_import
+#. openerp-web
+#: code:addons/base_import/static/src/js/base_import.js:128
 #, python-format
 msgid "Decimal Separator:"
 msgstr "十进制分隔符："
+
+#. module: base_import
+#. openerp-web
+#: code:addons/base_import/static/src/js/base_import.js:127
+#, python-format
+msgid "Thousands Separator:"
+msgstr "千位分隔符："
 
 #. module: base_import
 #: model:ir.model.fields,field_description:base_import.field_base_import_import_display_name
@@ -422,8 +436,8 @@ msgstr "父级ID"
 #. openerp-web
 #: code:addons/base_import/static/src/js/base_import.js:122
 #, python-format
-msgid "Quoting:"
-msgstr "引用："
+msgid "Text Delimiter:"
+msgstr "文本定义符："
 
 #. module: base_import
 #. openerp-web
@@ -465,7 +479,7 @@ msgstr "分隔符："
 #: code:addons/base_import/static/src/xml/base_import.xml:72
 #, python-format
 msgid "Show all fields for completion (advanced)"
-msgstr ""
+msgstr "显示所有字段（高级）"
 
 #. module: base_import
 #: model:ir.model.fields,field_description:base_import.field_base_import_tests_models_preview_somevalue
@@ -493,11 +507,11 @@ msgstr "选项卡"
 msgid ""
 "The first row\n"
 "                 contains the label of the column"
-msgstr ""
+msgstr "第一行包含列的标签"
 
 #. module: base_import
 #. openerp-web
-#: code:addons/base_import/static/src/js/base_import.js:126
+#: code:addons/base_import/static/src/js/base_import.js:127
 #, python-format
 msgid "Thousand Separator:"
 msgstr "千分位分隔符:"
@@ -549,7 +563,7 @@ msgstr "值"
 #: code:addons/base_import/models/base_import.py:528
 #, python-format
 msgid "You must configure at least one field to import"
-msgstr "You must configure at least one field to import"
+msgstr "至少要加入一个导入字段"
 
 #. module: base_import
 #. openerp-web

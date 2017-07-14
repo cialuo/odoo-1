@@ -1,0 +1,80 @@
+<odoo>
+  <data>
+
+    <!-- 列表 -->
+    <record model="ir.ui.view" id="employees_growth_manage.training_plan_list">
+      <field name="name">training_plan list</field>
+      <field name="model">employees_growth.training_plan</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="create_date"/>
+          <field name="create_uid"/>
+          <field name="state"/>
+          <field name="auditor"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--表单-->
+    <record model="ir.ui.view" id="employees_growth_manage.training_plan_form">
+      <field name="name">training_plan form</field>
+      <field name="model">employees_growth.training_plan</field>
+      <field name="arch" type="xml">
+        <form>
+            <header>
+              <button name="draft_to_pendingAudit" type="object" string="draft_to_pendingAudit" states="draft" class="oe_highlight" groups="employees_growth_manage.training_teacher"/>
+              <button name="pendingAudit_to_pendingExecution" type="object" string="pendingAudit_to_pendingExecution" states="pendingAudit" class="oe_highlight" groups="employees_growth_manage.training_manager"/>
+              <button name="%(pendingAudit_return_wizard)d" type="action" string="pendingAudit_to_draft" states="pendingAudit" groups="employees_growth_manage.training_manager"/>
+              <button name="pendingExecution_to_complete" type="object" string="pendingExecution_to_complete" states="pendingExecution" class="oe_highlight"/>
+              <button name="pendingExecution_to_pendingAudit" type="object" string="pendingExecution_to_pendingAudit" states="pendingExecution"/>
+              <field name="state"  widget="statusbar"/>
+            </header>
+            <sheet>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" placeholder="Training Plan's Name" />
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="training_cycle"/>
+                        <field name="create_uid" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="create_date" />
+                    </group>
+                    <group>
+                        <field name="auditor" options="{'no_open': True, 'no_create': True}" readonly="True"/>
+                        <field name="return_remarks"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page name="course_arrangement" string="Course arrangement">
+                         <field name="curriculum_schedules" >
+                            <tree editable="top">
+                                <field name="name" string="Theme"/>
+                                <field name="course_id" />
+                                <field name="course_type"/>
+                                <field name="train_type" readonly="True"/>
+                                <field name="teacher_id" />
+                                <field name="train_date"/>
+                                <field name="address"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- 动作 -->
+    <record model="ir.actions.act_window" id="employees_growth_manage.action_training_plan">
+      <field name="name">training_plan window</field>
+      <field name="res_model">employees_growth.training_plan</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+  </data>
+</odoo>

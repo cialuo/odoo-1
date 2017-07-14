@@ -1,0 +1,74 @@
+<odoo>
+  <data>
+
+    <!--列表视图-->
+    <record model="ir.ui.view" id="energy_management.location_list">
+      <field name="name">location list</field>
+      <field name="model">stock.location</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="location_no"/>
+          <field name="name"/>
+          <field name="location_capacity"/>
+          <field name="state"/>
+          <field name="usage"/>
+          <field name="station_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--表单视图-->
+    <record model="ir.ui.view" id="energy_management.location_form">
+      <field name="name">location form</field>
+      <field name="model">stock.location</field>
+      <field name="priority">100</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+              <button name="normal_to_stop" type="object" string="stop" states="normal" groups="energy_management.energy_management_stationmaster"/>
+              <button name="stop_to_normal" type="object" string="normal" states="stop" groups="energy_management.energy_management_stationmaster"/>
+              <field name="state"  widget="statusbar"/>
+          </header>
+          <sheet>
+            <div class="oe_title">
+                <label for="name" class="oe_edit_only"/>
+                <h1>
+                    <field name="name" placeholder="Location's Name"/>
+                </h1>
+                <label for="station_id" class="oe_edit_only" />
+                <h1>
+                    <field name="station_id" placeholder="Select Station's Name" options="{'no_open': True, 'no_create': True}"/>
+                </h1>
+            </div>
+            <group>
+                <group string="Additional information">
+                    <field name="location_no"/>
+                    <field name="partner_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="energy_type" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="usage"/>
+                </group>
+                <group string="Localization">
+                    <field name="posx"/>
+                    <field name="posy"/>
+                    <field name="posz"/>
+                    <field name="location_capacity"/>
+                </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!--动作-->
+    <record model="ir.actions.act_window" id="energy_management.aw_warehouse_location">
+        <field name="name">warehouse_location window</field>
+        <field name="res_model">stock.location</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('station_id','!=',None)]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('energy_management.location_list')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('energy_management.location_form')})]"/>
+    </record>
+
+  </data>
+</odoo>

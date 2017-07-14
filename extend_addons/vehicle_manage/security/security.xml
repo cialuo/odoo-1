@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+
+        <!--司机-->
+        <record id="vehicle_group.vehicle_driver" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_manager'))]"/>
+        </record>
+
+        <!--技术机务经理-->
+        <record id="materials_product.base_extend_tech_user" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_manager'))]"/>
+        </record>
+
+    </data>
+</odoo>

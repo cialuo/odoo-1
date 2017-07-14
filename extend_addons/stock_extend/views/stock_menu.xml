@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--补货管理-->
+        <menuitem id="materials_menu_reorder" name="reorder_menu" sequence="10"
+                  parent="materials_menu.materials_menu_stock" groups="stock.group_stock_user"/>
+        <!--补货规则-->
+        <menuitem id="materials_menu_reorder_rules"
+                  name="reorder_rules_menu"
+                  sequence="10"
+                  parent="materials_menu_reorder"
+                  action="stock.action_orderpoint_form"
+                  groups="stock.group_stock_user"
+        />
+        <!--运行规则（调用系统模块stock的运行补货规则）-->
+        <menuitem id="materials_menu_run_reorder_rules"
+                  name="run_reorder_rules_menu"
+                  sequence="20"
+                  parent="materials_menu_reorder"
+                  action="stock.action_procurement_compute"
+                  groups="stock.group_stock_user"
+        />
+        <!--运行调拨(调用系统模块procurement的安排计划)-->
+        <menuitem id="materials_menu_run_procurement"
+                  name="run_procurement_menu"
+                  sequence="30"
+                  parent="materials_menu_reorder"
+                  action="procurement.action_compute_schedulers"
+                  groups="stock.group_stock_user"
+        />
+        <!--仓储管理-->
+        <menuitem id="materials_menu_location" name="Location Menu" sequence="20"
+                  parent="materials_menu.materials_menu_stock" groups="stock.group_stock_user"/>
+        <!--仓库-->
+        <menuitem id="materials_menu_warehouse"
+                  name="WareHouse Menu"
+                  sequence="10"
+                  action="stock.action_warehouse_form"
+                  parent="materials_menu_location"
+                  groups="stock.group_stock_user"
+        />
+        <!--库位-->
+        <menuitem id="materials_menu_sublocation"
+                  name="Sub Location Menu"
+                  sequence="20"
+                  action="stock.action_location_form"
+                  parent="materials_menu_location"
+                  groups="stock.group_stock_user"
+        />
+        <!--extend Tree view for stock move-->
+        <record id="view_move_tree_extend" model="ir.ui.view">
+            <field name="name">View Move Tree</field>
+            <field name="model">stock.move</field>
+            <field name="arch" type="xml">
+                <tree create='false' decoration-muted="state == 'cancel'" default_order='date_expected, picking_id, sequence' string="Moves">
+                    <field name="product_id" string="Material Product"/>
+                    <field name="picking_type_id"/>
+                    <field name="location_id"/>
+                    <field name="location_dest_id"/>
+                    <field name="origin"/>
+                    <field name="product_uom_qty"/>
+                    <field name="price_unit"/>
+                    <field name="date"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <!--add action for the stock move menu-->
+        <act_window id="materials_stock_move_action" view_type="form" res_model="stock.move" name="Stock Move Action"/>
+        <!--Bind tree & form view -->
+        <record model="ir.actions.act_window.view" id="tree_materials_stock_move_action">
+            <field name="view_mode">tree</field>
+            <field name="sequence">0</field>
+            <field name="view_id" ref="view_move_tree_extend"/>
+            <field name="act_window_id" ref="materials_stock_move_action"/>
+        </record>
+        <!--出入库记录-->
+        <menuitem id="materials_menu_stock_move"
+                  name="Stock Move Menu"
+                  sequence="30"
+                  action="materials_stock_move_action"
+                  parent="materials_menu_location"
+                  groups="stock.group_stock_user"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,81 @@
+<odoo>
+  <data>
+
+    <!-- 表单 -->
+    <record model="ir.ui.view" id="employees_growth_manage.examination_list">
+      <field name="name">examination list</field>
+      <field name="model">employees_growth.curriculum_schedule</field>
+      <field name="arch" type="xml">
+        <tree create="false">
+          <field name="display_name"/>
+          <field name="display_code"/>
+          <field name="course_id"/>
+          <field name="test_paper_id"/>
+          <field name="passing_score"/>
+          <field name="examination_datetime"/>
+          <field name="create_uid"/>
+          <field name="create_date"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--表单-->
+    <record model="ir.ui.view" id="employees_growth_manage.examination_form">
+      <field name="name">examination form</field>
+      <field name="model">employees_growth.curriculum_schedule</field>
+      <field name="arch" type="xml">
+        <form create="false">
+            <sheet>
+                <div class="oe_title">
+                    <label for="display_name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="display_name" />
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="display_code"/>
+                        <field name="passing_score"/>
+                        <field name="examination_datetime"/>
+                    </group>
+                    <group>
+                        <field name="course_id" readonly="True" />
+                        <field name="test_paper_id" readonly="True" />
+                    </group>
+                </group>
+                <notebook>
+                    <page name="basic_information" string="Basic Information">
+                         <group>
+                            <field name="time_limit"/>
+                            <field name="frequency"/>
+                            <field name="tips_for_candidates"/>
+                         </group>
+                    </page>
+                    <page names="exam_registration" string="Exam registration">
+                        <field name="students" >
+                            <tree editable="top" create="false" delete="false" >
+                                <field name="student_id" readonly="True"/>
+                                <field name="jobnumber" readonly="True"/>
+                                <field name="department_id" readonly="True"/>
+                                <field name="ways_of_registration" readonly="True"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- 动作 -->
+    <record model="ir.actions.act_window" id="employees_growth_manage.action_examination">
+      <field name="name">examination window</field>
+      <field name="res_model">employees_growth.curriculum_schedule</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('employees_growth_manage.examination_list')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('employees_growth_manage.examination_form')})]"/>
+    </record>
+
+  </data>
+</odoo>

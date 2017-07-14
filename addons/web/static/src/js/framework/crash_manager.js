@@ -105,7 +105,7 @@ var CrashManager = core.Class.extend({
         }
         new Dialog(this, {
             size: 'medium',
-            title: "Odoo " + (_.str.capitalize(error.type) || _t("Warning")),
+            title: "LTY" + (_.str.capitalize(error.type) || _t("Warning")),
             subtitle: error.data.title,
             $content: $('<div>').html(QWeb.render('CrashManager.warning', {error: error}))
         }).open();
@@ -115,7 +115,7 @@ var CrashManager = core.Class.extend({
             return;
         }
         new Dialog(this, {
-            title: "Odoo " + _.str.capitalize(error.type),
+            title: "LTY " + _.str.capitalize(error.type),
             $content: QWeb.render('CrashManager.error', {error: error})
         }).open();
     },
@@ -162,7 +162,7 @@ var RedirectWarningHandler = Dialog.extend(ExceptionHandler, {
 
         new Dialog(this, {
             size: 'medium',
-            title: "Odoo " + (_.str.capitalize(error.type) || "Warning"),
+            title: "LTY " + (_.str.capitalize(error.type) || "Warning"),
             buttons: [
                 {text: error.data.arguments[2], classes : "btn-primary", click: function() {
                     window.location.href = '#action='+error.data.arguments[1];

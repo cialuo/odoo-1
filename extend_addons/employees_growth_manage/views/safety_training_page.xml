@@ -1,0 +1,36 @@
+<odoo>
+  <data>
+
+    <!-- 安全培训 -->
+    <record model="ir.actions.act_window" id="employees_growth_manage.action_safety_training_page">
+      <field name="name">curriculum_schedule window</field>
+      <field name="res_model">employees_growth.curriculum_schedule</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">['|',('plan_state','=','pendingExecution'),'|',('plan_id','=',None),('plan_state','=','complete'),('course_type','=','安全教育')]</field>
+    </record>
+
+    <!--安全培训-->
+    <menuitem id="employees_growth_manage.menu_safety_training_page" name="Safety Training Page Menu"
+                  parent="security_manage_menu.traffic_safety_menu"
+                  sequence="3" action="employees_growth_manage.action_safety_training_page" groups="security_manage.archives_group_typer,employees_growth_manage.training_teacher"/>
+
+    <!--维修工安全培训-->
+    <menuitem id="employees_growth_manage.menu_maintenance_safety_training_page" name="Maintenance Safety Training Page Menu"
+                  parent="security_manage_menu.repair_produce_first_menu"
+                  sequence="4" action="employees_growth_manage.action_safety_training_page" groups="security_manage.archives_group_typer,employees_growth_manage.training_teacher"/>
+
+
+    <!-- 技术培训 -->
+    <record model="ir.actions.act_window" id="employees_growth_manage.action_technology_training_page">
+      <field name="name">curriculum_schedule window</field>
+      <field name="res_model">employees_growth.curriculum_schedule</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">['|',('plan_state','=','pendingExecution'),'|',('plan_id','=',None),('plan_state','=','complete'),('course_type','=','技术培训')]</field>
+    </record>
+
+    <!--驾驶员车辆技术培训-->
+    <menuitem id="employees_growth_manage.menu_technology_training_page" name="Technology Training Page Menu"
+                  parent="vehicle_manage_menu.vehicle_use_manage"
+                  sequence="8" action="employees_growth_manage.action_technology_training_page" groups="vehicle_group.vehicle_driver,employees_growth_manage.training_teacher"/>
+  </data>
+</odoo>

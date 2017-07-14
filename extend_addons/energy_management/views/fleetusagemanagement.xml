@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+
+    <!--
+
+           继承车辆运行管理:
+
+            写入车辆相关联的能源使用记录！
+
+    -->
+    <record model = "ir.ui.view" id = "energy_management.vehicle_usage_records_form">
+        <field name = "name" >vehicle_usage_records form</field >
+        <field name = "model" >fleet.vehicle</field >
+        <field name = "inherit_id" ref = "vehicle_manage.vehicle_usage_records_view_form"/>
+        <field name = "arch" type = "xml" >
+
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_to_usage_record"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-flask"
+                        context="{'xml_id':'aw_energy_usage_record_inherit'}"
+                        >
+                        <field name="average_oil_wear" widget="statinfo" string="Fuel consumption per mile "/>
+                </button>
+            </xpath>
+
+            <xpath expr="//page[@name='driverecords']" position="after">
+                 <page  string="vehicle_usage_record" name="vehicle_usage_record">
+                     <field name="energy_usage_record_ids">
+                        <tree create="false" delete="false">
+                            <field name="station_id"/>
+                            <field name="pile_id"/>
+                            <field name="fuel_capacity"/>
+                            <field name="energy_type"/>
+                            <field name="user_use"/>
+                            <field name="operator"/>
+                            <field name="create_date"/>
+                            <field name="working_mileage"/>
+                            <field name="gps_mileage"/>
+                            <field name="working_oil_wear"/>
+                            <field name="gps_oil_wear"/>
+                        </tree>
+                     </field>
+                 </page>
+             </xpath>
+        </field>
+    </record>
+    <!--
+        继承车辆信息档案：
+            新增百里油耗的显示
+    -->
+    <record model = "ir.ui.view" id = "energy_management.fleet_vehicle_form">
+        <field name = "name" >fleet_vehicle_form form</field >
+        <field name = "model" >fleet.vehicle</field >
+        <field name = "inherit_id" ref = "vehicle_manage.fleet_vehicle_view_form"/>
+        <field name = "arch" type = "xml" >
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_to_usage_record"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-flask"
+                        context="{'xml_id':'aw_energy_usage_record_inherit'}"
+                        >
+                    <field name="average_oil_wear" widget="statinfo" string="Fuel consumption per mile "/>
+                </button>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!--
+
+        点击百里油耗的的图表跳转动作
+
+    -->
+    <record model="ir.actions.act_window" id="aw_energy_usage_record_inherit">
+        <field name="name">energy_usage_record window</field>
+        <field name="res_model">energy.usage_record</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</data>
+</odoo>

@@ -380,7 +380,7 @@ msgid "Equipment Categories"
 msgstr "设备类别"
 
 #. module: maintenance
-#: model:ir.model.fields,field_description:maintenance.field_maintenance_equipment_category_id_3424
+#: model:ir.model.fields,field_description:maintenance.field_maintenance_equipment_category_id
 msgid "Equipment Category"
 msgstr "设备类别"
 

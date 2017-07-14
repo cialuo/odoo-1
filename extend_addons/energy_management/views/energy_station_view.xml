@@ -1,0 +1,172 @@
+<odoo>
+  <data>
+
+
+    <!--tree-->
+    <record model="ir.ui.view" id="energy_management.energy_station_list">
+      <field name="name">energy_station list</field>
+      <field name="model">energy.station</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="station_no"/>
+          <field name="name"/>
+          <field name="station_type"/>
+          <field name="state"/>
+          <field name="station_address"/>
+          <field name="department_id"/>
+          <field name="station_person_liable"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--看板视图-->
+    <record id="energy_management.energy_station_kanban" model="ir.ui.view">
+        <field name="name">energy_station kanban</field>
+        <field name="model">energy.station</field>
+        <field name="arch" type="xml">
+            <kanban class="o_hr_employee_kanban">
+                <field name="message_is_follower"/>
+                <field name="message_follower_ids"/>
+                <field name="message_ids"/>
+                <field name="message_needaction_counter"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('energy.station', 'image_medium', record.id.value)"/>
+                                <div class="o_employee_summary_icons">
+                                    <t t-if="record.message_needaction_counter.raw_value">
+                                        <span class='oe_kanban_mail_new' title='Unread Messages'>
+                                            <i class='fa fa-comments'/>
+                                            <t t-raw="record.message_needaction_counter.raw_value"/>
+                                        </span>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="station_no"/> : <field name="name"/>
+                                </strong>
+                                <ul>
+                                    <li t-if="record.station_address.raw_value"><field name="station_address"/></li>
+                                    <li t-if="record.station_person_liable.raw_value"><field name="station_person_liable"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!--能源站表单视图-->
+    <record model="ir.ui.view" id="energy_management.energy_station_form">
+      <field name="name">energy_station form</field>
+      <field name="model">energy.station</field>
+      <field name="arch" type="xml">
+        <form string="Pile form">
+           <header>
+               <button name="normal_to_stop" type="object" string="stop" states="normal" groups="energy_management.energy_management_stationmaster"/>
+               <button name="stop_to_normal" type="object" string="normal" states="stop" groups="energy_management.energy_management_stationmaster"/>
+               <field name="state"  widget="statusbar"/>
+           </header>
+
+            <sheet>
+                <field name="image" widget='image' class="oe_avatar" options='{"preview_image":"image_medium"}'/>
+                <div class="oe_title">
+                    <label for="station_no" class="oe_edit_only"/>
+                    <h2>
+                        <field name="station_no" placeholder="Station's No"/>
+                    </h2>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" placeholder="Station's Name" />
+                    </h1>
+                </div>
+                <notebook>
+                    <page name="conventional_attributes" string="Conventional attributes">
+                        <group>
+                            <group>
+                                <field name="station_property" options="{'horizontal': true}" class="oe_edit_only" widget="radio" />
+                                <field name="station_type"/>
+                                <field name="station_address"/>
+                                <field name="station_scale"/>
+                                <field name="station_remarks"/>
+                            </group>
+                            <group>
+                                <field name="security_check" attrs="{'invisible': [('station_property', '=', 'supplier')]}" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="station_partner" attrs="{'invisible': [('station_property', '=', 'company')]}" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="station_person_liable" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="department_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="station_lister" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="station_tab_date"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page names="energy_pile" string="Energy pile" attrs="{'invisible': [('station_property', '=', 'supplier')]}">
+                        <field name="pile_ids" >
+                            <tree editable="top" create="false" delete="false">
+                                <field name="pile_no"/>
+                                <field name="name"/>
+                                <field name="pile_type"/>
+                                <field name="state"/>
+                                <field name="energy_type"/>
+                                <field name="location_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page names="energy_location" string="Energy location" attrs="{'invisible': [('station_property', '=', 'supplier')]}">
+                        <field name="location_ids">
+                            <tree editable="top" create="false" delete="false">
+                                <field name="location_no"/>
+                                <field name="name"/>
+                                <field name="location_capacity"/>
+                                <field name="state"/>
+                                <field name="usage"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page names="usage_record" string="Usage record" attrs="{'invisible': [('station_property', '=', 'supplier')]}">
+                        <field name="usage_record_ids">
+                            <tree editable="top" create="false" delete="false">
+                                <field name="inner_code"/>
+                                <field name="license_plate"/>
+                                <field name="pile_type"/>
+                                <field name="fuel_capacity"/>
+                                <field name="companyc_id"/>
+                                <field name="energy_type"/>
+                                <field name="location_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page names="security_check" string="Security checks" attrs="{'invisible': [('station_property', '=', 'supplier')]}">
+                        <field name="security_check_ids">
+                            <tree editable="top" create="false" delete="false">
+                                <field name="station_id"/>
+                                <field name="check_type"/>
+                                <field name="check_date"/>
+                                <field name="patrol_man"/>
+                                <field name="person_liable"/>
+                                <field name="check_result"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+        </form>
+      </field>
+    </record>
+
+    <!--动作-->
+    <record model="ir.actions.act_window" id="energy_management.aw_energy_station">
+        <field name="name">energy_station window</field>
+        <field name="res_model">energy.station</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+  </data>
+</odoo>

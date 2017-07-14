@@ -1,0 +1,113 @@
+<odoo>
+    <data>
+
+        <!-- 维保类别 tree -->
+        <record model="ir.ui.view" id="warranty_category_tree">
+            <field name="name">Warranty Category</field>
+            <field name="model">warranty_category</field>
+            <field name="arch" type="xml">
+                <tree string="Warranty Category">
+                    <field name="code"/>
+                    <field name="display_name" string="Warranty Category Name"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                    <field name="state" string="MyState"/>
+                    <field name="is_top_level"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 维保类别 form -->
+        <record model="ir.ui.view" id="warranty_category_form">
+            <field name="name">Warranty Category</field>
+            <field name="model">warranty_category</field>
+            <field name="arch" type="xml">
+                <form string="Warranty Category">
+                    <header>
+                        <button name="action_filing" type="object"
+                                string="Filing"
+                                states="use"/>
+                        <button name="action_in_use" type="object"
+                                string="use"
+                                states="done" class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group col="2">
+                            <group>
+                                <field name="parent_id"/>
+                                <field name="code"/>
+                                <field name="manhour"/>
+                                <field name="remark"/>
+                            </group>
+                            <group>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                                <field name="is_top_level" readonly="1"/>
+                                <field name="warranty_type" widget="radio" />
+                                <field name="warranty_level" attrs="{'invisible':[('warranty_type','=','warranty')] }" options="{'no_create': True, 'no_open': True}"/>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Warranty Project">
+                                <field name="project_ids" options="{'no_create': True, 'no_open': True}">
+                                    <tree string="Warranty Project">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="mode"/>
+                                        <field name="manhour"/>
+                                        <field name="remark"/>
+                                    </tree>
+                                </field>
+                                <div class="oe_right">
+                                    <group>
+                                        <field name="sum_project_manhour"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Sub Warranty Category" options="{'no_create': True, 'no_open': True}">
+                                <field name="child_ids">
+                                    <tree string="Sub Warranty Category">
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="manhour"/>
+                                    </tree>
+                                </field>
+                                <div class="oe_right">
+                                    <group>
+                                        <field name="sum_categorie_manhour"/>
+                                    </group>
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 维保类别 action -->
+        <record model="ir.actions.act_window" id="warranty_category_action">
+            <field name="name">Warranty Category</field>
+            <field name="res_model">warranty_category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 维保体系 menu -->
+        <menuitem name="Warranty System" id="warranty_system" sequence="10"
+                  parent="vehicle_manage_menu.warranty_maintain_basic_manage"/>
+
+        <!-- 维保类别 menu -->
+        <menuitem name="Warranty Category" id="warranty_category" sequence="10"
+                  parent="warranty_system"
+                  action="warranty_category_action"
+                  groups="materials_product.base_extend_tech_user"/>
+
+    </data>
+</odoo>

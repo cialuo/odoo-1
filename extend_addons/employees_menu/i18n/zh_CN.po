@@ -1,0 +1,53 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* employees_menu
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-28 08:37+0000\n"
+"PO-Revision-Date: 2017-06-28 16:37+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.1\n"
+
+#. module: employees_menu
+#: model:ir.ui.menu,name:employees_menu.ltyhr_top_menu
+msgid "LTY human resource"
+msgstr "人力资源"
+
+#. module: employees_menu
+#: model:ir.ui.menu,name:employees_menu.ltyhr_system_configuration_menu
+msgid "System Configuration"
+msgstr "系统设置"
+
+#. module: employees_menu
+#: model:ir.ui.menu,name:employees_menu.ltyhr_employee_document_menu
+msgid "employee document"
+msgstr "员工档案"
+
+#. module: employees_menu
+#: model:ir.ui.menu,name:employees_menu.leave_and_checking_in
+msgid "leave and checking-in"
+msgstr "假期与考勤"
+
+#. module: employees_menu
+#: model:ir.ui.menu,name:employees_menu.performance_checking_system
+msgid "performance checking system"
+msgstr "绩效考核系统"
+
+#. module: employees_menu
+#: model:ir.ui.menu,name:employees_menu.salary_manage
+msgid "salary manage"
+msgstr "工资管理"
+
+#. module: employees_menu
+#: model:ir.ui.menu,name:employees_menu.social_security
+msgid "social security "
+msgstr "社保与养老"

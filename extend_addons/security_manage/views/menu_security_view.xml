@@ -1,0 +1,21 @@
+<openerp>
+    <data>
+
+
+        <!--二级菜单 档案类别管理 action-->
+        <record model="ir.actions.act_window" id="security_manage.action_security_archives_class_manage">
+            <field name="name">security_manage_security_archives_class_manage_window</field>
+            <field name="res_model">security_manage.cls_manage</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!--安全检查设置-->
+        <menuitem name="archives_class_manage" id="security_manage.archives_class_manage"
+                  parent="security_manage_menu.security_check_settings"
+                  action="security_manage.action_security_archives_class_manage"
+                  groups="maintain_group_settings"/>
+
+
+    </data>
+</openerp>

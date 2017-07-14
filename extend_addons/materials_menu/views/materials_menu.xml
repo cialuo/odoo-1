@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--主菜单-->
+        <menuitem id="materials_menu_root" name="materials_menu"  sequence="50"/>
+        <!--采购管理 -->
+        <menuitem id="materials_menu_purchase"
+                  name="purchase_menu"
+                  sequence="10"
+                  parent="materials_menu_root"/>
+        <!--仓储管理 -->
+        <menuitem id="materials_menu_stock"
+                  name="stock_menu"
+                  sequence="20"
+                  parent="materials_menu_root"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <!--文档相关权限-->
+        <record id="security_check_module_group" model="ir.module.category">
+            <field name="name">Security Check</field>
+            <field name="sequence">227</field>
+        </record>
+
+        <!--安全表浏览-->
+        <record id="security_check_browse" model="res.groups">
+            <field name="name">Browser</field>
+            <field name="category_id" ref="security_check_module_group"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!--安全表录入-->
+        <record id="security_check_entering" model="res.groups">
+            <field name="name">Entering</field>
+            <field name="category_id" ref="security_check_module_group"/>
+            <field name="implied_ids" eval="[(4, ref('security_check_browse'))]"/>
+        </record>
+
+
+        <!--安全表设置-->
+        <record id="security_check_setting" model="res.groups">
+            <field name="name">Settings</field>
+            <field name="implied_ids" eval="[(4, ref('security_check_entering'))]"/>
+            <field name="category_id" ref="security_check_module_group"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+    </data>
+</odoo>

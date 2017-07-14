@@ -1,0 +1,32 @@
+<openerp>
+    <data>
+
+        <!--顶级菜单 安全管理-->
+        <!--<menuitem name="security_manage" id="security_manage.menu_root"/>-->
+        <!--groups="security_manage.archives_group_browser"-->
+        <menuitem name="security_manage" id="security_manage_menu_root"  sequence="30" />
+
+        <!-- 交通安全 -->
+        <menuitem name="Traffic Safety" id="traffic_safety_menu"
+                  parent="security_manage_menu_root" sequence="5"/>
+
+        <!--一级菜单 车辆安全检查-->
+        <menuitem name="security_vehicle_check" id="security_vehicle_check_menu"
+                  parent="security_manage_menu_root" sequence="10"/>
+
+        <!--一级菜单 维修生产安全-->
+        <!--引用了security_manage模块的top nemu-->
+        <menuitem name="repair produce security" id="repair_produce_first_menu"
+                  parent="security_manage_menu_root" sequence="20"/>
+
+        <!--一级菜单 消防安全-->
+        <!--引用了security_manage模块的top nemu-->
+        <menuitem name="fire  safety" id="fire_safety_first_menu"
+                  parent="security_manage_menu_root" sequence="30"/>
+
+        <!--一级菜单 安全检查设置-->
+        <menuitem name="security_check_settings" id="security_check_settings"
+                  parent="security_manage_menu_root" sequence="40"/>
+
+    </data>
+</openerp>

@@ -851,7 +851,7 @@ msgstr "月度采购"
 msgid ""
 "Most propositions of purchase orders are created automatically\n"
 "                by Odoo based on inventory needs."
-msgstr "大部分的采购订单都有Odoo根据库存需求自动生成"
+msgstr "大部分的采购订单都根据库存需求自动生成"
 
 #. module: purchase
 #: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
@@ -1591,7 +1591,7 @@ msgstr "此说明将显示在询价单。"
 msgid ""
 "This purchase order has been created from: <a href=# data-oe-"
 "model=procurement.order data-oe-id=%d>%s</a>"
-msgstr ""
+msgstr "采购订单创建于："
 
 #. module: purchase
 #: code:addons/purchase/models/purchase.py:986
@@ -1809,7 +1809,7 @@ msgstr "体积"
 #: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
 #: selection:purchase.order,invoice_status:0
 msgid "Waiting Bills"
-msgstr ""
+msgstr "等待账单"
 
 #. module: purchase
 #: model:ir.model,name:purchase.model_stock_warehouse

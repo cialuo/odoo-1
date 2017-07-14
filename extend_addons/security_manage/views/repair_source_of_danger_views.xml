@@ -1,0 +1,61 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="srp_source_of_danger_tree">
+            <field name="name">source of danger tree</field>
+            <field name="model">srp.source_of_danger</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="area"/>
+                    <field name="place"/>
+                    <field name="name"/>
+                    <field name="risk_evaluate"/>
+                    <field name="danger_desc"/>
+                    <field name="precautions"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="srp_source_of_danger_form">
+            <field name="name">source of danger form name</field>
+            <field name="model">srp.source_of_danger</field>
+            <field name="arch" type="xml">
+                <form string="Idea form">
+                    <header>
+                        <button name="action_use" type="object"
+                                string="Reset"
+                                states="done"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Mark as done"
+                                states="use"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <!--<label for="name"/>-->
+                            <h1>
+                                <field name="name" placeholder="source of dange name hint"/>
+                            </h1>
+                        </div>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="area"/>
+                                <field name="name"/>
+                                <field name="danger_desc"/>
+                            </group>
+
+                            <group name="group_right">
+                                <field name="place"/>
+                                <field name="risk_evaluate"/>
+                                <field name="precautions"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

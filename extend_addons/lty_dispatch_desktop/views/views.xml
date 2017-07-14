@@ -1,0 +1,45 @@
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="lty_dispatch_desktop.list">
+      <field name="name">lty_dispatch_desktop list</field>
+      <field name="model">lty_dispatch_desktop.lty_dispatch_desktop</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+
+     <!--actions opening views on models-->
+    <record model="ir.actions.act_window" id="lty_dispatch_desktop.action_window">
+      <field name="name">lty_dispatch_desktop window</field>
+      <field name="res_model">lty_dispatch_desktop.lty_dispatch_desktop</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+     <!--server action to the one above-->
+    <record model="ir.actions.server" id="lty_dispatch_desktop.action_server">
+      <field name="name">lty_dispatch_desktop server</field>
+      <field name="model_id" ref="model_lty_dispatch_desktop_lty_dispatch_desktop"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+
+     <!--Top menu item-->
+    <menuitem name="lty_dispatch_desktop" id="lty_dispatch_desktop.menu_root"/>
+     <!--menu categories-->
+    <menuitem name="Menu 1" id="lty_dispatch_desktop.menu_1" parent="lty_dispatch_desktop.menu_root"/>
+     <!--actions-->
+    <menuitem name="List" id="lty_dispatch_desktop.menu_1_list" parent="lty_dispatch_desktop.menu_1"
+              action="lty_dispatch_desktop.action_window"/>
+
+  </data>
+</openerp>

@@ -1,0 +1,69 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="srp_disease_tree">
+            <field name="name">disease tree</field>
+            <field name="model">srp.disease</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="archives_class_big"/>
+                    <field name="archives_class_little"/>
+                    <field name="name"/>
+                    <field name="archvies_id"/>
+                    <field name="create_date" readonly="1"/>
+                    <field name="create_uid" readonly="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="srp_disease_form">
+            <field name="name">disease form</field>
+            <field name="model">srp.disease</field>
+            <field name="arch" type="xml">
+                <form string="Idea form">
+                    <header>
+                        <button name="action_to_default" type="object"
+                                string="Reset to use"
+                                class="oe_highlight"
+                                states="archive"/>
+                        <button name="action_archive" type="object"
+                                string="Mark as archive" states="use"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <!--<label for="name"/>-->
+                            <h1>
+                                <field name="name" placeholder="archive name"/>
+                            </h1>
+                        </div>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="archives_class_big" options="{'no_open':True,'no_create':True}"/>
+                                <field name="archives_class_little" options="{'no_open':True,'no_create':True}"/>
+                            </group>
+
+                            <group name="group_right">
+                                <field name="archvies_id"/>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page string="Archive Content">
+                                <field name="description" widget="html" options="{'style-inline': true}"/>
+                                <div>
+                                    <field name="attachment_ids" widget="many2many_binary" string="Attach a file"
+                                           class="oe_inline"/>
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

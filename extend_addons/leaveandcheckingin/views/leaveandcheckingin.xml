@@ -1,0 +1,96 @@
+<odoo>
+
+    <!-- 考勤记录表单视图 -->
+    <record id="ltyhr_checking_in_record_form" model="ir.ui.view">
+        <field name="name">employees checking in record form</field>
+        <field name="model">employee.attencerecords</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="checkingin"/>
+                        <field name="checkinginout"/>
+                    </group>
+                    <group>
+                        <field name="length"/>
+                        <field name="status"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!--考勤记录tree视图-->
+    <record id="ltyhr_chekcingin_record_tree" model="ir.ui.view">
+        <field name="name">employees chekcing in records tree</field>
+        <field name="model">employee.attencerecords</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="checkingin"/>
+                <field name="checkinginout"/>
+                <field name="length"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--考勤记录 action页面-->
+    <record model="ir.actions.act_window" id="ltyhr_checkingin_records">
+        <field name="name">employee checkingint records</field>
+        <field name="res_model">employee.attencerecords</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- 考勤扣款表单视图 -->
+    <record id="ltyhr_attencededucted_record_form" model="ir.ui.view">
+        <field name="name">employees attencededucted record form</field>
+        <field name="model">employee.attencededucted</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="month"/>
+                    <field name="absence"/>
+                    <field name="deducted"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!--考勤记录tree视图-->
+    <record id="ltyhr_attencededucted_record_tree" model="ir.ui.view">
+        <field name="name">employees attencededucted records tree</field>
+        <field name="model">employee.attencededucted</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="month"/>
+                <field name="absence"/>
+                <field name="deducted"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--考勤扣款记录 action页面-->
+    <record model="ir.actions.act_window" id="ltyhr_attencededucted_records">
+        <field name="name">employee attencededucted records</field>
+        <field name="res_model">employee.attencededucted</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--考勤记录-->
+    <menuitem id="ltyhr_checkingin_records_menu" name="checkingin record"
+              sequence="10"
+              action="ltyhr_checkingin_records"
+              parent="employees_menu.leave_and_checking_in"/>
+
+    <!--考勤扣款-->
+    <menuitem id="ltyhr_attencededucted_records_menu" name="attencededucted record"
+              sequence="20"
+              action="ltyhr_attencededucted_records"
+              parent="employees_menu.leave_and_checking_in"/>
+
+</odoo>

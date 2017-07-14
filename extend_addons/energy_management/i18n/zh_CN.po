@@ -1,0 +1,853 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* energy_management
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-25 13:50+0000\n"
+"PO-Revision-Date: 2017-05-25 21:53+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.2\n"
+
+#. module: energy_management
+#: selection:energy.security_check_details,check_result:0
+msgid "Abnormal"
+msgstr "异常"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.location_form
+msgid "Additional information"
+msgstr "额外的信息"
+
+#. module: energy_management
+#: selection:energy.security_check,state:0
+msgid "Auditing"
+msgstr "已审核"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_average_day_number
+msgid "Average Day Number"
+msgstr "计算百里油耗的天数"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_average_oil_wear
+#: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_model_model_average_oil_wear
+msgid "Average Oil Wear"
+msgstr "百里油耗"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.fleet_vehicle_model_form
+msgid "AverageOilWear"
+msgstr "平均油耗"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_check_content
+msgid "Check Content"
+msgstr "检查内容"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_check_date
+msgid "Check Date"
+msgstr "审核时间"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_check_item_name
+msgid "Check Item Name"
+msgstr "检查项目"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_name
+msgid "Check No"
+msgstr "安全检查"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_check_result
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_check_result
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_state
+msgid "Check Result"
+msgstr "巡检结果"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_check_standards
+msgid "Check Standards"
+msgstr "检查标准"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_check_type
+msgid "Check Type"
+msgstr "检查类型"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.security_check_form
+msgid "Check's No"
+msgstr "安全检查编号"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.usage_record_form
+msgid "Collar information"
+msgstr "领用信息"
+
+#. module: energy_management
+#: code:addons/energy_management/models/usage_record.py:165
+#, python-format
+msgid "Companies to provide energy, the need to choose energy piles!"
+msgstr "公司提供的能源，需要选择能源桩!"
+
+#. module: energy_management
+#: selection:energy.station,station_property:0
+msgid "Company"
+msgstr "公司"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_companyc_id
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_companyc_id
+msgid "Companyc Id"
+msgstr "单位"
+
+#. module: energy_management
+#: selection:energy.security_check,state:0
+msgid "Complete"
+msgstr "完成"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.energy_pile_form
+#: model:ir.ui.view,arch_db:energy_management.energy_station_form
+msgid "Conventional attributes"
+msgstr "常规属性"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_create_uid
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_create_uid
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_create_uid
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_create_uid
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_create_date
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_create_date
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_create_date
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_create_date
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: energy_management
+#: model:ir.model.fields,help:energy_management.field_energy_pile_companyc_id
+#: model:ir.model.fields,help:energy_management.field_energy_usage_record_companyc_id
+msgid "Default Unit of Measure used for all stock operation."
+msgstr "所有库存作业的默认计量单位"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_department_id
+msgid "Department Id"
+msgstr "使用单位"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_display_name
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_display_name
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_display_name
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_display_name
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: energy_management
+#: selection:energy.security_check,state:0
+msgid "Draft"
+msgstr "草稿"
+
+#. module: energy_management
+#: model:res.groups,name:energy_management.energy_management_driver
+msgid "Driver"
+msgstr "司机"
+
+#. module: energy_management
+#: selection:product.product,important_type:0
+msgid "Energy"
+msgstr "作为能源管理"
+
+#. module: energy_management
+#: model:ir.module.category,name:energy_management.energy_management_group
+msgid "Energy Management"
+msgstr "能源管理"
+
+#. module: energy_management
+#: model:ir.model,name:energy_management.model_energy_pile
+msgid "Energy Pile"
+msgstr "能源桩管理"
+
+#. module: energy_management
+#: model:ir.model,name:energy_management.model_energy_station
+msgid "Energy Station"
+msgstr "能源站"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_energy_type
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_energy_type
+#: model:ir.model.fields,field_description:energy_management.field_stock_location_energy_type
+msgid "Energy Type"
+msgstr "能源类型"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.energy_station_form
+msgid "Energy location"
+msgstr "库位"
+
+#. module: energy_management
+#: model:ir.ui.menu,name:energy_management.menu_energy_management
+msgid "Energy management"
+msgstr "能源管理"
+
+#. module: energy_management
+#: model:ir.ui.menu,name:energy_management.energy_pile
+#: model:ir.ui.view,arch_db:energy_management.energy_station_form
+msgid "Energy pile"
+msgstr "能源桩管理"
+
+#. module: energy_management
+#: model:ir.ui.menu,name:energy_management.menu_energy_station
+msgid "Energy station"
+msgstr "能源站"
+
+#. module: energy_management
+#: model:ir.model,name:energy_management.model_energy_usage_record
+#: model:ir.ui.menu,name:energy_management.energy_usage_record
+msgid "Energy usage record"
+msgstr "能源使用记录"
+
+#. module: energy_management
+#: selection:energy.pile,pile_type:0
+msgid "Filling Pile"
+msgstr "加气"
+
+#. module: energy_management
+#: selection:energy.station,station_type:0
+msgid "Filling Station"
+msgstr "加气站"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_fuel_capacity
+msgid "Fuel Capacity"
+msgstr "使用量"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.fleet_vehicle_form
+#: model:ir.ui.view,arch_db:energy_management.vehicle_usage_records_form
+msgid "Fuel consumption per mile"
+msgstr "百里油耗"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_gps_mileage
+msgid "GPS Mileage"
+msgstr "GPS 里程"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_gps_oil_wear
+msgid "GPS Oil Wear "
+msgstr "GPS 油耗"
+
+#. module: energy_management
+#: selection:energy.pile,pile_type:0
+msgid "Gasoline Pile"
+msgstr "加油"
+
+#. module: energy_management
+#: selection:energy.station,station_type:0
+msgid "Gasoline Station"
+msgstr "加油站"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_id
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_id
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_id
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_id
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_id
+msgid "ID"
+msgstr "ID"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_product_product_is_important
+msgid "Important"
+msgstr "特别管理"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_product_product_important_type
+msgid "Important Type"
+msgstr "物资类型"
+
+#. module: energy_management
+#: model:ir.model,name:energy_management.model_fleet_vehicle
+msgid "Information on a vehicle"
+msgstr "车辆上的信息"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_inner_code
+#: model:ir.model.fields,help:energy_management.field_energy_usage_record_inner_code
+msgid "Inner Code"
+msgstr "自编号码"
+
+#. module: energy_management
+#: model:ir.model,name:energy_management.model_stock_location
+msgid "Inventory Locations"
+msgstr "库存位置"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile___last_update
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check___last_update
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details___last_update
+#: model:ir.model.fields,field_description:energy_management.field_energy_station___last_update
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_write_uid
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_write_uid
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_write_uid
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_write_uid
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_write_date
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_write_date
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_write_date
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_write_date
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_license_plate
+msgid "License Plate"
+msgstr "车牌"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_station_lister
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_station_lister
+msgid "Lister"
+msgstr "制表人"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.location_form
+msgid "Localization"
+msgstr "本地化"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_stock_location_location_capacity
+msgid "Location Capacity"
+msgstr "容量"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_location_id
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_location_id
+msgid "Location Id"
+msgstr "关联库位"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_location_ids
+msgid "Location Ids"
+msgstr "Location Ids"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_stock_location_location_no
+msgid "Location No"
+msgstr "编号"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_location_price
+msgid "Location Price"
+msgstr "库存单价"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.location_form
+msgid "Location's Name"
+msgstr "库位名称"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_image_medium
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_image_medium
+msgid "Medium-sized photo"
+msgstr "中等尺寸照片"
+
+#. module: energy_management
+#: model:ir.model.fields,help:energy_management.field_energy_pile_image_medium
+#: model:ir.model.fields,help:energy_management.field_energy_station_image_medium
+msgid "Medium-sized photo of the employee. It is automatically resized as a 128x128px image, with aspect ratio preserved. Use this field in form views or some kanban views."
+msgstr "员工的中等尺寸照片。保留纵横比例，自动缩放为128x128px的图像。这个字段用在表单视图和某些看板视图。"
+
+#. module: energy_management
+#: model:ir.model,name:energy_management.model_fleet_vehicle_model
+msgid "Model of a vehicle"
+msgstr "车辆型号"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_active
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_active
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_active
+msgid "MyActive"
+msgstr "有效"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_name
+msgid "Name"
+msgstr "名字"
+
+#. module: energy_management
+#: selection:energy.pile,state:0
+#: selection:energy.security_check_details,check_result:0
+#: selection:energy.station,state:0 selection:energy.usage_record,state:0
+#: selection:stock.location,state:0
+msgid "Normal"
+msgstr "正常"
+
+#. module: energy_management
+#: selection:energy.security_check,check_type:0
+msgid "Normal inspection"
+msgstr "正常巡检"
+
+#. module: energy_management
+#: code:addons/energy_management/models/security_check.py:105
+#, python-format
+msgid "Not draft data cannot be deleted!"
+msgstr "只有草稿状态才能删除!"
+
+#. module: energy_management
+#: model:res.groups,name:energy_management.energy_management_oiler
+msgid "Oiler"
+msgstr "加油员"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_operator
+msgid "Operator"
+msgstr "操作员"
+
+#. module: energy_management
+#: selection:energy.pile,pile_type:0
+msgid "Other Pile"
+msgstr "综合"
+
+#. module: energy_management
+#: selection:energy.station,station_type:0
+msgid "Other Station"
+msgstr "综合"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_patrol_man
+msgid "Patrol Man"
+msgstr "巡检人"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_station_person_liable
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_person_liable
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_station_person_liable
+msgid "Person liable"
+msgstr "责任人"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_station_scale
+msgid "Person scale"
+msgstr "规模"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_image
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_image
+msgid "Photo"
+msgstr "照片"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_pile_id
+msgid "Pile Id"
+msgstr "能源桩"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_pile_ids
+msgid "Pile Ids"
+msgstr "Pile Ids"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_pile_no
+msgid "Pile No"
+msgstr "能源桩编号"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_pile_type
+msgid "Pile Type"
+msgstr "能源站类型"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.energy_pile_form
+#: model:ir.ui.view,arch_db:energy_management.energy_station_form
+msgid "Pile form"
+msgstr "能源桩"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_pile_type
+msgid "Pile type"
+msgstr "能源桩类型"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.energy_pile_form
+msgid "Pile's Name"
+msgstr "能源桩名称"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.energy_pile_form
+msgid "Pile's No"
+msgstr "能源桩编号"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.security_check_form
+msgid "Plan details"
+msgstr "计划详情"
+
+#. module: energy_management
+#: selection:energy.pile,pile_type:0
+msgid "Power Pile"
+msgstr "充电"
+
+#. module: energy_management
+#: selection:energy.station,station_type:0
+msgid "Power Station"
+msgstr "充电站"
+
+#. module: energy_management
+#: model:ir.model,name:energy_management.model_product_product
+msgid "Product"
+msgstr "产品"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_record_date
+msgid "Record Date"
+msgstr "日期"
+
+#. module: energy_management
+#: selection:energy.security_check,state:0
+msgid "Refer"
+msgstr "已提交"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_remark
+msgid "Remark"
+msgstr "备注"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_remarks
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_remarks
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_station_remarks
+msgid "Remarks"
+msgstr "备注"
+
+#. module: energy_management
+#: selection:energy.security_check,check_type:0
+msgid "Sampling"
+msgstr "抽检"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_security_check_detail_ids
+msgid "Security Check Detail Ids"
+msgstr "Security Check Detail Ids"
+
+#. module: energy_management
+#: model:ir.model,name:energy_management.model_energy_security_check_details
+msgid "Security Check Details"
+msgstr "检查详情"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_security_check_id
+msgid "Security Check Id"
+msgstr "Security Check Id"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_security_check_ids
+msgid "Security Check Ids"
+msgstr "Security Check Ids"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_details_security_check_item_id
+msgid "Security Check Item Id"
+msgstr "检查项目ID"
+
+#. module: energy_management
+#: model:res.groups,name:energy_management.energy_management_security_inspector
+msgid "Security Inspector"
+msgstr "安检员"
+
+#. module: energy_management
+#: model:ir.model,name:energy_management.model_energy_security_check
+#: model:ir.ui.menu,name:energy_management.security_check
+msgid "Security check"
+msgstr "安全检查"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.energy_station_form
+msgid "Security checks"
+msgstr "安全检查"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.usage_record_form
+msgid "Select Pile's Name"
+msgstr "选择能源桩"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.location_form
+#: model:ir.ui.view,arch_db:energy_management.usage_record_form
+msgid "Select Station's Name"
+msgstr "选择能源站"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_image_small
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_image_small
+msgid "Small-sized photo"
+msgstr "小尺寸照片"
+
+#. module: energy_management
+#: model:ir.model.fields,help:energy_management.field_energy_pile_image_small
+#: model:ir.model.fields,help:energy_management.field_energy_station_image_small
+msgid "Small-sized photo of the employee. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
+msgstr "小尺寸的员工照片。保留纵横比，自动缩放为64x64px。用在任何需要小图像的场合"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_state
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_state
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_state
+#: model:ir.model.fields,field_description:energy_management.field_stock_location_state
+msgid "State"
+msgstr "状态"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_station_id
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_station_id
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_station_id
+#: model:ir.model.fields,field_description:energy_management.field_stock_location_station_id
+msgid "Station Id"
+msgstr "能源站"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_name
+msgid "Station Name"
+msgstr "能源站名称"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_station_no
+#: model:ir.model.fields,field_description:energy_management.field_stock_location_station_no
+msgid "Station No"
+msgstr "能源站编号"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_station_partner
+msgid "Station Partner"
+msgstr "供应商"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_station_property
+msgid "Station Property"
+msgstr "能源站归属"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_security_check_station_type
+msgid "Station Type"
+msgstr "能源站类型"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_station_address
+msgid "Station address"
+msgstr "地址"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_station_type
+msgid "Station type"
+msgstr "能源站类型"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.energy_station_form
+msgid "Station's Name"
+msgstr "能源站名称"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.energy_station_form
+msgid "Station's No"
+msgstr "能源站编号"
+
+#. module: energy_management
+#: model:res.groups,name:energy_management.energy_management_stationmaster
+msgid "Stationmaster"
+msgstr "站长"
+
+#. module: energy_management
+#: selection:energy.pile,state:0 selection:energy.station,state:0
+#: selection:energy.usage_record,state:0 selection:stock.location,state:0
+msgid "Stop"
+msgstr "归档"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_department_id
+msgid "Subordinate unit"
+msgstr "隶属部门"
+
+#. module: energy_management
+#: selection:energy.station,station_property:0
+msgid "Supplier"
+msgstr "供应商"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_station_tab_date
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_station_tab_date
+msgid "Tab date"
+msgstr "制表日期"
+
+#. module: energy_management
+#: model:ir.model.fields,help:energy_management.field_energy_pile_image
+#: model:ir.model.fields,help:energy_management.field_energy_station_image
+msgid "This field holds the image used as photo for the employee, limited to 1024x1024px."
+msgstr "这个字段保存员工的照片，限制为 1024x1024px"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_total_price
+msgid "Total Price"
+msgstr "使用总价"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.energy_pile_kanban
+#: model:ir.ui.view,arch_db:energy_management.energy_station_kanban
+msgid "Unread Messages"
+msgstr "未读消息"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_usage_record_ids
+msgid "Usage Record Ids"
+msgstr "Usage Record Ids"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.energy_pile_form
+#: model:ir.ui.view,arch_db:energy_management.energy_station_form
+msgid "Usage record"
+msgstr "使用记录"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_pile_usage_record_ids
+msgid "Usage record ids"
+msgstr "Usage record ids"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_user_use
+msgid "User Use"
+msgstr "人员"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_vehicle_id
+msgid "Vehicle Id"
+msgstr "车辆编号"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.usage_record_form
+msgid "Vehicle information"
+msgstr "车辆信息"
+
+#. module: energy_management
+#: model:ir.ui.menu,name:energy_management.warehouse_location
+msgid "Warehouse location"
+msgstr "库位管理"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_working_mileage
+msgid "Working Mileage"
+msgstr "运营里程"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_working_oil_wear
+msgid "Working Oil Wear "
+msgstr "运营油耗"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.security_check_form
+msgid "auditing_to_complete"
+msgstr "审批通过"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.security_check_form
+msgid "auditing_to_refer"
+msgstr "返回重审"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.security_check_form
+msgid "draft_to_refer"
+msgstr "确定提交"
+
+#. module: energy_management
+#: model:ir.actions.act_window,name:energy_management.aw_energy_pile
+msgid "energy_pile window"
+msgstr "能源桩"
+
+#. module: energy_management
+#: model:ir.actions.act_window,name:energy_management.aw_energy_station
+msgid "energy_station window"
+msgstr "能源站"
+
+#. module: energy_management
+#: model:ir.actions.act_window,name:energy_management.aw_energy_usage_record
+#: model:ir.actions.act_window,name:energy_management.aw_energy_usage_record_inherit
+msgid "energy_usage_record window"
+msgstr "能源使用记录"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_energy_usage_record_ids
+msgid "energy_usage_record_ids"
+msgstr "energy_usage_record_ids"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.energy_pile_form
+#: model:ir.ui.view,arch_db:energy_management.energy_station_form
+#: model:ir.ui.view,arch_db:energy_management.location_form
+#: model:ir.ui.view,arch_db:energy_management.usage_record_form
+msgid "normal"
+msgstr "正常"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.security_check_form
+msgid "refer_to_auditing"
+msgstr "审核通过"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.security_check_form
+msgid "refer_to_draft"
+msgstr "返回重做"
+
+#. module: energy_management
+#: model:ir.model.fields,field_description:energy_management.field_energy_station_security_check
+msgid "security_check"
+msgstr "安全检查项"
+
+#. module: energy_management
+#: model:ir.actions.act_window,name:energy_management.aw_security_check
+msgid "security_check window"
+msgstr "安全检查"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.energy_pile_form
+#: model:ir.ui.view,arch_db:energy_management.energy_station_form
+#: model:ir.ui.view,arch_db:energy_management.location_form
+#: model:ir.ui.view,arch_db:energy_management.usage_record_form
+msgid "stop"
+msgstr "归档"
+
+#. module: energy_management
+#: model:ir.ui.view,arch_db:energy_management.vehicle_usage_records_form
+msgid "vehicle_usage_record"
+msgstr "能源记录"
+
+#. module: energy_management
+#: model:ir.actions.act_window,name:energy_management.aw_warehouse_location
+msgid "warehouse_location window"
+msgstr "库位"

@@ -1,0 +1,74 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="security_check_table_list">
+            <field name="name">security_manage list</field>
+            <field name="model">security_manage.check_table</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="remarks"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="security_check_table_form">
+            <field name="name">security_manage list</field>
+            <field name="model">security_manage.check_table</field>
+            <field name="arch" type="xml">
+                <form string="Idea form">
+                    <header>
+                        <button name="action_to_draft" type="object"
+                                string="Reset to draft"
+                                states="execute,archive"/>
+                        <button name="action_execute" type="object"
+                                string="Confirm" states="draft"
+                                class="oe_highlight"/>
+                        <button name="action_archive" type="object"
+                                string="Mark as done" states="execute"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_title">
+                           <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="check_table"/>
+                            </h1>
+                        </div>
+
+                        <group name="group_top">
+                            <group name="group_left">
+                                <!--<separator string="General stuff" colspan="2"/>-->
+                                <field name="responser" options="{'no_open':True,'no_create':True}"/>
+                                <field name="check_type"/>
+                            </group>
+                            <group name="group_right">
+                                <!--<separator string="Dates" colspan="2"/>-->
+                                <field name="parent_company" options="{'no_open':True,'no_create':True}"/>
+                                <field name="remarks"/>
+                                <!--<field name="invent_date" readonly="1"/>-->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="plan_detail" string="plan_detail">
+                                <field name="plan_detail">
+                                    <tree string="plan_detail" editable='bottom'>
+                                        <field name="item_id"/>
+                                        <field name="check_item_name"/>
+                                        <field name="check_content"/>
+                                        <field name="check_standards"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

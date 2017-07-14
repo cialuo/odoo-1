@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- 车辆生命视图tree视图 -->
+        <record id='vehicle_life_cycle_tree' model='ir.ui.view'>
+            <field name="name">vehicle life cycle tree</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false">
+                    <field name="active" invisible="1"/>
+                    <field name="license_plate"/>
+                    <field name="inner_code"/>
+                    <field name="company_id"/>
+                    <field name="route_id"/>
+                    <field name="annual_inspection_date"/>
+                    <field name="vehicle_life_state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="vehicle_life_cycle_form" model="ir.ui.view">
+            <field name="name">vehicle life cycle form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="arch" type="xml">
+                <form create="false" delete="false">
+                    <header>
+                        <button name="action_operation"
+                                vehicle_life_state="invest_period"
+                                string="Invest operation"
+                                type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible':[('vehicle_life_state', '!=', 'invest_period')]}"
+                                />
+                        <button name="action_scrap"
+                                vehicle_life_state="operation_period"
+                                string="Scrap" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible':[('vehicle_life_state', '!=', 'operation_period')]}"
+                                />
+                        <field name="vehicle_life_state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="return_action_to_open"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-tachometer"
+                                    attrs="{'invisible': [('total_odometer', '=', 0)]}"
+                                    context="{'xml_id':'fleet_vehicle_odometer_action'}"
+                                    help="show the odometer logs for this vehicle">
+                                <field name="total_odometer" widget="statinfo" string="Odometer"/>
+                            </button>
+                        </div>
+                        <field name="image_medium" widget='image' class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="inner_code" class="oe_edit_only"/>
+                            <h1>
+                                <field name="inner_code" readonly="1"/>
+                            </h1>
+                            <label for="license_plate" class="oe_edit_only"/>
+                            <h2>
+                                <field name="license_plate" class="oe_inline" readonly="1"/>
+                            </h2>
+                        </div>
+
+                        <group>
+                            <notebook>
+                                <page string="Investment period cost">
+                                    <field name="investment_ids" >
+                                        <tree string="Inspect Return Records" create="false" delete="false" editable='bottom'>
+                                            <field name="cost_type" readonly="1"/>
+                                            <field name="cost_amount" attrs="{'required':[('is_required','=','Yes')]}" sum="total_amount"/>
+                                            <field name="cost_name"/>
+                                            <field name="occurrence_time"/>
+                                            <field name="is_required" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </page>
+
+                                <!--<page string="Operation period cost" name="operation_cost_page">-->
+
+                                <!--</page>-->
+                                <!--<page string="Operation period income" name="operation_income_page">-->
+
+                                <!--</page>-->
+                            </notebook>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 投入期费用 -->
+        <record id="investment_period_cost_tree" model="ir.ui.view">
+            <field name="name">investment period cost tree</field>
+            <field name="model">investment_cost</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="cost_type"/>
+                    <field name="cost_amount"/>
+                    <field name="cost_name"/>
+                    <field name="occurrence_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="investment_period_cost_form" model="ir.ui.view">
+            <field name="name">investment period cost form</field>
+            <field name="model">investment_cost</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="cost_type"/>
+                                <field name="cost_amount"/>
+                            </group>
+                            <group>
+                                <field name="cost_name"/>
+                                <field name="occurrence_time"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- 车辆生命周期Action -->
+        <record id="vehicle_life_cycle_act" model="ir.actions.act_window">
+            <field name="name">Vehicle life cycle</field>
+            <field name="res_model">fleet.vehicle</field>
+            <field name="view_type">form</field>
+            <field name="view_model">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('vehicle_life_cycle_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('vehicle_life_cycle_form')})
+                ]"/>
+        </record>
+
+        <!-- 费用类型设置Action -->
+        <record id="cost_type_set_act" model="ir.actions.act_window">
+            <field name="name">Cost type set</field>
+            <field name="res_model">cost_type_set.cost_type_set</field>
+            <field name="view_model">tree,form</field>
+        </record>
+
+        <!-- 菜单 -->
+        <menuitem name="Vehicle life cycle"
+                  id="vehicle_life_cycle_menu"
+                  parent="vehicle_manage_menu.vehicle_use_manage"
+                  action="vehicle_life_cycle_act"
+                  sequence="20"
+                  groups="materials_product.base_extend_tech_user"/>/>
+    </data>
+</odoo>

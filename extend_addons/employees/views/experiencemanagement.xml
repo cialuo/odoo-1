@@ -1,0 +1,302 @@
+<odoo>
+
+    <!--工作履历表单视图-->
+    <record id="employee_experience_form" model="ir.ui.view">
+        <field name="name">employee experience form</field>
+        <field name="model">hr.employee</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form  create="0" duplicate="0">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="department_id" readonly="1"/>
+                            <field name="workpost" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="jobnumber" readonly="1"/>
+                            <field name="mobile_phone" readonly="1"/>
+                            <field name="work_email" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="education experience">
+                            <field name="educationexperience">
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="school"/>
+                                            <field name="specialty"/>
+                                            <field name="degree"/>
+                                        </group>
+                                        <group>
+                                            <field name="education"/>
+                                            <field name="starttime"/>
+                                            <field name="endtime"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="trians experience">
+                            <field name="triansexperience">
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="trainorg"/>
+                                            <field name="course"/>
+                                            <field name="certificatename"/>
+                                        </group>
+                                        <group>
+                                            <field name="starttime"/>
+                                            <field name="endtime"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+
+                        <page string="work experience">
+                            <field name="workexperience">
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="starttime"/>
+                                            <field name="endtime"/>
+                                        </group>
+                                        <group>
+                                            <field name="post"/>
+                                            <field name="workinfo"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="rewards punishment">
+                            <field name="rewardspunishment">
+                                <form>
+                                    <group>
+                                        <field name="time"/>
+                                        <field name="type"/>
+                                        <field name="info"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="transfer record" >
+                            <field name="transferrecord" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 教育经历tree视图 -->
+    <record id="employee_expeirence_tree" model="ir.ui.view">
+        <field name="name">education experience tree</field>
+        <field name="model">employees.educationexperience</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="school"/>
+                <field name="specialty"/>
+                <field name="starttime"/>
+                <field name="endtime"/>
+                <field name="education"/>
+                <field name="degree"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 培训经历tree视图 -->
+    <record id="employee_triansexpeirence_tree" model="ir.ui.view">
+        <field name="name">trians experience tree</field>
+        <field name="model">employee.trainexperience</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="trainorg"/>
+                <field name="course"/>
+                <field name="starttime"/>
+                <field name="endtime"/>
+                <field name="certificatename"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 教育经历表单 -->
+    <record model="ir.ui.view" id="education_experience_form">
+        <field name="name">education experience form</field>
+        <field name="model">employees.educationexperience</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="employee_id" string="employee_id"/>
+                        <field name="school"/>
+                        <field name="specialty"/>
+                        <field name="degree"/>
+                    </group>
+                    <group>
+                        <field name="starttime"/>
+                        <field name="endtime"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- 工作经历tree视图 -->
+    <record id="work_expeirence_tree" model="ir.ui.view">
+        <field name="name">work experience tree</field>
+        <field name="model">employee.workexperience</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="starttime"/>
+                <field name="endtime"/>
+                <field name="post"/>
+                <field name="workinfo"/>
+            </tree>
+        </field>
+    </record>
+    <!-- 工作经历表单 -->
+    <record model="ir.ui.view" id="work_experience_form">
+        <field name="name">work experience form</field>
+        <field name="model">employee.workexperience</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="employee_id" string="employee_id"/>
+                        <field name="starttime"/>
+                        <field name="endtime"/>
+                    </group>
+                    <group>
+                        <field name="post"/>
+                        <field name="workinfo"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- 奖惩tree视图 -->
+    <record id="rewards_punishment_tree" model="ir.ui.view">
+        <field name="name">rewards punishment tree</field>
+        <field name="model">employee.rewardspunishment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="time"/>
+                <field name="type"/>
+                <field name="info"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 奖惩记录表单 -->
+    <record model="ir.ui.view" id="rewards_punishment_form">
+        <field name="name">rewards punishment form</field>
+        <field name="model">employee.rewardspunishment</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="employee_id" string="employee_id"/>
+                    <field name="time"/>
+                    <field name="type"/>
+                    <field name="info"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- 员工列表视图 工作履历页面 -->
+    <record id="experience_employee_tree" model="ir.ui.view">
+        <field name="name">employee tree list</field>
+        <field name="model">hr.employee</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="name"/>
+                <field name="work_phone"/>
+                <field name="work_email"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="department_id"/>
+                <field name="workpost"/>
+                <field name="title"/>
+                <field name="parent_id"/>
+                <field name="coach_id" invisible="1"/>
+                <field name="employeestate"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--工作履历action视图-->
+    <record model="ir.actions.act_window" id="employee_experience_management_action">
+        <field name="name">employee experience manage</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('experience_employee_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('employee_experience_form')})]"/>
+    </record>
+
+    <!--工作台账表单视图-->
+    <record id="employee_work_records_form" model="ir.ui.view">
+        <field name="name">employee experience form</field>
+        <field name="model">hr.employee</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0" delete="0" duplicate="0">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group string="traffic safety">
+                        <notebook name="top1notbook" >
+                        </notebook>
+                    </group>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--工作台账action视图-->
+    <record model="ir.actions.act_window" id="employee_work_records_action">
+        <field name="name">employee work records</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('experience_employee_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('employee_work_records_form')})]"/>
+    </record>
+
+    <!--工作履历-->
+    <menuitem id="employee_experience_menu" name="employee experience"
+              parent="employees_menu.ltyhr_employee_document_menu"
+              groups="hr.group_hr_user" />
+    <!--工作履历-->
+    <menuitem id="employee_experience_manage_menu" name="employee experience manage"
+              parent="employee_experience_menu"
+              action="employee_experience_management_action"
+              />
+
+    <!--个人工作台账-->
+    <menuitem id="employee_work_records_menu" name="employee work records"
+              parent="employee_experience_menu"
+              action="employee_work_records_action"/>
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="bidding_doc_form_view" model="ir.ui.view">
+            <field name="name">Bidding Doc Form</field>
+            <field name="model">bidding.doc</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                            </group>
+                            <group>
+                                <field name="create_uid" string="Bidding Create User" readonly="1"/>
+                                <field name="create_date" string="Bidding Create Date" readonly="1"/>
+                            </group>
+                        </group>
+                        <label for="attach_ids"/>
+                        <div>
+                            <field name="attach_ids" widget="many2many_binary" string="Attach a file"
+                                   class="oe_inline"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="bidding_doc_tree_view" model="ir.ui.view">
+            <field name="name">Bidding Doc Tree</field>
+            <field name="model">bidding.doc</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="create_date" string="Bidding Create Date"/>
+                    <field name="create_uid" string="Bidding Create User"/>
+                </tree>
+            </field>
+        </record>
+        <record id="bidding_doc_search_view" model="ir.ui.view">
+            <field name="name">Bidding Doc Search</field>
+            <field name="model">bidding.doc</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>
+        <act_window id="action_bidding_doc" res_model="bidding.doc" view_mode="tree,form" name="Bidding Doc"/>
+        <menuitem id="menu_bidding_doc"
+                  action="action_bidding_doc"
+                  parent="materials_menu.materials_menu_purchase"
+                  sequence="25"
+        />
+    </data>
+</odoo>

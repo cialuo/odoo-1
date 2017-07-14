@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--supplier order base form tree-->
+        <record id="view_supplier_order_form" model="ir.ui.view">
+            <field name="name">Supplier Order Form</field>
+            <field name="model">supplier.order</field>
+            <field name="arch" type="xml">
+                <form string="Supplier Order">
+                    <header>
+                        <button name="action_submit" states="draft" type="object" string="Submit"/>
+                        <button name="action_done" type="object" class="oe_highlight" states="submitted" string="Action Done" groups="purchase.group_purchase_manager"/>
+                        <field name="state" widget="statusbar" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <!--<label string="Supplier Order"/>-->
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id" options="{'no_open': True, 'no_create': True}" domain="[('supplier', '=', True)]"/>
+                                <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="user_id" invisible="1"/>
+                                <field name="assign_user" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="create_date" string="Date" readonly="1"/>
+                                <field name="ref"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Order lines">
+                                <field name="line_ids">
+                                    <tree editable="top">
+                                        <field name="product_id" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="categ_id" readonly="1"/>
+                                        <field name="qty"/>
+                                        <field name="price_unit"/>
+                                        <field name="uom_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_supplier_order_tree" model="ir.ui.view">
+            <field name="name">Supplier Order Tree</field>
+            <field name="model">supplier.order</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="create_date" string="Date"/>
+                    <field name="partner_id"/>
+                    <field name="employee_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <!--search view for product supplier-->
+        <record id="view_supplier_order_search" model="ir.ui.view">
+            <field name="name">supplier order search</field>
+            <field name="model">supplier.order</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="partner_id"/>
+                    <group>
+                        <filter string="Employee" domain="[]" context="{'group_by': 'employee_id'}"/>
+                        <filter string="Partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <act_window id="action_supplier_order" res_model="supplier.order" name="Supplier Order" view_mode="tree,form"/>
+        <menuitem id="menu_supplier_order" action="action_supplier_order" parent="materials_menu.materials_menu_purchase" sequence="27"/>
+    </data>
+</odoo>

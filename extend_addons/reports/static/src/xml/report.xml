@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<template xml:space="preserve">
+
+    <t t-name="search">
+
+        <div>
+            <table>
+                <tr>
+                    <td><span>能源类型:</span></td>
+                    <td><input id="type" type="text" value="powerPile"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button class="btn_chaxun">查询</button></td>
+                </tr>
+            </table>
+        </div>
+
+    </t>
+
+    <t t-name="RoportTest">
+        <div>
+            <iframe id="report" src="" width="100%" height="925"></iframe>
+        </div>
+        <script type="text/javascript">
+            var type = document.getElementById("type").value;
+            var Url = "http://127.0.0.1:8080/jasperserver/flow.html?_flowId=viewReportFlow&amp;_flowId=viewReportFlow&amp;ParentFolderUri=%2Freports%2Finteractive&amp;reportUnit=%2Freports%2Finteractive%2Fodoo_nengyuan&amp;standAlone=true&amp;j_username=jasperadmin&amp;j_password=jasperadmin&amp;selectType=1&amp;type="+type
+            window.frames['report'].src =Url;
+        </script>
+    </t>
+</template>

@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_product_tech_user,product.product.tech.user,model_product_product,base_extend_tech_user,1,1,1,0
+access_product_template_tech_user,product.template.tech.user,product.model_product_template,base_extend_tech_user,1,1,1,0
+accesee_product_category_tech_user,product.category.tech.user,model_product_category,base_extend_tech_user,1,1,1,0
+access_product_tech_info_tech_user,product.tech.info.tech.user,model_product_tech_info,base_extend_tech_user,1,1,1,1
+access_tech_info_sale_user,tech_info_sale_user,model_product_tech_info,purchase.group_purchase_user,1,1,1,0
+access_tech_info_stock_user,tech_info_stock_user,model_product_tech_info,stock.group_stock_user,1,1,1,0
+access_purchase_report_stock_user,purchase_report_stock_user,purchase.model_purchase_report,stock.group_stock_user,1,1,1,0
+access_purchase_report_tech_user,purchase_report_tech_user,purchase.model_purchase_report,base_extend_tech_user,1,1,1,0
+access_stock_move_tech_user,stock.move.tech.user,stock.model_stock_move,base_extend_tech_user,1,1,1,0
+access_stock_warehouse_orderpoint_tech_user,stock.warehouse.orderpoint.tech.user,stock.model_stock_warehouse_orderpoint,base_extend_tech_user,1,1,1,0
+access_stock_location_tech_user,stock_location.tech_user,stock.model_stock_location,base_extend_tech_user,1,1,1,0

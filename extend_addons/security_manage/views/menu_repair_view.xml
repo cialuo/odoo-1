@@ -1,0 +1,95 @@
+<openerp>
+    <data>
+
+        <!--二级菜单 维修质量安全管理 action-->
+        <record model="ir.actions.act_window" id="act_repair_quality">
+            <field name="name">repair_quality menu</field>
+            <field name="res_model">srp.repair_quality</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--二级菜单 维修车间现场安全管理 action-->
+        <record model="ir.actions.act_window" id="act_repair_site">
+            <field name="name">repair_site menu</field>
+            <field name="res_model">srp.repair_site</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!--二级菜单 职业病管理 action-->
+        <record model="ir.actions.act_window" id="act_disease">
+            <field name="name">disease menu</field>
+            <field name="res_model">srp.disease</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!--二级菜单 生产现场位置分布图 action-->
+        <record model="ir.actions.act_window" id="act_produce_map">
+            <field name="name">produce_map menu</field>
+            <field name="res_model">srp.produce_map</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--二级菜单 生产现场危险源管理 action-->
+        <record model="ir.actions.act_window" id="act_source_of_danger">
+            <field name="name">source_of_danger menu</field>
+            <field name="res_model">srp.source_of_danger</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--二级菜单 生产安全技术措施管理 action-->
+        <record model="ir.actions.act_window" id="act_safety_tec_manage">
+            <field name="name">safety_manage menu</field>
+            <field name="res_model">srp.safety_manage</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--二级菜单 安全应急预案管理 action-->
+        <record model="ir.actions.act_window" id="act_emergency_plan">
+            <field name="name">emergency_plan menu</field>
+            <field name="res_model">srp.emergency_plan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!--二级菜单 维修质量安全管理-->
+        <menuitem name="repair quality security manage" id="repair_quality_second_menu"
+                  parent="security_manage_menu.repair_produce_first_menu"
+                  groups="archives_group_browser"
+                  action="act_repair_quality" sequence="10"/>
+
+        <!--二级菜单 维修车间现场安全-->
+        <menuitem name="repair site security manage" id="repair_site_second_menu"
+                  parent="security_manage_menu.repair_produce_first_menu"
+                  groups="archives_group_browser"
+                  action="act_repair_site" sequence="20"/>
+
+        <!--二级菜单 职业病管理-->
+        <menuitem name="occupational disease manage" id="disease_second_menu"
+                  parent="security_manage_menu.repair_produce_first_menu"
+                  groups="archives_group_browser"
+                  action="act_disease" sequence="30"/>
+
+        <!--二级菜单 生产现场位置分布图-->
+        <menuitem name="produce field map" id="produce_map_second_menu"
+                  parent="security_manage_menu.repair_produce_first_menu"
+                  groups="archives_group_browser"
+                  action="act_produce_map" sequence="50"/>
+        <!--二级菜单 生产现场危险源管理-->
+        <menuitem name="produce field danger manage" id="source_of_danger_second_menu"
+                  parent="security_manage_menu.repair_produce_first_menu"
+                  groups="archives_group_browser"
+                  action="act_source_of_danger" sequence="60"/>
+
+        <!--二级菜单 生产安全技术措施管理-->
+        <menuitem name="produce safety  manage" id="safety_manage_second_menu"
+                  parent="security_manage_menu.repair_produce_first_menu"
+                  groups="archives_group_browser"
+                  action="act_safety_tec_manage" sequence="70"/>
+
+        <!--二级菜单 安全应急预案管理-->
+        <menuitem name="safety emergency plan manage" id="emergency_plan_second_menu"
+                  parent="security_manage_menu.repair_produce_first_menu"
+                  groups="archives_group_browser"
+                  action="act_emergency_plan"  sequence="80"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+
+    <!--
+
+           物资管理:
+
+            写入物资的能源标记
+
+    -->
+    <record model = "ir.ui.view" id = "energy_management.inherit_product_form">
+        <field name = "name" >energy_management_product form</field >
+        <field name = "model" >product.product</field >
+        <field name = "inherit_id" ref = "materials_product.materials_manage_important_product_form"/>
+        <field name = "arch" type = "xml" >
+
+            <xpath expr="//div[@name='options']/div" position="inside">
+                <div>
+                    <field name="is_important"/>
+                    <label for="is_important"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@name='options']" position="inside">
+                <div class="col-sm-6">
+                    <field name="important_type" widget="radio" attrs="{'invisible': [('is_important', '=', False)]}"/>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+</data>
+</odoo>

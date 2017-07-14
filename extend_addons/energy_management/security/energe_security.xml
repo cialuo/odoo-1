@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+
+        <record id="energy_management_group" model="ir.module.category">
+            <field name="name">Energy Management</field>
+            <field name="sequence">21</field>
+        </record>
+
+        <record id="energy_management_oiler" model="res.groups">
+            <field name="name">Oiler</field>
+            <field name="category_id" ref="energy_management_group"/>
+        </record>
+
+
+        <record id="energy_management_stationmaster" model="res.groups">
+            <field name="name">Stationmaster</field>
+            <field name="category_id" ref="energy_management_group"/>
+            <field name="implied_ids" eval="[(4, ref('energy_management_oiler')),(4, ref('security_vehicle_check.security_check_entering'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+
+    </data>
+</odoo>

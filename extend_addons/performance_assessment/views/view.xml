@@ -1,0 +1,362 @@
+<odoo>
+
+    <!--考核指标编辑表单-->
+    <record id="performance_checking_indicator_form" model="ir.ui.view">
+        <field name="name">performance checking indicator form</field>
+        <field name="model">performance.indicator</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="indicatorcode"/>
+                            <field name="create_date" readonly="1"/>
+                            <field name="highestscore"/>
+                        </group>
+                        <group>
+                            <field name="creator" readonly="1"/>
+                            <field name="indicatortype"/>
+                            <field name="lowest_score"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="standardofgrading"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 考核指标库tree视图 -->
+    <record model="ir.ui.view" id="checking_indicator_tree">
+        <field name="name">checking indicator tree</field>
+        <field name="model">performance.indicator</field>
+        <field name="arch" type="xml">
+            <tree string="Course Tree">
+                <field name="indicatorcode"/>
+                <field name="name"/>
+                <field name="highestscore"/>
+                <field name="lowest_score"/>
+                <field name="creator"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 考核指标库action页面 -->
+    <record model="ir.actions.act_window" id="performance_checking_indicator_action">
+        <field name="name">checking indicator</field>
+        <field name="res_model">performance.indicator</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--考核表编辑表单-->
+    <record id="performance_checking_table_form" model="ir.ui.view">
+        <field name="name">performance checking table form</field>
+        <field name="model">performance.checkingtable</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tablecode"/>
+                            <field name="cycletype" />
+                            <field name="department_id"  options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="post_id" options="{'no_open': True, 'no_create': True}" domain="[('department','=',department_id)]"/>
+                            <field name="creator" readonly="1"/>
+                            <field name="create_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="checking indicator">
+                            <field name="indicators">
+                                <tree>
+                                    <field name="indicator_code"/>
+                                    <field name="indicator_name"/>
+                                    <field name="indicator_standardofgrading"/>
+                                    <field name="weight"/>
+                                    <field name="judge"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 考核表tree视图 -->
+    <record model="ir.ui.view" id="checking_table_tree">
+        <field name="name">checking table tree</field>
+        <field name="model">performance.checkingtable</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="tablecode"/>
+                <field name="name"/>
+                <field name="cycletype"/>
+                <field name="department_id"/>
+                <field name="post_id"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 考核表action页面 -->
+    <record model="ir.actions.act_window" id="performance_checking_table_action">
+        <field name="name">checking table</field>
+        <field name="res_model">performance.checkingtable</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--考核表指标编辑表单-->
+    <record id="performance_checkingtable_indicator_form" model="ir.ui.view">
+        <field name="name">performance checking table indicator form</field>
+        <field name="model">performance.indecatorfortable</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="weight"/>
+                        <field name="judge" widget="many2many_tags"  options="{'no_open': True, 'no_create': True}"/>
+                        <field name="indicator_id"/>
+                        <field name="indicator_code"/>
+                        <field name="indicator_name"/>
+                        <field name="indicator_standardofgrading"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- 考核管理tree视图 -->
+    <record model="ir.ui.view" id="checking_tree">
+        <field name="name">checking tree</field>
+        <field name="model">perf.checking</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="checkingcode"/>
+                <field name="table_id"/>
+                <field name="cycletype"/>
+                <field name="checkingcycle"/>
+                <field name="plandonetime"/>
+                <field name="state"/>
+                <field name="creator"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--考核管理编辑表单-->
+    <record id="performance_checking_form" model="ir.ui.view">
+        <field name="name">performance checking form</field>
+        <field name="model">perf.checking</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_checking" type="object"
+                            string="submit" states="draft"
+                            class="oe_highlight"/>
+                    <button name="action_done" type="object"
+                            string="checking done" states="cheking"
+                            groups="hr.group_hr_user"
+                            class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="checkingcode" class="oe_edit_only"/>
+                        <h1>
+                            <field name="checkingcode" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="plandonetime"/>
+                            <field name="creator" readonly="1"/>
+                            <field name="create_date" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="table_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="cycletype" />
+                            <field name="checkingcycle"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="checking indicator">
+                            <field name="indicators">
+                                <tree>
+                                    <field name="indicator_code" string="indicator code"/>
+                                    <field name="indicator_name" string="indicator name"/>
+                                    <field name="indicator_standardofgrading" string="indicator standardofgrading"/>
+                                    <field name="weight" string="indicator weight(%)"/>
+                                    <field name="judge" string="indicator judge"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="weight" string="indicator weight"/>
+                                            <field name="judge" widget="many2many_tags"
+                                                   options="{'no_open': True, 'no_create': True}" string="indicator judge"/>
+                                            <field name="indicator_id" string="indicator"/>
+                                            <field name="indicator_code" string="indicator code"/>
+                                            <field name="indicator_name" string="indicator name"/>
+                                            <field name="indicator_standardofgrading" string="indicator standardofgrading"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="checking employees">
+                            <field name="employees">
+                                <tree open="0">
+                                    <field name="name"/>
+                                    <field name="department_id"/>
+                                    <field name="workpost"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="checking remarks">
+                            <field name="remark"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 考核管理action页面 -->
+    <record model="ir.actions.act_window" id="performance_checking_action">
+        <field name="name">checking table</field>
+        <field name="res_model">perf.checking</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--邀请考核编辑表单-->
+    <record id="performance_invite_checking_form" model="ir.ui.view">
+        <field name="name">performance invite checking form</field>
+        <field name="model">perf.checkingresult</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_done" type="object"
+                            string="done checking" states="checking"
+                            class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="cycletype" readonly="1"/>
+                            <field name="checkingcycle" readonly="1"/>
+                            <field name="employee_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="department_id" readonly="1" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="post_id" readonly="1" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="checking indicator">
+                            <field name="indicators">
+                                <tree create="0" delete="0">
+                                    <field name="indicator_code"/>
+                                    <field name="indicator_name"/>
+                                    <field name="indicator_standardofgrading"/>
+                                    <field name="point"/>
+                                    <field name="judge"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="point"/>
+                                            <field name="judge" widget="many2many_tags" readonly="1"
+                                                   options="{'no_open': True, 'no_create': True}"/>
+                                            <field name="indicator_code"/>
+                                            <field name="indicator_name"/>
+                                            <field name="indicator_standardofgrading"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 邀请考核tree视图 -->
+    <record model="ir.ui.view" id="invite_checking_tree">
+        <field name="name">invite checking tree</field>
+        <field name="model">perf.checkingresult</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0">
+                <field name="employee_id"/>
+                <field name="cycletype"/>
+                <field name="checkingcycle"/>
+                <field name="post_id"/>
+                <field name="name"/>
+                <field name="totalpoint"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- 邀请考核action页面 -->
+    <record model="ir.actions.act_window" id="invite_checking_action">
+        <field name="name">invite checking</field>
+        <field name="res_model">perf.checkingresult</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'checking')]</field>
+    </record>
+
+    <!-- 考核结果action页面 -->
+    <record model="ir.actions.act_window" id="checking_result_action">
+        <field name="name">checking result</field>
+        <field name="res_model">perf.checkingresult</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'checkingdone')]</field>
+    </record>
+
+    <!-- 考核管理 -->
+    <menuitem id="performance_checking_menu" name="performance checking menu"
+              parent="employees_menu.performance_checking_system" action="performance_checking_action" sequence="10"/>
+
+    <!-- 邀请考核 -->
+    <menuitem id="invite_checking_menu" name="invite checking menu"
+              parent="employees_menu.performance_checking_system" action="invite_checking_action" sequence="20"/>
+
+    <!-- 考核指标库 -->
+    <menuitem id="performance_indicator_menu" name="performance indicators menu"
+              parent="employees_menu.performance_checking_system" action="performance_checking_indicator_action" sequence="30"/>
+
+    <!-- 考核表管理 -->
+    <menuitem id="performance_checking_table_menu" name="performance checking table menu"
+              parent="employees_menu.performance_checking_system" action="performance_checking_table_action" sequence="40"/>
+
+    <!-- 考核结果 -->
+    <menuitem id="checking_result_menu" name="checking result menu"
+              parent="employees_menu.performance_checking_system" action="checking_result_action" sequence="50"/>
+
+</odoo>

@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <!--技术机务员-->
+        <record id="materials_product.base_extend_tech_user" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('maintenance.group_equipment_manager'))]"/>
+        </record>
+
+
+        <!--司机只能看到自己的抢修交接单-->
+        <record id="maintain_delivery_order_driver" model="ir.rule">
+            <field name="name">Driver can only see his/her delivery_order</field>
+            <field name="model_id" ref="model_vehicle_equipment_delivery"/>
+            <field name="groups" eval="[(4, ref('vehicle_group.vehicle_driver'))]"/>
+            <field name="domain_force">[('report_user_id.user_id','=',user.id)]</field>
+        </record>
+
+        <!--司机只能看到自己的维保交接单-->
+        <record id="rule_warranty_handover_order_driver" model="ir.rule">
+            <field name="name">Driver can only see his/her warranty_handover_order</field>
+            <field name="model_id" ref="model_warranty_handover_order"/>
+            <field name="groups" eval="[(4, ref('vehicle_group.vehicle_driver'))]"/>
+            <field name="domain_force">[('create_sheet_user.user_id','=',user.id)]</field>
+        </record>
+
+    </data>
+</odoo>

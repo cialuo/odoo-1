@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="move_picking_component_form_extend" model="ir.ui.view">
+            <field name="name">move picking form extend</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_uom_qty']" position="after">
+                    <field name="component_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

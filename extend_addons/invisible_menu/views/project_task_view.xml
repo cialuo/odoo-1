@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_task_partner_info_form_extend" model="ir.ui.view">
+            <field name="name">partner task button</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="project.view_task_partner_info_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@icon='fa-tasks']" position="attributes">
+                    <attribute name="groups">invisible_menu.invisible_menu_group</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

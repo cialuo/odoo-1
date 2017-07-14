@@ -1,0 +1,144 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* revenue
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-24 06:40+0000\n"
+"PO-Revision-Date: 2017-05-24 06:40+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: revenue
+#: model:res.groups,name:revenue.banknote_counter
+msgid "Banknote counter"
+msgstr "点钞员"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_chartered_revenue
+msgid "Chartered income（CNY）"
+msgstr "包车收入（元）"
+
+#. module: revenue
+#: model:ir.actions.act_window,name:revenue.act_chartered_revenue
+#: model:ir.ui.menu,name:revenue.menu_chartered_revenue
+msgid "Chartered revenue management"
+msgstr "包车收入管理"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_coin_revenue
+msgid "Coin income（CNY）"
+msgstr "投币收入（元）"
+
+#. module: revenue
+#: model:ir.actions.act_window,name:revenue.act_coin_revenue
+#: model:ir.ui.menu,name:revenue.menu_coin_revenue
+msgid "Coin revenue management"
+msgstr "投币收入管理"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_c_date
+msgid "Date"
+msgstr "日期"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: revenue
+#: model:ir.actions.act_window,name:revenue.act_ic_revenue
+#: model:ir.ui.menu,name:revenue.menu_ic_revenue
+msgid "IC card revenue management"
+msgstr "IC卡收入管理"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_ic_revenue
+msgid "IC income（CNY）"
+msgstr "IC卡收入（元）"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_id
+msgid "ID"
+msgstr "ID"
+
+#. module: revenue
+#: model:ir.actions.act_window,name:revenue.act_total_revenue
+#: model:ir.ui.menu,name:revenue.menu_total_revenue
+msgid "Integrated revenue management"
+msgstr "营收综合管理"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_license_plate
+#: model:ir.model.fields,help:revenue.field_total_revenue_license_plate
+msgid "License plate"
+msgstr "车牌"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_remark
+msgid "Remark"
+msgstr "备注"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_route_id
+msgid "Route"
+msgstr "线路"
+
+#. module: revenue
+#: code:addons/revenue/models/revenue.py:36
+#: sql_constraint:total_revenue:0
+#, python-format
+msgid "The data must be unique!"
+msgstr "该车在该日期已经存在数据了!"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_total_income
+msgid "Total Income（CNY）"
+msgstr "合计营收（元）"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_vehicle_id
+msgid "Vehicle id"
+msgstr "车辆编码"
+
+#. module: revenue
+#: model:ir.model.fields,field_description:revenue.field_total_revenue_driver_ids
+msgid "driver"
+msgstr "司机"
+
+#. module: revenue
+#: model:ir.model,name:revenue.model_total_revenue
+msgid "total_revenue"
+msgstr "营收"
+

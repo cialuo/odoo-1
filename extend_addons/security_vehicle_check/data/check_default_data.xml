@@ -1,0 +1,23 @@
+<openerp>
+    <data>
+        <record id="vehicle_front_check_data" model="security_manage.check_table">
+            <field name="name">车辆出车前检查</field>
+        </record>
+
+        <record id="vehicle_everyday_check_data" model="security_manage.check_table">
+            <field name="name">每日安全专项检查</field>
+        </record>
+
+        <record id="vehicle_special_check_data" model="security_manage.check_table">
+            <field name="name">安全技术专项抽查</field>
+        </record>
+
+        <record id="vehicle_abarbeitung_check_data" model="security_manage.check_table">
+            <field name="name">车辆专项整改检查</field>
+        </record>
+
+        <record id="vehicle_detection_check_model_data" model="security_manage.check_table">
+            <field name="name">检测线上线检查</field>
+        </record>
+    </data>
+</openerp>
