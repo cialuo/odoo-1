@@ -85,7 +85,10 @@
                             <field name="maker" readonly="1"/>
                             <field name="approver" readonly="1"/>
                             <field name="approvaldate" readonly="1"/>
+                            <!-- ERP-340 移除过滤
                             <field name="branchcompany" options="{'no_open': True, 'no_create': True}" domain="[('departmenttype','=','branch')]"/>
+                            -->
+                            <field name="branchcompany" options="{'no_open': True, 'no_create': True}"/>
                         </group>
                     </group>
                     <notebook>
