@@ -271,19 +271,19 @@
         <!-- 调度参数管理——Menu -->
         <menuitem id="menu_region"
                   name="Regional management"
-                  parent="operation_menu.schedule_menu"
+                  parent="dispatch_monitor_menu.opertation_resources_menu"
                   action="act_region" groups="scheduling_parameters.operation_manager"/>
         <menuitem id="menu_road"
                   name="Road management"
-                  parent="operation_menu.schedule_menu"
+                  parent="dispatch_monitor_menu.opertation_resources_menu"
                   action="act_road_manage" groups="scheduling_parameters.operation_manager"/>
         <menuitem id="menu_station"
                   name="Platform management"
-                  parent="operation_menu.schedule_menu"
+                  parent="dispatch_monitor_menu.opertation_resources_menu"
                   action="act_station_manage" groups="scheduling_parameters.operation_manager"/>
         <menuitem id="menu_route"
                   name="Line management"
-                  parent="operation_menu.schedule_menu"
+                  parent="dispatch_monitor_menu.opertation_resources_menu"
                   action="act_route_manage" groups="scheduling_parameters.operation_manager"/>
     </data>
 </odoo>
