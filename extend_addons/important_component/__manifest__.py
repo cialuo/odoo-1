@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': '重要部件',
-    'version': '1.0',
+    'version': '1.1',
     'category': 'Optional Edition',
     'summary': '重要部件管理',
     'author': 'Xiao',
