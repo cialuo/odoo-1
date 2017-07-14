@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 
+
 class course(models.Model):
 
      _name = 'employees_growth.course'
@@ -15,7 +16,7 @@ class course(models.Model):
      """
      name = fields.Char(string='Name',required=True)
 
-     course_no = fields.Char(string='Course no')
+     course_no = fields.Char(string='Course no',required=True)
 
      course_type = fields.Many2one('employees_growth.course_type',string='Course type',required=True)
 

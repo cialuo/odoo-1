@@ -105,6 +105,24 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         result.message_post(body=_('%s has been added to the plan!') % (result.name,))
         return result
 
+    @api.multi
+    def copy(self, default=None):
+        # self.ensure_one()
+        # default = dict(default or {}, name=_('%s (copy)') % self.name)
+        #
+        # new_plan_order_ids = []
+        #
+        # for plan_order in self.plan_order_ids:
+        #     new_plan_order_ids.append(plan_order.copy({'res_model': 'warranty_plan_order', 'res_id': plan_order.id}).id) # , 'res_id': wizard.id
+        #
+        # self.write({'plan_order_ids': [(6, 0, new_plan_order_ids)]})
+        self.ensure_one()
+        default = dict(default or {}, name=_('%s (copy)') % self.name)
+        res = super(WarrantyPlan, self).copy(default)
+        for line in self.plan_order_ids:
+            line.copy({'parent_id': res.id, 'maintain_sheet_id': '', 'state': 'draft'}) #
+        return res
+
 
 class WizardWarrantyPlan(models.TransientModel): # 自动生成保养计划
     _name = "wizard_warranty_plan"

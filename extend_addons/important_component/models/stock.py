@@ -56,13 +56,37 @@ class StockMove(models.Model):
                 """
                 vals = {}
                 vals['location_id'] = move.picking_id.location_dest_id.id
+                job_users = move.picking_id.repair_id.job_ids.mapped('user_id').ids
                 if move.picking_id and move.picking_id.location_dest_id.is_vehicle:
                     vals['state'] = 'inuse'
                     vals['parent_vehicle'] = move.picking_id.repair_id.vehicle_id.id or move.picking_id.warranty_order_id.vehicle_id.id
+
+                    #更新车辆使用档案中的信息，新部件安装信息
+                    for com in move.component_ids:
+                        dismantle_obj = self.env['dismantle.component']
+                        dismantle_vals = {
+                            'component_id': com.id,
+                            'install_type': 'repair',
+                            'install_date': fields.Date.today(),
+                            'vehicle_id': vals['parent_vehicle'],
+                            'install_user': [(6,0,job_users)],
+                        }
+                        dismantle_obj.create(dismantle_vals)
                 location_old = self.env.ref('stock_picking_types.stock_location_old_to_new')
                 if move.picking_id and move.picking_id.location_dest_id == location_old:
                     vals['state'] = 'waiting_repare'
                     vals['parent_vehicle'] = None
+                    # 更新车辆使用档案中的信息，原部件拆卸信息更新
+                    for com in move.component_ids:
+                        dismantle = self.env['dismantle.component'].search([('component_id', '=', com.id)])
+                        dismantle_vals = {
+                            'dismantle_type': 'fault',
+                            'dismantle_date': fields.Date.today(),
+                            #增加里程数，无计算公式
+                            # 'operate_mileage':
+                            'dismantle_user': [(6,0,job_users)],
+                        }
+                        dismantle.write(dismantle_vals)
                 move.component_ids.write(vals)
         return res
 

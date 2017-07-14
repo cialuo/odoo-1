@@ -7,13 +7,14 @@
             <field name="name">security.vehicle_detection_check.tree</field>
             <field name="model">security.vehicle_detection_check</field>
             <field name="arch" type="xml">
-                <tree string="vehicle detection check list">
+                <tree>
                     <field name="vehicle_id"/>
                     <field name="plate"/>
                     <field name="route"/>
                     <field name="checkout_date"/>
                     <field name="inspector"/>
                     <field name="vehicle_manager"/>
+                    <field name="state"/>
                     <field name="check_result"/>
 
                 </tree>
@@ -25,7 +26,7 @@
             <field name="name">security.vehicle_detection_check.form</field>
             <field name="model">security.vehicle_detection_check</field>
             <field name="arch" type="xml">
-                <form string="vehicle detection check">
+                <form string="vehicle detection check" duplicate="0">
                     <header>
                         <button name="action_done" type="object"
                                 string="vehicle_check_submit" states="draft"
@@ -58,7 +59,7 @@
                         <notebook>
                              <page name="vehicle_check_plan_details" string="plan_details">
                                 <field name="plan_details_id">
-                                    <tree string="plan_details" editable='bottom' create="false" delete="false">
+                                    <tree string="plan_details" editable='bottom' create="false" delete="false" open="false">
                                         <field name="item_id"/>
                                         <field name="check_item_name"/>
                                         <field name="check_content"/>

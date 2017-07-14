@@ -56,7 +56,7 @@
                         <notebook>
                             <page name="plan_detail" string="plan_detail">
                                 <field name="plan_detail">
-                                    <tree string="plan_detail" editable='bottom'>
+                                    <tree string="plan_detail" editable='bottom' open="false">
                                         <field name="item_id"/>
                                         <field name="check_item_name"/>
                                         <field name="check_content"/>

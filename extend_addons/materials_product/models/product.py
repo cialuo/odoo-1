@@ -22,7 +22,7 @@ class Product(models.Model):
     odometer = fields.Float(string='Odometer')
     parent_id = fields.Many2one('product.product', string='Parent Product')
     inter_code = fields.Char(string='Inter Code')
-    default_code = fields.Char(compute='_compute_default_code')
+    default_code = fields.Char(compute='_compute_default_code', search='_search_default_code')
     keeper_id = fields.Many2one('res.users', string='Keeper')
     shelf = fields.Char(string='Shelf')
     contract_price = fields.Float(string='Contract Price')
@@ -51,6 +51,17 @@ class Product(models.Model):
             if p.inter_code:
                 code = p.inter_code
             p.default_code = parent_code + categ_code + code
+
+    def _search_default_code(self, operator, value):
+        """
+        由于default_code 字段，之前的name search 方法不能筛选过滤产品。
+        后期如果会影响效率，则可把default_code 加个 store=True,则无需另写 search方法
+        :param operator: 
+        :param value: 
+        :return: 
+        """
+        products = self.env['product.product'].search([], limit=100).filtered(lambda x: value in x.default_code)
+        return [('id', 'in', products.ids)]
 
 class ProductCategory(models.Model):
     _inherit = 'product.category'

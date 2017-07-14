@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api,_
 import random
+import datetime
 
 class curriculum_schedule(models.Model):
 
@@ -15,7 +16,7 @@ class curriculum_schedule(models.Model):
      """
      name = fields.Char(string='Name',required=True)
 
-     curriculum_no = fields.Char(string='Curriculum no')
+     curriculum_no = fields.Char(string='Curriculum no',default='/',readonly=True)
 
      train_type = fields.Selection([('inside','Inside Train'),('external','External Train')],
                                    string='Train type',default='inside')
@@ -24,7 +25,7 @@ class curriculum_schedule(models.Model):
 
      course_type = fields.Many2one(string='Course type',related='course_id.course_type', store=True,readonly=True)
 
-     teacher_id = fields.Many2one('employees_growth.training_teacher',string='Teacher id',required=True)
+     teacher_id = fields.Many2one('employees_growth.training_teacher',string='Teacher id',required=True,domain=[('teacher_type','=','inside')])
 
      address = fields.Char(string='Curriculum address')
 
@@ -44,6 +45,37 @@ class curriculum_schedule(models.Model):
 
      students = fields.One2many('employees_growth.students','curriculum_schedule_id',string='Students')
 
+
+     def get_curriculum_no(self,vals):
+          """
+               选择课程时修改编号的值：
+                    所选课程的编码+年月日+01补位
+          :return:
+          """
+          curriculum_no = "/"
+          course = self.env['employees_growth.course'].search([('id','=',vals.get('course_id'))])
+
+          start_date =  fields.datetime.utcnow().strftime('%Y-%m-%d 00:00:00')
+          end_date = fields.datetime.utcnow().strftime('%Y-%m-%d 23:59:59')
+          domain = [('course_id','=',vals.get('course_id')),('create_date','>=',start_date),('create_date','<=',end_date)]
+          schedule = self.env['employees_growth.curriculum_schedule'].search(domain,limit=1, order="create_date desc")
+          if schedule:
+               if schedule.curriculum_no:
+                    index = schedule.curriculum_no[len(schedule.curriculum_no)-1:]
+                    if len(index) > 0 :
+
+                         index = int(index) + 1
+
+                         if len(str(index)) == 1:
+                              index = "0" + str(index)
+
+                         curriculum_no = course.course_no + fields.datetime.utcnow().strftime('%Y%m%d') + index
+                    else:
+                         curriculum_no = course.course_no + fields.datetime.utcnow().strftime('%Y%m%d') + "01"
+          else:
+               curriculum_no = course.course_no + fields.datetime.utcnow().strftime('%Y%m%d') + "01"
+
+          return curriculum_no
      @api.multi
      def sign_to_examination(self):
           self.state = 'examination'
@@ -161,6 +193,9 @@ class curriculum_schedule(models.Model):
          :param vals:
          :return:
          """
+
+         vals['curriculum_no'] = self.get_curriculum_no(vals)
+
          res = super(curriculum_schedule, self).create(vals)
          if (vals.has_key('time_arrangements') and len(vals.get('time_arrangements')) > 0) \
                  or (vals.has_key('students') and len(vals.get('students')) > 0):
@@ -206,7 +241,7 @@ class students(models.Model):
 
      _name = 'employees_growth.students'
      _description = 'Students'
-
+     _sql_constraints = [('check_students_unique', 'unique (curriculum_schedule_id,student_id)', u"存在相同的培训人员!")]
      """
           参加培训的人员：
                姓名，工号，部门

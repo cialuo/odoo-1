@@ -5,8 +5,8 @@ from odoo import models, fields, api, _
 
 class security_check_item(models.Model):
     _name = 'security_manage.check_item'
-    _sql_constraints = [('check_item_no_unique', 'unique (name)', u"编号已经存在!"),
-                        ('check_item_name_unique', 'unique (check_item_name)', u"名字已经存在!")]
+    _sql_constraints = [('check_item_no_unique', 'unique (name)', u"检查项目编号已存在!"),
+                        ('check_item_name_unique', 'unique (check_item_name)', u"检查项目名称已存在!")]
 
     name = fields.Char(string='check_id', required=True)
 

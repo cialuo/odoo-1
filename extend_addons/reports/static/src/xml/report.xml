@@ -3,28 +3,70 @@
 
     <t t-name="search">
 
-        <div>
-            <table>
-                <tr>
-                    <td><span>能源类型:</span></td>
-                    <td><input id="type" type="text" value="powerPile"/></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><button class="btn_chaxun">查询</button></td>
-                </tr>
-            </table>
-        </div>
+        <!--<div>-->
+            <!--<table>-->
+                <!--<tr>-->
+                    <!--<td><span>能源类型:</span></td>-->
+                    <!--<td><input id="type" type="text" value="powerPile"/></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td></td>-->
+                    <!--<td><button class="btn_chaxun">查询</button></td>-->
+                <!--</tr>-->
+            <!--</table>-->
+        <!--</div>-->
+
+        <!--<div class="container">-->
+            <!--<form action="" class="form-horizontal">-->
+                <!--<fieldset>-->
+                    <!--<legend>Test</legend>-->
+                    <!--<div class="o_datepicker o_form_field_date o_form_field drivelicensedata" >-->
+                        <!--<input class="o_datepicker_input o_form_input" type="text" name="drivelicensedata" >-->
+                            <!--<span class="o_datepicker_button"></span>-->
+                        <!--</input>-->
+                        <!--<input type="text" id="dtp_input4" value="" /><br/>-->
+                    <!--</div>-->
+
+                <!--</fieldset>-->
+            <!--</form>-->
+        <!--</div>-->
+                <!--<script type="text/javascript">-->
+                <!--alert('xjm');-->
+                <!--$('.drivelicensedata').datetimepicker({-->
+                    <!--calendarWeeks: true,-->
+                    <!--icons : {-->
+                        <!--time: 'fa fa-clock-o',-->
+                        <!--date: 'fa fa-calendar',-->
+                        <!--up: 'fa fa-chevron-up',-->
+                        <!--down: 'fa fa-chevron-down'-->
+                       <!--},-->
+                    <!--language : moment.locale(),-->
+                    <!--weekStart: 1,-->
+                    <!--todayBtn:  1,-->
+                    <!--autoclose: 1,-->
+                    <!--todayHighlight: 1,-->
+                    <!--startView: 2,-->
+                    <!--forceParse: 0,-->
+                <!--});-->
+        <!--</script>-->
 
     </t>
 
+
+
+
     <t t-name="RoportTest">
         <div>
-            <iframe id="report" src="" width="100%" height="925"></iframe>
+            <iframe id="report" src="" width="100%" height="820px"></iframe>
         </div>
         <script type="text/javascript">
-            var type = document.getElementById("type").value;
-            var Url = "http://127.0.0.1:8080/jasperserver/flow.html?_flowId=viewReportFlow&amp;_flowId=viewReportFlow&amp;ParentFolderUri=%2Freports%2Finteractive&amp;reportUnit=%2Freports%2Finteractive%2Fodoo_nengyuan&amp;standAlone=true&amp;j_username=jasperadmin&amp;j_password=jasperadmin&amp;selectType=1&amp;type="+type
+            var type = '0'; //document.getElementById("type").value;
+            var DataStart = '2017-06-01';
+            var DataEnd = '2017-06-31';
+            //var Url = "http://127.0.0.1:8080/jasperserver/flow.html?_flowId=viewReportFlow&amp;_flowId=viewReportFlow&amp;ParentFolderUri=%2Freports%2Finteractive&amp;reportUnit=%2Freports%2Finteractive%2Fodoo_nengyuan&amp;standAlone=true&amp;j_username=jasperadmin&amp;j_password=jasperadmin&amp;selectType=1&amp;type="+type
+            //var Url = "http://127.0.0.1:8080/jasperserver/flow.html?_flowId=viewReportFlow&amp;_flowId=viewReportFlow&amp;ParentFolderUri=%2Freports%2Finteractive&amp;reportUnit=%2Freports%2Finteractive%2FKmFuelConsumptionSummaryTable&amp;standAlone=true&amp;j_username=jasperadmin&amp;j_password=jasperadmin";
+            var Url = "http://127.0.0.1:8080/jasperserver/flow.html?_flowId=viewReportFlow&amp;_flowId=viewReportFlow&amp;ParentFolderUri=%2Freports%2Finteractive&amp;reportUnit=%2Freports%2Finteractive%2FKmFuelConsumptionSummaryTable&amp;standAlone=true&amp;j_username=jasperadmin&amp;j_password=jasperadmin; // &amp;type="+type+"&amp;DataStart="+DataStart+"&amp;DataEnd="+DataEnd
+            //alert('Url:'+Url);
             window.frames['report'].src =Url;
         </script>
     </t>
