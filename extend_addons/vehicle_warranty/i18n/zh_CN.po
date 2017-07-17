@@ -1784,7 +1784,7 @@ msgstr "合格"
 #: code:addons/vehicle_warranty/models/warranty_plan_order.py:90
 #, python-format
 msgid "report_repair_user Required!"
-msgstr "保养人必填"
+msgstr "送保人必填"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_plan_order_ids

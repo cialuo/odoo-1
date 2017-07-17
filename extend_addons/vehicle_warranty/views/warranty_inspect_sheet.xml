@@ -1,0 +1,220 @@
+<odoo>
+    <data>
+
+        <!-- 检验单_退回重修 -->
+        <record id="wizard_reject_form2" model="ir.ui.view">
+            <field name="name">Wizard Reject</field>
+            <field name="model">wizard_inspect_order_reject</field>
+            <field name="arch" type="xml">
+                <form string="Wizard Reject">
+                    <group>
+                        <field name="return_reason"/>
+                    </group>
+                    <footer>
+                        <button string="Reject" name="reject" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="wizard_inspect_order_reject2"
+            name="Inspect Order Reject"
+            res_model="wizard_inspect_order_reject"
+            view_mode="form"
+            target="new"
+            view_type="form" />
+
+		<!-- 检验单 tree -->
+        <record model="ir.ui.view" id="warranty_inspect_order_tree2">
+            <field name="name">Warranty Inspect Order</field>
+            <field name="model">warranty_order_project</field>
+            <field name="arch" type="xml">
+                <tree string="Warranty Inspect Order" create="false" delete="false">
+                    <field name="warranty_order_id"/>
+                    <field name="vehicle_id"/>
+					<field name="vehicle_type" string="Vehicle Model"/>
+					<field name="license_plate"/>
+					<field name="start_inspect_time"/>
+					<field name="maintenance_personnel" string="Repair Man"/>
+					<field name="category_id" string="Category"/>
+					<field name="project_id"/>
+					<field name="warranty_mode"/>
+					<field name="inspect_result"/>
+					<field name="state" string="MyState"/>
+					<field name="inspect_user_id"/>
+					<field name="rework_count"/>
+                </tree>
+            </field>
+        </record>
+
+		<!-- 检验单 form -->
+        <record model="ir.ui.view" id="warranty_inspect_order_form2">
+            <field name="name">Warranty Inspect Order</field>
+            <field name="model">warranty_order_project</field>
+            <field name="arch" type="xml">
+                <form string="Warranty Inspect Order">
+                	<header>
+						<button name="action_check_pass" type="object"
+                                string="Check Pass"
+								states="check"
+                                class="oe_highlight"
+                                groups="vehicle_group.vehicle_inspect"/> <!-- 检验通过-->
+						<button name="%(wizard_inspect_order_reject2)d"
+								type="action"
+                                string="Return To Repair"
+								states="check"
+                                groups="vehicle_group.vehicle_inspect"/> <!-- 退回重修-->
+                    	<field name="state"  widget="statusbar" statusbar_visible="maintain,check,complete"/>
+                	</header>
+					<sheet>
+						<div class="oe_title">
+	                        <label for="item_name"/>
+							<h1><field name="item_name" readonly="1"/></h1>
+	                    </div>
+						<group col="2">
+							<group>
+								<field name="category_id" readonly="1"/>
+								<field name="project_id" readonly="1"/>
+								<field name="warranty_mode" readonly="1"/>
+								<field name="maintenance_personnel" readonly="1"/>
+
+							</group>
+							<group>
+								<field name="vehicle_id" readonly="1"/>
+								<field name="license_plate" readonly="1"/>
+								<field name="vehicle_type" string="Vehicle Model" readonly="1"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Inspect Standard">
+								<field name="inspection_criteria" readonly="1"/>
+                            </page>
+							<page string="Inspect Return Records" >
+                                <field name="return_record_ids" readonly="1">
+                                    <tree string="Inspect Return Records">
+										<field name="sequence"/>
+                                        <field name="maintainsheet_name"/>
+                                        <field name="maintenance_personnel"/>
+										<field name="return_reason"/>
+										<field name="inspect_return_time"/>
+                                    </tree>
+                                </field>
+                            </page>
+						</notebook>
+					</sheet>
+                </form>
+            </field>
+        </record>
+
+		<!-- 检验单 Action-->
+		<record model="ir.actions.act_window" id="warranty_inspect_order_action2">
+			<field name="name">Warranty Inspect Order</field>
+			<field name="res_model">warranty_order_project</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state', 'in', ['check','complete'])]</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('warranty_inspect_order_tree2')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('warranty_inspect_order_form2')})]"/>
+		</record>
+
+        <!-- 保养项目_批量_报检 -->
+
+        <!--<record id="wizard_project_batch_to_check_view2" model="ir.ui.view">
+            <field name="name">To Check</field>
+            <field name="model">wizard_project_batch_to_check</field>
+            <field name="arch" type="xml">
+                <form>
+                    <p class="oe_grey">
+                        Once project To Check, you will not be able
+                        to modify them.
+                    </p>
+                    <footer>
+                        <button string="To Check" name="confirm" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="act_wizard_project_batch_to_check2"
+            multi="True"
+            key2="client_action_multi"
+            name="To Check"
+            res_model="wizard_project_batch_to_check"
+            src_model="warranty_order_project"
+            view_mode="form"
+            target="new"
+            view_type="form"
+            groups="vehicle_group.vehicle_repair"
+        />-->
+
+
+
+        <!-- 保养项目_批量_检验通过 -->
+        <record id="wizard_project_batch_check_pass_view2" model="ir.ui.view">
+            <field name="name">Check Pass</field>
+            <field name="model">wizard_project_batch_check_pass</field>
+            <field name="arch" type="xml">
+                <form>
+                    <p class="oe_grey">
+                        Once project Check Pass, you will not be able
+                        to modify them.
+                    </p>
+                    <footer>
+                        <button string="To Check" name="confirm" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="act_wizard_project_batch_check_pass2"
+
+            key2="client_action_multi"
+            name="Check Pass"
+            res_model="wizard_project_batch_check_pass"
+            src_model="warranty_order_project"
+            view_mode="form"
+            target="new"
+            view_type="form"
+            groups="vehicle_group.vehicle_inspect"
+        />
+
+
+        <!-- 批量退检 -->
+        <record model='ir.ui.view' id='wizard_inspect_order_batch_reject_form2'>
+            <field name='name'>Wizard Inspect Order Batch Reject</field>
+            <field name='model'>wizard_inspect_order_batch_reject</field>
+            <field name='arch' type='xml'>
+                <form string='Wizard Inspect Order Batch Reject'>
+                    <notebook>
+                        <page string="Wizard Inspect Order Batch Reject" >
+                                <field name='project_ids' readonly="1"/>
+                        </page>
+                    </notebook>
+                    <group>
+                        <field name="return_reason"/>
+                    </group>
+                    <footer>
+                        <button name="reject" type="object"
+                                string="Reject" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id='wizard_inspect_order_batch_reject2'
+                    name='Wizard Inspect Order Batch Reject'
+                    src_model='warranty_order_project'
+                    res_model='wizard_inspect_order_batch_reject'
+                    view_mode='form'
+                    target='new'
+                    key2='client_action_multi'
+                    groups="vehicle_group.vehicle_inspect"/>
+
+
+    </data>
+</odoo>
