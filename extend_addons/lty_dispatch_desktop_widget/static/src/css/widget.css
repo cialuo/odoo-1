@@ -688,7 +688,7 @@
 }
 
 .plan_display .uplink_yard .title {
-    background: #7c7bad;
+    background: #7c7bad url('/lty_dispatch_desktop_widget/static/src/image/arrows.png') center right no-repeat;
     color: #fff;
 }
 
