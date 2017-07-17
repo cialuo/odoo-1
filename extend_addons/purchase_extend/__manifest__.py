@@ -12,6 +12,8 @@
     """,
     'data': [
         'views/purchase_menu.xml',
+        'wizard/multi_product_view.xml',
+        'views/purchase_order_view.xml',
     ],
     'depends': ['materials_menu', 'purchase'],
     'application': True,
