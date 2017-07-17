@@ -1,0 +1,284 @@
+.dispatch_desktop .content {
+    position: absolute;
+    width: 1276px;
+    border-radius: 8px;
+    background: #2E3551;
+}
+
+.dispatch_desktop .line_info {
+    height: 30px;
+    position: relative;
+}
+
+.dispatch_desktop .line_info div ul {
+    overflow: hidden;
+    padding: 0;
+}
+
+.dispatch_desktop .line_way li:first-of-type {
+    background: #4ED0C8;
+}
+
+.dispatch_desktop .line_way li {
+    width: 70px;
+    margin-right: 2px;
+    float: left;
+    text-align: center;
+    line-height: 30px;
+    background: #373D53;
+    color: white;
+}
+
+.dispatch_desktop .bus_info li {
+    margin-right: 10px;
+    float: left;
+    text-align: center;
+    line-height: 30px;
+    color: #A3A6AD;
+}
+
+.dispatch_desktop .bus_info li:first-of-type {
+    margin-left: 16px;
+}
+
+.dispatch_desktop .line_way li:first-of-type {
+    border-top-left-radius: 8px;
+}
+
+.dispatch_desktop .line_way li:last-of-type {
+    border-top-right-radius: 8px;
+}
+
+.dispatch_desktop .line_btn {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+}
+
+.dispatch_desktop .line_btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+
+.dispatch_desktop a.min, .dispatch_desktop a.line_edit {
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    line-height: 12px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #4ED0C8;
+    border-radius: 50%;
+    color: #4ED0C8;
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.dispatch_desktop .line_info a.min:hover {
+    text-decoration: none;
+}
+
+/*控制台车辆线路css*/
+
+.dispatch_desktop .content .traffic .road_distribute {
+    width: 1276px;
+    height: 160px;
+}
+
+.dispatch_desktop .road_distribute .line_status {
+    width: 1276px;
+    padding: 6px 12px 0;
+}
+
+.dispatch_desktop .line_status li {
+    width: 19px;
+    line-height: 19px;
+    text-align: center;
+    float: left;
+    color: #fff;
+    margin-right: 4px;
+    font-size: 10px;
+    display: inline-block;
+    -webkit-transform: scale(0.833);
+}
+
+.dispatch_desktop .line_status li:last-of-type {
+    float: right;
+}
+
+.dispatch_desktop .road_distribute .actual_traffic {
+    display: flex;
+    height: 116px;
+    width: 1276px;
+    position: relative;
+    padding: 0 17px;
+    font-size: 0;
+    background: url("/lty_dispatch_desktop/static/src/img/carlinebg.png") no-repeat 20px top;
+}
+
+.dispatch_desktop .traffic_car {
+    width: 1190px;
+    height: 54px;
+    padding: 3px 0;
+}
+
+.dispatch_desktop .traffic .traffic_car {
+    position: relative;
+    height: 50px;
+    padding: 1px 0;
+}
+
+.dispatch_desktop .content_car_road {
+    height: 20px;
+    position: relative;
+    margin-bottom: 8px;
+
+}
+
+.dispatch_desktop .content_car_road .line_car {
+    position: absolute;
+    width: 44px;
+    height:20px;
+    background: url("/lty_dispatch_desktop/static/src/img/runcar.png") no-repeat left top;
+    top: 0px;
+}
+.dispatch_desktop .content_car_road .line_car_right {
+    position: absolute;
+    width: 44px;
+    height: 20px;
+    background: url("/lty_dispatch_desktop/static/src/img/runcar_right.png") no-repeat left top;
+    top: 20px;
+}
+.dispatch_desktop .line_car_right .num_car {
+    width: 42px;
+    height: 6px;
+    text-align: right;
+}
+
+.dispatch_desktop .line_car_right .num_car span {
+    font-size: 6px;
+    -webkit-transform: scale(0.5);
+    color: #fff;
+    display: inline-block;
+    line-height: 6px
+}
+
+.dispatch_desktop .type_car {
+    height: 8px;
+    width: 38px;
+    text-align: right;
+}
+
+.dispatch_desktop .type_car span {
+    font-size: 8px;
+    -webkit-transform: scale(0.75);
+    color: #fff;
+    display: inline-block;
+    line-height: 8px
+}
+
+.dispatch_desktop .line_car_right .type_car {
+    width: 24px;
+    height: 8px;
+    text-align: right;
+}
+
+.dispatch_desktop .line_car_right .type_car span {
+    font-size: 8px;
+    -webkit-transform: scale(0.75);
+    color: #fff;
+    display: inline-block;
+    line-height: 8px
+}
+.dispatch_desktop .content_car_road:first-of-type {
+    margin-bottom: 8px;
+}
+
+/*底部控制台*/
+.my_console {
+    width: 100%;
+    height: 48px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    background: url("/lty_dispatch_desktop/static/src/img/dispatch_console.png") no-repeat left top;
+}
+
+.my_console ul {
+    display: flex;
+    width: 400px;
+    margin: 6px auto;
+    height: 14px;
+    margin-top: 17px;
+}
+
+.my_console ul li {
+    color: white;
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-size: 14px;
+}
+
+.my_console ul .new_console {
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+    line-height: 14px;
+}
+
+.my_console ul .save_console {
+    line-height: 14px;
+    margin-left: 2px;
+    margin-right: 2px;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+
+.my_console ul .read_console {
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    line-height: 14px;
+}
+/*上下行路线图表和是否异常*/
+
+.updown_line_table .drag{
+	left:1300px;top:150px;position:absolute;width: 600px;
+	height: 190px;
+	background: #343B58;
+    border-radius: 8px;
+}
+.updown_line_table .title{
+    height:30px;
+}
+.updown_line_table .line_btn {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+}
+
+.updown_line_table .line_btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+
+.updown_line_table a.min {
+    width: 16px;
+    height: 16px;
+    line-height: 12px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    display: inline-block;
+    margin-right: 2px;
+    cursor: pointer;
+}
+
+.updown_line_table .line_info a.min:hover {
+    text-decoration: none;
+}

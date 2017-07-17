@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<openerp>
+  <data>
+    <record id="passengerFlow" model="ir.actions.client">
+      <field name="name">passengerFlow</field>
+      <field name="tag">lty_dispatch_desktop_widget.passenger_flow</field>
+    </record>
+
+    <menuitem id="menu_transit_passenger_flow" name="站点客流" parent="menu_transit" />
+    <menuitem id="menu_transit_passenger_flow_trend_chart" name="走势图" parent="menu_transit_passenger_flow" action="passengerFlow" />
+
+    
+
+
+    <record id="real_time_information" model="ir.actions.client">
+      <field name="name">real_time_information</field>
+      <field name="tag">lty_dispatch_desktop_widget.bus_real_info</field>
+    </record>
+
+    <record id="real_time_more_info_action" model="ir.actions.client">
+      <field name="name">real_time_information</field>
+      <field name="tag">lty_dispatch_desktop_widget.arrival_time_more_info</field>
+    </record>
+
+    <menuitem id="menu_real_time_information" name="车辆实时信息" parent="menu_transit" />
+    <menuitem id="real_time_information_summary" name="实时汇总" parent="menu_real_time_information" action="real_time_information" />
+    <menuitem id="real_time_more_info" name="更多信息" parent="menu_real_time_information" action="real_time_more_info_action" />
+    
+  </data>
+</openerp>

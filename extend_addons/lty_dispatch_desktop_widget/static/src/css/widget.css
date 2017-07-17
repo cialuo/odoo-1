@@ -1,0 +1,423 @@
+
+/*---------站点客流---------*/
+.passenger_flow_trend_chart .trend_chart {
+	float: left;
+	border: 1px solid #aaa;
+    width: 466px;
+    background: #fff;
+}
+
+.passenger_flow_trend_chart .trend_chart .top_title {
+    padding: 0 10px;
+	border-bottom: 1px solid #ccc;
+	font-size: 13px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.passenger_flow_trend_chart .trend_chart .top_title a.express_bt {
+    float: right;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+}
+
+.passenger_flow_trend_chart .trend_chart .top_title .name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.trend_chart_info .map_botton_info {
+    height: 70px;
+}
+.trend_chart_info .map_botton_info .num {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 0 5px;
+    border-bottom: 1px solid #aaa;
+}
+.trend_chart_info .map_botton_info .red {
+    color: red;
+}
+.trend_chart_info .map_botton_info .blue {
+    color: blue
+}
+.trend_chart_info .map_botton_info .gray {
+    color: gray;
+}
+.trend_chart_info .map_botton_info li {
+    width: 33.33%;
+    text-align: center;
+    float: left;
+    line-height: 70px;
+    height: 70px;
+}
+
+.express_train_box {
+    width: 466px;
+    height: 284px;
+    padding: 5px;
+}
+.express_train {
+    width: 456px;
+    height: 274px;
+    overflow: auto;
+    position: relative;
+    border: 1px solid #ccc;
+}
+.express_train .express_train_content {
+    padding: 5px 10px;
+}
+
+.express_train header.title {
+    height: 23px;
+    line-height: 23px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+.express_train .express_train_part .express_train_info td {
+    white-space: nowrap;
+}
+
+.express_train .express_train_part .express_train_info td:first-child {
+    width: 180px;
+}
+
+.express_train .express_train_part .express_train_info .name {
+    font-weight: bold;
+    font-size: 24px;
+    margin-left: 2px;
+}
+
+.express_train .express_train_part select {
+    margin: 5px 0;
+}
+
+.express_train .express_train_part .vehicle_op, .express_train .express_train_part .waiting_bus_op {
+    display: none;
+}
+
+.express_train label.labw {
+    display: block;
+    padding: 2px;
+    width: 120px;
+    color: #4c4c4c;
+}
+
+.express_train input[type="radio"] {
+    margin: 3px 2px;
+}
+
+.express_train .skip_info input[type="number"] {
+    display: inline-block;
+    width: 60px;
+    margin: 0 2px;
+    vertical-align: middle;
+}
+
+.express_train .select_part_info .showInfo {
+    border-left: 1px solid #ccc;
+    padding-left: 10px;
+    display: none;
+}
+
+.express_train .select_part_info .station_info td {
+    padding-right: 10px;
+}
+
+.express_train .select_part_info .station_info input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+.express_train .sendbt {
+    display: inline-block;
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+    z-index: 2;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+/*---------车辆实时状态---------*/
+.bus_real_info {
+    width: 802px;
+    letter-spacing: 2px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+.bus_real_info .boxTitle {
+    height: 50px;
+    /*overflow: hidden;*/
+}
+
+.bus_real_info .boxTitle .closeBox {
+    height: 12px;
+    background: #535252;
+    position: relative;
+}
+
+.bus_real_info .boxTitle .closeBox .close_bt {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    width: 16px;
+    background: #fff;
+    height: 4px;
+    vertical-align: middle;
+}
+
+.bus_real_info .boxTitle .titleInfo {
+    height: 38px;
+    padding: 0 10px;
+    background: #7c7bad;
+    color: #fff;
+}
+
+.bus_real_info .boxTitle .titleInfo .crew {
+    margin-left: 20px;
+}
+
+.bus_real_info .boxTitle .infoL {
+    width: 456px;
+    float: left;
+}
+
+.bus_real_info .boxTitle .infoR {
+    width: 344px;
+    float: left;
+    position: relative;
+}
+
+.bus_real_info .boxTitle .infoL .licenseNumber {
+    margin-right: 10px;
+}
+
+.bus_real_info .boxTitle .titleInfo .fmax {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.bus_real_info .boxTitle .infoR .operation .scene {
+    display: block;
+    float: left;
+    width: 56px;
+    height: 22px;
+    line-height: 22px;
+    border-right: 1px solid #ccc;
+    background: #fff;
+    color: #333;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.bus_real_info .boxTitle .infoR .operation .scene .operationNav {
+    width: 100px;
+    display: none;
+    border: 1px solid #ccc;
+    background: #fff;
+    z-index: 1;
+    position: relative;
+}
+
+.bus_real_info .boxTitle .infoR .operation .scene .operationNav li {
+    width: 100%;
+    text-align: center;
+    height: 24px;
+    border-bottom: 1px solid #ccc;
+    color: #333;
+}
+
+.bus_real_info .boxTitle .infoR .more {
+    width: 76px;
+    height: 28px;
+    line-height: 28px;
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    background: #918fba;
+    text-align: center;
+    color: #fff;
+}
+
+.bus_real_info .boxTitle .infoR .more .morebox {
+    display: none;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+.bus_real_info .boxTitle .infoR .more .sceneMore {
+    display: block;
+    padding: 0 10px;
+}
+
+.bus_real_info .boxTitle .infoR .more:hover .morebox {
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.bus_real_info .boxTitle .infoR .more:hover .sceneMore {
+    color: #918fba;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+}
+
+.bus_real_info .popupContent {
+    color: #333;
+    font-size: 14px;
+}
+
+.bus_real_info .popupContent .vehicleInformation {
+    width: 456px;
+    padding: 10px;
+    float: left;
+}
+
+.bus_real_info .popupContent .carReport {
+    width: 344px;
+    float: left;
+}
+
+.bus_real_info .popupContent .vehicleInformation .num {
+    padding-left: 10px;
+}
+
+
+.bus_real_info .popupContent .vehicleInformation .fmax {
+    font-size: 28px;
+}
+
+.bus_real_info .popupContent .vehicleInformation .danger {
+    color: red;
+}
+
+.bus_real_info .popupContent .vehicleInformation .dangerTime {
+    color: #990000;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.bus_real_info .popupContent .vehicleInformation table {
+    width: 100%;
+}
+
+.bus_real_info .popupContent .vehicleInformation table td {
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    padding-right: 5px;
+    height: 62px;
+}
+
+.bus_real_info .lineInfo {
+    padding: 0 10px;
+    height: 50px;
+    line-height: 50px;
+    text-align: right;
+    clear: both;
+}
+
+.bus_real_info .lineInfo .lineRoad {
+    font-weight: bold;
+}
+
+.bus_real_info .carInfoScene {
+    width: 344px;
+    height: 330px;
+    border: 1px solid #ccc;
+}
+
+.bus_real_info .arrival_time_more_info {
+    overflow: auto;
+}
+
+.bus_real_info .policeTemplate {
+    padding: 10px;
+}
+
+.bus_real_info .policeTemplate .title {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.bus_real_info .policeTemplate .cont {
+    text-indent: 29px;
+}
+
+.bus_real_info .policeTemplate .onBt {
+    display: block;
+    width: 130px;
+    margin: 20px auto;
+    height: 32px;
+    line-height: 32px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.bus_real_info .policeTemplate .tel li {
+    width: 33.33%;
+    text-align: center;
+    float: left;
+}
+
+.bus_real_info .carPassenge .carPassenger {
+    float: left;
+    border: 1px solid #aaa;
+    width: 334px;
+    height: 
+}
+
+.bus_real_info .carPassenge .carPassenger .top {
+    padding: 0 10px;
+    border-bottom: 1px solid #ccc;
+    font-size: 13px;
+}
+
+.bus_real_info .carPassenge .carPassenger .topt {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+}
+.bus_real_info .carPassenge .carPassenger .topt .zm {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.bus_real_info .carPassenge .carPassenger .top a.bt {
+    float: right;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+}
+
+.bus_real_info .mapB .mapInfoTxt {
+    /*height: 70px;*/
+    width: 332px;
+}
+.bus_real_info .mapB .mapInfoTxt .num {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 0 5px;
+    border-bottom: 1px solid #aaa;
+}
+.bus_real_info .mapB .mapInfoTxt .red {
+    color: red;
+}
+.bus_real_info .mapB .mapInfoTxt .blue {
+    color: blue
+}
+.bus_real_info .mapB .mapInfoTxt .gray {
+    color: gray;
+}
+.bus_real_info .mapB .mapInfoTxt li {
+    width: 33.33%;
+    text-align: center;
+    float: left;
+    line-height: 70px;
+}
