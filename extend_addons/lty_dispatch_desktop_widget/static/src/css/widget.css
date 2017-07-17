@@ -1,5 +1,9 @@
 
 /*---------站点客流---------*/
+.passenger_flow_trend_chart {
+    width: 932px;
+}
+
 .passenger_flow_trend_chart .trend_chart {
 	float: left;
 	border: 1px solid #aaa;
@@ -155,13 +159,13 @@
     /*overflow: hidden;*/
 }
 
-.bus_real_info .boxTitle .closeBox {
+.bus_real_info .boxTitle .closeBox, .passenger_flow_trend_chart .closeBox {
     height: 12px;
     background: #535252;
     position: relative;
 }
 
-.bus_real_info .boxTitle .closeBox .close_bt {
+.bus_real_info .boxTitle .closeBox .close_bt, .passenger_flow_trend_chart .closeBox .close_bt{
     position: absolute;
     right: 5px;
     top: 3px;
@@ -194,7 +198,7 @@
 }
 
 .bus_real_info .boxTitle .infoL .licenseNumber {
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .bus_real_info .boxTitle .titleInfo .fmax {
@@ -330,6 +334,7 @@
     width: 344px;
     height: 330px;
     border: 1px solid #ccc;
+    overflow: auto;
 }
 
 .bus_real_info .arrival_time_more_info {
@@ -420,4 +425,194 @@
     text-align: center;
     float: left;
     line-height: 70px;
+}
+
+
+.bus_real_info .more_info_box .info_title {
+    height: 30px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+
+.bus_real_info .more_info_box .info_title .title {
+    display: inline-block;
+    position: absolute;
+    left: 22px;
+    bottom: -1px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 2px 5px;
+    z-index: 1;
+    background: #fff;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    font-size: 12px;
+    background: #ededed;
+}
+
+.bus_real_info .maintenance_status {
+    height: 24px;
+    background-color: #ededed;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#dedede));
+    background-image: -moz-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -ms-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -o-linear-gradient(top, #fcfcfc, #dedede);
+}
+
+.bus_real_info .info_status_nav {
+    display: inline-block;
+    padding: 0 18px 0 0;
+    float: right;
+    margin-right: 4px;
+}
+
+.bus_real_info .info_status_nav li{
+    display: inline-block;
+    list-style-type: none;
+    margin: 0 -22px 0 0;
+    padding: 0;
+    height: 24px;
+    background-color: #ededed;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#dedede));
+    background-image: -webkit-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -moz-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -ms-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -o-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: linear-gradient(to bottom, #fcfcfc, #dedede);
+}
+
+.bus_real_info .info_status_nav li .label {
+    color: #4c4c4c;
+    text-shadow: 0 1px 1px #fcfcfc, 0 -1px 1px #dedede;
+    padding: 0;
+    display: inline-block;
+    padding-left: 18px;
+    margin: 0;
+    position: relative;
+    line-height: 24px;
+    font-size: 13px;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+.bus_real_info .info_status_nav .arrow, .bus_real_info .info_status_nav .arrow_first {
+    width: 17px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    margin-left: -5px;
+}
+
+.bus_real_info .info_status_nav .arrow_first {
+    margin-left: -1px;
+}
+
+.bus_real_info .info_status_nav li:first-child .label {
+    padding-left: 1px;
+}
+
+.bus_real_info .info_status_nav .arrow span, .bus_real_info .info_status_nav .arrow_first span {
+    position: relative;
+    width: 19px;
+    height: 19px;
+    display: inline-block;
+    margin-left: -9px;
+    margin-top: 3px;
+    border-radius: 3px;
+    box-shadow: -1px 1px 2px rgba(255, 255, 255, 0.2), inset -1px 1px 1px rgba(0, 0, 0, 0.2);
+    background-color: #dedede;
+    background: -moz-linear-gradient(135deg, #dedede, #fcfcfc);
+    background: -o-linear-gradient(135deg, #fcfcfc, #dedede);
+    background: -webkit-gradient(linear, left top, right bottom, from(#fcfcfc), to(#dedede));
+    background: -ms-linear-gradient(top, #fcfcfc, #dedede);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.bus_real_info .info_status_nav li.oe_active {
+    background-color: #807fa9;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#abaaca), to(#555487));
+    /* background-image: -webkit-linear-gradient(top, #abaaca, #555487); */
+    background-image: -moz-linear-gradient(top, #abaaca, #555487);
+    background-image: -ms-linear-gradient(top, #abaaca, #555487);
+    background-image: -o-linear-gradient(top, #abaaca, #555487);
+    /* background-image: linear-gradient(to bottom, #abaaca, #555487); */
+}
+
+.bus_real_info .info_status_nav li.oe_active .label {
+    color: white;
+    text-shadow: 0 1px 1px #729fcf, 0 -1px 1px #3465a4;
+}
+
+.bus_real_info .info_status_nav li.oe_active .arrow span {
+    background-color: #555487;
+    background: -moz-linear-gradient(135deg, #555487, #abaaca);
+    background: -o-linear-gradient(135deg, #abaaca, #555487);
+    background: -webkit-gradient(linear, left top, right bottom, from(#abaaca), to(#555487));
+}
+
+.bus_real_info .info_1 .info_cont {
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.bus_real_info .more_info_part .info_cont table {
+    width: 100%;
+    font-size: 13px;
+}
+
+.bus_real_info .more_info_part .maintenance_cont td {
+    line-height: 24px;
+    padding: 0 5px;
+}
+
+.bus_real_info .more_info_part .maintenance_cont td:nth-child(odd) {
+    border-right: 1px solid #ccc;
+}
+
+.bus_real_info .more_info_part .info_bt {
+    text-align: center;
+    padding: 10px;
+}
+
+.bus_real_info .more_info_part .info_bt a {
+    display: inline-block;
+    width: 126px;
+    height: 20px;
+    line-height: 20px;
+    font-style: 13px;
+    background: #7c7bad;
+    color: #fff;
+}
+
+.bus_real_info .more_info_part .info_bt a:first-child {
+    margin-right: 30px;
+}
+
+.bus_real_info .info_2 .info_cont {
+    padding: 5px 5px 5px 15px;
+}
+
+.bus_real_info .more_info_part .record_cont th,.bus_real_info .more_info_part .record_cont td {
+    line-height: 24px;
+    width: 25%;
+    height: 24px;
+}
+
+.bus_real_info .more_info_part .record_cont th {
+    background: #eee;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+.bus_real_info .more_info_part .record_cont tr:nth-child(even) {
+    background: #efeff8;
 }
