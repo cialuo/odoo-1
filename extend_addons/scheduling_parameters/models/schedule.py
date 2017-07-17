@@ -11,10 +11,6 @@ class region_manage(models.Model):
     region_coding = fields.Char('Region coding', required=True)
     # 区域名称
     region_name = fields.Char('Region name', required=True)
-    # 设立时间
-    create_time = fields.Datetime('Creation time')
-    # 建档人
-    book_runner = fields.Many2one('res.users', string='Book runner', default=lambda self: self.env.user, readonly=True)
     # 所辖道路
     road_id = fields.One2many('road_manage.road_manage', 'region_id', ondelete='cascade', string="Road")
 
@@ -61,10 +57,6 @@ class road_manage(models.Model):
     road_name = fields.Char('Road name', required=True)
     # 区域
     region_id = fields.Many2one('region_manage.region_manage', ondelete='cascade', string='Region', required=True)
-    # 设立日期
-    create_date = fields.Date('Create date')
-    # 建档人
-    book_runner = fields.Many2one('res.users', string='Book runner', default=lambda self: self.env.user, readonly=True)
 
     # platform_id = fields.Many2many("platform_manage.platform_manage", string="Station")
     platform_id = fields.One2many("platform_manage.platform_manage", 'Road_id', string="Station")
