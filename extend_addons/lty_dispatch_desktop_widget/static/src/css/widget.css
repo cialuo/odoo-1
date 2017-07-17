@@ -334,6 +334,9 @@
     width: 344px;
     height: 330px;
     border: 1px solid #ccc;
+}
+
+.bus_real_info .more_info_box {
     overflow: auto;
 }
 

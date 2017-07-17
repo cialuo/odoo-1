@@ -135,7 +135,7 @@
     </t>
 
     <t t-name="arrival_time_more_info_template">
-        <div class="bus_real_info">
+        <div>
             <div class="carInfoScene more_info_box">
                 <div class="more_info_part info_1">
                     <div class="info_title">
