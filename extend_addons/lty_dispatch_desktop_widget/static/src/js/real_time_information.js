@@ -11,6 +11,7 @@ odoo.define(function (require) {
             'click .operationNav .sign': 'sign_fn',
             'click .operationNav .news, .InformationInteraction': 'news_fn',
             'click .geographicalPosition' : 'geographicalPosition_fn',
+            'click .moreInfo' : 'moreInfo_fn',
             'click .operationNav .notice': 'notice_fn',
             'click .operationNav .conversation': 'conversation_fn',
             'click .arrivalTime': 'arrivalTimeFn',
@@ -70,9 +71,13 @@ odoo.define(function (require) {
             var init_data = {
                 longitude: '114.39973',
                 latitude: '30.45787'
-            }
+            };
             this.$(".carReport").html("");
             new arrival_time_map(this, init_data).appendTo(this.$(".carReport"));
+        },
+        moreInfo_fn: function(){
+            this.$(".carReport").html("");
+            new arrival_time_more_info(this).appendTo(this.$(".carReport"));
         },
         arrivalTimeFn: function(e){
             this.$(".carReport").html("");
@@ -229,6 +234,6 @@ odoo.define(function (require) {
             this._super(parent);
         },
     });
-    core.action_registry.add('lty_dispatch_desktop_widget.arrival_time_more_info', arrival_time_more_info);
+    // core.action_registry.add('lty_dispatch_desktop_widget.arrival_time_more_info', arrival_time_more_info);
 });
 
