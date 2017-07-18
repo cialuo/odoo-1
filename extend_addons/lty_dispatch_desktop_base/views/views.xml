@@ -50,6 +50,12 @@
       <field name="name">Dispatch Control Desktop</field>
       <field name="res_model">dispatch.control.desktop</field>
       <field name="view_mode">kanban,tree,form</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          Click to create a new desktop.<br/>
+	      </p>
+	  </field>      
+      
     </record>
     <menuitem name="Dispatch Desktop" id="lty_dispatch_desktop.dispatch_desktop_menu_test" parent="dispatch_monitor_menu.dispatch_work_menu"
               action="dispatch_control_desktop_action_window" sequence="0"/>
