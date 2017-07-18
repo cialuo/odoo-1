@@ -67,7 +67,7 @@
             <field name="name">Warranty Order</field>
             <field name="model">warranty_order</field>
             <field name="arch" type="xml">
-                <tree create="false">
+                <tree create="false" delete="false">
                     <field name="name" string="Warranty Order No"/>
                     <field name="plan_id" string="Warranty Plan No"/>
                     <field name="vehicle_id"/>

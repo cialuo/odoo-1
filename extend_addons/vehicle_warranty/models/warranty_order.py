@@ -33,13 +33,13 @@ class WarrantyOrder(models.Model): # 保养单
 
     average_daily_kilometer = fields.Float(digits=(6, 1), string="Average Daily Kilometer")  # 平均日公里
 
-    line = fields.Char()  # 线路
+    line = fields.Many2one("route_manage.route_manage")  # 线路
 
     repair_unit = fields.Char()  # 承修单位
 
     repair_workshop = fields.Char()  # 承修车间
 
-    fleet = fields.Char()  # 车队
+    fleet = fields.Many2one("hr.department")  # 车队
 
     maintenance_level = fields.Char()  # 维修等级
 
@@ -688,13 +688,52 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
 
     @api.multi
     def batch_dispatch(self):
+
+        self.save_batch_dispatch()
+
+        return False
+
+    @api.multi
+    def batch_dispatch_continue(self):
+        """
+            派工并继续
+        :return:
+        """
+
+        self.save_batch_dispatch()
+
+        return {
+            'name': _('Batch Dispatch'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'wizard_batch_dispatch',  # 'res_model': 'hr.expense.sheet',
+            # 'id':'batch_dispatch_view_form',
+            'context': {
+                'default_sheetId': self.sheetId
+                # 'default_name': self.id
+                # 'default_expense_line_ids': [line.id for line in self],
+                # 'default_employee_id': self[0].employee_id.id,
+                # 'default_name': 'mingger' # self[0].name if len(self.ids) == 1 else ''
+            },
+            'view_id': self.env.ref('vehicle_warranty.wizard_batch_dispatch_form').id,
+            # 'target': 'current',
+            'target': 'new'
+            # 'res_id': self.id, # self.env.context.get('cashbox_id')
+        }
+
+
+    def save_batch_dispatch(self):
+        """
+            保存派工数据
+        :return:
+        """
         sheetId = self._context.get('active_id')
 
         maintain_sheet = self.env['warranty_order'].search([('id', '=', sheetId)])
-        manhours=[]
-        manhour_count=len(maintain_sheet.manhour_manage_ids)
+        manhours = []
+        manhour_count = len(maintain_sheet.manhour_manage_ids)
 
-        user_count=len(self.user_id)
+        user_count = len(self.user_id)
 
         for project in self.project_id:
             sum_manhour_percentage_work = sum(project.manhour_manage_ids.mapped('percentage_work'))
@@ -710,7 +749,7 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
                 val_manhour_percentage_work = 100 / user_count
 
             for user in self.user_id:
-                manhour_count+=1
+                manhour_count += 1
 
                 plan_start_time = datetime.datetime.utcnow()
                 plan_end_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=project.work_time * 60)
@@ -725,42 +764,14 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
                     'work_time': project.work_time,
                     'percentage_work': val_manhour_percentage_work,
                     # 'self_work': self_work,
-                    'warranty_order_id':sheetId
+                    'warranty_order_id': sheetId
                 }
                 manhours.append((0, 0, manhour))
             project.update({
                 'state': 'dispatch',
-                'percentage_work':100-(sum_manhour_percentage_work+val_manhour_percentage_work*user_count)
+                'percentage_work': 100 - (sum_manhour_percentage_work + val_manhour_percentage_work * user_count)
             })
         maintain_sheet.write({'manhour_manage_ids': manhours})
-
-        return False
-
-    @api.multi
-    def batch_dispatch_continue(self):
-        """
-            派工并继续
-        :return:
-        """
-
-        return {
-            'name': _('Batch Dispatch'),
-            'type': 'ir.actions.act_window',
-            'view_mode': 'form',
-            'res_model': 'wizard_batch_dispatch',  # 'res_model': 'hr.expense.sheet',
-            # 'id':'batch_dispatch_view_form',
-            'context': {
-                # 'default_sheetId': self.id
-                # 'default_name': self.id
-                # 'default_expense_line_ids': [line.id for line in self],
-                # 'default_employee_id': self[0].employee_id.id,
-                # 'default_name': 'mingger' # self[0].name if len(self.ids) == 1 else ''
-            },
-            'view_id': self.env.ref('vehicle_warranty.wizard_batch_dispatch_form').id,
-            # 'target': 'current',
-            'target': 'new'
-            # 'res_id': self.id, # self.env.context.get('cashbox_id')
-        }
 
 class WizardInspectOrderReject(models.TransientModel): # 检验单_退回重修
     _name = "wizard_inspect_order_reject"
