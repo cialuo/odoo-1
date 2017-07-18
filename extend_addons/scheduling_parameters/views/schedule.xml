@@ -3,13 +3,13 @@
     <data>
 
         <!-- 区域管理 -->
-        <record model="ir.ui.view" id="region_tree_view">
-            <field name="name">region tree view</field>
-            <field name="model">region_manage.region_manage</field>
+        <record model="ir.ui.view" id="area_tree_view">
+            <field name="name">area tree view</field>
+            <field name="model">opertation_resources_area</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="region_coding"/>
-                    <field name="region_name"/>
+                    <field name="code"/>
+                    <field name="name"/>
                     <field name="create_date"/>
                     <field name="create_uid"/>
                     <field name="state"/>
@@ -17,9 +17,9 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="region_form_view">
-            <field name="name">region form view</field>
-            <field name="model">region_manage.region_manage</field>
+        <record model="ir.ui.view" id="area_form_view">
+            <field name="name">area form view</field>
+            <field name="model">opertation_resources_area</field>
             <field name="arch" type="xml">
                 <form>
                     <header>
@@ -32,23 +32,30 @@
                         <div class="oe_title">
                             <!--<label for="name"/>-->
                             <h1>
-                                <field name="region_name" placeholder="Region name"/>
+                                <field name="name" placeholder="Area name"/>
                             </h1>
                         </div>
                         <group col="2">
                             <group>
-                                <field name="region_coding"/>
-                                <field name="create_uid"/>
+                                <field name="code"/>
                             </group>
                             <group>
-                                <field name="create_date"/>
-                                <!--<field name="status"/>-->
+                                <field name="create_date" readonly="1"/>
+                                <field name="create_uid" readonly="1"/>
                             </group>
                         </group>
 
                         <notebook>
                             <page string="Road list">
-                                <field name="road_id"/>
+                                <field name="road_ids" readonly="1">
+                                    <tree>
+                                         <field name="code"/>
+										 <field name="name"/>
+										 <field name="create_date"/>
+										 <field name="create_uid"/>
+										 <field name="state"/>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
 
@@ -60,12 +67,12 @@
         <!-- 道路管理 -->
         <record model="ir.ui.view" id="road_tree_view">
             <field name="name">road tree view</field>
-            <field name="model">road_manage.road_manage</field>
+            <field name="model">opertation_resources_road</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="road_coding"/>
-                    <field name="road_name"/>
-                    <field name="region_id"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="area_id"/>
                     <field name="create_date"/>
                     <field name="create_uid"/>
                     <field name="state"/>
@@ -75,7 +82,7 @@
 
         <record model="ir.ui.view" id="road_form_view">
             <field name="name">road form view</field>
-            <field name="model">road_manage.road_manage</field>
+            <field name="model">opertation_resources_road</field>
             <field name="arch" type="xml">
                 <form>
                     <header>
@@ -87,22 +94,31 @@
                         <div class="oe_title">
                             <!--<label for="name"/>-->
                             <h1>
-                                <field name="road_name" placeholder="Road name"/>
+                                <field name="name" placeholder="Road name"/>
                             </h1>
                         </div>
                         <group col="2">
                             <group>
-                                <field name="road_coding"/>
-                                <field name="region_id"/>
+                                <field name="code"/>
+                                <field name="area_id" options="{'no_open':True,'no_create':True}"/>
                             </group>
                             <group>
-                                <field name="create_date"/>
-                                <field name="create_uid"/>
+                                <field name="create_date" readonly="1"/>
+                                <field name="create_uid" readonly="1"/>
                             </group>
                         </group>
                         <notebook>
-                            <page string="Station List">
-                                <field name="platform_id"/>
+                            <page string="Stations">
+                                <field name="station_ids" readonly="1">
+                                    <tree string="Stations">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="create_date"/>
+                                        <field name="station_status"/>
+                                        <field name="longitude"/>
+                                        <field name="latitude"/>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
@@ -112,29 +128,25 @@
 
         <!-- 站台管理 -->
         <record model="ir.ui.view" id="station_tree_view">
-            <field name="name">platform tree view</field>
-            <field name="model">platform_manage.platform_manage</field>
+            <field name="name">station tree view</field>
+            <field name="model">opertation_resources_station</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="longitude"/>
-                    <field name="latitude"/>
-                    <field name="platform_number"/>
-                    <field name="platform"/>
+                    <field name="code"/>
+                    <field name="name"/>
                     <field name="entrance_azimuth"/>
                     <field name="entrance_longitude"/>
                     <field name="entrance_latitude"/>
                     <field name="exit_azimuth"/>
                     <field name="exit_longitude"/>
                     <field name="exit_latitude"/>
-                    <field name="platform_status"/>
-                    <field name="electronic_bus_board_number"/>
                 </tree>
             </field>
         </record>
 
         <record model="ir.ui.view" id="station_form_view">
-            <field name="name">platform form view</field>
-            <field name="model">platform_manage.platform_manage</field>
+            <field name="name">station form view</field>
+            <field name="model">opertation_resources_station</field>
             <field name="arch" type="xml">
                 <form>
                     <header>
@@ -146,7 +158,7 @@
                         <div class="oe_title">
                             <!--<label for="name"/>-->
                             <h1>
-                                <field name="platform" placeholder="Platform"/>
+                                <field name="name" placeholder="Station"/>
                             </h1>
                         </div>
                         <group col="3">
@@ -163,17 +175,17 @@
                                 <field name="exit_latitude"/>
                             </group>
                             <group>
-                                <field name="platform_number"/>
-                                <field name="platform_status"/>
+                                <field name="code"/>
+                                <field name="station_status"/>
                                 <field name="electronic_bus_board_number"/>
-                                <field name="Road_id"/>
+                                <field name="road_id" options="{'no_open':True,'no_create':True}"/>
                             </group>
                         </group>
 
                         <notebook>
-                            <page string="Cross line">
-                                <field name="route_id"/>
-                            </page>
+                            <!--<page string="Cross line">-->
+                                <!--<field name="route_id"/>-->
+                            <!--</page>-->
                         </notebook>
                     </sheet>
                 </form>
@@ -244,21 +256,21 @@
         </record>
 
         <!-- 调度参数管理——Action -->
-        <record model="ir.actions.act_window" id="act_region">
-            <field name="name">Region list</field>
-            <field name="res_model">region_manage.region_manage</field>
+        <record model="ir.actions.act_window" id="act_area">
+            <field name="name">Area list</field>
+            <field name="res_model">opertation_resources_area</field>
             <field name="view_model">tree,form</field>
         </record>
 
         <record model="ir.actions.act_window" id="act_road_manage">
             <field name="name">Road list</field>
-            <field name="res_model">road_manage.road_manage</field>
+            <field name="res_model">opertation_resources_road</field>
             <field name="view_model">tree,form</field>
         </record>
 
         <record model="ir.actions.act_window" id="act_station_manage">
             <field name="name">Platform list</field>
-            <field name="res_model">platform_manage.platform_manage</field>
+            <field name="res_model">opertation_resources_station</field>
             <field name="view_model">tree,form</field>
         </record>
 
@@ -269,21 +281,28 @@
         </record>
 
         <!-- 调度参数管理——Menu -->
-        <menuitem id="menu_region"
-                  name="Regional management"
+        <menuitem id="menu_area"
+                  name="Area management"
                   parent="dispatch_monitor_menu.opertation_resources_menu"
-                  action="act_region" groups="scheduling_parameters.operation_manager"/>
+                  action="act_area"
+                  sequence="10"/>
         <menuitem id="menu_road"
                   name="Road management"
                   parent="dispatch_monitor_menu.opertation_resources_menu"
-                  action="act_road_manage" groups="scheduling_parameters.operation_manager"/>
+                  action="act_road_manage"
+                  sequence="20"
+        />
         <menuitem id="menu_station"
-                  name="Platform management"
+                  name="Station management"
                   parent="dispatch_monitor_menu.opertation_resources_menu"
-                  action="act_station_manage" groups="scheduling_parameters.operation_manager"/>
+                  action="act_station_manage"
+                  sequence="30"
+        />
         <menuitem id="menu_route"
-                  name="Line management"
+                  name="Route management"
                   parent="dispatch_monitor_menu.opertation_resources_menu"
-                  action="act_route_manage" groups="scheduling_parameters.operation_manager"/>
+                  action="act_route_manage"
+                  sequence="40"
+        />
     </data>
 </odoo>
