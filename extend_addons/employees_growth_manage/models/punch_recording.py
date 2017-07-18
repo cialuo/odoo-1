@@ -65,7 +65,7 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               order.name = order.teacher_id.name + u'的' + order.course_id.name + u'培训'
+               order.name = str(order.teacher_id.name)+u'的'+str(order.course_id.name)+u'培训'
 
      @api.multi
      def _compute_time_no(self):
