@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api,_
-import time,datetime
+from odoo import models, fields, api,_,exceptions
 import random
 class punch_recording(models.Model):
 
@@ -46,6 +45,18 @@ class punch_recording(models.Model):
      course_id = fields.Many2one('employees_growth.course',related='curriculum_schedule_id.course_id',
                                  string='Course id', store=True,
                                  readonly=True)
+
+     @api.constrains('start_time','end_time')
+     def check_datetime(self):
+          """
+               检查课时的开始时间和结束时间
+          :return:
+          """
+          for order in self:
+              if order.start_time > order.end_time:
+                   raise exceptions.ValidationError(_("Start can not be greater than the end time"))
+
+
      @api.multi
      def _compute_name(self):
           """

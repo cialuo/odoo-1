@@ -170,9 +170,9 @@
                                     </tree>
                                 </field>
                             </page>
-                            <page string="Product List">
+                            <page string="Brought Back Order">
                                 <field name="picking_ids">
-                                    <tree string="Product List" create="false" delete="false">
+                                    <tree string="Brought Back Order" create="false" delete="false">
 										<field name="picking_type_id"/>
 										<field name="name"/>
 										<field name="location_id"/>
@@ -345,7 +345,7 @@
             <field name="name">Warranty Inspect Order</field>
             <field name="model">warranty_order_project</field>
             <field name="arch" type="xml">
-                <tree string="Warranty Inspect Order" create="false">
+                <tree string="Warranty Inspect Order" create="false" delete="false">
                     <field name="warranty_order_id"/>
                     <field name="vehicle_id"/>
 					<field name="vehicle_type" string="Vehicle Model"/>

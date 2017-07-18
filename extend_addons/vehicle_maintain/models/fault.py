@@ -15,7 +15,7 @@ class FaultCategory(models.Model):
 
     fault_category_code = fields.Char("Fault Category Code", help='Fault Category Code',required=True)
     name = fields.Char("Fault Category Name", help='Fault Category Name',required=True)
-    state = fields.Selection([('use', "Use"), ('done', "Done")], default='use')
+    state = fields.Selection([('use', "Use"), ('done', "Done")], default='use', string="Category State")
     
     active = fields.Boolean(default=True)
     appearance_ids = fields.One2many(
@@ -54,7 +54,7 @@ class FaultAppearance(models.Model):
                                         help='Fault appearance Code', required=True)
     name = fields.Char("Fault appearance Name", help='Fault appearance Name',required=True)
 
-    state = fields.Selection([('use', "Use"),('done', "Done")], default='use')
+    state = fields.Selection([('use', "Use"),('done', "Done")], default='use', string="Appearance State")
     active = fields.Boolean(default=True)
     category_id = fields.Many2one('maintain.fault.category', ondelete='cascade',
                                   string="Fault Category Name", required=True)
@@ -112,7 +112,7 @@ class FaultReason(models.Model):
     fault_reason_code = fields.Char("Fault Reason Code",help='Fault Reason Code',
                                     compute="_get_fault_code",required=True)
     name = fields.Char("Fault Reason Name", help='Fault Reason Name',required=True)
-    state = fields.Selection([('use', "Use"),('done', "Done")], default='use')
+    state = fields.Selection([('use', "Use"),('done', "Done")], default='use', string="Reason State")
     active = fields.Boolean(default=True)
     appearance_id = fields.Many2one('maintain.fault.appearance',
                                     ondelete='cascade', string="Fault appearance Name")
@@ -179,14 +179,14 @@ class FaultMethod(models.Model):
         return emp_ids and emp_ids[0] or False
 
     inner_code = fields.Char("Inner Code", help='Inner Code', required=True)
-    fault_method_code = fields.Char("Fault Method Code",help='Fault Method Code',
-                                    compute="_get_fault_code",required=True)
+    fault_method_code = fields.Char("Fault Method Code", help='Fault Method Code',
+                                    compute="_get_fault_code", required=True)
     name = fields.Char("Fault Method Name", help='Fault Method Name', required=True)
-    state = fields.Selection([('use', "Use"),('done', "Done")], default='use')
+    state = fields.Selection([('use', "Use"),('done', "Done")], default='use', string="Method State")
     active = fields.Boolean(default=True)
     remark = fields.Text("Remark", help='Remark')
     work_time = fields.Integer(string="Work Time(Minutes)")
-    warranty_deadline = fields.Float(string="Warranty Deadline(Days)")
+    warranty_deadline = fields.Integer(string="Warranty Deadline(Days)", required=True, default=30)
     complex_level = fields.Selection([
        ('one work', "One work"),
        ('two works', "Two works"),
@@ -207,7 +207,7 @@ class FaultMethod(models.Model):
         ondelete='cascade', string="Fault appearance Name")
     category_id = fields.Many2one('maintain.fault.category',
         ondelete='cascade', string="Fault Category Name")
-    avail_ids = fields.One2many('maintain.fault.available_product', 'method_id', string="Products")
+    avail_ids = fields.One2many('maintain.fault.available_product', 'method_id', string="Available Products")
 
 
     @api.multi
@@ -240,7 +240,7 @@ class AvailableProduct(models.Model):
     method_id = fields.Many2one('maintain.fault.method',
         ondelete='cascade', string="Fault Method Name")
 
-    product_id = fields.Many2one('product.product', string="Product")
+    product_id = fields.Many2one('product.product', string="Product Name")
     product_code = fields.Char("Product Code", related='product_id.default_code', readonly=True)
     categ_id = fields.Many2one('product.category', related='product_id.categ_id',
                                string='Product Category', readonly=True)

@@ -1,0 +1,162 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* vehicle_plant_manage
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-05 01:47+0000\n"
+"PO-Revision-Date: 2017-07-05 01:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_active
+msgid "Active"
+msgstr "有效"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_create_uid
+msgid "Created by"
+msgstr "建档人"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_create_date
+msgid "Created on"
+msgstr "建档时间"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_department_id
+msgid "Department id"
+msgstr "所属单位"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant,state:0
+msgid "Done"
+msgstr "归档"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_form
+msgid "Employee"
+msgstr "维修工信息"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_id
+msgid "ID"
+msgstr "ID"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_form
+msgid "Mark as done"
+msgstr "归档"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_address
+msgid "Plant Address"
+msgstr "地址"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_plant_code
+msgid "Plant Code"
+msgstr "维修厂编号"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_employee_ids
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_form
+msgid "Plant Employee"
+msgstr "维修厂人员"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_form
+msgid "Plant Form"
+msgstr "Plant Form"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_name
+msgid "Plant Name"
+msgstr "维修厂名称"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_scale
+msgid "Plant Scale"
+msgstr "规模"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_tree
+msgid "Plant Tree"
+msgstr "Plant Tree"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_form
+msgid "Reset"
+msgstr "重新启用"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_state
+msgid "State"
+msgstr "状态"
+
+#. module: vehicle_plant_manage
+#: code:addons/vehicle_plant_manage/models/vehicle_plant.py:13
+#: sql_constraint:vehicle.plant:0
+#, python-format
+msgid "The plant code must be unique"
+msgstr "维修厂编号必须唯一"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant,state:0
+msgid "Use"
+msgstr "正常"
+
+#. module: vehicle_plant_manage
+#: code:addons/vehicle_plant_manage/models/vehicle_plant.py:12
+#: sql_constraint:vehicle.plant:0
+#, python-format
+msgid "plant name already exists"
+msgstr "维修厂名称已经存在"
+
+#. module: vehicle_plant_manage
+#: model:ir.model,name:vehicle_plant_manage.model_vehicle_plant
+msgid "vehicle.plant"
+msgstr "维修厂"
+
+#. module: vehicle_plant_manage
+#: model:ir.model,name:vehicle_plant_manage.model_vehicle_plant_employee
+msgid "vehicle.plant.employee"
+msgstr "vehicle.plant.employee"
+
+#. module: vehicle_plant_manage
+#: model:ir.actions.act_window,name:vehicle_plant_manage.vehicle_plant_manage_action
+msgid "vehicle_plant_action"
+msgstr "维修厂管理"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.menu,name:vehicle_plant_manage.vehicle_plant_manage
+msgid "vehicle_plant_manage"
+msgstr "维修厂管理"
+

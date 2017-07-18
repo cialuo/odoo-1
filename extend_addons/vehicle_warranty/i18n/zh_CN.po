@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-13 09:16+0000\n"
-"PO-Revision-Date: 2017-06-13 09:16+0000\n"
+"POT-Creation-Date: 2017-07-04 02:42+0000\n"
+"PO-Revision-Date: 2017-07-04 02:42+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,12 @@ msgstr ""
 #, python-format
 msgid "\"percentage_work\" may not be Incorrect"
 msgstr "工时比例错误"
+
+#. module: vehicle_warranty
+#: code:addons/vehicle_warranty/models/warranty_plan.py:120
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (副本)"
 
 #. module: vehicle_warranty
 #: code:addons/vehicle_warranty/models/warranty_order.py:248
@@ -124,6 +130,11 @@ msgstr "分公司"
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_form
 msgid "Brief Description"
 msgstr "简要说明"
+
+#. module: vehicle_warranty
+#: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_form
+msgid "Brought Back Order"
+msgstr "领退料单"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_calculate_state
@@ -658,7 +669,7 @@ msgstr "工时管理必填"
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_account_view_form
 msgid "MaintainRepair Form"
-msgstr "保养单"
+msgstr "MaintainRepair Form"
 
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_account_view_form
@@ -921,11 +932,6 @@ msgid "Product Fee"
 msgstr "合计金额"
 
 #. module: vehicle_warranty
-#: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_form
-msgid "Product List"
-msgstr "要件列表"
-
-#. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_account_material_product_id
 msgid "Product Name"
 msgstr "物资名称"
@@ -1065,7 +1071,7 @@ msgstr "承修车间"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_report_repair_user
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_order_report_repair_user
 msgid "Report Name"
-msgstr "报修人"
+msgstr "送保人"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_require_trans
@@ -1778,7 +1784,7 @@ msgstr "合格"
 #: code:addons/vehicle_warranty/models/warranty_plan_order.py:90
 #, python-format
 msgid "report_repair_user Required!"
-msgstr "保养人必填"
+msgstr "送保人必填"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_plan_order_ids
@@ -1794,7 +1800,7 @@ msgstr "工时比例不正确"
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_account_view_form
 msgid "total"
-msgstr "合计"
+msgstr "total"
 
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_category_form

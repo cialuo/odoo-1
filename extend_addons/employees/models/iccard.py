@@ -123,6 +123,7 @@ class certificate(models.Model):
     workpost = fields.Many2one(related='employee_id.workpost', readonly=True)
     # 员工状态
     employeestate = fields.Selection(related='employee_id.employeestate', readonly=True)
+
     # 用户图片
     userimage = fields.Binary(related='employee_id.image', readonly=True)
 

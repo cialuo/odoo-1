@@ -14,6 +14,7 @@
                 <field name="company_id"/>
                 <field name="route_id"/>
                 <field name="annual_inspection_date"/>
+                <field name="deadlinedays"/>
                 <field name="inspectionState"/>
                 <field name="contract_renewal_due_soon" invisible="1"/>
                 <field name="contract_renewal_overdue" invisible="1"/>
@@ -84,7 +85,10 @@
                             <field name="maker" readonly="1"/>
                             <field name="approver" readonly="1"/>
                             <field name="approvaldate" readonly="1"/>
+                            <!-- ERP-340 移除过滤
                             <field name="branchcompany" options="{'no_open': True, 'no_create': True}" domain="[('departmenttype','=','branch')]"/>
+                            -->
+                            <field name="branchcompany" options="{'no_open': True, 'no_create': True}"/>
                         </group>
                     </group>
                     <notebook>
@@ -103,7 +107,6 @@
         <field name="model">vehicle_usage.inspectionplan</field>
         <field name="arch" type="xml">
             <tree string="inspection plan">
-                <field name="name" />
                 <field name="name" />
                 <field name="state" />
                 <field name="startdate" />
@@ -148,6 +151,7 @@
                         <group>
                             <field name="reg_no" readonly="1"/>
                             <field name="reg_date" readonly="1"/>
+                            <field name="annual_inspection_date" readonly="1"/>
                             <field name="forced_destroy" readonly="1"/>
                         </group>
                     </group>

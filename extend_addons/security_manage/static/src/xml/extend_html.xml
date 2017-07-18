@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="web_editor.dialog.media">
+        <t t-jquery="ul:eq(0)" t-operation="replace">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#editor-media-image" data-toggle="tab">Image</a></li>
+               <!-- <li><a href="#editor-media-document" data-toggle="tab">Document</a></li>-->
+                <li><a href="#editor-media-icon" data-toggle="tab">Pictogram</a></li>
+                <li><a href="#editor-media-video" data-toggle="tab">Video</a></li>
+                <li class="search">
+                    <ul class="pager mb0 mt0">
+                        <li class="previous disabled">
+                            <a href="#">← Previous</a>
+                        </li>
+                        <li class="next disabled">
+                            <a href="#">Next →</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="search">
+                    <form action="#">
+                        <div class="form-group">
+                            <input class="form-control" id="icon-search" type="search"/>
+                            <span class="fa fa-search"/>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </t>
+    </t>
+
+</templates>

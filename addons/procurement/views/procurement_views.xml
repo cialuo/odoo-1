@@ -39,6 +39,7 @@
                         </div>
                     <group>
                         <group>
+                            <field name="name"/>
                             <field name="product_id"/>
                             <label for="product_qty"/>
                             <div>
@@ -54,9 +55,9 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Notes">
-                            <field name="name" placeholder="External note..."/>
-                        </page>
+                        <!--<page string="Notes">-->
+                            <!--<field name="name" placeholder="External note..."/>-->
+                        <!--</page>-->
                         <page string="Extra Information">
                             <group>
                                 <group>

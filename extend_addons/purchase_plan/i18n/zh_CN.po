@@ -58,7 +58,7 @@ msgstr "审核人"
 #. module: purchase_plan
 #: model:ir.model.fields,field_description:purchase_plan.field_purchase_plan_checker_login
 msgid "Checker login"
-msgstr "Checker login"
+msgstr "审核用户"
 
 #. module: purchase_plan
 #: selection:purchase.plan,state:0
@@ -184,7 +184,7 @@ msgstr "报价详情"
 #. module: purchase_plan
 #: model:ir.model.fields,field_description:purchase_plan.field_purchase_plan_login_user
 msgid "Login user"
-msgstr "Login user"
+msgstr "登录用户"
 
 #. module: purchase_plan
 #: model:ir.model.fields,field_description:purchase_plan.field_purchase_plan_month

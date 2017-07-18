@@ -197,40 +197,42 @@ class examination_students(models.Model):
          multiselect_questions = student.multiselect_question
          judge_questions = student.judge_question
 
-         for answer in vals.get('radio'):
+         if vals.get('radio'):
+             for answer in vals.get('radio'):
 
-             if answer.get('value'):
+                 if answer.get('value'):
 
-                 for radio in radio_questions:
-                     if radio.id == int(answer.get('id')):
-                         radio.student_answer = answer.get('value')
+                     for radio in radio_questions:
+                         if radio.id == int(answer.get('id')):
+                             radio.student_answer = answer.get('value')
 
-                     if radio.answer == answer.get('value') and radio.id == int(answer.get('id')):
-                        radio_count+=1
-                        break
+                         if radio.answer == answer.get('value') and radio.id == int(answer.get('id')):
+                            radio_count+=1
+                            break
+         if vals.get('multiselect'):
+             for answer in vals.get('multiselect'):
 
-         for answer in vals.get('multiselect'):
+                 if answer.get('value'):
 
-             if answer.get('value'):
+                     for multiselect in multiselect_questions:
 
-                 for multiselect in multiselect_questions:
+                         if multiselect.id == int(answer.get('id')):
+                             multiselect.student_answer = answer.get('value')
 
-                     if multiselect.id == int(answer.get('id')):
-                         multiselect.student_answer = answer.get('value')
+                         if multiselect.answer == answer.get('value') and multiselect.id == int(answer.get('id')):
+                            multiselect_count+=1
+                            break
 
-                     if multiselect.answer == answer.get('value') and multiselect.id == int(answer.get('id')):
-                        multiselect_count+=1
-                        break
+         if vals.get('judge'):
+             for answer in vals.get('judge'):
+                 if answer.get('value'):
+                     for judge in judge_questions:
+                         if judge.id == int(answer.get('id')):
+                             judge.student_answer = answer.get('value')
 
-         for answer in vals.get('judge'):
-             if answer.get('value'):
-                 for judge in judge_questions:
-                     if judge.id == int(answer.get('id')):
-                         judge.student_answer = answer.get('value')
-
-                     if judge.answer == answer.get('value') and judge.id == int(answer.get('id')):
-                        judge_count+=1
-                        break
+                         if judge.answer == answer.get('value') and judge.id == int(answer.get('id')):
+                            judge_count+=1
+                            break
 
          return_val['multiselect_question'] = multiselect_count
          return_val['radio_question'] = radio_count

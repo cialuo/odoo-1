@@ -322,25 +322,13 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="checkingresult_search_view">
-        <field name="name">chcking result</field>
-        <field name="model">perf.checkingresult</field>
-        <field name="arch" type="xml">
-            <search>
-                <filter name="checking_on_the_way" string="checking on the way"
-                            domain="[('state', '=', 'checking')]"/>
-                <filter name="checking_done" string="checking done"
-                            domain="[('state', '=', 'checkingdone')]"/>
-            </search>
-        </field>
-    </record>
 
     <!-- 邀请考核action页面 -->
     <record model="ir.actions.act_window" id="invite_checking_action">
         <field name="name">invite checking</field>
         <field name="res_model">perf.checkingresult</field>
         <field name="view_mode">tree,form</field>
-         <field name="context" eval="{'search_default_checking_on_the_way': 1}"/>
+        <field name="domain">[('state', '=', 'checking')]</field>
     </record>
 
     <!-- 考核结果action页面 -->
@@ -348,7 +336,7 @@
         <field name="name">checking result</field>
         <field name="res_model">perf.checkingresult</field>
         <field name="view_mode">tree,form</field>
-        <field name="context" eval="{'search_default_checking_done': 1}"/>
+        <field name="domain">[('state', '=', 'checkingdone')]</field>
     </record>
 
     <!-- 考核管理 -->

@@ -111,7 +111,8 @@ class SalaryCompute(models.Model):
         input_line_ids = self.get_inputs(contractToUse, date_from, date_to)
         input_lines = self.input_line_ids.browse([])
         absenceLines = self.getAbsenceData(monthAndYear, employee.id, self.contract_id.id)
-        input_line_ids += [absenceLines]
+        if absenceLines != None:
+            input_line_ids += [absenceLines]
         for r in input_line_ids:
             input_lines += input_lines.new(r)
         self.input_line_ids = input_lines

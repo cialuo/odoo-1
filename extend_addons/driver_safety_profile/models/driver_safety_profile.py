@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api,exceptions,_
 
 class SafeKilometer(models.Model): # 安全公里
     _name = 'safe_kilometer'
@@ -28,9 +28,21 @@ class SafeKilometer(models.Model): # 安全公里
             vals['serial_number'] = self.env['ir.sequence'].next_by_code('safe_kilometer') or '/'
         return super(SafeKilometer, self).create(vals)
 
+    @api.constrains('start_time','end_time')
+    def check_datetime(self):
+        for r in self:
+            if r.start_time > r.end_time:
+                raise exceptions.ValidationError(_("Start can not be greater than the end time"))
+
+    @api.constrains('accumulated_safe_kilometer')
+    def check_accumulated_safe_kilometer(self):
+        for r in self:
+            if r.accumulated_safe_kilometer <= 0:
+                raise exceptions.ValidationError(_("The number of safe kilometers needs to be greater than zero"))
 
 class Endorsement(models.Model):  # 违章记录
     _name = 'endorsement'
+    _rec_name = 'violation_type'
 
     name = fields.Char(default="")
 
@@ -124,6 +136,23 @@ class OverspeedRecord(models.Model):  # 超速记录
             vals['serial_number'] = self.env['ir.sequence'].next_by_code('overspeed_record') or '/'
         return super(OverspeedRecord, self).create(vals)
 
+    @api.constrains('speed_limit')
+    def check_speed_limit(self):
+        for order in self:
+          if order.speed_limit <= 0:
+            raise exceptions.ValidationError(_("The speed limit must be greater than zero"))
+
+    @api.constrains('outrageous')
+    def check_outrageous(self):
+        for order in self:
+            if order.outrageous <= 0:
+                raise exceptions.ValidationError(_("Exceeded range must be greater than zero"))
+
+    @api.constrains('speed')
+    def check_speed(self):
+        for order in self:
+            if order.speed <= 0:
+                raise exceptions.ValidationError(_("The speed must be greater than zero"))
 
 class employee(models.Model):
     _inherit = 'hr.employee'

@@ -15,13 +15,13 @@
                     <field name="vehicle_id"/>
                     <field name="vehicle_type" string="Vehicle Model"/>
                     <field name="license_plate"/>
-                    <field name="fleet"/>
+                    <field name="fleet" readonly="1"/>
                     <field name="operating_mileage"/>
                     <field name="warranty_category"/>
                     <field name="planned_date"/>
-                    <field name="vin"/>
+                    <field name="vin" readonly="1"/>
                     <field name="average_daily_kilometer"/>
-                    <field name="line"/>
+                    <field name="line" readonly="1"/>
                     <field name="warranty_location"/>
                     <field name="maintain_sheet_id"/>
                     <field name="state" string="MyState"/>

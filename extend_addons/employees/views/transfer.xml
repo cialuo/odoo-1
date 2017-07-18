@@ -79,18 +79,6 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="transfer_search_view">
-        <field name="name">transfer search</field>
-        <field name="model">employees.innertransfer</field>
-        <field name="arch" type="xml">
-            <search>
-                <filter name="unit_transfer" string="unit transfer"
-                            domain="[('transfer_type', '=', 'unit')]"/>
-                <filter name="post_transfer" string="post transfer"
-                            domain="[('transfer_type', '=', 'post')]"/>
-            </search>
-        </field>
-    </record>
 
     <!--对外调动列表-->
     <record id="ltyhr_view_foreign_transfer_tree" model="ir.ui.view">
@@ -217,7 +205,7 @@
         <field name="name">employees_unit_transfer</field>
         <field name="res_model">employees.innertransfer</field>
         <field name="view_mode">tree,form</field>
-        <field name="context" eval="{'transtype': 'unit', 'search_default_unit_transfer': 1}"/>
+        <field name="domain">[('transfer_type', '=', 'unit')]</field>
     </record>
 
     <!--岗位调动action页面-->
@@ -225,7 +213,7 @@
         <field name="name">employees_post_transfer</field>
         <field name="res_model">employees.innertransfer</field>
         <field name="view_mode">tree,form</field>
-        <field name="context" eval="{'transtype': 'post', 'search_default_post_transfer': 1}"/>
+        <field name="domain">[('transfer_type', '=', 'post')]</field>
     </record>
 
     <!--对外调动-->

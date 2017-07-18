@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-20 07:21+0000\n"
-"PO-Revision-Date: 2017-06-20 15:23+0800\n"
+"POT-Creation-Date: 2017-07-17 02:22+0000\n"
+"PO-Revision-Date: 2017-07-17 10:23+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1062,6 +1062,12 @@ msgid "Start"
 msgstr "准备开课"
 
 #. module: employees_growth_manage
+#: code:addons/employees_growth_manage/models/punch_recording.py:57
+#, python-format
+msgid "Start can not be greater than the end time"
+msgstr "开始时间不能大于结束时间!"
+
+#. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_start_time
 msgid "Start time"
 msgstr "上课时间"
@@ -1223,6 +1229,7 @@ msgstr "试卷明细"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_test_paper_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_test_paper_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_test_paper_id
 msgid "Test paper id"
 msgstr "试卷"
 
@@ -1560,7 +1567,7 @@ msgid "sign_to_execution"
 msgstr "准备执行"
 
 #. module: employees_growth_manage
-#: model:ir.actions.act_window,name:employees_growth_manage.action_students
+#: model:ir.actions.act_window,name:employees_growth_manage.employees_action_students
 msgid "students window"
 msgstr "员工考试"
 
@@ -1592,7 +1599,7 @@ msgstr "上课完成"
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.test_paper_form
 msgid "total"
-msgstr "合计总分"
+msgstr "总"
 
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.action_training_plan

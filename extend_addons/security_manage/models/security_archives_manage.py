@@ -8,7 +8,7 @@ class archives_class_manage(models.Model):
     _sql_constraints = [
         ('item_id_unique',
          'UNIQUE(item_id)',
-         "The id must be unique"),
+         u"编号已经存在!"),
     ]
     name = fields.Char(string='archives_class_manage_item_name', required=True)
     item_id = fields.Char(string='archives_class_manage_item_id', required=True)
