@@ -1,6 +1,6 @@
 <openerp>
   <data>
-    <!-- explicit list view definition -->
+    <!-- 异常列表 -->
     <record model="ir.ui.view" id="dispatch_abnormal_mgt_list">
       <field name="name">dispatch_abnormal_mgt list</field>
       <field name="model">dispatch.abnormal.mgt</field>
@@ -10,7 +10,43 @@
         </tree>
       </field>
     </record>
-    
+    <!-- 异常日志列表 -->
+    <record model="ir.ui.view" id="dispatch_abnormal_logs_list">
+      <field name="name">dispatch_abnormal_logst list</field>
+      <field name="model">dispatch.abnormal.logs</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="user"/>
+          <field name="date"/>
+          <field name="solution"/>
+          <field name="abnormal_id"/>         
+        </tree>
+      </field>
+    </record>
+    <!-- 行车日导列表 todo 某些字段需要与原模块关联 -->
+    <record model="ir.ui.view" id="dispatch_driving_records_list">
+      <field name="name">dispatch_driving_records list</field>
+      <field name="model">dispatch.driving.records</field>
+      <field name="arch" type="xml">
+        <tree editable='top'>
+          <field name="name"/>
+          <field name="line_id"/>
+          <field name="trip_id"/>
+          <field name="trip_direction"/>
+          <field name="bus_id"/>  
+          <field name="driver_id"/>
+          <field name="plan_mileage"/>
+          <field name="gps_mileage"/>
+          <field name="plan_start"/>
+          <field name="actual_start"/>          
+          <field name="plan_end"/>
+          <field name="actual_end"/>                            
+        </tree>
+      </field>
+    </record>
+
+    <!-- 异常看板todo -->    
     <record id="dispatch_abnormal_mgt_kanban" model="ir.ui.view">
         <field name="name">dispatch_control_desktop kanban</field>
         <field name="model">dispatch.abnormal.mgt</field>
@@ -44,7 +80,7 @@
     </record> 
 
 
-  
+    <!-- 异常动作 -->  
     <record model="ir.actions.act_window" id="dispatch_abnormal_mgt_action_window">
       <field name="name">Dispatch active abnormal</field>
       <field name="res_model">dispatch.abnormal.mgt</field>
@@ -55,7 +91,41 @@
 	      </p>
 	  </field>           
     </record>
+    
+    <!-- 异常日志动作 -->  
+    
+    <record model="ir.actions.act_window" id="dispatch_abnormal_logs_action_window">
+      <field name="name">Dispatch abnormal lgos</field>
+      <field name="res_model">dispatch.abnormal.logs</field>
+      <field name="view_mode">kanban,tree,form</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          No active abnormal logs.<br/>
+	      </p>
+	  </field>           
+    </record>   
+
+    <!-- 行车记录动作 -->  
+    
+    <record model="ir.actions.act_window" id="dispatch_driving_records_action_window">
+      <field name="name">Driving Records</field>
+      <field name="res_model">dispatch.driving.records</field>
+      <field name="view_mode">tree,form</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          No Driving Records.<br/>
+	      </p>
+	  </field>           
+    </record>  
+     
+    
     <menuitem name="Dispatch Abnormal" id="dispatch_abnormal_mgt_menu" parent="dispatch_monitor_menu.dispatch_work_menu"
               action="dispatch_abnormal_mgt_action_window" sequence="10"/>
+    <menuitem name="Abnormal logs" id="dispatch_abnormal_logs_menu" parent="dispatch_monitor_menu.dispatch_work_menu"
+              action="dispatch_abnormal_logs_action_window" sequence="20"/>      
+    <menuitem name="Driving Records" id="dispatch_driving_records_menu" parent="dispatch_monitor_menu.dispatch_work_menu"
+              action="dispatch_driving_records_action_window" sequence="30"/>                 
+              
+                                  
   </data>
 </openerp>
