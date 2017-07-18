@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-21 10:10+0000\n"
-"PO-Revision-Date: 2017-04-21 10:10+0000\n"
+"POT-Creation-Date: 2017-07-18 09:46+0000\n"
+"PO-Revision-Date: 2017-07-18 09:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,80 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: purchase_extend
+#: model:ir.ui.view,arch_db:purchase_extend.multi_product_form
+msgid "Cancel"
+msgstr "取消"
+
+#. module: purchase_extend
+#: model:ir.ui.view,arch_db:purchase_extend.multi_product_form
+msgid "Confirm"
+msgstr "确认"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: purchase_extend
 #: model:ir.actions.act_window,name:purchase_extend.extend_stock_picking_type_action
 msgid "Extend picking type action"
 msgstr "采购入库"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_id
+msgid "ID"
+msgstr "ID"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_product_id
+msgid "Materials Product"
+msgstr "物资"
+
+#. module: purchase_extend
+#: model:ir.actions.act_window,name:purchase_extend.action_multi_product_form
+#: model:ir.ui.view,arch_db:purchase_extend.purchase_order_multi_product_view
+msgid "Multi Product"
+msgstr "批量增加物资"
+
+#. module: purchase_extend
+#: model:ir.model,name:purchase_extend.model_purchase_order
+msgid "Purchase Order"
+msgstr "采购订单"
+
+#. module: purchase_extend
+#: model:ir.model,name:purchase_extend.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "采购订单行"
+
+#. module: purchase_extend
+#: model:ir.model,name:purchase_extend.model_multi_product_wizard
+msgid "multi.product.wizard"
+msgstr "批量增加物资"
 
 #. module: purchase_extend
 #: model:ir.ui.menu,name:purchase_extend.materials_menu_purchase_order

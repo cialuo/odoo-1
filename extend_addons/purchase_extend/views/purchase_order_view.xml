@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="purchase_order_multi_product_view" model="ir.ui.view">
+            <field name="name">Purchase Multi Product</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="before">
+                    <button name="%(action_multi_product_form)d" string="Multi Product" type="action" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//notebook/page[2]/group/group/div/field" position="attributes">
+                    <attribute name="required">0</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

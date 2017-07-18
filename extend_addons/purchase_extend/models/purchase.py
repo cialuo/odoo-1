@@ -18,5 +18,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/lgpl.html>.
 #
 ##############################################################################
-import models
-import wizard
+from odoo import api, fields, models
+
+class Purchase_line(models.Model):
+    _inherit = 'purchase.order.line'
+
+    date_planned = fields.Datetime(required=False)

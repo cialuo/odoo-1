@@ -8,9 +8,12 @@
     'author': 'Xiao',
     'description': """
     采购管理
+    1.1 增加批量勾选产品功能
     """,
     'data': [
         'views/purchase_menu.xml',
+        'wizard/multi_product_view.xml',
+        'views/purchase_order_view.xml',
     ],
     'depends': ['materials_menu', 'purchase'],
     'application': True,

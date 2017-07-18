@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="multi_product_form" model="ir.ui.view">
+            <field name="name">Multi Product</field>
+            <field name="model">multi.product.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="product_id"/>
+                    <footer>
+                        <button string="Confirm" name="action_confirm" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_multi_product_form" name='Multi Product' res_model="multi.product.wizard" view_mode="form" target="new"/>
+    </data>
+</odoo>
