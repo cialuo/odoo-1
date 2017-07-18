@@ -210,6 +210,8 @@ class curriculum_schedule(models.Model):
           :return:
           """
 
+          id = False
+
           if self.id:
                """
                     修改课程表
@@ -222,7 +224,7 @@ class curriculum_schedule(models.Model):
                if len(vals.get('time_arrangements')) > 0:
                     id = vals.get('time_arrangements')[0][2].get('curriculum_schedule_id')
 
-          if id :
+          if id:
                # 根据课程表ID获取计划
                schedule = self.env['employees_growth.curriculum_schedule'].search([('id', '=', id)])
                students = schedule.students

@@ -736,6 +736,31 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
 
         return False
 
+    @api.multi
+    def batch_dispatch_continue(self):
+        """
+            派工并继续
+        :return:
+        """
+
+        return {
+            'name': _('Batch Dispatch'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'wizard_batch_dispatch',  # 'res_model': 'hr.expense.sheet',
+            # 'id':'batch_dispatch_view_form',
+            'context': {
+                # 'default_sheetId': self.id
+                # 'default_name': self.id
+                # 'default_expense_line_ids': [line.id for line in self],
+                # 'default_employee_id': self[0].employee_id.id,
+                # 'default_name': 'mingger' # self[0].name if len(self.ids) == 1 else ''
+            },
+            'view_id': self.env.ref('vehicle_warranty.wizard_batch_dispatch_form').id,
+            # 'target': 'current',
+            'target': 'new'
+            # 'res_id': self.id, # self.env.context.get('cashbox_id')
+        }
 
 class WizardInspectOrderReject(models.TransientModel): # 检验单_退回重修
     _name = "wizard_inspect_order_reject"

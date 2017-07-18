@@ -307,7 +307,10 @@
                     </notebook>
                     <footer>
                         <button name="batch_dispatch" type="object"
-                                string="Batch Dispatch" class="oe_highlight"/>
+                                string="Batch Dispatch&amp;close" class="oe_highlight"/>
+                        or
+                        <button name="batch_dispatch_continue" type="object"
+                                string="Batch Dispatch&amp;continue" class="oe_highlight"/>
                         or
                         <button special="cancel" string="Cancel"/>
                     </footer>
