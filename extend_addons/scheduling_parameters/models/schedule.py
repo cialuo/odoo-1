@@ -14,7 +14,7 @@ class Area(models.Model):
     road_ids = fields.One2many('opertation_resources_road', 'area_id', ondelete='cascade', string="Road") # 所辖道路
 
     state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
-                             default='inuse', string='State', readonly=True)  # 状态
+                             default='inuse', string='area_state', readonly=True)  # 状态
     active = fields.Boolean(default=True)
 
     @api.multi
@@ -47,7 +47,7 @@ class Road(models.Model):
     area_id = fields.Many2one('opertation_resources_area', ondelete='cascade', string='Area', required=True) # 区域
     station_ids = fields.One2many("opertation_resources_station", 'road_id', string="Station")
     state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
-                             default='inuse', string='State', readonly=True)  # 状态
+                             default='inuse', string='road_state', readonly=True)  # 状态
     active = fields.Boolean(default=True)
 
     @api.multi
@@ -74,7 +74,6 @@ class Station(models.Model):
     """
     站台管理
     """
-
     name = fields.Char('Station Name', required=True) # 站台名称
     code = fields.Char('Station Code', required=True) # 站台编号
     road_id = fields.Many2one('opertation_resources_road', ondelete='cascade', string='Road', required=True)
@@ -90,11 +89,10 @@ class Station(models.Model):
     exit_longitude = fields.Float(digits=(10, 6), string='Exit longitude') # 出站经度
     exit_latitude = fields.Float(digits=(10, 6), string='Exit latitude') # 出站纬度
 
-    station_status = fields.Char('Station status') # 站台状况
+    station_condition = fields.Char('Station Condition') # 站台状况
     electronic_bus_board_number = fields.Char('electronic bus-board number') # 电子站牌编号
     state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
-                             default='inuse', string='State', readonly=True)  # 状态
-
+                             default='inuse', string='station_state', readonly=True)  # 状态
     active = fields.Boolean(default=True)
 
     @api.multi
@@ -115,9 +113,11 @@ class Station(models.Model):
         ('code_unique', 'unique(code)', _('The station code must be unique!'))
     ]
 
-# 线路管理
 class route_manage(models.Model):
     _name = 'route_manage.route_manage'
+    """
+    线路管理
+    """
 
     @api.multi
     def _people_number(self):
