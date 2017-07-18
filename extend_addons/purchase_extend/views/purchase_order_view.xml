@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook" position="before">
-                    <button name="%(action_multi_product_form)d" string="Multi Product" type="action"/>
+                    <button name="%(action_multi_product_form)d" string="Multi Product" type="action" class="oe_highlight"/>
                 </xpath>
                 <xpath expr="//notebook/page[2]/group/group/div/field" position="attributes">
                     <attribute name="required">0</attribute>
