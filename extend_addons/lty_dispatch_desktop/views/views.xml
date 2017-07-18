@@ -36,9 +36,9 @@
      <!--Top menu item-->
     <menuitem name="lty_dispatch_desktop" id="lty_dispatch_desktop.menu_root"/>
      <!--menu categories-->
-    <menuitem name="Menu 1" id="lty_dispatch_desktop.menu_1" parent="lty_dispatch_desktop.menu_root"/>
+    <menuitem name="Menu 1" id="lty_dispatch_desktop.menu_1" parent="dispatch_monitor_menu.dispatch_work_menu"/>
      <!--actions-->
-    <menuitem name="List" id="lty_dispatch_desktop.menu_1_list" parent="lty_dispatch_desktop.menu_1"
+    <menuitem name="List" id="lty_dispatch_desktop.menu_1_list" parent="dispatch_monitor_menu.dispatch_work_menu"
               action="lty_dispatch_desktop.action_window"/>
 
   </data>
