@@ -51,21 +51,36 @@ class lty_dispatch_desktop(models.Model):
 
             },
             "cd": {
-                "a": "21",
-                "y": "13",
-                "c": "41",
-                "d": ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
-                "e": [3, 4, 11, 12, 21, 32],
-                "f": [0, 450],
-                "g": ["#fff111", "#11FF66", "#dd0033", "#cc2123", "#aa1212", "#3355ff"],
+                "a": "1",
+                "y": "2",
+                "c": "3",
+                "d": [{'name': "武汉", 'status': '1', 'color': '#ffd275'},
+                      {'name': "武汉", 'status': '0', 'color': '#cc2123'},
+                      {'name': "武汉", 'status': '1', 'color': '#ffd275'},
+                      {'name': "武汉", 'status': '1', 'color': '#4dcfc7'},
+                      {'name': "武汉", 'status': '1', 'color': '#4dcfc7'},
+                      {'name': "深大", 'status': '1', 'color': '#ffd275'},
+                      {'name': "武汉", 'status': '1', 'color': '#cc2123'}],
+                "d2": [{'name': "武汉1", 'status': '0', 'color': '#ffd275'},
+                      {'name': "武汉2", 'status': '0', 'color': '#cc2123'},
+                      {'name': "武汉", 'status': '1', 'color': '#ffd275'},
+                      {'name': "武汉4", 'status': '1', 'color': '#4dcfc7'},
+                      {'name': "武汉5", 'status': '1', 'color': '#4dcfc7'},
+                      {'name': "武汉6", 'status': '1', 'color': '#ffd275'},
+                      {'name': "武汉7", 'status': '1', 'color': '#cc2123'}],
+                "e": [10, 5, 36, 10, 10, 20, 58],
+                "f": [0, 150],
+                "g": ["#ff4634", "#4dcfc7","#ffd275", "#cc2123", "#4dcfc7", "#f69e92",  "#cc2123"],
                 "h": [12, 130, 260],
                 "j": {
                     "line": 32,
-                    "car": 24,
-                    "good_car": 20,
-                    "SignalStatus": "bad",
-                    "driver": 12
-                }
+                    "car": 14,
+                    "good_car": 10,
+                    "SignalStatus": "well",
+                    "driver": 2
+                },
+                "k": [12, 200, 300, 450, 600, 860, 1170]
+
             }
         }]
         return dis_desk
