@@ -20,10 +20,6 @@
 ##############################################################################
 from odoo import api, fields, models
 
-class Purchase(models.Model):
-    _inherit = 'purchase.order'
-
-    date_planned = fields.Datetime(required=False)
 class Purchase_line(models.Model):
     _inherit = 'purchase.order.line'
 

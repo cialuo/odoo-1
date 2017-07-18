@@ -9,6 +9,9 @@
                 <xpath expr="//notebook" position="before">
                     <button name="%(action_multi_product_form)d" string="Multi Product" type="action"/>
                 </xpath>
+                <xpath expr="//notebook/page[2]/group/group/div/field" position="attributes">
+                    <attribute name="required">0</attribute>
+                </xpath>
             </field>
         </record>
     </data>
