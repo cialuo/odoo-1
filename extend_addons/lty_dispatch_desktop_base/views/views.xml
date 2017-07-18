@@ -1,59 +1,57 @@
 <openerp>
   <data>
     <!-- explicit list view definition -->
-    <!--
-    <record model="ir.ui.view" id="lty_dispatch_desktop_base.list">
-      <field name="name">lty_dispatch_desktop_base list</field>
-      <field name="model">lty_dispatch_desktop_base.lty_dispatch_desktop_base</field>
+    <record model="ir.ui.view" id="dispatch_control_desktop_list">
+      <field name="name">dispatch_control_desktop list</field>
+      <field name="model">dispatch.control.desktop</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+          <field name="user"/>
+          <field name="is_default"/>
         </tree>
       </field>
     </record>
-    -->
-
-    <!-- actions opening views on models -->
-    <!--
-    <record model="ir.actions.act_window" id="lty_dispatch_desktop_base.action_window">
-      <field name="name">lty_dispatch_desktop_base window</field>
-      <field name="res_model">lty_dispatch_desktop_base.lty_dispatch_desktop_base</field>
-      <field name="view_mode">tree,form</field>
+    
+    <record id="dispatch_control_desktop_kanban" model="ir.ui.view">
+        <field name="name">dispatch_control_desktop kanban</field>
+        <field name="model">dispatch.control.desktop</field>
+        <field name="arch" type="xml">
+            <kanban create="false" class="o_kanban_dashboard o_pos_kanban">
+                <field name="name"/>
+                <field name="user"/>
+                <templates>
+					<t t-name="kanban-box">
+                        <div>
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <div class="o_primary"><t t-esc="record.name.value"/></div>
+                                    <div class="o_secondary"><t t-esc="record.user.value"/></div>
+                                </div>
+                                <div class="o_kanban_manage_button_section">
+                                    <a class="o_kanban_manage_toggle_button" href="#">More <i class="fa fa-caret-down"/></a>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_content o_visible">
+                                <div class="row">
+                                    <div class="col-xs-6 o_kanban_primary_left">
+                                        
+                                        <button  class="btn btn-primary" name="open_dispatch_desktop" type="object">Open Desktop</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>    
+    <record model="ir.actions.act_window" id="dispatch_control_desktop_action_window">
+      <field name="name">Dispatch Control Desktop</field>
+      <field name="res_model">dispatch.control.desktop</field>
+      <field name="view_mode">kanban,tree,form</field>
     </record>
-    -->
-
-    <!-- server action to the one above -->
-    <!--
-    <record model="ir.actions.server" id="lty_dispatch_desktop_base.action_server">
-      <field name="name">lty_dispatch_desktop_base server</field>
-      <field name="model_id" ref="model_lty_dispatch_desktop_base_lty_dispatch_desktop_base"/>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": self._name,
-        }
-      </field>
-    </record>
-    -->
-
-    <!-- Top menu item -->
-    <!--
-    <menuitem name="lty_dispatch_desktop_base" id="lty_dispatch_desktop_base.menu_root"/>
-    -->
-    <!-- menu categories -->
-    <!--
-    <menuitem name="Menu 1" id="lty_dispatch_desktop_base.menu_1" parent="lty_dispatch_desktop_base.menu_root"/>
-    <menuitem name="Menu 2" id="lty_dispatch_desktop_base.menu_2" parent="lty_dispatch_desktop_base.menu_root"/>
-    -->
-    <!-- actions -->
-    <!--
-    <menuitem name="List" id="lty_dispatch_desktop_base.menu_1_list" parent="lty_dispatch_desktop_base.menu_1"
-              action="lty_dispatch_desktop_base.action_window"/>
-    <menuitem name="Server to list" id="lty_dispatch_desktop_base" parent="lty_dispatch_desktop_base.menu_2"
-              action="lty_dispatch_desktop_base.action_server"/>
-    -->
+    <menuitem name="Dispatch Desktop" id="lty_dispatch_desktop.dispatch_desktop_menu_test" parent="dispatch_monitor_menu.dispatch_work_menu"
+              action="dispatch_control_desktop_action_window" sequence="0"/>
   </data>
 </openerp>

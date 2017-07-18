@@ -19,7 +19,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['dispatch_monitor_menu'],
+    'depends': ['web_kanban','dispatch_monitor_menu'],
 
     # always loaded
     'data': [
