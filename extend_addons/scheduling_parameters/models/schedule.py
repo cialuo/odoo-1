@@ -1,34 +1,20 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-# 区域管理
-class region_manage(models.Model):
-    _name = 'region_manage.region_manage'
 
-    _rec_name = 'region_name'
 
-    # 区域编码
-    region_coding = fields.Char('Region coding', required=True)
-    # 区域名称
-    region_name = fields.Char('Region name', required=True)
-    # 设立时间
-    create_time = fields.Datetime('Creation time')
-    # 建档人
-    book_runner = fields.Many2one('res.users', string='Book runner', default=lambda self: self.env.user, readonly=True)
-    # 所辖道路
-    road_id = fields.One2many('road_manage.road_manage', 'region_id', ondelete='cascade', string="Road")
+class Area(models.Model):
+    """
+    区域管理
+    """
+    _name = 'opertation_resources_area'
 
-    # 状态
-    WORKFLOW_STATE_SELECTION = [
-        ('inuse', 'In-use'),
-        ('archive', 'Archive')
-    ]
+    name = fields.Char('Area name', required=True)  # 区域名称
+    code = fields.Char('Area code', required=True) # 区域编码
+    road_ids = fields.One2many('opertation_resources_road', 'area_id', ondelete='cascade', string="Road") # 所辖道路
 
-    state = fields.Selection(WORKFLOW_STATE_SELECTION,
-                             default='inuse',
-                             string='State',
-                             readonly=True)
-
+    state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
+                             default='inuse', string='area_state', readonly=True)  # 状态
     active = fields.Boolean(default=True)
 
     @api.multi
@@ -45,40 +31,23 @@ class region_manage(models.Model):
 
     # sql 约束，效率高
     _sql_constraints = [
-        ('name_unique', 'unique(region_name)', _('The region name must be unique!')),
-        ('coding_unique', 'unique(region_coding)', _('The region coding must be unique!'))
+        ('name_unique', 'unique(name)', _('The area name must be unique!')),
+        ('code_unique', 'unique(code)', _('The area code must be unique!'))
     ]
 
-# 道路管理
-class road_manage(models.Model):
-    _name = 'road_manage.road_manage'
 
-    _rec_name = 'road_name'
+class Road(models.Model):
+    """
+    道路管理
+    """
+    _name = 'opertation_resources_road'
 
-    # 道路编码
-    road_coding = fields.Char('Road coding', required=True)
-    # 道路名称
-    road_name = fields.Char('Road name', required=True)
-    # 区域
-    region_id = fields.Many2one('region_manage.region_manage', ondelete='cascade', string='Region', required=True)
-    # 设立日期
-    create_date = fields.Date('Create date')
-    # 建档人
-    book_runner = fields.Many2one('res.users', string='Book runner', default=lambda self: self.env.user, readonly=True)
-
-    # platform_id = fields.Many2many("platform_manage.platform_manage", string="Station")
-    platform_id = fields.One2many("platform_manage.platform_manage", 'Road_id', string="Station")
-    # 状态
-    WORKFLOW_STATE_SELECTION = [
-        ('inuse', 'In-use'),
-        ('archive', 'Archive')
-    ]
-
-    state = fields.Selection(WORKFLOW_STATE_SELECTION,  # 状态
-                             default='inuse',
-                             string='State',
-                             readonly=True)
-
+    name = fields.Char('Road name', required=True)  # 道路名称
+    code = fields.Char('Road code', required=True) # 道路编码
+    area_id = fields.Many2one('opertation_resources_area', ondelete='cascade', string='Area', required=True) # 区域
+    station_ids = fields.One2many("opertation_resources_station", 'road_id', string="Station")
+    state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
+                             default='inuse', string='road_state', readonly=True)  # 状态
     active = fields.Boolean(default=True)
 
     @api.multi
@@ -95,58 +64,35 @@ class road_manage(models.Model):
 
     # sql 约束，效率高
     _sql_constraints = [
-        ('name_unique', 'unique(road_name)', _('The road name must be unique!')),
-        ('coding_unique', 'unique(road_coding)', _('The road coding must be unique!'))
+        ('name_unique', 'unique(name)', _('The road name must be unique!')),
+        ('code_unique', 'unique(code)', _('The road code must be unique!'))
     ]
 
-# 站台管理
-class platform_manage(models.Model):
-    _name = 'platform_manage.platform_manage'
 
-    _rec_name = "platform"
-    # 经度
-    longitude = fields.Float(digits=(10, 6), string="longitude")
-    # 纬度
-    latitude = fields.Float(digits=(10, 6), string="latitude")
-    # 站台编号
-    platform_number = fields.Char('Platform number', required=True)
-    # 站台名称
-    platform = fields.Char('Platform', required=True)
-    # 进站方位角
-    entrance_azimuth = fields.Char('Entrance azimuth')
-    # 进站经度
-    entrance_longitude = fields.Float(digits=(10, 6), string='Entrance longitude')
-    # 进站纬度
-    entrance_latitude = fields.Float(digits=(10, 6), string='Entrance latitude')
-    # 出站方位角
-    exit_azimuth = fields.Char('Exit azimuth')
-    # 出站经度
-    exit_longitude = fields.Float(digits=(10, 6), string='Exit longitude')
-    # 出站纬度
-    exit_latitude = fields.Float(digits=(10, 6), string='Exit latitude')
-    # 站台状况
-    platform_status = fields.Char('Platform status')
-    # 电子站牌编号
-    electronic_bus_board_number = fields.Char('electronic bus-board number')
+class Station(models.Model):
+    _name = 'opertation_resources_station'
+    """
+    站台管理
+    """
+    name = fields.Char('Station Name', required=True) # 站台名称
+    code = fields.Char('Station Code', required=True) # 站台编号
+    road_id = fields.Many2one('opertation_resources_road', ondelete='cascade', string='Road', required=True)
 
-    Road_id = fields.Many2one('road_manage.road_manage', ondelete='cascade', string='Road', required=True)
+    longitude = fields.Float(digits=(10, 6), string="longitude")  # 经度
+    latitude = fields.Float(digits=(10, 6), string="latitude") # 纬度
 
-    # route_id = fields.One2many('route_manage.route_manage', 'route_id', string='Route')
+    entrance_azimuth = fields.Char('Entrance azimuth') # 进站方位角
+    entrance_longitude = fields.Float(digits=(10, 6), string='Entrance longitude') # 进站经度
+    entrance_latitude = fields.Float(digits=(10, 6), string='Entrance latitude') # 进站纬度
 
-    # platform_resource = fields.Many2one('route_manage.route_manage', string="Platform resource")
+    exit_azimuth = fields.Char('Exit azimuth') # 出站方位角
+    exit_longitude = fields.Float(digits=(10, 6), string='Exit longitude') # 出站经度
+    exit_latitude = fields.Float(digits=(10, 6), string='Exit latitude') # 出站纬度
 
-    route_id = fields.Many2many('route_manage.route_manage', string='Route')
-
-    WORKFLOW_STATE_SELECTION = [
-        ('inuse', 'In-use'),
-        ('archive', 'Archive')
-    ]
-
-    state = fields.Selection(WORKFLOW_STATE_SELECTION,
-                             default='inuse',
-                             string='State',
-                             readonly=True)
-
+    station_condition = fields.Char('Station Condition') # 站台状况
+    electronic_bus_board_number = fields.Char('electronic bus-board number') # 电子站牌编号
+    state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
+                             default='inuse', string='station_state', readonly=True)  # 状态
     active = fields.Boolean(default=True)
 
     @api.multi
@@ -163,13 +109,15 @@ class platform_manage(models.Model):
 
     # sql 约束，效率高
     _sql_constraints = [
-        ('platform_unique', 'unique(platform)', _('The platform must be unique!')),
-        ('platform_number_unique', 'unique(platform_number)', _('The platform number must be unique!'))
+        ('name_unique', 'unique(name)', _('The station name must be unique!')),
+        ('code_unique', 'unique(code)', _('The station code must be unique!'))
     ]
 
-# 线路管理
 class route_manage(models.Model):
     _name = 'route_manage.route_manage'
+    """
+    线路管理
+    """
 
     @api.multi
     def _people_number(self):
@@ -210,21 +158,12 @@ class route_manage(models.Model):
     subsidiary = fields.Many2one('hr.department', 'Subsidiary')
 
 
-    # 状态
-    WORKFLOW_STATE_SELECTION = [
-            ('inuse', 'In-use'),
-            ('archive', 'Archive')
-        ]
+    state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
+                             default='inuse', string='State', readonly=True)  # 状态
 
-    state = fields.Selection(WORKFLOW_STATE_SELECTION,
-                             default='inuse',
-                             string='State',
-                             readonly=True)
 
-    # route_id = fields.Many2one('platform_manage.platform_manage', string='Route id')
-    # platform_resource = fields.One2many('platform_manage.platform_manage', 'platform_resource', string='Platform')
     # 站台资源
-    platform_resource = fields.Many2many('platform_manage.platform_manage', string='Platform')
+    platform_resource = fields.Many2many('opertation_resources_station', string='Platform')
     # 人力资源
     human_resource = fields.Many2many('hr.employee', string='Human resource')
     # 人员数量
