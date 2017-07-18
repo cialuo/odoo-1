@@ -35,7 +35,8 @@ class questions(models.Model):
 
      @api.depends('multiselect_questions','radio_questions','judge_questions')
      def _compute_total_count(self):
-         self.total_count = len(self.multiselect_questions) + len(self.radio_questions) + len(self.judge_questions)
+         for order in self:
+             order.total_count = len(order.multiselect_questions) + len(order.radio_questions) + len(order.judge_questions)
 
      @api.depends('radio_questions')
      def _compute_radio_question_count(self):

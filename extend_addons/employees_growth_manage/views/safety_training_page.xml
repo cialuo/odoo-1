@@ -7,6 +7,7 @@
     <record model="ir.ui.view" id="employees_growth_manage.safety_curriculum_schedule_list">
       <field name="name">curriculum_schedule list</field>
       <field name="model">employees_growth.curriculum_schedule</field>
+      <field name="priority">100</field>
       <field name="arch" type="xml">
         <tree>
           <field name="curriculum_no"/>
@@ -24,6 +25,7 @@
     <record model="ir.ui.view" id="employees_growth_manage.safety_curriculum_schedule_form">
       <field name="name">curriculum_schedule form</field>
       <field name="model">employees_growth.curriculum_schedule</field>
+      <field name="priority">100</field>
       <field name="arch" type="xml">
         <form duplicate="0">
              <header>
@@ -116,6 +118,7 @@
     <record model="ir.ui.view" id="employees_growth_manage.technology_curriculum_schedule_list">
       <field name="name">curriculum_schedule list</field>
       <field name="model">employees_growth.curriculum_schedule</field>
+      <field name="priority">100</field>
       <field name="arch" type="xml">
         <tree>
           <field name="curriculum_no"/>
@@ -133,6 +136,7 @@
     <record model="ir.ui.view" id="employees_growth_manage.technology_curriculum_schedule_form">
       <field name="name">curriculum_schedule form</field>
       <field name="model">employees_growth.curriculum_schedule</field>
+      <field name="priority">100</field>
       <field name="arch" type="xml">
         <form duplicate="0">
              <header>
