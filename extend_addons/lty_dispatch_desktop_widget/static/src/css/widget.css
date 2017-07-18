@@ -159,13 +159,13 @@
     /*overflow: hidden;*/
 }
 
-.bus_real_info .boxTitle .closeBox, .passenger_flow_trend_chart .closeBox {
+.bus_real_info .boxTitle .closeBox, .passenger_flow_trend_chart .closeBox, .plan_display .closeBox {
     height: 12px;
     background: #535252;
     position: relative;
 }
 
-.bus_real_info .boxTitle .closeBox .close_bt, .passenger_flow_trend_chart .closeBox .close_bt{
+.bus_real_info .boxTitle .closeBox .close_bt, .passenger_flow_trend_chart .closeBox .close_bt, .plan_display .close_bt {
     position: absolute;
     right: 5px;
     top: 3px;
@@ -618,4 +618,135 @@
 }
 .bus_real_info .more_info_part .record_cont tr:nth-child(even) {
     background: #efeff8;
+}
+
+
+/*----------车辆计划展示------------*/
+/*863*2
+250
+22*/
+.plan_display {
+    width: 1732px;
+}
+
+.plan_display .closeBox {
+    height: 28px;
+    padding: 0 12px;
+}
+
+.plan_display .closeBox .close_bt {
+    top: 11px;
+    right: 11px;
+}
+
+.plan_display .closeBox .title {
+    color: #fff;
+    line-height: 28px;
+}
+
+.plan_display .plan_group {
+    height: 539px;
+    border: 1px solid #000;
+    overflow: auto;
+}
+
+.plan_display .uplink_plan {
+    width: 253px;
+    border-right: 1px solid #000;
+}
+
+.plan_display .uplink_yard {
+    width: 306px;
+    border-right: 1px solid #ccc;
+}
+
+
+.plan_display .uplink_on_the_way {
+    border-right: 1px solid #000;
+}
+
+.plan_display .down_on_the_way {
+    border-right: 1px solid #000;
+}
+.plan_display .down_on_the_way {
+    border: 0;
+}
+
+.plan_display .section_plan_cont {
+    position: relative;
+    float: left;
+}
+
+.plan_display .section_plan_cont .title {
+    height: 36px;
+    line-height: 36px;
+    background: #c4c2da;
+    font-size: 18px;
+    font-weight: bold;
+    color: #515081; 
+    padding: 0 12px;
+}
+
+.plan_display .uplink_yard .title {
+    background: #7c7bad url('/lty_dispatch_desktop_widget/static/src/image/arrows.png') center right no-repeat;
+    color: #fff;
+}
+
+.plan_display .section_plan_cont .content_tb {
+    text-align: center;
+    width: 100%;
+    font-size: 13px;
+}
+
+.plan_display .uplink_plan .content_tb {
+    border-bottom: 1px solid #ccc;
+}
+
+.plan_display .section_plan_cont .bottom_bt {
+    height: 36px;
+    text-align: center;
+    padding-top: 7px;
+}
+
+.plan_display .uplink_yard .bottom_bt {
+    height: 26px;
+}
+
+.plan_display .uplink_on_the_way .bottom_bt {
+    height: 36px;
+}
+
+.plan_display .section_plan_cont .bottom_bt a {
+    display: inline-block;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    padding: 1px 3px;
+}
+
+.plan_display .section_plan_cont .content_tb th, .plan_display .section_plan_cont .content_tb td {
+    height: 22px;
+    line-height: 22px;
+    font-weight: normal;
+}
+
+.plan_display .section_plan_cont .content_tb th {
+    text-align: center;
+    background: #eee;
+    border: 1px solid #ccc;
+}
+
+.plan_display .section_plan_cont .content_tb tr:nth-child(even) {
+    background: #efeff8;
+}
+
+.plan_display .uplink_plan .content_tb tr.point {
+    cursor: pointer;
+}
+
+.plan_display .uplink_plan .content_tb tr.active {
+    background: #918fba;
+}
+
+.plan_display .uplink_plan .content_tb tr.point:hover {
+    background: #918fba;
 }

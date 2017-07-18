@@ -1,13 +1,18 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <template xml:space="preserve">
     <t t-name="dispatch_desktop">
-        <div class="dispatch_desktop posR">
-			<div class="content" t-attf-style="left:#{dis_desk[0].ab.f[0]}px;top:#{dis_desk[0].ab.f[1]}px;">
+		<div class="dispatch_desktop posR contain">
+			<t t-if="dis_desk">
+			<div class="content drag" t-attf-style="left:#{dis_desk.ab.f[0]}px;top:#{dis_desk.ab.f[1]}px;">
 				<!--线路信息展示-->
-				<div class="line_info">
+				<div class="line_info title">
 					<div  class="fl line_way">
 						<ul>
-							<li><t t-esc="dis_desk[0].ab.j.line"/></li>
+							<li>
+								<t t-if="dis_desk">
+									<t t-esc="dis_desk.ab.j.line"/>
+								</t>
+							</li>
 							<li>支线1</li>
 							<li>支线2</li>
 							<li>区间</li>
@@ -15,10 +20,10 @@
 					</div>
 					<div class="bus_info fl">
 						<ul>
-							<li>线路：<t t-esc="dis_desk[0].ab.j.line"/></li>
-							<li>配车数量：<t t-esc="dis_desk[0].ab.j.car"/></li>
-							<li>司机：<t t-esc="dis_desk[0].ab.j.driver"/></li>
-							<li>状态良好：<t t-esc="dis_desk[0].ab.j.good_car"/></li>
+							<li>线路：<t t-esc="dis_desk.ab.j.line"/></li>
+							<li>配车数量：<t t-esc="dis_desk.ab.j.car"/></li>
+							<li>司机：<t t-esc="dis_desk.ab.j.driver"/></li>
+							<li>状态良好：<t t-esc="dis_desk.ab.j.good_car"/></li>
 						</ul>
 					</div>
 					<div class="line_btn">
@@ -36,23 +41,23 @@
 						<div  class="">
 							<div class="line_status ovf">
 								<ul class="fl">
-									<li t-attf-style="background:#{dis_desk[0].ab.g[0]};">8</li>
-									<li t-attf-style="background:#{dis_desk[0].ab.g[1]};">12</li>
+									<li t-attf-style="background:#{dis_desk.ab.g[0]};">8</li>
+									<li t-attf-style="background:#{dis_desk.ab.g[1]};">12</li>
 								</ul>
 								<ul  class="fr">
-									<li t-attf-style="background:#{dis_desk[0].ab.g[2]};">24</li>
-									<li t-attf-style="background:#{dis_desk[0].ab.g[3]};">12</li>
-									<li t-attf-style="background:#{dis_desk[0].ab.g[4]};">8</li>
-									<li t-attf-style="background:#{dis_desk[0].ab.g[5]};">65</li>
+									<li t-attf-style="background:#{dis_desk.ab.g[2]};">24</li>
+									<li t-attf-style="background:#{dis_desk.ab.g[3]};">12</li>
+									<li t-attf-style="background:#{dis_desk.ab.g[4]};">8</li>
+									<li t-attf-style="background:#{dis_desk.ab.g[5]};">65</li>
 								</ul>
 							</div>
 							<div class="actual_traffic ovf">
 								<canvas class="canvas_left fl" id="canvas_left" width="26" height="116"></canvas>
 								<div>
-									<canvas width="1190" height="33" id="can"></canvas>
+									<canvas width="1190" height="33" class="can"></canvas>
 									<div class="traffic_car">
 										<div class="content_car_road">
-											<div class="line_car" t-attf-style="left:#{dis_desk[0].ab.h[0]}px">
+											<div class="line_car" t-attf-style="left:#{dis_desk.ab.h[0]}px">
 												<div class="num_car">
 													<span>12</span>
 												</div>
@@ -60,20 +65,20 @@
 													<span>597</span>
 												</div>
 											</div>
-											<div class="line_car_right" t-attf-style="left:#{dis_desk[0].ab.h[0]}px">
-												<div class="num_car">
-													<span>12</span>
-												</div>
-												<div class="type_car">
-													<span>597</span>
-												</div>
-											</div>
-										</div>
-										<div class="content_car_road">
 
 										</div>
+										<div class="content_car_road">
+											<div class="line_car_right">
+												<div class="num_car">
+													<span>58</span>
+												</div>
+												<div class="type_car">
+													<span>59127</span>
+												</div>
+											</div>
+										</div>
 									</div>
-									<canvas width="1190" height="33" id="can1"></canvas>
+									<canvas width="1190" height="33" class="can1"></canvas>
 								</div>
 								<canvas class="canvas_right fl" id="canvas_right" width="26" height="116">
 
@@ -83,20 +88,75 @@
 					</div>
 				</div>
 			</div>
+			</t>
+			<t t-else="">
+				<div class="content drag" t-attf-style="">
+				<!--线路信息展示-->
+					<div class="line_info title">
+						<div class="line_btn">
+							<div class="line_btn_content posR">
+								<a class="min" href="javascript:;" title="最小化">-</a>
+								<a class="line_edit" href="javascript:;" title="设置">+</a>
+								<div class="edit_content">
+									<div class="ovf">
+										<a class="del" href="javascript:;" title="最小化">-</a>
+									</div>
+									<ul>
+										<li>
+											<ul>
+												<li>2路</li>
+												<li>8路</li>
+												<li>34路</li>
+											</ul>
+										</li>
+										<li>
+											<ul>
+												<li>资源设置</li>
+												<li>样式设置</li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</t>
 		</div>
     </t>
 	<t t-name="myConsole">
 		<div class="my_console">
 			<ul>
-				<li class="new_console">调度台资源池</li>
-				<li class="save_console">保存控制台</li>
-				<li class="read_console">配置</li>
+				<li class="new_console">
+					<div class="div-icon">
+						<s class="s-icon"></s>
+					</div>
+					<div class="div-a">
+						<a href="#">调度台资源池</a>
+					</div>
+				</li>
+				<li class="save_console">
+					<div class="div-icon">
+						<s class="s-icon"></s>
+					</div>
+					<div class="div-a">
+						<a href="#">保存控制台</a>
+					</div>
+				</li>
+				<li class="read_console">
+					<div class="div-icon">
+						<s class="s-icon"></s>
+					</div>
+					<div class="div-a">
+						<a href="#">配置</a>
+					</div>
+				</li>
 			</ul>
 		</div>
 	</t>
 	<!--上下行图表，客流是否异常-->
 	<t t-name="updown_line_table">
-			<div class="updown_line_table contain">
+		<div class="updown_line_table contain">
 			<div class="drag">
 				<div class="title">
 					<div class="line_btn">
@@ -106,25 +166,25 @@
 					</div>
 				</div>
 				<!--替换-->
-				<div class="carousel ovf oe_hidden">
+				<div class="carousel ovf">
 					<ul class="carousel_content">
 						<li>
 							<div class="lunbo_child">
 								<!--替换-->
-								<div id="mychart" class="fl">
+								<div class="absnormal_chart fl">
 								</div>
 								<ul class="absnormal_operate fl">
 									<li>
-										<div>
+										<div class="absnormal_type">
 											<h4>异常</h4>
 											<p>实际客流大于运力供给30%</p>
 										</div>
-										<div>
+										<div class="absnormal_sug">
 											<h4>建议</h4>
 											<p>2趟/分钟/20分钟,需补充2台机动车</p>
 										</div>
 									</li>
-									<li class="handleBtn">
+									<li class="handleBtn ovf">
 										<a>驳回</a>
 										<a>校准</a>
 										<a>忽略</a>
@@ -134,26 +194,26 @@
 						</li>
 						<li>
 							<div class="lunbo_child">
-								<!--替换-->
-								<div id="mychart" class="fl">
+								<div id="lagstation_chart" class="fl">
 								</div>
 								<ul class="absnormal_operate fl">
 									<li>
-										<div>
+										<div class="absnormal_type">
 											<h4>异常</h4>
 											<p>实际客流大于运力供给30%</p>
 										</div>
-										<div>
+										<div class="absnormal_sug">
 											<h4>建议</h4>
 											<p>2趟/分钟/20分钟,需补充2台机动车</p>
 										</div>
 									</li>
-									<li class="handleBtn">
+									<li class="handleBtn ovf">
 										<a>驳回</a>
 										<a>校准</a>
 										<a>忽略</a>
 									</li>
 								</ul>
+
 							</div>
 						</li>
 					</ul>
