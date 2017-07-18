@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-18 02:57+0000\n"
-"PO-Revision-Date: 2017-07-18 02:57+0000\n"
+"POT-Creation-Date: 2017-07-18 05:40+0000\n"
+"PO-Revision-Date: 2017-07-18 05:40+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,10 +24,10 @@ msgid "Active"
 msgstr "有效"
 
 #. module: scheduling_parameters
-#: model:ir.ui.view,arch_db:scheduling_parameters.area_form_view
-#: model:ir.ui.view,arch_db:scheduling_parameters.road_form_view
+#: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_area_form
+#: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_road_form
+#: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_station_form
 #: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
-#: model:ir.ui.view,arch_db:scheduling_parameters.station_form_view
 #: selection:opertation_resources_area,state:0
 #: selection:opertation_resources_road,state:0
 #: selection:opertation_resources_station,state:0
@@ -46,13 +46,13 @@ msgid "Area code"
 msgstr "区域编码"
 
 #. module: scheduling_parameters
-#: model:ir.ui.menu,name:scheduling_parameters.menu_area
+#: model:ir.ui.menu,name:scheduling_parameters.opertation_resources_area_menu
 msgid "Area management"
 msgstr "区域管理"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_area_name
-#: model:ir.ui.view,arch_db:scheduling_parameters.area_form_view
+#: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_area_form
 msgid "Area name"
 msgstr "区域名称"
 
@@ -67,7 +67,7 @@ msgstr "班制"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_create_uid
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_create_uid
 msgid "Created by"
-msgstr "建档人"
+msgstr "创建人"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_area_create_date
@@ -75,7 +75,7 @@ msgstr "建档人"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_create_date
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_create_date
 msgid "Created on"
-msgstr "设立时间"
+msgstr "创建时间"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_area_display_name
@@ -226,18 +226,17 @@ msgid "Platform"
 msgstr "站台"
 
 #. module: scheduling_parameters
-#: model:ir.ui.view,arch_db:scheduling_parameters.area_form_view
-#: model:ir.ui.view,arch_db:scheduling_parameters.road_form_view
+#: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_area_form
+#: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_road_form
+#: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_station_form
 #: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
-#: model:ir.ui.view,arch_db:scheduling_parameters.station_form_view
 msgid "Reset"
 msgstr "重新启用"
 
 #. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_area_road_ids
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_road_id
-msgid "Road"
-msgstr "道路"
+msgid "Road Chose"
+msgstr "所属道路"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_road_code
@@ -245,18 +244,23 @@ msgid "Road code"
 msgstr "道路编码"
 
 #. module: scheduling_parameters
-#: model:ir.ui.view,arch_db:scheduling_parameters.area_form_view
+#: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_area_form
 msgid "Road list"
 msgstr "道路列表"
 
 #. module: scheduling_parameters
-#: model:ir.ui.menu,name:scheduling_parameters.menu_road
+#: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_area_road_ids
+msgid "Road lists"
+msgstr "道路列表"
+
+#. module: scheduling_parameters
+#: model:ir.ui.menu,name:scheduling_parameters.opertation_resources_road_menu
 msgid "Road management"
 msgstr "道路管理"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_road_name
-#: model:ir.ui.view,arch_db:scheduling_parameters.road_form_view
+#: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_road_form
 msgid "Road name"
 msgstr "道路名称"
 
@@ -307,8 +311,7 @@ msgid "State"
 msgstr "状态"
 
 #. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_road_station_ids
-#: model:ir.ui.view,arch_db:scheduling_parameters.station_form_view
+#: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_station_form
 msgid "Station"
 msgstr "站点"
 
@@ -328,12 +331,17 @@ msgid "Station Name"
 msgstr "站点名称"
 
 #. module: scheduling_parameters
-#: model:ir.ui.menu,name:scheduling_parameters.menu_station
+#: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_road_station_ids
+msgid "Station lists"
+msgstr "站点列表"
+
+#. module: scheduling_parameters
+#: model:ir.ui.menu,name:scheduling_parameters.opertation_resources_station_menu
 msgid "Station management"
 msgstr "站点管理"
 
 #. module: scheduling_parameters
-#: model:ir.ui.view,arch_db:scheduling_parameters.road_form_view
+#: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_road_form
 msgid "Stations"
 msgstr "站点列表"
 
@@ -414,24 +422,9 @@ msgid "Up line"
 msgstr "上行"
 
 #. module: scheduling_parameters
-#: model:ir.actions.act_window,name:scheduling_parameters.act_area_manage
-msgid "act_area_manage"
-msgstr "区域管理"
-
-#. module: scheduling_parameters
-#: model:ir.actions.act_window,name:scheduling_parameters.act_road_manage
-msgid "act_road_manage"
-msgstr "道路管理"
-
-#. module: scheduling_parameters
 #: model:ir.actions.act_window,name:scheduling_parameters.act_route_manage
 msgid "act_route_manage"
 msgstr "线路管理"
-
-#. module: scheduling_parameters
-#: model:ir.actions.act_window,name:scheduling_parameters.act_station_manage
-msgid "act_station_manage"
-msgstr "站点管理"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_area_state
@@ -464,8 +457,18 @@ msgid "opertation_resources_area"
 msgstr "区域管理"
 
 #. module: scheduling_parameters
+#: model:ir.actions.act_window,name:scheduling_parameters.opertation_resources_area_action
+msgid "opertation_resources_area_action"
+msgstr "区域管理"
+
+#. module: scheduling_parameters
 #: model:ir.model,name:scheduling_parameters.model_opertation_resources_road
 msgid "opertation_resources_road"
+msgstr "道路管理"
+
+#. module: scheduling_parameters
+#: model:ir.actions.act_window,name:scheduling_parameters.opertation_resources_road_action
+msgid "opertation_resources_road_action"
 msgstr "道路管理"
 
 #. module: scheduling_parameters
@@ -474,24 +477,14 @@ msgid "opertation_resources_station"
 msgstr "站点管理"
 
 #. module: scheduling_parameters
+#: model:ir.actions.act_window,name:scheduling_parameters.opertation_resources_station_action
+msgid "opertation_resources_station_action"
+msgstr "站点管理"
+
+#. module: scheduling_parameters
 #: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
 msgid "platform resource"
 msgstr "站台资源"
-
-#. module: scheduling_parameters
-#: model:ir.model,name:scheduling_parameters.model_platform_manage_platform_manage
-msgid "platform_manage.platform_manage"
-msgstr "platform_manage.platform_manage"
-
-#. module: scheduling_parameters
-#: model:ir.model,name:scheduling_parameters.model_region_manage_region_manage
-msgid "region_manage.region_manage"
-msgstr "region_manage.region_manage"
-
-#. module: scheduling_parameters
-#: model:ir.model,name:scheduling_parameters.model_road_manage_road_manage
-msgid "road_manage.road_manage"
-msgstr "road_manage.road_manage"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_road_state

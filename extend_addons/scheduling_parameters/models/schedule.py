@@ -11,7 +11,7 @@ class Area(models.Model):
 
     name = fields.Char('Area name', required=True)  # 区域名称
     code = fields.Char('Area code', required=True) # 区域编码
-    road_ids = fields.One2many('opertation_resources_road', 'area_id', ondelete='cascade', string="Road") # 所辖道路
+    road_ids = fields.One2many('opertation_resources_road', 'area_id', ondelete='cascade', string="Road lists") # 所辖道路
 
     state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
                              default='inuse', string='area_state', readonly=True)  # 状态
@@ -45,7 +45,7 @@ class Road(models.Model):
     name = fields.Char('Road name', required=True)  # 道路名称
     code = fields.Char('Road code', required=True) # 道路编码
     area_id = fields.Many2one('opertation_resources_area', ondelete='cascade', string='Area', required=True) # 区域
-    station_ids = fields.One2many("opertation_resources_station", 'road_id', string="Station")
+    station_ids = fields.One2many("opertation_resources_station", 'road_id', string="Station lists")
     state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
                              default='inuse', string='road_state', readonly=True)  # 状态
     active = fields.Boolean(default=True)
@@ -76,7 +76,7 @@ class Station(models.Model):
     """
     name = fields.Char('Station Name', required=True) # 站台名称
     code = fields.Char('Station Code', required=True) # 站台编号
-    road_id = fields.Many2one('opertation_resources_road', ondelete='cascade', string='Road', required=True)
+    road_id = fields.Many2one('opertation_resources_road', ondelete='cascade', string='Road Chose', required=True)
 
     longitude = fields.Float(digits=(10, 6), string="longitude")  # 经度
     latitude = fields.Float(digits=(10, 6), string="latitude") # 纬度
@@ -112,6 +112,7 @@ class Station(models.Model):
         ('name_unique', 'unique(name)', _('The station name must be unique!')),
         ('code_unique', 'unique(code)', _('The station code must be unique!'))
     ]
+
 
 class route_manage(models.Model):
     _name = 'route_manage.route_manage'
@@ -156,7 +157,6 @@ class route_manage(models.Model):
                                      default='flexible scheduling')
     # 隶属公司
     subsidiary = fields.Many2one('hr.department', 'Subsidiary')
-
 
     state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
                              default='inuse', string='State', readonly=True)  # 状态
