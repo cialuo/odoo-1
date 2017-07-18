@@ -26,6 +26,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/cloud_server_config.xml',
+        'views/dsp_server_config.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode
