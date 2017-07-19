@@ -18,5 +18,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/lgpl.html>.
 #
 ##############################################################################
-import orderpoint
-import picking
+from odoo import api, fields, models
+
+class StockPicking(models.Model):
+    _inherit = 'stock.picking'
+
+    picking_type_id = fields.Many2one(readonly=True, states={'draft': [('readonly', False)]})
