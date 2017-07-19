@@ -3,7 +3,7 @@
     'name': "运营资源",
 
     'description': """
-        a)区域管理
+        a) 区域管理
         b）道路管理
         c）站点管理
         d）线路管理
@@ -14,11 +14,11 @@
         运营资源
         """,
 
-    'author': "youmy",
+    'author': "Xiang",
     'website': "http://www.lantaiyuan.com/",
 
     'category': 'Basic Edition',
-    'version': '0.1',
+    'version': '0.1.0',
 
     # any module necessary for this one to work correctly
     'depends': ['dispatch_monitor_menu', 'employees'],
