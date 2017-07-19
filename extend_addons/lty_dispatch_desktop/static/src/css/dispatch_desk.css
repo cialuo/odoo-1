@@ -371,13 +371,13 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
 
 /*上下行路线图表和是否异常*/
 
-.updown_line_table .drag{
+.updown_line_table .updown_drag{
 	left:1300px;top:150px;position:absolute;width: 600px;
 	height: 190px;
 	background: #343B58;
     border-radius: 8px;
 }
-.updown_line_table .title{
+.updown_line_table .updown_title{
     height:30px;
 }
 .updown_line_table .line_btn {

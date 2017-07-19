@@ -174,9 +174,9 @@
 	</t>
 	<!--上下行图表，客流是否异常-->
 	<t t-name="updown_line_table">
-		<div class="updown_line_table drag_contain">
-			<div class="drag_man">
-				<div class="drag_title">
+		<div class="updown_line_table contain">
+			<div class="drag updown_drag">
+				<div class="title updown_title">
 					<div class="line_btn">
 						<div class="line_btn_content posR">
 							<a class="min" href="javascript:;" title="删除">x</a>
