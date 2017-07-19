@@ -1,20 +1,20 @@
-
 /*---------站点客流---------*/
+
 .passenger_flow_trend_chart {
     width: 932px;
 }
 
 .passenger_flow_trend_chart .trend_chart {
-	float: left;
-	border: 1px solid #aaa;
+    float: left;
+    border: 1px solid #aaa;
     width: 466px;
     background: #fff;
 }
 
 .passenger_flow_trend_chart .trend_chart .top_title {
     padding: 0 10px;
-	border-bottom: 1px solid #ccc;
-	font-size: 13px;
+    border-bottom: 1px solid #ccc;
+    font-size: 13px;
     height: 50px;
     line-height: 50px;
 }
@@ -34,21 +34,26 @@
 .trend_chart_info .map_botton_info {
     height: 70px;
 }
+
 .trend_chart_info .map_botton_info .num {
     font-size: 26px;
     font-weight: bold;
     margin: 0 5px;
     border-bottom: 1px solid #aaa;
 }
+
 .trend_chart_info .map_botton_info .red {
     color: red;
 }
+
 .trend_chart_info .map_botton_info .blue {
     color: blue
 }
+
 .trend_chart_info .map_botton_info .gray {
     color: gray;
 }
+
 .trend_chart_info .map_botton_info li {
     width: 33.33%;
     text-align: center;
@@ -62,6 +67,7 @@
     height: 284px;
     padding: 5px;
 }
+
 .express_train {
     width: 456px;
     height: 274px;
@@ -69,6 +75,7 @@
     position: relative;
     border: 1px solid #ccc;
 }
+
 .express_train .express_train_content {
     padding: 5px 10px;
 }
@@ -98,7 +105,8 @@
     margin: 5px 0;
 }
 
-.express_train .express_train_part .vehicle_op, .express_train .express_train_part .waiting_bus_op {
+.express_train .express_train_part .vehicle_op,
+.express_train .express_train_part .waiting_bus_op {
     display: none;
 }
 
@@ -146,7 +154,9 @@
     border-radius: 4px;
 }
 
+
 /*---------车辆实时状态---------*/
+
 .bus_real_info {
     width: 802px;
     letter-spacing: 2px;
@@ -159,13 +169,17 @@
     /*overflow: hidden;*/
 }
 
-.bus_real_info .boxTitle .closeBox, .passenger_flow_trend_chart .closeBox, .plan_display .closeBox {
+.bus_real_info .boxTitle .closeBox,
+.passenger_flow_trend_chart .closeBox,
+.plan_display .closeBox {
     height: 12px;
     background: #535252;
     position: relative;
 }
 
-.bus_real_info .boxTitle .closeBox .close_bt, .passenger_flow_trend_chart .closeBox .close_bt, .plan_display .close_bt {
+.bus_real_info .boxTitle .closeBox .close_bt,
+.passenger_flow_trend_chart .closeBox .close_bt,
+.plan_display .close_bt {
     position: absolute;
     right: 5px;
     top: 3px;
@@ -257,7 +271,8 @@
 
 .bus_real_info .boxTitle .infoR .more .sceneMore {
     display: block;
-    padding: 0 10px;
+    width: 100%;
+    height: 100%;
 }
 
 .bus_real_info .boxTitle .infoR .more:hover .morebox {
@@ -378,7 +393,7 @@
     float: left;
     border: 1px solid #aaa;
     width: 334px;
-    height: 
+    height:
 }
 
 .bus_real_info .carPassenge .carPassenger .top {
@@ -392,6 +407,7 @@
     height: 50px;
     line-height: 50px;
 }
+
 .bus_real_info .carPassenge .carPassenger .topt .zm {
     font-size: 18px;
     font-weight: bold;
@@ -408,21 +424,26 @@
     /*height: 70px;*/
     width: 332px;
 }
+
 .bus_real_info .mapB .mapInfoTxt .num {
     font-size: 26px;
     font-weight: bold;
     margin: 0 5px;
     border-bottom: 1px solid #aaa;
 }
+
 .bus_real_info .mapB .mapInfoTxt .red {
     color: red;
 }
+
 .bus_real_info .mapB .mapInfoTxt .blue {
     color: blue
 }
+
 .bus_real_info .mapB .mapInfoTxt .gray {
     color: gray;
 }
+
 .bus_real_info .mapB .mapInfoTxt li {
     width: 33.33%;
     text-align: center;
@@ -470,7 +491,7 @@
     margin-right: 4px;
 }
 
-.bus_real_info .info_status_nav li{
+.bus_real_info .info_status_nav li {
     display: inline-block;
     list-style-type: none;
     margin: 0 -22px 0 0;
@@ -502,7 +523,8 @@
     border-radius: .25em;
 }
 
-.bus_real_info .info_status_nav .arrow, .bus_real_info .info_status_nav .arrow_first {
+.bus_real_info .info_status_nav .arrow,
+.bus_real_info .info_status_nav .arrow_first {
     width: 17px;
     height: 24px;
     display: inline-block;
@@ -519,7 +541,8 @@
     padding-left: 1px;
 }
 
-.bus_real_info .info_status_nav .arrow span, .bus_real_info .info_status_nav .arrow_first span {
+.bus_real_info .info_status_nav .arrow span,
+.bus_real_info .info_status_nav .arrow_first span {
     position: relative;
     width: 19px;
     height: 19px;
@@ -604,7 +627,8 @@
     padding: 5px 5px 5px 15px;
 }
 
-.bus_real_info .more_info_part .record_cont th,.bus_real_info .more_info_part .record_cont td {
+.bus_real_info .more_info_part .record_cont th,
+.bus_real_info .more_info_part .record_cont td {
     line-height: 24px;
     width: 25%;
     height: 24px;
@@ -616,15 +640,20 @@
     border-top: 1px solid #ccc;
     border-right: 1px solid #ccc;
 }
+
 .bus_real_info .more_info_part .record_cont tr:nth-child(even) {
     background: #efeff8;
 }
 
 
+
 /*----------车辆计划展示------------*/
+
+
 /*863*2
 250
 22*/
+
 .plan_display {
     width: 1732px;
 }
@@ -645,7 +674,7 @@
 }
 
 .plan_display .plan_group {
-    height: 539px;
+    height: 537px;
     border: 1px solid #000;
     overflow: auto;
 }
@@ -668,6 +697,7 @@
 .plan_display .down_on_the_way {
     border-right: 1px solid #000;
 }
+
 .plan_display .down_on_the_way {
     border: 0;
 }
@@ -683,7 +713,7 @@
     background: #c4c2da;
     font-size: 18px;
     font-weight: bold;
-    color: #515081; 
+    color: #515081;
     padding: 0 12px;
 }
 
@@ -723,16 +753,16 @@
     padding: 1px 3px;
 }
 
-.plan_display .section_plan_cont .content_tb th, .plan_display .section_plan_cont .content_tb td {
-    height: 22px;
-    line-height: 22px;
-    font-weight: normal;
-}
-
 .plan_display .section_plan_cont .content_tb th {
+    height: 22px;
+    font-weight: normal;
     text-align: center;
     background: #eee;
     border: 1px solid #ccc;
+}
+
+.plan_display .section_plan_cont .content_tb td {
+    height: 22px;
 }
 
 .plan_display .section_plan_cont .content_tb tr:nth-child(even) {
@@ -743,10 +773,57 @@
     cursor: pointer;
 }
 
-.plan_display .uplink_plan .content_tb tr.active {
+.plan_display .uplink_plan .content_tb tr.active_tr {
     background: #918fba;
+    color: #fff;
 }
 
 .plan_display .uplink_plan .content_tb tr.point:hover {
     background: #918fba;
+    color: #fff;
+}
+
+/*------调整计划----------*/
+.adjust_box .adjust_info {
+    padding: 10px 20px;
+}
+
+.adjust_box .adjust_content {
+    width: 460px;
+    height: 180px;
+}
+
+.adjust_box .adjust_content td {
+    height: 28px;
+    width: 25%;
+}
+
+.adjust_box .adjust_content td input[type="number"] {
+    width: 40px;
+    margin: 0 5px;
+    display: inline-block;
+}
+
+.adjust_box .adjust_bt_box {
+    position: relative;
+    height: 48px;
+    border-top: 1px solid #ccc;
+    padding: 10px 20px;
+}
+
+.adjust_box .adjust_bt_box .adjust_bt {
+    display: inline-block;
+    border: 1px solid #ccc;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    width: 56px;
+}
+
+.adjust_box .adjust_bt_box .ok_bt, .adjust_box .adjust_bt_box .close_bt {
+    float: right;
+}
+
+.adjust_box .adjust_bt_box .ok_bt {
+    margin-right: 20px;
 }
