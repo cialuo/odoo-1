@@ -1,3 +1,5 @@
+.dispatch_desktop{
+}
 .dispatch_desktop .content {
     position: absolute;
     width: 1276px;
@@ -86,6 +88,9 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
     width:100px;
     background: #fff;
     border-radius: 2px;
+    z-index: 20;
+    display: none;
+    cursor: pointer;
 }
 .dispatch_desktop .edit_content>ul{
     padding-left: 20px;
@@ -174,6 +179,7 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
     height: 8px;
     width: 38px;
     text-align: right;
+    cursor: pointer;
 }
 
 .dispatch_desktop .line_car .type_car span {
@@ -235,7 +241,7 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
 .dispatch_desktop .content_car_road:first-of-type {
     margin-bottom: 8px;
 }
-#absnormal_chart,#lagstation_chart{
+.absnormal_chart,#lagstation_chart{
     width:350px;
     height:160px;
 }

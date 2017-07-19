@@ -30,9 +30,27 @@
 						<div class="line_btn_content posR">
 							<a class="min" href="javascript:;" title="最小化">-</a>
 							<a class="line_edit" href="javascript:;" title="设置">+</a>
-							<div class="edit_content">
-							</div>
 						</div>
+						<div class="edit_content">
+									<div class="ovf">
+										<a class="del" href="javascript:;" title="最小化">-</a>
+									</div>
+									<ul>
+										<li>
+											<ul class="chs">
+												<li>2路</li>
+												<li>8路</li>
+												<li>34路</li>
+											</ul>
+										</li>
+										<li>
+											<ul class="chs">
+												<li>资源设置</li>
+												<li>样式设置</li>
+											</ul>
+										</li>
+									</ul>
+								</div>
 					</div>
 				</div>
 				<!--线路路况详情-->
@@ -54,7 +72,7 @@
 							<div class="actual_traffic ovf">
 								<canvas class="canvas_left fl" id="canvas_left" width="26" height="116"></canvas>
 								<div>
-									<canvas width="1190" height="33" class="can"></canvas>
+									<canvas width="1190" height="33" class="can_top"></canvas>
 									<div class="traffic_car">
 										<div class="content_car_road">
 											<div class="line_car" t-attf-style="left:#{dis_desk.ab.h[0]}px">
@@ -78,7 +96,7 @@
 											</div>
 										</div>
 									</div>
-									<canvas width="1190" height="33" class="can1"></canvas>
+									<canvas width="1190" height="33" class="can_bottom"></canvas>
 								</div>
 								<canvas class="canvas_right fl" id="canvas_right" width="26" height="116">
 
@@ -103,14 +121,14 @@
 									</div>
 									<ul>
 										<li>
-											<ul>
+											<ul class="chs">
 												<li>2路</li>
 												<li>8路</li>
 												<li>34路</li>
 											</ul>
 										</li>
 										<li>
-											<ul>
+											<ul class="chs">
 												<li>资源设置</li>
 												<li>样式设置</li>
 											</ul>

@@ -69,7 +69,6 @@ function drag(oDrag, handle) {
 function A(parent, title) {
 	var k = 1;
 	var c_class = "."+parent + " ." + title;
-	console.log($("body "+c_class).length)
 	$("body").on('mouseover', c_class, function () {
 		k++;
 		oDrag = $(this).parent()[0]
