@@ -46,9 +46,10 @@ class vehicle_life(models.Model):
         # 费用金额必须大于零
         for item in self.investment_ids:
 
-            if (item.cost_amount <= 0):
+            if u'yes' == item.is_required:
+                if (item.cost_amount <= 0):
 
-                raise exceptions.except_orm(_('Error'), _('The cost must be greater than zero'))
+                    raise exceptions.except_orm(_('Error'), _('The cost must be greater than zero'))
 
         self.vehicle_life_state = 'operation_period'
 
