@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <openerp>
   <data>
-      <template id="asas" name="sss" inherit_id="web.assets_backend">
+      <template id="desktopWidget" name="desktopWidget" inherit_id="web.assets_backend">
           <xpath expr="." position="inside">
 
               <link rel="stylesheet" href="/lty_dispatch_desktop_widget/static/src/css/widget.css"/>

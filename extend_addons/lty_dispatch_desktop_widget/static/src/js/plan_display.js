@@ -219,5 +219,7 @@ odoo.define(function (require) {
         },
     });
     core.action_registry.add('lty_dispatch_desktop_widget.plan_display', plan_display);
+
+    return plan_display;
 });
 

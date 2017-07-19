@@ -235,5 +235,7 @@ odoo.define(function (require) {
         },
     });
     // core.action_registry.add('lty_dispatch_desktop_widget.arrival_time_more_info', arrival_time_more_info);
+
+    return bus_real_info;
 });
 

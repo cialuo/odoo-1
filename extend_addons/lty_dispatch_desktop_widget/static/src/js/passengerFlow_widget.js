@@ -338,5 +338,7 @@ odoo.define(function (require) {
             this.$el.remove();
         }
     });
+
+    return passenger_flow;
 });
 
