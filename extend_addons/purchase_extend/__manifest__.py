@@ -8,7 +8,8 @@
     'author': 'Xiao',
     'description': """
     采购管理
-    1.1 增加批量勾选产品功能
+    1.1 1:增加批量勾选产品功能
+        2:修正采购管理生成的入库单为草稿状态
     """,
     'data': [
         'views/purchase_menu.xml',
