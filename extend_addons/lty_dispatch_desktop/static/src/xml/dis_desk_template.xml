@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <template xml:space="preserve">
     <t t-name="dispatch_desktop">
-		<div class="dispatch_desktop posR contain">
+		<div class="dispatch_desktop  dragContent" t-attf-style="left:#{dis_desk.ab.f[0]}px;top:#{dis_desk.ab.f[1]}px;">
 			<t t-if="dis_desk">
-			<div class="content drag" t-attf-style="left:#{dis_desk.ab.f[0]}px;top:#{dis_desk.ab.f[1]}px;">
+			<div class="content">
 				<!--线路信息展示-->
-				<div class="line_info title">
+				<div class="line_info dragArea">
 					<div  class="fl line_way">
 						<ul>
 							<li>
@@ -108,9 +108,9 @@
 			</div>
 			</t>
 			<t t-else="">
-				<div class="content drag" t-attf-style="">
+				<div class="content" t-attf-style="">
 				<!--线路信息展示-->
-					<div class="line_info title">
+					<div class="line_info dragArea">
 						<div class="line_btn">
 							<div class="line_btn_content posR">
 								<a class="min" href="javascript:;" title="最小化">-</a>
@@ -174,9 +174,9 @@
 	</t>
 	<!--上下行图表，客流是否异常-->
 	<t t-name="updown_line_table">
-		<div class="updown_line_table contain">
-			<div class="drag updown_drag">
-				<div class="title updown_title">
+		<div class="updown_line_table posA dragContent">
+			<div class="updown_drag">
+				<div class="updown_title dragArea">
 					<div class="line_btn">
 						<div class="line_btn_content posR">
 							<a class="min" href="javascript:;" title="删除">x</a>
