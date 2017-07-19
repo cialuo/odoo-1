@@ -1,28 +1,32 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "调度参数",
+    'name': "运营资源",
 
     'description': """
-        调度参数
+        a) 区域管理
+        b）道路管理
+        c）站点管理
+        d）线路管理
+        e）施救车队
     """,
 
     'summary': """
-        调度参数
+        运营资源
         """,
 
-    'author': "youmy",
+    'author': "Xiang",
     'website': "http://www.lantaiyuan.com/",
 
     'category': 'Basic Edition',
-    'version': '0.1',
+    'version': '0.1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['operation_menu', 'employees'],
+    'depends': ['dispatch_monitor_menu', 'employees'],
 
     # always loaded
     'data': [
-        'security/security.xml',
-        'security/ir.model.access.csv',
+        # 'security/security.xml',
+        # 'security/ir.model.access.csv',
         'views/schedule_employee.xml',
         'views/schedule.xml',
     ],

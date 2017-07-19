@@ -1,0 +1,418 @@
+.dispatch_desktop .content {
+    position: absolute;
+    width: 1276px;
+    height:190px;
+    border-radius: 8px;
+    background: #2E3551;
+}
+canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
+.dispatch_desktop .line_info {
+    height: 30px;
+    position: relative;
+    background: #262c43;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.dispatch_desktop .line_info>div>ul {
+    overflow: hidden;
+    padding: 0;
+}
+
+.dispatch_desktop .line_way li:first-of-type {
+    background: #4ED0C8;
+}
+
+.dispatch_desktop .line_way li {
+    width: 70px;
+    margin-right: 2px;
+    float: left;
+    text-align: center;
+    line-height: 30px;
+    background: #373D53;
+    color: white;
+}
+
+.dispatch_desktop .bus_info li {
+    margin-right: 10px;
+    float: left;
+    text-align: center;
+    line-height: 30px;
+    color: #A3A6AD;
+}
+
+.dispatch_desktop .bus_info li:first-of-type {
+    margin-left: 16px;
+}
+
+.dispatch_desktop .line_way li:first-of-type {
+    border-top-left-radius: 8px;
+}
+
+.dispatch_desktop .line_way li:last-of-type {
+    border-top-right-radius: 8px;
+}
+
+.dispatch_desktop .line_btn {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+}
+
+.dispatch_desktop .line_btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+
+.dispatch_desktop a.min, .dispatch_desktop a.line_edit {
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    line-height: 12px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #4ED0C8;
+    border-radius: 50%;
+    color: #4ED0C8;
+    display: inline-block;
+    margin-right: 2px;
+}
+.dispatch_desktop .edit_content{
+    position:absolute;
+    right:0;
+    top:0;
+    width:100px;
+    background: #fff;
+    border-radius: 2px;
+}
+.dispatch_desktop .edit_content>ul{
+    padding-left: 20px;
+}
+.dispatch_desktop .edit_content>ul:first-of-type{
+    border-bottom:1px solid #ccc;
+}
+.dispatch_desktop .edit_content>ul>li li{
+    line-height: 20px;
+    height:20px;
+    width:80px;
+    font-size:14px;
+}
+.dispatch_desktop .line_info a.min:hover {
+    text-decoration: none;
+}
+
+/*控制台车辆线路css*/
+
+.dispatch_desktop .content .traffic .road_distribute {
+    width: 1276px;
+    height: 160px;
+}
+
+.dispatch_desktop .road_distribute .line_status {
+    width: 1276px;
+    padding: 6px 12px 0;
+}
+
+.dispatch_desktop .line_status li {
+    width: 19px;
+    line-height: 19px;
+    text-align: center;
+    float: left;
+    color: #fff;
+    margin-right: 4px;
+    font-size: 10px;
+    display: inline-block;
+    -webkit-transform: scale(0.833);
+}
+
+.dispatch_desktop .line_status li:last-of-type {
+    float: right;
+}
+
+.dispatch_desktop .road_distribute .actual_traffic {
+    display: flex;
+    height: 116px;
+    width: 1276px;
+    position: relative;
+    padding: 0 17px;
+    font-size: 0;
+    background: url("/lty_dispatch_desktop/static/src/img/carlinebg.png") no-repeat 20px top;
+}
+
+.dispatch_desktop .traffic_car {
+    width: 1190px;
+    height: 54px;
+    padding: 3px 0;
+}
+
+.dispatch_desktop .traffic .traffic_car {
+    position: relative;
+    height: 50px;
+    padding: 1px 0;
+}
+
+.dispatch_desktop .content_car_road {
+    height: 20px;
+    position: relative;
+    margin-bottom: 8px;
+
+}
+
+/*左至右车辆*/
+.dispatch_desktop .content_car_road .line_car {
+    position: absolute;
+    width: 44px;
+    height:20px;
+    background: url("/lty_dispatch_desktop/static/src/img/runcar.png") no-repeat left top;
+    top: 0px;
+}
+
+
+.dispatch_desktop .line_car .type_car {
+    height: 8px;
+    width: 38px;
+    text-align: right;
+}
+
+.dispatch_desktop .line_car .type_car span {
+    font-size: 8px;
+    -webkit-transform: scale(0.75);
+    color: #fff;
+    display: inline-block;
+    line-height: 8px
+}
+.dispatch_desktop .line_car .num_car {
+    width: 16px;
+    height: 7px;
+    text-align: right;
+}
+
+.dispatch_desktop .line_car .num_car span {
+    font-size: 6px;
+    -webkit-transform: scale(0.5);
+    color: #fff;
+    display: inline-block;
+    line-height: 7px
+}
+
+/*右至左车辆*/
+.dispatch_desktop .content_car_road .line_car_right {
+    position: absolute;
+    width: 44px;
+    height: 20px;
+    background: url("/lty_dispatch_desktop/static/src/img/runcar_right.png") no-repeat left top;
+    top: 0px;
+    left:520px;
+}
+.dispatch_desktop .line_car_right .num_car {
+    width: 42px;
+    height: 7px;
+    text-align: right;
+}
+
+.dispatch_desktop .line_car_right .num_car span {
+    font-size: 6px;
+    -webkit-transform: scale(0.5);
+    color: #fff;
+    display: inline-block;
+    line-height: 7px
+}
+.dispatch_desktop .line_car_right .type_car {
+    width: 24px;
+    height: 8px;
+    text-align: right;
+}
+
+.dispatch_desktop .line_car_right .type_car span {
+    font-size: 8px;
+    -webkit-transform: scale(0.75);
+    color: #fff;
+    display: inline-block;
+    line-height: 8px
+}
+.dispatch_desktop .content_car_road:first-of-type {
+    margin-bottom: 8px;
+}
+#absnormal_chart,#lagstation_chart{
+    width:350px;
+    height:160px;
+}
+.updown_line_table h4{
+    font-size:16px;
+    margin-bottom: 3px;
+}
+.updown_line_table .absnormal_type h4{
+    color: #cb413d;
+}
+.updown_line_table .absnormal_sug{
+    margin-bottom: 12px;
+}
+.updown_line_table .absnormal_sug h4{
+    color: #4ecfc7;
+}
+.updown_line_table .absnormal_operate{
+    width:210px;
+}
+.updown_line_table .absnormal_operate p{
+    line-height: 18px;
+    font-size:14px;
+    color: #fff;
+    word-wrap:break-word;
+}
+
+.updown_line_table .handleBtn a{
+    display: block;
+    float: left;
+    color: #cb413c;
+    width: 64px;
+    height:24px;
+    border:1px solid #cb413c;
+    border-radius: 4px;
+    line-height: 24px;
+    text-align: center;
+    font-size:14px;
+    margin-right: 6px;
+    cursor: pointer;
+}
+.updown_line_table .absnormal_type{
+    margin-bottom: 20px;
+}
+.updown_line_table .carousel {
+    width: 600px;
+    height:160px;
+}
+.updown_line_table .carousel_content{
+    height:160px;
+    position: absolute;
+}
+.updown_line_table .carousel_content>li{
+    width: 600px;
+    float: left;
+    height: 160px;
+}
+
+/*底部控制台*/
+.my_console {
+    width: 100%;
+    height: 48px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    background: url("/lty_dispatch_desktop/static/src/img/dispatch_console.png") no-repeat left top;
+}
+
+.my_console ul {
+    display: flex;
+    width: 550px;
+    margin: 6px auto;
+    height: 20px;
+    margin-top: 14px;
+}
+
+.my_console ul li {
+    color: white;
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-size: 14px;
+}
+.my_console ul li>div{
+    float: left;
+}
+.my_console .div-icon{
+    width:60px;
+}
+.my_console .div-a{
+    width:120px;
+}
+.my_console .s-icon{
+    display: inline-block;
+    float: right;
+    width:20px;
+    height:20px;
+    background-image: url("/lty_dispatch_desktop/static/src/img/icon_console.png");
+}
+.my_console ul .new_console {
+    line-height: 14px;
+}
+.my_console li a {
+    margin-left: 14px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #fff;
+    text-align: left;
+}
+.my_console .new_console .s-icon{
+    background-position: 0 0;
+}
+.my_console .save_console .s-icon{
+    background-position: -29px 0;
+}
+.my_console .read_console .s-icon{
+    background-position: -54px 0;
+}
+.my_console ul .save_console {
+    line-height: 14px;
+    margin-left: 2px;
+    margin-right: 2px;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+
+/*上下行路线图表和是否异常*/
+
+.updown_line_table .drag{
+	left:1300px;top:150px;position:absolute;width: 600px;
+	height: 190px;
+	background: #343B58;
+    border-radius: 8px;
+}
+.updown_line_table .title{
+    height:30px;
+}
+.updown_line_table .line_btn {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+}
+
+.updown_line_table .line_btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+
+.updown_line_table a.min {
+    width: 16px;
+    height: 16px;
+    line-height: 12px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    display: inline-block;
+    margin-right: 2px;
+    cursor: pointer;
+}
+.del{
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    line-height: 12px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #4ED0C8;
+    border-radius: 50%;
+    color: #4ED0C8;
+    display: block;
+    margin:4px 4px 4px 0;
+    float: right;
+    z-index: 100;
+}
+.updown_line_table .line_info a.min:hover {
+    text-decoration: none;
+}

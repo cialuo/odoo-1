@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <!-- 调度监控 -->
+        <menuitem name="dispatch_monitor" id="dispatch_monitor_menu_root" sequence="20"/>
+
+        <!--调度作业-->
+        <menuitem name="dispatch_work" id="dispatch_work_menu" parent="dispatch_monitor_menu_root"  sequence="10"/>
+
+        <!--调度机器人-->
+        <menuitem name="dispatch_robot" id="dispatch_robot_menu" parent="dispatch_monitor_menu_root" sequence="20"/>
+
+        <!--异常监控-->
+        <menuitem name="abnormal_monitor" id="abnormal_monitor_menu" parent="dispatch_monitor_menu_root" sequence="30"/>
+
+        <!--其他监控-->
+        <menuitem name="other_monitor_menu" id="other_monitor_menu" parent="dispatch_monitor_menu_root" sequence="40"/>
+
+        <!--运营资源-->
+		<menuitem name="opertation_resources" id="opertation_resources_menu" parent="dispatch_monitor_menu_root"
+                  sequence="50"/>
+
+        <!--应收管理-->
+        <menuitem name="revenue manage" id="revenue_menu" parent="dispatch_monitor_menu_root" sequence="60"/>
+
+        <!--设置-->
+        <menuitem name="dispatch_monitor_setting" id="dispatch_monitor_setting_menu" parent="dispatch_monitor_menu_root"
+                  sequence="70"/>
+
+
+    </data>
+</odoo>

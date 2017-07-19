@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<odoo>
+    <data>
+        <template id="web.asset_backend" name="asset" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/lty_dispatch_desktop/static/src/css/base.css"/>
+                <link rel="stylesheet" href="/lty_dispatch_desktop/static/src/css/dispatch_desk.css"/>
+                <script src="/lty_dispatch_desktop/static/src/js/echarts.common.min.js" type="text/javascript"></script>
+                <script src="/lty_dispatch_desktop/static/src/js/common.js" type="text/javascript"></script>
+                <script src="/lty_dispatch_desktop/static/src/js/dispatch_desktop.js" type="text/javascript"></script>
+                <script src="/lty_dispatch_desktop/static/src/js/drag.js" type="text/javascript"></script>
+            </xpath>
+        </template>
+
+        <!-- Add menu & action for websocket test-->
+        <record id="action_dispatch_desktop" model="ir.actions.client">
+            <field name="name">dispatch_desktop</field>
+            <!--<field name="target">fullscreen</field>-->
+            <field name="tag">dispatch_desktop.page</field>
+        </record>
+
+        <record id="action_dispatch_desktop_test" model="ir.actions.client">
+            <field name="name">Websocket</field>
+            <field name="target">main</field>
+            <field name="tag">dispatch_desktop.page</field>
+        </record>        
+        <menuitem name="Dispatch Control Desktop" id="dispatch_desktop_menu_test" action="action_dispatch_desktop_test" sequence="1" parent="dispatch_monitor_menu.dispatch_work_menu"/>
+        <menuitem name="调度控制台" id="dispatch_desktop_menu" action="action_dispatch_desktop" sequence="2" parent="dispatch_monitor_menu.dispatch_work_menu"/>
+    </data>
+</odoo>

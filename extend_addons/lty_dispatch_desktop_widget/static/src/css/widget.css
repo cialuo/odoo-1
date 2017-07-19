@@ -1,0 +1,752 @@
+
+/*---------站点客流---------*/
+.passenger_flow_trend_chart {
+    width: 932px;
+}
+
+.passenger_flow_trend_chart .trend_chart {
+	float: left;
+	border: 1px solid #aaa;
+    width: 466px;
+    background: #fff;
+}
+
+.passenger_flow_trend_chart .trend_chart .top_title {
+    padding: 0 10px;
+	border-bottom: 1px solid #ccc;
+	font-size: 13px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.passenger_flow_trend_chart .trend_chart .top_title a.express_bt {
+    float: right;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+}
+
+.passenger_flow_trend_chart .trend_chart .top_title .name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.trend_chart_info .map_botton_info {
+    height: 70px;
+}
+.trend_chart_info .map_botton_info .num {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 0 5px;
+    border-bottom: 1px solid #aaa;
+}
+.trend_chart_info .map_botton_info .red {
+    color: red;
+}
+.trend_chart_info .map_botton_info .blue {
+    color: blue
+}
+.trend_chart_info .map_botton_info .gray {
+    color: gray;
+}
+.trend_chart_info .map_botton_info li {
+    width: 33.33%;
+    text-align: center;
+    float: left;
+    line-height: 70px;
+    height: 70px;
+}
+
+.express_train_box {
+    width: 466px;
+    height: 284px;
+    padding: 5px;
+}
+.express_train {
+    width: 456px;
+    height: 274px;
+    overflow: auto;
+    position: relative;
+    border: 1px solid #ccc;
+}
+.express_train .express_train_content {
+    padding: 5px 10px;
+}
+
+.express_train header.title {
+    height: 23px;
+    line-height: 23px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+.express_train .express_train_part .express_train_info td {
+    white-space: nowrap;
+}
+
+.express_train .express_train_part .express_train_info td:first-child {
+    width: 180px;
+}
+
+.express_train .express_train_part .express_train_info .name {
+    font-weight: bold;
+    font-size: 24px;
+    margin-left: 2px;
+}
+
+.express_train .express_train_part select {
+    margin: 5px 0;
+}
+
+.express_train .express_train_part .vehicle_op, .express_train .express_train_part .waiting_bus_op {
+    display: none;
+}
+
+.express_train label.labw {
+    display: block;
+    padding: 2px;
+    width: 120px;
+    color: #4c4c4c;
+}
+
+.express_train input[type="radio"] {
+    margin: 3px 2px;
+}
+
+.express_train .skip_info input[type="number"] {
+    display: inline-block;
+    width: 60px;
+    margin: 0 2px;
+    vertical-align: middle;
+}
+
+.express_train .select_part_info .showInfo {
+    border-left: 1px solid #ccc;
+    padding-left: 10px;
+    display: none;
+}
+
+.express_train .select_part_info .station_info td {
+    padding-right: 10px;
+}
+
+.express_train .select_part_info .station_info input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+.express_train .sendbt {
+    display: inline-block;
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+    z-index: 2;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+/*---------车辆实时状态---------*/
+.bus_real_info {
+    width: 802px;
+    letter-spacing: 2px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+.bus_real_info .boxTitle {
+    height: 50px;
+    /*overflow: hidden;*/
+}
+
+.bus_real_info .boxTitle .closeBox, .passenger_flow_trend_chart .closeBox, .plan_display .closeBox {
+    height: 12px;
+    background: #535252;
+    position: relative;
+}
+
+.bus_real_info .boxTitle .closeBox .close_bt, .passenger_flow_trend_chart .closeBox .close_bt, .plan_display .close_bt {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    width: 16px;
+    background: #fff;
+    height: 4px;
+    vertical-align: middle;
+}
+
+.bus_real_info .boxTitle .titleInfo {
+    height: 38px;
+    padding: 0 10px;
+    background: #7c7bad;
+    color: #fff;
+}
+
+.bus_real_info .boxTitle .titleInfo .crew {
+    margin-left: 20px;
+}
+
+.bus_real_info .boxTitle .infoL {
+    width: 456px;
+    float: left;
+}
+
+.bus_real_info .boxTitle .infoR {
+    width: 344px;
+    float: left;
+    position: relative;
+}
+
+.bus_real_info .boxTitle .infoL .licenseNumber {
+    margin-right: 20px;
+}
+
+.bus_real_info .boxTitle .titleInfo .fmax {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.bus_real_info .boxTitle .infoR .operation .scene {
+    display: block;
+    float: left;
+    width: 56px;
+    height: 22px;
+    line-height: 22px;
+    border-right: 1px solid #ccc;
+    background: #fff;
+    color: #333;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.bus_real_info .boxTitle .infoR .operation .scene .operationNav {
+    width: 100px;
+    display: none;
+    border: 1px solid #ccc;
+    background: #fff;
+    z-index: 1;
+    position: relative;
+}
+
+.bus_real_info .boxTitle .infoR .operation .scene .operationNav li {
+    width: 100%;
+    text-align: center;
+    height: 24px;
+    border-bottom: 1px solid #ccc;
+    color: #333;
+}
+
+.bus_real_info .boxTitle .infoR .more {
+    width: 76px;
+    height: 28px;
+    line-height: 28px;
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    background: #918fba;
+    text-align: center;
+    color: #fff;
+}
+
+.bus_real_info .boxTitle .infoR .more .morebox {
+    display: none;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+.bus_real_info .boxTitle .infoR .more .sceneMore {
+    display: block;
+    padding: 0 10px;
+}
+
+.bus_real_info .boxTitle .infoR .more:hover .morebox {
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.bus_real_info .boxTitle .infoR .more:hover .sceneMore {
+    color: #918fba;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+}
+
+.bus_real_info .popupContent {
+    color: #333;
+    font-size: 14px;
+}
+
+.bus_real_info .popupContent .vehicleInformation {
+    width: 456px;
+    padding: 10px;
+    float: left;
+}
+
+.bus_real_info .popupContent .carReport {
+    width: 344px;
+    float: left;
+}
+
+.bus_real_info .popupContent .vehicleInformation .num {
+    padding-left: 10px;
+}
+
+
+.bus_real_info .popupContent .vehicleInformation .fmax {
+    font-size: 28px;
+}
+
+.bus_real_info .popupContent .vehicleInformation .danger {
+    color: red;
+}
+
+.bus_real_info .popupContent .vehicleInformation .dangerTime {
+    color: #990000;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.bus_real_info .popupContent .vehicleInformation table {
+    width: 100%;
+}
+
+.bus_real_info .popupContent .vehicleInformation table td {
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    padding-right: 5px;
+    height: 62px;
+}
+
+.bus_real_info .lineInfo {
+    padding: 0 10px;
+    height: 50px;
+    line-height: 50px;
+    text-align: right;
+    clear: both;
+}
+
+.bus_real_info .lineInfo .lineRoad {
+    font-weight: bold;
+}
+
+.bus_real_info .carInfoScene {
+    width: 344px;
+    height: 330px;
+    border: 1px solid #ccc;
+}
+
+.bus_real_info .more_info_box {
+    overflow: auto;
+}
+
+.bus_real_info .arrival_time_more_info {
+    overflow: auto;
+}
+
+.bus_real_info .policeTemplate {
+    padding: 10px;
+}
+
+.bus_real_info .policeTemplate .title {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.bus_real_info .policeTemplate .cont {
+    text-indent: 29px;
+}
+
+.bus_real_info .policeTemplate .onBt {
+    display: block;
+    width: 130px;
+    margin: 20px auto;
+    height: 32px;
+    line-height: 32px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.bus_real_info .policeTemplate .tel li {
+    width: 33.33%;
+    text-align: center;
+    float: left;
+}
+
+.bus_real_info .carPassenge .carPassenger {
+    float: left;
+    border: 1px solid #aaa;
+    width: 334px;
+    height: 
+}
+
+.bus_real_info .carPassenge .carPassenger .top {
+    padding: 0 10px;
+    border-bottom: 1px solid #ccc;
+    font-size: 13px;
+}
+
+.bus_real_info .carPassenge .carPassenger .topt {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+}
+.bus_real_info .carPassenge .carPassenger .topt .zm {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.bus_real_info .carPassenge .carPassenger .top a.bt {
+    float: right;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+}
+
+.bus_real_info .mapB .mapInfoTxt {
+    /*height: 70px;*/
+    width: 332px;
+}
+.bus_real_info .mapB .mapInfoTxt .num {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 0 5px;
+    border-bottom: 1px solid #aaa;
+}
+.bus_real_info .mapB .mapInfoTxt .red {
+    color: red;
+}
+.bus_real_info .mapB .mapInfoTxt .blue {
+    color: blue
+}
+.bus_real_info .mapB .mapInfoTxt .gray {
+    color: gray;
+}
+.bus_real_info .mapB .mapInfoTxt li {
+    width: 33.33%;
+    text-align: center;
+    float: left;
+    line-height: 70px;
+}
+
+
+.bus_real_info .more_info_box .info_title {
+    height: 30px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+
+.bus_real_info .more_info_box .info_title .title {
+    display: inline-block;
+    position: absolute;
+    left: 22px;
+    bottom: -1px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 2px 5px;
+    z-index: 1;
+    background: #fff;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    font-size: 12px;
+    background: #ededed;
+}
+
+.bus_real_info .maintenance_status {
+    height: 24px;
+    background-color: #ededed;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#dedede));
+    background-image: -moz-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -ms-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -o-linear-gradient(top, #fcfcfc, #dedede);
+}
+
+.bus_real_info .info_status_nav {
+    display: inline-block;
+    padding: 0 18px 0 0;
+    float: right;
+    margin-right: 4px;
+}
+
+.bus_real_info .info_status_nav li{
+    display: inline-block;
+    list-style-type: none;
+    margin: 0 -22px 0 0;
+    padding: 0;
+    height: 24px;
+    background-color: #ededed;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#dedede));
+    background-image: -webkit-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -moz-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -ms-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -o-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: linear-gradient(to bottom, #fcfcfc, #dedede);
+}
+
+.bus_real_info .info_status_nav li .label {
+    color: #4c4c4c;
+    text-shadow: 0 1px 1px #fcfcfc, 0 -1px 1px #dedede;
+    padding: 0;
+    display: inline-block;
+    padding-left: 18px;
+    margin: 0;
+    position: relative;
+    line-height: 24px;
+    font-size: 13px;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+.bus_real_info .info_status_nav .arrow, .bus_real_info .info_status_nav .arrow_first {
+    width: 17px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    margin-left: -5px;
+}
+
+.bus_real_info .info_status_nav .arrow_first {
+    margin-left: -1px;
+}
+
+.bus_real_info .info_status_nav li:first-child .label {
+    padding-left: 1px;
+}
+
+.bus_real_info .info_status_nav .arrow span, .bus_real_info .info_status_nav .arrow_first span {
+    position: relative;
+    width: 19px;
+    height: 19px;
+    display: inline-block;
+    margin-left: -9px;
+    margin-top: 3px;
+    border-radius: 3px;
+    box-shadow: -1px 1px 2px rgba(255, 255, 255, 0.2), inset -1px 1px 1px rgba(0, 0, 0, 0.2);
+    background-color: #dedede;
+    background: -moz-linear-gradient(135deg, #dedede, #fcfcfc);
+    background: -o-linear-gradient(135deg, #fcfcfc, #dedede);
+    background: -webkit-gradient(linear, left top, right bottom, from(#fcfcfc), to(#dedede));
+    background: -ms-linear-gradient(top, #fcfcfc, #dedede);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.bus_real_info .info_status_nav li.oe_active {
+    background-color: #807fa9;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#abaaca), to(#555487));
+    /* background-image: -webkit-linear-gradient(top, #abaaca, #555487); */
+    background-image: -moz-linear-gradient(top, #abaaca, #555487);
+    background-image: -ms-linear-gradient(top, #abaaca, #555487);
+    background-image: -o-linear-gradient(top, #abaaca, #555487);
+    /* background-image: linear-gradient(to bottom, #abaaca, #555487); */
+}
+
+.bus_real_info .info_status_nav li.oe_active .label {
+    color: white;
+    text-shadow: 0 1px 1px #729fcf, 0 -1px 1px #3465a4;
+}
+
+.bus_real_info .info_status_nav li.oe_active .arrow span {
+    background-color: #555487;
+    background: -moz-linear-gradient(135deg, #555487, #abaaca);
+    background: -o-linear-gradient(135deg, #abaaca, #555487);
+    background: -webkit-gradient(linear, left top, right bottom, from(#abaaca), to(#555487));
+}
+
+.bus_real_info .info_1 .info_cont {
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.bus_real_info .more_info_part .info_cont table {
+    width: 100%;
+    font-size: 13px;
+}
+
+.bus_real_info .more_info_part .maintenance_cont td {
+    line-height: 24px;
+    padding: 0 5px;
+}
+
+.bus_real_info .more_info_part .maintenance_cont td:nth-child(odd) {
+    border-right: 1px solid #ccc;
+}
+
+.bus_real_info .more_info_part .info_bt {
+    text-align: center;
+    padding: 10px;
+}
+
+.bus_real_info .more_info_part .info_bt a {
+    display: inline-block;
+    width: 126px;
+    height: 20px;
+    line-height: 20px;
+    font-style: 13px;
+    background: #7c7bad;
+    color: #fff;
+}
+
+.bus_real_info .more_info_part .info_bt a:first-child {
+    margin-right: 30px;
+}
+
+.bus_real_info .info_2 .info_cont {
+    padding: 5px 5px 5px 15px;
+}
+
+.bus_real_info .more_info_part .record_cont th,.bus_real_info .more_info_part .record_cont td {
+    line-height: 24px;
+    width: 25%;
+    height: 24px;
+}
+
+.bus_real_info .more_info_part .record_cont th {
+    background: #eee;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+.bus_real_info .more_info_part .record_cont tr:nth-child(even) {
+    background: #efeff8;
+}
+
+
+/*----------车辆计划展示------------*/
+/*863*2
+250
+22*/
+.plan_display {
+    width: 1732px;
+}
+
+.plan_display .closeBox {
+    height: 28px;
+    padding: 0 12px;
+}
+
+.plan_display .closeBox .close_bt {
+    top: 11px;
+    right: 11px;
+}
+
+.plan_display .closeBox .title {
+    color: #fff;
+    line-height: 28px;
+}
+
+.plan_display .plan_group {
+    height: 539px;
+    border: 1px solid #000;
+    overflow: auto;
+}
+
+.plan_display .uplink_plan {
+    width: 253px;
+    border-right: 1px solid #000;
+}
+
+.plan_display .uplink_yard {
+    width: 306px;
+    border-right: 1px solid #ccc;
+}
+
+
+.plan_display .uplink_on_the_way {
+    border-right: 1px solid #000;
+}
+
+.plan_display .down_on_the_way {
+    border-right: 1px solid #000;
+}
+.plan_display .down_on_the_way {
+    border: 0;
+}
+
+.plan_display .section_plan_cont {
+    position: relative;
+    float: left;
+}
+
+.plan_display .section_plan_cont .title {
+    height: 36px;
+    line-height: 36px;
+    background: #c4c2da;
+    font-size: 18px;
+    font-weight: bold;
+    color: #515081; 
+    padding: 0 12px;
+}
+
+.plan_display .uplink_yard .title {
+    background: #7c7bad url('/lty_dispatch_desktop_widget/static/src/image/arrows.png') center right no-repeat;
+    color: #fff;
+}
+
+.plan_display .section_plan_cont .content_tb {
+    text-align: center;
+    width: 100%;
+    font-size: 13px;
+}
+
+.plan_display .uplink_plan .content_tb {
+    border-bottom: 1px solid #ccc;
+}
+
+.plan_display .section_plan_cont .bottom_bt {
+    height: 36px;
+    text-align: center;
+    padding-top: 7px;
+}
+
+.plan_display .uplink_yard .bottom_bt {
+    height: 26px;
+}
+
+.plan_display .uplink_on_the_way .bottom_bt {
+    height: 36px;
+}
+
+.plan_display .section_plan_cont .bottom_bt a {
+    display: inline-block;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    padding: 1px 3px;
+}
+
+.plan_display .section_plan_cont .content_tb th, .plan_display .section_plan_cont .content_tb td {
+    height: 22px;
+    line-height: 22px;
+    font-weight: normal;
+}
+
+.plan_display .section_plan_cont .content_tb th {
+    text-align: center;
+    background: #eee;
+    border: 1px solid #ccc;
+}
+
+.plan_display .section_plan_cont .content_tb tr:nth-child(even) {
+    background: #efeff8;
+}
+
+.plan_display .uplink_plan .content_tb tr.point {
+    cursor: pointer;
+}
+
+.plan_display .uplink_plan .content_tb tr.active {
+    background: #918fba;
+}
+
+.plan_display .uplink_plan .content_tb tr.point:hover {
+    background: #918fba;
+}
