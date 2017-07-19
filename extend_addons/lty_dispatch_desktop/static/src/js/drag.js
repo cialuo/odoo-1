@@ -74,7 +74,6 @@ function dragFn(parent, title) {
 		oDrag = $(this).parents("." + parent)[0];
 		oDrag.style.zIndex = k;
 		var oTitle = get.byClass(title, oDrag)[0];
-        debugger;
 		drag(oDrag, oTitle);
 	});
 }
