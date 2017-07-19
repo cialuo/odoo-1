@@ -38,7 +38,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         bus_info:function (e) {
             var self = this;
-            var ab = new bus_real_info(this);
+            var ab = new bus_real_info(this, {x:e.clientX, y:e.clientY, zIndex:5});
             ab.appendTo(self.$el);
         },
         clk_can_top:function (e) {
