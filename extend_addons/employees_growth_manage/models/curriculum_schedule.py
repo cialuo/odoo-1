@@ -55,6 +55,8 @@ class curriculum_schedule(models.Model):
           curriculum_no = "/"
           course = self.env['employees_growth.course'].search([('id','=',vals.get('course_id'))])
 
+          course_no = course.course_no if course.course_no else ""
+
           start_date =  fields.datetime.utcnow().strftime('%Y-%m-%d 00:00:00')
           end_date = fields.datetime.utcnow().strftime('%Y-%m-%d 23:59:59')
           domain = [('course_id','=',vals.get('course_id')),('create_date','>=',start_date),('create_date','<=',end_date)]
@@ -69,11 +71,11 @@ class curriculum_schedule(models.Model):
                          if len(str(index)) == 1:
                               index = "0" + str(index)
 
-                         curriculum_no = course.course_no + fields.datetime.utcnow().strftime('%Y%m%d') + index
+                         curriculum_no = course_no + fields.datetime.utcnow().strftime('%Y%m%d') + index
                     else:
-                         curriculum_no = course.course_no + fields.datetime.utcnow().strftime('%Y%m%d') + "01"
+                         curriculum_no = course_no + fields.datetime.utcnow().strftime('%Y%m%d') + "01"
           else:
-               curriculum_no = course.course_no + fields.datetime.utcnow().strftime('%Y%m%d') + "01"
+               curriculum_no = course_no + fields.datetime.utcnow().strftime('%Y%m%d') + "01"
 
           return curriculum_no
      @api.multi
@@ -208,6 +210,8 @@ class curriculum_schedule(models.Model):
           :return:
           """
 
+          id = False
+
           if self.id:
                """
                     修改课程表
@@ -220,7 +224,7 @@ class curriculum_schedule(models.Model):
                if len(vals.get('time_arrangements')) > 0:
                     id = vals.get('time_arrangements')[0][2].get('curriculum_schedule_id')
 
-          if id :
+          if id:
                # 根据课程表ID获取计划
                schedule = self.env['employees_growth.curriculum_schedule'].search([('id', '=', id)])
                students = schedule.students

@@ -13,7 +13,7 @@ class WarrantyPlanOrder(models.Model): # 计划单
     vehicle_type = fields.Many2one("fleet.vehicle.model",related='vehicle_id.model_id', store=True, readonly=True) # 车型
     license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True, readonly=True) # 车牌
 
-    fleet = fields.Char()  # 车队
+    #fleet = fields.Char()  # 车队
     fleet = fields.Many2one("hr.department", related='vehicle_id.company_id', store=True, readonly=True) # 车队
 
     operating_mileage = fields.Float(digits=(6, 1), string="Operating Mileage") # 运营里程
@@ -100,13 +100,13 @@ class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生�
                     'vehicle_id': plan_sheet.vehicle_id.id,
                     'vehicle_type': plan_sheet.vehicle_type.id,
                     'license_plate': plan_sheet.license_plate,
-                    'fleet': plan_sheet.fleet,
+                    'fleet': plan_sheet.fleet.id,
                     'operating_mileage': plan_sheet.operating_mileage,
                     'warranty_category': plan_sheet.approval_warranty_category.id,
                     'planned_date': plan_sheet.planned_date,
                     'vin': plan_sheet.vin,
                     'average_daily_kilometer': plan_sheet.average_daily_kilometer,
-                    'line': plan_sheet.line,
+                    'line': plan_sheet.line.id,
                     'warranty_location': plan_sheet.warranty_location,
                     'plan_id': plan.id,
                     'report_repair_user':plan_sheet.report_repair_user.id
