@@ -3,9 +3,9 @@
 <templates xml:space="preserve">
     <t t-name="bus_real_info_template">
         <div>
-            <div class="bus_real_info">
+            <div class="bus_real_info dragContent" t-attf-style="position: absolute;left:{{widget.location.x}}px;top:{{widget.location.y}}px;z-index:{{widget.location.zIndex}}">
                 <div class="boxTitle">
-                    <div class="closeBox"><a class="close_bt" href="javascript:;"></a></div>
+                    <div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
                     <div class="titleInfo infoL">
                         <table>
                             <tr>

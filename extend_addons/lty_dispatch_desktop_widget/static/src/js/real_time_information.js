@@ -1,4 +1,4 @@
-odoo.define('lty_dispatch_desktop_widget.bus_real_info',function (require) {
+odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var QWeb = core.qweb;
@@ -44,6 +44,7 @@ odoo.define('lty_dispatch_desktop_widget.bus_real_info',function (require) {
                 trip: '4',
                 total_trip: '10'
             };
+            this.location = data;
             this.data = init_data;
         },
         start: function(){

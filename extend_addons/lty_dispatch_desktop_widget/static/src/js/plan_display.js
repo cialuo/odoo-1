@@ -1,4 +1,4 @@
-odoo.define(function (require) {
+odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var QWeb = core.qweb;

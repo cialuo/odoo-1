@@ -73,7 +73,7 @@ function dragFn(parent, title) {
 		k++;
 		oDrag = $(this).parents("." + parent)[0];
 		oDrag.style.zIndex = k;
-		var oTitle = get.byClass("title", oDrag)[0];
+		var oTitle = get.byClass(title, oDrag)[0];
 		drag(oDrag, oTitle);
 	});
 }
