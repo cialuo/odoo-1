@@ -3,7 +3,7 @@
 <templates xml:space="preserve">
     <t t-name="bus_real_info_template">
         <div>
-            <div class="bus_real_info dragContent" t-attf-style="position: absolute;left:{{widget.location.x}}px;top:{{widget.location.y}}px;z-index:{{widget.location.zIndex}}">
+            <div class="bus_real_info dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
                 <div class="boxTitle">
                     <div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
                     <div class="titleInfo infoL">
@@ -500,8 +500,8 @@
 
     <t t-name="passenger_flow_template">
         <div>
-            <div class="passenger_flow_trend_chart" >
-                <div class="closeBox"><a class="close_bt" href="javascript:;"></a></div>
+            <div class="passenger_flow_trend_chart dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
+                <div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
                 <t t-foreach="widget.passenger_data" t-as="passenger">
                     <div t-attf-class="trend_chart trend_chart_single" t-if="passenger.name">
                         <div class="top_title"> 
@@ -647,8 +647,8 @@
 
     <t t-name="plan_display_template">
         <div>
-            <div class="plan_display">
-                <header class="closeBox">
+            <div class="plan_display dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
+                <header class="closeBox dragArea">
                     <span class="title">线路：16路</span>
                     <a class="close_bt" href="javascript:;"></a>
                 </header>

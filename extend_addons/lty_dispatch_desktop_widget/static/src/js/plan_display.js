@@ -5,7 +5,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
 
     var plan_display = Widget.extend({
         template: "plan_display_template",
-        init: function(parent){
+        init: function(parent, data){
             this._super(parent);
             var init_data = {
                 uplink_plan: [
@@ -70,6 +70,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 ],
 
             };
+            this.location_data = data;
             this.plan_data = this.disposal_data(init_data);
         },
         start: function(){

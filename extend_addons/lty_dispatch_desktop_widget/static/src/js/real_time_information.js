@@ -47,7 +47,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 trip: '4',
                 total_trip: '10'
             };
-            this.location = data;
+            this.location_data = data;
             this.data = init_data;
         },
         start: function(){

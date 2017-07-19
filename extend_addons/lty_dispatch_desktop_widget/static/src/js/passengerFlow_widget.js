@@ -57,7 +57,8 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                 },
             ];
             this._super(parent);
-            this.passenger_data = data.length ? data : init_data;
+            this.location_data = data;
+            this.passenger_data = init_data;
         },
         start: function(){
             this.trend_chart_fn();
