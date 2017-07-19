@@ -18,4 +18,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/lgpl.html>.
 #
 ##############################################################################
-import models
+from odoo import api, fields, models, exceptions
+
+class OrderPoint(models.Model):
+    _inherit = 'stock.warehouse.orderpoint'
+
+    @api.onchange('product_min_qty', 'product_max_qty')
+    def _onchange_qty(self):
+        if self.product_min_qty > self.product_max_qty:
+            raise exceptions.UserError(u'最大数量必须大于最小数量')
+    @api.model
+    def create(self, vals):
+        if vals['product_min_qty'] > vals['product_max_qty']:
+            raise exceptions.UserError(u'最大数量必须大于最小数量')
+        return super(OrderPoint, self).create(vals)
+    @api.multi
+    def write(self, vals):
+        if vals.get('product_min_qty', self.product_min_qty) > vals.get('product_max_qty', self.product_max_qty):
+            raise exceptions.UserError(u'最大数量必须大于最小数量')
+        return super(OrderPoint, self).write(vals)
