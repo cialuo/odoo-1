@@ -3,8 +3,8 @@
     <data>
 
         <!-- 区域管理 -->
-        <record model="ir.ui.view" id="area_tree_view">
-            <field name="name">area tree view</field>
+        <record model="ir.ui.view" id="opertation_resources_area_list">
+            <field name="name">opertation_resources_area_list</field>
             <field name="model">opertation_resources_area</field>
             <field name="arch" type="xml">
                 <tree>
@@ -17,8 +17,8 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="area_form_view">
-            <field name="name">area form view</field>
+        <record model="ir.ui.view" id="opertation_resources_area_form">
+            <field name="name">opertation_resources_area_form</field>
             <field name="model">opertation_resources_area</field>
             <field name="arch" type="xml">
                 <form>
@@ -65,8 +65,8 @@
         </record>
 
         <!-- 道路管理 -->
-        <record model="ir.ui.view" id="road_tree_view">
-            <field name="name">road tree view</field>
+        <record model="ir.ui.view" id="opertation_resources_road_list">
+            <field name="name">opertation_resources_road_list</field>
             <field name="model">opertation_resources_road</field>
             <field name="arch" type="xml">
                 <tree>
@@ -80,8 +80,8 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="road_form_view">
-            <field name="name">road form view</field>
+        <record model="ir.ui.view" id="opertation_resources_road_form">
+            <field name="name">opertation_resources_road_form</field>
             <field name="model">opertation_resources_road</field>
             <field name="arch" type="xml">
                 <form>
@@ -127,8 +127,8 @@
         </record>
 
         <!-- 站台管理 -->
-        <record model="ir.ui.view" id="station_tree_view">
-            <field name="name">station tree view</field>
+        <record model="ir.ui.view" id="opertation_resources_station_list">
+            <field name="name">opertation_resources_station_list</field>
             <field name="model">opertation_resources_station</field>
             <field name="arch" type="xml">
                 <tree>
@@ -144,8 +144,8 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="station_form_view">
-            <field name="name">station form view</field>
+        <record model="ir.ui.view" id="opertation_resources_station_form">
+            <field name="name">opertation_resources_station_form</field>
             <field name="model">opertation_resources_station</field>
             <field name="arch" type="xml">
                 <form>
@@ -183,9 +183,14 @@
                         </group>
 
                         <notebook>
-                            <!--<page string="Cross line">-->
-                                <!--<field name="route_id"/>-->
-                            <!--</page>-->
+                            <page string="Cross line">
+                                <field name="station_ids">
+                                    <tree>
+                                        <field name="route_id"/>
+                                        <field name="station_type"/>
+                                    </tree>
+                                </field>
+                            </page>
                         </notebook>
                     </sheet>
                 </form>
@@ -198,13 +203,13 @@
             <field name="model">route_manage.route_manage</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="route"/>
-                    <field name="route_coding"/>
-                    <field name="route_type"/>
-                    <field name="class_system"/>
+                    <field name="lineName"/>
+                    <field name="gprsId"/>
+                    <field name="lineTypeName"/>
+                    <field name="classSystemName"/>
                     <field name="schedule_type"/>
                     <field name="people_number"/>
-                    <field name="subsidiary"/>
+                    <field name="department_id"/>
                 </tree>
             </field>
         </record>
@@ -221,34 +226,63 @@
                     </header>
                     <sheet>
                         <div class="oe_title">
-                            <!--<label for="name"/>-->
                             <h1>
-                                <field name="route" placeholder="Route"/>
+                                <field name="lineName" placeholder="Route"/>
                             </h1>
                         </div>
 
                         <group col="2">
                             <group>
-                                <field name="route_coding"/>
-                                <field name="route_type"/>
-                                <field name="first_half_class"/>
+                                <field name="gprsId"/>
+                                <field name="lineTypeName"/>
+                                <field name="main_line" attrs="{'invisible': [('lineTypeName', '=', 'main_line')]}"/>
                                 <field name="oil_wear_coefficient"/>
+                                <field name="department_id" options="{'no_create':True}"/>
+                                <field name="classSystemName"/>
+                                <field name="runTypeName"/>
+                                <field name="schedule_type"/>
                             </group>
                             <group>
-                                <field name="class_system"/>
-                                <field name="shunt_mode"/>
-                                <field name="schedule_type"/>
-                                <field name="subsidiary" options="{'no_create':True}"/>
+                                <field name="up_first_time"/>
+                                <field name="up_end_time"/>
+                                <field name="down_first_time"/>
+                                <field name="down_end_time" />
+                                <field name="up_station" options="{'no_create':True}"/>
+                                <field name="down_station" options="{'no_create':True}"/>
+                                <field name="bus_type"/>
+                                <field name="mileage"/>
+                                <field name="speed"/>
+
                             </group>
                         </group>
-
                         <notebook>
-                            <page string="platform resource" name="platform_page">
-                                <field name="platform_resource"/>
+
+                            <page string="up_resource" name="up_resource">
+                                <field name="station_up_ids">
+                                    <tree string="up_resource" editable="bottom">
+                                        <field name="sequence"/>
+                                        <field name="station_id" options="{'no_create':True}"/>
+                                        <!--<field name="name"/>-->
+                                        <field name="station_type"/>
+                                    </tree>
+                                </field>
                             </page>
+                            <page string="down_resource" name="down_resource">
+                                <field name="station_down_ids">
+                                    <tree string="down_resource" editable="bottom">
+                                        <field name="sequence"/>
+                                        <field name="station_id" options="{'no_create':True}"/>
+                                        <!--<field name="name"/>-->
+                                        <field name="station_type"/>
+                                    </tree>
+                                </field>
+                            </page>
+
                             <page string="human resource" name="hr_page">
                                 <field name="human_resource"/>
                             </page>
+
+
                         </notebook>
                     </sheet>
                 </form>
@@ -256,20 +290,20 @@
         </record>
 
         <!-- 调度参数管理——Action -->
-        <record model="ir.actions.act_window" id="act_area_manage">
-            <field name="name">act_area_manage</field>
+        <record model="ir.actions.act_window" id="opertation_resources_area_action">
+            <field name="name">opertation_resources_area_action</field>
             <field name="res_model">opertation_resources_area</field>
             <field name="view_model">tree,form</field>
         </record>
 
-        <record model="ir.actions.act_window" id="act_road_manage">
-            <field name="name">act_road_manage</field>
+        <record model="ir.actions.act_window" id="opertation_resources_road_action">
+            <field name="name">opertation_resources_road_action</field>
             <field name="res_model">opertation_resources_road</field>
             <field name="view_model">tree,form</field>
         </record>
 
-        <record model="ir.actions.act_window" id="act_station_manage">
-            <field name="name">act_station_manage</field>
+        <record model="ir.actions.act_window" id="opertation_resources_station_action">
+            <field name="name">opertation_resources_station_action</field>
             <field name="res_model">opertation_resources_station</field>
             <field name="view_model">tree,form</field>
         </record>
@@ -281,21 +315,21 @@
         </record>
 
         <!-- 调度参数管理——Menu -->
-        <menuitem id="menu_area"
+        <menuitem id="opertation_resources_area_menu"
                   name="Area management"
                   parent="dispatch_monitor_menu.opertation_resources_menu"
-                  action="act_area_manage"
+                  action="opertation_resources_area_action"
                   sequence="10"/>
-        <menuitem id="menu_road"
+        <menuitem id="opertation_resources_road_menu"
                   name="Road management"
                   parent="dispatch_monitor_menu.opertation_resources_menu"
-                  action="act_road_manage"
+                  action="opertation_resources_road_action"
                   sequence="20"
         />
-        <menuitem id="menu_station"
+        <menuitem id="opertation_resources_station_menu"
                   name="Station management"
                   parent="dispatch_monitor_menu.opertation_resources_menu"
-                  action="act_station_manage"
+                  action="opertation_resources_station_action"
                   sequence="30"
         />
         <menuitem id="menu_route"
