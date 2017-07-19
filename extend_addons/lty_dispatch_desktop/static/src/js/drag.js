@@ -49,7 +49,7 @@ function drag(oDrag, handle) {
         document.onmouseup = function () {
             document.onmousemove = null;
             document.onmouseup = null;
-            this.releaseCapture && this.releaseCapture()
+            this.releaseCapture && this.releaseCapture();
         };
         this.setCapture && this.setCapture();
         return false
@@ -78,7 +78,7 @@ function A(parent, title) {
 	});
 }
 window.onload = window.onresize = function () {
-    A("drag_contain", "drag_title");
+    A("contain", "title");
 };
 
 
