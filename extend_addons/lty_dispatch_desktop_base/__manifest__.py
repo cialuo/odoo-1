@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "lty_dispatch_desktop",
+    'name': "lty_dispatch_desktop_base",
 
     'summary': """
-                            智能调度控制台""",
+        调度监控台基础模块""",
 
     'description': """
-                            智能调度控制台
+        调度监控台基础模块
     """,
 
-    'author': "jie.chen",
+    'author': "lihaihe",
     'website': "http://www.lantaiyuan.com",
 
     # Categories can be used to filter modules in modules listing
@@ -19,7 +19,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','web','dispatch_monitor_menu'],
+    'depends': ['dispatch_monitor_menu'],
 
     # always loaded
     'data': [
@@ -30,8 +30,5 @@
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
-    ],
-    'qweb': [
-        "static/src/xml/*.xml",
     ],
 }

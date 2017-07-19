@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "lty_dispatch_desktop",
+    'name': "lty_server_access",
 
     'summary': """
-                            智能调度控制台""",
-
-    'description': """
-                            智能调度控制台
+                            平台接入
     """,
 
-    'author': "jie.chen",
+    'description': """
+                        平台接入
+    """,
+
+    'author': "lihaihe",
     'website': "http://www.lantaiyuan.com",
 
     # Categories can be used to filter modules in modules listing
@@ -19,19 +20,17 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','web','dispatch_monitor_menu'],
+    'depends': ['base','operation_menu'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
+        'views/cloud_server_config.xml',
+        'views/dsp_server_config.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
-    ],
-    'qweb': [
-        "static/src/xml/*.xml",
     ],
 }
