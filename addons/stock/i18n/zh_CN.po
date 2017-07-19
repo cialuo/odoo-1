@@ -121,7 +121,7 @@ msgstr ", 会计或采购模块是否已安装"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "- The Odoo Team"
-msgstr "- Odoo团队"
+msgstr "- 团队"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -395,7 +395,7 @@ msgstr "<strong>目的地</strong>"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "<strong>Enjoy your Inventory management with Odoo!</strong>"
-msgstr "<strong>Odoo更好的帮你管理库存!</strong>"
+msgstr "<strong>系统更好的帮你管理库存!</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -936,7 +936,7 @@ msgstr "唯一序列号"
 #: code:addons/stock/models/stock_move.py:389
 #, python-format
 msgid "By changing this quantity here, you accept the new quantity as complete: Odoo will not automatically generate a back order."
-msgstr "通过改变这里的数量，您确认新的完成数量: Odoo不会自动生成欠单。"
+msgstr "通过改变这里的数量，您确认新的完成数量: 系统不会自动生成欠单。"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -2026,7 +2026,7 @@ msgid ""
 "For the Odoo Team,<br/>\n"
 "                            Fabien Pinckaers, Founder"
 msgstr ""
-"关于Odoo团队,<br/>\n"
+"关于团队,<br/>\n"
 "                            Fabien Pinckaers, 创始人F胖子：）"
 
 #. module: stock
@@ -2369,7 +2369,7 @@ msgid ""
 "                        sometimes the system can remain blocked without generating a\n"
 "                        corresponding document, usually due to a configuration problem."
 msgstr ""
-"如果你配置了自动补货，Odoo可以自动产生补货单，通常你不需要担心，\n"
+"如果你配置了自动补货，系统可以自动产生补货单，通常你不需要担心，\n"
 "但是有时候会有异常出现，基本上是因为配置出现了问题"
 
 #. module: stock
@@ -2416,7 +2416,7 @@ msgid ""
 "In Odoo, <strong>Reordering Rules</strong> are used to replenish your products.\n"
 "                        Odoo will automatically propose a procurement to buy new products if you are\n"
 "                        running out of stock."
-msgstr "在Odoo中，<strong>订货规则</strong>被用来补货，Odoo自动的创建补货单"
+msgstr "在系统中，<strong>订货规则</strong>被用来补货，系统自动的创建补货单"
 
 #. module: stock
 #: selection:stock.inventory,state:0
@@ -2729,7 +2729,7 @@ msgstr "库存调整"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
 msgid "Inventory adjustments will be made by comparing the theoretical and the checked quantities."
-msgstr "库存调整是通过比较产品在odoo系统中的数量和实际复核的数量再进行调整。"
+msgstr "库存调整是通过比较产品在系统中的数量和实际复核的数量再进行调整。"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_filter
@@ -2767,7 +2767,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "It is time to make your initial Inventory. In order to do so:"
-msgstr "是时候创建期初库存了,在Odoo中可以这样做："
+msgstr "是时候创建期初库存了,在系统中可以这样做："
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_product_packaging
@@ -2940,7 +2940,7 @@ msgstr "如果这个位置是公司间共享的，则此字段留空"
 msgid ""
 "Like with the sales flow, Odoo inventory management is\n"
 "                        fully integrated with the purchase app."
-msgstr "就像和销售模块集成一样，Odoo的仓库也和采购模块集成"
+msgstr "就像和销售模块集成一样，系统的仓库也和采购模块集成"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_pack_operation_linked_move_operation_ids
@@ -3347,7 +3347,7 @@ msgid ""
 "Most operations are prepared automatically by Odoo according\n"
 "                to your preconfigured logistics rules, but you can also record\n"
 "                manual stock movements."
-msgstr "大部分作业被Odoo根据你的预先配置的物流规则自动准备，但是你也可以人工记录库存运动。"
+msgstr "大部分作业被系统根据你的预先配置的物流规则自动准备，但是你也可以人工记录库存运动。"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_operation_link_move_id
@@ -3586,12 +3586,12 @@ msgstr "Ok"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "Odoo handles <strong>advanced push/pull routes configuration</strong>, for example:"
-msgstr "Odoo处理<strong>高级推/拉式路线配置</strong>，例如："
+msgstr "处理<strong>高级推/拉式路线配置</strong>，例如："
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "Odoo has preconfigured <strong>one Warehouse</strong> for you."
-msgstr " Odoo已经为你预先配置好<strong>一个仓库</strong>"
+msgstr " 系统已经为你预先配置好<strong>一个仓库</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -3600,7 +3600,7 @@ msgid ""
 "                        invoicing process. Everything is automated from the initial\n"
 "                        quotation to the delivery and the final invoice."
 msgstr ""
-"Odoo的库存管理完全的和销售和开票流程集成\n"
+"系统的库存管理完全的和销售和开票流程集成\n"
 "从原始的报价单到发货再到最后的开票所有的一切都被集成"
 
 #. module: stock
@@ -3615,7 +3615,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "Of course, feel free to add your own. Please note that Odoo is able to convert units within the same category, for example, liters to gallons in the volume category"
-msgstr "当然，可以任意的添加。请注意Odoo可以在在同一种类之间的计量单位中间转换例如体积中的升和加仑"
+msgstr "当然，可以任意的添加。请注意系统可以在在同一种类之间的计量单位中间转换例如体积中的升和加仑"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.product_form_view_procurement_button
@@ -6408,7 +6408,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "We hope this guide helped you implement Odoo Inventory."
-msgstr "希望这个向导能够帮你完成Odoo的盘点"
+msgstr "希望这个向导能够帮你完成系统的盘点"
 
 #. module: stock
 #: code:addons/stock/models/barcode.py:11
@@ -6449,12 +6449,12 @@ msgstr "当方法被确定后，这个位置将被用于存储产品"
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint_product_min_qty
 msgid "When the virtual stock goes below the Min Quantity specified for this field, Odoo generates a procurement to bring the forecasted quantity to the Max Quantity."
-msgstr "当虚拟库存小于指定的最小数量，Odoo生成补货将预测数量带到最大数量。"
+msgstr "当虚拟库存小于指定的最小数量，系统生成补货将预测数量带到最大数量。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint_product_max_qty
 msgid "When the virtual stock goes below the Min Quantity, Odoo generates a procurement to bring the forecasted quantity to the Quantity specified as Max Quantity."
-msgstr "当虚拟库存低于最小数量， Odoo生成补货将预测数量带到最大数量。"
+msgstr "当虚拟库存低于最小数量， 系统生成补货将预测数量带到最大数量。"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_change_product_quantity
@@ -6752,12 +6752,12 @@ msgstr "例如：PO0032"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "either by manually updating the Done quantity on the product lines, or let Odoo do it automatically while validating"
-msgstr "在产品行上手动更新完成数量，或当验证后让Odoo自动更新"
+msgstr "在产品行上手动更新完成数量，或当验证后让系统自动更新"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "either by manually updating the Done quantity on the product lines, or scan them with the Odoo Barcode app, or let Odoo do it automatically while validating"
-msgstr "或者手动在产品行更新完成数量，或者通过扫描枪扫描或者Odoo在确认的时候自动做掉"
+msgstr "或者手动在产品行更新完成数量，或者通过扫描枪扫描或者系统在确认的时候自动做掉"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
