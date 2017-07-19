@@ -1,7 +1,7 @@
 .dispatch_desktop{
+    position: absolute;
 }
 .dispatch_desktop .content {
-    position: absolute;
     width: 1276px;
     height:190px;
     border-radius: 8px;
@@ -367,12 +367,19 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
     margin-right: 2px;
     border-left: 1px solid #fff;
     border-right: 1px solid #fff;
+
 }
 
 /*上下行路线图表和是否异常*/
 
+.updown_line_table{
+    left:1300px;
+    top:150px;
+}
 .updown_line_table .updown_drag{
-	left:1300px;top:150px;position:absolute;width: 600px;
+	left:1300px;
+    top:150px;
+    width: 600px;
 	height: 190px;
 	background: #343B58;
     border-radius: 8px;
