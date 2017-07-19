@@ -71,12 +71,18 @@ class Road(models.Model):
 
 class Station(models.Model):
     _name = 'opertation_resources_station'
+    # sql 约束，效率高
+    _sql_constraints = [
+        ('name_unique', 'unique(name)', _('The station name must be unique!')),
+        ('code_unique', 'unique(code)', _('The station code must be unique!'))
+    ]
+
     """
     站台管理
     """
     name = fields.Char('Station Name', required=True) # 站台名称
     code = fields.Char('Station Code', required=True) # 站台编号
-    road_id = fields.Many2one('opertation_resources_road', ondelete='cascade', string='Road Chose', required=True)
+    road_id = fields.Many2one('opertation_resources_road', ondelete='cascade', string='Road Choose', required=True)
 
     longitude = fields.Float(digits=(10, 6), string="longitude")  # 经度
     latitude = fields.Float(digits=(10, 6), string="latitude") # 纬度
@@ -95,6 +101,8 @@ class Station(models.Model):
                              default='inuse', string='station_state', readonly=True)  # 状态
     active = fields.Boolean(default=True)
 
+    station_ids = fields.One2many('opertation_resources_station_up', 'station_id', string='Platform')
+
     @api.multi
     def do_inuse(self):
         self.state = 'inuse'
@@ -107,11 +115,7 @@ class Station(models.Model):
         self.active = False
         return True
 
-    # sql 约束，效率高
-    _sql_constraints = [
-        ('name_unique', 'unique(name)', _('The station name must be unique!')),
-        ('code_unique', 'unique(code)', _('The station code must be unique!'))
-    ]
+
 
 
 class route_manage(models.Model):
@@ -126,50 +130,66 @@ class route_manage(models.Model):
             item.people_number = len(item.human_resource)
 
     # 显示名称
-    _rec_name = 'route'
+    _rec_name = 'lineName'
 
-    # 线路名称
-    route = fields.Char('Route', required=True)
-    # 线路编码
-    route_coding = fields.Char('Route NO.', required=True)
-    # 线路类型
-    route_type = fields.Selection([('single circle', 'Single circle'),
-                                   ('double circle', 'Double circle')],
-                                  default='double circle')
-    # 首趟半班
-    first_half_class = fields.Selection([('up line', 'Up line'),
-                                         ('down line', 'Down line')], default="up line")
-    # 油耗系数
-    oil_wear_coefficient = fields.Float(digits=(10, 2), string='Oil wear coefficient')
+    # sql 约束，效率高
+    _sql_constraints = [
+        ('coding_unique', 'unique(gprsId)', _('The route code must be unique!')),
+        ('route_unique', 'unique(lineName)', _('The route name must be unique!')),
+    ]
 
-    # 班制
-    class_system = fields.Selection([('one-shift', 'One-shift'),
-                                     ('two-shift', 'Two-shift'),
-                                     ('three-shift', 'Three-shift')],
-                                    default='one-shift')
-    # 调车方式
-    shunt_mode = fields.Selection([('single shunt', 'Single shunt'),
-                                   ('double shunt', 'Double shunt')], default='single shunt')
-    # 调度方式
-    schedule_type = fields.Selection([('flexible scheduling', 'Flexible scheduling'),
-                                      ('planning scheduling', 'Planning scheduling'),
-                                      ('hybrid scheduling', 'Hybrid scheduling')],
-                                     default='flexible scheduling')
-    # 隶属公司
-    subsidiary = fields.Many2one('hr.department', 'Subsidiary')
+    lineName = fields.Char('Route', required=True) # 线路名称
+    gprsId = fields.Char('code', required=True) # 线路编码
+
+    oil_wear_coefficient = fields.Float(digits=(10, 2), string='Oil wear coefficient') # 油耗系数
+
+    classSystemName = fields.Selection([('one_shift', 'one_shift'),
+                                        ('two_shift', 'two_shift'),
+                                        ('three_shift', 'three_shift')],
+                                     default='one_shift') # 班制
+    runTypeName = fields.Selection([('single_shunt', 'single_shunt'),
+                                   ('double_shunt', 'double_shunt')], default='double_shunt') # 调车方式
+    schedule_type = fields.Selection([('flexible_scheduling', 'flexible_scheduling'),
+                                      ('planning_scheduling', 'planning_scheduling'),
+                                      ('hybrid_scheduling', 'hybrid_scheduling')],
+                                       default='flexible_scheduling') # 调度方式
+
+    department_id = fields.Many2one('hr.department', 'departmentName') # 隶属公司
 
     state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
                              default='inuse', string='State', readonly=True)  # 状态
 
+    human_resource = fields.Many2many('hr.employee', string='Human resource') # 人力资源
 
-    # 站台资源
-    platform_resource = fields.Many2many('opertation_resources_station', string='Platform')
-    # 人力资源
-    human_resource = fields.Many2many('hr.employee', string='Human resource')
-    # 人员数量
-    people_number = fields.Integer('People number', compute="_people_number")
+    people_number = fields.Integer('People number', compute="_people_number")  # 人员数量
 
     active = fields.Boolean(default=True)
+
+    lineTypeName = fields.Selection([('main_line', 'main_line'),
+                                  ('regional_line', 'regional_line'),
+                                  ('express_line', 'express_line'),
+                                  ('interval_line', 'interval_line')],
+                                default='main_line')  # 线路类型
+
+    main_line = fields.Many2one('route_manage.route_manage', string='Main Route') # 人力资源
+
+    bus_type = fields.Selection([('regular_bus', 'regular_bus'),
+                                 ('custom_bus', 'custom_bus')],
+                                default='regular_bus', string='bus_type')  # 公交类型
+
+    station_up_ids = fields.One2many('opertation_resources_station_up', 'route_id', string='StationUps')
+    station_down_ids = fields.One2many('opertation_resources_station_down', 'route_id', string='StationDowns')
+
+    up_first_time = fields.Char('up_first_time', required=True) # 上行首班时间
+    up_end_time = fields.Char('up_end_time', required=True)  # 上行首班时间
+    down_first_time = fields.Char('down_first_time', required=True)  # 上行首班时间
+    down_end_time = fields.Char('down_end_time', required=True)  # 上行首班时间
+
+    up_station = fields.Many2one('opertation_resources_station', ondelete='cascade', required=True)  # 上行车场
+    down_station = fields.Many2one('opertation_resources_station', ondelete='cascade',  required=True)  # 下行车场
+
+    mileage = fields.Float(digits=(10, 2), required=True)  #里程
+    speed = fields.Float("Speed(km/h)",digits=(10, 2), required=True)  #速度
 
     @api.multi
     def do_inuse(self):
@@ -183,11 +203,46 @@ class route_manage(models.Model):
         self.active = False
         return True
 
-    # sql 约束，效率高
-    _sql_constraints = [
-        ('coding_unique', 'unique(route_coding)', _('The route coding must be unique!')),
-        ('route_unique', 'unique(route)', _('The route name must be unique!')),
-    ]
+
+    # @api.multi
+    # def write(self, vals):
+    #     if vals.get("station_on_resource",''):
+    #         pass
+
+
+class StationUp(models.Model):
+    _name = 'opertation_resources_station_up'
+    """
+    上行站台管理
+    """
+    # name = fields.Char('Station Name') # 站台名称
+    sequence = fields.Integer(default=1, required=True)
+    route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='station Choose', required=True)
+    station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose', required=True)
+
+    station_type = fields.Selection([('first_station', 'first_station'),
+                                     ('mid_station', 'mid_station'),
+                                     ('last_station', 'last_station')], default='mid_station')
+
+    is_show_name = fields.Boolean(default=True)
+
+
+class StationDown(models.Model):
+    _name = 'opertation_resources_station_down'
+    """
+    下行站台管理
+    """
+    # name = fields.Char('Station Name') # 站台名称
+    sequence = fields.Integer(default=1, required=True)
+    route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
+    station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose', required=True)
+
+    station_type = fields.Selection([('first_station', 'first_station'),
+                                     ('mid_station', 'mid_station'),
+                                     ('last_station', 'last_station')], default='mid_station', required=True)
+
+    is_show_name = fields.Boolean(default=True)
+
 
 # 人力资源
 class human_resource(models.Model):
