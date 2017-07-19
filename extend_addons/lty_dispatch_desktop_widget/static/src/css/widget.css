@@ -234,7 +234,7 @@
 }
 
 .bus_real_info .boxTitle .infoR .operation .scene .operationNav {
-    min-width: 100px;
+    width: 100px;
     display: none;
     border: 1px solid #ccc;
     background: #fff;
@@ -249,6 +249,10 @@
     border-bottom: 1px solid #ccc;
     color: #333;
     padding: 0 8px;
+}
+
+.bus_real_info .boxTitle .infoR .operation .scene .set1 {
+    width: 120px;
 }
 
 .bus_real_info .boxTitle .infoR .more {
