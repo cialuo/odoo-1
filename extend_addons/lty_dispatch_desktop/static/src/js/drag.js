@@ -13,7 +13,7 @@ var get = {
 		return aClass
 	},
 	byTagName: function(elem, obj) {
-		return (obj || document).getElementsByTagName(elem)
+		return (obj || document).getElementsByTagName(elem);
 	}
 };
 var dragMinWidth = 250;
