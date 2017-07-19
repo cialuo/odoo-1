@@ -78,7 +78,7 @@ function A(parent, title) {
 	});
 }
 window.onload = window.onresize = function () {
-    A("contain", "title");
+    A("drag_contain", "drag_title");
 };
 
 
