@@ -66,19 +66,19 @@ function drag(oDrag, handle) {
 
 
 }
-function A(parent, title) {
+function dragFn(parent, title) {
 	var k = 1;
 	var c_class = "."+parent + " ." + title;
 	$("body").on('mouseover', c_class, function () {
 		k++;
-		oDrag = $(this).parent()[0]
+		oDrag = $(this).parents("." + parent)[0];
 		oDrag.style.zIndex = k;
 		var oTitle = get.byClass("title", oDrag)[0];
 		drag(oDrag, oTitle);
 	});
 }
 window.onload = window.onresize = function () {
-    A("contain", "title");
+    dragFn("dragContent", "dragArea");
 };
 
 
