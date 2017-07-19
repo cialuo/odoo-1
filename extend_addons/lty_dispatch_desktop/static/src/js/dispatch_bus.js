@@ -6,6 +6,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
     var Widget = require('web.Widget');
     var Model = require('web.Model');
     var QWeb = core.qweb;
+    var bus_real_info = require('lty_dispatch_desktop_widget.bus_real_info');
     var dispatch_bus=Widget.extend({
          init: function (parent,data,selfDom) {
             this._super(parent);
@@ -35,8 +36,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
              'click .line_edit':'show_chose_line',
              'click .type_car':'bus_info'
         },
-        bus_info:function () {
-            alert(1)
+        bus_info:function (e) {
+            var self = this;
+            var ab = new bus_real_info(this);
+            ab.appendTo(self.$el);
         },
         clk_can_top:function (e) {
             var self = this;
