@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<odoo>
+
+<!--报表的衔接-->
+<report
+    id="account_warning_report"
+    model="stock_search_wizard"
+    string="Warning Report"
+    report_type="qweb-html"
+    name="stock_warning.warning_report"
+/>
+
+
+<template id="warning_report">
+<t t-call="report.html_container">
+    <t t-name="title_info" >
+        <h1><t t-esc="data"/></h1>
+    </t>
+</t>
+</template>
+
+</odoo>

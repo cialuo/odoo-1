@@ -65,7 +65,8 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               order.name = str(order.teacher_id.name)+u'的'+str(order.course_id.name)+u'培训'
+               if order:
+                    order.name = str(order.teacher_id.name)+u'的'+str(order.course_id.name)+u'培训'
 
      @api.multi
      def _compute_time_no(self):
@@ -75,7 +76,8 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               order.time_no = order.start_time.replace('-', '').replace(':', '').replace(' ', '')
+               if order:
+                    order.time_no = order.start_time.replace('-', '').replace(':', '').replace(' ', '')
 
      @api.multi
      def _compute_total_student(self):
@@ -84,7 +86,8 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               order.total_student = len(order.details)
+               if order:
+                    order.total_student = len(order.details)
 
      @api.multi
      def _compute_unsign_number(self):
@@ -93,8 +96,9 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               domain = ['&',('punch_recording_id', '=', order.id),('is_sign','=',False)]
-               order.unsign_number = len(self.env['employees_growth.punch_recording_details'].search(domain))
+               if order:
+                    domain = ['&',('punch_recording_id', '=', order.id),('is_sign','=',False)]
+                    order.unsign_number = len(self.env['employees_growth.punch_recording_details'].search(domain))
 
      @api.multi
      def _compute_sign_number(self):
@@ -103,8 +107,9 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               domain = ['&',('punch_recording_id','=', order.id),('is_sign', '=',True)]
-               order.sign_number = len(self.env['employees_growth.punch_recording_details'].search(domain))
+               if order:
+                    domain = ['&',('punch_recording_id','=', order.id),('is_sign', '=',True)]
+                    order.sign_number = len(self.env['employees_growth.punch_recording_details'].search(domain))
 
      @api.multi
      def _compute_sign_rate(self):
@@ -113,10 +118,14 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               if order.total_student > 0:
-                    order.sign_rate = str(round(order.sign_number / order.total_student,3) * 100) + "%"
-               else:
-                    order.sign_rate = "0.0%"
+
+               if order:
+
+                    if order.total_student > 0:
+
+                         order.sign_rate = str(round(order.sign_number / order.total_student,3) * 100) + "%"
+                    else:
+                         order.sign_rate = "0.0%"
 
      @api.multi
      def ingSign_to_havingClass(self):
@@ -148,8 +157,9 @@ class punch_recording(models.Model):
           :return:
           """
           for student in self.curriculum_schedule_id.students:
-               student.test_paper_id = self.curriculum_schedule_id.course_id.test_paper_id
-               self.get_questions(student)
+               if student:
+                    student.test_paper_id = self.curriculum_schedule_id.course_id.test_paper_id
+                    self.get_questions(student)
 
      def save_radio_question(self,id,questions,type):
           """
