@@ -1,4 +1,4 @@
-odoo.define(function (require) {
+odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var QWeb = core.qweb;
@@ -7,7 +7,10 @@ odoo.define(function (require) {
         template: 'bus_real_info_template',
         events: {
             'click .operationNav .back_to_the_field': 'back_to_the_field_fn',
-            'click .operationNav .start': 'start_fn',
+            // 'click .operationNav .start': 'start_fn',
+            'click .operationNav .handle_exceptions': 'handle_exceptions_fn',
+            'click .operationNav .schedule_a_return': 'schedule_a_return_fn',
+            'click .operationNav .can_line': 'can_line_fn',
             'click .operationNav .sign': 'sign_fn',
             'click .operationNav .news, .InformationInteraction': 'news_fn',
             'click .geographicalPosition' : 'geographicalPosition_fn',
@@ -44,10 +47,20 @@ odoo.define(function (require) {
                 trip: '4',
                 total_trip: '10'
             };
+            this.location_data = data;
             this.data = init_data;
         },
         start: function(){
             this.arrivalTimeFn();
+        },
+        handle_exceptions_fn: function(){
+            alert('这里将发起处理异常状态请求');
+        },
+        schedule_a_return_fn: function(){
+            alert('这里将发起安排回场任务请求');
+        },
+        can_line_fn: function(){
+            alert('这里将发起CAN总线请求');
         },
         back_to_the_field_fn: function(){
             alert('这里将发起回场请求');
@@ -235,5 +248,7 @@ odoo.define(function (require) {
         },
     });
     // core.action_registry.add('lty_dispatch_desktop_widget.arrival_time_more_info', arrival_time_more_info);
+
+    return bus_real_info;
 });
 

@@ -3,9 +3,9 @@
 <templates xml:space="preserve">
     <t t-name="bus_real_info_template">
         <div>
-            <div class="bus_real_info">
+            <div class="bus_real_info dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
                 <div class="boxTitle">
-                    <div class="closeBox"><a class="close_bt" href="javascript:;"></a></div>
+                    <div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
                     <div class="titleInfo infoL">
                         <table>
                             <tr>
@@ -21,15 +21,19 @@
                         <div class="operation">
                             <div class="scene scene1">
                                 <span class="sceneTitle">操作</span>
-                                <ul class="operationNav">
-                                    <li><a class="back_to_the_field" href="javascript:;">回场</a></li>
-                                    <li><a class="start" href="javascript:;">发车</a></li>
+                                <ul class="operationNav set1">
+                                    <li><a class="back_to_the_field" href="javascript:;">手动回场</a></li>
                                     <li><a class="sign" href="javascript:;">签到</a></li>
+                                    <!-- <li><a class="start" href="javascript:;">发车</a></li> -->
+                                    <li><a class="handle_exceptions" href="javascript:;">处理异常状态</a></li>
+                                    <li><a class="schedule_a_return" href="javascript:;">安排回场任务</a></li>
+                                    <li><a class="can_line" href="javascript:;">CAN总线</a></li>
+                                    
                                 </ul>
                             </div>
                             <div class="scene scene1">
                                 <span class="sceneTitle">交互</span>
-                                <ul class="operationNav">
+                                <ul class="operationNav set2">
                                     <li><a class="news" href="javascript:;">消息</a></li>
                                     <li><a class="notice" href="javascript:;">通知</a></li>
                                     <li><a class="conversation" href="javascript:;">通话</a></li>
@@ -496,8 +500,8 @@
 
     <t t-name="passenger_flow_template">
         <div>
-            <div class="passenger_flow_trend_chart" >
-                <div class="closeBox"><a class="close_bt" href="javascript:;"></a></div>
+            <div class="passenger_flow_trend_chart dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
+                <div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
                 <t t-foreach="widget.passenger_data" t-as="passenger">
                     <div t-attf-class="trend_chart trend_chart_single" t-if="passenger.name">
                         <div class="top_title"> 
@@ -643,8 +647,8 @@
 
     <t t-name="plan_display_template">
         <div>
-            <div class="plan_display">
-                <header class="closeBox">
+            <div class="plan_display dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
+                <header class="closeBox dragArea">
                     <span class="title">线路：16路</span>
                     <a class="close_bt" href="javascript:;"></a>
                 </header>
@@ -683,11 +687,11 @@
                         </table>
                         <div class="bottom_bt">
                             <a class="cancel" href="javascript:;">取消</a>
-                            <a class="cancel" href="javascript:;">调整</a>
-                            <a class="cancel" href="javascript:;">前移</a>
-                            <a class="cancel" href="javascript:;">后移</a>
-                            <a class="cancel" href="javascript:;">调整</a>
-                            <a class="cancel" href="javascript:;">查询</a>
+                            <a class="adjust" href="javascript:;">调整</a>
+                            <a class="forward_lead move_bt" name="front" href="javascript:;">前移</a>
+                            <a class="retroposition move_bt" name="queen" href="javascript:;">后移</a>
+                            <a class="adjust2" href="javascript:;">调整</a>
+                            <a class="inquire" href="javascript:;">查询</a>
                         </div>
                     </section>
                     <section class="section_plan_cont uplink_yard">
@@ -792,11 +796,11 @@
                         </table>
                         <div class="bottom_bt">
                             <a class="cancel" href="javascript:;">取消</a>
-                            <a class="cancel" href="javascript:;">调整</a>
-                            <a class="cancel" href="javascript:;">前移</a>
-                            <a class="cancel" href="javascript:;">后移</a>
-                            <a class="cancel" href="javascript:;">调整</a>
-                            <a class="cancel" href="javascript:;">查询</a>
+                            <a class="adjust" href="javascript:;">调整</a>
+                            <a class="forward_lead move_bt" name="front" href="javascript:;">前移</a>
+                            <a class="retroposition move_bt" name="queen" href="javascript:;">后移</a>
+                            <a class="adjust2" href="javascript:;">调整</a>
+                            <a class="inquire" href="javascript:;">查询</a>
                         </div>
                     </section>
                     <section class="section_plan_cont uplink_yard down_yard">
@@ -868,6 +872,80 @@
                         <div class="bottom_bt"></div>
                     </section>
                 </article>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="adjust_the_plan_template">
+        <div>
+            <div class="adjust_box">
+                <div class="adjust_info">
+                    <table class="adjust_content">
+                        <tr>
+                            <td>车辆：</td>
+                            <td>
+                                <t t-esc="quota.vehicle"></t>
+                            </td>
+                            <td>线路：</td>
+                            <td>
+                                <t t-esc="quota.line"></t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>方向：</td>
+                            <td>
+                                <t t-esc="quota.direction_of"></t>
+                            </td>
+                            <td>运行线路</td>
+                            <td>
+                                <t t-esc="quota.run_line"></t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>司机：</td>
+                            <td>
+                                <t t-esc="quota.driver"></t>
+                            </td>
+                            <td>趟次</td>
+                            <td>
+                                <t t-esc="quota.trip_time"></t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>调整原因：</td>
+                            <td>
+                                <t t-esc="quota.adjust_the_reason"></t>
+                            </td>
+                            <td>计划类型</td>
+                            <td>
+                                <t t-esc="quota.type"></t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>时间：</td>
+                            <td>
+                                <t t-esc="quota.time"></t>
+                            </td>
+                            <td>计划里程</td>
+                            <td>
+                                <t t-esc="quota.mileage"></t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" width="50%">
+                                批量调整同方向<input class="plan_num" type="number" min="1" />条计划
+                            </td>
+                            <td colspan="2" width="50%">
+                                间隔<input class="time_num" type="number" min="1" />分钟
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="adjust_bt_box">
+                    <a class="adjust_bt reset_bt" href="javascript:;">重置</a>
+                    <a class="adjust_bt close_bt" href="javascript:;">关闭</a>
+                    <a class="adjust_bt ok_bt" href="javascript:;">确定</a>
+                </div>
             </div>
         </div>
     </t>

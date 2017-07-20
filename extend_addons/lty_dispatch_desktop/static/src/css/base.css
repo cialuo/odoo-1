@@ -70,3 +70,6 @@ label {
 .posR{
     position: relative;
 }
+.posA{
+    position: absolute;
+}
