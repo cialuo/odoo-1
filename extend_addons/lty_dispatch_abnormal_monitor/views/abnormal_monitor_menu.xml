@@ -1,0 +1,10 @@
+<openerp>
+  <data>
+    <menuitem name="Safty Abnormal" id="lty_dispatch_abnormal_monitor_safty" parent="dispatch_monitor_menu.abnormal_monitor_menu" sequence="10"/>
+    <menuitem name="Bus Condition Abnormal" id="lty_dispatch_abnormal_monitor_bus_condition" parent="dispatch_monitor_menu.abnormal_monitor_menu" sequence="20"/>
+    <menuitem name="Person Abnormal" id="lty_dispatch_abnormal_monitor_person" parent="dispatch_monitor_menu.abnormal_monitor_menu" sequence="30"/>
+    <menuitem name="Time Abnormal" id="lty_dispatch_abnormal_monitor_time" parent="dispatch_monitor_menu.abnormal_monitor_menu" sequence="40"/>
+    <menuitem name="Passenger flow Abnormal" id="lty_dispatch_abnormal_monitor_pf" parent="dispatch_monitor_menu.abnormal_monitor_menu" sequence="50"/>
+    <menuitem name="Location Abnormal" id="lty_dispatch_abnormal_monitor_location" parent="dispatch_monitor_menu.abnormal_monitor_menu" sequence="60"/>
+  </data>
+</openerp>
