@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "lty_dispatch_desktop_base",
+    'name': "Abnormal Monitor",
 
     'summary': """
-        调度监控台基础模块""",
+        异常监控""",
 
     'description': """
-        调度监控台基础模块
+        异常监控
     """,
 
     'author': "lihaihe",
@@ -19,12 +19,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['web_kanban','dispatch_monitor_menu'],
+    'depends': ['dispatch_monitor_menu'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
+        'views/abnormal_monitor_menu.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "lty_dispatch_desktop_base",
+    'name': "lty_dispatch_jobs",
 
     'summary': """
-        调度监控台基础模块""",
+        调度作业""",
 
     'description': """
-        调度监控台基础模块
+        调度作业
     """,
 
     'author': "lihaihe",
@@ -19,12 +19,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['web_kanban','dispatch_monitor_menu'],
+    'depends': ['dispatch_monitor_menu'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
+        'views/dispatch_abnormal_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
