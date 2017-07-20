@@ -326,5 +326,5 @@ class human_resource(models.Model):
 
     # human_resource = fields.Many2one('route_manage.route_manage', string='Human resource')
     # 所属线路
-    lines = fields.Many2many('route_manage.route_manage', string='Lines')
+    lines = fields.Many2many('route_manage.route_manage', string='Choose Line')
 

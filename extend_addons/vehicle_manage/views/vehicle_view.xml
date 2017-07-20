@@ -305,7 +305,7 @@
             <field name="model">route_manage.route_manage</field>
             <field name="inherit_id" ref="scheduling_parameters.route_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//page[@name='down_resource']" position="after">
+                <xpath expr="//page[@name='StationDowns']" position="after">
                     <page string="vehicle resource" name="vehicle_page">
                         <field name="vehicle_res">
                             <tree create="false" delete="false">
@@ -326,6 +326,9 @@
                             <field name="synthesize_rate"/>
                         </group>
                     </page>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="before">
+                    <field name="vehiclenums" />
                 </xpath>
             </field>
         </record>

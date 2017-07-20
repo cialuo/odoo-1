@@ -261,7 +261,7 @@
 
                             <page string="StationUps" name="StationUps">
                                 <field name="station_up_ids">
-                                    <tree string="StationUps" editable="bottom">
+                                    <tree string="StationUps" editable="bottom" default_order="sequence">
                                         <field name="sequence"/>
                                         <field name="station_id" options="{'no_create':True}"/>
                                         <field name="station_type"/>
@@ -277,7 +277,7 @@
                             </page>
                             <page string="StationDowns" name="StationDowns">
                                 <field name="station_down_ids">
-                                    <tree string="StationDowns" editable="bottom">
+                                    <tree string="StationDowns" editable="bottom" default_order="sequence">
                                         <field name="sequence"/>
                                         <field name="station_id" options="{'no_create':True}"/>
                                         <field name="station_type"/>
