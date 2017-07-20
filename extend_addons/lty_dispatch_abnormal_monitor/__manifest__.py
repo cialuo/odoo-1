@@ -19,12 +19,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['dispatch_monitor_menu'],
+    'depends': ['lty_dispatch_jobs'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/abnormal_monitor_menu.xml',
+        'views/views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
