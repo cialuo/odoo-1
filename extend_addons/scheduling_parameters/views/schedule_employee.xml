@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="employees.lty_view_employee_form"/>
             <field name="arch" type="xml">
                 <field name="parent_id" position="after">
-                    <field name="lines" widget="many2many_tags"/>
+                    <field name="lines" widget="many2many_tags" options="{'no_create':True}" />
                 </field>
             </field>
         </record>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-20 07:18+0000\n"
-"PO-Revision-Date: 2017-07-20 07:18+0000\n"
+"POT-Creation-Date: 2017-07-20 08:17+0000\n"
+"PO-Revision-Date: 2017-07-20 08:17+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -63,6 +63,11 @@ msgid "ChirdRoutes"
 msgstr "子线"
 
 #. module: scheduling_parameters
+#: model:ir.model.fields,field_description:scheduling_parameters.field_hr_employee_lines
+msgid "Choose Line"
+msgstr "选择线路"
+
+#. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_classSystemName
 msgid "Classsystemname"
 msgstr "班制"
@@ -75,7 +80,7 @@ msgstr "班制"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_up_create_uid
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_create_uid
 msgid "Created by"
-msgstr "创建人"
+msgstr "建档人"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_area_create_date
@@ -85,7 +90,7 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_up_create_date
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_create_date
 msgid "Created on"
-msgstr "创建时间"
+msgstr "设立时间"
 
 #. module: scheduling_parameters
 #: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_station_form
@@ -212,11 +217,6 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
-
-#. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_hr_employee_lines
-msgid "Lines"
-msgstr "明细行"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_lineTypeName
