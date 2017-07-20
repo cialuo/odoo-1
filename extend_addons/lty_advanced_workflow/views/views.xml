@@ -1,19 +1,17 @@
 <openerp>
   <data>
-    <!-- explicit list view definition -->
-    <!--
-    <record model="ir.ui.view" id="lty_advanced_workflow.list">
-      <field name="name">lty_advanced_workflow list</field>
-      <field name="model">lty_advanced_workflow.lty_advanced_workflow</field>
+    <record model="ir.ui.view" id="lty_advanced_workflow_cfg_list">
+      <field name="name">lty_advanced_workflow_cfg list</field>
+      <field name="model">lty.advanced.workflow.cfg</field>
       <field name="arch" type="xml">
         <tree>
+          <field name="code"/>
           <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+          <field name="model"/>
+          <field name="status"/>
         </tree>
       </field>
     </record>
-    -->
 
     <!-- actions opening views on models -->
     <!--
