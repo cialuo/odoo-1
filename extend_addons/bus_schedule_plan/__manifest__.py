@@ -2,7 +2,9 @@
 {
     'name': "行车作业计划编制",
 
-    'summary': """行车作业计划编制""",
+    'summary': """
+    行车作业计划编制
+    """,
 
     'description': """
         行车作业计划编制
@@ -18,7 +20,7 @@
     'version': '1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'scheduling_parameters', 'employees'],
+    'depends': ['base', 'scheduling_parameters', 'employees', 'vehicle_manage'],
 
     # always loaded
     'data': [
@@ -29,5 +31,5 @@
     'demo': [
     ],
     'installable': True,
-    'application': True
+    'application': True,
 }
