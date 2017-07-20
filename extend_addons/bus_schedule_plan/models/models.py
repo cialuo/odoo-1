@@ -13,7 +13,7 @@ class BusWorkRules(models.Model):
     # 公交类型
     bustype = fields.Selection([("normal", "normal bus"),           # 普通公交
                                 ("custem", "custem bus"),           # 定制公交
-                              ], string="bus type")
+                              ],  string="bus type")
 
     # 调车方式
     schedule_method = fields.Selection([("singleway", "single way"),        # 单头调
@@ -23,7 +23,7 @@ class BusWorkRules(models.Model):
     # 线路里程
     mileage = fields.Float(string="line mile age", store=True)
 
-    # 公交车数量
+    # 可用车数
     bus_number = fields.Integer(string="bus number", store=True)
 
     # 上行首班时间
@@ -47,6 +47,26 @@ class BusWorkRules(models.Model):
     # 自动生成时刻表
     autogen = fields.Boolean(string="auto generate times")
 
+    # 上行配车方案
+    upplanvehiclearrange = fields.One2many("scheduleplan.up.rulebusarrange", "rule_id",
+                                           string="up plan vehicle arrange")
+
+    # 上行发车方案
+    uptimearrange = fields.One2many("scheduleplan.toup", "rule_id", string="up time arrange")
+
+    # 下行配车方案
+    downplanvehiclearrange = fields.One2many("scheduleplan.down.rulebusarrange", "rule_id",
+                                             string="up plan vehicle arrange")
+
+    # 下行发车方案
+    downtimearrange = fields.One2many("scheduleplan.todown", "rule_id", string="up time arrange")
+
+    # 大站设置 上行
+    bigsite_up = fields.One2many("scheduleplan.bigsitesetup", "rule_id", string="big site up")
+
+    # 大站设置 下行
+    bigsite_down = fields.One2many("scheduleplan.bigsitesetdown", "rule_id", string="big site down")
+
 
 class RuleBusArrangeUp(models.Model):
 
@@ -65,13 +85,16 @@ class RuleBusArrangeUp(models.Model):
     # 运营数量
     workingnumber = fields.Integer(string="vehicle working number")
 
-    # 机动数据量
+    # 机动车数量
     backupnumber = fields.Integer(string="vehicle backup number")
+
+    #
+    # passengernumber = fields.Integer(string="passenger number")
 
 
 class ToUp(models.Model):
     """
-    上行
+    上行发车安排
     """
     _name = "scheduleplan.toup"
 
@@ -123,16 +146,20 @@ class RuleBusArrangeDown(models.Model):
 
 class ToDown(models.Model):
     """
-    下行时间安排
+    下行发车安排
     """
     _name = "scheduleplan.todown"
 
     _inherit = "scheduleplan.toup"
 
 
-class BigSiteSettings(models.Model):
+class BigSiteSettingsUp(models.Model):
 
-    _name = "scheduleplan.bigsiteset"
+    _name = "scheduleplan.bigsitesetup"
+
+    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule")
+
+    site_id = fields.Many2one("opertation_resources_station_up")
 
     # 是否签点
     needsign = fields.Boolean(string="need sign")
@@ -154,3 +181,11 @@ class BigSiteSettings(models.Model):
 
     # 允许慢几分钟
     slowthen = fields.Integer(string="slow allowed")
+
+
+class BigSiteSettingsDown(models.Model):
+
+    _name = "scheduleplan.bigsitesetdown"
+
+    _inherit = "scheduleplan.bigsitesetup"
+
