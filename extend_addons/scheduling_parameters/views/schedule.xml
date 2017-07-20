@@ -184,10 +184,10 @@
 
                         <notebook>
                             <page string="Cross line">
-                                <field name="station_ids">
+                                <field name="route_ids" readonly="1">
                                     <tree>
-                                        <field name="route_id"/>
-                                        <field name="station_type"/>
+                                        <field name="lineName"/>
+                                        <field name="gprsId"/>
                                     </tree>
                                 </field>
                             </page>
@@ -235,7 +235,9 @@
                             <group>
                                 <field name="gprsId"/>
                                 <field name="lineTypeName"/>
-                                <field name="main_line" attrs="{'invisible': [('lineTypeName', '=', 'main_line')]}"/>
+                                <field name="main_line_id" options="{'no_create':True}"
+                                       attrs="{'required':[('lineTypeName','!=','main_line')],
+                                            'invisible': [('lineTypeName', '=', 'main_line')]}"/>
                                 <field name="oil_wear_coefficient"/>
                                 <field name="department_id" options="{'no_create':True}"/>
                                 <field name="classSystemName"/>
@@ -257,23 +259,35 @@
                         </group>
                         <notebook>
 
-                            <page string="up_resource" name="up_resource">
+                            <page string="StationUps" name="StationUps">
                                 <field name="station_up_ids">
-                                    <tree string="up_resource" editable="bottom">
+                                    <tree string="StationUps" editable="bottom">
                                         <field name="sequence"/>
                                         <field name="station_id" options="{'no_create':True}"/>
-                                        <!--<field name="name"/>-->
                                         <field name="station_type"/>
+                                        <field name="entrance_azimuth"/>
+                                        <field name="entrance_longitude"/>
+                                        <field name="entrance_latitude"/>
+                                        <field name="exit_azimuth"/>
+                                        <field name="exit_longitude"/>
+                                        <field name="exit_latitude"/>
+                                        <field name="is_show_name"/>
                                     </tree>
                                 </field>
                             </page>
-                            <page string="down_resource" name="down_resource">
+                            <page string="StationDowns" name="StationDowns">
                                 <field name="station_down_ids">
-                                    <tree string="down_resource" editable="bottom">
+                                    <tree string="StationDowns" editable="bottom">
                                         <field name="sequence"/>
                                         <field name="station_id" options="{'no_create':True}"/>
-                                        <!--<field name="name"/>-->
                                         <field name="station_type"/>
+                                        <field name="entrance_azimuth"/>
+                                        <field name="entrance_longitude"/>
+                                        <field name="entrance_latitude"/>
+                                        <field name="exit_azimuth"/>
+                                        <field name="exit_longitude"/>
+                                        <field name="exit_latitude"/>
+                                        <field name="is_show_name"/>
                                     </tree>
                                 </field>
                             </page>
@@ -282,7 +296,13 @@
                                 <field name="human_resource"/>
                             </page>
 
-
+                            <page name="ChirdRoutes" string="ChirdRoutes" attrs="{'invisible': [('lineTypeName', '!=', 'main_line')]}">
+								<field name="child_route_ids"  readonly="1">
+									<tree>
+										<field name="lineName"/>
+									</tree>
+								</field>
+							</page>
                         </notebook>
                     </sheet>
                 </form>
