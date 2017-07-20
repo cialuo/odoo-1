@@ -1,0 +1,59 @@
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="lty_advanced_workflow.list">
+      <field name="name">lty_advanced_workflow list</field>
+      <field name="model">lty_advanced_workflow.lty_advanced_workflow</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="lty_advanced_workflow.action_window">
+      <field name="name">lty_advanced_workflow window</field>
+      <field name="res_model">lty_advanced_workflow.lty_advanced_workflow</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="lty_advanced_workflow.action_server">
+      <field name="name">lty_advanced_workflow server</field>
+      <field name="model_id" ref="model_lty_advanced_workflow_lty_advanced_workflow"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="lty_advanced_workflow" id="lty_advanced_workflow.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="lty_advanced_workflow.menu_1" parent="lty_advanced_workflow.menu_root"/>
+    <menuitem name="Menu 2" id="lty_advanced_workflow.menu_2" parent="lty_advanced_workflow.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="lty_advanced_workflow.menu_1_list" parent="lty_advanced_workflow.menu_1"
+              action="lty_advanced_workflow.action_window"/>
+    <menuitem name="Server to list" id="lty_advanced_workflow" parent="lty_advanced_workflow.menu_2"
+              action="lty_advanced_workflow.action_server"/>
+    -->
+  </data>
+</openerp>
