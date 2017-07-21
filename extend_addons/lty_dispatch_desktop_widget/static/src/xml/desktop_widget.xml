@@ -949,4 +949,114 @@
             </div>
         </div>
     </t>
+
+    <t t-name="communication_template_box">
+        <div>
+            
+        </div>
+    </t>
+
+    <t t-name="communication_template">
+        <div>
+            <div class="communication">
+                <div class="directory">
+                    <t t-if="channel_info.channel.length>0">
+                        <div class="channel directory_part">
+                            <div class="directory_title">频道</div>
+                            <div class="children_directory">
+                                <t t-foreach="channel_info.channel" t-as="channel">
+                                    <t t-if="channel.id==channel_info.source_channel.id">
+                                        <div t-attf-class="children_o op_active" t-attf-id="{{channel.id}}" t-attf-img="{{channel.img}}">
+                                            # <t t-esc="channel.name"></t>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div t-attf-class="children_o" t-attf-id="{{channel.id}}" t-attf-img="{{channel.img}}">
+                                            # <t t-esc="channel.name"></t>
+                                        </div>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                    
+                    <t t-if="channel_info.direct_messages.length>0">
+                        <div class="direct_messages directory_part">
+                            <div class="directory_title">私信</div>
+                            <div class="children_directory">
+                                <t t-foreach="channel_info.direct_messages" t-as="direct_messages">
+                                    <t t-if="direct_messages.id==channel_info.source_channel.id">
+                                        <div t-attf-class="children_o op_active" t-attf-id="{{direct_messages.id}}" t-attf-img="{{direct_messages.img}}">
+                                            # <t t-esc="direct_messages.name"></t>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div t-attf-class="children_o" t-attf-id="{{direct_messages.id}}" t-attf-img="{{direct_messages.img}}">
+                                            # <t t-esc="direct_messages.name"></t>
+                                        </div>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+                
+
+                <div class="chat_info">
+                    <a class="close_bt" href="javascript:;"></a>
+                    <div class="chat_title">
+                        <t t-esc="channel_info.source_channel.name"></t>
+                    </div>
+                    <div class="chat_content">
+                        <t t-if="channel_info.source_channel.is_history">
+                            <div class="history_info">
+                                <div class="history_query">
+                                    <a class="history_bt" associated_id="channel_info.source_channel.id" href="javascript:;">查看更多消息</a>
+                                    <p class="history_load">加载中...</p>
+                                </div>
+                            </div>
+                            <div class="current_info_fgx">---------以上是历史数据----------</div>
+                        </t>
+                        <div class="current_info">
+                            
+                        </div>
+                    </div>
+                    <div class="send_chat">
+                        <div class="o_composer_input o_composer">
+                            <textarea class="o_content_text" placeholder="写些什么..." tabindex="2" ></textarea>
+                        </div>
+                        <div class="o_composer_buttons o_composer">
+                            <a class="o_composer_button_send send_cont_bt" tabindex="3" type="button">发送</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="chat_model_template">
+        <div class="chat_model">
+            <div class="oe_chat_icon">
+                <t t-if="info.img">
+                    <img class="user_icon" t-attf-src="info.img" alt=""/>    
+                </t>
+                <t t-else="">
+                    <img class="user_icon" src="/web/image/res.partner/3/image_small" alt=""/>
+                </t>
+            </div>
+            <div class="oe_chat_info">
+                <div class="user_info">
+                    <span class="oe_user_name mR10">
+                        <t t-esc="info.name"></t>
+                    </span>
+                    <span class="oe_data_time">
+                        <t t-esc="info.data_time"></t>
+                    </span>
+                </div>
+                <div class="user_send_info">
+                    <t t-esc="info.cont"></t>
+                </div>
+            </div>
+        </div>
+    </t>
 </templates>
