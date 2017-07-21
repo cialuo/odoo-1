@@ -29,6 +29,7 @@
         # 'security/ir.model.access.csv',
         'views/schedule_employee.xml',
         'views/schedule.xml',
+        'views/rescue_fleet.xml',
     ],
 
     'installable': True,
