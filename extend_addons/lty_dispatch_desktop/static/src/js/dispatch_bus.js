@@ -6,44 +6,44 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
     var Widget = require('web.Widget');
     var Model = require('web.Model');
     var QWeb = core.qweb;
+    var dispatch_updown_line=require('lty_dispaych_desktop.updown_line');
     var bus_real_info = require('lty_dispatch_desktop_widget.bus_real_info');
-    var dispatch_bus=Widget.extend({
-         init: function (parent,data,selfDom) {
+   //最原始车辆组件
+    var dispatch_canvas=Widget.extend({
+         template:'dispatch_desktop',
+         init: function (parent,data) {
             this._super(parent);
             this.model = new Model('lty_dispatch_desktop.lty_dispatch_desktop');
-            this.data = data;
-            this.selfDom= selfDom;
+            this.dis_desk = data;
         },
         start: function () {
             var self = this;
-            var data =this.data;
-            var selfDom = this.selfDom;
-            self.$el.append(QWeb.render("dispatch_desktop", {dis_desk: data}));
+            var data=this.dis_desk;
             if(data){
-                qrend_desktop(data, '.can_top', '.can_bottom', '.canvas_left', '.canvas_right',selfDom);
-                self.dataCir = data.ab.k;
-                self.color = data.ab.g;
-                self.dataSite = data.ab.d;
-                self.dataSite2 = data.ab.d2;
-                self.subsection = data.ab.e;
+                qrend_desktop(data, '.can_top', '.can_bottom', '.canvas_left', '.canvas_right',self.$el);
+
+                self.dataCir = data.oneline.site_to_startpoint;
+                self.color = data.oneline.plan_feedback;
+                self.dataSite = data.oneline.siteTop;
+                self.dataSite2 = data.oneline.siteBottom;
+                self.subsection = data.oneline.traffic_distance;
             }
         },
         events:{
              'click .can_top':'clk_can_top',
              'click .can_bottom':'clk_can_bottom',
-             'click .chs>li':'chose_line',
              'click .del':'del_chose_line',
              'click .line_edit':'show_chose_line',
              'click .type_car':'bus_info'
         },
         bus_info:function (e) {
             var self = this;
-            var ab = new bus_real_info(this, {x:e.clientX+5, y:e.clientY+5, zIndex:5});
-            ab.appendTo(self.$el);
+            var dialog = new bus_real_info(this, {x:e.clientX+5, y:e.clientY+5, zIndex:5});
+            dialog.appendTo(self.$el);
         },
         clk_can_top:function (e) {
             var self = this;
-            var dom = self.$('.dispatch_desktop');
+            var dom = self.$el;
             self.do({
             id: '.can_top',
             ciry: 27,
@@ -57,7 +57,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         clk_can_bottom:function (e) {
             var self = this;
-            var dom = self.$('.dispatch_desktop');
+            var dom = self.$el;
             self.do({
                 id: '.can_bottom',
                 ciry: 6,
@@ -76,23 +76,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         show_chose_line:function () {
              var self = this;
              self.$('.edit_content').show();
-        },
-        chose_line:function () {
-            var self = this;
-            var dis_desk = self.dis_desk;
-            var dom = self.$el;
-            self.model.call('dispatch_desktop',[dis_desk]).then(function (data) {
-                console.log(data);
-                self.$el.html('')
-                self.$el.html(QWeb.render("dispatch_desktop", {dis_desk: data[1]}));
-                qrend_desktop(data[1], '.can_top', '.can_bottom', '.canvas_left', '.canvas_right',dom);
-                self.dataCir = data[1].ab.k;
-                self.color = data[1].ab.g;
-                self.dataSite = data[1].ab.d;
-                self.dataSite2 = data[1].ab.d2;
-                self.subsection = data[1].ab.e;
-            });
-
         },
          do: function (canvas, e) {
             var event = e || window.event;
@@ -159,6 +142,66 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 }
 
             }
+        }
+    });
+    //选择车辆组件
+    //上下行路线组件
+
+
+    // 线路选择
+    var dispatch_line_control=Widget.extend({
+        init: function (parent,data) {
+            this._super(parent);
+            this.model = new Model('lty_dispatch_desktop.lty_dispatch_desktop');
+            this.data = data;
+        },
+        start: function () {
+            var data =this.data;
+            new dispatch_canvas(this, data).appendTo(this.$el);
+            new dispatch_updown_line(this,data).appendTo(this.$el);
+        },
+        events: {
+            'click .chs>li': 'chose_line',
+        },
+        chose_line:function () {
+            var self = this;
+            var dis_desk = self.dis_desk;
+            var dom = self.$el;
+            self.model.call('dispatch_desktop',[dis_desk]).then(function (data) {
+                var siteLeft=self.$el.find('.dispatch_desktop')[0].offsetLeft;
+                var chartLeft=self.$el.find('.updown_line_table')[0].offsetLeft;
+                var siteTop=self.$el.find('.dispatch_desktop')[0].offsetTop;
+                var chartTop=self.$el.find('.updown_line_table')[0].offsetTop;
+                data[1].oneline.line_show_or_hide.left = siteLeft;
+                data[1].oneline.line_show_or_hide.top = siteTop;
+                data[1].oneline.chart_show_or_hide.left = chartLeft;
+                data[1].oneline.chart_show_or_hide.top = chartTop;
+                self.$el.html('')
+                //渲染车辆canvas图形组件
+                new dispatch_canvas(this, data[1]).appendTo(self.$el);
+                new dispatch_updown_line(this,data[1]).appendTo(self.$el);
+                //渲染车辆客流与运力组件
+                qrend_desktop(data[1], '.can_top', '.can_bottom', '.canvas_left', '.canvas_right',dom);
+                self.dataCir = data[1].oneline.site_to_startpoint;
+                self.color = data[1].oneline.plan_feedback;
+                self.dataSite = data[1].oneline.siteTop;
+                self.dataSite2 = data[1].oneline.siteBottom;
+                self.subsection = data[1].oneline.traffic_distance;
+            });
+        },
+    });
+    //车辆组件
+
+    //整个车行的组件
+    var dispatch_bus=Widget.extend({
+         init: function (parent,data) {
+            this._super(parent);
+            // this.model = new Model('lty_dispatch_desktop.lty_dispatch_desktop');
+            this.data = data;
+        },
+        start: function () {
+            var data =this.data;
+            new dispatch_line_control(this,data).appendTo(this.$el);
         }
     })
     return dispatch_bus;

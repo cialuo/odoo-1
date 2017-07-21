@@ -20,12 +20,17 @@
     'version': '1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'scheduling_parameters', 'employees', 'vehicle_manage'],
+    'depends': ['base','operation_menu', 'scheduling_parameters', 'employees', 'vehicle_manage'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
+        'views/bus_date_type.xml',
+        'views/bus_shift.xml',
+        'views/bus_algorithm.xml',
+        'views/bus_group.xml',
+        'views/bus_staff_group.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

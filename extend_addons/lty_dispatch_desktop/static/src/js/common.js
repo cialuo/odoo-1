@@ -29,6 +29,7 @@ function traffic_distance(canvas) {
         cxt.closePath();
     }
 }
+//站点的圆圈以及站点名称
 function cir_and_text(canvas) {
     var cId = canvas.id;
     var ciry = canvas.ciry;
@@ -84,7 +85,7 @@ function cir_and_text(canvas) {
         }
     }
 }
-
+//左侧canvas图
 function can_left(canvas) {
     // canvas的id
     var cId = canvas.id;
@@ -159,44 +160,45 @@ function can_left(canvas) {
 }
 //客流走势轮播组件
 function carousel(carousel) {
+    var self =carousel.self;
     var content = carousel.content;
+    console.log(content)
     var i = 0;
-    var timer = null;
-    var firstcarousel_content = $(content + '>li').first().clone(); //复制第一张图片
+    var firstcarousel_content = self.$(content + '>li').first().clone(); //复制第一张图片
     //将第一张图片放到最后一张图片后，设置ul的宽度为图片张数*图片宽度
-    $(content).append(firstcarousel_content).width($(content + '>li').length * 600);
+    self.$(content).append(firstcarousel_content).width(self.$(content + '>li').length * 600);
     //定时器自动播放
-    timer = setInterval(function () {
+   var timer = setInterval(function () {
         i++;
-        if (i == $(content + '>li').length) {
+        if (i == self.$(content + '>li').length) {
             i = 1;
-            $(content).css({left: 0});
+            self.$(content).css({left: 0});
         }
         ;
-        $(content).stop().animate({left: -i * 600}, 1000);
-    }, 4000)
+        self.$(content).stop().animate({left: -i * 600}, 500);
+    }, 3000)
     //鼠标移入，暂停自动播放，移出，开始自动播放
-    $('.carousel').hover(function () {
+    self.$('.carousel').hover(function () {
         clearInterval(timer);
     }, function () {
         timer = setInterval(function () {
             i++;
-            if (i == $(content + '>li').length) {
+            if (i == self.$(content + '>li').length) {
                 i = 1;
-                $(content).css({left: 0});
+                self.$(content).css({left: 0});
             }
             ;
-            $(content).stop().animate({left: -i * 600}, 1000);
-        }, 4000)
-    })
-}
-
+            self.$(content).stop().animate({left: -i * 600}, 500);
+        }, 3000);
+    });
+};
+//渲染车辆实况的cancvas图像
 function qrend_desktop(data, domT, domB, domL, domR,selfDom) {
-    var dataCir = data.ab.k;
-    var color = data.ab.g;
-    var dataSite = data.ab.d;
-    var dataSite2 = data.ab.d2;
-    var subsection = data.ab.e;
+    var dataCir = data.oneline.site_to_startpoint;
+    var color = data.oneline.plan_feedback;
+    var dataSite = data.oneline.siteTop;
+    var dataSite2 = data.oneline.siteBottom;
+    var subsection = data.oneline.traffic_distance;
     var traffic_top = {
         id: domT,
         y: 26,
@@ -257,6 +259,7 @@ function qrend_desktop(data, domT, domB, domL, domR,selfDom) {
         }
     );
 }
+//防止冒泡
 function stopPropagation(e){
     e=window.event||e;
     if(document.all){  //只有ie识别
