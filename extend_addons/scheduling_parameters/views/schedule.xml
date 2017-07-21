@@ -201,6 +201,7 @@
         <record model="ir.ui.view" id="route_tree_view">
             <field name="name">route tree view</field>
             <field name="model">route_manage.route_manage</field>
+            <field name="priority">0</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="lineName"/>
@@ -217,6 +218,7 @@
         <record model="ir.ui.view" id="route_form_view">
             <field name="name">route form view</field>
             <field name="model">route_manage.route_manage</field>
+            <field name="priority">0</field>
             <field name="arch" type="xml">
                 <form>
                     <header>

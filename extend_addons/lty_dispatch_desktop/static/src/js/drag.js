@@ -13,7 +13,7 @@ var get = {
 		return aClass
 	},
 	byTagName: function(elem, obj) {
-		return (obj || document).getElementsByTagName(elem)
+		return (obj || document).getElementsByTagName(elem);
 	}
 };
 var dragMinWidth = 250;
@@ -49,7 +49,7 @@ function drag(oDrag, handle) {
         document.onmouseup = function () {
             document.onmousemove = null;
             document.onmouseup = null;
-            this.releaseCapture && this.releaseCapture()
+            this.releaseCapture && this.releaseCapture();
         };
         this.setCapture && this.setCapture();
         return false
@@ -66,20 +66,19 @@ function drag(oDrag, handle) {
 
 
 }
-function A(parent, title) {
+function dragFn(parent, title) {
 	var k = 1;
 	var c_class = "."+parent + " ." + title;
-	console.log($("body "+c_class).length)
 	$("body").on('mouseover', c_class, function () {
 		k++;
-		oDrag = $(this).parent()[0]
+		oDrag = $(this).parents("." + parent)[0];
 		oDrag.style.zIndex = k;
-		var oTitle = get.byClass("title", oDrag)[0];
+		var oTitle = get.byClass(title, oDrag)[0];
 		drag(oDrag, oTitle);
 	});
 }
 window.onload = window.onresize = function () {
-    A("contain", "title");
+    dragFn("dragContent", "dragArea");
 };
 
 

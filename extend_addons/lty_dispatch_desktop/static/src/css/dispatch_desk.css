@@ -1,5 +1,7 @@
-.dispatch_desktop .content {
+.dispatch_desktop{
     position: absolute;
+}
+.dispatch_desktop .content {
     width: 1276px;
     height:190px;
     border-radius: 8px;
@@ -86,6 +88,9 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
     width:100px;
     background: #fff;
     border-radius: 2px;
+    z-index: 20;
+    display: none;
+    cursor: pointer;
 }
 .dispatch_desktop .edit_content>ul{
     padding-left: 20px;
@@ -174,6 +179,7 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
     height: 8px;
     width: 38px;
     text-align: right;
+    cursor: pointer;
 }
 
 .dispatch_desktop .line_car .type_car span {
@@ -235,7 +241,7 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
 .dispatch_desktop .content_car_road:first-of-type {
     margin-bottom: 8px;
 }
-#absnormal_chart,#lagstation_chart{
+.absnormal_chart,#lagstation_chart{
     width:350px;
     height:160px;
 }
@@ -361,17 +367,24 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
     margin-right: 2px;
     border-left: 1px solid #fff;
     border-right: 1px solid #fff;
+
 }
 
 /*上下行路线图表和是否异常*/
 
-.updown_line_table .drag{
-	left:1300px;top:150px;position:absolute;width: 600px;
+.updown_line_table{
+    left:1300px;
+    top:150px;
+}
+.updown_line_table .updown_drag{
+	left:1300px;
+    top:150px;
+    width: 600px;
 	height: 190px;
 	background: #343B58;
     border-radius: 8px;
 }
-.updown_line_table .title{
+.updown_line_table .updown_title{
     height:30px;
 }
 .updown_line_table .line_btn {

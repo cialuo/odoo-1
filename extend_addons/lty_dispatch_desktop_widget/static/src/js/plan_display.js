@@ -1,11 +1,11 @@
-odoo.define(function (require) {
+odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var QWeb = core.qweb;
 
     var plan_display = Widget.extend({
         template: "plan_display_template",
-        init: function(parent){
+        init: function(parent, data){
             this._super(parent);
             var init_data = {
                 uplink_plan: [
@@ -70,7 +70,86 @@ odoo.define(function (require) {
                 ],
 
             };
+            this.location_data = data;
             this.plan_data = this.disposal_data(init_data);
+        },
+        start: function(){
+            this.load_fn();
+        },
+        load_fn: function(){
+            var self = this;
+            self.$el.find(".plan_display .content_tb").on("click", "tr.point", function(){
+                $(this).addClass("active_tr").siblings().removeClass('active_tr');
+            });
+
+            self.$el.find(".plan_display .uplink_plan").on("click", ".bottom_bt .cancel", function(){
+                $(this).parents(".uplink_plan").find(".content_tb tr").removeClass("active_tr");
+            });
+
+            self.$el.find(".plan_display .uplink_plan").on("click", ".bottom_bt .move_bt", function(){
+                var active_tr = $(this).parents(".uplink_plan").find(".content_tb tr.active_tr");
+                if (active_tr.length == 0){
+                    alert("请选择需要处理的计划");
+                    // layer.msg("请选择需要处理的计划", {time: 1000, shade: 0.3});
+                    return;
+                }
+                var name = $(this).attr("name");
+                self.move_fn(active_tr, name);
+            });
+
+            self.$el.find(".plan_display .uplink_plan").on("click", ".bottom_bt .adjust", function(){
+                var init_data = {
+                    vehicle:1,
+                    direction_of:1,
+                    driver:1,
+                    adjust_the_reason:1,
+                    time:1,
+                    line:1,
+                    run_line:1,
+                    trip_time:1,
+                    type:1,
+                    mileage:1
+                };
+                layer.open({
+                    type: 1,
+                    title: "调整计划",
+                    area: ['500px', ''],
+                    resize: false,
+                    content: QWeb.render("adjust_the_plan_template", {quota: init_data})
+                });
+            });
+
+            $("body").on("click", ".adjust_box .reset_bt", function(){
+                $(".adjust_box input[type='number']").val("");
+            });
+
+            $("body").on("click", ".adjust_box .ok_bt", function(){
+                layer.msg("请求接口还没有给到", {time: 2000, shade: 0.3});
+            });
+
+            $("body").on("click", ".adjust_box .close_bt", function(){
+                layer.closeAll();
+            });
+
+        },
+        move_fn: function(active_tr, type){
+            if (type == "front"){
+                var prev_tr = active_tr.prev ('tr.point');
+                if (prev_tr.length > 0){
+                    alert("发生请求后才显示‘确认按钮’后的东西");
+                    prev_tr.before(active_tr);
+                    return;
+                }
+                alert("该计划已经是最前面的");
+            }else{
+                var next_tr = active_tr.next ('tr.point');
+                if (next_tr.length > 0){
+                    alert("发生请求后才显示‘确认按钮’后的东西");
+                    next_tr.after(active_tr);
+                    return;
+                }
+                alert("该计划已经是最后面的");
+            }
         },
         disposal_data: function(data){
             var uplink_plan = data.uplink_plan;
@@ -138,8 +217,10 @@ odoo.define(function (require) {
             data.down_yard = new_down_yard;
             data.down_on_the_way = new_down_on_the_way;
             return data;
-        }
+        },
     });
     core.action_registry.add('lty_dispatch_desktop_widget.plan_display', plan_display);
+
+    return plan_display;
 });
 

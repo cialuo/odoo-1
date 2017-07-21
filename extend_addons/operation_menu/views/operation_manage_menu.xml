@@ -2,7 +2,7 @@
     <data>
 
         <!-- 运营管理 -->
-        <menuitem name="operation manage"  id="operation_menu_root"  sequence="20"/>
+        <menuitem name="operation manage"  id="operation_menu_root"  sequence="10"/>
         <!--供需平衡分析-->
 		<menuitem name="balance of supply and demand" id="balance_of_supply_and_demand_menu" parent="operation_menu_root" sequence="1"/>
         <!--行车作业编制-->
