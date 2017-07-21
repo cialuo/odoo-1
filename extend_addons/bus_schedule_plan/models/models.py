@@ -231,3 +231,12 @@ class BigSiteSettingsDown(models.Model):
 
     _inherit = "scheduleplan.bigsitesetup"
 
+
+
+class BusMoveTimeTable(models.Model):
+
+    _name = "scheduleplan.busmovetime"
+
+    name = fields.Char(string="execute name")
+
+    
