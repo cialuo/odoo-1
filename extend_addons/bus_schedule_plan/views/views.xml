@@ -1,0 +1,246 @@
+<openerp>
+    <data>
+
+        <!-- 公交行车规则输出tree视图 -->
+        <record model="ir.ui.view" id="bus_work_rule_output_tree">
+            <field name="name">bus work rule output tree</field>
+            <field name="model">route_manage.route_manage</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree string="Course Tree" create="0" open="0" >
+                    <field name="department_id"/>
+                    <field name="lineName"/>
+                    <button type="object" string="create rule" name="outputRule"></button>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 公交行车规则输出form视图 -->
+        <record id="bus_work_rule_output_form" model="ir.ui.view">
+            <field name="name">bus work rule manage form</field>
+            <field name="model">scheduleplan.schedulrule</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form create="0">
+                </form>
+            </field>
+        </record>
+
+        <!-- 公交行车规则输出action页面 -->
+        <record model="ir.actions.act_window" id="bus_work_rule_output_action">
+            <field name="name">bus work rule output</field>
+            <field name="res_model">route_manage.route_manage</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('bus_work_rule_output_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('bus_work_rule_output_form')})
+                ]"/>
+            <field name="context" eval="{'bustype': 'normal'}"/>
+        </record>
+
+
+        <!-- 公交行车规则管理form视图 -->
+        <record id="bus_work_rule_manage_form" model="ir.ui.view">
+            <field name="name">bus work rule manage form</field>
+            <field name="model">scheduleplan.schedulrule</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <form create="0">
+                    <!--<sheet>-->
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="line_id"/>
+                                <field name="bustype"/>
+                                <field name="schedule_method"/>
+                                <field name="mileage"/>
+                                <field name="bus_number"/>
+                            </group>
+                            <group>
+                                <field name="upfirsttime"/>
+                                <field name="uplasttime"/>
+                                <field name="downfirsttime"/>
+                                <field name="downlasttime"/>
+                                <field name="upstation"/>
+                                <field name="downstation"/>
+                                <field name="autogen"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="up work plan">
+                                <div id="up_plan_chart_container"></div>
+                                <div>
+                                    <field name="upplanvehiclearrange">
+                                        <tree>
+                                            <field name="vehiclemode"/>
+                                            <field name="workingnumber"/>
+                                            <field name="backupnumber"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                                <div>
+                                    <field name="uptimearrange">
+                                        <tree>
+                                            <field name="starttime"/>
+                                            <field name="endtime"/>
+                                            <field name="interval"/>
+                                            <field name="speed"/>
+                                            <field name="worktimelength"/>
+                                            <field name="resttime"/>
+                                            <field name="minvehicles"/>
+                                            <field name="rateoffullload"/>
+                                            <field name="mark"/>
+                                            <field name="spanday"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                            </page>
+                            <page string="down work plan">
+                                <div id="down_plan_chart_container"></div>
+                                <div>
+                                    <field name="downplanvehiclearrange">
+                                        <tree>
+                                            <field name="vehiclemode"/>
+                                            <field name="workingnumber"/>
+                                            <field name="backupnumber"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                                <div>
+                                    <field name="downtimearrange">
+                                        <tree>
+                                            <field name="starttime"/>
+                                            <field name="endtime"/>
+                                            <field name="interval"/>
+                                            <field name="speed"/>
+                                            <field name="worktimelength"/>
+                                            <field name="resttime"/>
+                                            <field name="minvehicles"/>
+                                            <field name="rateoffullload"/>
+                                            <field name="mark"/>
+                                            <field name="spanday"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                            </page>
+                            <page string="big site setting up">
+                                <field name="bigsite_up">
+                                    <tree>
+                                        <field name="site_id"/>
+                                        <field name="needsign"/>
+                                        <field name="needchecking"/>
+                                        <field name="tolastsit_low"/>
+                                        <field name="tolastsit_flat"/>
+                                        <field name="tolastsit_peak"/>
+                                        <field name="fastthen"/>
+                                        <field name="slowthen"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="big site setting down">
+                                <field name="bigsite_down">
+                                    <tree>
+                                        <field name="site_id"/>
+                                        <field name="needsign"/>
+                                        <field name="needchecking"/>
+                                        <field name="tolastsit_low"/>
+                                        <field name="tolastsit_flat"/>
+                                        <field name="tolastsit_peak"/>
+                                        <field name="fastthen"/>
+                                        <field name="slowthen"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                        </notebook>
+                    <!--</sheet>-->
+                </form>
+            </field>
+        </record>
+
+
+        <!-- 公交行车规则管理tree视图 -->
+        <record model="ir.ui.view" id="bus_work_rule_manage_tree">
+            <field name="name">bus work rule manage tree</field>
+            <field name="model">scheduleplan.schedulrule</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <tree string="Course Tree" >
+                    <field name="name"/>
+                    <field name="line_id"/>
+                    <field name="bustype"/>
+                    <field name="schedule_method"/>
+                    <field name="bus_number"/>
+                    <field name="upfirsttime"/>
+                    <field name="uplasttime"/>
+                    <field name="downfirsttime"/>
+                    <field name="downlasttime"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 公交行车规则管理action页面 -->
+        <record model="ir.actions.act_window" id="bus_work_rule_manage_action">
+            <field name="name">bus work rule manage</field>
+            <field name="res_model">scheduleplan.schedulrule</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context" eval="{'bustype': 'normal'}"/>
+        </record>
+
+        <!-- 定制公交行车规则输出action页面 -->
+        <record model="ir.actions.act_window" id="custem_bus_work_rule_output_action">
+            <field name="name">custem bus work rule output</field>
+            <field name="res_model">route_manage.route_manage</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('bus_work_rule_output_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('bus_work_rule_output_form')})
+                ]"/>
+            <field name="context" eval="{'bustype': 'custem'}"/>
+        </record>
+
+        <!-- 定制公交行车规则管理action页面 -->
+        <record model="ir.actions.act_window" id="custem_bus_work_rule_manage_action">
+            <field name="name">custem bus work rule manage</field>
+            <field name="res_model">scheduleplan.schedulrule</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context" eval="{'bustype': 'custem'}"/>
+        </record>
+
+        <!-- 普通公交行车规则输出 -->
+        <menuitem id="normal_bus_rule_output_menu" name="normal bus rule output menu"
+                  parent="operation_menu.bus_working_plan_menu"
+                  sequence="1"/>
+
+        <!-- 行车规则输出 -->
+        <menuitem id="bus_work_rule_output_menu" name="bus work rule output menu"
+                  parent="normal_bus_rule_output_menu" action="bus_work_rule_output_action"
+                  sequence="1"/>
+
+        <!-- 行车规则管理 -->
+        <menuitem id="bus_work_rule_manage_menu" name="bus work rule manage menu"
+                  parent="normal_bus_rule_output_menu" action="bus_work_rule_manage_action"
+                  sequence="2"/>
+
+        <!-- 定制公交行车规则输出 -->
+        <menuitem id="custem_bus_rule_output_menu" name="custem bus rule output menu"
+                  parent="operation_menu.bus_working_plan_menu"
+                  sequence="2"/>
+
+        <!-- 行车规则输出 定制公交 -->
+        <menuitem id="custem_bus_work_rule_output_menu" name="custem bus work rule output menu"
+                  parent="custem_bus_rule_output_menu" action="custem_bus_work_rule_output_action"
+                  sequence="1"/>
+
+        <!-- 行车规则管理 定制公交 -->
+        <menuitem id="custem_bus_work_rule_manage_menu" name="custem bus work rule manage menu"
+                  parent="custem_bus_rule_output_menu" action="custem_bus_work_rule_manage_action"
+                  sequence="2"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Basic Company  -->
+        <record id="default_desktop_for_admin" model="dispatch.control.desktop">
+            <field name="name">Default Desktop</field>
+        </record>
+    </data>
+</odoo>

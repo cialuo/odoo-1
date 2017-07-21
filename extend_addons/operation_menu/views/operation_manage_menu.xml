@@ -1,10 +1,24 @@
 <odoo>
     <data>
+
         <!-- 运营管理 -->
-        <menuitem name="operation manage"  id="operation_menu_root"  sequence="20"/>
-		<menuitem name="schedule settings" id="schedule_menu" parent="operation_menu_root" sequence="1"/> <!--调度参数设置-->
-        <menuitem name="operation plan manage" id="operation_plan_menu" parent="operation_menu_root" sequence="2"/> <!--运营计划管理-->
-        <menuitem name="revenue manage" id="revenue_menu" parent="operation_menu_root" sequence="3"/> <!--营收管理-->
+        <menuitem name="operation manage"  id="operation_menu_root"  sequence="10"/>
+        <!--供需平衡分析-->
+		<menuitem name="balance of supply and demand" id="balance_of_supply_and_demand_menu" parent="operation_menu_root" sequence="1"/>
+        <!--行车作业编制-->
+		<menuitem name="bus schedule plan arrange menu" id="bus_working_plan_menu" parent="operation_menu_root" sequence="2"/>
+        <!--运营计划编制-->
+        <menuitem name="operation plans" id="operation_plans_menu" parent="operation_menu_root" sequence="3"/>
+		<!--线路效益分析-->
+        <menuitem name="benefit of line analysis" id="benefit_of_line_analysis_menu" parent="operation_menu_root" sequence="4"/>
+		<!--公交线网优化分析-->
+        <menuitem name="bus line optimize analysis" id="bus_line_optimize_analysis_menu" parent="operation_menu_root" sequence="5"/>
+        <!--企业效益分析-->
+        <menuitem name="benefit of company analysis" id="benefit_of_company_analysis_menu" parent="operation_menu_root" sequence="6"/>
+        <!--平台接入-->
+        <menuitem name="platform join up" id="platform_join_up_menu" parent="operation_menu_root" sequence="7"/>
+        <!--配置-->
+        <menuitem name="settings" id="settings_menu" parent="operation_menu_root" sequence="8"/>
 
     </data>
 </odoo>

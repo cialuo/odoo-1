@@ -198,6 +198,8 @@ class FleetVehicleModel(models.Model):
 
     emission_standard = fields.Many2one('vehicle_manage.emission_standard', 'Emission Standard')
 
+    ride_number = fields.Integer('Ride Number')
+
 
 class VehicleEmissionStandard(models.Model):
     """
