@@ -18,45 +18,101 @@ class lty_dispatch_desktop(models.Model):
     @api.model
     def dispatch_desktop(self, id):
         dis_desk = [{
-            "ab": {
-                "a": "1",
-                "y": "2",
-                "c": "3",
-                "d": [{'name': "深大", 'status': '1', 'color': '#ffd275'},
+            # 单条线路数据
+            "oneline": {
+                'line_show_or_hide': {
+                    'left': '0',
+                    'top': '100',
+                    'zIndex': '0',
+                    'show': "block"
+                },
+                'chart_show_or_hide':{
+                    'left': '1280',
+                    'top': '100',
+                    'zIndex': '0',
+                    'show': 'block'
+                },
+                # 上行站点名称以及是否显示的状态判断，站点对应颜色（实际传对应拥堵状态的一个值，前端换成对应颜色）
+                "siteTop": [{'name': "深大", 'status': '1', 'color': '#ffd275'},
                       {'name': "深大", 'status': '0', 'color': '#cc2123'},
                       {'name': "深大", 'status': '1', 'color': '#ffd275'},
                       {'name': "深大", 'status': '1', 'color': '#4dcfc7'},
                       {'name': "深大", 'status': '1', 'color': '#4dcfc7'},
                       {'name': "深大", 'status': '1', 'color': '#ffd275'},
                       {'name': "深大", 'status': '1', 'color': '#cc2123'}],
-                "d2": [{'name': "深大1", 'status': '0', 'color': '#ffd275'},
+                # 下行站点名称，是否显示的状态值0和1，站点对应颜色（实际传对应拥堵状态的一个值，前端换成对应颜色）
+                "siteBottom": [{'name': "深大1", 'status': '0', 'color': '#ffd275'},
                       {'name': "深大2", 'status': '0', 'color': '#cc2123'},
                       {'name': "深大3", 'status': '1', 'color': '#ffd275'},
                       {'name': "深大4", 'status': '1', 'color': '#4dcfc7'},
                       {'name': "深大5", 'status': '1', 'color': '#4dcfc7'},
                       {'name': "深大6", 'status': '1', 'color': '#ffd275'},
                       {'name': "深大7", 'status': '1', 'color': '#cc2123'}],
-                "e": [10, 2, 36, 10, 10, 20, 58],
-                "f": [0, 250],
-                "g": ["#ffd275", "#cc2123", "#4dcfc7", "#f69e92", "#ff4634", "#4dcfc7", "#cc2123"],
-                "h": [12, 130, 260],
-                "j": {
+                # 整条线路分段拥堵距离显示(在地图上，哪到哪红色，哪到哪绿色，占多长距离)
+                "traffic_distance": [10, 2, 36, 10, 10, 20, 58],
+                # 趟次计划预测状态（实际传对应计划时间内，计划时间外所定的一个状态值，前端换成对应颜色）
+                "plan_feedback": ["#ffd275", "#cc2123", "#4dcfc7", "#f69e92", "#ff4634", "#4dcfc7", "#cc2123"],
+                # 单条线路资源，线路名称，车辆数量，机动车辆，状况良好
+                "line_info": {
                     "line": 32,
-                    "car": 14,
-                    "good_car": 10,
-                    "SignalStatus": "well",
-                    "driver": 2
+                    "car_num": 14,
+                    "list_num":6,
+                    "active_car": 10,
+                    "bad_car": 4,
+                    "share_car":5,
+                    "online": 2,
+                    "outline":3,
+                    "driver":5,
+                    "crew":8
                 },
-                "k": [12, 200, 300, 450, 600, 860, 1170]
-
+                "up_run_car": [
+                    {
+                        "car_left": 100,
+                        "num_car": 12,
+                        "type_car": 86
+                    },
+                    {
+                        "car_left": 800,
+                        "num_car": 24,
+                        "type_car": 5917
+                    },
+                    {
+                        "car_left": 1100,
+                        "num_car": 44,
+                        "type_car": 351
+                    }
+                ],
+                "down_run_car": [
+                    {
+                        "car_left": 400,
+                        "num_car": 12,
+                        "type_car": 597
+                    },
+                    {
+                        "car_left": 100,
+                        "num_car": 14,
+                        "type_car": 5917
+                    }
+                ],
+                # 站点在控制台分段显示位置（下面数据为自己模拟换算后的离起点的距离）
+                "site_to_startpoint": [12, 200, 300, 450, 600, 860, 1170]
             }
         },
             {
-                "ab": {
-                    "a": "1",
-                    "y": "2",
-                    "c": "3",
-                    "d": [{'name': "武汉", 'status': '1', 'color': '#ffd275'},
+                "oneline": {
+                    'line_show_or_hide': {
+                        'left': '0',
+                        'top': '400',
+                        'zIndex': '1',
+                        'show': 'block'
+                    },
+                    'chart_show_or_hide': {
+                        'left': '1280',
+                        'top': '400',
+                        'zIndex': '1',
+                        'show': 'block'
+                    },
+                    "siteTop": [{'name': "武汉", 'status': '1', 'color': '#ffd275'},
                           {'name': "武汉", 'status': '0', 'color': '#cc2123'},
                           {'name': "武汉", 'status': '1', 'color': '#ffd275'},
                           {'name': "武汉", 'status': '1', 'color': '#4dcfc7'},
@@ -64,7 +120,7 @@ class lty_dispatch_desktop(models.Model):
                           {'name': "武汉", 'status': '1', 'color': '#ffd275'},
                           {'name': "武汉", 'status': '1', 'color': '#aad275'},
                           {'name': "武汉", 'status': '1', 'color': '#cc2123'}],
-                    "d2": [{'name': "武汉1", 'status': '0', 'color': '#ffd275'},
+                    "siteBottom": [{'name': "武汉1", 'status': '0', 'color': '#ffd275'},
                            {'name': "武汉2", 'status': '0', 'color': '#cc2123'},
                            {'name': "武汉", 'status': '1', 'color': '#ffd275'},
                            {'name': "武汉4", 'status': '1', 'color': '#4dcfc7'},
@@ -72,20 +128,68 @@ class lty_dispatch_desktop(models.Model):
                            {'name': "武汉5", 'status': '1', 'color': '#d4cfc7'},
                            {'name': "武汉6", 'status': '1', 'color': '#ffd275'},
                            {'name': "武汉7", 'status': '1', 'color': '#cc2123'}],
-                    "e": [10, 5, 36, 10, 10, 20,40,58],
-                    "f": [0, 0],
-                    "g": ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123", "#4dcfc7", "#f69e92", "#f69e92", "#cc2123"],
-                    "h": [12, 130, 260],
-                    "j": {
-                        "line": 32,
-                        "car": 14,
-                        "good_car": 10,
-                        "SignalStatus": "well",
-                        "driver": 2
-                    },
-                    "k": [12, 200, 300, 450, 600, 860,1000, 1170]
+                    "traffic_distance": [10, 5, 36, 10, 10, 20,40,58],
+                    "plan_feedback": ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123", "#4dcfc7", "#f69e92", "#f69e92", "#cc2123"],
+                    "line_info": {
+                        "line": 18,
+                        "car_num": 14,
+                        "list_num":6,
+                        "active_car": 10,
+                        "bad_car": 4,
+                        "share_car":5,
+                        "online": 2,
+                        "outline":3,
+                        "driver":5,
+                        "crew":8
+                     },
+                    "up_run_car":[
+                        {
+                            "car_left":100,
+                            "num_car":12,
+                            "type_car":597
+                        },
+                        {
+                            "car_left": 100,
+                            "num_car": 14,
+                            "type_car": 5917
+                        }
+                    ],
+                    "down_run_car": [
+                        {
+                            "car_left": 400,
+                            "num_car": 12,
+                            "type_car": 597
+                        },
+                        {
+                            "car_left": 100,
+                            "num_car": 14,
+                            "type_car": 5917
+                        }
+                    ],
+                    "site_to_startpoint": [12, 200, 300, 450, 600, 860,1000, 1170]
                 }
             }
-
         ]
         return dis_desk
+
+    @api.model
+    def dispatch_desktop_config(self, id):
+        desktop_config=[
+            {
+                'line':{
+                    'left': '100px',
+                    'top':'100px',
+                    'zIndex':'0',
+                    'show':'none'
+                }
+            },
+            {
+                'line': {
+                    'left': '50px',
+                    'top': '300px',
+                    'zIndex': '1',
+                    'show': 'block'
+                }
+            }
+        ]
+        return desktop_config

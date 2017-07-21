@@ -40,7 +40,7 @@ function drag(oDrag, handle) {
             iL <= 0 && (iL = 0);
             iT <= 0 && (iT = 0);
             iL >= maxL && (iL = maxL);
-            iT >= maxT && (iT = maxT);
+            iT >= maxT-50 && (iT = maxT-50);
             oDrag.style.left = iL + "px";
             oDrag.style.top = iT + "px";
             return false
@@ -70,12 +70,14 @@ function dragFn(parent, title) {
 	var k = 1;
 	var c_class = "."+parent + " ." + title;
 	$("body").on('mouseover', c_class, function () {
-		k++;
 		oDrag = $(this).parents("." + parent)[0];
 		oDrag.style.zIndex = k;
 		var oTitle = get.byClass(title, oDrag)[0];
 		drag(oDrag, oTitle);
 	});
+	$("body").on('mouseout', c_class, function () {
+	    oDrag.style.zIndex = 0;
+    })
 }
 window.onload = window.onresize = function () {
     dragFn("dragContent", "dragArea");
