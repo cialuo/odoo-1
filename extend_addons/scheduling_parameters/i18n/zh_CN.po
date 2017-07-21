@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-20 08:17+0000\n"
-"PO-Revision-Date: 2017-07-20 08:17+0000\n"
+"POT-Creation-Date: 2017-07-21 09:18+0000\n"
+"PO-Revision-Date: 2017-07-21 09:18+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -73,11 +73,17 @@ msgid "Classsystemname"
 msgstr "班制"
 
 #. module: scheduling_parameters
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_company
+msgid "Company"
+msgstr "公司"
+
+#. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_area_create_uid
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_road_create_uid
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_create_uid
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_down_create_uid
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_up_create_uid
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_create_uid
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_create_uid
 msgid "Created by"
 msgstr "建档人"
@@ -88,6 +94,7 @@ msgstr "建档人"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_create_date
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_down_create_date
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_up_create_date
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_create_date
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_create_date
 msgid "Created on"
 msgstr "设立时间"
@@ -103,6 +110,7 @@ msgstr "过站线路"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_display_name
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_down_display_name
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_up_display_name
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_display_name
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -170,6 +178,7 @@ msgstr "人力资源"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_down_id
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_id
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_up_id
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_id
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_id
 msgid "ID"
 msgstr "ID"
@@ -194,6 +203,7 @@ msgstr "显示站名"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station___last_update
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_down___last_update
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_up___last_update
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet___last_update
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
@@ -204,6 +214,7 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_down_write_uid
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_up_write_uid
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_write_uid
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_write_uid
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
@@ -214,6 +225,7 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_down_write_date
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_up_write_date
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_write_date
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_write_date
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
@@ -244,12 +256,27 @@ msgid "People number"
 msgstr "人员数量"
 
 #. module: scheduling_parameters
+#: model:ir.ui.menu,name:scheduling_parameters.menu_rescue
+msgid "Rescue management"
+msgstr "施救车队"
+
+#. module: scheduling_parameters
 #: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_area_form
 #: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_road_form
 #: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_station_form
 #: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
 msgid "Reset"
 msgstr "重新启用"
+
+#. module: scheduling_parameters
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_responsible_person
+msgid "Responsible person"
+msgstr "负责人"
+
+#. module: scheduling_parameters
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_responsible_telephone
+msgid "Responsible telephone"
+msgstr "认真人电话"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_road_id
@@ -318,6 +345,16 @@ msgstr "调车方式"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_schedule_type
 msgid "Schedule type"
 msgstr "调度类型"
+
+#. module: scheduling_parameters
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_service_date
+msgid "Service date"
+msgstr "服务时间"
+
+#. module: scheduling_parameters
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_service_route
+msgid "Service route"
+msgstr "服务路线"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_speed
@@ -389,6 +426,11 @@ msgstr "上行站台资源"
 #: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_road_form
 msgid "Stations"
 msgstr "站点列表"
+
+#. module: scheduling_parameters
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_stop_address
+msgid "Stop address"
+msgstr "停车位置"
 
 #. module: scheduling_parameters
 #: code:addons/scheduling_parameters/models/schedule.py:14
@@ -464,6 +506,16 @@ msgstr "上行站台的站序必须唯一"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_up_station
 msgid "Up station"
 msgstr "上行车场"
+
+#. module: scheduling_parameters
+#: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_vehicle_no
+msgid "Vehicle no"
+msgstr "车队"
+
+#. module: scheduling_parameters
+#: model:ir.actions.act_window,name:scheduling_parameters.act_rescue_fleet_action
+msgid "act_rescue_fleet_action"
+msgstr "施救车队"
 
 #. module: scheduling_parameters
 #: model:ir.actions.act_window,name:scheduling_parameters.act_route_manage
@@ -639,6 +691,11 @@ msgstr "支线"
 #: selection:route_manage.route_manage,bus_type:0
 msgid "regular_bus"
 msgstr "普通公交"
+
+#. module: scheduling_parameters
+#: model:ir.model,name:scheduling_parameters.model_rescue_fleet
+msgid "rescue_fleet"
+msgstr "施救车队"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_road_state
