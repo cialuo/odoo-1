@@ -2,6 +2,13 @@
 
 from odoo import models, fields, api
 
+class lty_dispatch_abnorma_categ(models.Model):
+    _name = 'lty.dispatch.abnorma.categ'
+
+    name = fields.Char(required='1')
+    code = fields.Char(required='1')   
+
+
 class dispatch_abnormal_mgt(models.Model):
     _name = 'dispatch.abnormal.mgt'
 
@@ -11,7 +18,9 @@ class dispatch_abnormal_mgt(models.Model):
     abnormal_description = fields.Text()
     suggest = fields.Text()
     solution = fields.Text()
+    categ_id = fields.Many2one('lty.dispatch.abnorma.categ')
     log_ids = fields.One2many('dispatch.abnormal.logs', 'abnormal_id',  string="logs")
+    
     
 class dispatch_abnormal_logs(models.Model):
     _name = 'dispatch.abnormal.logs'

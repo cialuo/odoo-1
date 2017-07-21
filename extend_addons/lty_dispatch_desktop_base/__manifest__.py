@@ -25,6 +25,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
+        'data/default_desktop_cfg_data.xml',        
     ],
     # only loaded in demonstration mode
     'demo': [
