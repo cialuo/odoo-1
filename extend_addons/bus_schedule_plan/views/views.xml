@@ -7,8 +7,10 @@
             <field name="model">route_manage.route_manage</field>
             <field name="priority">1</field>
             <field name="arch" type="xml">
-                <tree string="Course Tree" create="0" >
+                <tree string="Course Tree" create="0" open="0" >
+                    <field name="department_id"/>
                     <field name="lineName"/>
+                    <button type="object" string="create rule" name="outputRule"></button>
                 </tree>
             </field>
         </record>
