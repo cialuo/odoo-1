@@ -9,7 +9,9 @@
             <field name="arch" type="xml">
                 <form string="">
                     <sheet>
-                        <field name="warehouse_ids" />
+                        <group>
+                            <field name="warehouse_id" />
+                        </group>
                     </sheet>
                     <footer>
                         <button type="object" name="action_search" string="Search" class="oe_highlight"/>

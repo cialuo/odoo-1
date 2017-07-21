@@ -1,22 +1,53 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <odoo>
 
-<!--报表的衔接-->
-<report
-    id="account_warning_report"
-    model="stock_search_wizard"
-    string="Warning Report"
-    report_type="qweb-html"
-    name="stock_warning.warning_report"
-/>
+            <!--报表的衔接-->
+            <report
+                id="account_warning_report"
+                model="stock_search_wizard"
+                string="Warning Report"
+                report_type="qweb-html"
+                name="stock_warning.warning_report"
+            />
 
 
-<template id="warning_report">
-<t t-call="report.html_container">
-    <t t-name="title_info" >
-        <h1><t t-esc="data"/></h1>
-    </t>
-</t>
-</template>
+            <template id="warning_report">
+                <t t-call="report.html_container">
+                   <!-- <t t-name="title_info" >
+                        <h1><t t-esc="data['data']"/></h1>
+
+                    </t>-->
+                    <t t-name="data_info">
+
+                        <table class="o_list_view table table-condensed table-striped o_list_view_grouped">
+                            <thead>
+                                <tr>
+                                    <th>warehouse</th>
+                                    <th>product</th>
+                                    <th>qty_available</th>
+                                    <th>virtual_available</th>
+                                    <th>product_min_qty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <t t-foreach="data['data']" t-as="rec">
+                                    <tr>
+                                        <td><t t-esc="rec['warehouse']" /></td>
+                                        <td><t t-esc="rec['product']" /></td>
+                                        <td><t t-esc="rec['qty_available']" /></td>
+                                        <td><t t-esc="rec['virtual_available']" /></td>
+                                        <td><t t-esc="rec['product_min_qty']" /></td>
+                                    </tr>
+                                 </t>
+                            </tbody>
+                        </table>
+                    </t>
+
+                </t>
+
+
+
+
+             </template>
 
 </odoo>

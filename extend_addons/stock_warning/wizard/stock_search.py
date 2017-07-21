@@ -11,7 +11,7 @@ class stock_search(models.TransientModel):
         仓库预警的搜索层
     """
 
-    warehouse_ids = fields.Many2many('stock.warehouse',string='Warehouse Ids')
+    warehouse_id = fields.Many2one('stock.warehouse',string='Warehouse Id')
 
     @api.multi
     def action_search(self):
@@ -19,11 +19,13 @@ class stock_search(models.TransientModel):
             计算库存数据
         :return:
         """
-        if len(self.warehouse_ids) <= 0:
-            raise exceptions.UserError(_('Please select the statistics warehouse.'))
-        self.get_data(self.warehouse_ids)
+
+        warehouse = self.env['stock.warehouse'].search([])
+        if self.warehouse_id:
+            warehouse = self.warehouse_id
         data = dict()
-        data['text_title'] = 'test test python '
+        data['data'] = self.get_data(warehouse)
+
         return self.env['report'].get_action(self, 'stock_warning.warning_report', data=data)
 
     def get_data(self,warehouses):
@@ -31,30 +33,20 @@ class stock_search(models.TransientModel):
             计算预警信息
         :return:
         """
-
+        data = list()
         #所有物资
-
-
-        #所有库存统计
-        quants = self.env['stock.quant'].search([])
-
-        #所有补货规则
-
-
+        products = self.env['product.product'].search([])
         for warehouse in warehouses:
-
-            self.env['product.product']._compute_quantities_dict(False, False, False, warehouse.id)
-
+            res = products._compute_quantities_dict_by_warehouse_id(False, False, False, warehouse)
+            data.extend(res)
+        return data
 class Product(models.Model):
 
     _inherit = 'product.product'
 
     @api.multi
-    def _compute_quantities_dict(self, lot_id, owner_id, package_id,warehouse_id, from_date=False, to_date=False):
-
-        self.with_context(_context={'warehouse':warehouse_id})
-
-        domain_quant_loc, domain_move_in_loc, domain_move_out_loc = self._get_domain_locations()
+    def _compute_quantities_dict_by_warehouse_id(self, lot_id, owner_id, package_id,warehouse, from_date=False, to_date=False):
+        domain_quant_loc, domain_move_in_loc, domain_move_out_loc = self.with_context({'warehouse':warehouse.id})._get_domain_locations()
         domain_quant = [('product_id', 'in', self.ids)] + domain_quant_loc
         dates_in_the_past = False
         if to_date and to_date < fields.Datetime.now():  # Only to_date as to_date will correspond to qty_available
@@ -101,22 +93,35 @@ class Product(models.Model):
                                       Move.read_group(domain_move_out_done, ['product_id', 'product_qty'],
                                                       ['product_id']))
 
-        res = dict()
+        data = list()
         for product in self.with_context(prefetch_fields=False):
-            res[product.id] = {}
+            res = {}
             if dates_in_the_past:
                 qty_available = quants_res.get(product.id, 0.0) - moves_in_res_past.get(product.id,
                                                                                         0.0) + moves_out_res_past.get(
                     product.id, 0.0)
             else:
                 qty_available = quants_res.get(product.id, 0.0)
-            res[product.id]['qty_available'] = float_round(qty_available, precision_rounding=product.uom_id.rounding)
-            res[product.id]['incoming_qty'] = float_round(moves_in_res.get(product.id, 0.0),
+
+            res['product'] = product.name
+            res['warehouse'] = warehouse.name
+            res['qty_available'] = float_round(qty_available, precision_rounding=product.uom_id.rounding)
+            res['incoming_qty'] = float_round(moves_in_res.get(product.id, 0.0),
                                                           precision_rounding=product.uom_id.rounding)
-            res[product.id]['outgoing_qty'] = float_round(moves_out_res.get(product.id, 0.0),
+            res['outgoing_qty'] = float_round(moves_out_res.get(product.id, 0.0),
                                                           precision_rounding=product.uom_id.rounding)
-            res[product.id]['virtual_available'] = float_round(
-                qty_available + res[product.id]['incoming_qty'] - res[product.id]['outgoing_qty'],
+            res['virtual_available'] = float_round(qty_available + res['incoming_qty'] - res['outgoing_qty'],
                 precision_rounding=product.uom_id.rounding)
 
-        return res
+            #获取补货规则里的最小数量
+            domain_orderpoint = [('product_id','=',product.id),('warehouse_id','=',warehouse.id)]
+            orders = self.env['stock.warehouse.orderpoint'].search(domain_orderpoint)
+
+            #补货规则存在则添加显示
+            if orders:
+                res['product_min_qty'] = min(orders.mapped('product_min_qty'))
+
+                #最小数大于与与预测数
+                if int(res['product_min_qty']) > int(res['virtual_available']):
+                    data.append(res)
+        return data
