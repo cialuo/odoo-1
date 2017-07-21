@@ -11,6 +11,7 @@ class RouteInBusSchedule(models.Model):
         """
         输出规则
         """
+        type = self._context.get('bustype', False)
         self.ensure_one()
         context = dict(self.env.context,
                        default_line_id=self.id,
@@ -21,7 +22,8 @@ class RouteInBusSchedule(models.Model):
                        default_downfirsttime = self.down_first_time,
                        default_downlasttime = self.down_end_time,
                        default_upstation = self.up_station.id,
-                       default_downstation = self.down_station.id
+                       default_downstation = self.down_station.id,
+                       default_bustype = type
                        )
         return {
             'view_type': 'form',
@@ -40,15 +42,22 @@ class BusWorkRules(models.Model):
 
     line_id = fields.Many2one("route_manage.route_manage", string="related line", readonly=True)
 
+    def _defaultType(self):
+        type = self._context.get('bustype', False)
+        if type == 'normal':
+            return 'normal'
+        elif type == 'custem':
+            return 'custem'
+
     # 公交类型
     bustype = fields.Selection([("normal", "normal bus"),           # 普通公交
                                 ("custem", "custem bus"),           # 定制公交
-                              ],  string="bus type", readonly=True)
+                              ], default=_defaultType,  string="bus type", readonly=True)
 
     # 调车方式
     schedule_method = fields.Selection([("singleway", "single way"),        # 单头调
                                         ("dubleway", "dubleway"),           # 双头调
-                                        ], default="singleway", string="schedule method")
+                                        ], default="singleway", string="schedule method", required=True)
 
     # 线路里程
     mileage = fields.Float(string="line mile age", readonly=True)
@@ -222,3 +231,12 @@ class BigSiteSettingsDown(models.Model):
 
     _inherit = "scheduleplan.bigsitesetup"
 
+
+
+class BusMoveTimeTable(models.Model):
+
+    _name = "scheduleplan.busmovetime"
+
+    name = fields.Char(string="execute name")
+
+    
