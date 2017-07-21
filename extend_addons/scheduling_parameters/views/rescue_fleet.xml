@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="rescue_fleet_list" model="ir.ui.view">
+            <field name="name">rescue_fleet_list</field>
+            <field name="model">rescue_fleet</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="company"/>
+                    <field name="vehicle_no"/>
+                    <field name="responsible_person"/>
+                    <field name="responsible_telephone"/>
+                    <field name="stop_address"/>
+                    <field name="service_route"/>
+                    <field name="service_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="rescue_fleet_form" model="ir.ui.view">
+            <field name="name">rescue_fleet_form</field>
+            <field name="model">rescue_fleet</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="company"/>
+                                <field name="vehicle_no"/>
+                                <field name="responsible_person"/>
+                                <field name="responsible_telephone"/>
+                            </group>
+                            <group>
+                                <field name="stop_address"/>
+                                <field name="service_route"/>
+                                <field name="service_date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="act_rescue_fleet_action">
+            <field name="name">act_rescue_fleet_action</field>
+            <field name="res_model">rescue_fleet</field>
+            <field name="view_model">tree,form</field>
+        </record>
+
+        <menuitem id="menu_rescue"
+                  name="Rescue management"
+                  parent="dispatch_monitor_menu.opertation_resources_menu"
+                  action="act_rescue_fleet_action"
+                  sequence="50"
+        />
+
+    </data>
+</odoo>
