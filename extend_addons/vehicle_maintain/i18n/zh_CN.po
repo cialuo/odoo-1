@@ -1521,7 +1521,7 @@ msgstr "退检记录"
 #. module: vehicle_maintain
 #: model:ir.ui.menu,name:vehicle_maintain.maintain_basic_manage
 msgid "maintain_basic_manage"
-msgstr "抢修体系"
+msgstr "抢修参数设置"
 
 #. module: vehicle_maintain
 #: model:ir.actions.act_window,name:vehicle_maintain.maintain_calc_action

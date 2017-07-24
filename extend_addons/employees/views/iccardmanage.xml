@@ -200,7 +200,7 @@
         <field name="name">employees.certificate.tree</field>
         <field name="model">employees.certificate</field>
         <field name="arch" type="xml">
-            <tree string="Course Tree">
+            <tree>
                 <field name="jobnumber"/>
                 <field name="username"/>
                 <field name="workpost"/>
@@ -260,10 +260,12 @@
 
     <!--IC卡管理-->
     <menuitem id="employee_ICCard_manage_menu" name="IC Card manage"
-              parent="employees_menu.ltyhr_employee_document_menu" groups="hr.group_hr_user"/>
+              parent="employees_menu.ltyhr_employee_document_menu" groups="hr.group_hr_user" sequence="50"/>
+
     <!--特种工证照-->
     <menuitem id="employee_certificate_menu" name="employee certificate"
-              parent="employees_menu.ltyhr_employee_document_menu" groups="hr.group_hr_user" action="certificate_action"/>
+              parent="staff_file_menu" groups="hr.group_hr_user" action="certificate_action" sequence="50"/>
+
     <!--IC卡库-->
     <menuitem id="employee_ICCard_manage_list_menu" name="IC Card storage"
               parent="employee_ICCard_manage_menu" action="ICCard_manage_cardlist_action"/>

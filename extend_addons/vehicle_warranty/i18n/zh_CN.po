@@ -1581,7 +1581,7 @@ msgstr "保养工时定额"
 #. module: vehicle_warranty
 #: model:ir.ui.menu,name:vehicle_warranty.warranty_system
 msgid "Warranty System"
-msgstr "维保体系"
+msgstr "维保参数设置"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_warranty_type

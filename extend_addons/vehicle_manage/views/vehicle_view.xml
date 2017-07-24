@@ -375,9 +375,9 @@
 
 
         <menuitem name="vehicle_manage" id="vehicle_manage"
-                  parent="vehicle_manage_menu.vehicle_basic_manage"
+                  parent="vehicle_manage_menu.vehicle_basic_info_menu"
                   action = "vehicle_manage_action"
-                  sequence="10"
+                  sequence="20"
                   groups="materials_product.base_extend_tech_user,vehicle_group.vehicle_driver"/>
 
         <menuitem name="vehicle_manage_model_brand" id="vehicle_manage_model_brand"
@@ -387,9 +387,9 @@
                   groups="materials_product.base_extend_tech_user"/>
 
         <menuitem name="vehicle_manage_model" id="vehicle_manage_model"
-                  parent="vehicle_manage_menu.warranty_maintain_basic_manage"
+                  parent="vehicle_manage_menu.vehicle_basic_info_menu"
 				  action = "vehicle_manage_model_action"
-                  sequence="40"
+                  sequence="10"
                   groups="materials_product.base_extend_tech_user"/>
 
         <menuitem name="vehicle_manage_emission_standard" id="vehicle_manage_emission_standard"

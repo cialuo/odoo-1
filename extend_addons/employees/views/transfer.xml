@@ -242,11 +242,11 @@
               action="ltyhr_employees_post_transfer"
               parent="ltyhr_employee_document_transfer_menu"/>
 
-    <!--对外调动-->
+    <!--对外调动 2017年7月24日 需求变更：移除菜单
     <menuitem id="ltyhr_employee_foreign_transfer_menu" name="foreign_transfer"
               sequence="40"
               action="ltyhr_employees_foreign_transfer"
-              parent="ltyhr_employee_document_transfer_menu"/>
+              parent="ltyhr_employee_document_transfer_menu"/>-->
 
 
     <!--调动记录-->
