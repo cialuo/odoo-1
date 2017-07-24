@@ -20,7 +20,51 @@ class BusGroup(models.Model):
     driver_ct = fields.Integer()
     conductor_ct = fields.Integer()
 
-    # vehicle_ids = fields.One2many('fleet.vehicle', 'vehicle_id')
+    vehicle_ids = fields.One2many('bus_group_vehicle', 'bus_group_id')
+    driver_ids = fields.One2many('bus_group_driver', 'bus_group_id')
+    conductor_ids = fields.One2many('bus_group_conductor', 'bus_group_id')
 
+
+class BusGroupVehicle(models.Model):
+    """
+    班组车辆
+    """
+    _name = 'bus_group_vehicle'
+
+    bus_group_id = fields.Many2one('bus_group')
+    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True,
+                                domain = "[('vehicle_life_state', '=', 'operation_period')]")
+    vehicle_type = fields.Many2one("fleet.vehicle.model", related='vehicle_id.model_id',
+                                   readonly=True, copy=False)
+
+    vehicle_type = fields.Many2one("fleet.vehicle.model", related='vehicle_id.model_id',
+                                   readonly=True, copy=False)
+
+    ride_number = fields.Integer('Ride Number', related='vehicle_id.ride_number', readonly=True)
+
+    state = fields.Selection(related='vehicle_id.state')
+
+
+class BusGroupDriver(models.Model):
+    """
+    班组司机
+    """
+    _name = 'bus_group_driver'
+
+    bus_group_id = fields.Many2one('bus_group')
+
+    driver_id = fields.Many2one('hr.employee', string="driver")
+    jobnumber = fields.Char(string='employee work number', related='driver_id.jobnumber')
+
+
+class BusGroupConductor(models.Model):
+    """
+    班组乘务员
+    """
+    _name = 'bus_group_conductor'
+
+    bus_group_id = fields.Many2one('bus_group')
+    conductor_id = fields.Many2one('hr.employee', string="conductor")
+    jobnumber = fields.Char(string='employee work number', related='conductor_id.jobnumber')
 
 

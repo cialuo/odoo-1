@@ -35,23 +35,40 @@
                         <group col="2">
                             <group>
                                 <field name="route_id"/>
-                                <field name="algorithm_id"/>
-                                <field name="shift_id"/>
+                                <!--<field name="algorithm_id"/>-->
+                                <!--<field name="shift_id"/>-->
                                 <field name="is_conductor"/>
                             </group>
                         </group>
 
-                        <!--<notebook>-->
-                            <!--<page string="Shift list">-->
-                                <!--<field name="shift_line_ids">-->
-                                    <!--<tree editable="bottom">-->
-										 <!--<field name="name"/>-->
-										 <!--<field name="start_time"/>-->
-										 <!--<field name="end_time"/>-->
-                                    <!--</tree>-->
-                                <!--</field>-->
-                            <!--</page>-->
-                        <!--</notebook>-->
+                        <notebook>
+                            <page string="GroupVehicles">
+                                <field name="vehicle_ids">
+                                    <tree editable="bottom">
+										 <field name="vehicle_id"/>
+										 <field name="vehicle_type"/>
+										 <field name="ride_number"/>
+										 <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="GroupDrivers">
+                                <field name="driver_ids">
+                                    <tree editable="bottom">
+										 <field name="driver_id"/>
+										 <field name="jobnumber"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="GroupConductors">
+                                <field name="conductor_ids">
+                                    <tree editable="bottom">
+										 <field name="conductor_id"/>
+										 <field name="jobnumber"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
