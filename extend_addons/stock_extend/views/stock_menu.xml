@@ -29,7 +29,7 @@
                   groups="stock.group_stock_user"
         />
         <!--仓储管理-->
-        <menuitem id="materials_menu_location" name="Location Menu" sequence="2"
+        <menuitem id="materials_menu_location" name="Location Menu" sequence="1"
                   parent="stock_picking_types.materials_menu_config" groups="stock.group_stock_user"/>
         <!--仓库-->
         <menuitem id="materials_menu_warehouse"
