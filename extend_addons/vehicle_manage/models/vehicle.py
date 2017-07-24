@@ -72,6 +72,28 @@ class Vehicle(models.Model):
     #线路修正系数
     route_correct_value = fields.Float(related='route_id.oil_wear_coefficient', string="oil_wear_coefficient", readonly=True)
 
+    #2017年7月24日 ERP-394 新增字段：编码(车辆创建时，自动生成)
+    vehicle_code = fields.Char(string='Vehicle Code',default='/',readonly=True)
+
+    def get_vehicle_code(self,vals):
+        """
+            生成车辆编码：
+                车型代码+车辆自编号+投入运营（年份2位数）
+
+                初始车辆编码只有 车型代码 + 车辆自编号
+                当车辆投入运营时，加上年份数
+        :return:
+        """
+        vehicle_code = "/"
+        vehicle_model = self.env['fleet.vehicle.model'].search([('id', '=', vals.get('model_id'))])
+
+        self_number = vals.get('inner_code',"")
+        vehicle_model_code = vehicle_model.code if vehicle_model.code else ""
+
+        vehicle_code = vehicle_model_code + self_number
+
+        return vehicle_code
+
     @api.multi
     def copy(self, default=None):
         default = dict(default or {})
@@ -113,6 +135,7 @@ class Vehicle(models.Model):
         :param vals:
         :return:
         """
+        vals['vehicle_code'] = self.get_vehicle_code(vals)
         res = super(Vehicle, self).create(vals)
         name = res.license_plate
         virtual_parent = self.env.ref('stock.stock_location_locations_virtual', raise_if_not_found=False)

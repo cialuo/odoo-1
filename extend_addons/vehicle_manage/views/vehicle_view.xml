@@ -94,6 +94,7 @@
                                     </group>
                                     <group>
                                         <!--<field name="route_correct_value"/>-->
+                                        <field name="vehicle_code"/>
                                         <field name="deadline"/>
 
                                         <!--<field name="service_year"/>-->
