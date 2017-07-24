@@ -1,5 +1,7 @@
-.dispatch_desktop .content {
+.dispatch_desktop{
     position: absolute;
+}
+.dispatch_desktop .content {
     width: 1276px;
     height:190px;
     border-radius: 8px;
@@ -39,6 +41,12 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
     text-align: center;
     line-height: 30px;
     color: #A3A6AD;
+}
+.dispatch_desktop .bus_info li:nth-of-type(8){
+    margin-left: 20px;
+}
+.dispatch_desktop .bus_info li:nth-of-type(8),.dispatch_desktop .bus_info li:last-of-type{
+    color: #4ecfc7;
 }
 
 .dispatch_desktop .bus_info li:first-of-type {
@@ -86,6 +94,9 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
     width:100px;
     background: #fff;
     border-radius: 2px;
+    z-index: 20;
+    display: none;
+    cursor: pointer;
 }
 .dispatch_desktop .edit_content>ul{
     padding-left: 20px;
@@ -173,7 +184,9 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
 .dispatch_desktop .line_car .type_car {
     height: 8px;
     width: 38px;
-    text-align: right;
+    margin-left: 8px;
+    text-align: center;
+    cursor: pointer;
 }
 
 .dispatch_desktop .line_car .type_car span {
@@ -181,7 +194,7 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
     -webkit-transform: scale(0.75);
     color: #fff;
     display: inline-block;
-    line-height: 8px
+    line-height: 8px;
 }
 .dispatch_desktop .line_car .num_car {
     width: 16px;
@@ -204,7 +217,6 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
     height: 20px;
     background: url("/lty_dispatch_desktop/static/src/img/runcar_right.png") no-repeat left top;
     top: 0px;
-    left:520px;
 }
 .dispatch_desktop .line_car_right .num_car {
     width: 42px;
@@ -235,10 +247,11 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
 .dispatch_desktop .content_car_road:first-of-type {
     margin-bottom: 8px;
 }
-#absnormal_chart,#lagstation_chart{
+.absnormal_chart,.lagstation_chart{
     width:350px;
     height:160px;
 }
+
 .updown_line_table h4{
     font-size:16px;
     margin-bottom: 3px;
@@ -291,6 +304,68 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
     width: 600px;
     float: left;
     height: 160px;
+}
+
+
+/*上下行路线图表和是否异常*/
+
+.updown_line_table{
+
+}
+.updown_line_table .updown_drag{
+	left:1300px;
+    top:150px;
+    width: 600px;
+	height: 190px;
+	background: #343B58;
+    border-radius: 8px;
+    border:1px solid #9d3d42;
+    box-shadow: 0px 0px 10px #9d3d42;
+}
+.updown_line_table .updown_title{
+    height:30px;
+}
+.updown_line_table .line_btn {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+}
+
+.updown_line_table .line_btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+
+.updown_line_table a.min {
+    width: 16px;
+    height: 16px;
+    line-height: 12px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    display: inline-block;
+    margin-right: 2px;
+    cursor: pointer;
+}
+.del{
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    line-height: 12px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #4ED0C8;
+    border-radius: 50%;
+    color: #4ED0C8;
+    display: block;
+    margin:4px 4px 4px 0;
+    float: right;
+    z-index: 100;
+}
+.updown_line_table .line_info a.min:hover {
+    text-decoration: none;
 }
 
 /*底部控制台*/
@@ -361,58 +436,11 @@ canvas::selection { background: rgba(0,0,0,0); color: rgba(0,0,0,0); }
     margin-right: 2px;
     border-left: 1px solid #fff;
     border-right: 1px solid #fff;
-}
 
-/*上下行路线图表和是否异常*/
+}
+.modal.config modal-body{
+    height:540px;
+}
+.modal.config modal-body .dl{
 
-.updown_line_table .drag{
-	left:1300px;top:150px;position:absolute;width: 600px;
-	height: 190px;
-	background: #343B58;
-    border-radius: 8px;
-}
-.updown_line_table .title{
-    height:30px;
-}
-.updown_line_table .line_btn {
-    position: absolute;
-    top: 5px;
-    right: 20px;
-}
-
-.updown_line_table .line_btn {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-}
-
-
-.updown_line_table a.min {
-    width: 16px;
-    height: 16px;
-    line-height: 12px;
-    font-size: 16px;
-    text-align: center;
-    color: #fff;
-    display: inline-block;
-    margin-right: 2px;
-    cursor: pointer;
-}
-.del{
-    font-weight: bold;
-    width: 16px;
-    height: 16px;
-    line-height: 12px;
-    font-size: 16px;
-    text-align: center;
-    border: 1px solid #4ED0C8;
-    border-radius: 50%;
-    color: #4ED0C8;
-    display: block;
-    margin:4px 4px 4px 0;
-    float: right;
-    z-index: 100;
-}
-.updown_line_table .line_info a.min:hover {
-    text-decoration: none;
 }

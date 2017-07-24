@@ -2,47 +2,86 @@
 
 from odoo import models, fields, api
 
+class RouteInBusSchedule(models.Model):
+
+    _inherit = "route_manage.route_manage"
+
+    @api.multi
+    def outputRule(self):
+        """
+        输出规则
+        """
+        type = self._context.get('bustype', False)
+        self.ensure_one()
+        context = dict(self.env.context,
+                       default_line_id=self.id,
+                       default_mileage=self.mileage,
+                       default_bus_number =self.vehiclenums,
+                       default_upfirsttime=self.up_first_time,
+                       default_uplasttime=self.up_end_time,
+                       default_downfirsttime = self.down_first_time,
+                       default_downlasttime = self.down_end_time,
+                       default_upstation = self.up_station.id,
+                       default_downstation = self.down_station.id,
+                       default_bustype = type
+                       )
+        return {
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'scheduleplan.schedulrule',
+            'type': 'ir.actions.act_window',
+            'res_id': '',
+            'context': context
+        }
+
 class BusWorkRules(models.Model):
 
     _name = 'scheduleplan.schedulrule'
 
     name = fields.Char(string="rule name")
 
-    line_id = fields.Many2one("route_manage.route_manage", string="related line")
+    line_id = fields.Many2one("route_manage.route_manage", string="related line", readonly=True)
+
+    def _defaultType(self):
+        type = self._context.get('bustype', False)
+        if type == 'normal':
+            return 'normal'
+        elif type == 'custem':
+            return 'custem'
 
     # 公交类型
     bustype = fields.Selection([("normal", "normal bus"),           # 普通公交
                                 ("custem", "custem bus"),           # 定制公交
-                              ],  string="bus type")
+                              ], default=_defaultType,  string="bus type", readonly=True)
 
     # 调车方式
     schedule_method = fields.Selection([("singleway", "single way"),        # 单头调
                                         ("dubleway", "dubleway"),           # 双头调
-                                        ], string="schedule method")
+                                        ], default="singleway", string="schedule method", required=True)
 
     # 线路里程
-    mileage = fields.Float(string="line mile age", store=True)
+    mileage = fields.Float(string="line mile age", readonly=True)
 
     # 可用车数
-    bus_number = fields.Integer(string="bus number", store=True)
+    bus_number = fields.Integer(string="bus number", readonly=True)
 
     # 上行首班时间
-    upfirsttime = fields.Char(string="up first time", store=True)
+    upfirsttime = fields.Char(string="up first time", readonly=True)
 
     # 上行末班时间
-    uplasttime = fields.Char(string="up last time", store=True)
+    uplasttime = fields.Char(string="up last time", readonly=True)
 
     # 下行首班时间
-    downfirsttime = fields.Char(string="down first time", store=True)
+    downfirsttime = fields.Char(string="down first time", readonly=True)
 
     # 下行末班时间
-    downlasttime = fields.Char(string="down last time", store=True)
+    downlasttime = fields.Char(string="down last time", readonly=True)
 
     # 上行车场
-    upstation = fields.Char(string="up station")
+    upstation = fields.Many2one("opertation_resources_station", string="up station", readonly=True)
 
     # 下行车场
-    downstation = fields.Char(string="down station")
+    downstation = fields.Many2one("opertation_resources_station", string="down station", readonly=True)
 
     # 自动生成时刻表
     autogen = fields.Boolean(string="auto generate times")
@@ -66,6 +105,9 @@ class BusWorkRules(models.Model):
 
     # 大站设置 下行
     bigsite_down = fields.One2many("scheduleplan.bigsitesetdown", "rule_id", string="big site down")
+
+
+
 
 
 class RuleBusArrangeUp(models.Model):
@@ -189,3 +231,41 @@ class BigSiteSettingsDown(models.Model):
 
     _inherit = "scheduleplan.bigsitesetup"
 
+
+
+class BusMoveTimeTable(models.Model):
+
+    _name = "scheduleplan.busmovetime"
+
+    name = fields.Char(string="table name")
+
+    # 关联线路
+    line_id = fields.Many2one("route_manage.route_manage", string="related line", readonly=True)
+
+    # 关联规则
+    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule")
+
+    # 运营车辆
+    vehiclenums = fields.Integer(string="vehicle nums")
+
+    # 机动车辆
+    backupvehicles = fields.Integer(string="backup vehicles")
+
+    # 执行时间
+    executedate = fields.Date(string="excute date")
+
+
+
+
+
+
+
+class BusMoveExcuteTable(models.Model):
+
+    _name = "scheduleplan.excutetable"
+
+    name = fields.Char(string="excute table name")
+
+
+
+    

@@ -4,16 +4,15 @@
 function traffic_distance(canvas) {
     var cId = canvas.id;
     var y = canvas.y;
-    var self=canvas.self;
+    var self = canvas.self;
     var subsection = canvas.subsection;
     var color = canvas.color;
-
-    var c = self.$el.find(cId)[0];
+    var c = self.find(cId)[0];
     var cxt = c.getContext("2d");
     var dataAllNum = 0;
     //根据数据算出总dataAlNum
     for (var m = 0; m < subsection.length; m++) {
-        dataAllNum += subsection[m]
+        dataAllNum += subsection[m];
     }
     var dataAll = datalen = dataLenLeft = 0;
     for (var i = 0; i < color.length; i++) {
@@ -27,9 +26,10 @@ function traffic_distance(canvas) {
         cxt.fillStyle = color[i];
         //距离左边距离，上边距离，此段长度，高度
         cxt.fillRect(dataLenLeft, y, dataLen, 2);
-        cxt.closePath()
+        cxt.closePath();
     }
 }
+//站点的圆圈以及站点名称
 function cir_and_text(canvas) {
     var cId = canvas.id;
     var ciry = canvas.ciry;
@@ -38,7 +38,7 @@ function cir_and_text(canvas) {
     var color = canvas.color;
     var dataCir = canvas.dataCir;
     var dataSite = canvas.dataSite;
-    var c = self.$el.find(cId)[0];
+    var c = self.find(cId)[0];
     var cxt = c.getContext('2d');
     for (var i = 0; i < color.length; i++) {
         //渲染每一个圆点对应的站点名称
@@ -85,7 +85,7 @@ function cir_and_text(canvas) {
         }
     }
 }
-
+//左侧canvas图
 function can_left(canvas) {
     // canvas的id
     var cId = canvas.id;
@@ -93,14 +93,14 @@ function can_left(canvas) {
     var color = canvas.color;
     // 距离Y轴距离
     var ciry = canvas.ciry;
-    var self =canvas.self;
+    var self = canvas.self;
     // 圆弧的半径
     var r = canvas.r;
     //线条起点
     var lineLen = canvas.lineLen;
     var sta = canvas.sta;
     var lineLeft = staCir = 0;
-    var c = self.$el.find(cId)[0];
+    var c = self.find(cId)[0];
     var cxt = c.getContext('2d');
     //画圆
     cxt.beginPath();
@@ -160,33 +160,111 @@ function can_left(canvas) {
 }
 //客流走势轮播组件
 function carousel(carousel) {
-    var content =carousel.content;
+    var self =carousel.self;
+    var content = carousel.content;
+    console.log(content)
     var i = 0;
-    var timer = null;
-    var firstcarousel_content = $(content+'>li').first().clone(); //复制第一张图片
+    var firstcarousel_content = self.$(content + '>li').first().clone(); //复制第一张图片
     //将第一张图片放到最后一张图片后，设置ul的宽度为图片张数*图片宽度
-    $(content).append(firstcarousel_content).width($(content+'>li').length * 600);
+    self.$(content).append(firstcarousel_content).width(self.$(content + '>li').length * 600);
     //定时器自动播放
-    timer = setInterval(function () {
+   var timer = setInterval(function () {
         i++;
-        if (i == $(content+'>li').length) {
+        if (i == self.$(content + '>li').length) {
             i = 1;
-            $(content).css({left: 0});
+            self.$(content).css({left: 0});
         }
         ;
-        $(content).stop().animate({left: -i * 600}, 1000);
-    }, 4000)
+        self.$(content).stop().animate({left: -i * 600}, 500);
+    }, 3000)
     //鼠标移入，暂停自动播放，移出，开始自动播放
-    $('.carousel').hover(function () {
+    self.$('.carousel').hover(function () {
         clearInterval(timer);
     }, function () {
         timer = setInterval(function () {
             i++;
-            if (i == $(content+'>li').length) {
+            if (i == self.$(content + '>li').length) {
                 i = 1;
-                $(content).css({left: 0});
-            };
-            $(content).stop().animate({left: -i * 600}, 1000);
-        }, 4000)
-    })
+                self.$(content).css({left: 0});
+            }
+            ;
+            self.$(content).stop().animate({left: -i * 600}, 500);
+        }, 3000);
+    });
+};
+//渲染车辆实况的cancvas图像
+function qrend_desktop(data, domT, domB, domL, domR,selfDom) {
+    var dataCir = data.oneline.site_to_startpoint;
+    var color = data.oneline.plan_feedback;
+    var dataSite = data.oneline.siteTop;
+    var dataSite2 = data.oneline.siteBottom;
+    var subsection = data.oneline.traffic_distance;
+    var traffic_top = {
+        id: domT,
+        y: 26,
+        self: selfDom,
+        subsection: subsection,
+        color: color
+    };
+    var traffic_bottom = {
+        id: domB,
+        y: 5,
+        self: selfDom,
+        subsection: subsection,
+        color: color
+    };
+    traffic_distance(traffic_top);
+    traffic_distance(traffic_bottom);
+
+    var cirTop = {
+        id: domT,
+        ciry: 27,
+        testy: 13,
+        color: color,
+        self: selfDom,
+        dataCir: dataCir,
+        dataSite: dataSite
+    };
+    var cirBottom = {
+        id: domB,
+        ciry: 6,
+        testy: 25,
+        self: selfDom,
+        color: color,
+        dataCir: dataCir,
+        dataSite: dataSite2
+    };
+    cir_and_text(cirTop);
+    cir_and_text(cirBottom);
+    can_left(
+        {
+            id: domL,
+            color: color[0],
+            ciry: 27,
+            self: selfDom,
+            r: 4,
+            lineLen: 17,
+            sta: 1
+        }
+    );
+    can_left(
+        {
+            id: domR,
+            color: color[color.length - 1],
+            ciry: 27,
+            self: selfDom,
+            r: 4,
+            lineLen: 0,
+            sta: 1.5,
+        }
+    );
+}
+//防止冒泡
+function stopPropagation(e){
+    e=window.event||e;
+    if(document.all){  //只有ie识别
+        e.cancelBubble=true;
+    }else{
+        e.stopPropagation();
+    }
 }
