@@ -73,8 +73,8 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             debugger
             for (var i = 0;i<ab.length;i++){
                 var id = ab[i].getAttribute('tid');
-                var left = ab[i].offsetLeft();
-                var top = ab[i].offsetTop();
+                var left = ab[i].offsetLeft;
+                var top = ab[i].offsetTop;
                 var zIndex = ab[i].style.zIndex;
                 var a;
                 if(ab[i].css("display")==='block'){
