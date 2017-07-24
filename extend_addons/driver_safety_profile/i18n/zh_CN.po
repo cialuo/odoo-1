@@ -111,7 +111,7 @@ msgstr "违章记录"
 #: code:addons/driver_safety_profile/models/driver_safety_profile.py:149
 #, python-format
 msgid "Exceeded range must be greater than zero"
-msgstr "数值必须大于零!"
+msgstr "超出范围必须大于0!"
 
 #. module: driver_safety_profile
 #: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_handle_result
@@ -279,13 +279,13 @@ msgstr "安全公里的数值需要大于零!"
 #: code:addons/driver_safety_profile/models/driver_safety_profile.py:143
 #, python-format
 msgid "The speed limit must be greater than zero"
-msgstr "限度必须大于零!"
+msgstr "限速必须大于0!"
 
 #. module: driver_safety_profile
 #: code:addons/driver_safety_profile/models/driver_safety_profile.py:155
 #, python-format
 msgid "The speed must be greater than zero"
-msgstr "速度必须大于零!"
+msgstr "车速必须大于0!"
 
 #. module: driver_safety_profile
 #: model:ir.model.fields,field_description:driver_safety_profile.field_accident_record_vehicle_id

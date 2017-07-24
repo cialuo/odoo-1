@@ -1,0 +1,8 @@
+<odoo>
+	<data>
+
+        <!--仓库预警-->
+        <menuitem id="stock_warning.stock_warning_menu" name="Stock Warning Menu" parent="stock_extend.materials_menu_location" action="stock_search_wizard_action"/>
+
+	</data>
+</odoo>

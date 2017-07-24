@@ -674,7 +674,7 @@ msgstr "投入日期"
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_state
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_state
 msgid "State"
-msgstr "省/ 州"
+msgstr "状态"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_location_stock_id
