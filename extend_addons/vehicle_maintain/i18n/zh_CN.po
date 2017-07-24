@@ -133,7 +133,7 @@ msgstr "完成"
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_method_complex_level
 msgid "Complex level"
-msgstr "复杂程度"
+msgstr "作业人数"
 
 #. module: vehicle_maintain
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_calc_view_form
