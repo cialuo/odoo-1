@@ -51,6 +51,20 @@
     position: relative;
 }
 
+.communication .chat_info .info_window .load_cont {
+    line-height: 466px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.communication .chat_info .info_window {
+    height: 466px;
+}
+
+.communication .chat_info .info_window .info_window_child {
+    display: none;
+}
+
 .communication .chat_info .close_bt {
     display: block;
     height: 5px;
