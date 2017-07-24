@@ -8,6 +8,8 @@ class Company(models.Model):
 
     work_fee = fields.Float(default=50)
 
+    average_day_number = fields.Integer(string='Average Day Number',default=30)
+
 
 class VehicleSettings(models.TransientModel):
     _name = 'vehicle.config.settings'
@@ -15,6 +17,7 @@ class VehicleSettings(models.TransientModel):
 
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id, required=True)
     work_fee = fields.Float(related='company_id.work_fee', default=50)
+    average_day_number = fields.Integer(related='company_id.average_day_number', default=30,string='Average Day Number')
 
     @api.multi
     def execute(self):

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from datetime import datetime
+from datetime import datetime,timedelta
+import odoo.addons.decimal_precision as dp
 
 
 class Vehicle(models.Model):
@@ -75,6 +76,38 @@ class Vehicle(models.Model):
     #2017年7月24日 ERP-394 新增字段：编码(车辆创建时，自动生成)
     vehicle_code = fields.Char(string='Vehicle Code',default='/',readonly=True)
 
+    #2017年7月24日 ERP-431 新增字段：日均里程
+    daily_mileage = fields.Float(string='Daily Mileage',readonly=True,digits=dp.get_precision('Operate pram'),compute='_compute_daily_mileage')
+
+    company_id = fields.Many2one('res.company', 'Company',
+                                 default=lambda self: self.env['res.company']._company_default_get(
+                                     'fleet.vehicle'),
+                                 index=True, required=True)
+
+    average_day_number = fields.Integer(related='company_id.average_day_number', default=30)
+
+    @api.depends('driverecords')
+    def _compute_daily_mileage(self):
+        """
+            计算日均里程：
+                周期总里程 / 周期天数 ， 周期天数 =  百公里油耗设置的周期
+        :return:
+        """
+        today = datetime.now()
+
+        for order in self:
+            yesterday = today - timedelta(days=order.average_day_number)
+            driverecords = order.driverecords.filtered(lambda x: x.realityarrive >= unicode(yesterday))
+            if driverecords:
+                order.daily_mileage = sum(driverecords.mapped('GPSmileage')) / order.average_day_number
+
+    @api.multi
+    def return_action_to_mileage(self):
+        """
+            刷新
+        :return:
+        """
+        return False
     def get_vehicle_code(self,vals):
         """
             生成车辆编码：

@@ -273,8 +273,14 @@ class vehicle_usage_record(models.Model):
     #平均百里油耗
     average_oil_wear = fields.Float(string='Average Oil Wear',compute=_compute_average_oil_wear,digits=(12,4))
 
-    #平均油耗天数
-    average_day_number = fields.Integer(string='Average Day Number',default=30)
+    #company_id = fields.Many2one('res.company', 'Company',
+                                 #default=lambda self: self.env['res.company']._company_default_get(
+                                     #'fleet.vehicle'),
+                                 #index=True, required=True)
+    # 平均油耗天数
+    #average_day_number = fields.Integer(related='company_id.average_day_number', default=30)
+
+    #average_day_number = fields.Integer(string='Average Day Number',default=30)
 
     @api.multi
     def action_to_usage_record(self):

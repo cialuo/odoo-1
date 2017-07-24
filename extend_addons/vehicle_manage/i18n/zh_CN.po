@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-24 07:13+0000\n"
-"PO-Revision-Date: 2017-07-24 15:14+0800\n"
+"POT-Creation-Date: 2017-07-24 08:58+0000\n"
+"PO-Revision-Date: 2017-07-24 16:59+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -63,6 +63,12 @@ msgstr "应用"
 #: model:ir.ui.view,arch_db:vehicle_manage.cost_type_set_form
 msgid "Archive"
 msgstr "归档"
+
+#. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_res_company_average_day_number
+#: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_average_day_number
+msgid "Average Day Number"
+msgstr "计算周期"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_brand_name
@@ -126,22 +132,22 @@ msgid "Configure Vehicle"
 msgstr "配置"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:104
-#: code:addons/vehicle_manage/models/vehicle.py:113
+#: code:addons/vehicle_manage/models/vehicle.py:135
+#: code:addons/vehicle_manage/models/vehicle.py:144
 #, python-format
 msgid "Copy of {}"
 msgstr "Copy of {}"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:106
-#: code:addons/vehicle_manage/models/vehicle.py:115
+#: code:addons/vehicle_manage/models/vehicle.py:137
+#: code:addons/vehicle_manage/models/vehicle.py:146
 #, python-format
 msgid "Copy of {} ({})"
 msgstr "Copy of {} ({})"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:102
-#: code:addons/vehicle_manage/models/vehicle.py:111
+#: code:addons/vehicle_manage/models/vehicle.py:133
+#: code:addons/vehicle_manage/models/vehicle.py:142
 #, python-format
 msgid "Copy of {}%"
 msgstr "Copy of {}%"
@@ -194,6 +200,12 @@ msgstr "创建时间"
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_state
 msgid "Current state of the vehicle"
 msgstr "状态"
+
+#. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_daily_mileage
+#: model:ir.ui.view,arch_db:vehicle_manage.vehicle_usage_records_view_form
+msgid "Daily Mileage"
+msgstr "日均里程"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_deadline
@@ -659,7 +671,7 @@ msgid "Specifications"
 msgstr "型号规格"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:230
+#: code:addons/vehicle_manage/models/vehicle.py:261
 #, python-format
 msgid "Standard code already exists"
 msgstr "排放等级编码已经存在"
