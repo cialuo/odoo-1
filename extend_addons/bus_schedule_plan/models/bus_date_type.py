@@ -10,15 +10,15 @@ class BusDateType(models.Model):
     _name = 'bus_date_type'
 
     name = fields.Char('Date Name', required=True)
-    type = fields.Selection([('monday', "Monday"),
-                            ('tuesday', "Tuesday"),
-                            ('wednesday', "Wednesday"),
-                            ('thursday', "Thursday"),
-                            ('friday', "Friday"),
-                            ('saturday', "Saturday"),
-                            ('sunday', "Sunday"),
-                            ('minor vacation', 'Minor Vacation'),
-                            ('big vacation', 'Long Vacation'),
+    type = fields.Selection([('Monday', "Monday"),
+                            ('Tuesday', "Tuesday"),
+                            ('Wednesday', "Wednesday"),
+                            ('Thursday', "Thursday"),
+                            ('Friday', "Friday"),
+                            ('Saturday', "Saturday"),
+                            ('Sunday', "Sunday"),
+                            ('Minor Vacation', 'Minor Vacation'),
+                            ('Long Vacation', 'Long Vacation'),
                              ], default='Monday',
                             )
 
