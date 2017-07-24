@@ -815,7 +815,7 @@ msgstr "车型"
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_precheck_view_form
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_report_view_form
 msgid "More Information"
-msgstr "更多信息"
+msgstr "承修信息"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_my_work

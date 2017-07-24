@@ -133,7 +133,7 @@
                                 <group col="2">
 									<group>
 										<field name="repair_department" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
-										<field name="fleet" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+										<!--<field name="fleet" attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
 										<field name="create_name" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
 										<field name="remark" />
 									</group>
@@ -238,7 +238,7 @@
                                 <group col="2">
 									<group>
 										<field name="repair_department" readonly="1"/>
-										<field name="fleet" readonly="1"/>
+										<!--<field name="fleet" readonly="1"/>-->
 										<field name="create_name" />
 										<field name="remark"/>
 									</group>
