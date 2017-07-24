@@ -102,6 +102,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     // 重绘画布
                     cxt.clearRect(0, 0, c.width, c.height);
                     dataSite[i].status == 1 ? dataSite[i].status = 0 : dataSite[i].status = 1;
+
                     var traffic_top = {
                         id: cId,
                         y: ciry - 1,
@@ -176,7 +177,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 data[1].oneline.line_show_or_hide.top = siteTop;
                 data[1].oneline.chart_show_or_hide.left = chartLeft;
                 data[1].oneline.chart_show_or_hide.top = chartTop;
-                self.$el.html('')
+                self.$el.html('');
                 //渲染车辆canvas图形组件
                 new dispatch_canvas(this, data[1]).appendTo(self.$el);
                 new dispatch_updown_line(this,data[1]).appendTo(self.$el);
