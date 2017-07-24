@@ -36,6 +36,7 @@
                 (0, 0, {'view_mode': 'form', 'view_id': ref('bus_work_rule_output_form')})
                 ]"/>
             <field name="context" eval="{'bustype': 'normal'}"/>
+            <field name="domain">[('bus_type', '=', 'regular_bus')]</field>
         </record>
 
 
@@ -202,6 +203,7 @@
                 (0, 0, {'view_mode': 'form', 'view_id': ref('bus_work_rule_output_form')})
                 ]"/>
             <field name="context" eval="{'bustype': 'custem'}"/>
+            <field name="domain">[('bus_type', '=', 'custem_bus')]</field>
         </record>
 
         <!-- 定制公交行车规则管理action页面 -->

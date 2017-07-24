@@ -237,6 +237,35 @@ class BusMoveTimeTable(models.Model):
 
     _name = "scheduleplan.busmovetime"
 
-    name = fields.Char(string="execute name")
+    name = fields.Char(string="table name")
+
+    # 关联线路
+    line_id = fields.Many2one("route_manage.route_manage", string="related line", readonly=True)
+
+    # 关联规则
+    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule")
+
+    # 运营车辆
+    vehiclenums = fields.Integer(string="vehicle nums")
+
+    # 机动车辆
+    backupvehicles = fields.Integer(string="backup vehicles")
+
+    # 执行时间
+    executedate = fields.Date(string="excute date")
+
+
+
+
+
+
+
+class BusMoveExcuteTable(models.Model):
+
+    _name = "scheduleplan.excutetable"
+
+    name = fields.Char(string="excute table name")
+
+
 
     
