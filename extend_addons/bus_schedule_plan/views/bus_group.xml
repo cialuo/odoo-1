@@ -68,7 +68,7 @@
         <menuitem id="bus_group_menu" name="bus_group_menu"
                   parent="operation_menu.bus_working_plan_menu"
                   action="bus_group_action"
-                  sequence="70"/>
+                  sequence="80"/>
 
     </data>
 </odoo>

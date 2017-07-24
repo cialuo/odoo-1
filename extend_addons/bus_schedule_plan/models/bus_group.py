@@ -3,7 +3,10 @@
 from odoo import models, fields, api
 
 
-class BusAlgorithm(models.Model):
+class BusGroup(models.Model):
+    """
+    班组管理
+    """
     _name = 'bus_group'
 
     name = fields.Char('Group Name', required=True)
