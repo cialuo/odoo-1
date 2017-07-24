@@ -1,10 +1,12 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <template xml:space="preserve">
+
     <t t-name="dispatch_desktop">
 		<t t-if="widget.dis_desk">
 			<!--<t t-foreach="widget.dis_desk" t-as="widget.dis_desk">-->
-				<div class="dispatch_desktop dragContent" t-attf-style="left:#{widget.dis_desk.oneline.line_show_or_hide.left}px;top:#{widget.dis_desk.oneline.line_show_or_hide.top}px;display:#{widget.dis_desk.oneline.line_show_or_hide.show};z-index:#{widget.dis_desk.oneline.line_show_or_hide.zIndex}">
-				<div class="content">
+
+				<div class="dispatch_desktop dragContent" t-attf-tid="#{widget.dis_desk.oneline.id}" t-attf-style="left:#{widget.dis_desk.oneline.line_show_or_hide.left}px;top:#{widget.dis_desk.oneline.line_show_or_hide.top}px;display:#{widget.dis_desk.oneline.line_show_or_hide.show};z-index:#{widget.dis_desk.oneline.line_show_or_hide.zIndex}">
+					<div class="content">
 					<!--线路信息展示-->
 					<div class="line_info dragArea">
 						<div  class="fl line_way">
@@ -273,24 +275,74 @@
 				<div>
 					<dl>
 						<dt>背景设置</dt>
-						<dd>背景色</dd>
-						<dd>资源字体颜色设置</dd>
+						<dd>
+							<span>
+								背景色
+							</span>
+								<input type="color"/>
+						</dd>
+						<dd>
+							<span>资源字体颜色设置</span>
+							<input type="color" class="src_font_color"/>
+						</dd>
 						<dd>资源字体大小设置</dd>
 					</dl>
 					<dl>
 						<dt>资源设置</dt>
-						<dd>配车数量</dd>
-						<dd>机动车辆</dd>
-						<dd>维保停运</dd>
-						<dd>共享机动</dd>
-						<dd>信号在线</dd>
-						<dd>司机</dd>
-						<dd>乘务员</dd>
+						<dd>
+							<div>配车数量</div>
+							<div>
+								<input type="checkbox" id="bus_num_config" class="src_config"/>
+								<label for="bus_num_config" class="green"></label>
+							</div>
+						</dd>
+						<dd>
+							<div>机动车辆</div>
+							<div>
+								<input type="checkbox" id="motor_vehicle" class="src_config"/>
+								<label for="motor_vehicle" class="green"></label>
+							</div>
+						</dd>
+						<dd>
+							<div>维保停运</div>
+							<div>
+								<input type="checkbox" id="bus_outage" class="src_config"/>
+								<label for="bus_outage" class="green"></label>
+							</div>
+						</dd>
+						<dd>
+							<div>共享机动</div>
+							<div>
+								<input type="checkbox" id="share_bus" class="src_config"/>
+								<label for="share_bus" class="green"></label>
+							</div>
+						</dd>
+						<dd>
+							<div>信号在线</div>
+							<div>
+								<input type="checkbox" id="signal_online" class="src_config"/>
+								<label for="signal_online" class="green"></label>
+							</div>
+						</dd>
+						<dd>
+							<div>司机</div>
+							<div>
+								<input type="checkbox" id="bus_driver" class="src_config"/>
+								<label for="bus_driver" class="green"></label>
+							</div>
+						</dd>
+						<dd>
+							<div>乘务员</div>
+							<div>
+								<input type="checkbox" id="src_config" class="src_config"/>
+								<label for="src_config" class="green"></label>
+							</div>
+						</dd>
 					</dl>
 				</div>
 			  </div>
 			  <div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+				<button type="button" class="btn btn-primary config_btn">确认</button>
 				<button type="button" class="btn btn-default btn_cancel">取消</button>
 			  </div>
 			</div><!-- /.modal-content -->

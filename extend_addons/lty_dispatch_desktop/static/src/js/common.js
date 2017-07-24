@@ -52,10 +52,10 @@ function cir_and_text(canvas) {
         var myColor = dataSite[i].color;
         if (dataSite[i].status == 0) {
             mySite = '';
-            myColor = '#ffffff'
+            myColor = '#ffffff';
         } else {
             mySite = dataSite[i].name;
-            myColor = dataSite[i].color
+            myColor = dataSite[i].color;
         }
         cxt.fillText(mySite, dataCir[i], testy, 50);
         cxt.fill();
@@ -162,7 +162,6 @@ function can_left(canvas) {
 function carousel(carousel) {
     var self =carousel.self;
     var content = carousel.content;
-    console.log(content)
     var i = 0;
     var firstcarousel_content = self.$(content + '>li').first().clone(); //复制第一张图片
     //将第一张图片放到最后一张图片后，设置ul的宽度为图片张数*图片宽度

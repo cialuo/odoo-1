@@ -16,13 +16,20 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         events: {
             'click .btn_cancel': 'close_dialog',
+            'click .config_btn':'change_style'
         },
         close_dialog:function () {
             var self = this;
-            debugger
-            self.$el.parent().find('.modal').modal('hide');
+            self.$el.find('.modal').modal('hide');
+            $(".modal-backdrop").remove();
             self.$el.remove();
+        },
+        change_style:function () {
+            var self = this;
+            var font_color=self.$el.find('.src_font_color').val();
+
         }
+        
     });
     var dispatch_desktop = Widget.extend({
         init: function (parent, context) {
@@ -34,6 +41,9 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             var self = this;
             var dis_desk = self.dis_desk;
             self.$el.append(QWeb.render("myConsole"));
+            // self.model.call('unlink',[[4]]).then(function (data) {
+            //     console.log(data);
+            // });
             self.model.call('dispatch_desktop', [dis_desk]).then(function (data) {
                 for (var i = 0; i < data.length; i++) {
                     var num_dispatch_bus = new dispatch_bus(this, data[i]);
@@ -44,6 +54,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         events: {
             'click .new_console': 'addLine_click',
             'click .read_console': 'config_click',
+            'click .save_console': 'save_click'
         },
         addLine_click: function () {
             var self = this;
@@ -54,7 +65,29 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             var self = this;
             var a = new config(this);
             a.appendTo(self.$el);
-            self.$el.find('.modal').modal('show');
+            self.$el.find('.modal').modal({backdrop: 'static', keyboard: false});
+        },
+        save_click:function () {
+            var self = this;
+            var ab = self.$el.find('.dispatch_desktop');
+            debugger
+            for (var i = 0;i<ab.length;i++){
+                var id = ab[i].getAttribute('tid');
+                var left = ab[i].offsetLeft();
+                var top = ab[i].offsetTop();
+                var zIndex = ab[i].style.zIndex;
+                var a;
+                if(ab[i].css("display")==='block'){
+                    a = 'none';
+                }else{
+                    a='block';
+                }
+                console.log(id)
+                console.log(left)
+                console.log(top)
+                console.log(zIndex)
+                console.log(a);
+            }
         }
     })
     core.action_registry.add('dispatch_desktop.page', dispatch_desktop);

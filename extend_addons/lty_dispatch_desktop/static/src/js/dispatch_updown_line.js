@@ -14,7 +14,6 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
         start: function () {
             var self = this
             var data = this.dis_desk;
-            console.log(data);
             if (data) {
                 var conCls = self.$el.find('.carousel_content')[0].className;
                 var content = '.' + conCls;
