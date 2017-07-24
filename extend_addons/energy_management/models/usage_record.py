@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api,exceptions,_
 import time,datetime
+import odoo.addons.decimal_precision as dp
 
 class usage_record(models.Model):
 
@@ -271,7 +272,7 @@ class vehicle_usage_record(models.Model):
     energy_usage_record_ids = fields.One2many('energy.usage_record','vehicle_id',string='energy_usage_record_ids')
 
     #平均百里油耗
-    average_oil_wear = fields.Float(string='Average Oil Wear',compute=_compute_average_oil_wear,digits=(12,4))
+    average_oil_wear = fields.Float(string='Average Oil Wear',compute=_compute_average_oil_wear,digits=dp.get_precision('Operate pram'))
 
     #company_id = fields.Many2one('res.company', 'Company',
                                  #default=lambda self: self.env['res.company']._company_default_get(
