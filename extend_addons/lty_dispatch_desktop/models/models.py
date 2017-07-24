@@ -17,11 +17,12 @@ class lty_dispatch_desktop(models.Model):
 
     @api.model
     def dispatch_desktop(self, id):
-        dis_desk = [{
-            # 单条线路数据
-            "oneline": {
-                'line_show_or_hide': {
-                    'left': '0',
+        dis_desk = [
+            {
+                "oneline": {
+                    "id": "12",
+                    'line_show_or_hide': {
+                    'left': '100',
                     'top': '100',
                     'zIndex': '0',
                     'show': "block"
@@ -97,9 +98,10 @@ class lty_dispatch_desktop(models.Model):
                 # 站点在控制台分段显示位置（下面数据为自己模拟换算后的离起点的距离）
                 "site_to_startpoint": [12, 200, 300, 450, 600, 860, 1170]
             }
-        },
+            },
             {
                 "oneline": {
+                    "id": "13",
                     'line_show_or_hide': {
                         'left': '0',
                         'top': '400',
@@ -131,14 +133,14 @@ class lty_dispatch_desktop(models.Model):
                     "traffic_distance": [10, 5, 36, 10, 10, 20,40,58],
                     "plan_feedback": ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123", "#4dcfc7", "#f69e92", "#f69e92", "#cc2123"],
                     "line_info": {
-                        "line": 18,
-                        "car_num": 14,
-                        "list_num":6,
-                        "active_car": 10,
+                        "line": 13,
+                        "car_num": 11,
+                        "list_num":16,
+                        "active_car": 20,
                         "bad_car": 4,
-                        "share_car":5,
-                        "online": 2,
-                        "outline":3,
+                        "share_car":6,
+                        "online": 11,
+                        "outline":4,
                         "driver":5,
                         "crew":8
                      },
@@ -170,26 +172,6 @@ class lty_dispatch_desktop(models.Model):
                 }
             }
         ]
+
         return dis_desk
 
-    @api.model
-    def dispatch_desktop_config(self, id):
-        desktop_config=[
-            {
-                'line':{
-                    'left': '100px',
-                    'top':'100px',
-                    'zIndex':'0',
-                    'show':'none'
-                }
-            },
-            {
-                'line': {
-                    'left': '50px',
-                    'top': '300px',
-                    'zIndex': '1',
-                    'show': 'block'
-                }
-            }
-        ]
-        return desktop_config
