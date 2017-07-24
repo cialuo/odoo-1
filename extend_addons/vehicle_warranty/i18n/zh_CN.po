@@ -718,7 +718,7 @@ msgstr "保养人员"
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_maintenance_time
 msgid "Maintenance time"
-msgstr "保养时长"
+msgstr "保养时长(时)"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_manhour
