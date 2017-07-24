@@ -281,6 +281,6 @@
         },
     });
 
-    return communication_box;
+    return communication;
 });
 
