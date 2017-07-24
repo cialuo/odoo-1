@@ -44,6 +44,7 @@
                                 <field name="parent_id"/>
                                 <field name="code"/>
                                 <field name="manhour"/>
+                                <field name="maintenance_time"/>
                                 <field name="remark"/>
                             </group>
                             <group>

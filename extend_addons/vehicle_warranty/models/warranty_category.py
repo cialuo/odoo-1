@@ -11,6 +11,9 @@ class WarrantyCategory(models.Model): # 维保类别
     idpath = fields.Char(string="ID Path") # id路径
     level = fields.Integer() # 层级
 
+    #2017年7月24日 新增字段：保养时长
+    maintenance_time = fields.Float(string='Maintenance time',digits=(9,1))
+
     state = fields.Selection([ # 状态
         ('use', "use"), # 在用
         ('done', "Filing"),  # 归档
