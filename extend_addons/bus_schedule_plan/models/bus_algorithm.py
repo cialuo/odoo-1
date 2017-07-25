@@ -10,7 +10,7 @@ class BusAlgorithm(models.Model):
     """
     code = fields.Char("Algorithm Code", readonly=1)
     name = fields.Char("Algorithm Name", readonly=1)
-    cycle = fields.Char("Algorithm Cycle", readonly=1)
+    cycle = fields.Integer("Algorithm Cycle", readonly=1)
     direction = fields.Selection([('0', '0'),
                                  ('positive', 'positive'),
                                  ('negative', 'negative')
@@ -26,7 +26,7 @@ class BusDriverAlgorithm(models.Model):
     """
     code = fields.Char("Algorithm Code", readonly=1)
     name = fields.Char("Algorithm Name", readonly=1)
-    cycle = fields.Char("Algorithm Cycle", readonly=1)
+    cycle = fields.Integer("Algorithm Cycle", readonly=1)
     direction = fields.Selection([('0', '0'),
                                  ('positive', 'positive'),
                                  ('negative', 'negative')

@@ -100,7 +100,7 @@ class BusGroupVehicle(models.Model):
 
     _sql_constraints = [
         ('record_unique', 'unique(route_id,vehicle_id)', _('The route and vehicle must be unique!'))
-    ]  # 站序，线路， 必须唯一
+    ]
 
     bus_group_id = fields.Many2one('bus_group')
     route_id = fields.Many2one('route_manage.route_manage')

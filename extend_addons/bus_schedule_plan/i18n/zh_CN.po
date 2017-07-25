@@ -384,12 +384,12 @@ msgstr "周六"
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_name
 msgid "Shift Line Name"
-msgstr "班次列表"
+msgstr "班次名称"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_name
 msgid "Shift Name"
-msgstr "班次"
+msgstr "班制名称"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_shift_ct

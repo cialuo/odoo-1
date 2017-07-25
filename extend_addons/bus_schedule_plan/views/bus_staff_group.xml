@@ -33,8 +33,10 @@
                         <group col="2">
                             <group>
                                 <field name="route_id" options="{'no_open':True,'no_create':True}"/>
-                                <field name="bus_algorithm_id"/>
-                                <field name="bus_driver_algorithm_id"/>
+                                <field name="bus_algorithm_id" options="{'no_open':True,'no_create':True}"/>
+                                <field name="bus_driver_algorithm_id" options="{'no_open':True,'no_create':True}"/>
+                                <field name="bus_shift_id" options="{'no_open':True,'no_create':True}"/>
+
                             </group>
                             <group>
                                 <field name="create_date" readonly="1"/>
@@ -44,18 +46,76 @@
 
                        <notebook>
                             <page string="DriverVehicles">
-                                <field name="group_line_ids">
-                                    <tree>
+                                <field name="vehicle_line_ids" context="{'form_view_ref': 'bus_staff_group_vehicle_line_form_action'}">
+                                    <tree create="0" delete="0">
                                         <field name="vehicle_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="operation_state"/>
                                         <field name="state"/>
+                                        <field name="bus_group_id"/>
+                                        <field name="bus_shift_id" invisible="1" options="{'no_open':True,'no_create':True}"/>
                                     </tree>
                                 </field>
                             </page>
                        </notebook>
                    </sheet>
                 </form>
+            </field>
+        </record>
 
+
+        <record model="ir.ui.view" id="bus_staff_group_vehicle_line_form_action">
+            <field name="name">bus_staff_group_vehicle_line_form_action</field>
+            <field name="model">bus_staff_group_vehicle_line</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <form>
+                   <sheet>
+                        <notebook  attrs="{'invisible':[('operation_state','=','flexible')] }">
+							<page string="StaffLines" >
+                                <field name="staff_line_ids">
+                                    <tree string="StaffLines" create="false" editable="bottom">
+										<field name="sequence" readonly="1"/>
+										<field name="driver_id" readonly="1"/>
+										<field name="driver_jobnumber" readonly="1"/>
+										<field name="conductor_id" readonly="1"/>
+										<field name="conductor_jobnumber" readonly="1"/>
+										<field name="bus_shift_line_id" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+			            </notebook>
+
+                        <group col="2">
+                            <group>
+                                <field name="operation_state"/>
+                            </group>
+                        </group>
+                        <group col="2" attrs="{'invisible':[('operation_state','=','flexible')]}">
+                           <group>
+                               <field name="bus_group_id" invisible="1" />
+                               <field name="id" invisible="1" />
+                               <field name="bus_group_driver_id"
+                                      attrs="{'required':[('operation_state','!=','flexible')]}"
+                                      options="{'no_open':True,'no_create':True}"/>
+                               <field name="is_conductor" invisible="1" />
+                               <field name="bus_group_conductor_id"
+                                      attrs="{'invisible':[('is_conductor','=',False)] ,'required':[('is_conductor','=',True),('operation_state','!=','flexible')]}"
+                                      options="{'no_open':True,'no_create':True}"/>
+                               <field name="bus_shift_id" invisible="1"/>
+                               <field name="bus_shift_line_id"
+                                      attrs="{'required':[('operation_state','!=','flexible')]}"
+                                      options="{'no_open':True,'no_create':True}"/>
+                            </group>
+                        </group>
+
+                       <button name="dispatch_staff_line"
+                               type="object"
+                               string="Dispatch Staff"
+                               attrs="{'invisible':[('operation_state','=','flexible')] }"
+                               class="oe_edit_only oe_highlight oe_right"/>
+
+                   </sheet>
+                </form>
             </field>
         </record>
 

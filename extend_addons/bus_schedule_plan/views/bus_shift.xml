@@ -42,9 +42,10 @@
                             <page string="Shift list">
                                 <field name="shift_line_ids">
                                     <tree editable="bottom">
-										 <field name="name"/>
-										 <field name="start_time"/>
-										 <field name="end_time"/>
+                                        <field name="sequence"/>
+                                        <field name="name"/>
+                                        <field name="start_time"/>
+                                        <field name="end_time"/>
                                     </tree>
                                 </field>
                             </page>
