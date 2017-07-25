@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--入职和离职单的视图-->
+        <record id="hr_entry_view_form" model="ir.ui.view">
+            <field name="name">Hr Entry Form</field>
+            <field name="model">hr.entry</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="action_process" string="Action Process" class="oe_highlight" states="draft"/>
+                        <button type="object" name="action_done" string="Action Done" class="oe_highlight" states="process"/>
+                        <button type="object" name="action_draft" states="process" string="Action Draft"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group name="top">
+                            <group name="left">
+                                <field name="jobnumber"/>
+                                <field name="name" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="employee_id" required='0' attrs="{'invisible': [('type', '=', 'entry')]}" options="{'no_open': true, 'no_create': true}"/>
+                                <field name="type" invisible="1"/>
+                                <field name="exit_date" attrs="{'invisible': [('type', '=', 'entry')]}"/>
+                                <field name="sex" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="work_email" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="marital_status" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="birthday" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="native_place" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="specialty" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="ethnology" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+
+                            </group>
+                            <group name="right">
+                                <field name="department_id" options="{'no_open': true, 'no_create': true}"/>
+                                <field name="workpost" options="{'no_open': true, 'no_create': true}"/>
+                                <field name="entry_date"/>
+                                <field name="leader_id" attrs="{'invisible': [('type', '=', 'exit')]}" options="{'no_open': true, 'no_create': true}"/>
+                                <field name="title" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="mobile_phone" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="work_phone" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="age" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="id_card" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="education" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="political_status" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                            </group>
+                            <group name="middle">
+                                <field name="live_address" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="reason" attrs="{'invisible': [('type', '=', 'entry')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--入职列表-->
+        <record id="hr_entry_view_tree" model="ir.ui.view">
+            <field name="name">Entry Tree</field>
+            <field name="model">hr.entry</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="work_phone"/>
+                    <field name="work_email"/>
+                    <field name="department_id"/>
+                    <field name="workpost"/>
+                    <field name="title"/>
+                    <field name="leader_id"/>
+                    <field name="type" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <!--离职列表-->
+        <record id="hr_exit_view_tree" model="ir.ui.view">
+            <field name="name">exit Tree</field>
+            <field name="model">hr.entry</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="jobnumber"/>
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <field name="workpost"/>
+                    <field name="entry_date"/>
+                    <field name="exit_date"/>
+                    <field name="state"/>
+                    <field name="type" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <act_window id="action_entry"
+                    name="Action Entry"
+                    res_model="hr.entry"
+                    view_mode="tree,form"
+                    view_id="hr_entry_view_tree"
+                    domain="[('type', '=', 'entry')]"
+                    context="{'default_type': 'entry'}"/>
+
+        <menuitem id="menu_entry" sequence="3" action="action_entry" parent="employees.ltyhr_employee_document_transfer_menu"/>
+
+        <act_window id="action_exit"
+                    name="Action Exit"
+                    res_model="hr.entry"
+                    view_mode="tree,form"
+                    view_id="hr_exit_view_tree"
+                    domain="[('type', '=', 'exit')]"
+                    context="{'default_type': 'exit'}"/>
+
+        <menuitem id="menu_exit" sequence="6" action="action_exit" parent="employees.ltyhr_employee_document_transfer_menu"/>
+
+    </data>
+</odoo>
