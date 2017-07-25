@@ -266,12 +266,14 @@ class WarrantyOrder(models.Model): # 保养单
         :return:
         """
         for order in self:
-            warranty_end_time = datetime.datetime.strptime(order.warranty_end_time, "%Y-%m-%d %H:%M:%S")
-            warranty_start_time = datetime.datetime.strptime(order.warranty_start_time, "%Y-%m-%d %H:%M:%S")
-            warrant_time = warranty_end_time - warranty_start_time
-            days, seconds = warrant_time.days, warrant_time.seconds
-            hours = days * 24 + seconds // 3600
-            order.warranty_total_time = hours
+            if order.warranty_end_time and order.warranty_start_time:
+                warranty_end_time = datetime.datetime.strptime(order.warranty_end_time, "%Y-%m-%d %H:%M:%S")
+                warranty_start_time = datetime.datetime.strptime(order.warranty_start_time, "%Y-%m-%d %H:%M:%S")
+                warrant_time = warranty_end_time - warranty_start_time
+                days, seconds = warrant_time.days, warrant_time.seconds
+                if days >= 0 and seconds >= 0:
+                    hours = days * 24 + seconds // 3600
+                    order.warranty_total_time = hours
 
 
     @api.model

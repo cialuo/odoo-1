@@ -755,7 +755,7 @@ msgstr "物料编码"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_materials_product_ids
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_account_view_form
 msgid "Materials Product"
-msgstr "用料统计"
+msgstr "用料核算"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_max_count
@@ -1634,7 +1634,7 @@ msgstr "保养开始时间"
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_warranty_total_time
 msgid "Warranty total time"
-msgstr "保养总时长(时)"
+msgstr "保养总时长(小时)"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_reject_warranty_order_id
