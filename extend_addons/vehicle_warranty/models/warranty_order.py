@@ -3,6 +3,7 @@ from odoo import models, fields, api, exceptions, _
 import datetime
 from datetime import timedelta
 from odoo.exceptions import UserError
+import odoo.addons.decimal_precision as dp
 
 class WarrantyOrder(models.Model): # 保养单
     _inherit = 'mail.thread'
@@ -237,6 +238,40 @@ class WarrantyOrder(models.Model): # 保养单
     instruction_ids = fields.One2many('warranty_order_instruction', 'warranty_order_id', 'Warranty Order') # 作业指导
 
     return_record_ids = fields.One2many('warranty_order_reject', 'warranty_order_id', 'Warranty Order') # 退检记录
+
+    # 2017年7月25日 新增字段：保养总时长,保养开始时间，保研结束时间
+    warranty_total_time = fields.Float(string='Warranty total time', readonly=True,
+                                       digits=dp.get_precision('Operate pram'), compute='_compute_warranty_total_time')
+    warranty_start_time = fields.Datetime(related='plan_id.approval_time',string='Warranty start time')
+    warranty_end_time = fields.Datetime(compute='compute_warranty_end_time')
+
+    @api.depends('project_ids')
+    def compute_warranty_end_time(self):
+        """
+            获取检验单内的的最后一个检验通过时间
+        :return:
+        """
+        for order in self:
+
+            if order.project_ids.mapped('state').count('complete') == len(order.project_ids):
+                #所有检验单完成情况下，取最后一个时间
+                order.warranty_end_time = max(order.project_ids.mapped('end_inspect_time'))
+
+
+
+    @api.depends('warranty_start_time', 'warranty_end_time')
+    def _compute_warranty_total_time(self):
+        """
+            计算保养总时长
+        :return:
+        """
+        for order in self:
+            warranty_end_time = datetime.datetime.strptime(order.warranty_end_time, "%Y-%m-%d %H:%M:%S")
+            warranty_start_time = datetime.datetime.strptime(order.warranty_start_time, "%Y-%m-%d %H:%M:%S")
+            warrant_time = warranty_end_time - warranty_start_time
+            days, seconds = warrant_time.days, warrant_time.seconds
+            hours = days * 24 + seconds // 3600
+            order.warranty_total_time = hours
 
 
     @api.model

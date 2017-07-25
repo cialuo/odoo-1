@@ -79,12 +79,11 @@ class Vehicle(models.Model):
     #2017年7月24日 ERP-431 新增字段：日均里程
     daily_mileage = fields.Float(string='Daily Mileage',readonly=True,digits=dp.get_precision('Operate pram'),compute='_compute_daily_mileage')
 
-    company_id = fields.Many2one('res.company', 'Company',
-                                 default=lambda self: self.env['res.company']._company_default_get(
-                                     'fleet.vehicle'),
+    company_id_s = fields.Many2one('res.company', 'Company',
+                                 default=lambda self: self.env['res.company']._company_default_get('fleet.vehicle'),
                                  index=True, required=True)
 
-    average_day_number = fields.Integer(related='company_id.average_day_number', default=30)
+    average_day_number = fields.Integer(related='company_id_s.average_day_number', default=30)
 
     @api.depends('driverecords')
     def _compute_daily_mileage(self):
