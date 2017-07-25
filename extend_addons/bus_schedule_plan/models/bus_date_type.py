@@ -9,7 +9,7 @@ class BusDateType(models.Model):
     """
     _name = 'bus_date_type'
 
-    name = fields.Char('Date Name', required=True)
+    name = fields.Char(string='Date Type Name', required=True)
     type = fields.Selection([('Monday', "Monday"),
                             ('Tuesday', "Tuesday"),
                             ('Wednesday', "Wednesday"),
@@ -19,10 +19,9 @@ class BusDateType(models.Model):
                             ('Sunday', "Sunday"),
                             ('Minor Vacation', 'Minor Vacation'),
                             ('Long Vacation', 'Long Vacation'),
-                             ], default='Monday',
-                            )
+                            ], default='Monday', string='Date Type')
 
-    priority = fields.Selection([('one level','one level'),
+    priority = fields.Selection([('one level', 'one level'),
                                  ('two level', 'two level'),
                                  ], default='two level')
 

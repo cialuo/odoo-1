@@ -8,7 +8,7 @@ class BusStaffGroup(models.Model):
     人车配班
     """
     _name = 'bus_staff_group'
-    name = fields.Char()
+    name = fields.Char("Staff Group Name")
     route_id = fields.Many2one('route_manage.route_manage', required=True)
     bus_algorithm_id = fields.Many2one('bus_algorithm', required=True)
     bus_driver_algorithm_id = fields.Many2one('bus_driver_algorithm', required=True)
