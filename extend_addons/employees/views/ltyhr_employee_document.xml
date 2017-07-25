@@ -228,7 +228,7 @@
             <field name="inherit_id" ref="hr.view_department_form"/>
             <field name="arch" type="xml">
                 <xpath expr="/form" position="replace">
-                    <form string="department">
+                    <form string="department" duplicate="0">
                         <sheet>
                             <div class="oe_button_box" name="button_box">
                                 <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
