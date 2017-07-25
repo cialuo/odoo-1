@@ -29,7 +29,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             var font_color=self.$el.find('.src_font_color').val();
 
         }
-        
+
     });
     var dispatch_desktop = Widget.extend({
         init: function (parent, context) {
@@ -70,24 +70,27 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         save_click:function () {
             var self = this;
             var ab = self.$el.find('.dispatch_desktop');
-            debugger
+            var res=[]
             for (var i = 0;i<ab.length;i++){
                 var id = ab[i].getAttribute('tid');
                 var left = ab[i].offsetLeft;
                 var top = ab[i].offsetTop;
                 var zIndex = ab[i].style.zIndex;
-                var a;
-                if(ab[i].css("display")==='block'){
-                    a = 'none';
+                var show;
+                if(ab[i].style.display==='block'){
+                    show = 'block';
                 }else{
-                    a='block';
+                    show='none';
                 }
-                console.log(id)
-                console.log(left)
-                console.log(top)
-                console.log(zIndex)
-                console.log(a);
+                var map = {};
+                map.id=id;
+                map.left=left;
+                map.top=top;
+                map.zIndex=zIndex;
+                map.show = show;
+                res.push(map);
             }
+            console.log(res);
         }
     })
     core.action_registry.add('dispatch_desktop.page', dispatch_desktop);

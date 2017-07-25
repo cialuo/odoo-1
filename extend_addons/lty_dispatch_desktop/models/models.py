@@ -20,6 +20,7 @@ class lty_dispatch_desktop(models.Model):
         dis_desk = [
             {
                 "oneline": {
+
                     "id": "12",
                     'line_show_or_hide': {
                     'left': '100',
@@ -33,6 +34,7 @@ class lty_dispatch_desktop(models.Model):
                     'zIndex': '0',
                     'show': 'block'
                 },
+                "line_num":[32, 13, 30],
                 # 上行站点名称以及是否显示的状态判断，站点对应颜色（实际传对应拥堵状态的一个值，前端换成对应颜色）
                 "siteTop": [{'name': "深大", 'status': '1', 'color': '#ffd275'},
                       {'name': "深大", 'status': '0', 'color': '#cc2123'},
@@ -131,6 +133,7 @@ class lty_dispatch_desktop(models.Model):
                            {'name': "武汉6", 'status': '1', 'color': '#ffd275'},
                            {'name': "武汉7", 'status': '1', 'color': '#cc2123'}],
                     "traffic_distance": [10, 5, 36, 10, 10, 20,40,58],
+                    "line_num": [32, 13, 30],
                     "plan_feedback": ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123", "#4dcfc7", "#f69e92", "#f69e92", "#cc2123"],
                     "line_info": {
                         "line": 13,

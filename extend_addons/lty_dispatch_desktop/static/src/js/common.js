@@ -58,7 +58,6 @@ function cir_and_text(canvas) {
             myColor = dataSite[i].color;
         }
         cxt.fillText(mySite, dataCir[i], testy, 50);
-        cxt.fill();
         cxt.closePath();
         //渲染圆环
         var obj_list = [
@@ -127,7 +126,6 @@ function can_left(canvas) {
     cxt.stroke();
     cxt.closePath();
     lineLen == 0 ? lineLeft = 9 : lineLeft = 17;
-
     //绘制弧线的半圆
     cxt.beginPath();
     cxt.arc(lineLeft, ciry + r, r, sta * Math.PI, (sta + 0.5) * Math.PI, false);

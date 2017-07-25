@@ -3,25 +3,26 @@
 
     <t t-name="dispatch_desktop">
 		<t t-if="widget.dis_desk">
-			<!--<t t-foreach="widget.dis_desk" t-as="widget.dis_desk">-->
-
 				<div class="dispatch_desktop dragContent" t-attf-tid="#{widget.dis_desk.oneline.id}" t-attf-style="left:#{widget.dis_desk.oneline.line_show_or_hide.left}px;top:#{widget.dis_desk.oneline.line_show_or_hide.top}px;display:#{widget.dis_desk.oneline.line_show_or_hide.show};z-index:#{widget.dis_desk.oneline.line_show_or_hide.zIndex}">
 					<div class="content">
 					<!--线路信息展示-->
 					<div class="line_info dragArea">
 						<div  class="fl line_way">
 							<ul>
-								<li>
-									<t t-esc="widget.dis_desk.oneline.line_info.line"/>
+								<li class="line_line"><t t-esc="widget.dis_desk.oneline.line_info.line"/></li>
+								<li class="line_line"><t t-esc="widget.dis_desk.oneline.line_info.line"/></li>
+								<li class="aaa">
+
 								</li>
-								<li>支线1</li>
 								<li>支线2</li>
 								<li>区间</li>
 							</ul>
 						</div>
 						<div class="bus_info fl">
 							<ul>
-								<li>配车数量：<t t-esc="widget.dis_desk.oneline.line_info.car_num"/></li>
+								<li>配车数量：
+
+								</li>
 								<li>挂牌数量：<t t-esc="widget.dis_desk.oneline.line_info.list_num"/></li>
 								<li>机动车辆：<t t-esc="widget.dis_desk.oneline.line_info.active_car"/></li>
 								<li>维保停运：<t t-esc="widget.dis_desk.oneline.line_info.bad_car"/></li>
@@ -44,16 +45,16 @@
 								<ul>
 									<li>
 										<ul class="chs">
-											<li>2路</li>
-											<li>8路</li>
-											<li>34路</li>
+											<t t-foreach="widget.dis_desk.oneline.line_num" t-as="line_item">
+												<li><t t-esc="line_item"></t></li>
+											</t>
 										</ul>
 									</li>
 								</ul>
 							</div>
 						</div>
 					</div>
-                    <!--线路路况详情-->
+                        <!--线路路况详情-->
 					<div class="traffic ovf">
 						<div class="road_distribute">
 							<div  class="">
@@ -70,7 +71,7 @@
 									</ul>
 								</div>
 								<div class="actual_traffic ovf">
-									<canvas class="canvas_left fl" id="canvas_left" width="26" height="116"></canvas>
+									<canvas class="canvas_left fl" width="26" height="116"></canvas>
 									<div>
 										<canvas width="1190" height="33" class="can_top"></canvas>
 										<div class="traffic_car">
@@ -101,7 +102,7 @@
 										</div>
 										<canvas width="1190" height="33" class="can_bottom"></canvas>
 									</div>
-									<canvas class="canvas_right fl" id="canvas_right" width="26" height="116">
+									<canvas class="canvas_right fl" width="26" height="116">
 
 									</canvas>
 								</div>
@@ -110,7 +111,6 @@
 					</div>
 				</div>
 			</div>
-            <!--</t>-->
 		</t>
 		<t t-else="">
 			<div>
@@ -339,6 +339,9 @@
 							</div>
 						</dd>
 					</dl>
+					<div>
+
+				</div>
 				</div>
 			  </div>
 			  <div class="modal-footer">
@@ -349,6 +352,6 @@
 		  </div><!-- /.modal-dialog -->
 		</div>
 		</div>
-
 	</t>
+
 </template>
