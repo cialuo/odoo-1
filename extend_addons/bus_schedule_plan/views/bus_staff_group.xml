@@ -8,7 +8,11 @@
             <field name="priority">0</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="id"/>
                     <field name="name"/>
+                    <field name="route_id"/>
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
                 </tree>
             </field>
         </record>
@@ -19,8 +23,39 @@
             <field name="priority">0</field>
             <field name="arch" type="xml">
                 <form>
-                    <field name="name"/>
+                   <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group col="2">
+                            <group>
+                                <field name="route_id" options="{'no_open':True,'no_create':True}"/>
+                                <field name="bus_algorithm_id"/>
+                                <field name="bus_driver_algorithm_id"/>
+                            </group>
+                            <group>
+                                <field name="create_date" readonly="1"/>
+                                <field name="create_uid" readonly="1"/>
+                            </group>
+                        </group>
+
+                       <notebook>
+                            <page string="DriverVehicles">
+                                <field name="group_line_ids">
+                                    <tree>
+                                        <field name="vehicle_id" options="{'no_open':True,'no_create':True}"/>
+                                        <field name="operation_state"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                       </notebook>
+                   </sheet>
                 </form>
+
             </field>
         </record>
 
