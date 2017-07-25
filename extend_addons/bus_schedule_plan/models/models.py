@@ -148,6 +148,49 @@ class BusWorkRules(models.Model):
             raise ValidationError(_("vechile count large then vehicle number"))
 
 
+    @staticmethod
+    def _validate_sqenum(datalist):
+        """
+        验证序号为单调递增 且增量为1
+        """
+        for i in range(1, len(datalist)):
+            if (datalist[i] - datalist[i-1]) != 1:
+                raise ValidationError(_("difference bettwen two sequence number must be 1"))
+
+    @staticmethod
+    def _validate_startendtime(datalist, start, end):
+        if datalist[0].starttime != start or datalist[-1].endtime != end:
+            raise ValidationError(_("start and end time not match"))
+
+    @staticmethod
+    def _validateTimeContinuity(datalist):
+        """
+        验证排班时间的连续性
+        """
+        for i in range(1, len(datalist)):
+            if datalist[i].starttime != datalist[i-1].endtime:
+                raise ValidationError(_("time arrange must have continuity"))
+
+
+    @staticmethod
+    def _validate(dataList, startTime, endTime, type):
+        newlist = sorted(dataList, key=lambda k: k.seqid)
+        BusWorkRules._validate_sqenum(newlist)
+        BusWorkRules._validate_startendtime(newlist, startTime, endTime)
+        BusWorkRules._validateTimeContinuity(newlist)
+
+    @staticmethod
+    def _validate_scheduleplan(obj):
+        """
+        验证发车规则是否正确
+        """
+        if obj.schedule_method == "singleway":
+            BusWorkRules._validate(obj.uptimearrange, obj.upfirsttime, obj.uplasttime, "singleway")
+        elif obj.schedule_method == "dubleway":
+            BusWorkRules._validate(obj.uptimearrange, obj.upfirsttime, obj.uplasttime, "dubleway")
+            BusWorkRules._validate(obj.downtimearrange, obj.downfirsttime, obj.downlasttime, "dubleway")
+
+
     @api.model
     def create(self, vals):
         res = super(BusWorkRules, self).create(vals)
@@ -202,16 +245,16 @@ class ToUp(models.Model):
     rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule")
 
     # 开始时间
-    starttime = fields.Char(string="start time")
+    starttime = fields.Char(string="start time", required=True)
 
     # 发车次序id
-    seqid = fields.Integer(string="sequence id")
+    seqid = fields.Integer(string="sequence id", required=True)
 
     # 结束时间
-    endtime = fields.Char(string="end time")
+    endtime = fields.Char(string="end time", required=True)
 
     # 间隔
-    interval = fields.Integer(string="interval")
+    interval = fields.Integer(string="interval", required=True)
 
     # 车速
     speed = fields.Float(string="vehicle speed")
@@ -236,6 +279,12 @@ class ToUp(models.Model):
 
     # 跨天
     spanday = fields.Boolean(string="span day")
+
+    @api.one
+    @api.constrains('interval')
+    def _check_interval(self):
+        if self.interval <= 0:
+            raise ValidationError(_("interval must be an positive integer"))
 
 
 class RuleBusArrangeDown(models.Model):

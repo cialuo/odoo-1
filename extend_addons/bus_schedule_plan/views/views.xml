@@ -82,11 +82,11 @@
                                         </div>
                                     </div>
                                     <field name="upplanvehiclearrange">
-                                        <tree>
-                                            <field name="vehiclemode"/>
+                                        <tree editable="bottom" >
+                                            <field name="vehiclemode" options="{'no_open': True, 'no_create': True}"/>
                                             <field name="workingnumber" sum="working_amount"/>
                                             <field name="backupnumber" sum="backup_amount"/>
-                                            <field name="passengernumber"/>
+                                            <field name="passengernumber" readonly="1"/>
                                             <field name="allvehicles" sum="allvehicles"/>
                                         </tree>
                                         <form>
@@ -106,7 +106,8 @@
                                         </div>
                                     </div>
                                     <field name="uptimearrange">
-                                        <tree>
+                                        <tree default_order="seqid" editable="bottom" >
+                                            <field name="seqid" />
                                             <field name="starttime"/>
                                             <field name="endtime"/>
                                             <field name="interval"/>
@@ -139,7 +140,7 @@
                                     </field>
                                 </div>
                             </page>
-                            <page string="down work plan">
+                            <page string="down work plan"  attrs="{'invisible': [('schedule_method', '=', 'singleway')]}">
                                 <div id="down_plan_chart_container"></div>
                                 <div>
                                     <div>
@@ -148,11 +149,11 @@
                                         </div>
                                     </div>
                                     <field name="downplanvehiclearrange">
-                                        <tree>
-                                            <field name="vehiclemode"/>
+                                        <tree editable="bottom" >
+                                            <field name="vehiclemode" options="{'no_open': True, 'no_create': True}"/>
                                             <field name="workingnumber" sum="working_amount"/>
                                             <field name="backupnumber" sum="backup_amount"/>
-                                            <field name="passengernumber"/>
+                                            <field name="passengernumber"  readonly="1"/>
                                             <field name="allvehicles" sum="allvehicles"/>
                                         </tree>
                                         <form>
@@ -172,7 +173,8 @@
                                         </div>
                                     </div>
                                     <field name="downtimearrange">
-                                        <tree>
+                                        <tree default_order="seqid" editable="bottom" >
+                                            <field name="seqid" />
                                             <field name="starttime"/>
                                             <field name="endtime"/>
                                             <field name="interval"/>
