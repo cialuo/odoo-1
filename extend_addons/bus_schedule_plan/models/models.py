@@ -204,6 +204,9 @@ class ToUp(models.Model):
     # 开始时间
     starttime = fields.Char(string="start time")
 
+    # 发车次序id
+    seqid = fields.Integer(string="sequence id")
+
     # 结束时间
     endtime = fields.Char(string="end time")
 
