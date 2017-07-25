@@ -35,7 +35,7 @@
                                 <span class="sceneTitle">交互</span>
                                 <ul class="operationNav set2">
                                     <li><a class="news" href="javascript:;">消息</a></li>
-                                    <li><a class="notice" href="javascript:;">通知</a></li>
+                                    <!-- <li><a class="notice" href="javascript:;">通知</a></li> -->
                                     <li><a class="conversation" href="javascript:;">通话</a></li>
                                 </ul>
                             </div>
@@ -952,8 +952,8 @@
 
     <t t-name="communication_template">
         <div>
-            <div class="communication">
-                <div class="directory">
+            <div class="communication dragContent nofix">
+                <div class="directory dragArea">
                     <t t-if="widget.channel.length>0">
                         <div class="channel directory_part">
                             <div class="directory_title">频道</div>
@@ -1008,7 +1008,7 @@
 
     <t t-name="info_window_template">
         <div class="info_window_child" t-attf-data_id="data_{{widget.source_channel.id}}">
-            <div class="chat_title">
+            <div class="chat_title dragArea">
                 <t t-esc="widget.source_channel.name"></t>
             </div>
             <div class="chat_content">
@@ -1058,6 +1058,27 @@
                 <div class="user_send_info">
                     <t t-esc="info.cont"></t>
                 </div>
+            </div>
+        </div>
+    </t>
+    
+    <t t-name="communication_tc_box_template">
+        <div>
+            
+        </div>
+    </t>
+
+    <t t-name="communication_tc_template">
+        <div class="message_warned dragContent layer_defined" t-attf-style="margin-left: {{widget.def_data.mgl}}px;margin-top: {{widget.def_data.mgt}}px">
+            <h2 class="layui-layer-title dragArea cont_title">消息提醒
+                <a class="close_bt" href="javascript:;"></a>
+            </h2>
+            <div class="cont">
+                <t t-esc="widget.def_data.info.cont"></t>
+            </div>
+            <div class="bottom_bt">
+                <a class="go_perform" t-attf-data_id="{{widget.def_data.info.id}}" href="javascript:;">去处理</a>
+                <a class="cancel_bt" href="javascript:;">忽略</a>
             </div>
         </div>
     </t>

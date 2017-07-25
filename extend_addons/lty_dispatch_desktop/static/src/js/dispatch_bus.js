@@ -6,21 +6,22 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
     var Widget = require('web.Widget');
     var Model = require('web.Model');
     var QWeb = core.qweb;
-    var dispatch_updown_line = require('lty_dispaych_desktop.updown_line');
+    var dispatch_updown_line=require('lty_dispaych_desktop.updown_line');
     var bus_real_info = require('lty_dispatch_desktop_widget.bus_real_info');
-    //最原始车辆组件
-    var dispatch_canvas = Widget.extend({
-        template: 'dispatch_desktop',
-        init: function (parent, data) {
+   //最原始车辆组件
+    var dispatch_canvas=Widget.extend({
+         template:'dispatch_desktop',
+         init: function (parent,data) {
             this._super(parent);
             this.model = new Model('lty_dispatch_desktop.lty_dispatch_desktop');
             this.dis_desk = data;
         },
         start: function () {
             var self = this;
-            var data = this.dis_desk;
-            if (data) {
-                qrend_desktop(data, '.can_top', '.can_bottom', '.canvas_left', '.canvas_right', self.$el);
+            var data=this.dis_desk;
+            if(data){
+                qrend_desktop(data, '.can_top', '.can_bottom', '.canvas_left', '.canvas_right',self.$el);
+
                 self.dataCir = data.oneline.site_to_startpoint;
                 self.color = data.oneline.plan_feedback;
                 self.dataSite = data.oneline.siteTop;
@@ -83,12 +84,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             'click .canvas_left':'clk_can_left',
             'click .canvas_right':'clk_can_right'
         },
-        bus_info: function (e) {
+        bus_info:function (e) {
             var self = this;
-            var dialog = new bus_real_info(this, {x: e.clientX + 5, y: e.clientY + 5, zIndex: 5});
-            dialog.appendTo(self.$el);
+            var dialog = new bus_real_info(this, {x:e.clientX+5, y:e.clientY+5, zIndex:5});
+            dialog.appendTo($("body"));
         },
-        clk_can_top: function (e) {
+        clk_can_top:function (e) {
             var self = this;
             var dom = self.$el;
             self.clickTb({
@@ -179,6 +180,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     // 重绘画布
                     cxt.clearRect(0, 0, c.width, c.height);
                     dataSite[i].status == 1 ? dataSite[i].status = 0 : dataSite[i].status = 1;
+
                     var traffic_top = {
                         id: cId,
                         y: ciry - 1,
@@ -244,7 +246,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         start: function () {
             var data = this.data;
             new dispatch_canvas(this, data).appendTo(this.$el);
-            new dispatch_updown_line(this, data).appendTo(this.$el);
+            new dispatch_updown_line(this,data).appendTo(this.$el);
         },
         events: {
             'click .chs>li': 'chose_line',

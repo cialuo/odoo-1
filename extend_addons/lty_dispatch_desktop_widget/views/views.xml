@@ -29,5 +29,10 @@
             <field name="tag">lty_dispatch_desktop_widget.communication</field>
         </record>
         <menuitem id="menu_communication" name="通讯" parent="menu_transit" action="communication" />
+        <record id="communication_tc" model="ir.actions.client">
+            <field name="name">communication_tc</field>
+            <field name="tag">lty_dispatch_desktop_widget.communication_tc</field>
+        </record>
+        <menuitem id="menu_communication_tc" name="通讯弹窗" parent="menu_transit" action="communication_tc" />
     </data>
 </openerp>

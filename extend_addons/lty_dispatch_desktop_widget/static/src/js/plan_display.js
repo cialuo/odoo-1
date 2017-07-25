@@ -5,6 +5,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
 
     var plan_display = Widget.extend({
         template: "plan_display_template",
+        events: {
+            'click .close_bt': 'closeFn',
+        },
         init: function(parent, data){
             this._super(parent);
             var init_data = {
@@ -217,6 +220,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             data.down_yard = new_down_yard;
             data.down_on_the_way = new_down_on_the_way;
             return data;
+        },
+        closeFn: function(){
+            this.destroy();
         },
     });
     core.action_registry.add('lty_dispatch_desktop_widget.plan_display', plan_display);
