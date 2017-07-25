@@ -69,7 +69,7 @@ function drag(oDrag, handle) {
 
 }
 function dragFn(parent, title) {
-	var k = 1;
+	var k = 2;
 	var c_class = "."+parent + " ." + title;
 	$("body").on('mouseover', c_class, function () {
 		oDrag = $(this).parents("." + parent)[0];
