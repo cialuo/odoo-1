@@ -1,0 +1,105 @@
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="lty_advanced_workflow_cfg_list">
+      <field name="name">lty_advanced_workflow_cfg list</field>
+      <field name="model">lty.advanced.workflow.cfg</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="code"/>
+          <field name="name"/>
+          <field name="model"/>
+          <field name="status"/>
+        </tree>
+      </field>
+    </record>
+
+	<record id="lty_advanced_workflow_cfg_form" model="ir.ui.view">
+		<field name="name">lty_advanced_workflow_cfg form</field>
+		<field name="model">lty.advanced.workflow.cfg</field>
+		<field name="arch" type="xml">
+			<form string="Approve cfg">
+				<header>
+                    <button name="confirm" string="confirm" type="object" class="oe_highlight"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,commited,approved" />
+                </header>
+                <sheet>
+					<group>
+						<group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="model"/>
+                            <field name="start_status"/>
+						</group>
+						<group>
+                            <field name="note"/>
+                            <field name="end_status"/>
+						</group>
+					</group>
+					<notebook>
+						<page string = 'workflow config'>
+                            <field name="line_ids">
+								<tree editable='bottom'>
+									<field name="squence"/>
+									<field name="name"/>
+									<field name="conditions"/>
+									<field name="approve_type"/>
+									<field name="approve_posts"/>
+									<field name="approved_nubmber"/>
+									<field name="next_node"/>
+									<field name="node_type"/>
+									<field name="note"/>
+									<field name="status"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+                </sheet>
+			</form>
+		</field>
+	</record>	
+	
+	<record id="lty_advanced_workflow_cfg_line_form" model="ir.ui.view">
+		<field name="name">lty_advanced_workflow_cfg_line form</field>
+		<field name="model">lty.advanced.workflow.cfg.line</field>
+		<field name="arch" type="xml">
+			<form string="Approve cfg">
+                <sheet>
+					<group>
+						<group>
+                            <field name="squence"/>
+                            <field name="conditions"/>
+                            <field name="approve_posts"/>
+                            <field name="next_node"/>
+                            <field name="note"/>
+						</group>
+						<group>
+                            <field name="name"/>
+                            <field name="approve_type"/>
+                            <field name="approved_nubmber"/>
+                            <field name="node_type"/>
+                            <field name="status"/>
+						</group>
+					</group>
+                </sheet>
+			</form>
+		</field>
+	</record>	
+	
+	
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="lty_advanced_workflow_cfg_action">
+      <field name="name">Approve cfg</field>
+      <field name="res_model">lty.advanced.workflow.cfg</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- Top menu item -->
+    <menuitem name="lty_advanced_workflow" id="lty_advanced_workflow.menu_root"/>
+    <!-- menu categories -->
+    <menuitem name="Approve mgt" id="lty_advanced_workflow_mgt" parent="lty_advanced_workflow.menu_root"/>
+    <!-- actions -->
+    <menuitem name="Approve cfg" id="lty_advanced_workflow_cfg_menu" parent="lty_advanced_workflow_mgt"
+              action="lty_advanced_workflow_cfg_action"/>
+  </data>
+</openerp>
