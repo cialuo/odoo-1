@@ -109,7 +109,7 @@ class BusGroupVehicle(models.Model):
     vehicle_type = fields.Many2one("fleet.vehicle.model", related='vehicle_id.model_id',
                                    readonly=True, copy=False)
     ride_number = fields.Integer('Ride Number', related='vehicle_id.ride_number', readonly=True)
-    state = fields.Selection(related='vehicle_id.state', readonly=True)
+    state = fields.Selection(related='vehicle_id.state', readonly=True, string="Vehicle State")
 
 
 class BusGroupDriver(models.Model):

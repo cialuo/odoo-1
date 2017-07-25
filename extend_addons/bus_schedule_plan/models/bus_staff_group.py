@@ -56,7 +56,7 @@ class BusStaffGroupVehicleLine(models.Model):
 
     staff_group_id = fields.Many2one('bus_staff_group', readonly=True)
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True, readonly=True)
-    state = fields.Selection(related='vehicle_id.state', readonly=True)
+    state = fields.Selection(related='vehicle_id.state', readonly=True, string="Vehicle State")
 
     operation_state = fields.Selection([('operation', "operation"),
                                         ('flexible', "flexible")], default='operation', required=True)
@@ -115,10 +115,10 @@ class BusStaffGroupVehicleStaffLine(models.Model):
     vehicle_line_id = fields.Many2one('bus_staff_group_vehicle_line')
     driver_id = fields.Many2one('hr.employee', string="driver", required=True,
                                 domain="[('workpost.posttype', '=', 'driver')]")
-    driver_jobnumber = fields.Char(string='employee work number', related='driver_id.jobnumber', readonly=True)
+    driver_jobnumber = fields.Char(related='driver_id.jobnumber', readonly=True)
 
     conductor_id = fields.Many2one('hr.employee', string="conductor", required=True,
                                    domain="[('workpost.posttype', '=', 'conductor')]")
-    conductor_jobnumber = fields.Char(string='employee work number', related='conductor_id.jobnumber', readonly=True)
+    conductor_jobnumber = fields.Char(related='conductor_id.jobnumber', readonly=True)
 
     bus_shift_line_id = fields.Many2one('bus_shift_line')
