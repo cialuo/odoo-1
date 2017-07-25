@@ -60,6 +60,7 @@
 
 .communication .chat_info .info_window {
     height: 466px;
+    background: #fff;
 }
 
 .communication .chat_info .info_window .info_window_child {
@@ -220,7 +221,7 @@
     padding: 10px 20px;
 }
 
-.message_warned .cont .close_bt {
+.message_warned .cont_title .close_bt {
     position: absolute;
     width: 16px;
     height: 16px;

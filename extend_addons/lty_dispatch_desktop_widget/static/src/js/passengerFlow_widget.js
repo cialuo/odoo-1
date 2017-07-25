@@ -8,6 +8,7 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
         template: "passenger_flow_template",
         events: {
             'click .express_bt': 'send_express_info',
+            'click .close_bt': 'closeFn',
         },
         init: function(parent, data){
             var init_data = [
@@ -122,6 +123,9 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                     new trend_chart(this, trend_chart_obj.data).appendTo(this.$(".trend_chart_summary .passenger_flow_cont")); 
                 }
             }
+        },
+        closeFn: function(){
+            this.destroy();
         }
     });
     core.action_registry.add('lty_dispatch_desktop_widget.passenger_flow', passenger_flow);

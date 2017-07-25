@@ -35,7 +35,7 @@
                                 <span class="sceneTitle">交互</span>
                                 <ul class="operationNav set2">
                                     <li><a class="news" href="javascript:;">消息</a></li>
-                                    <li><a class="notice" href="javascript:;">通知</a></li>
+                                    <!-- <li><a class="notice" href="javascript:;">通知</a></li> -->
                                     <li><a class="conversation" href="javascript:;">通话</a></li>
                                 </ul>
                             </div>
@@ -1070,7 +1070,7 @@
 
     <t t-name="communication_tc_template">
         <div class="message_warned dragContent layer_defined" t-attf-style="margin-left: {{widget.def_data.mgl}}px;margin-top: {{widget.def_data.mgt}}px">
-            <h2 class="layui-layer-title dragArea cont">消息提醒
+            <h2 class="layui-layer-title dragArea cont_title">消息提醒
                 <a class="close_bt" href="javascript:;"></a>
             </h2>
             <div class="cont">

@@ -2,6 +2,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var QWeb = core.qweb;
+    var communication = require('lty_dispatch_desktop_widget.communication');
 
     var bus_real_info = Widget.extend({
         template: 'bus_real_info_template',
@@ -20,7 +21,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             'click .arrivalTime': 'arrivalTimeFn',
             'click .video': 'videoFn',
             'click .police': 'policeFn',
-            'click .close_bt': 'closeBoxFn'
+            'click .close_bt': 'closeFn'
         },
         init: function(parent, data){
             this._super(parent);
@@ -73,7 +74,8 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             alert('这里将发起签到请求');
         },
         news_fn: function(){
-            alert('这里将发起消息请求');
+            var dialog = new communication(this);
+            dialog.appendTo($("body"));
         },
         notice_fn: function(){
             alert('这里将发起通知请求');
@@ -118,7 +120,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             this.$(".carReport").html("");
             new arrival_time_police(this).appendTo(this.$(".carReport"));
         },
-        closeBoxFn: function(){
+        closeFn: function(){
             this.destroy();
         }
     });

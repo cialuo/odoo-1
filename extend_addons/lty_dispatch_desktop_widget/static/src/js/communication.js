@@ -5,6 +5,9 @@
 
     var communication = Widget.extend({
         template: "communication_template",
+        events: {
+            'click .close_bt': 'closeFn',
+        },
         init: function(parent, data){
             this._super(parent);
             // 控制台用户信息
@@ -132,8 +135,10 @@
                 }
                 new communication_info_window(self, test1, self.current_info, loadObj).appendTo(self.$(".info_window"));
             }
-            
         },
+        closeFn: function(){
+            this.destroy();
+        }
     });
     core.action_registry.add('lty_dispatch_desktop_widget.communication', communication);
 
@@ -295,11 +300,10 @@
                 return false;
             }
             var self = this;
-            var layer_1 = layer.open({type:4});
             var mg = 0;
             var mgT = -65, mgL = -180;
             var index = 15;
-            new communication_tc(self, {info: self.info, mgt: mg*index+mgT, mgl: mg*index+mgL, layer_1: layer_1}).appendTo(self.$el);
+            new communication_tc(self, {info: self.info, mgt: mg*index+mgT, mgl: mg*index+mgL}).appendTo(self.$el);
             // self.$el.append(QWeb.render("communication_tc_template", {info: this.info, mgt: mg*index+mgT, mgl: mg*index+mgL}));
             var set1 = setInterval(function(){
                 mg += 1;
@@ -307,7 +311,7 @@
                     clearInterval(set1);
                     return false;
                 }
-                new communication_tc(self, {info: self.info, mgt: mg*index+mgT, mgl: mg*index+mgL, layer_1: layer_1}).appendTo(self.$el);
+                new communication_tc(self, {info: self.info, mgt: mg*index+mgT, mgl: mg*index+mgL}).appendTo(self.$el);
                 // self.$el.append(QWeb.render("communication_tc_template", {info: self.info, mgt: mg*index+mgT, mgl: mg*index+mgL}));
             }, 1500);
         }
@@ -321,6 +325,11 @@
         },
         start: function(){
             this.load_fn();
+            if ($(".message_warned").length == 0){
+                console.log('00');
+                var layer_1 = layer.open({type:4});
+                this.layer_1 = layer_1;
+            }
         },
         load_fn: function(){
             var self = this;
@@ -335,7 +344,7 @@
         close_fn: function(oe_this){
             oe_this.parents(".message_warned").remove();
             if ($(".message_warned").length == 0){
-                layer.close(this.def_data.layer_1);
+                layer.close(this.layer_1);
             }
         }
     });
