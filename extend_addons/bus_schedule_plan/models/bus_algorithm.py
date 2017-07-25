@@ -10,9 +10,7 @@ class BusAlgorithm(models.Model):
     """
     code = fields.Char()
     name = fields.Char()
-
     cycle = fields.Char()
-
     direction = fields.Selection([('0', '0'),
                                  ('positive', 'positive'),
                                  ('negative', 'negative')
@@ -28,9 +26,7 @@ class BusDriverAlgorithm(models.Model):
     """
     code = fields.Char()
     name = fields.Char()
-
     cycle = fields.Char()
-
     direction = fields.Selection([('0', '0'),
                                  ('positive', 'positive'),
                                  ('negative', 'negative')

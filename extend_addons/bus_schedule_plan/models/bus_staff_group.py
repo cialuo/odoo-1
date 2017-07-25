@@ -21,7 +21,8 @@ class BusStaffGroupLine(models.Model):
     人车配班详情
     """
     _name = 'bus_staff_group_line'
-    name = fields.Char()
+    _rec_name = 'vehicle_id'
+
     staff_group_id = fields.Many2one('bus_staff_group')
 
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True)
