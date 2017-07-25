@@ -28,15 +28,13 @@ class dispatch_line_citycode_ref(models.Model):
            select * from  
           (
              select         
-                route_manage_route_manage.id::text || '- up'  as id,
-                route_manage_route_manage.id as line_id,
-                route_manage_route_manage."gprsId" as line_code,
+                route_manage_route_manage."gprsId" as line_id,
                 route_manage_route_manage."lineName" as line_name,
-                hr_department.company_id as company_id,
-                res_partner.zip as company_citycode,
                 up_start.station_first_name as station_start,
                 up_last.station_last_name as station_end,
-                cast(up_start.direction as char(4)) as direction
+                cast(up_start.direction as char(4)) as direction,
+                hr_department.company_id as company_id,
+                res_partner.zip as company_citycode
             from 
                 route_manage_route_manage
             left join
@@ -45,7 +43,7 @@ class dispatch_line_citycode_ref(models.Model):
               opertation_resources_station_up.route_id,
               opertation_resources_station_up.station_id,
               opertation_resources_station.name as station_first_name,
-              'up' as direction
+              '1' as direction
            from 
               opertation_resources_station_up
            left join
@@ -59,7 +57,7 @@ class dispatch_line_citycode_ref(models.Model):
               opertation_resources_station_up.route_id,
               opertation_resources_station_up.station_id,
               opertation_resources_station.name as station_last_name,
-              'up' as direction
+              '1' as direction
            from 
               opertation_resources_station_up
            left join
@@ -79,15 +77,13 @@ class dispatch_line_citycode_ref(models.Model):
    select * from 
       (
          select 
-                route_manage_route_manage.id::text || '- down'  as id,
-                route_manage_route_manage.id as line_id,
-                route_manage_route_manage."gprsId" as line_code,
+                route_manage_route_manage."gprsId" as line_id,
                 route_manage_route_manage."lineName" as line_name,
-                hr_department.company_id as company_id,
-                res_partner.zip as company_citycode,
                 down_start.station_first_name as station_start,
                 down_last.station_last_name as station_end,
-                cast(down_start.direction as char(4)) as direction
+                cast(down_start.direction as char(4)) as direction,
+                hr_department.company_id as company_id,
+                res_partner.zip as company_citycode
             from 
                 route_manage_route_manage
             left join
@@ -96,7 +92,7 @@ class dispatch_line_citycode_ref(models.Model):
               opertation_resources_station_down.route_id,
               opertation_resources_station_down.station_id,
               opertation_resources_station.name as station_first_name,
-              'down' as direction
+              '2' as direction
            from 
               opertation_resources_station_down
            left join
@@ -110,7 +106,7 @@ class dispatch_line_citycode_ref(models.Model):
               opertation_resources_station_down.route_id,
               opertation_resources_station_down.station_id,
               opertation_resources_station.name as station_last_name,
-              'up' as direction
+              '2' as direction
            from 
               opertation_resources_station_down
            left join
