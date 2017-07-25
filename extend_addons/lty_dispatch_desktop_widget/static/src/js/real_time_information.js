@@ -20,6 +20,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             'click .arrivalTime': 'arrivalTimeFn',
             'click .video': 'videoFn',
             'click .police': 'policeFn',
+            'click .close_bt': 'closeBoxFn'
         },
         init: function(parent, data){
             this._super(parent);
@@ -117,7 +118,9 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             this.$(".carReport").html("");
             new arrival_time_police(this).appendTo(this.$(".carReport"));
         },
-
+        closeBoxFn: function(){
+            this.destroy();
+        }
     });
     core.action_registry.add('lty_dispatch_desktop_widget.bus_real_info', bus_real_info);
 
