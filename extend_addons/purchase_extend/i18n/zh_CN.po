@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-18 09:46+0000\n"
-"PO-Revision-Date: 2017-07-18 09:46+0000\n"
+"POT-Creation-Date: 2017-07-25 01:55+0000\n"
+"PO-Revision-Date: 2017-07-25 01:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,39 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: purchase_extend
+#: model:ir.ui.view,arch_db:purchase_extend.partner_type_view_form
+msgid "Action Active"
+msgstr "重新启用"
+
+#. module: purchase_extend
+#: model:ir.ui.view,arch_db:purchase_extend.partner_type_view_form
+msgid "Action InActive"
+msgstr "归档"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_active
+msgid "Active"
+msgstr "有效"
+
+#. module: purchase_extend
+#: model:ir.ui.view,arch_db:purchase_extend.partner_purchase_extend_form
+msgid "Attach a file"
+msgstr "添加文件"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_res_partner_survey_file
+msgid "Attachment"
+msgstr "附件"
+
+#. module: purchase_extend
 #: model:ir.ui.view,arch_db:purchase_extend.multi_product_form
 msgid "Cancel"
 msgstr "取消"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_code
+msgid "Code"
+msgstr "类别编号"
 
 #. module: purchase_extend
 #: model:ir.ui.view,arch_db:purchase_extend.multi_product_form
@@ -27,16 +57,19 @@ msgstr "确认"
 
 #. module: purchase_extend
 #: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_create_uid
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: purchase_extend
 #: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_create_date
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_create_date
 msgid "Created on"
 msgstr "创建时间"
 
 #. module: purchase_extend
 #: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_display_name
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -47,23 +80,52 @@ msgstr "采购入库"
 
 #. module: purchase_extend
 #: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_id
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_id
 msgid "ID"
 msgstr "ID"
 
 #. module: purchase_extend
+#: selection:partner.type,state:0
+msgid "Inactive"
+msgstr "归档"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_inner_code
+msgid "Inner Code"
+msgstr "类别编号"
+
+#. module: purchase_extend
+#: selection:partner.type,state:0
+msgid "Inuse"
+msgstr "在用"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_stock_picking_is_return
+msgid "Is return"
+msgstr "退货单"
+
+#. module: purchase_extend
 #: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard___last_update
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: purchase_extend
 #: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_write_uid
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: purchase_extend
 #: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_write_date
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_parent_left
+msgid "Left Parent"
+msgstr "左父项"
 
 #. module: purchase_extend
 #: model:ir.model.fields,field_description:purchase_extend.field_multi_product_wizard_product_id
@@ -77,6 +139,53 @@ msgid "Multi Product"
 msgstr "批量增加物资"
 
 #. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_name
+msgid "Name"
+msgstr "类别名称"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_note
+msgid "Note"
+msgstr "备注"
+
+#. module: purchase_extend
+#: model:ir.ui.view,arch_db:purchase_extend.partner_type_view_form
+#: model:ir.ui.view,arch_db:purchase_extend.partner_type_view_tree
+msgid "Order Date"
+msgstr "制单时间"
+
+#. module: purchase_extend
+#: model:ir.ui.view,arch_db:purchase_extend.partner_type_view_form
+#: model:ir.ui.view,arch_db:purchase_extend.partner_type_view_tree
+msgid "Order User"
+msgstr "制单人"
+
+#. module: purchase_extend
+#: model:ir.model,name:purchase_extend.model_res_partner
+msgid "Partner"
+msgstr "合作伙伴"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_parent_id
+msgid "Partner Type"
+msgstr "上级类别"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_res_partner_picking_return_count
+msgid "Picking return count"
+msgstr "退货信息"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_res_partner_product_info_ids
+msgid "Product Supplier"
+msgstr "产品信息"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_res_partner_product_info_count
+msgid "Product info count"
+msgstr "产品信息"
+
+#. module: purchase_extend
 #: model:ir.model,name:purchase_extend.model_purchase_order
 msgid "Purchase Order"
 msgstr "采购订单"
@@ -87,9 +196,61 @@ msgid "Purchase Order Line"
 msgstr "采购订单行"
 
 #. module: purchase_extend
+#: model:ir.model,name:purchase_extend.model_stock_return_picking
+msgid "Return Picking"
+msgstr "退货分拣"
+
+#. module: purchase_extend
+#: code:addons/purchase_extend/models/partner.py:154
+#, python-format
+msgid "Returned Picking"
+msgstr "退货单"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_parent_right
+msgid "Right Parent"
+msgstr "右父项"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_partner_type_state
+msgid "State"
+msgstr "状态"
+
+#. module: purchase_extend
+#: model:ir.ui.view,arch_db:purchase_extend.partner_purchase_extend_form
+msgid "Supplier Info"
+msgstr "产品信息"
+
+#. module: purchase_extend
+#: model:ir.ui.view,arch_db:purchase_extend.partner_purchase_extend_form
+msgid "Survey File"
+msgstr "调查文件"
+
+#. module: purchase_extend
+#: model:ir.model,name:purchase_extend.model_stock_picking
+msgid "Transfer"
+msgstr "调拨"
+
+#. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_res_partner_partner_type_id
+msgid "Type"
+msgstr "供应商类型"
+
+#. module: purchase_extend
+#: model:ir.actions.act_window,name:purchase_extend.action_partner_type
+#: model:ir.ui.menu,name:purchase_extend.menu_partner_type
+msgid "action type"
+msgstr "供应商类型"
+
+#. module: purchase_extend
 #: model:ir.model,name:purchase_extend.model_multi_product_wizard
 msgid "multi.product.wizard"
 msgstr "批量增加物资"
+
+#. module: purchase_extend
+#: model:ir.model,name:purchase_extend.model_partner_type
+msgid "partner.type"
+msgstr "供应商类型"
 
 #. module: purchase_extend
 #: model:ir.ui.menu,name:purchase_extend.materials_menu_purchase_order

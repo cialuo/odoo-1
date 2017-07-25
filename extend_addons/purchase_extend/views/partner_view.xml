@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
+        <!--继承修改供应商form页面-->
         <record id="partner_purchase_extend_form" model="ir.ui.view">
             <field name="name">Partner Extend Form</field>
             <field name="model">res.partner</field>
@@ -32,14 +33,16 @@
                     <field name="comment"/>
                 </xpath>
                 <xpath expr="//div[@name='button_box']" position="inside">
-                    <button name="action_picking" type="object" class="oe_stat_button" icon="fa-tasks"
-                            attrs="{'invisible': [('picking_return_count', '!=', 1)]}">
+                    <button name="action_picking" type="object"
+                            class="oe_stat_button" icon="fa-tasks"
+                            attrs="{'invisible': [('picking_return_count', '!=', 1)]}"
+                            groups="purchase.group_purchase_user">
                         <field name="picking_return_count" widget="statinfo"/>
                     </button>
                 </xpath>
             </field>
         </record>
-        <!--供应商分类-->
+        <!--供应商分类视图-->
         <record id="partner_type_view_form" model="ir.ui.view">
             <field name="name">Partner Type form</field>
             <field name="model">partner.type</field>
@@ -54,7 +57,8 @@
                         <group name="top">
                             <group name="left">
                                 <field name="name"/>
-                                <field name="code"/>
+                                <field name="inner_code"/>
+                                <field name="code" invisible="1"/>
                                 <field name="parent_id" options="{'no_open': true, 'no_create': true}"/>
                                 <field name="note"/>
                             </group>
@@ -74,19 +78,34 @@
             <field name="model">partner.type</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
-                    <field name="parent_id"/>
                     <field name="code"/>
+                    <field name="parent_id"/>
+                    <field name="name"/>
                     <field name="note"/>
                     <field name="create_uid" string="Order User"/>
                     <field name="create_date" string="Order Date"/>
                 </tree>
             </field>
         </record>
+        <record model="ir.ui.view" id="partner_type_view_search">
+            <field name="name">Partner Type search</field>
+            <field name="model">partner.type</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <group>
+                        <filter name="Parent" domain="[]" context="{'group_by': 'parent_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
         <act_window id="action_partner_type" res_model="partner.type" view_mode="tree,form" name="action type"/>
         <menuitem id="menu_partner_type"
                   action="action_partner_type"
                   parent="stock_picking_types.materials_menu_config"
-                  sequence="2"/>
+                  sequence="2"
+                  groups="purchase.group_purchase_user"
+        />
     </data>
 </odoo>

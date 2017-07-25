@@ -7,11 +7,16 @@
     'summary': '采购管理',
     'author': 'Xiao',
     'description': """
+    
     采购管理
-    1.1 1:增加批量勾选产品功能
-        2:修正采购管理生成的入库单为草稿状态
+    
+    1.1 
+    
+        1:增加批量勾选产品功能
+        2:修正采购管理生成的入库单为草稿状态 
         
-    1.2 1，翻译--内部参考 修改为 供应商编码。
+    1.2 
+        1: 翻译--内部参考 修改为 供应商编码。
         2：增加 调查文件 字段（attachment）。替换 内部备注 page
         3：字段 备注 调整到视图 group 中。
         4：增加 该供应商supplier 产品信息统计 字段
@@ -27,6 +32,7 @@
         'wizard/multi_product_view.xml',
         'views/purchase_order_view.xml',
         'views/partner_view.xml',
+        'security/ir.model.access.csv',
     ],
     'depends': ['materials_menu', 'purchase', 'stock_picking_types'],
     'application': True,

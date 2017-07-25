@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/lgpl.html>.
 #
 ##############################################################################
-from odoo import api, fields, models, _
+from odoo import api, fields, models, _, exceptions
 
 class PartnerType(models.Model):
     _name = 'partner.type'
@@ -30,12 +30,26 @@ class PartnerType(models.Model):
     """
     name = fields.Char(string="Name", required=True)
     code = fields.Char(string='Code')
+    inner_code = fields.Char(string='Inner Code')
     parent_id = fields.Many2one('partner.type', string='Partner Type')
     parent_left = fields.Integer('Left Parent', index=1)
     parent_right = fields.Integer('Right Parent', index=1)
     note = fields.Char(string='Note')
     state = fields.Selection([('inuse', 'Inuse'), ('inactive', 'Inactive')], default='inuse')
     active = fields.Boolean(default=True, string="Active")
+
+    @api.onchange('inner_code', 'parent_id')
+    def _onchange_code(self):
+        """
+        组合类型编码
+        :return: 
+        """
+        code = ''
+        if self.parent_id and self.parent_id.code:
+            code += self.parent_id.code
+        if self.inner_code:
+            code += self.inner_code
+        self.code = code
 
     # @api.multi
     # def name_get(self):
@@ -48,6 +62,10 @@ class PartnerType(models.Model):
     #         return res
     #
     #     return [(cat.id, "".join(reversed(get_names(cat)))) for cat in self]
+    @api.constrains('parent_id')
+    def _check_parent_id(self):
+        if not self._check_recursion():
+            raise exceptions.ValidationError(u'不能创建循环类别')
 
     @api.multi
     def action_active(self):
