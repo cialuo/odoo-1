@@ -41,6 +41,8 @@ function drag(oDrag, handle) {
             iT <= 0 && (iT = 0);
             iL >= maxL && (iL = maxL);
             iT >= maxT-50 && (iT = maxT-50);
+            oDrag.style.marginTop = 0 + "px";
+            oDrag.style.marginLeft = 0 + "px";
             oDrag.style.left = iL + "px";
             oDrag.style.top = iT + "px";
             return false
@@ -71,11 +73,26 @@ function dragFn(parent, title) {
 	var c_class = "."+parent + " ." + title;
 	$("body").on('mouseover', c_class, function () {
 		oDrag = $(this).parents("." + parent)[0];
-		oDrag.style.zIndex = k;
-		var oTitle = get.byClass(title, oDrag)[0];
-		drag(oDrag, oTitle);
+        if ($.inArray("nofix", oDrag.classList)==-1){
+            if ($.inArray("layer_defined", oDrag.classList)!=-1){
+                oDrag.style.zIndex = 20000001;
+            }else{
+                oDrag.style.zIndex = k;
+            }
+        }
+        var oTitle = get.byClass(title, oDrag);
+        for (var i=0, l=oTitle.length;i<l;i++){
+            drag(oDrag, oTitle[i]);
+        }
 	});
 	$("body").on('mouseout', c_class, function () {
+        if ($.inArray("nofix", oDrag.classList)!=-1){
+            return false;
+        }
+        if ($.inArray("layer_defined", oDrag.classList)!=-1){
+            oDrag.style.zIndex = 20000000;
+            return false;
+        }
 	    oDrag.style.zIndex = 0;
     })
 }

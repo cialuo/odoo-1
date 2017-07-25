@@ -281,6 +281,66 @@
         },
     });
 
+    var communication_tc_box = Widget.extend({
+        template: "communication_tc_box_template",
+        init: function(parent){
+            this._super(parent);
+            this.info = {
+                cont: "你有消息没有处理",
+                id: "111",
+            };
+        },
+        start: function(){
+            if (!this.info){
+                return false;
+            }
+            var self = this;
+            var layer_1 = layer.open({type:4});
+            var mg = 0;
+            var mgT = -65, mgL = -180;
+            var index = 15;
+            new communication_tc(self, {info: self.info, mgt: mg*index+mgT, mgl: mg*index+mgL, layer_1: layer_1}).appendTo(self.$el);
+            // self.$el.append(QWeb.render("communication_tc_template", {info: this.info, mgt: mg*index+mgT, mgl: mg*index+mgL}));
+            var set1 = setInterval(function(){
+                mg += 1;
+                if (mg>5){
+                    clearInterval(set1);
+                    return false;
+                }
+                new communication_tc(self, {info: self.info, mgt: mg*index+mgT, mgl: mg*index+mgL, layer_1: layer_1}).appendTo(self.$el);
+                // self.$el.append(QWeb.render("communication_tc_template", {info: self.info, mgt: mg*index+mgT, mgl: mg*index+mgL}));
+            }, 1500);
+        }
+    });
+
+    var communication_tc = Widget.extend({
+        template: "communication_tc_template",
+        init: function(parent, data){
+            this._super(parent, data);
+            this.def_data = data;
+        },
+        start: function(){
+            this.load_fn();
+        },
+        load_fn: function(){
+            var self = this;
+            self.$(".cancel_bt").click(function(){
+                self.close_fn($(this));
+            });
+
+            self.$(".close_bt").click(function(){
+               self.close_fn($(this));
+            });
+        },
+        close_fn: function(oe_this){
+            oe_this.parents(".message_warned").remove();
+            if ($(".message_warned").length == 0){
+                layer.close(this.def_data.layer_1);
+            }
+        }
+    });
+    core.action_registry.add('lty_dispatch_desktop_widget.communication_tc', communication_tc_box);
+
     return communication;
 });
 

@@ -3,12 +3,13 @@
 .communication {
     width: 688px;
     height: 466px;
-    position: fixed;
+    position: absolute;
     left: 50%;
     top: 50%;
     margin-top: -233px;
     margin-left: -344px;
     border: 1px solid #ccc;
+    z-index: 30000000;
 }
 
 .communication .directory {
@@ -199,4 +200,54 @@
 
 .communication .chat_info .chat_content .chat_model .oe_user_name {
     font-weight: bold;
+}
+
+.message_warned {
+    width:360px;
+    height: auto;
+    background-color: #F8F8F8;
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    margin-left: -180px;
+    margin-top: -65px;
+    z-index: 20000000;
+    box-shadow: 1px 1px 50px rgba(0,0,0,.3);
+}
+
+.message_warned .cont {
+    position: relative;
+    padding: 10px 20px;
+}
+
+.message_warned .cont .close_bt {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    background: url(/lty_dispatch_desktop_widget/static/lib/layer/skin/default/icon.png) no-repeat;
+    background-position: 1px -40px;
+    right: 15px;
+    top: 15px;
+}
+
+.message_warned .bottom_bt {
+    position: relative;
+    height: 48px;
+    border-top: 1px solid #ccc;
+    padding: 10px 20px;
+    text-align: right;
+}
+
+.message_warned .bottom_bt a {
+    display: inline-block;
+    border: 1px solid #ccc;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    width: 56px;
+}
+
+.message_warned .bottom_bt a.go_perform {
+    margin-right: 15px;
 }
