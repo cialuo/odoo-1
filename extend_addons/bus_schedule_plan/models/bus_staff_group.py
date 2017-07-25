@@ -8,7 +8,7 @@ class BusStaffGroup(models.Model):
     人车配班
     """
     _sql_constraints = [
-        ('record_unique', 'unique(route_id)', _('The route must be unique!'))
+        ('record_unique', 'unique(name)', _('The staff name must be unique!'))
     ]
     _name = 'bus_staff_group'
     name = fields.Char("Staff Group Name")
@@ -18,6 +18,14 @@ class BusStaffGroup(models.Model):
     bus_shift_id = fields.Many2one('bus_shift', required=True)
 
     vehicle_line_ids = fields.One2many('bus_staff_group_vehicle_line', 'staff_group_id')
+
+    vehicle_ct = fields.Integer(compute="_get_vehicle_ct")
+
+    @api.depends("vehicle_line_ids")
+    def _get_vehicle_ct(self):
+        for i in self:
+            i.vehicle_ct = len(i.vehicle_line_ids)
+
 
     @api.onchange('route_id', 'bus_shift_id')
     def _get_route_id_onchange(self):
@@ -50,8 +58,9 @@ class BusStaffGroupVehicleLine(models.Model):
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True, readonly=True)
     state = fields.Selection(related='vehicle_id.state', readonly=True)
 
-    operation_state = fields.Selection([('operation', "operation"),('flexible', "flexible")], default='operation',
-                                        required=True)
+    operation_state = fields.Selection([('operation', "operation"),
+                                        ('flexible', "flexible")], default='operation', required=True)
+
     bus_group_id = fields.Many2one('bus_group', readonly=True)
     is_conductor = fields.Boolean(related='bus_group_id.is_conductor')
 
@@ -62,6 +71,20 @@ class BusStaffGroupVehicleLine(models.Model):
     bus_shift_line_id = fields.Many2one('bus_shift_line', domain="[('shift_id','=',bus_shift_id)]")
 
     staff_line_ids = fields.One2many('bus_staff_group_vehicle_staff_line', 'vehicle_line_id')
+    staff_names = fields.Char(string='Staff Names', compute='_get_staff_names')
+
+    @api.depends("staff_line_ids")
+    def _get_staff_names(self):
+        """
+        司机:
+            功能：获取司机名字
+        """
+        for i in self:
+            staff_names = set()
+            for j in i.staff_line_ids:
+                staff_names.add(j.driver_id.name)
+            i.staff_names = ",".join(list(staff_names))
+
 
 
     @api.multi
