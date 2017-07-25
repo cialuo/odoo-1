@@ -18,7 +18,7 @@ msgstr ""
 #. module: stock_extend
 #: model:ir.ui.menu,name:stock_extend.materials_menu_location
 msgid "Location Menu"
-msgstr "仓库管理"
+msgstr "仓库设置"
 
 #. module: stock_extend
 #: model:ir.ui.view,arch_db:stock_extend.view_move_tree_extend
@@ -68,5 +68,5 @@ msgstr "运行调拨"
 #. module: stock_extend
 #: model:ir.ui.menu,name:stock_extend.materials_menu_run_reorder_rules
 msgid "run_reorder_rules_menu"
-msgstr "运行规则"
+msgstr "操作补货"
 

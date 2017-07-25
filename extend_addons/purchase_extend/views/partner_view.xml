@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--继承修改供应商form页面-->
+        <record id="partner_purchase_extend_form" model="ir.ui.view">
+            <field name="name">Partner Extend Form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='internal_notes']" position="after">
+                    <page name="survey_file_page" string="Survey File">
+                        <label for="attach_ids"/>
+                        <div>
+                            <field name="survey_file" widget="many2many_binary" string="Attach a file"
+                                   class="oe_inline"/>
+                        </div>
+                    </page>
+                    <page name="supplier_info" string="Supplier Info">
+                        <field name="product_info_ids" context="{'default_name': context.get('active_id')}">
+                            <tree>
+                                <field name="product_tmpl_id"/>
+                                <field name="min_qty"/>
+                                <field name="price"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="partner_type_id" options="{'no_open': true, 'no_create': true}"/>
+                    <field name="comment"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_picking" type="object"
+                            class="oe_stat_button" icon="fa-tasks"
+                            attrs="{'invisible': [('picking_return_count', '!=', 1)]}"
+                            groups="purchase.group_purchase_user">
+                        <field name="picking_return_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+        <!--供应商分类视图-->
+        <record id="partner_type_view_form" model="ir.ui.view">
+            <field name="name">Partner Type form</field>
+            <field name="model">partner.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="action_inactive" class="oe_highlight" string="Action InActive" attrs="{'invisible': [('active', '=', False)]}"/>
+                        <button type="object" name="action_active" attrs="{'invisible': [('active', '=', True)]}" string="Action Active"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group name="top">
+                            <group name="left">
+                                <field name="name"/>
+                                <field name="inner_code"/>
+                                <field name="code" invisible="1"/>
+                                <field name="parent_id" options="{'no_open': true, 'no_create': true}"/>
+                                <field name="note"/>
+                            </group>
+                            <group name="right">
+                                <field name="create_uid" string="Order User" attrs="{'invisible': [('id', '=', False)]}"/>
+                                <field name="create_date" string="Order Date" attrs="{'invisible': [('id', '=', False)]}"/>
+                                <field name="active" invisible="1"/>
+                                <field name="id" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="partner_type_view_tree">
+            <field name="name">Partner Type tree</field>
+            <field name="model">partner.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="parent_id"/>
+                    <field name="name"/>
+                    <field name="note"/>
+                    <field name="create_uid" string="Order User"/>
+                    <field name="create_date" string="Order Date"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="partner_type_view_search">
+            <field name="name">Partner Type search</field>
+            <field name="model">partner.type</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <group>
+                        <filter name="Parent" domain="[]" context="{'group_by': 'parent_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <act_window id="action_partner_type" res_model="partner.type" view_mode="tree,form" name="action type"/>
+        <menuitem id="menu_partner_type"
+                  action="action_partner_type"
+                  parent="stock_picking_types.materials_menu_config"
+                  sequence="2"
+                  groups="purchase.group_purchase_user"
+        />
+    </data>
+</odoo>
