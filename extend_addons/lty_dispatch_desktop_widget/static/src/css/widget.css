@@ -682,6 +682,7 @@
     height: 537px;
     border: 1px solid #000;
     overflow: auto;
+    background: #fff;
 }
 
 .plan_display .uplink_plan {

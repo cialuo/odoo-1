@@ -8,6 +8,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
     var QWeb = core.qweb;
     var dispatch_updown_line=require('lty_dispaych_desktop.updown_line');
     var bus_real_info = require('lty_dispatch_desktop_widget.bus_real_info');
+    var passenger_flow = require('lty_dispatch_desktop_widget.passenger_flow');
+    var plan_display = require('lty_dispatch_desktop_widget.plan_display');
    //最原始车辆组件
     var dispatch_canvas=Widget.extend({
          template:'dispatch_desktop',
@@ -85,9 +87,19 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             'click .canvas_right':'clk_can_right'
         },
         bus_info:function (e) {
-            var self = this;
-            var dialog = new bus_real_info(this, {x:e.clientX+5, y:e.clientY+5, zIndex:5});
+            var car_num = e.target.textContent;
+            var line_id = e.delegateTarget.getAttribute("tid");
+            var options = 
+                {
+                    x:e.clientX+5, 
+                    y:e.clientY+5, 
+                    zIndex:5,
+                    line_id: line_id,
+                    car_num: car_num
+                };
+            var dialog = new bus_real_info(this, options);
             dialog.appendTo($("body"));
+            // e.delegateTarget.parentElement.append(dialog);
         },
         clk_can_top:function (e) {
             var self = this;
@@ -152,7 +164,15 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var y = event.pageY - c.getBoundingClientRect().top;
             cxt.arc(13, 58, 13, 0, 360, false);
             if (cxt.isPointInPath(x, y)) {
-                alert("车场");
+                var options = 
+                    {
+                        x:e.clientX+5, 
+                        y:e.clientY+5, 
+                        zIndex:5,
+                        line_id: self.attr("tid")
+                    };
+                var dialog = new plan_display(this, options);
+                dialog.appendTo($("body"));
             }
         },
         clickTb: function (canvas, e) {
@@ -224,7 +244,15 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if(dataSite[i].status == 1){
                  cxt.rect(dataCir[i]-(6*dataSite[i].name.length),testy-16,12*dataSite[i].name.length,16)
                  if (cxt.isPointInPath(x, y)) {
-                    alert("走势图")
+                    var options = 
+                        {
+                            x:e.clientX+5, 
+                            y:e.clientY+5, 
+                            zIndex:5,
+                            line_id: self.attr("tid")
+                        };
+                    var dialog = new passenger_flow(this, options);
+                    dialog.appendTo($("body"));
                     cxt.closePath();
                 }
                 }

@@ -69,10 +69,12 @@ function drag(oDrag, handle) {
 
 }
 function dragFn(parent, title) {
-	var k = 2;
+	var k = 1;
 	var c_class = "."+parent + " ." + title;
-	$("body").on('mouseover', c_class, function () {
-		oDrag = $(this).parents("." + parent)[0];
+    var p_class = "."+parent;
+	$("body").on('mouseover', p_class, function () {
+        // oDrag = $(this).parents("." + parent)[0];
+		var oDrag = $(this)[0];
         if ($.inArray("nofix", oDrag.classList)==-1){
             if ($.inArray("layer_defined", oDrag.classList)!=-1){
                 oDrag.style.zIndex = 20000001;
@@ -85,7 +87,8 @@ function dragFn(parent, title) {
             drag(oDrag, oTitle[i]);
         }
 	});
-	$("body").on('mouseout', c_class, function () {
+	$("body").on('mouseout', p_class, function () {
+        var oDrag = $(this)[0];
         if ($.inArray("nofix", oDrag.classList)!=-1){
             return false;
         }
@@ -94,7 +97,7 @@ function dragFn(parent, title) {
             return false;
         }
 	    oDrag.style.zIndex = 0;
-    })
+    });
 }
 window.onload = window.onresize = function () {
     dragFn("dragContent", "dragArea");
