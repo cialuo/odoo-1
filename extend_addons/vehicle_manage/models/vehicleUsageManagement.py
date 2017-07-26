@@ -254,7 +254,7 @@ class InspectionRecords(models.Model):
     inspectionremark = fields.Char(string="inspection remark")
 
     # 车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True)
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,domain=[('entry_state','=','audited')])
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code')
