@@ -29,7 +29,7 @@ class Entry(models.Model):
     employee_id = fields.Many2one('hr.employee', string='employee', states={'draft': [('readonly', False)]}, readonly=True)
     age = fields.Integer(string='Age', states={'draft': [('readonly', False)]}, readonly=True)
     ethnology = fields.Char(string='ethnology', states={'draft': [('readonly', False)]}, readonly=True)
-    entry_date = fields.Date(string='Date Entry', states={'draft': [('readonly', False)]}, readonly=True)
+    # entry_date = fields.Date(string='Date Entry', states={'draft': [('readonly', False)]}, readonly=True)
     exit_date = fields.Date(string='Date Exit', states={'draft': [('readonly', False)]}, readonly=True)
     reason = fields.Text(string='Reason', states={'draft': [('readonly', False)]}, readonly=True)
     type = fields.Selection([('entry', 'Entry'), ('exit', 'Exit')], string='Order Type')
@@ -38,13 +38,13 @@ class Entry(models.Model):
     @api.onchange('employee_id')
     def _onchange_jobnumber(self):
         if self.employee_id:
-            entry = self.env['hr.entry'].search([('employee_id', '=', self.employee_id.id), ('type', '=', 'entry')])
+            # entry = self.env['hr.entry'].search([('employee_id', '=', self.employee_id.id), ('type', '=', 'entry')])
             exit_order = self.env['hr.entry'].search(
                 [('employee_id', '=', self.employee_id.id), ('type', '=', self.type)])
             if exit_order:
                 raise models.ValidationError(u'员工已存在未处理单据')
-            if entry:
-                self.entry_date = entry.entry_date
+            # if entry:
+            #     self.entrydate = entry.entrydate
 
     @api.multi
     def action_process(self):
@@ -90,5 +90,9 @@ class Hr(models.Model):
 
     @api.onchange('user_id')
     def _onchange_user(self):
+        """
+        关联用户，不修改员工名称
+        :return: 
+        """
         self.work_email = self.user_id.email
         self.image = self.user_id.image
