@@ -1,25 +1,54 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, exceptions, _
+import datetime
 
 
 class BusStaffGroup(models.Model):
     """
     人车配班
     """
-    _sql_constraints = [
-        ('record_unique', 'unique(name)', _('The staff name must be unique!'))
-    ]
+    # _sql_constraints = [
+    #     ('record_unique', 'unique(name)', _('The staff name must be unique!'))
+    # ]
     _name = 'bus_staff_group'
-    name = fields.Char("Staff Group Name")
+    name = fields.Char("Staff Group Name", default="/")
     route_id = fields.Many2one('route_manage.route_manage', required=True)
+    lineName = fields.Char(related="route_id.lineName")
     bus_algorithm_id = fields.Many2one('bus_algorithm', required=True)
+    bus_algorithm_date = fields.Date()
     bus_driver_algorithm_id = fields.Many2one('bus_driver_algorithm', required=True)
+    bus_driver_algorithm_date = fields.Date()
+
     bus_shift_id = fields.Many2one('bus_shift', required=True)
 
     vehicle_line_ids = fields.One2many('bus_staff_group_vehicle_line', 'staff_group_id')
 
     vehicle_ct = fields.Integer(compute="_get_vehicle_ct")
+
+
+    @api.model
+    def create(self, data):
+        """
+        报修单:
+            功能：自动生成人车配班名称 线路名称/当前日期
+        """
+        if data.get('name', '/') == '/':
+            data['name'] = data['lineName'] + '/' + str(datetime.date.today())
+        res = super(BusStaffGroup, self).create(data)
+        return res
+
+    @api.onchange('bus_algorithm_id')
+    def _get_algorithm_date_onchange(self):
+        for i in self:
+            if i.bus_algorithm_id:
+                i.bus_algorithm_date = datetime.date.today()
+
+    @api.onchange('bus_driver_algorithm_id')
+    def _get_driver_algorithm_date_onchange(self):
+        for i in self:
+            if i.bus_driver_algorithm_id:
+                i.bus_driver_algorithm_date = datetime.date.today()
 
     @api.depends("vehicle_line_ids")
     def _get_vehicle_ct(self):
@@ -45,6 +74,17 @@ class BusStaffGroup(models.Model):
 
                 datas.append((0, 0, vals))
             i.vehicle_line_ids = datas
+
+    @api.model
+    def scheduler_manage_auto_staff_group(self):
+        staff_groups = self.read_group([], ['route_id'], groupby=['route_id'])
+        for i in staff_groups:
+            print self.search(i['__domain'], order='id desc', limit=1)
+
+
+    @api.model
+    def run_scheduler(self):
+        self.scheduler_manage_auto_staff_group()
 
 
 class BusStaffGroupVehicleLine(models.Model):
@@ -115,10 +155,10 @@ class BusStaffGroupVehicleStaffLine(models.Model):
     vehicle_line_id = fields.Many2one('bus_staff_group_vehicle_line')
     driver_id = fields.Many2one('hr.employee', string="driver", required=True,
                                 domain="[('workpost.posttype', '=', 'driver')]")
-    driver_jobnumber = fields.Char(related='driver_id.jobnumber', readonly=True)
+    driver_jobnumber = fields.Char(string='driver_jobnumber', related='driver_id.jobnumber', readonly=True)
 
-    conductor_id = fields.Many2one('hr.employee', string="conductor", required=True,
+    conductor_id = fields.Many2one('hr.employee', string="conductor",
                                    domain="[('workpost.posttype', '=', 'conductor')]")
-    conductor_jobnumber = fields.Char(related='conductor_id.jobnumber', readonly=True)
+    conductor_jobnumber = fields.Char(string='conductor_jobnumber', related='conductor_id.jobnumber', readonly=True)
 
     bus_shift_line_id = fields.Many2one('bus_shift_line')
