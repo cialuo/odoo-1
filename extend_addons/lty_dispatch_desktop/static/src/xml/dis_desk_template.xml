@@ -354,4 +354,268 @@
 		</div>
 	</t>
 
+	<t t-name="bus_source_config">
+		<div class="dragContent bus_src_config">
+			<div class="src_title">
+				<div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
+				<div class="line_list">
+					<ul class="line_company">
+						<li>四分公司</li>
+						<li>16路</li>
+						<li>资源配备</li>
+					</ul>
+					<ul class="line_src">
+						<li class="active">车辆资源</li>
+						<li>人力资源</li>
+					</ul>
+				</div>
+			</div>
+			<div class="src_content">
+				<div class="table_bus_num">
+					<table>
+					<tr>
+						<th class="th0">线路</th>
+						<th class="th0">车号</th>
+						<th class="th0">车牌</th>
+						<th class="th0">司机</th>
+						<th class="th0">位置</th>
+						<th class="th0">状态</th>
+						<th class="th0">当前任务</th>
+						<th class="th0">乘客数量</th>
+						<th class="th0">满载率</th>
+						<th class="th0">信号状态</th>
+						<th class="th0">车速</th>
+						<th class="th0">下趟发车</th>
+						<th class="th0">回场时间</th>
+						<th class="th1">能源剩余里程</th>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>356</td>
+						<td>粤B1VD2</td>
+						<td>刘强</td>
+						<td><a href="#" class="position_site">华侨城</a></td>
+						<td>挂班-上行在途</td>
+						<td>第四趟</td>
+						<td>35</td>
+						<td>92%</td>
+						<td>正常</td>
+						<td>62KM/H</td>
+						<td>9：00am</td>
+						<td>11：00am</td>
+						<td>14km</td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>356</td>
+						<td>粤B1VD2</td>
+						<td>刘强</td>
+						<td>华侨城</td>
+						<td>挂班-上行在途</td>
+						<td>第四趟</td>
+						<td>35</td>
+						<td>92%</td>
+						<td>正常</td>
+						<td>62KM/H</td>
+						<td>9：00am</td>
+						<td>11：00am</td>
+						<td>14km</td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>356</td>
+						<td>粤B1VD2</td>
+						<td>刘强</td>
+						<td>华侨城</td>
+						<td>挂班-上行在途</td>
+						<td>第四趟</td>
+						<td>35</td>
+						<td>92%</td>
+						<td>正常</td>
+						<td>62KM/H</td>
+						<td>9：00am</td>
+						<td>11：00am</td>
+						<td>14km</td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>356</td>
+						<td>粤B1VD2</td>
+						<td>刘强</td>
+						<td>华侨城</td>
+						<td>挂班-上行在途</td>
+						<td>第四趟</td>
+						<td>35</td>
+						<td>92%</td>
+						<td>正常</td>
+						<td>62KM/H</td>
+						<td>9：00am</td>
+						<td>11：00am</td>
+						<td>14km</td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>356</td>
+						<td>粤B1VD2</td>
+						<td>刘强</td>
+						<td>华侨城</td>
+						<td>挂班-上行在途</td>
+						<td>第四趟</td>
+						<td>35</td>
+						<td>92%</td>
+						<td>正常</td>
+						<td>62KM/H</td>
+						<td>9：00am</td>
+						<td>11：00am</td>
+						<td>14km</td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>356</td>
+						<td>粤B1VD2</td>
+						<td>刘强</td>
+						<td>华侨城</td>
+						<td>挂班-上行在途</td>
+						<td>第四趟</td>
+						<td>35</td>
+						<td>92%</td>
+						<td>正常</td>
+						<td>62KM/H</td>
+						<td>9：00am</td>
+						<td>11：00am</td>
+						<td>14km</td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>356</td>
+						<td>粤B1VD2</td>
+						<td>刘强</td>
+						<td>华侨城</td>
+						<td>挂班-上行在途</td>
+						<td>第四趟</td>
+						<td>35</td>
+						<td>92%</td>
+						<td>正常</td>
+						<td>62KM/H</td>
+						<td>9：00am</td>
+						<td>11：00am</td>
+						<td>14km</td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>356</td>
+						<td>粤B1VD2</td>
+						<td>刘强</td>
+						<td>华侨城</td>
+						<td>挂班-上行在途</td>
+						<td>第四趟</td>
+						<td>35</td>
+						<td>92%</td>
+						<td>正常</td>
+						<td>62KM/H</td>
+						<td>9：00am</td>
+						<td>11：00am</td>
+						<td>14km</td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>356</td>
+						<td>粤B1VD2</td>
+						<td>刘强</td>
+						<td>华侨城</td>
+						<td>挂班-上行在途</td>
+						<td>第四趟</td>
+						<td>35</td>
+						<td>92%</td>
+						<td>正常</td>
+						<td>62KM/H</td>
+						<td>9：00am</td>
+						<td>11：00am</td>
+						<td>14km</td>
+					</tr>
+				</table>
+				</div>
+				<div class="table_source">
+					<table>
+						<tr>
+							<th class="th0">姓名</th>
+							<th class="th0">工号</th>
+							<th class="th0">岗位</th>
+							<th class="th0">配车</th>
+							<th class="th0">配班</th>
+							<th class="th0">本月趟次</th>
+							<th class="th0">安全里程</th>
+							<th class="th0">违章记录</th>
+							<th class="th0">联系方式</th>
+							<th class="th1">当前位置</th>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</t>
+
+	<t t-name="driver_map_info">
+
+	</t>
 </template>

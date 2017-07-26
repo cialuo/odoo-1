@@ -73,3 +73,6 @@ label {
 .posA{
     position: absolute;
 }
+th,td{
+    text-align: center;
+}

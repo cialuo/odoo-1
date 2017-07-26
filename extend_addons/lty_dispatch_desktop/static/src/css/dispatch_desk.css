@@ -557,3 +557,95 @@ input[type="checkbox"] + label:before {
     border-radius: 50%;
     box-shadow: 1px 1px 3px #aaa;
 }
+
+/*车辆人力资源*/
+.bus_src_config {
+    width: 924px;
+    border: 1px solid #ccc;
+    background: #fff;
+    position: absolute;
+}
+.bus_src_config .src_title {
+    height: 46px;
+    /*overflow: hidden;*/
+}
+.bus_src_config .src_title .closeBox{
+    height: 12px;
+    background: #535252;
+    position: relative;
+}
+.bus_src_config .line_list{
+    height: 34px;
+    padding-top: 8px;
+    padding-left: 10px;
+    padding-right: 20px;
+    background: #7c7bad;
+    color: #fff;
+
+}
+.bus_src_config .line_list .line_company{
+    overflow: hidden;
+    float: left;
+}
+.bus_src_config .line_list  li{
+    float:left;
+    height: 26px;
+    font-size:16px;
+    line-height: 26px;
+}
+.bus_src_config .line_src{
+    float: right;
+}
+.bus_src_config .line_src li{
+    font-size:14px;
+    width:96px;
+    background:#cdcde0;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    color: #000;
+}
+
+.bus_src_config .line_src li:first-of-type{
+    border-top-left-radius: 2px;
+}
+.bus_src_config .line_src li:last-of-type{
+    border-top-right-radius: 2px;
+}
+.bus_src_config .line_src li.active{
+    height:28px;
+    line-height: 28px;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    margin-top: -2px;
+    background: #fff;
+}
+.bus_src_config .src_content{
+    height:380px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.bus_src_config .src_content table{
+    width:902px;
+    text-align: center;
+}
+.bus_src_config table th{
+    background:#eeeeee;
+}
+.bus_src_config th,.bus_src_config td{
+    height: 30px;
+    line-height: 30px;
+}
+.bus_src_config .th0{
+    border:1px solid #ccc;
+    border-right:0;
+}
+.bus_src_config .th1{
+    border:1px solid #ccc;
+}
+.bus_src_config tr:nth-child(2n-1){
+    background: #efeff8;
+}
+.bus_src_config .table_source{
+    display: none;
+}

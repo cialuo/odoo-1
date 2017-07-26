@@ -11,6 +11,7 @@
                 <script src="/lty_dispatch_desktop/static/src/js/common.js" type="text/javascript"></script>
                 <script src="/lty_dispatch_desktop/static/src/js/dispatch_updown_line.js" type="text/javascript"></script>
                 <script src="/lty_dispatch_desktop/static/src/js/dispatch_bus.js" type="text/javascript"></script>
+                <script src="/lty_dispatch_desktop/static/src/js/bus_source_config.js" type="text/javascript"></script>
                 <script src="/lty_dispatch_desktop/static/src/js/dispatch_desktop.js" type="text/javascript"></script>
                 <script src="/lty_dispatch_desktop/static/src/js/drag.js" type="text/javascript"></script>
             </xpath>
@@ -24,11 +25,19 @@
         </record>
 
         <record id="action_dispatch_desktop_test" model="ir.actions.client">
-            <field name="name">Websocket</field>
+            <field name="name">dispatch_desktopm</field>
             <field name="target">main</field>
             <field name="tag">dispatch_desktop.page</field>
-        </record>        
+        </record>
+
+        <record id="action_dispatch_src_config" model="ir.actions.client">
+            <field name="name">bus_source_config</field>
+            <field name="target">main</field>
+            <field name="tag">bus_source_config.page</field>
+        </record>
+
         <menuitem name="Dispatch Control Desktop" id="dispatch_desktop_menu_test" action="action_dispatch_desktop_test" sequence="1" parent="dispatch_monitor_menu.dispatch_work_menu"/>
         <menuitem name="调度控制台" id="dispatch_desktop_menu" action="action_dispatch_desktop" sequence="2" parent="dispatch_monitor_menu.dispatch_work_menu"/>
+        <menuitem name="车辆人力资源" id="action_dispatch_src_config_menu" action="action_dispatch_src_config" sequence="3" parent="dispatch_monitor_menu.dispatch_work_menu"/>
     </data>
 </odoo>
