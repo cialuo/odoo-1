@@ -30,6 +30,7 @@
         # 车辆生命周期
         'views/vehicle_life_cycle.xml',
         'views/vehicle_config_settings_view.xml',
+        'views/vehicle_entry_view.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,

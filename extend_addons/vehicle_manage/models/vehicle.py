@@ -337,3 +337,33 @@ class route_manage(models.Model):
                 item.synthesize_rate = 0
 
 
+class InheritVehicle(models.Model):
+
+    _inherit = "fleet.vehicle"
+
+    """
+        新增车辆录入流
+    """
+
+    entry_state = fields.Selection([('draft','draft'),('submitted','submitted'),('audited','audited')],string='Entry state',default='draft')
+
+    def draft_to_submitted(self):
+        """
+            状态：草稿--->已提交
+        :return:
+        """
+        self.entry_state = 'submitted'
+
+    def submitted_to_audited(self):
+        """
+            状态：已提交--->已审核
+        :return:
+        """
+        self.entry_state = 'audited'
+
+    def submitted_to_draft(self):
+        """
+            状态：已提交--->草稿
+        :return:
+        """
+        self.entry_state = 'draft'
