@@ -1,0 +1,680 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* hr_entry
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-26 07:44+0000\n"
+"PO-Revision-Date: 2017-07-26 07:44+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_entry
+#: model:ir.ui.view,arch_db:hr_entry.hr_entry_view_form
+msgid "Action Done"
+msgstr "审核通过"
+
+#. module: hr_entry
+#: model:ir.ui.view,arch_db:hr_entry.hr_entry_view_form
+msgid "Action Draft"
+msgstr "退回草稿"
+
+#. module: hr_entry
+#: model:ir.actions.act_window,name:hr_entry.action_entry
+#: model:ir.ui.menu,name:hr_entry.menu_entry
+msgid "Action Entry"
+msgstr "入职管理"
+
+#. module: hr_entry
+#: model:ir.actions.act_window,name:hr_entry.action_exit
+#: model:ir.ui.menu,name:hr_entry.menu_exit
+msgid "Action Exit"
+msgstr "离职管理"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_message_needaction
+msgid "Action Needed"
+msgstr "需要行动"
+
+#. module: hr_entry
+#: model:ir.ui.view,arch_db:hr_entry.hr_entry_view_form
+msgid "Action Process"
+msgstr "提交"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_active
+msgid "Active"
+msgstr "有效"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_age
+msgid "Age"
+msgstr "年龄"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_bank_account_id
+msgid "Bank Account Number"
+msgstr "银行账户号码"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_city
+msgid "City"
+msgstr "城市"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_coach_id
+msgid "Coach"
+msgstr "师傅"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_code
+msgid "Code"
+msgstr "代码"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_color
+msgid "Color Index"
+msgstr "颜色索引"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_vehicle
+msgid "Company Vehicle"
+msgstr "公司汽车"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_contract_ids
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_contracts_count
+msgid "Contracts"
+msgstr "合约"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_contract_id
+msgid "Current Contract"
+msgstr "当前合同"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_exit_date
+msgid "Date Exit"
+msgstr "离职日期"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_birthday
+msgid "Date of Birth"
+msgstr "出生日期"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_message_last_post
+msgid "Date of the last message posted on the record."
+msgstr "发布到记录上的最后消息的日期"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_calendar_id
+msgid "Define the schedule of resource"
+msgstr "定义资源调度"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_department_id
+msgid "Department"
+msgstr "部门"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: hr_entry
+#: selection:hr.entry,state:0
+msgid "Done"
+msgstr "完成"
+
+#. module: hr_entry
+#: selection:hr.entry,state:0
+msgid "Draft"
+msgstr "草稿"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_time_efficiency
+msgid "Efficiency Factor"
+msgstr "效率因子"
+
+#. module: hr_entry
+#: model:ir.model,name:hr_entry.model_hr_employee
+msgid "Employee"
+msgstr "员工"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_bank_account_id
+msgid "Employee bank salary account"
+msgstr "员工银行工资账户"
+
+#. module: hr_entry
+#: selection:hr.entry,type:0
+msgid "Entry"
+msgstr "入职"
+
+#. module: hr_entry
+#: selection:hr.entry,type:0
+msgid "Exit"
+msgstr "离职"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_message_follower_ids
+msgid "Followers"
+msgstr "关注者"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_message_channel_ids
+msgid "Followers (Channels)"
+msgstr "关注者(渠道)"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_message_partner_ids
+msgid "Followers (Partners)"
+msgstr "关注者(业务伙伴)"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_gender
+msgid "Gender"
+msgstr "性别"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_address_home_id
+msgid "Home Address"
+msgstr "家庭地址"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_vehicle_distance
+msgid "Home-Work Dist."
+msgstr "家里和工作场所的距离"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_iccard
+msgid "IC Card"
+msgstr "IC卡"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_id
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_id_card
+msgid "ID Card"
+msgstr "身份证"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_identification_id
+msgid "Identification No"
+msgstr "身份证号"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_message_unread
+msgid "If checked new messages require your attention."
+msgstr "查看是否有需要留意的新信息。"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "如果勾选此项，有新消息会提醒你"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_vehicle_distance
+msgid "In kilometers"
+msgstr "公里"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_message_is_follower
+msgid "Is Follower"
+msgstr "是关注者"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_manager
+msgid "Is a Manager"
+msgstr "是经理"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_job_id
+msgid "Job Title"
+msgstr "工作头衔"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_message_last_post
+msgid "Last Message Date"
+msgstr "最后消息日期"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_last_login
+msgid "Latest Connection"
+msgstr "最近连接时间"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_contract_id
+msgid "Latest contract of the employee"
+msgstr "该员工最近的合同"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_leader_id
+msgid "Leader"
+msgstr "直接上级"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_login
+msgid "Login"
+msgstr "登录"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_parent_id
+msgid "Manager"
+msgstr "人资经理"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_marital
+msgid "Marital Status"
+msgstr "婚姻状况"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_medic_exam
+msgid "Medical Examination Date"
+msgstr "体检日期"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_image_medium
+msgid "Medium-sized photo"
+msgstr "中等尺寸照片"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_image_medium
+msgid "Medium-sized photo of the employee. It is automatically resized as a 128x128px image, with aspect ratio preserved. Use this field in form views or some kanban views."
+msgstr "员工的中等尺寸照片。保留纵横比例，自动缩放为128x128px的图像。这个字段用在表单视图和某些看板视图。"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_message_ids
+msgid "Messages"
+msgstr "信息"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_name
+msgid "Name"
+msgstr "名字"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_country_id
+msgid "Nationality (Country)"
+msgstr "国籍(国家)"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_notes
+msgid "Notes"
+msgstr "备注"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_message_needaction_counter
+msgid "Number of Actions"
+msgstr "行动数量"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_children
+msgid "Number of Children"
+msgstr "子女数"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "需要行动消息的数量"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_message_unread_counter
+msgid "Number of unread messages"
+msgstr "未读消息的数量"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_type
+msgid "Order Type"
+msgstr "单据类型"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_passport_id
+msgid "Passport No"
+msgstr "护照号"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_image
+msgid "Photo"
+msgstr "照片"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_place_of_birth
+msgid "Place of Birth"
+msgstr "出生地"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_reason
+msgid "Reason"
+msgstr "离职原因"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_user_id
+msgid "Related user name for the resource to manage its access."
+msgstr "用于管理资源访问权限的用户名"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_resource_id
+msgid "Resource"
+msgstr "资源"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_name_related
+msgid "Resource Name"
+msgstr "资源名称"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_resource_type
+msgid "Resource Type"
+msgstr "资源类型"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_sinid
+msgid "SIN No"
+msgstr "社会保险号SIN"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_ssnid
+msgid "SSN No"
+msgstr "社会保险号SSN"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_image_small
+msgid "Small-sized photo"
+msgstr "小尺寸照片"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_image_small
+msgid "Small-sized photo of the employee. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
+msgstr "小尺寸的员工照片。保留纵横比，自动缩放为64x64px。用在任何需要小图像的场合"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_sinid
+msgid "Social Insurance Number"
+msgstr "社会保险号"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_ssnid
+msgid "Social Security Number"
+msgstr "社会保障号"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_state
+msgid "States"
+msgstr "状态"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_child_ids
+msgid "Subordinates"
+msgstr "下属"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_category_ids
+msgid "Tags"
+msgstr "标签"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_time_efficiency
+msgid "This field depict the efficiency of the resource to complete tasks. e.g  resource put alone on a phase of 5 days with 5 tasks assigned to him, will show a load of 100% for this phase by default, but if we put a efficiency of 200%, then his load will only be 50%."
+msgstr "这个字段描述完成任务的资源的效率。比如：例如： 资源单独投入一个阶段， 5 天 5 个任务指派给他，这一阶段默认情况将显示 100%的负荷，下，但如果我们把效率设置为 200%，他的负荷将只是 50%。"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_image
+msgid "This field holds the image used as photo for the employee, limited to 1024x1024px."
+msgstr "这个字段保存员工的照片，限制为 1024x1024px"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_message_unread
+msgid "Unread Messages"
+msgstr "未读消息"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "未读消息计数器"
+
+#. module: hr_entry
+#: model:ir.model.fields,help:hr_entry.field_hr_entry_login
+msgid "Used to log into the system"
+msgstr "用户登录入系统"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_user_id
+msgid "User"
+msgstr "用户"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_work_email
+msgid "Work Email"
+msgstr "邮箱"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_work_location
+msgid "Work Location"
+msgstr "工作地点"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_mobile_phone
+msgid "Work Mobile"
+msgstr "办公手机"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_work_phone
+msgid "Work Phone"
+msgstr "办公电话"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_address_id
+msgid "Working Address"
+msgstr "工作地址"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_calendar_id
+msgid "Working Time"
+msgstr "工作时间"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_education
+msgid "education"
+msgstr "学历"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_educationexperience
+msgid "education experience"
+msgstr "教育经历"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_employee_id
+msgid "employee"
+msgstr "员工"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_entrydate
+msgid "employee entry date"
+msgstr "入职时间"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_salaryaccount
+msgid "employee salary account"
+msgstr "工资账户"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_socialsecurityaccount
+msgid "employee socialsecurity account"
+msgstr "社保账号"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_jobnumber
+msgid "employee work number"
+msgstr "工号"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_workpost
+msgid "employee work post"
+msgstr "岗位"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_families
+msgid "employees's families"
+msgstr "家庭成员"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_unit_transfer
+msgid "employees_unit_transfer"
+msgstr "单位调动"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_employeeattr
+msgid "emplyee attribute"
+msgstr "人员属性"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_bargain
+msgid "emplyee bargain"
+msgstr "劳动合同"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_drivelicensedata
+msgid "emplyee drivelicense date"
+msgstr "领证日期"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_drivelicensenumber
+msgid "emplyee drivelicense number"
+msgstr "驾照号码"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_drivelicense
+msgid "emplyee drivelicense type"
+msgstr "驾照类型"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_passdate
+msgid "emplyee pass time"
+msgstr "转正日期"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_employeestate
+msgid "emplyee state"
+msgstr "员工状态"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_title
+msgid "emplyee title"
+msgstr "职称"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_ethnology
+msgid "ethnology"
+msgstr "民族"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_housingprovidentaccount
+msgid "housing provident account"
+msgstr "公积金账户"
+
+#. module: hr_entry
+#: model:ir.model,name:hr_entry.model_hr_entry
+msgid "hr.entry"
+msgstr "入职离职管理"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_live_address
+msgid "live address"
+msgstr "住址"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_marital_status
+msgid "marital status"
+msgstr "婚姻状况"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_nation
+msgid "nation"
+msgstr "国籍"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_native_place
+msgid "native place"
+msgstr "籍贯"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_political_status
+msgid "political status"
+msgstr "政治面貌"
+
+#. module: hr_entry
+#: selection:hr.entry,state:0
+msgid "process"
+msgstr "审批"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_rewardspunishment
+msgid "rewards punishment records"
+msgstr "奖惩记录"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_sex
+msgid "sex"
+msgstr "性别"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_specialty
+msgid "specialty"
+msgstr "专业"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_transferrecord
+msgid "transfer record"
+msgstr "调动记录"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_triansexperience
+msgid "trians experience"
+msgstr "培训经历"
+
+#. module: hr_entry
+#: model:ir.model.fields,field_description:hr_entry.field_hr_entry_workexperience
+msgid "work experience"
+msgstr "工作经历"
+
