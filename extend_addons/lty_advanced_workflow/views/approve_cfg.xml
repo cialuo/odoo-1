@@ -19,7 +19,8 @@
 		<field name="arch" type="xml">
 			<form string="Approve cfg">
 				<header>
-                    <button name="confirm" string="confirm" type="object" class="oe_highlight"/>
+                    <button name="do_confirm" string="confirm" type="object" class="oe_highlight"/>
+                    <button name="do_approve" string="Approve" type="object" class="oe_highlight"/>
                     <field name="status" widget="statusbar" statusbar_visible="draft,commited,approved" />
                 </header>
                 <sheet>
@@ -95,7 +96,7 @@
 
 
     <!-- Top menu item -->
-    <menuitem name="lty_advanced_workflow" id="lty_advanced_workflow.menu_root"/>
+    <menuitem name="Approved Center" id="lty_advanced_workflow.menu_root"/>
     <!-- menu categories -->
     <menuitem name="Approve mgt" id="lty_advanced_workflow_mgt" parent="lty_advanced_workflow.menu_root"/>
     <!-- actions -->

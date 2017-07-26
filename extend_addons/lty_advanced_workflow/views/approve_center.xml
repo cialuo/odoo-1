@@ -1,0 +1,67 @@
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="lty_advanced_workflow_approve_center_list">
+      <field name="name">lty_advanced_workflow_approve_center list</field>
+      <field name="model">lty.advanced.workflow.approve.center</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="approve_node"/>
+          <field name="name"/>
+          <field name="status"/>
+        </tree>
+      </field>
+    </record>
+
+	<record id="lty_advanced_workflow_approve_center_form" model="ir.ui.view">
+		<field name="name">lty_advanced_workflow_approve_center form</field>
+		<field name="model">lty.advanced.workflow.approve.center</field>
+		<field name="arch" type="xml">
+			<form string="Approve cfg">
+				<header>
+                    <button name="do_approve" string="Approve" type="object" class="oe_highlight"/>
+                    <button name="do_reject" string="Reject" type="object" class="oe_highlight"/>
+                    <field name="status" widget="statusbar" statusbar_visible="rejected,commited,approved" />
+                </header>
+                <sheet>
+					<group>
+						<group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="approve_node"/>
+                            <field name="object_id"/>
+						</group>
+						<group>
+                            <field name="commit_date"/>
+                            <field name="source"/>
+                            <field name="approve_opinions"/>							
+						</group>
+					</group>
+					<notebook>
+						<page string = 'workflow config'>
+						
+						</page>
+					</notebook>
+                </sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>				
+			</form>
+		</field>
+	</record>	
+	
+	
+	
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_action">
+      <field name="name">Approve cfg</field>
+      <field name="res_model">lty.advanced.workflow.approve.center</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- actions -->
+    <menuitem name="Approve Center" id="lty_advanced_workflow_approve_center_menu" parent="lty_advanced_workflow_mgt"
+              action="lty_advanced_workflow_approve_center_action"/>
+  </data>
+</openerp>

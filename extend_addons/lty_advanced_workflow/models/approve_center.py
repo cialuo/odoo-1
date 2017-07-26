@@ -2,34 +2,44 @@
 
 from odoo import models, fields, api
 
-class lty_advanced_workflow_cfg(models.Model):
-    _name = 'lty.advanced.workflow.cfg'
+class lty_advanced_workflow_approve_center(models.Model):
+    _name = 'lty.advanced.workflow.approve.center'
+    _inherit = ['mail.thread']
+
+    @api.multi
+    def _links_get(self):
+        link_obj = self.env['res.request.link']
+        return [(r.object, r.name) for r in link_obj.search([])]
+
+    @api.one
+    @api.depends('object_id')
+    def _get_product(self):
+        if self.object_id and self.object_id._name == 'product.product':
+            self.product = self.object_id
+        else:
+            self.product = False
 
     name = fields.Char()
-    code = fields.Char()
-    note = fields.Char()
-    model = fields.Many2one('ir.model')
-    start_status = fields.Char()
-    end_status = fields.Char()
-    company_id = fields.Many2one('res.company')
-    status = fields.Char()    
+    commit_date = fields.Date()
+    description = fields.Char()
+    object_id = fields.Reference(
+        string='Reference', selection=_links_get, 
+        status={'commited': [('readonly', False)]}, ondelete="set null")
+    source = fields.Char()
+    approve_node = fields.Char()
+    approve_opinions = fields.Char()
+    status = fields.Selection([
+            ('commited', 'commited'),
+            ('approved', 'approved'),
+            ('rejected', 'rejected')
+        ], string='status', required=True, track_visibility='always', default='commited')
+    @api.multi
+    def do_approve(self):    
+        self.write({'status': 'approved'})
+    def do_reject(self):    
+        self.write({'status': 'rejected'})
+        
+        
     
-class lty_advanced_workflow_cfg_line(models.Model):
-    _name = 'lty.advanced.workflow.cfg.line'
-
-    squence = fields.Integer()
-    name = fields.Char()
-    conditions = fields.Text()
-    approve_type = fields.Char()
-    approve_posts = fields.Char()
-    approved_nubmber = fields.Char()
-    next_node = fields.Char()
-    node_type = fields.Char()
-    note = fields.Char()
-    status = fields.Char()	
-
-
-
-    @api.depends('value')
-    def _value_pc(self):
-        self.value2 = float(self.value) / 100
+ 
+    
