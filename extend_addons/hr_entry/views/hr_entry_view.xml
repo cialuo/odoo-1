@@ -9,42 +9,42 @@
                 <form>
                     <header>
                         <button type="object" name="action_process" string="Action Process" class="oe_highlight" states="draft"/>
-                        <button type="object" name="action_done" string="Action Done" class="oe_highlight" states="process"/>
-                        <button type="object" name="action_draft" states="process" string="Action Draft"/>
+                        <button type="object" name="action_done" string="Action Done" class="oe_highlight" states="process" groups="hr.group_hr_manager"/>
+                        <button type="object" name="action_draft" states="process" string="Action Draft" groups="hr.group_hr_manager"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
                         <group name="top">
                             <group name="left">
-                                <field name="jobnumber"/>
-                                <field name="name" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="jobnumber" attrs="{'readonly': ['|', ('type', '=', 'exit'), ('state', 'in', ['process', 'done'])]}"/>
+                                <field name="name" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
                                 <field name="employee_id" required='0' attrs="{'invisible': [('type', '=', 'entry')]}" options="{'no_open': true, 'no_create': true}"/>
                                 <field name="type" invisible="1"/>
-                                <field name="exit_date" attrs="{'invisible': [('type', '=', 'entry')]}"/>
-                                <field name="sex" attrs="{'invisible': [('type', '=', 'exit')]}"/>
-                                <field name="work_email" attrs="{'invisible': [('type', '=', 'exit')]}"/>
-                                <field name="marital_status" attrs="{'invisible': [('type', '=', 'exit')]}"/>
-                                <field name="birthday" attrs="{'invisible': [('type', '=', 'exit')]}"/>
-                                <field name="native_place" attrs="{'invisible': [('type', '=', 'exit')]}"/>
-                                <field name="specialty" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="exit_date" attrs="{'invisible': [('type', '=', 'entry')], 'required': [('type', '=', 'exit')]}"/>
+                                <field name="sex" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
+                                <field name="work_email" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
+                                <field name="marital_status" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
+                                <field name="birthday" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
+                                <field name="native_place" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
+                                <field name="specialty" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
                                 <field name="ethnology" attrs="{'invisible': [('type', '=', 'exit')]}"/>
 
                             </group>
                             <group name="right">
-                                <field name="department_id" options="{'no_open': true, 'no_create': true}"/>
-                                <field name="workpost" options="{'no_open': true, 'no_create': true}"/>
-                                <field name="entry_date"/>
+                                <field name="department_id" attrs="{'readonly': ['|', ('type', '=', 'exit'), ('state', 'in', ['process', 'done'])]}" options="{'no_open': true, 'no_create': true}"/>
+                                <field name="workpost" attrs="{'readonly': ['|', ('type', '=', 'exit'), ('state', 'in', ['process', 'done'])]}" options="{'no_open': true, 'no_create': true}"/>
+                                <field name="entry_date" />
                                 <field name="leader_id" attrs="{'invisible': [('type', '=', 'exit')]}" options="{'no_open': true, 'no_create': true}"/>
-                                <field name="title" attrs="{'invisible': [('type', '=', 'exit')]}"/>
-                                <field name="mobile_phone" attrs="{'invisible': [('type', '=', 'exit')]}"/>
-                                <field name="work_phone" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="title" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
+                                <field name="mobile_phone" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
+                                <field name="work_phone" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
                                 <field name="age" attrs="{'invisible': [('type', '=', 'exit')]}"/>
-                                <field name="id_card" attrs="{'invisible': [('type', '=', 'exit')]}"/>
-                                <field name="education" attrs="{'invisible': [('type', '=', 'exit')]}"/>
-                                <field name="political_status" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="id_card" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
+                                <field name="education" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
+                                <field name="political_status" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
                             </group>
                             <group name="middle">
-                                <field name="live_address" attrs="{'invisible': [('type', '=', 'exit')]}"/>
+                                <field name="live_address" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
                                 <field name="reason" attrs="{'invisible': [('type', '=', 'entry')]}"/>
                             </group>
                         </group>
@@ -66,6 +66,7 @@
                     <field name="title"/>
                     <field name="leader_id"/>
                     <field name="type" invisible="1"/>
+                    <field name="state" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -84,6 +85,21 @@
                     <field name="state"/>
                     <field name="type" invisible="1"/>
                 </tree>
+            </field>
+        </record>
+
+        <record id="hr_entry_view_search" model="ir.ui.view">
+            <field name="name">Search Hr Entry</field>
+            <field name="model">hr.entry</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <group>
+                        <filter name="Department" domain="[]" context="{'group_by': 'department_id'}"/>
+                        <filter name="Entry Date" domain="[]" context="{'group_by': 'entry_date'}"/>
+                    </group>
+                </search>
             </field>
         </record>
 

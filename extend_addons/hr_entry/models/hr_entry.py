@@ -25,13 +25,13 @@ class Entry(models.Model):
     _inherits = {'hr.employee': 'employee_id'}
 
     state = fields.Selection([('draft', 'Draft'), ('process', 'process'), ('done', 'Done')], string='States', default='draft')
-    leader_id = fields.Many2one('hr.employee', string='Leader')
-    employee_id = fields.Many2one('hr.employee', string='employee')
-    age = fields.Integer(string='Age')
-    ethnology = fields.Char(string='ethnology')
-    entry_date = fields.Date(string='Date Entry')
-    exit_date = fields.Date(string='Date Exit')
-    reason = fields.Text(string='Reason')
+    leader_id = fields.Many2one('hr.employee', string='Leader', states={'draft': [('readonly', False)]}, readonly=True)
+    employee_id = fields.Many2one('hr.employee', string='employee', states={'draft': [('readonly', False)]}, readonly=True)
+    age = fields.Integer(string='Age', states={'draft': [('readonly', False)]}, readonly=True)
+    ethnology = fields.Char(string='ethnology', states={'draft': [('readonly', False)]}, readonly=True)
+    entry_date = fields.Date(string='Date Entry', states={'draft': [('readonly', False)]}, readonly=True)
+    exit_date = fields.Date(string='Date Exit', states={'draft': [('readonly', False)]}, readonly=True)
+    reason = fields.Text(string='Reason', states={'draft': [('readonly', False)]}, readonly=True)
     type = fields.Selection([('entry', 'Entry'), ('exit', 'Exit')], string='Order Type')
     active = fields.Boolean(default=True)
 
@@ -39,24 +39,56 @@ class Entry(models.Model):
     def _onchange_jobnumber(self):
         if self.employee_id:
             entry = self.env['hr.entry'].search([('employee_id', '=', self.employee_id.id), ('type', '=', 'entry')])
-            if entry:
-                self.entry_date = entry.entry_date
             exit_order = self.env['hr.entry'].search(
                 [('employee_id', '=', self.employee_id.id), ('type', '=', self.type)])
             if exit_order:
                 raise models.ValidationError(u'员工已存在未处理单据')
+            if entry:
+                self.entry_date = entry.entry_date
 
     @api.multi
     def action_process(self):
+        """
+        提交
+        :return: 
+        """
         return self.write({'state': 'process'})
 
     @api.multi
     def action_draft(self):
+        """
+        退回草稿
+        :return: 
+        """
         return self.write({'state': 'draft'})
 
     @api.multi
     def action_done(self):
+        """
+        审核通过
+        离职单确认后，归档该员工
+        :return: 
+        """
         for order in self:
             if order.type == 'exit':
                 self.employee_id.write({'active': False})
         return self.write({'state': 'done'})
+
+    @api.multi
+    def unlink(self):
+        """
+        控制单据的删除，只能删除草稿状态的单据
+        :return: 
+        """
+        for order in self:
+            if not order.state == 'draft':
+                raise models.UserError(u'无法删除非草稿状态的单据')
+        return super(Entry, self).unlink()
+
+class Hr(models.Model):
+    _inherit = 'hr.employee'
+
+    @api.onchange('user_id')
+    def _onchange_user(self):
+        self.work_email = self.user_id.email
+        self.image = self.user_id.image

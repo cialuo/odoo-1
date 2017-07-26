@@ -10,6 +10,10 @@
     1.0 
         入职离职管理
     """,
-    'data': ['views/hr_entry_view.xml'],
+    'data': [
+        'views/hr_entry_view.xml',
+        'security/ir.model.access.csv',
+        # 'security/security.xml',
+    ],
     'depends': ['employees'],
 }
