@@ -12,7 +12,7 @@
                         <button name="returnCard" type="object"
                                 class="oe_stat_button"
                                 string="return Card"
-                                attrs="{'invisible': [('employee_id', '=', False)]}"
+                                attrs="{'invisible': [('status', '!=', 'active')]}"
                                 icon="fa-archive">
                         </button>
                         <button name="toggle_active" type="object"
