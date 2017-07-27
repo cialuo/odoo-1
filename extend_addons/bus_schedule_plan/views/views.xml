@@ -289,6 +289,7 @@
                     <field name="uplasttime"/>
                     <field name="downfirsttime"/>
                     <field name="downlasttime"/>
+                    <button type="object" string="create move time" name="createMoveTimeTable"></button>
                 </tree>
             </field>
         </record>
@@ -324,6 +325,89 @@
             <field name="domain">[('bus_type', '=', 'custem_bus')]</field>
         </record>
 
+        <!-- 行车时刻表action页面 -->
+        <record model="ir.actions.act_window" id="bus_move_time_table_action">
+            <field name="name">bus move time table</field>
+            <field name="res_model">scheduleplan.busmovetime</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- 行车时刻表tree视图 -->
+        <record model="ir.ui.view" id="bus_move_time_table_tree">
+            <field name="name">bus move time table tree</field>
+            <field name="model">scheduleplan.busmovetime</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <tree create="0" delete="0">
+                    <field name="name"/>
+                    <field name="executedate"/>
+                    <field name="line_id"/>
+                    <field name="rule_id"/>
+                    <field name="schedule_method"/>
+                    <field name="plan_totaltimes"/>
+                    <field name="real_times"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--行车时刻表form表单-->
+        <record id="bus_move_time_table_form" model="ir.ui.view">
+            <field name="name">bus move time table form</field>
+            <field name="model">scheduleplan.busmovetime</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <form create="0">
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="line_id"/>
+                            <field name="vehiclenums"/>
+                            <field name="backupvehicles"/>
+                        </group>
+                        <group>
+                            <field name="rule_id"/>
+                            <field name="executedate"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="up move time">
+                            <field name="uptimeslist">
+                                <tree>
+                                    <field name="seqid"/>
+                                    <field name="startmovetime"/>
+                                    <field name="arrive_time"/>
+                                    <field name="timelength"/>
+                                    <field name="mileage"/>
+                                    <field name="line_id"/>
+                                    <field name="start_site"/>
+                                    <field name="end_site"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="down move time" attrs="{'invisible': [('schedule_method', '=', 'singleway')]}">
+                            <field name="downtimeslist">
+                                <tree>
+                                    <field name="seqid"/>
+                                    <field name="startmovetime"/>
+                                    <field name="arrive_time"/>
+                                    <field name="timelength"/>
+                                    <field name="mileage"/>
+                                    <field name="line_id"/>
+                                    <field name="start_site"/>
+                                    <field name="end_site"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
         <!-- 普通公交行车规则输出 -->
         <menuitem id="normal_bus_rule_output_menu" name="normal bus rule output menu"
                   parent="operation_menu.bus_working_plan_menu"
@@ -353,6 +437,12 @@
         <menuitem id="custem_bus_work_rule_manage_menu" name="custem bus work rule manage menu"
                   parent="custem_bus_rule_output_menu" action="custem_bus_work_rule_manage_action"
                   sequence="2"/>
+
+        <!-- 行车时刻表 -->
+        <menuitem id="bus_move_time_menu" name="bus move time table menu"
+                  parent="operation_menu.bus_working_plan_menu"
+                  action="bus_move_time_table_action"
+                  sequence="3"/>
 
     </data>
 </openerp>

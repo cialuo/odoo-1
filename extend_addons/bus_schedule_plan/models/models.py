@@ -195,14 +195,21 @@ class BusWorkRules(models.Model):
     def create(self, vals):
         res = super(BusWorkRules, self).create(vals)
         self._validateVehicleNums(res)
+        self._validate_scheduleplan(res)
         return res
 
     @api.multi
     def write(self, vals):
         res = super(BusWorkRules, self).write(vals)
         self._validateVehicleNums(self)
+        self._validate_scheduleplan(self)
         return res
 
+    def createMoveTimeTable(self):
+        """
+        生成行车时刻表
+        """
+        pass
 
 
 class RuleBusArrangeUp(models.Model):
@@ -348,6 +355,10 @@ class BigSiteSettingsDown(models.Model):
 
 class BusMoveTimeTable(models.Model):
 
+    """
+    行车时刻表
+    """
+
     _name = "scheduleplan.busmovetime"
 
     name = fields.Char(string="table name")
@@ -367,6 +378,59 @@ class BusMoveTimeTable(models.Model):
     # 执行时间
     executedate = fields.Date(string="excute date")
 
+    # 调车方式
+    schedule_method = fields.Selection([("singleway", "single way"),  # 单头调
+                                        ("dubleway", "dubleway"),  # 双头调
+                                        ], default="singleway", string="schedule method", required=True)
+
+    # 计划趟次
+    plan_totaltimes = fields.Integer(string="plan total times")
+
+    # 实际趟次
+    real_times = fields.Integer(string="real total times")
+
+    # 上行发车时间安排
+    uptimeslist = fields.One2many("scheduleplan.movetimeup", "movetimetable_id", string="up times arrange")
+
+    # 下行发车时间安排
+    downtimeslist = fields.One2many("scheduleplan.movetimedown", "movetimetable_id", string="down times arrange")
+
+class MoveTimeUP(models.Model):
+
+    _name = "scheduleplan.movetimeup"
+
+    movetimetable_id = fields.Many2one("scheduleplan.busmovetime")
+
+    # 序号
+    seqid = fields.Integer(string="sequence id")
+
+    # 发车时间
+    startmovetime = fields.Datetime(string="start move time")
+
+    # 到达时间
+    arrive_time = fields.Datetime(string="arrive time")
+
+    # 时长
+    timelength = fields.Integer(string="move time length")
+
+    # 里程
+    mileage = fields.Integer(string="move mile age")
+
+    # 线路
+    line_id = fields.Many2one("route_manage.route_manage", string="related line")
+
+    # 起始站点
+    start_site = fields.Many2one("opertation_resources_station", string="start site")
+
+    # 结束站点
+    end_site = fields.Many2one("opertation_resources_station", string="end site")
+
+
+class MoveTimeDown(models.Model):
+
+    _name = "scheduleplan.movetimedown"
+
+    _inherit = "scheduleplan.movetimeup"
 
 
 class BusMoveExcuteTable(models.Model):
