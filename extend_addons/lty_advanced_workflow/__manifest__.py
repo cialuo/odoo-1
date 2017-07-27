@@ -23,9 +23,9 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
         'views/approve_cfg.xml',
         'views/approve_center.xml',
+        'security/ir.model.access.csv',
     ],
     # only loaded in demonstration mode
     'demo': [

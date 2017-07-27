@@ -45,7 +45,6 @@
 						<page string = 'Approve logs'>
                             <field name="line_ids">
 								<tree editable='bottom'>
-									<field name="name" readonly='1'/>
 									<field name="user_id" readonly='1'/>
 									<field name="approve_date" readonly='1' />
 									<field name="approve_status" readonly='1'/>

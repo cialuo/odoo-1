@@ -22,7 +22,7 @@ class ProductTemplate(models.Model):
         for cfg_line in self.env['lty.advanced.workflow.cfg'].browse(cfg_id).line_ids :
             print cfg_line
             val_dict = {
-                'name': self.env['lty.advanced.workflow.cfg'].browse(cfg_id).code + '20170205001',  
+                'name': self.env['lty.advanced.workflow.cfg'].browse(cfg_id).code + '-' + productid.name + '-'+ str(cfg_line.squence),  
                 'description':self.env['lty.advanced.workflow.cfg'].browse(cfg_id).name,                  
                 'object_id': self._name + ',' +str(productid.id), 
                 'approve_node':cfg_line.name,  

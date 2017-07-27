@@ -52,17 +52,15 @@ class lty_approve_center(models.Model):
     @api.multi
     def _compute_approve_state(self):
         #todo compute active status
-        pp = 0
-        for line in self.line_ids :
-            if line.approve_status == 'approved':
-                pp=pp+1
-        if pp >= len(self.cfg_line_id.approved_nubmber) :
-            for user in self:
-                user.approved = True              
-            
-             
+        for user in self:
+            pp = len(self.env['lty.approve.logs'].search([('center_id', '=',self.id),('approve_status', '=','approved')]))
+            if pp >= int(self.cfg_line_id.approved_nubmber) :
+                user.approved = True
+           
     @api.multi
     def do_approve(self):
+        if not self.active  :
+            raise UserError(('This node is not start!. '))         
         val_dict = {
             'name': '1234',
             'center_id': self.id,
@@ -73,11 +71,12 @@ class lty_approve_center(models.Model):
         self.env['lty.approve.logs'].create(val_dict)
         self.write({'status': 'approved','approve_opinions': ''})
     def do_reject(self):
+        if not self.active  :
+            raise UserError(('This node is not start!. '))        
         if not self.approve_opinions  :
             raise UserError(('Please input approve opinions. '))
         else:
             val_dict = {
-                'name': '1234',
                 'center_id': self.id,
                 'user_id':self.env.user.id,
                 'approve_status':'rejected',
