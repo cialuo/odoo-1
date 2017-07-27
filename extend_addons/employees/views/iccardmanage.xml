@@ -6,7 +6,7 @@
         <field name="model">employees.iccards</field>
         <field name="priority">0</field>
         <field name="arch" type="xml">
-            <form string="department">
+            <form string="department" duplicate="0">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="returnCard" type="object"
