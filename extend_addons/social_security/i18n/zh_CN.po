@@ -147,6 +147,7 @@ msgid "checked"
 msgstr "审批通过"
 
 #. module: social_security
+#: model:ir.model.fields,field_description:social_security.field_social_workinjury_attachment_ids
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_attachments
 msgid "checking attachments"
 msgstr "认定附件"
