@@ -240,6 +240,16 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
+
+                            <!--日均里程-->
+                            <button name="return_action_to_mileage"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-tachometer"
+                                    context="{'xml_id':'fleet_vehicle_odometer_action'}">
+                                    <field name="daily_mileage" widget="statinfo" string="Daily Mileage"/>
+                            </button>
+
                             <button name="return_action_to_open"
                                     type="object"
                                     class="oe_stat_button"
@@ -262,7 +272,6 @@
                             <label for="tag_ids" class="oe_edit_only"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"  readonly="1"/>
                         </div>
-
                         <notebook>
                             <!--行车记录-->
                             <page  string="drive records" name="driverecords">

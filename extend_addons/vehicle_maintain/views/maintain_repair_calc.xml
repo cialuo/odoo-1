@@ -60,6 +60,7 @@
 	                        	<field name="fault_reason_id" readonly="1" options="{'no_open':True,'no_create':True}"/>
 								<field name="fault_method_id" readonly="1" options="{'no_open':True,'no_create':True}"/>
 								<field name="report_id" readonly="1" options="{'no_open':True,'no_create':True}"/>
+								<field name="repair_total_time" readonly="1"/>
 	                        </group>
 	                        <group>
 								<field name="work_fee" readonly="1"/>
@@ -92,7 +93,7 @@
 										<field name="real_start_time"/>
 										<field name="real_end_time"/>
 										<field name="work_time"/>
-										<field name="percentage_work"/>
+										<!--<field name="percentage_work"/>-->
 										<field name="real_work"/>
 										<field name="real_work_fee" sum="total" widget="monetary"/>
                                     </tree>

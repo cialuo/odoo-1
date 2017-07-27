@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, exceptions, _
+import datetime
 from datetime import timedelta
+import odoo.addons.decimal_precision as dp
+
 
 
 class MaintainReport(models.Model):
@@ -63,6 +66,8 @@ class MaintainReport(models.Model):
 
     dispatch_count = fields.Integer("Dispatch Count",compute="_get_dispatch_count")
 
+    #2017年7月25日 新增字段：预检时间；用于计算抢修总时长
+    preflight_date = fields.Datetime(string='Preflight date')
 
     @api.multi
     def unlink(self):
@@ -160,6 +165,8 @@ class MaintainReport(models.Model):
 
         report_user_id = self._default_employee()
         self.state = 'repair'
+        #2017年7月25日 记录预检通过时间
+        self.preflight_date = fields.Datetime.now()
         for i in self.repair_ids:
             if i.state in ('precheck','draft'):
                 i.state = 'dispatch'
@@ -279,6 +286,28 @@ class MaintainRepair(models.Model):
                                          )
 
     return_repair_names = fields.Char("Return Repair Names")
+
+    #2017年7月25日 新增字段：抢修总时长
+    repair_total_time = fields.Float(string='Repair total time', readonly=True,
+                                       digits=dp.get_precision('Operate pram'), compute='_compute_repair_total_time')
+    repair_start_time = fields.Datetime(related='report_id.preflight_date', string='Repair start time')
+
+    @api.depends('repair_start_time', 'end_inspect_time')
+    def _compute_repair_total_time(self):
+        """
+            计算抢修总时长
+        :return:
+        """
+        for order in self:
+            if order.repair_start_time and order.end_inspect_time:
+                repair_start_time = datetime.datetime.strptime(order.repair_start_time, "%Y-%m-%d %H:%M:%S")
+                end_inspect_time = datetime.datetime.strptime(order.end_inspect_time, "%Y-%m-%d %H:%M:%S")
+                repair_time = end_inspect_time - repair_start_time
+                days, seconds = repair_time.days, repair_time.seconds
+                if days >= 0 and seconds >= 0:
+                    hours = days * 24 + seconds // 3600
+                    order.repair_total_time = hours
+
 
     @api.onchange('return_repair_ids')
     def _get_return_repair_names(self):

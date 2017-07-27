@@ -59,6 +59,7 @@
                                 <field name="report_repair_user" string="Repair Man" readonly="1"/>
                                 <field name="warranty_category" readonly="1"/>
                                 <field name="calculate_time" readonly="1"/>
+                                <field name="warranty_total_time" readonly="1"/>
 	                        	<!--<field name="fault_reason_id" readonly="1"/>-->
 								<!--<field name="fault_method_id" readonly="1"/>-->
 								<!--<field name="report_id" />-->
@@ -97,7 +98,7 @@
 										<field name="real_start_time"/>
 										<field name="real_end_time"/>
 										<field name="work_time" string="Standard Time"/>
-										<field name="percentage_work"/>
+										<!--<field name="percentage_work"/>-->
 										<field name="real_work"/>
 										<field name="real_work_fee" sum="total" widget="monetary"/>
                                     </tree>

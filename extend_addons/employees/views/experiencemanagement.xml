@@ -285,18 +285,20 @@
                 (0, 0, {'view_mode': 'form', 'view_id': ref('employee_work_records_form')})]"/>
     </record>
 
-    <!--工作履历-->
+    <!--工作履历 2017年7月24日 变更需求：移除本菜单
     <menuitem id="employee_experience_menu" name="employee experience"
-              parent="employees_menu.ltyhr_employee_document_menu"
+              parent="staff_file_menu"
               groups="hr.group_hr_user" />
+    -->
+
     <!--工作履历-->
     <menuitem id="employee_experience_manage_menu" name="employee experience manage"
-              parent="employee_experience_menu"
+              parent="staff_file_menu"
               action="employee_experience_management_action"
-              />
+              sequence="30"/>
 
     <!--个人工作台账-->
     <menuitem id="employee_work_records_menu" name="employee work records"
-              parent="employee_experience_menu"
-              action="employee_work_records_action"/>
+              parent="staff_file_menu"
+              action="employee_work_records_action" sequence="40"/>
 </odoo>

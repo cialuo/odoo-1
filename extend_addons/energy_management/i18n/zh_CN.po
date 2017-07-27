@@ -41,7 +41,7 @@ msgstr "计算百里油耗的天数"
 #: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_average_oil_wear
 #: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_model_model_average_oil_wear
 msgid "Average Oil Wear"
-msgstr "百里油耗"
+msgstr "百公里油耗"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.fleet_vehicle_model_form
@@ -239,7 +239,7 @@ msgstr "使用量"
 #: model:ir.ui.view,arch_db:energy_management.fleet_vehicle_form
 #: model:ir.ui.view,arch_db:energy_management.vehicle_usage_records_form
 msgid "Fuel consumption per mile"
-msgstr "百里油耗"
+msgstr "百公里油耗"
 
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_energy_usage_record_gps_mileage

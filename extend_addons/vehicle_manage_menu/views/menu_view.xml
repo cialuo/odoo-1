@@ -5,6 +5,9 @@
 
         <menuitem name="vehicle_basic_manage" id="vehicle_basic_manage" parent="vehicle_manage_menu_root" sequence="10"/> <!--车辆基础管理-->
 
+        <!--2017年7月24日 新增需求：车辆基础信息-->
+        <menuitem name="vehicle_basic_info" id="vehicle_basic_info_menu" parent="vehicle_basic_manage" sequence="10"/>
+
         <menuitem name="quota_manage" id="quota_manage" parent="vehicle_basic_manage" sequence="40"/> <!--定额管理-->
 
         <menuitem name="vehicle_use_manage" id="vehicle_use_manage" parent="vehicle_manage_menu_root" sequence="20"/> <!--车辆使用管理-->

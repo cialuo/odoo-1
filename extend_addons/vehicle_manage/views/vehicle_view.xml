@@ -70,12 +70,23 @@
                         </div>
 
                         <notebook>
+
+                            <page string="Register Information">
+                                <group>
+                                    <field name="reg_no" />
+                                    <field name="reg_date" />
+                                    <field name="forced_destroy" />
+                                    <field name="annual_inspection_date" />
+                                    <field name="emissions"/>
+                                    <field name="vin_sn"/>
+                                </group>
+                            </page>
+
                             <page  string="General Properties">
                                 <group col="2">
                                     <group>
                                         <field name="company_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="route_id" options="{'no_open':True,'no_create':True}"/>
-                                        <field name="vin_sn"/>
                                         <field name="length_width_height"/>
                                         <field name="emission_standard"/>
                                         <field name="model_id" options="{'no_open':True,'no_create':True}" string="车型"/>
@@ -83,6 +94,7 @@
                                     </group>
                                     <group>
                                         <!--<field name="route_correct_value"/>-->
+                                        <field name="vehicle_code"/>
                                         <field name="deadline"/>
 
                                         <!--<field name="service_year"/>-->
@@ -129,15 +141,7 @@
                                     <field name="brand_name" />
                                 </group>
                             </page>
-                            <page string="Register Information">
-                                <group>
-                                    <field name="reg_no" />
-                                    <field name="reg_date" />
-                                    <field name="forced_destroy" />
-                                    <field name="annual_inspection_date" />
-                                    <field name="emissions"/>
-                                </group>
-                            </page>
+
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">
@@ -375,9 +379,9 @@
 
 
         <menuitem name="vehicle_manage" id="vehicle_manage"
-                  parent="vehicle_manage_menu.vehicle_basic_manage"
+                  parent="vehicle_manage_menu.vehicle_basic_info_menu"
                   action = "vehicle_manage_action"
-                  sequence="10"
+                  sequence="20"
                   groups="materials_product.base_extend_tech_user,vehicle_group.vehicle_driver"/>
 
         <menuitem name="vehicle_manage_model_brand" id="vehicle_manage_model_brand"
@@ -387,9 +391,9 @@
                   groups="materials_product.base_extend_tech_user"/>
 
         <menuitem name="vehicle_manage_model" id="vehicle_manage_model"
-                  parent="vehicle_manage_menu.warranty_maintain_basic_manage"
+                  parent="vehicle_manage_menu.vehicle_basic_info_menu"
 				  action = "vehicle_manage_model_action"
-                  sequence="40"
+                  sequence="10"
                   groups="materials_product.base_extend_tech_user"/>
 
         <menuitem name="vehicle_manage_emission_standard" id="vehicle_manage_emission_standard"
