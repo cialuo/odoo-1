@@ -5,8 +5,8 @@ from odoo import models, fields, api
 class lty_advanced_workflow_cfg(models.Model):
     _name = 'lty.advanced.workflow.cfg'
 
-    name = fields.Char()
-    code = fields.Char()
+    name = fields.Char(required=True)
+    code = fields.Char(required=True)
     note = fields.Char()
     model = fields.Many2one('ir.model')
     start_status = fields.Selection([
@@ -38,7 +38,7 @@ class lty_advanced_workflow_cfg_line(models.Model):
     _name = 'lty.advanced.workflow.cfg.line'
 
     squence = fields.Integer()
-    name = fields.Char()
+    name = fields.Char(required=True)
     conditions = fields.Char()
     approve_type =  fields.Selection([
             ('singel', 'singel'),

@@ -2,7 +2,7 @@
   <data>
     <record model="ir.ui.view" id="lty_advanced_workflow_approve_center_list">
       <field name="name">lty_advanced_workflow_approve_center list</field>
-      <field name="model">lty.advanced.workflow.approve.center</field>
+      <field name="model">lty.approve.center</field>
       <field name="arch" type="xml">
         <tree>
           <field name="approve_node"/>
@@ -14,9 +14,9 @@
 
 	<record id="lty_advanced_workflow_approve_center_form" model="ir.ui.view">
 		<field name="name">lty_advanced_workflow_approve_center form</field>
-		<field name="model">lty.advanced.workflow.approve.center</field>
+		<field name="model">lty.approve.center</field>
 		<field name="arch" type="xml">
-			<form string="Approve cfg">
+			<form string="Approve Center">
 				<header>
                     <button name="do_approve" string="Approve" type="object" class="oe_highlight"/>
                     <button name="do_reject" string="Reject" type="object" class="oe_highlight"/>
@@ -29,16 +29,26 @@
                             <field name="description"/>
                             <field name="approve_node"/>
                             <field name="object_id"/>
+                            <field name="cfg_line_id"/>							
 						</group>
 						<group>
                             <field name="commit_date"/>
                             <field name="source"/>
-                            <field name="approve_opinions"/>							
+                            <field name="approve_opinions"/>	
+                            <field name="active"/>
 						</group>
 					</group>
 					<notebook>
-						<page string = 'workflow config'>
-						
+						<page string = 'Approve logs'>
+                            <field name="line_ids">
+								<tree editable='bottom'>
+									<field name="name" readonly='1'/>
+									<field name="user_id" readonly='1'/>
+									<field name="approve_date" readonly='1' />
+									<field name="approve_status" readonly='1'/>
+									<field name="approve_opinions" readonly='1'/>
+								</tree>
+							</field>
 						</page>
 					</notebook>
                 </sheet>
@@ -54,8 +64,8 @@
 	
     <!-- actions opening views on models -->
     <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_action">
-      <field name="name">Approve cfg</field>
-      <field name="res_model">lty.advanced.workflow.approve.center</field>
+      <field name="name">Approve Center</field>
+      <field name="res_model">lty.approve.center</field>
       <field name="view_mode">tree,form</field>
     </record>
 

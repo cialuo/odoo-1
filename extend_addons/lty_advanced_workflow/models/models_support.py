@@ -10,21 +10,27 @@ class ProductTemplate(models.Model):
         link_obj = self.env['lty.advanced.workflow.cfg']
         #return [(r.object, r.name) for r in link_obj.search([])]    
         return 1
-    adv_wkf_id = fields.Many2one('lty.advanced.workflow.cfg', default=_adv_wkf_id_get )
+    #adv_wkf_id = fields.Many2one('lty.advanced.workflow.cfg', default=_adv_wkf_id_get )
     adv_wkf_status = fields.Char()
     
     @api.model
     @api.multi
     def create(self, vals):
         productid = super(ProductTemplate, self).create(vals)
-        productid.id
-        self._name
-        self._name
-        cfg_obj = self.env['lty.advanced.workflow.cfg']
-        cfg_obj.search([('model', 'ilike', '')], limit=1)
-        
-        
-        
+        obj_id = self.env['ir.model'].search([('model', 'ilike', self._name)], limit=1).id
+        cfg_id =  self.env['lty.advanced.workflow.cfg'].search([('model', '=',obj_id)], limit=1).id
+        for cfg_line in self.env['lty.advanced.workflow.cfg'].browse(cfg_id).line_ids :
+            print cfg_line
+            val_dict = {
+                'name': self.env['lty.advanced.workflow.cfg'].browse(cfg_id).code + '20170205001',  
+                'commit_date':'2017-1-1',  
+                'description':self.env['lty.advanced.workflow.cfg'].browse(cfg_id).name,                  
+                'object_id': self._name + ',' +str(productid.id), 
+                'approve_node':cfg_line.name,  
+                'status':'commited',  
+                'cfg_line_id':cfg_line.id,                               
+            }
+            self.env['lty.approve.center'].create(val_dict)
         return productid  
 
 
