@@ -25,7 +25,7 @@ class Entry(models.Model):
     _inherits = {'hr.employee': 'employee_id'}
 
     state = fields.Selection([('draft', 'Draft'), ('process', 'process'), ('done', 'Done')], string='States', default='draft')
-    leader_id = fields.Many2one('hr.employee', string='Leader', states={'draft': [('readonly', False)]}, readonly=True)
+    leader_id = fields.Many2one('hr.employee', string='Leader', states={'draft': [('readonly', False)]}, readonly=True, ondelete='restrict')
     employee_id = fields.Many2one('hr.employee', string='employee', states={'draft': [('readonly', False)]}, readonly=True)
     age = fields.Integer(string='Age', states={'draft': [('readonly', False)]}, readonly=True)
     ethnology = fields.Char(string='ethnology', states={'draft': [('readonly', False)]}, readonly=True)

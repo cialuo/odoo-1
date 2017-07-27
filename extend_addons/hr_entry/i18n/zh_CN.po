@@ -116,7 +116,7 @@ msgstr "当前合同"
 #. module: hr_entry
 #: model:ir.model.fields,field_description:hr_entry.field_hr_entry_exit_date
 msgid "Date Exit"
-msgstr "离职日期"
+msgstr "离职时间"
 
 #. module: hr_entry
 #: model:ir.model.fields,field_description:hr_entry.field_hr_entry_birthday
