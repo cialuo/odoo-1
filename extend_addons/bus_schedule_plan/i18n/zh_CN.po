@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-25 09:45+0000\n"
-"PO-Revision-Date: 2017-07-25 09:45+0000\n"
+"POT-Creation-Date: 2017-07-27 01:50+0000\n"
+"PO-Revision-Date: 2017-07-27 01:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -46,9 +46,19 @@ msgid "Algorithm note"
 msgstr "算法简介"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_bus_algorithm_date
+msgid "Bus algorithm date"
+msgstr "车辆轮趟算法修改日期"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_bus_algorithm_id
 msgid "Bus algorithm id"
 msgstr "车辆轮趟算法"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_bus_driver_algorithm_date
+msgid "Bus driver algorithm date"
+msgstr "司乘轮班算法修改日期"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_bus_driver_algorithm_id
@@ -354,16 +364,6 @@ msgid "Last Updated on"
 msgstr "最后更新时间"
 
 #. module: bus_schedule_plan
-#: selection:bus_date_type,type:0
-msgid "Long Vacation"
-msgstr "大长假"
-
-#. module: bus_schedule_plan
-#: selection:bus_date_type,type:0
-msgid "Minor Vacation"
-msgstr "小长假"
-
-#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_vehicle_type
 msgid "Model"
 msgstr "车型"
@@ -398,6 +398,11 @@ msgstr "备注"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_ride_number
 msgid "Ride Number"
 msgstr "核载人数"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_lineName
+msgid "Route"
+msgstr "线路名称"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_route_id
@@ -516,13 +521,6 @@ msgid "The sequence must be unique!"
 msgstr "序号必须唯一"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_staff_group.py:11
-#: sql_constraint:bus_staff_group:0
-#, python-format
-msgid "The staff name must be unique!"
-msgstr "排班名称必须唯一"
-
-#. module: bus_schedule_plan
 #: selection:bus_date_type,type:0
 msgid "Thursday"
 msgstr "周四"
@@ -531,6 +529,11 @@ msgstr "周四"
 #: selection:bus_date_type,type:0
 msgid "Tuesday"
 msgstr "周二"
+
+#. module: bus_schedule_plan
+#: selection:bus_date_type,type:0
+msgid "Vacation"
+msgstr "法定假日"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_vehicle_id
@@ -790,6 +793,11 @@ msgid "conductor"
 msgstr "售票员"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_conductor_jobnumber
+msgid "conductor_jobnumber"
+msgstr "售票员工号"
+
+#. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_rule_output_tree
 msgid "create rule"
 msgstr "create rule"
@@ -830,6 +838,15 @@ msgid "custom_bus"
 msgstr "custom_bus"
 
 #. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:43
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:45
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:47
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:49
+#, python-format
+msgid "date type have repeat of time"
+msgstr "选择的日期类型的时间有重复，请重新选择时间"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_downfirsttime
 msgid "down first time"
 msgstr "下行首班时间"
@@ -856,6 +873,11 @@ msgid "driver"
 msgstr "司机"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_driver_jobnumber
+msgid "driver_jobnumber"
+msgstr "司机工号"
+
+#. module: bus_schedule_plan
 #: selection:scheduleplan.schedulrule,schedule_method:0
 msgid "dubleway"
 msgstr "双头调"
@@ -863,8 +885,6 @@ msgstr "双头调"
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_conductor_jobnumber
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_jobnumber
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_conductor_jobnumber
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_driver_jobnumber
 msgid "employee work number"
 msgstr "工号"
 
@@ -873,6 +893,14 @@ msgstr "工号"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_endtime
 msgid "end time"
 msgstr "结束时间"
+
+#. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:34
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:61
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:84
+#, python-format
+msgid "end_date must be greater than start_date"
+msgstr "结束时间必须大于开始时间"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_executedate
