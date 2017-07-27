@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
   <data>
 
     <!--在原有的picking单据中增加人员-->
@@ -106,11 +106,10 @@
       <field name="name">issuance_of_material window</field>
       <field name="res_model">stock.picking</field>
       <field name="view_mode">tree,form</field>
-      <!--给动作指定搜索视图-->
-      <!--<field name="search_view_id" ref="view_issuance_of_material_search"/>-->
-      <!--指定默认参数，name与felter里的name相同-->
-      <!--<field name="context">{'search_default_issuance_of_material':'发料'}</field>-->
       <field name="domain">[('picking_type_id','ilike','发料')]</field>
+      <!--<field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('rewrite_materialout_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('rewrite_materialout_form')})]"/>-->
     </record>
 
 
@@ -288,4 +287,4 @@
               action="stock.action_picking_type_list" groups="stock.group_stock_user"/>
 
   </data>
-</openerp>
+</odoo>
