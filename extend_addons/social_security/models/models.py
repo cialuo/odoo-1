@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api,exceptions,_
 
 
 class SocialSecurity(models.Model):
@@ -42,6 +42,17 @@ class SocialSecurity(models.Model):
     # 身份证号
     id_card = fields.Char(related='employee_id.id_card', string='employee id_card', readonly=True)
 
+    @api.constrains('money_company')
+    def check_money_company(self):
+        for r in self:
+            if r.money_company < 0:
+                raise exceptions.ValidationError(_("The money company of safe kilometers needs to be greater than zero"))
+
+    @api.constrains('money_employee')
+    def check_money_employee(self):
+        for r in self:
+            if r.money_employee < 0:
+                raise exceptions.ValidationError(_("The money employee of safe kilometers needs to be greater than zero"))
 
 class HousingProvident(models.Model):
     """
@@ -76,13 +87,26 @@ class HousingProvident(models.Model):
     # 个人缴费
     money_employee = fields.Float(string='money employee', required=True)
 
-    # 社保账户
-    socialsecurityaccount = fields.Char(related='employee_id.socialsecurityaccount', string='employee socialsecurityaccount',
+    # 公积金账户
+    socialsecurityaccount = fields.Char(related='employee_id.housingprovidentaccount', string='housing provident account',
                             readonly=True)
 
     # 身份证号
     id_card = fields.Char(related='employee_id.id_card', string='employee id_card', readonly=True)
 
+    @api.constrains('money_company')
+    def check_money_company(self):
+        for r in self:
+            if r.money_company < 0:
+                raise exceptions.ValidationError(
+                    _("The money company of safe kilometers needs to be greater than zero"))
+
+    @api.constrains('money_employee')
+    def check_money_employee(self):
+        for r in self:
+            if r.money_employee < 0:
+                raise exceptions.ValidationError(
+                    _("The money employee of safe kilometers needs to be greater than zero"))
 
 class WorkInjury(models.Model):
     """
