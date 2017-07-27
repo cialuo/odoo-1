@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--部门form中增加编码-->
+        <record id="code_department_view_form" model="ir.ui.view">
+            <field name="name">code department form</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="employees.ltyhr_view_department_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='departmenttype']" position="after">
+                    <field name="code"/>
+                </xpath>
+            </field>
+        </record>
+        <!--岗位form中增加编码-->
+        <record id="code_workpost_view_form" model="ir.ui.view">
+            <field name="name">code workpost form</field>
+            <field name="model">employees.post</field>
+            <field name="inherit_id" ref="employees.ltyhr_view_post_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='description']" position="after">
+                    <field name="code"/>
+                </xpath>
+            </field>
+        </record>
+        <!--员工信息tree中增加组合编码显示-->
+        <record id="display_code_hr_view_tree" model="ir.ui.view">
+            <field name="name">display code hr tree</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="employees.ltyhr_view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath position="before" expr="//field[@name='name']">
+                    <field name="display_code"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
