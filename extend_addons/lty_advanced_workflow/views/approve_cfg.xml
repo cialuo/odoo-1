@@ -44,9 +44,9 @@
 									<field name="name"/>
 									<field name="conditions"/>
 									<field name="approve_type"/>
-									<field name="approve_posts"/>
+									<field name="approve_posts" widget="many2many_tags"/>
 									<field name="approved_nubmber"/>
-									<field name="next_node"/>
+									<field name="farther_node"/>
 									<field name="node_type"/>
 									<field name="note"/>
 									<field name="status"/>
@@ -69,8 +69,8 @@
 						<group>
                             <field name="squence"/>
                             <field name="conditions"/>
-                            <field name="approve_posts"/>
-                            <field name="next_node"/>
+                            <field name="approve_posts" widget="many2many_tags"/>
+                            <field name="farther_node"/>
                             <field name="note"/>
 						</group>
 						<group>

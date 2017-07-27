@@ -5,8 +5,9 @@
       <field name="model">lty.approve.center</field>
       <field name="arch" type="xml">
         <tree>
+          <field name="object_id"/>
+          <field name="description"/>
           <field name="approve_node"/>
-          <field name="name"/>
           <field name="status"/>
         </tree>
       </field>
@@ -36,6 +37,8 @@
                             <field name="source"/>
                             <field name="approve_opinions"/>	
                             <field name="active"/>
+                            <field name="approved"/>
+                            
 						</group>
 					</group>
 					<notebook>

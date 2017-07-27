@@ -23,7 +23,6 @@ class ProductTemplate(models.Model):
             print cfg_line
             val_dict = {
                 'name': self.env['lty.advanced.workflow.cfg'].browse(cfg_id).code + '20170205001',  
-                'commit_date':'2017-1-1',  
                 'description':self.env['lty.advanced.workflow.cfg'].browse(cfg_id).name,                  
                 'object_id': self._name + ',' +str(productid.id), 
                 'approve_node':cfg_line.name,  
