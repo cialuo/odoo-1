@@ -8,8 +8,9 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
     var Model = require('web.Model');
     var bus_source_config = Widget.extend({
         template:"bus_source_config",
-        init: function (parent, context) {
-            this._super(parent, context);
+        init: function (parent, data) {
+            this._super(parent, data);
+            this.location_data = data;
         },
         start: function () {
             var self = this;
@@ -20,21 +21,14 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
             });
         },
         events:{
-            'click .position_site':'show_map'
+            'click .position_site':'show_map',
+            'click .close_bt': 'closeFn'
+        },
+        closeFn: function(){
+            this.destroy();
         },
         show_map:function () {
-
         }
-
     });
-    var driver_map_info = Widget.extend({
-            template:"dirver_map_info",
-            init:function (parent, context) {
-                this._super(parent, context);
-            },
-            start: function () {
-                var self = this;
-            }
-    })
-    core.action_registry.add('bus_source_config.page', bus_source_config);
+    return bus_source_config;
 });

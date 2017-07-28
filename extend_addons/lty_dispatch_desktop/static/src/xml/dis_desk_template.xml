@@ -1,6 +1,31 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <template xml:space="preserve">
+	<t t-name="dispatch_desktop_component">
+		<div t-attf-controllerId="#{widget.data.component_ids}">
 
+		</div>
+	</t>
+	<t t-name="desktop_top">
+		<div>
+			<ul class="desktop_head">
+			<li>
+				<img src="/lty_dispatch_desktop/static/src/img/lty_logo.png" />
+				<div>蓝泰源智能公交调度系统</div>
+			</li>
+			<li id="nowDateTimeSpan"></li>
+			<li>
+				<div>
+					<img src="/lty_dispatch_desktop/static/src/img/icon_call.png"/>
+					<div class="desktop_head_deal">应急电话</div>
+				</div>
+				<div>
+					<img src="/lty_dispatch_desktop/static/src/img/icon_user.png"/>
+					<div class="desktop_head_deal">调度员：admin</div>
+				</div>
+			</li>
+		</ul>
+		</div>
+	</t>
     <t t-name="dispatch_desktop">
 		<t t-if="widget.dis_desk">
 				<div class="dispatch_desktop dragContent" t-attf-tid="#{widget.dis_desk.oneline.id}" t-attf-style="left:#{widget.dis_desk.oneline.line_show_or_hide.left}px;top:#{widget.dis_desk.oneline.line_show_or_hide.top}px;display:#{widget.dis_desk.oneline.line_show_or_hide.show};z-index:#{widget.dis_desk.oneline.line_show_or_hide.zIndex}">
@@ -204,7 +229,7 @@
 									<ul class="absnormal_operate fl">
 										<li>
 											<div class="absnormal_type">
-												<h4>异常</h4>
+												<h4>异常<span class="real_time_process">请及时处理</span></h4>
 												<p>实际客流大于运力供给30%</p>
 											</div>
 											<div class="absnormal_sug">
@@ -213,9 +238,13 @@
 											</div>
 										</li>
 										<li class="handleBtn ovf">
-											<a>驳回</a>
-											<a>校准</a>
+											<a class="manual" href="javascript:;">人工</a>
+											<a class="process_check" href="javascript:;">校准</a>
 											<a>忽略</a>
+										</li>
+										<li class="no_absnormal">
+											<h4>异常</h4>
+											<p>无</p>
 										</li>
 									</ul>
 								</div>
@@ -236,7 +265,7 @@
 											</div>
 										</li>
 										<li class="handleBtn ovf">
-											<a>驳回</a>
+											<a>人工</a>
 											<a>校准</a>
 											<a>忽略</a>
 										</li>
@@ -265,97 +294,97 @@
 	<t t-name="config">
 		<div>
 			<div class="modal fade config" tabindex="-1" role="dialog">
-		  <div class="modal-dialog" role="document">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-				<h4 class="modal-title">配置</h4>
-			  </div>
-			  <div class="modal-body">
-				<div>
-					<dl>
-						<dt>背景设置</dt>
-						<dd>
-							<span>
-								背景色
-							</span>
-								<input type="color"/>
-						</dd>
-						<dd>
-							<span>资源字体颜色设置</span>
-							<input type="color" class="src_font_color"/>
-						</dd>
-						<dd>资源字体大小设置</dd>
-					</dl>
-					<dl>
-						<dt>资源设置</dt>
-						<dd>
-							<div>配车数量</div>
+			    <div class="modal-dialog" role="document">
+					<div class="modal-content">
+					    <div class="modal-header">
+						    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						    <h4 class="modal-title">配置</h4>
+					    </div>
+					  <div class="modal-body">
+						<div>
+							<dl>
+								<dt>背景设置</dt>
+								<dd>
+									<span>
+										背景色
+									</span>
+										<input type="color"/>
+								</dd>
+								<dd>
+									<span>资源字体颜色设置</span>
+									<input type="color" class="src_font_color"/>
+								</dd>
+								<dd>资源字体大小设置</dd>
+							</dl>
+							<dl>
+								<dt>资源设置</dt>
+								<dd>
+									<div>配车数量</div>
+									<div>
+										<input type="checkbox" id="bus_num_config" class="src_config"/>
+										<label for="bus_num_config" class="green"></label>
+									</div>
+								</dd>
+								<dd>
+									<div>机动车辆</div>
+									<div>
+										<input type="checkbox" id="motor_vehicle" class="src_config"/>
+										<label for="motor_vehicle" class="green"></label>
+									</div>
+								</dd>
+								<dd>
+									<div>维保停运</div>
+									<div>
+										<input type="checkbox" id="bus_outage" class="src_config"/>
+										<label for="bus_outage" class="green"></label>
+									</div>
+								</dd>
+								<dd>
+									<div>共享机动</div>
+									<div>
+										<input type="checkbox" id="share_bus" class="src_config"/>
+										<label for="share_bus" class="green"></label>
+									</div>
+								</dd>
+								<dd>
+									<div>信号在线</div>
+									<div>
+										<input type="checkbox" id="signal_online" class="src_config"/>
+										<label for="signal_online" class="green"></label>
+									</div>
+								</dd>
+								<dd>
+									<div>司机</div>
+									<div>
+										<input type="checkbox" id="bus_driver" class="src_config"/>
+										<label for="bus_driver" class="green"></label>
+									</div>
+								</dd>
+								<dd>
+									<div>乘务员</div>
+									<div>
+										<input type="checkbox" id="src_config" class="src_config"/>
+										<label for="src_config" class="green"></label>
+									</div>
+								</dd>
+							</dl>
 							<div>
-								<input type="checkbox" id="bus_num_config" class="src_config"/>
-								<label for="bus_num_config" class="green"></label>
-							</div>
-						</dd>
-						<dd>
-							<div>机动车辆</div>
-							<div>
-								<input type="checkbox" id="motor_vehicle" class="src_config"/>
-								<label for="motor_vehicle" class="green"></label>
-							</div>
-						</dd>
-						<dd>
-							<div>维保停运</div>
-							<div>
-								<input type="checkbox" id="bus_outage" class="src_config"/>
-								<label for="bus_outage" class="green"></label>
-							</div>
-						</dd>
-						<dd>
-							<div>共享机动</div>
-							<div>
-								<input type="checkbox" id="share_bus" class="src_config"/>
-								<label for="share_bus" class="green"></label>
-							</div>
-						</dd>
-						<dd>
-							<div>信号在线</div>
-							<div>
-								<input type="checkbox" id="signal_online" class="src_config"/>
-								<label for="signal_online" class="green"></label>
-							</div>
-						</dd>
-						<dd>
-							<div>司机</div>
-							<div>
-								<input type="checkbox" id="bus_driver" class="src_config"/>
-								<label for="bus_driver" class="green"></label>
-							</div>
-						</dd>
-						<dd>
-							<div>乘务员</div>
-							<div>
-								<input type="checkbox" id="src_config" class="src_config"/>
-								<label for="src_config" class="green"></label>
-							</div>
-						</dd>
-					</dl>
-					<div>
 
-				</div>
-				</div>
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-primary config_btn">确认</button>
-				<button type="button" class="btn btn-default btn_cancel">取消</button>
-			  </div>
-			</div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
-		</div>
+						</div>
+						</div>
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-primary config_btn">确认</button>
+						<button type="button" class="btn btn-default btn_cancel">取消</button>
+					    </div>
+					</div><!-- /.modal-content -->
+			    </div><!-- /.modal-dialog -->
+			</div>
 		</div>
 	</t>
 
 	<t t-name="bus_source_config">
-		<div class="dragContent bus_src_config">
+		<div class="dragContent bus_src_config" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
 			<div class="src_title">
 				<div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
 				<div class="line_list">
@@ -388,6 +417,7 @@
 						<th class="th0">下趟发车</th>
 						<th class="th0">回场时间</th>
 						<th class="th1">能源剩余里程</th>
+						<th class="th1">操作</th>
 					</tr>
 					<tr>
 						<td>16</td>
@@ -404,6 +434,7 @@
 						<td>9：00am</td>
 						<td>11：00am</td>
 						<td>14km</td>
+						<td>加入运营并添加计划</td>
 					</tr>
 					<tr>
 						<td>16</td>
@@ -615,7 +646,12 @@
 		</div>
 	</t>
 
+	<t t-name=""></t>
+
 	<t t-name="driver_map_info">
+		<div id="map_info">
+
+		</div>
 
 	</t>
 </template>

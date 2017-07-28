@@ -38,17 +38,18 @@ function drag(oDrag, handle) {
             var maxL = document.documentElement.clientWidth - oDrag.offsetWidth;
             var maxT = document.documentElement.clientHeight - oDrag.offsetHeight;
             iL <= 0 && (iL = 0);
-            iT <= 0 && (iT = 0);
+            iT <= 50 && (iT = 50);
             iL >= maxL && (iL = maxL);
             iT >= maxT-50 && (iT = maxT-50);
             oDrag.style.marginTop = 0 + "px";
             oDrag.style.marginLeft = 0 + "px";
             oDrag.style.left = iL + "px";
             oDrag.style.top = iT + "px";
-            return false
+            return false;
         };
 
-        document.onmouseup = function () {
+        document.onmouseup = function (e) {
+            e.stopPropagation();
             document.onmousemove = null;
             document.onmouseup = null;
             this.releaseCapture && this.releaseCapture();
@@ -68,18 +69,19 @@ function drag(oDrag, handle) {
 
 
 }
+var hasmove =false;
 function dragFn(parent, title) {
-	var k = 1;
 	var c_class = "."+parent + " ." + title;
     var p_class = "."+parent;
-	$("body").on('mouseover', p_class, function () {
-        // oDrag = $(this).parents("." + parent)[0];
-		var oDrag = $(this)[0];
+    var k=0;
+	$("body").on('mouseover', c_class, function () {
+       var oDrag = $(this).parents("." + parent)[0];
+		// var oDrag = $(this).parents(parent)[0];
         if ($.inArray("nofix", oDrag.classList)==-1){
             if ($.inArray("layer_defined", oDrag.classList)!=-1){
                 oDrag.style.zIndex = 20000001;
             }else{
-                oDrag.style.zIndex = k;
+                // oDrag.style.zIndex = 2;
             }
         }
         var oTitle = get.byClass(title, oDrag);
@@ -87,16 +89,25 @@ function dragFn(parent, title) {
             drag(oDrag, oTitle[i]);
         }
 	});
-	$("body").on('mouseout', p_class, function () {
-        var oDrag = $(this)[0];
-        if ($.inArray("nofix", oDrag.classList)!=-1){
-            return false;
-        }
-        if ($.inArray("layer_defined", oDrag.classList)!=-1){
-            oDrag.style.zIndex = 20000000;
-            return false;
-        }
-	    oDrag.style.zIndex = 0;
+	$("body").on('mousedown', p_class, function (e) {
+	        if(k!=$(this).css('z-index')||k==0){
+            k++;
+            }
+            var oDrag = $(this)[0];
+            if ($.inArray("nofix", oDrag.classList)!=-1){
+                return false;
+            }
+            if ($.inArray("layer_defined", oDrag.classList)!=-1){
+                oDrag.style.zIndex = 20000000;
+                return false;
+            }
+            oDrag.style.zIndex = k;
+    });
+    $("body").on('mousemove', c_class, function () {
+        hasmove=true;
+    });
+    $("body").on('mousedown', c_class, function () {
+        hasmove=false;
     });
 }
 window.onload = window.onresize = function () {
