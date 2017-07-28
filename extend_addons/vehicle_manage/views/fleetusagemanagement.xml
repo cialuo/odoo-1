@@ -30,6 +30,7 @@
         <field name="res_model">fleet.vehicle</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('entry_state','=','audited')]</field>
         <field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_vehicle_inspect_tree_list')})]"/>
     </record>
@@ -136,6 +137,18 @@
         <field name="model">vehicle_usage.inspectionrecords</field>
         <field name="arch" type="xml">
             <form string="inspection plan records Form">
+
+                <!--2017年7月25日 新增状态条-->
+                <header>
+
+                     <button name="action_draft_to_passed" states="draft"
+                             string="Draft to passed"
+                             type="object"
+                             class="oe_highlight"/>
+
+                    <field name="state"  widget="statusbar"/>
+                </header>
+
                 <sheet>
                     <group>
                         <field name="vehicle_id" />
@@ -172,6 +185,7 @@
                 <field name="route_id" />
                 <field name="inspectiondate" />
                 <field name="inspectionexpire" />
+                <field name="state" />
                 <field name="total_odometer" />
             </tree>
         </field>
@@ -333,6 +347,7 @@
         <field name="res_model">fleet.vehicle</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('entry_state','=','audited')]</field>
         <field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('vehicle_usage_records_tree_list')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('vehicle_usage_records_view_form')})

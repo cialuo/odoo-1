@@ -40,6 +40,7 @@ class WarrantyProject(models.Model): # 保修项目
 
     inspection_criteria = fields.Text() # 检验标准
 
+    is_materials = fields.Boolean(string='Is Materials',defaul=False)
 
 class WarrantyProjectProduct(models.Model): # 维保项目_用料清单
     _name = 'warranty_project_product'

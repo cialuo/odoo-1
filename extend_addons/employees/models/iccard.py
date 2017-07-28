@@ -26,7 +26,7 @@ class ICCard(models.Model):
         ('blockup','blockup'),      # 停用
     ], string='status', default='inactive')
     # 员工
-    employee_id = fields.Many2one('hr.employee', string='employee', default=None, copy=False)
+    employee_id = fields.Many2one('hr.employee', string='employee', default=None, copy=False,ondelete='restrict')
     # 启用日期
     active_date = fields.Date(string='active date')
     # 停用日期
@@ -73,7 +73,7 @@ class CardDispatchRecords(models.Model):
     # 关联的ic卡
     iccar_id = fields.Many2one('employees.iccards', string='IC Card', ondelete='cascade')
     # 领卡用户
-    user = fields.Many2one('hr.employee', string='ic Card User')
+    user = fields.Many2one('hr.employee', string='ic Card User',domain=[('iccard','=',False)])
     # 发卡时间
     dispatchtime = fields.Date('dispatch date', default=lambda self:datetime.today())
     # 发卡原因

@@ -1,0 +1,215 @@
+<odoo>
+    <data>
+
+        <!--Vehicle Tree-->
+        <record id='vehicle_entry_view_tree' model='ir.ui.view'>
+            <field name="name">vehicle.tree</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="priority">110</field>
+            <field name="arch" type="xml">
+                <tree string="Vehicle">
+                    <field name="active" invisible="1"/>
+                    <field name="license_plate" />
+                    <field name="inner_code" />
+                    <field name="company_id" />
+                    <field name="route_id" />
+                    <field name="annual_inspection_date" />
+                    <field name="state"/>
+                    <field name="total_odometer"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!--Vehicle Form-->
+        <record id='vehicle_entry_view_form' model='ir.ui.view'>
+            <field name="name">fleet_vehicle.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="priority">110</field>
+            <field name="arch" type="xml">
+                <form string="Vehicle">
+                    <header>
+                        <button name="draft_to_submitted" entry_state="draft" string="draft_to_submitted" type="object" class="oe_highlight" attrs="{'invisible':[('entry_state', '!=', 'draft')]}"/>
+                        <button name="submitted_to_audited" entry_state="submitted" string="submitted_to_audited" type="object" class="oe_highlight" attrs="{'invisible':[('entry_state', '!=', 'submitted')]}"/>
+                        <button name="submitted_to_draft" entry_state="submitted" string="submitted_to_draft" type="object" attrs="{'invisible':[('entry_state', '!=', 'submitted')]}"/>
+                        <field name="entry_state"  widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <!--<div class="oe_button_box" name="button_box">
+                            <button name="return_action_to_open"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-tachometer"
+                                    attrs="{'invisible': [('total_odometer', '=', 0)]}"
+                                    context="{'xml_id':'fleet_vehicle_odometer_action'}"
+                                    help="show the odometer logs for this vehicle" >
+                                    <field name="total_odometer" widget="statinfo" string="Odometer"/>
+                            </button>
+                        </div>-->
+                        <field name="image_medium" widget='image' class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="inner_code" class="oe_edit_only"/>
+                            <h1>
+                                <field name="inner_code"/>
+                            </h1>
+                            <label for="license_plate" class="oe_edit_only"/>
+                            <h2>
+                                <field name="license_plate" class="oe_inline"/>
+                            </h2>
+                            <label for="tag_ids" class="oe_edit_only"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                        </div>
+
+                        <notebook>
+
+                            <page string="Register Information">
+                                <group>
+                                    <field name="reg_no" />
+                                    <field name="reg_date" />
+                                    <field name="forced_destroy" />
+                                    <field name="annual_inspection_date" attrs="{'readonly':[('entry_state','!=','draft')]}"/>
+                                    <field name="emissions"/>
+                                    <field name="vin_sn"/>
+                                </group>
+                            </page>
+
+                            <page  string="General Properties">
+                                <group col="2">
+                                    <group>
+                                        <field name="company_id" options="{'no_open':True,'no_create':True}"/>
+                                        <field name="route_id" options="{'no_open':True,'no_create':True}"/>
+                                        <field name="length_width_height"/>
+                                        <field name="emission_standard"/>
+                                        <field name="model_id" options="{'no_open':True,'no_create':True}" string="车型"/>
+                                        <field name="start_service_date" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <!--<field name="route_correct_value"/>-->
+                                        <field name="vehicle_code"/>
+                                        <field name="deadline"/>
+
+                                        <!--<field name="service_year"/>-->
+                                        <field name="salvage_rate"/>
+
+                                        <field name="conductor" widget="many2many_tags" domain="[('lines','=',route_id)]"/>
+                                        <field name="driver"  widget="many2many_tags"  domain="[('lines','=',route_id)]"/>
+
+                                        <field name="vehicle_label"/>
+                                    </group>
+                                </group>
+
+                                <separator string="Location Info"/>
+                                <group name="top">
+                                    <group name="top-left">
+                                        <field name="location_id" readonly="1"/>
+                                        <field name="location_stock_id" readonly="1"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                            <page  string="Technical Properties">
+                                <group>
+                                    <field name="engine_no" />
+                                    <field name="transmission_ext" />
+                                    <field name="fuel_type_ext" />
+                                    <label for="co2_ext"/>
+                                    <div class="o_row">
+                                        <field name="co2_ext"/><span>g/km</span>
+                                    </div>
+                                    <field name="horsepower_ext" />
+                                    <label for="power_ext"/>
+                                    <div class="o_row">
+                                        <field name="power_ext"/><span>kW</span>
+                                    </div>
+                                    <field name="weight" />
+                                </group>
+                            </page>
+                            <page string="Appearance Properties">
+                                <group>
+                                    <field name="doors_ext" />
+                                    <field name="seats_ext" />
+                                    <field name="color" />
+                                    <field name="brand_name" />
+                                </group>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id='fleet_vehicle_view_kanban_extend' model='ir.ui.view'>
+            <field name="name">fleet.vehicle.kanban</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="priority">110</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="license_plate" />
+                    <field name="model_id" />
+                    <field name="inner_code" />
+                    <field name="image" />
+                    <field name="route_id" />
+                    <field name="tag_ids" />
+
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_tags_section">
+                                    <field name="tag_ids"/>
+                                </div>
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('fleet.vehicle', 'image_small', record.id.value)"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong>
+                                        <field name="inner_code"/> : <field name="license_plate"/>
+                                    </strong>
+                                    <ul>
+                                        <li>
+                                            <t t-if="record.route_id.raw_value"><field name="route_id"/></t>
+                                        </li>
+                                        <li>
+                                            <t t-if="record.model_id.raw_value"><field name="model_id"/></t>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <!-- Vehicle Action -->
+        <record id='vehicle_entry_view_action' model='ir.actions.act_window'>
+            <field name="name">vehicle_manage_action</field>
+            <field name="res_model">fleet.vehicle</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new vehicle.
+              </p>
+            </field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('fleet_vehicle_view_kanban_extend')}),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('vehicle_entry_view_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('vehicle_entry_view_form')})]"/>
+        </record>
+
+
+        <menuitem name="vehicle_manage_entry" id="vehicle_entry_view_menu"
+                  parent="vehicle_manage_menu.vehicle_basic_info_menu"
+                  action = "vehicle_entry_view_action"
+                  sequence="20"
+                  groups="materials_product.base_extend_tech_user,vehicle_group.vehicle_driver"/>
+
+    </data>
+</odoo>

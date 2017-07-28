@@ -132,6 +132,7 @@
             <field name="res_model">fleet.vehicle</field>
             <field name="view_type">form</field>
             <field name="view_model">tree,form</field>
+            <field name="domain">[('entry_state','=','audited')]</field>
             <field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('vehicle_life_cycle_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('vehicle_life_cycle_form')})

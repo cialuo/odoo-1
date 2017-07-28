@@ -19,7 +19,7 @@ class security_check_table(models.Model):
     responser = fields.Many2one('hr.employee', string='check_responser')
 
     # TODO many2one
-    parent_company = fields.Many2one('hr.department', related="responser.department_id", string='check_parent_company')
+    parent_company = fields.Many2one('hr.department', related="responser.department_id", string='check_parent_company',readonly=True)
 
     plan_detail = fields.One2many('security_manage.check_item_detail', 'check_table_item_id')
 
