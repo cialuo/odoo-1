@@ -79,8 +79,25 @@ class BusStaffGroup(models.Model):
     def scheduler_manage_auto_staff_group(self):
         staff_groups = self.read_group([], ['route_id'], groupby=['route_id'])
         for i in staff_groups:
-            print self.search(i['__domain'], order='id desc', limit=1)
+            res = self.search(i['__domain'], order='id desc', limit=1)
+            print res
+            d2 = datetime.datetime.strptime(res.bus_driver_algorithm_date, '%Y-%m-%d')
+            d1 = datetime.datetime.strptime(str(datetime.date.today()), '%Y-%m-%d')
+            print d1 ,d2  ,res.bus_driver_algorithm_id.cycle
+            if (d1-d2).days < res.bus_driver_algorithm_id.cycle: #未达到周期数
+                bus_algorithm_driver_date = res.bus_algorithm_date
+            else:
+                bus_algorithm_driver_date = datetime.date.today()
 
+            vals = {
+                'name': res.lineName + '/' + str(datetime.date.today()),
+                'route_id': res.route_id.id,
+                'bus_algorithm_id': res.bus_algorithm_id.id,
+                'bus_driver_algorithm_id': res.bus_driver_algorithm_id.id,
+                'bus_algorithm_driver_date': bus_algorithm_driver_date,
+                'bus_shift_id': res.bus_shift_id.id
+            }
+            print vals
 
     @api.model
     def run_scheduler(self):
