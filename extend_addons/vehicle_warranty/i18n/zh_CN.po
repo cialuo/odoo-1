@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-27 09:14+0000\n"
-"PO-Revision-Date: 2017-07-27 17:17+0800\n"
+"POT-Creation-Date: 2017-07-28 01:20+0000\n"
+"PO-Revision-Date: 2017-07-28 09:23+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -558,6 +558,11 @@ msgid "Into Maintain"
 msgstr "进入保养状态"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_project_is_materials
+msgid "Is Materials"
+msgstr "用料控制"
+
+#. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_is_top_level
 msgid "Is Top Level"
 msgstr "是否顶级类别"
@@ -1104,7 +1109,7 @@ msgstr "承修车间"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_report_repair_user
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_order_report_repair_user
 msgid "Report Name"
-msgstr "报修人"
+msgstr "送保人"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_require_trans
@@ -1810,7 +1815,7 @@ msgid "maintenance_settings_field"
 msgstr "退料校验"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_project.py:72
+#: code:addons/vehicle_warranty/models/warranty_project.py:73
 #, python-format
 msgid "max_count must be greater than or equal to change_count"
 msgstr "领用上限必须大于等于必换数量"

@@ -48,6 +48,7 @@
                             </group>
                             <group>
                                 <field name="code"/>
+                                <field name="is_materials"/>
                                 <field name="create_uid" readonly="1"/>
                                 <field name="create_date" readonly="1"/>
                                 <!--<field name="is_important_product"/>-->
@@ -56,7 +57,7 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Avail Product">
+                            <page string="Avail Product" attrs="{'invisible': [('is_materials', '!=', True)]}">
                                 <field name="avail_ids">
                                     <tree editable="bottom">
                                         <field name="product_id" options="{'no_open':True,'no_create':True}"/>
