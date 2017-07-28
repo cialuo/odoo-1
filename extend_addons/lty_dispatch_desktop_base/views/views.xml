@@ -57,7 +57,7 @@
 	  </field>      
       
     </record>
-    <menuitem name="Dispatch Desktop" id="lty_dispatch_desktop.dispatch_desktop_menu_test" parent="dispatch_monitor_menu.dispatch_work_menu"
+    <menuitem name="Dispatch Desktop" id="dispatch_control_desktop_menu2" parent="dispatch_monitor_menu.dispatch_work_menu"
               action="dispatch_control_desktop_action_window" sequence="0"/>
   </data>
 </openerp>
