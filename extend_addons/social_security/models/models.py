@@ -176,6 +176,7 @@ class WorkInjury(models.Model):
 
     # 公司认定附件
     attachments = fields.Binary(string="checking attachments")
+    attachment_ids = fields.Many2many('ir.attachment', string="checking attachments")
 
     # 状态
     state = fields.Selection([("draft", "draft"),                   # 草稿

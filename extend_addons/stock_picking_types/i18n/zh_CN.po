@@ -40,7 +40,7 @@ msgstr "批次/序列号码为打包作业"
 #. module: stock_picking_types
 #: model:ir.model.fields,field_description:stock_picking_types.field_stock_picking_pick_user
 msgid "Pick User"
-msgstr "领料人"
+msgstr "经手人"
 
 #. module: stock_picking_types
 #: model:ir.ui.menu,name:stock_picking_types.picking_material_picking
