@@ -28,7 +28,7 @@
                                     <li><a class="handle_exceptions" href="javascript:;">处理异常状态</a></li>
                                     <li><a class="schedule_a_return" href="javascript:;">安排回场任务</a></li>
                                     <li><a class="can_line" href="javascript:;">CAN总线</a></li>
-                                    
+
                                 </ul>
                             </div>
                             <div class="scene scene1">
