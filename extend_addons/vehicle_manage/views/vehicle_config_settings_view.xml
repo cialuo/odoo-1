@@ -15,6 +15,9 @@
                         <field name="work_fee"/>
                         <field name="average_day_number"/>
                     </group>
+                    <group string="Maintenance settings" name="Maintenance settings">
+                        <field name="maintenance_settings" widget="radio"/>
+                    </group>
                 </form>
             </field>
         </record>

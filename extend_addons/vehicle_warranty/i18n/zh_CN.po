@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-25 09:51+0000\n"
-"PO-Revision-Date: 2017-07-25 17:52+0800\n"
+"POT-Creation-Date: 2017-07-27 09:14+0000\n"
+"PO-Revision-Date: 2017-07-27 17:17+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.0.2\n"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:453
+#: code:addons/vehicle_warranty/models/warranty_order.py:462
 #, python-format
 msgid "\"percentage_work\" may not be Incorrect"
 msgstr "工时比例错误"
@@ -30,7 +30,7 @@ msgid "%s (copy)"
 msgstr "%s (副本)"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:283
+#: code:addons/vehicle_warranty/models/warranty_order.py:292
 #, python-format
 msgid "%s has been added to the Warranty Order!"
 msgstr "新增保养单%s"
@@ -42,7 +42,7 @@ msgid "%s has been added to the plan!"
 msgstr "新增计划单%s"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/stock.py:81
+#: code:addons/vehicle_warranty/models/stock.py:86
 #, python-format
 msgid "%s more than max_count %s"
 msgstr "%s超过最大数量%s"
@@ -116,8 +116,8 @@ msgid "Base price to compute the customer price. Sometimes called the catalog pr
 msgstr "计算客户报价的基准价格。也叫目录价格"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:299
-#: code:addons/vehicle_warranty/models/warranty_order.py:741
+#: code:addons/vehicle_warranty/models/warranty_order.py:308
+#: code:addons/vehicle_warranty/models/warranty_order.py:750
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_form
 #, python-format
 msgid "Batch Dispatch"
@@ -219,6 +219,7 @@ msgstr "代码"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_company_id
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_company_id_stting
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_company_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_order_fleet
 msgid "Company"
@@ -473,7 +474,7 @@ msgid "ID Path"
 msgstr "ID路径"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:422
+#: code:addons/vehicle_warranty/models/warranty_order.py:431
 #, python-format
 msgid "Incorrect 'percentage_work' value"
 msgstr "工时比例错误"
@@ -680,7 +681,7 @@ msgid "Maintain Repair"
 msgstr "维修故障"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:133
+#: code:addons/vehicle_warranty/models/warranty_order.py:140
 #, python-format
 msgid "Maintain Repair Jobs Required!"
 msgstr "工时管理必填"
@@ -693,7 +694,7 @@ msgstr "MaintainRepair Form"
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_account_view_form
 msgid "MaintainRepair Jobs"
-msgstr "工时管理"
+msgstr "工时核算"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_reject_maintainsheet_name
@@ -736,7 +737,7 @@ msgid "Manhour Manage"
 msgstr "工时管理"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:213
+#: code:addons/vehicle_warranty/models/warranty_order.py:220
 #, python-format
 msgid "Manhour Manage Ids Required!"
 msgstr "工时管理必填"
@@ -750,6 +751,12 @@ msgstr "物料"
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_form
 msgid "Material Code"
 msgstr "物料编码"
+
+#. module: vehicle_warranty
+#: code:addons/vehicle_warranty/models/stock.py:107
+#, python-format
+msgid "Material inconsistent"
+msgstr "退料物资与领料物资不匹配!"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_materials_product_ids
@@ -1156,26 +1163,26 @@ msgid "Select category for the current product"
 msgstr "为当前产品选择一个类别"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:882
+#: code:addons/vehicle_warranty/models/warranty_order.py:891
 #, python-format
 msgid "Selected project cannot be check as they are not in 'check' state"
 msgstr "非检验状态的项目不能检验通过"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:862
+#: code:addons/vehicle_warranty/models/warranty_order.py:871
 #, python-format
 msgid "Selected project cannot be check as they are not in 'maintain' state"
 msgstr "非保养状态的项目不能报检"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:651
+#: code:addons/vehicle_warranty/models/warranty_order.py:660
 #, python-format
 msgid "Selected project cannot be complete as they are not in 'check' state"
 msgstr "非检验状态的项目不能检验通过"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:823
-#: code:addons/vehicle_warranty/models/warranty_order.py:847
+#: code:addons/vehicle_warranty/models/warranty_order.py:832
+#: code:addons/vehicle_warranty/models/warranty_order.py:856
 #, python-format
 msgid "Selected project cannot be return as they are not in 'check' state."
 msgstr "非检验状态的项目不能退回返工"
@@ -1271,13 +1278,19 @@ msgid "Tech Satrap"
 msgstr "技术机务主管"
 
 #. module: vehicle_warranty
+#: code:addons/vehicle_warranty/models/stock.py:111
+#, python-format
+msgid "The amount of material returned exceeds the number of picking materials"
+msgstr "退料的物资数量比领料的物资数量多!"
+
+#. module: vehicle_warranty
 #: code:addons/vehicle_warranty/models/warranty_interval.py:42
 #, python-format
 msgid "The category and mileage must be unique!"
 msgstr "保养类别和间隔里程确保唯一!"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:423
+#: code:addons/vehicle_warranty/models/warranty_order.py:432
 #, python-format
 msgid "The percentage_work may not be Incorrect"
 msgstr "工时比例不正确"
@@ -1792,6 +1805,11 @@ msgid "maintain_sheet_item.action"
 msgstr "保养单项目"
 
 #. module: vehicle_warranty
+#: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_maintenance_settings
+msgid "maintenance_settings_field"
+msgstr "退料校验"
+
+#. module: vehicle_warranty
 #: code:addons/vehicle_warranty/models/warranty_project.py:72
 #, python-format
 msgid "max_count must be greater than or equal to change_count"
@@ -1810,7 +1828,7 @@ msgid "plan_month_time"
 msgstr "计划时间"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/stock.py:67
+#: code:addons/vehicle_warranty/models/stock.py:72
 #, python-format
 msgid "product is not exist,please remove:%s"
 msgstr "可领物料不存在%s，请移除"
@@ -1832,7 +1850,7 @@ msgid "sheetIds"
 msgstr "工单"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:292
+#: code:addons/vehicle_warranty/models/warranty_order.py:301
 #, python-format
 msgid "this \"percentage_work\" may not be Incorrect"
 msgstr "工时比例不正确"
@@ -1857,7 +1875,7 @@ msgid "wait"
 msgstr "等待执行"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:336
+#: code:addons/vehicle_warranty/models/warranty_order.py:345
 #, python-format
 msgid "warranty order not in draft state can not delete"
 msgstr "保养单只有在草稿状态下才能删除"

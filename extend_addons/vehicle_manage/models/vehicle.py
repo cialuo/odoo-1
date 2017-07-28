@@ -83,7 +83,7 @@ class Vehicle(models.Model):
                                  default=lambda self: self.env['res.company']._company_default_get('fleet.vehicle'),
                                  index=True, required=True)
 
-    average_day_number = fields.Integer(related='company_id_s.average_day_number', default=30)
+    average_day_number = fields.Integer(related='company_id_s.average_day_number')
 
     @api.depends('driverecords')
     def _compute_daily_mileage(self):

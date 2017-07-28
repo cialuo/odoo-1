@@ -62,6 +62,13 @@ class WarrantyOrder(models.Model): # 保养单
 
     plan_order_ids = fields.One2many('warranty_plan_order', 'maintain_sheet_id', 'Plan Order')  # 保养计划单
 
+    #车辆设置
+    company_id_stting = fields.Many2one('res.company', 'Company',
+                                   default=lambda self: self.env['res.company']._company_default_get('warranty_order'),
+                                   index=True, required=True)
+    #是否验证数据
+    maintenance_settings = fields.Selection(related='company_id_stting.maintenance_settings')
+
     @api.multi
     def action_confirm_effective(self): # 确认生效 生成保养单
         self.ensure_one()
