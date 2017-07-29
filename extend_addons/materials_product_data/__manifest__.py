@@ -11,6 +11,7 @@
     'data': [
         'data/product.uom.csv',
         'data/product.category.csv',
+        'data/product.product.csv',
     ],
     'depends': ['materials_product'],
 }
