@@ -10,7 +10,7 @@
     """,
     'data': [
         'data/product.uom.csv',
-        # 'data/product.category.csv',
+        'data/product.category.csv',
     ],
     'depends': ['materials_product'],
 }
