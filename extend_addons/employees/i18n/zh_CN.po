@@ -420,7 +420,7 @@ msgstr "使用人"
 #. module: employees
 #: model:ir.actions.act_window,name:employees.certificate_action
 msgid "certificate"
-msgstr "特种工证照管理"
+msgstr "特种工证照"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_certificate_expiredate
@@ -456,7 +456,7 @@ msgstr "合同类型"
 #. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_contract_menu
 msgid "contracts_document"
-msgstr "劳动合同档案"
+msgstr "劳动合同"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employee_trainexperience_course
@@ -592,7 +592,7 @@ msgstr "员工"
 #. module: employees
 #: model:ir.ui.menu,name:employees.employee_certificate_menu
 msgid "employee certificate"
-msgstr "特种工证照管理"
+msgstr "特种工证照"
 
 #. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_document_department_menu
@@ -608,7 +608,7 @@ msgstr "入职时间"
 #: model:ir.actions.act_window,name:employees.employee_experience_management_action
 #: model:ir.ui.menu,name:employees.employee_experience_manage_menu
 msgid "employee experience manage"
-msgstr "员工履历管理"
+msgstr "职工履历"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.employees_certificate_form_view
@@ -618,7 +618,7 @@ msgstr "人员信息"
 #. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_document_employeeinfo_menu
 msgid "employee infomation"
-msgstr "员工信息档案"
+msgstr "员工信息"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_innertransfer_jobnumber
@@ -673,7 +673,7 @@ msgstr "退养"
 #. module: employees
 #: model:ir.actions.act_window,name:employees.ltyhr_employee_information
 msgid "employee view"
-msgstr "员工信息档案"
+msgstr "员工信息"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.lty_view_employee_form
@@ -696,7 +696,7 @@ msgstr "岗位"
 #: model:ir.actions.act_window,name:employees.employee_work_records_action
 #: model:ir.ui.menu,name:employees.employee_work_records_menu
 msgid "employee work records"
-msgstr "个人工作台账管理"
+msgstr "个人工作台账"
 
 #. module: employees
 #: model:ir.model,name:employees.model_employee_rewardspunishment
