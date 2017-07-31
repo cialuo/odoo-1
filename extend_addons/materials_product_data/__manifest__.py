@@ -7,10 +7,15 @@
     'summary': '',
     'author': 'Xiao',
     'description': """
+    1.0  
+         包含 物资计量单位数据
+              物资分类数据
+              物资数据
     """,
     'data': [
         'data/product.uom.csv',
-        # 'data/product.category.csv',
+        'data/product.category.csv',
+        'data/product.product.csv',
     ],
     'depends': ['materials_product'],
 }

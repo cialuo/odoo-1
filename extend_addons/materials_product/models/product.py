@@ -27,11 +27,12 @@ class Product(models.Model):
     shelf = fields.Char(string='Shelf')
     contract_price = fields.Float(string='Contract Price')
     tech_ids = fields.One2many('product.tech.info', 'product_id', string='Tec Info')
+    categ_id = fields.Many2one('product.category', help="Select category")
 
     _sql_constraints = [
         ('code_parent_category_uniq',
-         'unique (inter_code)',
-         u'物资编码必须唯一')
+         'unique (inter_code,categ_id)',
+         u'同分类物资编码必须唯一')
     ]
 
     @api.depends('inter_code', 'categ_id.code', 'parent_id.default_code')
