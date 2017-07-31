@@ -28,14 +28,14 @@
                                     <li><a class="handle_exceptions" href="javascript:;">处理异常状态</a></li>
                                     <li><a class="schedule_a_return" href="javascript:;">安排回场任务</a></li>
                                     <li><a class="can_line" href="javascript:;">CAN总线</a></li>
-                                    
+
                                 </ul>
                             </div>
                             <div class="scene scene1">
                                 <span class="sceneTitle">交互</span>
                                 <ul class="operationNav set2">
                                     <li><a class="news" href="javascript:;">消息</a></li>
-                                    <li><a class="notice" href="javascript:;">通知</a></li>
+                                    <!-- <li><a class="notice" href="javascript:;">通知</a></li> -->
                                     <li><a class="conversation" href="javascript:;">通话</a></li>
                                 </ul>
                             </div>
@@ -950,28 +950,22 @@
         </div>
     </t>
 
-    <t t-name="communication_template_box">
-        <div>
-            
-        </div>
-    </t>
-
     <t t-name="communication_template">
         <div>
-            <div class="communication">
-                <div class="directory">
-                    <t t-if="channel_info.channel.length>0">
+            <div class="communication dragContent nofix">
+                <div class="directory dragArea">
+                    <t t-if="widget.channel.length>0">
                         <div class="channel directory_part">
                             <div class="directory_title">频道</div>
                             <div class="children_directory">
-                                <t t-foreach="channel_info.channel" t-as="channel">
-                                    <t t-if="channel.id==channel_info.source_channel.id">
-                                        <div t-attf-class="children_o op_active" t-attf-id="{{channel.id}}" t-attf-img="{{channel.img}}">
+                                <t t-foreach="widget.channel" t-as="channel">
+                                    <t t-if="channel.id==widget.source_channel.id">
+                                        <div t-attf-class="children_o op_active" t-attf-id="{{channel.id}}" t-attf-name="{{channel.name}}" t-attf-img="{{channel.img}}">
                                             # <t t-esc="channel.name"></t>
                                         </div>
                                     </t>
                                     <t t-else="">
-                                        <div t-attf-class="children_o" t-attf-id="{{channel.id}}" t-attf-img="{{channel.img}}">
+                                        <div t-attf-class="children_o" t-attf-id="{{channel.id}}" t-attf-name="{{channel.name}}" t-attf-img="{{channel.img}}">
                                             # <t t-esc="channel.name"></t>
                                         </div>
                                     </t>
@@ -980,18 +974,18 @@
                         </div>
                     </t>
                     
-                    <t t-if="channel_info.direct_messages.length>0">
+                    <t t-if="widget.direct_messages.length>0">
                         <div class="direct_messages directory_part">
                             <div class="directory_title">私信</div>
                             <div class="children_directory">
-                                <t t-foreach="channel_info.direct_messages" t-as="direct_messages">
-                                    <t t-if="direct_messages.id==channel_info.source_channel.id">
-                                        <div t-attf-class="children_o op_active" t-attf-id="{{direct_messages.id}}" t-attf-img="{{direct_messages.img}}">
+                                <t t-foreach="widget.direct_messages" t-as="direct_messages">
+                                    <t t-if="direct_messages.id==widget.source_channel.id">
+                                        <div t-attf-class="children_o op_active" t-attf-id="{{direct_messages.id}}" t-attf-name="{{direct_messages.name}}" t-attf-img="{{direct_messages.img}}">
                                             # <t t-esc="direct_messages.name"></t>
                                         </div>
                                     </t>
                                     <t t-else="">
-                                        <div t-attf-class="children_o" t-attf-id="{{direct_messages.id}}" t-attf-img="{{direct_messages.img}}">
+                                        <div t-attf-class="children_o" t-attf-id="{{direct_messages.id}}" t-attf-name="{{direct_messages.name}}" t-attf-img="{{direct_messages.img}}">
                                             # <t t-esc="direct_messages.name"></t>
                                         </div>
                                     </t>
@@ -1004,31 +998,39 @@
 
                 <div class="chat_info">
                     <a class="close_bt" href="javascript:;"></a>
-                    <div class="chat_title">
-                        <t t-esc="channel_info.source_channel.name"></t>
+                    <div class="info_window">
+                        <div class="load_cont">加载中...</div>
                     </div>
-                    <div class="chat_content">
-                        <t t-if="channel_info.source_channel.is_history">
-                            <div class="history_info">
-                                <div class="history_query">
-                                    <a class="history_bt" associated_id="channel_info.source_channel.id" href="javascript:;">查看更多消息</a>
-                                    <p class="history_load">加载中...</p>
-                                </div>
-                            </div>
-                            <div class="current_info_fgx">---------以上是历史数据----------</div>
-                        </t>
-                        <div class="current_info">
-                            
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="info_window_template">
+        <div class="info_window_child" t-attf-data_id="data_{{widget.source_channel.id}}">
+            <div class="chat_title dragArea">
+                <t t-esc="widget.source_channel.name"></t>
+            </div>
+            <div class="chat_content">
+                <t t-if="widget.source_channel.is_history">
+                    <div class="history_info">
+                        <div class="history_query">
+                            <a class="history_bt" t-attf-associated_id="{{widget.source_channel.id}}" href="javascript:;">查看更多消息</a>
+                            <p class="history_load">加载中...</p>
                         </div>
                     </div>
-                    <div class="send_chat">
-                        <div class="o_composer_input o_composer">
-                            <textarea class="o_content_text" placeholder="写些什么..." tabindex="2" ></textarea>
-                        </div>
-                        <div class="o_composer_buttons o_composer">
-                            <a class="o_composer_button_send send_cont_bt" tabindex="3" type="button">发送</a>
-                        </div>
-                    </div>
+                    <div class="current_info_fgx">---------以上是历史数据----------</div>
+                </t>
+                <div class="current_info">
+                    
+                </div>
+            </div>
+            <div class="send_chat">
+                <div class="o_composer_input o_composer">
+                    <textarea class="o_content_text" placeholder="写些什么..." tabindex="2" ></textarea>
+                </div>
+                <div class="o_composer_buttons o_composer">
+                    <a class="o_composer_button_send send_cont_bt" t-attf-send_id="{{widget.source_channel.id}}" tabindex="3" type="button">发送</a>
                 </div>
             </div>
         </div>
@@ -1056,6 +1058,27 @@
                 <div class="user_send_info">
                     <t t-esc="info.cont"></t>
                 </div>
+            </div>
+        </div>
+    </t>
+    
+    <t t-name="communication_tc_box_template">
+        <div>
+            
+        </div>
+    </t>
+
+    <t t-name="communication_tc_template">
+        <div class="message_warned dragContent layer_defined" t-attf-style="margin-left: {{widget.def_data.mgl}}px;margin-top: {{widget.def_data.mgt}}px">
+            <h2 class="layui-layer-title dragArea cont_title">消息提醒
+                <a class="close_bt" href="javascript:;"></a>
+            </h2>
+            <div class="cont">
+                <t t-esc="widget.def_data.info.cont"></t>
+            </div>
+            <div class="bottom_bt">
+                <a class="go_perform" t-attf-data_id="{{widget.def_data.info.id}}" href="javascript:;">去处理</a>
+                <a class="cancel_bt" href="javascript:;">忽略</a>
             </div>
         </div>
     </t>

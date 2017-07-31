@@ -52,13 +52,12 @@ function cir_and_text(canvas) {
         var myColor = dataSite[i].color;
         if (dataSite[i].status == 0) {
             mySite = '';
-            myColor = '#ffffff'
+            myColor = '#ffffff';
         } else {
             mySite = dataSite[i].name;
-            myColor = dataSite[i].color
+            myColor = dataSite[i].color;
         }
         cxt.fillText(mySite, dataCir[i], testy, 50);
-        cxt.fill();
         cxt.closePath();
         //渲染圆环
         var obj_list = [
@@ -127,7 +126,6 @@ function can_left(canvas) {
     cxt.stroke();
     cxt.closePath();
     lineLen == 0 ? lineLeft = 9 : lineLeft = 17;
-
     //绘制弧线的半圆
     cxt.beginPath();
     cxt.arc(lineLeft, ciry + r, r, sta * Math.PI, (sta + 0.5) * Math.PI, false);
@@ -160,15 +158,14 @@ function can_left(canvas) {
 }
 //客流走势轮播组件
 function carousel(carousel) {
-    var self =carousel.self;
+    var self = carousel.self;
     var content = carousel.content;
-    console.log(content)
     var i = 0;
     var firstcarousel_content = self.$(content + '>li').first().clone(); //复制第一张图片
     //将第一张图片放到最后一张图片后，设置ul的宽度为图片张数*图片宽度
     self.$(content).append(firstcarousel_content).width(self.$(content + '>li').length * 600);
     //定时器自动播放
-   var timer = setInterval(function () {
+    var timer = setInterval(function () {
         i++;
         if (i == self.$(content + '>li').length) {
             i = 1;
@@ -193,7 +190,7 @@ function carousel(carousel) {
     });
 };
 //渲染车辆实况的cancvas图像
-function qrend_desktop(data, domT, domB, domL, domR,selfDom) {
+function qrend_desktop(data, domT, domB, domL, domR, selfDom) {
     var dataCir = data.oneline.site_to_startpoint;
     var color = data.oneline.plan_feedback;
     var dataSite = data.oneline.siteTop;
@@ -260,11 +257,12 @@ function qrend_desktop(data, domT, domB, domL, domR,selfDom) {
     );
 }
 //防止冒泡
-function stopPropagation(e){
-    e=window.event||e;
-    if(document.all){  //只有ie识别
-        e.cancelBubble=true;
-    }else{
+function stopPropagation(e) {
+    e = window.event || e;
+    if (document.all) {  //只有ie识别
+        e.cancelBubble = true;
+    } else {
         e.stopPropagation();
     }
 }
+
