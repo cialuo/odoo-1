@@ -3,11 +3,11 @@
     'name': "lty_server_access",
 
     'summary': """
-                            平台接入
+        lty_server_access
     """,
 
     'description': """
-                        平台接入
+        lty_server_access
     """,
 
     'author': "lihaihe",
@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','operation_menu'],
+    'depends': ['base','operation_menu','scheduling_parameters'],
 
     # always loaded
     'data': [
