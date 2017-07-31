@@ -6,10 +6,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
     var Widget = require('web.Widget');
     var Model = require('web.Model');
     var QWeb = core.qweb;
-    var dispatch_updown_line=require('lty_dispaych_desktop.updown_line');
+    var dispatch_updown_line = require('lty_dispaych_desktop.updown_line');
+    var bus_source_config = require('lty_dispatch_desktop.bus_source_config');
     var bus_real_info = require('lty_dispatch_desktop_widget.bus_real_info');
     var passenger_flow = require('lty_dispatch_desktop_widget.passenger_flow');
     var plan_display = require('lty_dispatch_desktop_widget.plan_display');
+
    //最原始车辆组件
     var dispatch_canvas=Widget.extend({
          template:'dispatch_desktop',
@@ -84,7 +86,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             'click .line_edit': 'show_chose_line',
             'click .type_car': 'bus_info',
             'click .canvas_left':'clk_can_left',
-            'click .canvas_right':'clk_can_right'
+            'click .canvas_right':'clk_can_right',
+            'mouseup .bus_info':'bus_man_src'
         },
         bus_info:function (e) {
             var car_num = e.target.textContent;
@@ -152,6 +155,24 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         show_chose_line: function () {
             var self = this;
             self.$('.edit_content').show();
+        },
+        bus_man_src:function (e) {
+            if(hasmove == false){
+            var self = this;
+            var line_id = e.delegateTarget.getAttribute("tid");
+            var options =
+                {
+                    x:e.clientX+5,
+                    y:e.clientY+5,
+                    zIndex:5,
+                    line_id: line_id,
+                };
+            var abc=new bus_source_config(this,options);
+            abc.appendTo($("body"));
+            }
+            hasmove = false;
+            document.onmousemove = null;
+            document.onmouseup = null;
         },
         //左侧的停车场的点击事件
         clickLr:function (canvas,e) {

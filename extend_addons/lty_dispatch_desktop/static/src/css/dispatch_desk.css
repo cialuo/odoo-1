@@ -1,3 +1,54 @@
+.desktop_head{
+    width:100%;
+    height:48px;
+    background:#151b2b;
+    display: flex;
+    padding-top: 10px;
+}
+.desktop_head>li{
+    height:28px;
+    width:33%;
+    line-height: 28px;
+    font-size:16px;
+    color: #fff;
+}
+.desktop_head>li:first-of-type{
+    padding-left: 30px;
+    display: flex;
+}
+.desktop_head>li:nth-of-type(2){
+    text-align: center;
+    color: #A3A6AD;
+}
+.desktop_head>li:nth-of-type(3){
+    padding-right: 20px;
+    color: #A3A6AD;
+    overflow: hidden;
+}
+.desktop_head>li:nth-of-type(3)>div{
+    float: right;
+    display: flex;
+}
+
+.desktop_head>li:nth-of-type(3) img{
+    margin-top:6px;
+    width:16px;
+    height:16px;
+}
+.desktop_head>li img{
+    width:36px;
+    height: 28px;
+}
+.desktop_head>li>div{
+    height: 28px;
+    line-height: 28px;
+    margin-left: 16px;
+}
+.desktop_head .desktop_head_deal{
+    margin-left: 8px;
+    margin-right: 16px;
+
+}
 .dispatch_desktop {
     position: absolute;
 }
@@ -47,6 +98,7 @@ canvas::selection {
     text-align: center;
     line-height: 30px;
     color: #A3A6AD;
+    cursor: pointer;
 }
 
 .dispatch_desktop .bus_info li:nth-of-type(8) {
@@ -295,7 +347,15 @@ canvas::selection {
     color: #fff;
     word-wrap: break-word;
 }
-
+.is_check{
+    width:204px !important;
+}
+.updown_line_table .no_absnormal{
+    display: none;
+}
+.updown_line_table .no_absnormal h4{
+    color: #4ecfc7;
+}
 .updown_line_table .handleBtn a {
     display: block;
     float: left;
@@ -309,6 +369,10 @@ canvas::selection {
     font-size: 14px;
     margin-right: 6px;
     cursor: pointer;
+}
+.updown_line_table .real_time_process{
+    display: none;
+    margin-left: 20px;
 }
 
 .updown_line_table .absnormal_type {
@@ -556,4 +620,117 @@ input[type="checkbox"] + label:before {
     background: #fff;
     border-radius: 50%;
     box-shadow: 1px 1px 3px #aaa;
+}
+
+/*车辆人力资源*/
+.bus_src_config {
+    width: 924px;
+    border: 1px solid #ccc;
+    background: #fff;
+    position: absolute;
+}
+.bus_src_config .src_title {
+    height: 46px;
+    /*overflow: hidden;*/
+}
+.bus_src_config .src_title .closeBox{
+    height: 12px;
+    background: #535252;
+    position: relative;
+}
+.bus_src_config .src_title .close_bt{
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    width: 16px;
+    background: #fff;
+    height: 4px;
+    vertical-align: middle;
+}
+.bus_src_config .line_list{
+    height: 34px;
+    padding-top: 8px;
+    padding-left: 10px;
+    padding-right: 20px;
+    background: #7c7bad;
+    color: #fff;
+
+}
+.bus_src_config .line_list .line_company{
+    overflow: hidden;
+    float: left;
+}
+.bus_src_config .line_list  li{
+    float:left;
+    height: 26px;
+    font-size:16px;
+    line-height: 26px;
+}
+.bus_src_config .line_src{
+    float: right;
+}
+.bus_src_config .line_src li{
+    font-size:14px;
+    width:96px;
+    background:#cdcde0;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    color: #000;
+    cursor: pointer;
+}
+
+.bus_src_config .line_src li:first-of-type{
+    border-top-left-radius: 2px;
+}
+.bus_src_config .line_src li:last-of-type{
+    border-top-right-radius: 2px;
+}
+.bus_src_config .line_src li.active{
+    height:28px;
+    line-height: 28px;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    margin-top: -2px;
+    background: #fff;
+}
+.bus_src_config .src_content{
+    height:380px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.bus_src_config .src_content table{
+    width:902px;
+    text-align: center;
+}
+.bus_src_config table th{
+    background:#eeeeee;
+}
+.bus_src_config th,.bus_src_config td{
+    height: 30px;
+    line-height: 30px;
+}
+.bus_src_config .th0{
+    border:1px solid #ccc;
+    border-right:0;
+}
+.bus_src_config .th1{
+    border:1px solid #ccc;
+}
+.bus_src_config tr:nth-child(2n-1){
+    background: #efeff8;
+}
+.bus_src_config .table_source{
+    display: none;
+}
+.map_info{
+    width:510px;
+    height:380px;
+    border:2px solid #ccc;
+}
+html, body {
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	position: absolute;
 }
