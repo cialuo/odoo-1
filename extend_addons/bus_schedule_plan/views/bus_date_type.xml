@@ -62,7 +62,7 @@
         <menuitem id="bus_date_type_menu" name="bus_date_type_menu"
                   parent="operation_menu.bus_working_plan_menu"
                   action="bus_date_type_action"
-                  sequence="80"/>
+                  sequence="90"/>
 
     </data>
 </odoo>

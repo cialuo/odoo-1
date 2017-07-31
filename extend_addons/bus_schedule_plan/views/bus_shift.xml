@@ -65,7 +65,7 @@
         <menuitem id="bus_shift_menu" name="bus_shift_menu"
                   parent="operation_menu.bus_working_plan_menu"
                   action="bus_shift_action"
-                  sequence="90"/>
+                  sequence="100"/>
 
     </data>
 </odoo>
