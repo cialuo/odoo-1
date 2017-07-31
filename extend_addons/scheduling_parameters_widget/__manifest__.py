@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "lty_dispatch_desktop_widget",
+    'name': "scheduling_parameters_widget",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,12 +20,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['lty_dispatch_desktop'],
+    'depends': ['scheduling_parameters', 'lty_dispatch_desktop_widget'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/template_view.xml',
+        'views/templates.xml',
         'views/views.xml',
     ],
     # only loaded in demonstration mode
