@@ -38,8 +38,6 @@ class WarrantyOrder(models.Model): # 保养单
 
     repair_unit = fields.Char()  # 承修单位
 
-    repair_workshop = fields.Char()  # 承修车间
-
     fleet = fields.Many2one("hr.department")  # 车队
 
     maintenance_level = fields.Char()  # 维修等级
@@ -50,7 +48,9 @@ class WarrantyOrder(models.Model): # 保养单
 
     remark = fields.Char()  # 备注信息
 
-    warranty_location = fields.Char()  # 保养地点
+    warranty_location = fields.Many2one('vehicle.plant')  # 保养地点
+
+    repair_workshop = fields.Many2one('hr.department')  # 承修车间
 
     state = fields.Selection([ # 状态
         ('draft', "draft"),
@@ -715,6 +715,19 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
         return active_id
 
     sheetId=fields.Char(default=_default_sheetId)
+
+    def _defaultwarranty_order_id(self):
+        """
+            获取保养单
+        :return:
+        """
+        active_id = self._context.get('active_id')
+        return self.env['warranty_order'].search([('id', '=', active_id)])
+
+    # 2017年7月31日 新增字段:保养单ID
+    warranty_order_id = fields.Many2one('warranty_order', default=_defaultwarranty_order_id)
+
+    department_id = fields.Many2one('hr.department',related='warranty_order_id.warranty_location.department_id', store=True, readonly=True)
 
     # def _default_item(self):
     #     active_id=self._context.get('active_id')

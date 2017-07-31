@@ -39,7 +39,8 @@ class WarrantyPlanOrder(models.Model): # 计划单
     # line = fields.Char() # 线路
     line = fields.Many2one("route_manage.route_manage", related='vehicle_id.route_id', store=True, readonly=True) # 线路
 
-    warranty_location = fields.Char() # 保养地点
+    #保养地点
+    warranty_location = fields.Many2one('vehicle.plant')
 
     maintain_sheet_id = fields.Many2one('warranty_order', string="Warranty Maintain Sheet")  # 保养单号 , required=True,
 
@@ -52,6 +53,23 @@ class WarrantyPlanOrder(models.Model): # 计划单
         ('executing', "executing"), # 正在执行
         ('done', "done"), # 执行完毕
     ], default='draft', string="MyState")
+
+    @api.onchange('warranty_category','vehicle_id')
+    def _onchange_warranty_category(self):
+        """
+            保养类型变更时：
+                查询当前车辆的最后一次保养的维修厂
+        :return:
+        """
+        if self.warranty_category and self.vehicle_id:
+            domain = [('vehicle_id','=',self.vehicle_id.id),
+                      ('warranty_category','=',self.warranty_category.id),('state','=','done')]
+            warranty_order = self.env['warranty_order'].search(domain,limit=1,order="warranty_end_time desc")
+
+            if warranty_order:
+                self.warranty_location = warranty_order.warranty_location
+
+
 
     @api.multi
     def action_draft(self):
@@ -107,7 +125,7 @@ class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生�
                     'vin': plan_sheet.vin,
                     'average_daily_kilometer': plan_sheet.average_daily_kilometer,
                     'line': plan_sheet.line.id,
-                    'warranty_location': plan_sheet.warranty_location,
+                    'warranty_location': plan_sheet.warranty_location.id,
                     'plan_id': plan.id,
                     'report_repair_user':plan_sheet.report_repair_user.id
                 }

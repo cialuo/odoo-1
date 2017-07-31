@@ -8,7 +8,7 @@
     'category': 'Advanced Edition',
     'version': '1.0',
     # 'depends': ['employees', 'vehicle_manage','materials_product','stock_picking_types'], # 'product','stock'
-    'depends': ['vehicle_manage','materials_product','stock_picking_types','vehicle_group'], # 'product','stock'
+    'depends': ['vehicle_manage','materials_product','stock_picking_types','vehicle_group','vehicle_plant_manage'], # 'product','stock'
     'data': [
         'security/warranty_security.xml',
         'security/ir.model.access.csv',

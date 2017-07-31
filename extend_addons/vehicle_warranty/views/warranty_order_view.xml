@@ -221,16 +221,16 @@
                             <page string="More Info">
                                 <group col="2">
                                     <group >
-                                        <field name="repair_unit" readonly="1"/>
-                                        <field name="fleet" readonly="1"/>
+                                        <field name="warranty_location" readonly="1"/>
+                                        <!--<field name="repair_unit" readonly="1"/>-->
+                                        <!--<field name="fleet" readonly="1"/>-->
                                         <field name="fill_personnel" readonly="1"/>
                                         <field name="remark" />
                                     </group>
                                     <group >
-                                        <field name="repair_workshop" readonly="1"/>
+                                        <field name="repair_workshop" />
                                         <field name="maintenance_level" readonly="1"/>
                                         <field name="fill_personnel_unit" readonly="1"/>
-                                        <field name="warranty_location" readonly="1"/>
                                     </group>
                                 </group>
                             </page>
@@ -295,6 +295,8 @@
             <field name='arch' type='xml'>
                 <form string='Wizard Batch Dispatch'>
                     <field name="sheetId" invisible="1"/>
+                    <field name="warranty_order_id" invisible="1"/>
+                    <field name="department_id" invisible="1"/>
                     <notebook>
                         <page string="Warranty Project" >
                                 <field name='project_id'  options="{'no_create': True, 'no_open': True}" domain="[('warranty_order_id.id', '=', sheetId)]" />
@@ -302,7 +304,7 @@
                     </notebook>
                     <notebook>
                         <page string="Warranty User" >
-                                <field name='user_id' options="{'no_create': True, 'no_open': True}" />
+                                <field name='user_id' options="{'no_create': True, 'no_open': True}" domain="[('department_id','child_of',department_id)]"/>
                         </page>
                     </notebook>
                     <footer>
