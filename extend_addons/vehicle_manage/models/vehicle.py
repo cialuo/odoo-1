@@ -72,6 +72,8 @@ class Vehicle(models.Model):
     #线路修正系数
     route_correct_value = fields.Float(related='route_id.oil_wear_coefficient', string="oil_wear_coefficient", readonly=True)
 
+    ride_number = fields.Integer('Ride Number', related='model_id.ride_number', readonly=True)
+
     @api.multi
     def copy(self, default=None):
         default = dict(default or {})
@@ -221,7 +223,7 @@ class route_manage(models.Model):
     vehicle_res = fields.One2many('fleet.vehicle', 'route_id', string="vehicle resource")
 
     # 驾驶员比例
-    driver_rate = fields.Float(compute='_getDriverRate' ,string="driver rate")
+    driver_rate = fields.Float(compute='_getDriverRate', string="driver rate")
 
     # 车辆数量
     vehiclenums = fields.Integer("vehicle number", compute='_getVehicleNums')
@@ -253,7 +255,7 @@ class route_manage(models.Model):
             vehiclenum = item.vehiclenums
             drivernum = self.getDriverNumber(item.id)
             if vehiclenum != 0:
-                item.driver_rate = round(drivernum/vehiclenum,1)
+                item.driver_rate = round(drivernum/float(vehiclenum),1)
             else:
                 item.driver_rate = 0
 
@@ -266,7 +268,7 @@ class route_manage(models.Model):
             vehiclenum = item.vehiclenums
             conductornum = self.getConductorNumber(item.id)
             if vehiclenum != 0 :
-                item.conductor_rate = round(conductornum/vehiclenum, 1)
+                item.conductor_rate = round(conductornum/float(vehiclenum), 1)
             else:
                 item.conductor_rate = 0
 
@@ -279,7 +281,7 @@ class route_manage(models.Model):
             vehiclenum = self.getVehicleNumber(item.id)
             all = item.people_number
             if vehiclenum != 0:
-                item.synthesize_rate = round(all/vehiclenum, 1)
+                item.synthesize_rate = round(all/float(vehiclenum), 1)
             else:
                 item.synthesize_rate = 0
 

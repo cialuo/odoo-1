@@ -248,6 +248,7 @@ class route_manage(models.Model):
 
 class StationUp(models.Model):
     _name = 'opertation_resources_station_up'
+    _rec_name = 'route_id'
     """
     上行站台管理
     """
@@ -285,6 +286,7 @@ class StationUp(models.Model):
 
 class StationDown(models.Model):
     _name = 'opertation_resources_station_down'
+    _rec_name = 'route_id'
     """
     下行站台管理
     """

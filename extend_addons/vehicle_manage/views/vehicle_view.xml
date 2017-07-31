@@ -88,8 +88,12 @@
                                         <!--<field name="service_year"/>-->
                                         <field name="salvage_rate"/>
 
-                                        <field name="conductor" widget="many2many_tags" domain="[('lines','=',route_id)]"/>
-                                        <field name="driver"  widget="many2many_tags"  domain="[('lines','=',route_id)]"/>
+                                        <field name="conductor" widget="many2many_tags"
+                                               options="{'no_open':True,'no_create':True}"
+                                               domain="[('lines','=',route_id),('workpost.posttype','=','conductor')]"/>
+                                        <field name="driver"  widget="many2many_tags"
+                                               options="{'no_open':True,'no_create':True}"
+                                               domain="[('lines','=',route_id),('workpost.posttype','=','driver')]"/>
 
                                         <field name="vehicle_label"/>
                                     </group>
@@ -273,6 +277,8 @@
                                 <field name="max_climb"/><span>%</span>
 							</div>
                             <field name="wheel_count"/>
+                            <field name="ride_number"/>
+
 						</group>
                     </group>
                 </xpath>

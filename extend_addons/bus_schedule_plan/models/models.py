@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 class RouteInBusSchedule(models.Model):
 
@@ -13,6 +14,25 @@ class RouteInBusSchedule(models.Model):
         """
         type = self._context.get('bustype', False)
         self.ensure_one()
+
+        # 上行大站检查
+        mode = self.env['opertation_resources_station_up']
+        sitelist = mode.search([('route_id', '=', self.id)])
+        sitecollection = []
+        for item in sitelist:
+            sitecollection.append((0, 0, {
+                'site_id': item.id,
+            }))
+
+        # 下行大站检查
+        mode = self.env['opertation_resources_station_down']
+        sitelist = mode.search([('route_id', '=', self.id)])
+        sitecollection_down = []
+        for item in sitelist:
+            sitecollection_down.append((0, 0, {
+                'site_id': item.id,
+            }))
+
         context = dict(self.env.context,
                        default_line_id=self.id,
                        default_mileage=self.mileage,
@@ -23,7 +43,10 @@ class RouteInBusSchedule(models.Model):
                        default_downlasttime = self.down_end_time,
                        default_upstation = self.up_station.id,
                        default_downstation = self.down_station.id,
-                       default_bustype = type
+                       default_bustype = type,
+                       default_bigsite_up = sitecollection,
+                       default_bigsite_down = sitecollection_down,
+                       default_bus_type = self.bus_type,
                        )
         return {
             'view_type': 'form',
@@ -103,10 +126,39 @@ class BusWorkRules(models.Model):
     # 大站设置 上行
     bigsite_up = fields.One2many("scheduleplan.bigsitesetup", "rule_id", string="big site up")
 
+
     # 大站设置 下行
-    bigsite_down = fields.One2many("scheduleplan.bigsitesetdown", "rule_id", string="big site down")
+    bigsite_down = fields.One2many("scheduleplan.bigsitesetdown", "rule_id",string="big site down")
+
+    # 公交类型
+    bus_type = fields.Selection([('regular_bus', 'regular_bus'),
+                                 ('custom_bus', 'custom_bus')],
+                                default='regular_bus', string='bus_type', required=True)
+
+    @staticmethod
+    def _validateVehicleNums(obj):
+        vcount = 0
+        for item in obj.upplanvehiclearrange:
+            vcount += item.allvehicles
+
+        for item in obj.downplanvehiclearrange:
+            vcount += item.allvehicles
+
+        if vcount > obj.bus_number:
+            raise ValidationError(_("vechile count large then vehicle number"))
 
 
+    @api.model
+    def create(self, vals):
+        res = super(BusWorkRules, self).create(vals)
+        self._validateVehicleNums(res)
+        return res
+
+    @api.multi
+    def write(self, vals):
+        res = super(BusWorkRules, self).write(vals)
+        self._validateVehicleNums(self)
+        return res
 
 
 
@@ -130,8 +182,15 @@ class RuleBusArrangeUp(models.Model):
     # 机动车数量
     backupnumber = fields.Integer(string="vehicle backup number")
 
-    #
-    # passengernumber = fields.Integer(string="passenger number")
+    # 核载人数
+    passengernumber = fields.Integer(related="vehiclemode.ride_number", string="passenger number")
+
+    # 车辆总数
+    allvehicles = fields.Integer(compute="_sumvehicles", string="all vehcile number")
+
+    @api.depends('workingnumber', 'backupnumber')
+    def _sumvehicles(self):
+        self.allvehicles = self.workingnumber + self.backupnumber
 
 
 class ToUp(models.Model):
@@ -231,12 +290,39 @@ class BigSiteSettingsDown(models.Model):
 
     _inherit = "scheduleplan.bigsitesetup"
 
+    site_id = fields.Many2one("opertation_resources_station_down")
+
 
 
 class BusMoveTimeTable(models.Model):
 
     _name = "scheduleplan.busmovetime"
 
-    name = fields.Char(string="execute name")
+    name = fields.Char(string="table name")
+
+    # 关联线路
+    line_id = fields.Many2one("route_manage.route_manage", string="related line", readonly=True)
+
+    # 关联规则
+    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule")
+
+    # 运营车辆
+    vehiclenums = fields.Integer(string="vehicle nums")
+
+    # 机动车辆
+    backupvehicles = fields.Integer(string="backup vehicles")
+
+    # 执行时间
+    executedate = fields.Date(string="excute date")
+
+
+
+class BusMoveExcuteTable(models.Model):
+
+    _name = "scheduleplan.excutetable"
+
+    name = fields.Char(string="excute table name")
+
+
 
     

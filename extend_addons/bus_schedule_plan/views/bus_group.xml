@@ -34,24 +34,41 @@
                         </div>
                         <group col="2">
                             <group>
-                                <field name="route_id"/>
-                                <field name="algorithm_id"/>
-                                <field name="shift_id"/>
+                                <field name="route_id" options="{'no_open':True,'no_create':True}"/>
                                 <field name="is_conductor"/>
                             </group>
                         </group>
 
-                        <!--<notebook>-->
-                            <!--<page string="Shift list">-->
-                                <!--<field name="shift_line_ids">-->
-                                    <!--<tree editable="bottom">-->
-										 <!--<field name="name"/>-->
-										 <!--<field name="start_time"/>-->
-										 <!--<field name="end_time"/>-->
-                                    <!--</tree>-->
-                                <!--</field>-->
-                            <!--</page>-->
-                        <!--</notebook>-->
+                        <notebook>
+                            <page string="GroupVehicles">
+                                <field name="vehicle_ids" context="{'default_route_id':context.get('route_id','')}">
+                                    <tree editable="bottom">
+                                        <!--<field name="route_id" invisible="1"/>-->
+                                        <field name="route_id" invisible="1"/>
+                                        <field name="vehicle_id" options="{'no_open':True,'no_create':True}"/>
+                                        <field name="vehicle_type"/>
+                                        <field name="ride_number"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="GroupDrivers">
+                                <field name="driver_ids" >
+                                    <tree editable="bottom">
+										 <field name="driver_id" options="{'no_open':True,'no_create':True}"/>
+										 <field name="jobnumber"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="GroupConductors" attrs="{'invisible':[('is_conductor','=',False)] }">
+                                <field name="conductor_ids">
+                                    <tree editable="bottom">
+										 <field name="conductor_id" options="{'no_open':True,'no_create':True}"/>
+										 <field name="jobnumber"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -68,7 +85,7 @@
         <menuitem id="bus_group_menu" name="bus_group_menu"
                   parent="operation_menu.bus_working_plan_menu"
                   action="bus_group_action"
-                  sequence="70"/>
+                  sequence="80"/>
 
     </data>
 </odoo>
