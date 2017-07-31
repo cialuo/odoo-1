@@ -29,6 +29,7 @@ class VehiclePlant(models.Model):
     #                                domain="[('workpost.posttype', '=', maintainer)]",
     #                                related='department_id.member_id')
 
+    ditch_ids = fields.One2many('vehicle.plant.ditch','plant_id',string='Ditch ids')
 
     @api.depends('department_id')
     def _compute_employee_ids(self):
@@ -62,6 +63,27 @@ class VehiclePlant(models.Model):
     def action_done(self):
         self.state = 'done'
         self.active = False
+
+class VehiclePlantDitch(models.Model):
+
+    _name ='vehicle.plant.ditch'
+    _description = 'Vehicle plant ditch'
+
+    name = fields.Char('Ditch Name',required=True)
+
+    plant_id = fields.Many2one('vehicle.plant',string='Plant Id')
+
+    ditch_type = fields.Selection([('vehicleWarranty','vehicleWarranty'),('vehicleMaintain','vehicleMaintain')],string='Ditch type')
+
+    remarks = fields.Char(string='remarks')
+
+    work_time = fields.Selection([('Monday','Monday'),
+                                  ('Tuesday','Tuesday'),
+                                  ('Wednesday','Wednesday'),
+                                  ('Thursday','Thursday'),('Friday','Friday'),('Saturday','Saturday'),('Sunday','Sunday')],string='Ditch Work time')
+
+
+
 
 # class PlantEmployee(models.Model):
 #     """
