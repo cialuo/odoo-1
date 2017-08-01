@@ -185,15 +185,19 @@
                 <label><input class="set_bt way_2" type="radio" name="way" />上周同期</label>
                 <label><input class="set_bt way_3" type="radio" name="way" />上月同期</label>
             </div>
+        </div>
+        <div class="site_info_cont">
             <table class="site_info_table">
+                <thead>
                 <tr>
-                    <th>线路</th>
-                    <th>站台</th>
-                    <th>时间</th>
-                    <th>上车人数</th>
-                    <th>运力</th>
-                    <th>下车人数</th>
+                    <th data-field="line">线路</th>
+                    <th data-field="site">站台</th>
+                    <th data-field="time">时间</th>
+                    <th data-field="on_number">上车人数</th>
+                    <th data-field="capacity">运力</th>
+                    <th data-field="out_number">下车人数</th>
                 </tr>
+                </thead>
             </table>
         </div>
     </t>

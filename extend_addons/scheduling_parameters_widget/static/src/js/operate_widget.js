@@ -702,6 +702,7 @@ odoo.define("scheduling_parameters_widget.operate", function(require) {
             var plan_way = this.$(".plan_way li.active").attr("name");
             var line = this.$(".line select[name='line']").val();
             var line_name = this.$(".line select[name='line'] option:selected").text();
+            var line_name_base = line_name;
             var direction = this.$(".line select[name='direction']").val();
             var data_type = this.$(".data_type select").val();
             var predict_start_time = this.$(".predict_passenger_flow .start_time").val();
@@ -737,9 +738,50 @@ odoo.define("scheduling_parameters_widget.operate", function(require) {
                     new site_passenger_flow_chart_scatter(this, scatter_data_test).appendTo(chart_cont_obj);
                 }else{
                     var site_hour_data = {
-                        
+                        line: line_name,
+                        yAxis_data: ['50', '100', '150', '200', '250'],
+                        xAxis_data: ['06','07','08','09','10','11','12','13','14','15','16', '17', '18', '19', '20', '21', '22'],
+                        data_list: [
+                            {
+                                name: "客流统计",
+                                color: "#6189fe",
+                                data: [50, 55, 140, 230, 115, 100, 60, 135, 148, 140, 120, 105, 240, 105, 85, 78, 65],
+                            },
+                            {
+                                name: "运力统计",
+                                color: "#00cc66",
+                                data: [155, 155, 220, 220, 155, 155, 155, 155, 155, 155, 155, 155, 215, 215, 155, 155, 155],
+                            },
+                            {
+                                name: "前一日",
+                                color: "#fe7da9",
+                                data: [48, 65, 180, 130, 105, 148, 102, 95, 125, 70, 75, 140, 68, 70, 20, 40, 65],
+                            },
+                            {
+                                name: "上周同期",
+                                color: "#fe7da9",
+                                data: [70, 82, 206, 140, 128, 125, 100, 95, 125, 118, 100, 130, 158, 98, 75, 40, 25],
+                            },
+                            {
+                                name: "上月同期",
+                                color: "#fe7da9",
+                                data: [53, 60, 75, 70, 68, 98, 215, 225, 208, 155, 160, 190, 159, 120, 110, 80, 75],
+                            }
+                        ]
                     };
-                    new site_passenger_flow_hour_chart(this, site_hour_data).appendTo(chart_cont_obj);
+                    var site_info_data = [];
+                    for (var i=0;i<100;i++){
+                        var obj = {
+                            "line": line_name_base,
+                            "site": platform_name,
+                            "time": "2017-06-26 06:00",
+                            "on_number": "232",
+                            "capacity": "250",
+                            "out_number": "235"
+                        };
+                        site_info_data.push(obj);
+                    }
+                    new site_passenger_flow_hour_chart(this, site_hour_data, site_info_data).appendTo(chart_cont_obj);
                 }
             }else{
                 var parameter_data_test = {
@@ -794,7 +836,6 @@ odoo.define("scheduling_parameters_widget.operate", function(require) {
             this.load_fn();
         },
         load_fn: function(){
-            debugger;
             var site_list = this.parameter_data.yAxis_data;
             var time_list = this.parameter_data.xAxis_data;
             var new_data = this.parameter_data.data;
@@ -907,8 +948,207 @@ odoo.define("scheduling_parameters_widget.operate", function(require) {
 
     var site_passenger_flow_hour_chart = Widget.extend({
         template: "site_passenger_flow_hour_chart_template",
-        init: function(parent, data){
+        init: function(parent, data1, data2){
             this._super(parent);
+            this.chart_parameter_data = data1;
+            this.site_info_data = data2;
+        },
+        start: function(){
+            // 客流运力图表
+            this.chart_parameter_fn();
+            this.table_info_fn();
+        },
+        chart_parameter_fn: function(){
+            var line = this.chart_parameter_data.line;
+            var data_list = this.chart_parameter_data.data_list;
+            var passenger_flow_option = {
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    icon: 'stack',
+                    orient: 'vertical',
+                    right: '100px',
+                    top: '10px',
+                    data: [data_list[0].name, data_list[1].name],
+                },
+                color: [data_list[0].color, data_list[1].color],
+                grid: {
+                    left: '3%',
+                    bottom: '3%',
+                    right: 190,
+                    top: '30%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    // show: false,
+                    data: this.chart_parameter_data.xAxis_data,
+                    axisLabel: {
+                        formatter: '{value}点'
+                    },
+                    axisLine: {
+                        show: false,
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                },
+                yAxis: {
+                    type: 'value',
+                    name: line,
+                    data: this.chart_parameter_data.yAxis_data,
+                    nameGap: 32,
+                    nameTextStyle: {
+                        fontSize: 16
+                    },
+                    axisLabel: {
+                        formatter: '{value}人/次',
+                    },
+                    offset: 20,
+                    axisLine: {
+                        show: false,
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            type: 'dashed'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: data_list[0].name,
+                        type: 'line',
+                        symbolSize: 1,
+                        lineStyle: {
+                            normal: {
+                                color: data_list[0].color,
+                            }
+                        },
+                        data: data_list[0].data
+                    },
+                    {
+                        name: data_list[1].name,
+                        type: 'line',
+                        step: 'middle',
+                        symbolSize: 1,
+                        lineStyle: {
+                            normal: {
+                                color: data_list[1].color,
+                            }
+                        },
+                        data: data_list[1].data
+                    },
+                    {
+                        name: data_list[2].name,
+                        type: 'line',
+                        symbolSize: 1,
+                        lineStyle: {
+                            normal: {
+                                color: data_list[2].color,
+                            }
+                        },
+                        data: data_list[2].data
+                    },
+                    {
+                        name: data_list[3].name,
+                        type: 'line',
+                        symbolSize: 1,
+                        lineStyle: {
+                            normal: {
+                                color: data_list[3].color,
+                            }
+                        },
+                        data: data_list[3].data
+                    },
+                    {
+                        name: data_list[4].name,
+                        type: 'line',
+                        symbolSize: 1,
+                        lineStyle: {
+                            normal: {
+                                color: data_list[4].color,
+                            }
+                        },
+                        data: data_list[4].data
+                    }
+                ]
+            };
+            var passenger_flow_chart = echarts.init(this.$('.chart_passenger_flow')[0]);
+            passenger_flow_chart.setOption(passenger_flow_option);
+            var option_set = {
+                legend: {
+                    selected: {
+                        '客流统计': true,
+                        '运力统计': true,
+                        '前一日': false,
+                        '上周同期': false,
+                        '上月同期': false
+                    }
+                },
+            };
+            passenger_flow_chart.setOption(option_set);
+            this.switch_chart(passenger_flow_chart);
+        },
+        switch_chart: function(mychart){
+            var selected = {
+                '客流统计': true,
+                '运力统计': true,
+                '前一日': false,
+                '上周同期': false,
+                '上月同期': false
+            };
+            this.$(".chart_satisfaction_bt").on("click", ".set_bt", function(){
+                if ($(this).hasClass('way_1')){
+                    selected = {
+                        '客流统计': true,
+                        '运力统计': true,
+                        '前一日': true,
+                        '上周同期': false,
+                        '上月同期': false
+                    };
+                }else if ($(this).hasClass('way_2')){
+                    selected = {
+                        '客流统计': true,
+                        '运力统计': true,
+                        '前一日': false,
+                        '上周同期': true,
+                        '上月同期': false
+                    };
+                }else{
+                    selected = {
+                        '客流统计': true,
+                        '运力统计': true,
+                        '前一日': false,
+                        '上周同期': false,
+                        '上月同期': true
+                    };
+                }
+                var option_set = {
+                legend: {
+                        selected: selected
+                    },
+                };
+
+                mychart.setOption(option_set);
+
+            });
+        },
+        table_info_fn: function(){
+            $(".site_info_table").bootstrapTable({
+                data: this.site_info_data,
+                pagination: true,
+                pageNumber: 1,
+                pageSize: 10,
+                pageList: [],
+                paginationLoop: false,
+                paginationPreText: "上一页",
+                paginationNextText: "下一页",
+            })
         }
     });
 

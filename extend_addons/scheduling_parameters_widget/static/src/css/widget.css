@@ -141,6 +141,7 @@
 .operate_cont .line_chart .chart_satisfaction_bt {
     padding: 5px 78px;
     line-height: 22px;
+    text-align: center;
 }
 
 .operate_cont .line_chart .chart_satisfaction_bt input {
@@ -149,6 +150,11 @@
     margin-right: 5px;
 }
 
-.operate_cont .line_chart .chart_satisfaction_bt label:first-child {
-    margin-right: 60px;
+.operate_cont .line_chart .chart_satisfaction_bt label{
+    margin: 20px;
+}
+
+.operate_cont .site_info_cont {
+    width: 1080px;
+    margin: 50px auto;
 }
