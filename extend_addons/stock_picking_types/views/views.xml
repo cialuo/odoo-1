@@ -101,16 +101,7 @@
     </record>
     -->
 
-    <!-- 新增发料菜单的动作 -->
-    <record model="ir.actions.act_window" id="stock_picking_types.issuance_of_material_action_window">
-      <field name="name">issuance_of_material window</field>
-      <field name="res_model">stock.picking</field>
-      <field name="view_mode">tree,form</field>
-      <field name="domain">[('picking_type_id','ilike','发料')]</field>
-      <!--<field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('rewrite_materialout_tree')}),
-                (0, 0, {'view_mode': 'form', 'view_id': ref('rewrite_materialout_form')})]"/>-->
-    </record>
+
 
 
     <!--新增领料搜索视图-->
