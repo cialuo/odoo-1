@@ -88,62 +88,6 @@
       </field>
     </record>
 
-    <!--新增发料搜索视图-->
-    <!--
-    <record id="view_issuance_of_material_search" model="ir.ui.view">
-      <field name="name">search.issuance_of_material</field>
-      <field name="model">stock.picking</field>
-      <field name="arch" type="xml">
-        <search string="Search Issuance Of Material">
-          <filter string="issuance_of_material" name="issuance_of_material" domain="[('picking_type_id','like','发料')]" />
-        </search>
-      </field>
-    </record>
-    -->
-
-
-
-
-    <!--新增领料搜索视图-->
-    <!--
-    <record id="view_picking_material_search" model="ir.ui.view">
-      <field name="name">search.picking_material</field>
-      <field name="model">stock.picking</field>
-      <field name="arch" type="xml">
-        <search string="Search Picking Material">
-          <filter string="picking_material" name="picking_material" domain="[('picking_type_id','like','领料')]" />
-        </search>
-      </field>
-    </record>
-    -->
-
-    <!-- 新增领料菜单的动作 -->
-    <record model="ir.actions.act_window" id="stock_picking_types.picking_material_action_window">
-      <field name="name">picking_material window</field>
-      <field name="res_model">stock.picking</field>
-      <field name="view_mode">tree,form</field>
-      <!--给动作指定搜索视图-->
-      <!--
-      <field name="search_view_id" ref="view_picking_material_search"/>
-      <field name="context">{'search_default_picking_material':'领料'}</field>
-      -->
-      <field name="domain">[('picking_type_id','ilike','领料')]</field>
-    </record>
-
-
-    <!--新增退料搜索视图-->
-    <!--
-    <record id="view_return_of_material_search" model="ir.ui.view">
-      <field name="name">search.return_of_material</field>
-      <field name="model">stock.picking</field>
-      <field name="arch" type="xml">
-        <search string="Search Return Of Material">
-          <filter name="return_of_material" string="return_of_material" domain="[('picking_type_id','like','退料')]"/>
-        </search>
-      </field>
-    </record>
-    -->
-
     <!-- 新增退料菜单的动作 -->
     <record model="ir.actions.act_window" id="stock_picking_types.return_of_material_action_window">
       <field name="name">return_of_material window</field>
