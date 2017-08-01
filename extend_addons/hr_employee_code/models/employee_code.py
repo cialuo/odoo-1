@@ -29,7 +29,7 @@ class Employee(models.Model):
     @api.depends('department_id', 'workpost')
     def _get_display_code(self):
         """
-        （岗位编码，位数：2）（部门编码，位数：2） （员工工号，位数：5） = 显示编号
+        （岗位编码，位数：3）（部门编码，位数：3） （员工工号，位数：6） = 显示编号
         :return: 
         """
         for e in self:

@@ -45,3 +45,12 @@ msgstr "岗位编码"
 msgid "employees.post"
 msgstr "岗位"
 
+#. module: hr_employee_code
+#: selection:employees.post,posttype:0
+msgid "Manager"
+msgstr "管理"
+
+#. module: hr_employee_code
+#: selection:employees.post,posttype:0
+msgid "Seccurity"
+msgstr "安保"
