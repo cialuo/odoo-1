@@ -124,52 +124,41 @@
 
     <!--新增三个查询菜单-->
     <menuitem id="issuance_of_material_picking" name="Issuance Of Material"
-              parent="materials_menu_pick_type" sequence="3"
+              parent="materials_menu_pick_type" sequence="30"
               action="stock_picking_types.issuance_of_material_action_window" groups="stock.group_stock_user"/>
 
     <menuitem id="picking_material_picking" name="Picking Material"
-              parent="materials_menu_pick_type" sequence="4"
+              parent="materials_menu_pick_type" sequence="40"
               action="stock_picking_types.picking_material_action_window" groups="stock.group_stock_user"/>
 
     <menuitem id="return_of_material_picking" name="Return Of Material"
-              parent="materials_menu_pick_type" sequence="5"
+              parent="materials_menu_pick_type" sequence="50"
               action="stock_picking_types.return_of_material_action_window" groups="stock.group_stock_user"/>
 
     <menuitem id="old_to_new_picking" name="old_to_new_picking_name"
-              parent="materials_menu_pick_type" sequence="6"
+              parent="materials_menu_pick_type" sequence="60"
               action="stock_picking_types.old_to_new_action_window" groups="stock.group_stock_user"/>
 
-    <!-- 新增内部调拨的动作 -->
-    <record model="ir.actions.act_window" id="action_internal_trans">
-      <field name="name">internal trans</field>
-      <field name="res_model">stock.picking</field>
-      <field name="view_mode">tree,form</field>
-      <!--给动作指定搜索视图-->
-      <!--
-      <field name="search_view_id" ref="view_internal_trans_search"/>
-      <field name="context">{'search_default_internal_trans':1}</field>
-      -->
-      <field name="domain">[('picking_type_id','ilike','内部调拨')]</field>
-    </record>
+
 
     <menuitem id="menu_internal_trans" name="Internal Trans"
-              parent="materials_menu_pick_type" sequence="20"
+              parent="materials_menu_pick_type" sequence="60"
               action="action_internal_trans" groups="stock.group_stock_user"/>
 
 
     <!--物资分类-->
     <menuitem id="picking_material_picking_types1" name="picking_material_picking_types1_name"
-              parent="materials_menu_config" sequence="3"
+              parent="materials_menu_config" sequence="30"
               action="product.product_category_action_form" groups="stock.group_stock_user"/>
 
      <!--计量单位管理-->
     <menuitem id="menu_units_of_measure" name="menu_units_of_measure_name"
-              parent="materials_menu_config" sequence="4"
+              parent="materials_menu_config" sequence="40"
               action="product.product_uom_form_action" groups="stock.group_stock_user"/>
 
     <!--新增分拣类型查询-->
     <menuitem id="picking_material_picking_types" name="picking_material_picking_types_name"
-              parent="materials_menu_config" sequence="5"
+              parent="materials_menu_config" sequence="50"
               action="stock.action_picking_type_list" groups="stock.group_stock_user"/>
 
   </data>

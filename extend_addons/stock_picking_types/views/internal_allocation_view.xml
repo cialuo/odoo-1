@@ -2,11 +2,11 @@
   <data>
       <!--
 
-            重写交旧领新界面
+            重写内部调拨界面
 
       -->
 
-      <record id="rewrite_older_old_tree" model="ir.ui.view">
+      <record id="rewrite_internal_allocation_tree" model="ir.ui.view">
             <field name="name">stock.picking.tree</field>
             <field name="model">stock.picking</field>
             <field name="priority">120</field>
@@ -27,7 +27,7 @@
             </field>
         </record>
 
-        <record id="rewrite_older_old_form" model="ir.ui.view">
+        <record id="rewrite_internal_allocation_form" model="ir.ui.view">
             <field name="name">stock.picking.form</field>
             <field name="model">stock.picking</field>
             <field eval="12" name="priority"/>
@@ -62,7 +62,7 @@
                     </h1>
                     <group class="hidden-xs">
                         <group>
-                            <field name="picking_type_id" domain="[('name','ilike','交旧领新')]"/>
+                            <field name="picking_type_id" domain="[('name','ilike','内部调拨')]"/>
                             <field name="pick_user"/>
                             <field name="location_id" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}"/>
                             <field name="location_dest_id" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"/>
@@ -223,15 +223,15 @@
             </field>
         </record>
 
-        <!-- 新增交旧领新的动作 -->
-        <record model="ir.actions.act_window" id="stock_picking_types.old_to_new_action_window">
-          <field name="name">old_to_new window</field>
+        <!-- 新增内部调拨的动作 -->
+        <record model="ir.actions.act_window" id="action_internal_trans">
+          <field name="name">internal trans</field>
           <field name="res_model">stock.picking</field>
           <field name="view_mode">tree,form</field>
-          <field name="domain">[('picking_type_id','ilike','交旧领新')]</field>
+          <field name="domain">[('picking_type_id','ilike','内部调拨')]</field>
           <field name="view_ids" eval="[(5, 0, 0),
-                    (0, 0, {'view_mode': 'tree', 'view_id': ref('rewrite_older_old_tree')}),
-                    (0, 0, {'view_mode': 'form', 'view_id': ref('rewrite_older_old_form')})]"/>
+                    (0, 0, {'view_mode': 'tree', 'view_id': ref('rewrite_internal_allocation_tree')}),
+                    (0, 0, {'view_mode': 'form', 'view_id': ref('rewrite_internal_allocation_form')})]"/>
         </record>
 
   </data>

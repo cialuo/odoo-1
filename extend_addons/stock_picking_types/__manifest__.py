@@ -18,6 +18,7 @@
         'views/material_view.xml',
         'views/older_old_view.xml',
         'views/return_material_view.xml',
+        'views/internal_allocation_view.xml',
         'views/views.xml',
 
     ],
