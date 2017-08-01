@@ -88,44 +88,8 @@
       </field>
     </record>
 
-    <!-- 新增退料菜单的动作 -->
-    <record model="ir.actions.act_window" id="stock_picking_types.return_of_material_action_window">
-      <field name="name">return_of_material window</field>
-      <field name="res_model">stock.picking</field>
-      <field name="view_mode">tree,form</field>
-      <!--给动作指定搜索视图-->
-      <!--
-      <field name="search_view_id" ref="view_return_of_material_search"/>
-      <field name="context">{'search_default_return_of_material':'退料'}</field>
-      -->
-      <field name="domain">[('picking_type_id','ilike','退料')]</field>
-    </record>
 
-    <!--新增交旧领新视图-->
-    <!--
-    <record id="view_old_to_new_search" model="ir.ui.view">
-      <field name="name">search.old_to_new</field>
-      <field name="model">stock.picking</field>
-      <field name="arch" type="xml">
-        <search string="Search Return Of Material">
-          <filter name="odl_to_new_material" string="odl_to_new_material" domain="[('picking_type_id','like','交旧领新')]"/>
-        </search>
-      </field>
-    </record>
-    -->
 
-    <!-- 新增交旧领新的动作 -->
-    <record model="ir.actions.act_window" id="stock_picking_types.old_to_new_action_window">
-      <field name="name">old_to_new window</field>
-      <field name="res_model">stock.picking</field>
-      <field name="view_mode">tree,form</field>
-      <!--给动作指定搜索视图-->
-      <!--
-      <field name="search_view_id" ref="view_old_to_new_search"/>
-      <field name="context">{'search_default_odl_to_new_material':'交旧领新'}</field>
-      -->
-      <field name="domain">[('picking_type_id','ilike','交旧领新')]</field>
-    </record>
 
     <!--继承替换描述-->
     <record model="ir.ui.view" id="stock_picking_types.inherit_form">
@@ -174,19 +138,6 @@
     <menuitem id="old_to_new_picking" name="old_to_new_picking_name"
               parent="materials_menu_pick_type" sequence="6"
               action="stock_picking_types.old_to_new_action_window" groups="stock.group_stock_user"/>
-
-    <!--新增内部调拨视图-->
-    <!--
-    <record id="view_internal_trans_search" model="ir.ui.view">
-      <field name="name">search.internal_tras</field>
-      <field name="model">stock.picking</field>
-      <field name="arch" type="xml">
-        <search string="Search Internal Trans">
-          <filter name="internal_trans" string="Internal trans" domain="[('picking_type_id','ilike','内部调拨')]"/>
-        </search>
-      </field>
-    </record>
-    -->
 
     <!-- 新增内部调拨的动作 -->
     <record model="ir.actions.act_window" id="action_internal_trans">
