@@ -14,5 +14,11 @@
         </record>
         <menuitem id="menu_operate_transit_chart_site" name="站点分时客流" parent="menu_operate_transit_collect" action="site_passenger_flow" />
 
+        <record id="company_passenger_flow" model="ir.actions.client">
+            <field name="name">company_passenger_flow</field>
+            <field name="tag">scheduling_parameters_widget.company_passenger_flow</field>
+        </record>
+        <menuitem id="menu_operate_transit_chart_company" name="各公司分时客流" parent="menu_operate_transit_collect" action="company_passenger_flow" />
+
     </data>
 </openerp>

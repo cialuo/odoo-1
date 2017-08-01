@@ -103,6 +103,10 @@
     border: 1px solid #ccc;
 }
 
+.operate_cont .line_chart .chart_passenger_flow_table h2 {
+    margin: 50px auto;
+}
+
 .operate_cont .line_chart .chart_peak {
     position: relative;
     height: 8px;
