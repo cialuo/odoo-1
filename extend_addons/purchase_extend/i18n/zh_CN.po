@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-25 01:55+0000\n"
-"PO-Revision-Date: 2017-07-25 01:55+0000\n"
+"POT-Creation-Date: 2017-08-01 02:22+0000\n"
+"PO-Revision-Date: 2017-08-01 02:22+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -161,6 +161,11 @@ msgid "Order User"
 msgstr "制单人"
 
 #. module: purchase_extend
+#: model:ir.ui.view,arch_db:purchase_extend.partner_type_view_search
+msgid "Parent"
+msgstr "上级类别"
+
+#. module: purchase_extend
 #: model:ir.model,name:purchase_extend.model_res_partner
 msgid "Partner"
 msgstr "合作伙伴"
@@ -234,7 +239,7 @@ msgstr "调拨"
 #. module: purchase_extend
 #: model:ir.model.fields,field_description:purchase_extend.field_res_partner_partner_type_id
 msgid "Type"
-msgstr "供应商类型"
+msgstr "类型"
 
 #. module: purchase_extend
 #: model:ir.actions.act_window,name:purchase_extend.action_partner_type
