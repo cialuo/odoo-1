@@ -17,8 +17,8 @@
                     </page>
                     <page name="supplier_info" string="Supplier Info">
                         <field name="product_info_ids" context="{'default_name': context.get('active_id')}">
-                            <tree>
-                                <field name="product_tmpl_id"/>
+                            <tree editable="top">
+                                <field name="product_tmpl_id" options="{'no_open': true, 'no_create': true}"/>
                                 <field name="min_qty"/>
                                 <field name="price"/>
                             </tree>
@@ -95,7 +95,7 @@
                     <field name="code"/>
                     <field name="name"/>
                     <group>
-                        <filter name="Parent" domain="[]" context="{'group_by': 'parent_id'}"/>
+                        <filter string="Parent" domain="[]" context="{'group_by': 'parent_id'}"/>
                     </group>
                 </search>
             </field>
