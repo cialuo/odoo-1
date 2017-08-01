@@ -225,7 +225,7 @@
 
         <!-- 新增发料菜单的动作 -->
         <record model="ir.actions.act_window" id="stock_picking_types.issuance_of_material_action_window">
-          <field name="name">issuance_of_material window</field>
+          <field name="name">rewrite_materialout window</field>
           <field name="res_model">stock.picking</field>
           <field name="view_mode">tree,form</field>
           <field name="domain">[('picking_type_id','ilike','发料')]</field>

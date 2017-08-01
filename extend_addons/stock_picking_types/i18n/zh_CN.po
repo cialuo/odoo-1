@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-01 05:49+0000\n"
-"PO-Revision-Date: 2017-08-01 13:52+0800\n"
+"POT-Creation-Date: 2017-08-01 06:54+0000\n"
+"PO-Revision-Date: 2017-08-01 14:55+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,32 +18,56 @@ msgstr ""
 "X-Generator: Poedit 2.0.2\n"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Add an internal note that will be printed on the Picking Operations sheet"
 msgstr "添加将打印在“分拣操作”页面上的内部注释"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Additional Info"
 msgstr "额外的信息"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Assign Owner"
 msgstr "指定所有者"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Cancel"
 msgstr "取消"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Force Availability"
 msgstr "强制可用"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Initial Demand"
 msgstr "初始需求"
 
@@ -58,7 +82,11 @@ msgid "Issuance Of Material"
 msgstr "发料调拨"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Lot Split"
 msgstr "批次拆分"
 
@@ -73,22 +101,38 @@ msgid "Lot/Serial number for pack ops"
 msgstr "批次/序列号码为打包作业"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Mark as Todo"
 msgstr "标记为待办"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Modify"
 msgstr "修改"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Operations"
 msgstr "操作"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Package To Move"
 msgstr "待移动的包裹"
 
@@ -103,12 +147,20 @@ msgid "Picking Material"
 msgstr "领料调拨"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_tree
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_tree
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_tree
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_tree
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_tree
 msgid "Picking list"
 msgstr "分拣清单"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Print"
 msgstr "打印"
 
@@ -118,22 +170,38 @@ msgid "Product Id"
 msgstr "产品"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Recompute"
 msgstr "重新计算"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Reserve"
 msgstr "保留"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Reset Operations"
 msgstr "重置作业"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Return"
 msgstr "退货"
 
@@ -144,12 +212,20 @@ msgid "Return Of Material"
 msgstr "退料调拨"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Scrap"
 msgstr "报废"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Scraps"
 msgstr "报废"
 
@@ -165,7 +241,11 @@ msgstr "追踪"
 
 #. module: stock_picking_types
 #: model:ir.model,name:stock_picking_types.model_stock_picking
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Transfer"
 msgstr "调拨"
 
@@ -175,17 +255,29 @@ msgid "Ullage"
 msgstr "损耗"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Unreserve"
 msgstr "取消保留"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "Validate"
 msgstr "验证"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "e.g. PO0032"
 msgstr "例如：PO0032"
 
@@ -193,11 +285,6 @@ msgstr "例如：PO0032"
 #: model:ir.actions.act_window,name:stock_picking_types.action_internal_trans
 msgid "internal trans"
 msgstr "内部调拨"
-
-#. module: stock_picking_types
-#: model:ir.actions.act_window,name:stock_picking_types.issuance_of_material_action_window
-msgid "issuance_of_material window"
-msgstr "仓库作业"
 
 #. module: stock_picking_types
 #: model:ir.ui.menu,name:stock_picking_types.materials_menu_config
@@ -215,14 +302,13 @@ msgid "menu_units_of_measure_name"
 msgstr "计量单位"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "of"
 msgstr "的"
-
-#. module: stock_picking_types
-#: model:ir.actions.act_window,name:stock_picking_types.old_to_new_action_window
-msgid "old_to_new window"
-msgstr "仓库作业"
 
 #. module: stock_picking_types
 #: model:ir.ui.menu,name:stock_picking_types.old_to_new_picking
@@ -230,14 +316,13 @@ msgid "old_to_new_picking_name"
 msgstr "交旧领新"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "on"
 msgstr "在"
-
-#. module: stock_picking_types
-#: model:ir.actions.act_window,name:stock_picking_types.picking_material_action_window
-msgid "picking_material window"
-msgstr "仓库作业"
 
 #. module: stock_picking_types
 #: model:ir.ui.menu,name:stock_picking_types.picking_material_picking_types1
@@ -250,16 +335,39 @@ msgid "picking_material_picking_types_name"
 msgstr "分拣类型"
 
 #. module: stock_picking_types
-#: model:ir.actions.act_window,name:stock_picking_types.return_of_material_action_window
-msgid "return_of_material window"
-msgstr "仓库作业"
+#: model:ir.actions.act_window,name:stock_picking_types.picking_material_action_window
+msgid "rewrite_material window"
+msgstr "领料调拨"
 
 #. module: stock_picking_types
+#: model:ir.actions.act_window,name:stock_picking_types.issuance_of_material_action_window
+msgid "rewrite_materialout window"
+msgstr "发料调拨"
+
+#. module: stock_picking_types
+#: model:ir.actions.act_window,name:stock_picking_types.old_to_new_action_window
+msgid "rewrite_older_old window"
+msgstr "交旧领新"
+
+#. module: stock_picking_types
+#: model:ir.actions.act_window,name:stock_picking_types.return_of_material_action_window
+msgid "rewrite_return_material window"
+msgstr "退料调拨"
+
+#. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "to"
 msgstr "到"
 
 #. module: stock_picking_types
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_internal_allocation_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_material_form
 #: model:ir.ui.view,arch_db:stock_picking_types.rewrite_materialout_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_older_old_form
+#: model:ir.ui.view,arch_db:stock_picking_types.rewrite_return_material_form
 msgid "↳Put in Pack"
 msgstr "↳放置在包裹中"

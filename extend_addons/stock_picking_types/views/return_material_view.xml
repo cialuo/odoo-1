@@ -9,7 +9,7 @@
       <record id="rewrite_return_material_tree" model="ir.ui.view">
             <field name="name">stock.picking.tree</field>
             <field name="model">stock.picking</field>
-            <field name="priority">120</field>
+            <field name="priority">140</field>
             <field name="arch" type="xml">
                 <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-danger="state not in ('cancel', 'done') and min_date &lt; current_date" string="Picking list">
                     <field name="name"/>
@@ -31,7 +31,7 @@
             <field name="name">stock.picking.form</field>
             <field name="model">stock.picking</field>
             <field eval="12" name="priority"/>
-            <field name="priority">120</field>
+            <field name="priority">140</field>
             <field name="arch" type="xml">
                 <form string="Transfer">
                 <header>
@@ -225,7 +225,7 @@
 
         <!-- 新增退料菜单的动作 -->
         <record model="ir.actions.act_window" id="stock_picking_types.return_of_material_action_window">
-          <field name="name">return_of_material window</field>
+          <field name="name">rewrite_return_material window</field>
           <field name="res_model">stock.picking</field>
           <field name="view_mode">tree,form</field>
           <field name="domain">[('picking_type_id','ilike','退料')]</field>
