@@ -1,0 +1,164 @@
+/*---------客流需求---------*/
+.operate_title {
+    border: 1px solid #ccc;
+}
+
+.operate_title .dis_none {
+    display: none !important;
+}
+
+.operate_title .title {
+    height: 48px;
+    line-height: 48px;
+    font-size: 18px;
+    padding: 0 22px;
+    border-top: 1px solid #ccc;
+}
+
+.operate_title .screening {
+    border-top: 1px solid #ccc;
+    padding: 0 22px;
+    line-height: 48px;
+    position: relative;
+    height: 49px;
+}
+
+.operate_title .screening .swt_box {
+    list-style-type: none;
+    font-size: 0;
+    position: absolute;
+    right: 100px;
+    top: 7px;
+    cursor: pointer;
+    height: 24px;
+}
+
+.operate_title .screening .swt_box li {
+    display: inline-block;
+    font-size: 14px;
+    width: 40px;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.operate_title .screening .swt_box li.active {
+    background: #3399ff;
+    color: #fff;
+}
+
+.operate_title .screening .ok_bt {
+    position: absolute;
+    right: 100px;
+    top: 12px;
+    width: 56px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    background: #3399ff;
+    color: #fff;
+}
+
+.operate_title .screening .part_block {
+    display: inline-block;
+    min-width: 180px;
+    margin-right: 100px;
+}
+
+.operate_title .screening select {
+    background: #D2D2FF;
+    display: inline-block;
+    width: 120px;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.operate_title .screening select.direction {
+    width: 70px;
+    margin: 0;
+}
+
+.operate_title .screening input {
+    display: inline-block;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 2px 4px;
+    color: #1f1f1f;
+    height: 26px;
+    width: 120px;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.operate_cont {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.operate_cont .line_chart {
+    width: 1080px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+}
+
+.operate_cont .line_chart .chart_passenger_flow_table h2 {
+    margin: 50px auto;
+}
+
+.operate_cont .line_chart .chart_peak {
+    position: relative;
+    height: 8px;
+    margin: 0 0 25px 100px;
+}
+
+.operate_cont .line_chart .chart_peak .chart_peak_canvas_title {
+    position: absolute;
+    right: 20px;
+    bottom: -6px;
+    z-index: 5;
+    font-size: 12px;
+    list-style-type: none;
+}
+
+.operate_cont .line_chart .chart_peak .chart_peak_canvas_title .st {
+    display: inline-block;
+    width: 38px;
+    height: 5px;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.operate_cont .line_chart .chart_peak .chart_peak_canvas_title .gf {
+    background: #fe613b;
+}
+
+.operate_cont .line_chart .chart_peak .chart_peak_canvas_title .pf {
+    background: #fedc52;
+}
+
+.operate_cont .line_chart .chart_peak .chart_peak_canvas_title .df {
+    background: #dbff71;
+}
+
+.operate_cont .line_chart .chart_satisfaction_bt {
+    padding: 5px 78px;
+    line-height: 22px;
+    text-align: center;
+}
+
+.operate_cont .line_chart .chart_satisfaction_bt input {
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-right: 5px;
+}
+
+.operate_cont .line_chart .chart_satisfaction_bt label{
+    margin: 20px;
+}
+
+.operate_cont .site_info_cont {
+    width: 1080px;
+    margin: 50px auto;
+}

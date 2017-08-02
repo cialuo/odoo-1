@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "行车作业计划编制",
+    'name': "琛岃溅浣滀笟璁″垝缂栧埗",
 
     'summary': """
-    行车作业计划编制
+    琛岃溅浣滀笟璁″垝缂栧埗
     """,
 
     'description': """
-        行车作业计划编制
+        琛岃溅浣滀笟璁″垝缂栧埗
     """,
 
-    'author': "深圳市蓝泰源信息技术股份有限公司",
+    'author': "娣卞湷甯傝摑娉版簮淇℃伅鎶�鏈偂浠芥湁闄愬叕鍙�",
     'website': "http://www.lantaiyuan.com/",
 
     # Categories can be used to filter modules in modules listing
@@ -31,6 +31,7 @@
         'views/bus_algorithm.xml',
         'views/bus_group.xml',
         'views/bus_staff_group.xml',
+        'data/algorithm_data.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
