@@ -185,7 +185,7 @@ class FaultMethod(models.Model):
     state = fields.Selection([('use', "Use"),('done', "Done")], default='use', string="Method State")
     active = fields.Boolean(default=True)
     remark = fields.Text("Remark", help='Remark')
-    work_time = fields.Integer(string="Work Time(Minutes)")
+    work_time = fields.Float(string="Work Time(Minutes)")
     warranty_deadline = fields.Integer(string="Warranty Deadline(Days)", required=True, default=30)
     complex_level = fields.Selection([
        ('one work', "One work"),

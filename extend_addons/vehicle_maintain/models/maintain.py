@@ -217,7 +217,7 @@ class MaintainRepair(models.Model):
                                           'repair': [('readonly', True)],
                                         })
     fault_method_code = fields.Char(related='fault_method_id.fault_method_code', store=True, readonly=True, copy=False)
-    work_time = fields.Integer(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
+    work_time = fields.Float(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
     warranty_deadline = fields.Integer(related='fault_method_id.warranty_deadline', string="Warranty Deadline(Days)", readonly=1, required=True)
     plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
     plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time", compute='_get_end_datetime')

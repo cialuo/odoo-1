@@ -27,6 +27,7 @@
         'data/maintain_fault_category.xml',
         'data/maintain_fault_appearance.xml',
         'data/maintain_fault_reason.xml',
+        'data/maintain_fault_method.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,
