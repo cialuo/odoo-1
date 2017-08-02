@@ -24,6 +24,7 @@ class BusShiftExt(models.Model):
      班制 班次详情
     """
     _name = 'bus_shift_choose_line'
+    _rec_name = 'shift_line_id'
 
     shift_id = fields.Many2one('bus_shift', ondelete='cascade')
     sequence = fields.Integer("Shift Line Sequence", default=1)

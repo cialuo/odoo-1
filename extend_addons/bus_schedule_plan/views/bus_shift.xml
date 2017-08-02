@@ -101,9 +101,6 @@
         </record>
 
 
-
-
-
         <record model="ir.actions.act_window" id="bus_shift_action">
             <field name="name">bus_shift_action</field>
             <field name="res_model">bus_shift</field>
