@@ -45,6 +45,7 @@
         'views/vehicle_anchor.xml',
         'views/maintain_repair_calc.xml',
         'data/maintain_fault_category.xml',
+        'data/maintain_fault_appearance.xml',
 
     ],
     # only loaded in demonstration mode
