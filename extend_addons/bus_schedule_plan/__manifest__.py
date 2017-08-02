@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "琛岃溅浣滀笟璁″垝缂栧埗",
+    'name': "行车作业计划编制",
 
     'summary': """
-    琛岃溅浣滀笟璁″垝缂栧埗
+    行车作业计划编制
     """,
 
     'description': """
-        琛岃溅浣滀笟璁″垝缂栧埗
+        行车作业计划编制
     """,
 
-    'author': "娣卞湷甯傝摑娉版簮淇℃伅鎶�鏈偂浠芥湁闄愬叕鍙�",
+    'author': "深圳市蓝泰源信息技术股份有限公司",
     'website': "http://www.lantaiyuan.com/",
 
     # Categories can be used to filter modules in modules listing
