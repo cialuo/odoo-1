@@ -64,7 +64,7 @@ class AssignedShifts(models.TransientModel):
             }
             if j[2]:
                 data.update({'bus_group_vehicle_id': j[2],
-                             'bus_shift_line_id': j[3]})
+                             'bus_shift_choose_line_id': j[3]})
             datas.append((0, 0, data))
         self.write({'driver_vehicle_shift_ids': datas})
         return {
@@ -93,7 +93,7 @@ class BusGroupDriverVehicleShiftTran(models.TransientModel):
 
     group_id = fields.Many2one('bus_group', 'Group', required=True)
     bus_shift_id = fields.Many2one('bus_shift', readonly=True)
-    bus_shift_line_id = fields.Many2one('bus_shift_line', domain="[('shift_id','=',bus_shift_id)]")
+    bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line', domain="[('shift_id','=',bus_shift_id)]")
 
     driver_id = fields.Many2one("bus_group_driver", domain="[('bus_group_id','=',group_id)]")
     driver_jobnumber = fields.Char(string='driver_jobnumber', related='driver_id.jobnumber', readonly=True)

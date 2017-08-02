@@ -147,7 +147,7 @@ class BusStaffGroupVehicleLine(models.Model):
     bus_group_conductor_id = fields.Many2one("bus_group_conductor", domain="[('bus_group_id','=',bus_group_id)]")
 
     bus_shift_id = fields.Many2one('bus_shift', related='bus_group_id.bus_shift_id', readonly=True)
-    bus_shift_line_id = fields.Many2one('bus_shift_line', domain="[('shift_id','=',bus_shift_id)]")
+    bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line', domain="[('shift_id','=',bus_shift_id)]")
 
     staff_line_ids = fields.One2many('bus_staff_group_vehicle_staff_line', 'vehicle_line_id')
     staff_names = fields.Char(string='Staff Names', compute='_get_staff_names')
@@ -177,7 +177,7 @@ class BusStaffGroupVehicleLine(models.Model):
         vals = {
             "driver_id": self.bus_group_driver_id.driver_id.id,
             "conductor_id": self.bus_group_conductor_id.conductor_id.id or None,
-            'bus_shift_line_id': self.bus_shift_line_id.id,
+            'bus_shift_choose_line_id': self.bus_shift_choose_line_id.id,
             "sequence": len(self.staff_line_ids)+1
         }
         self.write({
@@ -200,7 +200,7 @@ class BusStaffGroupVehicleStaffLine(models.Model):
                                    domain="[('workpost.posttype', '=', 'conductor')]")
     conductor_jobnumber = fields.Char(string='conductor_jobnumber', related='conductor_id.jobnumber', readonly=True)
 
-    bus_shift_line_id = fields.Many2one('bus_shift_line')
+    bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line')
 
 
 

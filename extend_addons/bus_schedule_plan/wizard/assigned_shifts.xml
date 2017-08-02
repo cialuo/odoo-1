@@ -32,7 +32,7 @@
                                     <field name="conductor_jobnumber"/>
                                     <field name="bus_group_vehicle_id"/>
                                     <!--<field name="t_sequence"/>-->
-                                    <field name ='bus_shift_line_id'/>
+                                    <field name ='bus_shift_choose_line_id'/>
                                 </tree>
                             </field>
                         </page>

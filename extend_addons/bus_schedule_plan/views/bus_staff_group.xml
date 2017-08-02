@@ -85,7 +85,7 @@
 										<field name="driver_jobnumber" readonly="1"/>
 										<field name="conductor_id" readonly="1"/>
 										<field name="conductor_jobnumber" readonly="1"/>
-										<field name="bus_shift_line_id" readonly="1"/>
+										<field name="bus_shift_choose_line_id" readonly="1"/>
                                     </tree>
                                 </field>
                             </page>
@@ -108,7 +108,7 @@
                                       attrs="{'invisible':[('is_conductor','=',False)] ,'required':[('is_conductor','=',True),('operation_state','!=','flexible')]}"
                                       options="{'no_open':True,'no_create':True}"/>
                                <field name="bus_shift_id" invisible="1"/>
-                               <field name="bus_shift_line_id"
+                               <field name="bus_shift_choose_line_id"
                                       attrs="{'required':[('operation_state','!=','flexible')]}"
                                       options="{'no_open':True,'no_create':True}"/>
                             </group>

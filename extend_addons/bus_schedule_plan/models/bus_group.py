@@ -34,7 +34,6 @@ class BusGroup(models.Model):
 
     driver_vehicle_shift_ids = fields.One2many('bus_group_driver_vehicle_shift', 'bus_group_id')
 
-
     @api.depends('vehicle_ids')
     def get_vehicle_ct(self):
         for i in self:
@@ -190,5 +189,5 @@ class BusGroupDriverVehicleShift(models.Model):
     conductor_id = fields.Many2one('hr.employee', string="conductor",
                                    domain="[('workpost.posttype', '=', 'conductor')]")
     conductor_jobnumber = fields.Char(string='conductor_jobnumber', related='conductor_id.jobnumber', readonly=True)
-    bus_shift_line_id = fields.Many2one('bus_shift_line')
+    bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line')
     bus_group_vehicle_id = fields.Many2one("bus_group_vehicle", domain="[('bus_group_id','=',bus_group_id)]")
