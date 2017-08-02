@@ -36,3 +36,8 @@ class BusShiftLine(models.Model):
     start_time = fields.Char()
     end_time = fields.Char()
 
+
+
+
+
+
