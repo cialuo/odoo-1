@@ -32,6 +32,7 @@
         'views/vehicle_config_settings_view.xml',
         'views/vehicle_entry_view.xml',
         'data/vehicle_brand.xml',
+        'data/vehicle_model.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,

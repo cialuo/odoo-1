@@ -83,7 +83,7 @@
         </record>
 
         <!--厦柴-->
-        <record id="239" model="fleet.vehicle.model.brand">
+        <record id="clpp239" model="fleet.vehicle.model.brand">
             <field name="name">厦柴</field>
         </record>
 
