@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <template xml:space="preserve">
-	<t t-name="dispatch_desktop_component">
-		<div t-attf-controllerId="#{widget.data.component_ids}">
 
+	<t t-name="dispatch_desktop_component">
+		<div>
 		</div>
 	</t>
 	<t t-name="desktop_top">
-		<div>
+		<div t-attf-controllerId="#{widget.data.component_ids}" class="widget_parent">
 			<ul class="desktop_head">
 			<li>
 				<img src="/lty_dispatch_desktop/static/src/img/lty_logo.png" />
@@ -26,18 +26,99 @@
 		</ul>
 		</div>
 	</t>
+	<t t-name="bus_site_info">
+		<div class="bus_site_info" t-attf-style="left:#{widget.location_data.x}px;top:#{widget.location_data.y}px;z-index:#{widget.location_data.zIndex}">
+			<div class="ovf">
+				<a class="del" href="javascript:;" title="最小化">-</a>
+			</div>
+			<ul class="bus_site_content">
+				<li class="get_digital_map">电子地图</li>
+				<li class="get_main_controll_interface">主控界面</li>
+				<li>聊天浮框</li>
+				<li>在途车辆</li>
+			</ul>
+		</div>
+	</t>
+	<t t-name="digital_map">
+		<div class="dragContent digital_map" t-attf-style="left:#{widget.location_data.x}px;top:#{widget.location_data.y}px;z-index:#{widget.location_data.zIndex}">
+			<div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
+			<div id="digital_map"></div>
+		</div>
+	</t>
+	<t t-name="main_controll_interface">
+		<div class="dragContent main_controll_interface" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
+			<div class="src_title">
+				<div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
+				<div class="line_list">
+					<ul>
+						<li>挂牌</li>
+						<li>调度配置</li>
+						<li>调度间隔</li>
+						<li>车辆查询</li>
+						<li>车辆调动</li>
+						<li>电子地图</li>
+					</ul>
+				</div>
+			</div>
+			<div class="src_content">
+				<div class="bus_li">
+					<ul class="bus_list">
+						<li><a href="javascript:;" class="active_a">在途车辆</a></li>
+						<li><a href="javascript:;">场站车辆</a></li>
+						<li><a href="javascript:;">行车记录</a></li>
+						<li><a href="javascript:;">调度日志</a></li>
+						<li><a href="javascript:;">进出场日志</a></li>
+						<li><a href="javascript:;">信息交互</a></li>
+						<li><a href="javascript:;">历史广播</a></li>
+					</ul>
+				</div>
+				<div class="one_width">
+				</div>
+				<div class="table_bus_num">
+					<table>
+						<tr>
+							<th>线路</th>
+							<th>方向</th>
+							<th>趟次</th>
+							<th>车辆</th>
+							<th>司机</th>
+							<th>营运里程</th>
+							<th>GPS里程</th>
+							<th>计划发车</th>
+							<th>实际发车</th>
+							<th>计划收车</th>
+							<th>实际收车</th>
+							<th class="th_last">类型</th>
+						</tr>
+						<tr>
+							<td>16</td>
+							<td>356</td>
+							<td>粤B1VD2</td>
+							<td>刘强</td>
+							<td>挂班-上行在途</td>
+							<td>第四趟</td>
+							<td>35</td>
+							<td>92%</td>
+							<td>正常</td>
+							<td>62KM/H</td>
+							<td>9：00am</td>
+							<td>11：00am</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</t>
     <t t-name="dispatch_desktop">
 		<t t-if="widget.dis_desk">
-				<div class="dispatch_desktop dragContent" t-attf-tid="#{widget.dis_desk.oneline.id}" t-attf-style="left:#{widget.dis_desk.oneline.line_show_or_hide.left}px;top:#{widget.dis_desk.oneline.line_show_or_hide.top}px;display:#{widget.dis_desk.oneline.line_show_or_hide.show};z-index:#{widget.dis_desk.oneline.line_show_or_hide.zIndex}">
+				<div class="dispatch_desktop dragContent" t-attf-tid="#{widget.dis_desk.id}" t-attf-style="left:#{widget.dis_desk.position_left}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index}">
 					<div class="content">
 					<!--线路信息展示-->
 					<div class="line_info dragArea">
 						<div  class="fl line_way">
 							<ul>
-								<li class="line_line"><t t-esc="widget.dis_desk.oneline.line_info.line"/></li>
-								<li class="line_line"><t t-esc="widget.dis_desk.oneline.line_info.line"/></li>
+								<li class="line_line"><t t-esc="widget.dis_desk.line_id[1]"/></li>
 								<li class="aaa">
-
 								</li>
 								<li>支线2</li>
 								<li>区间</li>
@@ -45,17 +126,15 @@
 						</div>
 						<div class="bus_info fl">
 							<ul>
-								<li>配车数量：
-
-								</li>
-								<li>挂牌数量：<t t-esc="widget.dis_desk.oneline.line_info.list_num"/></li>
-								<li>机动车辆：<t t-esc="widget.dis_desk.oneline.line_info.active_car"/></li>
-								<li>维保停运：<t t-esc="widget.dis_desk.oneline.line_info.bad_car"/></li>
-								<li>共享机位：<t t-esc="widget.dis_desk.oneline.line_info.share_var"/></li>
-								<li>信号在线：<t t-esc="widget.dis_desk.oneline.line_info.online"/></li>
-								<li>信号掉线：<t t-esc="widget.dis_desk.oneline.line_info.outline"/></li>
-								<li>司机：<t t-esc="widget.dis_desk.oneline.line_info.driver"/></li>
-								<li>乘务：<t t-esc="widget.dis_desk.oneline.line_info.crew"/></li>
+								<li>配车数量：<span></span></li>
+								<li>挂牌数量：<span></span></li>
+								<li>机动车辆：<span></span></li>
+								<li>维保停运：<span></span></li>
+								<li>共享机位：<span></span></li>
+								<li>信号在线：<span></span></li>
+								<li>信号掉线：<span></span></li>
+								<li>司机：<span></span></li>
+								<li>乘务：<span></span></li>
 							</ul>
 						</div>
 						<div class="line_btn">
@@ -70,9 +149,6 @@
 								<ul>
 									<li>
 										<ul class="chs">
-											<t t-foreach="widget.dis_desk.oneline.line_num" t-as="line_item">
-												<li><t t-esc="line_item"></t></li>
-											</t>
 										</ul>
 									</li>
 								</ul>
@@ -85,14 +161,14 @@
 							<div  class="">
 								<div class="line_status ovf">
 									<ul class="fl">
-										<li t-attf-style="background:#{widget.dis_desk.oneline.plan_feedback[0]};">8</li>
-										<li t-attf-style="background:#{widget.dis_desk.oneline.plan_feedback[1]};">12</li>
+										<li>8</li>
+										<li>12</li>
 									</ul>
 									<ul  class="fr">
-										<li t-attf-style="background:#{widget.dis_desk.oneline.plan_feedback[2]};">24</li>
-										<li t-attf-style="background:#{widget.dis_desk.oneline.plan_feedback[3]};">12</li>
-										<li t-attf-style="background:#{widget.dis_desk.oneline.plan_feedback[4]};">8</li>
-										<li t-attf-style="background:#{widget.dis_desk.oneline.plan_feedback[5]};">65</li>
+										<li>24</li>
+										<li>12</li>
+										<li>8</li>
+										<li>65</li>
 									</ul>
 								</div>
 								<div class="actual_traffic ovf">
@@ -101,28 +177,17 @@
 										<canvas width="1190" height="33" class="can_top"></canvas>
 										<div class="traffic_car">
 											<div class="content_car_road">
-												<t t-foreach="widget.dis_desk.oneline.up_run_car" t-as="live_car">
-													<div class="line_car" t-attf-style="left:#{live_car.car_left}px">
-														<div class="num_car">
-															<span><t t-esc="live_car.num_car"></t></span>
-														</div>
-														<div class="type_car">
-															<span><t t-esc="live_car.type_car"></t></span>
-														</div>
+												<div class="line_car" style="">
+													<div class="num_car">
+														<span>111</span>
 													</div>
-												</t>
+													<div class="type_car">
+														<span>111</span>
+													</div>
+												</div>
 											</div>
 											<div class="content_car_road">
-												<t t-foreach="widget.dis_desk.oneline.down_run_car" t-as="live_car_right">
-													<div class="line_car_right" t-attf-style="left:#{live_car_right.car_left}px">
-														<div class="num_car">
-															<span><t t-esc="live_car_right.num_car"></t></span>
-														</div>
-														<div class="type_car">
-															<span><t t-esc="live_car_right.type_car"></t></span>
-														</div>
-													</div>
-												</t>
+
 											</div>
 										</div>
 										<canvas width="1190" height="33" class="can_bottom"></canvas>
@@ -139,7 +204,7 @@
 		</t>
 		<t t-else="">
 			<div>
-				<div class="dispatch_desktop  dragContent">
+				<div class="dispatch_desktop  dragContent" tid="" style="z-index:10">
 					<div class="content">
 					<!--线路信息展示-->
 						<div class="line_info dragArea">
@@ -154,15 +219,6 @@
 										<ul>
 											<li>
 												<ul class="chs">
-													<li>2路</li>
-													<li>8路</li>
-													<li>34路</li>
-												</ul>
-											</li>
-											<li>
-												<ul class="chs">
-													<li>资源设置</li>
-													<li>样式设置</li>
 												</ul>
 											</li>
 										</ul>
@@ -209,7 +265,7 @@
     <!--上下行图表，客流是否异常-->
 	<t t-name="updown_line_table">
 		<t t-if="widget.dis_desk">
-			<div class="updown_line_table posA dragContent" t-attf-style="left:#{widget.dis_desk.oneline.chart_show_or_hide.left}px;top:#{widget.dis_desk.oneline.chart_show_or_hide.top}px;display:#{widget.dis_desk.oneline.chart_show_or_hide.show};z-index:#{widget.dis_desk.oneline.chart_show_or_hide.zIndex}">
+			<div class="updown_line_table posA dragContent" t-attf-style="left:#{widget.dis_desk.position_left+1200}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index}">
 				<div class="updown_drag">
 					<div class="updown_title dragArea">
 						<div class="line_btn">
@@ -278,7 +334,7 @@
 			</div>
 		</t>
 		<t t-else="">
-			<div class="updown_line_table posA dragContent">
+			<div class="updown_line_table posA dragContent" >
 				<div class="updown_drag">
 					<div class="updown_title dragArea">
 						<div class="line_btn">
@@ -645,13 +701,10 @@
 			</div>
 		</div>
 	</t>
-
-	<t t-name=""></t>
-
-	<t t-name="driver_map_info">
-		<div id="map_info">
-
+	<t t-name="WidgetGaodeCoordinates">
+		<div style="position:absolute;left:0;top:0">
+			<div id="container" class="gaode" style="width:300px;height:300px;"></div>
+			<input type="button" class="btn btn-primary" value="返回" style="position:absolute;left:10px;top:10px"/>
 		</div>
-
 	</t>
 </template>

@@ -39,17 +39,20 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 chartLineBar(lagstation_chart, 0, ["#ff4634", "#4dcfc7"], 'bar', true, ['滞站客流', '预测滞站'], optionLineBar, ['周一', '周二', '周三', '周四', '周五', '周六'], [[120, 152, 101, 134, 90, 230], [220, 182, 191, 234, 290, 330]], '');
             }
         },
-        events:{
-            'click .manual':'manual_process',
-            'click .manual.is_check':'process_chchk',
-
+        events: {
+            'click .manual': 'manual_process',
+            'click .manual.is_check': 'process_chchk',
+            'click .min': 'closeFn'
         },
-        manual_process:function (event) {
-            this.$el.find('.real_time_process').show().css("display","inline-block");
+        closeFn: function () {
+            this.destroy();
+        },
+        manual_process: function (event) {
+            this.$el.find('.real_time_process').show().css("display", "inline-block");
             var x = event.currentTarget;
             $(x).html('完成').addClass('is_check').siblings().hide();
         },
-        process_chchk:function () {
+        process_chchk: function () {
             this.$el.find('.no_absnormal').show().siblings().hide();
         }
     });

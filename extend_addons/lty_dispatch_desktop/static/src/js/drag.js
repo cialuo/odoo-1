@@ -23,7 +23,6 @@ var dragMinHeight = 124;
  +-------------------------- */
 function drag(oDrag, handle) {
     var disX = dixY = 0;
-    var oMin = get.byClass("min", oDrag)[0];
     handle = handle || oDrag;
     handle.style.cursor = "move";
     handle.onmousedown = function (event) {
@@ -55,21 +54,18 @@ function drag(oDrag, handle) {
             this.releaseCapture && this.releaseCapture();
         };
         this.setCapture && this.setCapture();
-        return false
+        return false;
     };
     //最大化按钮
-    if(oMin){
-        oMin.onclick  = function () {
-            oDrag.style.display = "none";
-        };
-    }
+
     //阻止冒泡
 
     //最小化按钮
 
 
 }
-var hasmove =false;
+var timmerHandle = null;
+var isDrag = false;
 function dragFn(parent, title) {
 	var c_class = "."+parent + " ." + title;
     var p_class = "."+parent;
@@ -103,11 +99,13 @@ function dragFn(parent, title) {
             }
             oDrag.style.zIndex = k;
     });
-    $("body").on('mousemove', c_class, function () {
-        hasmove=true;
-    });
+    function setDragTrue()
+    {
+        isDrag = true;
+    }
     $("body").on('mousedown', c_class, function () {
-        hasmove=false;
+        isDrag = false;
+        timmerHandle = setTimeout(setDragTrue,200);
     });
 }
 window.onload = window.onresize = function () {

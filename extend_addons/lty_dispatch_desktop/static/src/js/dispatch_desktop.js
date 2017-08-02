@@ -35,6 +35,9 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         template: 'desktop_top',
         init: function (parent, context) {
             this._super(parent, context);
+            this.data = {
+                component_ids: 13
+            };
         },
         start: function () {
             var self = this;
@@ -76,9 +79,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         template: 'dispatch_desktop_component',
         init: function (parent, context) {
             this._super(parent, context);
-            this.data = {
-                component_ids: 13
-            };
+
             this.model = new Model('lty_dispatch_desktop.lty_dispatch_desktop');
             this.model2 = new Model('dispatch.control.desktop.component');
         },
@@ -86,11 +87,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             var self = this;
             var dis_desk = self.dis_desk;
             self.$el.append(QWeb.render("myConsole"));
-
             self.model2.query().filter([["desktop_id", "=", 2]]).all().then(function (data) {
-                console.log(data);
-            });
-            self.model.call('dispatch_desktop', [dis_desk]).then(function (data) {
                 for (var i = 0; i < data.length; i++) {
                     var num_dispatch_bus = new dispatch_bus(this, data[i]);
                     num_dispatch_bus.appendTo(self.$el);
@@ -116,28 +113,26 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         save_click: function () {
             var self = this;
             var ab = self.$el.find('.dispatch_desktop');
-            var res = []
             for (var i = 0; i < ab.length; i++) {
                 var id = ab[i].getAttribute('tid');
                 var left = ab[i].offsetLeft;
                 var top = ab[i].offsetTop;
                 var zIndex = ab[i].style.zIndex;
-                var show;
-                if (ab[i].style.display === 'block') {
-                    show = 'block';
-                } else {
-                    show = 'none';
-                }
-                var map = {};
-                map.id = id;
-                map.left = left;
-                map.top = top;
-                map.zIndex = zIndex;
-                // map.show = show;
-                res.push(map);
+                self.model2.call("write", [parseInt(id),
+                    {
+                        'position_left': left,
+                        'position_top': top,
+                        'position_z_index': zIndex,
+                    }]).then(function (data) {
+                });
             }
-            self.model2.call("create", [{'line_id': 1, 'position_z_index': res[0].zIndex}]).then(function (data) {
-            });
+
+           // self.model2.query().filter([["desktop_id", "=", 2]]).all().then(function (data) {
+           //      for (var i = 0; i < data.length; i++) {
+           //          var num_dispatch_bus = new dispatch_bus(this, data[i]);
+           //          num_dispatch_bus.appendTo(self.$el);
+           //      }
+           //  });
         }
     });
     core.action_registry.add('dispatch_desktop.page', desktop_top);
