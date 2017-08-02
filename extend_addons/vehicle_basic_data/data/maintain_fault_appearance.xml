@@ -1495,5 +1495,29 @@
            <field name="category_id" ref="gzfl2890"/>
        </record>
 
+       <record id="gzxx2960" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">缓速器不工作</field>
+           <field name="category_id" ref="gzfl2959"/>
+       </record>
+
+       <record id="gzxx2963" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">缓速器工作时有时无</field>
+           <field name="category_id" ref="gzfl2959"/>
+       </record>
+
+       <record id="gzxx2964" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">缓速器扭矩不够</field>
+           <field name="category_id" ref="gzfl2959"/>
+       </record>
+
+       <record id="gzxx2962" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">缓速器工作不停止</field>
+           <field name="category_id" ref="gzfl2959"/>
+       </record>
+
    </data>
 </odoo>

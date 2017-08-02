@@ -26,6 +26,7 @@
         'data/vehicle_model.xml',
         'data/maintain_fault_category.xml',
         'data/maintain_fault_appearance.xml',
+        'data/maintain_fault_reason.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,
