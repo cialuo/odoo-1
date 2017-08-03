@@ -74,7 +74,7 @@
 										<field name="name"/>
                                         <field name='ditch_type'/>
 										<field name="remarks"/>
-										<field name="work_time"/>
+										<!--<field name="work_time"/>-->
                                     </tree>
                                 </field>
                             </page>
