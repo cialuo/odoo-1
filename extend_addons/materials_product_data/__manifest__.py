@@ -18,4 +18,5 @@
         'data/product.product.csv',
     ],
     'depends': ['materials_product'],
+    'application': True,
 }

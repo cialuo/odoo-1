@@ -15,4 +15,5 @@
     """,
     'data': ['views/hr_employee_view.xml'],
     'depends': ['employees'],
+    'application': True,
 }

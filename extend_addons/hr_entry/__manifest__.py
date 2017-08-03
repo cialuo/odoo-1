@@ -16,4 +16,5 @@
         # 'security/security.xml',
     ],
     'depends': ['employees'],
+    'application': True,
 }
