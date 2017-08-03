@@ -409,6 +409,10 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
             i.rework_count = len(i.return_record_ids)
 
     work_time = manhour = fields.Float(digits=(6, 1)) # 工时定额 # fields.Integer('WorkTime') # work_time = fields.Integer(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
+
+    #修理厂所属部门
+    depa_id = fields.Many2one('hr.department', related='warranty_order_id.warranty_location.department_id',
+                                    store=True, readonly=True)
     user_id = fields.Many2one('hr.employee', string="Repair Name", ondelete='set null')
     plan_start_time = fields.Datetime("Plan Start Time", default=datetime.datetime.utcnow())
     plan_end_time = fields.Datetime("Plan End Time", compute='_get_end_datetime') # ,compute='_get_end_datetime'
