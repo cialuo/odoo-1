@@ -41,7 +41,8 @@
 							    <field name="vehicle_id" invisible="1"/>
                               </group>
                               <group>
-                                <field name="user_id" options="{'no_create': True, 'no_open': True}" />
+                                <field name="depa_id" invisible="1"/>
+                                <field name="user_id" options="{'no_create': True, 'no_open': True}" domain = "[('department_id','child_of',depa_id)]"/>
                                 <field name="plan_end_time" />
                               </group>
                     </group>
@@ -228,7 +229,8 @@
                                         <field name="remark" />
                                     </group>
                                     <group >
-                                        <field name="repair_workshop" />
+                                        <field name="depa_id" invisible="1"/>
+                                        <field name="repair_workshop" domain = "[('parent_id','=',depa_id)]" options="{'no_create': True, 'no_open': True}"/>
                                         <field name="maintenance_level" readonly="1"/>
                                         <field name="fill_personnel_unit" readonly="1"/>
                                     </group>

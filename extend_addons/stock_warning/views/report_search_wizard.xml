@@ -10,7 +10,7 @@
                 <form string="">
                     <sheet>
                         <group>
-                            <field name="warehouse_id" />
+                            <field name="warehouse_id" options="{'no_open': True, 'no_create': True}"/>
                         </group>
                     </sheet>
                     <footer>
