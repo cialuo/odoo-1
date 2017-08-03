@@ -134,7 +134,7 @@
 									<group>
 										<field name="repair_department" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
 										<!--<field name="fleet" attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
-										<field name="create_name" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
+										<field name="create_name" readonly="1" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
 										<field name="remark" />
 									</group>
 									<group>
