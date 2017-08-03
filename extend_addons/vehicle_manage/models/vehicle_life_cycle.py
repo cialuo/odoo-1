@@ -52,7 +52,7 @@ class vehicle_life(models.Model):
             if u'yes' == item.is_required:
                 if (item.cost_amount <= 0):
 
-                    raise exceptions.except_orm(_('Error'), _('The cost must be greater than zero'))
+                    raise exceptions.except_orm(_('Error'), _(' %s The cost must be greater than zero' % (item.cost_type)))
 
         self.vehicle_life_state = 'operation_period'
 
