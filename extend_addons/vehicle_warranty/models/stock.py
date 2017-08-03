@@ -91,8 +91,8 @@ class StockPicking(models.Model):
                 2.统计退料单和领料单里的物资种类和数量
                 3.对比验证
             """
-            res_get_domain = [('warranty_order_id', '=', order.warranty_order_id.id),('state', '=', 'done'),('picking_type_id.name', 'in', [u'领料']),]
-            res_back_domain = [('warranty_order_id', '=', order.warranty_order_id.id),('state', 'in', ['draft','done']),('picking_type_id.name', '=', u'退料'),]
+            res_get_domain = [('warranty_order_id', '=', order.warranty_order_id.id),('state', '=', 'done'),('picking_type_id.name', 'in', [u'领料',u'发料']),]
+            res_back_domain = [('warranty_order_id', '=', order.warranty_order_id.id),('state', 'in', ['done']),('picking_type_id.name', '=', u'退料'),]
 
             res_get = self.env['stock.picking'].search(res_get_domain)
             res_back = self.env['stock.picking'].search(res_back_domain)
@@ -100,18 +100,23 @@ class StockPicking(models.Model):
             pc_products = self._get_products(res_get)
             re_products = self._get_products(res_back)
 
-            '''获取差集'''
-            products = list(set(re_products.keys()).difference(set(pc_products.keys())))
-
-            if len(products) > 0:
-                raise UserError(_('Material inconsistent'))
-
-            '''对比物料的数量'''
-            if (sum(re_products.values()) - sum(pc_products.values())) > 0:
-                raise UserError(_('The amount of material returned exceeds the number of picking materials'))
+            '''判断物料是否匹配'''
+            for move in order.move_lines:
+                product = move.product_id
+                key = product.name
+                if pc_products.has_key(key):
+                    '''对比物料的数量'''
+                    back_count = move.product_uom_qty
+                    if re_products.has_key(key):
+                        back_count += re_products.get(key)
+                    count = back_count - pc_products.get(key)
+                    if count > 0:
+                        raise UserError(_('%s more than get %s') % (key, count))
+                else:
+                    raise UserError(_('product is not exist,please remove:%s') % (key))
 
     def _get_products(self,pickings):
-        """根据库存移动获取无聊和数量"""
+        """根据库存移动获取物料和数量"""
         products = dict()
         for picking in pickings:
             for line in picking.move_lines:
