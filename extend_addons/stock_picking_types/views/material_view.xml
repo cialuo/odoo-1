@@ -62,7 +62,7 @@
                     </h1>
                     <group class="hidden-xs">
                         <group>
-                            <field name="picking_type_id" domain="[('name','ilike','领料')]"/>
+                            <field name="picking_type_id" domain="[('name','ilike','领料')]" options="{'no_create': True, 'no_open': True}"/>
                             <field name="pick_user"/>
                             <field name="location_id" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}"/>
                             <field name="location_dest_id" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"/>
