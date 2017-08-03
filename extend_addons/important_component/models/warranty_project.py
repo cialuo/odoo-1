@@ -33,7 +33,7 @@ class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生�
                     'vin': plan_sheet.vin,
                     'average_daily_kilometer': plan_sheet.average_daily_kilometer,
                     'line': plan_sheet.line,
-                    'warranty_location': plan_sheet.warranty_location,
+                    'warranty_location': plan_sheet.warranty_location.id,
                     'plan_id': plan.id,
                     'report_repair_user':plan_sheet.report_repair_user.id
                 }
