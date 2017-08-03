@@ -50,6 +50,9 @@ class WarrantyOrder(models.Model): # 保养单
 
     warranty_location = fields.Many2one('vehicle.plant')  # 保养地点
 
+    # 修理厂所属部门
+    depa_id = fields.Many2one('hr.department', related='warranty_location.department_id',
+                              store=True, readonly=True)
     repair_workshop = fields.Many2one('hr.department')  # 承修车间
 
     state = fields.Selection([ # 状态
