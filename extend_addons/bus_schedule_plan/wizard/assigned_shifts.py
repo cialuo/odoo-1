@@ -37,12 +37,15 @@ class AssignedShifts(models.TransientModel):
         conductor_list = self.conductor_ids.ids
         if len(driver_list) < len(conductor_list): #售票员比司机多的情况
             pass
-        vehicle_list = []
+        elif len(driver_list) > len(conductor_list):
+            conductor_list = conductor_list + [''] * (len(driver_list) - len(conductor_list))
 
+        vehicle_list = []
         for i in range(len(self.vehicle_ids.ids)):
             vehicle_list += [self.vehicle_ids.ids[i]] * len(self.bus_shift_id.shift_line_ids.ids)
 
         shift_line_lists = self.bus_shift_id.shift_line_ids.ids * len(self.vehicle_ids.ids)
+
         vehicle_list = vehicle_list + ['']*(len(driver_list)-len(vehicle_list))
         shift_line_lists = shift_line_lists + [''] * (len(driver_list) - len(shift_line_lists))
 

@@ -141,7 +141,7 @@ class BusStaffGroupVehicleLine(models.Model):
                                         ('flexible', "flexible")], default='operation', required=True)
 
     bus_group_id = fields.Many2one('bus_group', readonly=True)
-    is_conductor = fields.Boolean(related='bus_group_id.is_conductor')
+    # is_conductor = fields.Boolean(related='bus_group_id.is_conductor')
 
     bus_group_driver_id = fields.Many2one("bus_group_driver", domain="[('bus_group_id','=',bus_group_id)]")
     bus_group_conductor_id = fields.Many2one("bus_group_conductor", domain="[('bus_group_id','=',bus_group_id)]")

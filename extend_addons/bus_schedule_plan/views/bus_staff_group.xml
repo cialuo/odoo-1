@@ -103,9 +103,8 @@
                                <field name="bus_group_driver_id"
                                       attrs="{'required':[('operation_state','!=','flexible')]}"
                                       options="{'no_open':True,'no_create':True}"/>
-                               <field name="is_conductor" invisible="1" />
+                               <!--<field name="is_conductor" invisible="1" />-->
                                <field name="bus_group_conductor_id"
-                                      attrs="{'invisible':[('is_conductor','=',False)] ,'required':[('is_conductor','=',True),('operation_state','!=','flexible')]}"
                                       options="{'no_open':True,'no_create':True}"/>
                                <field name="bus_shift_id" invisible="1"/>
                                <field name="bus_shift_choose_line_id"

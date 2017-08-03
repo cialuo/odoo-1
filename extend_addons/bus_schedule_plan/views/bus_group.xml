@@ -42,14 +42,14 @@
                         </div>
                         <group col="2">
                             <group>
-                                <field name="id"/>
+                                <field name="id" invisible="1"/>
                                 <field name="route_id"
                                        attrs="{'readonly': [('id', '!=', False)]}"
                                        options="{'no_open':True,'no_create':True}"/>
                                 <field name="bus_algorithm_id" options="{'no_create':True}"/>
                                 <field name="bus_driver_algorithm_id" options="{'no_create':True}"/>
                                 <field name="bus_shift_id" options="{'no_create':True}"/>
-                                <field name="is_conductor"/>
+                                <!--<field name="is_conductor"/>-->
                             </group>
                         </group>
 
@@ -63,7 +63,6 @@
                                         <field name="vehicle_type"/>
                                         <field name="ride_number"/>
                                         <field name="state"/>
-                                        <!--<field name="driver_ids" widget="many2many_tags"/>-->
                                     </tree>
                                 </field>
                             </page>
@@ -75,7 +74,8 @@
                                     </tree>
                                 </field>
                             </page>
-                            <page string="GroupConductors" attrs="{'invisible':[('is_conductor','=',False)] }">
+                            <!--<page string="GroupConductors" attrs="{'invisible':[('is_conductor','=',False)] }">-->
+                            <page string="GroupConductors">
                                 <field name="conductor_ids">
                                     <tree editable="bottom">
 										 <field name="conductor_id" options="{'no_open':True,'no_create':True}"/>

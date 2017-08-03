@@ -15,7 +15,7 @@ class BusGroup(models.Model):
 
     name = fields.Char('Group Name', required=True)
     route_id = fields.Many2one('route_manage.route_manage', required=True)
-    is_conductor = fields.Boolean(default=True)
+    # is_conductor = fields.Boolean(default=True)
 
     vehicle_ct = fields.Integer(compute='get_vehicle_ct')
     driver_ct = fields.Integer(compute='get_driver_ct')
