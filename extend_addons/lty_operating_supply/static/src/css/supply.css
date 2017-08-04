@@ -110,7 +110,7 @@
 .operate_cont .line_chart .chart_peak {
     position: relative;
     height: 8px;
-    margin: 0 0 25px 100px;
+    margin: 0 0 15px 100px;
 }
 
 .operate_cont .line_chart .chart_peak .chart_peak_canvas_title {

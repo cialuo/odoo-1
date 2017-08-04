@@ -2,8 +2,8 @@
 
 from odoo import models, fields, api
 
-# class scheduling_parameters_widget(models.Model):
-#     _name = 'scheduling_parameters_widget.scheduling_parameters_widget'
+# class lty_operating_supply(models.Model):
+#     _name = 'lty_operating_supply.lty_operating_supply'
 
 #     name = fields.Char()
 #     value = fields.Integer()
