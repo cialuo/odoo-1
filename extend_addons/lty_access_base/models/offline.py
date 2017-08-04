@@ -126,6 +126,57 @@ class punctualityDetentionTopic(models.Model):
     #站点ID
     station_main_id = fields.Many2one('platform_manage.platform_manage')
 
+class passengerSatisfactionTopic(models.Model):
+
+    _name = 'lty_access_base.passenger_satisfaction_topic'
+
+    _description = 'Passenger satisfaction topic'
+
+    _rec_name = 'route_id'
+
+    '''乘客满意度'''
+
+    #城市id
+    city_code = fields.Char()
+
+    #线路id
+    route_id = fields.Many2one('route_manage.route_manage')
+
+    #线路方向
+    line_direction = fields.Integer()
+
+    #时间类型
+    time_type = fields.Integer()
+
+    #日期类型
+    date_type = fields.Integer()
+
+    #日期
+    off_date = fields.Char()
+
+    #时间
+    off_time = fields.Char()
+
+    #公交公司ID
+    department_id = fields.Char()
+
+    #上车人数
+    up_number = fields.Integer()
+
+    #下车人数
+    down_number = fields.Integer()
+
+    #平均发车间隔
+    average_start_interval = fields.Integer()
+
+    #侯车满意度
+    waiting_satisfaction = fields.Integer()
+
+    #舒适满意度
+    comfort_satisfaction = fields.Integer()
+
+
+
 
 
 

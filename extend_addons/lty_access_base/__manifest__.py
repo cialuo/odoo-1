@@ -39,6 +39,7 @@
         'views/lineTimeTopic_view.xml',
         'views/stationTimeTopic_view.xml',
         'views/punctuality_detention_topic_view.xml',
+        'views/passenger_satisfaction_topic.xml',
         'views/menus.xml'
     ],
 }
