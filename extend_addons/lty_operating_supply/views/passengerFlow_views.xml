@@ -24,6 +24,5 @@
             <field name="tag">lty_operating_supply.time_place_passenger_flow</field>
         </record>
         <menuitem id="menu_operate_transit_chart_time_place" name="分时准点率与滞站客流" parent="menu_operate_passengerFlow_transit" action="time_place_passenger_flow" />
-
     </data>
 </openerp>

@@ -32,7 +32,7 @@
             </t>
             <t t-if="widget.supply.company_list">
                 <p class="part_block">
-                    站台
+                    公司
                     <select class="company" name="" id="">
                         <t t-foreach="widget.supply.company_list" t-as="item">
                             <option t-attf-value="{{item.id}}"><t t-esc="item.name"></t></option>
@@ -142,7 +142,7 @@
             <div style="width: 1040px;height: 380px;" class="chart_passenger_flow"></div>
             <div class="chart_peak">
                 <canvas class="chart_peak_canvas" width="750" height="8"></canvas>
-                <div style="background:#999;height:2px;width:750px;margin-left:22px;"></div>
+                <div style="background:#999;height:2px;width:750px;position:absolute;left:22px;bottom:0px;"></div>
             </div>
             <div style="width:1040px;height:280px;" class="chart_satisfaction"></div>
         </div>
@@ -197,6 +197,104 @@
                     <td><h2><t t-esc="widget.chart_data.company_name"></t>客流构成</h2></td>
                 </tr>
             </table>
+        </div>
+    </t>
+
+    <t t-name="satisfaction_title_template">
+        <div class="title"><t t-esc="widget.supply.title"></t></div>
+        <div class="screening">
+            <t t-if="widget.supply.company_list">
+                <p class="part_block">
+                    单位
+                    <select class="company" name="" id="">
+                        <t t-foreach="widget.supply.company_list" t-as="item">
+                            <option t-attf-value="{{item.id}}"><t t-esc="item.name"></t></option>
+                        </t>
+                    </select>
+                </p>
+            </t>
+            <t t-if="widget.supply.data_scope">
+                <p class="part_block data_scope">
+                    日期范围
+                    <input class="start_time oe_datepicker_input" type="text" t-attf-value="{{widget.supply.data_scope[0]}}" />
+                    <input class="end_time oe_datepicker_input" type="text" t-attf-value="{{widget.supply.data_scope[1]}}" />
+                </p>
+            </t>
+            <ul class="swt_box plan_way">
+                <t t-foreach="widget.supply.plan_way" t-as="item">
+                    <t t-if="item_index==0">
+                        <li class="active" t-attf-name="{{item.en_name}}"><t t-esc="item.name"></t></li>    
+                    </t>
+                    <t t-else="">
+                        <li t-attf-name="{{item.en_name}}"><t t-esc="item.name"></t></li>
+                    </t>
+                </t>
+            </ul>
+        </div>
+        <div class="screening">
+            <t t-if="widget.supply.line_list">
+                <p class="part_block">
+                    线路
+                    <select class="supply_line" name="line" id="">
+                        <t t-foreach="widget.supply.line_list" t-as="item">
+                            <option t-attf-value="{{item.id}}" t-attf-name="{{item.name}}"><t t-esc="item.name"></t></option>
+                        </t>
+                    </select>
+                    <t t-if="widget.supply.direction">
+                        <select class="direction" name="direction" id="">
+                            <t t-foreach="widget.supply.direction" t-as="item">
+                                <option t-attf-value="{{item.id}}"><t t-esc="item.name"></t></option>
+                            </t>
+                        </select>
+                    </t>
+                </p>
+            </t>
+            <a class="ok_bt" href="javascript:;">确定</a>
+        </div>
+    </t>
+
+    <t t-name="waiting_chart_template">
+        <div class="line_chart">
+            <div style="width: 1040px;height: 380px;" class="chart_passenger_flow"></div>
+            <div class="chart_peak">
+                <canvas class="chart_peak_canvas" width="750" height="8"></canvas>
+                <ul class="chart_peak_canvas_title">
+                    <li>高峰
+                        <div class="gf st"></div>
+                    </li>
+                    <li>平峰
+                        <div class="pf st"></div>
+                    </li>
+                    <li>低峰
+                        <div class="df st"></div>
+                    </li>
+                </ul>
+            </div>
+            <div style="width:1040px;height:280px;" class="chart_satisfaction"></div>
+        </div>
+        <div class="site_info_cont">
+            <div class="site_info_title">满意度详情</div>
+            <table class="site_info_table">
+                <thead>
+                <tr>
+                    <th data-field="line">线路</th>
+                    <th data-field="time">时间</th>
+                    <th data-field="on_number">上车人数</th>
+                    <th data-field="capacity">运力</th>
+                    <th data-field="out_number">下车人数</th>
+                    <th data-field="departure_interval">平均发车间隔</th>
+                    <th data-field="waiting">候车满意度</th>
+                    <th data-field="comfort">舒适满意度</th>
+                    <th data-field="earnings">公司收益满意度</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </t>
+
+    <t t-name="service_chart_template">
+        <div class="line_chart">
+            感觉原型图有问题，暂不作处理
         </div>
     </t>
 </templates>

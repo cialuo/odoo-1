@@ -162,3 +162,9 @@
     width: 1080px;
     margin: 50px auto;
 }
+
+.operate_cont .site_info_cont .site_info_title {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 20px;
+}

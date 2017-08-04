@@ -20,13 +20,15 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['scheduling_parameters', 'lty_dispatch_desktop_widget'],
+    'depends': ['operation_menu', 'lty_dispatch_desktop_widget'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
         'views/templates.xml',
+        'views/passengerFlow_views.xml',
+        'views/satisfaction_views.xml',
+        'views/service_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

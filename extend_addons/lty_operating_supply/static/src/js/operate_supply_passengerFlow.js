@@ -205,7 +205,6 @@ odoo.define(function(require) {
                         },
                     ]
                 }
-                
                 new line_passenger_flow_hour_chart(this, passenger_flow_data, satisfaction_data).appendTo(arg_options.chart_obj);
             }else{
                 var passenger_flow_data = {
@@ -995,7 +994,7 @@ odoo.define(function(require) {
 
     // 各公司分时客流 company
     var company_passenger_flow = Widget.extend({
-        template: "line_passenger_flow_template",
+        template: "supply_template",
         init: function(parent) {
             this._super(parent);
         },
@@ -1125,7 +1124,7 @@ odoo.define(function(require) {
 
     // 分时准点率与滞站客流
     var time_place_passenger_flow = Widget.extend({
-        template: "line_passenger_flow_template",
+        template: "supply_template",
         init: function(parent) {
             this._super(parent);
         },
