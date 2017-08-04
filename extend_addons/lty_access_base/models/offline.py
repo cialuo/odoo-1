@@ -301,6 +301,40 @@ class drivingRulesTopic(models.Model):
     #标志
     line_signs = fields.Integer()
 
+class vehicleAllocationSchemeTopic(models.Model):
+
+    _name = 'lty_access_base.vehicle_allocation_scheme_topic'
+    _description = 'Vehicle allocation scheme topic'
+    _rec_name = 'city_code'
+
+    '''配车方案'''
+
+    #城市id
+    city_code = fields.Char()
+
+    #线路id
+    route_id = fields.Many2one('route_manage.route_manage')
+
+    #线路方向
+    line_direction = fields.Integer()
+
+    #公交公司ID
+    department_id = fields.Char()
+
+    #日期类型
+    date_type = fields.Integer()
+
+    #运营车数量
+    number_operating_vehicles = fields.Integer()
+
+    #机动车数量
+    number_motor_vehicle = fields.Integer()
+
+    #核载人数
+    manned_total = fields.Integer()
+
+    #车型
+    models_type = fields.Many2one('fleet.vehicle.model')
 
 
 

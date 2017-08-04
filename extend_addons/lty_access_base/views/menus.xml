@@ -16,8 +16,10 @@
         <!--服务保障能力-->
         <menuitem id="service_support_capability_topic_menu" name="service_support_capability_topic_menu" parent="lty_access_base.menu_root" sequence="50" action="act_service_support_capability_topic" />
         <!--车辆到站预测准点-->
-        <menuitem id="station_may_arr_time_topic_menu" name="station_may_arr_time_topic_menu" parent="lty_access_base.menu_root" sequence="50" action="act_station_may_arr_time_topic" />
+        <menuitem id="station_may_arr_time_topic_menu" name="station_may_arr_time_topic_menu" parent="lty_access_base.menu_root" sequence="60" action="act_station_may_arr_time_topic" />
         <!--行车规则-->
-        <menuitem id="driving_rules_topic_menu" name="driving_rules_topic_menu" parent="lty_access_base.menu_root" sequence="50" action="act_driving_rules_topic" />
+        <menuitem id="driving_rules_topic_menu" name="driving_rules_topic_menu" parent="lty_access_base.menu_root" sequence="70" action="act_driving_rules_topic" />
+        <!--配车方案-->
+        <menuitem id="vehicle_allocation_scheme_topic_menu" name="vehicle_allocation_scheme_topic_menu" parent="lty_access_base.menu_root" sequence="80" action="act_vehicle_allocation_scheme_topic" />
     </data>
 </odoo>

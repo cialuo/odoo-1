@@ -32,7 +32,7 @@
     'category': 'Uncategorized',
     'version': '0.1',
 
-    'depends': ['scheduling_parameters'],
+    'depends': ['scheduling_parameters','vehicle_manage'],
 
     'data': [
         # 'security/ir.model.access.csv',
@@ -43,6 +43,7 @@
         'views/service_support_capability_topic_view.xml',
         'views/station_may_arr_time_topic_view.xml',
         'views/driving_rules_topic_view.xml',
+        'views/vehicle_allocation_scheme_topic_view.xml',
         'views/menus.xml'
     ],
 }
