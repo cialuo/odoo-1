@@ -37,6 +37,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/lineTimeTopic_view.xml',
+        'views/stationTimeTopic_view.xml',
         'views/menus.xml'
     ],
 }

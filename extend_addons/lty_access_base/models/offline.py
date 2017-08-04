@@ -18,19 +18,19 @@ class lineTimeTopic(models.Model):
     #线路
     route_id = fields.Many2one('route_manage.route_manage')
 
-    #线路方向
+    #线路方向 1：上行,2：下行,数据类型需要跟调度统一
     line_direction = fields.Integer()
 
-    #时间类型
-    time_type = fields.Integer()
+    #时间类型 1：时间,2：日,3：周,4：月,默认为0
+    time_type = fields.Integer(default=0)
 
-    #日期类型
-    date_type = fields.Integer()
+    #日期类型 1：节假日:2：周末:3：工作日,默认为0
+    date_type = fields.Integer(default=0)
 
-    #日期
+    #日期 年月日
     off_date = fields.Char()
 
-    #时间
+    #时间 24小时制
     off_time = fields.Char()
 
     #预测客流
@@ -44,6 +44,48 @@ class lineTimeTopic(models.Model):
 
     #滞站客流（等车人数）
     stagnant_traffic = fields.Integer()
+
+class stationTimeTopic(models.Model):
+
+    _name = 'lty_access_base.station_time_topic'
+    _description = 'Station time topic'
+    _rec_name = 'station_name'
+
+    '''站点分时客流'''
+
+    #城市
+    city_code = fields.Char()
+
+    #线路
+    route_id = fields.Many2one('route_manage.route_manage')
+
+    #线路方向
+    line_direction = fields.Integer()
+
+    #日期类型
+    date_type = fields.Integer()
+
+    #时间类型
+    time_type = fields.Integer()
+
+    #日期
+    off_date = fields.Char()
+
+    #时间
+    off_time = fields.Char()
+
+    #站点名称
+    station_name = fields.Char()
+
+    #站点
+    station_main_id = fields.Many2one('platform_manage.platform_manage')
+
+    #客流
+    passenger_flow = fields.Integer()
+
+
+
+
 
 
 
