@@ -245,6 +245,64 @@ class stationMayArrTimeTopic(models.Model):
     #站点序号
     station_no = fields.Integer()
 
+class drivingRulesTopic(models.Model):
+
+    _name = 'lty_access_base.driving_rules_topic'
+    _description = 'Driving rules topic'
+    _rec_name = 'city_code'
+
+    '''行车规则'''
+
+    #城市id
+    city_code = fields.Char()
+
+    #线路id
+    route_id = fields.Many2one('route_manage.route_manage')
+
+    #线路方向
+    line_direction = fields.Integer()
+
+    #公交公司ID
+    department_id = fields.Char()
+
+    #日期类型
+    date_type = fields.Integer()
+
+    #开始时间
+    start_time = fields.Datetime()
+
+    #结束时间
+    end_time = fields.Datetime()
+
+    #发车间隔
+    departure_interval = fields.Integer()
+
+    #预测车速
+    predicted_speed = fields.Integer()
+
+    #运营时长
+    operation_duration = fields.Integer()
+
+    #停车时间
+    parking_time = fields.Integer()
+
+    #最小配车数
+    smallest_bus = fields.Integer()
+
+    #富余车辆
+    surplus_bus = fields.Integer()
+
+    #客流采集天数
+    passenger_collection_days = fields.Integer()
+
+    #是否跨天
+    isInter_day = fields.Integer()
+
+    #标志
+    line_signs = fields.Integer()
+
+
+
 
 
 

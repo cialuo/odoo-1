@@ -42,6 +42,7 @@
         'views/passenger_satisfaction_topic_view.xml',
         'views/service_support_capability_topic_view.xml',
         'views/station_may_arr_time_topic_view.xml',
+        'views/driving_rules_topic_view.xml',
         'views/menus.xml'
     ],
 }

@@ -1,0 +1,27 @@
+<odoo>
+	<data>
+
+        <record id="driving_rules_topic_tree" model="ir.ui.view">
+            <field name="name">driving_rules_topic in records tree</field>
+            <field name="model">lty_access_base.driving_rules_topic</field>
+            <field name="arch" type="xml">
+                <tree create="false">
+                    <field name="city_code"/>
+                    <field name="route_id"/>
+                    <field name="line_direction"/>
+                    <field name="start_time"/>
+                    <field name="end_time"/>
+                    <field name="departure_interval"/>
+                    <field name="predicted_speed"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_driving_rules_topic">
+            <field name="name">driving_rules_topic records</field>
+            <field name="res_model">lty_access_base.driving_rules_topic</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+    </data>
+</odoo>
