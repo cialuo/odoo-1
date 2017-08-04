@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-04 09:17+0000\n"
-"PO-Revision-Date: 2017-08-04 09:17+0000\n"
+"POT-Creation-Date: 2017-08-04 11:26+0000\n"
+"PO-Revision-Date: 2017-08-04 11:26+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,7 @@ msgstr "平均发车间隔"
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_city_code
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_city_code
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_city_code
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_city_code
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_city_code
 msgid "City code"
 msgstr "城市"
@@ -39,6 +40,7 @@ msgstr "舒适满意度"
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_create_uid
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_create_uid
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_create_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_create_uid
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_create_uid
 msgid "Created by"
 msgstr "创建人"
@@ -48,6 +50,7 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_create_date
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_create_date
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_create_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_create_date
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_create_date
 msgid "Created on"
 msgstr "创建时间"
@@ -72,6 +75,7 @@ msgstr "公交公司ID"
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_display_name
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_display_name
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_display_name
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_display_name
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -80,6 +84,11 @@ msgstr "显示名称"
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_down_number
 msgid "Down number"
 msgstr "下车人数"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_gprs_id
+msgid "Gprs id"
+msgstr "编码"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_history_passenger_num
@@ -91,6 +100,7 @@ msgstr "历史客流"
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_id
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_id
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_id
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_id
 msgid "ID"
 msgstr "ID"
@@ -100,6 +110,7 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic___last_update
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic___last_update
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic___last_update
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic___last_update
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
@@ -109,6 +120,7 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_write_uid
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_write_uid
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_write_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_write_uid
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
@@ -118,6 +130,7 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_write_date
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_write_date
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_write_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_write_date
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
@@ -133,9 +146,15 @@ msgstr "线路分时客流"
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_line_direction
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_line_direction
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_line_direction
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_line_direction
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_line_direction
 msgid "Line direction"
 msgstr "线路方向"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_may_arrival_time
+msgid "May arrival time"
+msgstr "预测到站时间"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_off_date
@@ -156,6 +175,11 @@ msgid "Off time"
 msgstr "时间"
 
 #. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_onboard_id
+msgid "Onboard id"
+msgstr "设备号"
+
+#. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_passenger_flow
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_passenger_flow
 msgid "Passenger flow"
@@ -165,6 +189,11 @@ msgstr "客流"
 #: model:ir.model,name:lty_access_base.model_lty_access_base_passenger_satisfaction_topic
 msgid "Passenger satisfaction topic"
 msgstr "乘客满意度"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_plan_id
+msgid "Plan id"
+msgstr "计划编号"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_prediction_passenger_num
@@ -197,6 +226,11 @@ msgid "Stagnant traffic"
 msgstr "滞站客流(等车人数)"
 
 #. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_station_id
+msgid "Station id"
+msgstr "站点ID"
+
+#. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_station_main_id
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_station_main_id
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_station_main_id
@@ -204,10 +238,20 @@ msgid "Station main id"
 msgstr "站点"
 
 #. module: lty_access_base
+#: model:ir.model,name:lty_access_base.model_lty_access_base_station_may_arr_time_topic
+msgid "Station may arrt ime topic"
+msgstr "车辆到站预测准点"
+
+#. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_station_name
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_station_name
 msgid "Station name"
 msgstr "站点名称"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_station_no
+msgid "Station no"
+msgstr "站点序号"
 
 #. module: lty_access_base
 #: model:ir.model,name:lty_access_base.model_lty_access_base_station_time_topic
@@ -284,6 +328,16 @@ msgstr "服务保障能力"
 #: model:ir.ui.menu,name:lty_access_base.stationTimeTopic_menu
 msgid "stationTimeTopic_menu"
 msgstr "站点分时客流"
+
+#. module: lty_access_base
+#: model:ir.actions.act_window,name:lty_access_base.act_station_may_arr_time_topic
+msgid "station_may_arr_time_topic records"
+msgstr "车辆到站预测准点"
+
+#. module: lty_access_base
+#: model:ir.ui.menu,name:lty_access_base.station_may_arr_time_topic_menu
+msgid "station_may_arr_time_topic_menu"
+msgstr "车辆到站预测准点"
 
 #. module: lty_access_base
 #: model:ir.actions.act_window,name:lty_access_base.act_station_time_topic

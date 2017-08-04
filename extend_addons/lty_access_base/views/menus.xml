@@ -15,5 +15,7 @@
         <menuitem id="passenger_satisfaction_topic_menu" name="passenger_satisfaction_topic_menu" parent="lty_access_base.menu_root" sequence="40" action="act_passenger_satisfaction_topic" />
         <!--服务保障能力-->
         <menuitem id="service_support_capability_topic_menu" name="service_support_capability_topic_menu" parent="lty_access_base.menu_root" sequence="50" action="act_service_support_capability_topic" />
+        <!--车辆到站预测准点-->
+        <menuitem id="station_may_arr_time_topic_menu" name="station_may_arr_time_topic_menu" parent="lty_access_base.menu_root" sequence="50" action="act_station_may_arr_time_topic" />
     </data>
 </odoo>

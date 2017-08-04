@@ -213,6 +213,40 @@ class serviceSupportCapabilityTopic(models.Model):
     #公交公司ID
     department_id = fields.Char()
 
+class stationMayArrTimeTopic(models.Model):
+
+    _name = 'lty_access_base.station_may_arr_time_topic'
+    _description = 'Station may arrt ime topic'
+    _rec_name = 'city_code'
+
+    '''车辆到站预测准点'''
+
+    #设备号
+    onboard_id = fields.Char()
+
+    #城市id
+    city_code = fields.Char()
+
+    #计划编号
+    plan_id = fields.Integer()
+
+    #线路方向
+    line_direction = fields.Integer()
+
+    #编码
+    gprs_id = fields.Integer()
+
+    #站点id
+    station_id = fields.Many2one('platform_manage.platform_manage')
+
+    #预测到站时间
+    may_arrival_time = fields.Datetime()
+
+    #站点序号
+    station_no = fields.Integer()
+
+
+
 
 
 
