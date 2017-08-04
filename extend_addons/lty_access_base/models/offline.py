@@ -175,6 +175,45 @@ class passengerSatisfactionTopic(models.Model):
     #舒适满意度
     comfort_satisfaction = fields.Integer()
 
+class serviceSupportCapabilityTopic(models.Model):
+
+    _name = 'lty_access_base.service_support_capability_topic'
+    _abstract = 'Service support capability topic'
+    _rec_name = 'city_code'
+
+    '''服务保障能力'''
+
+    #城市id
+    city_code = fields.Char()
+
+    #线路id
+    route_id = fields.Many2one('route_manage.route_manage')
+
+    #线路方向
+    line_direction = fields.Integer()
+
+    #时间类型
+    time_type = fields.Integer()
+
+    #日期类型
+    date_type = fields.Integer()
+
+    #日期
+    off_date = fields.Char()
+
+    #时间
+    off_time = fields.Char()
+
+    #站点ID
+    station_main_id = fields.Many2one('platform_manage.platform_manage')
+
+    #历史客流
+    passenger_flow = fields.Integer()
+
+    #公交公司ID
+    department_id = fields.Char()
+
+
 
 
 

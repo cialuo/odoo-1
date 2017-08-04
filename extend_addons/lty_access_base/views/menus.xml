@@ -12,6 +12,8 @@
         <!--准点与滞站-->
         <menuitem id="punctuality_detention_topic_menu" name="punctuality_detention_topic_menu" parent="lty_access_base.menu_root" sequence="30" action="act_punctuality_detention_topic" />
         <!--乘客满意度-->
-        <menuitem id="passenger_satisfaction_topic_menu" name="passenger_satisfaction_topic_menu" parent="lty_access_base.menu_root" sequence="30" action="act_passenger_satisfaction_topic" />
+        <menuitem id="passenger_satisfaction_topic_menu" name="passenger_satisfaction_topic_menu" parent="lty_access_base.menu_root" sequence="40" action="act_passenger_satisfaction_topic" />
+        <!--服务保障能力-->
+        <menuitem id="service_support_capability_topic_menu" name="service_support_capability_topic_menu" parent="lty_access_base.menu_root" sequence="50" action="act_service_support_capability_topic" />
     </data>
 </odoo>
