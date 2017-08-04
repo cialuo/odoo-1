@@ -8,7 +8,8 @@
         <!--线路分时客流-->
         <menuitem id="lineTimeTopic_menu" name="lineTimeTopic_menu" parent="lty_access_base.menu_root" sequence="10" action="act_lineTimeTopic" />
         <!--站台分时客流-->
-        <menuitem id="stationTimeTopic_menu" name="stationTimeTopic_menu" parent="lty_access_base.menu_root" sequence="10" action="act_station_time_topic" />
-
+        <menuitem id="stationTimeTopic_menu" name="stationTimeTopic_menu" parent="lty_access_base.menu_root" sequence="20" action="act_station_time_topic" />
+        <!--准点与滞站-->
+        <menuitem id="punctuality_detention_topic_menu" name="punctuality_detention_topic_menu" parent="lty_access_base.menu_root" sequence="30" action="act_punctuality_detention_topic" />
     </data>
 </odoo>

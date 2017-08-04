@@ -83,6 +83,50 @@ class stationTimeTopic(models.Model):
     #客流
     passenger_flow = fields.Integer()
 
+class punctualityDetentionTopic(models.Model):
+
+    _name = 'lty_access_base.punctuality_detention_topic'
+
+    _description = 'Punctuality detention topic'
+
+    _rec_name = 'station_name'
+
+    '''准点与滞站'''
+
+    #城市id
+    city_code = fields.Char()
+
+    #线路id
+    route_id = fields.Many2one('route_manage.route_manage')
+
+    #线路方向
+    line_direction = fields.Integer()
+
+    #时间类型
+    time_type = fields.Integer()
+
+    #日期类型
+    date_type = fields.Integer()
+
+    #日期
+    off_date = fields.Char()
+
+    #时间
+    off_time = fields.Char()
+
+    #是否准点
+    punctuality_rate = fields.Integer()
+
+    #滞站客流
+    stagnant_traffic = fields.Integer()
+
+    #站点名称
+    station_name = fields.Char()
+
+    #站点ID
+    station_main_id = fields.Many2one('platform_manage.platform_manage')
+
+
 
 
 

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-04 07:43+0000\n"
-"PO-Revision-Date: 2017-08-04 07:43+0000\n"
+"POT-Creation-Date: 2017-08-04 08:21+0000\n"
+"PO-Revision-Date: 2017-08-04 08:21+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,30 +17,35 @@ msgstr ""
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_city_code
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_city_code
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_city_code
 msgid "City code"
 msgstr "城市"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_create_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_create_uid
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_create_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_create_date
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_create_date
 msgid "Created on"
 msgstr "创建时间"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_date_type
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_date_type
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_date_type
 msgid "Date type"
 msgstr "日期类型"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_display_name
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_display_name
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -52,24 +57,28 @@ msgstr "历史客流"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_id
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_id
 msgid "ID"
 msgstr "ID"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic___last_update
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic___last_update
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_write_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_write_uid
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_write_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_write_date
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
@@ -82,18 +91,21 @@ msgstr "线路分时客流"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_line_direction
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_line_direction
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_line_direction
 msgid "Line direction"
 msgstr "线路方向"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_off_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_off_date
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_off_date
 msgid "Off date"
 msgstr "日期"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_off_time
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_off_time
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_off_time
 msgid "Off time"
 msgstr "时间"
@@ -109,7 +121,18 @@ msgid "Prediction passenger num"
 msgstr "预测客流"
 
 #. module: lty_access_base
+#: model:ir.model,name:lty_access_base.model_lty_access_base_punctuality_detention_topic
+msgid "Punctuality detention topic"
+msgstr "准点与滞站"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_punctuality_rate
+msgid "Punctuality rate"
+msgstr "是否准点"
+
+#. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_route_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_route_id
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_route_id
 msgid "Route id"
 msgstr "线路"
@@ -120,11 +143,18 @@ msgid "Stagnant traffic"
 msgstr "滞站客流(等车人数)"
 
 #. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_stagnantTraffic
+msgid "Stagnanttraffic"
+msgstr "滞站客流"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_station_main_id
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_station_main_id
 msgid "Station main id"
 msgstr "站点"
 
 #. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_station_name
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_station_name
 msgid "Station name"
 msgstr "站点名称"
@@ -136,6 +166,7 @@ msgstr "站点分时客流"
 
 #. module: lty_access_base
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_time_type
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_time_type
 #: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_time_type
 msgid "Time type"
 msgstr "时间类型"
@@ -159,6 +190,16 @@ msgstr "线路分时客流"
 #: model:ir.ui.menu,name:lty_access_base.menu_root
 msgid "lty_access_base_menu"
 msgstr "调度数据接口"
+
+#. module: lty_access_base
+#: model:ir.actions.act_window,name:lty_access_base.act_punctuality_detention_topic
+msgid "punctuality_detention_topic records"
+msgstr "准点与滞站"
+
+#. module: lty_access_base
+#: model:ir.ui.menu,name:lty_access_base.punctuality_detention_topic_menu
+msgid "punctuality_detention_topic_menu"
+msgstr "准点与滞站"
 
 #. module: lty_access_base
 #: model:ir.ui.menu,name:lty_access_base.stationTimeTopic_menu
