@@ -196,8 +196,15 @@
     color: #fff;
 }
 
-.bus_real_info .boxTitle .titleInfo table td {
-    text-align: left;
+.bus_real_info .boxTitle .titleInfo dl dt {
+    height: 38px;
+    line-height: 38px;
+    float: left;
+}
+
+.bus_real_info .boxTitle .titleInfo dl dd {
+    height: 19px;
+    line-height: 19px;
 }
 
 .bus_real_info .boxTitle .titleInfo .crew {
