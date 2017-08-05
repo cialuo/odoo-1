@@ -94,12 +94,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var line_id = e.delegateTarget.getAttribute("tid");
             var options = 
                 {
-                    x:e.clientX+5, 
-                    y:e.clientY+5, 
+                    x:e.clientX+5,
+                    y:e.clientY+5,
                     zIndex:5,
                     line_id: line_id,
                     car_num: car_num
                 };
+            $(".bus_real_info").remove();
             var dialog = new bus_real_info(this, options);
             dialog.appendTo($("body"));
             // e.delegateTarget.parentElement.append(dialog);
@@ -193,6 +194,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         line_id: self.attr("tid")
                     };
                 var dialog = new plan_display(this, options);
+                $(".plan_display").remove();
                 dialog.appendTo($("body"));
             }
         },
@@ -265,16 +267,18 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if(dataSite[i].status == 1){
                  cxt.rect(dataCir[i]-(6*dataSite[i].name.length),testy-16,12*dataSite[i].name.length,16)
                  if (cxt.isPointInPath(x, y)) {
+                    cxt.closePath();
                     var options = 
                         {
                             x:e.clientX+5, 
                             y:e.clientY+5, 
                             zIndex:5,
-                            line_id: self.attr("tid")
+                            line_id: self.attr("tid"),
+                            site: dataSite[i]
                         };
                     var dialog = new passenger_flow(this, options);
+                    $(".passenger_flow_trend_chart").remove();
                     dialog.appendTo($("body"));
-                    cxt.closePath();
                 }
                 }
 

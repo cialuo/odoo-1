@@ -196,6 +196,10 @@
     color: #fff;
 }
 
+.bus_real_info .boxTitle .titleInfo table td {
+    text-align: left;
+}
+
 .bus_real_info .boxTitle .titleInfo .crew {
     margin-left: 20px;
 }
