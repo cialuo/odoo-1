@@ -1,6 +1,10 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <openerp>
     <data>
-        
+        <record id="menu_operate_transit_service_chart" model="ir.actions.client">
+            <field name="name">service</field>
+            <field name="tag">lty_operating_supply.service</field>
+        </record>
+        <menuitem id="menu_operate_waiting_satisfaction_security" name="保障能力匹配度分析" parent="menu_operate_service_transit" action="menu_operate_transit_service_chart" />
     </data>
 </openerp>
