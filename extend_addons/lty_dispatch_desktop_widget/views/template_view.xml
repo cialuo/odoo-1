@@ -17,6 +17,6 @@
           </xpath>
       </template>
 
-      <menuitem id="menu_transit" name="desktop_widget" />
+      <!-- <menuitem id="menu_transit" name="desktop_widget" /> -->
   </data>
 </openerp>
