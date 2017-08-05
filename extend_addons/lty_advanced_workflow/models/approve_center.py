@@ -30,7 +30,7 @@ class lty_approve_center(models.Model):
         ], string='status', required=True, track_visibility='always', default='commited')
     line_ids = fields.One2many('lty.approve.logs','center_id') 
     cfg_line_id = fields.Many2one('lty.advanced.workflow.cfg.line')     
-    active = fields.Boolean(compute='_active_wkf_node')
+    active_node = fields.Boolean(compute='_active_wkf_node')
     approved = fields.Boolean(compute='_compute_approve_state') 
 
 
@@ -38,28 +38,31 @@ class lty_approve_center(models.Model):
     @api.multi
     def _active_wkf_node(self):
         #todo compute active status
-        farther_node_state = False
-        if self.cfg_line_id.farther_node :
-            object2 = self.object_id._name+','+str(self.object_id.id)
-            farther_node_state = self.search([('object_id', '=',object2)], limit=1).approved                    
-        domain = self.cfg_line_id.conditions.encode('gbk')                
-        #self.env[self.object_id._name].search(domain, limit=1)
-        
-        if farther_node_state or not self.cfg_line_id.farther_node :
-            for user in self:
-                user.active = True   
+        for user in self :
+            farther_node_state = False
+            if user.cfg_line_id.farther_node :
+                object2 = user.object_id._name+','+str(user.object_id.id)
+                farther_node_state = self.search([('cfg_line_id', '=',user.cfg_line_id.farther_node.id),('object_id', '=',object2)]).name
+            
+            domain = eval( user.cfg_line_id.conditions)
+            domain.append(('id', '=', user.object_id.id))                    
+            condiction_state = len(self.env[user.object_id._name].search(domain))
+               
+            
+            if condiction_state and farther_node_state or user.cfg_line_id.node_type == 'start' :
+                user.active_node = True
             
     @api.multi
     def _compute_approve_state(self):
         #todo compute active status
         for user in self:
-            pp = len(self.env['lty.approve.logs'].search([('center_id', '=',self.id),('approve_status', '=','approved')]))
-            if pp >= int(self.cfg_line_id.approved_nubmber) :
+            pp = len(self.env['lty.approve.logs'].search([('center_id', '=',user.id),('approve_status', '=','approved')]))
+            if pp >= int(user.cfg_line_id.approved_nubmber) :
                 user.approved = True
            
     @api.multi
     def do_approve(self):
-        if not self.active  :
+        if not self.active_node  :
             raise UserError(('This node is not start!. '))         
         val_dict = {
             'name': '1234',
@@ -71,7 +74,7 @@ class lty_approve_center(models.Model):
         self.env['lty.approve.logs'].create(val_dict)
         self.write({'status': 'approved','approve_opinions': ''})
     def do_reject(self):
-        if not self.active  :
+        if not self.active_node  :
             raise UserError(('This node is not start!. '))        
         if not self.approve_opinions  :
             raise UserError(('Please input approve opinions. '))

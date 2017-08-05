@@ -9,6 +9,7 @@
           <field name="description"/>
           <field name="approve_node"/>
           <field name="status"/>
+          <field name="active_node"/>
         </tree>
       </field>
     </record>
@@ -36,7 +37,7 @@
                             <field name="commit_date"/>
                             <field name="source"/>
                             <field name="approve_opinions"/>	
-                            <field name="active"/>
+                            <field name="active_node"/>
                             <field name="approved"/>
                             
 						</group>

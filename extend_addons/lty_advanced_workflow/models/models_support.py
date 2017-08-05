@@ -1,6 +1,7 @@
     # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
@@ -30,8 +31,17 @@ class ProductTemplate(models.Model):
                 'cfg_line_id':cfg_line.id,                               
             }
             self.env['lty.approve.center'].create(val_dict)
-        return productid  
-
+        return productid
+    
+    @api.multi
+    def write(self, vals):
+        approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(self.id))])
+        for node in approve_nodes :
+            if node.approved is False  and node.active_node is True :
+                raise UserError(('Approving is not done. '))   
+        productid = super(ProductTemplate, self).write(vals)
+    
+        return productid
 
 
         
