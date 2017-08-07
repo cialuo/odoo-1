@@ -31,8 +31,8 @@
 
                             </group>
                             <group name="right">
-                                <field name="department_id" attrs="{'readonly': ['|', ('type', '=', 'exit'), ('state', 'in', ['process', 'done'])]}" options="{'no_open': true, 'no_create': true}"/>
-                                <field name="workpost" attrs="{'readonly': ['|', ('type', '=', 'exit'), ('state', 'in', ['process', 'done'])]}" options="{'no_open': true, 'no_create': true}"/>
+                                <field name="department_id" attrs="{'readonly': ['|', ('type', '=', 'exit'), ('state', 'in', ['process', 'done'])]}" options="{'no_open': true, 'no_create': true}" required="1"/>
+                                <field name="workpost" attrs="{'readonly': ['|', ('type', '=', 'exit'), ('state', 'in', ['process', 'done'])]}" options="{'no_open': true, 'no_create': true}" domain="[('department','=',department_id)]"/>
                                 <field name="entrydate" attrs="{'readonly': ['|', ('type', '=', 'exit'), ('state', 'in', ['process', 'done'])]}"/>
                                 <field name="leader_id" attrs="{'invisible': [('type', '=', 'exit')]}" options="{'no_open': true, 'no_create': true}"/>
                                 <field name="title" attrs="{'invisible': [('type', '=', 'exit')], 'readonly': [('state', 'in', ['process', 'done'])]}"/>
