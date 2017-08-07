@@ -41,9 +41,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         site_info.name = res_top[i].station_id[1].split('/')[0];
                         site_info.status = res_top[i].is_show_name;
                         // 站点id
-                        site_info.id = res_top[i].station_id[0];
+                        site_info.id = res_top[i].id;
                         site_top_infos.push(site_info);
                     }
+                    console.log(site_top_infos)
                     model2.query().filter([["route_id", "=", 1]]).all().then(function (res_down) {
                         for (var i = 0; i < res_down.length; i++) {
                             // 站点名称
@@ -51,7 +52,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             site_info.name = res_down[i].station_id[1].split('/')[0];
                             site_info.status = res_down[i].is_show_name;
                             // 站点id
-                            site_info.id = res_down[i].station_id[0];
+                            site_info.id = res_down[i].id;
                             site_down_infos.push(site_info);
                         }
                         self.site_top_infos = site_top_infos;
@@ -254,7 +255,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var option = {
                 cId: '.can_bottom',
                 dataCir: this.dataCir2,
-                dataSit_color: this.dataSite_down_color,
+                dataSite_color: this.dataSite_down_color,
                 site_infos: this.site_down_infos,
                 testy: 25,
                 ciry: 6
@@ -381,7 +382,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         // 绘上实心圆
                         cxt.beginPath();
                         cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
-                        cxt.fillStyle = canvas.dataSite_color[i].color;
+                        cxt.fillStyle = canvas.dataSite[i].color;
                         cxt.fill();
                         cxt.closePath();
                     } else {
