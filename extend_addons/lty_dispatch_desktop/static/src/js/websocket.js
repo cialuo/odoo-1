@@ -20,6 +20,7 @@ websocket.onopen = function () {
 
 // 定义模块调用
 // 示例 {model: {status: false, arg: {}, fn: ""}, model_list:[]},
+// 解释 model:打开的模块, status:是否执行socket渲染, fn:渲染执行函数, arg:所需参数 
 var socket_model_info = {model_list:[]};
 //接收到消息的回调方法
 websocket.onmessage = function (event) {
