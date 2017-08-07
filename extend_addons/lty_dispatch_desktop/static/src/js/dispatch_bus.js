@@ -59,12 +59,18 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                                 self.site_top_infos = site_top_infos;
                                 self.site_down_infos = site_down_infos;
-                                var model_id = 'model_'+tid;
-                        if (socket_model_info[model_id]){
-                            delete socket_model_info[model_id];
-                        }
-                        socket_model_info[model_id] = {arg: {self: self, site_top_infos: self.site_top_infos, site_down_infos: self.site_down_infos}, fn: self.site_websocket};
-                    });
+                                var model_id = 'model_' + tid;
+                                if (socket_model_info[model_id]) {
+                                    delete socket_model_info[model_id];
+                                }
+                                socket_model_info[model_id] = {
+                                    arg: {
+                                        self: self,
+                                        site_top_infos: self.site_top_infos,
+                                        site_down_infos: self.site_down_infos
+                                    }, fn: self.site_websocket
+                                };
+                            });
                         });
                     });
                 }
@@ -166,6 +172,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             self.$('.content_car_road').eq(0).find('.line_car').css({
                 'position': 'absolute',
                 'left': toLeft + 'px',
+                'top': '0'
+            });
+            self.$('.content_car_road').eq(1).find('.line_car').css({
+                'position': 'absolute',
+                'left': toLeft+100 + 'px',
                 'top': '0'
             });
         },

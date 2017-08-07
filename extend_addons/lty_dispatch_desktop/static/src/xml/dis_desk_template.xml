@@ -179,6 +179,16 @@
 											<div class="content_car_road">
 												<div class="line_car" style="">
 													<div class="num_car">
+														<span>222</span>
+													</div>
+													<div class="type_car">
+														<span>222</span>
+													</div>
+												</div>
+											</div>
+											<div class="content_car_road">
+												<div class="line_car" style="">
+													<div class="num_car">
 														<span>111</span>
 													</div>
 													<div class="type_car">
