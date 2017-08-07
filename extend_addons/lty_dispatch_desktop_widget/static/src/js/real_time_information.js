@@ -43,7 +43,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 after: '3km',
                 back_field_time: '12:43',
                 next_train_departure: '12:30',
-                status: '良好',
+                residual_clearance: '239KM',
                 line: '16',
                 trip: '4',
                 total_trip: '10'
@@ -243,6 +243,37 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             this._super(parent);
             this.data = data;
         },
+        start: function(){
+            var self = this;
+            var mapObj = new AMap.Map(self.$('.carInfoScene')[0], {zoom: 16, center: [self.data.longitude, self.data.latitude]});
+            var marker = new AMap.Marker({
+                map: mapObj,
+                position: [self.data.longitude, self.data.latitude]
+            });
+            this.sokit(marker);
+        },
+        sokit: function(marker){
+            var pos_list = [
+                {longitude: 114.398595, latitude: 30.457569},
+                {longitude: 114.39948, latitude: 30.457231},
+                {longitude: 114.400939, latitude: 30.45688},
+                {longitude: 114.402237, latitude: 30.45639},
+                {longitude: 114.402977, latitude: 30.457102},
+                {longitude: 114.403675, latitude: 30.457823}
+            ];
+            var i = 0;
+            var self = this;
+            function test_fn(){
+                if (i>5){
+                    return;
+                }
+                var pos = pos_list[i];
+                marker.setPosition(new AMap.LngLat(pos.longitude, pos.latitude));
+                i++;
+                setTimeout(test_fn, 2000);    
+            }
+            test_fn();
+        }
     });
 
     var arrival_time_more_info = Widget.extend({

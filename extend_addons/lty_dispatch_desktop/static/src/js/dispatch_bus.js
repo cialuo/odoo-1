@@ -33,7 +33,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             function site_info(model,canvas_site,dataCir) {
                 var site_infos = [];
                 model.query().filter([["route_id", "=", 1]]).all().then(function (res) {
-                    alert(1)
+                    // alert(1)
                     for (var i = 0; i < res.length; i++) {
                         // 站点名称
                         var site_info = new Object();
@@ -67,7 +67,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             });
         },
         site_top_websocket: function (innerHTML,canvas_site) {
-            alert(1)
+            // alert(1)
             var self = this;
             //配车数量...
             var data = new Object();
