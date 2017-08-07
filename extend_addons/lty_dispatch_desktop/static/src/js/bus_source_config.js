@@ -22,7 +22,7 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
         },
         events: {
             'click .position_site': 'show_map',
-            'click .close_bt': 'closeFn'
+            'click .dis_close_bt': 'closeFn'
         },
         closeFn: function () {
             this.destroy();
