@@ -24,7 +24,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
         },
         init: function(parent, data){
             this._super(parent);
-            // var layer = layer.load(2);
+            var layer_index = layer.load(2);
             var init_data = {
                 license_number: data.car_num,
                 license_plate: '粤K·92823',

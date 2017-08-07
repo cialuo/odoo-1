@@ -57,9 +57,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         }
                         self.site_top_infos = site_top_infos;
                         self.site_down_infos = site_down_infos;
-                        websocket.onmessage = function (event) {
-                            self.site_websocket(event.data);
-                        };
+                        // websocket.onmessage = function (event) {
+                            // self.site_websocket(event.data);
+                        // };
                     });
 
                 });
