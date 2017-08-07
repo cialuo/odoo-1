@@ -26,6 +26,8 @@ class dispatch_control_desktop_component(models.Model):
     name = fields.Char()
     position_z_index = fields.Char()
     position_top = fields.Char()
+    model_type = fields.Char()
+    tem_display = fields.Char()
     position_left = fields.Char()
     line_id = fields.Many2one('route_manage.route_manage')
     desktop_id = fields.Many2one('dispatch.control.desktop', ondelete='restrict', string='Control Desktop')
