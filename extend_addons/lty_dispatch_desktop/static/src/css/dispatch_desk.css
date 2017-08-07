@@ -136,7 +136,7 @@ canvas::selection {
     right: 10px;
 }
 
-.dispatch_desktop a.min, .dispatch_desktop a.line_edit {
+.dispatch_desktop a.min, .dispatch_desktop a.line_edit,.dispatch_desktop a.show_right {
     font-weight: bold;
     width: 16px;
     height: 16px;
@@ -171,9 +171,7 @@ canvas::selection {
     cursor: pointer;
 }
 
-.dispatch_desktop .line_info a.min:hover {
-    text-decoration: none;
-}
+
 
 /*控制台车辆线路css*/
 
@@ -451,10 +449,6 @@ canvas::selection {
     margin: 4px 4px 4px 0;
     float: right;
     z-index: 100;
-}
-
-.updown_line_table .line_info a.min:hover {
-    text-decoration: none;
 }
 
 /*底部控制台*/

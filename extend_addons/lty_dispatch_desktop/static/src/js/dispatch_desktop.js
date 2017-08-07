@@ -27,7 +27,6 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         change_style: function () {
             var self = this;
             var font_color = self.$el.find('.src_font_color').val();
-
         }
 
     });
@@ -79,18 +78,26 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         template: 'dispatch_desktop_component',
         init: function (parent, context) {
             this._super(parent, context);
-
-            this.model = new Model('lty_dispatch_desktop.lty_dispatch_desktop');
             this.model2 = new Model('dispatch.control.desktop.component');
         },
         start: function () {
             var self = this;
-            var dis_desk = self.dis_desk;
             self.$el.append(QWeb.render("myConsole"));
-            self.model2.query().filter([["desktop_id", "=", 2]]).all().then(function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    var num_dispatch_bus = new dispatch_bus(this, data[i]);
-                    num_dispatch_bus.appendTo(self.$el);
+            self.model2.query(["line_id"]).filter([["desktop_id", "=", 2]]).all().then(function (data) {
+                var s = [];
+                if (data.length > 0) {
+                    // 去重
+                    for (var i = 0; i < data.length; i++) {
+                        if (s.indexOf(data[i].line_id[0]) == -1) {  //判断在s数组中是否存在，不存在则push到s数组中
+                            s.push(data[i].line_id[0]);
+                        }
+                    }
+                    // 遍历
+                    for (var j = 0; j < s.length; j++) {
+                        self.model2.query().filter([["line_id", "=", parseInt(s[j])]]).all().then(function (res) {
+                            new dispatch_bus(this, res,0).appendTo(self.$el);
+                        });
+                    }
                 }
             });
         },
@@ -101,8 +108,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         addLine_click: function () {
             var self = this;
-            var oneLine = new dispatch_bus(this, '');
-            oneLine.appendTo(self.$el);
+            new dispatch_bus(this, '',1).appendTo(self.$el);
         },
         config_click: function () {
             var self = this;
@@ -112,27 +118,24 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         save_click: function () {
             var self = this;
-            var ab = self.$el.find('.dispatch_desktop');
-            for (var i = 0; i < ab.length; i++) {
-                var id = ab[i].getAttribute('tid');
-                var left = ab[i].offsetLeft;
-                var top = ab[i].offsetTop;
-                var zIndex = ab[i].style.zIndex;
-                self.model2.call("write", [parseInt(id),
-                    {
-                        'position_left': left,
-                        'position_top': top,
-                        'position_z_index': zIndex,
-                    }]).then(function (data) {
-                });
-            }
+            //客流
+                var tidNum = self.$el .find('div[tid]');
+                if (tidNum.length>0) {
+                    for (var i = 0; i < tidNum.length; i++) {
+                        var id = tidNum[i].getAttribute('tid');
+                        var left = tidNum[i].style.left.split('px')[0];
+                        var top = tidNum[i].style.top.split('px')[0];
+                        var zIndex = tidNum[i].style.zIndex;
+                        self.model2.call("write", [parseInt(id),
+                            {
+                                'position_left': left,
+                                'position_top': top,
+                                'position_z_index': zIndex,
+                            }]).then(function (data) {
 
-           // self.model2.query().filter([["desktop_id", "=", 2]]).all().then(function (data) {
-           //      for (var i = 0; i < data.length; i++) {
-           //          var num_dispatch_bus = new dispatch_bus(this, data[i]);
-           //          num_dispatch_bus.appendTo(self.$el);
-           //      }
-           //  });
+                        });
+                    }
+                }
         }
     });
     core.action_registry.add('dispatch_desktop.page', desktop_top);

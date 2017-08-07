@@ -10,7 +10,7 @@ function traffic_distance(canvas) {
     for (var m = 0; m < canvas.subsection.length; m++) {
         dataAllNum += canvas.subsection[m];
     }
-    var dataAll=dataLen=dataLenLeft = 0;
+    var dataAll = dataLen = dataLenLeft = 0;
     for (var i = 0; i < canvas.color.length; i++) {
         //计算每一段所占位置的百分比
         dataAll += canvas.subsection[i];
@@ -29,7 +29,7 @@ function traffic_distance(canvas) {
 function cir_and_text(canvas) {
     var c = canvas.self.find(canvas.id)[0];
     var cxt = c.getContext('2d');
-    for (var i = 0; i < canvas.color.length; i++) {
+    for (var i = 0; i < canvas.site_infos.length; i++) {
         //渲染每一个圆点对应的站点名称
         cxt.beginPath();//开启关闭每一个画布的渲染
         cxt.fillStyle = "#A3A6AD";
@@ -37,14 +37,14 @@ function cir_and_text(canvas) {
         //站点文字居中显示
         cxt.textAlign = "center";
         //文字，左距离，上距离，最大px量
-        var mySite = canvas.dataSite[i].name;
-        var myColor = canvas.dataSite[i].color;
-        if (canvas.dataSite[i].status == 0) {
+        var mySite = canvas.site_infos[i].name;
+        var myColor = canvas.dataSite_color[i].color;
+        if (canvas.site_infos[i].status == false) {
             mySite = '';
             myColor = '#ffffff';
         } else {
-            mySite = canvas.dataSite[i].name;
-            myColor = canvas.dataSite[i].color;
+            mySite = canvas.site_infos[i].name;
+            myColor = canvas.dataSite_color[i].color;
         }
         cxt.fillText(mySite, canvas.dataCir[i], canvas.testy, 50);
         cxt.closePath();
@@ -52,7 +52,7 @@ function cir_and_text(canvas) {
         var obj_list = [
             {
                 cir: 6,
-                color: canvas.dataSite[i].color
+                color: canvas.dataSite_color[i].color
             },
             {
                 cir: 5,
@@ -91,7 +91,7 @@ function can_left_right(canvas) {
     cxt.textAlign = "center";
     cxt.fillStyle = "black";
     //文字，左距离，上距离，最大px量
-    cxt.fillText(canvas.busNumber+'辆', 13, 64, 50);
+    cxt.fillText(canvas.busNumber + '辆', 13, 64, 50);
     cxt.fill();
     cxt.closePath();
     cxt.beginPath();
@@ -133,6 +133,103 @@ function can_left_right(canvas) {
     cxt.stroke();
     cxt.closePath();
 }
+
+//渲染车辆实况的cancvas图像
+function qrend_desktop_canvas(data, dom_site, selfDom) {
+    var traffic = {
+        id: dom_site,
+        y: 26,
+        self: selfDom,
+        subsection: data.subsection,
+        color: data.color
+    };
+    traffic_distance(traffic);
+    var cir = {
+        id: dom_site,
+        ciry: 27,
+        testy: 13,
+        color: data.color,
+        self: selfDom,
+        dataCir: data.dataCir,
+        dataSite_color: data.dataSite_color,
+        site_infos: data.site_infos
+    };
+    cir_and_text(cir);
+}
+// function qrend_desktop_top(data, dom_site, domB, domL, domR, selfDom) {
+//     var traffic = {
+//         id: dom_site,
+//         y: 26,
+//         self: selfDom,
+//         subsection: data.subsection,
+//         color: data.color
+//     };
+//     // var traffic_bottom = {
+//     //     id: domB,
+//     //     y: 5,
+//     //     self: selfDom,
+//     //     subsection: data.subsection,
+//     //     color: data.color
+//     // };
+//     traffic_distance(traffic);
+//     // traffic_distance(traffic_bottom);
+//
+//     var cir = {
+//         id: dom_site,
+//         ciry: 27,
+//         testy: 13,
+//         color: data.color,
+//         self: selfDom,
+//         dataCir: data.dataCir,
+//         dataSite: data.dataSite,
+//         site_infos: data.site_infos
+//     };
+//     // var cirBottom = {
+//     //     id: domB,
+//     //     ciry: 6,
+//     //     testy: 25,
+//     //     self: selfDom,
+//     //     color: data.color,
+//     //     dataCir: data.dataCir,
+//     //     dataSite: data.dataSite2,
+//     //     site_infos:data.site_infos
+//     // };
+//     cir_and_text(cir);
+//     // cir_and_text(cirBottom);
+//     // can_left_right(
+//     //     {
+//     //         id: domL,
+//     //         color: data.color[0],
+//     //         ciry: 27,
+//     //         self: selfDom,
+//     //         r: 4,
+//     //         lineLen: 17,
+//     //         sta: 1,
+//     //         busNumber:data.busNumber
+//     //     }
+//     // );
+//     // can_left_right(
+//     //     {
+//     //         id: domR,
+//     //         color: data.color[data.color.length - 1],
+//     //         ciry: 27,
+//     //         self: selfDom,
+//     //         r: 4,
+//     //         lineLen: 0,
+//     //         sta: 1.5,
+//     //         busNumber:data.busNumber
+//     //     }
+//     // );
+// }
+//防止冒泡
+function stopPropagation(e) {
+    e = window.event || e;
+    if (document.all) {  //只有ie识别
+        e.cancelBubble = true;
+    } else {
+        e.stopPropagation();
+    }
+}
 //客流走势轮播组件
 function carousel(carousel) {
     var self = carousel.self;
@@ -166,78 +263,5 @@ function carousel(carousel) {
         }, 3000);
     });
 };
-//渲染车辆实况的cancvas图像
-function qrend_desktop(data, domT, domB, domL, domR, selfDom) {
-    var traffic_top = {
-        id: domT,
-        y: 26,
-        self: selfDom,
-        subsection: data.subsection,
-        color: data.color
-    };
-    var traffic_bottom = {
-        id: domB,
-        y: 5,
-        self: selfDom,
-        subsection: data.subsection,
-        color: data.color
-    };
-    traffic_distance(traffic_top);
-    traffic_distance(traffic_bottom);
-
-    var cirTop = {
-        id: domT,
-        ciry: 27,
-        testy: 13,
-        color: data.color,
-        self: selfDom,
-        dataCir: data.dataCir,
-        dataSite: data.dataSite
-    };
-    var cirBottom = {
-        id: domB,
-        ciry: 6,
-        testy: 25,
-        self: selfDom,
-        color: data.color,
-        dataCir: data.dataCir,
-        dataSite: data.dataSite2
-    };
-    cir_and_text(cirTop);
-    cir_and_text(cirBottom);
-    can_left_right(
-        {
-            id: domL,
-            color: data.color[0],
-            ciry: 27,
-            self: selfDom,
-            r: 4,
-            lineLen: 17,
-            sta: 1,
-            busNumber:data.busNumber
-        }
-    );
-    can_left_right(
-        {
-            id: domR,
-            color: data.color[data.color.length - 1],
-            ciry: 27,
-            self: selfDom,
-            r: 4,
-            lineLen: 0,
-            sta: 1.5,
-            busNumber:data.busNumber
-        }
-    );
-}
-//防止冒泡
-function stopPropagation(e) {
-    e = window.event || e;
-    if (document.all) {  //只有ie识别
-        e.cancelBubble = true;
-    } else {
-        e.stopPropagation();
-    }
-}
 
 

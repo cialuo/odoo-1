@@ -142,7 +142,6 @@ odoo.define('lty_dispatch_desktop.bus_site_info', function (require) {
         chose_btn:function (event) {
             var e = event||window.event;
             var x = e.currentTarget;
-            console.log(x)
             $(x).addClass('active_a').parent().siblings().find('a').removeClass('active_a');
         }
     });

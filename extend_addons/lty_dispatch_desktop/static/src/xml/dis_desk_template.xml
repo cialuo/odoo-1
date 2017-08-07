@@ -111,15 +111,14 @@
 	</t>
     <t t-name="dispatch_desktop">
 		<t t-if="widget.dis_desk">
-				<div class="dispatch_desktop dragContent" t-attf-tid="#{widget.dis_desk.id}" t-attf-style="left:#{widget.dis_desk.position_left}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index}">
+				<div class="dispatch_desktop dragContent tidClass" t-attf-line_id="#{widget.dis_desk.line_id[0]}" t-attf-tid="#{widget.dis_desk.id}" t-attf-style="left:#{widget.dis_desk.position_left}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index}">
 					<div class="content">
 					<!--线路信息展示-->
 					<div class="line_info dragArea">
 						<div  class="fl line_way">
 							<ul>
-								<li class="line_line"><t t-esc="widget.dis_desk.line_id[1]"/></li>
-								<li class="aaa">
-								</li>
+								<li class="line_line"><t t-esc="widget.dis_desk.name"/></li>
+								<li>支线1</li>
 								<li>支线2</li>
 								<li>区间</li>
 							</ul>
@@ -140,6 +139,7 @@
 						<div class="line_btn">
 							<div class="line_btn_content posR">
 								<a class="min" href="javascript:;" title="最小化">-</a>
+								<a href="javascript:;" title="客流展示" class="show_right">></a>
 								<a class="line_edit" href="javascript:;" title="设置">+</a>
 							</div>
 							<div class="edit_content">
@@ -204,7 +204,7 @@
 		</t>
 		<t t-else="">
 			<div>
-				<div class="dispatch_desktop  dragContent" tid="" style="z-index:10">
+				<div class="dispatch_desktop dragContent tidClass" tid="">
 					<div class="content">
 					<!--线路信息展示-->
 						<div class="line_info dragArea">
@@ -240,7 +240,7 @@
 						<s class="s-icon"></s>
 					</div>
 					<div class="div-a">
-						<a href="#">调度台资源池</a>
+						<a href="#">添加模拟地图</a>
 					</div>
 				</li>
 				<li class="save_console">
@@ -265,7 +265,7 @@
     <!--上下行图表，客流是否异常-->
 	<t t-name="updown_line_table">
 		<t t-if="widget.dis_desk">
-			<div class="updown_line_table posA dragContent" t-attf-style="left:#{widget.dis_desk.position_left+1200}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index}">
+			<div class="updown_line_table posA dragContent tidClass" t-attf-line_id="#{widget.dis_desk.line_id[0]}" t-attf-tid="#{widget.dis_desk.id}" t-attf-style="left:#{widget.dis_desk.position_left}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index};display:#{widget.dis_desk.tem_display}">
 				<div class="updown_drag">
 					<div class="updown_title dragArea">
 						<div class="line_btn">
@@ -281,6 +281,7 @@
 								<div class="lunbo_child">
 								<!--替换-->
 									<div class="absnormal_chart fl">
+
 									</div>
 									<ul class="absnormal_operate fl">
 										<li>
@@ -316,7 +317,7 @@
 												<p>实际客流大于运力供给30%</p>
 											</div>
 											<div class="absnormal_sug">
-												<h4>建议</h4>
+												<h4>建议<t t-esc="widget.dis_desk.name"></t></h4>
 												<p>2趟/分钟/20分钟,需补充2台机动车</p>
 											</div>
 										</li>
@@ -334,7 +335,7 @@
 			</div>
 		</t>
 		<t t-else="">
-			<div class="updown_line_table posA dragContent" >
+			<div class="updown_line_table posA dragContent tidClass" tid="">
 				<div class="updown_drag">
 					<div class="updown_title dragArea">
 						<div class="line_btn">

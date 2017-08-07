@@ -10,6 +10,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
         init: function (parent, data) {
             this._super(parent);
             this.dis_desk = data;
+            this.model2 = new Model('dispatch.control.desktop.component');
         },
         start: function () {
             var self = this
@@ -45,7 +46,20 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             'click .min': 'closeFn'
         },
         closeFn: function () {
-            this.destroy();
+            var self = this;
+            var tid = this.$el.attr('tid');
+            var line_id = this.$el.attr('line_id');
+            self.$el.parent().find('.dispatch_desktop').find('.line_edit').hide();
+            self.$el.parent().find('.dispatch_desktop').find('.show_right').show();
+            self.model2.call("write", [parseInt(tid),
+                {
+                    'tem_display': 'none',
+                    'position_left':self.$el[0].offsetLeft,
+                    'position_top':self.$el[0].offsetTop,
+                    'position_z_index':self.$el[0].style.zIndex,
+                }]).then(function (res) {
+                self.$el.hide();
+            });
         },
         manual_process: function (event) {
             this.$el.find('.real_time_process').show().css("display", "inline-block");
