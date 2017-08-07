@@ -34,6 +34,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             function site_info(model, model2) {
                 var site_top_infos = [];
                 var site_down_infos = [];
+                var tid = self.$el.attr("tid");
                 model.query().filter([["route_id", "=", 1]]).all().then(function (res_top) {
                     for (var i = 0; i < res_top.length; i++) {
                         // 站点名称
@@ -61,10 +62,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             // self.site_websocket(event.data);
                         // };
                         
-                        if (socket_model_info['model_t']){
-                            delete socket_model_info['model_t'];
+                        var model_id = 'model_'+tid;
+                        if (socket_model_info[model_id]){
+                            delete socket_model_info[model_id];
                         }
-                        socket_model_info['model_t'] = {arg: {self: self, site_top_infos: self.site_top_infos, site_down_infos: self.site_down_infos}, fn: self.site_websocket};
+                        socket_model_info[model_id] = {arg: {self: self, site_top_infos: self.site_top_infos, site_down_infos: self.site_down_infos}, fn: self.site_websocket};
                     });
 
                 });
