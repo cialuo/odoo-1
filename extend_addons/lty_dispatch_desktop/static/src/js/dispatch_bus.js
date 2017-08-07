@@ -61,7 +61,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 self.site_down_infos = site_down_infos;
                                 if ($.inArray(tid, socket_model_info.model_list) != -1) {
                                     socket_model_info[tid].status = true;
-                                } else {
+                                    socket_model_info[tid] = {
+                                        status: true,
+                                        arg: {
+                                            self: self,
+                                            site_top_infos: self.site_top_infos,
+                                            site_down_infos: self.site_down_infos
+                                        },
+                                        fn: self.site_websocket
+                                    };
+                                }
+                                else {
                                     socket_model_info.model_list.push(tid);
                                     socket_model_info[tid] = {
                                         status: true,
@@ -208,6 +218,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var tid = this.$el.attr('tid');
             //已经添加了路线
             if (tid != undefined) {
+                // socket_model_info[tid].status =false;
+                socket_model_info.model_list.pop(tid);
+                delete socket_model_info[tid];
                 self.model_line.query().filter([["id", "=", tid]]).all().then(function (pp) {
                     self.model_line.query().filter([["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
                         self.model_line.call("unlink", [data[1].id]).then(function () {
@@ -523,6 +536,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
     //选择车辆组件
     //上下行路线组件
     // 线路选择
+
     var dispatch_line_control = Widget.extend({
         init: function (parent, data, type) {
             this._super(parent);
@@ -582,6 +596,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var siteTopPf = self.$el.find('.updown_line_table')[0].offsetTop;
             var lineName = $('body').find('.line_line');
             var resName = [];
+            socket_model_info[tid] = '';
             for (var j = 0; j < lineName.length; j++) {
                 resName.push(lineName[j].innerHTML);
             }
@@ -648,27 +663,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     });
                 }
             }
-            // var chartTop = self.$el.find('.updown_line_table')[0].offsetTop;
-            // 读取线路接口
-            //odoo自带write更新方法
-            // data[1].oneline.line_show_or_hide.left = siteLeft;
-            // data[1].oneline.line_show_or_hide.top = siteTop;
-            // data[1].oneline.chart_show_or_hide.left = chartLeft;
-            // data[1].oneline.chart_show_or_hide.top = chartTop;
-            // self.$el.html('');
-            // //渲染车辆canvas图形组件
-            //
-            // var a = $('body').find('.dispatch_desktop')
-            // new dispatch_canvas(this, data[1]).appendTo(self.$el);
-            // new dispatch_updown_line(this, data[1]).appendTo(self.$el);
-            // //渲染车辆客流与运力组件
-            // qrend_desktop(data[1], '.can_top', '.can_bottom', '.canvas_left', '.canvas_right', dom);
-            // self.dataCir = data[1].oneline.site_to_startpoint;
-            // self.color = data[1].oneline.plan_feedback;
-            // self.dataSite = data[1].oneline.siteTop;
-            // self.dataSite2 = data[1].oneline.siteBottom;
-            // self.subsection = data[1].oneline.traffic_distance;
-
         },
     });
     //车辆组件

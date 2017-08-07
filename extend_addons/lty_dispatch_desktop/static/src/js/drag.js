@@ -34,11 +34,11 @@ function drag(oDrag, handle) {
             var event = event || window.event;
             var iL = event.clientX - disX;
             var iT = event.clientY - disY;
-            var maxL = document.documentElement.clientWidth - oDrag.offsetWidth;
-            var maxT = document.documentElement.clientHeight - oDrag.offsetHeight;
-            iL <= 0 && (iL = 0);
+            var maxL = document.documentElement.clientWidth;
+            var maxT = document.documentElement.clientHeight;
+            iL <= 0-oDrag.offsetWidth && (iL = 0-oDrag.offsetWidth);
             iT <= 50 && (iT = 50);
-            iL >= maxL && (iL = maxL);
+            iL >= maxL+oDrag.offsetWidth && (iL = maxL+oDrag.offsetWidth);
             iT >= maxT-50 && (iT = maxT-50);
             oDrag.style.marginTop = 0 + "px";
             oDrag.style.marginLeft = 0 + "px";

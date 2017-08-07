@@ -24,7 +24,6 @@ websocket.onopen = function () {
 var socket_model_info = {model_list:[]};
 //接收到消息的回调方法
 websocket.onmessage = function (event) {
-    // fn(event.data);
     for (var w=0,l=socket_model_info.model_list.length;w<l;w++){
     	var socket_model = socket_model_info[socket_model_info.model_list[w]];
     	if (socket_model.status){
@@ -33,6 +32,7 @@ websocket.onmessage = function (event) {
     		}
     	}
     }
+    console.log(socket_model_info);
 };
 //连接关闭的回调方法
 websocket.onclose = function () {

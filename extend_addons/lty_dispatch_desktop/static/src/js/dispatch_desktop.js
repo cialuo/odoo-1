@@ -42,7 +42,6 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             // 动态加载高德地图api
             $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
             var self = this;
-            new dispatch_desktop(this).appendTo(self.$el);
             function startTime() {
                 var today = new Date();//定义日期对象
                 var yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年
@@ -102,6 +101,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                     }
                 }
             });
+            new desktop_top(this).appendTo(self.$el);
         },
         events: {
             'click .new_console': 'addLine_click',
@@ -140,5 +140,5 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                 }
         }
     });
-    core.action_registry.add('dispatch_desktop.page', desktop_top);
+    core.action_registry.add('dispatch_desktop.page', dispatch_desktop);
 });
