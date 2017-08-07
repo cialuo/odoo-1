@@ -46,7 +46,7 @@ function cir_and_text(canvas) {
             mySite = canvas.site_infos[i].name;
             myColor = canvas.dataSite_color[i].color;
         }
-        cxt.fillText(mySite, canvas.dataCir[i], canvas.testy, 50);
+        cxt.fillText(mySite, canvas.dataCir[i], canvas.testy);
         cxt.closePath();
         //渲染圆环
         var obj_list = [

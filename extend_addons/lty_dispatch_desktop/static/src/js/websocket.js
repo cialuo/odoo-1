@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2017/8/5.
  */
+
 var websocket = null;
 //判断当前浏览器是否支持WebSocket
 if ('WebSocket' in window) {
@@ -18,9 +19,13 @@ websocket.onopen = function () {
     console.log("WebSocket连接成功");
 }
 //接收到消息的回调方法
-// websocket.onmessage = function (event) {
-//     fn(event.data);
-// };
+function d(callback) {
+    websocket.onmessage = function (event) {
+        var data = event.data;
+        callback(data);
+    };
+}
+
 //连接关闭的回调方法
 websocket.onclose = function () {
     console.log("WebSocket连接关闭");

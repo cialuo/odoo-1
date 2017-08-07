@@ -34,35 +34,119 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             function site_info(model, model2) {
                 var site_top_infos = [];
                 var site_down_infos = [];
-                model.query().filter([["route_id", "=", 1]]).all().then(function (res_top) {
-                    for (var i = 0; i < res_top.length; i++) {
-                        // 站点名称
-                        var site_info = new Object();
-                        site_info.name = res_top[i].station_id[1].split('/')[0];
-                        site_info.status = res_top[i].is_show_name;
-                        // 站点id
-                        site_info.id = res_top[i].id;
-                        site_top_infos.push(site_info);
-                    }
-                    console.log(site_top_infos)
-                    model2.query().filter([["route_id", "=", 1]]).all().then(function (res_down) {
-                        for (var i = 0; i < res_down.length; i++) {
+                if (self.$el.find('.line_line')[0] != undefined) {
+                    model.query().filter([["route_id", "=", 1]]).all().then(function (res_top) {
+                        for (var i = 0; i < res_top.length; i++) {
                             // 站点名称
                             var site_info = new Object();
-                            site_info.name = res_down[i].station_id[1].split('/')[0];
-                            site_info.status = res_down[i].is_show_name;
+                            site_info.name = res_top[i].station_id[1].split('/')[0];
+                            site_info.status = res_top[i].is_show_name;
                             // 站点id
-                            site_info.id = res_down[i].id;
-                            site_down_infos.push(site_info);
+                            site_info.id = res_top[i].id;
+                            site_top_infos.push(site_info);
                         }
-                        self.site_top_infos = site_top_infos;
-                        self.site_down_infos = site_down_infos;
-                        websocket.onmessage = function (event) {
-                            self.site_websocket(event.data);
-                        };
+                        model2.query().filter([["route_id", "=", 1]]).all().then(function (res_down) {
+                            for (var i = 0; i < res_down.length; i++) {
+                                // 站点名称
+                                var site_info = new Object();
+                                site_info.name = res_down[i].station_id[1].split('/')[0];
+                                site_info.status = res_down[i].is_show_name;
+                                // 站点id
+                                site_info.id = res_down[i].id;
+                                site_down_infos.push(site_info);
+                            }
+                            self.site_top_infos = site_top_infos;
+                            self.site_down_infos = site_down_infos;
+                            function site_websocket(innerHTML) {
+                                //配车数量...
+                                for (var i = 0; i < self.$('.bus_info li').length; i++) {
+                                    self.$('.bus_info li').eq(i).find('span').html(innerHTML.substring(78 + i, 80 + i));
+                                }
+                                var data = new Object();
+                                data.dataCir = [12, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 780, 860, 1000, 1170];
+                                data.dataCir2 = [12, 120, 180, 280, 300, 350, 410, 460, 500, 580, 650, 700, 860, 980, 1170];
+                                //分段颜色
+                                data.color = [
+                                    "#ff46" + innerHTML.substring(78, 80),
+                                    "#4dcf" + innerHTML.substring(78, 80),
+                                    "#ffd2" + innerHTML.substring(78, 80),
+                                    "#cc21" + innerHTML.substring(78, 80),
+                                    "#4dcf" + innerHTML.substring(78, 80),
+                                    "#f691" + innerHTML.substring(78, 80),
+                                    "#a19e" + innerHTML.substring(78, 80),
+                                    "#cc21" + innerHTML.substring(78, 80),
+                                ];
+                                data.site_top_infos = self.site_top_infos;
+                                data.site_down_infos = self.site_down_infos;
+                                //上行站点的颜色
+                                data.dataSite_top_color = [
+                                    {'color': '#f' + innerHTML.substring(78, 80) + 'f75'},
+                                    {'color': '#cc2' + innerHTML.substring(78, 80) + '3'},
+                                    {'color': '#ffd2' + innerHTML.substring(78, 80)},
+                                    {'color': '#4' + innerHTML.substring(78, 80) + 'df7'},
+                                    {'color': '#ffcf' + innerHTML.substring(78, 80)},
+                                    {'color': '#ffd2' + innerHTML.substring(78, 80)},
+                                    {'color': '#aad2' + innerHTML.substring(78, 80)},
+                                    {'color': '#cc21' + innerHTML.substring(78, 80)},
+                                    {'color': '#f' + innerHTML.substring(78, 80) + 'f75'},
+                                    {'color': '#cc2' + innerHTML.substring(78, 80) + '3'},
+                                    {'color': '#ffd2' + innerHTML.substring(78, 80)},
+                                    {'color': '#4' + innerHTML.substring(78, 80) + 'df7'},
+                                    {'color': '#ffcf' + innerHTML.substring(78, 80)},
+                                    {'color': '#ffd2' + innerHTML.substring(78, 80)},
+                                    {'color': '#aad2' + innerHTML.substring(78, 80)},
+                                    {'color': '#cc21' + innerHTML.substring(78, 80)},
+                                    {'color': '#cc21' + innerHTML.substring(78, 80)},
+                                ];
+                                // 下行站点的颜色
+                                data.dataSite_down_color = [
+                                    {'color': '#f' + innerHTML.substring(78, 80) + 'f75'},
+                                    {'color': '#cc2' + innerHTML.substring(78, 80) + '3'},
+                                    {'color': '#ffd2' + innerHTML.substring(78, 80)},
+                                    {'color': '#4' + innerHTML.substring(78, 80) + 'df7'},
+                                    {'color': '#ffcf' + innerHTML.substring(78, 80)},
+                                    {'color': '#ffd2' + innerHTML.substring(78, 80)},
+                                    {'color': '#aad2' + innerHTML.substring(78, 80)},
+                                    {'color': '#cc21' + innerHTML.substring(78, 80)},
+                                    {'color': '#f' + innerHTML.substring(78, 80) + 'f75'},
+                                    {'color': '#cc2' + innerHTML.substring(78, 80) + '3'},
+                                    {'color': '#ffd2' + innerHTML.substring(78, 80)},
+                                    {'color': '#4' + innerHTML.substring(78, 80) + 'df7'},
+                                    {'color': '#ffcf' + innerHTML.substring(78, 80)},
+                                    {'color': '#ffd2' + innerHTML.substring(78, 80)},
+                                    {'color': '#aad2' + innerHTML.substring(78, 80)},
+                                ];
+                                data.subsection = [];
+                                for (var j = 0; j < 8; j++) {
+                                    data.subsection.push(parseInt(innerHTML.substring(78 + j, 79 + j)));
+                                }
+                                data.busNumber = parseInt(innerHTML.substring(78, 79));
+                                //公交模拟地图canvas
+                                if (!isNaN((data.subsection[0]))) {
+                                    qrend_desktop_canvas(data, '.can_top', '.can_bottom', '.canvas_left', '.canvas_right', self.$el);
+                                    self.dataCir = data.dataCir;
+                                    self.dataCir2 = data.dataCir2;
+                                    self.color = data.color;
+                                    self.site_top_infos = data.site_top_infos;
+                                    self.site_down_infos = data.site_down_infos;
+                                    self.dataSite_top_color = data.dataSite_top_color;
+                                    self.dataSite_down_color = data.dataSite_down_color;
+                                    self.subsection = data.subsection;
+                                    self.busNumber = data.busNumber;
+                                }
+                                var toLeft = parseInt(innerHTML.substring(80, 81));
+                                var oLeft = self.$el.find('.line_car')[0].offsetLeft;
+                                toLeft += oLeft;
+                                self.$('.content_car_road').eq(0).find('.line_car').css({
+                                    'position': 'absolute',
+                                    'left': toLeft + 'px',
+                                    'top': '0'
+                                });
+                            }
+                            d(site_websocket);
+                        });
                     });
-
-                });
+                }
             }
 
             // 上行站点
@@ -85,7 +169,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
             var data = new Object();
             data.dataCir = [12, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 780, 860, 1000, 1170];
-            data.dataCir2 = [12, 150, 200, 250, 300, 350, 400, 450, 500, 550, 650, 700, 860, 1000, 1170];
+            data.dataCir2 = [12, 120, 180, 280, 300, 350, 410, 460, 500, 580, 650, 700, 860, 980, 1170];
             //分段颜色
             data.color = [
                 "#ff46" + innerHTML.substring(78, 80),
@@ -288,7 +372,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 site_infos: this.site_top_infos,
                 dataSite_color: this.dataSite_top_color,
                 subsection: this.subsection,
-                model:this.model_site_top
+                model: this.model_site_top
             };
             //调用点击canvas事件
             this.clickTb(option, e);
@@ -304,7 +388,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 site_infos: this.site_down_infos,
                 dataSite_color: this.dataSite_down_color,
                 subsection: this.subsection,
-                model:this.model_site_down
+                model: this.model_site_down
             }
             this.clickTb(option, e);
         },
@@ -348,7 +432,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     // 重绘画布
                     cxt.clearRect(0, 0, c.width, c.height);
                     canvas.site_infos[i].status == true ? canvas.site_infos[i].status = false : canvas.site_infos[i].status = true;
-                    console.log(canvas.site_infos[i].id)
+                    console.log(canvas.site_infos[i].status)
                     canvas.model.call("write", [canvas.site_infos[i].id,
                         {
                             'is_show_name': canvas.site_infos[i].status
@@ -382,7 +466,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         // 绘上实心圆
                         cxt.beginPath();
                         cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
-                        cxt.fillStyle = canvas.dataSite[i].color;
+                        cxt.fillStyle = canvas.dataSite_color[i].color;
                         cxt.fill();
                         cxt.closePath();
                     } else {
