@@ -60,6 +60,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         // websocket.onmessage = function (event) {
                             // self.site_websocket(event.data);
                         // };
+                        if ($.inArray('model_t', socket_model_info.model_list)!=-1){
+                            socket_model_info['model_t'].status = true;
+                        }else{
+                            socket_model_info.model_list.push('model_t');
+                            socket_model_info['model_t'] = {status: true, arg: {self: self,site_top_infos: self.site_top_infos, site_down_infos: self.site_down_infos}, fn: self.site_websocket};
+                        }
                     });
 
                 });
@@ -77,8 +83,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 return false;
             });
         },
-        site_websocket: function (innerHTML) {
-            var self = this;
+        site_websocket: function (innerHTML, arg) {
+            var self = arg.self;
             //配车数量...
             for (var i = 0; i < self.$('.bus_info li').length; i++) {
                 self.$('.bus_info li').eq(i).find('span').html(innerHTML.substring(78 + i, 80 + i));
@@ -97,8 +103,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 "#a19e" + innerHTML.substring(78, 80),
                 "#cc21" + innerHTML.substring(78, 80),
             ];
-            data.site_top_infos = self.site_top_infos;
-            data.site_down_infos = self.site_down_infos;
+            data.site_top_infos = arg.site_top_infos;
+            data.site_down_infos = arg.site_down_infos;
             //上行站点的颜色
             data.dataSite_top_color = [
                 {'color': '#f' + innerHTML.substring(78, 80) + 'f75'},
