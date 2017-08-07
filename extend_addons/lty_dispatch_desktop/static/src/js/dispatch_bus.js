@@ -37,7 +37,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if (self.$el.find('.line_line')[0] != undefined) {
                     var tid = self.$el.attr('tid');
                     mode_line.query().filter([["id", "=", parseInt(tid)]]).all().then(function (data) {
-                        console.log(data[0].line_id[0])
                         model_top.query().filter([["route_id", "=", data[0].line_id[0]]]).all().then(function (res_top) {
                             for (var i = 0; i < res_top.length; i++) {
                                 // 站点名称
