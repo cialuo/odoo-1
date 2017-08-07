@@ -21,11 +21,11 @@ websocket.onopen = function () {
 
 // 定义模块调用
 // 示例 {model: {status: false, arg: {}, fn: ""}, model_list:[]},
-var socket_model_info = {};
+var socket_model_info = {model_list:[]};
 //接收到消息的回调方法
 websocket.onmessage = function (event) {
     // fn(event.data);
-    for (var w=0,w=socket_model_info.model_list.length;w<l;w++){
+    for (var w=0,l=socket_model_info.model_list.length;w<l;w++){
     	var socket_model = socket_model_info[socket_model_info.model_list[w]];
     	if (socket_model.status){
     		if (socket_model.fn){
@@ -34,7 +34,6 @@ websocket.onmessage = function (event) {
     	}
     }
 };
-model_status.model_1[1]=aaaa
 //连接关闭的回调方法
 websocket.onclose = function () {
     console.log("WebSocket连接关闭");
