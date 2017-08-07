@@ -135,7 +135,7 @@ function can_left_right(canvas) {
 }
 
 //渲染车辆实况的cancvas图像
-function qrend_desktop_canvas(data, dom_site, selfDom) {
+function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
     var traffic = {
         id: dom_site,
         y: 26,
@@ -143,84 +143,63 @@ function qrend_desktop_canvas(data, dom_site, selfDom) {
         subsection: data.subsection,
         color: data.color
     };
+    var traffic_bottom = {
+        id: domB,
+        y: 5,
+        self: selfDom,
+        subsection: data.subsection,
+        color: data.color
+    };
     traffic_distance(traffic);
-    var cir = {
+    traffic_distance(traffic_bottom);
+
+    var cirTop = {
         id: dom_site,
         ciry: 27,
         testy: 13,
         color: data.color,
         self: selfDom,
         dataCir: data.dataCir,
-        dataSite_color: data.dataSite_color,
-        site_infos: data.site_infos
+        dataSite_color: data.dataSite_top_color,
+        site_infos: data.site_top_infos
     };
-    cir_and_text(cir);
+    var cirBottom = {
+        id: domB,
+        ciry: 6,
+        testy: 25,
+        self: selfDom,
+        color: data.color,
+        dataCir: data.dataCir2,
+        dataSite_color: data.dataSite_down_color,
+        site_infos:data.site_down_infos
+    };
+    cir_and_text(cirTop);
+    cir_and_text(cirBottom);
+    can_left_right(
+        {
+            id: domL,
+            color: data.color[0],
+            ciry: 27,
+            self: selfDom,
+            r: 4,
+            lineLen: 17,
+            sta: 1,
+            busNumber:data.busNumber
+        }
+    );
+    can_left_right(
+        {
+            id: domR,
+            color: data.color[data.color.length - 1],
+            ciry: 27,
+            self: selfDom,
+            r: 4,
+            lineLen: 0,
+            sta: 1.5,
+            busNumber:data.busNumber
+        }
+    );
 }
-// function qrend_desktop_top(data, dom_site, domB, domL, domR, selfDom) {
-//     var traffic = {
-//         id: dom_site,
-//         y: 26,
-//         self: selfDom,
-//         subsection: data.subsection,
-//         color: data.color
-//     };
-//     // var traffic_bottom = {
-//     //     id: domB,
-//     //     y: 5,
-//     //     self: selfDom,
-//     //     subsection: data.subsection,
-//     //     color: data.color
-//     // };
-//     traffic_distance(traffic);
-//     // traffic_distance(traffic_bottom);
-//
-//     var cir = {
-//         id: dom_site,
-//         ciry: 27,
-//         testy: 13,
-//         color: data.color,
-//         self: selfDom,
-//         dataCir: data.dataCir,
-//         dataSite: data.dataSite,
-//         site_infos: data.site_infos
-//     };
-//     // var cirBottom = {
-//     //     id: domB,
-//     //     ciry: 6,
-//     //     testy: 25,
-//     //     self: selfDom,
-//     //     color: data.color,
-//     //     dataCir: data.dataCir,
-//     //     dataSite: data.dataSite2,
-//     //     site_infos:data.site_infos
-//     // };
-//     cir_and_text(cir);
-//     // cir_and_text(cirBottom);
-//     // can_left_right(
-//     //     {
-//     //         id: domL,
-//     //         color: data.color[0],
-//     //         ciry: 27,
-//     //         self: selfDom,
-//     //         r: 4,
-//     //         lineLen: 17,
-//     //         sta: 1,
-//     //         busNumber:data.busNumber
-//     //     }
-//     // );
-//     // can_left_right(
-//     //     {
-//     //         id: domR,
-//     //         color: data.color[data.color.length - 1],
-//     //         ciry: 27,
-//     //         self: selfDom,
-//     //         r: 4,
-//     //         lineLen: 0,
-//     //         sta: 1.5,
-//     //         busNumber:data.busNumber
-//     //     }
-//     // );
-// }
 //防止冒泡
 function stopPropagation(e) {
     e = window.event || e;
