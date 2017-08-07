@@ -60,12 +60,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         // websocket.onmessage = function (event) {
                             // self.site_websocket(event.data);
                         // };
-                        if ($.inArray('model_t', socket_model_info.model_list)!=-1){
-                            socket_model_info['model_t'].status = true;
-                        }else{
-                            socket_model_info.model_list.push('model_t');
-                            socket_model_info['model_t'] = {status: true, arg: {self: self,site_top_infos: self.site_top_infos, site_down_infos: self.site_down_infos}, fn: self.site_websocket};
+                        
+                        if (socket_model_info['model_t']){
+                            delete socket_model_info['model_t'];
                         }
+                        socket_model_info['model_t'] = {arg: {self: self, site_top_infos: self.site_top_infos, site_down_infos: self.site_down_infos}, fn: self.site_websocket};
                     });
 
                 });
@@ -270,7 +269,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         bus_info: function (e) {
             var car_num = e.target.textContent;
-            var line_id = e.delegateTarget.getAttribute("tid");
+            var line_id = e.delegateTarget.getAttribute("line_id");
             var options =
                 {
                     x: e.clientX + 5,

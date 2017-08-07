@@ -157,6 +157,10 @@
 
 /*---------车辆实时状态---------*/
 
+.bus_real_info_model {
+    display: none;
+}
+
 .bus_real_info {
     width: 802px;
     letter-spacing: 1px;
@@ -330,6 +334,10 @@
 
 .bus_real_info .popupContent .vehicleInformation .danger {
     color: red;
+}
+
+.bus_real_info .popupContent .vehicleInformation .bold {
+    font-weight: bold;
 }
 
 .bus_real_info .popupContent .vehicleInformation .dangerTime {
