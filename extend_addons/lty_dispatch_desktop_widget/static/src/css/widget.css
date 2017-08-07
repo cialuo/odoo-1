@@ -159,7 +159,7 @@
 
 .bus_real_info {
     width: 802px;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     border: 1px solid #ccc;
     background: #fff;
 }
@@ -320,7 +320,7 @@
 }
 
 .bus_real_info .popupContent .vehicleInformation .num {
-    padding-left: 10px;
+    padding-left: 3px;
 }
 
 

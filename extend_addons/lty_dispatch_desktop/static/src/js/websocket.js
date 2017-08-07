@@ -4,7 +4,7 @@
 var websocket = null;
 //判断当前浏览器是否支持WebSocket
 if ('WebSocket' in window) {
-    websocket = new SockJS("http://127.0.0.1:8766/wstest?userId=45454");
+    websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
 }
 else {
     alert('当前浏览器 Not support websocket');

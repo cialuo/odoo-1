@@ -82,7 +82,7 @@
                             <tr>
                                 <td>回场时间<span class="dangerTime num"><t t-esc="widget.data.back_field_time"></t></span></td>
                                 <td>下趟发车<span class="num"><t t-esc="widget.data.next_train_departure"></t></span></td>
-                                <td>技术状况<span class="num"><t t-esc="widget.data.status"></t></span></td>
+                                <td>能源剩余里程<span class="num"><t t-esc="widget.data.residual_clearance"></t></span></td>
                             </tr>
                         </table>
                     </div>
@@ -495,7 +495,7 @@
     <t t-name="arrival_time_map_template">
         <div>
             <div class="carInfoScene" >
-                <img width="344" height="330" t-attf-src="http://restapi.amap.com/v3/staticmap?location={{widget.data.longitude}},{{widget.data.latitude}}&amp;zoom=14&amp;size=344*330&amp;markers=large,,:{{widget.data.longitude}},{{widget.data.latitude}}&amp;key=cf2cefc7d7632953aa19dbf15c194019&amp;scale=2" alt="" />
+                <!-- <img width="344" height="330" t-attf-src="http://restapi.amap.com/v3/staticmap?location={{widget.data.longitude}},{{widget.data.latitude}}&amp;zoom=14&amp;size=344*330&amp;markers=large,,:{{widget.data.longitude}},{{widget.data.latitude}}&amp;key=cf2cefc7d7632953aa19dbf15c194019&amp;scale=2" alt="" /> -->
             </div>
         </div>
     </t>
