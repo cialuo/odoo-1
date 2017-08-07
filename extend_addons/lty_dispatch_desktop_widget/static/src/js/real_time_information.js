@@ -24,7 +24,6 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
         },
         init: function(parent, data){
             this._super(parent);
-            var layer_index = layer.load(2);
             var init_data = {
                 license_number: data.car_num,
                 license_plate: '粤K·92823',
@@ -45,7 +44,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 back_field_time: '12:43',
                 next_train_departure: '12:30',
                 residual_clearance: '239KM',
-                line: '16',
+                line: data.line_id,
                 trip: '4',
                 total_trip: '10'
             };
@@ -54,6 +53,11 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
         },
         start: function(){
             this.arrivalTimeFn();
+            this.layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
+            if (socket_model_info['model_car']){
+                delete socket_model_info['model_car'];
+            }
+            socket_model_info['model_car'] = {arg: {self: this, layer_index: this.layer_index}, fn: this.socket_fn};
         },
         handle_exceptions_fn: function(){
             alert('这里将发起处理异常状态请求');
@@ -120,7 +124,64 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             this.$(".carReport").html("");
             new arrival_time_police(this).appendTo(this.$(".carReport"));
         },
+        socket_fn: function(data, arg){
+            var init_data = {
+                license_number: data.car_num,
+                license_plate: '粤K·92823',
+                driver: '李素华', 
+                crew: '张雯',
+                passenger: '62',
+                full_load_rate: '90%',
+                satisfaction_degree: '20%',
+                carriage_temperature: '23',
+                outdoor_temperature: '32',
+                back_door: '关闭',
+                front_door: '开启',
+                speed: '36km/h',
+                sail: '大亚湾',
+                front: '4km',
+                after: '3km',
+                back_field_time: '12:43',
+                next_train_departure: '12:30',
+                residual_clearance: '239KM',
+                line: data.line_id,
+                trip: '4',
+                total_trip: '10'
+            };
+            var self = arg.self;
+            var vehicleInformationObj = self.$(".popupContent .vehicleInformation");
+            var carReportObj = self.$(".popupContent .carReport");
+            var lineInfo = self.$(".lineInfo");
+            var back_door_status = data.slice(83, 84)>8?"<e class='danger'>开启</e>":"关闭"
+            var front_door_status = data.slice(84, 85)<8?"<e class='danger'>开启</e>":"关闭"
+            var new_date = new Date();
+            var date_time = new_date.getHours()+":"+new_date.getMinutes();
+            var new_data_2 = new Date(new_date.getTime() + 1000*60*30);
+            var date_time_2 = new_data_2.getHours()+":"+new_data_2.getMinutes();
+            vehicleInformationObj.find(".passenger_number").html(self.data.passenger+data.slice(78, 79));
+            vehicleInformationObj.find(".satisfaction_rate").html(data.slice(78, 80)+"%");
+            vehicleInformationObj.find(".inside_temperature").html(data.slice(80, 82));
+            vehicleInformationObj.find(".outside_temperature").html(data.slice(82, 84));
+            vehicleInformationObj.find(".back_door_status").html(back_door_status);
+            vehicleInformationObj.find(".front_door_status").html(front_door_status);
+            vehicleInformationObj.find(".current_speed").html(data.slice(84, 86));
+            vehicleInformationObj.find(".direction").html(self.data.sail);
+            vehicleInformationObj.find(".front_distance").html(data.slice(86, 87));
+            vehicleInformationObj.find(".back_distance").html(data.slice(87, 88));
+            vehicleInformationObj.find(".return_time").html(date_time);
+            vehicleInformationObj.find(".next_trip_time").html(date_time_2);
+            vehicleInformationObj.find(".residual_clearance").html(data.slice(76, 78)+'KM/h');
+            lineInfo.find(".lineRoad").html('18')
+            lineInfo.find(".trip").html(data.slice(76, 77));
+            lineInfo.find(".total_trip").html(data.slice(76, 77)+data.slice(77, 78));
+
+            self.$el.show();
+            if (arg.layer_index){
+                layer.close(arg.layer_index);
+            }
+        },
         closeFn: function(){
+            delete socket_model_info['model_car'];
             this.destroy();
         }
     });
@@ -145,6 +206,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 legend: {
                     data:['计划', chart_data.data[0].name, chart_data.data[1].name]
                 },
+                animation: false,
                 grid: {
                     left: '2%',
                     right: '15%',

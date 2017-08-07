@@ -20,17 +20,14 @@ websocket.onopen = function () {
 }
 
 // 定义模块调用
-// 示例 {model: {status: false, arg: {}, fn: ""}, model_list:[]},
-var socket_model_info = {model_list:[]};
+// 示例 {model: {fn: "", arg: ""},
+// 解释 model:打开的模块, fn:渲染执行函数, arg:所需参数
+var socket_model_info = {};
 //接收到消息的回调方法
 websocket.onmessage = function (event) {
-    for (var w=0,l=socket_model_info.model_list.length;w<l;w++){
-    	var socket_model = socket_model_info[socket_model_info.model_list[w]];
-    	if (socket_model.status){
-    		if (socket_model.fn){
-    			socket_model.fn(event.data, socket_model.arg);
-    		}
-    	}
+    for (socket_model in socket_model_info){
+    	var socket_model = socket_model_info[socket_model];
+    	socket_model.fn(event.data, socket_model.arg);
     }
     console.log(socket_model_info);
 };

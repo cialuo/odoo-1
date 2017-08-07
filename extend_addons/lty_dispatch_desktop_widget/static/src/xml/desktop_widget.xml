@@ -2,7 +2,7 @@
 
 <templates xml:space="preserve">
     <t t-name="bus_real_info_template">
-        <div>
+        <div class="bus_real_info_model">
             <div class="bus_real_info dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
                 <div class="boxTitle">
                     <div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
@@ -60,29 +60,28 @@
                     <div class="vehicleInformation">
                         <table>
                             <tr>
-                                <td>乘客<span class="fmax num"><t t-esc="widget.data.passenger"></t></span>人</td>
-                                <td>满载率<span class="num"><t t-esc="widget.data.full_load_rate"></t></span></td>
-                                <td>满意度<span class="num"><t t-esc="widget.data.satisfaction_degree"></t></span></td>
+                                <td>乘客<span class="fmax num passenger_number"><t t-esc="widget.data.passenger"></t></span>人</td>
+                                <td>满载率<span class="num full_load_rate"><t t-esc="widget.data.full_load_rate"></t></span></td>
+                                <td>乘客满意度<span class="num satisfaction_rate"><t t-esc="widget.data.satisfaction_degree"></t></span></td>
                             </tr>
                             <tr>
-                                <td>车厢<span class="fmax num"><t t-esc="widget.data.carriage_temperature"></t></span>度</td>
-                                <td>室外<span class="num"><t t-esc="widget.data.outdoor_temperature"></t></span>度</td>
-                                <td>满意度<span class="num"><t t-esc="widget.data.satisfaction_degree_2"></t></span></td>
+                                <td>车厢<span class="fmax num inside_temperature"><t t-esc="widget.data.carriage_temperature"></t></span>度</td>
+                                <td colspan="2">室外<span class="num outside_temperature"><t t-esc="widget.data.outdoor_temperature"></t></span>度</td>
                             </tr>
                             <tr>
-                                <td>后门<span class="fmax num"><t t-esc="widget.data.back_door"></t></span></td>
-                                <td>前门<span class="num danger fmax"><t t-esc="widget.data.front_door"></t></span></td>
-                                <td>当前车速<span class="num"><t t-esc="widget.data.speed"></t></span></td>
+                                <td>后门<span class="fmax num back_door_status"><t t-esc="widget.data.back_door"></t></span></td>
+                                <td>前门<span class="num fmax front_door_status"><t t-esc="widget.data.front_door"></t></span></td>
+                                <td>当前车速<span class="num current_speed"><t t-esc="widget.data.speed"></t></span>KM/h</td>
                             </tr>
                             <tr>
-                                <td>驶向<span class="fmax num"><t t-esc="widget.data.sail"></t></span></td>
-                                <td>前车<span class="num"><t t-esc="widget.data.front"></t></span></td>
-                                <td>后车<span class="num"><t t-esc="widget.data.after"></t></span></td>
+                                <td>驶向<span class="fmax num direction"><t t-esc="widget.data.sail"></t></span></td>
+                                <td>前车<span class="num front_distance"><t t-esc="widget.data.front"></t></span>KM</td>
+                                <td>后车<span class="num back_distance"><t t-esc="widget.data.after"></t></span>KM</td>
                             </tr>
                             <tr>
-                                <td>回场时间<span class="dangerTime num"><t t-esc="widget.data.back_field_time"></t></span></td>
-                                <td>下趟发车<span class="num"><t t-esc="widget.data.next_train_departure"></t></span></td>
-                                <td>能源剩余里程<span class="num"><t t-esc="widget.data.residual_clearance"></t></span></td>
+                                <td>回场时间<span class="dangerTime num return_time"><t t-esc="widget.data.back_field_time"></t></span></td>
+                                <td>下趟发车<span class="num next_trip_time bold"><t t-esc="widget.data.next_train_departure"></t></span></td>
+                                <td>能源剩余里程<span class="num residual_clearance bold"><t t-esc="widget.data.residual_clearance"></t></span></td>
                             </tr>
                         </table>
                     </div>
@@ -92,7 +91,7 @@
                 </div>
                 <div class="lineInfo">
                     <span class="lineRoad"><t t-esc="widget.data.line"></t>路</span>
-                    第<t t-esc="widget.data.trip"></t>趟，共<t t-esc="widget.data.total_trip"></t>趟
+                    第<span class="trip"><t t-esc="widget.data.trip"></t></span>趟，共<span class="total_trip"><t t-esc="widget.data.total_trip"></t></span>趟
                 </div>
             </div>
             <script type="text/javascript">

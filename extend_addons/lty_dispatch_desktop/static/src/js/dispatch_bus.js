@@ -59,31 +59,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                                 self.site_top_infos = site_top_infos;
                                 self.site_down_infos = site_down_infos;
-                                if ($.inArray(tid, socket_model_info.model_list) != -1) {
-                                    socket_model_info[tid].status = true;
-                                    socket_model_info[tid] = {
-                                        status: true,
-                                        arg: {
-                                            self: self,
-                                            site_top_infos: self.site_top_infos,
-                                            site_down_infos: self.site_down_infos
-                                        },
-                                        fn: self.site_websocket
-                                    };
-                                }
-                                else {
-                                    socket_model_info.model_list.push(tid);
-                                    socket_model_info[tid] = {
-                                        status: true,
-                                        arg: {
-                                            self: self,
-                                            site_top_infos: self.site_top_infos,
-                                            site_down_infos: self.site_down_infos
-                                        },
-                                        fn: self.site_websocket
-                                    };
-                                }
-                            });
+                                var model_id = 'model_'+tid;
+                        if (socket_model_info[model_id]){
+                            delete socket_model_info[model_id];
+                        }
+                        socket_model_info[model_id] = {arg: {self: self, site_top_infos: self.site_top_infos, site_down_infos: self.site_down_infos}, fn: self.site_websocket};
+                    });
                         });
                     });
                 }
@@ -219,8 +200,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             //已经添加了路线
             if (tid != undefined) {
                 // socket_model_info[tid].status =false;
-                socket_model_info.model_list.pop(tid);
-                delete socket_model_info[tid];
                 self.model_line.query().filter([["id", "=", tid]]).all().then(function (pp) {
                     self.model_line.query().filter([["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
                         self.model_line.call("unlink", [data[1].id]).then(function () {
@@ -291,7 +270,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         bus_info: function (e) {
             var car_num = e.target.textContent;
-            var line_id = e.delegateTarget.getAttribute("tid");
+            var line_id = e.delegateTarget.getAttribute("line_id");
             var options =
                 {
                     x: e.clientX + 5,
