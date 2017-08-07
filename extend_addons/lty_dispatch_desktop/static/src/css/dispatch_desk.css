@@ -629,7 +629,7 @@ input[type="checkbox"] + label:before {
     background: #535252;
     position: relative;
 }
- .close_bt{
+ .dis_close_bt{
     position: absolute;
     right: 5px;
     top: 3px;

@@ -41,14 +41,14 @@
 	</t>
 	<t t-name="digital_map">
 		<div class="dragContent digital_map" t-attf-style="left:#{widget.location_data.x}px;top:#{widget.location_data.y}px;z-index:#{widget.location_data.zIndex}">
-			<div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
+			<div class="closeBox dragArea"><a class="dis_close_bt" href="javascript:;"></a></div>
 			<div id="digital_map"></div>
 		</div>
 	</t>
 	<t t-name="main_controll_interface">
 		<div class="dragContent main_controll_interface" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
 			<div class="src_title">
-				<div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
+				<div class="closeBox dragArea"><a class="dis_close_bt" href="javascript:;"></a></div>
 				<div class="line_list">
 					<ul>
 						<li>挂牌</li>
@@ -443,7 +443,7 @@
 	<t t-name="bus_source_config">
 		<div class="dragContent bus_src_config" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
 			<div class="src_title">
-				<div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
+				<div class="closeBox dragArea"><a class="dis_close_bt" href="javascript:;"></a></div>
 				<div class="line_list">
 					<ul class="line_company">
 						<li>四分公司</li>
