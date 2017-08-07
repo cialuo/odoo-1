@@ -243,6 +243,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     line_id: line_id,
                     car_num: car_num
                 };
+            $(".bus_real_info").remove();
             var dialog = new bus_real_info(this, options);
             dialog.appendTo($("body"));
             // e.delegateTarget.parentElement.append(dialog);

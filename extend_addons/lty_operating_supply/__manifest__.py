@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "scheduling_parameters_widget",
+    'name': "lty_operating_supply",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,13 +20,15 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['scheduling_parameters', 'lty_dispatch_desktop_widget'],
+    'depends': ['operation_menu', 'lty_dispatch_desktop_widget'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/templates.xml',
-        'views/views.xml',
+        'views/passengerFlow_views.xml',
+        'views/satisfaction_views.xml',
+        'views/service_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

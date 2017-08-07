@@ -8,7 +8,6 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
         template: 'bus_real_info_template',
         events: {
             'click .operationNav .back_to_the_field': 'back_to_the_field_fn',
-            // 'click .operationNav .start': 'start_fn',
             'click .operationNav .handle_exceptions': 'handle_exceptions_fn',
             'click .operationNav .schedule_a_return': 'schedule_a_return_fn',
             'click .operationNav .can_line': 'can_line_fn',
@@ -26,7 +25,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
         init: function(parent, data){
             this._super(parent);
             var init_data = {
-                license_number: '203',
+                license_number: data.car_num,
                 license_plate: '粤K·92823',
                 driver: '李素华', 
                 crew: '张雯',

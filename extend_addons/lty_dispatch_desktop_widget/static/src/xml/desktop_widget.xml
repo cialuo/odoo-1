@@ -7,15 +7,17 @@
                 <div class="boxTitle">
                     <div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
                     <div class="titleInfo infoL">
-                        <table>
-                            <tr>
-                                <td rowspan="2"><span class="licenseNumber fmax">车号：<t t-esc="widget.data.license_number"></t></span></td>
-                                <td><span class="licensePlate"><t t-esc="widget.data.license_plate"></t></span></td>
-                            </tr>
-                            <tr>
-                                <td><span class="driver">司机：<t t-esc="widget.data.driver"></t></span><span class="crew">乘务：<t t-esc="widget.data.crew"></t></span></td>
-                            </tr>
-                        </table>
+                        <dl>
+                            <dt>
+                                <span class="licenseNumber fmax">车号: <t t-esc="widget.data.license_number"></t></span>
+                            </dt>
+                            <dd>
+                                <span class="licensePlate"><t t-esc="widget.data.license_plate"></t></span>
+                            </dd>
+                            <dd>
+                                <span class="driver">司机：<t t-esc="widget.data.driver"></t></span><span class="crew">乘务：<t t-esc="widget.data.crew"></t></span>
+                            </dd>
+                        </dl>
                     </div>
                     <div class="titleInfo infoR">
                         <div class="operation">
@@ -75,7 +77,7 @@
                             <tr>
                                 <td>驶向<span class="fmax num"><t t-esc="widget.data.sail"></t></span></td>
                                 <td>前车<span class="num"><t t-esc="widget.data.front"></t></span></td>
-                                <td>后车<span class="num"><t t-esc="widget.data.after_door"></t></span></td>
+                                <td>后车<span class="num"><t t-esc="widget.data.after"></t></span></td>
                             </tr>
                             <tr>
                                 <td>回场时间<span class="dangerTime num"><t t-esc="widget.data.back_field_time"></t></span></td>

@@ -39,6 +39,8 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             };
         },
         start: function () {
+            // 动态加载高德地图api
+            $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
             var self = this;
             new dispatch_desktop(this).appendTo(self.$el);
             function startTime() {
