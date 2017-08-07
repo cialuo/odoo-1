@@ -18,7 +18,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         init: function (parent, data) {
             this._super(parent);
             // 线路info
-            this.model2 = new Model('dispatch.control.desktop.component');
+            this.model_line = new Model('dispatch.control.desktop.component');
             // 线路
             this.model_choseline = new Model('route_manage.route_manage');
             // 上行站点
@@ -31,48 +31,57 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         start: function () {
             var self = this;
 
-            function site_info(model, model2) {
+            function site_info(mode_line, model_top, model_down) {
                 var site_top_infos = [];
                 var site_down_infos = [];
-                model.query().filter([["route_id", "=", 1]]).all().then(function (res_top) {
-                    for (var i = 0; i < res_top.length; i++) {
-                        // 站点名称
-                        var site_info = new Object();
-                        site_info.name = res_top[i].station_id[1].split('/')[0];
-                        site_info.status = res_top[i].is_show_name;
-                        // 站点id
-                        site_info.id = res_top[i].id;
-                        site_top_infos.push(site_info);
-                    }
-                    console.log(site_top_infos)
-                    model2.query().filter([["route_id", "=", 1]]).all().then(function (res_down) {
-                        for (var i = 0; i < res_down.length; i++) {
-                            // 站点名称
-                            var site_info = new Object();
-                            site_info.name = res_down[i].station_id[1].split('/')[0];
-                            site_info.status = res_down[i].is_show_name;
-                            // 站点id
-                            site_info.id = res_down[i].id;
-                            site_down_infos.push(site_info);
-                        }
-                        self.site_top_infos = site_top_infos;
-                        self.site_down_infos = site_down_infos;
-                        // websocket.onmessage = function (event) {
-                            // self.site_websocket(event.data);
-                        // };
-                        if ($.inArray('model_t', socket_model_info.model_list)!=-1){
-                            socket_model_info['model_t'].status = true;
-                        }else{
-                            socket_model_info.model_list.push('model_t');
-                            socket_model_info['model_t'] = {status: true, arg: {self: self,site_top_infos: self.site_top_infos, site_down_infos: self.site_down_infos}, fn: self.site_websocket};
-                        }
+                if (self.$el.find('.line_line')[0] != undefined) {
+                    var tid = self.$el.attr('tid');
+                    mode_line.query().filter([["id", "=", parseInt(tid)]]).all().then(function (data) {
+                        console.log(data[0].line_id[0])
+                        model_top.query().filter([["route_id", "=", data[0].line_id[0]]]).all().then(function (res_top) {
+                            for (var i = 0; i < res_top.length; i++) {
+                                // 站点名称
+                                var site_info = new Object();
+                                site_info.name = res_top[i].station_id[1].split('/')[0];
+                                site_info.status = res_top[i].is_show_name;
+                                // 站点id
+                                site_info.id = res_top[i].id;
+                                site_top_infos.push(site_info);
+                            }
+                            model_down.query().filter([["route_id", "=", data[0].line_id[0]]]).all().then(function (res_down) {
+                                for (var i = 0; i < res_down.length; i++) {
+                                    // 站点名称
+                                    var site_info = new Object();
+                                    site_info.name = res_down[i].station_id[1].split('/')[0];
+                                    site_info.status = res_down[i].is_show_name;
+                                    // 站点id
+                                    site_info.id = res_down[i].id;
+                                    site_down_infos.push(site_info);
+                                }
+                                self.site_top_infos = site_top_infos;
+                                self.site_down_infos = site_down_infos;
+                                if ($.inArray(tid, socket_model_info.model_list) != -1) {
+                                    socket_model_info[tid].status = true;
+                                } else {
+                                    socket_model_info.model_list.push(tid);
+                                    socket_model_info[tid] = {
+                                        status: true,
+                                        arg: {
+                                            self: self,
+                                            site_top_infos: self.site_top_infos,
+                                            site_down_infos: self.site_down_infos
+                                        },
+                                        fn: self.site_websocket
+                                    };
+                                }
+                            });
+                        });
                     });
-
-                });
+                }
             }
 
             // 上行站点
-            site_info(this.model_site_top, this.model_site_down)
+            site_info(this.model_line, this.model_site_top, this.model_site_down)
             // 下行站点
             // site_info(this.model_site_down)
             //阻止右键引起的默认事件
@@ -200,11 +209,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var tid = this.$el.attr('tid');
             //已经添加了路线
             if (tid != undefined) {
-                self.model2.query().filter([["id", "=", tid]]).all().then(function (pp) {
-                    self.model2.query().filter([["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
-                        self.model2.call("unlink", [data[1].id]).then(function () {
+                self.model_line.query().filter([["id", "=", tid]]).all().then(function (pp) {
+                    self.model_line.query().filter([["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
+                        self.model_line.call("unlink", [data[1].id]).then(function () {
                             self.$el.parent().find('.updown_line_table').remove();
-                            self.model2.call("unlink", [data[0].id]).then(function () {
+                            self.model_line.call("unlink", [data[0].id]).then(function () {
                                 self.destroy();
                             });
                         });
@@ -294,7 +303,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 site_infos: this.site_top_infos,
                 dataSite_color: this.dataSite_top_color,
                 subsection: this.subsection,
-                model:this.model_site_top
+                model: this.model_site_top
             };
             //调用点击canvas事件
             this.clickTb(option, e);
@@ -310,7 +319,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 site_infos: this.site_down_infos,
                 dataSite_color: this.dataSite_down_color,
                 subsection: this.subsection,
-                model:this.model_site_down
+                model: this.model_site_down
             }
             this.clickTb(option, e);
         },
@@ -354,7 +363,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     // 重绘画布
                     cxt.clearRect(0, 0, c.width, c.height);
                     canvas.site_infos[i].status == true ? canvas.site_infos[i].status = false : canvas.site_infos[i].status = true;
-                    console.log(canvas.site_infos[i].id)
                     canvas.model.call("write", [canvas.site_infos[i].id,
                         {
                             'is_show_name': canvas.site_infos[i].status
@@ -388,7 +396,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         // 绘上实心圆
                         cxt.beginPath();
                         cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
-                        cxt.fillStyle = canvas.dataSite[i].color;
+                        cxt.fillStyle = canvas.dataSite_color[i].color;
                         cxt.fill();
                         cxt.closePath();
                     } else {
@@ -519,7 +527,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
     var dispatch_line_control = Widget.extend({
         init: function (parent, data, type) {
             this._super(parent);
-            this.model2 = new Model('dispatch.control.desktop.component');
+            this.model_line = new Model('dispatch.control.desktop.component');
             this.model_choseline = new Model('route_manage.route_manage');
             this.data = data;
             this.type = type;
@@ -583,7 +591,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if (resName.indexOf(x.innerHTML) != -1) {
                     alert('该线路已被选择，请重新选择');
                 } else {
-                    self.model2.call("create", [
+                    self.model_line.call("create", [
                         {
                             'desktop_id': 2,
                             "model_type": "dispatch_desktop",
@@ -593,7 +601,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             'line_id': $(x).attr('lineid'),
                             'name': x.innerHTML
                         }]).then(function (data) {
-                        self.model2.call("create", [
+                        self.model_line.call("create", [
                             {
                                 'desktop_id': 2,
                                 "model_type": "updown_line_table",
@@ -603,7 +611,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 'line_id': $(x).attr('lineid'),
                                 'name': x.innerHTML
                             }]).then(function (data) {
-                            self.model2.query().filter([["line_id", "=", parseInt($(x).attr('lineid'))]]).all().then(function (data) {
+                            self.model_line.query().filter([["line_id", "=", parseInt($(x).attr('lineid'))]]).all().then(function (data) {
                                 self.$el.html('');
                                 new dispatch_bus(this, data, 0).appendTo(self.$el);
                             });
@@ -614,7 +622,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if (resName.indexOf(x.innerHTML) != -1) {
                     alert('该线路已被选择，请重新选择');
                 } else {
-                    self.model2.call("write", [parseInt(tid),
+                    self.model_line.call("write", [parseInt(tid),
                         {
                             'line_id': $(x).attr("lineid"),
                             'position_left': siteLeft,
@@ -622,7 +630,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             'position_z_index': siteZindex,
                             'name': x.innerHTML,
                         }]).then(function (res) {
-                        self.model2.call("write", [parseInt(tid) + 1,
+                        self.model_line.call("write", [parseInt(tid) + 1,
                             {
                                 'line_id': $(x).attr("lineid"),
                                 'position_left': siteLeftPf,
@@ -630,7 +638,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 'position_z_index': siteZindexPf,
                                 'name': x.innerHTML,
                             }]).then(function (res) {
-                            self.model2.query().filter([["line_id", "=", parseInt(line)]]).all().then(function (data) {
+                            self.model_line.query().filter([["line_id", "=", parseInt(line)]]).all().then(function (data) {
                                 data[1].position_left = self.$el.find('.updown_line_table')[0].offsetLeft;
                                 data[1].position_top = self.$el.find('.updown_line_table')[0].offsetTop;
                                 data[1].position_z_index = self.$el.find('.updown_line_table')[0].style.zIndex;
@@ -672,7 +680,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this._super(parent);
             this.data = data;
             this.type = type;
-            this.model2 = new Model('dispatch.control.desktop.component');
+            this.model_line = new Model('dispatch.control.desktop.component');
         },
         start: function () {
             var data = this.data;
@@ -687,7 +695,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var x = ev.currentTarget;
             var self = this;
             var tid = this.$el.find('.updown_line_table').attr('tid');
-            self.model2.call("write", [parseInt(tid),
+            self.model_line.call("write", [parseInt(tid),
                 {
                     'tem_display': ''
                 }]).then(function (res) {
