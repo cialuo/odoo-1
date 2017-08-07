@@ -1,0 +1,25 @@
+<odoo>
+	<data>
+
+        <!--调度接口数据-->
+        <menuitem id="lty_access_base.menu_root" name="lty_access_base_menu"
+                  parent="dispatch_monitor_menu.dispatch_monitor_menu_root" sequence="100"/>
+
+        <!--线路分时客流-->
+        <menuitem id="lineTimeTopic_menu" name="lineTimeTopic_menu" parent="lty_access_base.menu_root" sequence="10" action="act_lineTimeTopic" />
+        <!--站台分时客流-->
+        <menuitem id="stationTimeTopic_menu" name="stationTimeTopic_menu" parent="lty_access_base.menu_root" sequence="20" action="act_station_time_topic" />
+        <!--准点与滞站-->
+        <menuitem id="punctuality_detention_topic_menu" name="punctuality_detention_topic_menu" parent="lty_access_base.menu_root" sequence="30" action="act_punctuality_detention_topic" />
+        <!--乘客满意度-->
+        <menuitem id="passenger_satisfaction_topic_menu" name="passenger_satisfaction_topic_menu" parent="lty_access_base.menu_root" sequence="40" action="act_passenger_satisfaction_topic" />
+        <!--服务保障能力-->
+        <menuitem id="service_support_capability_topic_menu" name="service_support_capability_topic_menu" parent="lty_access_base.menu_root" sequence="50" action="act_service_support_capability_topic" />
+        <!--车辆到站预测准点-->
+        <menuitem id="station_may_arr_time_topic_menu" name="station_may_arr_time_topic_menu" parent="lty_access_base.menu_root" sequence="60" action="act_station_may_arr_time_topic" />
+        <!--行车规则-->
+        <menuitem id="driving_rules_topic_menu" name="driving_rules_topic_menu" parent="lty_access_base.menu_root" sequence="70" action="act_driving_rules_topic" />
+        <!--配车方案-->
+        <menuitem id="vehicle_allocation_scheme_topic_menu" name="vehicle_allocation_scheme_topic_menu" parent="lty_access_base.menu_root" sequence="80" action="act_vehicle_allocation_scheme_topic" />
+    </data>
+</odoo>
