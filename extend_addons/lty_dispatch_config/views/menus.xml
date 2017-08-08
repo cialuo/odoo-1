@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+
+        <!--运营管理 ===> 设置-->
+        <menuitem id="scheduling_parameters.setting_root" name="Scheduling setting root"
+                  parent="operation_menu.operation_menu_root" sequence="200"/>
+
+
+
+        <!--调度监控-->
+        <menuitem id="dispatch_monitor_menu.setting_root" name="Monitor setting root"
+                  parent="dispatch_monitor_menu.dispatch_monitor_menu_root" sequence="200"/>
+
+    </data>
+</odoo>

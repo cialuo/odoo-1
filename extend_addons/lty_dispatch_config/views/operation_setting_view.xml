@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_operation_config_settings" model="ir.ui.view">
+            <field name="name">operation settings</field>
+            <field name="model">operation.config.settings</field>
+            <field name="arch" type="xml">
+                <form string="Configure operation" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <group string="Peak segment identification" name="Peak segment identification">
+                        <field name="company_id" invisible="1"/>
+                        <field name="marked_peak" class="oe_inline"/>
+                        <field name="marked_flat_peak" class="oe_inline"/>
+                        <field name="marked_low_peak" class="oe_inline"/>
+                    </group>
+                    <group string="Passenger satisfaction weighting" name="Passenger satisfaction weighting">
+
+                        <label for="id" string="peak"/>
+                        <div>
+                            <div>
+                                <field name="peak_waiting" class="oe_inline"/>
+                            </div>
+                            <div>
+                                <field name="peak_ride" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <label for="id" string="flat_peak"/>
+                        <div>
+                            <div string="flat_peak">
+                                <field name="flat_peak_waiting" class="oe_inline"/>
+                            </div>
+                            <div>
+                                <field name="flat_peak_ride" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <label for="id" string="low_peak"/>
+                        <div>
+                            <div string="low_peak">
+                                <field name="low_peak_waiting" class="oe_inline"/>
+                            </div>
+                            <div>
+                                <field name="low_peak_ride" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                    </group>
+                    <group string="Waiting satisfaction" name="Waiting satisfaction">
+
+                        <label for="id" string="peak" groups="base.group_no_one"/>
+                        <div name="config_products" groups="base.group_no_one">
+                            <div>
+                                Waiting time(min)
+                                <field name="peak_waiting_start_time_duration1" class="oe_inline"/>
+                                -
+                                <field name="peak_waiting_end_time_duration1" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="peak_waiting_satisfaction1" class="oe_inline"/>
+                            </div>
+                            <div>
+                                Waiting time(min)
+                                <field name="peak_waiting_start_time_duration2" class="oe_inline"/>
+                                -
+                                <field name="peak_waiting_end_time_duration2" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="peak_waiting_satisfaction2" class="oe_inline"/>
+                            </div>
+                            <div>
+                                Waiting time(min)
+                                <field name="peak_waiting_start_time_duration3" class="oe_inline"/>
+                                -
+                                <field name="peak_waiting_end_time_duration3" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="peak_waiting_satisfaction3" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <label for="id" string="flat_peak" groups="base.group_no_one"/>
+                        <div name="config_products" groups="base.group_no_one">
+                            <div>
+                                Waiting time(min)
+                                <field name="flat_peak_waiting_start_time_duration1" class="oe_inline"/>
+                                -
+                                <field name="flat_peak_waiting_end_time_duration1" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="flat_peak_waiting_satisfaction1" class="oe_inline"/>
+                            </div>
+                            <div>
+                                Waiting time(min)
+                                <field name="flat_peak_waiting_start_time_duration2" class="oe_inline"/>
+                                -
+                                <field name="flat_peak_waiting_end_time_duration2" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="flat_peak_waiting_satisfaction2" class="oe_inline"/>
+                            </div>
+                            <div>
+                                Waiting time(min)
+                                <field name="flat_peak_waiting_start_time_duration3" class="oe_inline"/>
+                                -
+                                <field name="flat_peak_waiting_end_time_duration3" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="flat_peak_waiting_satisfaction3" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <label for="id" string="low_peak" groups="base.group_no_one"/>
+                        <div name="config_products" groups="base.group_no_one">
+                            <div>
+                                Waiting time(min)
+                                <field name="low_peak_waiting_start_time_duration1" class="oe_inline"/>
+                                -
+                                <field name="low_peak_waiting_end_time_duration1" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="low_peak_waiting_satisfaction1" class="oe_inline"/>
+                            </div>
+                            <div>
+                                Waiting time(min)
+                                <field name="low_peak_waiting_start_time_duration2" class="oe_inline"/>
+                                -
+                                <field name="low_peak_waiting_end_time_duration2" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="low_peak_waiting_satisfaction2" class="oe_inline"/>
+                            </div>
+                            <div>
+                                Waiting time(min)
+                                <field name="low_peak_waiting_start_time_duration3" class="oe_inline"/>
+                                -
+                                <field name="low_peak_waiting_end_time_duration3" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="low_peak_waiting_satisfaction3" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                    </group>
+                    <group string="Ride comfort" name="Ride comfort">
+                        <label for="id" string="peak" groups="base.group_no_one"/>
+                        <div name="config_products" groups="base.group_no_one">
+                            <div>
+                                Full load rate(%)
+                                <field name="peak_ride_start_time_duration1" class="oe_inline"/>
+                                -
+                                <field name="peak_ride_end_time_duration1" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="peak_ride_comfort1" class="oe_inline"/>
+                            </div>
+                            <div>
+                                Full load rate(%)
+                                <field name="peak_ride_start_time_duration2" class="oe_inline"/>
+                                -
+                                <field name="peak_ride_end_time_duration2" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="peak_ride_comfort2" class="oe_inline"/>
+                            </div>
+                            <div>
+                                Full load rate(%)
+                                <field name="peak_ride_start_time_duration3" class="oe_inline"/>
+                                -
+                                <field name="peak_ride_end_time_duration3" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="peak_ride_comfort3" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <label for="id" string="flat_peak" groups="base.group_no_one"/>
+                        <div name="config_products" groups="base.group_no_one">
+                            <div>
+                                Full load rate(%)
+                                <field name="flat_peak_ride_start_time_duration1" class="oe_inline"/>
+                                -
+                                <field name="flat_peak_ride_end_time_duration1" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="flat_peak_ride_comfort1" class="oe_inline"/>
+                            </div>
+                            <div>
+                                Full load rate(%)
+                                <field name="flat_peak_ride_start_time_duration2" class="oe_inline"/>
+                                -
+                                <field name="flat_peak_ride_end_time_duration2" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="flat_peak_ride_comfort2" class="oe_inline"/>
+                            </div>
+                            <div>
+                                Full load rate(%)
+                                <field name="flat_peak_ride_start_time_duration3" class="oe_inline"/>
+                                -
+                                <field name="flat_peak_ride_end_time_duration3" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="flat_peak_ride_comfort3" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <label for="id" string="low_peak"/>
+                        <div name="config_products">
+                            <div>
+                                Full load rate(%)
+                                <field name="low_peak_ride_start_time_duration1" class="oe_inline"/>
+                                -
+                                <field name="low_peak_ride_end_time_duration1" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="low_peak_ride_comfort1" class="oe_inline"/>
+                            </div>
+                            <div>
+                                Full load rate(%)
+                                <field name="low_peak_ride_start_time_duration2" class="oe_inline"/>
+                                -
+                                <field name="low_peak_ride_end_time_duration2" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="low_peak_ride_comfort2" class="oe_inline"/>
+                            </div>
+                            <div>
+                                Full load rate(%)
+                                <field name="low_peak_ride_start_time_duration3" class="oe_inline"/>
+                                -
+                                <field name="low_peak_ride_end_time_duration3" class="oe_inline"/>
+                                :Satisfaction score
+                                <field name="low_peak_ride_comfort3" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group string="Rated full load rate" name="Rated full load rate">
+
+                        <label for="id" string="peak_full_load"/>
+                        <div>
+                            <field name="peak_full_load" class="oe_inline"/>%
+                        </div>
+
+                        <label for="id" string="flat_peak_load"/>
+                        <div>
+                            <field name="flat_peak_load" class="oe_inline"/>%
+                        </div>
+
+                        <label for="id" string="low_peak_full_load"/>
+                        <div>
+                            <field name="low_peak_full_load" class="oe_inline"/>%
+                        </div>
+
+                    </group>
+                    <group string="Driving plan setting" name="Driving plan setting">
+
+                        <field name="generate_time" class="oe_inline"/>
+
+                        <field name="is_advance" class="oe_inline"/>
+
+                        <label for="id" string="advance_date" attrs="{'invisible': [('is_advance', '=', False)]}"/>
+                        <div attrs="{'invisible': [('is_advance', '=', False)]}">
+                            <field name="begin_advance_date" class="oe_inline" />
+                            -
+                            <field name="end_advance_date" class="oe_inline"/>
+                        </div>
+
+                        <field name="is_general" class="oe_inline"/>
+
+                        <label for="id" string="general_date" attrs="{'invisible': [('is_general', '=', False)]}"/>
+                        <div attrs="{'invisible': [('is_general', '=', False)]}">
+                            <field name="begin_general_date" class="oe_inline"/>
+                            -
+                            <field name="end_general_date" class="oe_inline"/>
+                        </div>
+
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_operation_config_settings" model="ir.actions.act_window">
+            <field name="name">operation Vehicle</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">operation.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <menuitem id="operation_settings_menu" name="Operation settings menu"
+                  parent="scheduling_parameters.setting_root"
+                  sequence="10" action="action_operation_config_settings"
+        />
+    </data>
+</odoo>
