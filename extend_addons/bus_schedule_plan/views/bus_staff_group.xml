@@ -82,11 +82,13 @@
                                 <field name="staff_line_ids">
                                     <tree string="StaffLines" create="false" editable="bottom">
 										<field name="sequence" readonly="1"/>
+                                        <field name="group_id"/>
 										<field name="driver_id" readonly="1"/>
 										<field name="driver_jobnumber" readonly="1"/>
-										<field name="conductor_id" readonly="1"/>
+										<field name="conductor_id"/>
 										<field name="conductor_jobnumber" readonly="1"/>
-										<field name="bus_shift_choose_line_id" readonly="1"/>
+                                        <field name="bus_shift_id"/>
+										<field name="bus_shift_choose_line_id"/>
                                     </tree>
                                 </field>
                             </page>
@@ -97,28 +99,28 @@
                                 <field name="operation_state"/>
                             </group>
                         </group>
-                        <group col="2" attrs="{'invisible':[('operation_state','=','flexible')]}">
-                           <group>
-                               <field name="bus_group_id" invisible="1" />
-                               <field name="id" invisible="1" />
-                               <field name="bus_group_driver_id"
-                                      attrs="{'required':[('operation_state','!=','flexible')]}"
-                                      options="{'no_open':True,'no_create':True}"/>
-                               <!--<field name="is_conductor" invisible="1" />-->
-                               <field name="bus_group_conductor_id"
-                                      options="{'no_open':True,'no_create':True}"/>
-                               <field name="bus_shift_id" invisible="1"/>
-                               <field name="bus_shift_choose_line_id"
-                                      attrs="{'required':[('operation_state','!=','flexible')]}"
-                                      options="{'no_open':True,'no_create':True}"/>
-                            </group>
-                        </group>
+                        <!--<group col="2" attrs="{'invisible':[('operation_state','=','flexible')]}">-->
+                           <!--<group>-->
+                               <!--<field name="bus_group_id" invisible="1" />-->
+                               <!--<field name="id" invisible="1" />-->
+                               <!--<field name="bus_group_driver_id"-->
+                                      <!--attrs="{'required':[('operation_state','!=','flexible')]}"-->
+                                      <!--options="{'no_open':True,'no_create':True}"/>-->
+                               <!--&lt;!&ndash;<field name="is_conductor" invisible="1" />&ndash;&gt;-->
+                               <!--<field name="bus_group_conductor_id"-->
+                                      <!--options="{'no_open':True,'no_create':True}"/>-->
+                               <!--<field name="bus_shift_id" invisible="1"/>-->
+                               <!--<field name="bus_shift_choose_line_id"-->
+                                      <!--attrs="{'required':[('operation_state','!=','flexible')]}"-->
+                                      <!--options="{'no_open':True,'no_create':True}"/>-->
+                            <!--</group>-->
+                        <!--</group>-->
 
-                       <button name="dispatch_staff_line"
-                               type="object"
-                               string="Dispatch Staff"
-                               attrs="{'invisible':[('operation_state','=','flexible')] }"
-                               class="oe_edit_only oe_highlight oe_right"/>
+                       <!--<button name="dispatch_staff_line"-->
+                               <!--type="object"-->
+                               <!--string="Dispatch Staff"-->
+                               <!--attrs="{'invisible':[('operation_state','=','flexible')] }"-->
+                               <!--class="oe_edit_only oe_highlight oe_right"/>-->
 
                    </sheet>
                 </form>

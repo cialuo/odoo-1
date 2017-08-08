@@ -39,17 +39,7 @@ class BusStaffGroup(models.Model):
         res = super(BusStaffGroup, self).create(data)
         return res
 
-    # @api.onchange('bus_algorithm_id')
-    # def _get_algorithm_date_onchange(self):
-    #     for i in self:
-    #         if i.bus_algorithm_id:
-    #             i.bus_algorithm_date = datetime.date.today()
-    #
-    # @api.onchange('bus_driver_algorithm_id')
-    # def _get_driver_algorithm_date_onchange(self):
-    #     for i in self:
-    #         if i.bus_driver_algorithm_id:
-    #             i.bus_driver_algorithm_date = datetime.date.today()
+
 
     @api.depends("vehicle_line_ids")
     def _get_vehicle_ct(self):
@@ -227,21 +217,21 @@ class BusStaffGroupVehicleLine(models.Model):
     bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line', domain="[('shift_id','=',bus_shift_id)]")
 
     # staff_line_ids = fields.One2many('bus_staff_group_vehicle_staff_line', 'vehicle_line_id')
-    staff_line_ids = fields.One2many('bus_group_driver_vehicle_shift', 'vehicle_line_id')
+    staff_line_ids = fields.One2many('bus_staff_group_vehicle_staff_line', 'vehicle_line_id')
 
-    staff_names = fields.Char(string='Staff Names')
+    staff_names = fields.Char(string='Staff Names', compute='_get_staff_names')
 
-    # @api.depends("staff_line_ids")
-    # def _get_staff_names(self):
-    #     """
-    #     司机:
-    #         功能：获取司机名字
-    #     """
-    #     for i in self:
-    #         staff_names = set()
-    #         for j in i.staff_line_ids:
-    #             staff_names.add(j.driver_id.name)
-    #         i.staff_names = ",".join(list(staff_names))
+    @api.depends("staff_line_ids")
+    def _get_staff_names(self):
+        """
+        司机:
+            功能：获取司机名字
+        """
+        for i in self:
+            staff_names = set()
+            for j in i.staff_line_ids:
+                staff_names.add(j.driver_id.driver_id.name)
+            i.staff_names = ",".join(list(staff_names))
 
 
 
@@ -271,15 +261,26 @@ class BusStaffGroupVehicleStaffLine(models.Model):
     _name = 'bus_staff_group_vehicle_staff_line'
     sequence = fields.Integer("Shift Line Sequence", default=1)
     vehicle_line_id = fields.Many2one('bus_staff_group_vehicle_line', ondelete='cascade')
-    driver_id = fields.Many2one('hr.employee', string="driver", required=True,
-                                domain="[('workpost.posttype', '=', 'driver')]")
+    # driver_id = fields.Many2one('hr.employee', string="driver", required=True,
+    #                             domain="[('workpost.posttype', '=', 'driver')]")
+    # driver_jobnumber = fields.Char(string='driver_jobnumber', related='driver_id.jobnumber', readonly=True)
+    #
+    # conductor_id = fields.Many2one('hr.employee', string="conductor",
+    #                                domain="[('workpost.posttype', '=', 'conductor')]")
+    # conductor_jobnumber = fields.Char(string='conductor_jobnumber', related='conductor_id.jobnumber', readonly=True)
+    #
+
+    group_id = fields.Many2one('bus_group', 'Group')
+    driver_id = fields.Many2one("bus_group_driver", domain="[('bus_group_id','=',group_id)]")
+
     driver_jobnumber = fields.Char(string='driver_jobnumber', related='driver_id.jobnumber', readonly=True)
 
-    conductor_id = fields.Many2one('hr.employee', string="conductor",
-                                   domain="[('workpost.posttype', '=', 'conductor')]")
+    conductor_id = fields.Many2one("bus_group_conductor", domain="[('bus_group_id','=',group_id)]")
     conductor_jobnumber = fields.Char(string='conductor_jobnumber', related='conductor_id.jobnumber', readonly=True)
 
-    bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line')
+    bus_shift_id = fields.Many2one('bus_shift', readonly=True)
+    bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line', domain="[('shift_id','=',bus_shift_id)]")
+
 
 
 

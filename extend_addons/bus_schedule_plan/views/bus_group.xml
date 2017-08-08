@@ -27,6 +27,11 @@
                 <form>
                     <header>
 
+                        <button string="action_test1"
+                            type="object"
+                            name="action_test1"
+                            />
+
 
                         <button string="action_test"
                             type="object"

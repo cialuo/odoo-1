@@ -45,6 +45,58 @@ class BusGroup(models.Model):
         ('wait_check', "wait_check"),
         ('use', "use"),], string='Bus Group State', default='draft', readonly=True)
 
+    @api.multi
+    def action_test1(self):
+
+        res = self.env['bus_staff_group'].search([('name','=',self.route_id.lineName+ '/' + str(datetime.date.today()))])
+        if res:
+            res.unlink()
+
+        res_group_shift = self.env['bus_group_driver_vehicle_shift'].read_group(
+            [('use_date', '=', '2017-08-05'),
+             ('t_sequence', '>', 0),
+             ('route_id', '=', self.route_id.id)],
+            ['t_sequence'],
+            groupby=['t_sequence'], orderby='t_sequence')
+
+        print res_group_shift
+        print len(res_group_shift)
+        datas = []
+        k = 3
+        for j in res_group_shift:
+            res_vehicles = self.env['bus_group_driver_vehicle_shift'].search(j['__domain'])
+            print res_vehicles
+            sequence = 0
+            data_d_c = []
+            for m in res_vehicles:
+                sequence += 1
+                vals_ve = {
+                    'group_id':m.group_id.id,
+                    "driver_id": m.driver_id.id,
+                    "conductor_id": m.conductor_id.id or None,
+                    'bus_shift_id': m.bus_shift_id.id,
+                    'bus_shift_choose_line_id': m.bus_shift_choose_line_id.id,
+                    "sequence": sequence
+                }
+                data_d_c.append((0, 0, vals_ve))
+
+            print 444444444444444444444,data_d_c
+
+            vals = {
+                "route_id": res_vehicles[0].route_id.id,
+                'vehicle_id': res_vehicles[0].bus_group_vehicle_id.vehicle_id.id,
+                'operation_state': 'flexible',
+                'sequence': res_vehicles[0].t_sequence,
+                'bus_group_id': res_vehicles[0].group_id.id,
+                'staff_line_ids': data_d_c
+            }
+            if res_vehicles[0].t_sequence <= k:
+                vals.update({'operation_state': 'operation'})
+                datas.append((0, 0, vals))
+        print datas
+        self.env['bus_staff_group'].create({'vehicle_line_ids':datas,
+                                            'route_id':self.route_id.id,
+                                            'lineName':self.route_id.lineName})
 
 
     @api.multi

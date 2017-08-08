@@ -19,7 +19,7 @@ class BusShift(models.Model):
             i.shift_ct = len(i.shift_line_ids)
 
 
-class BusShiftExt(models.Model):
+class BusShiftChooseLine(models.Model):
     """
      班制 班次详情
     """
