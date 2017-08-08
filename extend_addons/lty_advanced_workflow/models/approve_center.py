@@ -40,13 +40,16 @@ class lty_approve_center(models.Model):
         #todo compute active status
         for user in self :
             farther_node_state = False
+            condiction_state = False
+            
             if user.cfg_line_id.farther_node :
                 object2 = user.object_id._name+','+str(user.object_id.id)
-                farther_node_state = self.search([('cfg_line_id', '=',user.cfg_line_id.farther_node.id),('object_id', '=',object2)]).name
+                farther_node_state = self.search([('cfg_line_id', '=',user.cfg_line_id.farther_node.id),('object_id', '=',object2)]).approved
             
             domain = eval( user.cfg_line_id.conditions)
             domain.append(('id', '=', user.object_id.id))                    
-            condiction_state = len(self.env[user.object_id._name].search(domain))
+            if len(self.env[user.object_id._name].search(domain))>0 :
+                condiction_state = True
                
             
             if condiction_state and farther_node_state or user.cfg_line_id.node_type == 'start' :
