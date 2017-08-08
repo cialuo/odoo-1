@@ -155,7 +155,7 @@ class BusWorkRules(models.Model):
         验证序号为单调递增 且增量为1
         """
         for i in range(1, len(datalist)):
-            if (datalist[i] - datalist[i-1]) != 1:
+            if (datalist[i].seqid - datalist[i-1].seqid) != 1:
                 raise ValidationError(_("difference bettwen two sequence number must be 1"))
 
     @staticmethod
@@ -225,13 +225,13 @@ class BusWorkRules(models.Model):
         将星期id转换为本系统的日期类型
         """
         mapdic = {
-            1: "Monday",
-            2: "Tuesday",
-            3: "Wednesday",
-            4: "Thursday",
-            5: "Friday",
-            6: "Saturday",
-            7: "Sunday"
+            0: "Monday",
+            1: "Tuesday",
+            2: "Wednesday",
+            3: "Thursday",
+            4: "Friday",
+            5: "Saturday",
+            6: "Sunday"
         }
 
         return mapdic[daynumber]
@@ -246,37 +246,39 @@ class BusWorkRules(models.Model):
     def genTimeRecords(self, rulelist, datestr, startstation, endstation, lineid, mileage):
         sortedRuleList = sorted(rulelist, key=lambda k: k.seqid)
         recordslist = []
-        startTimeStr = datestr + ' ' + sortedRuleList[0].starttime
+        startTimeStr = datestr + ' ' + sortedRuleList[0].starttime + ":00"
         timeFormatStr = "%Y-%m-%d %H:%M:%S"
         startTime = datetime.datetime.strptime(startTimeStr, timeFormatStr)
         markpoints = []
         for item in sortedRuleList:
-            markpoints.append((item.interval, datetime.datetime.strptime(datestr + ' ' + item.endtime, timeFormatStr)))
+            markpoints.append((item.interval, datetime.datetime.strptime(datestr + ' ' + item.endtime + ":00", timeFormatStr)))
         seqcounter = 0
         for index, item in enumerate(sortedRuleList):
             while startTime <= markpoints[index][1]:
                 seqcounter += 1
                 data = {
                     'seqid' : seqcounter,
-                    'startmovetime' : startTime,
-                    'arrive_time' : startTime + datetime.timedelta(minutes=item.worktimelength),
+                    'startmovetime' : startTime-datetime.timedelta(hours=8),
+                    'arrive_time' : startTime + datetime.timedelta(minutes=item.worktimelength)-datetime.timedelta(hours=8),
                     'timelength' : item.worktimelength,
                     'mileage' : mileage,
-                    'line_id' : lineid,
-                    'start_site' : startstation,
-                    'end_site' : endstation
+                    'line_id' : lineid.id,
+                    'start_site' : startstation.id,
+                    'end_site' : endstation.id
                 }
                 recordslist.append((0, 0, data))
                 startTime = startTime + datetime.timedelta(minutes=item.interval)
+        return recordslist
 
     def createMoveTimeRecord(self, datestr, ruleobj):
         for item in ruleobj:
             movetimerecord = {
-                'line_id' : item.line_id,
+                'line_id' : item.line_id.id,
                 'rule_id' : item.id,
                 'vehiclenums' : 0,
                 'backupvehicles' : 0,
-                'executedate' : datestr
+                'executedate' : datestr,
+                'schedule_method' : item.schedule_method
             }
             vehiclenums = 0
             backupvehicles = 0
@@ -294,12 +296,12 @@ class BusWorkRules(models.Model):
                 for i in item.downplanvehiclearrange:
                     vehiclenums += i.workingnumber
                     backupvehicles += i.backupnumber
-                    uptimerecords = self.genTimeRecords(item.uptimearrange, datestr, item.upstation, item.downstation,
+                uptimerecords = self.genTimeRecords(item.uptimearrange, datestr, item.upstation, item.downstation,
                                                         item.line_id, item.mileage)
-                    downtimerecords = self.genTimeRecords(item.downtimearrange, datestr, item.downstation,
+                downtimerecords = self.genTimeRecords(item.downtimearrange, datestr, item.downstation,
                                                           item.upstation, item.line_id, item.mileage)
-                    movetimerecord['uptimeslist'] = uptimerecords
-                    movetimerecord['downtimeslist'] = downtimerecords
+                movetimerecord['uptimeslist'] = uptimerecords
+                movetimerecord['downtimeslist'] = downtimerecords
 
             movetimerecord['vehiclenums'] = vehiclenums
             movetimerecord['backupvehicles'] = backupvehicles
@@ -312,13 +314,14 @@ class BusWorkRules(models.Model):
         rulemode = self.env['scheduleplan.schedulrule']
         datetypemode = self.env['bus_date_type']
         tomorrow = BusWorkRules.targetDate(1)
+        x = tomorrow.weekday()
         tomorrow_type = BusWorkRules.mapWeekDayStr(tomorrow.weekday())
         tomorrow_str = BusWorkRules.formatDateStr(tomorrow)
-        result = datetypemode.search(
-            [
-                ("start_date", '<=', tomorrow_str), ("end_date", '>=', tomorrow_str),
-                '|', ("type", '=', tomorrow_type), ("type", '=', "Vacation")
-            ], order='priority desc', limit=1)
+        condition = [
+            ("start_date", '<=', tomorrow_str), ("end_date", '>=', tomorrow_str),
+            '|', ("type", '=', tomorrow_type), ("type", '=', "Vacation")
+        ]
+        result = datetypemode.search(condition, order='priority desc', limit=1)
 
         if len(result) <= 0:
             return
@@ -477,7 +480,7 @@ class BusMoveTimeTable(models.Model):
 
     _name = "scheduleplan.busmovetime"
 
-    name = fields.Char(string="table name")
+    name = fields.Char(string="record name")
 
     # 关联线路
     line_id = fields.Many2one("route_manage.route_manage", string="related line", readonly=True)
