@@ -7,6 +7,7 @@ class AssignedShifts(models.TransientModel):
     _name = 'assigned_shifts'
 
     group_id = fields.Many2one('bus_group', 'Group', required=True)
+    route_id = fields.Many2one('route_manage.route_manage', related='group_id.route_id', required=True)
 
     driver_vehicle_shift_ids = fields.One2many('bus_group_driver_vehicle_shift_tran', 'assign_id')
 
@@ -32,6 +33,8 @@ class AssignedShifts(models.TransientModel):
 
     @api.multi
     def import_driver(self):
+        for i in self.driver_vehicle_shift_ids:
+            i.unlink()
 
         driver_list = self.driver_ids.ids
         conductor_list = self.conductor_ids.ids
@@ -44,18 +47,33 @@ class AssignedShifts(models.TransientModel):
         for i in range(len(self.vehicle_ids.ids)):
             vehicle_list += [self.vehicle_ids.ids[i]] * len(self.bus_shift_id.shift_line_ids.ids)
 
+        res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '=', self.use_date),
+                                                                 ('route_id', '=', self.route_id.id),
+                                                                 ('group_id', '!=', self.group_id.id)],
+                                                                order='t_sequence desc', limit=1)
+        t_sequence = 0
+        if res:
+            t_sequence = res[0].t_sequence
+
+        vehicle_list = []
+        t_sequence_list = []
+        for i in range(len(self.vehicle_ids.ids)):
+            vehicle_list += [self.vehicle_ids.ids[i]] * len(self.bus_shift_id.shift_line_ids.ids)
+            t_sequence_list += [i+1+t_sequence] * len(self.bus_shift_id.shift_line_ids.ids)
+
+
+
         shift_line_lists = self.bus_shift_id.shift_line_ids.ids * len(self.vehicle_ids.ids)
 
         vehicle_list = vehicle_list + ['']*(len(driver_list)-len(vehicle_list))
+        t_sequence_list = t_sequence_list + [''] * (len(driver_list) - len(t_sequence_list))
         shift_line_lists = shift_line_lists + [''] * (len(driver_list) - len(shift_line_lists))
 
-        for i in self.driver_vehicle_shift_ids:
-            i.unlink()
         sequence = 0
-        xyz = zip(driver_list, conductor_list, vehicle_list,shift_line_lists)
+
+        xyz = zip(driver_list, conductor_list, vehicle_list, shift_line_lists, t_sequence_list)
         datas = []
         for j in xyz:
-            print j
             sequence += 1
             data = {
                 'sequence': sequence,
@@ -63,11 +81,13 @@ class AssignedShifts(models.TransientModel):
                 'conductor_id': j[1],
                 'group_id': self.group_id.id,
                 'use_date': self.use_date,
+
                 'bus_shift_id': self.bus_shift_id.id
             }
             if j[2]:
                 data.update({'bus_group_vehicle_id': j[2],
-                             'bus_shift_choose_line_id': j[3]})
+                             'bus_shift_choose_line_id': j[3],
+                             't_sequence': j[4]})
             datas.append((0, 0, data))
         self.write({'driver_vehicle_shift_ids': datas})
         return {
@@ -82,8 +102,25 @@ class AssignedShifts(models.TransientModel):
 
     @api.multi
     def assigned_shifts(self):
+        print self.group_id
         for wizard in self:
-            print wizard.driver_vehicle_shift_ids
+            res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '=', self.use_date),
+                                                               ('group_id', '=', self.group_id.id)])
+            for i in res:
+                i.unlink()
+            for j in wizard.driver_vehicle_shift_ids:
+                data = {
+                    'sequence': j.sequence,
+                    'use_date': j.use_date,
+                    'group_id': j.group_id.id,
+                    'driver_id': j.driver_id.id,
+                    'conductor_id': j.conductor_id.id,
+                    't_sequence': j.t_sequence,
+                    'bus_shift_id': j.bus_shift_id.id,
+                    'bus_shift_choose_line_id': j.bus_shift_choose_line_id.id,
+                    'bus_group_vehicle_id': j.bus_group_vehicle_id.id
+                }
+                self.env['bus_group_driver_vehicle_shift'].create(data)
         return False
 
 
@@ -95,8 +132,11 @@ class BusGroupDriverVehicleShiftTran(models.TransientModel):
     sequence = fields.Integer("Shift Line Sequence", default=1, readonly=True)
 
     group_id = fields.Many2one('bus_group', 'Group', required=True)
+    route_id = fields.Many2one('route_manage.route_manage', related='group_id.route_id', required=True)
     bus_shift_id = fields.Many2one('bus_shift', readonly=True)
     bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line', domain="[('shift_id','=',bus_shift_id)]")
+
+    choose_sequence = fields.Integer(related='bus_shift_choose_line_id.sequence')
 
     driver_id = fields.Many2one("bus_group_driver", domain="[('bus_group_id','=',group_id)]")
     driver_jobnumber = fields.Char(string='driver_jobnumber', related='driver_id.jobnumber', readonly=True)
@@ -105,6 +145,6 @@ class BusGroupDriverVehicleShiftTran(models.TransientModel):
     conductor_jobnumber = fields.Char(string='conductor_jobnumber', related='conductor_id.jobnumber', readonly=True)
 
     bus_group_vehicle_id = fields.Many2one("bus_group_vehicle", domain="[('bus_group_id','=',group_id)]")
-    t_sequence = fields.Integer("T Sequence", related='bus_group_vehicle_id.sequence', readonly=True)
+    t_sequence = fields.Integer("T Sequence", readonly=True)
 
     use_date = fields.Date(default=fields.Date.context_today, readonly=True)

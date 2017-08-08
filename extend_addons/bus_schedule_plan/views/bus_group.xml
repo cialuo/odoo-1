@@ -26,12 +26,34 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
+
+
+                        <button string="action_test"
+                            type="object"
+                            name="action_test"
+                            />
+
                         <button string="assigned_shifts"
                             type="action"
                             name="%(act_assigned_shifts)d"
                             class="oe_highlight"
                             />
-                        </header>
+
+						<button name="action_submit"
+								type="object"
+								string="Submit check"
+								states="draft"
+								class="oe_highlight"
+								/> <!-- 提交审核-->
+
+                        <button name="action_check"
+								type="object"
+								string="check success"
+								states="wait_check"
+								class="oe_highlight"
+								/> <!-- 审核通过-->
+                    	<field name="state" widget="statusbar"/>
+                    </header>
                     <sheet>
 
                         <div class="oe_title">
@@ -47,9 +69,14 @@
                                        attrs="{'readonly': [('id', '!=', False)]}"
                                        options="{'no_open':True,'no_create':True}"/>
                                 <field name="bus_algorithm_id" options="{'no_create':True}"/>
+                                <field name="bus_algorithm_date" invisible="0"/>
                                 <field name="bus_driver_algorithm_id" options="{'no_create':True}"/>
                                 <field name="bus_shift_id" options="{'no_create':True}"/>
                                 <!--<field name="is_conductor"/>-->
+                            </group>
+                            <group>
+                                <field name="is_not_match" invisible="1"/>
+                                <field name="not_match_reason" attrs="{'invisible':[('is_not_match','=',False)]}"/>
                             </group>
                         </group>
 
@@ -87,12 +114,19 @@
                             <page string="GroupConductors1">
                                 <field name="driver_vehicle_shift_ids">
                                     <tree editable="bottom">
-                                         <field name="sequence"/>
-                                         <field name="use_date"/>
-										 <field name="driver_id" options="{'no_open':True,'no_create':True}"/>
-										 <field name="driver_jobnumber"/>
-                                         <field name="conductor_id" options="{'no_open':True,'no_create':True}"/>
-										 <field name="conductor_jobnumber"/>
+                                        <field name="sequence"/>
+                                        <field name="use_date"/>
+                                        <field name="driver_id" options="{'no_open':True,'no_create':True}"/>
+                                        <field name="driver_jobnumber"/>
+                                        <field name="conductor_id" options="{'no_open':True,'no_create':True}"/>
+                                        <field name="conductor_jobnumber"/>
+                                        <field name="bus_group_vehicle_id"/>
+                                        <field name="t_sequence"/>
+                                        <field name="bus_shift_id"/>
+                                        <field name="bus_shift_choose_line_id"/>
+                                        <field name="choose_sequence"/>
+
+
                                     </tree>
                                 </field>
                             </page>
