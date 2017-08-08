@@ -29,7 +29,6 @@ websocket.onmessage = function (event) {
     	var socket_model = socket_model_info[socket_model];
     	socket_model.fn(event.data, socket_model.arg);
     }
-    console.log(socket_model_info);
 };
 //连接关闭的回调方法
 websocket.onclose = function () {

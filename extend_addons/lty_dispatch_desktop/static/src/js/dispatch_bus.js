@@ -176,7 +176,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             });
             self.$('.content_car_road').eq(1).find('.line_car').css({
                 'position': 'absolute',
-                'left': toLeft+100 + 'px',
+                'left': toLeft + 100 + 'px',
                 'top': '0'
             });
         },
@@ -568,7 +568,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 new dispatch_canvas(this, data[0]).appendTo(this.$el);
                 new dispatch_updown_line(this, data[1]).appendTo(this.$el);
             }
-
         },
         events: {
             'click .chs>li': 'chose_line',
@@ -586,7 +585,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var siteTopPf = self.$el.find('.updown_line_table')[0].offsetTop;
             var lineName = $('body').find('.line_line');
             var resName = [];
-            socket_model_info[tid] = '';
             for (var j = 0; j < lineName.length; j++) {
                 resName.push(lineName[j].innerHTML);
             }
@@ -669,6 +667,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var data = this.data;
             var type = this.type;
             new dispatch_line_control(this, data, type).appendTo(this.$el);
+
         },
         events: {
             'click .show_right': 'show_right'

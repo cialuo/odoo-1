@@ -83,6 +83,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         start: function () {
             var self = this;
+            this.$el.css({'background':'#1e2335','height':'100%'});
             self.$el.append(QWeb.render("myConsole"));
             self.model2.query(["line_id"]).filter([["desktop_id", "=", 2]]).all().then(function (data) {
                 var s = [];

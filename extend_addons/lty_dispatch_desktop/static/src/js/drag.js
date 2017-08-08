@@ -36,7 +36,7 @@ function drag(oDrag, handle) {
             var iT = event.clientY - disY;
             var maxL = document.documentElement.clientWidth;
             var maxT = document.documentElement.clientHeight;
-            iL <= 0-oDrag.offsetWidth && (iL = 0-oDrag.offsetWidth);
+            iL <= 0 && (iL = 0);
             iT <= 50 && (iT = 50);
             iL >= maxL+oDrag.offsetWidth && (iL = maxL+oDrag.offsetWidth);
             iT >= maxT-50 && (iT = maxT-50);

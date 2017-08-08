@@ -13,7 +13,7 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
         init: function(parent, data){
             var init_data = [
                 {   
-                    name: data.site.name,
+                    name: data.line_id,
                     line_car: [16],
                     data: [
                         {

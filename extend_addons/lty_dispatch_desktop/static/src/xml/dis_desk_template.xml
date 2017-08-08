@@ -6,7 +6,6 @@
 		</div>
 	</t>
 	<t t-name="desktop_top">
-		<div t-attf-controllerId="#{widget.data.component_ids}" class="widget_parent">
 			<ul class="desktop_head">
 			<li>
 				<img src="/lty_dispatch_desktop/static/src/img/lty_logo.png" />
@@ -24,7 +23,6 @@
 				</div>
 			</li>
 		</ul>
-		</div>
 	</t>
 	<t t-name="bus_site_info">
 		<div class="bus_site_info" t-attf-style="left:#{widget.location_data.x}px;top:#{widget.location_data.y}px;z-index:#{widget.location_data.zIndex}">
