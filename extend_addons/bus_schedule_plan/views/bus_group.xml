@@ -152,9 +152,9 @@
 
 
         <menuitem id="bus_group_menu" name="bus_group_menu"
-                  parent="operation_menu.bus_working_plan_menu"
+                  parent="operation_menu.bus_working_plan_basic_info"
                   action="bus_group_action"
-                  sequence="80"/>
+                  sequence="10"/>
 
     </data>
 </odoo>
