@@ -3,6 +3,11 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 import datetime
+from itertools import izip_longest
+import json
+import math
+
+timeFormatStr = "%Y-%m-%d %H:%M:%S"
 
 class RouteInBusSchedule(models.Model):
 
@@ -247,7 +252,7 @@ class BusWorkRules(models.Model):
         sortedRuleList = sorted(rulelist, key=lambda k: k.seqid)
         recordslist = []
         startTimeStr = datestr + ' ' + sortedRuleList[0].starttime + ":00"
-        timeFormatStr = "%Y-%m-%d %H:%M:%S"
+
         startTime = datetime.datetime.strptime(startTimeStr, timeFormatStr)
         markpoints = []
         for item in sortedRuleList:
@@ -270,20 +275,39 @@ class BusWorkRules(models.Model):
                 startTime = startTime + datetime.timedelta(minutes=item.interval)
         return recordslist
 
+        # 上行运营车辆数
+        upworkvehicle = fields.Integer(string="up work vehicle")
+
+        # 下行机动车辆数
+        upbackupvehicle = fields.Integer(string="up backup vehicle")
+
+        # 下行车辆数
+        downworkvehicle = fields.Integer(string="down work vehicle")
+
+        # 下行机动车辆数
+        downbackupvehicle = fields.Integer(string="down backup vehicle")
+
     def createMoveTimeRecord(self, datestr, ruleobj):
         for item in ruleobj:
             movetimerecord = {
+                'name' : datestr + item.line_id.lineName,
                 'line_id' : item.line_id.id,
                 'rule_id' : item.id,
                 'vehiclenums' : 0,
                 'backupvehicles' : 0,
                 'executedate' : datestr,
-                'schedule_method' : item.schedule_method
+                'schedule_method' : item.schedule_method,
+                'upworkvehicle': 0,
+                'upbackupvehicle' : 0,
+                'downworkvehicle' : 0,
+                'downbackupvehicle' : 0
             }
             vehiclenums = 0
             backupvehicles = 0
             if item.schedule_method == 'singleway':
                 for i in item.upplanvehiclearrange:
+                    movetimerecord['upworkvehicle'] += i.workingnumber
+                    movetimerecord['upbackupvehicle'] += i.backupnumber
                     vehiclenums += i.workingnumber
                     backupvehicles += i.backupnumber
                     timerecords = self.genTimeRecords(item.uptimearrange, datestr, item.upstation, item.upstation,
@@ -291,9 +315,13 @@ class BusWorkRules(models.Model):
                     movetimerecord['uptimeslist'] = timerecords
             elif item.schedule_method == 'dubleway':
                 for i in item.upplanvehiclearrange:
+                    movetimerecord['upworkvehicle'] += i.workingnumber
+                    movetimerecord['upbackupvehicle'] += i.backupnumber
                     vehiclenums += i.workingnumber
                     backupvehicles += i.backupnumber
                 for i in item.downplanvehiclearrange:
+                    movetimerecord['downworkvehicle'] += i.workingnumber
+                    movetimerecord['downbackupvehicle'] += i.backupnumber
                     vehiclenums += i.workingnumber
                     backupvehicles += i.backupnumber
                 uptimerecords = self.genTimeRecords(item.uptimearrange, datestr, item.upstation, item.downstation,
@@ -305,7 +333,8 @@ class BusWorkRules(models.Model):
 
             movetimerecord['vehiclenums'] = vehiclenums
             movetimerecord['backupvehicles'] = backupvehicles
-            self.env['scheduleplan.busmovetime'].create(movetimerecord)
+            res = self.env['scheduleplan.busmovetime'].create(movetimerecord)
+            res.genOperatorPlan()
 
     def createMoveTimeTable(self):
         """
@@ -513,6 +542,130 @@ class BusMoveTimeTable(models.Model):
 
     # 下行发车时间安排
     downtimeslist = fields.One2many("scheduleplan.movetimedown", "movetimetable_id", string="down times arrange")
+
+    # 运营计划 存储上下行车辆次序 存储json数据
+    operationplan = fields.Text(string="operation plan")
+
+    # 运营方案 存储每辆车的运行趟次列表
+    operationplanbus = fields.Text(string="operation plan bus move")
+
+    # 上行运营车辆数
+    upworkvehicle = fields.Integer(string="up work vehicle")
+
+    # 下行机动车辆数
+    upbackupvehicle = fields.Integer(string="up backup vehicle")
+
+    # 下行车辆数
+    downworkvehicle = fields.Integer(string="down work vehicle")
+
+    # 下行机动车辆数
+    downbackupvehicle = fields.Integer(string="down backup vehicle")
+
+
+    @staticmethod
+    def genVehicleSeq(up, down=None):
+        uprepeatSeq = []  # 上行轮换序列
+        downrepeatSeq = []  # 下行轮换序列
+        for i in range(1, up + 1):
+            uprepeatSeq.append(i)
+        if down!=None:
+            for i in range(up + 1, up + 1 + down):
+                downrepeatSeq.append(i)
+        return uprepeatSeq, downrepeatSeq
+
+    @staticmethod
+    def genWorkMap(moveTimeSeq, repeatseq, direction):
+        upworklen = len(moveTimeSeq)
+        workBusSeq = repeatseq * int(math.ceil(upworklen / float(len(repeatseq))))
+        workBusSeqDetail = []
+        for busid, moveTimeObj in izip_longest(workBusSeq, moveTimeSeq):
+            unit = [busid, None]
+            if moveTimeObj != None:
+                unit[1] = {'id': moveTimeObj.id,
+                           'startmovetime': moveTimeObj.startmovetime,
+                           'arrive_time': moveTimeObj.arrive_time,
+                           'direction': direction}
+            else:
+                unit[1] = None
+            workBusSeqDetail.append(unit)
+        return workBusSeqDetail
+
+    @staticmethod
+    def genBusMoveSeqDouble(upMoveSeq, downMoveSeq, upBusCol, downBusCol):
+        busCol = upBusCol + downBusCol
+        moveseqCol = {busid:{'up':[],'down':[] } for busid in busCol}
+        for index, item in enumerate(upMoveSeq):
+            moveseqCol[item[0]]['up'].append([index, item, 'up'])
+
+        for index , item in  enumerate(downMoveSeq):
+            moveseqCol[item[0]['down']].append([index, item, 'down'])
+
+        result = {}
+        for (k, v) in moveseqCol.items():
+            if k <= downMoveSeq[-1]:
+                temp = []
+                for x, y in izip_longest(v['up'], v['down']):
+                    if x != None:
+                        temp.append(x)
+                    if y != None:
+                        temp.append(y)
+                result[k] = temp
+            else:
+                temp = []
+                for x, y in izip_longest(v['down'], v['up']):
+                    if x!= None:
+                        temp.append(x)
+                    if y != None:
+                        temp.append(y)
+                result[k] = temp
+        return result
+
+    @staticmethod
+    def genBusMoveSeqsingle(upMoveSeq, upBusCol):
+        busMoveSeq = {busid: [] for busid in upBusCol}
+        for index, item in enumerate(upMoveSeq):
+            busMoveSeq[item[0]].append([index, item])
+        return busMoveSeq
+
+
+    @staticmethod
+    def culculateStopTime(busMoveTimeCol):
+        for k, v in busMoveTimeCol.items():
+            l = len(v)
+            for index, item in enumerate(v):
+                item.append(0)
+                if item[1][1] == None:
+                    continue
+                for i in range(index+1, l):
+                    if v[i][1][1] == None:
+                        continue
+                    stime = datetime.datetime.strptime(v[i][1][1]['startmovetime'], timeFormatStr)
+                    atime = datetime.datetime.strptime(item[1][1]['arrive_time'], timeFormatStr)
+                    item.append(stime - atime)
+                    break
+
+
+    # 生成运营方案数据
+    def genOperatorPlan(self):
+        upVechicleSeq, downVehicleSeq = self.genVehicleSeq(self.upworkvehicle, self.downworkvehicle)
+        upRepeatSeq = upVechicleSeq + downVehicleSeq
+        downRepeatSeq = downVehicleSeq + upVechicleSeq
+
+        upMoveOnSeq = self.genWorkMap(self.uptimeslist, upRepeatSeq, 'up')
+        downMoveOnSeq = None
+        if self.schedule_method == 'dubleway':
+            downMoveOnSeq = self.genWorkMap(self.downtimeslist, downRepeatSeq, 'down')
+
+        operationPlan = {'up':upMoveOnSeq, 'down':downMoveOnSeq}
+        busMoveTable = None
+        if self.schedule_method == 'dubleway':
+            busMoveTable = self.genBusMoveSeqDouble(upMoveOnSeq, downMoveOnSeq, upVechicleSeq, downVehicleSeq)
+        elif self.schedule_method == 'singleway':
+            busMoveTable = self.genBusMoveSeqsingle(upMoveOnSeq, upVechicleSeq)
+
+        self.operationplanbus = json.dumps(busMoveTable)
+
+        self.operationplan = json.dumps(operationPlan)
 
 class MoveTimeUP(models.Model):
 
