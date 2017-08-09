@@ -35,14 +35,14 @@ function drag(oDrag, handle, maxL, maxT) {
             var iL = event.clientX - disX;
             var iT = event.clientY - disY;
             console.log(maxL)
-            if(maxL){
-                var maxdL =maxL;
-            }else{
+            if (maxL) {
+                var maxdL = maxL;
+            } else {
                 var maxdL = document.documentElement.clientWidth - oDrag.offsetWidth;
             }
-            if(maxT){
-                var maxdT =maxT;
-            }else {
+            if (maxT) {
+                var maxdT = maxT;
+            } else {
                 var maxdT = document.documentElement.clientHeight - oDrag.offsetHeight;
             }
             iL <= 0 && (iL = 0 );
@@ -68,7 +68,7 @@ function drag(oDrag, handle, maxL, maxT) {
 }
 var timmerHandle = null;
 var isDrag = false;
-function dragFn(parent, title,maxL, maxT) {
+function dragFn(parent, title, maxL, maxT) {
     var c_class = "." + parent + " ." + title;
     var p_class = "." + parent;
     var k = 0;
@@ -84,7 +84,7 @@ function dragFn(parent, title,maxL, maxT) {
         }
         var oTitle = get.byClass(title, oDrag);
         for (var i = 0, l = oTitle.length; i < l; i++) {
-            drag(oDrag, oTitle[i],maxL, maxT);
+            drag(oDrag, oTitle[i], maxL, maxT);
         }
     });
     $("body").on('mousedown', p_class, function (e) {
@@ -112,7 +112,7 @@ function dragFn(parent, title,maxL, maxT) {
 }
 window.onload = window.onresize = function () {
     dragFn("dragContent", "dragArea", document.documentElement.clientWidth, document.documentElement.clientHeight);
-    dragFn("dragContentDesk", "dragArea");
+    dragFn("dragContent", "dragAreaDesk");
 };
 
 
