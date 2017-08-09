@@ -1,0 +1,1880 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* lty_dispatch_config
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-09 09:44+0000\n"
+"PO-Revision-Date: 2017-08-09 17:45+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.2\n"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid ":Satisfaction score"
+msgstr ":满意度分值"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>&lt; Number of stall passengers &lt;=</span>"
+msgstr "<span>&lt; 滞站客流数 &lt;=</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>&lt; Number of stall passengers</span>"
+msgstr "<span>&lt; 滞站客流数</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Ahead of departure to determine(m)</span>"
+msgstr "<span>提前发车判断(m)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Antenna anomaly repeat interval(m)</span>"
+msgstr "<span>天线异常重复间隔(m)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Before the car off the station time and after the car into the station time difference</span>"
+msgstr "<span>前车离站时间与后车进站时间差</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Chart speed limit(km/s)</span>"
+msgstr "<span>包车限速值(km/s)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Check the driver when you sign in</span>"
+msgstr "<span>签到时更换司机</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Continuous offline length(s)</span>"
+msgstr "<span>连续离线时长(s)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Continuous overspeed length(s)</span>"
+msgstr "<span>连续超速时长(s)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Effective access number</span>"
+msgstr "<span>有效进出签点数</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Effective entry and exit judgment</span>"
+msgstr "<span>有效进出场判断</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Every time you take the schedule</span>"
+msgstr "<span>每次进场排班计划趟次</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Is send the plan</span>"
+msgstr "<span>是否允许</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Last train plan to check</span>"
+msgstr "<span>末班车计划检查</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Long time parking retransmission interval(m)</span>"
+msgstr "<span>长时间停车重发间隔(m)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Long time to stay long(m)</span>"
+msgstr "<span>长时间停车时长(m)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Maximum(m)</span>"
+msgstr "<span>最大(m)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Minimal(m)</span>"
+msgstr "<span>最小(m)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Non-operational speed limit(km/s)</span>"
+msgstr "<span>非运营限速值(km/s)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Number of stall passengers&lt;=</span>"
+msgstr "<span>滞站客流数 =</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Passenger full load rate(%)</span>"
+msgstr "<span>客流满载率(%)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Plan execution mode</span>"
+msgstr "<span>计划执行方式</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Plan timeout judgment(m)</span>"
+msgstr "<span>计划超时判断(m)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Send time in advance(m)</span>"
+msgstr "<span>提前发送时间(m)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Slow after the start to determine(m)</span>"
+msgstr "<span>缓后发车判断(m)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Speed threshold(km/h)</span>"
+msgstr "<span>超速阈值(km/h)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>The driver is reserved later(m)</span>"
+msgstr "<span>驾驶员晚点预留(m)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>The standard value of the departure interval is</span>"
+msgstr "<span>发车间隔标准值为</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Two car distance time difference is equal to or greater than(m)</span>"
+msgstr "<span>两车距离时间差等于或大于(m)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>Vehicle model type</span>"
+msgstr "<span>车型类型</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>When the departure interval is greater than the standard value, the distance difference between the two vehicles is a multiple of the starting interval</span>"
+msgstr "<span>发车间隔大于标准值时，两车距离时间差是发车间隔的倍数</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>When the departure interval is less than the standard value, the distance difference between the two vehicles is a multiple of the starting interval</span>"
+msgstr "<span>发车间隔小于标准值时，两车距离时间差是发车间隔的倍数</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>big_station</span>"
+msgstr "<span>进出考核大站时</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>cancel_departure_plan</span>"
+msgstr "<span>取消发车计划</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>command_window_time(s)</span>"
+msgstr "<span>命令窗口显示时长(s)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>driver_checked_out</span>"
+msgstr "<span>司机下班签退时</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>driver_command</span>"
+msgstr "<span>司机命令</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>driver_goes_to_work</span>"
+msgstr "<span>司机上班签到时</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>driver_leave</span>"
+msgstr "<span>司机请假</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>driver_short_break</span>"
+msgstr "<span>安排司机短休时</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_agree_ask</span>"
+msgstr "<span>同意请求派班</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_alarm_automatically_video</span>"
+msgstr "<span>报警时自动弹出视频</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_anchor_automatically_video</span>"
+msgstr "<span>疑似抛锚时自动弹出视频</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_attendance_ask</span>"
+msgstr "<span>签到立即派班</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>is_automatically_synchronize_lines</span>"
+msgstr "<span>自动同步车辆线路</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>is_automatically_synchronize_operational_status</span>"
+msgstr "<span>自动同步运营状态</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_display_device_exception</span>"
+msgstr "<span>显示设备异常</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_display_switch_door</span>"
+msgstr "<span>显示开关车门</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>is_interval_prompt_dispatcher</span>"
+msgstr "<span>大间隔时提示调度员</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>is_interval_prompt_the_driver</span>"
+msgstr "<span>大间隔时提示双方司机</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>is_prompt_dispatcher</span>"
+msgstr "<span>串车时提示调度员</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>is_prompt_the_driver</span>"
+msgstr "<span>串车时提示双方司机</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_send_plan_to_vehicle</span>"
+msgstr "<span>是否允许</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_show_departure_exception</span>"
+msgstr "<span>显示发车异常</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_show_overspeed</span>"
+msgstr "<span>显示超速</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_show_passenger_disputes</span>"
+msgstr "<span>显示乘客纠纷</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_show_plans_are_delayed</span>"
+msgstr "<span>显示计划误点</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_show_suspected_down</span>"
+msgstr "<span>显示疑似抛锚</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_show_vehicle_dropped</span>"
+msgstr "<span>显示车辆掉线</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_show_vehicle_offline</span>"
+msgstr "<span>显示车辆离线离开</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_show_vehicle_speeding</span>"
+msgstr "<span>显示车辆超速</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_show_vehicle_top</span>"
+msgstr "<span>显示车辆置顶</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_speeding_automatically_video</span>"
+msgstr "<span>超速时自动弹出视频</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>is_unattendance_ask</span>"
+msgstr "<span>不签到不派班</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>maintenance_ended</span>"
+msgstr "<span>修车结束</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>minute</span>"
+msgstr "<span>分钟</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>non_site_driving_door</span>"
+msgstr "<span>非站点开车门</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>not_closed_the_door</span>"
+msgstr "<span>车行走中未关车门</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>open_command_window</span>"
+msgstr "<span>弹出手动命令窗口</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>open_the_door</span>"
+msgstr "<span>车到站点为开车门</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>out_not_closed_the_door</span>"
+msgstr "<span>车未关车门离站</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>plan_to_be_delayed</span>"
+msgstr "<span>发车计划误点时</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>refueling_ended</span>"
+msgstr "<span>加油结束</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>release_ended</span>"
+msgstr "<span>空放结束</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>road_blockage</span>"
+msgstr "<span>道路堵塞</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>send_plan_advance_time(m)</span>"
+msgstr "<span>提前发送时间(m)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>show_processed</span>"
+msgstr "<span>显示已处理时间</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>site_traffic_is_too_large</span>"
+msgstr "<span>站点客流过大</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>speed_limit(km/h)</span>"
+msgstr "<span>只显示多少时速以上的提示(km/h)</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>start_maintenance</span>"
+msgstr "<span>修车开始</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>start_refueling</span>"
+msgstr "<span>开始加油</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>start_release</span>"
+msgstr "<span>空放开始</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "<span>vehicle_failure</span>"
+msgstr "<span>车辆故障</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "<span>vehicle_overload</span>"
+msgstr "<span>车辆超载时</span>"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "After the train car after the measures"
+msgstr "串车发生后措施"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_ahead_of_departure_to_determine
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_ahead_of_departure_to_determine
+msgid "Ahead of departure to determine"
+msgstr "Ahead of departure to determine"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_antenna_anomaly_repeat_interval
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_antenna_anomaly_repeat_interval
+msgid "Antenna anomaly repeat interval"
+msgstr "Antenna anomaly repeat interval"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "Apply"
+msgstr "应用"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "Automatic handling of vehicles"
+msgstr "自动处理车辆派班"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Automatic synchronization overload device"
+msgstr "自动同步超载设备"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "Automatically handle driver requests"
+msgstr "自动处理司机请求"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_begin_advance_date
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_begin_advance_date
+msgid "Begin advance date"
+msgstr "Begin advance date"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_begin_general_date
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_begin_general_date
+msgid "Begin general date"
+msgstr "Begin general date"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_big_station
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_big_station
+msgid "Big station"
+msgstr "Big station"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "Cancel"
+msgstr "取消"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_cancel_departure_plan
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_cancel_departure_plan
+msgid "Cancel departure plan"
+msgstr "Cancel departure plan"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_chart_speed_limit
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_chart_speed_limit
+msgid "Chart speed limit"
+msgstr "Chart speed limit"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_command_window_time
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_command_window_time
+msgid "Command window time"
+msgstr "Command window time"
+
+#. module: lty_dispatch_config
+#: model:ir.model,name:lty_dispatch_config.model_res_company
+msgid "Companies"
+msgstr "公司"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_company_id
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_company_id
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Configure Vehicle"
+msgstr "配置"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Configure exception alarm parameters"
+msgstr "配置异常报警参数"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "Configure operation"
+msgstr "Configure operation"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_continuous_offline_length
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_continuous_offline_length
+msgid "Continuous offline length"
+msgstr "Continuous offline length"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_continuous_overspeed_length
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_continuous_overspeed_length
+msgid "Continuous overspeed length"
+msgstr "Continuous overspeed length"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_create_uid
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_create_uid
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_create_date
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_create_date
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Dark red"
+msgstr "深红色"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_dark_red_font_color_less
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_dark_red_font_color_less
+msgid "Dark red font color less"
+msgstr "Dark red font color less"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_dark_red_font_color_more
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_dark_red_font_color_more
+msgid "Dark red font color more"
+msgstr "Dark red font color more"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_dark_red_less_number
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_dark_red_less_number
+msgid "Dark red less number"
+msgstr "Dark red less number"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_dark_red_more_number
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_dark_red_more_number
+msgid "Dark red more number"
+msgstr "Dark red more number"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_departure_interval_time
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_departure_interval_time
+msgid "Departure interval time"
+msgstr "Departure interval time"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_display_name
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_display_name
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_driver_checked_out
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_driver_checked_out
+msgid "Driver checked out"
+msgstr "Driver checked out"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_driver_command
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_driver_command
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "Driver command"
+msgstr "司机命令"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_driver_goes_to_work
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_driver_goes_to_work
+msgid "Driver goes to work"
+msgstr "Driver goes to work"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_driver_leave
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_driver_leave
+msgid "Driver leave"
+msgstr "Driver leave"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_driver_reserved_later
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_driver_reserved_later
+msgid "Driver reserved later"
+msgstr "Driver reserved later"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_driver_short_break
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_driver_short_break
+msgid "Driver short break"
+msgstr "Driver short break"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "Driving plan setting"
+msgstr "行车作业计划设置"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_effective_access
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_effective_access
+msgid "Effective access"
+msgstr "Effective access"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_end_advance_date
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_end_advance_date
+msgid "End advance date"
+msgstr "End advance date"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_end_general_date
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_end_general_date
+msgid "End general date"
+msgstr "End general date"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "Exception switch door type selection"
+msgstr "异常开关门类型选择"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_load
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_load
+msgid "Flat peak load"
+msgstr "Flat peak load"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_ride
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_ride
+msgid "Flat peak ride"
+msgstr "Flat peak ride"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_ride_comfort1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_ride_comfort1
+msgid "Flat peak ride comfort1"
+msgstr "Flat peak ride comfort1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_ride_comfort2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_ride_comfort2
+msgid "Flat peak ride comfort2"
+msgstr "Flat peak ride comfort2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_ride_comfort3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_ride_comfort3
+msgid "Flat peak ride comfort3"
+msgstr "Flat peak ride comfort3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_ride_end_time_duration1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_ride_end_time_duration1
+msgid "Flat peak ride end time duration1"
+msgstr "Flat peak ride end time duration1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_ride_end_time_duration2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_ride_end_time_duration2
+msgid "Flat peak ride end time duration2"
+msgstr "Flat peak ride end time duration2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_ride_end_time_duration3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_ride_end_time_duration3
+msgid "Flat peak ride end time duration3"
+msgstr "Flat peak ride end time duration3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_ride_start_time_duration1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_ride_start_time_duration1
+msgid "Flat peak ride start time duration1"
+msgstr "Flat peak ride start time duration1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_ride_start_time_duration2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_ride_start_time_duration2
+msgid "Flat peak ride start time duration2"
+msgstr "Flat peak ride start time duration2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_ride_start_time_duration3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_ride_start_time_duration3
+msgid "Flat peak ride start time duration3"
+msgstr "Flat peak ride start time duration3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_waiting
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_waiting
+msgid "Flat peak waiting"
+msgstr "Flat peak waiting"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_waiting_end_time_duration1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_waiting_end_time_duration1
+msgid "Flat peak waiting end time duration1"
+msgstr "Flat peak waiting end time duration1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_waiting_end_time_duration2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_waiting_end_time_duration2
+msgid "Flat peak waiting end time duration2"
+msgstr "Flat peak waiting end time duration2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_waiting_end_time_duration3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_waiting_end_time_duration3
+msgid "Flat peak waiting end time duration3"
+msgstr "Flat peak waiting end time duration3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_waiting_satisfaction1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_waiting_satisfaction1
+msgid "Flat peak waiting satisfaction1"
+msgstr "Flat peak waiting satisfaction1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_waiting_satisfaction2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_waiting_satisfaction2
+msgid "Flat peak waiting satisfaction2"
+msgstr "Flat peak waiting satisfaction2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_waiting_satisfaction3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_waiting_satisfaction3
+msgid "Flat peak waiting satisfaction3"
+msgstr "Flat peak waiting satisfaction3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_waiting_start_time_duration1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_waiting_start_time_duration1
+msgid "Flat peak waiting start time duration1"
+msgstr "Flat peak waiting start time duration1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_waiting_start_time_duration2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_waiting_start_time_duration2
+msgid "Flat peak waiting start time duration2"
+msgstr "Flat peak waiting start time duration2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_flat_peak_waiting_start_time_duration3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_flat_peak_waiting_start_time_duration3
+msgid "Flat peak waiting start time duration3"
+msgstr "Flat peak waiting start time duration3"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "Full load rate(%)"
+msgstr "满载率(%)"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_generate_time
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_generate_time
+msgid "Generate time"
+msgstr "前一天行车作业执行表生成时"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_green_font_color_less
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_green_font_color_less
+msgid "Green font color less"
+msgstr "Green font color less"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_green_font_color_more
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_green_font_color_more
+msgid "Green font color more"
+msgstr "Green font color more"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_green_number
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_green_number
+msgid "Green number"
+msgstr "Green number"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_id
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_id
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_id
+msgid "ID"
+msgstr "ID"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_in_station_max
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_in_station_max
+msgid "In station max"
+msgstr "In station max"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_in_station_min
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_in_station_min
+msgid "In station min"
+msgstr "In station min"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Interval after the occurrence of measures"
+msgstr "大间隔发生后措施"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_is_advance
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_advance
+msgid "Is advance"
+msgstr "提前生成行车作业执行表"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_agree_ask
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_agree_ask
+msgid "Is agree ask"
+msgstr "Is agree ask"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_alarm_automatically_video
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_alarm_automatically_video
+msgid "Is alarm automatically video"
+msgstr "Is alarm automatically video"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_anchor_automatically_video
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_anchor_automatically_video
+msgid "Is anchor automatically video"
+msgstr "Is anchor automatically video"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_attendance_ask
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_attendance_ask
+msgid "Is attendance ask"
+msgstr "Is attendance ask"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_is_automatically_synchronize_lines
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_automatically_synchronize_lines
+msgid "Is automatically synchronize lines"
+msgstr "Is automatically synchronize lines"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_is_automatically_synchronize_operational_status
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_automatically_synchronize_operational_status
+msgid "Is automatically synchronize operational status"
+msgstr "Is automatically synchronize operational status"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_is_check_replacement_driver
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_check_replacement_driver
+msgid "Is check replacement driver"
+msgstr "Is check replacement driver"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_display_device_exception
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_display_device_exception
+msgid "Is display device exception"
+msgstr "Is display device exception"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_display_switch_door
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_display_switch_door
+msgid "Is display switch door"
+msgstr "Is display switch door"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_is_general
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_general
+msgid "Is general"
+msgstr "是否选用通用日期行车规则"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_is_interval_prompt_dispatcher
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_interval_prompt_dispatcher
+msgid "Is interval prompt dispatcher"
+msgstr "Is interval prompt dispatcher"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_is_interval_prompt_the_driver
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_interval_prompt_the_driver
+msgid "Is interval prompt the driver"
+msgstr "Is interval prompt the driver"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_is_last_train_plan_check
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_last_train_plan_check
+msgid "Is last train plan check"
+msgstr "Is last train plan check"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_is_prompt_dispatcher
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_prompt_dispatcher
+msgid "Is prompt dispatcher"
+msgstr "Is prompt dispatcher"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_is_prompt_the_driver
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_prompt_the_driver
+msgid "Is prompt the driver"
+msgstr "Is prompt the driver"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_send_plan_to_vehicle
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_send_plan_to_vehicle
+msgid "Is send plan to vehicle"
+msgstr "Is send plan to vehicle"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_is_send_the_plan
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_send_the_plan
+msgid "Is send the plan"
+msgstr "Is send the plan"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_show_departure_exception
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_show_departure_exception
+msgid "Is show departure exception"
+msgstr "Is show departure exception"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_show_overspeed
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_show_overspeed
+msgid "Is show overspeed"
+msgstr "Is show overspeed"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_show_passenger_disputes
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_show_passenger_disputes
+msgid "Is show passenger disputes"
+msgstr "Is show passenger disputes"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_show_plans_are_delayed
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_show_plans_are_delayed
+msgid "Is show plans are delayed"
+msgstr "Is show plans are delayed"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_show_suspected_down
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_show_suspected_down
+msgid "Is show suspected down"
+msgstr "Is show suspected down"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_show_vehicle_dropped
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_show_vehicle_dropped
+msgid "Is show vehicle dropped"
+msgstr "Is show vehicle dropped"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_show_vehicle_offline
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_show_vehicle_offline
+msgid "Is show vehicle offline"
+msgstr "Is show vehicle offline"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_show_vehicle_speeding
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_show_vehicle_speeding
+msgid "Is show vehicle speeding"
+msgstr "Is show vehicle speeding"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_show_vehicle_top
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_show_vehicle_top
+msgid "Is show vehicle top"
+msgstr "Is show vehicle top"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_speeding_automatically_video
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_speeding_automatically_video
+msgid "Is speeding automatically video"
+msgstr "Is speeding automatically video"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_is_unattendance_ask
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_is_unattendance_ask
+msgid "Is unattendance ask"
+msgstr "Is unattendance ask"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_jet_lag
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_jet_lag
+msgid "Jet lag"
+msgstr "Jet lag"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings___last_update
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings___last_update
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_write_uid
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_write_uid
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_write_date
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_write_date
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_less_departure_interval_time
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_less_departure_interval_time
+msgid "Less departure interval time"
+msgstr "Less departure interval time"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_long_time_to_stay_long
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_long_time_to_stay_long
+msgid "Long time to stay long"
+msgstr "Long time to stay long"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_full_load
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_full_load
+msgid "Low peak full load"
+msgstr "Low peak full load"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_ride
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_ride
+msgid "Low peak ride"
+msgstr "Low peak ride"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_ride_comfort1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_ride_comfort1
+msgid "Low peak ride comfort1"
+msgstr "Low peak ride comfort1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_ride_comfort2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_ride_comfort2
+msgid "Low peak ride comfort2"
+msgstr "Low peak ride comfort2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_ride_comfort3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_ride_comfort3
+msgid "Low peak ride comfort3"
+msgstr "Low peak ride comfort3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_ride_end_time_duration1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_ride_end_time_duration1
+msgid "Low peak ride end time duration1"
+msgstr "Low peak ride end time duration1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_ride_end_time_duration2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_ride_end_time_duration2
+msgid "Low peak ride end time duration2"
+msgstr "Low peak ride end time duration2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_ride_end_time_duration3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_ride_end_time_duration3
+msgid "Low peak ride end time duration3"
+msgstr "Low peak ride end time duration3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_ride_start_time_duration1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_ride_start_time_duration1
+msgid "Low peak ride start time duration1"
+msgstr "Low peak ride start time duration1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_ride_start_time_duration2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_ride_start_time_duration2
+msgid "Low peak ride start time duration2"
+msgstr "Low peak ride start time duration2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_ride_start_time_duration3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_ride_start_time_duration3
+msgid "Low peak ride start time duration3"
+msgstr "Low peak ride start time duration3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_waiting
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_waiting
+msgid "Low peak waiting"
+msgstr "Low peak waiting"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_waiting_end_time_duration1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_waiting_end_time_duration1
+msgid "Low peak waiting end time duration1"
+msgstr "Low peak waiting end time duration1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_waiting_end_time_duration2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_waiting_end_time_duration2
+msgid "Low peak waiting end time duration2"
+msgstr "Low peak waiting end time duration2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_waiting_end_time_duration3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_waiting_end_time_duration3
+msgid "Low peak waiting end time duration3"
+msgstr "Low peak waiting end time duration3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_waiting_satisfaction1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_waiting_satisfaction1
+msgid "Low peak waiting satisfaction1"
+msgstr "Low peak waiting satisfaction1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_waiting_satisfaction2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_waiting_satisfaction2
+msgid "Low peak waiting satisfaction2"
+msgstr "Low peak waiting satisfaction2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_waiting_satisfaction3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_waiting_satisfaction3
+msgid "Low peak waiting satisfaction3"
+msgstr "Low peak waiting satisfaction3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_waiting_start_time_duration1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_waiting_start_time_duration1
+msgid "Low peak waiting start time duration1"
+msgstr "Low peak waiting start time duration1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_waiting_start_time_duration2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_waiting_start_time_duration2
+msgid "Low peak waiting start time duration2"
+msgstr "Low peak waiting start time duration2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_low_peak_waiting_start_time_duration3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_low_peak_waiting_start_time_duration3
+msgid "Low peak waiting start time duration3"
+msgstr "Low peak waiting start time duration3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_maintenance_ended
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_maintenance_ended
+msgid "Maintenance ended"
+msgstr "Maintenance ended"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "Manual command control"
+msgstr "手动命令控制"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_marked_flat_peak
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_marked_flat_peak
+msgid "Marked flat peak"
+msgstr "平峰"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_marked_low_peak
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_marked_low_peak
+msgid "Marked low peak"
+msgstr "低峰"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_marked_peak
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_marked_peak
+msgid "Marked peak"
+msgstr "高峰"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Model program"
+msgstr "车型方案"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.menu,name:lty_dispatch_config.dispatch_monitor_menu_setting_root
+msgid "Monitor setting root"
+msgstr "参数设置"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_more_departure_interval_time
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_more_departure_interval_time
+msgid "More departure interval time"
+msgstr "More departure interval time"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_non_site_driving_door
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_non_site_driving_door
+msgid "Non site driving door"
+msgstr "Non site driving door"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_not_closed_the_door
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_not_closed_the_door
+msgid "Not closed the door"
+msgstr "Not closed the door"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_number_of_signatures
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_number_of_signatures
+msgid "Number of signatures"
+msgstr "Number of signatures"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_open_command_window
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_open_command_window
+msgid "Open command window"
+msgstr "Open command window"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_open_the_door
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_open_the_door
+msgid "Open the door"
+msgstr "Open the door"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.menu,name:lty_dispatch_config.operation_settings_menu
+msgid "Operation settings menu"
+msgstr "设置"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_operational_speed_limit
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_operational_speed_limit
+msgid "Operational speed limit"
+msgstr "Operational speed limit"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Other related parameter settings"
+msgstr "其他相关参数设置"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_out_not_closed_the_door
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_out_not_closed_the_door
+msgid "Out not closed the door"
+msgstr "Out not closed the door"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "Parameter control"
+msgstr "参数控制"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_passenger_full_load_rate
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_passenger_full_load_rate
+msgid "Passenger full load rate"
+msgstr "Passenger full load rate"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "Passenger satisfaction weighting"
+msgstr "乘客满意度加权值"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_full_load
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_full_load
+msgid "Peak full load"
+msgstr "Peak full load"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_ride
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_ride
+msgid "Peak ride"
+msgstr "Peak ride"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_ride_comfort1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_ride_comfort1
+msgid "Peak ride comfort1"
+msgstr "Peak ride comfort1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_ride_comfort2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_ride_comfort2
+msgid "Peak ride comfort2"
+msgstr "Peak ride comfort2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_ride_comfort3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_ride_comfort3
+msgid "Peak ride comfort3"
+msgstr "Peak ride comfort3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_ride_end_time_duration1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_ride_end_time_duration1
+msgid "Peak ride end time duration1"
+msgstr "Peak ride end time duration1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_ride_end_time_duration2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_ride_end_time_duration2
+msgid "Peak ride end time duration2"
+msgstr "Peak ride end time duration2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_ride_end_time_duration3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_ride_end_time_duration3
+msgid "Peak ride end time duration3"
+msgstr "Peak ride end time duration3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_ride_start_time_duration1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_ride_start_time_duration1
+msgid "Peak ride start time duration1"
+msgstr "Peak ride start time duration1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_ride_start_time_duration2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_ride_start_time_duration2
+msgid "Peak ride start time duration2"
+msgstr "Peak ride start time duration2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_ride_start_time_duration3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_ride_start_time_duration3
+msgid "Peak ride start time duration3"
+msgstr "Peak ride start time duration3"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "Peak segment identification"
+msgstr "峰段标识"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_waiting
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_waiting
+msgid "Peak waiting"
+msgstr "Peak waiting"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_waiting_end_time_duration1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_waiting_end_time_duration1
+msgid "Peak waiting end time duration1"
+msgstr "Peak waiting end time duration1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_waiting_end_time_duration2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_waiting_end_time_duration2
+msgid "Peak waiting end time duration2"
+msgstr "Peak waiting end time duration2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_waiting_end_time_duration3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_waiting_end_time_duration3
+msgid "Peak waiting end time duration3"
+msgstr "Peak waiting end time duration3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_waiting_satisfaction1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_waiting_satisfaction1
+msgid "Peak waiting satisfaction1"
+msgstr "Peak waiting satisfaction1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_waiting_satisfaction2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_waiting_satisfaction2
+msgid "Peak waiting satisfaction2"
+msgstr "Peak waiting satisfaction2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_waiting_satisfaction3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_waiting_satisfaction3
+msgid "Peak waiting satisfaction3"
+msgstr "Peak waiting satisfaction3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_waiting_start_time_duration1
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_waiting_start_time_duration1
+msgid "Peak waiting start time duration1"
+msgstr "Peak waiting start time duration1"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_waiting_start_time_duration2
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_waiting_start_time_duration2
+msgid "Peak waiting start time duration2"
+msgstr "Peak waiting start time duration2"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_operation_config_settings_peak_waiting_start_time_duration3
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_peak_waiting_start_time_duration3
+msgid "Peak waiting start time duration3"
+msgstr "Peak waiting start time duration3"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_plan_execution_mode
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_plan_execution_mode
+msgid "Plan execution mode"
+msgstr "Plan execution mode"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_plan_the_trip
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_plan_the_trip
+msgid "Plan the trip"
+msgstr "Plan the trip"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_plan_timeout_judgment
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_plan_timeout_judgment
+msgid "Plan timeout judgment"
+msgstr "Plan timeout judgment"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_plan_to_be_delayed
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_plan_to_be_delayed
+msgid "Plan to be delayed"
+msgstr "Plan to be delayed"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Plan to slow detection"
+msgstr "计划误点快慢检测"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Play away the scope of the plan"
+msgstr "出场带走计划的范围"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_played_away_max
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_played_away_max
+msgid "Played away max"
+msgstr "Played away max"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_played_away_min
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_played_away_min
+msgid "Played away min"
+msgstr "Played away min"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "Pop-up parameters"
+msgstr "弹出参数"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "Pop-up window settings"
+msgstr "弹出窗口设置"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "Rated full load rate"
+msgstr "额定满载率"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_red_font_color_less
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_red_font_color_less
+msgid "Red font color less"
+msgstr "Red font color less"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_red_font_color_more
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_red_font_color_more
+msgid "Red font color more"
+msgstr "Red font color more"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_red_less_number
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_red_less_number
+msgid "Red less number"
+msgstr "Red less number"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_red_more_number
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_red_more_number
+msgid "Red more number"
+msgstr "Red more number"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_refueling_ended
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_refueling_ended
+msgid "Refueling ended"
+msgstr "Refueling ended"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_release_ended
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_release_ended
+msgid "Release ended"
+msgstr "Release ended"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Resulting in large spacing conditions"
+msgstr "产生大间隔条件"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_retransmission_interval
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_retransmission_interval
+msgid "Retransmission interval"
+msgstr "Retransmission interval"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "Ride comfort"
+msgstr "乘车舒适度"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_road_blockage
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_road_blockage
+msgid "Road blockage"
+msgstr "Road blockage"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Scheduled execution settings"
+msgstr "调度计划执行设置"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Scheduling parameters"
+msgstr "调度参数"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.menu,name:lty_dispatch_config.scheduling_parameters_setting_root
+msgid "Scheduling setting root"
+msgstr "配置"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "Send a short message to the driver"
+msgstr "向司机发送短消息"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_send_plan_advance_time
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_send_plan_advance_time
+msgid "Send plan advance time"
+msgstr "Send plan advance time"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_dispatch_config_settings
+msgid "Send the plan to the vehicle"
+msgstr "发送计划给车辆"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Send the schedule to the dispatch screen"
+msgstr "发送计划给调度屏"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_send_time_in_advance
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_send_time_in_advance
+msgid "Send time in advance"
+msgstr "Send time in advance"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_show_processed
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_show_processed
+msgid "Show processed"
+msgstr "Show processed"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_site_traffic_is_too_large
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_site_traffic_is_too_large
+msgid "Site traffic is too large"
+msgstr "Site traffic is too large"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_slow_after_the_start_to_determine
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_slow_after_the_start_to_determine
+msgid "Slow after the start to determine"
+msgstr "Slow after the start to determine"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_speed_limit
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_speed_limit
+msgid "Speed limit"
+msgstr "Speed limit"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_speed_threshold
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_speed_threshold
+msgid "Speed threshold"
+msgstr "Speed threshold"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_start_maintenance
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_start_maintenance
+msgid "Start maintenance"
+msgstr "Start maintenance"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_start_refueling
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_start_refueling
+msgid "Start refueling"
+msgstr "Start refueling"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_start_release
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_start_release
+msgid "Start release"
+msgstr "Start release"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "String and large interval standard setting"
+msgstr "串车与大间隔标准设置"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_string_car_standard
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_string_car_standard
+msgid "String car standard"
+msgstr "String car standard"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "The following criteria conform to any one that constitutes a large interval"
+msgstr "以下标准符合任何一条都构成大间隔"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "The number of stagnant passengers and the site color"
+msgstr "滞站客流数与站点颜色"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "The relationship between the font color of the program status and the return time of the vehicle"
+msgstr "上下行计划状态字体颜色与车辆回场时间关系"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "The scope of the station inspection plan"
+msgstr "进站检测计划的范围"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_vehicle_failure
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_vehicle_failure
+msgid "Vehicle failure"
+msgstr "Vehicle failure"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_vehicle_model_type
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_vehicle_model_type
+msgid "Vehicle model type"
+msgstr "Vehicle model type"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_dispatch_config_settings_vehicle_overload
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_vehicle_overload
+msgid "Vehicle overload"
+msgstr "Vehicle overload"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Vehicle program"
+msgstr "车辆方案"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "Waiting satisfaction"
+msgstr "候车满意度"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "Waiting time(min)"
+msgstr "候车时长(min)"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "Whether the event is automatically adjusted when the program needs to be confirmed"
+msgstr "事件产生时自动调整方案是否需要确认"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_yellow_font_color_less
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_yellow_font_color_less
+msgid "Yellow font color less"
+msgstr "Yellow font color less"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_yellow_font_color_more
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_yellow_font_color_more
+msgid "Yellow font color more"
+msgstr "Yellow font color more"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_yellow_less_number
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_yellow_less_number
+msgid "Yellow less number"
+msgstr "Yellow less number"
+
+#. module: lty_dispatch_config
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_general_config_settings_yellow_more_number
+#: model:ir.model.fields,field_description:lty_dispatch_config.field_res_company_yellow_more_number
+msgid "Yellow more number"
+msgstr "Yellow more number"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "advance_date"
+msgstr "提前生成日期期间"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "departure_interval_time"
+msgstr "发车间隔参考值"
+
+#. module: lty_dispatch_config
+#: model:ir.actions.act_window,name:lty_dispatch_config.action_dispatch_config_settings
+msgid "dispatch Vehicle"
+msgstr "dispatch Vehicle"
+
+#. module: lty_dispatch_config
+#: model:ir.model,name:lty_dispatch_config.model_dispatch_config_settings
+msgid "dispatch.config.settings"
+msgstr "dispatch.config.settings"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.menu,name:lty_dispatch_config.dispatch_settings_meun
+msgid "dispatch_settings_meun"
+msgstr "调度配置"
+
+#. module: lty_dispatch_config
+#: selection:res.company,vehicle_model_type:0
+msgid "doubleModels"
+msgstr "双车型切换"
+
+#. module: lty_dispatch_config
+#: selection:res.company,plan_execution_mode:0
+msgid "earliest"
+msgstr "最早未执行"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "event"
+msgstr "事件"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "flat_peak"
+msgstr "平峰"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "flat_peak_load"
+msgstr "平峰"
+
+#. module: lty_dispatch_config
+#: model:ir.actions.act_window,name:lty_dispatch_config.action_general_config_settings
+msgid "general Vehicle"
+msgstr "general Vehicle"
+
+#. module: lty_dispatch_config
+#: model:ir.model,name:lty_dispatch_config.model_general_config_settings
+msgid "general.config.settings"
+msgstr "general.config.settings"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "general_date"
+msgstr "通用规则使用日期"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.menu,name:lty_dispatch_config.general_settings_meune
+msgid "general_settings_meune"
+msgstr "通用配置"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "green"
+msgstr "绿色"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "low_peak"
+msgstr "低峰"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "low_peak_full_load"
+msgstr "低峰"
+
+#. module: lty_dispatch_config
+#: model:ir.actions.act_window,name:lty_dispatch_config.action_operation_config_settings
+msgid "operation Vehicle"
+msgstr "operation Vehicle"
+
+#. module: lty_dispatch_config
+#: model:ir.model,name:lty_dispatch_config.model_operation_config_settings
+msgid "operation.config.settings"
+msgstr "operation.config.settings"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "peak"
+msgstr "高峰"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_operation_config_settings
+msgid "peak_full_load"
+msgstr "高峰"
+
+#. module: lty_dispatch_config
+#: selection:res.company,plan_execution_mode:0
+msgid "recent"
+msgstr "最近未执行"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "red"
+msgstr "鲜红色"
+
+#. module: lty_dispatch_config
+#: selection:res.company,vehicle_model_type:0
+msgid "singleModel"
+msgstr "单一车型"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "string_car_standard"
+msgstr "构成串车标准"
+
+#. module: lty_dispatch_config
+#: model:ir.ui.view,arch_db:lty_dispatch_config.view_general_config_settings
+msgid "yellow"
+msgstr "黄色"

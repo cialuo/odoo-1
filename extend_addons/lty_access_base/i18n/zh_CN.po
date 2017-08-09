@@ -1,0 +1,475 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* lty_access_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-04 12:08+0000\n"
+"PO-Revision-Date: 2017-08-04 12:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_average_start_interval
+msgid "Average start interval"
+msgstr "平均发车间隔"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_city_code
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_city_code
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_city_code
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_city_code
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_city_code
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_city_code
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_city_code
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_city_code
+msgid "City code"
+msgstr "城市"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_comfort_satisfaction
+msgid "Comfort satisfaction"
+msgstr "舒适满意度"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_create_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_create_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_create_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_create_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_create_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_create_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_create_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_create_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_create_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_create_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_create_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_create_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_create_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_create_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_date_type
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_date_type
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_date_type
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_date_type
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_date_type
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_date_type
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_date_type
+msgid "Date type"
+msgstr "日期类型"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_department_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_department_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_department_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_department_id
+msgid "Department id"
+msgstr "公交公司ID"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_departure_interval
+msgid "Departure interval"
+msgstr "发车间隔"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_display_name
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_display_name
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_display_name
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_display_name
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_display_name
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_display_name
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_display_name
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_down_number
+msgid "Down number"
+msgstr "下车人数"
+
+#. module: lty_access_base
+#: model:ir.model,name:lty_access_base.model_lty_access_base_driving_rules_topic
+msgid "Driving rules topic"
+msgstr "行车规则"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_end_time
+msgid "End time"
+msgstr "结束时间"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_gprs_id
+msgid "Gprs id"
+msgstr "编码"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_history_passenger_num
+msgid "History passenger num"
+msgstr "历史客流"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_id
+msgid "ID"
+msgstr "ID"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_isInter_day
+msgid "Isinter day"
+msgstr "是否跨天"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic___last_update
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic___last_update
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic___last_update
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic___last_update
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic___last_update
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic___last_update
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic___last_update
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_write_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_write_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_write_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_write_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_write_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_write_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_write_uid
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_write_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_write_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_write_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_write_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_write_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_write_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_write_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: lty_access_base
+#: model:ir.model,name:lty_access_base.model_lty_access_base_line_time_topic
+#: model:ir.model,name:lty_access_base.model_offline_line_time_topic
+msgid "Line Time Topic"
+msgstr "线路分时客流"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_line_direction
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_line_direction
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_line_direction
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_line_direction
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_line_direction
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_line_direction
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_line_direction
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_line_direction
+msgid "Line direction"
+msgstr "线路方向"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_line_signs
+msgid "Line signs"
+msgstr "标志"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_manned_total
+msgid "Manned total"
+msgstr "核载人数"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_may_arrival_time
+msgid "May arrival time"
+msgstr "预测到站时间"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_models_type
+msgid "Models type"
+msgstr "车型"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_number_motor_vehicle
+msgid "Number motor vehicle"
+msgstr "机动车数量"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_number_operating_vehicles
+msgid "Number operating vehicles"
+msgstr "运营车数量"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_off_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_off_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_off_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_off_date
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_off_date
+msgid "Off date"
+msgstr "日期"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_off_time
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_off_time
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_off_time
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_off_time
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_off_time
+msgid "Off time"
+msgstr "时间"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_onboard_id
+msgid "Onboard id"
+msgstr "设备号"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_operation_duration
+msgid "Operation duration"
+msgstr "运营时长"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_parking_time
+msgid "Parking time"
+msgstr "停车时间"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_passenger_collection_days
+msgid "Passenger collection days"
+msgstr "客流采集天数"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_passenger_flow
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_passenger_flow
+msgid "Passenger flow"
+msgstr "客流"
+
+#. module: lty_access_base
+#: model:ir.model,name:lty_access_base.model_lty_access_base_passenger_satisfaction_topic
+msgid "Passenger satisfaction topic"
+msgstr "乘客满意度"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_plan_id
+msgid "Plan id"
+msgstr "计划编号"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_predicted_speed
+msgid "Predicted speed"
+msgstr "预测车速"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_prediction_passenger_num
+msgid "Prediction passenger num"
+msgstr "预测客流"
+
+#. module: lty_access_base
+#: model:ir.model,name:lty_access_base.model_lty_access_base_punctuality_detention_topic
+msgid "Punctuality detention topic"
+msgstr "准点与滞站"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_punctuality_rate
+msgid "Punctuality rate"
+msgstr "是否准点"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_route_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_route_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_route_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_route_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_route_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_route_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_vehicle_allocation_scheme_topic_route_id
+msgid "Route id"
+msgstr "线路"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_smallest_bus
+msgid "Smallest bus"
+msgstr "最小配车数"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_stagnant_traffic
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_stagnant_traffic
+msgid "Stagnant traffic"
+msgstr "滞站客流(等车人数)"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_start_time
+msgid "Start time"
+msgstr "开始时间"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_station_id
+msgid "Station id"
+msgstr "站点ID"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_station_main_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_station_main_id
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_station_main_id
+msgid "Station main id"
+msgstr "站点"
+
+#. module: lty_access_base
+#: model:ir.model,name:lty_access_base.model_lty_access_base_station_may_arr_time_topic
+msgid "Station may arrt ime topic"
+msgstr "车辆到站预测准点"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_station_name
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_station_name
+msgid "Station name"
+msgstr "站点名称"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_may_arr_time_topic_station_no
+msgid "Station no"
+msgstr "站点序号"
+
+#. module: lty_access_base
+#: model:ir.model,name:lty_access_base.model_lty_access_base_station_time_topic
+msgid "Station time topic"
+msgstr "站点分时客流"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_driving_rules_topic_surplus_bus
+msgid "Surplus bus"
+msgstr "富裕车辆"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_time_type
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_time_type
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_punctuality_detention_topic_time_type
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_service_support_capability_topic_time_type
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_station_time_topic_time_type
+msgid "Time type"
+msgstr "时间类型"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_up_number
+msgid "Up number"
+msgstr "上车人数"
+
+#. module: lty_access_base
+#: model:ir.model,name:lty_access_base.model_lty_access_base_vehicle_allocation_scheme_topic
+msgid "Vehicle allocation scheme topic"
+msgstr "配车方案"
+
+#. module: lty_access_base
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_line_time_topic_waiting_satisfaction
+#: model:ir.model.fields,field_description:lty_access_base.field_lty_access_base_passenger_satisfaction_topic_waiting_satisfaction
+msgid "Waiting satisfaction"
+msgstr "候车满意度"
+
+#. module: lty_access_base
+#: model:ir.actions.act_window,name:lty_access_base.act_driving_rules_topic
+msgid "driving_rules_topic records"
+msgstr "行车规则"
+
+#. module: lty_access_base
+#: model:ir.ui.menu,name:lty_access_base.driving_rules_topic_menu
+msgid "driving_rules_topic_menu"
+msgstr "行车规则"
+
+#. module: lty_access_base
+#: model:ir.actions.act_window,name:lty_access_base.act_lineTimeTopic
+msgid "lineTimeTopic records"
+msgstr "线路分时客流"
+
+#. module: lty_access_base
+#: model:ir.ui.menu,name:lty_access_base.lineTimeTopic_menu
+msgid "lineTimeTopic_menu"
+msgstr "线路分时客流"
+
+#. module: lty_access_base
+#: model:ir.model,name:lty_access_base.model_lty_access_base_service_support_capability_topic
+msgid "lty_access_base.service_support_capability_topic"
+msgstr "服务保障能力"
+
+#. module: lty_access_base
+#: model:ir.ui.menu,name:lty_access_base.menu_root
+msgid "lty_access_base_menu"
+msgstr "调度数据接口"
+
+#. module: lty_access_base
+#: model:ir.ui.menu,name:lty_access_base.passenger_satisfaction_topic_menu
+msgid "passenger_satisfaction_topic_menu"
+msgstr "乘客满意度"
+
+#. module: lty_access_base
+#: model:ir.actions.act_window,name:lty_access_base.act_passenger_satisfaction_topic
+#: model:ir.actions.act_window,name:lty_access_base.act_punctuality_detention_topic
+msgid "punctuality_detention_topic records"
+msgstr "准点与滞站"
+
+#. module: lty_access_base
+#: model:ir.ui.menu,name:lty_access_base.punctuality_detention_topic_menu
+msgid "punctuality_detention_topic_menu"
+msgstr "准点与滞站"
+
+#. module: lty_access_base
+#: model:ir.actions.act_window,name:lty_access_base.act_service_support_capability_topic
+msgid "service_support_capability_topic records"
+msgstr "服务保障能力"
+
+#. module: lty_access_base
+#: model:ir.ui.menu,name:lty_access_base.service_support_capability_topic_menu
+msgid "service_support_capability_topic_menu"
+msgstr "服务保障能力"
+
+#. module: lty_access_base
+#: model:ir.ui.menu,name:lty_access_base.stationTimeTopic_menu
+msgid "stationTimeTopic_menu"
+msgstr "站点分时客流"
+
+#. module: lty_access_base
+#: model:ir.actions.act_window,name:lty_access_base.act_station_may_arr_time_topic
+msgid "station_may_arr_time_topic records"
+msgstr "车辆到站预测准点"
+
+#. module: lty_access_base
+#: model:ir.ui.menu,name:lty_access_base.station_may_arr_time_topic_menu
+msgid "station_may_arr_time_topic_menu"
+msgstr "车辆到站预测准点"
+
+#. module: lty_access_base
+#: model:ir.actions.act_window,name:lty_access_base.act_station_time_topic
+msgid "station_time_topic records"
+msgstr "站点分时客流"
+
+#. module: lty_access_base
+#: model:ir.actions.act_window,name:lty_access_base.act_vehicle_allocation_scheme_topic
+msgid "vehicle_allocation_scheme_topic records"
+msgstr "配车方案"
+
+#. module: lty_access_base
+#: model:ir.ui.menu,name:lty_access_base.vehicle_allocation_scheme_topic_menu
+msgid "vehicle_allocation_scheme_topic_menu"
+msgstr "配车方案"
+

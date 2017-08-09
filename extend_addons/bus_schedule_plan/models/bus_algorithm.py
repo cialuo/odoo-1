@@ -8,13 +8,13 @@ class BusAlgorithm(models.Model):
     """
     车辆轮班算法
     """
-    code = fields.Char("Algorithm Code", readonly=1)
-    name = fields.Char("Algorithm Name", readonly=1)
-    cycle = fields.Integer("Algorithm Cycle", readonly=1)
+    code = fields.Char("Algorithm Code", required=True)
+    name = fields.Char("Algorithm Name", required=True)
+    cycle = fields.Integer("Algorithm Cycle",  required=True)
     direction = fields.Selection([('0', '0'),
                                  ('positive', 'positive'),
                                  ('negative', 'negative')
-                                 ], default='0', readonly=1, string="Algorithm Direction")
+                                 ], default='0',  required=True, string="Algorithm Direction")
     algorithm_note = fields.Text()
     remark = fields.Text()
 
@@ -24,12 +24,12 @@ class BusDriverAlgorithm(models.Model):
     """
     司乘轮班算法
     """
-    code = fields.Char("Algorithm Code", readonly=1)
-    name = fields.Char("Algorithm Name", readonly=1)
-    cycle = fields.Integer("Algorithm Cycle", readonly=1)
+    code = fields.Char("Algorithm Code", required=True)
+    name = fields.Char("Algorithm Name", required=True)
+    cycle = fields.Integer("Algorithm Cycle",  required=True)
     direction = fields.Selection([('0', '0'),
                                  ('positive', 'positive'),
                                  ('negative', 'negative')
-                                 ], default='0', readonly=1, string="Algorithm Direction")
+                                 ], default='0',  required=True, string="Algorithm Direction")
     algorithm_note = fields.Text()
     remark = fields.Text()
