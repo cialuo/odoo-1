@@ -66,12 +66,15 @@ class Entry(models.Model):
     def action_done(self):
         """
         审核通过
+        入职单通过后，员工为在职
         离职单确认后，归档该员工
         :return: 
         """
         for order in self:
             if order.type == 'exit':
                 self.employee_id.write({'active': False})
+            if order.type == 'entry':
+                self.employee_id.write({'employeestate': 'in_work'})
         return self.write({'state': 'done'})
 
     @api.multi
