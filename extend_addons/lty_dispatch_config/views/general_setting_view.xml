@@ -10,10 +10,322 @@
                         <button string="Apply" type="object" name="execute" class="oe_highlight"/>
                         <button string="Cancel" type="object" name="cancel" class="oe_link"/>
                     </header>
-                    <group string="Employee" name="Employee">
+
+                    <group string="String and large interval standard setting" name="String and large interval standard setting">
                         <field name="company_id" invisible="1"/>
-                        <field name="work_fee"/>
+                        <label for="id" string="string_car_standard"/>
+                        <div>
+                            <span>Before the car off the station time and after the car into the station time difference</span>
+                            <field name="string_car_standard" class="oe_inline"/>
+                            <span>minute</span>
+                        </div>
+
+                        <label for="id" string="departure_interval_time"/>
+                        <div>
+                            <span>The standard value of the departure interval is</span>
+                            <field name="departure_interval_time" class="oe_inline"/>
+                            <span>minute</span>
+                        </div>
+
+                        <label for="id" string="Resulting in large spacing conditions"/>
+                        <div>
+                            <div>
+                                <div>The following criteria conform to any one that constitutes a large interval</div>
+                                <span>When the departure interval is less than the standard value, the distance difference between the two vehicles is a multiple of the starting interval</span>
+                                <field name="less_departure_interval_time" class="oe_inline"/>
+                            </div>
+                            <div>
+                                <span>When the departure interval is greater than the standard value, the distance difference between the two vehicles is a multiple of the starting interval</span>
+                                <field name="more_departure_interval_time" class="oe_inline"/>
+                            </div>
+                            <div>
+                                <span>Two car distance time difference is equal to or greater than(m)</span>
+                                <field name="jet_lag" class="oe_inline" />
+                            </div>
+                        </div>
+
+                        <label for="id" string="After the train car after the measures"/>
+                        <div>
+                            <div>
+                                <field name="is_prompt_the_driver" class="oe_inline" />
+                                <span>is_prompt_the_driver</span>
+                            </div>
+                            <div>
+                                <field name="is_prompt_dispatcher" class="oe_inline" />
+                                <span>is_prompt_dispatcher</span>
+                            </div>
+                        </div>
+
+                        <label for="id" string="Interval after the occurrence of measures"/>
+                        <div>
+                            <div>
+                                <field name="is_interval_prompt_the_driver" class="oe_inline" />
+                                <span>is_interval_prompt_the_driver</span>
+                            </div>
+                            <div>
+                                <field name="is_interval_prompt_dispatcher" class="oe_inline" />
+                                <span>is_interval_prompt_dispatcher</span>
+                            </div>
+                        </div>
                     </group>
+
+                    <group string="Whether the event is automatically adjusted when the program needs to be confirmed" name="Whether the event is automatically adjusted when the program needs to be confirmed">
+
+                        <label for="id" string="event"/>
+                        <div>
+                            <div>
+                                <field name="driver_leave" class="oe_inline" />
+                                <span>driver_leave</span>
+                            </div>
+                            <div>
+                                <field name="vehicle_failure" class="oe_inline" />
+                                <span>vehicle_failure</span>
+                            </div>
+                            <div>
+                                <field name="road_blockage" class="oe_inline" />
+                                <span>road_blockage</span>
+                            </div>
+                            <div>
+                                <field name="site_traffic_is_too_large" class="oe_inline" />
+                                <span>site_traffic_is_too_large</span>
+                            </div>
+                        </div>
+
+                    </group>
+
+                    <group string="Scheduling parameters" name="Scheduling parameters">
+
+                        <label for="id" string="Configure exception alarm parameters"/>
+                        <div>
+
+                            <div>
+                                <span>Speed threshold(km/h)</span>
+                                <field name="speed_threshold" class="oe_inline" />
+                            </div>
+
+                            <div>
+                                <span>Continuous overspeed length(s)</span>
+                                <field name="continuous_overspeed_length" class="oe_inline" />
+                            </div>
+
+                            <div>
+                                <span>Continuous offline length(s)</span>
+                                <field name="continuous_offline_length" class="oe_inline" />
+                            </div>
+
+                            <div>
+                                <span>Long time to stay long(m)</span>
+                                <field name="long_time_to_stay_long" class="oe_inline" />
+                            </div>
+
+                            <div>
+                                <span>Long time parking retransmission interval(m)</span>
+                                <field name="retransmission_interval" class="oe_inline" />
+                            </div>
+
+                            <div>
+                                <span>Passenger full load rate(%)</span>
+                                <field name="passenger_full_load_rate" class="oe_inline" />
+                            </div>
+
+                            <div>
+                                <span>Antenna anomaly repeat interval(m)</span>
+                                <field name="antenna_anomaly_repeat_interval" class="oe_inline" />
+                            </div>
+
+                        </div>
+
+                         <label for="id" string="Automatic synchronization overload device"/>
+                        <div>
+
+                            <div>
+                                <field name="is_automatically_synchronize_lines" class="oe_inline" />
+                                <span>is_automatically_synchronize_lines</span>
+                            </div>
+
+                            <div>
+                                <field name="is_automatically_synchronize_operational_status" class="oe_inline" />
+                                <span>is_automatically_synchronize_operational_status</span>
+                            </div>
+
+                            <div>
+                                <span>Chart speed limit(km/s)</span>
+                                <field name="chart_speed_limit" class="oe_inline" />
+                            </div>
+
+                            <div>
+                                <span>Non-operational speed limit(km/s)</span>
+                                <field name="operational_speed_limit" class="oe_inline" />
+                            </div>
+
+                        </div>
+
+                        <label for="id" string="Send the schedule to the dispatch screen"/>
+                        <div>
+                            <div>
+                                <field name="is_send_the_plan" class="oe_inline" />
+                                <span>Is send the plan</span>
+                            </div>
+                            <div>
+                                <span>Send time in advance(m)</span>
+                                <field name="send_time_in_advance" class="oe_inline" />
+                            </div>
+
+                        </div>
+
+                        <label for="id" string="Scheduled execution settings"/>
+                        <div>
+                            <div>
+                                <span>Plan timeout judgment(m)</span>
+                                <field name="plan_timeout_judgment" class="oe_inline" />
+                            </div>
+                            <div>
+                                <span>Plan execution mode</span>
+                                <field name="plan_execution_mode" class="oe_inline" />
+                            </div>
+
+                        </div>
+
+                        <label for="id" string="Play away the scope of the plan"/>
+                        <div>
+                            <div>
+                                <span>Minimal(m)</span>
+                                <field name="played_away_min" class="oe_inline" />
+                            </div>
+                            <div>
+                                <span>Maximum(m)</span>
+                                <field name="played_away_max" class="oe_inline" />
+                            </div>
+
+                        </div>
+
+                        <label for="id" string="The scope of the station inspection plan"/>
+                        <div>
+                            <div>
+                                <span>Minimal(m)</span>
+                                <field name="in_station_min" class="oe_inline" />
+                            </div>
+                            <div>
+                                <span>Maximum(m)</span>
+                                <field name="in_station_max" class="oe_inline" />
+                            </div>
+
+                        </div>
+
+                        <label for="id" string="Other related parameter settings"/>
+                        <div>
+                            <div>
+                                <span>The driver is reserved later(m)</span>
+                                <field name="driver_reserved_later" class="oe_inline" />
+                            </div>
+                            <div>
+                                <field name="is_check_replacement_driver" class="oe_inline" />
+                                <span>Check the driver when you sign in</span>
+                            </div>
+                            <div>
+                                <field name="is_last_train_plan_check" class="oe_inline" />
+                                <span>Last train plan to check</span>
+                            </div>
+                            <div>
+                                <span>Effective entry and exit judgment</span>
+                                <field name="effective_access" class="oe_inline" />
+                            </div>
+                            <div>
+                                <span>Every time you take the schedule</span>
+                                <field name="plan_the_trip" class="oe_inline" />
+                            </div>
+                            <div>
+                                <span>Effective access number</span>
+                                <field name="number_of_signatures" class="oe_inline" />
+                            </div>
+                        </div>
+
+                        <label for="id" string="Plan to slow detection"/>
+                        <div>
+                            <div>
+                                <span>Ahead of departure to determine(m)</span>
+                                <field name="ahead_of_departure_to_determine" class="oe_inline"/>
+                            </div>
+                            <div>
+                                <span>Slow after the start to determine(m)</span>
+                                <field name="slow_after_the_start_to_determine" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </group>
+
+                    <group string="Vehicle program" name="Vehicle program">
+
+                        <label for="id" string="Model program"/>
+                        <div>
+                            <span>Vehicle model type</span>
+                            <field name="vehicle_model_type" class="oe_inline"/>
+                        </div>
+
+                    </group>
+
+                    <group string="The number of stagnant passengers and the site color" name="The number of stagnant passengers and the site color">
+
+                        <label for="id" string="green"/>
+                        <div>
+                            <span>Number of stall passengers =</span>
+                            <field name="green_number" class="oe_inline"/>
+                        </div>
+
+                        <label for="id" string="yellow"/>
+                        <div>
+                            <field name="yellow_more_number" class="oe_inline"/>
+                            <span>Number of stall passengers =</span>
+                            <field name="yellow_less_number" class="oe_inline"/>
+                        </div>
+
+                        <label for="id" string="red"/>
+                        <div>
+                            <field name="red_more_number" class="oe_inline"/>
+                            <span>Number of stall passengers =</span>
+                            <field name="red_less_number" class="oe_inline"/>
+                        </div>
+
+                        <label for="id" string="Dark red"/>
+                        <div>
+                            <field name="dark_red_more_number" class="oe_inline"/>
+                            <span>Number of stall passengers =</span>
+                            <field name="dark_red_less_number" class="oe_inline"/>
+                        </div>
+
+                    </group>
+
+                    <group string="The relationship between the font color of the program status and the return time of the vehicle" name="The relationship between the font color of the program status and the return time of the vehicle">
+
+                        <label for="id" string="green"/>
+                        <div>
+                            <field name="green_font_color_more" class="oe_inline"/>
+                            <span>= X =</span>
+                            <field name="green_font_color_less" class="oe_inline"/>
+                        </div>
+
+                        <label for="id" string="yellow"/>
+                        <div>
+                            <field name="yellow_font_color_more" class="oe_inline"/>
+                            <span>= X =</span>
+                            <field name="yellow_font_color_less" class="oe_inline"/>
+                        </div>
+
+                        <label for="id" string="red"/>
+                        <div>
+                            <field name="red_font_color_more" class="oe_inline"/>
+                            <span>= X =</span>
+                            <field name="red_font_color_less" class="oe_inline"/>
+                        </div>
+
+                        <label for="id" string="Dark red"/>
+                        <div>
+                            <field name="dark_red_font_color_more" class="oe_inline"/>
+                            <span>= X =</span>
+                            <field name="dark_red_font_color_less" class="oe_inline"/>
+                        </div>
+
+                    </group>
+
                 </form>
             </field>
         </record>
