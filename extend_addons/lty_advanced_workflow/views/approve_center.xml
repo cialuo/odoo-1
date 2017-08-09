@@ -70,7 +70,6 @@
       <field name="name">Approve Center</field>
       <field name="res_model">lty.approve.center</field>
       <field name="view_mode">tree,form</field>
-        <field name="domain">[('approve_posts', '>', [user.])]</field>
     </record>
 
 
