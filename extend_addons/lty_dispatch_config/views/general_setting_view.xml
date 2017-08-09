@@ -267,29 +267,29 @@
 
                         <label for="id" string="green"/>
                         <div>
-                            <span>Number of stall passengers =</span>
+                            <span>Number of stall passengers&lt;=</span>
                             <field name="green_number" class="oe_inline"/>
                         </div>
 
                         <label for="id" string="yellow"/>
                         <div>
                             <field name="yellow_more_number" class="oe_inline"/>
-                            <span>Number of stall passengers =</span>
+                            <span>&lt; Number of stall passengers &lt;=</span>
                             <field name="yellow_less_number" class="oe_inline"/>
                         </div>
 
                         <label for="id" string="red"/>
                         <div>
                             <field name="red_more_number" class="oe_inline"/>
-                            <span>Number of stall passengers =</span>
+                            <span>&lt; Number of stall passengers &lt;=</span>
                             <field name="red_less_number" class="oe_inline"/>
                         </div>
 
                         <label for="id" string="Dark red"/>
                         <div>
                             <field name="dark_red_more_number" class="oe_inline"/>
-                            <span>Number of stall passengers =</span>
-                            <field name="dark_red_less_number" class="oe_inline"/>
+                            <span>&lt; Number of stall passengers</span>
+                            <!--<field name="dark_red_less_number" class="oe_inline"/>-->
                         </div>
 
                     </group>
@@ -299,28 +299,28 @@
                         <label for="id" string="green"/>
                         <div>
                             <field name="green_font_color_more" class="oe_inline"/>
-                            <span>= X =</span>
+                            <span>&gt;= X &gt;=</span>
                             <field name="green_font_color_less" class="oe_inline"/>
                         </div>
 
                         <label for="id" string="yellow"/>
                         <div>
                             <field name="yellow_font_color_more" class="oe_inline"/>
-                            <span>= X =</span>
+                            <span>&gt;= X &gt;=</span>
                             <field name="yellow_font_color_less" class="oe_inline"/>
                         </div>
 
                         <label for="id" string="red"/>
                         <div>
                             <field name="red_font_color_more" class="oe_inline"/>
-                            <span>= X =</span>
+                            <span>&gt;= X &gt;=</span>
                             <field name="red_font_color_less" class="oe_inline"/>
                         </div>
 
                         <label for="id" string="Dark red"/>
                         <div>
                             <field name="dark_red_font_color_more" class="oe_inline"/>
-                            <span>= X =</span>
+                            <span>&gt;= X &gt;=</span>
                             <field name="dark_red_font_color_less" class="oe_inline"/>
                         </div>
 
