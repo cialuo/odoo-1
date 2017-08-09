@@ -31,9 +31,9 @@ class lty_approve_center(models.Model):
     line_ids = fields.One2many('lty.approve.logs','center_id') 
     cfg_line_id = fields.Many2one('lty.advanced.workflow.cfg.line')     
     active_node = fields.Boolean(compute='_active_wkf_node')
-    approved = fields.Boolean(compute='_compute_approve_state') 
+    approved = fields.Boolean(compute='_compute_approve_state')
 
-
+    approve_posts = fields.Many2many('employees.post', relation='approve_center_post_rel', id1='center_id', id2='post_id')
 
     @api.multi
     def _active_wkf_node(self):

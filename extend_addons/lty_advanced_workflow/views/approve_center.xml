@@ -39,7 +39,7 @@
                             <field name="approve_opinions"/>	
                             <field name="active_node"/>
                             <field name="approved"/>
-                            
+                            <field name="approve_posts" widget="many2many_tags" options="{'no_create_edit': 'true'}"/>
 						</group>
 					</group>
 					<notebook>
@@ -70,6 +70,7 @@
       <field name="name">Approve Center</field>
       <field name="res_model">lty.approve.center</field>
       <field name="view_mode">tree,form</field>
+        <field name="domain">[('approve_posts', '>', [user.])]</field>
     </record>
 
 
