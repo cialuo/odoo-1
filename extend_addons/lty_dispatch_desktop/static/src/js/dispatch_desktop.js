@@ -27,7 +27,6 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         change_style: function () {
             var self = this;
             var font_color = self.$el.find('.src_font_color').val();
-
         }
 
     });
@@ -35,10 +34,14 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         template: 'desktop_top',
         init: function (parent, context) {
             this._super(parent, context);
+            this.data = {
+                component_ids: 13
+            };
         },
         start: function () {
+            // 动态加载高德地图api
+            $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
             var self = this;
-            new dispatch_desktop(this).appendTo(self.$el);
             function startTime() {
                 var today = new Date();//定义日期对象
                 var yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年
@@ -76,26 +79,30 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         template: 'dispatch_desktop_component',
         init: function (parent, context) {
             this._super(parent, context);
-            this.data = {
-                component_ids: 13
-            };
-            this.model = new Model('lty_dispatch_desktop.lty_dispatch_desktop');
             this.model2 = new Model('dispatch.control.desktop.component');
         },
         start: function () {
             var self = this;
-            var dis_desk = self.dis_desk;
+            self.$el.addClass('back_style');
             self.$el.append(QWeb.render("myConsole"));
-
-            self.model2.query().filter([["desktop_id", "=", 2]]).all().then(function (data) {
-                console.log(data);
-            });
-            self.model.call('dispatch_desktop', [dis_desk]).then(function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    var num_dispatch_bus = new dispatch_bus(this, data[i]);
-                    num_dispatch_bus.appendTo(self.$el);
+            self.model2.query(["line_id"]).filter([["desktop_id", "=", 2]]).all().then(function (data) {
+                var s = [];
+                if (data.length > 0) {
+                    // 去重
+                    for (var i = 0; i < data.length; i++) {
+                        if (s.indexOf(data[i].line_id[0]) == -1) {  //判断在s数组中是否存在，不存在则push到s数组中
+                            s.push(data[i].line_id[0]);
+                        }
+                    }
+                    // 遍历
+                    for (var j = 0; j < s.length; j++) {
+                        self.model2.query().filter([["line_id", "=", parseInt(s[j])]]).all().then(function (res) {
+                            new dispatch_bus(this, res,0).appendTo(self.$el);
+                        });
+                    }
                 }
             });
+            new desktop_top(this).appendTo(self.$el);
         },
         events: {
             'click .new_console': 'addLine_click',
@@ -104,8 +111,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         addLine_click: function () {
             var self = this;
-            var oneLine = new dispatch_bus(this, '');
-            oneLine.appendTo(self.$el);
+            new dispatch_bus(this, '',1).appendTo(self.$el);
         },
         config_click: function () {
             var self = this;
@@ -115,30 +121,25 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         save_click: function () {
             var self = this;
-            var ab = self.$el.find('.dispatch_desktop');
-            var res = []
-            for (var i = 0; i < ab.length; i++) {
-                var id = ab[i].getAttribute('tid');
-                var left = ab[i].offsetLeft;
-                var top = ab[i].offsetTop;
-                var zIndex = ab[i].style.zIndex;
-                var show;
-                if (ab[i].style.display === 'block') {
-                    show = 'block';
-                } else {
-                    show = 'none';
+            //客流
+                var tidNum = self.$el .find('div[tid]');
+                if (tidNum.length>0) {
+                    for (var i = 0; i < tidNum.length; i++) {
+                        var id = tidNum[i].getAttribute('tid');
+                        var left = tidNum[i].style.left.split('px')[0];
+                        var top = tidNum[i].style.top.split('px')[0];
+                        var zIndex = parseInt(tidNum[i].style.zIndex);
+                        self.model2.call("write", [parseInt(id),
+                            {
+                                'position_left': left,
+                                'position_top': top,
+                                'position_z_index': zIndex,
+                            }]).then(function (data) {
+
+                        });
+                    }
                 }
-                var map = {};
-                map.id = id;
-                map.left = left;
-                map.top = top;
-                map.zIndex = zIndex;
-                // map.show = show;
-                res.push(map);
-            }
-            self.model2.call("create", [{'line_id': 1, 'position_z_index': res[0].zIndex}]).then(function (data) {
-            });
         }
     });
-    core.action_registry.add('dispatch_desktop.page', desktop_top);
+    core.action_registry.add('dispatch_desktop.page', dispatch_desktop);
 });

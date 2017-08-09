@@ -10,6 +10,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
         init: function (parent, data) {
             this._super(parent);
             this.dis_desk = data;
+            this.model2 = new Model('dispatch.control.desktop.component');
         },
         start: function () {
             var self = this
@@ -39,17 +40,33 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 chartLineBar(lagstation_chart, 0, ["#ff4634", "#4dcfc7"], 'bar', true, ['滞站客流', '预测滞站'], optionLineBar, ['周一', '周二', '周三', '周四', '周五', '周六'], [[120, 152, 101, 134, 90, 230], [220, 182, 191, 234, 290, 330]], '');
             }
         },
-        events:{
-            'click .manual':'manual_process',
-            'click .manual.is_check':'process_chchk',
-
+        events: {
+            'click .manual': 'manual_process',
+            'click .manual.is_check': 'process_chchk',
+            'click .min': 'closeFn'
         },
-        manual_process:function (event) {
-            this.$el.find('.real_time_process').show().css("display","inline-block");
+        closeFn: function () {
+            var self = this;
+            var tid = this.$el.attr('tid');
+            var line_id = this.$el.attr('line_id');
+            self.$el.parent().find('.dispatch_desktop').find('.line_edit').hide();
+            self.$el.parent().find('.dispatch_desktop').find('.show_right').show();
+            self.model2.call("write", [parseInt(tid),
+                {
+                    'tem_display': 'none',
+                    'position_left':self.$el[0].offsetLeft,
+                    'position_top':self.$el[0].offsetTop,
+                    'position_z_index':self.$el[0].style.zIndex,
+                }]).then(function (res) {
+                self.$el.hide();
+            });
+        },
+        manual_process: function (event) {
+            this.$el.find('.real_time_process').show().css("display", "inline-block");
             var x = event.currentTarget;
             $(x).html('完成').addClass('is_check').siblings().hide();
         },
-        process_chchk:function () {
+        process_chchk: function () {
             this.$el.find('.no_absnormal').show().siblings().hide();
         }
     });

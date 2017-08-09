@@ -2,45 +2,34 @@
  * Created by Administrator on 2017/7/12.
  */
 function traffic_distance(canvas) {
-    var cId = canvas.id;
-    var y = canvas.y;
-    var self = canvas.self;
-    var subsection = canvas.subsection;
-    var color = canvas.color;
-    var c = self.find(cId)[0];
+    var c = canvas.self.find(canvas.id)[0];
     var cxt = c.getContext("2d");
+    cxt.clearRect(0, 0, c.width, c.height);
     var dataAllNum = 0;
     //根据数据算出总dataAlNum
-    for (var m = 0; m < subsection.length; m++) {
-        dataAllNum += subsection[m];
+    for (var m = 0; m < canvas.subsection.length; m++) {
+        dataAllNum += canvas.subsection[m];
     }
-    var dataAll = datalen = dataLenLeft = 0;
-    for (var i = 0; i < color.length; i++) {
+    var dataAll = dataLen = dataLenLeft = 0;
+    for (var i = 0; i < canvas.color.length; i++) {
         //计算每一段所占位置的百分比
-        dataAll += subsection[i];
+        dataAll += canvas.subsection[i];
         // 算出当前占比-前面占比算出实际px占比
-        dataLen = (subsection[i] / dataAllNum) * 1190;
-        dataLenLeft = ((dataAll - subsection[i]) / dataAllNum) * 1190;
+        dataLen = (canvas.subsection[i] / dataAllNum) * 1190;
+        dataLenLeft = ((dataAll - canvas.subsection[i]) / dataAllNum) * 1190;
         //渲染每一段距离的颜色
         cxt.beginPath();
-        cxt.fillStyle = color[i];
+        cxt.fillStyle = canvas.color[i];
         //距离左边距离，上边距离，此段长度，高度
-        cxt.fillRect(dataLenLeft, y, dataLen, 2);
+        cxt.fillRect(dataLenLeft, canvas.y, dataLen, 2);
         cxt.closePath();
     }
 }
 //站点的圆圈以及站点名称
 function cir_and_text(canvas) {
-    var cId = canvas.id;
-    var ciry = canvas.ciry;
-    var testy = canvas.testy;
-    var self = canvas.self;
-    var color = canvas.color;
-    var dataCir = canvas.dataCir;
-    var dataSite = canvas.dataSite;
-    var c = self.find(cId)[0];
+    var c = canvas.self.find(canvas.id)[0];
     var cxt = c.getContext('2d');
-    for (var i = 0; i < color.length; i++) {
+    for (var i = 0; i < canvas.site_infos.length; i++) {
         //渲染每一个圆点对应的站点名称
         cxt.beginPath();//开启关闭每一个画布的渲染
         cxt.fillStyle = "#A3A6AD";
@@ -48,22 +37,22 @@ function cir_and_text(canvas) {
         //站点文字居中显示
         cxt.textAlign = "center";
         //文字，左距离，上距离，最大px量
-        var mySite = dataSite[i].name;
-        var myColor = dataSite[i].color;
-        if (dataSite[i].status == 0) {
+        var mySite = canvas.site_infos[i].name;
+        var myColor = canvas.dataSite_color[i].color;
+        if (canvas.site_infos[i].status == false) {
             mySite = '';
             myColor = '#ffffff';
         } else {
-            mySite = dataSite[i].name;
-            myColor = dataSite[i].color;
+            mySite = canvas.site_infos[i].name;
+            myColor = canvas.dataSite_color[i].color;
         }
-        cxt.fillText(mySite, dataCir[i], testy, 50);
+        cxt.fillText(mySite, canvas.dataCir[i], canvas.testy);
         cxt.closePath();
         //渲染圆环
         var obj_list = [
             {
                 cir: 6,
-                color: dataSite[i].color
+                color: canvas.dataSite_color[i].color
             },
             {
                 cir: 5,
@@ -77,7 +66,7 @@ function cir_and_text(canvas) {
         for (var j = 0; j < obj_list.length; j++) {
             var obj = obj_list[j];
             cxt.beginPath();
-            cxt.arc(dataCir[i], ciry, obj.cir, 0, 360, false);
+            cxt.arc(canvas.dataCir[i], canvas.ciry, obj.cir, 0, 360, false);
             cxt.fillStyle = obj.color;
             cxt.fill();
             cxt.closePath();
@@ -85,27 +74,15 @@ function cir_and_text(canvas) {
     }
 }
 //左侧canvas图
-function can_left(canvas) {
-    // canvas的id
-    var cId = canvas.id;
-    // 线条颜色
-    var color = canvas.color;
-    // 距离Y轴距离
-    var ciry = canvas.ciry;
-    var self = canvas.self;
-    // 圆弧的半径
-    var r = canvas.r;
-    //线条起点
-    var lineLen = canvas.lineLen;
-    var sta = canvas.sta;
+function can_left_right(canvas) {
     var lineLeft = staCir = 0;
-    var c = self.find(cId)[0];
+    var c = canvas.self.find(canvas.id)[0];
     var cxt = c.getContext('2d');
+    cxt.clearRect(0, 0, c.width, c.height);
     //画圆
     cxt.beginPath();
     //左边圆圈
     cxt.arc(13, 58, 13, 0, 360, false);
-
     //线条颜色
     cxt.fillStyle = "white";
     cxt.fill();
@@ -114,27 +91,27 @@ function can_left(canvas) {
     cxt.textAlign = "center";
     cxt.fillStyle = "black";
     //文字，左距离，上距离，最大px量
-    cxt.fillText('3辆', 13, 64, 50);
+    cxt.fillText(canvas.busNumber + '辆', 13, 64, 50);
     cxt.fill();
     cxt.closePath();
     cxt.beginPath();
     //绘制直线线条
     cxt.lineWidth = 2;
-    cxt.strokeStyle = color;
-    cxt.moveTo(lineLen, ciry);
-    cxt.lineTo(lineLen + 9, ciry);
+    cxt.strokeStyle = canvas.color;
+    cxt.moveTo(canvas.lineLen, canvas.ciry);
+    cxt.lineTo(canvas.lineLen + 9, canvas.ciry);
     cxt.stroke();
     cxt.closePath();
-    lineLen == 0 ? lineLeft = 9 : lineLeft = 17;
+    canvas.lineLen == 0 ? lineLeft = 9 : lineLeft = 17;
     //绘制弧线的半圆
     cxt.beginPath();
-    cxt.arc(lineLeft, ciry + r, r, sta * Math.PI, (sta + 0.5) * Math.PI, false);
-    sta == 1 ? staCir = 1 : staCir = 0.5;
+    cxt.arc(lineLeft, canvas.ciry + canvas.r, canvas.r, canvas.sta * Math.PI, (canvas.sta + 0.5) * Math.PI, false);
+    canvas.sta == 1 ? staCir = 1 : staCir = 0.5;
     cxt.stroke();
     cxt.closePath();
     //绘制线条
     cxt.beginPath();
-    cxt.moveTo(13, ciry + r);
+    cxt.moveTo(13, canvas.ciry + canvas.r);
     cxt.lineTo(13, 45);
     cxt.stroke();
     cxt.closePath();
@@ -146,15 +123,91 @@ function can_left(canvas) {
     cxt.closePath();
     //绘制下面弧线的半圆
     cxt.beginPath();
-    cxt.arc(lineLeft, 85, r, (staCir - 0.5) * Math.PI, staCir * Math.PI, false);
+    cxt.arc(lineLeft, 85, canvas.r, (staCir - 0.5) * Math.PI, staCir * Math.PI, false);
     cxt.stroke();
     cxt.closePath();
     cxt.beginPath();
     //绘制直线线条
-    cxt.moveTo(lineLen, 89);
-    cxt.lineTo(lineLen + 9, 89);
+    cxt.moveTo(canvas.lineLen, 89);
+    cxt.lineTo(canvas.lineLen + 9, 89);
     cxt.stroke();
     cxt.closePath();
+}
+
+//渲染车辆实况的cancvas图像
+function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
+    var traffic = {
+        id: dom_site,
+        y: 26,
+        self: selfDom,
+        subsection: data.subsection,
+        color: data.color
+    };
+    var traffic_bottom = {
+        id: domB,
+        y: 5,
+        self: selfDom,
+        subsection: data.subsection,
+        color: data.color
+    };
+    traffic_distance(traffic);
+    traffic_distance(traffic_bottom);
+
+    var cirTop = {
+        id: dom_site,
+        ciry: 27,
+        testy: 13,
+        color: data.color,
+        self: selfDom,
+        dataCir: data.dataCir,
+        dataSite_color: data.dataSite_top_color,
+        site_infos: data.site_top_infos
+    };
+    var cirBottom = {
+        id: domB,
+        ciry: 6,
+        testy: 25,
+        self: selfDom,
+        color: data.color,
+        dataCir: data.dataCir2,
+        dataSite_color: data.dataSite_down_color,
+        site_infos:data.site_down_infos
+    };
+    cir_and_text(cirTop);
+    cir_and_text(cirBottom);
+    can_left_right(
+        {
+            id: domL,
+            color: data.color[0],
+            ciry: 27,
+            self: selfDom,
+            r: 4,
+            lineLen: 17,
+            sta: 1,
+            busNumber:data.busNumber
+        }
+    );
+    can_left_right(
+        {
+            id: domR,
+            color: data.color[data.color.length - 1],
+            ciry: 27,
+            self: selfDom,
+            r: 4,
+            lineLen: 0,
+            sta: 1.5,
+            busNumber:data.busNumber
+        }
+    );
+}
+//防止冒泡
+function stopPropagation(e) {
+    e = window.event || e;
+    if (document.all) {  //只有ie识别
+        e.cancelBubble = true;
+    } else {
+        e.stopPropagation();
+    }
 }
 //客流走势轮播组件
 function carousel(carousel) {
@@ -189,80 +242,5 @@ function carousel(carousel) {
         }, 3000);
     });
 };
-//渲染车辆实况的cancvas图像
-function qrend_desktop(data, domT, domB, domL, domR, selfDom) {
-    var dataCir = data.oneline.site_to_startpoint;
-    var color = data.oneline.plan_feedback;
-    var dataSite = data.oneline.siteTop;
-    var dataSite2 = data.oneline.siteBottom;
-    var subsection = data.oneline.traffic_distance;
-    var traffic_top = {
-        id: domT,
-        y: 26,
-        self: selfDom,
-        subsection: subsection,
-        color: color
-    };
-    var traffic_bottom = {
-        id: domB,
-        y: 5,
-        self: selfDom,
-        subsection: subsection,
-        color: color
-    };
-    traffic_distance(traffic_top);
-    traffic_distance(traffic_bottom);
 
-    var cirTop = {
-        id: domT,
-        ciry: 27,
-        testy: 13,
-        color: color,
-        self: selfDom,
-        dataCir: dataCir,
-        dataSite: dataSite
-    };
-    var cirBottom = {
-        id: domB,
-        ciry: 6,
-        testy: 25,
-        self: selfDom,
-        color: color,
-        dataCir: dataCir,
-        dataSite: dataSite2
-    };
-    cir_and_text(cirTop);
-    cir_and_text(cirBottom);
-    can_left(
-        {
-            id: domL,
-            color: color[0],
-            ciry: 27,
-            self: selfDom,
-            r: 4,
-            lineLen: 17,
-            sta: 1
-        }
-    );
-    can_left(
-        {
-            id: domR,
-            color: color[color.length - 1],
-            ciry: 27,
-            self: selfDom,
-            r: 4,
-            lineLen: 0,
-            sta: 1.5,
-        }
-    );
-}
-//防止冒泡
-function stopPropagation(e) {
-    e = window.event || e;
-    if (document.all) {  //只有ie识别
-        e.cancelBubble = true;
-    } else {
-        e.stopPropagation();
-    }
-}
 

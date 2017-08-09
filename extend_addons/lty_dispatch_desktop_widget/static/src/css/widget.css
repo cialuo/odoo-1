@@ -157,9 +157,13 @@
 
 /*---------车辆实时状态---------*/
 
+.bus_real_info_model {
+    display: none;
+}
+
 .bus_real_info {
     width: 802px;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     border: 1px solid #ccc;
     background: #fff;
 }
@@ -194,6 +198,17 @@
     padding: 0 10px;
     background: #7c7bad;
     color: #fff;
+}
+
+.bus_real_info .boxTitle .titleInfo dl dt {
+    height: 38px;
+    line-height: 38px;
+    float: left;
+}
+
+.bus_real_info .boxTitle .titleInfo dl dd {
+    height: 19px;
+    line-height: 19px;
 }
 
 .bus_real_info .boxTitle .titleInfo .crew {
@@ -309,7 +324,7 @@
 }
 
 .bus_real_info .popupContent .vehicleInformation .num {
-    padding-left: 10px;
+    padding-left: 3px;
 }
 
 
@@ -319,6 +334,10 @@
 
 .bus_real_info .popupContent .vehicleInformation .danger {
     color: red;
+}
+
+.bus_real_info .popupContent .vehicleInformation .bold {
+    font-weight: bold;
 }
 
 .bus_real_info .popupContent .vehicleInformation .dangerTime {

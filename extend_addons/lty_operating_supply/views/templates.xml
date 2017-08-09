@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<openerp>
+    <data>
+        <template id="operateWidget" name="operateWidget" inherit_id="lty_dispatch_desktop_widget.desktopWidget">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/lty_operating_supply/static/src/css/supply.css" />
+                <link rel="stylesheet" href="/lty_operating_supply/static/lib/bootstrap-table/bootstrap-table.css" />
+                <script src="/lty_operating_supply/static/lib/bootstrap-table/bootstrap-table.js" type="text/javascript"></script>
+                <script src="/lty_operating_supply/static/src/js/make_chart.js" type="text/javascript"></script>
+                <script src="/lty_operating_supply/static/src/js/operate_supply_satisfaction.js" type="text/javascript"></script>
+                <script src="/lty_operating_supply/static/src/js/operate_supply_passengerFlow.js" type="text/javascript"></script>
+                <script src="/lty_operating_supply/static/src/js/operate_supply_service.js" type="text/javascript"></script>
+            </xpath>
+        </template>
+        <menuitem id="menu_operate_passengerFlow_transit" name="客流需求分析" parent="operation_menu.balance_of_supply_and_demand_menu" sequence="1" />
+        <menuitem id="menu_operate_satisfaction_transit" name="满意度分析" parent="operation_menu.balance_of_supply_and_demand_menu" sequence="2" />
+        <menuitem id="menu_operate_service_transit" name="服务保障能力分析" parent="operation_menu.balance_of_supply_and_demand_menu" sequence="3" />
+    </data>
+</openerp>
