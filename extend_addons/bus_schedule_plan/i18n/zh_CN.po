@@ -6,14 +6,59 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-27 01:50+0000\n"
-"PO-Revision-Date: 2017-07-27 01:50+0000\n"
+"POT-Creation-Date: 2017-08-09 01:32+0000\n"
+"PO-Revision-Date: 2017-08-09 01:32+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: bus_schedule_plan
+#: selection:route_manage.route_manage,rotation_cycle:0
+msgid "10days rotation"
+msgstr "10天一轮换"
+
+#. module: bus_schedule_plan
+#: selection:route_manage.route_manage,rotation_cycle:0
+msgid "15days rotation"
+msgstr "15天一轮换"
+
+#. module: bus_schedule_plan
+#: selection:route_manage.route_manage,rotation_cycle:0
+msgid "180days rotation"
+msgstr "180天一轮换"
+
+#. module: bus_schedule_plan
+#: selection:route_manage.route_manage,rotation_cycle:0
+msgid "30days rotation"
+msgstr "30天一轮换"
+
+#. module: bus_schedule_plan
+#: selection:route_manage.route_manage,rotation_cycle:0
+msgid "45days rotation"
+msgstr "45天一轮换"
+
+#. module: bus_schedule_plan
+#: selection:route_manage.route_manage,rotation_cycle:0
+msgid "5days rotation"
+msgstr "5天一轮换"
+
+#. module: bus_schedule_plan
+#: selection:route_manage.route_manage,rotation_cycle:0
+msgid "60days rotation"
+msgstr "60天一轮换"
+
+#. module: bus_schedule_plan
+#: selection:route_manage.route_manage,rotation_cycle:0
+msgid "7days rotation"
+msgstr "7天一轮换"
+
+#. module: bus_schedule_plan
+#: selection:route_manage.route_manage,rotation_cycle:0
+msgid "90days rotation"
+msgstr "90天一轮换"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_algorithm_code
@@ -46,22 +91,32 @@ msgid "Algorithm note"
 msgstr "算法简介"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_bus_algorithm_date
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_assign_id
+msgid "Assign id"
+msgstr "派单id"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_state
+msgid "Bus Group State"
+msgstr "状态"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_bus_algorithm_date
 msgid "Bus algorithm date"
 msgstr "车辆轮趟算法修改日期"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_bus_algorithm_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_bus_algorithm_id
 msgid "Bus algorithm id"
 msgstr "车辆轮趟算法"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_bus_driver_algorithm_date
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_bus_driver_algorithm_date
 msgid "Bus driver algorithm date"
 msgstr "司乘轮班算法修改日期"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_bus_driver_algorithm_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_bus_driver_algorithm_id
 msgid "Bus driver algorithm id"
 msgstr "司乘轮班算法"
 
@@ -84,16 +139,38 @@ msgid "Bus group id"
 msgstr "所属班组"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_bus_shift_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_bus_group_vehicle_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_bus_group_vehicle_id
+msgid "Bus group vehicle id"
+msgstr "车辆"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_bus_shift_choose_line_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_bus_shift_choose_line_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_bus_shift_choose_line_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_bus_shift_choose_line_id
+msgid "Bus shift choose line id"
+msgstr "班次"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_assigned_shifts_bus_shift_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_bus_shift_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_bus_shift_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_bus_shift_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_bus_shift_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_bus_shift_id
 msgid "Bus shift id"
 msgstr "司乘班制"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_bus_shift_line_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_bus_shift_line_id
-msgid "Bus shift line id"
-msgstr "班别"
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_route_manage_route_manage_rotation_cycle
+msgid "Calculate State"
+msgstr "Calculate State"
+
+#. module: bus_schedule_plan
+#: model:ir.ui.view,arch_db:bus_schedule_plan.view_assigned_shifts_wizard
+msgid "Cancel"
+msgstr "取消"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_conductor_ct
@@ -101,6 +178,14 @@ msgid "Conductor ct"
 msgstr "乘务员数量"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_conductor_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_conductor_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_conductor_id
+msgid "Conductor id"
+msgstr "乘务员"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_assigned_shifts_conductor_ids
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_conductor_ids
 msgid "Conductor ids"
 msgstr "乘务员"
@@ -115,24 +200,12 @@ msgstr "Course Tree"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_algorithm_create_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_date_type_create_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_driver_algorithm_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_conductor_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_create_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_bigsitesetdown_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_bigsitesetup_create_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_down_rulebusarrange_create_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_excutetable_create_uid
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_create_uid
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_create_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_create_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_up_rulebusarrange_create_uid
 msgid "Created by"
 msgstr "创建人"
 
@@ -140,24 +213,12 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_algorithm_create_date
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_date_type_create_date
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_driver_algorithm_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_conductor_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_create_date
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_bigsitesetdown_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_bigsitesetup_create_date
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_down_rulebusarrange_create_date
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_excutetable_create_date
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_create_date
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_create_date
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_create_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_up_rulebusarrange_create_date
 msgid "Created on"
 msgstr "创建时间"
 
@@ -178,19 +239,24 @@ msgid "Date Type Name"
 msgstr "日期类型名称"
 
 #. module: bus_schedule_plan
-#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_staff_group_vehicle_line_form_action
-msgid "Dispatch Staff"
-msgstr "派班"
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_detail_ids
+msgid "Detail ids"
+msgstr "班次时间"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_assigned_shifts_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_algorithm_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_date_type_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_driver_algorithm_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_conductor_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_display_name
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_display_name
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_display_name
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_choose_line_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_display_name
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_detail_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_display_name
@@ -200,6 +266,8 @@ msgstr "派班"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_down_rulebusarrange_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_excutetable_display_name
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_display_name
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_display_name
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_display_name
@@ -213,9 +281,23 @@ msgid "Driver ct"
 msgstr "司机数量"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_driver_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_driver_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_driver_id
+msgid "Driver id"
+msgstr "司机"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_assigned_shifts_driver_ids
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_ids
 msgid "Driver ids"
-msgstr "乘务员"
+msgstr "司机"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_assigned_shifts_driver_vehicle_shift_ids
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_ids
+msgid "Driver vehicle shift ids"
+msgstr "配班"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_staff_group_form
@@ -228,7 +310,7 @@ msgid "End date"
 msgstr "结束时间"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_end_time
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_detail_end_time
 msgid "End time"
 msgstr "结束时间"
 
@@ -238,9 +320,21 @@ msgid "Friday"
 msgstr "周五"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_assigned_shifts_group_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_group_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_group_id
+msgid "Group"
+msgstr "班组"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_name
 msgid "Group Name"
 msgstr "班组名称"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_group_id
+msgid "Group id"
+msgstr "班组"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_group_form
@@ -254,6 +348,11 @@ msgstr "司机"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_group_form
+msgid "GroupVehicleShifts"
+msgstr "司乘班制"
+
+#. module: bus_schedule_plan
+#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_group_form
 msgid "GroupVehicles"
 msgstr "车辆"
 
@@ -261,43 +360,50 @@ msgstr "车辆"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_algorithm_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_date_type_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_driver_algorithm_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_conductor_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_bigsitesetdown_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_bigsitesetup_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_down_rulebusarrange_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_excutetable_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_up_rulebusarrange_id
 msgid "ID"
 msgstr "ID"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_is_conductor
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_is_conductor
-msgid "Is conductor"
-msgstr "配乘务员"
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_is_algorithm_change
+msgid "Is algorithm change"
+msgstr "轮趟算法是否发生改变"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_route_manage_route_manage_is_big_rotation
+msgid "Is big rotation"
+msgstr "车辆台次排位大轮换"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_is_driver_algorithm_change
+msgid "Is driver algorithm change"
+msgstr "轮班算法是否发生改变"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_is_not_match
+msgid "Is not match"
+msgstr "告警"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_assigned_shifts___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_algorithm___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_date_type___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_driver_algorithm___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_conductor___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver___last_update
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift___last_update
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift___last_update
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_choose_line___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line___last_update
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_detail___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line___last_update
@@ -306,6 +412,8 @@ msgstr "配乘务员"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_down_rulebusarrange___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_excutetable___last_update
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown___last_update
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown___last_update
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup___last_update
@@ -314,27 +422,20 @@ msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_staff_date
+msgid "Last Report Date"
+msgstr "Last Report Date"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_algorithm_write_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_date_type_write_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_driver_algorithm_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_conductor_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_write_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_bigsitesetdown_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_bigsitesetup_write_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_down_rulebusarrange_write_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_excutetable_write_uid
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_write_uid
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_write_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_write_uid
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_up_rulebusarrange_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
@@ -342,26 +443,19 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_algorithm_write_date
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_date_type_write_date
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_driver_algorithm_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_conductor_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_write_date
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_bigsitesetdown_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_bigsitesetup_write_date
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_down_rulebusarrange_write_date
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_excutetable_write_date
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_write_date
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_write_date
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_write_date
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_up_rulebusarrange_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_route_manage_route_manage_last_rotation_date
+msgid "Last rotation date"
+msgstr "最后大轮换日期"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_vehicle_type
@@ -377,6 +471,17 @@ msgstr "车型"
 #: selection:bus_date_type,type:0
 msgid "Monday"
 msgstr "周一"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_movetimetable_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_movetimetable_id
+msgid "Movetimetable id"
+msgstr "Movetimetable id"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_not_match_reason
+msgid "Not match reason"
+msgstr "告警"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_operation_state
@@ -402,10 +507,13 @@ msgstr "核载人数"
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_lineName
 msgid "Route"
-msgstr "线路名称"
+msgstr "线路"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_assigned_shifts_route_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_route_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_route_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_route_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_route_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_route_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_route_id
@@ -418,20 +526,33 @@ msgid "Saturday"
 msgstr "周六"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_sequence
+msgid "Sequence"
+msgstr "序号"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_name
 msgid "Shift Line Name"
 msgstr "班次列表"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_sequence
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_choose_sequence
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_sequence
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_choose_line_sequence
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_sequence
 msgid "Shift Line Sequence"
 msgstr "序号"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_choose_line_shift_line_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_name
 msgid "Shift Name"
 msgstr "班次"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_choose_sequence
+msgid "Shift Sequence"
+msgstr "序号"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_shift_ct
@@ -439,18 +560,24 @@ msgid "Shift ct"
 msgstr "班次数"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_shift_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_choose_line_shift_id
 msgid "Shift id"
 msgstr "班次"
 
 #. module: bus_schedule_plan
-#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_shift_form
-msgid "Shift list"
-msgstr "班次列表"
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_detail_shift_line_id
+msgid "Shift line id"
+msgstr "班次"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_shift_line_ids
-msgid "ShiftLines"
+msgid "Shift line ids"
+msgstr "班次"
+
+#. module: bus_schedule_plan
+#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_shift_form
+#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_shift_line_form
+msgid "Shift list"
 msgstr "班次列表"
 
 #. module: bus_schedule_plan
@@ -490,9 +617,14 @@ msgid "Start date"
 msgstr "开始时间"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_start_time
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_shift_line_detail_start_time
 msgid "Start time"
 msgstr "开始时间"
+
+#. module: bus_schedule_plan
+#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_group_form
+msgid "Submit check"
+msgstr "提交审核"
 
 #. module: bus_schedule_plan
 #: selection:bus_date_type,type:0
@@ -500,25 +632,30 @@ msgid "Sunday"
 msgstr "周日"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_shift.py:30
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_t_sequence
+msgid "T Sequence"
+msgstr "车序"
+
+#. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/models/bus_shift.py:41
 #: sql_constraint:bus_shift_line:0
 #, python-format
 msgid "The name must be unique!"
 msgstr "班次名称必须唯一!"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_group.py:102
+#: code:addons/bus_schedule_plan/models/bus_group.py:14
+#: sql_constraint:bus_group:0
+#, python-format
+msgid "The route and name must be unique!"
+msgstr "The route and name must be unique!"
+
+#. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/models/bus_group.py:401
 #: sql_constraint:bus_group_vehicle:0
 #, python-format
 msgid "The route and vehicle must be unique!"
 msgstr "线路和车辆必须唯一"
-
-#. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_shift.py:29
-#: sql_constraint:bus_shift_line:0
-#, python-format
-msgid "The sequence must be unique!"
-msgstr "序号必须唯一"
 
 #. module: bus_schedule_plan
 #: selection:bus_date_type,type:0
@@ -529,6 +666,13 @@ msgstr "周四"
 #: selection:bus_date_type,type:0
 msgid "Tuesday"
 msgstr "周二"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_assigned_shifts_use_date
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_use_date
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_use_date
+msgid "Use date"
+msgstr "使用日期"
 
 #. module: bus_schedule_plan
 #: selection:bus_date_type,type:0
@@ -544,6 +688,16 @@ msgid "Vehicle No"
 msgstr "车号"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_t_sequence
+msgid "Vehicle Sequence"
+msgstr "车序"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_sequence
+msgid "Vehicle Shift Sequence"
+msgstr "序号"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_state
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_state
 msgid "Vehicle State"
@@ -556,6 +710,7 @@ msgid "Vehicle ct"
 msgstr "车辆数"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_assigned_shifts_vehicle_ids
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_ids
 msgid "Vehicle ids"
 msgstr "车辆"
@@ -576,6 +731,16 @@ msgid "Wednesday"
 msgstr "周三"
 
 #. module: bus_schedule_plan
+#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_group_form
+msgid "action_test"
+msgstr "action_test"
+
+#. module: bus_schedule_plan
+#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_group_form
+msgid "action_test1"
+msgstr "action_test1"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_down_rulebusarrange_allvehicles
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_up_rulebusarrange_allvehicles
 msgid "all vehcile number"
@@ -585,6 +750,20 @@ msgstr "all vehcile number"
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_rule_manage_form
 msgid "allvehicles"
 msgstr "allvehicles"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_arrive_time
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_arrive_time
+msgid "arrive time"
+msgstr "arrive time"
+
+#. module: bus_schedule_plan
+#: model:ir.actions.act_window,name:bus_schedule_plan.act_assigned_shifts
+#: model:ir.model,name:bus_schedule_plan.model_assigned_shifts
+#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_group_form
+#: model:ir.ui.view,arch_db:bus_schedule_plan.view_assigned_shifts_wizard
+msgid "assigned_shifts"
+msgstr "初始化人车配班"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_autogen
@@ -620,6 +799,21 @@ msgstr "上行大站设置"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_bigsite_up
 msgid "big site up"
 msgstr "上行大站设置"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_date_type
+msgid "bus date type"
+msgstr "bus date type"
+
+#. module: bus_schedule_plan
+#: model:ir.actions.act_window,name:bus_schedule_plan.bus_move_time_table_action
+msgid "bus move time table"
+msgstr "bus move time table"
+
+#. module: bus_schedule_plan
+#: model:ir.ui.menu,name:bus_schedule_plan.bus_move_time_menu
+msgid "bus move time table menu"
+msgstr "bus move time table menu"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_bus_number
@@ -717,6 +911,16 @@ msgid "bus_group_driver"
 msgstr "司机组"
 
 #. module: bus_schedule_plan
+#: model:ir.model,name:bus_schedule_plan.model_bus_group_driver_vehicle_shift
+msgid "bus_group_driver_vehicle_shift"
+msgstr "人车配班"
+
+#. module: bus_schedule_plan
+#: model:ir.model,name:bus_schedule_plan.model_bus_group_driver_vehicle_shift_tran
+msgid "bus_group_driver_vehicle_shift_tran"
+msgstr "人车配班"
+
+#. module: bus_schedule_plan
 #: model:ir.ui.menu,name:bus_schedule_plan.bus_group_menu
 msgid "bus_group_menu"
 msgstr "班组管理"
@@ -737,9 +941,29 @@ msgid "bus_shift_action"
 msgstr "班制管理"
 
 #. module: bus_schedule_plan
+#: model:ir.model,name:bus_schedule_plan.model_bus_shift_choose_line
+msgid "bus_shift_choose_line"
+msgstr "所选班次"
+
+#. module: bus_schedule_plan
 #: model:ir.model,name:bus_schedule_plan.model_bus_shift_line
 msgid "bus_shift_line"
 msgstr "班次列表"
+
+#. module: bus_schedule_plan
+#: model:ir.actions.act_window,name:bus_schedule_plan.bus_shift_line_action
+msgid "bus_shift_line_action"
+msgstr "班次管理"
+
+#. module: bus_schedule_plan
+#: model:ir.model,name:bus_schedule_plan.model_bus_shift_line_detail
+msgid "bus_shift_line_detail"
+msgstr "班次时刻详情"
+
+#. module: bus_schedule_plan
+#: model:ir.ui.menu,name:bus_schedule_plan.bus_shift_line_menu
+msgid "bus_shift_line_menu"
+msgstr "班次管理"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.menu,name:bus_schedule_plan.bus_shift_menu
@@ -782,20 +1006,26 @@ msgid "bus_staff_group_vehilce_line"
 msgstr "人车配班"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_bus_type
-msgid "bus_type"
-msgstr "公交类型"
+#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_group_form
+msgid "check success"
+msgstr "审核通过"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_conductor_conductor_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_conductor_id
 msgid "conductor"
 msgstr "售票员"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_conductor_jobnumber
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_conductor_jobnumber
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_conductor_jobnumber
 msgid "conductor_jobnumber"
 msgstr "售票员工号"
+
+#. module: bus_schedule_plan
+#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_rule_manage_tree
+msgid "create move time"
+msgstr "create move time"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_rule_output_tree
@@ -833,18 +1063,19 @@ msgid "custem bus work rule output menu"
 msgstr "custem bus work rule output menu"
 
 #. module: bus_schedule_plan
-#: selection:scheduleplan.schedulrule,bus_type:0
-msgid "custom_bus"
-msgstr "custom_bus"
-
-#. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:43
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:45
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:47
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:49
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:51
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:53
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:55
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:57
 #, python-format
 msgid "date type have repeat of time"
 msgstr "选择的日期类型的时间有重复，请重新选择时间"
+
+#. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/models/models.py:159
+#, python-format
+msgid "difference bettwen two sequence number must be 1"
+msgstr "difference bettwen two sequence number must be 1"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_downfirsttime
@@ -857,9 +1088,19 @@ msgid "down last time"
 msgstr "下行末班时间"
 
 #. module: bus_schedule_plan
+#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_move_time_table_form
+msgid "down move time"
+msgstr "down move time"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_downstation
 msgid "down station"
 msgstr "下行车场"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_downtimeslist
+msgid "down times arrange"
+msgstr "down times arrange"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_rule_manage_form
@@ -867,17 +1108,25 @@ msgid "down work plan"
 msgstr "下行行车方案分析"
 
 #. module: bus_schedule_plan
+#: selection:bus_group,state:0
+msgid "draft"
+msgstr "草稿"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_driver_id
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_driver_id
+#: model:ir.ui.view,arch_db:bus_schedule_plan.view_assigned_shifts_wizard
 msgid "driver"
 msgstr "司机"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_driver_jobnumber
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_tran_driver_jobnumber
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_driver_jobnumber
 msgid "driver_jobnumber"
 msgstr "司机工号"
 
 #. module: bus_schedule_plan
+#: selection:scheduleplan.busmovetime,schedule_method:0
 #: selection:scheduleplan.schedulrule,schedule_method:0
 msgid "dubleway"
 msgstr "双头调"
@@ -889,15 +1138,21 @@ msgid "employee work number"
 msgstr "工号"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_end_site
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_end_site
+msgid "end site"
+msgstr "end site"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_endtime
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_endtime
 msgid "end time"
 msgstr "结束时间"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:34
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:61
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:84
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:42
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:69
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:92
 #, python-format
 msgid "end_date must be greater than start_date"
 msgstr "结束时间必须大于开始时间"
@@ -930,10 +1185,21 @@ msgid "flexible"
 msgstr "机动"
 
 #. module: bus_schedule_plan
+#: model:ir.ui.view,arch_db:bus_schedule_plan.view_assigned_shifts_wizard
+msgid "import data"
+msgstr "导入数据"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_interval
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_interval
 msgid "interval"
 msgstr "发车间隔"
+
+#. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/models/models.py:413
+#, python-format
+msgid "interval must be an positive integer"
+msgstr "interval must be an positive integer"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_mileage
@@ -959,10 +1225,27 @@ msgid "low"
 msgstr "低峰"
 
 #. module: bus_schedule_plan
+#: model:ir.model,name:bus_schedule_plan.model_make_procurement_test
+msgid "make.procurement.test"
+msgstr "make.procurement.test"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_minvehicles
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_minvehicles
 msgid "min vehicle number"
 msgstr "最小配车数"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_mileage
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_mileage
+msgid "move mile age"
+msgstr "move mile age"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_timelength
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_timelength
+msgid "move time length"
+msgstr "move time length"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_bigsitesetdown_needchecking
@@ -1015,6 +1298,11 @@ msgid "peak"
 msgstr "高峰"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_plan_totaltimes
+msgid "plan total times"
+msgstr "plan total times"
+
+#. module: bus_schedule_plan
 #: selection:bus_algorithm,direction:0
 #: selection:bus_driver_algorithm,direction:0
 msgid "positive"
@@ -1027,12 +1315,19 @@ msgid "rate of full load"
 msgstr "满载率"
 
 #. module: bus_schedule_plan
-#: selection:scheduleplan.schedulrule,bus_type:0
-msgid "regular_bus"
-msgstr "regular_bus"
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_real_times
+msgid "real total times"
+msgstr "real total times"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_name
+msgid "record name"
+msgstr "record name"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_line_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_line_id
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_line_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_line_id
 msgid "related line"
 msgstr "线路"
@@ -1065,6 +1360,7 @@ msgid "rule name"
 msgstr "名称"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_schedule_method
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_schedule_method
 msgid "schedule method"
 msgstr "调车方式"
@@ -1095,6 +1391,16 @@ msgid "scheduleplan.excutetable"
 msgstr "scheduleplan.excutetable"
 
 #. module: bus_schedule_plan
+#: model:ir.model,name:bus_schedule_plan.model_scheduleplan_movetimedown
+msgid "scheduleplan.movetimedown"
+msgstr "scheduleplan.movetimedown"
+
+#. module: bus_schedule_plan
+#: model:ir.model,name:bus_schedule_plan.model_scheduleplan_movetimeup
+msgid "scheduleplan.movetimeup"
+msgstr "scheduleplan.movetimeup"
+
+#. module: bus_schedule_plan
 #: model:ir.model,name:bus_schedule_plan.model_scheduleplan_schedulrule
 msgid "scheduleplan.schedulrule"
 msgstr "行车规则"
@@ -1115,6 +1421,15 @@ msgid "scheduleplan.up.rulebusarrange"
 msgstr "上行配车方案"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_seqid
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_seqid
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_seqid
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_seqid
+msgid "sequence id"
+msgstr "sequence id"
+
+#. module: bus_schedule_plan
+#: selection:scheduleplan.busmovetime,schedule_method:0
 #: selection:scheduleplan.schedulrule,schedule_method:0
 msgid "single way"
 msgstr "单头调"
@@ -1132,15 +1447,34 @@ msgid "span day"
 msgstr "是否跨天"
 
 #. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/models/models.py:164
+#, python-format
+msgid "start and end time not match"
+msgstr "start and end time not match"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_startmovetime
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_startmovetime
+msgid "start move time"
+msgstr "start move time"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_start_site
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_start_site
+msgid "start site"
+msgstr "start site"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_starttime
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_starttime
 msgid "start time"
 msgstr "开始"
 
 #. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_name
-msgid "table name"
-msgstr "table name"
+#: code:addons/bus_schedule_plan/models/models.py:173
+#, python-format
+msgid "time arrange must have continuity"
+msgstr "time arrange must have continuity"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_bigsitesetdown_tolastsit_flat
@@ -1176,6 +1510,11 @@ msgid "up last time"
 msgstr "上行末班时间"
 
 #. module: bus_schedule_plan
+#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_move_time_table_form
+msgid "up move time"
+msgstr "up move time"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_downplanvehiclearrange
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_upplanvehiclearrange
 msgid "up plan vehicle arrange"
@@ -1193,12 +1532,22 @@ msgid "up time arrange"
 msgstr "上行发车方案"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_uptimeslist
+msgid "up times arrange"
+msgstr "up times arrange"
+
+#. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_rule_manage_form
 msgid "up work plan"
 msgstr "上行行车方案分析"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/models.py:148
+#: selection:bus_group,state:0
+msgid "use"
+msgstr "可用"
+
+#. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/models/models.py:149
 #, python-format
 msgid "vechile count large then vehicle number"
 msgstr "vechile count large then vehicle number"
@@ -1231,6 +1580,11 @@ msgstr "车速"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_up_rulebusarrange_workingnumber
 msgid "vehicle working number"
 msgstr "运营数量"
+
+#. module: bus_schedule_plan
+#: selection:bus_group,state:0
+msgid "wait_check"
+msgstr "待审核"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_rule_manage_form

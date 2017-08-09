@@ -22,5 +22,5 @@ class route_manage(models.Model):
                                        (60, '60days rotation'),
                                        (90, '90days rotation'),
                                        (180, '180days rotation'),
-                                       ], string="Calculate State", default=5) #轮换周期
-    last_rotation_date = fields.Date() #最后轮换时间
+                                       ], string="Rotation Cycle", default=5) #轮换周期
+    last_rotation_date = fields.Date(default=fields.Date.context_today) #最后轮换时间
