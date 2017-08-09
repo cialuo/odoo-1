@@ -28,7 +28,7 @@ class BusShiftChooseLine(models.Model):
 
     shift_id = fields.Many2one('bus_shift', ondelete='cascade')
     sequence = fields.Integer("Shift Line Sequence", default=1)
-    shift_line_id = fields.Many2one('bus_shift_line')
+    shift_line_id = fields.Many2one('bus_shift_line', string='Shift Name')
 
 
 class BusShiftLine(models.Model):
@@ -52,8 +52,8 @@ class BusShiftLineDetail(models.Model):
     _name = 'bus_shift_line_detail'
 
     shift_line_id = fields.Many2one('bus_shift_line', ondelete='cascade')
-    start_time = fields.Char()
-    end_time = fields.Char()
+    start_time = fields.Char(required=True)
+    end_time = fields.Char(required=True)
 
 
 

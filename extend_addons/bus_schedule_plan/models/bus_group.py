@@ -285,7 +285,7 @@ class BusGroup(models.Model):
 
     @api.multi
     def write(self, vals):
-        if "bus_algorithm_id" in vals or 'bus_driver_algorithm_id' in vals or 'bus_shift_id' in vals or 'driver_vehicle_shift_ids' in vals:
+        if "bus_algorithm_id" in vals or 'bus_driver_algorithm_id' in vals or 'bus_shift_id' in vals:
             vals.update({'state': 'wait_check'})
         if "bus_algorithm_id" in vals:
             vals.update({'is_algorithm_change': True})
@@ -403,7 +403,7 @@ class BusGroupVehicle(models.Model):
     ]
 
     bus_group_id = fields.Many2one('bus_group', ondelete='cascade')
-    sequence = fields.Integer("Station Sequence", default=0, readonly=True)
+    # sequence = fields.Integer("Station Sequence", default=0, readonly=True)
     route_id = fields.Many2one('route_manage.route_manage')
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True,
                                  domain="[('route_id','=',route_id)]")
@@ -460,11 +460,10 @@ class BusGroupDriverVehicleShift(models.Model):
     _name = 'bus_group_driver_vehicle_shift'
 
     use_date = fields.Date(default=fields.Date.context_today, readonly=True)
-    vehicle_line_id = fields.Many2one('bus_staff_group_vehicle_line', ondelete='cascade')
+    sequence = fields.Integer("Vehicle Shift Sequence", default=1, readonly=True)
 
     group_id = fields.Many2one('bus_group', ondelete='cascade', readonly=True)
     route_id = fields.Many2one('route_manage.route_manage', related='group_id.route_id')
-    sequence = fields.Integer("Shift Line Sequence", default=1, readonly=True)
 
     driver_id = fields.Many2one("bus_group_driver")
     driver_jobnumber = fields.Char(string='driver_jobnumber', related='driver_id.jobnumber', readonly=True)
@@ -474,8 +473,7 @@ class BusGroupDriverVehicleShift(models.Model):
 
     bus_shift_id = fields.Many2one('bus_shift', readonly=True)
     bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line')
-
-    choose_sequence = fields.Integer(related='bus_shift_choose_line_id.sequence')
+    choose_sequence = fields.Integer('Shift Sequence', related='bus_shift_choose_line_id.sequence')
 
     bus_group_vehicle_id = fields.Many2one("bus_group_vehicle")
-    t_sequence = fields.Integer("T Sequence", readonly=True)
+    t_sequence = fields.Integer("Vehicle Sequence", readonly=True)
