@@ -215,7 +215,7 @@
 				<div class="dispatch_desktop dragContent tidClass" tid="">
 					<div class="content">
 					<!--线路信息展示-->
-						<div class="line_info dragArea">
+						<div class="line_info dragAreaDesk">
 							<div class="line_btn">
 								<div class="line_btn_content posR">
 									<a class="min" href="javascript:;" title="最小化">-</a>
@@ -275,7 +275,7 @@
 		<t t-if="widget.dis_desk">
 			<div class="updown_line_table posA dragContent tidClass" t-attf-line_id="#{widget.dis_desk.line_id[0]}" t-attf-tid="#{widget.dis_desk.id}" t-attf-style="left:#{widget.dis_desk.position_left}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index};display:#{widget.dis_desk.tem_display}">
 				<div class="updown_drag">
-					<div class="updown_title dragArea">
+					<div class="updown_title dragAreaDesk">
 						<div class="line_btn">
 							<div class="line_btn_content posR">
 								<a class="min" href="javascript:;" title="删除">×</a>
@@ -345,7 +345,7 @@
 		<t t-else="">
 			<div class="updown_line_table posA dragContent tidClass" tid="">
 				<div class="updown_drag">
-					<div class="updown_title dragArea">
+					<div class="updown_title dragAreaDesk">
 						<div class="line_btn">
 							<div class="line_btn_content posR">
 								<a class="min" href="javascript:;" title="删除">x</a>

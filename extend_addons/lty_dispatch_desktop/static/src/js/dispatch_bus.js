@@ -30,7 +30,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         start: function () {
             var self = this;
-
             function site_info(mode_line, model_top, model_down) {
                 var site_top_infos = [];
                 var site_down_infos = [];
@@ -282,11 +281,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         bus_info: function (e) {
             var car_num = e.target.textContent;
             var line_id = e.delegateTarget.getAttribute("line_id");
+            var zIndex = parseInt(this.$el[0].style.zIndex)
             var options =
                 {
                     x: e.clientX + 5,
                     y: e.clientY + 5,
-                    zIndex: 5,
+                    zIndex: zIndex+1,
                     line_id: line_id,
                     car_num: car_num
                 };
@@ -327,6 +327,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         bus_man_src: function (e) {
             var ev = e || window.event;
+            var zIndex = parseInt(this.$el[0].style.zIndex);
             if (ev.button == 0) {
                 if (!isDrag) {
                     //先把doMouseDownTimmer清除，不然200毫秒后setGragTrue方法还是会被调用的
@@ -336,7 +337,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         {
                             x: ev.clientX + 5,
                             y: ev.clientY + 5,
-                            zIndex: 5,
+                            zIndex: zIndex+1,
                             line_id: line_id,
                         };
                     var abc = new bus_source_config(this, options);
@@ -349,10 +350,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         clickTb: function (canvas, e) {
             var event = e || window.event;
+            stopPropagation(e)
             var c = canvas.self.find(canvas.id)[0];
             var cxt = c.getContext("2d");
             var x = event.pageX - c.getBoundingClientRect().left;
             var y = event.pageY - c.getBoundingClientRect().top;
+            var zIndex = parseInt(this.$el[0].style.zIndex);
             for (var i = 0; i < canvas.dataCir.length; i++) {
                 cxt.beginPath();
                 //渲染参数，x距离,y距离,半径,起始角，结束角，是否顺势针
@@ -421,7 +424,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 {
                                     x: e.clientX + 5,
                                     y: e.clientY + 5,
-                                    zIndex: 5,
+                                    zIndex: zIndex+1,
                                     line_id: canvas.self.attr("tid")
                                 };
                             var dialog = new passenger_flow(this, options);
@@ -437,7 +440,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         {
                                             x: x + 5 + 12 + 26,
                                             y: y + 5 + 55,
-                                            zIndex: 5,
+                                            zIndex: zIndex+1,
                                         };
                                     new bus_site_info(this, options).appendTo(this.$el);
                                     cxt.closePath();
@@ -482,6 +485,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         cursor_pointer_lr: function (canvas, e) {
             var event = e || window.event;
+            stopPropagation(e)
             var c = this.$el.find(canvas.id)[0];
             var cxt = c.getContext("2d");
             var x = event.pageX - c.getBoundingClientRect().left;
@@ -509,13 +513,15 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var cxt = c.getContext("2d");
             var x = event.pageX - c.getBoundingClientRect().left;
             var y = event.pageY - c.getBoundingClientRect().top;
+            var zIndex = parseInt(this.$el[0].style.zIndex);
+            console.log(zIndex);
             cxt.arc(13, 58, 13, 0, 360, false);
             if (cxt.isPointInPath(x, y)) {
                 var options =
                     {
                         x: e.clientX + 5,
                         y: e.clientY + 5,
-                        zIndex: 5,
+                        zIndex: zIndex+1,
                         line_id: this.$el.attr("tid")
                     };
                 var dialog = new plan_display(this, options);

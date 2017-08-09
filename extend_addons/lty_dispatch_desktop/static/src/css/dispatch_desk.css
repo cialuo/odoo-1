@@ -1,3 +1,7 @@
+.back_style{
+    height:100%;
+    background: #1e2335;
+}
 .widget_parent{
     background: #1e2335;
 }
@@ -403,7 +407,6 @@ canvas::selection {
     height: 190px;
     background: #343B58;
     border-radius: 8px;
-    border: 1px solid #9d3d42;
     box-shadow: 0px 0px 10px #9d3d42;
 }
 

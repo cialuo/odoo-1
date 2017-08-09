@@ -83,7 +83,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         start: function () {
             var self = this;
-            self.$el.css({'background':'#1e2335','height':'100%'});
+            self.$el.addClass('back_style');
             self.$el.append(QWeb.render("myConsole"));
             self.model2.query(["line_id"]).filter([["desktop_id", "=", 2]]).all().then(function (data) {
                 var s = [];
@@ -128,7 +128,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                         var id = tidNum[i].getAttribute('tid');
                         var left = tidNum[i].style.left.split('px')[0];
                         var top = tidNum[i].style.top.split('px')[0];
-                        var zIndex = tidNum[i].style.zIndex;
+                        var zIndex = parseInt(tidNum[i].style.zIndex);
                         self.model2.call("write", [parseInt(id),
                             {
                                 'position_left': left,
