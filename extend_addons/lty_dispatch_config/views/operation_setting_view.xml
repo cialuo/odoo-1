@@ -275,7 +275,7 @@
         </record>
 
         <menuitem id="operation_settings_menu" name="Operation settings menu"
-                  parent="scheduling_parameters.setting_root"
+                  parent="scheduling_parameters_setting_root"
                   sequence="10" action="action_operation_config_settings"
         />
     </data>

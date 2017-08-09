@@ -11,10 +11,254 @@
                         <button string="Apply" type="object" name="execute" class="oe_highlight"/>
                         <button string="Cancel" type="object" name="cancel" class="oe_link"/>
                     </header>
-                    <group string="Employee" name="Employee">
+                    <group string="Parameter control" name="Parameter control">
                         <field name="company_id" invisible="1"/>
-                        <field name="work_fee"/>
+
+                        <label for="id" string="Pop-up window settings"/>
+                        <div>
+                            <div>
+                                 <field name="is_show_departure_exception"/>
+                                 <span>is_show_departure_exception</span>
+                            </div>
+
+                            <div>
+                                 <field name="is_show_vehicle_top"/>
+                                 <span>is_show_vehicle_top</span>
+                            </div>
+
+                            <div>
+                                 <field name="is_show_vehicle_dropped"/>
+                                 <span>is_show_vehicle_dropped</span>
+                            </div>
+
+                            <div>
+                                 <field name="is_display_device_exception"/>
+                                 <span>is_display_device_exception</span>
+                            </div>
+
+                            <div>
+                                 <field name="is_show_vehicle_speeding"/>
+                                 <span>is_show_vehicle_speeding</span>
+                            </div>
+
+                            <div>
+                                 <field name="is_show_vehicle_offline"/>
+                                 <span>is_show_vehicle_offline</span>
+                            </div>
+
+                            <div>
+                                 <field name="is_display_switch_door"/>
+                                 <span>is_display_switch_door</span>
+                            </div>
+
+                            <div>
+                                 <field name="is_show_passenger_disputes"/>
+                                 <span>is_show_passenger_disputes</span>
+                            </div>
+
+                            <div>
+                                 <field name="is_show_plans_are_delayed"/>
+                                 <span>is_show_plans_are_delayed</span>
+                            </div>
+
+                            <div>
+                                 <field name="is_show_suspected_down"/>
+                                 <span>is_show_suspected_down</span>
+                            </div>
+
+                            <div>
+                                 <field name="is_show_overspeed"/>
+                                 <span>is_show_overspeed</span>
+                            </div>
+                        </div>
+
+                        <label for="id" string="Pop-up parameters"/>
+                        <div>
+                            <div>
+                                <span>speed_limit(km/h)</span>
+                                <field name="speed_limit" class="oe_inline"/>
+                            </div>
+
+                            <div>
+                                 <field name="is_speeding_automatically_video"/>
+                                 <span>is_speeding_automatically_video</span>
+                            </div>
+
+                            <div>
+                                 <field name="is_alarm_automatically_video"/>
+                                 <span>is_alarm_automatically_video</span>
+                            </div>
+
+                            <div>
+                                 <field name="is_anchor_automatically_video"/>
+                                 <span>is_anchor_automatically_video</span>
+                            </div>
+                        </div>
+
+                        <label for="id" string="Automatic handling of vehicles"/>
+                        <div>
+                            <div>
+                                <field name="is_agree_ask"/>
+                                 <span>is_agree_ask</span>
+                            </div>
+
+                            <div>
+                                <field name="is_attendance_ask"/>
+                                 <span>is_attendance_ask</span>
+                            </div>
+
+                            <div>
+                                <field name="is_unattendance_ask"/>
+                                 <span>is_unattendance_ask</span>
+                            </div>
+
+                        </div>
+
+                        <label for="id" string="Send the plan to the vehicle"/>
+                        <div>
+
+                            <div>
+                                <field name="is_send_plan_to_vehicle"/>
+                                <span>is_send_plan_to_vehicle</span>
+                            </div>
+
+                            <div>
+                                <span>send_plan_advance_time(m)</span>
+                                <field name="send_plan_advance_time" class="oe_inline"/>
+                            </div>
+
+                        </div>
+
+                        <label for="id" string="Exception switch door type selection"/>
+                        <div>
+
+                            <div>
+                                <field name="open_the_door"/>
+                                <span>open_the_door</span>
+                            </div>
+
+                            <div>
+                                <field name="not_closed_the_door"/>
+                                <span>not_closed_the_door</span>
+                            </div>
+
+                            <div>
+                                <field name="out_not_closed_the_door"/>
+                                <span>out_not_closed_the_door</span>
+                            </div>
+
+                            <div>
+                                <field name="non_site_driving_door"/>
+                                <span>non_site_driving_door</span>
+                            </div>
+
+                        </div>
+
+
+                        <label for="id" string="Send a short message to the driver"/>
+                        <div>
+
+                            <div>
+                                <field name="cancel_departure_plan"/>
+                                <span>cancel_departure_plan</span>
+                            </div>
+
+                            <div>
+                                <field name="driver_command"/>
+                                <span>driver_command</span>
+                            </div>
+
+                            <div>
+                                <field name="driver_goes_to_work"/>
+                                <span>driver_goes_to_work</span>
+                            </div>
+
+                            <div>
+                                <field name="driver_checked_out"/>
+                                <span>driver_checked_out</span>
+                            </div>
+
+                            <div>
+                                <field name="driver_short_break"/>
+                                <span>driver_short_break</span>
+                            </div>
+
+                            <div>
+                                <field name="big_station"/>
+                                <span>big_station</span>
+                            </div>
+
+                            <div>
+                                <field name="plan_to_be_delayed"/>
+                                <span>plan_to_be_delayed</span>
+                            </div>
+
+                            <div>
+                                <field name="vehicle_overload"/>
+                                <span>vehicle_overload</span>
+                            </div>
+
+                        </div>
+
+                        <label for="id" string="Automatically handle driver requests"/>
+                        <div>
+
+                            <div>
+                                <field name="start_refueling"/>
+                                <span>start_refueling</span>
+                            </div>
+
+                            <div>
+                                <field name="refueling_ended"/>
+                                <span>refueling_ended</span>
+                            </div>
+
+                            <div>
+                                <field name="start_maintenance"/>
+                                <span>start_maintenance</span>
+                            </div>
+
+                            <div>
+                                <field name="maintenance_ended"/>
+                                <span>maintenance_ended</span>
+                            </div>
+
+                            <div>
+                                <field name="start_release"/>
+                                <span>start_release</span>
+                            </div>
+
+                            <div>
+                                <field name="release_ended"/>
+                                <span>release_ended</span>
+                            </div>
+
+                        </div>
+
                     </group>
+
+                    <group string="Driver command" name="Driver command">
+
+                        <label for="id" string="Manual command control"/>
+                        <div>
+                            <div>
+                                <field name="open_command_window"/>
+                                <span>open_command_window</span>
+                            </div>
+
+                            <div>
+                                <field name="show_processed"/>
+                                <span>show_processed</span>
+                            </div>
+
+                            <div>
+                                <span>command_window_time(s)</span>
+                                <field name="command_window_time" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                    </group>
+
                 </form>
             </field>
         </record>
@@ -28,7 +272,7 @@
         </record>
 
         <menuitem id="dispatch_settings_meun" name="dispatch_settings_meun"
-                  parent="dispatch_monitor_menu.setting_root"
+                  parent="dispatch_monitor_menu_setting_root"
                   sequence="20" action="action_dispatch_config_settings"
         />
     </data>

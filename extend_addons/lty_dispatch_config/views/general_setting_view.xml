@@ -339,7 +339,7 @@
         </record>
 
         <menuitem id="general_settings_meune" name="general_settings_meune"
-                  parent="dispatch_monitor_menu.setting_root"
+                  parent="dispatch_monitor_menu_setting_root"
                   sequence="10" action="action_general_config_settings"
         />
     </data>
