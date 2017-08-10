@@ -275,17 +275,6 @@ class BusWorkRules(models.Model):
                 startTime = startTime + datetime.timedelta(minutes=item.interval)
         return recordslist
 
-        # 上行运营车辆数
-        upworkvehicle = fields.Integer(string="up work vehicle")
-
-        # 下行机动车辆数
-        upbackupvehicle = fields.Integer(string="up backup vehicle")
-
-        # 下行车辆数
-        downworkvehicle = fields.Integer(string="down work vehicle")
-
-        # 下行机动车辆数
-        downbackupvehicle = fields.Integer(string="down backup vehicle")
 
     def createMoveTimeRecord(self, datestr, ruleobj):
         for item in ruleobj:
@@ -705,8 +694,180 @@ class MoveTimeDown(models.Model):
     _inherit = "scheduleplan.movetimeup"
 
 
-class BusMoveExcuteTable(models.Model):
 
+class BusMoveExcuteTable(models.Model):
+    """
+    行车作业执行表
+    """
     _name = "scheduleplan.excutetable"
 
     name = fields.Char(string="excute table name")
+
+    # 线路
+    line_id = fields.Many2one("route_manage.route_manage", string="related line")
+
+    # 状态
+    status = fields.Selection([("draft", "draft"),              # 草稿
+                                ("wait4use", "wait for use"),   # 待使用
+                                ("done", "done"),               # 完成
+                              ], default="wait4use",  string="status")
+
+    # 执行时间
+    excutedate = fields.Date(string="excute date")
+
+    # 首班时间
+    firstruntime = fields.Datetime(string="first run time")
+
+    # 末班时间
+    lastruntime = fields.Datetime(string="last run time")
+
+    # 司机数量
+    drivernum = fields.Integer(string="driver number")
+
+    # 乘务员数量
+    stewardnum = fields.Integer(string="steward number")
+
+    # 上行趟次
+    upmovenum = fields.Integer(string="up move number")
+
+    # 下行趟次
+    downmovenum =  fields.Integer(string="down move number")
+
+    @api.multi
+    def _getTotalMoveNumber(self):
+        for item in self:
+            item.totalmovenum = item.upmovenum + item.downmovenum
+
+    # 总趟次
+    totalmovenum = fields.Integer(compute="_getTotalMoveNumber", string="total move number")
+
+    # 运营车辆
+    workvehiclenum = fields.Integer(string="total work vehicles")
+
+    # 机动车辆
+    backupvehiclenum = fields.Integer(string="back up vehicle num")
+
+    # 上行排班计划
+    upmoveplan = fields.One2many("scheduleplan.execupplanitem", "execplan_id", string="up move plan")
+
+    # 下行排班计划
+    downmoveplan = fields.One2many("scheduleplan.execdownplanitem", "execplan_id", string="down move plan")
+
+    # 出勤司乘
+    motorcyclistsTime = fields.One2many("scheduleplan.motorcyclists", 'execplan_id', string="motorcyclists list")
+
+    # 车辆资源
+    vehicleresource = fields.One2many("scheduleplan.vehicleresource", 'execplan_id', string="vehicle resource")
+
+class ExecUpPlanItem(models.Model):
+    """
+    作业执行表 上行排班计划
+    """
+    _name = "scheduleplan.execupplanitem"
+
+    execplan_id = fields.Many2one("scheduleplan.excutetable")
+
+    # 序号
+    seq_id = fields.Integer(string="sequence id")
+
+    # 车辆编号
+    vehiclecode = fields.Char(string="vehicle code number")
+
+    # 司机
+    driver = fields.Many2one("hr.employee", string="dirver")
+
+    # 乘务员
+    steward = fields.Many2one("hr.employee", string="steward")
+
+    # 发车时间
+    starttim = fields.Datetime(string="start move time")
+
+    # 到达时间
+    arrivetime = fields.Datetime(string="arrive time")
+
+    # 时长 分钟记
+    timelenght = fields.Integer(string="time length (min)")
+
+    # 里程
+    mileage = fields.Integer(string="mileage number")
+
+    # 线路
+    line_id = fields.Many2one("route_manage.route_manage", string="related line")
+
+
+class ExecDownPlanItem(models.Model):
+    """
+    作业执行表 下行排班计划
+    """
+
+    _name = "scheduleplan.execdownplanitem"
+
+    _inherit = "scheduleplan.execupplanitem"
+
+
+class MotorcyclistsTime(models.Model):
+
+    """
+    出勤司乘
+    """
+
+    _name = "scheduleplan.motorcyclists"
+
+    execplan_id = fields.Many2one("scheduleplan.excutetable")
+
+    employee_id = fields.Many2one("hr.employee", string="emplyee id")
+
+    # 日期
+    worktime = fields.Date(string="work date")
+
+    # 车辆编号
+    vehiclecode = fields.Char(string="vehicle code number")
+
+    # 职务
+    title = fields.Selection([("driver", "driver"),          # 司机
+                                     ("steward", "steward"),        # 乘务员
+                                    ],  string="work title")
+
+    # 工号
+    employee_sn = fields.Char(related="employee_id.jobnumber", string="employee sn number")
+
+    # 上班时间
+    checkintime = fields.Datetime(string="check in time")
+
+    # 实际发车时间
+    realworkstart = fields.Datetime(string="real work start time")
+
+    # 实际收车时间
+    realworkdone = fields.Datetime(string="real work done time")
+
+    # 下班时间
+    checkouttime = fields.Datetime(string="check out time")
+
+    # 工作时长（小时）
+    worktimelength = fields.Float(string="work time lenght(hour)")
+
+    # 运营时长（小时）
+    workrealtimelength = fields.Float(string="work real time length(hour)")
+
+
+class VehicleResource(models.Model):
+
+    """
+    车辆资源
+    """
+
+    _name = "scheduleplan.vehicleresource"
+
+    execplan_id = fields.Many2one("scheduleplan.excutetable")
+
+    # 车辆编号
+    vehiclecode = fields.Char(string="vehicle code number")
+
+    # 首班发车时间
+    firstmovetime = fields.Datetime(string="first move time")
+
+    # 末班发车时间
+    lastmovetime = fields.Datetime(string="last move time")
+
+    # 运营时长
+    worktimelength = fields.Float(string="work time length")
