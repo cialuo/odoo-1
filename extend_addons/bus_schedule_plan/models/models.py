@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+import datetime
 
 class RouteInBusSchedule(models.Model):
 
@@ -63,6 +64,7 @@ class BusWorkRules(models.Model):
 
     name = fields.Char(string="rule name")
 
+    # 线路
     line_id = fields.Many2one("route_manage.route_manage", string="related line", readonly=True)
 
     def _defaultType(self):
@@ -130,10 +132,9 @@ class BusWorkRules(models.Model):
     # 大站设置 下行
     bigsite_down = fields.One2many("scheduleplan.bigsitesetdown", "rule_id",string="big site down")
 
-    # 公交类型
-    bus_type = fields.Selection([('regular_bus', 'regular_bus'),
-                                 ('custom_bus', 'custom_bus')],
-                                default='regular_bus', string='bus_type', required=True)
+    # 日期类型
+    date_type = fields.Many2one("bus_date_type", string="bus date type", required=True)
+
 
     @staticmethod
     def _validateVehicleNums(obj):
@@ -148,18 +149,186 @@ class BusWorkRules(models.Model):
             raise ValidationError(_("vechile count large then vehicle number"))
 
 
+    @staticmethod
+    def _validate_sqenum(datalist):
+        """
+        验证序号为单调递增 且增量为1
+        """
+        for i in range(1, len(datalist)):
+            if (datalist[i].seqid - datalist[i-1].seqid) != 1:
+                raise ValidationError(_("difference bettwen two sequence number must be 1"))
+
+    @staticmethod
+    def _validate_startendtime(datalist, start, end):
+        if datalist[0].starttime != start or datalist[-1].endtime != end:
+            raise ValidationError(_("start and end time not match"))
+
+    @staticmethod
+    def _validateTimeContinuity(datalist):
+        """
+        验证排班时间的连续性
+        """
+        for i in range(1, len(datalist)):
+            if datalist[i].starttime != datalist[i-1].endtime:
+                raise ValidationError(_("time arrange must have continuity"))
+
+
+    @staticmethod
+    def _validate(dataList, startTime, endTime, type):
+        if len(dataList) <= 0:
+            return
+        newlist = sorted(dataList, key=lambda k: k.seqid)
+        BusWorkRules._validate_sqenum(newlist)
+        BusWorkRules._validate_startendtime(newlist, startTime, endTime)
+        BusWorkRules._validateTimeContinuity(newlist)
+
+    @staticmethod
+    def _validate_scheduleplan(obj):
+        """
+        验证发车规则是否正确
+        """
+        if obj.schedule_method == "singleway":
+            BusWorkRules._validate(obj.uptimearrange, obj.upfirsttime, obj.uplasttime, "singleway")
+        elif obj.schedule_method == "dubleway":
+            BusWorkRules._validate(obj.uptimearrange, obj.upfirsttime, obj.uplasttime, "dubleway")
+            BusWorkRules._validate(obj.downtimearrange, obj.downfirsttime, obj.downlasttime, "dubleway")
+
+
     @api.model
     def create(self, vals):
         res = super(BusWorkRules, self).create(vals)
         self._validateVehicleNums(res)
+        self._validate_scheduleplan(res)
         return res
 
     @api.multi
     def write(self, vals):
         res = super(BusWorkRules, self).write(vals)
         self._validateVehicleNums(self)
+        self._validate_scheduleplan(self)
         return res
 
+    @staticmethod
+    def targetDate(offset):
+        """
+        获取要计算的目标日期
+        offset 为一个整数 为相对于今天的偏移量
+        比如 计算明天 offset 就是 1 后天 offset就是2 昨天 offset就是-1
+        """
+        today = datetime.datetime.today()
+        timedelta = datetime.timedelta(days=offset)
+        return today + timedelta
+
+    @staticmethod
+    def mapWeekDayStr(daynumber):
+        """
+        将星期id转换为本系统的日期类型
+        """
+        mapdic = {
+            0: "Monday",
+            1: "Tuesday",
+            2: "Wednesday",
+            3: "Thursday",
+            4: "Friday",
+            5: "Saturday",
+            6: "Sunday"
+        }
+
+        return mapdic[daynumber]
+
+    @staticmethod
+    def formatDateStr(dateobj):
+        """
+        格式化日期
+        """
+        return dateobj.strftime("%Y-%m-%d")
+
+    def genTimeRecords(self, rulelist, datestr, startstation, endstation, lineid, mileage):
+        sortedRuleList = sorted(rulelist, key=lambda k: k.seqid)
+        recordslist = []
+        startTimeStr = datestr + ' ' + sortedRuleList[0].starttime + ":00"
+        timeFormatStr = "%Y-%m-%d %H:%M:%S"
+        startTime = datetime.datetime.strptime(startTimeStr, timeFormatStr)
+        markpoints = []
+        for item in sortedRuleList:
+            markpoints.append((item.interval, datetime.datetime.strptime(datestr + ' ' + item.endtime + ":00", timeFormatStr)))
+        seqcounter = 0
+        for index, item in enumerate(sortedRuleList):
+            while startTime <= markpoints[index][1]:
+                seqcounter += 1
+                data = {
+                    'seqid' : seqcounter,
+                    'startmovetime' : startTime-datetime.timedelta(hours=8),
+                    'arrive_time' : startTime + datetime.timedelta(minutes=item.worktimelength)-datetime.timedelta(hours=8),
+                    'timelength' : item.worktimelength,
+                    'mileage' : mileage,
+                    'line_id' : lineid.id,
+                    'start_site' : startstation.id,
+                    'end_site' : endstation.id
+                }
+                recordslist.append((0, 0, data))
+                startTime = startTime + datetime.timedelta(minutes=item.interval)
+        return recordslist
+
+    def createMoveTimeRecord(self, datestr, ruleobj):
+        for item in ruleobj:
+            movetimerecord = {
+                'line_id' : item.line_id.id,
+                'rule_id' : item.id,
+                'vehiclenums' : 0,
+                'backupvehicles' : 0,
+                'executedate' : datestr,
+                'schedule_method' : item.schedule_method
+            }
+            vehiclenums = 0
+            backupvehicles = 0
+            if item.schedule_method == 'singleway':
+                for i in item.upplanvehiclearrange:
+                    vehiclenums += i.workingnumber
+                    backupvehicles += i.backupnumber
+                    timerecords = self.genTimeRecords(item.uptimearrange, datestr, item.upstation, item.upstation,
+                                                      item.line_id, item.mileage)
+                    movetimerecord['uptimeslist'] = timerecords
+            elif item.schedule_method == 'dubleway':
+                for i in item.upplanvehiclearrange:
+                    vehiclenums += i.workingnumber
+                    backupvehicles += i.backupnumber
+                for i in item.downplanvehiclearrange:
+                    vehiclenums += i.workingnumber
+                    backupvehicles += i.backupnumber
+                uptimerecords = self.genTimeRecords(item.uptimearrange, datestr, item.upstation, item.downstation,
+                                                        item.line_id, item.mileage)
+                downtimerecords = self.genTimeRecords(item.downtimearrange, datestr, item.downstation,
+                                                          item.upstation, item.line_id, item.mileage)
+                movetimerecord['uptimeslist'] = uptimerecords
+                movetimerecord['downtimeslist'] = downtimerecords
+
+            movetimerecord['vehiclenums'] = vehiclenums
+            movetimerecord['backupvehicles'] = backupvehicles
+            self.env['scheduleplan.busmovetime'].create(movetimerecord)
+
+    def createMoveTimeTable(self):
+        """
+        生成行车时刻表
+        """
+        rulemode = self.env['scheduleplan.schedulrule']
+        datetypemode = self.env['bus_date_type']
+        tomorrow = BusWorkRules.targetDate(1)
+        x = tomorrow.weekday()
+        tomorrow_type = BusWorkRules.mapWeekDayStr(tomorrow.weekday())
+        tomorrow_str = BusWorkRules.formatDateStr(tomorrow)
+        condition = [
+            ("start_date", '<=', tomorrow_str), ("end_date", '>=', tomorrow_str),
+            '|', ("type", '=', tomorrow_type), ("type", '=', "Vacation")
+        ]
+        result = datetypemode.search(condition, order='priority desc', limit=1)
+
+        if len(result) <= 0:
+            return
+        datatype = result[0]
+        rulelist = rulemode.search([("date_type", '=', datatype.id)])
+        for item in rulelist:
+            self.createMoveTimeRecord(tomorrow_str, item)
 
 
 class RuleBusArrangeUp(models.Model):
@@ -202,13 +371,16 @@ class ToUp(models.Model):
     rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule")
 
     # 开始时间
-    starttime = fields.Char(string="start time")
+    starttime = fields.Char(string="start time", required=True)
+
+    # 发车次序id
+    seqid = fields.Integer(string="sequence id", required=True)
 
     # 结束时间
-    endtime = fields.Char(string="end time")
+    endtime = fields.Char(string="end time", required=True)
 
     # 间隔
-    interval = fields.Integer(string="interval")
+    interval = fields.Integer(string="interval", required=True)
 
     # 车速
     speed = fields.Float(string="vehicle speed")
@@ -233,6 +405,12 @@ class ToUp(models.Model):
 
     # 跨天
     spanday = fields.Boolean(string="span day")
+
+    @api.one
+    @api.constrains('interval')
+    def _check_interval(self):
+        if self.interval <= 0:
+            raise ValidationError(_("interval must be an positive integer"))
 
 
 class RuleBusArrangeDown(models.Model):
@@ -296,9 +474,13 @@ class BigSiteSettingsDown(models.Model):
 
 class BusMoveTimeTable(models.Model):
 
+    """
+    行车时刻表
+    """
+
     _name = "scheduleplan.busmovetime"
 
-    name = fields.Char(string="table name")
+    name = fields.Char(string="record name")
 
     # 关联线路
     line_id = fields.Many2one("route_manage.route_manage", string="related line", readonly=True)
@@ -315,6 +497,59 @@ class BusMoveTimeTable(models.Model):
     # 执行时间
     executedate = fields.Date(string="excute date")
 
+    # 调车方式
+    schedule_method = fields.Selection([("singleway", "single way"),  # 单头调
+                                        ("dubleway", "dubleway"),  # 双头调
+                                        ], default="singleway", string="schedule method", required=True)
+
+    # 计划趟次
+    plan_totaltimes = fields.Integer(string="plan total times")
+
+    # 实际趟次
+    real_times = fields.Integer(string="real total times")
+
+    # 上行发车时间安排
+    uptimeslist = fields.One2many("scheduleplan.movetimeup", "movetimetable_id", string="up times arrange")
+
+    # 下行发车时间安排
+    downtimeslist = fields.One2many("scheduleplan.movetimedown", "movetimetable_id", string="down times arrange")
+
+class MoveTimeUP(models.Model):
+
+    _name = "scheduleplan.movetimeup"
+
+    movetimetable_id = fields.Many2one("scheduleplan.busmovetime")
+
+    # 序号
+    seqid = fields.Integer(string="sequence id")
+
+    # 发车时间
+    startmovetime = fields.Datetime(string="start move time")
+
+    # 到达时间
+    arrive_time = fields.Datetime(string="arrive time")
+
+    # 时长
+    timelength = fields.Integer(string="move time length")
+
+    # 里程
+    mileage = fields.Integer(string="move mile age")
+
+    # 线路
+    line_id = fields.Many2one("route_manage.route_manage", string="related line")
+
+    # 起始站点
+    start_site = fields.Many2one("opertation_resources_station", string="start site")
+
+    # 结束站点
+    end_site = fields.Many2one("opertation_resources_station", string="end site")
+
+
+class MoveTimeDown(models.Model):
+
+    _name = "scheduleplan.movetimedown"
+
+    _inherit = "scheduleplan.movetimeup"
 
 
 class BusMoveExcuteTable(models.Model):
@@ -322,7 +557,3 @@ class BusMoveExcuteTable(models.Model):
     _name = "scheduleplan.excutetable"
 
     name = fields.Char(string="excute table name")
-
-
-
-    
