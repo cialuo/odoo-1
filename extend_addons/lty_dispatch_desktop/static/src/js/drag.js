@@ -34,7 +34,6 @@ function drag(oDrag, handle, maxL, maxT) {
             var event = event || window.event;
             var iL = event.clientX - disX;
             var iT = event.clientY - disY;
-            console.log(maxL)
             if (maxL) {
                 var maxdL = maxL;
             } else {
@@ -88,9 +87,7 @@ function dragFn(parent, title, maxL, maxT) {
         }
     });
     $("body").on('mousedown', p_class, function (e) {
-        if (k != $(this).css('z-index') || k == 0) {
-            k++;
-        }
+        k++;
         var oDrag = $(this)[0];
         oDrag.style.zIndex = k;
     });
@@ -99,7 +96,6 @@ function dragFn(parent, title, maxL, maxT) {
     }
 
     $("body").on('mousedown', c_class, function () {
-
         isDrag = false;
         timmerHandle = setTimeout(setDragTrue, 200);
     });
