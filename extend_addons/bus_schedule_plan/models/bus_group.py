@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, _
 import datetime
+from datetime import timedelta
 
 
 class BusGroup(models.Model):
@@ -35,7 +36,8 @@ class BusGroup(models.Model):
 
     bus_shift_id = fields.Many2one('bus_shift', required=True)
 
-    driver_vehicle_shift_ids = fields.One2many('bus_group_driver_vehicle_shift', 'group_id')
+    driver_vehicle_shift_ids = fields.One2many('bus_group_driver_vehicle_shift', 'group_id',
+                                               domain=[('active', '=', True)])
 
     is_not_match = fields.Boolean(default=False, compute='check_vehicle_is_match')
     not_match_reason = fields.Text(compute='check_vehicle_is_match')
@@ -48,55 +50,7 @@ class BusGroup(models.Model):
     @api.multi
     def action_test1(self):
 
-        res = self.env['bus_staff_group'].search([('name','=',self.route_id.lineName+ '/' + str(datetime.date.today()))])
-        if res:
-            res.unlink()
-
-        res_group_shift = self.env['bus_group_driver_vehicle_shift'].read_group(
-            [('use_date', '=', '2017-08-05'),
-             ('t_sequence', '>', 0),
-             ('route_id', '=', self.route_id.id)],
-            ['t_sequence'],
-            groupby=['t_sequence'], orderby='t_sequence')
-
-        print res_group_shift
-        print len(res_group_shift)
-        datas = []
-        k = 3
-        for j in res_group_shift:
-            res_vehicles = self.env['bus_group_driver_vehicle_shift'].search(j['__domain'])
-            print res_vehicles
-            sequence = 0
-            data_d_c = []
-            for m in res_vehicles:
-                sequence += 1
-                vals_ve = {
-                    'group_id':m.group_id.id,
-                    "driver_id": m.driver_id.id,
-                    "conductor_id": m.conductor_id.id or None,
-                    'bus_shift_id': m.bus_shift_id.id,
-                    'bus_shift_choose_line_id': m.bus_shift_choose_line_id.id,
-                    "sequence": sequence
-                }
-                data_d_c.append((0, 0, vals_ve))
-
-            print 444444444444444444444,data_d_c
-
-            vals = {
-                "route_id": res_vehicles[0].route_id.id,
-                'vehicle_id': res_vehicles[0].bus_group_vehicle_id.vehicle_id.id,
-                'operation_state': 'flexible',
-                'sequence': res_vehicles[0].t_sequence,
-                'bus_group_id': res_vehicles[0].group_id.id,
-                'staff_line_ids': data_d_c
-            }
-            if res_vehicles[0].t_sequence <= k:
-                vals.update({'operation_state': 'operation'})
-                datas.append((0, 0, vals))
-        print datas
-        self.env['bus_staff_group'].create({'vehicle_line_ids':datas,
-                                            'route_id':self.route_id.id,
-                                            'lineName':self.route_id.lineName})
+        self.env['bus_staff_group'].action_gen_staff_group(self.route_id)
 
 
     @api.multi
@@ -105,181 +59,8 @@ class BusGroup(models.Model):
         1.大轮换
         2.车辆轮趟算法
         3.轮班算法
-
         """
-
-        res = self.env['bus_group_driver_vehicle_shift'].search([('route_id','=',self.route_id.id),
-                                                                 ('use_date','=','2017-08-05')])
-
-        for i in res:
-            i.unlink()
-
-        res_se = self.env['bus_group_driver_vehicle_shift'].read_group(
-            [('use_date', '=', '2017-08-04'),
-             ('route_id', '=', self.route_id.id)],
-            ['t_sequence'], ['t_sequence']) #查出所有的组
-        old_list = []
-        for i in res_se:
-            if i['t_sequence'] == 0:
-                continue
-            old_list.append(i['t_sequence'])
-        new_list = sorted(old_list, reverse=True)
-
-        res_group_shift = self.env['bus_group_driver_vehicle_shift'].read_group(
-            [('use_date', '=', '2017-08-04'),
-             ('route_id', '=', self.route_id.id)],
-            ['group_id'],
-            groupby=['group_id'])
-
-        old_group_dict = {}
-        new_group_dict = {}
-        for j in res_group_shift:
-            # if not j['bus_group_vehicle_id']:
-            #     continue
-            res_vehicles = self.env['bus_group_driver_vehicle_shift'].search(j['__domain'])
-
-            group_seq = []
-            for i in res_vehicles:
-                if i.t_sequence == 0:
-                    continue
-                group_seq.append(i.t_sequence)
-            old_group_dict[j['group_id'][0]] = list(set(group_seq))
-            new_group_dict[j['group_id'][0]] = []
-        # print old_group_dict
-        # print new_group_dict
-
-
-        """   大轮换 start   """
-
-        is_big = True
-        if is_big:
-            xyz = zip(old_list, new_list)
-            datas = []
-            # for j in xyz:
-            for k, v in old_group_dict.iteritems():
-                tmp = []
-                for m in v:
-                    tmp.append(new_list[old_list.index(m)])
-                new_group_dict[k] = tmp
-
-        """   大轮换 end   """
-
-
-
-        """   车辆轮班算法 start  """
-
-        new_group_dict_driver = {}
-        for k, v in new_group_dict.iteritems():
-
-            s_res = self.env['bus_group'].search([('id','=',k)])
-            cycle = s_res[0].bus_driver_algorithm_id.cycle
-            direction = s_res[0].bus_driver_algorithm_id.direction
-
-            bus_driver_algorithm_date = s_res[0].bus_driver_algorithm_date
-            bus_driver_algorithm_date = datetime.datetime.strptime(bus_driver_algorithm_date, "%Y-%m-%d")
-            end_date = datetime.datetime.strptime(str(datetime.date.today()), "%Y-%m-%d")
-            if cycle > 0:
-                if (end_date - bus_driver_algorithm_date).days >= cycle:
-
-                    def leftMove2(list, step):
-                        l = list[:step]
-                        for m in range(step, len(list)):
-                            list[m - step] = list[m]
-                        list[len(list) - step:] = l
-                        return list
-
-                    if direction == 'positive': #negative
-                        b = v.pop()
-                        v.insert(0, b)
-                    else:
-                        v = leftMove2(v, 1)
-            new_group_dict_driver[k] = v
-
-        for k, v in new_group_dict.iteritems():
-            s_res = self.env['bus_group'].search([('id','=',k)])
-            cycle = s_res[0].bus_algorithm_id.cycle
-            direction = s_res[0].bus_algorithm_id.direction
-            bus_algorithm_date = s_res[0].bus_driver_algorithm_date
-
-            bus_algorithm_date = datetime.datetime.strptime(bus_algorithm_date, "%Y-%m-%d")
-            end_date = datetime.datetime.strptime(str(datetime.date.today()), "%Y-%m-%d")
-
-            res_group_s = self.env['bus_group_driver_vehicle_shift'].search(
-                [('route_id', '=', self.route_id.id),
-                 ('use_date', '=', '2017-08-04'),
-                 ('group_id', '=', k)])
-
-            shift_list = res_group_s.mapped('choose_sequence')
-
-            old_shift_list = shift_list[:]
-
-            if cycle > 0:
-                if (end_date - bus_algorithm_date).days >= cycle:
-                    def leftMove2(list, step):
-                        l = list[:step]
-                        for m in range(step, len(list)):
-                            list[m - step] = list[m]
-                        list[len(list) - step:] = l
-                        return list
-
-                    if direction == 'positive': #negative
-                        b = shift_list.pop()
-                        shift_list.insert(0, b)
-                    else:
-                        shift_list = leftMove2(shift_list, 1)
-
-            res_group_shift_yest = self.env['bus_group_driver_vehicle_shift'].search(
-                            [('use_date', '=', '2017-08-04'),
-                             ('route_id', '=', self.route_id.id),
-                             ('group_id', '=', k)
-                 ])
-
-            count = 0
-            for j in res_group_shift_yest:
-                new_choose_sequence = shift_list[count]
-                bus_shift_choose_line_id = None
-                if new_choose_sequence>0:
-                    bus_shift_choose_line = s_res[0].bus_shift_id.shift_line_ids.filtered(lambda x: x.sequence == new_choose_sequence)
-                    bus_shift_choose_line_id = bus_shift_choose_line.id
-
-                data = {
-                    'sequence': j.sequence,
-                    'use_date': '2017-08-05',
-                    'group_id': j.group_id.id,
-                    'driver_id': j.driver_id.id,
-                    'conductor_id': j.conductor_id.id,
-
-                    # 't_sequence': new_t_sequence ,
-                    # 'bus_group_vehicle_id': j.bus_group_vehicle_id.id,
-
-                    'bus_shift_id': j.bus_shift_id.id,
-                    'bus_shift_choose_line_id': bus_shift_choose_line_id or None,
-
-                }
-                self.env['bus_group_driver_vehicle_shift'].create(data)
-                count += 1
-            res_group_shift_today = self.env['bus_group_driver_vehicle_shift'].search(
-                [('use_date', '=', '2017-08-05'),
-                 ('route_id', '=', self.route_id.id),
-                 ('group_id', '=', k)
-                 ])
-            for i in res_group_shift_today.mapped('bus_shift_choose_line_id').ids:
-
-                res_group_shift_today_s = self.env['bus_group_driver_vehicle_shift'].search(
-                    [('use_date', '=', '2017-08-05'),
-                     ('route_id', '=', self.route_id.id),
-                     ('group_id', '=', k),
-                     ('bus_shift_choose_line_id', '=', i),
-                     ])
-
-                for m in zip(res_group_shift_today_s,old_group_dict[k]):
-                    new_t_sequence = new_group_dict_driver[k][old_group_dict[k].index(m[1])]
-                    data = {
-                        't_sequence': new_t_sequence ,
-                        'bus_group_vehicle_id': res_group_s.filtered(lambda x: x.t_sequence == m[1])[0].bus_group_vehicle_id.id
-                        }
-                    m[0].write(data)
-
+        self.env['bus_group_driver_vehicle_shift'].scheduler_vehicle_shift(self.route_id.id)
 
 
 
@@ -399,11 +180,9 @@ class BusGroupVehicle(models.Model):
 
     _sql_constraints = [
         ('record_unique', 'unique(route_id,vehicle_id)', _('The route and vehicle must be unique!')),
-        # ('sequence_unique', 'unique(sequence,route_id)', _('The sequence must be unique!'))
     ]
 
     bus_group_id = fields.Many2one('bus_group', ondelete='cascade')
-    # sequence = fields.Integer("Station Sequence", default=0, readonly=True)
     route_id = fields.Many2one('route_manage.route_manage')
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True,
                                  domain="[('route_id','=',route_id)]")
@@ -411,21 +190,6 @@ class BusGroupVehicle(models.Model):
                                    readonly=True, copy=False)
     ride_number = fields.Integer('Ride Number', related='vehicle_id.ride_number', readonly=True)
     state = fields.Selection(related='vehicle_id.state', readonly=True, string="Vehicle State")
-
-    # @api.model
-    # def create(self, data):
-    #     """
-    #         功能：序号自增长
-    #     """
-    #     if data.get('sequence', 0) and 'route_id' in data:
-    #         res = self.env['bus_group'].search([('route_id', '=', data['route_id'])])
-    #         lists = []
-    #         for k in res:
-    #             lists += k.vehicle_ids.mapped('vehicle_id').ids
-    #         data['sequence'] = len(lists) + 1
-    #     print data['sequence']
-    #     res = super(BusGroupVehicle, self).create(data)
-    #     return res
 
 
 class BusGroupDriver(models.Model):
@@ -477,3 +241,195 @@ class BusGroupDriverVehicleShift(models.Model):
 
     bus_group_vehicle_id = fields.Many2one("bus_group_vehicle")
     t_sequence = fields.Integer("Vehicle Sequence", readonly=True)
+    active = fields.Boolean(default=True)
+
+
+
+    @api.model
+    def scheduler_vehicle_shift(self, route_id=None, use_date=str(datetime.date.today())):
+        """
+        1，查询出所有的线路
+        2，查询出线路对应的所有班组及线路是否需要大轮换
+        3，查询出班组的车辆轮趟算法 司乘轮班算法
+        4，查询人车配班前一天的所有数据
+        5，根据前面2，3，4的条件生成今天的人车配班数据
+        :return:
+        """
+        domain = []
+
+        if route_id:
+            domain = [('route_id', '=', route_id)]
+
+        res = self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', route_id),
+                                                                 ('use_date', '<', use_date)])
+
+        if res:
+            res.write({'active': False})
+
+        routes = self.env['bus_group'].read_group(domain, ['route_id'], groupby=['route_id'])
+        print routes
+        for i in routes:
+            res_groups = self.env['bus_group'].search(i['__domain']) #线路下面所有的组
+            if not res_groups:
+                continue
+            is_big_rotation = res_groups[0].route_id.is_big_rotation
+            rotation_cycle = res_groups[0].route_id.rotation_cycle
+            last_rotation_date = res_groups[0].route_id.last_rotation_date
+            # use_date = str(datetime.date.today())
+
+            next_use_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") + timedelta(days=1)
+            route_id = res_groups[0].route_id.id
+
+            res = self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', route_id),
+                                                                     ('use_date', '=', next_use_date)])
+
+            for m in res:
+                m.unlink()
+
+
+            res_seq = self.env['bus_group_driver_vehicle_shift'].search(
+                                                                [('use_date', '=', use_date),
+                                                                 ('route_id', '=', route_id),
+                                                                 ('t_sequence', '!=', 0)]).mapped('t_sequence')
+            old_t_sequence_list = list(set(res_seq))  #线路内原始顺序
+            new_t_sequence_list = sorted(old_t_sequence_list, reverse=True) #线路内逆顺序
+
+            old_group_dict = {}
+            new_group_dict = {}
+            for j in res_groups:
+                group_seq = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '=', use_date),
+                                                                            ('route_id', '=', route_id),
+                                                                            ('t_sequence', '!=', 0),
+                                                                            ('group_id', '=', j.id),]).mapped('t_sequence')
+
+                old_group_dict[j.id] = list(set(group_seq))
+                new_group_dict[j.id] = []
+            print '线路下所有的组 原始顺序',old_t_sequence_list
+            print '线路下所有的组 逆顺序',new_t_sequence_list
+            print '线路下所有的组 车辆顺序 分组 顺序',old_group_dict
+            print '线路下所有的组 车辆顺序 分组 新顺序',new_group_dict
+
+            """
+            大轮换 start
+            """
+            last_rotation_date = datetime.datetime.strptime(last_rotation_date, "%Y-%m-%d")
+            is_big_rotation = True
+
+            if is_big_rotation and (next_use_date - last_rotation_date).days >= rotation_cycle:
+                for k, v in old_group_dict.iteritems():
+                    tmp = []
+                    for m in v:
+                        tmp.append(new_t_sequence_list[old_t_sequence_list.index(m)])
+                    new_group_dict[k] = tmp
+            print '线路下所有的组 车辆顺序 分组 大轮换后 新顺序' ,new_group_dict
+
+            '''车辆轮趟算法'''
+            new_group_dict_vehicle = {}
+            for k, v in new_group_dict.iteritems():
+                bus_group_res = self.env['bus_group'].search([('id', '=', k)])
+
+                cycle = bus_group_res[0].bus_algorithm_id.cycle
+                direction = bus_group_res[0].bus_algorithm_id.direction
+                bus_algorithm_date = datetime.datetime.strptime(bus_group_res[0].bus_algorithm_date, "%Y-%m-%d")
+
+                if cycle > 0:
+                    if (next_use_date - bus_algorithm_date).days >= cycle:
+                        def leftMove2(list, step):
+                            l = list[:step]
+                            for m in range(step, len(list)):
+                                list[m - step] = list[m]
+                            list[len(list) - step:] = l
+                            return list
+
+                        if direction == 'positive' and v:  # negative
+                            b = v.pop()
+                            v.insert(0, b)
+                        else:                     #向后移
+                            v = leftMove2(v, 1)
+                new_group_dict_vehicle[k] = v
+            print '线路下所有的组 车辆顺序 分组 大轮换后 新顺序', new_group_dict
+            print '线路下所有的组 车辆顺序 分组 车辆轮趟算法 新顺序', new_group_dict_vehicle
+
+            '''司机轮班算法'''
+            for k, v in new_group_dict.iteritems():
+                bus_group_res = self.env['bus_group'].search([('id', '=', k)])
+                driver_cycle = bus_group_res[0].bus_driver_algorithm_id.cycle
+                driver_direction = bus_group_res[0].bus_driver_algorithm_id.direction
+                bus_driver_algorithm_date = datetime.datetime.strptime(bus_group_res[0].bus_driver_algorithm_date, "%Y-%m-%d")
+
+                res_group_shift = self.env['bus_group_driver_vehicle_shift'].search(
+                    [('route_id', '=', route_id),
+                     ('use_date', '=', use_date),
+                     ('group_id', '=', k)])
+
+                shift_list = res_group_shift.mapped('choose_sequence')
+                old_shift_list = shift_list[:]
+
+                if driver_cycle > 0:
+                    if (next_use_date - bus_driver_algorithm_date).days >= driver_cycle:
+                        def leftMove2(list, step):
+                            l = list[:step]
+                            for m in range(step, len(list)):
+                                list[m - step] = list[m]
+                            list[len(list) - step:] = l
+                            return list
+
+                        if direction == 'positive' and shift_list:  # negative
+                            b = shift_list.pop()
+                            shift_list.insert(0, b)
+                        else:
+                            shift_list = leftMove2(shift_list, 1)
+
+                print '线路下所有的组 车辆顺序 分组 司机轮班算法 班次顺序', k,old_shift_list
+                print '线路下所有的组 车辆顺序 分组 司机轮班算法 新班次顺序顺序', k,shift_list
+
+                count = 0
+                for j in res_group_shift:  #根据前一天的人车配班的数据生成明天的数据 ，根据轮班算法 更新班次
+                    new_choose_sequence = shift_list[count]
+                    bus_shift_choose_line_id = None
+                    if new_choose_sequence > 0:
+                        bus_shift_choose_line = bus_group_res[0].bus_shift_id.shift_line_ids.filtered(
+                            lambda x: x.sequence == new_choose_sequence)
+                        bus_shift_choose_line_id = bus_shift_choose_line.id   #获取新的班次
+                    next_use_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") + timedelta(days=1)
+                    data = {
+                        'sequence': j.sequence,
+                        'use_date': next_use_date,
+                        'group_id': j.group_id.id,
+                        'driver_id': j.driver_id.id,
+                        'conductor_id': j.conductor_id.id,
+                        'bus_shift_id': j.bus_shift_id.id,
+                        'bus_shift_choose_line_id': bus_shift_choose_line_id or None,
+
+                    }
+                    self.env['bus_group_driver_vehicle_shift'].create(data)
+                    count += 1
+
+                res_group_shift_next_day = self.env['bus_group_driver_vehicle_shift'].search(
+                    [('use_date', '=', next_use_date),
+                     ('route_id', '=', route_id),
+                     ('group_id', '=', k)
+                     ])  #获取生成的下一天的数据
+                print res_group_shift_next_day
+                for i in res_group_shift_next_day.mapped('bus_shift_choose_line_id').ids:  #根据班次的数量 配置车辆和车序
+                    res_group_shift_line = self.env['bus_group_driver_vehicle_shift'].search(
+                        [('use_date', '=', next_use_date),
+                         ('route_id', '=', route_id),
+                         ('group_id', '=', k),
+                         ('bus_shift_choose_line_id', '=', i),
+                         ])
+                    print res_group_shift_line,old_group_dict[k]
+                    for m in zip(res_group_shift_line, old_group_dict[k]):
+                        new_t_sequence = new_group_dict_vehicle[k][old_group_dict[k].index(m[1])]
+                        data = {
+                            't_sequence': new_t_sequence,
+                            'bus_group_vehicle_id': res_group_shift.filtered(lambda x: x.t_sequence == m[1])[
+                                0].bus_group_vehicle_id.id
+                        }
+
+                        m[0].write(data)
+
+
+    @api.model
+    def run_scheduler(self):
+        self.scheduler_vehicle_shift()

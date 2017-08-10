@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, exceptions, _
 import datetime
+from datetime import timedelta
 
 
 class BusStaffGroup(models.Model):
@@ -15,18 +16,11 @@ class BusStaffGroup(models.Model):
     name = fields.Char("Staff Group Name", default="/")
     route_id = fields.Many2one('route_manage.route_manage', required=True)
     lineName = fields.Char(related="route_id.lineName")
-    # bus_algorithm_id = fields.Many2one('bus_algorithm', required=True)
-    # bus_algorithm_date = fields.Date()
-    # bus_driver_algorithm_id = fields.Many2one('bus_driver_algorithm', required=True)
-    # bus_driver_algorithm_date = fields.Date()
-
-    # bus_shift_id = fields.Many2one('bus_shift', required=True)
 
     vehicle_line_ids = fields.One2many('bus_staff_group_vehicle_line', 'staff_group_id')
 
     vehicle_ct = fields.Integer(compute="_get_vehicle_ct")
-    staff_date = fields.Date("Last Report Date", default=fields.Date.today)
-
+    staff_date = fields.Date("Last Staff Date", default=fields.Date.today)
 
     @api.model
     def create(self, data):
@@ -39,109 +33,62 @@ class BusStaffGroup(models.Model):
         res = super(BusStaffGroup, self).create(data)
         return res
 
-
-
     @api.depends("vehicle_line_ids")
     def _get_vehicle_ct(self):
         for i in self:
             i.vehicle_ct = len(i.vehicle_line_ids)
 
-    @api.onchange('route_id', 'staff_date')
-    def _get_route_id_onchange(self):
-        for i in self:
-            datas = []
-            k = 2
-            if i.route_id and i.staff_date:
-                # res = self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', i.route_id.id),
-                #                                                          ('t_sequence', '<=', k),
-                #                                                          ('t_sequence', '>', 0),
-                #                                                          ('use_date', '=', i.staff_date)])
+    @api.multi
+    def action_gen_staff_group(self, route_id, use_date=str(datetime.date.today())):
 
-                res_group_shift = self.env['bus_group_driver_vehicle_shift'].read_group(
-                                [('use_date', '=', i.staff_date),
-                                 ('t_sequence', '<=', k),
-                                 ('route_id', '=', i.route_id.id)],
-                                        ['bus_group_vehicle_id'],
-                                             groupby=['bus_group_vehicle_id'])
+        staff_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") + timedelta(days=1)
+        staff_date_str = datetime.datetime.strftime(staff_date, "%Y-%m-%d")
 
-                print res_group_shift
-                for j in res_group_shift:
-                    if not j['bus_group_vehicle_id']:
-                        continue
-                    res_vehicles = self.env['bus_group_driver_vehicle_shift'].search(j['__domain'])
-                    sequence = 0
-                    data_d_c = []
-                    for m in res_vehicles:
-                        sequence += 1
-                        vals_ve = {
-                            "driver_id": m.driver_id.id,
-                            "conductor_id": m.conductor_id.id or None,
-                            'bus_shift_choose_line_id': m.bus_shift_choose_line_id.id,
-                            "sequence": sequence
-                        }
-                        data_d_c.append((0, 0, vals_ve))
+        res = self.env['bus_staff_group'].search([('name', '=', route_id.lineName + '/' + str(staff_date_str))])
+        if res:
+            res.unlink()
+        k = 3
+        res_group_shift = self.env['bus_group_driver_vehicle_shift'].read_group(
+                                        [('use_date', '=', use_date), ('t_sequence', '>', 0),
+                                         ('route_id', '=', route_id.id)], ['t_sequence'],
+                                         groupby=['t_sequence'], orderby='t_sequence')
 
-                    vals = {
-                        "route_id": res_vehicles[0].route_id.id,
-                        'vehicle_id': res_vehicles[0].bus_group_vehicle_id.vehicle_id.id,
-                        'operation_state': 'flexible',
-                        'sequence': res_vehicles[0].t_sequence,
-                        'bus_group_id': res_vehicles[0].group_id.id,
-                        'staff_line_ids': data_d_c
-                    }
-                    if res_vehicles[0].t_sequence <= k:
-                        vals.update({'operation_state': 'operation'})
-                        datas.append((0, 0, vals))
-                    print datas
-                i.vehicle_line_ids = datas
+        datas = []
+        count = 0
+        for j in res_group_shift:
+            res_vehicles = self.env['bus_group_driver_vehicle_shift'].search(j['__domain'])
+            sequence = 0
+            count += 1
+            data_shift = []
+            for m in res_vehicles:
+                sequence += 1
+                vals_shift = {
+                    'group_id': m.group_id.id,
+                    "driver_id": m.driver_id.id,
+                    "conductor_id": m.conductor_id.id or None,
+                    'bus_shift_id': m.bus_shift_id.id,
+                    'bus_shift_choose_line_id': m.bus_shift_choose_line_id.id,
+                    "sequence": sequence
+                }
+                data_shift.append((0, 0, vals_shift))
 
+            vals = {
+                "route_id": res_vehicles[0].route_id.id,
+                'vehicle_id': res_vehicles[0].bus_group_vehicle_id.vehicle_id.id,
+                'operation_state': 'flexible',
+                'sequence': res_vehicles[0].t_sequence,
+                'bus_group_id': res_vehicles[0].group_id.id,
+                'staff_line_ids': data_shift
+            }
+            if count <= k:
+                vals.update({'operation_state': 'operation'})
+            datas.append((0, 0, vals))
+        self.env['bus_staff_group'].create({'vehicle_line_ids': datas,
+                                            'route_id': route_id.id,
+                                            'name': route_id.lineName + '/' + staff_date_str,
+                                            'staff_date': staff_date
+                                            })
 
-
-                # vehicle_ids = res.mapped('bus_group_vehicle_id').ids
-                # for m in vehicle_ids:  # 更新车辆  暂时不判断运营状态
-                #     j = self.env['bus_group_driver_vehicle_shift'].search(
-                #         [('bus_group_vehicle_id', '=', m),
-                #          ('route_id', '=', i.route_id.id),
-                #          ('t_sequence', '<=', k),
-                #          ('t_sequence', '>', 0),
-                #          ('use_date', '=', i.staff_date)], limit=1)
-
-                    # vals = {
-                    #     "route_id": j.route_id.id,
-                    #     'vehicle_id': j.bus_group_vehicle_id.vehicle_id.id,
-                    #     'operation_state': 'flexible',
-                    #     'sequence': j.t_sequence,
-                    #     'bus_group_id': j.group_id.id
-                    # }
-                    # if j.sequence <= k:
-                    #     vals.update({'operation_state': 'operation'})
-
-                #     datas.append((0, 0, vals))
-                # print datas
-                # i.vehicle_line_ids = datas
-
-
-
-
-    # @api.onchange('route_id')
-    # def _get_route_id_onchange(self):
-    #     for i in self:
-    #         datas = []
-    #         k = 2
-    #         res = self.env['bus_group_vehicle'].search([('route_id', '=', i.route_id.id)])
-    #         for j in res:  #更新车辆  暂时不判断运营状态
-    #             vals = {
-    #                 "route_id": i.route_id.id,
-    #                 'vehicle_id': j.vehicle_id.id,
-    #                 'operation_state': 'flexible',
-    #                 'sequence': j.sequence,
-    #                 'bus_group_id': j.bus_group_id
-    #             }
-    #             if j.sequence <= k:
-    #                 vals.update({'operation_state': 'operation'})
-    #
-    #             datas.append((0, 0, vals))
-    #         i.vehicle_line_ids = datas
 
 
     # @api.onchange('route_id', 'bus_shift_id')
@@ -162,34 +109,6 @@ class BusStaffGroup(models.Model):
     #
     #             datas.append((0, 0, vals))
     #         i.vehicle_line_ids = datas
-
-    @api.model
-    def scheduler_manage_auto_staff_group(self):
-        staff_groups = self.read_group([], ['route_id'], groupby=['route_id'])
-        for i in staff_groups:
-            res = self.search(i['__domain'], order='id desc', limit=1)
-            print res
-            d2 = datetime.datetime.strptime(res.bus_driver_algorithm_date, '%Y-%m-%d')
-            d1 = datetime.datetime.strptime(str(datetime.date.today()), '%Y-%m-%d')
-            print d1 ,d2  ,res.bus_driver_algorithm_id.cycle
-            if (d1-d2).days < res.bus_driver_algorithm_id.cycle: #未达到周期数
-                bus_algorithm_driver_date = res.bus_algorithm_date
-            else:
-                bus_algorithm_driver_date = datetime.date.today()
-
-            vals = {
-                'name': res.lineName + '/' + str(datetime.date.today()),
-                'route_id': res.route_id.id,
-                'bus_algorithm_id': res.bus_algorithm_id.id,
-                'bus_driver_algorithm_id': res.bus_driver_algorithm_id.id,
-                'bus_algorithm_driver_date': bus_algorithm_driver_date,
-                'bus_shift_id': res.bus_shift_id.id
-            }
-            print vals
-
-    @api.model
-    def run_scheduler(self):
-        self.scheduler_manage_auto_staff_group()
 
 
 class BusStaffGroupVehicleLine(models.Model):
@@ -216,7 +135,6 @@ class BusStaffGroupVehicleLine(models.Model):
     bus_shift_id = fields.Many2one('bus_shift', related='bus_group_id.bus_shift_id', readonly=True)
     bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line', domain="[('shift_id','=',bus_shift_id)]")
 
-    # staff_line_ids = fields.One2many('bus_staff_group_vehicle_staff_line', 'vehicle_line_id')
     staff_line_ids = fields.One2many('bus_staff_group_vehicle_staff_line', 'vehicle_line_id')
 
     staff_names = fields.Char(string='Staff Names', compute='_get_staff_names')
@@ -232,7 +150,6 @@ class BusStaffGroupVehicleLine(models.Model):
             for j in i.staff_line_ids:
                 staff_names.add(j.driver_id.driver_id.name)
             i.staff_names = ",".join(list(staff_names))
-
 
 
     @api.multi

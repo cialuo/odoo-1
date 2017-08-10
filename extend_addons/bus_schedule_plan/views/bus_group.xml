@@ -117,7 +117,7 @@
                             </page>
 
                             <page string="GroupVehicleShifts">
-                                <field name="driver_vehicle_shift_ids">
+                                <field name="driver_vehicle_shift_ids" >
                                     <tree editable="bottom">
                                         <field name="use_date"/>
                                         <field name="sequence"/>

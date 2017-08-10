@@ -61,11 +61,9 @@ class AssignedShifts(models.TransientModel):
             vehicle_list += [self.vehicle_ids.ids[i]] * len(self.bus_shift_id.shift_line_ids.ids)
             t_sequence_list += [i+1+t_sequence] * len(self.bus_shift_id.shift_line_ids.ids)
 
-
-
         shift_line_lists = self.bus_shift_id.shift_line_ids.ids * len(self.vehicle_ids.ids)
 
-        vehicle_list = vehicle_list + ['']*(len(driver_list)-len(vehicle_list))
+        vehicle_list = vehicle_list + [''] * (len(driver_list)-len(vehicle_list))
         t_sequence_list = t_sequence_list + [''] * (len(driver_list) - len(t_sequence_list))
         shift_line_lists = shift_line_lists + [''] * (len(driver_list) - len(shift_line_lists))
 
@@ -81,7 +79,6 @@ class AssignedShifts(models.TransientModel):
                 'conductor_id': j[1],
                 'group_id': self.group_id.id,
                 'use_date': self.use_date,
-
                 'bus_shift_id': self.bus_shift_id.id
             }
             if j[2]:
@@ -108,6 +105,7 @@ class AssignedShifts(models.TransientModel):
                                                                ('group_id', '=', self.group_id.id)])
             for i in res:
                 i.unlink()
+
             for j in wizard.driver_vehicle_shift_ids:
                 data = {
                     'sequence': j.sequence,

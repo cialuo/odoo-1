@@ -7,7 +7,7 @@
             <field name="model">bus_staff_group</field>
             <field name="priority">0</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree create="false">
                     <field name="id"/>
                     <field name="name"/>
                     <field name="route_id"/>
@@ -82,12 +82,12 @@
                                 <field name="staff_line_ids">
                                     <tree string="StaffLines" create="false" editable="bottom">
 										<field name="sequence" readonly="1"/>
-                                        <field name="group_id"/>
+                                        <field name="group_id" invisible="1"/>
 										<field name="driver_id" readonly="1"/>
 										<field name="driver_jobnumber" readonly="1"/>
 										<field name="conductor_id"/>
 										<field name="conductor_jobnumber" readonly="1"/>
-                                        <field name="bus_shift_id"/>
+                                        <field name="bus_shift_id" invisible="1"/>
 										<field name="bus_shift_choose_line_id"/>
                                     </tree>
                                 </field>

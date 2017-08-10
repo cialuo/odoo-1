@@ -22,5 +22,11 @@ class route_manage(models.Model):
                                        (60, '60days rotation'),
                                        (90, '90days rotation'),
                                        (180, '180days rotation'),
-                                       ], string="Rotation Cycle", default=5) #轮换周期
-    last_rotation_date = fields.Date(default=fields.Date.context_today) #最后轮换时间
+                                       ], string="Rotation Cycle", default=5)         #轮换周期
+    last_rotation_date = fields.Date(default=fields.Date.context_today)               #最后轮换时间
+
+    @api.multi
+    def write(self, vals):
+        if "is_big_rotation" in vals and vals.get('is_big_rotation') or vals.get('rotation_cycle'):
+            vals.update({'last_rotation_date': datetime.date.today()})
+        return super(route_manage, self).write(vals)

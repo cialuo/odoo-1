@@ -36,6 +36,7 @@
         'views/schedule.xml',
 
         'data/algorithm_data.xml',
+        'data/bus_group_data.xml',
 
 
 
