@@ -60,9 +60,9 @@
 
         <!-- 日期类型 -->
         <menuitem id="bus_date_type_menu" name="bus_date_type_menu"
-                  parent="operation_menu.bus_working_plan_menu"
+                  parent="operation_menu.bus_working_plan_basic_info"
                   action="bus_date_type_action"
-                  sequence="90"/>
+                  sequence="20"/>
 
     </data>
 </odoo>

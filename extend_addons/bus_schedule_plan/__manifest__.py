@@ -33,7 +33,11 @@
         'views/bus_algorithm.xml',
         'views/bus_group.xml',
         'views/bus_staff_group.xml',
+        'views/schedule.xml',
+
         'data/algorithm_data.xml',
+        'data/bus_group_data.xml',
+
 
 
     ],

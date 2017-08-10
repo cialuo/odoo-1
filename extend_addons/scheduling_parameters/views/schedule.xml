@@ -234,7 +234,7 @@
                         </div>
 
                         <group col="2">
-                            <group>
+                            <group name="first_group">
                                 <field name="gprsId"/>
                                 <field name="lineTypeName"/>
                                 <field name="main_line_id" options="{'no_create':True}"

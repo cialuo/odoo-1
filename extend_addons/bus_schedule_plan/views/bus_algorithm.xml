@@ -102,12 +102,12 @@
 
 
         <menuitem id="bus_algorithm_menu" name="bus_algorithm_menu"
-                  parent="operation_menu.bus_working_plan_menu"
+                  parent="operation_menu.bus_working_plan_basic_info"
                   action="bus_algorithm_action"
                   sequence="50"/>
 
         <menuitem id="bus_driver_algorithm_menu" name="bus_driver_algorithm_menu"
-                  parent="operation_menu.bus_working_plan_menu"
+                  parent="operation_menu.bus_working_plan_basic_info"
                   action="bus_driver_algorithm_action"
                   sequence="60"/>
 
