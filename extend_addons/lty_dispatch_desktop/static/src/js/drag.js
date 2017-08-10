@@ -88,15 +88,10 @@ function dragFn(parent, title, maxL, maxT) {
         }
     });
     $("body").on('mousedown', p_class, function (e) {
+        if (k != $(this).css('z-index') || k == 0) {
             k++;
+        }
         var oDrag = $(this)[0];
-        if ($.inArray("nofix", oDrag.classList) != -1) {
-            return false;
-        }
-        if ($.inArray("layer_defined", oDrag.classList) != -1) {
-            oDrag.style.zIndex = 20000000;
-            return false;
-        }
         oDrag.style.zIndex = k;
     });
     function setDragTrue() {
@@ -104,6 +99,7 @@ function dragFn(parent, title, maxL, maxT) {
     }
 
     $("body").on('mousedown', c_class, function () {
+
         isDrag = false;
         timmerHandle = setTimeout(setDragTrue, 200);
     });

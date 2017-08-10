@@ -27,6 +27,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         change_style: function () {
             var self = this;
             var font_color = self.$el.find('.src_font_color').val();
+            $('body').find('.bus_info li').eq(2).hide();
         }
 
     });

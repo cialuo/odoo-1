@@ -182,7 +182,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         events: {
             //上下的车辆是否隐藏
             'mousedown .can_top': 'clk_can_top',
-            'click .can_bottom': 'clk_can_bottom',
+            'mousedown .can_bottom': 'clk_can_bottom',
             // 删除选择路线弹框
             'click .del': 'del_chose_line',
             // 选择路线
@@ -281,7 +281,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         bus_info: function (e) {
             var car_num = e.target.textContent;
             var line_id = e.delegateTarget.getAttribute("line_id");
-            var zIndex = parseInt(this.$el[0].style.zIndex)
+            var zIndex = parseInt(this.$el[0].style.zIndex);
+            console.log(zIndex)
             var options =
                 {
                     x: e.clientX + 5,
@@ -295,7 +296,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             // e.delegateTarget.parentElement.append(dialog);
         },
         clk_can_top: function (e) {
-            var option = {
+            this.clickTb({
                 id: '.can_top',
                 ciry: 27,
                 testy: 13,
@@ -306,12 +307,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 dataSite_color: this.dataSite_top_color,
                 subsection: this.subsection,
                 model: this.model_site_top
-            };
+            },e);
             //调用点击canvas事件
-            this.clickTb(option, e);
         },
         clk_can_bottom: function (e) {
-            var option = {
+            this.clickTb({
                 id: '.can_bottom',
                 ciry: 6,
                 testy: 25,
@@ -322,12 +322,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 dataSite_color: this.dataSite_down_color,
                 subsection: this.subsection,
                 model: this.model_site_down
-            }
-            this.clickTb(option, e);
+             },e);
         },
         bus_man_src: function (e) {
             var ev = e || window.event;
             var zIndex = parseInt(this.$el[0].style.zIndex);
+            console.log(zIndex)
             if (ev.button == 0) {
                 if (!isDrag) {
                     //先把doMouseDownTimmer清除，不然200毫秒后setGragTrue方法还是会被调用的
@@ -350,12 +350,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         clickTb: function (canvas, e) {
             var event = e || window.event;
-            stopPropagation(e)
             var c = canvas.self.find(canvas.id)[0];
             var cxt = c.getContext("2d");
             var x = event.pageX - c.getBoundingClientRect().left;
             var y = event.pageY - c.getBoundingClientRect().top;
             var zIndex = parseInt(this.$el[0].style.zIndex);
+            console.log(zIndex)
             for (var i = 0; i < canvas.dataCir.length; i++) {
                 cxt.beginPath();
                 //渲染参数，x距离,y距离,半径,起始角，结束角，是否顺势针
@@ -416,6 +416,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 cxt.closePath();
                 cxt.beginPath();
                 if (canvas.site_infos[i].status == true) {
+
                     cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
                     if (cxt.isPointInPath(x, y)) {
                         //如果是左击
@@ -485,7 +486,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         cursor_pointer_lr: function (canvas, e) {
             var event = e || window.event;
-            stopPropagation(e)
             var c = this.$el.find(canvas.id)[0];
             var cxt = c.getContext("2d");
             var x = event.pageX - c.getBoundingClientRect().left;

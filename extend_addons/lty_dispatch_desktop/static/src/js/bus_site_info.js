@@ -24,11 +24,12 @@ odoo.define('lty_dispatch_desktop.bus_site_info', function (require) {
             this.destroy();
         },
         get_digital_map: function (e) {
+            var zIndex = this.$el[0].style.zIndex;
             var e = e || window.event;
             var options = {
                 x: e.clientX + 5,
                 y: e.clientY + 5,
-                zIndex: 10
+                zIndex: zIndex+1
             };
             new digital_map(this, options).appendTo($('body'));
         },
