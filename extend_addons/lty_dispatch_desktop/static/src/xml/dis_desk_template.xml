@@ -451,15 +451,18 @@
 			<div class="src_title">
 				<div class="closeBox dragArea"><a class="dis_close_bt" href="javascript:;"></a></div>
 				<div class="line_list">
-					<ul class="line_company">
-						<li>四分公司</li>
-						<li>16路</li>
-						<li>资源配备</li>
-					</ul>
-					<ul class="line_src">
-						<li class="active">车辆资源</li>
-						<li>人力资源</li>
-					</ul>
+					<div class="line_company">
+						<div>四分公司</div>
+						<div>16路</div>
+						<div>资源配备</div>
+					</div>
+					<div class="line_src">
+						<ul>
+							<li class="active">车辆资源</li>
+							<li>人力资源</li>
+						</ul>
+					</div>
+					<div></div>
 				</div>
 			</div>
 			<div class="src_content">
