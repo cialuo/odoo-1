@@ -4,21 +4,28 @@
         <!-- 运营管理 -->
         <menuitem name="operation manage"  id="operation_menu_root"  sequence="10"/>
         <!--供需平衡分析-->
-		<menuitem name="balance of supply and demand" id="balance_of_supply_and_demand_menu" parent="operation_menu_root" sequence="1"/>
+		<menuitem name="balance of supply and demand" id="balance_of_supply_and_demand_menu" parent="operation_menu_root" sequence="10"/>
         <!--行车作业编制-->
-		<menuitem name="bus schedule plan arrange menu" id="bus_working_plan_menu" parent="operation_menu_root" sequence="2"/>
+		<menuitem name="bus schedule plan arrange menu" id="bus_working_plan_menu" parent="operation_menu_root" sequence="20"/>
+
+        <!--行车作业编制 基础信息-->
+		<menuitem name="bus schedule plan basic info" id="bus_working_plan_basic_info" parent="operation_menu_root" sequence="30"/>
+
         <!--运营计划编制-->
-        <menuitem name="operation plans" id="operation_plans_menu" parent="operation_menu_root" sequence="3"/>
+        <menuitem name="operation plans" id="operation_plans_menu" parent="operation_menu_root" sequence="40"/>
 		<!--线路效益分析-->
-        <menuitem name="benefit of line analysis" id="benefit_of_line_analysis_menu" parent="operation_menu_root" sequence="4"/>
-		<!--公交线网优化分析-->
-        <menuitem name="bus line optimize analysis" id="bus_line_optimize_analysis_menu" parent="operation_menu_root" sequence="5"/>
+        <menuitem name="benefit of line analysis" id="benefit_of_line_analysis_menu" parent="operation_menu_root" sequence="50"/>
+
         <!--企业效益分析-->
-        <menuitem name="benefit of company analysis" id="benefit_of_company_analysis_menu" parent="operation_menu_root" sequence="6"/>
+        <menuitem name="benefit of company analysis" id="benefit_of_company_analysis_menu" parent="operation_menu_root" sequence="70"/>
+
+        <!--公交线网优化分析-->
+        <menuitem name="bus line optimize analysis" id="bus_line_optimize_analysis_menu" parent="operation_menu_root" sequence="90"/>
+
         <!--平台接入-->
-        <menuitem name="platform join up" id="platform_join_up_menu" parent="operation_menu_root" sequence="7"/>
+        <menuitem name="platform join up" id="platform_join_up_menu" parent="operation_menu_root" sequence="100"/>
         <!--配置-->
-        <menuitem name="settings" id="settings_menu" parent="operation_menu_root" sequence="8"/>
+        <menuitem name="settings" id="settings_menu" parent="operation_menu_root" sequence="110"/>
 
     </data>
 </odoo>
