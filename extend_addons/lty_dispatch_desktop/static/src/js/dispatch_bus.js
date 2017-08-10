@@ -59,17 +59,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                                 self.site_top_infos = site_top_infos;
                                 self.site_down_infos = site_down_infos;
-                                var model_id = 'model_' + tid;
-                                if (socket_model_info[model_id]) {
-                                    delete socket_model_info[model_id];
-                                }
-                                socket_model_info[model_id] = {
-                                    arg: {
-                                        self: self,
-                                        site_top_infos: self.site_top_infos,
-                                        site_down_infos: self.site_down_infos
-                                    }, fn: self.site_websocket
-                                };
+                                // var model_id = 'model_' + tid;
+                                // if (socket_model_info[model_id]) {
+                                //     delete socket_model_info[model_id];
+                                // }
+                                // socket_model_info[model_id] = {
+                                //     arg: {
+                                //         self: self,
+                                //         site_top_infos: self.site_top_infos,
+                                //         site_down_infos: self.site_down_infos
+                                //     }, fn: self.site_websocket
+                                // };
                             });
                         });
                     });
@@ -189,7 +189,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             // 选择路线
             'click .line_edit': 'show_chose_line',
             //车辆信息
-            'click .type_car': 'bus_info',
+            'click .line_car': 'bus_info',
             // 左右侧车场
             'click .canvas_left': 'clk_can_left',
             'click .canvas_right': 'clk_can_right',
@@ -281,7 +281,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.cursor_pointer_tb(option, e);
         },
         bus_info: function (e) {
-            var car_num = e.target.textContent;
+            var car_num = e.currentTarget.getElementsByClassName("type_car")[0].children[0].textContent;
             var line_id = e.delegateTarget.getAttribute("line_id");
             var zIndex = parseInt(this.$el[0].style.zIndex);
             var options =
@@ -290,10 +290,16 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     y: e.clientY + 5,
                     zIndex: zIndex + 1,
                     line_id: line_id,
-                    car_num: car_num
+                    car_num: car_num,
+                    controllerId: 'kz123'
                 };
             var dialog = new bus_real_info(this, options);
-            dialog.appendTo($("body"));
+            if ($(".modelBus_"+options.line_id+"_"+options.car_num).length>0){
+                return;
+            }else{
+                $(".bus_real_info_model").remove();
+                dialog.appendTo($(".controller_"+options.controllerId));
+            }
             // e.delegateTarget.parentElement.append(dialog);
         },
         clk_can_top: function (e) {

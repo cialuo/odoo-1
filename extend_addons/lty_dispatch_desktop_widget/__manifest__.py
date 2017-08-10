@@ -3,8 +3,7 @@
     'name': "lty_dispatch_desktop_widget",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        智能调度控制台-弹窗组件""",
 
     'description': """
         Long description of module's purpose

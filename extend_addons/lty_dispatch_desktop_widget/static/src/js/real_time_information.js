@@ -53,11 +53,11 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
         },
         start: function(){
             this.arrivalTimeFn();
-            this.layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
-            if (socket_model_info['model_car']){
-                delete socket_model_info['model_car'];
-            }
-            socket_model_info['model_car'] = {arg: {self: this, layer_index: this.layer_index}, fn: this.socket_fn};
+            layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
+            sessionStorage.setItem("modelBus_layer", layer_index); 
+            // var key_s = 'modelBus'+'_'+this.location_data.controllerId+'_'+this.location_data.line_id+'_'+this.location_data.car_num;
+            // socket_model_info['modelBus'] = {};
+            // socket_model_info['modelBus'][key_s] = {arg: {self: this, layer_index: this.layer_index}, fn: this.socket_fn};
         },
         handle_exceptions_fn: function(){
             alert('这里将发起处理异常状态请求');
@@ -92,7 +92,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 longitude: '114.39973',
                 latitude: '30.45787'
             };
-            this.$(".carReport").html("");
+            this.$(".carReport").html("<div class='socket_load'>加载中...</div>");
             new arrival_time_map(this, init_data).appendTo(this.$(".carReport"));
         },
         moreInfo_fn: function(){
@@ -125,29 +125,6 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             new arrival_time_police(this).appendTo(this.$(".carReport"));
         },
         socket_fn: function(data, arg){
-            var init_data = {
-                license_number: data.car_num,
-                license_plate: '粤K·92823',
-                driver: '李素华', 
-                crew: '张雯',
-                passenger: '62',
-                full_load_rate: '90%',
-                satisfaction_degree: '20%',
-                carriage_temperature: '23',
-                outdoor_temperature: '32',
-                back_door: '关闭',
-                front_door: '开启',
-                speed: '36km/h',
-                sail: '大亚湾',
-                front: '4km',
-                after: '3km',
-                back_field_time: '12:43',
-                next_train_departure: '12:30',
-                residual_clearance: '239KM',
-                line: data.line_id,
-                trip: '4',
-                total_trip: '10'
-            };
             var self = arg.self;
             var vehicleInformationObj = self.$(".popupContent .vehicleInformation");
             var carReportObj = self.$(".popupContent .carReport");
@@ -174,14 +151,14 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             lineInfo.find(".lineRoad").html('18')
             lineInfo.find(".trip").html(data.slice(76, 77));
             lineInfo.find(".total_trip").html(data.slice(76, 77)+data.slice(77, 78));
-
+            
             self.$el.show();
             if (arg.layer_index){
                 layer.close(arg.layer_index);
             }
         },
         closeFn: function(){
-            delete socket_model_info['model_car'];
+            // delete socket_model_info['model_car'];
             this.destroy();
         }
     });
@@ -307,13 +284,14 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             this.data = data;
         },
         start: function(){
-            var self = this;
-            var mapObj = new AMap.Map(self.$('.carInfoScene')[0], {zoom: 16, center: [self.data.longitude, self.data.latitude]});
-            var marker = new AMap.Marker({
-                map: mapObj,
-                position: [self.data.longitude, self.data.latitude]
-            });
-            this.sokit(marker);
+            // socket_model_info['model_bus_map'] = {arg: {self: this}, fn: this.socket_fn};
+            // var self = this;
+            // var mapObj = new AMap.Map(self.$('.carInfoScene')[0], {zoom: 14, center: [self.data.longitude, self.data.latitude]});
+            // var marker = new AMap.Marker({
+            //     map: mapObj,
+            //     position: [self.data.longitude, self.data.latitude]
+            // });
+            // self.sokit(marker);
         },
         sokit: function(marker){
             var pos_list = [

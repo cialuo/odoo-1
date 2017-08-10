@@ -36,5 +36,4 @@ install/win32/meta.py
 /share/
 /src/
 /my_odoo.conf
-
-
+/odoo.conf

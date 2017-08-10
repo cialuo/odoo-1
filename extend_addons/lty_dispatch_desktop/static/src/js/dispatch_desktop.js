@@ -41,7 +41,6 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         start: function () {
             // 动态加载高德地图api
-            $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
             var self = this;
             function startTime() {
                 var today = new Date();//定义日期对象
@@ -83,8 +82,9 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             this.model2 = new Model('dispatch.control.desktop.component');
         },
         start: function () {
+            $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
             var self = this;
-            self.$el.addClass('back_style');
+            self.$el.addClass('controller_kz123 back_style');
             self.$el.append(QWeb.render("myConsole"));
             self.model2.query(["line_id"]).filter([["desktop_id", "=", 2]]).all().then(function (data) {
                 var s = [];
