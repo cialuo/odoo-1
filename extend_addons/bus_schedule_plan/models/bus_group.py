@@ -313,7 +313,7 @@ class BusGroupDriverVehicleShift(models.Model):
             大轮换 start
             """
             last_rotation_date = datetime.datetime.strptime(last_rotation_date, "%Y-%m-%d")
-            is_big_rotation = True
+            is_big_rotation = False
 
             if is_big_rotation and (next_use_date - last_rotation_date).days >= rotation_cycle:
                 for k, v in old_group_dict.iteritems():
@@ -321,11 +321,15 @@ class BusGroupDriverVehicleShift(models.Model):
                     for m in v:
                         tmp.append(new_t_sequence_list[old_t_sequence_list.index(m)])
                     new_group_dict[k] = tmp
-            print '线路下所有的组 车辆顺序 分组 大轮换后 新顺序' ,new_group_dict
+                group_dict = new_group_dict
+            else:
+                group_dict = old_group_dict
+
+            print '线路下所有的组 车辆顺序 分组 大轮换后 新顺序' ,group_dict
 
             '''车辆轮趟算法'''
             new_group_dict_vehicle = {}
-            for k, v in new_group_dict.iteritems():
+            for k, v in group_dict.iteritems():
                 bus_group_res = self.env['bus_group'].search([('id', '=', k)])
 
                 cycle = bus_group_res[0].bus_algorithm_id.cycle
@@ -347,11 +351,11 @@ class BusGroupDriverVehicleShift(models.Model):
                         else:                     #向后移
                             v = leftMove2(v, 1)
                 new_group_dict_vehicle[k] = v
-            print '线路下所有的组 车辆顺序 分组 大轮换后 新顺序', new_group_dict
+            print '线路下所有的组 车辆顺序 分组 大轮换后 新顺序', group_dict
             print '线路下所有的组 车辆顺序 分组 车辆轮趟算法 新顺序', new_group_dict_vehicle
 
             '''司机轮班算法'''
-            for k, v in new_group_dict.iteritems():
+            for k, v in group_dict.iteritems():
                 bus_group_res = self.env['bus_group'].search([('id', '=', k)])
                 driver_cycle = bus_group_res[0].bus_driver_algorithm_id.cycle
                 driver_direction = bus_group_res[0].bus_driver_algorithm_id.direction
