@@ -84,7 +84,7 @@ class BusGroup(models.Model):
         })
 
     @api.multi
-    def action_check(self):
+    def action_check_success(self):
         """
         审核通过
         """
@@ -93,6 +93,14 @@ class BusGroup(models.Model):
             vals.update({'bus_algorithm_date':datetime.date.today()})
         if self.is_driver_algorithm_change:
             vals.update({'bus_driver_algorithm_date': datetime.date.today()})
+        self.write(vals)
+
+    @api.multi
+    def action_check_fail(self):
+        """
+        审核不通过
+        """
+        vals = {'state': 'draft'}
         self.write(vals)
 
     @api.depends('vehicle_ids', 'driver_ids', 'bus_shift_id')
@@ -240,7 +248,7 @@ class BusGroupDriverVehicleShift(models.Model):
     choose_sequence = fields.Integer('Shift Sequence', related='bus_shift_choose_line_id.sequence')
 
     bus_group_vehicle_id = fields.Many2one("bus_group_vehicle")
-    t_sequence = fields.Integer("Vehicle Sequence", readonly=True)
+    vehicle_sequence = fields.Integer("Vehicle Sequence", readonly=True)
     active = fields.Boolean(default=True)
 
 
@@ -290,7 +298,7 @@ class BusGroupDriverVehicleShift(models.Model):
             res_seq = self.env['bus_group_driver_vehicle_shift'].search(
                                                                 [('use_date', '=', use_date),
                                                                  ('route_id', '=', route_id),
-                                                                 ('t_sequence', '!=', 0)]).mapped('t_sequence')
+                                                                 ('vehicle_sequence', '!=', 0)]).mapped('vehicle_sequence')
             old_t_sequence_list = list(set(res_seq))  #线路内原始顺序
             new_t_sequence_list = sorted(old_t_sequence_list, reverse=True) #线路内逆顺序
 
@@ -299,8 +307,8 @@ class BusGroupDriverVehicleShift(models.Model):
             for j in res_groups:
                 group_seq = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '=', use_date),
                                                                             ('route_id', '=', route_id),
-                                                                            ('t_sequence', '!=', 0),
-                                                                            ('group_id', '=', j.id),]).mapped('t_sequence')
+                                                                            ('vehicle_sequence', '!=', 0),
+                                                                            ('group_id', '=', j.id),]).mapped('vehicle_sequence')
 
                 old_group_dict[j.id] = list(set(group_seq))
                 new_group_dict[j.id] = []
@@ -313,7 +321,7 @@ class BusGroupDriverVehicleShift(models.Model):
             大轮换 start
             """
             last_rotation_date = datetime.datetime.strptime(last_rotation_date, "%Y-%m-%d")
-            is_big_rotation = False
+            # is_big_rotation = False
 
             if is_big_rotation and (next_use_date - last_rotation_date).days >= rotation_cycle:
                 for k, v in old_group_dict.iteritems():
@@ -351,7 +359,7 @@ class BusGroupDriverVehicleShift(models.Model):
                         else:                     #向后移
                             v = leftMove2(v, 1)
                 new_group_dict_vehicle[k] = v
-            print '线路下所有的组 车辆顺序 分组 大轮换后 新顺序', group_dict
+
             print '线路下所有的组 车辆顺序 分组 车辆轮趟算法 新顺序', new_group_dict_vehicle
 
             '''司机轮班算法'''
@@ -415,19 +423,19 @@ class BusGroupDriverVehicleShift(models.Model):
                      ('group_id', '=', k)
                      ])  #获取生成的下一天的数据
                 print res_group_shift_next_day
-                for i in res_group_shift_next_day.mapped('bus_shift_choose_line_id').ids:  #根据班次的数量 配置车辆和车序
+                for choose_line_id in res_group_shift_next_day.mapped('bus_shift_choose_line_id').ids:  #根据班次的数量 配置车辆和车序
                     res_group_shift_line = self.env['bus_group_driver_vehicle_shift'].search(
                         [('use_date', '=', next_use_date),
                          ('route_id', '=', route_id),
                          ('group_id', '=', k),
-                         ('bus_shift_choose_line_id', '=', i),
+                         ('bus_shift_choose_line_id', '=', choose_line_id),
                          ])
                     print res_group_shift_line,old_group_dict[k]
                     for m in zip(res_group_shift_line, old_group_dict[k]):
                         new_t_sequence = new_group_dict_vehicle[k][old_group_dict[k].index(m[1])]
                         data = {
-                            't_sequence': new_t_sequence,
-                            'bus_group_vehicle_id': res_group_shift.filtered(lambda x: x.t_sequence == m[1])[
+                            'vehicle_sequence': new_t_sequence,
+                            'bus_group_vehicle_id': res_group_shift.filtered(lambda x: x.vehicle_sequence == m[1])[
                                 0].bus_group_vehicle_id.id
                         }
 

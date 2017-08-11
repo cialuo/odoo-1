@@ -51,12 +51,17 @@
 								class="oe_highlight"
 								/> <!-- 提交审核-->
 
-                        <button name="action_check"
+                        <button name="action_check_success"
 								type="object"
 								string="check success"
 								states="wait_check"
 								class="oe_highlight"
 								/> <!-- 审核通过-->
+                        <button name="action_check_fail"
+								type="object"
+								string="check fail"
+								states="wait_check"
+								/> <!-- 审核不通过-->
                     	<field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -74,7 +79,7 @@
                                        attrs="{'readonly': [('id', '!=', False)]}"
                                        options="{'no_open':True,'no_create':True}"/>
                                 <field name="bus_algorithm_id" options="{'no_create':True}"/>
-                                <field name="bus_algorithm_date" invisible="0"/>
+                                <field name="bus_algorithm_date" invisible="1"/>
                                 <field name="bus_driver_algorithm_id" options="{'no_create':True}"/>
                                 <field name="bus_shift_id" options="{'no_create':True}"/>
                                 <!--<field name="is_conductor"/>-->
@@ -118,17 +123,17 @@
 
                             <page string="GroupVehicleShifts">
                                 <field name="driver_vehicle_shift_ids" >
-                                    <tree editable="bottom">
+                                    <tree editable="bottom" create="false">
                                         <field name="use_date"/>
                                         <field name="sequence"/>
                                         <field name="driver_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="driver_jobnumber"/>
                                         <field name="conductor_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="conductor_jobnumber"/>
-                                        <field name="bus_group_vehicle_id"/>
-                                        <field name="t_sequence"/>
+                                        <field name="bus_group_vehicle_id" options="{'no_open':True,'no_create':True}"/>
+                                        <field name="vehicle_sequence"/>
                                         <field name="bus_shift_id" invisible="1"/>
-                                        <field name="bus_shift_choose_line_id"/>
+                                        <field name="bus_shift_choose_line_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="choose_sequence" invisible="1"/>
                                     </tree>
                                 </field>
