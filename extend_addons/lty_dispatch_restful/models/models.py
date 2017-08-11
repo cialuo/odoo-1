@@ -21,15 +21,20 @@ class op_line(models.Model):
         :param vals:
         :return:
         '''
+
+        for p in self:
+            print not isinstance(p.id,models.NewId)
+
+        vals['restful_type'] = 1
+        res = super(op_line, self).create(vals)
         try:
             url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
             params = Params(type = 1, cityCode = 'SZ',tableName = 'op_line', data = vals).to_dict()
-            id = Client().http_post(url,data=params)
-            if id:
-                vals['fk_id'] = id
+            rp = Client().http_post(url, data=params)
+            #clientThread(url,params,res).start()
         except Exception,e:
-            print e
-        return super(op_line, self).create(vals)
+            print e.message
+        return res
 
     @api.multi
     def write(self, vals):
@@ -38,10 +43,18 @@ class op_line(models.Model):
         :param vals:
         :return:
         '''
+        for p in self:
+            print not isinstance(p.id,models.NewId)
+
+
         res = super(op_line, self).write(vals)
-        if res:
-            #Client('op_line', 3, vals).push()
-            pass
+        if vals.get('restful_type') != 1:
+            try:
+                url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                params = Params(type = 3, cityCode = 'SZ',tableName = 'op_line', data = vals).to_dict()
+                clientThread(url,params,res).start()
+            except Exception,e:
+                print e.message
         return res
 
     @api.multi
@@ -50,11 +63,15 @@ class op_line(models.Model):
             数据删除时调用api
         :return:
         '''
-        self.fk_id
+        fk_ids = self.mapped('fk_id')
+        vals = {"ids":fk_ids}
         res = super(op_line, self).unlink()
-        if res:
-            #client('op_line', 2, vals).push()
-            pass
+        try:
+            url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            params = Params(type = 3, cityCode = 'SZ',tableName = 'op_line', data = vals).to_dict()
+            clientThread(url,params,res).start()
+        except Exception,e:
+            print e.message
         return res
 
     def to_bean(self,vals):
