@@ -78,7 +78,7 @@
     background: #2E3551;
 }
 
-canvas::selection {
+.back_style canvas::selection {
     background: rgba(0, 0, 0, 0);
     color: rgba(0, 0, 0, 0);
 }
@@ -579,11 +579,11 @@ canvas::selection {
 }
 
 /*turn_button样式*/
-input[type="checkbox"] {
+.config input[type="checkbox"] {
     display: none;
 }
 
-input[type="checkbox"] + label {
+.config input[type="checkbox"] + label {
     display: inline-block;
     width: 40px;
     height: 20px;
@@ -594,8 +594,8 @@ input[type="checkbox"] + label {
     box-sizing: border-box;
 }
 
-input[type="checkbox"] + label:after,
-input[type="checkbox"] + label:before {
+.config input[type="checkbox"] + label:after,
+.config input[type="checkbox"] + label:before {
     content: '';
     display: block;
     position: absolute;
@@ -751,12 +751,6 @@ input[type="checkbox"] + label:before {
     border: 2px solid #ccc;
 }
 
-html, body {
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-}
 
 /*站点弹框*/
 .bus_site_info {

@@ -5,6 +5,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
     var dispatch_bus = require('lty_dispaych_desktop.getWidget');
     //导入模块用户后台交互
     var Model = require('web.Model');
+    // 控制台配置模块
     var config = Widget.extend({
         template: "config",
         init: function (parent, context) {
@@ -31,6 +32,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         }
 
     });
+    // 控制台顶部
     var desktop_top = Widget.extend({
         template: 'desktop_top',
         init: function (parent, context) {
@@ -38,10 +40,12 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             this.data = {
                 component_ids: 13
             };
+
         },
         start: function () {
             // 动态加载高德地图api
             var self = this;
+
             function startTime() {
                 var today = new Date();//定义日期对象
                 var yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年
@@ -66,28 +70,34 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                 self.$el.find('#nowDateTimeSpan').html(yyyy + "-" + MM + "-" + dd + " " + hh + ":" + mm + ":" + ss + "   " + day);
                 setTimeout(startTime, 1000);//每一秒中重新加载startTime()方法
             }
+
             function checkTime(i) {
                 if (i < 10) {
                     i = "0" + i;
                 }
                 return i;
             }
+
             startTime();
         }
     });
+    //控制台总组件
     var dispatch_desktop = Widget.extend({
         template: 'dispatch_desktop_component',
         init: function (parent, context) {
             this._super(parent, context);
             this.model2 = new Model('dispatch.control.desktop.component');
-        },
-        start: function (e) {
+            layer.close(context);
+      },
+        start: function () {
             $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
             var self = this;
-            self.$el.addClass('controller_kz123 back_style');
+            // self.$el.addClass('controller_kz123 back_style');
             self.$el.append(QWeb.render("myConsole"));
             var desktop_id = window.location.href.split('active_id=')[1];
-            self.model2.query(["line_id"]).filter([["desktop_id", "=", desktop_id]]).all().then(function (data) {
+            self.$el.parent().addClass("controller_"+desktop_id).attr("desktop_id", desktop_id);
+            self.model2.query(["line_id"]).filter([["desktop_id", "=", parseInt(desktop_id)]]).all().then(function (data) {
+                console.log(JSON.stringify(data));
                 var s = [];
                 if (data.length > 0) {
                     // 去重
@@ -99,7 +109,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                     // 遍历
                     for (var j = 0; j < s.length; j++) {
                         self.model2.query().filter([["line_id", "=", parseInt(s[j])]]).all().then(function (res) {
-                            new dispatch_bus(this, res,0).appendTo(self.$el);
+                            new dispatch_bus(this, res, 0).appendTo(self.$el);
                         });
                     }
                 }
@@ -113,7 +123,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         addLine_click: function () {
             var self = this;
-            new dispatch_bus(this, '',1).appendTo(self.$el);
+            new dispatch_bus(this, '', 1).appendTo(self.$el);
         },
         config_click: function () {
             var self = this;
@@ -124,24 +134,42 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         save_click: function () {
             var self = this;
             //客流
-                var tidNum = self.$el .find('div[tid]');
-                if (tidNum.length>0) {
-                    for (var i = 0; i < tidNum.length; i++) {
-                        var id = tidNum[i].getAttribute('tid');
-                        var left = tidNum[i].style.left.split('px')[0];
-                        var top = tidNum[i].style.top.split('px')[0];
-                        var zIndex = parseInt(tidNum[i].style.zIndex);
-                        self.model2.call("write", [parseInt(id),
-                            {
-                                'position_left': left,
-                                'position_top': top,
-                                'position_z_index': 0,
-                            }]).then(function (data) {
+            var tidNum = self.$el.find('div[tid]');
+            if (tidNum.length > 0) {
+                for (var i = 0; i < tidNum.length; i++) {
+                    var id = tidNum[i].getAttribute('tid');
+                    var left = tidNum[i].style.left.split('px')[0];
+                    var top = tidNum[i].style.top.split('px')[0];
+                    var zIndex = parseInt(tidNum[i].style.zIndex);
+                    self.model2.call("write", [parseInt(id),
+                        {
+                            'position_left': left,
+                            'position_top': top,
+                            'position_z_index': 0,
+                        }]).then(function (data) {
 
-                        });
-                    }
+                    });
                 }
+            }
         }
     });
-    core.action_registry.add('dispatch_desktop.page', dispatch_desktop);
-});
+    var dispatch_control = Widget.extend({
+        template: 'dispatch_control',
+        init: function (parent, context) {
+            this._super(parent, context);
+            this.model2 = new Model('dispatch.control.desktop.component');
+            this.layer = layer.msg("加载中...",{time:0, shade: 0.3});
+      },
+        start: function () {
+            this.load_fn();
+        },
+        load_fn: function () {
+            var self = this;
+            setTimeout(function () {
+                new dispatch_desktop(self, self.layer).appendTo(self.$el);
+            },1000);
+        }
+    });
+    core.action_registry.add('dispatch_desktop.page', dispatch_control);
+})
+;

@@ -209,11 +209,15 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         closeFn: function () {
             var self = this;
             var tid = this.$el.attr('tid');
+            var desktop_id = self.$el.parents(".back_style").attr("desktop_id");
             //已经添加了路线
             if (tid != undefined) {
                 // socket_model_info[tid].status =false;
-                self.model_line.query().filter([["id", "=", tid]]).all().then(function (pp) {
+                // 查询tid,拿到tid下面的lineid并得到相同lineid的一条线路
+                self.model_line.query().filter([["desktop_id",'=',parseInt(desktop_id)],["id", "=", tid]]).all().then(function (pp) {
+                    // 查询tid下的lineid
                     self.model_line.query().filter([["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
+                        // 删除该tid，即此线路
                         self.model_line.call("unlink", [data[1].id]).then(function () {
                             self.$el.parent().find('.updown_line_table').remove();
                             self.model_line.call("unlink", [data[0].id]).then(function () {
@@ -432,7 +436,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         x: e.clientX + 5,
                                         y: e.clientY + 5,
                                         zIndex: zIndex + 1,
-                                        line_id: canvas.self.attr("tid")
+                                        line_id: canvas.self.attr("tid"),
                                     };
                                 var dialog = new passenger_flow(this, options);
                                 dialog.appendTo($("body"));
@@ -600,10 +604,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var siteTopPf = self.$el.find('.updown_line_table')[0].offsetTop;
             var lineName = $('body').find('.line_line');
             var resName = [];
-            var desktop_id = window.location.href.split('active_id=')[1];
+            var desktop_id = self.$el.parents(".back_style").attr("desktop_id");
             for (var j = 0; j < lineName.length; j++) {
                 resName.push(lineName[j].innerHTML);
             }
+            console.log(desktop_id)
             // 不存在其他的组件时候
             if (tid == '') {
                 if (resName.indexOf(x.innerHTML) != -1) {
@@ -629,7 +634,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 'line_id': $(x).attr('lineid'),
                                 'name': x.innerHTML
                             }]).then(function (data) {
-                            self.model_line.query().filter([["line_id", "=", parseInt($(x).attr('lineid'))]]).all().then(function (data) {
+                                self
+                            self.model_line.query().filter([['desktop_id','=',parseInt(desktop_id)],["line_id", "=", parseInt($(x).attr('lineid'))]]).all().then(function (data) {
                                 self.$el.html('');
                                 new dispatch_bus(this, data, 0).appendTo(self.$el);
                             });

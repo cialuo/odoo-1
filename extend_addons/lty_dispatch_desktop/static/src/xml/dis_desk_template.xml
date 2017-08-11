@@ -483,7 +483,7 @@
 						<th>下趟发车</th>
 						<th>回场时间</th>
 						<th>能源剩余里程</th>
-						<th>操作</th>
+						<th>+</th>
 					</tr>
 					<tr>
 						<td>16</td>
@@ -724,5 +724,8 @@
 			<div id="container" class="gaode" style="width:300px;height:300px;"></div>
 			<input type="button" class="btn btn-primary" value="返回" style="position:absolute;left:10px;top:10px"/>
 		</div>
+	</t>
+	<t t-name="dispatch_control">
+		<div class="back_style"></div>
 	</t>
 </template>
