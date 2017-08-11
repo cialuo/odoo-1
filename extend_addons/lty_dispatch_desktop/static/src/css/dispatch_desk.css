@@ -680,8 +680,11 @@ input[type="checkbox"] + label:before {
 }
 .bus_src_config .line_list .line_company {
     overflow: hidden;
+    padding-left: 31px;
 }
-
+.bus_src_config .src_line_number{
+    margin-left: 10px;
+}
 .bus_src_config .line_list>div>div {
     height: 26px;
     font-size: 16px;
@@ -718,34 +721,26 @@ input[type="checkbox"] + label:before {
 }
 
 .bus_src_config .src_content {
-    height: 380px;
-    padding-left: 10px;
-    padding-top: 10px;
+    height: 470px;
 }
 
 .bus_src_config .src_content table {
-    width: 902px;
-    text-align: center;
-}
-
-.bus_src_config table th {
-    background: #eeeeee;
+    width: 1336px;
+    margin: 0 auto;
+    color: #838697;
+    border:1px solid #6D7487;
+    border-bottom: none;
 }
 
 .bus_src_config th, .bus_src_config td {
-    height: 30px;
-    line-height: 30px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-bottom:1px solid #6D7487;
 }
-
-.bus_src_config .th0 {
-    border: 1px solid #ccc;
-    border-right: 0;
+.bus_src_config th{
+    color: #53CAC8;
 }
-
-.bus_src_config .th1 {
-    border: 1px solid #ccc;
-}
-
 .bus_src_config .table_source {
     display: none;
 }

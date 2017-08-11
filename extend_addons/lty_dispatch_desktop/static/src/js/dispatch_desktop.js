@@ -81,12 +81,13 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             this._super(parent, context);
             this.model2 = new Model('dispatch.control.desktop.component');
         },
-        start: function () {
+        start: function (e) {
             $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
             var self = this;
             self.$el.addClass('controller_kz123 back_style');
             self.$el.append(QWeb.render("myConsole"));
-            self.model2.query(["line_id"]).filter([["desktop_id", "=", 2]]).all().then(function (data) {
+            var desktop_id = window.location.href.split('active_id=')[1];
+            self.model2.query(["line_id"]).filter([["desktop_id", "=", desktop_id]]).all().then(function (data) {
                 var s = [];
                 if (data.length > 0) {
                     // 去重
@@ -134,7 +135,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                             {
                                 'position_left': left,
                                 'position_top': top,
-                                'position_z_index': zIndex,
+                                'position_z_index': 0,
                             }]).then(function (data) {
 
                         });

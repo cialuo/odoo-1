@@ -67,10 +67,11 @@ function drag(oDrag, handle, maxL, maxT) {
 }
 var timmerHandle = null;
 var isDrag = false;
+
 function dragFn(parent, title, maxL, maxT) {
     var c_class = "." + parent + " ." + title;
     var p_class = "." + parent;
-    var k = 0;
+    var k = 1;
     $("body").on('mouseover', c_class, function () {
         var oDrag = $(this).parents("." + parent)[0];
         // var oDrag = $(this).parents(parent)[0];
@@ -94,7 +95,6 @@ function dragFn(parent, title, maxL, maxT) {
     function setDragTrue() {
         isDrag = true;
     }
-
     $("body").on('mousedown', c_class, function () {
         isDrag = false;
         timmerHandle = setTimeout(setDragTrue, 200);

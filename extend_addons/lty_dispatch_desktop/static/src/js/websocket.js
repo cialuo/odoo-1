@@ -37,7 +37,12 @@ websocket.onopen = function() {
 // 	'人力资源状态':{}
 // };
 //接收到消息的回调方法
+var socket_model_info = {};
 websocket.onmessage = function(event) {
+    for (socket_model in socket_model_info) {
+        var socket_model = socket_model_info[socket_model];
+        socket_model.fn(event.data, socket_model.arg);
+    }
     // var obj = {moduleName:"modelBus",controllerId:"kz123", data: [event.data]};
     //    var modelName = obj.moduleName;
     //    var controllerId = obj.controllerId;
@@ -60,7 +65,6 @@ websocket.onmessage = function(event) {
     //    	}
     //    }
     // var obj = JSON.parse(event.data);
-    console.log('start')
     var obj = { modelName: "modelBus", controllerId: "kz123", data: [event.data] };
     var modelName = obj.modelName;
     var controllerId = obj.controllerId;
@@ -74,7 +78,6 @@ websocket.onmessage = function(event) {
     } else if (modelName == "人力资源状态") {
         console.log('4');
     } else if (modelName == "modelBus") {
-        console.log('5');
         modelBus($(".controller_" + controllerId), obj.data);
     } else if (modelName == "滞客信息") {
         console.log('6');

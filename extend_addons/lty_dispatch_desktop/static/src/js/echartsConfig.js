@@ -1,4 +1,3 @@
-
 var optionLineBar = {
     title: {
         text: '34路·客流与动力',
@@ -101,9 +100,16 @@ var optionLineBar = {
     series: ''
 };
 
-var chartLineBar = function (dom, border_width,color,lineOrbar,boundaryGap, title, option, keyJson, dataJson, stackType) {
+var chartLineBar = function (dom, border_width, color, lineOrbar, boundaryGap, title, option, keyJson, dataJson, stackType) {
+    if (myChart && !myChart.isDisposed()) { //判断图形已初始化,且未销毁
+        myChart.clear();           //释放图形资源
+        myChart.dispose();    //销毁实例对象
+    }
     //id，图表类型，图表title，单线名称，选用的图表基本配置，横坐标值，单线对应的一系列纵坐标值，是否归属于某个总类
-    var myChart = echarts.init(dom);
+    var myChart = echarts.getInstanceByDom(dom);
+    if (myChart === undefined) {
+        myChart = echarts.init(dom);
+    }
     option.xAxis[0].data = keyJson;
     option.xAxis[0].boundaryGap = boundaryGap;
     option.legend.data = title;
@@ -122,9 +128,9 @@ var chartLineBar = function (dom, border_width,color,lineOrbar,boundaryGap, titl
                         width: border_width
                     }
                 },
-                itemStyle:{
-                    normal:{
-                        color:color[i]
+                itemStyle: {
+                    normal: {
+                        color: color[i]
                     }
                 }
 

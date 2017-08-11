@@ -59,17 +59,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                                 self.site_top_infos = site_top_infos;
                                 self.site_down_infos = site_down_infos;
-                                // var model_id = 'model_' + tid;
-                                // if (socket_model_info[model_id]) {
-                                //     delete socket_model_info[model_id];
-                                // }
-                                // socket_model_info[model_id] = {
-                                //     arg: {
-                                //         self: self,
-                                //         site_top_infos: self.site_top_infos,
-                                //         site_down_infos: self.site_down_infos
-                                //     }, fn: self.site_websocket
-                                // };
+                                var model_id = 'model_' + tid;
+                                if (socket_model_info[model_id]) {
+                                    delete socket_model_info[model_id];
+                                }
+                                socket_model_info[model_id] = {
+                                    arg: {
+                                        self: self,
+                                        site_top_infos: self.site_top_infos,
+                                        site_down_infos: self.site_down_infos
+                                    }, fn: self.site_websocket
+                                };
                             });
                         });
                     });
@@ -294,11 +294,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     controllerId: 'kz123'
                 };
             var dialog = new bus_real_info(this, options);
-            if ($(".modelBus_"+options.line_id+"_"+options.car_num).length>0){
+            if ($(".modelBus_" + options.line_id + "_" + options.car_num).length > 0) {
                 return;
-            }else{
+            } else {
                 $(".bus_real_info_model").remove();
-                dialog.appendTo($(".controller_"+options.controllerId));
+                dialog.appendTo($(".controller_" + options.controllerId));
             }
             // e.delegateTarget.parentElement.append(dialog);
         },
@@ -361,102 +361,103 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var x = event.pageX - c.getBoundingClientRect().left;
             var y = event.pageY - c.getBoundingClientRect().top;
             var zIndex = parseInt(this.$el[0].style.zIndex);
-            for (var i = 0; i < canvas.dataCir.length; i++) {
-                cxt.beginPath();
-                //渲染参数，x距离,y距离,半径,起始角，结束角，是否顺势针
-                cxt.arc(canvas.dataCir[i], canvas.ciry, 3, 0, 360, false);
-                //判断鼠标的点是否在圆圈内
-                if (cxt.isPointInPath(x, y)) {
-                    c.style.cursor = 'pointer';
-                    //获取鼠标点击区域的颜色值
-                    var imgData = cxt.getImageData(x, y, 1, 1);
-                    // 重绘画布
-                    cxt.clearRect(0, 0, c.width, c.height);
-                    canvas.site_infos[i].status == true ? canvas.site_infos[i].status = false : canvas.site_infos[i].status = true;
-                    canvas.model.call("write", [canvas.site_infos[i].id,
-                        {
-                            'is_show_name': canvas.site_infos[i].status
-                        }]).then(function (res) {
-
-                    });
-                    var traffic_top = {
-                        id: canvas.id,
-                        y: canvas.ciry - 1,
-                        self: canvas.self,
-                        subsection: canvas.subsection,
-                        color: canvas.color
-                    };
-                    traffic_distance(traffic_top);
-                    var cir_text = {
-                        id: canvas.id,
-                        ciry: canvas.ciry,
-                        testy: canvas.testy,
-                        self: canvas.self,
-                        color: canvas.color,
-                        dataCir: canvas.dataCir,
-                        dataSite_color: canvas.dataSite_color,
-                        site_infos: canvas.site_infos
-                    };
-                    cir_and_text(cir_text);
-                    cxt.closePath();
-                    // 转换16进制像素
-                    var hex = "#" + ((1 << 24) + (imgData.data[0] << 16) + (imgData.data[1] << 8) + imgData.data[2]).toString(16).slice(1);
-                    if (hex == "#ffffff") {
-                        // 清除画布
-                        // 绘上实心圆
-                        cxt.beginPath();
-                        cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
-                        cxt.fillStyle = canvas.dataSite_color[i].color;
-                        cxt.fill();
-                        cxt.closePath();
-                    } else {
-                        cxt.beginPath();
-                        cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
-                        cxt.fillStyle = "white";
-                        cxt.fill();
-                        cxt.closePath();
-                    }
-                    break
-                }
-                cxt.closePath();
-                cxt.beginPath();
-                if (canvas.site_infos[i].status == true) {
-
-                    cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
+            if (canvas.dataCir) {
+                for (var i = 0; i < canvas.dataCir.length; i++) {
+                    cxt.beginPath();
+                    //渲染参数，x距离,y距离,半径,起始角，结束角，是否顺势针
+                    cxt.arc(canvas.dataCir[i], canvas.ciry, 3, 0, 360, false);
+                    //判断鼠标的点是否在圆圈内
                     if (cxt.isPointInPath(x, y)) {
-                        //如果是左击
-                        if (e.button == 0) {
-                            var options =
-                                {
-                                    x: e.clientX + 5,
-                                    y: e.clientY + 5,
-                                    zIndex: zIndex + 1,
-                                    line_id: canvas.self.attr("tid")
-                                };
-                            var dialog = new passenger_flow(this, options);
-                            dialog.appendTo($("body"));
+                        c.style.cursor = 'pointer';
+                        //获取鼠标点击区域的颜色值
+                        var imgData = cxt.getImageData(x, y, 1, 1);
+                        // 重绘画布
+                        cxt.clearRect(0, 0, c.width, c.height);
+                        canvas.site_infos[i].status == true ? canvas.site_infos[i].status = false : canvas.site_infos[i].status = true;
+                        canvas.model.call("write", [canvas.site_infos[i].id,
+                            {
+                                'is_show_name': canvas.site_infos[i].status
+                            }]).then(function (res) {
+
+                        });
+                        var traffic_top = {
+                            id: canvas.id,
+                            y: canvas.ciry - 1,
+                            self: canvas.self,
+                            subsection: canvas.subsection,
+                            color: canvas.color
+                        };
+                        traffic_distance(traffic_top);
+                        var cir_text = {
+                            id: canvas.id,
+                            ciry: canvas.ciry,
+                            testy: canvas.testy,
+                            self: canvas.self,
+                            color: canvas.color,
+                            dataCir: canvas.dataCir,
+                            dataSite_color: canvas.dataSite_color,
+                            site_infos: canvas.site_infos
+                        };
+                        cir_and_text(cir_text);
+                        cxt.closePath();
+                        // 转换16进制像素
+                        var hex = "#" + ((1 << 24) + (imgData.data[0] << 16) + (imgData.data[1] << 8) + imgData.data[2]).toString(16).slice(1);
+                        if (hex == "#ffffff") {
+                            // 清除画布
+                            // 绘上实心圆
+                            cxt.beginPath();
+                            cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
+                            cxt.fillStyle = canvas.dataSite_color[i].color;
+                            cxt.fill();
+                            cxt.closePath();
+                        } else {
+                            cxt.beginPath();
+                            cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
+                            cxt.fillStyle = "white";
+                            cxt.fill();
                             cxt.closePath();
                         }
-                        //如果是右击
-                        else if (e.button == 2) {
-                            if (canvas.site_infos[i].status == true) {
-                                cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
-                                if (cxt.isPointInPath(x, y)) {
-                                    var options =
-                                        {
-                                            x: x + 5 + 12 + 26,
-                                            y: y + 5 + 55,
-                                            zIndex: zIndex + 1,
-                                        };
-                                    new bus_site_info(this, options).appendTo(this.$el);
-                                    cxt.closePath();
-                                    //如果提供了事件对象，则这是一个非IE浏览器
+                        break
+                    }
+                    cxt.closePath();
+                    cxt.beginPath();
+                    if (canvas.site_infos[i].status == true) {
+
+                        cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
+                        if (cxt.isPointInPath(x, y)) {
+                            //如果是左击
+                            if (e.button == 0) {
+                                var options =
+                                    {
+                                        x: e.clientX + 5,
+                                        y: e.clientY + 5,
+                                        zIndex: zIndex + 1,
+                                        line_id: canvas.self.attr("tid")
+                                    };
+                                var dialog = new passenger_flow(this, options);
+                                dialog.appendTo($("body"));
+                                cxt.closePath();
+                            }
+                            //如果是右击
+                            else if (e.button == 2) {
+                                if (canvas.site_infos[i].status == true) {
+                                    cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
+                                    if (cxt.isPointInPath(x, y)) {
+                                        var options =
+                                            {
+                                                x: x + 5 + 12 + 26,
+                                                y: y + 5 + 55,
+                                                zIndex: zIndex + 1,
+                                            };
+                                        new bus_site_info(this, options).appendTo(this.$el);
+                                        cxt.closePath();
+                                        //如果提供了事件对象，则这是一个非IE浏览器
+                                    }
                                 }
                             }
                         }
                     }
                 }
-
             }
         },
         // 点击左侧车场
@@ -513,6 +514,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         //左侧的停车场的点击事件
         click_lr: function (canvas, e) {
+            var self = this;
             var event = e || window.event;
             var c = this.$el.find(canvas.id)[0];
             var cxt = c.getContext("2d");
@@ -520,6 +522,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var y = event.pageY - c.getBoundingClientRect().top;
             var zIndex = parseInt(this.$el[0].style.zIndex);
             cxt.arc(13, 58, 13, 0, 360, false);
+
             if (cxt.isPointInPath(x, y)) {
                 var options =
                     {
@@ -528,8 +531,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         zIndex: zIndex + 1,
                         line_id: this.$el.attr("tid")
                     };
-                var dialog = new plan_display(this, options);
-                dialog.appendTo($("body"));
+                if (self.busNumber) {
+                    var dialog = new plan_display(this, options);
+                    dialog.appendTo($("body"));
+                }
             }
         }
     });
@@ -595,6 +600,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var siteTopPf = self.$el.find('.updown_line_table')[0].offsetTop;
             var lineName = $('body').find('.line_line');
             var resName = [];
+            var desktop_id = window.location.href.split('active_id=')[1];
             for (var j = 0; j < lineName.length; j++) {
                 resName.push(lineName[j].innerHTML);
             }
@@ -605,7 +611,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 } else {
                     self.model_line.call("create", [
                         {
-                            'desktop_id': 2,
+                            'desktop_id': desktop_id,
                             "model_type": "dispatch_desktop",
                             'position_left': siteLeft,
                             'position_top': siteTop,
@@ -615,7 +621,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         }]).then(function (data) {
                         self.model_line.call("create", [
                             {
-                                'desktop_id': 2,
+                                'desktop_id': desktop_id,
                                 "model_type": "updown_line_table",
                                 'position_left': siteLeftPf,
                                 'position_top': siteTopPf,
@@ -639,7 +645,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             'line_id': $(x).attr("lineid"),
                             'position_left': siteLeft,
                             'position_top': siteTop,
-                            'position_z_index': siteZindex,
+                            'position_z_index': 0,
                             'name': x.innerHTML,
                         }]).then(function (res) {
                         self.model_line.call("write", [parseInt(tid) + 1,
@@ -647,7 +653,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 'line_id': $(x).attr("lineid"),
                                 'position_left': siteLeftPf,
                                 'position_top': siteTopPf,
-                                'position_z_index': siteZindexPf,
+                                'position_z_index': 0,
                                 'name': x.innerHTML,
                             }]).then(function (res) {
                             self.model_line.query().filter([["line_id", "=", parseInt(line)]]).all().then(function (data) {
