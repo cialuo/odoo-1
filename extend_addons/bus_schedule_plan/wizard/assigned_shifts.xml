@@ -31,7 +31,7 @@
                                     <field name="conductor_id" options="{'no_open':True,'no_create':True}"/>
                                     <field name="conductor_jobnumber"/>
                                     <field name="bus_group_vehicle_id" options="{'no_open':True,'no_create':True}"/>
-                                    <field name="t_sequence"/>
+                                    <field name="vehicle_sequence"/>
                                     <field name='bus_shift_choose_line_id' options="{'no_open':True,'no_create':True}"/>
                                     <field name="choose_sequence" invisible="1"/>
                                 </tree>

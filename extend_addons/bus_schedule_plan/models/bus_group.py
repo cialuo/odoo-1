@@ -248,7 +248,7 @@ class BusGroupDriverVehicleShift(models.Model):
     choose_sequence = fields.Integer('Shift Sequence', related='bus_shift_choose_line_id.sequence')
 
     bus_group_vehicle_id = fields.Many2one("bus_group_vehicle")
-    t_sequence = fields.Integer("Vehicle Sequence", readonly=True)
+    vehicle_sequence = fields.Integer("Vehicle Sequence", readonly=True)
     active = fields.Boolean(default=True)
 
 
@@ -298,7 +298,7 @@ class BusGroupDriverVehicleShift(models.Model):
             res_seq = self.env['bus_group_driver_vehicle_shift'].search(
                                                                 [('use_date', '=', use_date),
                                                                  ('route_id', '=', route_id),
-                                                                 ('t_sequence', '!=', 0)]).mapped('t_sequence')
+                                                                 ('vehicle_sequence', '!=', 0)]).mapped('vehicle_sequence')
             old_t_sequence_list = list(set(res_seq))  #线路内原始顺序
             new_t_sequence_list = sorted(old_t_sequence_list, reverse=True) #线路内逆顺序
 
@@ -307,8 +307,8 @@ class BusGroupDriverVehicleShift(models.Model):
             for j in res_groups:
                 group_seq = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '=', use_date),
                                                                             ('route_id', '=', route_id),
-                                                                            ('t_sequence', '!=', 0),
-                                                                            ('group_id', '=', j.id),]).mapped('t_sequence')
+                                                                            ('vehicle_sequence', '!=', 0),
+                                                                            ('group_id', '=', j.id),]).mapped('vehicle_sequence')
 
                 old_group_dict[j.id] = list(set(group_seq))
                 new_group_dict[j.id] = []
@@ -434,8 +434,8 @@ class BusGroupDriverVehicleShift(models.Model):
                     for m in zip(res_group_shift_line, old_group_dict[k]):
                         new_t_sequence = new_group_dict_vehicle[k][old_group_dict[k].index(m[1])]
                         data = {
-                            't_sequence': new_t_sequence,
-                            'bus_group_vehicle_id': res_group_shift.filtered(lambda x: x.t_sequence == m[1])[
+                            'vehicle_sequence': new_t_sequence,
+                            'bus_group_vehicle_id': res_group_shift.filtered(lambda x: x.vehicle_sequence == m[1])[
                                 0].bus_group_vehicle_id.id
                         }
 

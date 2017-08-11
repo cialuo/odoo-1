@@ -22,6 +22,8 @@ class BusStaffGroup(models.Model):
     vehicle_ct = fields.Integer(compute="_get_vehicle_ct")
     staff_date = fields.Date("Last Staff Date", default=fields.Date.today)
 
+    move_time_id = fields.Many2one("scheduleplan.busmovetime")
+
     @api.model
     def create(self, data):
         """
@@ -39,7 +41,7 @@ class BusStaffGroup(models.Model):
             i.vehicle_ct = len(i.vehicle_line_ids)
 
     @api.multi
-    def action_gen_staff_group(self, route_id, use_date=str(datetime.date.today())):
+    def action_gen_staff_group(self, route_id, move_time_id, use_date=str(datetime.date.today()), operation_ct=0):
 
         staff_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") + timedelta(days=1)
         staff_date_str = datetime.datetime.strftime(staff_date, "%Y-%m-%d")
@@ -47,11 +49,11 @@ class BusStaffGroup(models.Model):
         res = self.env['bus_staff_group'].search([('name', '=', route_id.lineName + '/' + str(staff_date_str))])
         if res:
             res.unlink()
-        k = 3
+
         res_group_shift = self.env['bus_group_driver_vehicle_shift'].read_group(
-                                        [('use_date', '=', use_date), ('t_sequence', '>', 0),
-                                         ('route_id', '=', route_id.id)], ['t_sequence'],
-                                         groupby=['t_sequence'], orderby='t_sequence')
+                                        [('use_date', '=', use_date), ('vehicle_sequence', '>', 0),
+                                         ('route_id', '=', route_id.id)], ['vehicle_sequence'],
+                                         groupby=['vehicle_sequence'], orderby='vehicle_sequence')
 
         datas = []
         count = 0
@@ -76,15 +78,16 @@ class BusStaffGroup(models.Model):
                 "route_id": res_vehicles[0].route_id.id,
                 'vehicle_id': res_vehicles[0].bus_group_vehicle_id.vehicle_id.id,
                 'operation_state': 'flexible',
-                'sequence': res_vehicles[0].t_sequence,
+                'sequence': res_vehicles[0].vehicle_sequence,
                 'bus_group_id': res_vehicles[0].group_id.id,
                 'staff_line_ids': data_shift
             }
-            if count <= k:
+            if count <= operation_ct:
                 vals.update({'operation_state': 'operation'})
             datas.append((0, 0, vals))
         self.env['bus_staff_group'].create({'vehicle_line_ids': datas,
                                             'route_id': route_id.id,
+                                            'move_time_id':move_time_id.id,
                                             'name': route_id.lineName + '/' + staff_date_str,
                                             'staff_date': staff_date
                                             })
@@ -149,7 +152,6 @@ class BusStaffGroupVehicleLine(models.Model):
             staff_names = set()
             for j in i.staff_line_ids:
                 staff_names.add(j.driver_id.name)
-            print 111111111111111111,staff_names
             if staff_names:
                 staff_names = list(staff_names)
             else:
