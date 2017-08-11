@@ -51,12 +51,17 @@
 								class="oe_highlight"
 								/> <!-- 提交审核-->
 
-                        <button name="action_check"
+                        <button name="action_check_success"
 								type="object"
 								string="check success"
 								states="wait_check"
 								class="oe_highlight"
 								/> <!-- 审核通过-->
+                        <button name="action_check_fail"
+								type="object"
+								string="check fail"
+								states="wait_check"
+								/> <!-- 审核不通过-->
                     	<field name="state" widget="statusbar"/>
                     </header>
                     <sheet>

@@ -84,7 +84,7 @@ class BusGroup(models.Model):
         })
 
     @api.multi
-    def action_check(self):
+    def action_check_success(self):
         """
         审核通过
         """
@@ -93,6 +93,14 @@ class BusGroup(models.Model):
             vals.update({'bus_algorithm_date':datetime.date.today()})
         if self.is_driver_algorithm_change:
             vals.update({'bus_driver_algorithm_date': datetime.date.today()})
+        self.write(vals)
+
+    @api.multi
+    def action_check_fail(self):
+        """
+        审核不通过
+        """
+        vals = {'state': 'draft'}
         self.write(vals)
 
     @api.depends('vehicle_ids', 'driver_ids', 'bus_shift_id')
@@ -313,7 +321,7 @@ class BusGroupDriverVehicleShift(models.Model):
             大轮换 start
             """
             last_rotation_date = datetime.datetime.strptime(last_rotation_date, "%Y-%m-%d")
-            is_big_rotation = False
+            # is_big_rotation = False
 
             if is_big_rotation and (next_use_date - last_rotation_date).days >= rotation_cycle:
                 for k, v in old_group_dict.iteritems():
@@ -351,7 +359,7 @@ class BusGroupDriverVehicleShift(models.Model):
                         else:                     #向后移
                             v = leftMove2(v, 1)
                 new_group_dict_vehicle[k] = v
-            print '线路下所有的组 车辆顺序 分组 大轮换后 新顺序', group_dict
+
             print '线路下所有的组 车辆顺序 分组 车辆轮趟算法 新顺序', new_group_dict_vehicle
 
             '''司机轮班算法'''
@@ -415,12 +423,12 @@ class BusGroupDriverVehicleShift(models.Model):
                      ('group_id', '=', k)
                      ])  #获取生成的下一天的数据
                 print res_group_shift_next_day
-                for i in res_group_shift_next_day.mapped('bus_shift_choose_line_id').ids:  #根据班次的数量 配置车辆和车序
+                for choose_line_id in res_group_shift_next_day.mapped('bus_shift_choose_line_id').ids:  #根据班次的数量 配置车辆和车序
                     res_group_shift_line = self.env['bus_group_driver_vehicle_shift'].search(
                         [('use_date', '=', next_use_date),
                          ('route_id', '=', route_id),
                          ('group_id', '=', k),
-                         ('bus_shift_choose_line_id', '=', i),
+                         ('bus_shift_choose_line_id', '=', choose_line_id),
                          ])
                     print res_group_shift_line,old_group_dict[k]
                     for m in zip(res_group_shift_line, old_group_dict[k]):

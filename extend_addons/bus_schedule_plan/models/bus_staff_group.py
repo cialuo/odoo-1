@@ -64,8 +64,8 @@ class BusStaffGroup(models.Model):
                 sequence += 1
                 vals_shift = {
                     'group_id': m.group_id.id,
-                    "driver_id": m.driver_id.id,
-                    "conductor_id": m.conductor_id.id or None,
+                    "driver_id": m.driver_id.driver_id.id,
+                    "conductor_id": m.conductor_id.conductor_id.id or None,
                     'bus_shift_id': m.bus_shift_id.id,
                     'bus_shift_choose_line_id': m.bus_shift_choose_line_id.id,
                     "sequence": sequence
@@ -148,8 +148,13 @@ class BusStaffGroupVehicleLine(models.Model):
         for i in self:
             staff_names = set()
             for j in i.staff_line_ids:
-                staff_names.add(j.driver_id.driver_id.name)
-            i.staff_names = ",".join(list(staff_names))
+                staff_names.add(j.driver_id.name)
+            print 111111111111111111,staff_names
+            if staff_names:
+                staff_names = list(staff_names)
+            else:
+                staff_names = []
+            i.staff_names = ",".join(staff_names)
 
 
     @api.multi
@@ -178,22 +183,25 @@ class BusStaffGroupVehicleStaffLine(models.Model):
     _name = 'bus_staff_group_vehicle_staff_line'
     sequence = fields.Integer("Shift Line Sequence", default=1)
     vehicle_line_id = fields.Many2one('bus_staff_group_vehicle_line', ondelete='cascade')
-    # driver_id = fields.Many2one('hr.employee', string="driver", required=True,
-    #                             domain="[('workpost.posttype', '=', 'driver')]")
-    # driver_jobnumber = fields.Char(string='driver_jobnumber', related='driver_id.jobnumber', readonly=True)
-    #
-    # conductor_id = fields.Many2one('hr.employee', string="conductor",
-    #                                domain="[('workpost.posttype', '=', 'conductor')]")
-    # conductor_jobnumber = fields.Char(string='conductor_jobnumber', related='conductor_id.jobnumber', readonly=True)
-    #
 
     group_id = fields.Many2one('bus_group', 'Group')
-    driver_id = fields.Many2one("bus_group_driver", domain="[('bus_group_id','=',group_id)]")
 
+    driver_id = fields.Many2one('hr.employee', string="driver", required=True,
+                                domain="[('workpost.posttype', '=', 'driver')]")
     driver_jobnumber = fields.Char(string='driver_jobnumber', related='driver_id.jobnumber', readonly=True)
 
-    conductor_id = fields.Many2one("bus_group_conductor", domain="[('bus_group_id','=',group_id)]")
+    conductor_id = fields.Many2one('hr.employee', string="conductor",
+                                   domain="[('workpost.posttype', '=', 'conductor')]")
     conductor_jobnumber = fields.Char(string='conductor_jobnumber', related='conductor_id.jobnumber', readonly=True)
+
+
+
+    # driver_id = fields.Many2one("bus_group_driver", domain="[('bus_group_id','=',group_id)]")
+    #
+    # driver_jobnumber = fields.Char(string='driver_jobnumber', related='driver_id.jobnumber', readonly=True)
+    #
+    # conductor_id = fields.Many2one("bus_group_conductor", domain="[('bus_group_id','=',group_id)]")
+    # conductor_jobnumber = fields.Char(string='conductor_jobnumber', related='conductor_id.jobnumber', readonly=True)
 
     bus_shift_id = fields.Many2one('bus_shift', readonly=True)
     bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line', domain="[('shift_id','=',bus_shift_id)]")

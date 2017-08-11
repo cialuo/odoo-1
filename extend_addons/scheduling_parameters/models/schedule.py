@@ -194,7 +194,7 @@ class route_manage(models.Model):
     station_route_ids = fields.Many2many('opertation_resources_station', 'opertation_resources_station_rel',
                                         'route_station_id', 'station_id', 'Stations')
 
-    child_route_ids = fields.One2many('route_manage.route_manage', 'main_line_id', string='ChirdRoutes')
+    child_route_ids = fields.One2many('route_manage.route_manage', 'main_line_id', string='ChildRoutes')
 
     @api.multi
     def do_inuse(self):
