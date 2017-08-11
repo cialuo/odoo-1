@@ -216,6 +216,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 // 查询tid,拿到tid下面的lineid并得到相同lineid的一条线路
                 self.model_line.query().filter([["desktop_id",'=',parseInt(desktop_id)],["id", "=", tid]]).all().then(function (pp) {
                     // 查询tid下的lineid
+                    console.log(pp)
                     self.model_line.query().filter([["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
                         // 删除该tid，即此线路
                         self.model_line.call("unlink", [data[1].id]).then(function () {
