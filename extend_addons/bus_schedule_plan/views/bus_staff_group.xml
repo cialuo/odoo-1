@@ -11,6 +11,7 @@
                     <field name="id"/>
                     <field name="name"/>
                     <field name="route_id"/>
+                    <field name="move_time_id"/>
                     <field name="create_date"/>
                     <field name="create_uid"/>
                 </tree>
@@ -32,9 +33,10 @@
                         </div>
                         <group col="2">
                             <group>
-                                <field name="route_id" options="{'no_open':True,'no_create':True}"/>
+                                <field name="route_id" options="{'no_open':True,'no_create':True}" readonly="1"/>
                                 <field name="lineName" invisible="1"/>
-                                <field name="staff_date"/>
+                                <field name="staff_date" readonly="1"/>
+                                <field name="move_time_id" options="{'no_open':True,'no_create':True}" readonly="1"/>
                                 <!--<field name="bus_algorithm_id" options="{'no_open':True,'no_create':True}"/>-->
                                 <!--<field name="bus_algorithm_date" invisible="1"/>-->
                                 <!--<field name="bus_driver_algorithm_id" options="{'no_open':True,'no_create':True}"/>-->
@@ -85,10 +87,10 @@
                                         <field name="group_id" invisible="1"/>
 										<field name="driver_id" readonly="1"/>
 										<field name="driver_jobnumber" readonly="1"/>
-										<field name="conductor_id"/>
+										<field name="conductor_id" options="{'no_create':True}"/>
 										<field name="conductor_jobnumber" readonly="1"/>
                                         <field name="bus_shift_id" invisible="1"/>
-										<field name="bus_shift_choose_line_id"/>
+										<field name="bus_shift_choose_line_id" options="{'no_create':True}"/>
                                     </tree>
                                 </field>
                             </page>
