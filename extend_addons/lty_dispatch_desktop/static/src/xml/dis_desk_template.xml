@@ -509,7 +509,7 @@
 						<td>第四趟</td>
 						<td>35</td>
 						<td>92%</td>
-						<td>正常</td>
+						<td class="signal_status">正常</td>
 						<td>62KM/H</td>
 						<td>9：00am</td>
 						<td>11：00am</td>

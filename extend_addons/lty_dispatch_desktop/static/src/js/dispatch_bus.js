@@ -27,11 +27,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.model_site_down = new Model('opertation_resources_station_down');
             //odoo提供数据
             this.dis_desk = data;
-            this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
         },
         start: function () {
             var self = this;
-
+            this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
             function site_info(mode_line, model_top, model_down) {
                 var site_top_infos = [];
                 var site_down_infos = [];
@@ -211,11 +210,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var self = this;
             var tid = this.$el.attr('tid');
             var desktop_id =self.desktop_id;
+            console.log(desktop_id)
             //已经添加了路线
             if (tid != undefined) {
                 // socket_model_info[tid].status =false;
                 // 查询tid,拿到tid下面的lineid并得到相同lineid的一条线路
                 self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["id", "=", tid]]).all().then(function (pp) {
+                    console.log(pp)
                     // 查询tid下的lineid
                     self.model_line.query().filter([["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
                         // 删除该tid，即此线路
@@ -575,6 +576,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.type = type;
         },
         start: function () {
+            this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
             var data = this.data;
             var type = this.type;
             // 界面初始渲染
