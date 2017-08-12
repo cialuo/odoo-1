@@ -27,6 +27,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.model_site_down = new Model('opertation_resources_station_down');
             //odoo提供数据
             this.dis_desk = data;
+            this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
         },
         start: function () {
             var self = this;
@@ -209,7 +210,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         closeFn: function () {
             var self = this;
             var tid = this.$el.attr('tid');
-            var desktop_id = self.$el.parents(".back_style").attr("desktop_id");
+            var desktop_id =self.desktop_id;
             //已经添加了路线
             if (tid != undefined) {
                 // socket_model_info[tid].status =false;
@@ -623,7 +624,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var siteTopPf = self.$el.find('.updown_line_table')[0].offsetTop;
             var lineName = $('body').find('.line_line');
             var resName = [];
-            var desktop_id = self.$el.parents(".back_style").attr("desktop_id");
+            var desktop_id =self.desktop_id;
             for (var j = 0; j < lineName.length; j++) {
                 resName.push(lineName[j].innerHTML);
             }
