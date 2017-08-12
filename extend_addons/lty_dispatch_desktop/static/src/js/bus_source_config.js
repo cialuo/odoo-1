@@ -14,18 +14,26 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
         },
         start: function () {
             var self = this;
-            // self.$el.append(QWeb.render("config"));
             self.$el.find('.line_src li').click(function () {
                 $(this).addClass('active').siblings().removeClass('active');
-                self.$el.find('.src_content').find('div').eq($(this).index()).show().siblings().hide();
+                console.log($(this).index())
+                self.$el.find('.src_content>div').eq($(this).index()).show().siblings().hide();
             });
         },
         events: {
             'click .position_site': 'show_map',
-            'click .dis_close_bt': 'closeFn'
+            'click .dis_close_bt': 'closeFn',
+            'click .add_btn':'change_set',
+            'click .config_bus_source div a':'close_set'
+        },
+        change_set:function () {
+            this.$el.find('.config_bus_source').slideDown();
         },
         closeFn: function () {
             this.destroy();
+        },
+        close_set:function () {
+            this.$el.find('.config_bus_source').slideUp();
         },
         show_map: function () {
             var self = this;

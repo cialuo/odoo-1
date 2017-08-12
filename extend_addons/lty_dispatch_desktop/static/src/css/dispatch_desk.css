@@ -170,11 +170,14 @@
     right: 0;
     top: 0;
     width: 100px;
-    background: #fff;
+    background: -webkit-linear-gradient(top, #32817E, #356691);
+    background: -moz-linear-gradient(top, #32817E, #356691);
     border-radius: 2px;
     z-index: 20;
     display: none;
     cursor: pointer;
+    color: #fff;
+    padding-bottom: 20px;
 }
 
 .dispatch_desktop .edit_content > ul > li li {
@@ -655,18 +658,21 @@
     top: 13px;
     width: 12px;
     background: #C9CBCA;
-    height: 4px;
+    height: 3px;
     vertical-align: middle;
 }
+
 .bus_src_config .line_list {
     height: 50px;
     padding-top: 8px;
     color: #fff;
     display: flex;
 }
-.bus_src_config .line_list>div{
-    width:33%;
+
+.bus_src_config .line_list > div {
+    width: 33%;
 }
+
 .main_controll_interface {
     width: 924px;
     border: 1px solid #ccc;
@@ -678,25 +684,28 @@
     height: 46px;
     /*overflow: hidden;*/
 }
+
 .bus_src_config .line_list .line_company {
     overflow: hidden;
     padding-left: 31px;
 }
-.bus_src_config .src_line_number{
+
+.bus_src_config .src_line_number {
     margin-left: 10px;
 }
-.bus_src_config .line_list>div>div {
+
+.bus_src_config .line_list > div > div {
     height: 26px;
     font-size: 16px;
     line-height: 26px;
     float: left;
 }
 
-.bus_src_config .line_src>ul {
-    width:162px;
-    height:36px;
-    border-radius:4px;
-    border:1px solid #53CAC8;
+.bus_src_config .line_src > ul {
+    width: 162px;
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid #53CAC8;
     margin: 0 auto;
 }
 
@@ -710,8 +719,6 @@
     color: #53CAC8;
     cursor: pointer;
 }
-
-
 
 .bus_src_config .line_src li.active {
     height: 34px;
@@ -728,18 +735,71 @@
     width: 1336px;
     margin: 0 auto;
     color: #838697;
-    border:1px solid #6D7487;
+    border: 1px solid #6D7487;
     border-bottom: none;
 }
-
+.bus_src_config .table_bus_num th:first-of-type,.bus_src_config .table_bus_num td:first-of-type{
+    padding-left: 12px;
+}
 .bus_src_config th, .bus_src_config td {
     height: 40px;
     line-height: 40px;
-    text-align: center;
-    border-bottom:1px solid #6D7487;
+    border-bottom: 1px solid #6D7487;
 }
-.bus_src_config th{
+
+.bus_src_config th {
     color: #53CAC8;
+}
+
+.bus_src_config .control_btn {
+    padding-right: 10px;
+    position: relative;
+}
+
+.bus_src_config .control_btn p{
+    float: left;
+    height: 18px;
+    line-height: 18px;
+}
+
+.bus_src_config .control_btn .add_btn {
+    float: right;
+    border-radius: 50%;
+    width: 18px;
+    border: 1px solid #53CAC8;
+    line-height: 15px;
+    cursor: pointer;
+    text-align: center;
+}
+.bus_src_config .config_bus_source a{
+    cursor: pointer;
+}
+.bus_src_config .config_bus_source{
+    position: absolute;
+    top:40px;
+    right:0;
+    width:88px;
+    padding-left: 4px;
+    padding-top: 4px;
+    background: -webkit-linear-gradient(top, #32817E, #356691);
+    background: -moz-linear-gradient(top, #32817E, #356691);
+    display: none;
+}
+.bus_src_config .config_bus_source ul{
+    border-bottom: 1px solid #6D91A9;
+    width:80px;
+}
+.bus_src_config .config_bus_source a{
+    color: #fff;
+}
+.bus_src_config .config_bus_source li{
+    height:34px;
+    line-height: 34px;
+    text-align: center;
+
+}
+.bus_src_config .config_bus_source div{
+    text-align: center;
 }
 .bus_src_config .table_source {
     display: none;
@@ -750,7 +810,6 @@
     height: 380px;
     border: 2px solid #ccc;
 }
-
 
 /*站点弹框*/
 .bus_site_info {

@@ -214,9 +214,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             if (tid != undefined) {
                 // socket_model_info[tid].status =false;
                 // 查询tid,拿到tid下面的lineid并得到相同lineid的一条线路
-                self.model_line.query().filter([["desktop_id",'=',parseInt(desktop_id)],["id", "=", tid]]).all().then(function (pp) {
+                self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["id", "=", tid]]).all().then(function (pp) {
                     // 查询tid下的lineid
-                    console.log(pp)
                     self.model_line.query().filter([["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
                         // 删除该tid，即此线路
                         self.model_line.call("unlink", [data[1].id]).then(function () {
@@ -609,9 +608,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             for (var j = 0; j < lineName.length; j++) {
                 resName.push(lineName[j].innerHTML);
             }
-            console.log(desktop_id)
             // 不存在其他的组件时候
             if (tid == '') {
+            layer.load(1)
                 if (resName.indexOf(x.innerHTML) != -1) {
                     alert('该线路已被选择，请重新选择');
                 } else {
@@ -624,7 +623,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             'position_z_index': siteZindex,
                             'line_id': $(x).attr('lineid'),
                             'name': x.innerHTML
-                        }]).then(function (data) {
+                        }]).then(function () {
                         self.model_line.call("create", [
                             {
                                 'desktop_id': desktop_id,
@@ -634,9 +633,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 'position_z_index': siteZindexPf,
                                 'line_id': $(x).attr('lineid'),
                                 'name': x.innerHTML
-                            }]).then(function (data) {
-                                self
-                            self.model_line.query().filter([['desktop_id','=',parseInt(desktop_id)],["line_id", "=", parseInt($(x).attr('lineid'))]]).all().then(function (data) {
+                            }]).then(function () {
+                            self.model_line.query().filter([['desktop_id', '=', parseInt(desktop_id)], ["line_id", "=", parseInt($(x).attr('lineid'))]]).all().then(function (data) {
+                                layer.closeAll('loading');
                                 self.$el.html('');
                                 new dispatch_bus(this, data, 0).appendTo(self.$el);
                             });
@@ -644,6 +643,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     });
                 }
             } else {
+                layer.load(1)
                 if (resName.indexOf(x.innerHTML) != -1) {
                     alert('该线路已被选择，请重新选择');
                 } else {
@@ -663,10 +663,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 'position_z_index': 0,
                                 'name': x.innerHTML,
                             }]).then(function (res) {
-                            self.model_line.query().filter([["line_id", "=", parseInt(line)]]).all().then(function (data) {
+                            self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["line_id", "=", parseInt(line)]]).all().then(function (data) {
                                 data[1].position_left = self.$el.find('.updown_line_table')[0].offsetLeft;
                                 data[1].position_top = self.$el.find('.updown_line_table')[0].offsetTop;
                                 data[1].position_z_index = self.$el.find('.updown_line_table')[0].style.zIndex;
+                                layer.closeAll('loading');
                                 self.$el.html('');
                                 new dispatch_bus(this, data, 0).appendTo(self.$el);
                             });

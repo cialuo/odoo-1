@@ -482,8 +482,22 @@
 						<th>车速</th>
 						<th>下趟发车</th>
 						<th>回场时间</th>
-						<th>能源剩余里程</th>
-						<th>+</th>
+						<th class="control_btn">
+							<p>
+								能源剩余里程
+							</p>
+							<p class="add_btn">
+								+
+							</p>
+							<div class="config_bus_source">
+								<ul>
+									<li><a>字段选择</a></li>
+									<li><a>样式修订</a></li>
+									<li><a>面板重置</a></li>
+								</ul>
+								<div><a>关闭面板</a></div>
+							</div>
+						</th>
 					</tr>
 					<tr>
 						<td>16</td>
@@ -500,7 +514,6 @@
 						<td>9：00am</td>
 						<td>11：00am</td>
 						<td>14km</td>
-						<td>加入运营并添加计划</td>
 					</tr>
 					<tr>
 						<td>16</td>
@@ -517,7 +530,6 @@
 						<td>9：00am</td>
 						<td>11：00am</td>
 						<td>14km</td>
-						<td>加入运营并添加计划</td>
 					</tr>
 					<tr>
 						<td>16</td>
@@ -534,7 +546,6 @@
 						<td>9：00am</td>
 						<td>11：00am</td>
 						<td>14km</td>
-						<td>加入运营并添加计划</td>
 					</tr>
 					<tr>
 						<td>16</td>
@@ -551,7 +562,6 @@
 						<td>9：00am</td>
 						<td>11：00am</td>
 						<td>14km</td>
-						<td>加入运营并添加计划</td>
 					</tr>
 					<tr>
 						<td>16</td>
@@ -568,7 +578,6 @@
 						<td>9：00am</td>
 						<td>11：00am</td>
 						<td>14km</td>
-						<td>加入运营并添加计划</td>
 					</tr>
 					<tr>
 						<td>16</td>
@@ -585,7 +594,6 @@
 						<td>9：00am</td>
 						<td>11：00am</td>
 						<td>14km</td>
-						<td>加入运营并添加计划</td>
 					</tr>
 					<tr>
 						<td>16</td>
@@ -602,7 +610,6 @@
 						<td>9：00am</td>
 						<td>11：00am</td>
 						<td>14km</td>
-						<td>加入运营并添加计划</td>
 					</tr>
 					<tr>
 						<td>16</td>
@@ -619,7 +626,6 @@
 						<td>9：00am</td>
 						<td>11：00am</td>
 						<td>14km</td>
-						<td>加入运营并添加计划</td>
 					</tr>
 					<tr>
 						<td>16</td>
@@ -636,7 +642,6 @@
 						<td>9：00am</td>
 						<td>11：00am</td>
 						<td>14km</td>
-						<td>加入运营并添加计划</td>
 					</tr>
 				</table>
 				</div>
@@ -652,7 +657,22 @@
 							<th>安全里程</th>
 							<th>违章记录</th>
 							<th>联系方式</th>
-							<th>当前位置</th>
+							<th class="control_btn">
+							<p>
+								当前位置
+							</p>
+							<p class="add_btn">
+								+
+							</p>
+							<div class="config_bus_source">
+								<ul>
+									<li><a>字段选择</a></li>
+									<li><a>样式修订</a></li>
+									<li><a>面板重置</a></li>
+								</ul>
+								<div><a>关闭面板</a></div>
+							</div>
+						</th>
 						</tr>
 						<tr>
 							<td></td>
