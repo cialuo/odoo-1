@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class AssignedShifts(models.TransientModel):
@@ -88,6 +88,7 @@ class AssignedShifts(models.TransientModel):
             datas.append((0, 0, data))
         self.write({'driver_vehicle_shift_ids': datas})
         return {
+            'name': _('assigned_shifts'),
             'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'assigned_shifts',

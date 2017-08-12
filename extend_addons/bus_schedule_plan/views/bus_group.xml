@@ -43,6 +43,7 @@
                             type="action"
                             name="%(act_assigned_shifts)d"
                             class="oe_highlight"
+                            attrs="{'invisible': [('is_not_match', '=', True)]}"
                             />
 
 						<button name="action_submit"
