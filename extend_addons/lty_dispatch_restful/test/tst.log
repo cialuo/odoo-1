@@ -1,0 +1,8 @@
+2017-08-11 15:41:17,835 - loggin.py:18 - tst - first info message
+2017-08-11 15:41:17,835 - loggin.py:19 - tst - first debug message
+2017-08-11 15:41:47,975 - loggin.py:18 - tst - first info message
+2017-08-11 15:41:47,975 - loggin.py:19 - tst - first debug message
+2017-08-11 15:52:07,342 - loggin.py:18 - tst - first info message
+2017-08-11 15:52:07,342 - loggin.py:19 - tst - first debug message
+2017-08-11 15:57:10,073 - loggin.py:18 - tst - first info message
+2017-08-11 15:57:10,073 - loggin.py:19 - tst - first debug message
