@@ -297,7 +297,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     zIndex: zIndex + 1,
                     line_id: line_id,
                     car_num: car_num,
-                    controllerId: 'kz123'
+                    controllerId: this.desktop_id
                 };
             if (line_id != 1 || car_num != 222) {
                 layer.alert("模拟soket实时加载，请选择810线路222号车进行点击", {title: "车辆实时信息"});
@@ -308,6 +308,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 return;
             } else {
                 $(".busRealStateModel").remove();
+                debugger;
                 var dialog = new bus_real_info(this, options);
                 dialog.appendTo($(".controller_" + options.controllerId));
             }
@@ -444,7 +445,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         x: e.clientX + 5,
                                         y: e.clientY + 5,
                                         zIndex: zIndex + 1,
-                                        controllerId: 'kz123',
+                                        controllerId: self.desktop_id,
                                         line_id: canvas.self.attr("tid"),
                                         site: canvas.site_infos[i].name,
                                         site_id: canvas.site_infos[i].id,
@@ -551,7 +552,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         y: e.clientY + 5,
                         zIndex: zIndex + 1,
                         line_id: this.$el.attr("tid"),
-                        controllerId: "kz123"
+                        controllerId: self.desktop_id
                     };
                 if ($(".linePlanParkOnlineModel_" + options.line_id).length > 0) {
                     return;
