@@ -94,7 +94,7 @@ class BusStaffGroup(models.Model):
             datas.append((0, 0, vals))
         self.env['bus_staff_group'].create({'vehicle_line_ids': datas,
                                             'route_id': route_id.id,
-                                            # 'move_time_id':move_time_id.id or None,
+                                            'move_time_id':move_time_id.id or None,
                                             'name': route_id.lineName + '/' + staff_date_str,
                                             'staff_date': staff_date
                                             })

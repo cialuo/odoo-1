@@ -49,7 +49,7 @@ class BusGroup(models.Model):
 
     @api.multi
     def action_test1(self):
-        staff_date = datetime.date.today() + timedelta(days=3)
+        staff_date = datetime.date.today() + timedelta(days=1)
         operation_ct = 3
 
         self.env['bus_staff_group'].action_gen_staff_group(self.route_id, staff_date=staff_date, operation_ct=operation_ct)

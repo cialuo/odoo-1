@@ -337,8 +337,12 @@ class BusWorkRules(models.Model):
             movetimerecord['vehiclenums'] = vehiclenums
             movetimerecord['backupvehicles'] = backupvehicles
             res = self.env['scheduleplan.busmovetime'].create(movetimerecord)
+            # 生成人车配班数据
+            self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
+                                                               staff_date=datetime.datetime.strptime(datestr, "%Y-%m-%d"),
+                                                               operation_ct=vehiclenums, move_time_id=res)
             res.genOperatorPlan()
-            BusWorkRules.genExcuteRecords(res)
+            # BusWorkRules.genExcuteRecords(res)
 
     @classmethod
     def genExcuteRecords(cls, movetimeobj):
