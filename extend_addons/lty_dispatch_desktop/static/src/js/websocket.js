@@ -68,7 +68,7 @@ websocket.onmessage = function(event) {
     //    }
     // var obj = JSON.parse(event.data);
     console.log('start')
-    var obj = { modelName: "bus_real_state", controllerId: "kz123", data: [event.data] };
+    var obj = { modelName: "bus_real_state", controllerId: "1", data: [event.data] };
     console.log('max_'+event.data.slice(78, 79));
     if (event.data.slice(78, 79)<4){
     	obj.modelName = "passenger_delay";

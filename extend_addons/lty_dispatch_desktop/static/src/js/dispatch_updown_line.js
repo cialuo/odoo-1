@@ -23,6 +23,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                     self: self
                 });
             }
+
             var model_id = 'model_' + 123;
             if (socket_model_info[model_id]) {
                 delete socket_model_info[model_id];
