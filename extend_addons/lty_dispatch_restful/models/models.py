@@ -22,14 +22,16 @@ class op_line(models.Model):
         :return:
         '''
 
-        for p in self:
-            print not isinstance(p.id,models.NewId)
-
-        vals['restful_type'] = 1
+        # for p in self:
+        #     print not isinstance(p.id,models.NewId)
+        #
+        # vals['restful_type'] = 1
         res = super(op_line, self).create(vals)
+        url = self.env['ir.config_parameter'].get_param('restful.url')
+        cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
-            url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            params = Params(type = 1, cityCode = 'SZ',tableName = 'op_line', data = vals).to_dict()
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            params = Params(type=1, cityCode=cityCode,tableName='op_line', data=vals).to_dict()
             rp = Client().http_post(url, data=params)
             #clientThread(url,params,res).start()
         except Exception,e:
@@ -43,16 +45,21 @@ class op_line(models.Model):
         :param vals:
         :return:
         '''
-        for p in self:
-            print not isinstance(p.id,models.NewId)
-
+        # for p in self:
+        #     print not isinstance(p.id,models.NewId)
+        #
 
         res = super(op_line, self).write(vals)
-        if vals.get('restful_type') != 1:
+        url = self.env['ir.config_parameter'].get_param('restful.url')
+        cityCode = self.env['ir.config_parameter'].get_param('city.code')
+        # if vals.get('restful_type') != 1:
+        if fields.Datetime.now() :
             try:
-                url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                params = Params(type = 3, cityCode = 'SZ',tableName = 'op_line', data = vals).to_dict()
-                clientThread(url,params,res).start()
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                print "-----------write---------"
+                params = Params(type=3, cityCode=cityCode,tableName='op_line', data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+                # clientThread(url,params,res).start()
             except Exception,e:
                 print e.message
         return res
