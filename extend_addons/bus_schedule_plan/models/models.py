@@ -3,6 +3,11 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 import datetime
+from itertools import izip_longest
+import json
+import math
+
+timeFormatStr = "%Y-%m-%d %H:%M:%S"
 
 class RouteInBusSchedule(models.Model):
 
@@ -247,7 +252,7 @@ class BusWorkRules(models.Model):
         sortedRuleList = sorted(rulelist, key=lambda k: k.seqid)
         recordslist = []
         startTimeStr = datestr + ' ' + sortedRuleList[0].starttime + ":00"
-        timeFormatStr = "%Y-%m-%d %H:%M:%S"
+
         startTime = datetime.datetime.strptime(startTimeStr, timeFormatStr)
         markpoints = []
         for item in sortedRuleList:
@@ -270,20 +275,28 @@ class BusWorkRules(models.Model):
                 startTime = startTime + datetime.timedelta(minutes=item.interval)
         return recordslist
 
+
     def createMoveTimeRecord(self, datestr, ruleobj):
         for item in ruleobj:
             movetimerecord = {
+                'name' : datestr + item.line_id.lineName,
                 'line_id' : item.line_id.id,
                 'rule_id' : item.id,
                 'vehiclenums' : 0,
                 'backupvehicles' : 0,
                 'executedate' : datestr,
-                'schedule_method' : item.schedule_method
+                'schedule_method' : item.schedule_method,
+                'upworkvehicle': 0,
+                'upbackupvehicle' : 0,
+                'downworkvehicle' : 0,
+                'downbackupvehicle' : 0
             }
             vehiclenums = 0
             backupvehicles = 0
             if item.schedule_method == 'singleway':
                 for i in item.upplanvehiclearrange:
+                    movetimerecord['upworkvehicle'] += i.workingnumber
+                    movetimerecord['upbackupvehicle'] += i.backupnumber
                     vehiclenums += i.workingnumber
                     backupvehicles += i.backupnumber
                     timerecords = self.genTimeRecords(item.uptimearrange, datestr, item.upstation, item.upstation,
@@ -291,9 +304,13 @@ class BusWorkRules(models.Model):
                     movetimerecord['uptimeslist'] = timerecords
             elif item.schedule_method == 'dubleway':
                 for i in item.upplanvehiclearrange:
+                    movetimerecord['upworkvehicle'] += i.workingnumber
+                    movetimerecord['upbackupvehicle'] += i.backupnumber
                     vehiclenums += i.workingnumber
                     backupvehicles += i.backupnumber
                 for i in item.downplanvehiclearrange:
+                    movetimerecord['downworkvehicle'] += i.workingnumber
+                    movetimerecord['downbackupvehicle'] += i.backupnumber
                     vehiclenums += i.workingnumber
                     backupvehicles += i.backupnumber
                 uptimerecords = self.genTimeRecords(item.uptimearrange, datestr, item.upstation, item.downstation,
@@ -305,7 +322,8 @@ class BusWorkRules(models.Model):
 
             movetimerecord['vehiclenums'] = vehiclenums
             movetimerecord['backupvehicles'] = backupvehicles
-            self.env['scheduleplan.busmovetime'].create(movetimerecord)
+            res = self.env['scheduleplan.busmovetime'].create(movetimerecord)
+            res.genOperatorPlan()
 
     def createMoveTimeTable(self):
         """
@@ -514,6 +532,130 @@ class BusMoveTimeTable(models.Model):
     # 下行发车时间安排
     downtimeslist = fields.One2many("scheduleplan.movetimedown", "movetimetable_id", string="down times arrange")
 
+    # 运营计划 存储上下行车辆次序 存储json数据
+    operationplan = fields.Text(string="operation plan")
+
+    # 运营方案 存储每辆车的运行趟次列表
+    operationplanbus = fields.Text(string="operation plan bus move")
+
+    # 上行运营车辆数
+    upworkvehicle = fields.Integer(string="up work vehicle")
+
+    # 下行机动车辆数
+    upbackupvehicle = fields.Integer(string="up backup vehicle")
+
+    # 下行车辆数
+    downworkvehicle = fields.Integer(string="down work vehicle")
+
+    # 下行机动车辆数
+    downbackupvehicle = fields.Integer(string="down backup vehicle")
+
+
+    @staticmethod
+    def genVehicleSeq(up, down=None):
+        uprepeatSeq = []  # 上行轮换序列
+        downrepeatSeq = []  # 下行轮换序列
+        for i in range(1, up + 1):
+            uprepeatSeq.append(i)
+        if down!=None:
+            for i in range(up + 1, up + 1 + down):
+                downrepeatSeq.append(i)
+        return uprepeatSeq, downrepeatSeq
+
+    @staticmethod
+    def genWorkMap(moveTimeSeq, repeatseq, direction):
+        upworklen = len(moveTimeSeq)
+        workBusSeq = repeatseq * int(math.ceil(upworklen / float(len(repeatseq))))
+        workBusSeqDetail = []
+        for busid, moveTimeObj in izip_longest(workBusSeq, moveTimeSeq):
+            unit = [busid, None]
+            if moveTimeObj != None:
+                unit[1] = {'id': moveTimeObj.id,
+                           'startmovetime': moveTimeObj.startmovetime,
+                           'arrive_time': moveTimeObj.arrive_time,
+                           'direction': direction}
+            else:
+                unit[1] = None
+            workBusSeqDetail.append(unit)
+        return workBusSeqDetail
+
+    @staticmethod
+    def genBusMoveSeqDouble(upMoveSeq, downMoveSeq, upBusCol, downBusCol):
+        busCol = upBusCol + downBusCol
+        moveseqCol = {busid:{'up':[],'down':[] } for busid in busCol}
+        for index, item in enumerate(upMoveSeq):
+            moveseqCol[item[0]]['up'].append([index, item, 'up'])
+
+        for index , item in  enumerate(downMoveSeq):
+            moveseqCol[item[0]['down']].append([index, item, 'down'])
+
+        result = {}
+        for (k, v) in moveseqCol.items():
+            if k <= downMoveSeq[-1]:
+                temp = []
+                for x, y in izip_longest(v['up'], v['down']):
+                    if x != None:
+                        temp.append(x)
+                    if y != None:
+                        temp.append(y)
+                result[k] = temp
+            else:
+                temp = []
+                for x, y in izip_longest(v['down'], v['up']):
+                    if x!= None:
+                        temp.append(x)
+                    if y != None:
+                        temp.append(y)
+                result[k] = temp
+        return result
+
+    @staticmethod
+    def genBusMoveSeqsingle(upMoveSeq, upBusCol):
+        busMoveSeq = {busid: [] for busid in upBusCol}
+        for index, item in enumerate(upMoveSeq):
+            busMoveSeq[item[0]].append([index, item])
+        return busMoveSeq
+
+
+    @staticmethod
+    def culculateStopTime(busMoveTimeCol):
+        for k, v in busMoveTimeCol.items():
+            l = len(v)
+            for index, item in enumerate(v):
+                item.append(0)
+                if item[1][1] == None:
+                    continue
+                for i in range(index+1, l):
+                    if v[i][1][1] == None:
+                        continue
+                    stime = datetime.datetime.strptime(v[i][1][1]['startmovetime'], timeFormatStr)
+                    atime = datetime.datetime.strptime(item[1][1]['arrive_time'], timeFormatStr)
+                    item.append(stime - atime)
+                    break
+
+
+    # 生成运营方案数据
+    def genOperatorPlan(self):
+        upVechicleSeq, downVehicleSeq = self.genVehicleSeq(self.upworkvehicle, self.downworkvehicle)
+        upRepeatSeq = upVechicleSeq + downVehicleSeq
+        downRepeatSeq = downVehicleSeq + upVechicleSeq
+
+        upMoveOnSeq = self.genWorkMap(self.uptimeslist, upRepeatSeq, 'up')
+        downMoveOnSeq = None
+        if self.schedule_method == 'dubleway':
+            downMoveOnSeq = self.genWorkMap(self.downtimeslist, downRepeatSeq, 'down')
+
+        operationPlan = {'up':upMoveOnSeq, 'down':downMoveOnSeq}
+        busMoveTable = None
+        if self.schedule_method == 'dubleway':
+            busMoveTable = self.genBusMoveSeqDouble(upMoveOnSeq, downMoveOnSeq, upVechicleSeq, downVehicleSeq)
+        elif self.schedule_method == 'singleway':
+            busMoveTable = self.genBusMoveSeqsingle(upMoveOnSeq, upVechicleSeq)
+
+        self.operationplanbus = json.dumps(busMoveTable)
+
+        self.operationplan = json.dumps(operationPlan)
+
 class MoveTimeUP(models.Model):
 
     _name = "scheduleplan.movetimeup"
@@ -552,8 +694,180 @@ class MoveTimeDown(models.Model):
     _inherit = "scheduleplan.movetimeup"
 
 
-class BusMoveExcuteTable(models.Model):
 
+class BusMoveExcuteTable(models.Model):
+    """
+    行车作业执行表
+    """
     _name = "scheduleplan.excutetable"
 
     name = fields.Char(string="excute table name")
+
+    # 线路
+    line_id = fields.Many2one("route_manage.route_manage", string="related line")
+
+    # 状态
+    status = fields.Selection([("draft", "draft"),              # 草稿
+                                ("wait4use", "wait for use"),   # 待使用
+                                ("done", "done"),               # 完成
+                              ], default="wait4use",  string="status")
+
+    # 执行时间
+    excutedate = fields.Date(string="excute date")
+
+    # 首班时间
+    firstruntime = fields.Datetime(string="first run time")
+
+    # 末班时间
+    lastruntime = fields.Datetime(string="last run time")
+
+    # 司机数量
+    drivernum = fields.Integer(string="driver number")
+
+    # 乘务员数量
+    stewardnum = fields.Integer(string="steward number")
+
+    # 上行趟次
+    upmovenum = fields.Integer(string="up move number")
+
+    # 下行趟次
+    downmovenum =  fields.Integer(string="down move number")
+
+    @api.multi
+    def _getTotalMoveNumber(self):
+        for item in self:
+            item.totalmovenum = item.upmovenum + item.downmovenum
+
+    # 总趟次
+    totalmovenum = fields.Integer(compute="_getTotalMoveNumber", string="total move number")
+
+    # 运营车辆
+    workvehiclenum = fields.Integer(string="total work vehicles")
+
+    # 机动车辆
+    backupvehiclenum = fields.Integer(string="back up vehicle num")
+
+    # 上行排班计划
+    upmoveplan = fields.One2many("scheduleplan.execupplanitem", "execplan_id", string="up move plan")
+
+    # 下行排班计划
+    downmoveplan = fields.One2many("scheduleplan.execdownplanitem", "execplan_id", string="down move plan")
+
+    # 出勤司乘
+    motorcyclistsTime = fields.One2many("scheduleplan.motorcyclists", 'execplan_id', string="motorcyclists list")
+
+    # 车辆资源
+    vehicleresource = fields.One2many("scheduleplan.vehicleresource", 'execplan_id', string="vehicle resource")
+
+class ExecUpPlanItem(models.Model):
+    """
+    作业执行表 上行排班计划
+    """
+    _name = "scheduleplan.execupplanitem"
+
+    execplan_id = fields.Many2one("scheduleplan.excutetable")
+
+    # 序号
+    seq_id = fields.Integer(string="sequence id")
+
+    # 车辆编号
+    vehiclecode = fields.Char(string="vehicle code number")
+
+    # 司机
+    driver = fields.Many2one("hr.employee", string="dirver")
+
+    # 乘务员
+    steward = fields.Many2one("hr.employee", string="steward")
+
+    # 发车时间
+    starttim = fields.Datetime(string="start move time")
+
+    # 到达时间
+    arrivetime = fields.Datetime(string="arrive time")
+
+    # 时长 分钟记
+    timelenght = fields.Integer(string="time length (min)")
+
+    # 里程
+    mileage = fields.Integer(string="mileage number")
+
+    # 线路
+    line_id = fields.Many2one("route_manage.route_manage", string="related line")
+
+
+class ExecDownPlanItem(models.Model):
+    """
+    作业执行表 下行排班计划
+    """
+
+    _name = "scheduleplan.execdownplanitem"
+
+    _inherit = "scheduleplan.execupplanitem"
+
+
+class MotorcyclistsTime(models.Model):
+
+    """
+    出勤司乘
+    """
+
+    _name = "scheduleplan.motorcyclists"
+
+    execplan_id = fields.Many2one("scheduleplan.excutetable")
+
+    employee_id = fields.Many2one("hr.employee", string="emplyee id")
+
+    # 日期
+    worktime = fields.Date(string="work date")
+
+    # 车辆编号
+    vehiclecode = fields.Char(string="vehicle code number")
+
+    # 职务
+    title = fields.Selection([("driver", "driver"),          # 司机
+                                     ("steward", "steward"),        # 乘务员
+                                    ],  string="work title")
+
+    # 工号
+    employee_sn = fields.Char(related="employee_id.jobnumber", string="employee sn number")
+
+    # 上班时间
+    checkintime = fields.Datetime(string="check in time")
+
+    # 实际发车时间
+    realworkstart = fields.Datetime(string="real work start time")
+
+    # 实际收车时间
+    realworkdone = fields.Datetime(string="real work done time")
+
+    # 下班时间
+    checkouttime = fields.Datetime(string="check out time")
+
+    # 工作时长（小时）
+    worktimelength = fields.Float(string="work time lenght(hour)")
+
+    # 运营时长（小时）
+    workrealtimelength = fields.Float(string="work real time length(hour)")
+
+
+class VehicleResource(models.Model):
+
+    """
+    车辆资源
+    """
+
+    _name = "scheduleplan.vehicleresource"
+
+    execplan_id = fields.Many2one("scheduleplan.excutetable")
+
+    # 车辆编号
+    vehiclecode = fields.Char(string="vehicle code number")
+
+    # 首班发车时间
+    firstmovetime = fields.Datetime(string="first move time")
+
+    # 末班发车时间
+    lastmovetime = fields.Datetime(string="last move time")
+
+    # 运营时长
+    worktimelength = fields.Float(string="work time length")

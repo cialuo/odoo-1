@@ -1,7 +1,5 @@
 <odoo>
     <data>
-
-
         <record model="ir.ui.view" id="bus_shift_list">
             <field name="name">bus_shift_list</field>
             <field name="model">bus_shift</field>
@@ -10,6 +8,19 @@
                 <tree>
                     <field name="name"/>
                     <field name="shift_ct"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="bus_shift_line_list">
+            <field name="name">bus_shift_line_list</field>
+            <field name="model">bus_shift_line</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
                     <field name="create_uid"/>
                     <field name="create_date"/>
                 </tree>
@@ -43,7 +54,41 @@
                                 <field name="shift_line_ids">
                                     <tree editable="bottom">
                                         <field name="sequence"/>
-                                        <field name="name"/>
+                                        <field name="shift_line_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="bus_shift_line_form" model="ir.ui.view">
+            <field name="name">bus_shift_line_form</field>
+            <field name="model">bus_shift_line</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group col="2">
+                            <group>
+                                <field name="create_date" readonly="1"/>
+                                <field name="create_uid" readonly="1"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Shift list">
+                                <field name="detail_ids">
+                                    <tree editable="bottom">
                                         <field name="start_time"/>
                                         <field name="end_time"/>
                                     </tree>
@@ -62,11 +107,22 @@
             <field name="view_mode">tree,form</field>
         </record>
 
+        <record model="ir.actions.act_window" id="bus_shift_line_action">
+            <field name="name">bus_shift_line_action</field>
+            <field name="res_model">bus_shift_line</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
 
         <menuitem id="bus_shift_menu" name="bus_shift_menu"
-                  parent="operation_menu.bus_working_plan_menu"
+                  parent="operation_menu.bus_working_plan_basic_info"
                   action="bus_shift_action"
-                  sequence="100"/>
+                  sequence="30"/>
+
+        <menuitem id="bus_shift_line_menu" name="bus_shift_line_menu"
+                  parent="operation_menu.bus_working_plan_basic_info"
+                  action="bus_shift_line_action"
+                  sequence="40"/>
 
     </data>
 </odoo>

@@ -13,7 +13,7 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
         init: function(parent, data){
             var init_data = [
                 {   
-                    name: data.line_id,
+                    name: data.site,
                     line_car: [16],
                     data: [
                         {
@@ -63,6 +63,11 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
         },
         start: function(){
             this.trend_chart_fn();
+            var layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
+            var passengerDelayModel_set = {
+                layer_index: layer_index
+            }
+            sessionStorage.setItem("passengerDelayModel_set", JSON.stringify(passengerDelayModel_set));
         },
         send_express_info: function(){
             var passenger_flow_cont = this.$(".trend_chart_single .passenger_flow_cont");
@@ -98,17 +103,7 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                     }
                 ],
                 skip: '3',
-                station: [
-                    {name: '站点N', id: '1'},
-                    {name: '站点N', id: '2'},
-                    {name: '站点N', id: '3'},
-                    {name: '站点N', id: '4'},
-                    {name: '站点N', id: '5'},
-                    {name: '站点N', id: '6'},
-                    {name: '站点N', id: '7'},
-                    {name: '站点N', id: '8'},
-                    {name: '站点N', id: '9'},
-                ]
+                station: this.location_data.site_infos
             };
             data.station = this.station_fn(data.station);
             return data;

@@ -78,6 +78,11 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         start: function(){
             this.load_fn();
+            var layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
+            var linePlanParkOnlineModel_set = {
+                layer_index: layer_index
+            }
+            sessionStorage.setItem("linePlanParkOnlineModel_set", JSON.stringify(linePlanParkOnlineModel_set));
         },
         load_fn: function(){
             var self = this;
@@ -120,6 +125,13 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     resize: false,
                     content: QWeb.render("adjust_the_plan_template", {quota: init_data})
                 });
+            });
+
+            self.$(".plan_group").on("mousedown", ".content_tb .point", function(e){
+                if (e.button == 2){
+                    alert("你右键了");
+                    return false;
+                }
             });
 
             $("body").on("click", ".adjust_box .reset_bt", function(){

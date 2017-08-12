@@ -297,12 +297,16 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     car_num: car_num,
                     controllerId: 'kz123'
                 };
-            var dialog = new bus_real_info(this, options);
-            if ($(".modelBus_" + options.line_id + "_" + options.car_num).length > 0) {
+            if (line_id != 1 || car_num != 222){
+                layer.alert("模拟soket实时加载，请选择810线路222号车进行点击", {title:"车辆实时信息"});
+                return false;
+            };
+            if ($(".busRealStateModel_"+options.line_id+"_"+options.car_num).length>0){
                 return;
-            } else {
-                $(".bus_real_info_model").remove();
-                dialog.appendTo($(".controller_" + options.controllerId));
+            }else{
+                $(".busRealStateModel").remove();
+                var dialog = new bus_real_info(this, options);
+                dialog.appendTo($(".controller_"+options.controllerId));
             }
             // e.delegateTarget.parentElement.append(dialog);
         },
@@ -359,6 +363,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
         },
         clickTb: function (canvas, e) {
+            var self = this;
             var event = e || window.event;
             var c = canvas.self.find(canvas.id)[0];
             var cxt = c.getContext("2d");
@@ -427,36 +432,44 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     cxt.beginPath();
                     if (canvas.site_infos[i].status == true) {
 
-                        cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
-                        if (cxt.isPointInPath(x, y)) {
-                            //如果是左击
-                            if (e.button == 0) {
-                                var options =
-                                    {
-                                        x: e.clientX + 5,
-                                        y: e.clientY + 5,
-                                        zIndex: zIndex + 1,
-                                        line_id: canvas.self.attr("tid"),
-                                    };
-                                var dialog = new passenger_flow(this, options);
-                                dialog.appendTo($("body"));
-                                cxt.closePath();
+                    cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
+                    if (cxt.isPointInPath(x, y)) {
+                        //如果是左击
+                        if (e.button == 0) {
+                            var options =
+                                {
+                                    x: e.clientX + 5,
+                                    y: e.clientY + 5,
+                                    zIndex: zIndex + 1,
+                                    controllerId: 'kz123',
+                                    line_id: canvas.self.attr("tid"),
+                                    site: canvas.site_infos[i].name,
+                                    site_id: canvas.site_infos[i].id,
+                                    site_infos: self.site_top_infos
+                                };
+                            if ($(".passengerDelayModel_"+options.line_id+"_"+options.site_id).length>0){
+                                return;
+                            }else{
+                                $(".passengerDelayModel").remove();
+                                var dialog = new passenger_flow(self, options);
+                                dialog.appendTo($(".controller_"+options.controllerId));
                             }
-                            //如果是右击
-                            else if (e.button == 2) {
-                                if (canvas.site_infos[i].status == true) {
-                                    cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
-                                    if (cxt.isPointInPath(x, y)) {
-                                        var options =
-                                            {
-                                                x: x + 5 + 12 + 26,
-                                                y: y + 5 + 55,
-                                                zIndex: zIndex + 1,
-                                            };
-                                        new bus_site_info(this, options).appendTo(this.$el);
-                                        cxt.closePath();
-                                        //如果提供了事件对象，则这是一个非IE浏览器
-                                    }
+                            cxt.closePath();
+                        }
+                        //如果是右击
+                        else if (e.button == 2) {
+                            if (canvas.site_infos[i].status == true) {
+                                cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
+                                if (cxt.isPointInPath(x, y)) {
+                                    var options =
+                                        {
+                                            x: x + 5 + 12 + 26,
+                                            y: y + 5 + 55,
+                                            zIndex: zIndex + 1,
+                                        };
+                                    new bus_site_info(this, options).appendTo(this.$el);
+                                    cxt.closePath();
+                                    //如果提供了事件对象，则这是一个非IE浏览器
                                 }
                             }
                         }
@@ -532,12 +545,16 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     {
                         x: e.clientX + 5,
                         y: e.clientY + 5,
-                        zIndex: zIndex + 1,
-                        line_id: this.$el.attr("tid")
+                        zIndex: zIndex+1,
+                        line_id: this.$el.attr("tid"),
+                        controllerId: "kz123"
                     };
-                if (self.busNumber) {
+                if ($(".linePlanParkOnlineModel_"+options.line_id).length>0){
+                    return;
+                }else{
+                    $(".linePlanParkOnlineModel").remove();
                     var dialog = new plan_display(this, options);
-                    dialog.appendTo($("body"));
+                    dialog.appendTo($(".controller_"+options.controllerId));
                 }
             }
         }

@@ -6,7 +6,8 @@ var websocket = null;
 
 //判断当前浏览器是否支持WebSocket
 if ('WebSocket' in window) {
-    websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
+	websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
+    // websocket = new WebSocket("ws://202.104.136.228:8085/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
 } else {
     alert('当前浏览器 Not support websocket');
 }
@@ -36,8 +37,9 @@ websocket.onopen = function() {
 // 	'车辆资源状态':{},
 // 	'人力资源状态':{}
 // };
-//接收到消息的回调方法
 var socket_model_info = {};
+var socket_model_api_obj = {};
+//接收到消息的回调方法
 websocket.onmessage = function(event) {
     for (socket_model in socket_model_info) {
         var socket_model = socket_model_info[socket_model];
@@ -65,7 +67,15 @@ websocket.onmessage = function(event) {
     //    	}
     //    }
     // var obj = JSON.parse(event.data);
-    var obj = { modelName: "modelBus", controllerId: "kz123", data: [event.data] };
+    console.log('start')
+    var obj = { modelName: "bus_real_state", controllerId: "kz123", data: [event.data] };
+    console.log('max_'+event.data.slice(78, 79));
+    if (event.data.slice(78, 79)<4){
+    	obj.modelName = "passenger_delay";
+    }else if (event.data.slice(78, 79)<7){
+    	// line_plan line_park line_online
+		obj.modelName = "linePlanParkOnlineModel";
+    }
     var modelName = obj.modelName;
     var controllerId = obj.controllerId;
 
@@ -77,12 +87,15 @@ websocket.onmessage = function(event) {
         console.log('3');
     } else if (modelName == "人力资源状态") {
         console.log('4');
-    } else if (modelName == "modelBus") {
-        modelBus($(".controller_" + controllerId), obj.data);
-    } else if (modelName == "滞客信息") {
+    } else if (modelName == "bus_real_state") {
+        console.log('5');
+        busRealStateModel_socket_fn($(".controller_" + controllerId), obj.data);
+    } else if (modelName == "passenger_delay") {
         console.log('6');
-    } else if (modelName == "线路计划") {
+        passengerDelayModel_socket_fn($(".controller_" + controllerId), obj.data);
+    } else if (modelName == "linePlanParkOnlineModel") {
         console.log('7');
+        linePlanParkOnlineModel_socket_fn($(".controller_" + controllerId), obj.data);
     } else if (modelName == "线路车场") {
         console.log('8');
     } else if (modelName == "线路在途") {
@@ -100,30 +113,29 @@ websocket.onclose = function() {
 };
 //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
 window.onbeforeunload = function() {
-    closeWebSocket();
+     websocket.close();
 };
 
-//关闭WebSocket连接
-function closeWebSocket() {
-    websocket.close();
-}
-
-//发送消息
-function send() {
-    var message = document.getElementById('text').value;
-    websocket.send(message);
-}
-
-
-function modelBus(controllerObj, data_list) {
+var map_i = 0;
+// 车辆实时状态模块
+function busRealStateModel_socket_fn(controllerObj, data_list) {
     for (var i = 0, dl = data_list.length; i < dl; i++) {
         var dataObj = data_list[i];
         // debugger;
-        // var dom = controllerObj.find(".modelBus_"+dataObj.line_on+"_"+dataObj.bus_on);
+        // var dom = controllerObj.find(".busRealStateModel_"+dataObj.line_on+"_"+dataObj.bus_on);
         var data = dataObj;
-        var dom = controllerObj.find(".modelBus_1_222");
+        var map_list = [
+        	{longitude: 114.39973, latitude: 30.45787},
+        	{longitude: 114.398595, latitude: 30.457569},
+            {longitude: 114.39948, latitude: 30.457231},
+            {longitude: 114.400939, latitude: 30.45688},
+            {longitude: 114.402237, latitude: 30.45639},
+            {longitude: 114.402977, latitude: 30.457102},
+            {longitude: 114.403675, latitude: 30.457823}
+        ];
+        var dom = controllerObj.find(".busRealStateModel_1_222");
         if (dom.length > 0) {
-        	console.log('come on')
+        	console.log('come on');
             var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
             var carReportObj = dom.find(".popupContent .carReport");
             var lineInfo = dom.find(".lineInfo");
@@ -149,9 +161,59 @@ function modelBus(controllerObj, data_list) {
             lineInfo.find(".lineRoad").html('18')
             lineInfo.find(".trip").html(data.slice(76, 77));
             lineInfo.find(".total_trip").html(data.slice(76, 77) + data.slice(77, 78));
-            
-            layer.close(sessionStorage.getItem("modelBus_layer"))
-            dom.show();
+
+            var busRealStateModel_set = JSON.parse(sessionStorage.getItem("busRealStateModel_set"));
+            layer.close(busRealStateModel_set.layer_index);
+            dom.removeClass('hide_model');
+            var socket_load = carReportObj.find(".socket_load");
+            var mapDom = carReportObj.find(".arrival_time_map");
+            var chartDom = carReportObj.find(".arrival_time_chart");
+            if (mapDom.length>0){
+            	socket_load.remove();
+            	mapDom.removeClass("hide_model");
+	            if (map_i<6){
+	            	map_i+=1;
+	            	busRealStateModel_map(mapDom[0], map_list[map_i]);
+	            	console.log('我是i'+map_i);
+	            }
+            }
+            if (chartDom.length > 0){
+            	socket_load.remove();
+            	chartDom.removeClass("hide_model");
+            }
         }
     }
+}
+
+function busRealStateModel_map(dom, gps){
+	if (socket_model_api_obj.busRealStateModel.marker){
+		socket_model_api_obj.busRealStateModel.marker.setPosition(new AMap.LngLat(gps.longitude, gps.latitude));
+	}else{
+		var mapObj = new AMap.Map(dom, {zoom: 14, center: [gps.longitude, gps.latitude]});
+		var marker = new AMap.Marker({
+	        map: mapObj,
+	        position: [gps.longitude, gps.latitude]
+	    });
+	    socket_model_api_obj.busRealStateModel.marker = marker;
+	}
+}
+
+// 站点实时状态模块
+function passengerDelayModel_socket_fn(controllerObj, data_list){
+	var dom = controllerObj.find(".passengerDelayModel");
+	if (dom.length>0){
+		var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("passengerDelayModel_set"));
+        layer.close(passengerDelayModel_set.layer_index);
+        dom.removeClass('hide_model');
+	}
+}
+
+// 线路计划，车场，在途模块
+function linePlanParkOnlineModel_socket_fn(controllerObj, data_list){
+	var dom = controllerObj.find(".linePlanParkOnlineModel");
+	if (dom.length>0){
+		var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("linePlanParkOnlineModel_set"));
+        layer.close(passengerDelayModel_set.layer_index);
+        dom.removeClass('hide_model');
+	}
 }
