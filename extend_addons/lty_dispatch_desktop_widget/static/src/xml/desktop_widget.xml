@@ -2,7 +2,7 @@
 
 <templates xml:space="preserve">
     <t t-name="bus_real_info_template">
-        <div t-attf-class="bus_real_info_model modelBus_{{widget.location_data.line_id}}_{{widget.location_data.car_num}} hide_model">
+        <div t-attf-class="busRealStateModel line_{{widget.location_data.line_id}} busRealStateModel_{{widget.location_data.line_id}}_{{widget.location_data.car_num}} hide_model">
             <div class="bus_real_info dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
                 <div class="boxTitle">
                     <div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
@@ -113,394 +113,384 @@
     </t>
 
     <t t-name="arrival_time_chart_template">
-        <div>
-            <div class="carInfoScene carzxt" style="width:344px;height:330px;"></div>
-        </div>
+        <div class="carInfoScene arrival_time_chart hide_model" style="width:344px;height:330px;"></div>
     </t>
 
     <t t-name="arrival_time_video_template">
-        <div>
-            <div class="carInfoScene" style="text-align:center;font-size:24px;color:red;">暂时空白（没有监控接口）</div>
-        </div>
+        <div class="carInfoScene arrival_time_video" style="text-align:center;font-size:24px;color:red;">暂时空白（没有监控接口）</div>
     </t>
 
     <t t-name="arrival_time_police_template">
-        <div>
-            <div class="carInfoScene policeTemplate">
-                <h1 class="title"><img src="/lty_dispatch_desktop_widget/static/src/image/police.png" alt=""/>报警模式</h1>
-                <p class="cont">启动报警模式后，该车会将报警模式前后10分钟及报警模式过程中的全部视频做保留，并上传至视频流媒体服务器。配合后续调查取证</p>
-                <a class="onBt" href="javascript:;">启动报警模式</a>
-                <ul class="tel">
-                    <li>110</li>
-                    <li>120</li>
-                    <li>119</li>
-                </ul>
-            </div>
+        <div class="carInfoScene arrival_time_police">
+            <h1 class="title"><img src="/lty_dispatch_desktop_widget/static/src/image/police.png" alt=""/>报警模式</h1>
+            <p class="cont">启动报警模式后，该车会将报警模式前后10分钟及报警模式过程中的全部视频做保留，并上传至视频流媒体服务器。配合后续调查取证</p>
+            <a class="onBt" href="javascript:;">启动报警模式</a>
+            <ul class="tel">
+                <li>110</li>
+                <li>120</li>
+                <li>119</li>
+            </ul>
         </div>
     </t>
 
     <t t-name="arrival_time_more_info_template">
-        <div>
-            <div class="carInfoScene more_info_box">
-                <div class="more_info_part info_1">
-                    <div class="info_title">
-                        <span class="title ">维保状态</span>
-                    </div>
-                    <div class="maintenance_status">
-                        <ul class="info_status_nav">
-                            <li class="oe_active">
-                                <span class="arrow_first"><span></span></span>
-                                <span class="label">待修</span>
-                                <span class="arrow"><span></span></span>
-                            </li>
-                        
-                            <li class="">
-                                <span class="label">维修</span>
-                                
-                                <span class="arrow"><span></span></span>
-                            </li>
-                        
-                            <li class="">
-                                <span class="label">检验</span>
-                                
-                                <span class="arrow"><span></span></span>
-                            </li>
-                            <li class="">
-                                <span class="label">完工</span>
-                                
-                                <span class="arrow"><span></span></span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="info_cont">
-                        <table class="info_status_cont maintenance_cont">
-                            <tr>
-                                <td>报修单号</td>
-                                <td>BXD20923</td>
-                                <td>保修时间</td>
-                                <td>4/23</td>
-                            </tr>
-                            <tr>
-                                <td>报修人</td>
-                                <td>罗麒麟</td>
-                                <td>预计出厂</td>
-                                <td>4/25</td>
-                            </tr>
-                            <tr>
-                                <td>维修单号</td>
-                                <td>--</td>
-                                <td>维修人</td>
-                                <td>--</td>
-                            </tr>
-                            <tr>
-                                <td>故障原因</td>
-                                <td>传动轴断裂</td>
-                                <td>维修方法</td>
-                                <td>更换</td>
-                            </tr>
-                            <tr>
-                                <td>技术状况</td>
-                                <td>故障</td>
-                                <td>回场时间</td>
-                                <td>--</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="info_bt">
-                        <a class="contact_bt" href="javascript:;">联系负责人</a>
-                        <a class="time_bt" href="javascript:;">设定出厂时间</a>
-                    </div>
+        <div class="carInfoScene more_info_box">
+            <div class="more_info_part info_1">
+                <div class="info_title">
+                    <span class="title ">维保状态</span>
                 </div>
-                <div class="more_info_part info_2">
-                    <div class="info_title">
-                        <span class="title ">维保记录</span>
-                    </div>
-                    <div class="info_cont">
-                        <table class="info_status_cont record_cont">
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </div>
+                <div class="maintenance_status">
+                    <ul class="info_status_nav">
+                        <li class="oe_active">
+                            <span class="arrow_first"><span></span></span>
+                            <span class="label">待修</span>
+                            <span class="arrow"><span></span></span>
+                        </li>
+                    
+                        <li class="">
+                            <span class="label">维修</span>
+                            
+                            <span class="arrow"><span></span></span>
+                        </li>
+                    
+                        <li class="">
+                            <span class="label">检验</span>
+                            
+                            <span class="arrow"><span></span></span>
+                        </li>
+                        <li class="">
+                            <span class="label">完工</span>
+                            
+                            <span class="arrow"><span></span></span>
+                        </li>
+                    </ul>
                 </div>
-                <div class="more_info_part info_2">
-                    <div class="info_title">
-                        <span class="title ">行车记录</span>
-                    </div>
-                    <div class="info_cont">
-                        <table class="info_status_cont record_cont">
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </div>
+                <div class="info_cont">
+                    <table class="info_status_cont maintenance_cont">
+                        <tr>
+                            <td>报修单号</td>
+                            <td>BXD20923</td>
+                            <td>保修时间</td>
+                            <td>4/23</td>
+                        </tr>
+                        <tr>
+                            <td>报修人</td>
+                            <td>罗麒麟</td>
+                            <td>预计出厂</td>
+                            <td>4/25</td>
+                        </tr>
+                        <tr>
+                            <td>维修单号</td>
+                            <td>--</td>
+                            <td>维修人</td>
+                            <td>--</td>
+                        </tr>
+                        <tr>
+                            <td>故障原因</td>
+                            <td>传动轴断裂</td>
+                            <td>维修方法</td>
+                            <td>更换</td>
+                        </tr>
+                        <tr>
+                            <td>技术状况</td>
+                            <td>故障</td>
+                            <td>回场时间</td>
+                            <td>--</td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="more_info_part info_2">
-                    <div class="info_title">
-                        <span class="title ">安全日志</span>
-                    </div>
-                    <div class="info_cont">
-                        <table class="info_status_cont record_cont">
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </div>
+                <div class="info_bt">
+                    <a class="contact_bt" href="javascript:;">联系负责人</a>
+                    <a class="time_bt" href="javascript:;">设定出厂时间</a>
                 </div>
-                <div class="more_info_part info_2">
-                    <div class="info_title">
-                        <span class="title ">掉线日志</span>
-                    </div>
-                    <div class="info_cont">
-                        <table class="info_status_cont record_cont">
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </div>
+            </div>
+            <div class="more_info_part info_2">
+                <div class="info_title">
+                    <span class="title ">维保记录</span>
+                </div>
+                <div class="info_cont">
+                    <table class="info_status_cont record_cont">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="more_info_part info_2">
+                <div class="info_title">
+                    <span class="title ">行车记录</span>
+                </div>
+                <div class="info_cont">
+                    <table class="info_status_cont record_cont">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="more_info_part info_2">
+                <div class="info_title">
+                    <span class="title ">安全日志</span>
+                </div>
+                <div class="info_cont">
+                    <table class="info_status_cont record_cont">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="more_info_part info_2">
+                <div class="info_title">
+                    <span class="title ">掉线日志</span>
+                </div>
+                <div class="info_cont">
+                    <table class="info_status_cont record_cont">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
     </t>
 
     <t t-name="arrival_time_map_template">
-        <div>
-            <div class="carInfoScene" >
-                <!-- <img width="344" height="330" t-attf-src="http://restapi.amap.com/v3/staticmap?location={{widget.data.longitude}},{{widget.data.latitude}}&amp;zoom=14&amp;size=344*330&amp;markers=large,,:{{widget.data.longitude}},{{widget.data.latitude}}&amp;key=cf2cefc7d7632953aa19dbf15c194019&amp;scale=2" alt="" /> -->
-            </div>
+        <div class="carInfoScene arrival_time_map hide_model" >
+            <!-- <img width="344" height="330" t-attf-src="http://restapi.amap.com/v3/staticmap?location={{widget.data.longitude}},{{widget.data.latitude}}&amp;zoom=14&amp;size=344*330&amp;markers=large,,:{{widget.data.longitude}},{{widget.data.latitude}}&amp;key=cf2cefc7d7632953aa19dbf15c194019&amp;scale=2" alt="" /> -->
         </div>
     </t>
 
     <t t-name="passenger_flow_template">
-        <div>
+        <div t-attf-class="passengerDelayModel line_{{widget.location_data.line_id}} passengerDelayModel_{{widget.location_data.line_id}}_{{widget.location_data.site_id}} hide_model ">
             <div class="passenger_flow_trend_chart dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
                 <div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
                 <t t-foreach="widget.passenger_data" t-as="passenger">
@@ -647,7 +637,7 @@
     </t>
 
     <t t-name="plan_display_template">
-        <div>
+        <div t-attf-class="linePlanParkOnlineModel line_{{widget.location_data.line_id}} linePlanParkOnlineModel_{{widget.location_data.line_id}} hide_model">
             <div class="plan_display dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
                 <header class="closeBox dragArea">
                     <span class="title">线路：16路</span>

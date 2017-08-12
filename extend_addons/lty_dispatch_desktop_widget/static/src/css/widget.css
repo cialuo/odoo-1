@@ -72,11 +72,11 @@
     width: 456px;
     height: 274px;
     overflow: auto;
-    position: relative;
     border: 1px solid #ccc;
 }
 
 .express_train .express_train_content {
+    position: relative;
     padding: 5px 10px;
 }
 
@@ -136,6 +136,7 @@
 
 .express_train .select_part_info .station_info td {
     padding-right: 10px;
+    white-space: nowrap;
 }
 
 .express_train .select_part_info .station_info input[type="checkbox"] {
@@ -161,16 +162,18 @@
     display: none;
 }
 
-.back_styke .socket_load {
-    width: 100%;
-    height: 100%;
-}
-
 .bus_real_info {
     width: 802px;
     letter-spacing: 1px;
     border: 1px solid #ccc;
     background: #fff;
+}
+
+.bus_real_info .carReport .socket_load {
+    width: 344px;
+    height: 330px;
+    line-height: 330px;
+    text-align: center;
 }
 
 .bus_real_info .boxTitle {
@@ -389,21 +392,21 @@
     overflow: auto;
 }
 
-.bus_real_info .policeTemplate {
+.bus_real_info .arrival_time_police {
     padding: 10px;
 }
 
-.bus_real_info .policeTemplate .title {
+.bus_real_info .arrival_time_police .title {
     text-align: center;
     font-weight: bold;
     padding: 10px;
 }
 
-.bus_real_info .policeTemplate .cont {
+.bus_real_info .arrival_time_police .cont {
     text-indent: 29px;
 }
 
-.bus_real_info .policeTemplate .onBt {
+.bus_real_info .arrival_time_police .onBt {
     display: block;
     width: 130px;
     margin: 20px auto;
@@ -413,7 +416,7 @@
     text-align: center;
 }
 
-.bus_real_info .policeTemplate .tel li {
+.bus_real_info .arrival_time_police .tel li {
     width: 33.33%;
     text-align: center;
     float: left;

@@ -59,17 +59,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                                 self.site_top_infos = site_top_infos;
                                 self.site_down_infos = site_down_infos;
-                                // var model_id = 'model_' + tid;
-                                // if (socket_model_info[model_id]) {
-                                //     delete socket_model_info[model_id];
-                                // }
-                                // socket_model_info[model_id] = {
-                                //     arg: {
-                                //         self: self,
-                                //         site_top_infos: self.site_top_infos,
-                                //         site_down_infos: self.site_down_infos
-                                //     }, fn: self.site_websocket
-                                // };
+                                var model_id = 'model_' + tid;
+                                if (socket_model_info[model_id]) {
+                                    delete socket_model_info[model_id];
+                                }
+                                socket_model_info[model_id] = {
+                                    arg: {
+                                        self: self,
+                                        site_top_infos: self.site_top_infos,
+                                        site_down_infos: self.site_down_infos
+                                    }, fn: self.site_websocket
+                                };
                             });
                         });
                     });
@@ -293,11 +293,15 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     car_num: car_num,
                     controllerId: 'kz123'
                 };
-            var dialog = new bus_real_info(this, options);
-            if ($(".modelBus_"+options.line_id+"_"+options.car_num).length>0){
+            if (line_id != 1 || car_num != 222){
+                layer.alert("模拟soket实时加载，请选择810线路222号车进行点击", {title:"车辆实时信息"});
+                return false;
+            };
+            if ($(".busRealStateModel_"+options.line_id+"_"+options.car_num).length>0){
                 return;
             }else{
-                $(".bus_real_info_model").remove();
+                $(".busRealStateModel").remove();
+                var dialog = new bus_real_info(this, options);
                 dialog.appendTo($(".controller_"+options.controllerId));
             }
             // e.delegateTarget.parentElement.append(dialog);
@@ -355,6 +359,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
         },
         clickTb: function (canvas, e) {
+            var self = this;
             var event = e || window.event;
             var c = canvas.self.find(canvas.id)[0];
             var cxt = c.getContext("2d");
@@ -431,10 +436,19 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     x: e.clientX + 5,
                                     y: e.clientY + 5,
                                     zIndex: zIndex + 1,
-                                    line_id: canvas.self.attr("tid")
+                                    controllerId: 'kz123',
+                                    line_id: canvas.self.attr("tid"),
+                                    site: canvas.site_infos[i].name,
+                                    site_id: canvas.site_infos[i].id,
+                                    site_infos: self.site_top_infos
                                 };
-                            var dialog = new passenger_flow(this, options);
-                            dialog.appendTo($("body"));
+                            if ($(".passengerDelayModel_"+options.line_id+"_"+options.site_id).length>0){
+                                return;
+                            }else{
+                                $(".passengerDelayModel").remove();
+                                var dialog = new passenger_flow(self, options);
+                                dialog.appendTo($(".controller_"+options.controllerId));
+                            }
                             cxt.closePath();
                         }
                         //如果是右击
@@ -525,11 +539,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     {
                         x: e.clientX + 5,
                         y: e.clientY + 5,
-                        zIndex: zIndex + 1,
-                        line_id: this.$el.attr("tid")
+                        zIndex: zIndex+1,
+                        line_id: this.$el.attr("tid"),
+                        controllerId: "kz123"
                     };
-                var dialog = new plan_display(this, options);
-                dialog.appendTo($("body"));
+                if ($(".linePlanParkOnlineModel_"+options.line_id).length>0){
+                    return;
+                }else{
+                    $(".linePlanParkOnlineModel").remove();
+                    var dialog = new plan_display(this, options);
+                    dialog.appendTo($(".controller_"+options.controllerId));
+                }
             }
         }
     });
@@ -594,6 +614,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var siteLeftPf = self.$el.find('.updown_line_table')[0].offsetLeft;
             var siteTopPf = self.$el.find('.updown_line_table')[0].offsetTop;
             var lineName = $('body').find('.line_line');
+            var desktop_id = 2;
             var resName = [];
             for (var j = 0; j < lineName.length; j++) {
                 resName.push(lineName[j].innerHTML);
@@ -603,6 +624,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if (resName.indexOf(x.innerHTML) != -1) {
                     alert('该线路已被选择，请重新选择');
                 } else {
+                    $(".controller_"+desktop_id).find(".line_"+line).remove();
                     self.model_line.call("create", [
                         {
                             'desktop_id': 2,

@@ -580,7 +580,7 @@ canvas::selection {
 
 /*turn_button样式*/
 input[type="checkbox"] {
-    display: none;
+    /*display: none;*/
 }
 
 input[type="checkbox"] + label {
