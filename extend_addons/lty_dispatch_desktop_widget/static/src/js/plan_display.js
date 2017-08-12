@@ -239,6 +239,20 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
     });
     core.action_registry.add('lty_dispatch_desktop_widget.plan_display', plan_display);
 
+    var plan_display_set = Widget.extend({
+        template: "plan_display_set_template",
+        events: {
+
+        },
+        init: function(parent, data){
+            this._super(parent);
+            this.data =  data;
+        },
+        start: function(){
+            
+        }
+    });
+
     return plan_display;
 });
 

@@ -867,6 +867,12 @@
         </div>
     </t>
 
+    <t t-name="plan_display_set_template">
+        <div class="plan_display_set">
+            
+        </div>
+    </t>
+
     <t t-name="adjust_the_plan_template">
         <div>
             <div class="adjust_box">
