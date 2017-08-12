@@ -274,6 +274,19 @@ class BusWorkRules(models.Model):
                 }
                 recordslist.append((0, 0, data))
                 startTime = startTime + datetime.timedelta(minutes=item.interval)
+        if startTime != markpoints[-1][1]:
+            data = {
+                'seqid': seqcounter,
+                'startmovetime': startTime - datetime.timedelta(hours=8),
+                'arrive_time': startTime + datetime.timedelta(minutes=sortedRuleList[-1].worktimelength) - datetime.timedelta(
+                    hours=8),
+                'timelength': sortedRuleList[-1].worktimelength,
+                'mileage': mileage,
+                'line_id': lineid.id,
+                'start_site': startstation.id,
+                'end_site': endstation.id
+            }
+            recordslist.append((0, 0, data))
         return recordslist
 
 
@@ -325,6 +338,7 @@ class BusWorkRules(models.Model):
             movetimerecord['backupvehicles'] = backupvehicles
             res = self.env['scheduleplan.busmovetime'].create(movetimerecord)
             res.genOperatorPlan()
+            BusWorkRules.genExcuteRecords(res)
 
     @classmethod
     def genExcuteRecords(cls, movetimeobj):
@@ -334,12 +348,12 @@ class BusWorkRules(models.Model):
         values = {
             'name' : movetimeobj.name,
             'excutedate' : movetimeobj.executedate,
-            'line_id' : movetimeobj.line_id,
+            'line_id' : movetimeobj.line_id.id,
         }
         uptimelist = [item for item in movetimeobj.uptimeslist]
-        uptimelist = sorted(uptimelist, lambda x: x.seqid)
+        uptimelist = sorted(uptimelist, key=lambda x: x.seqid)
         downtimelist = [item for item in movetimeobj.downtimeslist]
-        downtimelist = sorted(downtimelist, lambda x: x.seqid)
+        downtimelist = sorted(downtimelist, key=lambda x: x.seqid)
         # 上行首班时间
         values['firstruntime'] = uptimelist[0]['startmovetime'] if len(uptimelist) > 0 else False
         # 上行末班时间
@@ -358,7 +372,7 @@ class BusWorkRules(models.Model):
         values['backupvehiclenum'] = movetimeobj.backupvehicles
         staffgroupmode = movetimeobj.env['bus_staff_group']
         stafftimearrange = BusWorkRules.getBusStaffGroup(staffgroupmode,
-                                                         movetimeobj.executedate.strftime("%Y-%m-%d"),
+                                                         movetimeobj.executedate,
                                                          movetimeobj.id)
         if stafftimearrange == False:
             return False
@@ -381,10 +395,10 @@ class BusWorkRules(models.Model):
             conductorworklist[item['steward']].append((item['starttim'], item['arrivetime']))
 
         for k, v in driverworklist:
-            driverworklist[k] = sorted(v, lambda x:x[0])
+            driverworklist[k] = sorted(v, key=lambda x:x[0])
 
         for k, v in conductorworklist:
-            conductorworklist[k] = sorted(v, lambda x:x[0])
+            conductorworklist[k] = sorted(v, key=lambda x:x[0])
 
         addrecords = []
         for k,v in conductorworklist.items():
@@ -428,7 +442,7 @@ class BusWorkRules(models.Model):
         for item in downexeitems:
             busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime']])
         for k, v in busworklist.items():
-            temp = sorted(v, lambda x: x[0])
+            temp = sorted(v, key=lambda x: x[0])
             temp = [temp[0], temp[-1]]
             recval = {
                 'vehicle_id':k,
@@ -477,9 +491,9 @@ class BusWorkRules(models.Model):
                     resultconductor[x['conductor']].append(y)
 
         for k,v in resultdriver:
-            resultdriver[k] = sorted(v, lambda x:x[0])
+            resultdriver[k] = sorted(v, key=lambda x:x[0])
         for k,v in resultconductor:
-            resultconductor[k] = sorted(v, lambda x:x[0])
+            resultconductor[k] = sorted(v, key=lambda x:x[0])
         return resultdriver, resultconductor
 
 
@@ -825,11 +839,11 @@ class BusMoveTimeTable(models.Model):
             moveseqCol[item[0]]['up'].append([index, item, 'up'])
 
         for index , item in  enumerate(downMoveSeq):
-            moveseqCol[item[0]['down']].append([index, item, 'down'])
+            moveseqCol[item[0]]['down'].append([index, item, 'down'])
 
         result = {}
         for (k, v) in moveseqCol.items():
-            if k <= downMoveSeq[-1]:
+            if k <= upBusCol[-1]:
                 temp = []
                 for x, y in izip_longest(v['up'], v['down']):
                     if x != None:
