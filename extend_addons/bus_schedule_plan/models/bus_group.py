@@ -49,8 +49,10 @@ class BusGroup(models.Model):
 
     @api.multi
     def action_test1(self):
+        staff_date = datetime.date.today() + timedelta(days=3)
+        operation_ct = 3
 
-        self.env['bus_staff_group'].action_gen_staff_group(self.route_id)
+        self.env['bus_staff_group'].action_gen_staff_group(self.route_id, staff_date=staff_date, operation_ct=operation_ct)
 
 
     @api.multi
@@ -61,8 +63,6 @@ class BusGroup(models.Model):
         3.轮班算法
         """
         self.env['bus_group_driver_vehicle_shift'].scheduler_vehicle_shift(self.route_id.id)
-
-
 
     @api.multi
     def write(self, vals):
@@ -90,9 +90,11 @@ class BusGroup(models.Model):
         """
         vals = {'state': 'use'}
         if self.is_algorithm_change:
-            vals.update({'bus_algorithm_date':datetime.date.today()})
+            vals.update({'bus_algorithm_date':datetime.date.today(),
+                         'is_algorithm_change': False})
         if self.is_driver_algorithm_change:
-            vals.update({'bus_driver_algorithm_date': datetime.date.today()})
+            vals.update({'bus_driver_algorithm_date': datetime.date.today(),
+                         'is_driver_algorithm_change': False})
         self.write(vals)
 
     @api.multi
@@ -251,8 +253,6 @@ class BusGroupDriverVehicleShift(models.Model):
     vehicle_sequence = fields.Integer("Vehicle Sequence", readonly=True)
     active = fields.Boolean(default=True)
 
-
-
     @api.model
     def scheduler_vehicle_shift(self, route_id=None, use_date=str(datetime.date.today())):
         """
@@ -269,7 +269,7 @@ class BusGroupDriverVehicleShift(models.Model):
             domain = [('route_id', '=', route_id)]
 
         res = self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', route_id),
-                                                                 ('use_date', '<', use_date)])
+                                                                 ('use_date', '<', str(datetime.date.today()))])
 
         if res:
             res.write({'active': False})
@@ -293,7 +293,6 @@ class BusGroupDriverVehicleShift(models.Model):
 
             for m in res:
                 m.unlink()
-
 
             res_seq = self.env['bus_group_driver_vehicle_shift'].search(
                                                                 [('use_date', '=', use_date),
@@ -330,6 +329,8 @@ class BusGroupDriverVehicleShift(models.Model):
                         tmp.append(new_t_sequence_list[old_t_sequence_list.index(m)])
                     new_group_dict[k] = tmp
                 group_dict = new_group_dict
+                res_groups[0].route_id.last_rotation_date = next_use_date
+                print 11111111111111111,res_groups[0].route_id.last_rotation_date
             else:
                 group_dict = old_group_dict
 
@@ -358,6 +359,7 @@ class BusGroupDriverVehicleShift(models.Model):
                             v.insert(0, b)
                         else:                     #向后移
                             v = leftMove2(v, 1)
+                        bus_group_res.write({'bus_algorithm_date': next_use_date})
                 new_group_dict_vehicle[k] = v
 
             print '线路下所有的组 车辆顺序 分组 车辆轮趟算法 新顺序', new_group_dict_vehicle
@@ -391,6 +393,8 @@ class BusGroupDriverVehicleShift(models.Model):
                             shift_list.insert(0, b)
                         else:
                             shift_list = leftMove2(shift_list, 1)
+                        bus_group_res.write({'bus_driver_algorithm_date': next_use_date})
+
 
                 print '线路下所有的组 车辆顺序 分组 司机轮班算法 班次顺序', k,old_shift_list
                 print '线路下所有的组 车辆顺序 分组 司机轮班算法 新班次顺序顺序', k,shift_list
@@ -435,8 +439,7 @@ class BusGroupDriverVehicleShift(models.Model):
                         new_t_sequence = new_group_dict_vehicle[k][old_group_dict[k].index(m[1])]
                         data = {
                             'vehicle_sequence': new_t_sequence,
-                            'bus_group_vehicle_id': res_group_shift.filtered(lambda x: x.vehicle_sequence == m[1])[
-                                0].bus_group_vehicle_id.id
+                            'bus_group_vehicle_id': res_group_shift.filtered(lambda x: x.vehicle_sequence == m[1])[0].bus_group_vehicle_id.id
                         }
 
                         m[0].write(data)
