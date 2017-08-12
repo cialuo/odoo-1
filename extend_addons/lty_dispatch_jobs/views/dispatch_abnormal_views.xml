@@ -6,7 +6,11 @@
       <field name="model">dispatch.abnormal.mgt</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="name"/>
+          <field name="name" string='名称'/>
+          <field name="name" string='线路'/>
+          <field name="name" string='异常详情'/>
+          <field name="name" string='建议方案'/>
+          <field name="name" string='解决方案'/>
         </tree>
       </field>
     </record>
@@ -53,12 +57,14 @@
         <field name="arch" type="xml">
             <kanban create="false" class="o_kanban_dashboard o_pos_kanban">
                 <field name="name"/>
+                <field name="categ_id"/>
                 <templates>
 					<t t-name="kanban-box">
                         <div>
                             <div class="o_kanban_card_header">
                                 <div class="o_kanban_card_header_title">
-                                    <div class="o_primary"><t t-esc="record.name.value"/></div>
+                                    <div class="o_primary"><t t-esc="record.categ_id.value"/></div>
+                                    <div class="o_secondary"><t t-esc="record.name.value"/></div>
                                 </div>
                                 <div class="o_kanban_manage_button_section">
                                     <a class="o_kanban_manage_toggle_button" href="#">More <i class="fa fa-caret-down"/></a>
@@ -68,7 +74,8 @@
                                 <div class="row">
                                     <div class="col-xs-6 o_kanban_primary_left">
                                         
-                                        <button  class="btn btn-primary" name="open_dispatch_desktop" type="object">Open Desktop</button>
+                                        <button  class="btn btn-primary" name="open_dispatch_desktop" type="object">核准</button>
+                                        <button  class="btn btn-primary" name="open_dispatch_desktop" type="object">忽略</button>
                                     </div>
                                 </div>
                             </div>
