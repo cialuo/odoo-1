@@ -89,8 +89,8 @@
                             <page string="Shift list">
                                 <field name="detail_ids">
                                     <tree editable="bottom">
-                                        <field name="start_time"/>
-                                        <field name="end_time"/>
+                                        <field name="start_time" placeholder="00:00"/>
+                                        <field name="end_time" placeholder="00:00"/>
                                     </tree>
                                 </field>
                             </page>

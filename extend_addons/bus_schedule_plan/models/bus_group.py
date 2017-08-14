@@ -275,7 +275,6 @@ class BusGroupDriverVehicleShift(models.Model):
             res.write({'active': False})
 
         routes = self.env['bus_group'].read_group(domain, ['route_id'], groupby=['route_id'])
-        print 111111,routes
         for i in routes:
             res_groups = self.env['bus_group'].search(i['__domain']) #线路下面所有的组
             if not res_groups:
@@ -330,7 +329,6 @@ class BusGroupDriverVehicleShift(models.Model):
                     new_group_dict[k] = tmp
                 group_dict = new_group_dict
                 res_groups[0].route_id.last_rotation_date = next_use_date
-                print 11111111111111111,res_groups[0].route_id.last_rotation_date
             else:
                 group_dict = old_group_dict
 
@@ -359,7 +357,7 @@ class BusGroupDriverVehicleShift(models.Model):
                             v.insert(0, b)
                         else:                     #向后移
                             v = leftMove2(v, 1)
-                        bus_group_res.write({'bus_algorithm_date': next_use_date})
+                        bus_group_res.write({'bus_algorithm_date': use_date})
                 new_group_dict_vehicle[k] = v
 
             print '线路下所有的组 车辆顺序 分组 车辆轮趟算法 新顺序', new_group_dict_vehicle
@@ -378,7 +376,6 @@ class BusGroupDriverVehicleShift(models.Model):
 
                 shift_list = res_group_shift.mapped('choose_sequence')
                 old_shift_list = shift_list[:]
-
                 if driver_cycle > 0:
                     if (next_use_date - bus_driver_algorithm_date).days >= driver_cycle:
                         def leftMove2(list, step):
@@ -388,12 +385,12 @@ class BusGroupDriverVehicleShift(models.Model):
                             list[len(list) - step:] = l
                             return list
 
-                        if direction == 'positive' and shift_list:  # negative
+                        if driver_direction == 'positive' and shift_list:  # negative
                             b = shift_list.pop()
                             shift_list.insert(0, b)
                         else:
                             shift_list = leftMove2(shift_list, 1)
-                        bus_group_res.write({'bus_driver_algorithm_date': next_use_date})
+                        bus_group_res.write({'bus_driver_algorithm_date': use_date})
 
 
                 print '线路下所有的组 车辆顺序 分组 司机轮班算法 班次顺序', k,old_shift_list
@@ -443,7 +440,6 @@ class BusGroupDriverVehicleShift(models.Model):
                         }
 
                         m[0].write(data)
-
 
     @api.model
     def run_scheduler(self):
