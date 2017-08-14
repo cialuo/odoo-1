@@ -39,12 +39,12 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 front_door: '开启',
                 speed: '36km/h',
                 sail: '大亚湾',
-                front: '4km',
-                after: '3km',
+                front: '4KM',
+                after: '3KM',
                 back_field_time: '12:43',
                 next_train_departure: '12:30',
                 residual_clearance: '239KM',
-                line: data.line_id,
+                line: data.line_id+'路',
                 trip: '4',
                 total_trip: '10'
             };
@@ -91,9 +91,9 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             alert('这里将发起通话请求');
         },
         geographicalPosition_fn: function(){
-            if (this.$(".arrival_time_map").length > 0){
-                return false;
-            }
+            // if (this.$(".arrival_time_map").length > 0){
+            //     return false;
+            // }
             var init_data = {
                 longitude: '114.39973',
                 latitude: '30.45787'
@@ -106,19 +106,19 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             new arrival_time_more_info(this).appendTo(this.$(".carReport"));
         },
         arrivalTimeFn: function(e){
-            if (this.$(".arrival_time_chart").length > 0){
-                return false;
-            }
+            // if (this.$(".arrival_time_chart").length > 0){
+            //     return false;
+            // }
             var init_data = {
                 site_list: ['深大(8:30)','白石洲(8:37)','世界之窗(8:45)','华侨城(8:51)','车公庙(8:55)','葫芦谷(9:05)','断肠崖(9:15)', '长坂坡(9:30)'],
                 data: [
                     {
-                        name: '实际',
-                        value: [1, 1, -2, -5, 0, -3]
-                    },
-                    {
                         name: '预测',
                         value: [1, 1, 5, 3, 2, 3]
+                    },
+                    {
+                        name: '实际',
+                        value: [1, 1, -2, -5, 0, -3]
                     }
                 ]
             };
@@ -188,27 +188,44 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 tooltip: {
                     trigger: 'axis',
                 },
-                color: ['blue', 'yellow', '#d29090'],
+                color: ['#4f8ed9', '#e1bc73', '#c98888'],
                 legend: {
+                    icon: 'stack',
+                    textStyle: {
+                        color: "#fff"
+                    },
                     data:['计划', chart_data.data[0].name, chart_data.data[1].name]
                 },
                 animation: false,
                 grid: {
-                    left: '2%',
-                    right: '15%',
+                    left: '3%',
+                    right: '0',
                     bottom: '3%',
                     containLabel: true
                 },
                 xAxis:  {
                     type: 'category',
                     boundaryGap: false,
-                    name: '准点',
                     data: chart_data.site_list,
                     axisLabel:{
+                        textStyle: {
+                            color: "#fff"
+                        }
                         // interval: 0,
                         // formatter:function(val){
                         //     return val.split("").join("\n");
                         // }
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: ['#454c6c']
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#454c6c',
+                        }
                     },
                 },
                 yAxis: {
@@ -216,11 +233,44 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                     min: -15,
                     max: 15,
                     name: '提前(分钟)',
+                    nameTextStyle: {
+                        color: "#fff"
+                    },
                     axisLabel: {
-                        formatter: '{value}'
+                        formatter: '{value}',
+                        textStyle: {
+                            color: "#fff"
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#454c6c',
+                        }
+                    },
+                    axisTick: {show:false},
+                    splitLine: {
+                        lineStyle: {
+                            color: ['#454c6c']
+                        }
                     }
                 },
                 series: [
+                    {
+                        name:'计划',
+                        type:'line',
+                        symbolSize:1,
+                        data:[0, 0, 0, 0, 0, 0, 0, 0],
+                        lineStyle: {
+                            normal:{
+                                width: 1
+                            }
+                        },
+                        // markLine: {
+                        //     data: [
+                        //         {type: 'average', name: '平均值'},
+                        //     ]
+                        // }
+                    },
                     {
                         name: chart_data.data[0].name,
                         type:'line',
@@ -242,22 +292,6 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                                 width: 1
                             }
                         },
-                    },
-                    {
-                        name:'计划',
-                        type:'line',
-                        symbolSize:1,
-                        data:[0, 0, 0, 0, 0, 0],
-                        lineStyle: {
-                            normal:{
-                                width: 1
-                            }
-                        },
-                        markLine: {
-                            data: [
-                                {type: 'average', name: '平均值'},
-                            ]
-                        }
                     }
                 ]
             };

@@ -7,7 +7,7 @@ var websocket = null;
 //判断当前浏览器是否支持WebSocket
 if ('WebSocket' in window) {
 	websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
-    // websocket = new WebSocket("ws://202.104.136.228:8085/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
+    // websocket = new WebSocket("ws://202.104.136.228:8810/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
 } else {
     alert('当前浏览器 Not support websocket');
 }
@@ -151,14 +151,14 @@ function busRealStateModel_socket_fn(controllerObj, data_list) {
             vehicleInformationObj.find(".outside_temperature").html(data.slice(82, 84));
             vehicleInformationObj.find(".back_door_status").html(back_door_status);
             vehicleInformationObj.find(".front_door_status").html(front_door_status);
-            vehicleInformationObj.find(".current_speed").html(data.slice(84, 86));
+            vehicleInformationObj.find(".current_speed").html(data.slice(84, 86) + 'KM/H');
             vehicleInformationObj.find(".direction").html('大亚湾'+data.slice(88, 89));
-            vehicleInformationObj.find(".front_distance").html(data.slice(86, 87));
-            vehicleInformationObj.find(".back_distance").html(data.slice(87, 88));
+            vehicleInformationObj.find(".front_distance").html(data.slice(86, 87) + 'KM');
+            vehicleInformationObj.find(".back_distance").html(data.slice(87, 88) + 'KM');
             vehicleInformationObj.find(".return_time").html(date_time);
             vehicleInformationObj.find(".next_trip_time").html(date_time_2);
-            vehicleInformationObj.find(".residual_clearance").html(data.slice(76, 78) + 'KM/h');
-            lineInfo.find(".lineRoad").html('18')
+            vehicleInformationObj.find(".residual_clearance").html(data.slice(76, 78) + 'KM');
+            lineInfo.find(".lineRoad").html('18'+'路')
             lineInfo.find(".trip").html(data.slice(76, 77));
             lineInfo.find(".total_trip").html(data.slice(76, 77) + data.slice(77, 78));
 
