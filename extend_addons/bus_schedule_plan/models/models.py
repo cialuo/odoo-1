@@ -10,6 +10,14 @@ import collections
 
 timeFormatStr = "%Y-%m-%d %H:%M:%S"
 
+def str2datetime(timestr):
+    return datetime.datetime.strptime(timestr,timeFormatStr)
+
+def timesubtraction(time1, time2):
+    time1 = str2datetime(time1)
+    time2 = str2datetime(time2)
+    return round((time1 - time2).total_seconds()/3600.00,1)
+
 class RouteInBusSchedule(models.Model):
 
     _inherit = "route_manage.route_manage"
@@ -340,9 +348,9 @@ class BusWorkRules(models.Model):
             # 生成人车配班数据
             staffdata = self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
                                                                staff_date=datetime.datetime.strptime(datestr, "%Y-%m-%d"),
-                                                               operation_ct=vehiclenums, move_time_id=res)
+                                                               operation_ct=vehiclenums, move_time_id=res, force=True)
             res.genOperatorPlan()
-            # BusWorkRules.genExcuteRecords(res)
+            BusWorkRules.genExcuteRecords(res)
 
     @classmethod
     def genExcuteRecords(cls, movetimeobj):
@@ -385,6 +393,7 @@ class BusWorkRules(models.Model):
             return False
 
         movetimelist = json.loads(movetimeobj.operationplan)
+
         upexeitems = BusWorkRules.genModedetailRecords(movetimelist['up'], stafftimearrange, movetimeobj.env['scheduleplan.movetimeup'])
         downexeitems = BusWorkRules.genModedetailRecords(movetimelist['down'], stafftimearrange, movetimeobj.env['scheduleplan.movetimedown'])
         # 上行排班计划
@@ -398,13 +407,21 @@ class BusWorkRules(models.Model):
         conductorworklist = collections.defaultdict(list)
 
         for item in upexeitems:
-            driverworklist[item['driver']].append((item['starttim'], item['arrivetime'],item['vehicle_id']))
-            conductorworklist[item['steward']].append((item['starttim'], item['arrivetime']))
+            if item[2]['driver']:
+                driverworklist[item[2]['driver']].append((item[2]['starttime'], item[2]['arrivetime'],item[2]['vehicle_id']))
+            if item[2]['steward']:
+                conductorworklist[item[2]['steward']].append((item[2]['starttime'], item[2]['arrivetime']))
 
-        for k, v in driverworklist:
+        for item in downexeitems:
+            if item[2]['driver']:
+                driverworklist[item[2]['driver']].append((item[2]['starttime'], item[2]['arrivetime'],item[2]['vehicle_id']))
+            if item[2]['steward']:
+                conductorworklist[item[2]['steward']].append((item[2]['starttime'], item[2]['arrivetime']))
+
+        for k, v in driverworklist.items():
             driverworklist[k] = sorted(v, key=lambda x:x[0])
 
-        for k, v in conductorworklist:
+        for k, v in conductorworklist.items():
             conductorworklist[k] = sorted(v, key=lambda x:x[0])
 
         addrecords = []
@@ -419,11 +436,12 @@ class BusWorkRules(models.Model):
                     'checkintime' : item[1][0],
                     'checkouttime' : item[1][1],
                     'realworkstart' : item[0][0][0],
-                    'realworkdone': item[0][1][1],
-                    'worktimelength':item[1][1]-item[1][0],
-                    'workrealtimelength' : item[0][1][1] - item[0][0][0]
+                    'realworkdone': item[0][1][1]
                 }
+                value['worktimelength'] = timesubtraction(item[1][1], item[1][0])
+                value['workrealtimelength'] = timesubtraction(item[0][1][1], item[0][0][0])
             addrecords.append((0,0,value))
+
         for k, v in driverworklist.items():
             result = BusWorkRules.worksectionrecords(worksectiondriver[k], v)
             for item in result:
@@ -435,11 +453,15 @@ class BusWorkRules(models.Model):
                     'checkintime': item[1][0],
                     'checkouttime': item[1][1],
                     'realworkstart': item[0][0][0],
-                    'realworkdone': item[0][1][1],
-                    'worktimelength': item[1][1] - item[1][0],
-                    'workrealtimelength': item[0][1][1] - item[0][0][0]
+                    'realworkdone': item[0][1][1]
                 }
-            addrecords.append((0, 0, value))
+                x = item[1][1]
+                y = item[1][0]
+                a = item[0][1][1]
+                b = item[0][0][0]
+                value['worktimelength'] = timesubtraction(item[1][1],item[1][0])
+                value['workrealtimelength'] = timesubtraction(item[0][1][1], item[0][0][0])
+                addrecords.append((0, 0, value))
         values['motorcyclistsTime'] = addrecords
 
         busworklist = collections.defaultdict(list)
@@ -453,18 +475,21 @@ class BusWorkRules(models.Model):
             temp = [temp[0], temp[-1]]
             recval = {
                 'vehicle_id':k,
-                'firstmovetime':temp[0],
-                'lastmovetime':temp[-1],
-                'worktimelength':temp[-1] - temp[0]
+                'firstmovetime':temp[0][0],
+                'lastmovetime':temp[-1][0],
+                'worktimelength': timesubtraction(temp[-1][0], temp[0][0])
             }
             result.append((0,0,recval))
         values['vehicleresource'] = result
 
         movetimeobj.env['scheduleplan.excutetable'].create(values)
 
-
     @classmethod
     def worksectionrecords(cls, worksection, worklist):
+        """
+        由于一个司机可能在一天上多个班次 比如 上午九点到十二点 晚上八点到晚上十二点
+        这个函数就是计算出司乘人员一天中的所有上车区间
+        """
         spliter = []
         for item in range(1, len(worksection)):
             spliter.append(item[0])
@@ -494,12 +519,14 @@ class BusWorkRules(models.Model):
             employee = data[item]['employees']
             for _, x in employee.items():
                 for y in x['timelist']:
-                    resultdriver[x['driver']].append(y)
-                    resultconductor[x['conductor']].append(y)
+                    if x['driver'] != False:
+                        resultdriver[x['driver']].append(y)
+                    if x['conductor'] != False:
+                        resultconductor[x['conductor']].append(y)
 
-        for k,v in resultdriver:
+        for k,v in resultdriver.items():
             resultdriver[k] = sorted(v, key=lambda x:x[0])
-        for k,v in resultconductor:
+        for k,v in resultconductor.items():
             resultconductor[k] = sorted(v, key=lambda x:x[0])
         return resultdriver, resultconductor
 
@@ -507,6 +534,13 @@ class BusWorkRules(models.Model):
 
     @classmethod
     def genModedetailRecords(cls, movetimelist, stafflist, timerecmode):
+        """
+        根据运营计划生成司机 售票员趟次数据
+        :param movetimelist:
+        :param stafflist:
+        :param timerecmode:
+        :return:
+        """
         result = []
         for item in movetimelist:
             if item[1] == None:
@@ -514,18 +548,19 @@ class BusWorkRules(models.Model):
 
             timerec = cls.getTimeRecordDetail(timerecmode, item[1]['id'])
             if timerec == None:
+                # a = 99885
                 continue
 
             value = {
                 'seq_id':item[1]['seqid'],
-                'vehicle_id': stafflist[item[1]['seqid']]['vehicle_id'],
-                'starttim': item[1]['startmovetime'],
+                'vehicle_id': stafflist[item[0]]['vehicle_id'].id,
+                'starttime': item[1]['startmovetime'],
                 'arrivetime': item[1]['arrive_time'],
                 'timelenght': timerec.timelength,
                 'mileage' : timerec.mileage,
-                'line_id' : timerec.line_id
+                'line_id' : timerec.line_id.id
             }
-            driver, steward = cls.searchDriverAndSteward(item[1]['startmovetime'], stafflist[item[1]['seqid']])
+            driver, steward = cls.searchDriverAndSteward(item[1]['startmovetime'], stafflist[item[0]])
             value['driver'] = driver
             value['steward'] = steward
             result.append((0,0,value))
@@ -541,7 +576,7 @@ class BusWorkRules(models.Model):
             if breakflag == True:
                 break
             for x in v['timelist']:
-                if x[0] >= startime <= x[1]:
+                if startime >= x[0]  and startime <= x[1]:
                     driver = v['driver']
                     steward = v['conductor']
                     breakflag = True
@@ -573,12 +608,18 @@ class BusWorkRules(models.Model):
             temp['vehicle_id'] = item.vehicle_id
             timelist = {}
             for x in item.staff_line_ids:
-                data = {'driver': x.driver_id,
-                        'conductor': x.conductor_id,
+                data = {'driver': x.driver_id.id,
+                        'conductor': x.conductor_id.id,
                         'timelist' : []
                         }
                 for y in x.bus_shift_choose_line_id.shift_line_id.detail_ids:
-                    data['timelist'].append((datestr+ " "+ y.start_time, datestr+ " "+ y.end_time))
+                    # 修正到utc时间
+                    timestart = str2datetime(datestr+ " "+ y.start_time + ':00')
+                    timestart = timestart - datetime.timedelta(hours=8)
+                    timeend = str2datetime(datestr+ " "+ y.end_time + ':00')
+                    timeend = timeend - datetime.timedelta(hours=8)
+                    data['timelist'].append((timestart.strftime(timeFormatStr), timeend.strftime(timeFormatStr)))
+
                 timelist[x.bus_shift_choose_line_id] = data
             temp['employees'] = timelist
             result[item.sequence] = temp
@@ -1048,7 +1089,7 @@ class ExecUpPlanItem(models.Model):
     steward = fields.Many2one("hr.employee", string="steward")
 
     # 发车时间
-    starttim = fields.Datetime(string="start move time")
+    starttime = fields.Datetime(string="start move time")
 
     # 到达时间
     arrivetime = fields.Datetime(string="arrive time")
