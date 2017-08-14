@@ -6,7 +6,7 @@
             <field name="name">Hr Entry Form</field>
             <field name="model">hr.entry</field>
             <field name="arch" type="xml">
-                <form>
+                <form duplicate="0">
                     <header>
                         <button type="object" name="action_process" string="Action Process" class="oe_highlight" states="draft"/>
                         <button type="object" name="action_done" string="Action Done" class="oe_highlight" states="process" groups="hr.group_hr_manager"/>
