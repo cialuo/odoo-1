@@ -275,7 +275,7 @@ class BusGroupDriverVehicleShift(models.Model):
             res.write({'active': False})
 
         routes = self.env['bus_group'].read_group(domain, ['route_id'], groupby=['route_id'])
-        print routes
+        print 111111,routes
         for i in routes:
             res_groups = self.env['bus_group'].search(i['__domain']) #线路下面所有的组
             if not res_groups:

@@ -338,7 +338,7 @@ class BusWorkRules(models.Model):
             movetimerecord['backupvehicles'] = backupvehicles
             res = self.env['scheduleplan.busmovetime'].create(movetimerecord)
             # 生成人车配班数据
-            self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
+            staffdata = self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
                                                                staff_date=datetime.datetime.strptime(datestr, "%Y-%m-%d"),
                                                                operation_ct=vehiclenums, move_time_id=res)
             res.genOperatorPlan()
@@ -354,10 +354,13 @@ class BusWorkRules(models.Model):
             'excutedate' : movetimeobj.executedate,
             'line_id' : movetimeobj.line_id.id,
         }
+        # 生成上行时刻表列表并排序
         uptimelist = [item for item in movetimeobj.uptimeslist]
         uptimelist = sorted(uptimelist, key=lambda x: x.seqid)
+        # 生成下行时刻表列表并排序
         downtimelist = [item for item in movetimeobj.downtimeslist]
         downtimelist = sorted(downtimelist, key=lambda x: x.seqid)
+
         # 上行首班时间
         values['firstruntime'] = uptimelist[0]['startmovetime'] if len(uptimelist) > 0 else False
         # 上行末班时间
