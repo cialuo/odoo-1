@@ -22,10 +22,6 @@ class op_line(models.Model):
         :return:
         '''
 
-        # for p in self:
-        #     print not isinstance(p.id,models.NewId)
-        #
-        # vals['restful_type'] = 1
         res = super(op_line, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
@@ -45,23 +41,21 @@ class op_line(models.Model):
         :param vals:
         :return:
         '''
-        # for p in self:
-        #     print not isinstance(p.id,models.NewId)
-        #
 
         res = super(op_line, self).write(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        # if vals.get('restful_type') != 1:
-        if fields.Datetime.now() :
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                print "-----------write---------"
-                params = Params(type=3, cityCode=cityCode,tableName='op_line', data=vals).to_dict()
-                rp = Client().http_post(url, data=params)
-                # clientThread(url,params,res).start()
-            except Exception,e:
-                print e.message
+        for r in self:
+            second_create = int(r.create_date[-2:])
+            second_now = int(fields.Datetime.now()[-2:])
+            if second_now - second_create > 5:
+                try:
+                    # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                    params = Params(type=3, cityCode=cityCode,tableName='op_line', data=vals).to_dict()
+                    rp = Client().http_post(url, data=params)
+                    # clientThread(url,params,res).start()
+                except Exception,e:
+                    print e.message
         return res
 
     @api.multi
