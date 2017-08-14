@@ -7,10 +7,11 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name" string='名称'/>
-          <field name="name" string='线路'/>
-          <field name="name" string='异常详情'/>
-          <field name="name" string='建议方案'/>
-          <field name="name" string='解决方案'/>
+          <field name="line_id" string='线路'/>
+          <field name="categ_id" string='类别'/>
+          <field name="abnormal_description" string='异常详情'/>
+          <field name="suggest" string='建议方案'/>
+          <field name="solution" string='解决方案'/>
         </tree>
       </field>
     </record>
