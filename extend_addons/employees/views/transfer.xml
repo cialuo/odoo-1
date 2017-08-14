@@ -206,6 +206,7 @@
         <field name="res_model">employees.innertransfer</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('transfer_type', '=', 'unit')]</field>
+        <field name="context" eval="{'transtype': 'unit'}"/>
     </record>
 
     <!--岗位调动action页面-->
@@ -214,6 +215,7 @@
         <field name="res_model">employees.innertransfer</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('transfer_type', '=', 'post')]</field>
+         <field name="context" eval="{'transtype': 'post'}"/>
     </record>
 
     <!--对外调动-->
