@@ -545,8 +545,9 @@ class HrPayslip(models.Model):
             return res
         ttyme = datetime.fromtimestamp(time.mktime(time.strptime(date_from, "%Y-%m-%d")))
         employee = self.env['hr.employee'].browse(employee_id)
+        #2017年8月14日 修改时间格式化 %B ==> %m
         res['value'].update({
-                    'name': _('Salary Slip of %s for %s') % (employee.name, tools.ustr(ttyme.strftime('%B-%Y'))),
+                    'name': _('Salary Slip of %s for %s') % (employee.name, tools.ustr(ttyme.strftime('%Y-%m'))),
                     'company_id': employee.company_id.id
         })
 
