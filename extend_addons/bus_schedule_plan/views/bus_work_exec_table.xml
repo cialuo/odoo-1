@@ -1,0 +1,127 @@
+<odoo>
+
+    <!-- 行车作业执行表action页面 -->
+    <record model="ir.actions.act_window" id="bus_work_exec_table_action">
+        <field name="name">bus work exec table</field>
+        <field name="res_model">scheduleplan.excutetable</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- 行车作业执行表tree视图 -->
+    <record model="ir.ui.view" id="bus_work_exec_table_tree">
+        <field name="name">bus work exec table tree</field>
+        <field name="model">scheduleplan.excutetable</field>
+        <field name="priority">0</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="name"/>
+                <field name="line_id"/>
+                <field name="movetimetable_id"/>
+                <field name="staffarrangetable_id"/>
+                <field name="firstruntime"/>
+                <field name="lastruntime"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--行车作业执行表form表单-->
+    <record id="bus_work_exec_table_form" model="ir.ui.view">
+        <field name="name">bus work exec table form</field>
+        <field name="model">scheduleplan.excutetable</field>
+        <field name="priority">0</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="line_id"/>
+                        <field name="excutedate"/>
+                        <field name="firstruntime"/>
+                        <field name="lastruntime"/>
+                        <field name="drivernum"/>
+                        <field name="stewardnum"/>
+                    </group>
+                    <group>
+                        <field name="status"/>
+                        <field name="upmovenum"/>
+                        <field name="downmovenum"/>
+                        <field name="totalmovenum"/>
+                        <field name="workvehiclenum"/>
+                        <field name="backupvehiclenum"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="up move execute plan">
+                        <field name="upmoveplan">
+                            <tree>
+                                <field name="seq_id"/>
+                                <field name="vehicle_id"/>
+                                <field name="driver"/>
+                                <field name="steward"/>
+                                <field name="starttime"/>
+                                <field name="arrivetime"/>
+                                <field name="timelenght"/>
+                                <field name="mileage"/>
+                                <field name="line_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="down move execute plan">
+                        <field name="downmoveplan">
+                            <tree>
+                                <field name="seq_id"/>
+                                <field name="vehicle_id"/>
+                                <field name="driver"/>
+                                <field name="steward"/>
+                                <field name="starttime"/>
+                                <field name="arrivetime"/>
+                                <field name="timelenght"/>
+                                <field name="mileage"/>
+                                <field name="line_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="driver and conductors">
+                        <field name="motorcyclistsTime">
+                            <tree>
+                                <field name="employee_id"/>
+                                <field name="worktime"/>
+                                <field name="vehicle_id"/>
+                                <field name="title"/>
+                                <field name="employee_sn"/>
+                                <field name="checkintime"/>
+                                <field name="realworkstart"/>
+                                <field name="realworkdone"/>
+                                <field name="checkouttime"/>
+                                <field name="worktimelength"/>
+                                <field name="workrealtimelength"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="vehicles list">
+                        <field name="vehicleresource">
+                            <tree>
+                                <field name="vehicle_id"/>
+                                <field name="firstmovetime"/>
+                                <field name="lastmovetime"/>
+                                <field name="worktimelength"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <!-- 行车作业执行表 -->
+    <menuitem id="bus_work_exec_table_menu" name="bus work exec table menu"
+              parent="operation_menu.bus_working_plan_menu"
+              action="bus_work_exec_table_action"
+              sequence="4"/>
+</odoo>

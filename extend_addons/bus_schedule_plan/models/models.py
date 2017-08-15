@@ -283,6 +283,8 @@ class BusWorkRules(models.Model):
                 recordslist.append((0, 0, data))
                 startTime = startTime + datetime.timedelta(minutes=item.interval)
         if startTime != markpoints[-1][1]:
+            # 如果最后一趟超出了计划时间的最后时间 则调整为计划最后发车时间
+            startTime != markpoints[-1][1]
             data = {
                 'seqid': seqcounter,
                 'startmovetime': startTime - datetime.timedelta(hours=8),
@@ -301,7 +303,7 @@ class BusWorkRules(models.Model):
     def createMoveTimeRecord(self, datestr, ruleobj):
         for item in ruleobj:
             movetimerecord = {
-                'name' : datestr + item.line_id.lineName,
+                'name' : datestr + "/" +item.line_id.lineName,
                 'line_id' : item.line_id.id,
                 'rule_id' : item.id,
                 'vehiclenums' : 0,
@@ -361,6 +363,7 @@ class BusWorkRules(models.Model):
             'name' : movetimeobj.name,
             'excutedate' : movetimeobj.executedate,
             'line_id' : movetimeobj.line_id.id,
+            'movetimetable_id':movetimeobj.id,
         }
         # 生成上行时刻表列表并排序
         uptimelist = [item for item in movetimeobj.uptimeslist]
@@ -386,11 +389,14 @@ class BusWorkRules(models.Model):
         # 机动车辆
         values['backupvehiclenum'] = movetimeobj.backupvehicles
         staffgroupmode = movetimeobj.env['bus_staff_group']
-        stafftimearrange = BusWorkRules.getBusStaffGroup(staffgroupmode,
+
+        stafftimearrange, staffarrangeid = BusWorkRules.getBusStaffGroup(staffgroupmode,
                                                          movetimeobj.executedate,
                                                          movetimeobj.id)
         if stafftimearrange == False:
             return False
+        # 关联的人车配班表记录
+        values['staffarrangetable_id'] = staffarrangeid
 
         movetimelist = json.loads(movetimeobj.operationplan)
 
@@ -440,7 +446,7 @@ class BusWorkRules(models.Model):
                 }
                 value['worktimelength'] = timesubtraction(item[1][1], item[1][0])
                 value['workrealtimelength'] = timesubtraction(item[0][1][1], item[0][0][0])
-            addrecords.append((0,0,value))
+                addrecords.append((0,0,value))
 
         for k, v in driverworklist.items():
             result = BusWorkRules.worksectionrecords(worksectiondriver[k], v)
@@ -455,10 +461,6 @@ class BusWorkRules(models.Model):
                     'realworkstart': item[0][0][0],
                     'realworkdone': item[0][1][1]
                 }
-                x = item[1][1]
-                y = item[1][0]
-                a = item[0][1][1]
-                b = item[0][0][0]
                 value['worktimelength'] = timesubtraction(item[1][1],item[1][0])
                 value['workrealtimelength'] = timesubtraction(item[0][1][1], item[0][0][0])
                 addrecords.append((0, 0, value))
@@ -536,10 +538,6 @@ class BusWorkRules(models.Model):
     def genModedetailRecords(cls, movetimelist, stafflist, timerecmode):
         """
         根据运营计划生成司机 售票员趟次数据
-        :param movetimelist:
-        :param stafflist:
-        :param timerecmode:
-        :return:
         """
         result = []
         for item in movetimelist:
@@ -576,13 +574,15 @@ class BusWorkRules(models.Model):
             if breakflag == True:
                 break
             for x in v['timelist']:
-                if startime >= x[0]  and startime <= x[1]:
+                # 结束时间增加30分钟 因为最后一班车的发车时间肯能超过工作结束时间
+                temp = str2datetime(x[1])
+                temp = temp+datetime.timedelta(minutes=30)
+                if startime >= x[0]  and startime <= temp.strftime(timeFormatStr):
                     driver = v['driver']
                     steward = v['conductor']
                     breakflag = True
                     break
         return driver, steward
-
 
 
     @classmethod
@@ -600,7 +600,7 @@ class BusWorkRules(models.Model):
         """
         staffgroup = staffgroupmode.search([('move_time_id', '=', movetimeid)])
         if len(staffgroup) == 0:
-            return False
+            return False, None
         record = staffgroup[0]
         result = {}
         for item in record.vehicle_line_ids:
@@ -623,7 +623,7 @@ class BusWorkRules(models.Model):
                 timelist[x.bus_shift_choose_line_id] = data
             temp['employees'] = timelist
             result[item.sequence] = temp
-        return result
+        return result, record.id
 
     def createMoveTimeTable(self):
         """
@@ -1013,6 +1013,12 @@ class BusMoveExcuteTable(models.Model):
                                 ("done", "done"),               # 完成
                               ], default="wait4use",  string="status")
 
+    # 行车时刻表
+    movetimetable_id = fields.Many2one("scheduleplan.busmovetime", string="move time tale")
+
+    # 人车配班表
+    staffarrangetable_id = fields.Many2one("bus_staff_group", string="staff arrange table")
+
     # 执行时间
     excutedate = fields.Date(string="excute date")
 
@@ -1079,9 +1085,6 @@ class ExecUpPlanItem(models.Model):
 
     vehicle_id = fields.Many2one("fleet.vehicle")
 
-    # 车辆编号
-    # vehiclecode = fields.Char(related="fleet.vehicle", string="vehicle code number")
-
     # 司机
     driver = fields.Many2one("hr.employee", string="dirver")
 
@@ -1131,9 +1134,6 @@ class MotorcyclistsTime(models.Model):
 
     vehicle_id = fields.Many2one("fleet.vehicle")
 
-    # 车辆编号
-    # vehiclecode = fields.Char(related="fleet.vehicle", string="vehicle code number")
-
     # 职务
     title = fields.Selection([("driver", "driver"),          # 司机
                                      ("steward", "steward"),        # 乘务员
@@ -1172,9 +1172,6 @@ class VehicleResource(models.Model):
     execplan_id = fields.Many2one("scheduleplan.excutetable")
 
     vehicle_id = fields.Many2one("fleet.vehicle")
-
-    # 车辆编号
-    # vehiclecode = fields.Char(related="vehicle_id.inner_code", string="vehicle code number")
 
     # 首班发车时间
     firstmovetime = fields.Datetime(string="first move time")
