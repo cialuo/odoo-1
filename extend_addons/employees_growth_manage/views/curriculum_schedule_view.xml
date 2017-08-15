@@ -55,7 +55,7 @@
                     <page name="class_arrangement" string="Class arrangement">
                          <field name="time_arrangements" >
                             <tree editable="top">
-                                <field name="teacher_id"/>
+                                <field name="teacher_id" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="start_time"/>
                                 <field name="end_time"/>
                                 <field name="address"/>
@@ -66,7 +66,7 @@
                     <page names="page_trainers" string="Trainers page">
                         <field name="students" >
                             <tree editable="top">
-                                <field name="student_id"/>
+                                <field name="student_id" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="jobnumber"/>
                                 <field name="department_id"/>
                                 <field name="post_id"/>
