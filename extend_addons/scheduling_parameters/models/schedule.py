@@ -304,7 +304,7 @@ class StationUp(models.Model):
 
     sequence = fields.Integer("Station Sequence", default=2, required=True)
     route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
-    gprsId = fields.Char('code', related='route_id.gprsId', required=True)  # 线路编码
+    gprsId = fields.Integer('code', related='route_id.gprsId', required=True)  # 线路编码
     station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
                                  required=True)
     entrance_azimuth = fields.Char('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
@@ -342,7 +342,7 @@ class StationDown(models.Model):
 
     sequence = fields.Integer("Station Sequence", default=2, required=True)
     route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
-    gprsId = fields.Char('code', related='route_id.gprsId', required=True)  # 线路编码
+    gprsId = fields.Integer('code', related='route_id.gprsId', required=True)  # 线路编码
     station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
                                  required=True)
     entrance_azimuth = fields.Char('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
