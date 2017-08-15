@@ -97,7 +97,6 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             var desktop_id = window.location.href.split('active_id=')[1];
             self.$el.parent().addClass("controller_"+desktop_id).attr("desktop_id", desktop_id);
             self.model2.query(["line_id"]).filter([["desktop_id", "=", parseInt(desktop_id)]]).all().then(function (data) {
-                console.log(JSON.stringify(data));
                 var s = [];
                 if (data.length > 0) {
                     // 去重

@@ -16,25 +16,28 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var self = this
             var data = this.dis_desk;
             if (data) {
-                var conCls = self.$el.find('.carousel_content')[0].className;
-                var content = '.' + conCls;
+                var content = '.' + self.$el.find('.carousel_content')[0].className;
                 carousel({
                     content: content,
                     self: self
                 });
             }
-
-            var model_id = 'model_' + 123;
+            var tid = self.$el.attr('tid');
+            var model_id = 'model_' + tid;
             if (socket_model_info[model_id]) {
                 delete socket_model_info[model_id];
             }
-
-
             if (self.$el.find('.absnormal_chart')[0] != undefined) {
                 self.absnormalChart = echarts.init(self.$el.find('.absnormal_chart')[0]);
                 self.absnormalChart1 = echarts.init(self.$el.find('.absnormal_chart')[1]);
                 self.lagstation_chart = echarts.init(self.$el.find('.lagstation_chart')[0]);
                 self.dataJson = [[120, 152], [220, 182], [150, 232], [320, 332]];
+                // var package = {
+                //     type: 1022,
+                //     open_modules: "dispatch-line_message-4",
+                //     msgId: Date.parse(new Date())
+                // };
+                // websocket.send(JSON.stringify(package));
                 socket_model_info[model_id] = {
                     arg: {
                         self: self,
@@ -45,7 +48,6 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                     }, fn: self.show_echarts
                 };
             }
-
         },
         events: {
             'click .manual': 'manual_process',

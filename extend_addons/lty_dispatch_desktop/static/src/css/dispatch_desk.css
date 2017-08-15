@@ -367,7 +367,7 @@
     display: none;
 }
 
-.updown_line_table .no_absnormal h4 {
+.updown_line_table .normal h4 {
     color: #4ecfc7;
 }
 
@@ -738,7 +738,8 @@
     border: 1px solid #6D7487;
     border-bottom: none;
 }
-.bus_src_config .table_bus_num th:first-of-type,.bus_src_config .table_bus_num td:first-of-type{
+
+.bus_src_config .table_source th:first-of-type,.bus_src_config .table_source td:first-of-type,.bus_src_config .table_bus_num th:first-of-type,.bus_src_config .table_bus_num td:first-of-type{
     padding-left: 12px;
 }
 .bus_src_config th, .bus_src_config td {
@@ -814,7 +815,8 @@
 /*站点弹框*/
 .bus_site_info {
     position: absolute;
-    background: #fff;
+    background: -webkit-linear-gradient(top, #32817E, #356691);
+    background: -moz-linear-gradient(top, #32817E, #356691);
     border-radius: 4px;
 }
 
@@ -823,6 +825,7 @@
     padding: 5px 10px;
 }
 
+
 .bus_site_info .bus_site_content > li {
     line-height: 20px;
     height: 20px;
@@ -830,6 +833,7 @@
     font-size: 14px;
     text-align: center;
     cursor: pointer;
+    color: #fff;
 }
 
 /*电子地图*/
