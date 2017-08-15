@@ -19,7 +19,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['scheduling_parameters'],
+    'depends': ['scheduling_parameters', 'vehicle_manage'],
 
     # always loaded
     'data': [

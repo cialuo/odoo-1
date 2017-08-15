@@ -2,3 +2,4 @@
 
 from . import models
 import mapping
+import vehicle

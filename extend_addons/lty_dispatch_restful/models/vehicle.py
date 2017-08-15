@@ -1,18 +1,35 @@
 # -*- coding: utf-8 -*-
-
-from odoo import models, fields, api
+##############################################################################
+#
+#
+#    Copyright (C) 2017 xiao (715294035@qq.com).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Lesser General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Lesser General Public License for more details.
+#
+#    You should have received a copy of the GNU Lesser General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/lgpl.html>.
+#
+##############################################################################
+from odoo import api, fields, models
 from extend_addons.lty_dispatch_restful.core.restful_client import *
 import mapping
 import logging
 
 _logger = logging.getLogger(__name__)
+class Vehicle(models.Model):
 
-class op_line(models.Model):
-
-    _inherit = 'route_manage.route_manage'
+    _inherit = 'fleet.vehicle'
 
     '''
-        继承线路模块,在线路数据创建时,调用restful api
+        继承车辆基础数据,调用restful api
     '''
 
     #调度数据逐渐
@@ -26,7 +43,7 @@ class op_line(models.Model):
         :return:
         '''
 
-        res = super(op_line, self).create(vals)
+        res = super(Vehicle, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
@@ -34,7 +51,7 @@ class op_line(models.Model):
             _logger.info('Start create data: %s', self._name)
             vals = mapping.dict_transfer(self._name, vals)
             vals.update({'id': res.id})
-            params = Params(type=1, cityCode=cityCode,tableName='op_line', data=vals).to_dict()
+            params = Params(type=1, cityCode=cityCode,tableName='tjs_car', data=vals).to_dict()
             rp = Client().http_post(url, data=params)
 
             #clientThread(url,params,res).start()
@@ -50,7 +67,7 @@ class op_line(models.Model):
         :return:
         '''
 
-        res = super(op_line, self).write(vals)
+        res = super(Vehicle, self).write(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
@@ -62,7 +79,7 @@ class op_line(models.Model):
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(vals)
                     vals.update({'id': r.id})
-                    params = Params(type=3, cityCode=cityCode,tableName='op_line', data=vals).to_dict()
+                    params = Params(type=3, cityCode=cityCode,tableName='tjs_car', data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
 
                     # clientThread(url,params,res).start()
@@ -78,13 +95,13 @@ class op_line(models.Model):
         '''
         fk_ids = self.mapped('fk_id')
         vals = {"ids":fk_ids}
-        res = super(op_line, self).unlink()
+        res = super(Vehicle, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
             # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
             _logger.info('Start unlink data: %s', self._name)
-            params = Params(type = 3, cityCode = cityCode,tableName = 'op_line', data = vals).to_dict()
+            params = Params(type = 3, cityCode = cityCode,tableName = 'tjs_car', data = vals).to_dict()
             clientThread(url,params,res).start()
         except Exception,e:
             _logger.info('%s', e.message)
