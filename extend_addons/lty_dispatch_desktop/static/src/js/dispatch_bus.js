@@ -479,7 +479,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         y: e.clientY + 5,
                                         zIndex: zIndex + 1,
                                         controllerId: self.desktop_id,
-                                        line_id: canvas.self.attr("tid"),
+                                        line_id: canvas.self.attr("line_id"),
                                         site: canvas.site_infos[i].name,
                                         site_id: canvas.site_infos[i].id,
                                         site_infos: self.site_top_infos
@@ -584,14 +584,15 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         x: e.clientX + 5,
                         y: e.clientY + 5,
                         zIndex: zIndex + 1,
-                        line_id: this.$el.attr("tid"),
+                        line_id: self.$el.attr("line_id"),
+                        line_name: self.$el.attr("line_name"),
                         controllerId: self.desktop_id
                     };
                 if ($(".linePlanParkOnlineModel_" + options.line_id).length > 0) {
                     return;
                 } else {
                     $(".linePlanParkOnlineModel").remove();
-                    var dialog = new plan_display(this, options);
+                    var dialog = new plan_display(self, options);
                     dialog.appendTo($(".controller_" + options.controllerId));
                 }
             }

@@ -2,6 +2,9 @@
  * Created by Administrator on 2017/8/5.
  */
 
+
+
+
 var websocket = null;
 
 //判断当前浏览器是否支持WebSocket
@@ -40,6 +43,9 @@ websocket.onopen = function () {
 var socket_model_info = {};
 var socket_model_api_obj = {};
 //接收到消息的回调方法
+websocket.onmessage = function(event) {
+	// console.log(event.data);
+	// return false;
 
 // var package = {
 //     type: 1001,
