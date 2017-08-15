@@ -41,19 +41,29 @@ class BusStaffGroup(models.Model):
             i.vehicle_ct = len(i.vehicle_line_ids)
 
     @api.multi
-    def action_gen_staff_group(self, route_id, move_time_id, use_date=str(datetime.date.today()), operation_ct=0):
+    def action_gen_staff_group(self, route_id, move_time_id=None, staff_date=datetime.date.today(), operation_ct=0, force=False):
 
-        staff_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") + timedelta(days=1)
+        use_date = datetime.datetime.strftime(staff_date-timedelta(days=1), "%Y-%m-%d")
         staff_date_str = datetime.datetime.strftime(staff_date, "%Y-%m-%d")
 
         res = self.env['bus_staff_group'].search([('name', '=', route_id.lineName + '/' + str(staff_date_str))])
         if res:
             res.unlink()
 
+        if force:
+            self.env['bus_group_driver_vehicle_shift'].scheduler_vehicle_shift(route_id.id, use_date=use_date)
+
         res_group_shift = self.env['bus_group_driver_vehicle_shift'].read_group(
-                                        [('use_date', '=', use_date), ('vehicle_sequence', '>', 0),
+                                        [('use_date', '=', staff_date_str), ('vehicle_sequence', '>', 0),
                                          ('route_id', '=', route_id.id)], ['vehicle_sequence'],
                                          groupby=['vehicle_sequence'], orderby='vehicle_sequence')
+
+        if not res_group_shift:
+            self.env['bus_group_driver_vehicle_shift'].scheduler_vehicle_shift(route_id.id, use_date=use_date)
+            res_group_shift = self.env['bus_group_driver_vehicle_shift'].read_group(
+                [('use_date', '=', staff_date_str), ('vehicle_sequence', '>', 0),
+                 ('route_id', '=', route_id.id)], ['vehicle_sequence'],
+                groupby=['vehicle_sequence'], orderby='vehicle_sequence')
 
         datas = []
         count = 0
@@ -85,9 +95,9 @@ class BusStaffGroup(models.Model):
             if count <= operation_ct:
                 vals.update({'operation_state': 'operation'})
             datas.append((0, 0, vals))
-        self.env['bus_staff_group'].create({'vehicle_line_ids': datas,
+        return self.env['bus_staff_group'].create({'vehicle_line_ids': datas,
                                             'route_id': route_id.id,
-                                            'move_time_id':move_time_id.id,
+                                            'move_time_id':move_time_id.id or None,
                                             'name': route_id.lineName + '/' + staff_date_str,
                                             'staff_date': staff_date
                                             })

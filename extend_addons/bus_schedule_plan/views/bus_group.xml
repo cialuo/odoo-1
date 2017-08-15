@@ -13,6 +13,7 @@
                     <field name="vehicle_ct"/>
                     <field name="driver_ct"/>
                     <field name="conductor_ct"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
