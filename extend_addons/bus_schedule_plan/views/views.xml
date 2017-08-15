@@ -405,6 +405,8 @@
                                 </tree>
                             </field>
                         </page>
+                        <page string="operation plan" name="operation_plan_page">
+                        </page>
                     </notebook>
                 </form>
             </field>
