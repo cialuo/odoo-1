@@ -29,17 +29,17 @@
             <field name="tag">dispatch_desktop.page</field>
         </record>
 
-        <record id="action_dispatch_desktop_test" model="ir.actions.client">
-            <field name="name">dispatch_desktopm</field>
-            <field name="target">main</field>
-            <field name="tag">dispatch_desktop.page</field>
-        </record>
+        <!--<record id="action_dispatch_desktop_test" model="ir.actions.client">-->
+            <!--<field name="name">dispatch_desktopm</field>-->
+            <!--<field name="target">main</field>-->
+            <!--<field name="tag">dispatch_desktop.page</field>-->
+        <!--</record>-->
 
-        <record id="action_dispatch_src_config" model="ir.actions.client">
-            <field name="name">bus_source_config</field>
-            <field name="target">main</field>
-            <field name="tag">bus_source_config.page</field>
-        </record>
+        <!--<record id="action_dispatch_src_config" model="ir.actions.client">-->
+            <!--<field name="name">bus_source_config</field>-->
+            <!--<field name="target">main</field>-->
+            <!--<field name="tag">bus_source_config.page</field>-->
+        <!--</record>-->
         <!--<menuitem name="Dispatch Control Desktop" id="dispatch_desktop_menu_test" action="action_dispatch_desktop_test" sequence="1" parent="dispatch_monitor_menu.dispatch_work_menu"/>-->
     </data>
 </odoo>

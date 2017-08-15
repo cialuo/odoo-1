@@ -60,8 +60,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     site_down_infos.push(site_info);
                                 }
                                 // var package = {
-                                //     type: 2002,
-                                //     open_modules: "dispatch-passenge_flow-4",
+                                //     type: 1023,
+                                //     open_modules: "dispatch-bus_real_state-4524",
                                 //     msgId: Date.parse(new Date())
                                 // };
                                 // websocket.send(JSON.stringify(package));
@@ -392,17 +392,16 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var cxt = c.getContext("2d");
             var x = event.pageX - c.getBoundingClientRect().left;
             var y = event.pageY - c.getBoundingClientRect().top;
-            console.log(event.pageY)
-            console.log(c.getBoundingClientRect().top)
             var zIndex = parseInt(this.$el[0].style.zIndex);
             if (e.button == 2) {
                 if ($('body').find('.bus_site_info').length > 0) {
-                        $('body').find('.bus_site_info').remove();
-                    }
+                    $('body').find('.bus_site_info').remove();
+                }
+                console.log(x,y)
                 var options =
                     {
-                        x: event.clientX + 5,
-                        y: event.clientY + 5-50,
+                        x: event.clientX -self.$el[0].offsetLeft + 5 ,
+                        y: event.clientY -self.$el[0].offsetTop + 5 ,
                         zIndex: zIndex + 1,
                     };
                 new bus_site_info(this, options).appendTo(this.$el);
