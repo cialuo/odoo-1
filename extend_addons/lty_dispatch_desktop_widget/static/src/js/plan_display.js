@@ -12,64 +12,64 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             this._super(parent);
             var init_data = {
                 uplink_plan: [
-                    {plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
-                    {plan: "9:20", arrive: "10:20", vehicle: "444", driver: "张晓峰", status: "待发"}, 
-                    {plan: "9:35", arrive: "10:35", vehicle: "666", driver: "里得水", status: "待发"}, 
-                    {plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
-                    {plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
-                    {plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
-                    {plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
-                    {plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
+                    {"id":"plan_1", plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
+                    {"id":"plan_2", plan: "9:20", arrive: "10:20", vehicle: "444", driver: "张晓峰", status: "待发"}, 
+                    {"id":"plan_3", plan: "9:35", arrive: "10:35", vehicle: "666", driver: "里得水", status: "待发"}, 
+                    {"id":"plan_4", plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
+                    {"id":"plan_5", plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
+                    {"id":"plan_6", plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
+                    {"id":"plan_7", plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
+                    {"id":"plan_8", plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
                 ],
                 uplink_yard: [
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"yard_1", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"yard_2", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"yard_3", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"yard_4", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"yard_5", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"yard_6", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"yard_7", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"yard_8", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
                 ],
                 uplink_on_the_way: [
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"x_1", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"x_2", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"x_3", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"x_4", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"x_5", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"x_6", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"x_7", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"x_8", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
                 ],
                 down_plan: [
-                    {plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
-                    {plan: "9:20", arrive: "10:20", vehicle: "444", driver: "张晓峰", status: "待发"}, 
-                    {plan: "9:35", arrive: "10:35", vehicle: "666", driver: "里得水", status: "待发"}, 
-                    {plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
-                    {plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
-                    {plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
-                    {plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
-                    {plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
+                    {"id":"y_1", plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
+                    {"id":"y_2", plan: "9:20", arrive: "10:20", vehicle: "444", driver: "张晓峰", status: "待发"}, 
+                    {"id":"y_3", plan: "9:35", arrive: "10:35", vehicle: "666", driver: "里得水", status: "待发"}, 
+                    {"id":"y_4", plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
+                    {"id":"y_5", plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
+                    {"id":"y_6", plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
+                    {"id":"y_7", plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
+                    {"id":"y_8", plan: "8:15", arrive: "9:15", vehicle: "655", driver: "刘德华", status: "待发"}, 
                 ],
                 down_yard: [
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"u_1", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"u_2", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"u_3", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"u_4", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"u_5", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"u_6", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"u_7", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"u_8", plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
                 ],
                 down_on_the_way: [
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
-                    {down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"m_1", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"m_2", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"m_3", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"m_4", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"m_5", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"m_6", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"m_7", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
+                    {"id":"m_8", down_plan: "8:15", vehicle: "264", line: 16, campo_atra: "8:10", parking: "5"},
                 ],
 
             };
@@ -127,11 +127,39 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 });
             });
 
-            self.$(".plan_group").on("mousedown", ".content_tb .point", function(e){
+            self.$(".plan_group").on("mousedown", ".content_tb .point_set", function(e){
                 if (e.button == 2){
-                    alert("你右键了");
+                    var pid = $(this).attr("pid");
+                    if (self.$(".plan_set_"+pid).length>0){
+                        return false;
+                    }
+                    $("body").click();
+                    $(this).addClass("active_tr")
+                    var parent_obj = self.$(".plan_display")[0];
+                    var options = {
+                        pid: pid,
+                        x: e.clientX + 5 - parseInt(parent_obj.style.left.replace("px","")),
+                        y: e.clientY + 5 - parseInt(parent_obj.style.top.replace("px","")),
+                        zIndex: 1
+                    }
+                    var dialog = new plan_display_set(self, options);
+                    dialog.appendTo(self.$(".plan_display"));
                     return false;
                 }
+            });
+
+            $("body").click(function(){
+                var plan_display_set = $(".plan_display_set");
+                if (plan_display_set.length>0){
+                    var plan_pid = plan_display_set.attr("plan_pid");
+                    self.$(".content_tb .point_set[pid="+plan_pid+"]").removeClass("active_tr");
+                    $(".plan_display_set").remove();
+                }                
+            })
+
+            // 阻止默认右键
+            self.$(".plan_group").on("contextmenu ", ".content_tb .point_set", function(){
+                return false;
             });
 
             $("body").on("click", ".adjust_box .reset_bt", function(){
@@ -246,11 +274,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         init: function(parent, data){
             this._super(parent);
-            this.data =  data;
+            this.location_data =  data;
         },
-        start: function(){
-            
-        }
     });
 
     return plan_display;

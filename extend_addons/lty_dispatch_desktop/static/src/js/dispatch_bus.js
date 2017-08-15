@@ -323,7 +323,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 return;
             } else {
                 $(".busRealStateModel").remove();
-                debugger;
                 var dialog = new bus_real_info(this, options);
                 dialog.appendTo($(".controller_" + options.controllerId));
             }

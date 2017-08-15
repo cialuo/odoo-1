@@ -4,60 +4,17 @@
     <t t-name="bus_real_info_template">
         <div t-attf-class="busRealStateModel line_{{widget.location_data.line_id}} busRealStateModel_{{widget.location_data.line_id}}_{{widget.location_data.car_num}} hide_model">
             <div class="bus_real_info dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
-                <div class="boxTitle">
-                    <div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
-                    <div class="titleInfo infoL">
-                        <dl>
-                            <dt>
-                                <span class="licenseNumber fmax">车号: <t t-esc="widget.data.license_number"></t></span>
-                            </dt>
-                            <dd>
-                                <span class="licensePlate"><t t-esc="widget.data.license_plate"></t></span>
-                            </dd>
-                            <dd>
-                                <span class="driver">司机：<t t-esc="widget.data.driver"></t></span><span class="crew">乘务：<t t-esc="widget.data.crew"></t></span>
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="titleInfo infoR">
-                        <div class="operation">
-                            <div class="scene scene1">
-                                <span class="sceneTitle">操作</span>
-                                <ul class="operationNav set1">
-                                    <li><a class="back_to_the_field" href="javascript:;">手动回场</a></li>
-                                    <li><a class="sign" href="javascript:;">签到</a></li>
-                                    <!-- <li><a class="start" href="javascript:;">发车</a></li> -->
-                                    <li><a class="handle_exceptions" href="javascript:;">处理异常状态</a></li>
-                                    <li><a class="schedule_a_return" href="javascript:;">安排回场任务</a></li>
-                                    <li><a class="can_line" href="javascript:;">CAN总线</a></li>
-
-                                </ul>
-                            </div>
-                            <div class="scene scene1">
-                                <span class="sceneTitle">交互</span>
-                                <ul class="operationNav set2">
-                                    <li><a class="news" href="javascript:;">消息</a></li>
-                                    <!-- <li><a class="notice" href="javascript:;">通知</a></li> -->
-                                    <li><a class="conversation" href="javascript:;">通话</a></li>
-                                </ul>
-                            </div>
-                            <a href="javascript:;" class="scene scene2 video">视频</a>
-                            <a href="javascript:;" class="scene scene2 police">报警</a>
-                            
-                        </div>
-                        <div class="more">
-                            <span class="sceneMore">更多</span>
-                            <ul class="morebox">
-                                <li><a class="arrivalTime" href="javascript:;">到站时刻</a></li>
-                                <li><a class="InformationInteraction" href="javascript:;">信息交互</a></li>
-                                <li><a class="geographicalPosition" href="javascript:;">地理位置</a></li>
-                                <li><a class="moreInfo" href="javascript:;">更多信息</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="closeBox dragArea">
+                    <a class="close_bt" href="javascript:;"></a>
                 </div>
-                <div class="popupContent">
-                    <div class="vehicleInformation">
+                <div class="popupContent ">
+                    <div class="vehicleInformation popupC">
+                        <div class="titleInfo info">
+                            <span class="licenseNumber fmax mR10">车号: <t t-esc="widget.data.license_number"></t></span>
+                            <span class="licensePlate mR5"><t t-esc="widget.data.license_plate"></t></span>
+                            <span class="driver mR5">司机：<t t-esc="widget.data.driver"></t></span>
+                            <span class="crew">乘务：<t t-esc="widget.data.crew"></t></span>
+                        </div>
                         <table>
                             <tr>
                                 <td>乘客<span class="fmax num passenger_number"><t t-esc="widget.data.passenger"></t></span>人</td>
@@ -66,17 +23,17 @@
                             </tr>
                             <tr>
                                 <td>车厢<span class="fmax num inside_temperature"><t t-esc="widget.data.carriage_temperature"></t></span>度</td>
-                                <td colspan="2">室外<span class="num outside_temperature"><t t-esc="widget.data.outdoor_temperature"></t></span>度</td>
+                                <td colspan="2">室外<span class="fmax num outside_temperature"><t t-esc="widget.data.outdoor_temperature"></t></span>度</td>
                             </tr>
                             <tr>
                                 <td>后门<span class="fmax num back_door_status"><t t-esc="widget.data.back_door"></t></span></td>
                                 <td>前门<span class="num fmax front_door_status"><t t-esc="widget.data.front_door"></t></span></td>
-                                <td>当前车速<span class="num current_speed"><t t-esc="widget.data.speed"></t></span>KM/h</td>
+                                <td>当前车速<span class="num current_speed"><t t-esc="widget.data.speed"></t>KM/h</span></td>
                             </tr>
                             <tr>
                                 <td>驶向<span class="fmax num direction"><t t-esc="widget.data.sail"></t></span></td>
-                                <td>前车<span class="num front_distance"><t t-esc="widget.data.front"></t></span>KM</td>
-                                <td>后车<span class="num back_distance"><t t-esc="widget.data.after"></t></span>KM</td>
+                                <td>前车<span class="num front_distance"><t t-esc="widget.data.front"></t></span></td>
+                                <td>后车<span class="num back_distance"><t t-esc="widget.data.after"></t></span></td>
                             </tr>
                             <tr>
                                 <td>回场时间<span class="dangerTime num return_time"><t t-esc="widget.data.back_field_time"></t></span></td>
@@ -85,18 +42,70 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="carReport">
+                    <div class="carReport_info popupC">
+                        <div class="titleInfo info infoR">
+                            <div class="operation">
+                                <div class="scene scene1">
+                                    <button type="button" class="btn btn-primary dropdown-toggle sceneTitle" data-toggle="dropdown">操作 
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu operationNav set1" role="menu">
+                                        <li><a class="back_to_the_field" href="javascript:;">手动回场</a></li>
+                                        <li><a class="sign" href="javascript:;">签到</a></li>
+                                        <li><a class="start" href="javascript:;">发车</a></li>
+                                        <li><a class="handle_exceptions" href="javascript:;">处理异常状态</a></li>
+                                        <li><a class="schedule_a_return" href="javascript:;">安排回场任务</a></li>
+                                        <li><a class="can_line" href="javascript:;">CAN总线</a></li>
+
+                                    </ul>
+                                </div>
+                                <div class="scene scene1">
+                                    <button type="button" class="btn btn-primary dropdown-toggle sceneTitle" data-toggle="dropdown">操作 
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu operationNav set2" role="menu">
+                                        <li><a class="news" href="javascript:;">消息</a></li>
+                                        <!-- <li><a class="notice" href="javascript:;">通知</a></li> -->
+                                        <li><a class="conversation" href="javascript:;">通话</a></li>
+
+                                    </ul>
+                                </div>
+                                <a href="javascript:;" class="scene scene2 video">视频</a>
+                                <a href="javascript:;" class="scene scene2 police">报警</a>
+                            </div>
+                            <div class="scene scene3 more">
+                                <button type="button" class="btn btn-primary dropdown-toggle sceneTitle" data-toggle="dropdown">更多 
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu operationNav set1" role="menu">
+                                    <li><a class="arrivalTime" href="javascript:;">到站时刻</a></li>
+                                    <li><a class="InformationInteraction" href="javascript:;">信息交互</a></li>
+                                    <li><a class="geographicalPosition" href="javascript:;">地理位置</a></li>
+                                    <li><a class="moreInfo" href="javascript:;">更多信息</a></li>
+
+                                </ul>
+                                <!-- <span class="sceneMore">更多</span>
+                                <ul class="morebox">
+                                    <li><a class="arrivalTime" href="javascript:;">到站时刻</a></li>
+                                    <li><a class="InformationInteraction" href="javascript:;">信息交互</a></li>
+                                    <li><a class="geographicalPosition" href="javascript:;">地理位置</a></li>
+                                    <li><a class="moreInfo" href="javascript:;">更多信息</a></li>
+                                </ul> -->
+                            </div>
+                        </div>
+                        <div class="carReport">
                         
+                        </div>
                     </div>
                 </div>
                 <div class="lineInfo">
-                    <span class="lineRoad"><t t-esc="widget.data.line"></t>路</span>
+                    <span class="lineRoad"><t t-esc="widget.data.line"></t></span>
                     第<span class="trip"><t t-esc="widget.data.trip"></t></span>趟，共<span class="total_trip"><t t-esc="widget.data.total_trip"></t></span>趟
                 </div>
             </div>
             <script type="text/javascript">
-                $(function(){
-                    $('.operation .scene1').hover(function(){
+                <!-- $(function(){ -->
+                   <!--  $('.operation .scene1').hover(function(){
                         $(this).find('.operationNav').show();
                     },function(){
                         $(this).find('.operationNav').hide();
@@ -106,14 +115,14 @@
                         $(this).find('.morebox').show(150);
                     },function(){
                         $(this).find('.morebox').hide();
-                    });
-                });
+                    }); -->
+                <!-- }); -->
             </script>
         </div>
     </t>
 
     <t t-name="arrival_time_chart_template">
-        <div class="carInfoScene arrival_time_chart hide_model" style="width:344px;height:330px;"></div>
+        <div class="carInfoScene arrival_time_chart hide_model" style="width:372px;height:330px;"></div>
     </t>
 
     <t t-name="arrival_time_video_template">
@@ -122,7 +131,7 @@
 
     <t t-name="arrival_time_police_template">
         <div class="carInfoScene arrival_time_police">
-            <h1 class="title"><img src="/lty_dispatch_desktop_widget/static/src/image/police.png" alt=""/>报警模式</h1>
+            <h1 class="title"><!-- <img src="/lty_dispatch_desktop_widget/static/src/image/police.png" alt=""/> -->报警模式</h1>
             <p class="cont">启动报警模式后，该车会将报警模式前后10分钟及报警模式过程中的全部视频做保留，并上传至视频流媒体服务器。配合后续调查取证</p>
             <a class="onBt" href="javascript:;">启动报警模式</a>
             <ul class="tel">
@@ -521,7 +530,7 @@
 
     <t t-name="trend_chart_template">
         <div class="trend_chart_info">
-            <div class="trend_chart_map" style="width:466px;height:214px;" ></div>
+            <div class="trend_chart_map" style="width:466px;height:250px;" ></div>
             <ul class="map_botton_info">
                 <li><span class="num red" t-attf-style="{{widget.passenger_data}}">
                     <t t-esc="widget.passenger_data[1].value[2]"></t>
@@ -535,98 +544,96 @@
     <t t-name="express_train_template">
         <div>
             <div class="express_train_box">
-                <div class="express_train" >
-                    <header class="title">配发越站快车</header>
-                    <form action="" class="express_train_content" id="express_train_content_id">
-                        <div class="express_train_part">
-                            <table class="express_train_info">
-                                <tr>
-                                    <td>
-                                        <label class="labw"><input type="radio" class="bus_mode" name="bus_mode" value="vehicle" />从机动车配车</label>
-                                        <label class="labw"><input class="bus_mode" type="radio" name="bus_mode" value="waiting_bus" />从待班车配车</label>
-                                    </td>
-                                    <td>
-                                        <input type="time" required="required" t-att-value="widget.express_info.arrival_time"/>抵达<span class="name">
-                                            <t t-esc="widget.express_info.name"></t>
-                                        </span>
-                                    </td>
-                                </tr>
-                            </table>
-                            <select name="bus" class="select_bus" required="required">
-                                <option value="">请选择</option>
-                                <t t-foreach="widget.express_info.vehicle" t-as="vehicle">
-                                    <option t-att-value="vehicle.id" class="opset vehicle_op">
-                                        <t t-esc="vehicle.name"></t>
-                                    </option>
-                                </t>
-                                <t t-foreach="widget.express_info.waiting_bus" t-as="waiting_bus">
-                                    <option t-att-value="waiting_bus.id" class="waiting_bus_op opset">
-                                        <t t-esc="waiting_bus.name"></t>
-                                    </option>
-                                </t>
-                            </select>
-                        </div>
-                        <div class="select_part">
-                            <title class="title">经停方式</title>
-                            <table class="select_part_info">
-                                <tr>
-                                    <td>
-                                        <label class="labw">
-                                            <input type="radio" class="stopping_mode" name="stopping_mode" value="whole"/>全部经停
-                                        </label>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="labw"><input type="radio" class="stopping_mode" name="stopping_mode" value="skip"/>越站经停</label>
-                                    </td>
-                                    <td>
-                                        <div class="showInfo">
-                                            <p class="skip_info">
-                                                首站捡客后越至第<input min="1" type="number" t-att-value="widget.express_info.skip"/>站开始全部经停
-                                            </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td valign="top">
-                                        <label class="labw"><input type="radio" class="stopping_mode" name="stopping_mode" value="station"/>选站经停</label>
-                                    </td>
-                                    <td valign="top">
-                                        <div class="showInfo">
-                                            <table class="station_info">
-                                                <t t-foreach="widget.express_info.station" t-as="station_list">
-                                                    <tr>
-                                                        <t t-foreach="station_list" t-as="station">
-                                                            <td>
-                                                                <label>
-                                                                    <input type="checkbox" t-att-value="station.id" />
-                                                                    <t t-esc="station.name"></t>
-                                                                </label>
-                                                            </td>
-                                                        </t>
-                                                    </tr>
-                                                </t>
-                                            </table>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </form>
-                    <a href="javascript:;" class="sendbt">发车</a>
-                </div>
+                <header class="title">配发越站快车</header>
+                <form action="" class="express_train_content" id="express_train_content_id">
+                    <div class="express_train_part">
+                        <table class="express_train_info">
+                            <tr>
+                                <td>
+                                    <label class="labw"><input type="radio" class="bus_mode" name="bus_mode" value="vehicle" />从机动车配车</label>
+                                    <label class="labw"><input class="bus_mode" type="radio" name="bus_mode" value="waiting_bus" />从待班车配车</label>
+                                </td>
+                                <td>
+                                    <input type="text" class="express_time" required="required" t-att-value="widget.express_info.arrival_time"/>抵达<span class="name">
+                                        <t t-esc="widget.express_info.name"></t>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                        <select name="bus" class="select_bus" required="required">
+                            <option value="">请选择</option>
+                            <t t-foreach="widget.express_info.vehicle" t-as="vehicle">
+                                <option t-att-value="vehicle.id" class="opset vehicle_op">
+                                    <t t-esc="vehicle.name"></t>
+                                </option>
+                            </t>
+                            <t t-foreach="widget.express_info.waiting_bus" t-as="waiting_bus">
+                                <option t-att-value="waiting_bus.id" class="waiting_bus_op opset">
+                                    <t t-esc="waiting_bus.name"></t>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="select_part">
+                        <title class="title">经停方式</title>
+                        <table class="select_part_info">
+                            <tr>
+                                <td>
+                                    <label class="labw">
+                                        <input type="radio" class="stopping_mode" name="stopping_mode" value="whole"/>全部经停
+                                    </label>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="labw"><input type="radio" class="stopping_mode" name="stopping_mode" value="skip"/>越站经停</label>
+                                </td>
+                                <td>
+                                    <div class="showInfo">
+                                        <p class="skip_info">
+                                            首站捡客后越至第<input min="1" type="text" t-att-value="widget.express_info.skip"/>站开始全部经停
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <label class="labw"><input type="radio" class="stopping_mode" name="stopping_mode" value="station"/>选站经停</label>
+                                </td>
+                                <td valign="top">
+                                    <div class="showInfo">
+                                        <table class="station_info">
+                                            <t t-foreach="widget.express_info.station" t-as="station_list">
+                                                <tr>
+                                                    <t t-foreach="station_list" t-as="station">
+                                                        <td>
+                                                            <label>
+                                                                <input type="checkbox" t-att-value="station.id" />
+                                                                <t t-esc="station.name"></t>
+                                                            </label>
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                            </t>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+                <a href="javascript:;" class="sendbt">发车</a>
                 <script type="text/javascript">
                     $(function(){
-                        $(".express_train .express_train_info").on("change", ".bus_mode", function(){
+                        $(".express_train_box .express_train_info").on("change", ".bus_mode", function(){
                             var v = this.value;
-                            $(".express_train .express_train_part select").val('');
-                            $(".express_train .express_train_part select .opset").hide();
-                            $(".express_train .express_train_part select ."+v+"_op").show();
+                            $(".express_train_box .express_train_part select").val('');
+                            $(".express_train_box .express_train_part select .opset").hide();
+                            $(".express_train_box .express_train_part select ."+v+"_op").show();
                         });
-                        $(".express_train .select_part_info").on("click", ".stopping_mode", function(){
-                            $(".express_train .select_part_info .showInfo").hide();
+                        $(".express_train_box .select_part_info").on("click", ".stopping_mode", function(){
+                            $(".express_train_box .select_part_info .showInfo").hide();
                             var stopping_mode_v= this.value;
                             $(this).parents("tr").find(".showInfo").show();
                         });
@@ -656,7 +663,7 @@
                             </tr>
                             <t t-foreach="widget.plan_data.uplink_plan" t-as="item">
                                 <t t-if="item.plan">
-                                    <tr class="point">
+                                    <tr class="point point_set" t-attf-pid="{{item.id}}">
                                         <td><t t-esc="item.plan"></t></td>
                                         <td><t t-esc="item.arrive"></t></td>
                                         <td><t t-esc="item.vehicle"></t></td>
@@ -868,8 +875,17 @@
     </t>
 
     <t t-name="plan_display_set_template">
-        <div class="plan_display_set">
-            
+        <div t-attf-class="plan_display_set plan_set_{{widget.location_data.pid}}" t-attf-plan_pid="{{widget.location_data.pid}}" >
+            <ul t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
+                <li>发送计划到车辆</li>
+                <li>发送消息</li>
+                <li>添加计划</li>
+                <li>手动发车</li>
+                <li>修改</li>
+                <li>批量更改车辆司机</li>
+                <li>还原时间</li>
+                <li>电子地图</li>
+            </ul>
         </div>
     </t>
 
