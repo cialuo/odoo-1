@@ -2,12 +2,15 @@
  * Created by Administrator on 2017/8/5.
  */
 
+
+
+
 var websocket = null;
 
 //判断当前浏览器是否支持WebSocket
 if ('WebSocket' in window) {
 	websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
-    // websocket = new WebSocket("ws://202.104.136.228:8810/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
+    // websocket = new WebSocket("ws://202.104.136.228:8085/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
 } else {
     alert('当前浏览器 Not support websocket');
 }
@@ -41,6 +44,8 @@ var socket_model_info = {};
 var socket_model_api_obj = {};
 //接收到消息的回调方法
 websocket.onmessage = function(event) {
+	// console.log(event.data);
+	// return false;
     for (socket_model in socket_model_info) {
         var socket_model = socket_model_info[socket_model];
         socket_model.fn(event.data, socket_model.arg);

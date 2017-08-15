@@ -109,7 +109,7 @@
 	</t>
     <t t-name="dispatch_desktop">
 		<t t-if="widget.dis_desk">
-				<div class="dispatch_desktop dragContent tidClass" t-attf-line_id="#{widget.dis_desk.line_id[0]}" t-attf-tid="#{widget.dis_desk.id}" t-attf-style="left:#{widget.dis_desk.position_left}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index}">
+				<div class="dispatch_desktop dragContent tidClass" t-attf-line_name="#{widget.dis_desk.line_id[1]}" t-attf-line_id="#{widget.dis_desk.line_id[0]}" t-attf-tid="#{widget.dis_desk.id}" t-attf-style="left:#{widget.dis_desk.position_left}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index}">
 					<div class="content">
 					<!--线路信息展示-->
 					<div class="line_info dragAreaDesk">

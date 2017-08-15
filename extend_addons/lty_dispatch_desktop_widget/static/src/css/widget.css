@@ -1,9 +1,21 @@
-/*---------站点客流---------*/
+/*layui 重新定义*/
 
+.layui-layer-page {
+    border-radius: 8px;
+}
+.layui-layer-page .layui-layer-title {
+    background: #454f76 !important;
+    color: #fff !important;
+    border-bottom: 1px solid #6D7487 !important;
+    padding: 0 30px !important; 
+}
+
+
+/*---------站点客流---------*/
 .passenger_flow_trend_chart {
     width: 932px;
     background: #3a4263;
-    box-shadow: 0 0 10px #3a4263;
+    box-shadow: 0 0 50px #1e2335;
     color: #fff;
     border-radius: 8px;
 }
@@ -194,9 +206,11 @@
 }
 
 .bus_real_info {
-    /*width: 802px;*/
+    width: 864px;
     letter-spacing: 1px;
     background: #3a4263;
+    border-radius: 8px;
+    box-shadow: 0 0 50px #1e2335;
 }
 
 .bus_real_info .carReport .socket_load {
@@ -211,7 +225,23 @@
 .plan_display .closeBox {
     height: 20px;
     background: #3a4263;
-    border-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.plan_display .closeBox {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: #272d46;
+}
+
+.plan_display .closeBox .num {
+    font-weight: normal;
+    margin-left: 20px;
 }
 
 .bus_real_info .closeBox .close_bt,
@@ -224,6 +254,10 @@
     background: #fff;
     height: 3px;
     vertical-align: middle;
+}
+
+.plan_display .closeBox .close_bt {
+    top: 18px;
 }
 
 .bus_real_info .titleInfo dl dt {
@@ -693,167 +727,237 @@
 
 
 /*----------车辆计划展示------------*/
-
 .plan_display {
-    width: 1732px;
+    border-radius: 8px;
+    box-shadow: 0 0 50px #1e2335;
+    width: 1874px;
 }
 
-.plan_display .closeBox .close_bt {
-    top: 11px;
-    right: 11px;
-}
-
-.plan_display .closeBox .title {
-    color: #fff;
-    line-height: 28px;
-}
-
-.plan_display .plan_group {
-    height: 537px;
-    border: 1px solid #000;
-    overflow: auto;
-    background: #fff;
-}
-
-.plan_display .uplink_plan {
-    width: 253px;
-    border-right: 1px solid #000;
-}
-
-.plan_display .uplink_yard {
-    width: 306px;
-    border-right: 1px solid #ccc;
-}
-
-
-.plan_display .uplink_on_the_way {
-    border-right: 1px solid #000;
-}
-
-.plan_display .down_on_the_way {
-    border-right: 1px solid #000;
-}
-
-.plan_display .down_on_the_way {
-    border: 0;
-}
-
-.plan_display .section_plan_cont {
-    position: relative;
+.plan_display .plan_group .vehicle_box {
+    padding: 12px;
     float: left;
+    background: #373d54;
 }
 
-.plan_display .section_plan_cont .title {
-    height: 36px;
-    line-height: 36px;
-    background: #c4c2da;
-    font-size: 18px;
-    font-weight: bold;
-    color: #515081;
+.plan_display .plan_group .vehicle_box:first-child {
+    border-bottom-left-radius: 8px;
+}
+
+.plan_display .plan_group .vehicle_box:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+.plan_display .plan_group .section_plan_cont .title {
+    height: 40px;
+    line-height: 40px;
     padding: 0 12px;
-}
-
-.plan_display .uplink_yard .title {
-    background: #7c7bad url('/lty_dispatch_desktop_widget/static/src/image/arrows.png') center right no-repeat;
+    font-size: 16px;
+    border-bottom: 1px solid #6D7487;
     color: #fff;
+    font-weight: bold;
+    background: #464b60;
 }
 
-.plan_display .section_plan_cont .content_tb {
-    text-align: center;
+.plan_display .plan_group .section_plan_cont table {
     width: 100%;
-    font-size: 13px;
 }
 
-.plan_display .uplink_plan .content_tb {
-    border-bottom: 1px solid #ccc;
+.plan_display .plan_group .section_plan_cont table tr.point:hover {
+    background: #272d46;
 }
 
-.plan_display .section_plan_cont .bottom_bt {
-    height: 36px;
-    text-align: center;
-    padding-top: 7px;
+.plan_display .plan_group .section_plan_cont table tr.active_tr {
+    background: #272d46;   
 }
 
-.plan_display .uplink_yard .bottom_bt {
-    height: 26px;
-}
-
-.plan_display .uplink_on_the_way .bottom_bt {
-    height: 36px;
-}
-
-.plan_display .section_plan_cont .bottom_bt a {
-    display: inline-block;
-    font-size: 13px;
-    border: 1px solid #ccc;
-    padding: 1px 3px;
-}
-
-.plan_display .section_plan_cont .content_tb th {
-    height: 22px;
-    font-weight: normal;
-    text-align: center;
-    background: #eee;
-    border: 1px solid #ccc;
-}
-
-.plan_display .section_plan_cont .content_tb td {
-    height: 22px;
-}
-
-.plan_display .section_plan_cont .content_tb tr:nth-child(even) {
-    background: #efeff8;
-}
-
-.plan_display .uplink_plan .content_tb tr.point {
+.plan_display .plan_group .bus_plan table tr.point {
     cursor: pointer;
 }
 
-.plan_display .uplink_plan .content_tb tr.active_tr {
-    background: #918fba;
-    color: #fff;
+.plan_display .plan_group .section_plan_cont table .pL {
+    padding-left: 12px;
 }
 
-.plan_display .uplink_plan .content_tb tr.point:hover {
-    background: #918fba;
-    color: #fff;
+.plan_display .plan_group .section_plan_cont table td.pL {
+    font-size: 0;
 }
+
+.plan_display .plan_group .section_plan_cont table .pR {
+    padding-right: 12px;
+}
+
+.plan_display .plan_group .section_plan_cont tr {
+    padding: 0 12px;
+}
+
+.plan_display .plan_group .section_plan_cont .th {
+    color: #6D7487;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #6D7487;
+}
+
+.plan_display .plan_group .plan_box .th {
+    color: #4ecfc7;
+}
+
+.plan_display .plan_group .section_plan_cont td {
+    color: #fff;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #6D7487;
+    white-space:nowrap;
+}
+
+.plan_display .plan_group .plan_box {
+    background: #3a4263;
+}
+
+.plan_display .plan_group .plan_box .bottom_bt {
+    margin-top: 11px;
+    font-size: 0;
+    width: 300px;
+}
+
+.plan_display .plan_group .plan_box .bottom_bt a {
+    display: inline-block;
+    border: 1px solid #6D7487;
+    border-radius: 4px;
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 14px;
+    margin-right: 4.8px;
+}
+
+.plan_display .plan_group .plan_box .bottom_bt a:last-child {
+    margin-right: 0;   
+}
+
+.plan_display .plan_group .bus_plan {
+    border: 1px solid #6D7487;
+    width: 300px;
+    min-height: 493px;
+    overflow: auto;
+}
+
+.plan_display .plan_group .section_plan_cont {
+    border: 1px solid #6D7487;
+    overflow: auto;
+}
+
+.plan_display .plan_group .bus_yard {
+    width: 300px;
+    height: 493px;
+}
+
+.plan_display .plan_group .bus_yard {
+    width: 272px;
+    height: 534px;
+}
+
+.plan_display .plan_group .bus_transit {
+    width: 293px;
+    height: 534px;
+}
+
+.plan_display .plan_group .bus_plan .title {
+    background: #3c4a70;
+}
+
+.plan_display .plan_group .section_plan_cont .icon {
+    background: url('/lty_dispatch_desktop_widget/static/src/image/icon_combination.png') no-repeat;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.plan_display .plan_group .bus_plan .icon_0 {
+    background-position: -77px 0;
+}
+
+.plan_display .plan_group .bus_plan .icon_1 {
+    background-position: -97px 0;  
+}
+
+.plan_display .plan_group .section_plan_cont .icon1_0 {
+    background-position: -39px 0;
+}
+
+.plan_display .plan_group .section_plan_cont .icon1_1 {
+    background-position: -59px 0;
+}
+
+.plan_display .plan_group .section_plan_cont .icon2_0 {
+    background-position: 0 0;
+}
+
+.plan_display .plan_group .section_plan_cont .icon2_1 {
+    background-position: -19px 0;
+}
+
+
 
 /*------调整计划----------*/
 .adjust_box .adjust_info {
-    padding: 10px 20px;
+    padding: 20px 30px;
+    background: #454f76;
+    color: #fff;
 }
 
 .adjust_box .adjust_content {
-    width: 460px;
-    height: 180px;
+    width: 100%;
+    height: auto;
 }
 
 .adjust_box .adjust_content td {
-    height: 28px;
+    height: 32px;
+    line-height: 32px;
     width: 25%;
+}
+
+.adjust_box .adjust_content tr td.pdL {
+    padding-left: 20px;
+}
+
+.adjust_box .adjust_content .plan_num {
+    border: 0;
+    border-bottom: 1px solid #6D7487;
+    background: #454f76;
+    color: #fff;
+    border-radius: 4px;
+    margin: 0 5px;
+    display: inline-block;
+    text-align: center;
 }
 
 .adjust_box .adjust_content td input[type="number"] {
     width: 40px;
-    margin: 0 5px;
-    display: inline-block;
+}
+
+.adjust_box .adjust_content td input[type="time"] {
+    width: 68px;
 }
 
 .adjust_box .adjust_bt_box {
     position: relative;
+    background: #454f76;
     height: 48px;
-    border-top: 1px solid #ccc;
-    padding: 10px 20px;
+    border-top: 1px solid #6D7487;
+    padding: 10px 30px;
 }
 
 .adjust_box .adjust_bt_box .adjust_bt {
     display: inline-block;
-    border: 1px solid #ccc;
     height: 26px;
     line-height: 26px;
     text-align: center;
     width: 56px;
+    color:  #4ecfc7;
+    border: 1px solid #4ecfc7;
+    border-radius: 4px;
 }
 
 .adjust_box .adjust_bt_box .ok_bt, .adjust_box .adjust_bt_box .close_bt {
@@ -864,23 +968,34 @@
     margin-right: 20px;
 }
 
+
 /*------右键设置----------*/
-.plan_display .plan_display_set ul {
-    list-style-type: none;
-    border: 1px solid #ccc;
-    background: #fff;
-    font-size: 14px;
-    background: #fff;
-}
-
-.plan_display .plan_display_set ul li {
-    line-height: 24px;
-    border-bottom: 1px solid #ccc;
-    padding: 0 20px;
-    cursor: pointer;
-}
-
-.plan_display .plan_display_set ul li:hover {
-    background: #918fba;
+.plan_display .plan_display_set .setBox {
+    background: #464f76;
     color: #fff;
+    padding: 0 8px;
+    border-radius: 4px;
+    box-shadow: 0 0 50px #1e2335;
+    min-width: 100px;
+}
+
+.plan_display .plan_display_set .setBox .nav {
+    list-style-type: none;
+}
+
+.plan_display .plan_display_set .setBox .nav li {
+    height: 36px;
+    line-height: 36px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    text-align: center;
+}
+
+.plan_display .plan_display_set .setBox .nav li:last-child {
+    border-bottom: none;
+}
+
+.plan_display .plan_display_set .setBox .nav li:hover {
+    background: #3a4263;
+    color: #4ecfc7;
 }

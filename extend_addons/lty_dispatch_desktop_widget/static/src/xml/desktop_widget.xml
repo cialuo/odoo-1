@@ -56,7 +56,6 @@
                                         <li><a class="handle_exceptions" href="javascript:;">处理异常状态</a></li>
                                         <li><a class="schedule_a_return" href="javascript:;">安排回场任务</a></li>
                                         <li><a class="can_line" href="javascript:;">CAN总线</a></li>
-
                                     </ul>
                                 </div>
                                 <div class="scene scene1">
@@ -82,15 +81,7 @@
                                     <li><a class="InformationInteraction" href="javascript:;">信息交互</a></li>
                                     <li><a class="geographicalPosition" href="javascript:;">地理位置</a></li>
                                     <li><a class="moreInfo" href="javascript:;">更多信息</a></li>
-
                                 </ul>
-                                <!-- <span class="sceneMore">更多</span>
-                                <ul class="morebox">
-                                    <li><a class="arrivalTime" href="javascript:;">到站时刻</a></li>
-                                    <li><a class="InformationInteraction" href="javascript:;">信息交互</a></li>
-                                    <li><a class="geographicalPosition" href="javascript:;">地理位置</a></li>
-                                    <li><a class="moreInfo" href="javascript:;">更多信息</a></li>
-                                </ul> -->
                             </div>
                         </div>
                         <div class="carReport">
@@ -103,21 +94,6 @@
                     第<span class="trip"><t t-esc="widget.data.trip"></t></span>趟，共<span class="total_trip"><t t-esc="widget.data.total_trip"></t></span>趟
                 </div>
             </div>
-            <script type="text/javascript">
-                <!-- $(function(){ -->
-                   <!--  $('.operation .scene1').hover(function(){
-                        $(this).find('.operationNav').show();
-                    },function(){
-                        $(this).find('.operationNav').hide();
-                    });
-
-                    $('.infoR .more').hover(function(){
-                        $(this).find('.morebox').show(150);
-                    },function(){
-                        $(this).find('.morebox').hide();
-                    }); -->
-                <!-- }); -->
-            </script>
         </div>
     </t>
 
@@ -646,13 +622,15 @@
     <t t-name="plan_display_template">
         <div t-attf-class="linePlanParkOnlineModel line_{{widget.location_data.line_id}} linePlanParkOnlineModel_{{widget.location_data.line_id}} hide_model">
             <div class="plan_display dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
-                <header class="closeBox dragArea">
-                    <span class="title">线路：16路</span>
+                <div class="closeBox dragArea">
+                    <div class="title">线路
+                        <span class="num"><t t-esc="widget.location_data.line_name"></t>路</span>
+                    </div>
                     <a class="close_bt" href="javascript:;"></a>
-                </header>
-                <article class="plan_group">
-                    <section class="section_plan_cont uplink_plan">
-                        <header class="title">上行计划</header>
+                </div>
+                <div class="plan_group">
+                   <!--  <div class="section_plan_cont uplink_plan">
+                        <div class="title">上行计划</div>
                         <table class="content_tb">
                             <tr>
                                 <th>计划</th>
@@ -691,9 +669,9 @@
                             <a class="adjust2" href="javascript:;">调整</a>
                             <a class="inquire" href="javascript:;">查询</a>
                         </div>
-                    </section>
-                    <section class="section_plan_cont uplink_yard">
-                        <header class="title">上行车场</header>
+                    </div>
+                    <div class="section_plan_conVehiclest uplink_yard">
+                        <div class="title">上行车场</div>
                         <table class="content_tb">
                             <tr>
                                 <th>计划</th>
@@ -725,9 +703,9 @@
                             </t>
                         </table>
                         <div class="bottom_bt"></div>
-                    </section>
-                    <section class="section_plan_cont uplink_on_the_way uplink_yard">
-                        <header class="title">上行在途</header>
+                    </div>
+                    <div class="section_plan_cont uplink_on_the_way uplink_yard">
+                        <div class="title">上行在途</div>
                         <table class="content_tb">
                             <tr>
                                 <th>下行计划</th>
@@ -759,9 +737,9 @@
                             </t>
                         </table>
                         <div class="bottom_bt"></div>
-                    </section>
-                    <section class="section_plan_cont uplink_plan down_plan">
-                        <header class="title">下行计划</header>
+                    </div>
+                    <div class="section_plan_cont uplink_plan down_plan">
+                        <div class="title">下行计划</div>
                         <table class="content_tb">
                             <tr>
                                 <th>计划</th>
@@ -800,9 +778,9 @@
                             <a class="adjust2" href="javascript:;">调整</a>
                             <a class="inquire" href="javascript:;">查询</a>
                         </div>
-                    </section>
-                    <section class="section_plan_cont uplink_yard down_yard">
-                        <header class="title">下行车场</header>
+                    </div>
+                    <div class="section_plan_cont uplink_yard down_yard">
+                        <div class="title">下行车场</div>
                         <table class="content_tb">
                             <tr>
                                 <th>计划</th>
@@ -834,9 +812,9 @@
                             </t>
                         </table>
                         <div class="bottom_bt"></div>
-                    </section>
-                    <section class="section_plan_cont uplink_yard down_on_the_way">
-                        <header class="title">下行在途</header>
+                    </div>
+                    <div class="section_plan_cont uplink_yard down_on_the_way">
+                        <div class="title">下行在途</div>
                         <table class="content_tb">
                             <tr>
                                 <th>上行计划</th>
@@ -868,24 +846,124 @@
                             </t>
                         </table>
                         <div class="bottom_bt"></div>
-                    </section>
-                </article>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="vehicles_plan_template">
+        <div class="plan_box vehicle_box">
+            <div class="section_plan_cont bus_plan">
+                <div class="title"><t t-esc="widget.plan_data.name"></t>计划</div>
+                <table class="content_tb">
+                    <tr class="th">
+                        <th class="pL">状态</th>
+                        <th>计划</th>
+                        <th>到达</th>
+                        <th>车辆</th>
+                        <th>司机</th>
+                        <th class="pR">状态</th>
+                    </tr>
+                    <t t-foreach="widget.plan_data.data_list" t-as="item">
+                        <tr class="point" t-attf-pid="{{item.id}}">
+                            <td class="pL">
+                                <span t-attf-class="icon scheduling_status icon_{{item.scheduling_status}}"></span>
+                                <span t-attf-class="icon vehicles_status icon_{{item.vehicles_status}}"></span>
+                            </td>
+                            <td><t t-esc="item.plan_time"></t></td>
+                            <td><t t-esc="item.arrive_time"></t></td>
+                            <td><t t-esc="item.vehicle"></t></td>
+                            <td><t t-esc="item.driver"></t></td>
+                            <td class="pR"><t t-esc="item.start_status"></t></td>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+            <div class="bottom_bt">
+                <a class="cancel" href="javascript:;">取消</a>
+                <a class="fix" href="javascript:;">修改</a>
+                <a class="forward_lead move_bt" name="front" href="javascript:;">前移</a>
+                <a class="retroposition move_bt" name="queen" href="javascript:;">后移</a>
+                <a class="adjust" href="javascript:;">调整</a>
+                <a class="inquire" href="javascript:;">查询</a>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="vehicles_yard_template">
+        <div class="yard_box vehicle_box">
+            <div class="section_plan_cont bus_yard">
+                <div class="title"><t t-esc="widget.yard_data.name"></t>车场</div>
+                <table class="content_tb">
+                    <tr class="th">
+                        <th class="pL">状态</th>
+                        <th>计划</th>
+                        <th>车辆</th>
+                        <th>线路</th>
+                        <th>回场</th>
+                        <th class="pR">停车</th>
+                    </tr>
+                    <t t-foreach="widget.yard_data.data_list" t-as="item">
+                        <tr class="point" t-attf-pid="{{item.id}}">
+                            <td class="pL">
+                                <span t-attf-class="icon driver_status icon1_{{item.driver_status}}"></span>
+                                <span t-attf-class="icon vehicles_status icon2_{{item.vehicles_status}}"></span>
+                            </td>
+                            <td><t t-esc="item.plan_time"></t></td>
+                            <td><t t-esc="item.vehicle"></t></td>
+                            <td><t t-esc="item.line"></t></td>
+                            <td><t t-esc="item.back_time"></t></td>
+                            <td class="pR"><t t-esc="item.parking"></t></td>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="vehicles_transit_template">
+        <div class="yard_box vehicle_box">
+            <div class="section_plan_cont bus_transit">
+                <div class="title"><t t-esc="widget.transit_data.name"></t>在途</div>
+                <table class="content_tb">
+                    <tr class="th">
+                        <th class="pL">状态</th>
+                        <th><t t-if="widget.transit_data.name=='上行'">下行</t><t t-else="">上行</t>计划</th>
+                        <th>车辆</th>
+                        <th>线路</th>
+                        <th>回场</th>
+                        <th class="pR">停车</th>
+                    </tr>
+                    <t t-foreach="widget.transit_data.data_list" t-as="item">
+                        <tr class="point" t-attf-pid="{{item.id}}">
+                            <td class="pL">
+                                <span t-attf-class="icon driver_status icon1_{{item.driver_status}}"></span>
+                                <span t-attf-class="icon vehicles_status icon2_{{item.vehicles_status}}"></span>
+                            </td>
+                            <td><t t-esc="item.plan_time"></t></td>
+                            <td><t t-esc="item.vehicle"></t></td>
+                            <td><t t-esc="item.line"></t></td>
+                            <td><t t-esc="item.back_time"></t></td>
+                            <td class="pR"><t t-esc="item.parking"></t></td>
+                        </tr>
+                    </t>
+                </table>
             </div>
         </div>
     </t>
 
     <t t-name="plan_display_set_template">
-        <div t-attf-class="plan_display_set plan_set_{{widget.location_data.pid}}" t-attf-plan_pid="{{widget.location_data.pid}}" >
-            <ul t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
-                <li>发送计划到车辆</li>
-                <li>发送消息</li>
-                <li>添加计划</li>
-                <li>手动发车</li>
-                <li>修改</li>
-                <li>批量更改车辆司机</li>
-                <li>还原时间</li>
-                <li>电子地图</li>
-            </ul>
+        <div t-attf-class="plan_display_set set_{{widget.location_data.pid}}" t-attf-model="{{widget.location_data.model}}" t-attf-plan_pid="{{widget.location_data.pid}}" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
+            <div class="setBox">
+                <ul class="nav">
+                    <t t-foreach="widget.location_data.data_list" t-as="item">
+                        <li t-attf-bt="item.en_name">
+                            <t t-esc="item.name"></t>
+                        </li>
+                    </t>
+                </ul>
+            </div>
         </div>
     </t>
 
@@ -899,7 +977,7 @@
                             <td>
                                 <t t-esc="quota.vehicle"></t>
                             </td>
-                            <td>线路：</td>
+                            <td class="pdL">线路：</td>
                             <td>
                                 <t t-esc="quota.line"></t>
                             </td>
@@ -909,7 +987,7 @@
                             <td>
                                 <t t-esc="quota.direction_of"></t>
                             </td>
-                            <td>运行线路</td>
+                            <td class="pdL">运行线路</td>
                             <td>
                                 <t t-esc="quota.run_line"></t>
                             </td>
@@ -919,7 +997,7 @@
                             <td>
                                 <t t-esc="quota.driver"></t>
                             </td>
-                            <td>趟次</td>
+                            <td class="pdL">趟次</td>
                             <td>
                                 <t t-esc="quota.trip_time"></t>
                             </td>
@@ -929,7 +1007,7 @@
                             <td>
                                 <t t-esc="quota.adjust_the_reason"></t>
                             </td>
-                            <td>计划类型</td>
+                            <td class="pdL">计划类型</td>
                             <td>
                                 <t t-esc="quota.type"></t>
                             </td>
@@ -939,17 +1017,25 @@
                             <td>
                                 <t t-esc="quota.time"></t>
                             </td>
-                            <td>计划里程</td>
+                            <td class="pdL">计划里程</td>
                             <td>
                                 <t t-esc="quota.mileage"></t>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" width="50%">
-                                批量调整同方向<input class="plan_num" type="number" min="1" />条计划
+                                批量调整同方向<input class="plan_num" type="number" value="10" />条计划
                             </td>
+                            <td colspan="2" width="50%" class="pdL">
+                                间隔<input class="time_num plan_num" type="number" value="0" />分钟
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="2" width="50%">
-                                间隔<input class="time_num" type="number" min="1" />分钟
+                                批量调整<input class="plan_num start_time" type="time" value="9:00" />~<input class="plan_num end_time" type="time" value="10:00" />的计划
+                            </td>
+                            <td colspan="2" width="50%" class="pdL">
+                                间隔<input class="time_num plan_num" type="number" value="0" />分钟
                             </td>
                         </tr>
                     </table>
