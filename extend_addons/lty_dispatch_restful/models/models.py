@@ -2,6 +2,10 @@
 
 from odoo import models, fields, api
 from extend_addons.lty_dispatch_restful.core.restful_client import *
+import mapping
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class op_line(models.Model):
 
@@ -27,11 +31,14 @@ class op_line(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
             # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            vals = mapping.dict_transfer(self._name, vals)
+            vals.update({'id': res.id})
             params = Params(type=1, cityCode=cityCode,tableName='op_line', data=vals).to_dict()
             rp = Client().http_post(url, data=params)
+
             #clientThread(url,params,res).start()
         except Exception,e:
-            print e.message
+            _logger.info('%s', e.message)
         return res
 
     @api.multi
@@ -51,11 +58,14 @@ class op_line(models.Model):
             if second_now - second_create > 5:
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                    vals = mapping.dict_transfer(vals)
+                    vals.update({'id': r.id})
                     params = Params(type=3, cityCode=cityCode,tableName='op_line', data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
+
                     # clientThread(url,params,res).start()
                 except Exception,e:
-                    print e.message
+                    _logger.info('%s', e.message)
         return res
 
     @api.multi
@@ -72,11 +82,5 @@ class op_line(models.Model):
             params = Params(type = 3, cityCode = 'SZ',tableName = 'op_line', data = vals).to_dict()
             clientThread(url,params,res).start()
         except Exception,e:
-            print e.message
+            _logger.info('%s', e.message)
         return res
-
-    def to_bean(self,vals):
-        '''
-            把数据装换为
-        :return:
-        '''
