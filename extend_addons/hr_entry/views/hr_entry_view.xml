@@ -66,7 +66,7 @@
                     <field name="title"/>
                     <field name="leader_id"/>
                     <field name="type" invisible="1"/>
-                    <field name="state" invisible="1"/>
+                    <field name="state" invisible="0"/>
                 </tree>
             </field>
         </record>
