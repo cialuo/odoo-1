@@ -145,7 +145,7 @@ class route_manage(models.Model):
     ]
 
     lineName = fields.Char('Route', required=True) # 线路名称
-    gprsId = fields.Char('code', required=True) # 线路编码
+    gprsId = fields.Integer('code', required=True) # 线路编码
     oil_wear_coefficient = fields.Float(digits=(10, 2), string='Oil wear coefficient') # 油耗系数
     classSystemName = fields.Selection([('one_shift', 'one_shift'),
                                         ('two_shift', 'two_shift'),
