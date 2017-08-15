@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api,exceptions,_
 
 class WarrantyCategory(models.Model): # 维保类别
     _name = 'warranty_category'
@@ -13,6 +13,14 @@ class WarrantyCategory(models.Model): # 维保类别
 
     #2017年7月24日 新增字段：保养时长
     maintenance_time = fields.Float(string='Maintenance time',digits=(9,1))
+
+    @api.constrains('maintenance_time')
+    def _check_maintenance_time(self):
+        '''保养时长值校验'''
+        for order in self:
+            if order.maintenance_time < 0:
+                raise exceptions.ValidationError(_("maintenance_time must be greater than or equal to zero"))
+
 
     state = fields.Selection([ # 状态
         ('use', "use"), # 在用

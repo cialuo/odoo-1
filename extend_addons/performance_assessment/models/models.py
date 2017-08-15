@@ -224,7 +224,7 @@ class PerformanceChecking(models.Model):
             }
             indis = []
             for indicator in self.indicators:
-                indis.append((0, 0, {'indicator_id': indicator.id, 'point': 0}))
+                indis.append((0, 0, {'indicator_id': indicator.id, 'point': 0,'weight':indicator.weight}))
             data['indicators'] = indis
             resultmodel.create(data)
         self.state = 'cheking'
@@ -317,7 +317,7 @@ class CheckingResult(models.Model):
         for item in self:
             total = 0
             for point in item.indicators:
-                total += point.point
+                total += point.actual_point
             item.totalpoint = total
 
     @api.multi
@@ -335,6 +335,12 @@ class CheckingResultIndicator(models.Model):
 
     # 评分
     point = fields.Float(string="result point", required=True)
+
+    #2017年8月14日 新增字段：实际分数 = 评分 * 权重
+    actual_point = fields.Float(string="actual point",compute="_compute_actual_point",readonly=True)
+
+    #2017年8月14日 新增字段：权重 用于计算实际分数
+    weight = fields.Integer("indicator weight(%)", required=True)
 
     # 关联指标
     indicator_id = fields.Many2one("perf.indicheck", string="indicator", required=True)
@@ -360,3 +366,16 @@ class CheckingResultIndicator(models.Model):
 
         if self.point < self.indicator_id.indicator_id.lowest_score:
             raise ValidationError(_("point must higher then lowest score"))
+
+    @api.depends('point','weight')
+    def _compute_actual_point(self):
+        """
+            计算实际评分：
+                评分 * 权重
+        :return:
+        """
+        for item in self:
+            if item.point > 0:
+                item.actual_point = item.point * round(float(item.weight) / 100,3)
+
+
