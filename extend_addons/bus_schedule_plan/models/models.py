@@ -361,6 +361,7 @@ class BusWorkRules(models.Model):
             'name' : movetimeobj.name,
             'excutedate' : movetimeobj.executedate,
             'line_id' : movetimeobj.line_id.id,
+            'movetimetable_id':movetimeobj.id,
         }
         # 生成上行时刻表列表并排序
         uptimelist = [item for item in movetimeobj.uptimeslist]
@@ -386,11 +387,14 @@ class BusWorkRules(models.Model):
         # 机动车辆
         values['backupvehiclenum'] = movetimeobj.backupvehicles
         staffgroupmode = movetimeobj.env['bus_staff_group']
-        stafftimearrange = BusWorkRules.getBusStaffGroup(staffgroupmode,
+
+        stafftimearrange, staffarrangeid = BusWorkRules.getBusStaffGroup(staffgroupmode,
                                                          movetimeobj.executedate,
                                                          movetimeobj.id)
         if stafftimearrange == False:
             return False
+        # 关联的人车配班表记录
+        values['staffarrangetable_id'] = staffarrangeid
 
         movetimelist = json.loads(movetimeobj.operationplan)
 
@@ -440,7 +444,7 @@ class BusWorkRules(models.Model):
                 }
                 value['worktimelength'] = timesubtraction(item[1][1], item[1][0])
                 value['workrealtimelength'] = timesubtraction(item[0][1][1], item[0][0][0])
-            addrecords.append((0,0,value))
+                addrecords.append((0,0,value))
 
         for k, v in driverworklist.items():
             result = BusWorkRules.worksectionrecords(worksectiondriver[k], v)
@@ -600,7 +604,7 @@ class BusWorkRules(models.Model):
         """
         staffgroup = staffgroupmode.search([('move_time_id', '=', movetimeid)])
         if len(staffgroup) == 0:
-            return False
+            return False, None
         record = staffgroup[0]
         result = {}
         for item in record.vehicle_line_ids:
@@ -623,7 +627,7 @@ class BusWorkRules(models.Model):
                 timelist[x.bus_shift_choose_line_id] = data
             temp['employees'] = timelist
             result[item.sequence] = temp
-        return result
+        return result, record.id
 
     def createMoveTimeTable(self):
         """
@@ -1012,6 +1016,12 @@ class BusMoveExcuteTable(models.Model):
                                 ("wait4use", "wait for use"),   # 待使用
                                 ("done", "done"),               # 完成
                               ], default="wait4use",  string="status")
+
+    # 行车时刻表
+    movetimetable_id = fields.Many2one("scheduleplan.busmovetime", string="move time tale")
+
+    # 人车配班表
+    staffarrangetable_id = fields.Many2one("bus_staff_group", string="staff arrange table")
 
     # 执行时间
     excutedate = fields.Date(string="excute date")
