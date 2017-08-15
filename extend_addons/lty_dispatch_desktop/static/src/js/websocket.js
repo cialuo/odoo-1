@@ -43,7 +43,6 @@ websocket.onopen = function () {
 var socket_model_info = {};
 var socket_model_api_obj = {};
 //接收到消息的回调方法
-websocket.onmessage = function(event) {
 	// console.log(event.data);
 	// return false;
 
