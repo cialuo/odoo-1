@@ -247,10 +247,10 @@
                                 <field name="schedule_type"/>
                             </group>
                             <group>
-                                <field name="up_first_time"/>
-                                <field name="up_end_time"/>
-                                <field name="down_first_time"/>
-                                <field name="down_end_time" />
+                                <field name="up_first_time" placeholder="06:00"/>
+                                <field name="up_end_time" placeholder="22:00"/>
+                                <field name="down_first_time" placeholder="06:30"/>
+                                <field name="down_end_time" placeholder="22:30"/>
                                 <field name="up_station" options="{'no_create':True}"/>
                                 <field name="down_station" options="{'no_create':True}"/>
                                 <field name="bus_type"/>
