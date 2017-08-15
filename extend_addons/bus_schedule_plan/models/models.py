@@ -301,6 +301,9 @@ class BusWorkRules(models.Model):
 
 
     def createMoveTimeRecord(self, datestr, ruleobj):
+        """
+        生成行车时刻表数据
+        """
         for item in ruleobj:
             movetimerecord = {
                 'name' : datestr + "/" +item.line_id.lineName,
@@ -351,7 +354,9 @@ class BusWorkRules(models.Model):
             staffdata = self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
                                                                staff_date=datetime.datetime.strptime(datestr, "%Y-%m-%d"),
                                                                operation_ct=vehiclenums, move_time_id=res, force=True)
+            # 生成运营方案数据
             res.genOperatorPlan()
+
             BusWorkRules.genExcuteRecords(res)
 
     @classmethod
@@ -908,6 +913,34 @@ class BusMoveTimeTable(models.Model):
                         temp.append(y)
                 result[k] = temp
         return result
+
+    @classmethod
+    def genWebRetunData(cls, data4direction, dataforbus):
+        data = {
+            'direction':data4direction,
+            'bus':dataforbus
+        }
+        return json.dumps(data)
+
+    @api.model
+    def reoppaln2web(self):
+        """
+        返回运营方案数据到web前端
+        """
+        return self.genWebRetunData(json.loads(self.operationplan), json.loads(self.operationplanbus))
+
+
+    @api.model
+    def changeOpplan(self, index, direction):
+        # 修改运营计划
+        return self.genWebRetunData({},{})
+
+    @api.model
+    def saveOpPlan(self):
+        """
+        保存运营方案数据
+        """
+        return json.dumps({})
 
     @staticmethod
     def genBusMoveSeqsingle(upMoveSeq, upBusCol):
