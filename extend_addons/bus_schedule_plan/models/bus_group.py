@@ -47,16 +47,16 @@ class BusGroup(models.Model):
         ('wait_check', "wait_check"),
         ('use', "use"),], string='Bus Group State', default='draft', readonly=True)
 
+    # @api.multi
+    # def action_test1(self):
+    #     staff_date = datetime.date.today() + timedelta(days=1)
+    #     operation_ct = 3
+    #
+    #     self.env['bus_staff_group'].action_gen_staff_group(self.route_id, staff_date=staff_date, operation_ct=operation_ct)
+
+
     @api.multi
-    def action_test1(self):
-        staff_date = datetime.date.today() + timedelta(days=1)
-        operation_ct = 3
-
-        self.env['bus_staff_group'].action_gen_staff_group(self.route_id, staff_date=staff_date, operation_ct=operation_ct)
-
-
-    @api.multi
-    def action_test(self):
+    def action_tomorrow(self):
         """
         1.大轮换
         2.车辆轮趟算法

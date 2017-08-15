@@ -8,7 +8,7 @@ class BusAlgorithm(models.Model):
     """
     车辆轮班算法
     """
-    code = fields.Char("Algorithm Code", required=True)
+    # code = fields.Char("Algorithm Code", required=True)
     name = fields.Char("Algorithm Name", required=True)
     cycle = fields.Integer("Algorithm Cycle",  required=True)
     direction = fields.Selection([('0', '0'),
@@ -24,7 +24,7 @@ class BusDriverAlgorithm(models.Model):
     """
     司乘轮班算法
     """
-    code = fields.Char("Algorithm Code", required=True)
+    # code = fields.Char("Algorithm Code", required=True)
     name = fields.Char("Algorithm Name", required=True)
     cycle = fields.Integer("Algorithm Cycle",  required=True)
     direction = fields.Selection([('0', '0'),

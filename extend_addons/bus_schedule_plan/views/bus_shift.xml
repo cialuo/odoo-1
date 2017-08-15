@@ -54,7 +54,7 @@
                                 <field name="shift_line_ids">
                                     <tree editable="bottom">
                                         <field name="sequence"/>
-                                        <field name="shift_line_id"/>
+                                        <field name="shift_line_id" options="{'no_open':True,'no_create':True}"/>
                                     </tree>
                                 </field>
                             </page>

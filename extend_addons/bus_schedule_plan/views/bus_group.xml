@@ -28,15 +28,16 @@
                 <form>
                     <header>
 
-                        <button string="action_test1"
-                            type="object"
-                            name="action_test1"
-                            />
+                        <!--<button string="action_test1"-->
+                            <!--type="object"-->
+                            <!--name="action_test1"-->
+                            <!--/>-->
 
 
-                        <button string="action_test"
+                        <button string="action_tomorrow"
                             type="object"
-                            name="action_test"
+                            name="action_tomorrow"
+                            attrs="{'invisible': [('is_not_match', '=', True)]}"
                             />
 
                         <button string="assigned_shifts"

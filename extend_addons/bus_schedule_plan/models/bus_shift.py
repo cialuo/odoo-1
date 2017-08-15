@@ -40,13 +40,17 @@ class BusShiftChooseLine(models.Model):
         """
         功能：序号自增长
         """
-        if data.get('sequence', 0) == 0:
-            res = self.env['bus_shift_choose_line'].search([('shift_id', '=', data['shift_id'])]
-                                                           , limit=1, order='sequence DESC')
-
-        data['sequence'] = res[0].sequence + 1
+        sequence = 0
+        if data.get('sequence', 0) == 0 or data.get('sequence', 0):
+            res = self.env['bus_shift_choose_line'].search([('shift_id', '=', data['shift_id'])],
+                                                           limit=1, order='sequence DESC')
+            if res:
+                sequence = res[0].sequence
+        data['sequence'] = sequence + 1
         res = super(BusShiftChooseLine, self).create(data)
         return res
+
+
 
 
 class BusShiftLine(models.Model):
