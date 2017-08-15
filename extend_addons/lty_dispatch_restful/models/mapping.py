@@ -18,6 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/lgpl.html>.
 #
 ##############################################################################
+import logging
+_logger = logging.getLogger(__name__)
 
 #线路基础数据
 route_data = {}
@@ -38,6 +40,7 @@ scheduleplan_data = {}
 #无对应的数据库表
 
 #调度参数基础数据
+config_data = {}
 
 origin_data = {
     'route_manage.route_manage': route_data,
@@ -45,6 +48,10 @@ origin_data = {
     'fleet.vehicle': fleet_data,
     'hr.employee': employee_data,
     'scheduleplan.excutetable': scheduleplan_data,
-    ''
-
+    'dispatch.config.settings': config_data,
 }
+
+def dict_transfer(table, data):
+    if origin_data.get(table):
+        table_data = origin_data(table)
+        pass
