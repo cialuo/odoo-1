@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class AssignedShifts(models.TransientModel):
@@ -50,16 +50,16 @@ class AssignedShifts(models.TransientModel):
         res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '=', self.use_date),
                                                                  ('route_id', '=', self.route_id.id),
                                                                  ('group_id', '!=', self.group_id.id)],
-                                                                order='t_sequence desc', limit=1)
-        t_sequence = 0
+                                                                order='vehicle_sequence desc', limit=1)
+        vehicle_sequence = 0
         if res:
-            t_sequence = res[0].t_sequence
+            vehicle_sequence = res[0].vehicle_sequence
 
         vehicle_list = []
         t_sequence_list = []
         for i in range(len(self.vehicle_ids.ids)):
             vehicle_list += [self.vehicle_ids.ids[i]] * len(self.bus_shift_id.shift_line_ids.ids)
-            t_sequence_list += [i+1+t_sequence] * len(self.bus_shift_id.shift_line_ids.ids)
+            t_sequence_list += [i+1+vehicle_sequence] * len(self.bus_shift_id.shift_line_ids.ids)
 
         shift_line_lists = self.bus_shift_id.shift_line_ids.ids * len(self.vehicle_ids.ids)
 
@@ -84,10 +84,11 @@ class AssignedShifts(models.TransientModel):
             if j[2]:
                 data.update({'bus_group_vehicle_id': j[2],
                              'bus_shift_choose_line_id': j[3],
-                             't_sequence': j[4]})
+                             'vehicle_sequence': j[4]})
             datas.append((0, 0, data))
         self.write({'driver_vehicle_shift_ids': datas})
         return {
+            'name': _('assigned_shifts'),
             'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'assigned_shifts',
@@ -113,7 +114,7 @@ class AssignedShifts(models.TransientModel):
                     'group_id': j.group_id.id,
                     'driver_id': j.driver_id.id,
                     'conductor_id': j.conductor_id.id,
-                    't_sequence': j.t_sequence,
+                    'vehicle_sequence': j.vehicle_sequence,
                     'bus_shift_id': j.bus_shift_id.id,
                     'bus_shift_choose_line_id': j.bus_shift_choose_line_id.id,
                     'bus_group_vehicle_id': j.bus_group_vehicle_id.id
@@ -143,6 +144,6 @@ class BusGroupDriverVehicleShiftTran(models.TransientModel):
     conductor_jobnumber = fields.Char(string='conductor_jobnumber', related='conductor_id.jobnumber', readonly=True)
 
     bus_group_vehicle_id = fields.Many2one("bus_group_vehicle", domain="[('bus_group_id','=',group_id)]")
-    t_sequence = fields.Integer("T Sequence", readonly=True)
+    vehicle_sequence = fields.Integer("Vehicle Sequence", readonly=True)
 
     use_date = fields.Date(default=fields.Date.context_today, readonly=True)

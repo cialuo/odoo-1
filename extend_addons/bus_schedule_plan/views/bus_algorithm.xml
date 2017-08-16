@@ -6,7 +6,7 @@
             <field name="priority">0</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="code"/>
+                    <field name="id"/>
                     <field name="name"/>
                     <field name="cycle"/>
                     <field name="direction"/>
@@ -22,7 +22,7 @@
             <field name="priority">0</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="code"/>
+                    <field name="id"/>
                     <field name="name"/>
                     <field name="cycle"/>
                     <field name="direction"/>
@@ -47,7 +47,7 @@
                         </div>
                         <group>
                             <group>
-                                <field name="code"/>
+                                <field name="id"/>
                                 <field name="cycle"/>
                                 <field name="direction"/>
                                 <field name="algorithm_note"/>
@@ -75,7 +75,7 @@
                         </div>
                         <group>
                             <group>
-                                <field name="code"/>
+                                <field name="id"/>
                                 <field name="cycle"/>
                                 <field name="direction"/>
                                 <field name="algorithm_note"/>

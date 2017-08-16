@@ -209,8 +209,8 @@
                         </page>
                         <page string="big site setting up">
                             <field name="bigsite_up">
-                                <tree create="0" delete="0">
-                                    <field name="site_id"/>
+                                <tree create="0" delete="0" editable="1">
+                                    <field name="site_id" readonly="1"/>
                                     <field name="needsign"/>
                                     <field name="needchecking"/>
                                     <field name="tolastsit_low"/>
@@ -240,8 +240,8 @@
                         </page>
                         <page string="big site setting down">
                             <field name="bigsite_down">
-                                <tree create="0" delete="0">
-                                    <field name="site_id"/>
+                                <tree create="0" delete="0" editable="1">
+                                    <field name="site_id" readonly="1"/>
                                     <field name="needsign"/>
                                     <field name="needchecking"/>
                                     <field name="tolastsit_low"/>
@@ -404,6 +404,8 @@
                                     <field name="end_site"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page string="operation plan" name="operation_plan_page">
                         </page>
                     </notebook>
                 </form>

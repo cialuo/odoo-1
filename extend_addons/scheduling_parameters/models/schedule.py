@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+import re
 
 
 class Area(models.Model):
@@ -13,7 +14,6 @@ class Area(models.Model):
         ('name_unique', 'unique(name)', _('The area name must be unique!')),
         ('code_unique', 'unique(code)', _('The area code must be unique!'))
     ]
-
 
     name = fields.Char('Area name', required=True)  # 区域名称
     code = fields.Char('Area code', required=True) # 区域编码
@@ -145,7 +145,7 @@ class route_manage(models.Model):
     ]
 
     lineName = fields.Char('Route', required=True) # 线路名称
-    gprsId = fields.Char('code', required=True) # 线路编码
+    gprsId = fields.Integer('code', required=True) # 线路编码
     oil_wear_coefficient = fields.Float(digits=(10, 2), string='Oil wear coefficient') # 油耗系数
     classSystemName = fields.Selection([('one_shift', 'one_shift'),
                                         ('two_shift', 'two_shift'),
@@ -194,7 +194,53 @@ class route_manage(models.Model):
     station_route_ids = fields.Many2many('opertation_resources_station', 'opertation_resources_station_rel',
                                         'route_station_id', 'station_id', 'Stations')
 
-    child_route_ids = fields.One2many('route_manage.route_manage', 'main_line_id', string='ChirdRoutes')
+    child_route_ids = fields.One2many('route_manage.route_manage', 'main_line_id', string='ChildRoutes')
+
+    @api.onchange('up_first_time','up_end_time','down_first_time','down_end_time')
+    def _on_change_time(self):
+
+        reg = '^(0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1})$'
+        if self.up_first_time:
+            if not re.match(reg, self.up_first_time):
+                self.up_first_time = ''
+                return {
+                    'warning': {
+                        'title': _("Time format is not correct"),
+                        'message': _("up_first_time not be Incorrect"),
+                    },
+                }
+
+        if self.up_end_time:
+            reg = '^(0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1})$'
+            if not re.match(reg , self.up_end_time):
+                self.up_end_time = ''
+                return {
+                    'warning': {
+                        'title': _("Time format is not correct"),
+                        'message': _("up_end_time not be Incorrect"),
+                    },
+                }
+        if self.down_first_time:
+            if not re.match(reg, self.down_first_time):
+                self.down_first_time = ''
+                return {
+                    'warning': {
+                        'title': _("Time format is not correct"),
+                        'message': _("down_first_time not be Incorrect"),
+                    },
+                }
+
+        if self.down_end_time:
+            if not re.match(reg, self.down_end_time):
+                self.down_end_time = ''
+                return {
+                    'warning': {
+                        'title': _("Time format is not correct"),
+                        'message': _("down_end_time not be Incorrect"),
+                    },
+                }
+
+
 
     @api.multi
     def do_inuse(self):
@@ -258,7 +304,7 @@ class StationUp(models.Model):
 
     sequence = fields.Integer("Station Sequence", default=2, required=True)
     route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
-    gprsId = fields.Char('code', related='route_id.gprsId', required=True)  # 线路编码
+    gprsId = fields.Integer('code', related='route_id.gprsId', required=True)  # 线路编码
     station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
                                  required=True)
     entrance_azimuth = fields.Char('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
@@ -296,7 +342,7 @@ class StationDown(models.Model):
 
     sequence = fields.Integer("Station Sequence", default=2, required=True)
     route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
-    gprsId = fields.Char('code', related='route_id.gprsId', required=True)  # 线路编码
+    gprsId = fields.Integer('code', related='route_id.gprsId', required=True)  # 线路编码
     station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
                                  required=True)
     entrance_azimuth = fields.Char('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
