@@ -280,6 +280,7 @@
         <field name="name">employee work records</field>
         <field name="res_model">hr.employee</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
         <field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('experience_employee_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('employee_work_records_form')})]"/>
