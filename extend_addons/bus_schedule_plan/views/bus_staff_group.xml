@@ -23,7 +23,7 @@
             <field name="model">bus_staff_group</field>
             <field name="priority">0</field>
             <field name="arch" type="xml">
-                <form>
+                <form duplicate="0">
                    <sheet>
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only"/>

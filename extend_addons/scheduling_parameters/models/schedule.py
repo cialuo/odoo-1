@@ -180,10 +180,10 @@ class route_manage(models.Model):
     station_up_ids = fields.One2many('opertation_resources_station_up', 'route_id', string='StationUps')
     station_down_ids = fields.One2many('opertation_resources_station_down', 'route_id', string='StationDowns')
 
-    up_first_time = fields.Char('up_first_time', required=True) # 上行首班时间
-    up_end_time = fields.Char('up_end_time', required=True)  # 上行首班时间
-    down_first_time = fields.Char('down_first_time', required=True)  # 上行首班时间
-    down_end_time = fields.Char('down_end_time', required=True)  # 上行首班时间
+    up_first_time = fields.Char('up_first_time', required=True, default='06:00') # 上行首班时间
+    up_end_time = fields.Char('up_end_time', required=True, default='22:00')  # 上行首班时间
+    down_first_time = fields.Char('down_first_time', required=True, default='06:30')  # 下行首班时间
+    down_end_time = fields.Char('down_end_time', required=True, default='22:30')  # 下行首班时间
     up_station = fields.Many2one('opertation_resources_station', ondelete='cascade',
                                  compute='_get_station_up_first')  # 上行车场
     down_station = fields.Many2one('opertation_resources_station', ondelete='cascade',
@@ -239,7 +239,6 @@ class route_manage(models.Model):
                         'message': _("down_end_time not be Incorrect"),
                     },
                 }
-
 
 
     @api.multi
