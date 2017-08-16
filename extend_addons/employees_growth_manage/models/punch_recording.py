@@ -66,7 +66,7 @@ class punch_recording(models.Model):
           """
           for order in self:
                if order:
-                    order.name = order.teacher_id.name +'-'+ order.course_id.name
+                    order.name = order.teacher_id.name or '' +'-'+ order.course_id.name or ''
      @api.multi
      def _compute_time_no(self):
           """
