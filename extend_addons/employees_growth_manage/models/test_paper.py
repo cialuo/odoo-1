@@ -117,6 +117,12 @@ class test_paper_detail(models.Model):
     score = fields.Integer(string='Score',required=True)
 
     total_score = fields.Integer(string='Total score',compute='_compute_total_score')
+    
+    @api.onchange('score')
+    def onchange_score(self):
+        if self.score < 0:
+                raise exceptions.UserError(_(u'分数需大于零.'))
+                
 
     @api.depends('question_count','score')
     def _compute_total_score(self):
