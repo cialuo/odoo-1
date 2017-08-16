@@ -286,7 +286,7 @@ class BusWorkRules(models.Model):
                 startTime = startTime + datetime.timedelta(minutes=item.interval)
         if startTime != markpoints[-1][1]:
             # 如果最后一趟超出了计划时间的最后时间 则调整为计划最后发车时间
-            startTime != markpoints[-1][1]
+            startTime = markpoints[-1][1]
             data = {
                 'seqid': seqcounter,
                 'startmovetime': startTime - datetime.timedelta(hours=8),
@@ -583,10 +583,7 @@ class BusWorkRules(models.Model):
             if breakflag == True:
                 break
             for x in v['timelist']:
-                # 结束时间增加30分钟 因为最后一班车的发车时间肯能超过工作结束时间
-                temp = str2datetime(x[1])
-                temp = temp+datetime.timedelta(minutes=30)
-                if startime >= x[0]  and startime <= temp.strftime(timeFormatStr):
+                if startime >= x[0]  and startime <= x[1]:
                     driver = v['driver']
                     steward = v['conductor']
                     breakflag = True
