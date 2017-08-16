@@ -16,34 +16,53 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var self = this
             var data = this.dis_desk;
             if (data) {
-                var conCls = self.$el.find('.carousel_content')[0].className;
-                var content = '.' + conCls;
+                var content = '.' + self.$el.find('.carousel_content')[0].className;
                 carousel({
                     content: content,
                     self: self
                 });
-                // line型数据
-                var absnormalChart = self.$el.find('.absnormal_chart')[0];
-                var absnormalChart1 = self.$el.find('.absnormal_chart')[1];
-                // 柱状型数据
-                var lagstation_chart = self.$el.find('.lagstation_chart')[0];
-                var dataJson = [[120, 152], [220, 182], [150, 232], [320, 332]];
-                chartLineBar(absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流', '调整客流'], optionLineBar, ['5:00', '8:00', '13:00', '16:00', '19:00', '0:00'], dataJson, '');
-                chartLineBar(absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流', '调整客流'], optionLineBar, ['5:00', '8:00', '13:00', '16:00', '19:00', '0:00'], dataJson, '');
-                // setInterval(function () {
-                //     for (var i = 0; i < 4; i++) {
-                //         dataJson[i].push(Math.random() * 100);
-                //     }
-                //     chartLineBar(absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流', '调整客流'], optionLineBar, ['5:00', '8:00', '13:00', '16:00', '19:00', '0:00'], dataJson, '');
-                //     chartLineBar(absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流', '调整客流'], optionLineBar, ['5:00', '8:00', '13:00', '16:00', '19:00', '0:00'], dataJson, '');
-                //     }, 1000);
-                chartLineBar(lagstation_chart, 0, ["#ff4634", "#4dcfc7"], 'bar', true, ['滞站客流', '预测滞站'], optionLineBar, ['周一', '周二', '周三', '周四', '周五', '周六'], [[120, 152, 101, 134, 90, 230], [220, 182, 191, 234, 290, 330]], '');
+            }
+            var tid = self.$el.attr('tid');
+            var model_id = 'model_' + tid;
+            if (socket_model_info[model_id]) {
+                delete socket_model_info[model_id];
+            }
+            if (self.$el.find('.absnormal_chart')[0] != undefined) {
+                self.absnormalChart = echarts.init(self.$el.find('.absnormal_chart')[0]);
+                self.absnormalChart1 = echarts.init(self.$el.find('.absnormal_chart')[1]);
+                self.lagstation_chart = echarts.init(self.$el.find('.lagstation_chart')[0]);
+                self.dataJson = [[120, 152], [220, 182], [150, 232], [320, 332]];
+                // var package = {
+                //     type: 1022,
+                //     open_modules: "dispatch-line_message-4",
+                //     msgId: Date.parse(new Date())
+                // };
+                // websocket.send(JSON.stringify(package));
+                socket_model_info[model_id] = {
+                    arg: {
+                        self: self,
+                        dataJson: self.dataJson,
+                        absnormalChart: self.absnormalChart,
+                        absnormalChart1: self.absnormalChart1,
+                        lagstation_chart: self.lagstation_chart,
+                    }, fn: self.show_echarts
+                };
             }
         },
         events: {
             'click .manual': 'manual_process',
             'click .manual.is_check': 'process_chchk',
             'click .min': 'closeFn'
+        },
+        show_echarts: function (innerHTML, arg) {
+            var self = arg.self;
+            var dataJson = self.dataJson;
+            for (var i = 0; i < dataJson.length; i++) {
+                dataJson[i].push(innerHTML.substring(78, 80) + i * 3);
+            }
+            chartLineBar(self.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流', '调整客流'], optionLineBar, ['5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00'], dataJson, '');
+            chartLineBar(self.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流', '调整客流'], optionLineBar, ['5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00'], dataJson, '');
+            chartLineBar(self.lagstation_chart, 0, ["#ff4634", "#4dcfc7"], 'bar', true, ['滞站客流', '预测滞站'], optionLineBar, ['周一', '周二', '周三', '周四', '周五', '周六'], [[120, 152, 101, 134, 90, 230], [220, 182, 191, 234, 290, 330]], '');
         },
         closeFn: function () {
             var self = this;
@@ -54,9 +73,9 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             self.model2.call("write", [parseInt(tid),
                 {
                     'tem_display': 'none',
-                    'position_left':self.$el[0].offsetLeft,
-                    'position_top':self.$el[0].offsetTop,
-                    'position_z_index':self.$el[0].style.zIndex,
+                    'position_left': self.$el[0].offsetLeft,
+                    'position_top': self.$el[0].offsetTop,
+                    'position_z_index': self.$el[0].style.zIndex,
                 }]).then(function (res) {
                 self.$el.hide();
             });
