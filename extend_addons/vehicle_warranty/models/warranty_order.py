@@ -146,8 +146,10 @@ class WarrantyOrder(models.Model): # 保养单
         for i in self.manhour_manage_ids:
             i.real_start_time = datetime.datetime.utcnow()
         for project in self.project_ids:
-            project.state = 'maintain'
-
+            if project.state == 'dispatch' :
+                project.state = 'maintain'
+            else:
+                raise exceptions.UserError(_("Please batch dispatch first!"))
         avail_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0)
         location_dest_id = self.env.ref('stock_picking_types.stock_location_ullage').id  # 维修(生产)虚位
         self._generate_picking(avail_products, location_dest_id)
