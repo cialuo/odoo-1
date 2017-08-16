@@ -28,6 +28,7 @@
 
         'wizard/assigned_shifts.xml',
         'views/views.xml',
+        'views/bus_work_exec_table.xml',
         'views/bus_date_type.xml',
         'views/bus_shift.xml',
         'views/bus_algorithm.xml',
