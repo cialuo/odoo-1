@@ -156,7 +156,7 @@ class Module(models.Model):
             path = modules.get_module_resource(module.name, 'static/description/index.html')
             if path:
                 with tools.file_open(path, 'rb') as desc_file:
-                    doc = desc_file.read()
+                    doc = desc_file.read().decode('utf-8')
                     html = lxml.html.document_fromstring(doc)
                     for element, attribute, link, pos in html.iterlinks():
                         if element.get('src') and not '//' in element.get('src') and not 'static/' in element.get('src'):
