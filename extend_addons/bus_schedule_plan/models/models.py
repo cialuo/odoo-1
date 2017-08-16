@@ -308,7 +308,7 @@ class BusWorkRules(models.Model):
         """
         for item in ruleobj:
             movetimerecord = {
-                'name' : datestr + "/" +item.line_id.lineName,
+                'name' : datestr + "/" +item.line_id.line_name,
                 'line_id' : item.line_id.id,
                 'rule_id' : item.id,
                 'vehiclenums' : 0,
