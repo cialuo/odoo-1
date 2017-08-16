@@ -1003,7 +1003,7 @@ msgstr "公交类型"
 #. module: bus_schedule_plan
 #: model:ir.actions.act_window,name:bus_schedule_plan.bus_work_exec_table_action
 msgid "bus work exec table"
-msgstr "bus work exec table"
+msgstr "行车作业执行表"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.menu,name:bus_schedule_plan.bus_work_exec_table_menu

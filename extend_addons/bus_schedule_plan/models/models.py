@@ -437,6 +437,9 @@ class BusWorkRules(models.Model):
         for k, v in conductorworklist.items():
             conductorworklist[k] = sorted(v, key=lambda x:x[0])
 
+        drivernum = 0
+        conductornum = 0
+
         # 计算出勤司乘数据
         addrecords = []
         for k,v in conductorworklist.items():
@@ -454,6 +457,7 @@ class BusWorkRules(models.Model):
                 }
                 value['worktimelength'] = timesubtraction(item[1][1], item[1][0])
                 value['workrealtimelength'] = timesubtraction(item[0][1][1], item[0][0][0])
+                conductornum += 1
                 addrecords.append((0,0,value))
 
         for k, v in driverworklist.items():
@@ -471,8 +475,12 @@ class BusWorkRules(models.Model):
                 }
                 value['worktimelength'] = timesubtraction(item[1][1],item[1][0])
                 value['workrealtimelength'] = timesubtraction(item[0][1][1], item[0][0][0])
+                drivernum += 1
                 addrecords.append((0, 0, value))
+
         values['motorcyclistsTime'] = addrecords
+        values['drivernum'] = drivernum
+        values['stewardnum'] = conductornum
 
         busworklist = collections.defaultdict(list)
         result = []
