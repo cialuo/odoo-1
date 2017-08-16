@@ -27,7 +27,7 @@ class external_training_plan(models.Model):
                                ('pendingExecution','Pending execution'),
                                ('complete','Complete')],default='draft')
 
-     curriculum_schedules = fields.One2many('employees_growth.external_curriculum_schedule','plan_id',
+     curriculum_schedules = fields.One2many('employees_growth.external_curriculum_schedule','plan_id',copy=True,
                                             string='Curriculum schedules')
 
      plan_return_record_ids = fields.One2many('employees_growth.external_plan_return_record',
