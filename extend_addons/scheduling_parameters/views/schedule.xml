@@ -229,7 +229,7 @@
                     <sheet>
                         <div class="oe_title">
                             <h1>
-                                <field name="line_name" placeholder="Route"/>
+                                <field name="line_name" placeholder="Line Name"/>
                             </h1>
                         </div>
 
@@ -262,9 +262,10 @@
                         <notebook>
 
                             <page string="StationUps" name="StationUps">
-                                <field name="station_up_ids">
+                                <field name="station_up_ids" context="{'default_direction':'up'}">
                                     <tree string="StationUps" editable="bottom" default_order="sequence">
                                         <field name="sequence"/>
+                                        <field name="direction" invisible="1"/>
                                         <field name="station_id" options="{'no_create':True}"/>
                                         <field name="station_type"/>
                                         <field name="entrance_azimuth"/>
@@ -278,9 +279,10 @@
                                 </field>
                             </page>
                             <page string="StationDowns" name="StationDowns">
-                                <field name="station_down_ids">
+                                <field name="station_down_ids" context="{'default_direction':'down'}">
                                     <tree string="StationDowns" editable="bottom" default_order="sequence">
                                         <field name="sequence"/>
+                                        <field name="direction" invisible="1"/>
                                         <field name="station_id" options="{'no_create':True}"/>
                                         <field name="station_type"/>
                                         <field name="entrance_azimuth"/>
@@ -298,7 +300,7 @@
                                 <field name="human_resource"/>
                             </page>
 
-                            <page name="ChirdRoutes" string="ChirdRoutes" attrs="{'invisible': [('line_type_name', '!=', 'main_line')]}">
+                            <page name="ChildRoutes" string="ChildRoutes" attrs="{'invisible': [('line_type_name', '!=', 'main_line')]}">
 								<field name="child_route_ids"  readonly="1">
 									<tree>
 										<field name="line_name"/>
