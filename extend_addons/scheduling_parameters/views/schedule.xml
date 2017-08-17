@@ -186,8 +186,8 @@
                             <page string="Cross line">
                                 <field name="route_ids" readonly="1">
                                     <tree>
-                                        <field name="lineName"/>
-                                        <field name="gprsId"/>
+                                        <field name="line_name"/>
+                                        <field name="gprs_id"/>
                                     </tree>
                                 </field>
                             </page>
@@ -204,10 +204,10 @@
             <field name="priority">0</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="lineName"/>
-                    <field name="gprsId"/>
-                    <field name="lineTypeName"/>
-                    <field name="classSystemName"/>
+                    <field name="line_name"/>
+                    <field name="gprs_id"/>
+                    <field name="line_type_name"/>
+                    <field name="class_system_name"/>
                     <field name="schedule_type"/>
                     <field name="people_number"/>
                     <field name="department_id"/>
@@ -229,21 +229,21 @@
                     <sheet>
                         <div class="oe_title">
                             <h1>
-                                <field name="lineName" placeholder="Route"/>
+                                <field name="line_name" placeholder="Line Name"/>
                             </h1>
                         </div>
 
                         <group col="2">
                             <group name="first_group">
-                                <field name="gprsId"/>
-                                <field name="lineTypeName"/>
+                                <field name="gprs_id"/>
+                                <field name="line_type_name"/>
                                 <field name="main_line_id" options="{'no_create':True}"
-                                       attrs="{'required':[('lineTypeName','!=','main_line')],
-                                            'invisible': [('lineTypeName', '=', 'main_line')]}"/>
+                                       attrs="{'required':[('line_type_name','!=','main_line')],
+                                            'invisible': [('line_type_name', '=', 'main_line')]}"/>
                                 <field name="oil_wear_coefficient"/>
                                 <field name="department_id" options="{'no_create':True}"/>
-                                <field name="classSystemName"/>
-                                <field name="runTypeName"/>
+                                <field name="class_system_name"/>
+                                <field name="run_type_name"/>
                                 <field name="schedule_type"/>
                             </group>
                             <group>
@@ -262,9 +262,10 @@
                         <notebook>
 
                             <page string="StationUps" name="StationUps">
-                                <field name="station_up_ids">
+                                <field name="station_up_ids" context="{'default_direction':'up'}">
                                     <tree string="StationUps" editable="bottom" default_order="sequence">
                                         <field name="sequence"/>
+                                        <field name="direction" invisible="1"/>
                                         <field name="station_id" options="{'no_create':True}"/>
                                         <field name="station_type"/>
                                         <field name="entrance_azimuth"/>
@@ -278,9 +279,10 @@
                                 </field>
                             </page>
                             <page string="StationDowns" name="StationDowns">
-                                <field name="station_down_ids">
+                                <field name="station_down_ids" context="{'default_direction':'down'}">
                                     <tree string="StationDowns" editable="bottom" default_order="sequence">
                                         <field name="sequence"/>
+                                        <field name="direction" invisible="1"/>
                                         <field name="station_id" options="{'no_create':True}"/>
                                         <field name="station_type"/>
                                         <field name="entrance_azimuth"/>
@@ -298,10 +300,10 @@
                                 <field name="human_resource"/>
                             </page>
 
-                            <page name="ChirdRoutes" string="ChirdRoutes" attrs="{'invisible': [('lineTypeName', '!=', 'main_line')]}">
+                            <page name="ChildRoutes" string="ChildRoutes" attrs="{'invisible': [('line_type_name', '!=', 'main_line')]}">
 								<field name="child_route_ids"  readonly="1">
 									<tree>
-										<field name="lineName"/>
+										<field name="line_name"/>
 									</tree>
 								</field>
 							</page>

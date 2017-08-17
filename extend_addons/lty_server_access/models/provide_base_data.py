@@ -28,8 +28,8 @@ class dispatch_line_citycode_ref(models.Model):
            select * from  
           (
              select         
-                route_manage_route_manage."gprsId" as line_id,
-                route_manage_route_manage."lineName" as line_name,
+                route_manage_route_manage."gprs_id" as line_id,
+                route_manage_route_manage."line_name" as line_name,
                 up_start.station_first_name as station_start,
                 up_last.station_last_name as station_end,
                 cast(up_start.direction as char(4)) as direction,
@@ -77,8 +77,8 @@ class dispatch_line_citycode_ref(models.Model):
    select * from 
       (
          select 
-                route_manage_route_manage."gprsId" as line_id,
-                route_manage_route_manage."lineName" as line_name,
+                route_manage_route_manage."gprs_id" as line_id,
+                route_manage_route_manage."line_name" as line_name,
                 down_start.station_first_name as station_start,
                 down_last.station_last_name as station_end,
                 cast(down_start.direction as char(4)) as direction,

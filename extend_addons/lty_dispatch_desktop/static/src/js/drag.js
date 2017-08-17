@@ -34,7 +34,6 @@ function drag(oDrag, handle, maxL, maxT) {
             var event = event || window.event;
             var iL = event.clientX - disX;
             var iT = event.clientY - disY;
-            console.log(maxL)
             if (maxL) {
                 var maxdL = maxL;
             } else {
@@ -68,10 +67,11 @@ function drag(oDrag, handle, maxL, maxT) {
 }
 var timmerHandle = null;
 var isDrag = false;
+
 function dragFn(parent, title, maxL, maxT) {
     var c_class = "." + parent + " ." + title;
     var p_class = "." + parent;
-    var k = 0;
+    var k = 1;
     $("body").on('mouseover', c_class, function () {
         var oDrag = $(this).parents("." + parent)[0];
         // var oDrag = $(this).parents(parent)[0];
@@ -88,21 +88,13 @@ function dragFn(parent, title, maxL, maxT) {
         }
     });
     $("body").on('mousedown', p_class, function (e) {
-            k++;
+        k++;
         var oDrag = $(this)[0];
-        if ($.inArray("nofix", oDrag.classList) != -1) {
-            return false;
-        }
-        if ($.inArray("layer_defined", oDrag.classList) != -1) {
-            oDrag.style.zIndex = 20000000;
-            return false;
-        }
         oDrag.style.zIndex = k;
     });
     function setDragTrue() {
         isDrag = true;
     }
-
     $("body").on('mousedown', c_class, function () {
         isDrag = false;
         timmerHandle = setTimeout(setDragTrue, 200);

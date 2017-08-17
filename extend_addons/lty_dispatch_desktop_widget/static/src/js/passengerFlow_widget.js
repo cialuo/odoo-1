@@ -13,7 +13,7 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
         init: function(parent, data){
             var init_data = [
                 {   
-                    name: data.line_id,
+                    name: data.site,
                     line_car: [16],
                     data: [
                         {
@@ -22,7 +22,7 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                         },
                         {
                             name: "滞站候车",
-                            value: [11, 12, 15, 12, 13, 11, 11, 9, 13, 12, 11]
+                            value: [11, 12, 10, 12, 13, 11, 11, 9, 13, 12, 11]
                         },
                         {
                             name: "0.5h上车",
@@ -44,7 +44,7 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                         },
                         {
                             name: "滞站候车",
-                            value: [11, 12, 15, 12, 13, 11, 11, 9, 13, 12, 11]
+                            value: [11, 12, 10, 12, 13, 11, 11, 9, 13, 12, 11]
                         },
                         {
                             name: "0.5h上车",
@@ -63,6 +63,11 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
         },
         start: function(){
             this.trend_chart_fn();
+            var layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
+            var passengerDelayModel_set = {
+                layer_index: layer_index
+            }
+            sessionStorage.setItem("passengerDelayModel_set", JSON.stringify(passengerDelayModel_set));
         },
         send_express_info: function(){
             var passenger_flow_cont = this.$(".trend_chart_single .passenger_flow_cont");
@@ -98,17 +103,7 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                     }
                 ],
                 skip: '3',
-                station: [
-                    {name: '站点N', id: '1'},
-                    {name: '站点N', id: '2'},
-                    {name: '站点N', id: '3'},
-                    {name: '站点N', id: '4'},
-                    {name: '站点N', id: '5'},
-                    {name: '站点N', id: '6'},
-                    {name: '站点N', id: '7'},
-                    {name: '站点N', id: '8'},
-                    {name: '站点N', id: '9'},
-                ]
+                station: this.location_data.site_infos
             };
             data.station = this.station_fn(data.station);
             return data;
@@ -172,17 +167,28 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                         return hoverTip;
                     }
                 },
+                legend: {
+                    orient: 'vertical',
+                    left: '5',
+                    top: '66',
+                    textStyle: {
+                        color: "#4ecfc7"
+                    },
+                    data:[
+                        {
+                            icon: "none",
+                            name: "运力",
+                        }
+                    ]
+                },
+                animation: false,
                 grid: {
-                    left: '3%',
+                    left: '10%',
                     right: '10%',
                     top: '10%',
-                    bottom: '10%',
+                    bottom: '0',
                     containLabel: true
                 },
-                legend: {
-                    // data:['运力','滞站候车','0.5h上车','0.5h下车']
-                },
-                // color: ['#00dd00', 'red', 'blue', 'gray'],
                 calculable : true,
                 xAxis : [
                     {
@@ -200,117 +206,233 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                                 if (value == 120){
                                     return '2h'
                                 }
+                            },
+                            textStyle: {
+                                color: "#fff"
                             }
                         },
-                        splitLine:{  
-                            show:false  
+                        boundaryGap: '',
+                        axisTick: {inside:true},
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: ['#454c6c']
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#454c6c',
+                            }
                         },
                     }
                 ],
                 yAxis : [
                     {
-                        show:false,
                         type: 'value',
-                        splitLine:{  
-                            show:false  
+                        axisLine: {
+                            lineStyle: {
+                                color: '#454c6c',
+                            }
                         },
+                        axisTick: {show:false},
+                        axisLabel: {
+                            show: false
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: ['#454c6c']
+                            }
+                        }
                     }
                 ],
-                series : [
-                    {
-                        name: '运力',
-                        type: 'line',
-                        symbolSize: 1,
-                        data: [
+                series: [{
+                    name: '运力',
+                    symbolSize: 1,
+                    type: 'line',
+                    data: [
                             [-30, dataArray[0].value],[-15, dataArray[0].value],[0, dataArray[0].value],[15, dataArray[0].value],[30, dataArray[0].value],[45, dataArray[0].value],[60, dataArray[0].value],[75, dataArray[0].value],[90, dataArray[0].value],[105, dataArray[0].value],[120, dataArray[0].value]
                         ],
-                        lineStyle: {
-                            normal:{
-                                width: 5,
-                                color: "#00dd00"
+                    lineStyle: {
+                        normal: {
+                            width: 3,
+                            color: "#4ecfc7"
+                        }
+                    },
+                    markLine: {
+                        symbol: ['', 'circle'],
+                        label: {
+                            normal: {
+                                position: "start"
                             }
-                        },
-                        markLine : {
-                            data : [
-                                {
-                                    xAxis: 0, 
-                                    symbol: 'circle',
-                                    symbolSize: [0, 0],
-                                    lineStyle: {
-                                        normal: {
-                                            type: 'solid',
-                                            color: '#000'
-                                        }
-                                    },
-                                    label: {
-                                        normal: {
-                                            show: false
-                                        }
+                        }, 
+                        data: [{
+                                xAxis: 0,
+                                symbol: 'circle',
+                                symbolSize: [0, 0],
+                                lineStyle: {
+                                    normal: {
+                                        type: 'solid',
+                                        color: '#fff'
                                     }
                                 },
-                                {
-                                    yAxis: 0, 
-                                    symbol: 'triangle',
-                                    lineStyle: {
-                                        normal: {
-                                            type: 'solid',
-                                            color: '#000'
-                                        }
-                                    },
-                                    label: {
-                                        normal: {
-                                            show: false
-                                        }
+                                label: {
+                                    normal: {
+                                        show: false
                                     }
                                 }
-                                
-                            ]
-                        }
-                    },
-                    {
-                        name:'滞站候车',
-                        type:'line',
-                        symbolSize:1,
-                        data:[
+                            },
+                            // {
+                            //     yAxis: 10,
+                            //     lineStyle: {
+                            //         normal: {
+                            //             type: 'solid',
+                            //             color: '#fff'
+                            //         }
+                            //     }
+                            // }
+
+                        ]
+                    }
+                },
+                {
+                    name: '滞站候车',
+                    type: 'line',
+                    symbolSize: 1,
+                    data:[
                             [-30, dataArray[1].value[0]], [-15, dataArray[1].value[1]], [0, dataArray[1].value[2]], [15, dataArray[1].value[3]], [30, dataArray[1].value[4]], [45, dataArray[1].value[5]], [60, dataArray[1].value[6]], [75, dataArray[1].value[7]], [90, dataArray[1].value[8]], [105, dataArray[1].value[9]], [120, dataArray[1].value[10]]
                         ],
-                        lineStyle: {
-                            normal:{
-                                width: 1,
-                                color: "red"
-                            }
+                    lineStyle: {
+                        normal: {
+                            width: 1,
+                            color: "#f89e93"
                         }
-                    },
-                    {
-                        name:'0.5h上车',
-                        type:'line',
-                        symbolSize:1,
-                        data:[
+                    }
+                },
+                {
+                    name: '0.5h上车',
+                    type: 'line',
+                    symbolSize: 1,
+                    data:[
                             [-30, dataArray[2].value[0]], [0, dataArray[2].value[1]],  [30, dataArray[2].value[2]], [60, dataArray[2].value[3]], [90, dataArray[2].value[4]], [120, dataArray[2].value[5]]
                         ],
-                        lineStyle: {
-                            normal:{
-                                width: 1,
-                                color: "blue"
-                            }
+                    lineStyle: {
+                        normal: {
+                            width: 1,
+                            color: "#5093e1"
                         }
-                    },
-                    {
-                        name:'0.5h下车',
-                        type:'line',
-                        symbolSize:1,
-                        data:[
+                    }
+                },
+                {
+                    name: '0.5h下车',
+                    type: 'line',
+                    symbolSize: 1,
+                    data:[
                             [-30, dataArray[3].value[0]], [0, dataArray[3].value[1]],  [30, dataArray[3].value[2]], [60, dataArray[3].value[3]], [90, dataArray[3].value[4]], [120, dataArray[3].value[5]]
                         ],
-                        lineStyle: {
-                            normal:{
-                                width: 1,
-                                color: "gray"
-                            }
+                    lineStyle: {
+                        normal: {
+                            width: 1,
+                            color: "#ffd276"
                         }
+                    }
+
+                },
+            ]
+                // series : [
+                //     {
+                //         name: '运力',
+                //         type: 'line',
+                //         symbolSize: 1,
+                //         data: [
+                //             [-30, dataArray[0].value],[-15, dataArray[0].value],[0, dataArray[0].value],[15, dataArray[0].value],[30, dataArray[0].value],[45, dataArray[0].value],[60, dataArray[0].value],[75, dataArray[0].value],[90, dataArray[0].value],[105, dataArray[0].value],[120, dataArray[0].value]
+                //         ],
+                //         lineStyle: {
+                //             normal:{
+                //                 width: 5,
+                //                 color: "#00dd00"
+                //             }
+                //         },
+                //         markLine : {
+                //             data : [
+                //                 {
+                //                     xAxis: 0, 
+                //                     symbol: 'circle',
+                //                     symbolSize: [0, 0],
+                //                     lineStyle: {
+                //                         normal: {
+                //                             type: 'solid',
+                //                             color: '#000'
+                //                         }
+                //                     },
+                //                     label: {
+                //                         normal: {
+                //                             show: false
+                //                         }
+                //                     }
+                //                 },
+                //                 {
+                //                     yAxis: 0, 
+                //                     symbol: 'triangle',
+                //                     lineStyle: {
+                //                         normal: {
+                //                             type: 'solid',
+                //                             color: '#000'
+                //                         }
+                //                     },
+                //                     label: {
+                //                         normal: {
+                //                             show: false
+                //                         }
+                //                     }
+                //                 }
+                                
+                //             ]
+                //         }
+                //     },
+                //     {
+                //         name:'滞站候车',
+                //         type:'line',
+                //         symbolSize:1,
+                //         data:[
+                //             [-30, dataArray[1].value[0]], [-15, dataArray[1].value[1]], [0, dataArray[1].value[2]], [15, dataArray[1].value[3]], [30, dataArray[1].value[4]], [45, dataArray[1].value[5]], [60, dataArray[1].value[6]], [75, dataArray[1].value[7]], [90, dataArray[1].value[8]], [105, dataArray[1].value[9]], [120, dataArray[1].value[10]]
+                //         ],
+                //         lineStyle: {
+                //             normal:{
+                //                 width: 1,
+                //                 color: "red"
+                //             }
+                //         }
+                //     },
+                //     {
+                //         name:'0.5h上车',
+                //         type:'line',
+                //         symbolSize:1,
+                //         data:[
+                //             [-30, dataArray[2].value[0]], [0, dataArray[2].value[1]],  [30, dataArray[2].value[2]], [60, dataArray[2].value[3]], [90, dataArray[2].value[4]], [120, dataArray[2].value[5]]
+                //         ],
+                //         lineStyle: {
+                //             normal:{
+                //                 width: 1,
+                //                 color: "blue"
+                //             }
+                //         }
+                //     },
+                //     {
+                //         name:'0.5h下车',
+                //         type:'line',
+                //         symbolSize:1,
+                //         data:[
+                //             [-30, dataArray[3].value[0]], [0, dataArray[3].value[1]],  [30, dataArray[3].value[2]], [60, dataArray[3].value[3]], [90, dataArray[3].value[4]], [120, dataArray[3].value[5]]
+                //         ],
+                //         lineStyle: {
+                //             normal:{
+                //                 width: 1,
+                //                 color: "gray"
+                //             }
+                //         }
                 
-                    },
-                ]
+                //     },
+                // ]
             };
             var myChart = echarts.init(this.$el.find('.trend_chart_map')[0]);
             myChart.setOption(option);

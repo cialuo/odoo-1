@@ -39,12 +39,12 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 front_door: '开启',
                 speed: '36km/h',
                 sail: '大亚湾',
-                front: '4km',
-                after: '3km',
+                front: '4KM',
+                after: '3KM',
                 back_field_time: '12:43',
                 next_train_departure: '12:30',
                 residual_clearance: '239KM',
-                line: data.line_id,
+                line: data.line_id+'路',
                 trip: '4',
                 total_trip: '10'
             };
@@ -53,11 +53,14 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
         },
         start: function(){
             this.arrivalTimeFn();
-            this.layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
-            if (socket_model_info['model_car']){
-                delete socket_model_info['model_car'];
+            var layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
+            var busRealStateModel_set = {
+                layer_index: layer_index
             }
-            socket_model_info['model_car'] = {arg: {self: this, layer_index: this.layer_index}, fn: this.socket_fn};
+            sessionStorage.setItem("busRealStateModel_set", JSON.stringify(busRealStateModel_set)); 
+            // var key_s = 'modelBus'+'_'+this.location_data.controllerId+'_'+this.location_data.line_id+'_'+this.location_data.car_num;
+            // socket_model_info['modelBus'] = {};
+            // socket_model_info['modelBus'][key_s] = {arg: {self: this, layer_index: this.layer_index}, fn: this.socket_fn};
         },
         handle_exceptions_fn: function(){
             alert('这里将发起处理异常状态请求');
@@ -88,11 +91,14 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             alert('这里将发起通话请求');
         },
         geographicalPosition_fn: function(){
+            // if (this.$(".arrival_time_map").length > 0){
+            //     return false;
+            // }
             var init_data = {
                 longitude: '114.39973',
                 latitude: '30.45787'
             };
-            this.$(".carReport").html("");
+            this.$(".carReport").html("<div class='socket_load'>加载中...</div>");
             new arrival_time_map(this, init_data).appendTo(this.$(".carReport"));
         },
         moreInfo_fn: function(){
@@ -100,20 +106,23 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             new arrival_time_more_info(this).appendTo(this.$(".carReport"));
         },
         arrivalTimeFn: function(e){
-            this.$(".carReport").html("");
+            // if (this.$(".arrival_time_chart").length > 0){
+            //     return false;
+            // }
             var init_data = {
                 site_list: ['深大(8:30)','白石洲(8:37)','世界之窗(8:45)','华侨城(8:51)','车公庙(8:55)','葫芦谷(9:05)','断肠崖(9:15)', '长坂坡(9:30)'],
                 data: [
                     {
-                        name: '实际',
-                        value: [1, 1, -2, -5, 0, -3]
-                    },
-                    {
                         name: '预测',
                         value: [1, 1, 5, 3, 2, 3]
+                    },
+                    {
+                        name: '实际',
+                        value: [1, 1, -2, -5, 0, -3]
                     }
                 ]
             };
+            this.$(".carReport").html("<div class='socket_load'>加载中...</div>");
             new bus_real_info_arrival_time_chart(this, init_data).appendTo(this.$(".carReport"));
         },
         videoFn: function(e){
@@ -125,29 +134,6 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             new arrival_time_police(this).appendTo(this.$(".carReport"));
         },
         socket_fn: function(data, arg){
-            var init_data = {
-                license_number: data.car_num,
-                license_plate: '粤K·92823',
-                driver: '李素华', 
-                crew: '张雯',
-                passenger: '62',
-                full_load_rate: '90%',
-                satisfaction_degree: '20%',
-                carriage_temperature: '23',
-                outdoor_temperature: '32',
-                back_door: '关闭',
-                front_door: '开启',
-                speed: '36km/h',
-                sail: '大亚湾',
-                front: '4km',
-                after: '3km',
-                back_field_time: '12:43',
-                next_train_departure: '12:30',
-                residual_clearance: '239KM',
-                line: data.line_id,
-                trip: '4',
-                total_trip: '10'
-            };
             var self = arg.self;
             var vehicleInformationObj = self.$(".popupContent .vehicleInformation");
             var carReportObj = self.$(".popupContent .carReport");
@@ -174,14 +160,14 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             lineInfo.find(".lineRoad").html('18')
             lineInfo.find(".trip").html(data.slice(76, 77));
             lineInfo.find(".total_trip").html(data.slice(76, 77)+data.slice(77, 78));
-
+            
             self.$el.show();
             if (arg.layer_index){
                 layer.close(arg.layer_index);
             }
         },
         closeFn: function(){
-            delete socket_model_info['model_car'];
+            // delete socket_model_info['model_car'];
             this.destroy();
         }
     });
@@ -202,27 +188,44 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 tooltip: {
                     trigger: 'axis',
                 },
-                color: ['blue', 'yellow', '#d29090'],
+                color: ['#4f8ed9', '#e1bc73', '#c98888'],
                 legend: {
+                    icon: 'stack',
+                    textStyle: {
+                        color: "#fff"
+                    },
                     data:['计划', chart_data.data[0].name, chart_data.data[1].name]
                 },
                 animation: false,
                 grid: {
-                    left: '2%',
-                    right: '15%',
+                    left: '3%',
+                    right: '0',
                     bottom: '3%',
                     containLabel: true
                 },
                 xAxis:  {
                     type: 'category',
                     boundaryGap: false,
-                    name: '准点',
                     data: chart_data.site_list,
                     axisLabel:{
+                        textStyle: {
+                            color: "#fff"
+                        }
                         // interval: 0,
                         // formatter:function(val){
                         //     return val.split("").join("\n");
                         // }
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: ['#454c6c']
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#454c6c',
+                        }
                     },
                 },
                 yAxis: {
@@ -230,11 +233,44 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                     min: -15,
                     max: 15,
                     name: '提前(分钟)',
+                    nameTextStyle: {
+                        color: "#fff"
+                    },
                     axisLabel: {
-                        formatter: '{value}'
+                        formatter: '{value}',
+                        textStyle: {
+                            color: "#fff"
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#454c6c',
+                        }
+                    },
+                    axisTick: {show:false},
+                    splitLine: {
+                        lineStyle: {
+                            color: ['#454c6c']
+                        }
                     }
                 },
                 series: [
+                    {
+                        name:'计划',
+                        type:'line',
+                        symbolSize:1,
+                        data:[0, 0, 0, 0, 0, 0, 0, 0],
+                        lineStyle: {
+                            normal:{
+                                width: 1
+                            }
+                        },
+                        // markLine: {
+                        //     data: [
+                        //         {type: 'average', name: '平均值'},
+                        //     ]
+                        // }
+                    },
                     {
                         name: chart_data.data[0].name,
                         type:'line',
@@ -256,26 +292,10 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                                 width: 1
                             }
                         },
-                    },
-                    {
-                        name:'计划',
-                        type:'line',
-                        symbolSize:1,
-                        data:[0, 0, 0, 0, 0, 0],
-                        lineStyle: {
-                            normal:{
-                                width: 1
-                            }
-                        },
-                        markLine: {
-                            data: [
-                                {type: 'average', name: '平均值'},
-                            ]
-                        }
                     }
                 ]
             };
-            var myChart = echarts.init(this.$el.find('.carzxt')[0]);
+            var myChart = echarts.init(this.$el[0]);
             myChart.setOption(option);
         }
     });
@@ -305,15 +325,18 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
         init: function(parent, data){
             this._super(parent);
             this.data = data;
+            socket_model_api_obj.busRealStateModel = {};
+            map_i = 0;
         },
         start: function(){
-            var self = this;
-            var mapObj = new AMap.Map(self.$('.carInfoScene')[0], {zoom: 16, center: [self.data.longitude, self.data.latitude]});
-            var marker = new AMap.Marker({
-                map: mapObj,
-                position: [self.data.longitude, self.data.latitude]
-            });
-            this.sokit(marker);
+            // socket_model_info['model_bus_map'] = {arg: {self: this}, fn: this.socket_fn};
+            // var self = this;
+            // var mapObj = new AMap.Map(self.$('.carInfoScene')[0], {zoom: 14, center: [self.data.longitude, self.data.latitude]});
+            // var marker = new AMap.Marker({
+            //     map: mapObj,
+            //     position: [self.data.longitude, self.data.latitude]
+            // });
+            // self.sokit(marker);
         },
         sokit: function(marker){
             var pos_list = [
