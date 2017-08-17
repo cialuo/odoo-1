@@ -46,6 +46,10 @@ var socket_model_api_obj = {};
 	// console.log(event.data);
 	// return false;
 
+websocket.onmessage123 = function (event) {
+	console.log(event.data);
+}
+
 // var package = {
 //     type: 1001,
 //     open_modules: "dispatch-line_message-4",
@@ -53,12 +57,13 @@ var socket_model_api_obj = {};
 // };
 // websocket.send(JSON.stringify(package));
 websocket.onmessage = function (event) {
-    console.log(event.data)
+    // console.log(event.data)
     for (socket_model in socket_model_info) {
         var socket_model_obj = socket_model_info[socket_model];
         socket_model_obj.fn(event.data, socket_model_obj.arg);
     }
-    var obj = {modelName: "bus_real_state", controllerId: "4", data: [event.data]};
+    var obj = {modelName: "bus_real_state", controllerId: "1", data: [event.data]};
+    console.log('随机数为'+event.data.slice(78, 80));
     if (event.data.slice(78, 80) < 15) {
         obj.modelName = "passenger_delay";
     } else if (event.data.slice(78, 80) < 30) {
