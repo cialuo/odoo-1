@@ -20,6 +20,7 @@
             <kanban create="false" class="o_kanban_dashboard o_pos_kanban">
                 <field name="name"/>
                 <field name="user"/>
+                <field name="id"/>
                 <templates>
 					<t t-name="kanban-box">
                         <div>
@@ -36,7 +37,7 @@
                                 <div class="row">
                                     <div class="col-xs-6 o_kanban_primary_left">
                                         
-                                        <button  class="btn btn-primary" name="open_dispatch_desktop" type="object">Open Desktop</button>
+                                        <button  class="btn btn-primary" t-attf-desktop_id="{{record.id.value}}" name="open_dispatch_desktop" type="object">Open Desktop</button>
                                     </div>
                                 </div>
                             </div>

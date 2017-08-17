@@ -177,6 +177,7 @@ class BusGroup(models.Model):
                     "route_id": i.route_id.id,
                     'conductor_id': j,
                 }
+
                 datas.append((0, 0, vals))
             i.conductor_ids = datas
 
@@ -209,7 +210,11 @@ class BusGroupDriver(models.Model):
     _name = 'bus_group_driver'
     _rec_name = 'driver_id'
 
-    route_id = fields.Many2one('route_manage.route_manage', readonly=True)
+    _sql_constraints = [
+        ('record_unique', 'unique(route_id,driver_id)', _('The route and driver must be unique!')),
+    ]
+
+    route_id = fields.Many2one('route_manage.route_manage')
     bus_group_id = fields.Many2one('bus_group', ondelete='cascade')
 
     driver_id = fields.Many2one('hr.employee', string="driver", required=True,
@@ -224,7 +229,12 @@ class BusGroupConductor(models.Model):
     _name = 'bus_group_conductor'
     _rec_name = 'conductor_id'
 
+    _sql_constraints = [
+        ('record_unique', 'unique(route_id,conductor_id)', _('The route and conductor must be unique!')),
+    ]
+
     bus_group_id = fields.Many2one('bus_group', ondelete='cascade')
+    route_id = fields.Many2one('route_manage.route_manage')
     conductor_id = fields.Many2one('hr.employee', string="conductor", required=True,
                                    domain="[('workpost.posttype', '=', 'conductor')]")
     jobnumber = fields.Char(string='employee work number', related='conductor_id.jobnumber', readonly=True)

@@ -171,7 +171,7 @@ function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
         color: data.color,
         dataCir: data.dataCir2,
         dataSite_color: data.dataSite_down_color,
-        site_infos:data.site_down_infos
+        site_infos: data.site_down_infos
     };
     cir_and_text(cirTop);
     cir_and_text(cirBottom);
@@ -184,7 +184,7 @@ function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
             r: 4,
             lineLen: 17,
             sta: 1,
-            busNumber:data.busNumber
+            busNumber: data.busNumber
         }
     );
     can_left_right(
@@ -196,7 +196,7 @@ function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
             r: 4,
             lineLen: 0,
             sta: 1.5,
-            busNumber:data.busNumber
+            busNumber: data.busNumber
         }
     );
 }
@@ -223,24 +223,31 @@ function carousel(carousel) {
         if (i == self.$(content + '>li').length) {
             i = 1;
             self.$(content).css({left: 0});
-        }
-        ;
+        };
         self.$(content).stop().animate({left: -i * 600}, 500);
-    }, 3000)
+    }, 3000);
+    var carousel_line_id = self.$el.attr('line_id');
+    sessionStorage.setItem('timer'+carousel_line_id,timer);
     //鼠标移入，暂停自动播放，移出，开始自动播放
-    self.$('.carousel').hover(function () {
-        clearInterval(timer);
-    }, function () {
-        timer = setInterval(function () {
-            i++;
-            if (i == self.$(content + '>li').length) {
-                i = 1;
-                self.$(content).css({left: 0});
-            }
-            ;
-            self.$(content).stop().animate({left: -i * 600}, 500);
-        }, 3000);
-    });
+    // self.$('.carousel').hover(function () {
+    //     clearInterval(timer);
+    // }, function () {
+    //     timer = setInterval(function () {
+    //         i++;
+    //         if (i == self.$(content + '>li').length) {
+    //             i = 1;
+    //             self.$(content).css({left: 0});
+    //         };
+    //         self.$(content).stop().animate({left: -i * 600}, 500);
+    //     }, 3000);
+    // });
+    // var text_change = setInterval(function () {
+    //     if (self.$(content + '>li').find('.no_absnormal').css('display') != 'none') {
+    //         self.$(content).css({left: 0});
+    //         clearInterval(timer);
+    //     }
+    // }, 100);
+
 };
 
 

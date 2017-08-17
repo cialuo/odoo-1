@@ -3,8 +3,7 @@
     'name': "lty_operating_supply",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        运营管理""",
 
     'description': """
         Long description of module's purpose
