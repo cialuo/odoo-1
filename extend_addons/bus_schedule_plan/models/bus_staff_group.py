@@ -15,7 +15,7 @@ class BusStaffGroup(models.Model):
     _name = 'bus_staff_group'
     name = fields.Char("Staff Group Name", default="/")
     route_id = fields.Many2one('route_manage.route_manage', required=True)
-    lineName = fields.Char(related="route_id.lineName")
+    line_name = fields.Char(related="route_id.line_name")
 
     vehicle_line_ids = fields.One2many('bus_staff_group_vehicle_line', 'staff_group_id')
 
@@ -31,7 +31,7 @@ class BusStaffGroup(models.Model):
             功能：自动生成人车配班名称 线路名称/当前日期
         """
         if data.get('name', '/') == '/':
-            data['name'] = data['lineName'] + '/' + str(datetime.date.today())
+            data['name'] = data['line_name'] + '/' + str(datetime.date.today())
         res = super(BusStaffGroup, self).create(data)
         return res
 
@@ -46,7 +46,7 @@ class BusStaffGroup(models.Model):
         use_date = datetime.datetime.strftime(staff_date-timedelta(days=1), "%Y-%m-%d")
         staff_date_str = datetime.datetime.strftime(staff_date, "%Y-%m-%d")
 
-        res = self.env['bus_staff_group'].search([('name', '=', route_id.lineName + '/' + str(staff_date_str))])
+        res = self.env['bus_staff_group'].search([('name', '=', route_id.line_name + '/' + str(staff_date_str))])
         if res:
             res.unlink()
 
@@ -98,7 +98,7 @@ class BusStaffGroup(models.Model):
         return self.env['bus_staff_group'].create({'vehicle_line_ids': datas,
                                             'route_id': route_id.id,
                                             'move_time_id':move_time_id.id or None,
-                                            'name': route_id.lineName + '/' + staff_date_str,
+                                            'name': route_id.line_name + '/' + staff_date_str,
                                             'staff_date': staff_date
                                             })
 

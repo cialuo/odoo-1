@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <tree string="Course Tree" create="0" open="0" delete="0">
                     <field name="department_id"/>
-                    <field name="lineName"/>
+                    <field name="line_name"/>
                     <button type="object" string="create rule" name="outputRule"></button>
                 </tree>
             </field>
