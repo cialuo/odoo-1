@@ -6,14 +6,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-21 09:18+0000\n"
-"PO-Revision-Date: 2017-07-21 09:18+0000\n"
+"POT-Creation-Date: 2017-08-17 01:33+0000\n"
+"PO-Revision-Date: 2017-08-17 01:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: scheduling_parameters
+#: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
+msgid "06:00"
+msgstr "06:00"
+
+#. module: scheduling_parameters
+#: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
+msgid "06:30"
+msgstr "06:30"
+
+#. module: scheduling_parameters
+#: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
+msgid "22:00"
+msgstr "22:00"
+
+#. module: scheduling_parameters
+#: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
+msgid "22:30"
+msgstr "22:30"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_area_active
@@ -58,6 +78,10 @@ msgstr "区域名称"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_child_route_ids
+msgid "ChildRoutes"
+msgstr "子线"
+
+#. module: scheduling_parameters
 #: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
 msgid "ChirdRoutes"
 msgstr "子线"
@@ -68,8 +92,8 @@ msgid "Choose Line"
 msgstr "选择线路"
 
 #. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_classSystemName
-msgid "Classsystemname"
+#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_class_system_name
+msgid "Class system name"
 msgstr "班制"
 
 #. module: scheduling_parameters
@@ -86,7 +110,7 @@ msgstr "公司"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_create_uid
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_create_uid
 msgid "Created by"
-msgstr "建档人"
+msgstr "创建人"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_area_create_date
@@ -97,7 +121,7 @@ msgstr "建档人"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_create_date
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_create_date
 msgid "Created on"
-msgstr "设立时间"
+msgstr "创建时间"
 
 #. module: scheduling_parameters
 #: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_station_form
@@ -231,8 +255,13 @@ msgid "Last Updated on"
 msgstr "最后更新时间"
 
 #. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_lineTypeName
-msgid "Linetypename"
+#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_line_name
+msgid "Line Name"
+msgstr "线路名称"
+
+#. module: scheduling_parameters
+#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_line_type_name
+msgid "Line type name"
 msgstr "线路类型"
 
 #. module: scheduling_parameters
@@ -310,7 +339,6 @@ msgid "Road name"
 msgstr "道路名称"
 
 #. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_lineName
 #: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
 msgid "Route"
 msgstr "线路"
@@ -337,8 +365,8 @@ msgid "Routes"
 msgstr "线路"
 
 #. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_runTypeName
-msgid "Runtypename"
+#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_run_type_name
+msgid "Run type name"
 msgstr "调车方式"
 
 #. module: scheduling_parameters
@@ -433,21 +461,21 @@ msgid "Stop address"
 msgstr "停车位置"
 
 #. module: scheduling_parameters
-#: code:addons/scheduling_parameters/models/schedule.py:14
+#: code:addons/scheduling_parameters/models/schedule.py:15
 #: sql_constraint:opertation_resources_area:0
 #, python-format
 msgid "The area code must be unique!"
 msgstr "区域编码必须唯一"
 
 #. module: scheduling_parameters
-#: code:addons/scheduling_parameters/models/schedule.py:13
+#: code:addons/scheduling_parameters/models/schedule.py:14
 #: sql_constraint:opertation_resources_area:0
 #, python-format
 msgid "The area name must be unique!"
 msgstr "区域名称必须唯一"
 
 #. module: scheduling_parameters
-#: code:addons/scheduling_parameters/models/schedule.py:292
+#: code:addons/scheduling_parameters/models/schedule.py:339
 #: sql_constraint:opertation_resources_station_down:0
 #, python-format
 msgid "The down sequence and route must be unique!"
@@ -466,13 +494,6 @@ msgstr "道路编码必须唯一"
 #, python-format
 msgid "The road name must be unique!"
 msgstr "道路名称必须是唯一的！"
-
-#. module: scheduling_parameters
-#: code:addons/scheduling_parameters/models/schedule.py:143
-#: sql_constraint:route_manage.route_manage:0
-#, python-format
-msgid "The route code must be unique!"
-msgstr "线路编码必须唯一!"
 
 #. module: scheduling_parameters
 #: code:addons/scheduling_parameters/models/schedule.py:144
@@ -496,11 +517,20 @@ msgid "The station name must be unique!"
 msgstr "站点名称必要唯一!"
 
 #. module: scheduling_parameters
-#: code:addons/scheduling_parameters/models/schedule.py:255
+#: code:addons/scheduling_parameters/models/schedule.py:301
 #: sql_constraint:opertation_resources_station_up:0
 #, python-format
 msgid "The up sequence and route  must be unique!"
 msgstr "上行站台的站序必须唯一"
+
+#. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:208
+#: code:addons/scheduling_parameters/models/schedule.py:219
+#: code:addons/scheduling_parameters/models/schedule.py:228
+#: code:addons/scheduling_parameters/models/schedule.py:238
+#, python-format
+msgid "Time format is not correct"
+msgstr "时刻格式不正确"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_up_station
@@ -533,9 +563,8 @@ msgid "bus_type"
 msgstr "公交类型"
 
 #. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_down_gprsId
-#: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_up_gprsId
-#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_gprsId
+#: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_down_gprs_id
+#: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_up_gprs_id
 msgid "code"
 msgstr "线路编码"
 
@@ -550,7 +579,7 @@ msgid "departmentName"
 msgstr "所属部门"
 
 #. module: scheduling_parameters
-#: selection:route_manage.route_manage,runTypeName:0
+#: selection:route_manage.route_manage,run_type_name:0
 msgid "double_shunt"
 msgstr "双向调车"
 
@@ -560,9 +589,21 @@ msgid "down_end_time"
 msgstr "下行末班时间"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:239
+#, python-format
+msgid "down_end_time not be Incorrect"
+msgstr "down_end_time not be Incorrect"
+
+#. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_down_first_time
 msgid "down_first_time"
 msgstr "下行首班时间"
+
+#. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:229
+#, python-format
+msgid "down_first_time not be Incorrect"
+msgstr "down_first_time not be Incorrect"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_electronic_bus_board_number
@@ -570,9 +611,9 @@ msgid "electronic bus-board number"
 msgstr "电子站牌编号"
 
 #. module: scheduling_parameters
-#: selection:route_manage.route_manage,lineTypeName:0
+#: selection:route_manage.route_manage,line_type_name:0
 msgid "express_line"
-msgstr "大站快车"
+msgstr "快线"
 
 #. module: scheduling_parameters
 #: selection:opertation_resources_station_down,station_type:0
@@ -586,6 +627,11 @@ msgid "flexible_scheduling"
 msgstr "灵活调度"
 
 #. module: scheduling_parameters
+#: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_gprs_id
+msgid "gprsid"
+msgstr "线路编码"
+
+#. module: scheduling_parameters
 #: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
 msgid "human resource"
 msgstr "人力资源"
@@ -596,9 +642,9 @@ msgid "hybrid_scheduling"
 msgstr "混合调度"
 
 #. module: scheduling_parameters
-#: selection:route_manage.route_manage,lineTypeName:0
+#: selection:route_manage.route_manage,line_type_name:0
 msgid "interval_line"
-msgstr "区间"
+msgstr "区间线"
 
 #. module: scheduling_parameters
 #: selection:opertation_resources_station_down,station_type:0
@@ -617,7 +663,7 @@ msgid "longitude"
 msgstr "经度"
 
 #. module: scheduling_parameters
-#: selection:route_manage.route_manage,lineTypeName:0
+#: selection:route_manage.route_manage,line_type_name:0
 msgid "main_line"
 msgstr "主线"
 
@@ -628,7 +674,7 @@ msgid "mid_station"
 msgstr "途径站"
 
 #. module: scheduling_parameters
-#: selection:route_manage.route_manage,classSystemName:0
+#: selection:route_manage.route_manage,class_system_name:0
 msgid "one_shift"
 msgstr "一班制"
 
@@ -651,11 +697,6 @@ msgstr "道路管理"
 #: model:ir.actions.act_window,name:scheduling_parameters.opertation_resources_road_action
 msgid "opertation_resources_road_action"
 msgstr "道路管理"
-
-#. module: scheduling_parameters
-#: model:ir.model,name:scheduling_parameters.model_opertation_resources_route_pass
-msgid "opertation_resources_route_pass"
-msgstr "opertation_resources_route_pass"
 
 #. module: scheduling_parameters
 #: model:ir.model,name:scheduling_parameters.model_opertation_resources_station
@@ -683,7 +724,7 @@ msgid "planning_scheduling"
 msgstr "计划调度"
 
 #. module: scheduling_parameters
-#: selection:route_manage.route_manage,lineTypeName:0
+#: selection:route_manage.route_manage,line_type_name:0
 msgid "regional_line"
 msgstr "支线"
 
@@ -708,7 +749,7 @@ msgid "route_manage.route_manage"
 msgstr "线路表"
 
 #. module: scheduling_parameters
-#: selection:route_manage.route_manage,runTypeName:0
+#: selection:route_manage.route_manage,run_type_name:0
 msgid "single_shunt"
 msgstr "单头调车"
 
@@ -718,12 +759,12 @@ msgid "station_state"
 msgstr "状态"
 
 #. module: scheduling_parameters
-#: selection:route_manage.route_manage,classSystemName:0
+#: selection:route_manage.route_manage,class_system_name:0
 msgid "three_shift"
 msgstr "三班制"
 
 #. module: scheduling_parameters
-#: selection:route_manage.route_manage,classSystemName:0
+#: selection:route_manage.route_manage,class_system_name:0
 msgid "two_shift"
 msgstr "两班制"
 
@@ -733,7 +774,19 @@ msgid "up_end_time"
 msgstr "上行末班时间"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:220
+#, python-format
+msgid "up_end_time not be Incorrect"
+msgstr "up_end_time not be Incorrect"
+
+#. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_up_first_time
 msgid "up_first_time"
 msgstr "上行首班时间"
+
+#. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:209
+#, python-format
+msgid "up_first_time not be Incorrect"
+msgstr "up_first_time not be Incorrect"
 
