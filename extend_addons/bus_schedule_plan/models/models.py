@@ -286,7 +286,7 @@ class BusWorkRules(models.Model):
                 startTime = startTime + datetime.timedelta(minutes=item.interval)
         if startTime != markpoints[-1][1]:
             # 如果最后一趟超出了计划时间的最后时间 则调整为计划最后发车时间
-            startTime != markpoints[-1][1]
+            startTime = markpoints[-1][1]
             data = {
                 'seqid': seqcounter,
                 'startmovetime': startTime - datetime.timedelta(hours=8),
@@ -308,7 +308,7 @@ class BusWorkRules(models.Model):
         """
         for item in ruleobj:
             movetimerecord = {
-                'name' : datestr + "/" +item.line_id.lineName,
+                'name' : datestr + "/" +item.line_id.line_name,
                 'line_id' : item.line_id.id,
                 'rule_id' : item.id,
                 'vehiclenums' : 0,
@@ -437,6 +437,9 @@ class BusWorkRules(models.Model):
         for k, v in conductorworklist.items():
             conductorworklist[k] = sorted(v, key=lambda x:x[0])
 
+        drivernum = 0
+        conductornum = 0
+
         # 计算出勤司乘数据
         addrecords = []
         for k,v in conductorworklist.items():
@@ -454,6 +457,7 @@ class BusWorkRules(models.Model):
                 }
                 value['worktimelength'] = timesubtraction(item[1][1], item[1][0])
                 value['workrealtimelength'] = timesubtraction(item[0][1][1], item[0][0][0])
+                conductornum += 1
                 addrecords.append((0,0,value))
 
         for k, v in driverworklist.items():
@@ -471,8 +475,12 @@ class BusWorkRules(models.Model):
                 }
                 value['worktimelength'] = timesubtraction(item[1][1],item[1][0])
                 value['workrealtimelength'] = timesubtraction(item[0][1][1], item[0][0][0])
+                drivernum += 1
                 addrecords.append((0, 0, value))
+
         values['motorcyclistsTime'] = addrecords
+        values['drivernum'] = drivernum
+        values['stewardnum'] = conductornum
 
         busworklist = collections.defaultdict(list)
         result = []
@@ -583,10 +591,7 @@ class BusWorkRules(models.Model):
             if breakflag == True:
                 break
             for x in v['timelist']:
-                # 结束时间增加30分钟 因为最后一班车的发车时间肯能超过工作结束时间
-                temp = str2datetime(x[1])
-                temp = temp+datetime.timedelta(minutes=30)
-                if startime >= x[0]  and startime <= temp.strftime(timeFormatStr):
+                if startime >= x[0]  and startime <= x[1]:
                     driver = v['driver']
                     steward = v['conductor']
                     breakflag = True
@@ -924,11 +929,21 @@ class BusMoveTimeTable(models.Model):
         return json.dumps(data)
 
     @api.model
-    def reoppaln2web(self):
+    def reoppaln2web(self, recid):
         """
         返回运营方案数据到web前端
         """
-        return self.genWebRetunData(json.loads(self.operationplan), json.loads(self.operationplanbus))
+        row = self.search([('id', '=', recid)])
+        row = row[0]
+        try:
+            arg1 = json.loads(row.operationplan)
+        except Exception:
+            arg1 = {}
+        try:
+            arg2 = json.loads(row.operationplanbus)
+        except Exception:
+            arg2 = {}
+        return self.genWebRetunData(arg1, arg2)
 
 
     @api.model
