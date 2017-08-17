@@ -929,11 +929,21 @@ class BusMoveTimeTable(models.Model):
         return json.dumps(data)
 
     @api.model
-    def reoppaln2web(self):
+    def reoppaln2web(self, recid):
         """
         返回运营方案数据到web前端
         """
-        return self.genWebRetunData(json.loads(self.operationplan), json.loads(self.operationplanbus))
+        row = self.search([('id', '=', recid)])
+        row = row[0]
+        try:
+            arg1 = json.loads(row.operationplan)
+        except Exception:
+            arg1 = {}
+        try:
+            arg2 = json.loads(row.operationplanbus)
+        except Exception:
+            arg2 = {}
+        return self.genWebRetunData(arg1, arg2)
 
 
     @api.model

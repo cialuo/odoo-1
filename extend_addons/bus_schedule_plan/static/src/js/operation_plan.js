@@ -1,17 +1,19 @@
-odoo.define('abc',function (require) {
+odoo.define('abc', function (require) {
     "use strict";
     var Model = require('web.Model');
-        var model =  new Model("scheduleplan.busmovetime");
-        model.call("reoppaln2web").then(function (data) {
-            console.log(data);
-        });
+    var model = new Model("scheduleplan.busmovetime");
+    model.call("reoppaln2web").then(function (data) {
+        console.log(data);
+    });
+
+
     // var arr = [];
     // for (var i = 0, m = $('.abcde li').length; i < m; i++) {
     //     if ($('.abcde li').eq(i).html() != '') {
     //         arr.push($('.abcde li').eq(i).html());
     //     }
     // }
-    var arr =[1,2,3,6,5,4,7,8,9,3,1,2,3,6,11,15];
+    var arr = [1, 2, 3, 6, 5, 4, 7, 8, 9, 3, 1, 2, 3, 6, 11, 15];
     $('body').on('dblclick', '.abcd .abcde li', function () {
         if (!$(this).hasClass('abc') && $(this).html() != '') {
             if ($('.abcde li.abc').length % 4 == 0) {
