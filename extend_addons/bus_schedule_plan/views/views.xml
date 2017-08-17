@@ -332,7 +332,6 @@
             <field name="name">bus move time table</field>
             <field name="res_model">scheduleplan.busmovetime</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{'record_ids': [active_id]}</field>
         </record>
 
         <!-- 行车时刻表tree视图 -->
@@ -364,6 +363,9 @@
                         <h1>
                             <field name="name"/>
                         </h1>
+                    </div>
+                    <div style="display:none" id="the_rec_id">
+                        <field name="id"/>
                     </div>
                     <group>
                         <group>
