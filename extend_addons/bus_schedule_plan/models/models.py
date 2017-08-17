@@ -31,8 +31,8 @@ class RouteInBusSchedule(models.Model):
         self.ensure_one()
 
         # 上行大站检查
-        mode = self.env['opertation_resources_station_up']
-        sitelist = mode.search([('route_id', '=', self.id)])
+        mode = self.env['opertation_resources_station_platform']
+        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'up')])
         sitecollection = []
         for item in sitelist:
             sitecollection.append((0, 0, {
@@ -40,8 +40,8 @@ class RouteInBusSchedule(models.Model):
             }))
 
         # 下行大站检查
-        mode = self.env['opertation_resources_station_down']
-        sitelist = mode.search([('route_id', '=', self.id)])
+        mode = self.env['opertation_resources_station_platform']
+        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'up')])
         sitecollection_down = []
         for item in sitelist:
             sitecollection_down.append((0, 0, {
@@ -921,12 +921,14 @@ class BusMoveTimeTable(models.Model):
         return result
 
     @classmethod
-    def genWebRetunData(cls, data4direction, dataforbus):
+    def genWebRetunData(cls, data4direction, dataforbus, upstation, downstation):
         data = {
             'direction':data4direction,
-            'bus':dataforbus
+            'bus':dataforbus,
+            'upstation':upstation,
+            'downstation':downstation
         }
-        return json.dumps(data)
+        return data
 
     @api.model
     def reoppaln2web(self, recid):
@@ -943,7 +945,9 @@ class BusMoveTimeTable(models.Model):
             arg2 = json.loads(row.operationplanbus)
         except Exception:
             arg2 = {}
-        return self.genWebRetunData(arg1, arg2)
+        station1 = row.line_id.up_station.name
+        station2 = row.line_id.down_station.name
+        return self.genWebRetunData(arg1, arg2, station1, station2)
 
 
     @api.model
