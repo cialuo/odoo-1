@@ -438,18 +438,18 @@ op_planparam = {
 #1.3.12	控制台
 # op_controlline -- dispatch.control.desktop.component
 op_controlline = {
-    #主键ID
+    #无主键ID
     #调度台id  long
-    ('controlsId', 'id'): None,
+    ('controlsId', 'desktop_id'): None,
     #线路id  long
     ('lineId', 'line_id'): None,
-    #备注 String
+    #备注 String，无对应字段
     ('remark', None): None,
-    #显示顺序 String
+    #显示顺序 String，无对应字段
     ('showOrder', None): None,
-    #String 没有描述
+    #String 没有描述，后台获取line_name
     ('lineName', None): None,
-    #设备号 long
+    #设备号 long，无对应字段
     ('onBoardId', None): None,
 }
 #1.3.13	司机手动命令，无对应表
