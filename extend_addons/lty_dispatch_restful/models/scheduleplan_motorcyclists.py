@@ -23,17 +23,18 @@ from extend_addons.lty_dispatch_restful.core.restful_client import *
 import mapping
 import logging
 
-#对接系统  线路计划基础数据表名
+#对接系统
+#出勤司机
+#出勤乘务员
 
-LINEPLAN_TABLE = 'op_linePlan'
 
 _logger = logging.getLogger(__name__)
-class LinePlan(models.Model):
+class Vehicle(models.Model):
 
-    _inherit = 'scheduleplan.excutetable'
+    _inherit = 'scheduleplan.motorcyclists'
 
     '''
-        继承人员基础数据,调用restful api
+        继承出勤司乘,调用restful api
     '''
 
     #调度数据逐渐
@@ -47,18 +48,27 @@ class LinePlan(models.Model):
         :return:
         '''
 
-        res = super(LinePlan, self).create(vals)
+        res = super(Vehicle, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
             _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
+            table = self._name + '.%s' % res.title
+            vals = mapping.dict_transfer(table, vals)
             vals.update({
                 'id': res.id,
-                #后台取值,
-                'gprsID': res.line_id.gprs_id,
+                'lineId': res.execplan_id.line_id.id,
+                'lineName': res.execplan_id.line_id.name,
+                'gprsId': res.execplan_id.line_id.gprs_id,
+                'driverName': res.employee_id.name,
             })
-            params = Params(type=1, cityCode=cityCode,tableName=LINEPLAN_TABLE, data=vals).to_dict()
+            if res.title == 'driver':
+                #出勤司机
+                TABLE = 'op_attendance'
+            if res.title == 'steward':
+                #出勤乘务员
+                TABLE = 'op_trainattendance'
+            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
         except Exception,e:
             _logger.info('%s', e.message)
@@ -72,7 +82,7 @@ class LinePlan(models.Model):
         :return:
         '''
 
-        res = super(LinePlan, self).write(vals)
+        res = super(Vehicle, self).write(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
@@ -82,12 +92,23 @@ class LinePlan(models.Model):
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
-                    vals = mapping.dict_transfer(self._name, vals)
-                    vals.update({'id': r.id})
-                    params = Params(type=3, cityCode=cityCode,tableName=LINEPLAN_TABLE, data=vals).to_dict()
+                    table = self._name + '.%s' % r.title
+                    vals = mapping.dict_transfer(table, vals)
+                    vals.update({
+                        'id': r.id,
+                        'lineId': r.execplan_id.line_id.id,
+                        'lineName': r.execplan_id.line_id.name,
+                        'gprsId': r.execplan_id.line_id.gprs_id,
+                        'driverName': r.employee_id.name,
+                    })
+                    if r.title == 'driver':
+                        # 出勤司机
+                        TABLE = 'op_attendance'
+                    if r.title == 'steward':
+                        # 出勤乘务员
+                        TABLE = 'op_trainattendance'
+                    params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
-
-                    # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
         return res
@@ -100,15 +121,22 @@ class LinePlan(models.Model):
         '''
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
-        vals = {"ids": self.ids}
-        res = super(LinePlan, self).unlink()
+        drivervals = {"ids": self.filtered(lambda x: x.title == 'driver').ids}
+        stewardvals = {"ids": self.filtered(lambda x: x.title == 'steward').ids}
+        res = super(Vehicle, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
             # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
             _logger.info('Start unlink data: %s', self._name)
-            params = Params(type = 3, cityCode = cityCode,tableName = LINEPLAN_TABLE, data = vals).to_dict()
-            clientThread(url,params,res).start()
+            #出勤司机
+            if drivervals:
+                params = Params(type = 3, cityCode = cityCode,tableName = 'op_attendance', data = drivervals).to_dict()
+                clientThread(url,params,res).start()
+            #出勤乘务员
+            if stewardvals:
+                params = Params(type = 3, cityCode = cityCode,tableName = 'op_trainattendance', data = stewardvals).to_dict()
+                clientThread(url,params,res).start()
         except Exception,e:
             _logger.info('%s', e.message)
         return res

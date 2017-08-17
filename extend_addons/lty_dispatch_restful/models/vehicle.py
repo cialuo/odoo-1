@@ -82,7 +82,7 @@ class Vehicle(models.Model):
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
-                    vals = mapping.dict_transfer(vals)
+                    vals = mapping.dict_transfer(self._name, vals)
                     vals.update({'id': r.id})
                     params = Params(type=3, cityCode=cityCode,tableName=CAR_TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)

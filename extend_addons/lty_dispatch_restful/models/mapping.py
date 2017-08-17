@@ -474,15 +474,108 @@ op_dispatchplan = {}
 
 #1.3.15	车辆资源 无对应表
 # op_busresource
-op_busresource = {}
+op_busresource = {
 
-#1.3.16	出勤司机 无对应表
-# op_attendance
-op_attendance = {}
+}
 
-#1.3.17	出勤乘务员 无对应表
-# op_trainattendance
-op_trainattendance = {}
+#1.3.16	出勤司机
+# op_attendance -- scheduleplan.motorcyclists
+op_attendance = {
+    ('id', 'id'): None,
+    #线路ID long, notfound，计划中获取
+    ('lineId', None): None,
+    #线路名称String,notfound，计划中获取
+    ('lineName', None): None,
+    #调度计划ID long notfound
+    ('dispatchPlanId', 'execplan_id'): None,
+    #车辆编号 String notfound
+    ('selfId', None): None,
+    #设备编号 int,notfound
+    ('onBoardId', None): None,
+    #线路编码int,notfound，计划中获取
+    ('gprsId', None): None,
+    #台次int,notfound
+    ('orderNo', None): None,
+    #计划签到时间,notfound
+    ('onWorkTime', None): None,
+    #实际签到时间,notfound
+    ('conWorkTime', None): None,
+    #实际签到车辆,notfound
+    ('onWorkBus', None): None,
+    #实际签退时间date, notfound
+    ('coffWorkTime', None): None,
+    #实际签退车辆,notfound
+    ('offWorkBus', None): None,
+    #工号String
+    ('workerId', 'employee_sn'): None,
+    #姓名String,notfound，员工中获取
+    ('driverName', None): None,
+    #执行日期date
+    ('workDate' ,'worktime'): None,
+    #备注String,notfound
+    ('remark', None): None,
+    #计划发车时间,notfound
+    ('planRunTime', None): None,
+    #时间发车时间date,notfound
+    ('planReachTime', None): None,
+    #上班时间
+    ('workTime', 'checkintime'): None,
+    #计划时间date,notfound
+    ('planTime', None): None,
+    #员工类型int 1019:司机 1020:售票员
+    ('workerType', 'title'): {'driver': 1019, 'steward': 1020},
+
+}
+
+#1.3.17	出勤乘务员
+# op_trainattendance -- scheduleplan.motorcyclists
+op_trainattendance = {
+    ('id', 'id'): None,
+    # 线路ID long, notfound，计划中获取
+    ('lineId', None): None,
+    # 线路名称String,notfound，计划中获取
+    ('lineName', None): None,
+    # 调度计划ID long notfound
+    ('dispatchPlanId', None): None,
+    # 车辆编号 String notfound
+    ('selfId', None): None,
+    # 设备编号 int,notfound
+    ('onBoardId', None): None,
+    # 线路编码int,notfound，计划中获取
+    ('gprsId', None): None,
+    # 台次int,notfound
+    ('orderNo', None): None,
+    # 计划签到时间,notfound
+    ('onWorkTime', None): None,
+    # 实际签到时间,notfound
+    ('conWorkTime', None): None,
+    # 实际签到车辆,notfound
+    ('onWorkBus', None): None,
+    # 实际签退时间date, notfound
+    ('coffWorkTime', None): None,
+    #清除签退时间boolean,notfound
+    ('isClearCoffWorkTime', None): None,
+    # 实际签退车辆,notfound
+    ('offWorkBus', None): None,
+    # 工号String
+    ('trainId', 'employee_sn'): None,
+    # 姓名String,notfound，员工中获取
+    ('trainName', None): None,
+    # 执行日期date
+    ('workDate', 'worktime'): None,
+    # 备注String,notfound
+    ('remark', None): None,
+    # 计划发车时间,notfound
+    ('planRunTime', None): None,
+    # 时间发车时间date,notfound
+    ('planReachTime', None): None,
+    # 上班时间
+    ('workTime', 'checkintime'): None,
+    # 计划时间date,notfound
+    ('planTime', None): None,
+    # 员工类型int 1019:司机 1020:售票员
+    ('type', 'title'): {'driver': 1019, 'steward': 1020},
+}
 
 origin_data = {
     #线路基础数据
@@ -497,6 +590,10 @@ origin_data = {
     'scheduleplan.excutetable': op_lineplan,
     #调度参数基础数据
     'res.company': op_param,
+    #出勤司机
+    'scheduleplan.motorcyclists.driver': op_attendance,
+    #出勤乘务员
+    'scheduleplan.motorcyclists.steward': op_trainattendance,
 }
 
 def dict_transfer(table, data):
