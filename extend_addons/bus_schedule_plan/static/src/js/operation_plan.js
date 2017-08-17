@@ -2,7 +2,9 @@ odoo.define('abc', function (require) {
     "use strict";
     var Model = require('web.Model');
     var model = new Model("scheduleplan.busmovetime");
-    model.call("reoppaln2web").then(function (data) {
+    var recid = $('#the_rec_id .o_form_field').text();
+    console.log(recid);
+    model.call("reoppaln2web",[recid]).then(function (data) {
         console.log(data);
     });
 
