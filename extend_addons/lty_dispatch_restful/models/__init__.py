@@ -3,3 +3,5 @@
 from . import models
 import mapping
 import vehicle
+import employee
+import res_company

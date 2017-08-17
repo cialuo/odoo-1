@@ -23,46 +23,44 @@ from extend_addons.lty_dispatch_restful.core.restful_client import *
 import mapping
 import logging
 
-#对接系统  车辆基础数据表名
+#对接系统  调度参数基础数据表名
 
-CAR_TABLE = 'tjs_car'
+PARAM_TABLE = 'op_param'
 
 _logger = logging.getLogger(__name__)
-class Vehicle(models.Model):
+class Company(models.Model):
 
-    _inherit = 'fleet.vehicle'
+    _inherit = 'res.company'
 
     '''
-        继承车辆基础数据,调用restful api
+        继承公司，获取调度参数及通用设置,调用restful api
     '''
 
     #调度数据逐渐
-    fk_id = fields.Char()
+    # fk_id = fields.Char()
 
-    @api.model
-    def create(self, vals):
-        '''
-            数据创建完成调用api
-        :param vals:
-        :return:
-        '''
-
-        res = super(Vehicle, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
-            vals.update({
-                'id': res.id,
-                #增加默认传值
-                'doorTypeId': 1,
-            })
-            params = Params(type=1, cityCode=cityCode,tableName=CAR_TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
-        return res
+    # @api.model
+    # def create(self, vals):
+    #     '''
+    #         数据创建完成调用api
+    #     :param vals:
+    #     :return:
+    #     '''
+    #
+    #     res = super(Company, self).create(vals)
+    #     url = self.env['ir.config_parameter'].get_param('restful.url')
+    #     cityCode = self.env['ir.config_parameter'].get_param('city.code')
+    #     try:
+    #         _logger.info('Start create data: %s', self._name)
+    #         vals = mapping.dict_transfer(self._name, vals)
+    #         vals.update({
+    #             'id': res.id,
+    #         })
+    #         params = Params(type=1, cityCode=cityCode,tableName=PARAM_TABLE, data=vals).to_dict()
+    #         rp = Client().http_post(url, data=params)
+    #     except Exception,e:
+    #         _logger.info('%s', e.message)
+    #     return res
 
     @api.multi
     def write(self, vals):
@@ -72,7 +70,7 @@ class Vehicle(models.Model):
         :return:
         '''
 
-        res = super(Vehicle, self).write(vals)
+        res = super(Company, self).write(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
@@ -84,7 +82,7 @@ class Vehicle(models.Model):
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(vals)
                     vals.update({'id': r.id})
-                    params = Params(type=3, cityCode=cityCode,tableName=CAR_TABLE, data=vals).to_dict()
+                    params = Params(type=3, cityCode=cityCode,tableName=PARAM_TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
 
                     # clientThread(url,params,res).start()
@@ -92,23 +90,23 @@ class Vehicle(models.Model):
                     _logger.info('%s', e.message)
         return res
 
-    @api.multi
-    def unlink(self):
-        '''
-            数据删除时调用api
-        :return:
-        '''
-        # fk_ids = self.mapped('fk_id')
-        # vals = {"ids":fk_ids}
-        vals = {"ids": self.ids}
-        res = super(Vehicle, self).unlink()
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            params = Params(type = 3, cityCode = cityCode,tableName = CAR_TABLE, data = vals).to_dict()
-            clientThread(url,params,res).start()
-        except Exception,e:
-            _logger.info('%s', e.message)
-        return res
+    # @api.multi
+    # def unlink(self):
+    #     '''
+    #         数据删除时调用api
+    #     :return:
+    #     '''
+    #     # fk_ids = self.mapped('fk_id')
+    #     # vals = {"ids":fk_ids}
+    #     vals = {"ids": self.ids}
+    #     res = super(Company, self).unlink()
+    #     url = self.env['ir.config_parameter'].get_param('restful.url')
+    #     cityCode = self.env['ir.config_parameter'].get_param('city.code')
+    #     try:
+    #         # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+    #         _logger.info('Start unlink data: %s', self._name)
+    #         params = Params(type = 3, cityCode = cityCode,tableName = PARAM_TABLE, data = vals).to_dict()
+    #         clientThread(url,params,res).start()
+    #     except Exception,e:
+    #         _logger.info('%s', e.message)
+    #     return res

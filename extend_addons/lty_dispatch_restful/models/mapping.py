@@ -23,28 +23,29 @@ import logging
 _logger = logging.getLogger(__name__)
 
 #线路基础数据
-route_data = {
+# op_line
+op_line = {
     #线路ID
     ('id', 'id'): None,
     #线路编码
-    ('gprsId', 'gprsId'): None,
+    ('gprsId', 'gprs_id'): None,
     #线路名称
-    ('lineName', 'lineName'): None,
+    ('lineName', 'line_name'): None,
     #线路类型，无对应字段（1：单向环线；2：双向环线；3：双向线路）
     ('lineTypeId', None): None,
     #调车方式
-    ('runTypeId', 'runTypeName'): {'single_shunt': 1, 'double_shunt':2},
+    ('runTypeId', 'run_type_name'): {'single_shunt': 1, 'double_shunt':2},
     #调度类型
     ('dispatchModeId', 'schedule_type'): {'flexible_scheduling': 1003, 'planning_scheduling': 1004, 'hybrid_scheduling': 2027},
-    #文档中提供的班制是 001,002,003 不符合文档中提供的类型long
+    #文档中提供的班制是 001,002,003 不符合文档中提供的类型long,改成1,2,3,
     ('classSystemId', 'classSystemName'): {'one_shift': 1, 'two_shift': 2, 'three_shift': 3},
-    #文档提供的类型是Long，只能提供 部门ID
+    #文档提供的类型是Long，提供 部门ID
     ('departmentId', 'department_id'): None,
-    #是否环线，无对应字段（0：环线；1：非环线）
+    #是否环线，无对应字段（0：环线；1：非环线）,默认传值：0
     ('isRoundLine', None): None,
-    #是否夜班线路，无对应字段（0：非夜班；1：夜班线路）
+    #是否夜班线路，无对应字段（0：非夜班；1：夜班线路）,默认传值：0
     ('isNight', None): None,
-    #是否跨天，无对应字段(0：跨天；1：非跨天)
+    #是否跨天，无对应字段(0：跨天；1：非跨天),默认传值：0
     ('isCrossDay', None): None,
     #票价，无对应字段
     ('ticketPrice', None): None,
@@ -54,9 +55,9 @@ route_data = {
     ('endDate', None): None,
     #是否人工售票，无对应字段（0：非人工；1：人工售票）
     ('isArtificialTicket', None): None,
-    #是否显示线路辅助点，无对应字段（0：不显示；1：显示）
+    #是否显示线路辅助点，无对应字段（0：不显示；1：显示）,默认传值：0
     ('isShowPoint', None): None,
-    #是否显示站点名，无对应字段（0：不显示；1：显示）
+    #是否显示站点名，无对应字段（0：不显示；1：显示）,默认传值：0
     ('isShowStationName', None): None,
     #以下三个字段文档未描述
     # 'lineStart': '',
@@ -64,18 +65,68 @@ route_data = {
     # 'companyId': '',
 }
 
-#站点基础数据 无法对应表
-station_data = {
-}
-
-#车辆基础数据
-fleet_data = {
+#站台基础数据
+# op_stationblock
+op_stationblock = {
     ('id', 'id'): None,
-    #线路编码，无对应字段
-    ('modelArgId', None): None,
+    #站台编码
+    ('stationId', 'code'): None,
+    #站台名称
+    ('stationName', 'name'): None,
+    #地址,无对应字段
+    ('address', None): None,
+    #附近,无对应字段
+    ('nearby', None): None,
+    #经度
+    ('longitude', 'longitude'): None,
+    #纬度
+    ('latitude', 'latitude'): None,
+}
+#站点基础数据 对应上下行站台两张表，会有重复数据库ID
+# op_station
+op_station = {
+    ('id', 'id'): None,
+    #线路编码int
+    ('gprsId', None): None,
+    #站点名称string
+    ('stationName', None): None,
+    #站点方案Id int
+    ('opStationMainId', None): None,
+    #线路Id int
+    ('lineId', None): None,
+    #站序 int
+    ('orderNo', None): None,
+    #方向 0:上行，1：下行
+    ('direction', None): None,
+    #站台id int
+    ('blockId ', None): None,
+    #距起点站距离 float
+    ('byStartDistance', None): None,
+    #进站经度 float
+    ('longitude', None): None,
+    #进站纬度 float
+    ('latitude', None): None,
+    #进站角度 int
+    ('angle', None): None,
+    #出站经度 float
+    ('longitudeOut', None): None,
+    #出站纬度 float
+    ('latitudeOut', None): None,
+    #出站角度 int
+    ('angleOut', None): None,
+    #距下一站时间
+    ('toNextTime', None): None,
+
+}
+#车辆基础数据
+# tjs_car
+tjs_car = {
+    ('id', 'id'): None,
+    # #线路编码，无对应字段，不传
+    # ('modelArgId', None): None,
     #线路ID
     ('lineId', 'route_id'): None,
-    #车辆状态编码,文档中提供的是 001,002,003，004，不符合文档中提供的类型long
+    #车辆状态编码,文档中提供的是 001,002,003，004，不符合文档中提供的类型long，改为1,2,3,4
     ('carStateId', 'state'): {'normal': 3, 'repair': 1, 'stop': 4},
     #设备号，无对应字段
     ('onBoardId', None): None,
@@ -95,16 +146,17 @@ fleet_data = {
     ('Zyygl', 'total_odometer'): None,
     #车辆类型
     ('typeId', 'model_id'): None,
-    #客门形式ID，无在对应字段；（1:1前2后；2:2前2后；3:2前1后；4:2前2后），2,4重复
+    #客门形式ID，无在对应字段；（1:1前2后；2:2前2后；3:2前1后；4:2前2后），2,4重复，默认传值：1
     ('doorTypeId', None): None,
 
 }
 
 #人员基础数据
-employee_data = {
+# hr_employee
+hr_employee = {
     ('id', 'id'): None,
-    #用户编号，无对应字段，ODOO中用户编码为string
-    ('userId', None): None,
+    #用户编号，无对应字段，ODOO中用户编码为string，使用登录用户ID，
+    ('userId', 'user_id'): None,
     #用户名称
     ('userStateName', 'name'): None,
     #手机号码
@@ -113,8 +165,8 @@ employee_data = {
     ('email', 'work_email'): None,
     #工号
     ('Serils', 'jobnumber'): None,
-    #员工类型编码，无对应字段
-    ('sysPostId', None): None,
+    #员工类型编码，无对应字段，使用岗位ID
+    ('sysPostId', 'workpost'): None,
     #IC卡号
     ('ICCardNoId', 'iccard'): None,
     #身份证
@@ -122,13 +174,14 @@ employee_data = {
 }
 
 #线路计划基础数据
-scheduleplan_data = {
+# op_linePlan
+op_lineplan = {
     ('id', 'id'): None,
-    #编号，无对应字段
-    ('serialNumber', None): None,
+    #编号，无对应字段,传ID
+    ('serialNumber', 'id'): None,
     #线路 ID
     ('lineId', 'line_id'): None,
-    #线路编码，无对应字段
+    #线路编码，无对应字段,后台取值
     ('gprsID', None): None,
     # 调车方式，无对应字段
     ('runTypeId', None): None,
@@ -161,12 +214,69 @@ scheduleplan_data = {
 
 }
 
-#调度线路基础数据
-#无对应的数据库表
+#大站设置 无对应的表
+# op_planstationbigmain
+op_planstationbigmain = {
+    #id string
+    ('id', 'id'): None,
+    #运营计划ID int
+    ('linePlanId', None): None,
+    #方案站点ID int
+    ('opStationMainId', None): None,
+    #站点ID int
+    ('stationId', None): None,
+    #站点名称
+    ('stationName', None): None,
+    #距起点站距离float
+    ('byStartDistance', None): None,
+    #是否大站考核,0:否，1：是
+    ('isCheck', None): None,
+    #是否签点,0：否，1：是
+    ('isDispatchStation', None): None,
+    #允许快几分钟 int
+    ('fastTime', None): None,
+    #允许慢几分钟 int
+    ('slowTime', None): None,
+    #方向 int
+    ('Direction', None): None,
+    #编号 int
+    ('orderNo', None): None,
+    #峰段标志ID 1:低峰；2：平峰；3：高峰
+    ('flagId', None): None,
+    #峰段标志名称 string
+    ('flagName', None): None,
+    #到下站考核时间点 string
+    ('checkTime', None): None,
+}
+
+#调度线路基础数据 无对应的数据库表
+# op_DspLine
+op_dspLine = {
+    ('id', 'id'): None,
+    #名称 int
+    ('lineId', None): None,
+    #调度服务Id int
+    ('dspId', None): None,
+    #线路名称 string
+    ('lineName', None): None,
+    #方向int  必填;0：上行；1：下行
+    ('direction', None): None,
+    #车场编码long 必填;文档要求long，提供的为001：起始站,002：途中站,003：终点站
+    ('fieldNo', None): None,
+    #车场名称String
+    ('fieldName', None): None,
+    #屏幕1 int
+    ('screen1', None): None,
+    #屏幕2 int
+    ('screen2', None): None,
+
+}
+
 
 #调度参数基础数据
 #由于参数在不同的Model定义，只能从res.company取值，则只有 write 接口
-config_data = {
+# op_param
+op_param = {
     ('id', 'id'): None,
     #名称，无对应字段
     ('lineId', None): None,
@@ -245,15 +355,15 @@ config_data = {
     #包车限速值,不在调度参数表，在通用设置表
     ('charteredLimitSpeed', 'chart_speed_limit'): None,
     #自动同步运营状态,文档要求Int，ODOO提供Boolean
-    ('autoSyncStatus', 'is_automatically_synchronize_operational_status'): None,
+    ('autoSyncStatus', 'is_automatically_synchronize_operational_status'): {True: 1, False:0},
     #自动同步车辆路线,文档要求Int，ODOO提供Boolean
-    ('autoSyncLine', 'is_automatically_synchronize_lines'): None,
+    ('autoSyncLine', 'is_automatically_synchronize_lines'): {True: 1, False:0},
     #向司机发送短消息 车辆超载时,文档要求Int，ODOO提供Boolean
-    ('busOverLoading', 'vehicle_overload'): None,
+    ('busOverLoading', 'vehicle_overload'): {True: 1, False:0},
     #发车计划误点时,文档要求Int，ODOO提供Boolean
-    ('delayedDeparturePlan', 'plan_to_be_delayed'): None,
+    ('delayedDeparturePlan', 'plan_to_be_delayed'): {True: 1, False:0},
     #进出考核大站时,文档要求Int，ODOO提供Boolean
-    ('inOrOutBigStation', 'big_station'): None,
+    ('inOrOutBigStation', 'big_station'): {True: 1, False:0},
     #超速阈值,不在调度参数表，在通用设置表
     ('overSpeedThreshold', 'speed_threshold'): None,
     #连续超速时长,不在调度参数表，在通用设置表
@@ -278,13 +388,115 @@ config_data = {
     ('dispatchStationLimit', 'number_of_signatures'): None,
 }
 
+#人员-IC卡管理 无对应表
+# pub_hr_iccardmap
+pub_hr_iccardmap = {
+    ('id', 'id'): None,
+    ('name', None): None,
+    ('codeValue', None): None,
+}
+
+#运营计划峰值段 无对应表 （sheduleplan_toup，sheduleplan_todown）
+# op_planparam
+op_planparam = {
+    ('id', 'id'): None,
+    #计划类型
+    ('linePlanId', None): None,
+    #参数标志long
+    ('flagId', None): None,
+    #参数标志String
+    ('flagName', None): None,
+    #开始时间Date
+    ('startTime', None): None,
+    #结束时间Date
+    ('endTime', None): None,
+    #上行间隔1 int
+    ('level1', None): None,
+    #上行间隔2 int
+    ('level2', None): None,
+    #上行间隔3 int
+    ('level3', None): None,
+    #上行间隔4 int
+    ('level4', None): None,
+    #上行间隔5 int 0:上行，1：下行，2：默认
+    ('level5', None): None,
+    #时长 int
+    ('runTime', None): None,
+    #方向 int
+    ('direction', None): None,
+    #备注 String
+    ('remark', None): None,
+    #int 无描述
+    ('planCount', None): None,
+    #int 无描述
+    ('avgRestTime', None): None,
+    #int 无描述
+    ('maxRestTime', None): None,
+    #int 无描述
+    ('minRestTime', None): None,
+}
+#1.3.12	控制台
+# op_controlline -- dispatch.control.desktop.component
+op_controlline = {
+    #主键ID
+    #调度台id  long
+    ('controlsId', 'id'): None,
+    #线路id  long
+    ('lineId', 'line_id'): None,
+    #备注 String
+    ('remark', None): None,
+    #显示顺序 String
+    ('showOrder', None): None,
+    #String 没有描述
+    ('lineName', None): None,
+    #设备号 long
+    ('onBoardId', None): None,
+}
+#1.3.13	司机手动命令，无对应表
+# op_commandtext
+op_commandtext = {
+    ('id', 'id'): None,
+    #long 无描述
+    ('priorityId', None): None,
+    #命令名称String
+    ('name', None): None,
+    #命令编号 int
+    ('eventId', None): None,
+    #命令类型int
+    ('commandType', None): None,
+    #String 无描述
+    ('commandTypeName', None): None,
+}
+
+#1.3.14	调度计划 无对应表
+# op_dispatchplan
+op_dispatchplan = {}
+
+#1.3.15	车辆资源 无对应表
+# op_busresource
+op_busresource = {}
+
+#1.3.16	出勤司机 无对应表
+# op_attendance
+op_attendance = {}
+
+#1.3.17	出勤乘务员 无对应表
+# op_trainattendance
+op_trainattendance = {}
+
 origin_data = {
-    'route_manage.route_manage': route_data,
-    'opertation_resources_station': station_data,
-    'fleet.vehicle': fleet_data,
-    'hr.employee': employee_data,
-    'scheduleplan.excutetable': scheduleplan_data,
-    'dispatch.config.settings': config_data,
+    #线路基础数据
+    'route_manage.route_manage': op_line,
+    #站台基础数据
+    'opertation_resources_station': op_stationblock,
+    #车辆基础数据
+    'fleet.vehicle': tjs_car,
+    #人员基础数据
+    'hr.employee': hr_employee,
+    #线路计划基础数据
+    'scheduleplan.excutetable': op_lineplan,
+    #调度参数基础数据
+    'res.company': op_param,
 }
 
 def dict_transfer(table, data):
