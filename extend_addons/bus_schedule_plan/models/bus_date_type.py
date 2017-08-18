@@ -22,10 +22,18 @@ class BusDateType(models.Model):
 
     priority = fields.Selection([('one level', 'one level'),
                                  ('two level', 'two level'),
-                                 ], default='two level')
+                                 ], default='two level', readonly=True)
 
     start_date = fields.Date(required=True)
     end_date = fields.Date(required=True)
+
+    @api.onchange('type')
+    def onchange_priority(self):
+        for i in self:
+            if i.type == 'Vacation':
+                i.priority = 'one level'
+            else:
+                i.priority = 'two level'
 
     @api.constrains('start_date', 'end_date')
     def _check_change_count(self):

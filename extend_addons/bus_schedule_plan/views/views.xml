@@ -7,9 +7,9 @@
             <field name="model">route_manage.route_manage</field>
             <field name="priority">1</field>
             <field name="arch" type="xml">
-                <tree string="Course Tree" create="0" open="0" delete="0" >
+                <tree string="Course Tree" create="0" open="0" delete="0">
                     <field name="department_id"/>
-                    <field name="lineName"/>
+                    <field name="line_name"/>
                     <button type="object" string="create rule" name="outputRule"></button>
                 </tree>
             </field>
@@ -209,8 +209,8 @@
                         </page>
                         <page string="big site setting up">
                             <field name="bigsite_up">
-                                <tree create="0" delete="0">
-                                    <field name="site_id"/>
+                                <tree create="0" delete="0" editable="1">
+                                    <field name="site_id" readonly="1"/>
                                     <field name="needsign"/>
                                     <field name="needchecking"/>
                                     <field name="tolastsit_low"/>
@@ -240,8 +240,8 @@
                         </page>
                         <page string="big site setting down">
                             <field name="bigsite_down">
-                                <tree create="0" delete="0">
-                                    <field name="site_id"/>
+                                <tree create="0" delete="0" editable="1">
+                                    <field name="site_id" readonly="1"/>
                                     <field name="needsign"/>
                                     <field name="needchecking"/>
                                     <field name="tolastsit_low"/>
@@ -281,7 +281,7 @@
             <field name="model">scheduleplan.schedulrule</field>
             <field name="priority">0</field>
             <field name="arch" type="xml">
-                <tree string="Course Tree" >
+                <tree string="Course Tree">
                     <field name="name"/>
                     <field name="line_id"/>
                     <field name="bustype"/>
@@ -340,7 +340,7 @@
             <field name="model">scheduleplan.busmovetime</field>
             <field name="priority">0</field>
             <field name="arch" type="xml">
-                <tree create="0" >
+                <tree create="0">
                     <field name="executedate"/>
                     <field name="line_id"/>
                     <field name="rule_id"/>
@@ -363,6 +363,9 @@
                         <h1>
                             <field name="name"/>
                         </h1>
+                    </div>
+                    <div style="display:none" id="the_rec_id">
+                        <field name="id"/>
                     </div>
                     <group>
                         <group>
@@ -404,6 +407,76 @@
                                     <field name="end_site"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page string="operation plan" name="operation_plan_page">
+                            <div>
+                                <ul class="title1">
+                                    <li>班次</li>
+                                    <li>
+                                        <div>1</div>
+                                        <div>竹-竹</div>
+                                    </li>
+                                    <li>
+                                        <div>2</div>
+                                        <div>竹-竹</div>
+                                    </li>
+                                    <li>
+                                        <div>3</div>
+                                        <div>竹-竹</div>
+                                    </li>
+                                    <li>
+                                        <div>4</div>
+                                        <div>竹-竹</div>
+                                    </li>
+                                    <li>
+                                        <div>5</div>
+                                        <div>竹-竹</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class='abcd'>
+                                <ul>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                    <li>4</li>
+                                </ul>
+                                <ul class="abcde">
+                                    <li>5</li>
+                                    <li>6</li>
+                                    <li>7</li>
+                                    <li>8</li>
+                                </ul>
+                                <ul class="abcde">
+                                    <li>9</li>
+                                    <li>10</li>
+                                    <li>11</li>
+                                    <li>12</li>
+                                </ul>
+                                <ul class="abcde">
+                                    <li>13</li>
+                                    <li>14</li>
+                                    <li>15</li>
+                                    <li>16</li>
+                                </ul>
+                                <ul class="abcde">
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                                <ul class="abcde">
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                            <link rel="stylesheet" href="/bus_schedule_plan/static/src/css/operation_plan.css"/>
+                            <script src="/bus_schedule_plan/static/src/js/operation_plan.js"
+                                    type="text/javascript">
+
+                            </script>
                         </page>
                     </notebook>
                 </form>

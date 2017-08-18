@@ -20,7 +20,7 @@
     'version': '1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','operation_menu', 'scheduling_parameters', 'employees', 'vehicle_manage'],
+    'depends': ['base','operation_menu', 'scheduling_parameters', 'employees', 'vehicle_manage','web_duplicate_visibility'],
 
     # always loaded
     'data': [
@@ -28,12 +28,17 @@
 
         'wizard/assigned_shifts.xml',
         'views/views.xml',
+        'views/bus_work_exec_table.xml',
         'views/bus_date_type.xml',
         'views/bus_shift.xml',
         'views/bus_algorithm.xml',
         'views/bus_group.xml',
         'views/bus_staff_group.xml',
+        'views/schedule.xml',
+
         'data/algorithm_data.xml',
+        'data/bus_group_data.xml',
+
 
 
     ],

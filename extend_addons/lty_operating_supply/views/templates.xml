@@ -15,5 +15,6 @@
         <menuitem id="menu_operate_passengerFlow_transit" name="客流需求分析" parent="operation_menu.balance_of_supply_and_demand_menu" sequence="1" />
         <menuitem id="menu_operate_satisfaction_transit" name="满意度分析" parent="operation_menu.balance_of_supply_and_demand_menu" sequence="2" />
         <menuitem id="menu_operate_service_transit" name="服务保障能力分析" parent="operation_menu.balance_of_supply_and_demand_menu" sequence="3" />
+
     </data>
 </openerp>

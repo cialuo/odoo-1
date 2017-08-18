@@ -109,7 +109,7 @@
 	</t>
     <t t-name="dispatch_desktop">
 		<t t-if="widget.dis_desk">
-				<div class="dispatch_desktop dragContent tidClass" t-attf-line_id="#{widget.dis_desk.line_id[0]}" t-attf-tid="#{widget.dis_desk.id}" t-attf-style="left:#{widget.dis_desk.position_left}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index}">
+				<div class="dispatch_desktop dragContent tidClass" t-attf-line_name="#{widget.dis_desk.line_id[1]}" t-attf-line_id="#{widget.dis_desk.line_id[0]}" t-attf-tid="#{widget.dis_desk.id}" t-attf-style="left:#{widget.dis_desk.position_left}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index}">
 					<div class="content">
 					<!--线路信息展示-->
 					<div class="line_info dragAreaDesk">
@@ -194,9 +194,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="content_car_road">
 
-											</div>
 										</div>
 										<canvas width="1190" height="33" class="can_bottom"></canvas>
 									</div>
@@ -212,7 +210,7 @@
 		</t>
 		<t t-else="">
 			<div>
-				<div class="dispatch_desktop dragContent tidClass" tid="">
+				<div class="dispatch_desktop dragContent tidClass" style="z-index:10000" tid="">
 					<div class="content">
 					<!--线路信息展示-->
 						<div class="line_info dragAreaDesk">
@@ -292,7 +290,7 @@
 
 									</div>
 									<ul class="absnormal_operate fl">
-										<li>
+										<li class="no_absnormal">
 											<div class="absnormal_type">
 												<h4>异常<span class="real_time_process">请及时处理</span></h4>
 												<p>实际客流大于运力供给30%</p>
@@ -301,13 +299,16 @@
 												<h4>建议</h4>
 												<p>2趟/分钟/20分钟,需补充2台机动车</p>
 											</div>
+											<div class="handleBtn ovf">
+												<a class="manual" href="javascript:;">人工</a>
+												<a class="process_check" href="javascript:;">校准</a>
+												<a>忽略</a>
+											</div>
+											<div class="finishBtn">
+												<a href="javascript:;" class="is_check">完成</a>
+											</div>
 										</li>
-										<li class="handleBtn ovf">
-											<a class="manual" href="javascript:;">人工</a>
-											<a class="process_check" href="javascript:;">校准</a>
-											<a>忽略</a>
-										</li>
-										<li class="no_absnormal">
+										<li class="normal">
 											<h4>异常</h4>
 											<p>无</p>
 										</li>
@@ -343,7 +344,7 @@
 			</div>
 		</t>
 		<t t-else="">
-			<div class="updown_line_table posA dragContent tidClass" tid="">
+			<div class="updown_line_table posA dragContent tidClass" style="z-index:10001" tid="">
 				<div class="updown_drag">
 					<div class="updown_title dragAreaDesk">
 						<div class="line_btn">
@@ -449,69 +450,69 @@
 	</t>
 
 	<t t-name="bus_source_config">
-		<div class="dragContent bus_src_config" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
+		<div class="dragContent bus_src_config" t-attf-line_id="{{widget.location_data.line_id}}" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
 			<div class="src_title">
 				<div class="closeBox dragArea"><a class="dis_close_bt" href="javascript:;"></a></div>
 				<div class="line_list">
-					<ul class="line_company">
-						<li>四分公司</li>
-						<li>16路</li>
-						<li>资源配备</li>
-					</ul>
-					<ul class="line_src">
-						<li class="active">车辆资源</li>
-						<li>人力资源</li>
-					</ul>
+					<div class="line_company">
+						<div>四分公司</div>
+						<div class="src_line_number">16路</div>
+						<div>资源配备</div>
+					</div>
+					<div class="line_src">
+						<ul>
+							<li class="active">车辆资源</li>
+							<li>人力资源</li>
+						</ul>
+					</div>
+					<div></div>
 				</div>
 			</div>
 			<div class="src_content">
 				<div class="table_bus_num">
 					<table>
 					<tr>
-						<th class="th0">线路</th>
-						<th class="th0">车号</th>
-						<th class="th0">车牌</th>
-						<th class="th0">司机</th>
-						<th class="th0">位置</th>
-						<th class="th0">状态</th>
-						<th class="th0">当前任务</th>
-						<th class="th0">乘客数量</th>
-						<th class="th0">满载率</th>
-						<th class="th0">信号状态</th>
-						<th class="th0">车速</th>
-						<th class="th0">下趟发车</th>
-						<th class="th0">回场时间</th>
-						<th class="th1">能源剩余里程</th>
-						<th class="th1">操作</th>
+						<th>线路</th>
+						<th>车号</th>
+						<th>车牌</th>
+						<th>司机</th>
+						<th>位置</th>
+						<th>状态</th>
+						<th>当前任务</th>
+						<th>乘客数量</th>
+						<th>满载率</th>
+						<th>信号状态</th>
+						<th>车速</th>
+						<th>下趟发车</th>
+						<th>回场时间</th>
+						<th class="control_btn">
+							<p>
+								能源剩余里程
+							</p>
+							<p class="add_btn">
+								+
+							</p>
+							<div class="config_bus_source">
+								<ul>
+									<li><a>字段选择</a></li>
+									<li><a>样式修订</a></li>
+									<li><a>面板重置</a></li>
+								</ul>
+								<div><a>关闭面板</a></div>
+							</div>
+						</th>
 					</tr>
 					<tr>
 						<td>16</td>
 						<td>356</td>
-						<td>粤B1VD2</td>
+						<td class="bus_license">粤B1VD2</td>
 						<td>刘强</td>
 						<td><a href="#" class="position_site">华侨城</a></td>
 						<td>挂班-上行在途</td>
 						<td>第四趟</td>
 						<td>35</td>
 						<td>92%</td>
-						<td>正常</td>
-						<td>62KM/H</td>
-						<td>9：00am</td>
-						<td>11：00am</td>
-						<td>14km</td>
-						<td>加入运营并添加计划</td>
-					</tr>
-					<tr>
-						<td>16</td>
-						<td>356</td>
-						<td>粤B1VD2</td>
-						<td>刘强</td>
-						<td>华侨城</td>
-						<td>挂班-上行在途</td>
-						<td>第四趟</td>
-						<td>35</td>
-						<td>92%</td>
-						<td>正常</td>
+						<td class="signal_status">异常</td>
 						<td>62KM/H</td>
 						<td>9：00am</td>
 						<td>11：00am</td>
@@ -520,14 +521,14 @@
 					<tr>
 						<td>16</td>
 						<td>356</td>
-						<td>粤B1VD2</td>
+						<td class="bus_license">粤B1VD2</td>
 						<td>刘强</td>
 						<td>华侨城</td>
 						<td>挂班-上行在途</td>
 						<td>第四趟</td>
 						<td>35</td>
 						<td>92%</td>
-						<td>正常</td>
+						<td class="signal_status">正常</td>
 						<td>62KM/H</td>
 						<td>9：00am</td>
 						<td>11：00am</td>
@@ -536,14 +537,14 @@
 					<tr>
 						<td>16</td>
 						<td>356</td>
-						<td>粤B1VD2</td>
+						<td class="bus_license">粤B1VD2</td>
 						<td>刘强</td>
 						<td>华侨城</td>
 						<td>挂班-上行在途</td>
 						<td>第四趟</td>
 						<td>35</td>
 						<td>92%</td>
-						<td>正常</td>
+						<td class="signal_status">正常</td>
 						<td>62KM/H</td>
 						<td>9：00am</td>
 						<td>11：00am</td>
@@ -552,14 +553,14 @@
 					<tr>
 						<td>16</td>
 						<td>356</td>
-						<td>粤B1VD2</td>
+						<td class="bus_license">粤B1VD2</td>
 						<td>刘强</td>
 						<td>华侨城</td>
 						<td>挂班-上行在途</td>
 						<td>第四趟</td>
 						<td>35</td>
 						<td>92%</td>
-						<td>正常</td>
+						<td class="signal_status">正常</td>
 						<td>62KM/H</td>
 						<td>9：00am</td>
 						<td>11：00am</td>
@@ -568,14 +569,14 @@
 					<tr>
 						<td>16</td>
 						<td>356</td>
-						<td>粤B1VD2</td>
+						<td class="bus_license">粤B1VD2</td>
 						<td>刘强</td>
 						<td>华侨城</td>
 						<td>挂班-上行在途</td>
 						<td>第四趟</td>
 						<td>35</td>
 						<td>92%</td>
-						<td>正常</td>
+						<td class="signal_status">正常</td>
 						<td>62KM/H</td>
 						<td>9：00am</td>
 						<td>11：00am</td>
@@ -584,14 +585,14 @@
 					<tr>
 						<td>16</td>
 						<td>356</td>
-						<td>粤B1VD2</td>
+						<td class="bus_license">粤B1VD2</td>
 						<td>刘强</td>
 						<td>华侨城</td>
 						<td>挂班-上行在途</td>
 						<td>第四趟</td>
 						<td>35</td>
 						<td>92%</td>
-						<td>正常</td>
+						<td class="signal_status">正常</td>
 						<td>62KM/H</td>
 						<td>9：00am</td>
 						<td>11：00am</td>
@@ -600,14 +601,14 @@
 					<tr>
 						<td>16</td>
 						<td>356</td>
-						<td>粤B1VD2</td>
+						<td class="bus_license">粤B1VD2</td>
 						<td>刘强</td>
 						<td>华侨城</td>
 						<td>挂班-上行在途</td>
 						<td>第四趟</td>
 						<td>35</td>
 						<td>92%</td>
-						<td>正常</td>
+						<td class="signal_status">正常</td>
 						<td>62KM/H</td>
 						<td>9：00am</td>
 						<td>11：00am</td>
@@ -616,14 +617,30 @@
 					<tr>
 						<td>16</td>
 						<td>356</td>
-						<td>粤B1VD2</td>
+						<td class="bus_license">粤B1VD2</td>
 						<td>刘强</td>
 						<td>华侨城</td>
 						<td>挂班-上行在途</td>
 						<td>第四趟</td>
 						<td>35</td>
 						<td>92%</td>
-						<td>正常</td>
+						<td class="signal_status">异常</td>
+						<td>62KM/H</td>
+						<td>9：00am</td>
+						<td>11：00am</td>
+						<td>14km</td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>356</td>
+						<td class="bus_license">粤B1VD2</td>
+						<td>刘强</td>
+						<td>华侨城</td>
+						<td>挂班-上行在途</td>
+						<td>第四趟</td>
+						<td>35</td>
+						<td>92%</td>
+						<td class="signal_status">正常</td>
 						<td>62KM/H</td>
 						<td>9：00am</td>
 						<td>11：00am</td>
@@ -634,16 +651,31 @@
 				<div class="table_source">
 					<table>
 						<tr>
-							<th class="th0">姓名</th>
-							<th class="th0">工号</th>
-							<th class="th0">岗位</th>
-							<th class="th0">配车</th>
-							<th class="th0">配班</th>
-							<th class="th0">本月趟次</th>
-							<th class="th0">安全里程</th>
-							<th class="th0">违章记录</th>
-							<th class="th0">联系方式</th>
-							<th class="th1">当前位置</th>
+							<th>姓名</th>
+							<th>工号</th>
+							<th>岗位</th>
+							<th>配车</th>
+							<th>配班</th>
+							<th>本月趟次</th>
+							<th>安全里程</th>
+							<th>违章记录</th>
+							<th>联系方式</th>
+							<th class="control_btn">
+							<p>
+								当前位置
+							</p>
+							<p class="add_btn">
+								+
+							</p>
+							<div class="config_bus_source">
+								<ul>
+									<li><a>字段选择</a></li>
+									<li><a>样式修订</a></li>
+									<li><a>面板重置</a></li>
+								</ul>
+								<div><a>关闭面板</a></div>
+							</div>
+						</th>
 						</tr>
 						<tr>
 							<td></td>
@@ -715,5 +747,8 @@
 			<div id="container" class="gaode" style="width:300px;height:300px;"></div>
 			<input type="button" class="btn btn-primary" value="返回" style="position:absolute;left:10px;top:10px"/>
 		</div>
+	</t>
+	<t t-name="dispatch_control">
+		<div class="back_style"></div>
 	</t>
 </template>

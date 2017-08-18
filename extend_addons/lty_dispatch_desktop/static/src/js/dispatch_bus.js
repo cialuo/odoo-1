@@ -30,11 +30,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         start: function () {
             var self = this;
+            this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
             function site_info(mode_line, model_top, model_down) {
                 var site_top_infos = [];
                 var site_down_infos = [];
                 if (self.$el.find('.line_line')[0] != undefined) {
                     var tid = self.$el.attr('tid');
+                    var model_name = self.$el[0].className;
                     mode_line.query().filter([["id", "=", parseInt(tid)]]).all().then(function (data) {
                         model_top.query().filter([["route_id", "=", data[0].line_id[0]]]).all().then(function (res_top) {
                             for (var i = 0; i < res_top.length; i++) {
@@ -45,6 +47,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 // 站点id
                                 site_info.id = res_top[i].id;
                                 site_top_infos.push(site_info);
+
                             }
                             model_down.query().filter([["route_id", "=", data[0].line_id[0]]]).all().then(function (res_down) {
                                 for (var i = 0; i < res_down.length; i++) {
@@ -56,19 +59,28 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     site_info.id = res_down[i].id;
                                     site_down_infos.push(site_info);
                                 }
+                                // var package = {
+                                //     type: 1023,
+                                //     open_modules: "dispatch-bus_real_state-4524",
+                                //     msgId: Date.parse(new Date())
+                                // };
+                                // websocket.send(JSON.stringify(package));
                                 self.site_top_infos = site_top_infos;
                                 self.site_down_infos = site_down_infos;
-                                var model_id = 'model_' + tid;
+                                // 库
+                                var model_id = model_name + "" + tid;
                                 if (socket_model_info[model_id]) {
                                     delete socket_model_info[model_id];
                                 }
-                                socket_model_info[model_id] = {
-                                    arg: {
-                                        self: self,
-                                        site_top_infos: self.site_top_infos,
-                                        site_down_infos: self.site_down_infos
-                                    }, fn: self.site_websocket
-                                };
+                                socket_model_info[model_id] =
+                                    {
+                                        fn: self.site_websocket,
+                                        arg: {
+                                            self: self,
+                                            site_top_infos: self.site_top_infos,
+                                            site_down_infos: self.site_down_infos
+                                        }
+                                    };
                             });
                         });
                     });
@@ -181,25 +193,26 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         events: {
             //上下的车辆是否隐藏
-            'mousedown .can_top': 'clk_can_top',
-            'click .can_bottom': 'clk_can_bottom',
+            'mouseup .can_top': 'clk_can_top',
+            'mouseup .can_bottom': 'clk_can_bottom',
             // 删除选择路线弹框
             'click .del': 'del_chose_line',
             // 选择路线
             'click .line_edit': 'show_chose_line',
             //车辆信息
-            'click .type_car': 'bus_info',
+            'click .line_car': 'bus_info',
             // 左右侧车场
             'click .canvas_left': 'clk_can_left',
             'click .canvas_right': 'clk_can_right',
             // 鼠标划过上左右车场时的cursor属性
-            'mousemove .canvas_left': 'slide_cursor_pointer_left',
-            'mousemove .canvas_right': 'slide_cursor_pointer_right',
+            // 'mousemove .canvas_left': 'slide_cursor_pointer_left',
+            // 'mousemove .canvas_right': 'slide_cursor_pointer_right',
+            // 'mousemove .can_top': 'slide_cursor_pointer_top',
+            // 'mousemove .can_bottom': 'slide_cursor_pointer_bottom',
             //点击上方详情
             'mouseup .bus_info': 'bus_man_src',
             //鼠标划过上下行车路线时的cursor属性
-            'mousemove .can_top': 'slide_cursor_pointer_top',
-            'mousemove .can_bottom': 'slide_cursor_pointer_bottom',
+
             // 右击站点事件
             'click .min': 'closeFn'
             // 行车组件关闭
@@ -207,11 +220,21 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         closeFn: function () {
             var self = this;
             var tid = this.$el.attr('tid');
+            var desktop_id = self.desktop_id;
             //已经添加了路线
+            //  var package = {
+            //     type: 1001,
+            //     open_modules: "dispatch-passenge_flow-4",
+            //     msgId: Date.parse(new Date())
+            // };
+            // websocket.send(JSON.stringify(package));
             if (tid != undefined) {
                 // socket_model_info[tid].status =false;
-                self.model_line.query().filter([["id", "=", tid]]).all().then(function (pp) {
+                // 查询tid,拿到tid下面的lineid并得到相同lineid的一条线路
+                self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["id", "=", tid]]).all().then(function (pp) {
+                    // 查询tid下的lineid
                     self.model_line.query().filter([["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
+                        // 删除该tid，即此线路
                         self.model_line.call("unlink", [data[1].id]).then(function () {
                             self.$el.parent().find('.updown_line_table').remove();
                             self.model_line.call("unlink", [data[0].id]).then(function () {
@@ -279,23 +302,34 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.cursor_pointer_tb(option, e);
         },
         bus_info: function (e) {
-            var car_num = e.target.textContent;
+            var car_num = e.currentTarget.getElementsByClassName("type_car")[0].children[0].textContent;
             var line_id = e.delegateTarget.getAttribute("line_id");
-            var zIndex = parseInt(this.$el[0].style.zIndex)
+            var zIndex = parseInt(this.$el[0].style.zIndex);
             var options =
                 {
                     x: e.clientX + 5,
                     y: e.clientY + 5,
-                    zIndex: zIndex+1,
+                    zIndex: zIndex + 1,
                     line_id: line_id,
-                    car_num: car_num
+                    car_num: car_num,
+                    controllerId: this.desktop_id
                 };
-            var dialog = new bus_real_info(this, options);
-            dialog.appendTo($("body"));
+            if (line_id != 1 || car_num != 222) {
+                layer.alert("模拟soket实时加载，请选择810线路222号车进行点击", {title: "车辆实时信息"});
+                return false;
+            }
+            ;
+            if ($(".busRealStateModel_" + options.line_id + "_" + options.car_num).length > 0) {
+                return;
+            } else {
+                $(".busRealStateModel").remove();
+                var dialog = new bus_real_info(this, options);
+                dialog.appendTo($(".controller_" + options.controllerId));
+            }
             // e.delegateTarget.parentElement.append(dialog);
         },
         clk_can_top: function (e) {
-            var option = {
+            this.clickTb({
                 id: '.can_top',
                 ciry: 27,
                 testy: 13,
@@ -306,12 +340,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 dataSite_color: this.dataSite_top_color,
                 subsection: this.subsection,
                 model: this.model_site_top
-            };
+            }, e);
             //调用点击canvas事件
-            this.clickTb(option, e);
         },
         clk_can_bottom: function (e) {
-            var option = {
+            this.clickTb({
                 id: '.can_bottom',
                 ciry: 6,
                 testy: 25,
@@ -322,26 +355,30 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 dataSite_color: this.dataSite_down_color,
                 subsection: this.subsection,
                 model: this.model_site_down
-            }
-            this.clickTb(option, e);
+            }, e);
         },
         bus_man_src: function (e) {
+            var self = this;
             var ev = e || window.event;
             var zIndex = parseInt(this.$el[0].style.zIndex);
             if (ev.button == 0) {
                 if (!isDrag) {
+                    if ($('body').find('.bus_src_config').length > 0) {
+                        $('body').find('.bus_src_config').remove();
+                    }
                     //先把doMouseDownTimmer清除，不然200毫秒后setGragTrue方法还是会被调用的
                     clearTimeout(timmerHandle);
-                    var line_id = ev.delegateTarget.getAttribute("tid");
+                    var line_id = ev.delegateTarget.getAttribute("line_id");
                     var options =
                         {
                             x: ev.clientX + 5,
                             y: ev.clientY + 5,
-                            zIndex: zIndex+1,
+                            zIndex: zIndex + 1,
                             line_id: line_id,
+                            controllerId: self.desktop_id,
                         };
-                    var abc = new bus_source_config(this, options);
-                    abc.appendTo($("body"));
+                    var bus_src = new bus_source_config(this, options);
+                    bus_src.appendTo($(".controller_" + options.controllerId));
                 }
                 else {
                     isDrag = false;
@@ -349,108 +386,133 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
         },
         clickTb: function (canvas, e) {
+            var self = this;
             var event = e || window.event;
-            stopPropagation(e)
             var c = canvas.self.find(canvas.id)[0];
             var cxt = c.getContext("2d");
             var x = event.pageX - c.getBoundingClientRect().left;
             var y = event.pageY - c.getBoundingClientRect().top;
             var zIndex = parseInt(this.$el[0].style.zIndex);
-            for (var i = 0; i < canvas.dataCir.length; i++) {
-                cxt.beginPath();
-                //渲染参数，x距离,y距离,半径,起始角，结束角，是否顺势针
-                cxt.arc(canvas.dataCir[i], canvas.ciry, 3, 0, 360, false);
-                //判断鼠标的点是否在圆圈内
-                if (cxt.isPointInPath(x, y)) {
-                    c.style.cursor = 'pointer';
-                    //获取鼠标点击区域的颜色值
-                    var imgData = cxt.getImageData(x, y, 1, 1);
-                    // 重绘画布
-                    cxt.clearRect(0, 0, c.width, c.height);
-                    canvas.site_infos[i].status == true ? canvas.site_infos[i].status = false : canvas.site_infos[i].status = true;
-                    canvas.model.call("write", [canvas.site_infos[i].id,
-                        {
-                            'is_show_name': canvas.site_infos[i].status
-                        }]).then(function (res) {
-
-                    });
-                    var traffic_top = {
-                        id: canvas.id,
-                        y: canvas.ciry - 1,
-                        self: canvas.self,
-                        subsection: canvas.subsection,
-                        color: canvas.color
-                    };
-                    traffic_distance(traffic_top);
-                    var cir_text = {
-                        id: canvas.id,
-                        ciry: canvas.ciry,
-                        testy: canvas.testy,
-                        self: canvas.self,
-                        color: canvas.color,
-                        dataCir: canvas.dataCir,
-                        dataSite_color: canvas.dataSite_color,
-                        site_infos: canvas.site_infos
-                    };
-                    cir_and_text(cir_text);
-                    cxt.closePath();
-                    // 转换16进制像素
-                    var hex = "#" + ((1 << 24) + (imgData.data[0] << 16) + (imgData.data[1] << 8) + imgData.data[2]).toString(16).slice(1);
-                    if (hex == "#ffffff") {
-                        // 清除画布
-                        // 绘上实心圆
-                        cxt.beginPath();
-                        cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
-                        cxt.fillStyle = canvas.dataSite_color[i].color;
-                        cxt.fill();
-                        cxt.closePath();
-                    } else {
-                        cxt.beginPath();
-                        cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
-                        cxt.fillStyle = "white";
-                        cxt.fill();
-                        cxt.closePath();
-                    }
-                    break
+            if (e.button == 2) {
+                if ($('body').find('.bus_site_info').length > 0) {
+                    $('body').find('.bus_site_info').remove();
                 }
-                cxt.closePath();
-                cxt.beginPath();
-                if (canvas.site_infos[i].status == true) {
-                    cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
+                console.log(x,y)
+                var options =
+                    {
+                        x: event.clientX -self.$el[0].offsetLeft + 5 ,
+                        y: event.clientY -self.$el[0].offsetTop + 5 ,
+                        zIndex: zIndex + 1,
+                    };
+                new bus_site_info(this, options).appendTo(this.$el);
+            }
+            if (canvas.dataCir) {
+                for (var i = 0; i < canvas.dataCir.length; i++) {
+                    cxt.beginPath();
+                    //渲染参数，x距离,y距离,半径,起始角，结束角，是否顺势针
+                    cxt.arc(canvas.dataCir[i], canvas.ciry, 3, 0, 360, false);
+
+                    //判断鼠标的点是否在圆圈内
                     if (cxt.isPointInPath(x, y)) {
-                        //如果是左击
-                        if (e.button == 0) {
-                            var options =
-                                {
-                                    x: e.clientX + 5,
-                                    y: e.clientY + 5,
-                                    zIndex: zIndex+1,
-                                    line_id: canvas.self.attr("tid")
-                                };
-                            var dialog = new passenger_flow(this, options);
-                            dialog.appendTo($("body"));
+                        c.style.cursor = 'pointer';
+                        //获取鼠标点击区域的颜色值
+                        var imgData = cxt.getImageData(x, y, 1, 1);
+                        // 重绘画布
+                        cxt.clearRect(0, 0, c.width, c.height);
+                        canvas.site_infos[i].status == true ? canvas.site_infos[i].status = false : canvas.site_infos[i].status = true;
+                        canvas.model.call("write", [canvas.site_infos[i].id,
+                            {
+                                'is_show_name': canvas.site_infos[i].status
+                            }]).then(function (res) {
+
+                        });
+                        var traffic_top = {
+                            id: canvas.id,
+                            y: canvas.ciry - 1,
+                            self: canvas.self,
+                            subsection: canvas.subsection,
+                            color: canvas.color
+                        };
+                        traffic_distance(traffic_top);
+                        var cir_text = {
+                            id: canvas.id,
+                            ciry: canvas.ciry,
+                            testy: canvas.testy,
+                            self: canvas.self,
+                            color: canvas.color,
+                            dataCir: canvas.dataCir,
+                            dataSite_color: canvas.dataSite_color,
+                            site_infos: canvas.site_infos
+                        };
+                        cir_and_text(cir_text);
+                        cxt.closePath();
+                        // 转换16进制像素
+                        var hex = "#" + ((1 << 24) + (imgData.data[0] << 16) + (imgData.data[1] << 8) + imgData.data[2]).toString(16).slice(1);
+                        if (hex == "#ffffff") {
+                            // 清除画布
+                            // 绘上实心圆
+                            cxt.beginPath();
+                            cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
+                            cxt.fillStyle = canvas.dataSite_color[i].color;
+                            cxt.fill();
+                            cxt.closePath();
+                        } else {
+                            cxt.beginPath();
+                            cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
+                            cxt.fillStyle = "white";
+                            cxt.fill();
                             cxt.closePath();
                         }
-                        //如果是右击
-                        else if (e.button == 2) {
-                            if (canvas.site_infos[i].status == true) {
-                                cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
-                                if (cxt.isPointInPath(x, y)) {
-                                    var options =
-                                        {
-                                            x: x + 5 + 12 + 26,
-                                            y: y + 5 + 55,
-                                            zIndex: zIndex+1,
-                                        };
-                                    new bus_site_info(this, options).appendTo(this.$el);
-                                    cxt.closePath();
-                                    //如果提供了事件对象，则这是一个非IE浏览器
+                        break
+                    }
+                    cxt.closePath();
+                    cxt.beginPath();
+                    if (canvas.site_infos[i].status == true) {
+
+                        cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
+                        if (cxt.isPointInPath(x, y)) {
+                            //如果是左击
+                            if (e.button == 0) {
+                                var options =
+                                    {
+                                        x: e.clientX + 5,
+                                        y: e.clientY + 5,
+                                        zIndex: zIndex + 1,
+                                        controllerId: self.desktop_id,
+                                        line_id: canvas.self.attr("line_id"),
+                                        site: canvas.site_infos[i].name,
+                                        site_id: canvas.site_infos[i].id,
+                                        site_infos: self.site_top_infos
+                                    };
+                                if ($(".passengerDelayModel_" + options.line_id + "_" + options.site_id).length > 0) {
+                                    return;
+                                } else {
+                                    $(".passengerDelayModel").remove();
+                                    var dialog = new passenger_flow(self, options);
+                                    dialog.appendTo($(".controller_" + options.controllerId));
                                 }
+                                cxt.closePath();
                             }
+                            //如果是右击
+                            // else if (e.button == 2) {
+                            //     if (canvas.site_infos[i].status == true) {
+                            //         cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
+                            //         if (cxt.isPointInPath(x, y)) {
+                            //             var options =
+                            //                 {
+                            //                     x: x + 5 + 12 + 26,
+                            //                     y: y + 5 + 55,
+                            //                     zIndex: zIndex + 1,
+                            //                 };
+                            //             new bus_site_info(this, options).appendTo(this.$el);
+                            //             cxt.closePath();
+                            //             //如果提供了事件对象，则这是一个非IE浏览器
+                            //         }
+                            //     }
+                            // }
                         }
                     }
                 }
-
             }
         },
         // 点击左侧车场
@@ -485,7 +547,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         cursor_pointer_lr: function (canvas, e) {
             var event = e || window.event;
-            stopPropagation(e)
             var c = this.$el.find(canvas.id)[0];
             var cxt = c.getContext("2d");
             var x = event.pageX - c.getBoundingClientRect().left;
@@ -508,24 +569,32 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         //左侧的停车场的点击事件
         click_lr: function (canvas, e) {
+            var self = this;
             var event = e || window.event;
             var c = this.$el.find(canvas.id)[0];
             var cxt = c.getContext("2d");
             var x = event.pageX - c.getBoundingClientRect().left;
             var y = event.pageY - c.getBoundingClientRect().top;
             var zIndex = parseInt(this.$el[0].style.zIndex);
-            console.log(zIndex);
             cxt.arc(13, 58, 13, 0, 360, false);
+
             if (cxt.isPointInPath(x, y)) {
                 var options =
                     {
                         x: e.clientX + 5,
                         y: e.clientY + 5,
-                        zIndex: zIndex+1,
-                        line_id: this.$el.attr("tid")
+                        zIndex: zIndex + 1,
+                        line_id: self.$el.attr("line_id"),
+                        line_name: self.$el.attr("line_name"),
+                        controllerId: self.desktop_id
                     };
-                var dialog = new plan_display(this, options);
-                dialog.appendTo($("body"));
+                if ($(".linePlanParkOnlineModel_" + options.line_id).length > 0) {
+                    return;
+                } else {
+                    $(".linePlanParkOnlineModel").remove();
+                    var dialog = new plan_display(self, options);
+                    dialog.appendTo($(".controller_" + options.controllerId));
+                }
             }
         }
     });
@@ -542,6 +611,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.type = type;
         },
         start: function () {
+            this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
             var data = this.data;
             var type = this.type;
             // 界面初始渲染
@@ -591,42 +661,48 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var siteTopPf = self.$el.find('.updown_line_table')[0].offsetTop;
             var lineName = $('body').find('.line_line');
             var resName = [];
+            var desktop_id = self.desktop_id;
             for (var j = 0; j < lineName.length; j++) {
                 resName.push(lineName[j].innerHTML);
             }
             // 不存在其他的组件时候
             if (tid == '') {
+                layer.load(1)
                 if (resName.indexOf(x.innerHTML) != -1) {
                     alert('该线路已被选择，请重新选择');
                 } else {
                     self.model_line.call("create", [
                         {
-                            'desktop_id': 2,
+                            'desktop_id': desktop_id,
                             "model_type": "dispatch_desktop",
                             'position_left': siteLeft,
                             'position_top': siteTop,
-                            'position_z_index': siteZindex,
+                            'position_z_index': 0,
                             'line_id': $(x).attr('lineid'),
                             'name': x.innerHTML
-                        }]).then(function (data) {
+                        }]).then(function () {
                         self.model_line.call("create", [
                             {
-                                'desktop_id': 2,
+                                'desktop_id': desktop_id,
                                 "model_type": "updown_line_table",
                                 'position_left': siteLeftPf,
                                 'position_top': siteTopPf,
-                                'position_z_index': siteZindexPf,
+                                'position_z_index': 0,
                                 'line_id': $(x).attr('lineid'),
                                 'name': x.innerHTML
-                            }]).then(function (data) {
-                            self.model_line.query().filter([["line_id", "=", parseInt($(x).attr('lineid'))]]).all().then(function (data) {
+                            }]).then(function () {
+                            self.model_line.query().filter([['desktop_id', '=', parseInt(desktop_id)], ["line_id", "=", parseInt($(x).attr('lineid'))]]).all().then(function (data) {
+                                layer.closeAll('loading');
                                 self.$el.html('');
+                                data[0].position_z_index = siteZindex;
+                                data[1].position_z_index = siteZindexPf;
                                 new dispatch_bus(this, data, 0).appendTo(self.$el);
                             });
                         });
                     });
                 }
             } else {
+                layer.load(1)
                 if (resName.indexOf(x.innerHTML) != -1) {
                     alert('该线路已被选择，请重新选择');
                 } else {
@@ -635,7 +711,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             'line_id': $(x).attr("lineid"),
                             'position_left': siteLeft,
                             'position_top': siteTop,
-                            'position_z_index': siteZindex,
+                            'position_z_index': 0,
                             'name': x.innerHTML,
                         }]).then(function (res) {
                         self.model_line.call("write", [parseInt(tid) + 1,
@@ -643,13 +719,14 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 'line_id': $(x).attr("lineid"),
                                 'position_left': siteLeftPf,
                                 'position_top': siteTopPf,
-                                'position_z_index': siteZindexPf,
+                                'position_z_index': 0,
                                 'name': x.innerHTML,
                             }]).then(function (res) {
-                            self.model_line.query().filter([["line_id", "=", parseInt(line)]]).all().then(function (data) {
+                            self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["line_id", "=", parseInt(line)]]).all().then(function (data) {
                                 data[1].position_left = self.$el.find('.updown_line_table')[0].offsetLeft;
                                 data[1].position_top = self.$el.find('.updown_line_table')[0].offsetTop;
                                 data[1].position_z_index = self.$el.find('.updown_line_table')[0].style.zIndex;
+                                layer.closeAll('loading');
                                 self.$el.html('');
                                 new dispatch_bus(this, data, 0).appendTo(self.$el);
                             });
@@ -692,6 +769,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 $(x).siblings('.line_edit').show()
             });
         }
-    })
+    });
     return dispatch_bus;
 });

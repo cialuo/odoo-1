@@ -1,7 +1,6 @@
 <odoo>
 
       <record id="bus_algorithm_1" model="bus_algorithm" >
-          <field name="code">1</field>
           <field name="name">固定不变</field>
           <field name="cycle">0</field>
           <field name="direction">0</field>
@@ -9,7 +8,6 @@
       </record>
 
       <record id="bus_algorithm_2" model="bus_algorithm" >
-          <field name="code">2</field>
           <field name="name">一天前移一趟</field>
           <field name="cycle">1</field>
           <field name="direction">positive</field>
@@ -17,7 +15,6 @@
       </record>
 
       <record id="bus_algorithm_3" model="bus_algorithm" >
-          <field name="code">3</field>
           <field name="name">两天前移一趟</field>
           <field name="cycle">2</field>
           <field name="direction">positive</field>
@@ -25,7 +22,6 @@
       </record>
 
       <record id="bus_algorithm_4" model="bus_algorithm" >
-          <field name="code">4</field>
           <field name="name">四天前移一趟</field>
           <field name="cycle">4</field>
           <field name="direction">positive</field>
@@ -33,21 +29,18 @@
       </record>
 
       <record id="bus_algorithm_5" model="bus_algorithm" >
-          <field name="code">5</field>
           <field name="name">一天后移一趟</field>
           <field name="cycle">1</field>
           <field name="direction">negative</field>
           <field name="algorithm_note">一天后移一趟</field>
       </record>
       <record id="bus_algorithm_6" model="bus_algorithm" >
-          <field name="code">6</field>
           <field name="name">两天后移一趟</field>
           <field name="cycle">2</field>
           <field name="direction">negative</field>
           <field name="algorithm_note">两天后移一趟</field>
       </record>
       <record id="bus_algorithm_7" model="bus_algorithm" >
-          <field name="code">7</field>
           <field name="name">四天后移一趟</field>
           <field name="cycle">4</field>
           <field name="direction">negative</field>
@@ -60,7 +53,6 @@
 
 
       <record id="bus_driver_algorithm_1" model="bus_driver_algorithm" >
-          <field name="code">1</field>
           <field name="name">固定不变</field>
           <field name="cycle">0</field>
           <field name="direction">0</field>
@@ -68,7 +60,6 @@
       </record>
 
       <record id="bus_driver_algorithm_2" model="bus_driver_algorithm" >
-          <field name="code">2</field>
           <field name="name">一天前移一班</field>
           <field name="cycle">1</field>
           <field name="direction">positive</field>
@@ -76,7 +67,6 @@
       </record>
 
       <record id="bus_driver_algorithm_3" model="bus_driver_algorithm" >
-          <field name="code">3</field>
           <field name="name">两天前移一班</field>
           <field name="cycle">2</field>
           <field name="direction">positive</field>
@@ -84,7 +74,6 @@
       </record>
 
       <record id="bus_driver_algorithm_4" model="bus_driver_algorithm" >
-          <field name="code">4</field>
           <field name="name">四天前移一班</field>
           <field name="cycle">4</field>
           <field name="direction">positive</field>
@@ -92,26 +81,22 @@
       </record>
 
       <record id="bus_driver_algorithm_5" model="bus_driver_algorithm" >
-          <field name="code">5</field>
           <field name="name">一天后移一班</field>
           <field name="cycle">1</field>
           <field name="direction">negative</field>
           <field name="algorithm_note">一天后移一班</field>
       </record>
       <record id="bus_driver_algorithm_6" model="bus_driver_algorithm" >
-          <field name="code">6</field>
           <field name="name">两天后移一班</field>
           <field name="cycle">2</field>
           <field name="direction">negative</field>
           <field name="algorithm_note">两天后移一班</field>
       </record>
       <record id="bus_driver_algorithm_7" model="bus_driver_algorithm" >
-          <field name="code">7</field>
           <field name="name">四天后移一班</field>
           <field name="cycle">4</field>
           <field name="direction">negative</field>
           <field name="algorithm_note">四天后移一班</field>
       </record>
-
 
 </odoo>
