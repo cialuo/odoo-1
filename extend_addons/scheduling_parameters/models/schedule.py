@@ -136,22 +136,22 @@ class route_manage(models.Model):
             item.people_number = len(item.human_resource)
 
     # 显示名称
-    _rec_name = 'lineName'
+    _rec_name = 'line_name'
 
     # sql 约束，效率高
     _sql_constraints = [
-        ('coding_unique', 'unique(gprsId)', _('The route code must be unique!')),
-        ('route_unique', 'unique(lineName)', _('The route name must be unique!')),
+        # ('coding_unique', 'unique(gprs_id)', _('The route code must be unique!')),
+        ('route_unique', 'unique(line_name)', _('The route name must be unique!')),
     ]
 
-    lineName = fields.Char('Route', required=True) # 线路名称
-    gprsId = fields.Integer('code', required=True) # 线路编码
+    line_name = fields.Char('Line Name', required=True) # 线路名称
+    gprs_id = fields.Integer('gprsid', required=True) # 线路编码
     oil_wear_coefficient = fields.Float(digits=(10, 2), string='Oil wear coefficient') # 油耗系数
-    classSystemName = fields.Selection([('one_shift', 'one_shift'),
+    class_system_name = fields.Selection([('one_shift', 'one_shift'),
                                         ('two_shift', 'two_shift'),
                                         ('three_shift', 'three_shift')],
                                         default='one_shift', required=True) # 班制
-    runTypeName = fields.Selection([('single_shunt', 'single_shunt'),
+    run_type_name = fields.Selection([('single_shunt', 'single_shunt'),
                                    ('double_shunt', 'double_shunt')],
                                    default='double_shunt', required=True) # 调车方式
     schedule_type = fields.Selection([('flexible_scheduling', 'flexible_scheduling'),
@@ -165,14 +165,14 @@ class route_manage(models.Model):
     human_resource = fields.Many2many('hr.employee', string='Human resource') # 人力资源
     people_number = fields.Integer('People number', compute="_people_number")  # 人员数量
     active = fields.Boolean(default=True)
-    lineTypeName = fields.Selection([('main_line', 'main_line'),
+    line_type_name = fields.Selection([('main_line', 'main_line'),
                                     ('regional_line', 'regional_line'),
                                     ('express_line', 'express_line'),
                                     ('interval_line', 'interval_line')],
                                     default='main_line', required=True)  # 线路类型
 
     main_line_id = fields.Many2one('route_manage.route_manage', string='Main Route',
-                                    domain="[('lineTypeName', '=', 'main_line')]") # 主线
+                                    domain="[('line_type_name', '=', 'main_line')]") # 主线
     bus_type = fields.Selection([('regular_bus', 'regular_bus'),
                                  ('custom_bus', 'custom_bus')],
                                 default='regular_bus', string='bus_type', required=True)  # 公交类型
@@ -180,10 +180,10 @@ class route_manage(models.Model):
     station_up_ids = fields.One2many('opertation_resources_station_up', 'route_id', string='StationUps')
     station_down_ids = fields.One2many('opertation_resources_station_down', 'route_id', string='StationDowns')
 
-    up_first_time = fields.Char('up_first_time', required=True) # 上行首班时间
-    up_end_time = fields.Char('up_end_time', required=True)  # 上行首班时间
-    down_first_time = fields.Char('down_first_time', required=True)  # 上行首班时间
-    down_end_time = fields.Char('down_end_time', required=True)  # 上行首班时间
+    up_first_time = fields.Char('up_first_time', required=True, default='06:00') # 上行首班时间
+    up_end_time = fields.Char('up_end_time', required=True, default='22:00')  # 上行首班时间
+    down_first_time = fields.Char('down_first_time', required=True, default='06:30')  # 下行首班时间
+    down_end_time = fields.Char('down_end_time', required=True, default='22:30')  # 下行首班时间
     up_station = fields.Many2one('opertation_resources_station', ondelete='cascade',
                                  compute='_get_station_up_first')  # 上行车场
     down_station = fields.Many2one('opertation_resources_station', ondelete='cascade',
@@ -239,7 +239,6 @@ class route_manage(models.Model):
                         'message': _("down_end_time not be Incorrect"),
                     },
                 }
-
 
 
     @api.multi
@@ -304,7 +303,7 @@ class StationUp(models.Model):
 
     sequence = fields.Integer("Station Sequence", default=2, required=True)
     route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
-    gprsId = fields.Integer('code', related='route_id.gprsId', required=True)  # 线路编码
+    gprs_id = fields.Integer('code', related='route_id.gprs_id', required=True)  # 线路编码
     station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
                                  required=True)
     entrance_azimuth = fields.Char('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
@@ -342,7 +341,7 @@ class StationDown(models.Model):
 
     sequence = fields.Integer("Station Sequence", default=2, required=True)
     route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
-    gprsId = fields.Integer('code', related='route_id.gprsId', required=True)  # 线路编码
+    gprs_id = fields.Integer('code', related='route_id.gprs_id', required=True)  # 线路编码
     station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
                                  required=True)
     entrance_azimuth = fields.Char('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角

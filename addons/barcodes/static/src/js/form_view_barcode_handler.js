@@ -27,7 +27,6 @@ var FormViewBarcodeHandler = common.AbstractField.extend(BarcodeHandlerMixin, {
     init: function(parent, context) {
         this.__quantity_listener = _.bind(this._set_quantity_listener, this);
         BarcodeHandlerMixin.init.apply(this, arguments);
-
         return this._super.apply(this, arguments);
     },
 

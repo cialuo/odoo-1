@@ -14,7 +14,7 @@ def post():
     "cityCode": "SZ",
     "editTime": "2017:08:09 19:34:50",
     "tableName": "op_line",
-    "data": "{'keyWord':'333','lineName':'宝深路','id':'2113'}"
+    "data": "{'keyWord':'333','line_name':'宝深路','id':'2113'}"
     }
 
     params = json.dumps(jsonData)

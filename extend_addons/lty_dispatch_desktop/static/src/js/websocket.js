@@ -101,6 +101,7 @@ websocket.onmessage = function (event) {
     } else if (modelName == "消息") {
         console.log('10');
     } else if (modelName == "absnormal") {
+        console.log(event.data[0].substring(78, 80))
         absnormal_del($(".controller_" + controllerId), obj.data);
     }
 };
@@ -124,8 +125,11 @@ function absnormal_del(controllerObj, data_list) {
         }
     }
     if (controllerObj.find('.updown_line_table[line_id=2]').length > 0) {
-        if (data_list[0].substring(78, 80) > 50) {
+        if (data_list[0].substring(78, 79) > 3) {
             controllerObj.find('.updown_line_table[line_id=2]').find('.no_absnormal').show().siblings().hide();
+            var timer_carouse2 = sessionStorage.getItem('timer2');
+            clearInterval(timer_carouse2);
+            controllerObj.find('.updown_line_table[line_id=2]').find('.carousel_content').css({left: 0});
         }
     }
 }
