@@ -5,8 +5,8 @@
         <field name="model">scheduleplan.busmovetime</field>
         <field name="inherit_id" ref="bus_schedule_plan.bus_move_time_table_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='down_move_time']" position="after">
-                <page string="运营计划">
+            <xpath expr="//page[@name='operation_plan_page']" position="replace">
+                <page string="运营计划" name="operation_plan_page">
                     <table class="time_start_arrive_stop o_list_view table table-condensed table-striped">
                         <thead>
                             <tr>
@@ -14,7 +14,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                         </tbody>
                     </table>
                     <div class="start_over_stop_time">
