@@ -37,7 +37,7 @@ class RouteInBusSchedule(models.Model):
         sitecollection = []
         for item in sitelist:
             sitecollection.append((0, 0, {
-                'site_id': item.station_id.id,
+                'site_id': item.id,
             }))
 
         # 下行大站检查
@@ -46,7 +46,7 @@ class RouteInBusSchedule(models.Model):
         sitecollection_down = []
         for item in sitelist:
             sitecollection_down.append((0, 0, {
-                'site_id': item.station_id.id,
+                'site_id': item.id,
             }))
 
         context = dict(self.env.context,
@@ -74,9 +74,7 @@ class RouteInBusSchedule(models.Model):
         }
 
 class BusWorkRules(models.Model):
-    """
-    行车规则
-    """
+
     _name = 'scheduleplan.schedulrule'
 
     name = fields.Char(string="rule name")
@@ -424,13 +422,13 @@ class BusWorkRules(models.Model):
             if item[2]['driver']:
                 driverworklist[item[2]['driver']].append((item[2]['starttime'], item[2]['arrivetime'],item[2]['vehicle_id']))
             if item[2]['steward']:
-                conductorworklist[item[2]['steward']].append((item[2]['starttime'], item[2]['arrivetime'],item[2]['vehicle_id']))
+                conductorworklist[item[2]['steward']].append((item[2]['starttime'], item[2]['arrivetime']))
 
         for item in downexeitems:
             if item[2]['driver']:
                 driverworklist[item[2]['driver']].append((item[2]['starttime'], item[2]['arrivetime'],item[2]['vehicle_id']))
             if item[2]['steward']:
-                conductorworklist[item[2]['steward']].append((item[2]['starttime'], item[2]['arrivetime'],item[2]['vehicle_id']))
+                conductorworklist[item[2]['steward']].append((item[2]['starttime'], item[2]['arrivetime']))
 
         for k, v in driverworklist.items():
             driverworklist[k] = sorted(v, key=lambda x:x[0])
@@ -448,7 +446,7 @@ class BusWorkRules(models.Model):
             for item in result:
                 value = {
                     'worktime': movetimeobj.executedate,
-                    'vehicle_id' : v[-1][-1],
+                    'vehicle_id' : item[-1],
                     'title' : 'steward',
                     'employee_id' : k,
                     'checkintime' : item[1][0],
@@ -466,7 +464,7 @@ class BusWorkRules(models.Model):
             for item in result:
                 value = {
                     'worktime': movetimeobj.executedate,
-                    'vehicle_id': v[-1][-1],
+                    'vehicle_id': item[-1],
                     'title': 'driver',
                     'employee_id': k,
                     'checkintime': item[1][0],
@@ -511,7 +509,7 @@ class BusWorkRules(models.Model):
         """
         spliter = []
         for item in range(1, len(worksection)):
-            spliter.append(worksection[item][0])
+            spliter.append(item[0])
         spliter.append(-1)
         result = []
         temp = []
@@ -565,8 +563,7 @@ class BusWorkRules(models.Model):
             if timerec == None:
                 # a = 99885
                 continue
-            if item[0] not in stafflist:
-                continue
+
             value = {
                 'seq_id':item[1]['seqid'],
                 'vehicle_id': stafflist[item[0]]['vehicle_id'].id,
@@ -672,7 +669,7 @@ class RuleBusArrangeUp(models.Model):
     _name = "scheduleplan.up.rulebusarrange"
 
 
-    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule", ondelete="cascade")
+    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule")
 
     # 车型
     vehiclemode = fields.Many2one("fleet.vehicle.model", string="vehicle mode")
@@ -700,7 +697,7 @@ class ToUp(models.Model):
     """
     _name = "scheduleplan.toup"
 
-    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule", ondelete="cascade")
+    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule")
 
     # 开始时间
     starttime = fields.Char(string="start time", required=True)
@@ -768,9 +765,9 @@ class BigSiteSettingsUp(models.Model):
 
     _name = "scheduleplan.bigsitesetup"
 
-    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule", ondelete="cascade")
+    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule")
 
-    site_id = fields.Many2one("opertation_resources_station")
+    site_id = fields.Many2one("opertation_resources_station_up")
 
     # 是否签点
     needsign = fields.Boolean(string="need sign")
@@ -799,6 +796,9 @@ class BigSiteSettingsDown(models.Model):
     _name = "scheduleplan.bigsitesetdown"
 
     _inherit = "scheduleplan.bigsitesetup"
+
+    site_id = fields.Many2one("opertation_resources_station_down")
+
 
 
 class BusMoveTimeTable(models.Model):
@@ -1031,7 +1031,7 @@ class MoveTimeUP(models.Model):
 
     _name = "scheduleplan.movetimeup"
 
-    movetimetable_id = fields.Many2one("scheduleplan.busmovetime", ondelete="cascade")
+    movetimetable_id = fields.Many2one("scheduleplan.busmovetime")
 
     # 序号
     seqid = fields.Integer(string="sequence id")
@@ -1148,7 +1148,7 @@ class ExecUpPlanItem(models.Model):
     """
     _name = "scheduleplan.execupplanitem"
 
-    execplan_id = fields.Many2one("scheduleplan.excutetable", ondelete="cascade")
+    execplan_id = fields.Many2one("scheduleplan.excutetable")
 
     # 序号
     seq_id = fields.Integer(string="sequence id")
@@ -1195,7 +1195,7 @@ class MotorcyclistsTime(models.Model):
 
     _name = "scheduleplan.motorcyclists"
 
-    execplan_id = fields.Many2one("scheduleplan.excutetable", ondelete="cascade")
+    execplan_id = fields.Many2one("scheduleplan.excutetable")
 
     employee_id = fields.Many2one("hr.employee", string="emplyee id")
 
@@ -1239,7 +1239,7 @@ class VehicleResource(models.Model):
 
     _name = "scheduleplan.vehicleresource"
 
-    execplan_id = fields.Many2one("scheduleplan.excutetable", ondelete="cascade")
+    execplan_id = fields.Many2one("scheduleplan.excutetable")
 
     vehicle_id = fields.Many2one("fleet.vehicle")
 
