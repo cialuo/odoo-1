@@ -1,0 +1,35 @@
+<openerp>
+  <data>
+    <record model="ir.actions.act_window" id="abnormal_monitor_location_yuejie_action">
+      <field name="name">车辆越界</field>
+      <field name="res_model">dispatch.abnormal.mgt</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="abnormal_monitor_location_offline_action">
+      <field name="name">车辆掉线</field>
+      <field name="res_model">dispatch.abnormal.mgt</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="abnormal_monitor_location_zhiliu_action">
+      <field name="name">异常滞留</field>
+      <field name="res_model">dispatch.abnormal.mgt</field>
+      <field name="view_mode">tree,form</field>
+    </record>   
+    <record model="ir.actions.act_window" id="abnormal_monitor_location_qianchejuli_action">
+      <field name="name">前车距离异常</field>
+      <field name="res_model">dispatch.abnormal.mgt</field>
+      <field name="view_mode">tree,form</field>
+    </record>      
+
+    <menuitem name="车辆越界" id="abnormal_monitor_location_yuejie_menu" parent="lty_dispatch_abnormal_monitor_location"
+              action="abnormal_monitor_location_yuejie_action" sequence="10"/>  
+    <menuitem name="车辆掉线" id="abnormal_monitor_location_offline_menu" parent="lty_dispatch_abnormal_monitor_location"
+              action="abnormal_monitor_location_offline_action" sequence="10"/>                 
+    <menuitem name="异常滞留" id="abnormal_monitor_location_zhiliu_menu" parent="lty_dispatch_abnormal_monitor_location"
+              action="abnormal_monitor_location_zhiliu_action" sequence="10"/>                 
+    <menuitem name="前车距离异常" id="abnormal_monitor_location_qianchejuli_menu" parent="lty_dispatch_abnormal_monitor_location"
+              action="abnormal_monitor_location_qianchejuli_action" sequence="10"/>                            
+              
+               
+  </data>
+</openerp>
