@@ -63,7 +63,7 @@ websocket.onmessage = function (event) {
         socket_model_obj.fn(event.data, socket_model_obj.arg);
     }
     var obj = {modelName: "bus_real_state", controllerId: "1", data: [event.data]};
-    console.log('随机数为'+event.data.slice(78, 80));
+    // console.log('随机数为'+event.data.slice(78, 80));
     if (event.data.slice(78, 80) < 15) {
         obj.modelName = "passenger_delay";
     } else if (event.data.slice(78, 80) < 30) {
@@ -82,26 +82,26 @@ websocket.onmessage = function (event) {
         //客流与运力组件
         passenger_flow_capacity($(".controller_" + controllerId), obj.data);
     } else if (modelName == "车辆资源状态") {
-        console.log('3');
+        // console.log('3');
     } else if (modelName == "人力资源状态") {
-        console.log('4');
+        // console.log('4');
     } else if (modelName == "bus_real_state") {
-        console.log('5');
+        // console.log('5');
         busRealStateModel_socket_fn($(".controller_" + controllerId), obj.data);
     } else if (modelName == "passenger_delay") {
-        console.log('6');
+        // console.log('6');
         passengerDelayModel_socket_fn($(".controller_" + controllerId), obj.data);
     } else if (modelName == "linePlanParkOnlineModel") {
-        console.log('7');
+        // console.log('7');
         linePlanParkOnlineModel_socket_fn($(".controller_" + controllerId), obj.data);
     } else if (modelName == "线路车场") {
-        console.log('8');
+        // console.log('8');
     } else if (modelName == "线路在途") {
-        console.log('9');
+        // console.log('9');
     } else if (modelName == "消息") {
-        console.log('10');
+        // console.log('10');
     } else if (modelName == "absnormal") {
-        console.log(event.data[0].substring(78, 80))
+        // console.log(event.data[0].substring(78, 80))
         absnormal_del($(".controller_" + controllerId), obj.data);
     }
 };

@@ -648,17 +648,26 @@
                         <th class="pR">状态</th>
                     </tr>
                     <t t-foreach="widget.plan_data.data_list" t-as="item">
-                        <tr class="point" t-attf-pid="{{item.id}}">
-                            <td class="pL">
-                                <span t-attf-class="icon scheduling_status icon_{{item.scheduling_status}}"></span>
-                                <span t-attf-class="icon vehicles_status icon_{{item.vehicles_status}}"></span>
-                            </td>
-                            <td><t t-esc="item.plan_time"></t></td>
-                            <td><t t-esc="item.arrive_time"></t></td>
-                            <td><t t-esc="item.vehicle"></t></td>
-                            <td><t t-esc="item.driver"></t></td>
-                            <td class="pR"><t t-esc="item.start_status"></t></td>
-                        </tr>
+                        <t t-if="item.direction==widget.plan_data.directory">
+                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}">
+                                <td class="pL">
+                                    <span t-attf-class="icon scheduling_status icon_{{item.sendToScreen}}"></span>
+                                    <span t-attf-class="icon vehicles_status icon_{{item.sendToBus}}"></span>
+                                </td>
+                                <td><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,8)"></t></td>
+                                <td><t t-esc="new Date(item.planReachTime).toTimeString().slice(0,8)"></t></td>
+                                <td><t t-esc="item.selfId"></t></td>
+                                <td><t t-esc="item.driverName"></t></td>
+                                <td class="pR">
+                                    <t t-if="item.planState!=2">
+                                        待发
+                                    </t>
+                                    <t t-else="">
+                                        已发
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
                     </t>
                 </table>
             </div>

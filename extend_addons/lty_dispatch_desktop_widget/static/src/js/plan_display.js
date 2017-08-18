@@ -13,36 +13,18 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             this.location_data = data;
             var uplink_plan = {
                 name: "上行",
+                directory: 0,
                 data_list: [
                     {
                         id: "plan_1",
-                        scheduling_status: 0,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        arrive_time: "9:15",
-                        vehicle: "655",
-                        driver: "刘德华",
-                        start_status: "待发"
-                    },
-                    {
-                        id: "plan_2",
-                        scheduling_status: 1,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        arrive_time: "9:15",
-                        vehicle: "655",
-                        driver: "刘德华",
-                        start_status: "待发"
-                    },
-                    {
-                        id: "plan_3",
-                        scheduling_status: 1,
-                        vehicles_status: 0,
-                        plan_time: "8:15",
-                        arrive_time: "9:15",
-                        vehicle: "655",
-                        driver: "刘德华",
-                        start_status: "待发"
+                        sendToScreen: 0,
+                        sendToBus: 1,
+                        planRunTime: new Date().getTime(),
+                        planReachTime: new Date().getTime(),
+                        selfId: "655",
+                        driverName: "刘德华",
+                        planState: "0",
+                        direction: 0
                     }
                 ]
             };
@@ -58,107 +40,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         line: 16,
                         back_time: "8:10",
                         parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 0,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 0,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 1,
-                        vehicles_status: 0,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 0,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 1,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 0,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 1,
-                        vehicles_status: 0,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 0,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 0,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 0,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
+                    }
                 ]
             };
             var uplink_transit = {
@@ -173,37 +55,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         line: 16,
                         back_time: "8:10",
                         parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 1,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 1,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
-                    {
-                        id: "yard_1",
-                        driver_status: 1,
-                        vehicles_status: 0,
-                        plan_time: "8:15",
-                        vehicle: "264",
-                        line: 16,
-                        back_time: "8:10",
-                        parking: "5"
-                    },
+                    }
                 ]
             }
             this.uplink_plan = uplink_plan;
@@ -214,7 +66,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             this.down_transit = uplink_transit;
         },
         start: function(){
-            this.cont_info();
             var layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
             var linePlanParkOnlineModel_set = {
                 layer_index: layer_index
@@ -228,6 +79,33 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 msgId: Date.parse(new Date())
             };
             websocket.send(JSON.stringify(package));
+
+            this.load_plan();
+        },
+        load_plan: function(){
+            var self = this;
+            $.ajax({
+                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:2032,gprsId:161}',
+                // url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:2032,gprsId:161}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(data){
+                    // self.uplink_plan = {
+                    //     name: "上行",
+                    //     directory: 0,
+                    //     data_list: data.respose
+                    // };
+                    // self.down_plan = {
+                    //     name: "下行",
+                    //     directory: 1,
+                    //     data_list: data.respose
+                    // };
+                    console.log(data.respose[0]);
+                    self.cont_info();
+                }
+            })
+            
         },
         cont_info: function(){
             new bus_plan(this, this.uplink_plan).appendTo(this.$(".plan_group"));
