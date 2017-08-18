@@ -300,10 +300,13 @@
 												<p>2趟/分钟/20分钟,需补充2台机动车</p>
 											</div>
 											<div class="handleBtn ovf">
-											<a class="manual" href="javascript:;">人工</a>
-											<a class="process_check" href="javascript:;">校准</a>
-											<a>忽略</a>
-										</div>
+												<a class="manual" href="javascript:;">人工</a>
+												<a class="process_check" href="javascript:;">校准</a>
+												<a>忽略</a>
+											</div>
+											<div class="finishBtn">
+												<a href="javascript:;" class="is_check">完成</a>
+											</div>
 										</li>
 										<li class="normal">
 											<h4>异常</h4>
