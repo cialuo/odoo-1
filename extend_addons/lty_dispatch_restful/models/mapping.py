@@ -83,7 +83,7 @@ op_stationblock = {
     ('latitude', 'latitude'): None,
 }
 #站点基础数据 对应上下行站台两张表，会有重复数据库ID
-# op_station
+# op_station -- opertation_resources_station_platform
 op_station = {
     ('id', 'id'): None,
     #线路编码int
@@ -473,7 +473,7 @@ op_commandtext = {
 op_dispatchplan = {}
 
 #1.3.15	车辆资源 无对应表
-# op_busresource
+# op_busresource -- scheduleplan.vehicleresource
 op_busresource = {
 
 }
