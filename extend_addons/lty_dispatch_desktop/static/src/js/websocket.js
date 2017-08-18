@@ -58,7 +58,7 @@ websocket.onmessage = function (event) {
         var socket_model_obj = socket_model_info[socket_model];
         socket_model_obj.fn(event.data, socket_model_obj.arg);
     }
-    var obj = {modelName: "bus_real_state", controllerId: "4", data: [event.data]};
+    var obj = {modelName: "bus_real_state", controllerId: "1", data: [event.data]};
     if (event.data.slice(78, 80) < 15) {
         obj.modelName = "passenger_delay";
     } else if (event.data.slice(78, 80) < 30) {
@@ -67,6 +67,7 @@ websocket.onmessage = function (event) {
     } else if (event.data.slice(78, 80) < 45) {
         obj.modelName = "passenger_flow_capacity";
     } else if (event.data.slice(78, 80) < 60) {
+        console.log(event.data.slice(78, 80))
         obj.modelName = "absnormal";
     }
     var modelName = obj.modelName;
@@ -96,7 +97,6 @@ websocket.onmessage = function (event) {
     } else if (modelName == "消息") {
         console.log('10');
     } else if (modelName == "absnormal") {
-        console.log(event.data[0].substring(78, 80))
         absnormal_del($(".controller_" + controllerId), obj.data);
     }
 };
@@ -111,6 +111,7 @@ window.onbeforeunload = function () {
 };
 // 异常
 function absnormal_del(controllerObj, data_list) {
+    console.log(controllerObj.find('.updown_line_table[line_id=1]').length)
     if (controllerObj.find('.updown_line_table[line_id=1]').length > 0) {
         if (data_list[0].substring(78, 79) > 3) {
             controllerObj.find('.updown_line_table[line_id=1]').find('.no_absnormal').show().siblings().hide();

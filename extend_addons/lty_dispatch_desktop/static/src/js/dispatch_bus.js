@@ -106,6 +106,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 self.$('.bus_info li').eq(i).find('span').html(innerHTML.substring(78 + i, 80 + i));
             }
             var data = new Object();
+
+            //站点距离起点长度
             data.dataCir = [12, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 780, 860, 1000, 1170];
             data.dataCir2 = [12, 150, 200, 250, 300, 350, 400, 450, 500, 550, 650, 700, 860, 1000, 1170];
             //分段颜色
@@ -493,23 +495,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                                 cxt.closePath();
                             }
-                            //如果是右击
-                            // else if (e.button == 2) {
-                            //     if (canvas.site_infos[i].status == true) {
-                            //         cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].name.length), canvas.testy - 16, 12 * canvas.site_infos[i].name.length, 16)
-                            //         if (cxt.isPointInPath(x, y)) {
-                            //             var options =
-                            //                 {
-                            //                     x: x + 5 + 12 + 26,
-                            //                     y: y + 5 + 55,
-                            //                     zIndex: zIndex + 1,
-                            //                 };
-                            //             new bus_site_info(this, options).appendTo(this.$el);
-                            //             cxt.closePath();
-                            //             //如果提供了事件对象，则这是一个非IE浏览器
-                            //         }
-                            //     }
-                            // }
                         }
                     }
                 }
@@ -640,10 +625,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
             // 不存在其他的组件时候
             if (tid == '') {
-                layer.load(1)
                 if (resName.indexOf(x.innerHTML) != -1) {
                     alert('该线路已被选择，请重新选择');
                 } else {
+                    layer.load(1)
+                    alert(2)
                     self.model_line.call("create", [
                         {
                             'desktop_id': desktop_id,
@@ -675,10 +661,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     });
                 }
             } else {
-                layer.load(1)
                 if (resName.indexOf(x.innerHTML) != -1) {
                     alert('该线路已被选择，请重新选择');
                 } else {
+                    layer.load(1)
                     self.model_line.call("write", [parseInt(tid),
                         {
                             'line_id': $(x).attr("lineid"),
