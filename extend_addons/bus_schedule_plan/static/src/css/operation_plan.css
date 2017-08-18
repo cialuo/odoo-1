@@ -44,6 +44,6 @@
     /*padding-left: 10px;*/
     /*text-align: left;*/
 /*}*/
-/*.opera_sort .start_time,.opera_sort .over_time,.opera_sort .stop_time{*/
-    /*padding-left: 5px;*/
-/*}*/
+.time_start_arrive_stop  .start_time,.time_start_arrive_stop  .over_time,.time_start_arrive_stop .stop_time{
+    padding-left: 5px;
+}
