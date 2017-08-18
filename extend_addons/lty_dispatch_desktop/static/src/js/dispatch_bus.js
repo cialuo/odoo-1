@@ -537,14 +537,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 self.$('.edit_content .chs').html('')
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].id) {
-                        var oLi = "<li lineid=" + data[i].id + ">" + data[i].lineName + "</li>";
+                        var oLi = "<li lineid=" + data[i].id + ">" + data[i].line_name + "</li>";
                         self.$('.edit_content .chs').append(oLi);
                     }
                 }
             });
             self.$('.edit_content');
             self.$('.edit_content').show();
-
         },
         cursor_pointer_lr: function (canvas, e) {
             var event = e || window.event;
