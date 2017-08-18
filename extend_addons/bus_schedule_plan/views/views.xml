@@ -395,7 +395,7 @@
                                 </tree>
                             </field>
                         </page>
-                        <page string="down move time" name="down_move_time" attrs="{'invisible': [('schedule_method', '=', 'singleway')]}">
+                        <page string="down move time" attrs="{'invisible': [('schedule_method', '=', 'singleway')]}">
                             <field name="downtimeslist">
                                 <tree>
                                     <field name="seqid"/>
