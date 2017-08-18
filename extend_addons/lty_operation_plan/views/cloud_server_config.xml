@@ -26,8 +26,8 @@
         <field name="target">inline</field>
     </record>
    
-    <menuitem name="Platform Access" id="lty_server_config_categ" parent="operation_menu.platform_join_up_menu"/>        
-        <menuitem name="Cloud Server Access" id="lty_cloud_server_config_menu" parent="operation_menu.platform_join_up_menu" action="lty_cloud_server_config_action"/>    
+    <menuitem name="Platform Access" id="lty_server_config_categ" parent="operation_menu.operation_menu_root"/>        
+        <menuitem name="Cloud Server Access" id="lty_cloud_server_config_menu" parent="lty_server_config_categ" action="lty_cloud_server_config_action"/>    
     
   </data>
 </openerp>

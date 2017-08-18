@@ -1,0 +1,188 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* lty_server_access
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-18 07:23+0000\n"
+"PO-Revision-Date: 2017-08-18 07:23+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_cloud_server_config_access_key
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_dsp_server_config_access_key
+msgid "Access Key"
+msgstr "Access Key"
+
+#. module: lty_server_access
+#: model:ir.ui.view,arch_db:lty_server_access.lty_cloud_server_config_form
+#: model:ir.ui.view,arch_db:lty_server_access.lty_dsp_server_config_form
+msgid "Apply"
+msgstr "应用"
+
+#. module: lty_server_access
+#: model:ir.ui.view,arch_db:lty_server_access.lty_cloud_server_config_form
+#: model:ir.ui.view,arch_db:lty_server_access.lty_dsp_server_config_form
+msgid "Cancel"
+msgstr "取消"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_dispatch_line_citycode_ref_company_citycode
+msgid "City Code"
+msgstr "City Code"
+
+#. module: lty_server_access
+#: model:ir.ui.menu,name:lty_server_access.lty_cloud_server_config_menu
+msgid "Cloud Server Access"
+msgstr "大数据云计算接入"
+
+#. module: lty_server_access
+#: model:ir.ui.view,arch_db:lty_server_access.lty_cloud_server_config_form
+msgid "Cloud Server Config"
+msgstr "调度监控系统配置"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_dispatch_line_citycode_ref_company_id
+msgid "Company id"
+msgstr "公司"
+
+#. module: lty_server_access
+#: model:ir.ui.view,arch_db:lty_server_access.lty_cloud_server_config_form
+#: model:ir.ui.view,arch_db:lty_server_access.lty_dsp_server_config_form
+msgid "Configure Cloud Server"
+msgstr "大数据云计算配置"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_cloud_server_config_create_uid
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_dsp_server_config_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_cloud_server_config_create_date
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_dsp_server_config_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_dispatch_line_citycode_ref_direction
+msgid "Direction"
+msgstr "方向"
+
+#. module: lty_server_access
+#: model:ir.ui.menu,name:lty_server_access.lty_dsp_server_config_menu
+msgid "Dispatch Server Access"
+msgstr "调度监控系统接入"
+
+#. module: lty_server_access
+#: model:ir.ui.view,arch_db:lty_server_access.lty_dsp_server_config_form
+msgid "Dispatch Server Config"
+msgstr "Dispatch Server Config"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_dispatch_line_citycode_ref_display_name
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_cloud_server_config_display_name
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_dsp_server_config_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_dispatch_line_citycode_ref_id
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_cloud_server_config_id
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_dsp_server_config_id
+msgid "ID"
+msgstr "ID"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_cloud_server_config_name
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_dsp_server_config_name
+msgid "IP Address"
+msgstr "IP"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_dispatch_line_citycode_ref___last_update
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_cloud_server_config___last_update
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_dsp_server_config___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_cloud_server_config_write_uid
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_dsp_server_config_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_cloud_server_config_write_date
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_dsp_server_config_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_dispatch_line_citycode_ref_line_code
+msgid "Line Code"
+msgstr "线路"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_dispatch_line_citycode_ref_line_name
+msgid "Line Name"
+msgstr "线路名称"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_dispatch_line_citycode_ref_line_id
+msgid "Line id"
+msgstr "线路"
+
+#. module: lty_server_access
+#: model:ir.ui.menu,name:lty_server_access.lty_server_config_categ
+msgid "Platform Access"
+msgstr "平台接入"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_cloud_server_config_port
+#: model:ir.model.fields,field_description:lty_server_access.field_lty_dsp_server_config_port
+msgid "Port"
+msgstr "端口"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_dispatch_line_citycode_ref_station_end
+msgid "Station end"
+msgstr "结束站点"
+
+#. module: lty_server_access
+#: model:ir.model.fields,field_description:lty_server_access.field_dispatch_line_citycode_ref_station_start
+msgid "Station start"
+msgstr "开始站点"
+
+#. module: lty_server_access
+#: model:ir.model,name:lty_server_access.model_dispatch_line_citycode_ref
+msgid "line_citycode"
+msgstr "line_citycode"
+
+#. module: lty_server_access
+#: model:ir.model,name:lty_server_access.model_lty_cloud_server_config
+msgid "lty.cloud.server.config"
+msgstr "云计算配置"
+
+#. module: lty_server_access
+#: model:ir.model,name:lty_server_access.model_lty_dsp_server_config
+msgid "lty.dsp.server.config"
+msgstr "调度平台配置"
+
+#. module: lty_server_access
+#: model:ir.actions.act_window,name:lty_server_access.lty_cloud_server_config_action
+msgid "lty_cloud_server_config_action"
+msgstr "运计算配置"
+
+#. module: lty_server_access
+#: model:ir.actions.act_window,name:lty_server_access.lty_dsp_server_config_action
+msgid "lty_dsp_server_config_action"
+msgstr "调度计算配置"
+

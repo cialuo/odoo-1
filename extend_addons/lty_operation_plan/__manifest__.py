@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "lty_dispatch_jobs",
+    'name': "lty_operation_plan",
 
     'summary': """
-        调度作业""",
+        lty_operation_plan
+    """,
 
     'description': """
-        调度作业
+        运营计划
     """,
 
     'author': "lihaihe",
@@ -19,13 +20,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['dispatch_monitor_menu'],
+    'depends': ['base','operation_menu'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/dispatch_abnormal_views.xml',
-        'data/abnormal_categ_data.xml',
+        #'views/cloud_server_config.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

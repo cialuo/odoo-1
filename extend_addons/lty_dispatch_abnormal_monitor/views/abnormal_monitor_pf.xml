@@ -1,0 +1,33 @@
+<openerp>
+  <data>
+    <record model="ir.actions.act_window" id="abnormal_monitor_pf_shiduangaofeng_action">
+      <field name="name">是段意外高峰</field>
+      <field name="res_model">dispatch.abnormal.mgt</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="abnormal_monitor_pf_zhandiangaofeng_action">
+      <field name="name">站点意外高峰</field>
+      <field name="res_model">dispatch.abnormal.mgt</field>
+      <field name="view_mode">tree,form</field>
+    </record>  
+    <record model="ir.actions.act_window" id="abnormal_monitor_pf_shiduanyiwaidifeng_action">
+      <field name="name">时段意外低峰</field>
+      <field name="res_model">dispatch.abnormal.mgt</field>
+      <field name="view_mode">tree,form</field>
+    </record>     
+    <record model="ir.actions.act_window" id="abnormal_monitor_pf_zhandianyiwaidifeng_action">
+      <field name="name">站点意外低峰</field>
+      <field name="res_model">dispatch.abnormal.mgt</field>
+      <field name="view_mode">tree,form</field>
+    </record>         
+
+    <menuitem name="是段意外高峰" id="abnormal_monitor_pf_shiduangaofeng_menu" parent="lty_dispatch_abnormal_monitor_pf"
+              action="abnormal_monitor_safty_chaosu_action" sequence="10"/>   
+    <menuitem name="站点意外高峰" id="abnormal_monitor_pf_zhandiangaofeng_menu" parent="lty_dispatch_abnormal_monitor_pf"
+              action="abnormal_monitor_pf_zhandiangaofeng_action" sequence="10"/>                    
+    <menuitem name="时段意外低峰" id="abnormal_monitor_pf_shiduanyiwaidifeng_menu" parent="lty_dispatch_abnormal_monitor_pf"
+              action="abnormal_monitor_pf_shiduanyiwaidifeng_action" sequence="10"/>  
+    <menuitem name="站点意外低峰" id="abnormal_monitor_pf_zhandianyiwaidifeng_menu" parent="lty_dispatch_abnormal_monitor_pf"
+              action="abnormal_monitor_pf_zhandianyiwaidifeng_action" sequence="10"/>                      
+  </data>
+</openerp>

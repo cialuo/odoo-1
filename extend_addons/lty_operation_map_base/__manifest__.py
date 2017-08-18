@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "lty_dispatch_jobs",
+    'name': "lty_opertation_map_base",
 
     'summary': """
-        调度作业""",
+        线路地图
+    """,
 
     'description': """
-        调度作业
+        线路地图
     """,
 
     'author': "lihaihe",
@@ -19,13 +20,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['dispatch_monitor_menu'],
+    'depends': ['base','scheduling_parameters'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/dispatch_abnormal_views.xml',
-        'data/abnormal_categ_data.xml',
+        #'views/cloud_server_config.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
