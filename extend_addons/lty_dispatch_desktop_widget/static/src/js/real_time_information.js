@@ -57,7 +57,16 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             var busRealStateModel_set = {
                 layer_index: layer_index
             }
-            sessionStorage.setItem("busRealStateModel_set", JSON.stringify(busRealStateModel_set)); 
+            sessionStorage.setItem("busRealStateModel_set", JSON.stringify(busRealStateModel_set));
+
+
+            // 订阅车辆实时状态
+            var package = {
+                type: 1000,
+                open_modules: ["dispatch-bus_real_state-"+this.location_data.controllerId],
+                msgId: Date.parse(new Date())
+            };
+            websocket.send(JSON.stringify(package));
             // var key_s = 'modelBus'+'_'+this.location_data.controllerId+'_'+this.location_data.line_id+'_'+this.location_data.car_num;
             // socket_model_info['modelBus'] = {};
             // socket_model_info['modelBus'][key_s] = {arg: {self: this, layer_index: this.layer_index}, fn: this.socket_fn};
@@ -167,7 +176,13 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             }
         },
         closeFn: function(){
-            // delete socket_model_info['model_car'];
+            // 取消订阅车辆实时状态
+            var package = {
+                type: 1000,
+                open_modules: ["dispatch-bus_real_state-"+this.location_data.controllerId],
+                msgId: Date.parse(new Date())
+            };
+            websocket.send(JSON.stringify(package));
             this.destroy();
         }
     });
