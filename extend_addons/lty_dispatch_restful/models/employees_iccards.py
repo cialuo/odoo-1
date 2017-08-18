@@ -23,17 +23,17 @@ from extend_addons.lty_dispatch_restful.core.restful_client import *
 import mapping
 import logging
 
-#对接系统  线路计划基础数据表名
+#对接系统  IC卡管理
 
-LINEPLAN_TABLE = 'op_linePlan'
+TABLE = 'pub_hr_iccardmap'
 
 _logger = logging.getLogger(__name__)
-class LinePlan(models.Model):
+class ICCard(models.Model):
 
-    _inherit = 'scheduleplan.schedulrule'
+    _inherit = 'employees.iccards'
 
     '''
-        继承人员基础数据,调用restful api
+        继承IC卡管理,调用restful api
     '''
 
     # #调度数据逐渐
@@ -47,19 +47,16 @@ class LinePlan(models.Model):
         :return:
         '''
 
-        res = super(LinePlan, self).create(vals)
+        res = super(ICCard, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
             _logger.info('Start create data: %s', self._name)
+            vals = mapping.dict_transfer(self._name, vals)
             vals.update({
                 'id': res.id,
-                #后台取值,
-                'gprs_id': res.line_id.gprs_id,
-                'schedule_type': res.line_id.schedule_type,
             })
-            vals = mapping.dict_transfer(self._name, vals)
-            params = Params(type=1, cityCode=cityCode,tableName=LINEPLAN_TABLE, data=vals).to_dict()
+            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
         except Exception,e:
             _logger.info('%s', e.message)
@@ -73,7 +70,7 @@ class LinePlan(models.Model):
         :return:
         '''
 
-        res = super(LinePlan, self).write(vals)
+        res = super(ICCard, self).write(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
@@ -83,14 +80,11 @@ class LinePlan(models.Model):
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
-                    vals.update({
-                        'id': res.id,
-                        # 后台取值,
-                        'gprs_id': res.line_id.gprs_id,
-                        'schedule_type': res.line_id.schedule_type,
-                    })
                     vals = mapping.dict_transfer(self._name, vals)
-                    params = Params(type=3, cityCode=cityCode,tableName=LINEPLAN_TABLE, data=vals).to_dict()
+                    vals.update({
+                        'id': r.id,
+                    })
+                    params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
 
                     # clientThread(url,params,res).start()
@@ -107,13 +101,13 @@ class LinePlan(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         vals = {"ids": self.ids}
-        res = super(LinePlan, self).unlink()
+        res = super(ICCard, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
             # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
             _logger.info('Start unlink data: %s', self._name)
-            params = Params(type = 3, cityCode = cityCode,tableName = LINEPLAN_TABLE, data = vals).to_dict()
+            params = Params(type = 3, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
             clientThread(url,params,res).start()
         except Exception,e:
             _logger.info('%s', e.message)

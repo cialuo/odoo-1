@@ -36,8 +36,8 @@ class Vehicle(models.Model):
         继承车辆基础数据,调用restful api
     '''
 
-    #调度数据逐渐
-    fk_id = fields.Char()
+    # #调度数据逐渐
+    # fk_id = fields.Char()
 
     @api.model
     def create(self, vals):
@@ -55,6 +55,10 @@ class Vehicle(models.Model):
             vals = mapping.dict_transfer(self._name, vals)
             vals.update({
                 'id': res.id,
+                'engineNo': res.model_id.engine_no,
+                'Zkrs': res.model_id.ride_number,
+                'Zws': res.model_id.seats_ext,
+                'Zyygl': res.total_odometer,
                 #增加默认传值
                 'doorTypeId': 1,
             })
@@ -83,7 +87,15 @@ class Vehicle(models.Model):
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(self._name, vals)
-                    vals.update({'id': r.id})
+                    vals.update({
+                        'id': r.id,
+                        'engineNo': r.model_id.engine_no,
+                        'Zkrs': r.model_id.ride_number,
+                        'Zws': r.model_id.seats_ext,
+                        'Zyygl': r.total_odometer,
+                        # 增加默认传值
+                        'doorTypeId': 1,
+                    })
                     params = Params(type=3, cityCode=cityCode,tableName=CAR_TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
 

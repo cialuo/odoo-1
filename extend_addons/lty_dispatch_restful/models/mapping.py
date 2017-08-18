@@ -31,8 +31,8 @@ op_line = {
     ('gprsId', 'gprs_id'): None,
     #线路名称
     ('lineName', 'line_name'): None,
-    #线路类型，无对应字段（1：单向环线；2：双向环线；3：双向线路）
-    ('lineTypeId', None): None,
+    #线路类型，（1：单向环线；2：双向环线；3：双向线路）
+    ('lineTypeId', 'loop_type'): {'single_loop': 1,'double_loop': 2, 'double_line': 3},
     #调车方式
     ('runTypeId', 'run_type_name'): {'single_shunt': 1, 'double_shunt':2},
     #调度类型
@@ -47,14 +47,14 @@ op_line = {
     ('isNight', None): None,
     #是否跨天，无对应字段(0：跨天；1：非跨天),默认传值：0
     ('isCrossDay', None): None,
-    #票价，无对应字段
-    ('ticketPrice', None): None,
-    #线路开通日期，无对应字段
-    ('startDate', None): None,
-    #线路停运日期，无对应字段
-    ('endDate', None): None,
-    #是否人工售票，无对应字段（0：非人工；1：人工售票）
-    ('isArtificialTicket', None): None,
+    #票价
+    ('ticketPrice', 'ticket_price'): None,
+    #线路开通日期
+    ('startDate', 'start_date'): None,
+    #线路停运日期
+    ('endDate', 'end_date'): None,
+    #是否人工售票，（0：非人工；1：人工售票）
+    ('isArtificialTicket', 'is_artificial_ticket'): {True: 1, False:0},
     #是否显示线路辅助点，无对应字段（0：不显示；1：显示）,默认传值：0
     ('isShowPoint', None): None,
     #是否显示站点名，无对应字段（0：不显示；1：显示）,默认传值：0
@@ -66,17 +66,17 @@ op_line = {
 }
 
 #站台基础数据
-# op_stationblock
+# op_stationblock opertation_resources_station
 op_stationblock = {
     ('id', 'id'): None,
     #站台编码
     ('stationId', 'code'): None,
     #站台名称
     ('stationName', 'name'): None,
-    #地址,无对应字段
-    ('address', None): None,
-    #附近,无对应字段
-    ('nearby', None): None,
+    #地址
+    ('address', 'address'): None,
+    #附近
+    ('nearby', 'nearby'): None,
     #经度
     ('longitude', 'longitude'): None,
     #纬度
@@ -86,35 +86,35 @@ op_stationblock = {
 # op_station -- opertation_resources_station_platform
 op_station = {
     ('id', 'id'): None,
-    #线路编码int
+    #线路编码int 后台获取route_id.gprs_id
     ('gprsId', None): None,
-    #站点名称string
+    #站点名称string，后台获取station_id.name
     ('stationName', None): None,
-    #站点方案Id int
+    #站点方案Id int ，not found
     ('opStationMainId', None): None,
-    #线路Id int
-    ('lineId', None): None,
-    #站序 int
-    ('orderNo', None): None,
+    #线路Id int，route_id
+    ('lineId', 'route_id'): None,
+    #站序 int ，
+    ('orderNo', 'sequence'): None,
     #方向 0:上行，1：下行
-    ('direction', None): None,
+    ('direction', 'direction'): {'up': 0, 'down': 1},
     #站台id int
-    ('blockId ', None): None,
-    #距起点站距离 float
+    ('blockId ', 'station_id'): None,
+    #距起点站距离 float,notfound
     ('byStartDistance', None): None,
-    #进站经度 float
+    #进站经度 float,后台获取 station_id.entrance_longitude
     ('longitude', None): None,
-    #进站纬度 float
+    #进站纬度 float 后台获取 station_id.entrance_latitude
     ('latitude', None): None,
-    #进站角度 int
+    #进站角度 int  后台获取 station_id.entrance_azimuth
     ('angle', None): None,
-    #出站经度 float
+    #出站经度 float 后台获取 station_id.exit_longitude
     ('longitudeOut', None): None,
-    #出站纬度 float
+    #出站纬度 float 后台获取 station_id.exit_latitude
     ('latitudeOut', None): None,
-    #出站角度 int
+    #出站角度 int 后台获取 station_id.exit_azimuth
     ('angleOut', None): None,
-    #距下一站时间
+    #距下一站时间 ， not found
     ('toNextTime', None): None,
 
 }
@@ -134,17 +134,17 @@ tjs_car = {
     ('carNum', 'inner_code'): None,
     #车辆牌照
     ('licensePlate', 'license_plate'): None,
-    #发动机号
+    #发动机号,计算字段后台获取 model_id.engine_no
     ('engineNo', 'engine_no'): None,
     #是否营运
     ('ifService', 'vehicle_life_state'): {'operation_period': 0, 'invest_period': 1, 'scrap_period': 1},
-    #载客数
+    #载客数，计算字段后台获取 model_id.ride_number
     ('Zkrs', 'ride_number'): None,
-    #座位数
+    #座位数，计算字段后台获取 model_id.seats_ext
     ('Zws', 'seats_ext'): None,
-    #总运营公里
+    #总运营公里,计算字段后台获取,total_odometer
     ('Zyygl', 'total_odometer'): None,
-    #车辆类型
+    #车辆类型,
     ('typeId', 'model_id'): None,
     #客门形式ID，无在对应字段；（1:1前2后；2:2前2后；3:2前1后；4:2前2后），2,4重复，默认传值：1
     ('doorTypeId', None): None,
@@ -174,78 +174,78 @@ hr_employee = {
 }
 
 #线路计划基础数据
-# op_linePlan
+# op_linePlan -- scheduleplan.schedulrule
 op_lineplan = {
     ('id', 'id'): None,
     #编号，无对应字段,传ID
     ('serialNumber', 'id'): None,
     #线路 ID
     ('lineId', 'line_id'): None,
-    #线路编码，无对应字段,后台取值
-    ('gprsID', None): None,
-    # 调车方式，无对应字段
-    ('runTypeId', None): None,
-    #调度类型编码
-    ('dispatchModeId', None): None,
+    #线路编码，无对应字段,后台取值line_id.gprs_id
+    ('gprsID', 'gprs_id'): None,
+    # 调车方式
+    ('runTypeId', 'schedule_method'): {'singleway': 1,'dubleway': 2},
+    #调度类型编码,无对应字段，后台取值，line_id.schedule_type
+    ('dispatchModeId', 'schedule_type'): {'flexible_scheduling': 1003, 'planning_scheduling': 1004, 'hybrid_scheduling': 2027},
     #计划名称
     ('planName', 'name'): None,
-    #上行里程，无对应字段
-    ('runKmU', None): None,
-    #下行里程，无对应字段
-    ('runKmD', None): None,
+    #上行里程
+    ('runKmU', 'run_km_u'): None,
+    #下行里程
+    ('runKmD', 'run_km_d'): None,
     #上行首班时间 Datetime
-    ('firstTime', 'firstruntime'): None,
+    ('firstTime', 'upfirsttime'): None,
     #上行末班时间 Datetime
-    ('lastTime', 'lastruntime'): None,
-    #计划趟次
-    ('planCount', 'totalmovenum'): None,
+    ('lastTime', 'uplasttime'): None,
+    #计划趟次,无对应字段
+    ('planCount', None): None,
     #下行首班时间 Datetime
-    ('firstTimeD', 'downfirstruntime'): None,
+    ('firstTimeD', 'downfirsttime'): None,
     #下行末班时间 Datetime
-    ('lastTimeD', 'downlastruntime'): None,
-    #开始计划 Datetime
-    ('startPlanTime', 'excutedate'): None,
+    ('lastTimeD', 'downlasttime'): None,
+    #开始计划 Datetime,无对应字段
+    ('startPlanTime', None): None,
     #创建日期
     ('createDate', 'create_date'): None,
-    #主场站ID，无对应字段
-    ('mainFieldId', None): None,
-    #副场站ID，无对应字段
-    ('viceFieldId', None): None,
+    #主场站ID
+    ('mainFieldId', 'main_field_id'): None,
+    #副场站ID
+    ('viceFieldId', 'vice_field_id'): None,
 
 }
 
 #大站设置 无对应的表
-# op_planstationbigmain
+# op_planstationbigmain  scheduleplan.bigsitesetdown scheduleplan.bigsitesetup
 op_planstationbigmain = {
-    #id string
+    #id string,id+ up /down
     ('id', 'id'): None,
     #运营计划ID int
-    ('linePlanId', None): None,
-    #方案站点ID int
+    ('linePlanId', 'rule_id'): None,
+    #方案站点ID int not found
     ('opStationMainId', None): None,
     #站点ID int
-    ('stationId', None): None,
-    #站点名称
-    ('stationName', None): None,
-    #距起点站距离float
+    ('stationId', 'site_id'): None,
+    #站点名称,后台获取 site_id.name
+    ('stationName', 'station_name'): None,
+    #距起点站距离float,not found
     ('byStartDistance', None): None,
     #是否大站考核,0:否，1：是
-    ('isCheck', None): None,
+    ('isCheck', 'needchecking'): {True: 1,False:0},
     #是否签点,0：否，1：是
-    ('isDispatchStation', None): None,
+    ('isDispatchStation', 'needsign'): {True: 1,False:0},
     #允许快几分钟 int
-    ('fastTime', None): None,
+    ('fastTime', 'fastthen'): None,
     #允许慢几分钟 int
-    ('slowTime', None): None,
-    #方向 int
-    ('Direction', None): None,
-    #编号 int
+    ('slowTime', 'slowthen'): None,
+    #方向 int  0
+    ('Direction', 'direction'): {'up': 0,'down':1},
+    #编号 int not found
     ('orderNo', None): None,
-    #峰段标志ID 1:低峰；2：平峰；3：高峰
+    #峰段标志ID 1:低峰；2：平峰；3：高峰 not found
     ('flagId', None): None,
-    #峰段标志名称 string
+    #峰段标志名称 string not found
     ('flagName', None): None,
-    #到下站考核时间点 string
+    #到下站考核时间点 string not found
     ('checkTime', None): None,
 }
 
@@ -388,51 +388,52 @@ op_param = {
     ('dispatchStationLimit', 'number_of_signatures'): None,
 }
 
-#人员-IC卡管理 无对应表
-# pub_hr_iccardmap
+#人员-IC卡管理
+# pub_hr_iccardmap  employees.iccards
 pub_hr_iccardmap = {
     ('id', 'id'): None,
-    ('name', None): None,
-    ('codeValue', None): None,
+    ('name', 'cardsn'): None,
+    ('codeValue', 'code_value'): None,
 }
 
-#运营计划峰值段 无对应表 （sheduleplan_toup，sheduleplan_todown）
+#运营计划峰值段  （scheduleplan.toup，scheduleplan.todown）
 # op_planparam
 op_planparam = {
+    #上行 id 后缀+0, 下行 id后缀+1
     ('id', 'id'): None,
     #计划类型
-    ('linePlanId', None): None,
+    ('linePlanId', 'rule_id'): None,
     #参数标志long
-    ('flagId', None): None,
+    ('flagId', 'mark'): {'peak': 3,'flat': 2,'low': 1},
     #参数标志String
-    ('flagName', None): None,
+    ('flagName', 'mark'): None,
     #开始时间Date
-    ('startTime', None): None,
+    ('startTime', 'starttime'): None,
     #结束时间Date
-    ('endTime', None): None,
-    #上行间隔1 int
+    ('endTime', 'endtime'): None,
+    #上行间隔1 int not found
     ('level1', None): None,
-    #上行间隔2 int
+    #上行间隔2 int not found
     ('level2', None): None,
-    #上行间隔3 int
+    #上行间隔3 int not found
     ('level3', None): None,
-    #上行间隔4 int
+    #上行间隔4 int not found
     ('level4', None): None,
-    #上行间隔5 int 0:上行，1：下行，2：默认
+    #上行间隔5 int not found
     ('level5', None): None,
     #时长 int
-    ('runTime', None): None,
-    #方向 int
-    ('direction', None): None,
-    #备注 String
+    ('runTime', 'worktimelength'): None,
+    #方向 int not found 0:上行，1：下行，2：默认
+    ('direction', 'direction'): {'up': 0,'down': 1},
+    #备注 String not found
     ('remark', None): None,
-    #int 无描述
+    #int 无描述不传
     ('planCount', None): None,
-    #int 无描述
+    #int 无描述不传
     ('avgRestTime', None): None,
-    #int 无描述
+    #int 无描述不传
     ('maxRestTime', None): None,
-    #int 无描述
+    #int 无描述不传
     ('minRestTime', None): None,
 }
 #1.3.12	控制台
@@ -443,14 +444,14 @@ op_controlline = {
     ('controlsId', 'desktop_id'): None,
     #线路id  long
     ('lineId', 'line_id'): None,
-    #备注 String，无对应字段
-    ('remark', None): None,
-    #显示顺序 String，无对应字段
-    ('showOrder', None): None,
+    #备注 String
+    ('remark', 'remark'): None,
+    #显示顺序 String
+    ('showOrder', 'show_order'): None,
     #String 没有描述，后台获取line_name
     ('lineName', None): None,
-    #设备号 long，无对应字段
-    ('onBoardId', None): None,
+    #设备号 long
+    ('onBoardId', 'on_bord_id'): None,
 }
 #1.3.13	司机手动命令，无对应表
 # op_commandtext
@@ -468,9 +469,30 @@ op_commandtext = {
     ('commandTypeName', None): None,
 }
 
-#1.3.14	调度计划 无对应表
-# op_dispatchplan
-op_dispatchplan = {}
+#1.3.14	调度计划
+# op_dispatchplan -- scheduleplan.excutetable
+op_dispatchplan = {
+    ('id', 'id'): None,
+    #线路Id  long
+    ('lineId', 'line_id'): None,
+    #线路名称 String 后台获取传值
+    ('lineName', 'line_name'): None,
+    #线路gprsid  int后台获取传值
+    ('gprsId', 'gprs_id'): None,
+    #运行线路编码 int not found
+    ('runGprsId', None): None,
+    #顺序编号int not found
+    ('orderNo', None): None,
+    #车辆编号Stirng not found
+    ('selfId', None): None,
+    #设备号int not found
+    ('onBoardId', None): None,
+    #设备名称String not found
+    ('onBoardName', None): None,
+    #驾驶员工号String not found
+    ('workerId', None): None,
+
+}
 
 #1.3.15	车辆资源 无对应表
 # op_busresource -- scheduleplan.vehicleresource
@@ -488,40 +510,40 @@ op_attendance = {
     ('lineName', None): None,
     #调度计划ID long notfound
     ('dispatchPlanId', 'execplan_id'): None,
-    #车辆编号 String notfound
-    ('selfId', None): None,
-    #设备编号 int,notfound
-    ('onBoardId', None): None,
+    #车辆编号 String
+    ('selfId', 'self_id'): None,
+    #设备编号 int
+    ('onBoardId', 'on_bord_id'): None,
     #线路编码int,notfound，计划中获取
     ('gprsId', None): None,
-    #台次int,notfound
-    ('orderNo', None): None,
-    #计划签到时间,notfound
-    ('onWorkTime', None): None,
-    #实际签到时间,notfound
-    ('conWorkTime', None): None,
-    #实际签到车辆,notfound
-    ('onWorkBus', None): None,
-    #实际签退时间date, notfound
-    ('coffWorkTime', None): None,
-    #实际签退车辆,notfound
-    ('offWorkBus', None): None,
+    #台次int
+    ('orderNo', 'order_numer'): None,
+    #计划签到时间
+    ('onWorkTime', 'on_work_time'): None,
+    #实际签到时间,
+    ('conWorkTime', 'con_work_time'): None,
+    #实际签到车辆,
+    ('onWorkBus', 'on_work_bus'): None,
+    #实际签退时间date,
+    ('coffWorkTime', 'c_off_work_time'): None,
+    #实际签退车辆
+    ('offWorkBus', 'off_work_bus'): None,
     #工号String
     ('workerId', 'employee_sn'): None,
     #姓名String,notfound，员工中获取
     ('driverName', None): None,
     #执行日期date
     ('workDate' ,'worktime'): None,
-    #备注String,notfound
-    ('remark', None): None,
-    #计划发车时间,notfound
-    ('planRunTime', None): None,
-    #时间发车时间date,notfound
-    ('planReachTime', None): None,
+    #备注String
+    ('remark', 'remark'): None,
+    #计划发车时间
+    ('planRunTime', 'plan_run_time'): None,
+    #时间发车时间date
+    ('planReachTime', 'plan_reach_time'): None,
     #上班时间
     ('workTime', 'checkintime'): None,
-    #计划时间date,notfound
-    ('planTime', None): None,
+    #计划时间date
+    ('planTime', 'plan_time'): None,
     #员工类型int 1019:司机 1020:售票员
     ('workerType', 'title'): {'driver': 1019, 'steward': 1020},
 
@@ -535,44 +557,44 @@ op_trainattendance = {
     ('lineId', None): None,
     # 线路名称String,notfound，计划中获取
     ('lineName', None): None,
-    # 调度计划ID long notfound
-    ('dispatchPlanId', None): None,
-    # 车辆编号 String notfound
-    ('selfId', None): None,
-    # 设备编号 int,notfound
-    ('onBoardId', None): None,
+    # 调度计划ID long
+    ('dispatchPlanId', 'execplan_id'): None,
+    # 车辆编号 String
+    ('selfId', 'self_id'): None,
+    # 设备编号 int,
+    ('onBoardId', 'on_bord_id'): None,
     # 线路编码int,notfound，计划中获取
     ('gprsId', None): None,
-    # 台次int,notfound
-    ('orderNo', None): None,
-    # 计划签到时间,notfound
-    ('onWorkTime', None): None,
-    # 实际签到时间,notfound
-    ('conWorkTime', None): None,
-    # 实际签到车辆,notfound
-    ('onWorkBus', None): None,
-    # 实际签退时间date, notfound
-    ('coffWorkTime', None): None,
+    # 台次int,
+    ('orderNo', 'order_numer'): None,
+    # 计划签到时间,
+    ('onWorkTime', 'on_work_time'): None,
+    # 实际签到时间,
+    ('conWorkTime', 'con_work_time'): None,
+    # 实际签到车辆,
+    ('onWorkBus', 'on_work_bus'): None,
+    # 实际签退时间date,
+    ('coffWorkTime', 'c_off_work_time'): None,
     #清除签退时间boolean,notfound
     ('isClearCoffWorkTime', None): None,
-    # 实际签退车辆,notfound
-    ('offWorkBus', None): None,
+    # 实际签退车辆,
+    ('offWorkBus', 'off_work_bus'): None,
     # 工号String
     ('trainId', 'employee_sn'): None,
     # 姓名String,notfound，员工中获取
     ('trainName', None): None,
     # 执行日期date
     ('workDate', 'worktime'): None,
-    # 备注String,notfound
-    ('remark', None): None,
-    # 计划发车时间,notfound
-    ('planRunTime', None): None,
-    # 时间发车时间date,notfound
-    ('planReachTime', None): None,
+    # 备注String,
+    ('remark', 'remark'): None,
+    # 计划发车时间,
+    ('planRunTime', 'plan_run_time'): None,
+    # 时间发车时间date,
+    ('planReachTime', 'plan_reach_time'): None,
     # 上班时间
     ('workTime', 'checkintime'): None,
-    # 计划时间date,notfound
-    ('planTime', None): None,
+    # 计划时间date,
+    ('planTime', 'plan_time'): None,
     # 员工类型int 1019:司机 1020:售票员
     ('type', 'title'): {'driver': 1019, 'steward': 1020},
 }
@@ -582,14 +604,31 @@ origin_data = {
     'route_manage.route_manage': op_line,
     #站台基础数据
     'opertation_resources_station': op_stationblock,
+    #站点基础数据
+    'opertation_resources_station_platform': op_station,
     #车辆基础数据
     'fleet.vehicle': tjs_car,
     #人员基础数据
     'hr.employee': hr_employee,
     #线路计划基础数据
-    'scheduleplan.excutetable': op_lineplan,
+    'scheduleplan.schedulrule': op_lineplan,
+    #大站设置
+    'scheduleplan.bigsitesetdown': op_planstationbigmain,
+    'scheduleplan.bigsitesetup': op_planstationbigmain,
     #调度参数基础数据
     'res.company': op_param,
+    #IC卡管理
+    'employees.iccards': pub_hr_iccardmap,
+    # 运营计划峰值段  （scheduleplan.toup，scheduleplan.todown）
+    # op_planparam
+    'scheduleplan.toup': op_planparam,
+    'scheduleplan.todown': op_planparam,
+    #1.3.12	控制台
+    # op_controlline -- dispatch.control.desktop.component
+    'dispatch.control.desktop.component': op_controlline,
+    #调度计划
+    #op_dispatchplan
+    'scheduleplan.excutetable': op_dispatchplan,
     #出勤司机
     'scheduleplan.motorcyclists.driver': op_attendance,
     #出勤乘务员

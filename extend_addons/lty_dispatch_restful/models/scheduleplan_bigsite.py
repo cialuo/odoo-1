@@ -1,27 +1,42 @@
 # -*- coding: utf-8 -*-
-
-from odoo import models, fields, api
+##############################################################################
+#
+#
+#    Copyright (C) 2017 xiao (715294035@qq.com).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Lesser General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Lesser General Public License for more details.
+#
+#    You should have received a copy of the GNU Lesser General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/lgpl.html>.
+#
+##############################################################################
+from odoo import api, fields, models
 from extend_addons.lty_dispatch_restful.core.restful_client import *
 import mapping
 import logging
 
-#对接系统
-#线路基础数据表名
-LINE_TABLE = 'op_line'
-#站台基础数据表名
-STATION_TABLE = 'op_stationblock'
+#对接系统  大站设置
+
+TABLE = 'op_planstationbigmain'
 
 _logger = logging.getLogger(__name__)
+class Bigsitesetup(models.Model):
 
-class op_line(models.Model):
-
-    _inherit = 'route_manage.route_manage'
+    _inherit = 'scheduleplan.bigsitesetup'
 
     '''
-        继承线路模块,在线路数据创建时,调用restful api
+        继承大站设置数据,调用restful api
     '''
 
-    #调度数据逐渐
+    # #调度数据逐渐
     # fk_id = fields.Char()
 
     @api.model
@@ -31,26 +46,21 @@ class op_line(models.Model):
         :param vals:
         :return:
         '''
-        res = super(op_line, self).create(vals)
+
+        res = super(Bigsitesetup, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
             _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
-            vals.update({
-                'id': res.id,
-                #增加默认传值
-                'isRoundLine': 0,
-                'isNight': 0,
-                'isCrossDay': 0,
-                'isShowPoint': 0,
-                'isShowStationName': 0,
-            })
-            params = Params(type=1, cityCode=cityCode,tableName=LINE_TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
 
-            #clientThread(url,params,res).start()
+            vals.update({
+                'id': str(res.id) + 'up',
+                'station_name': res.site_id.name,
+                'direction': 'up',
+            })
+            vals = mapping.dict_transfer(self._name, vals)
+            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+            rp = Client().http_post(url, data=params)
         except Exception,e:
             _logger.info('%s', e.message)
         return res
@@ -62,7 +72,8 @@ class op_line(models.Model):
         :param vals:
         :return:
         '''
-        res = super(op_line, self).write(vals)
+
+        res = super(Bigsitesetup, self).write(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
@@ -72,9 +83,13 @@ class op_line(models.Model):
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
+                    vals.update({
+                        'id': str(res.id) + 'up',
+                        'station_name': res.site_id.name,
+                        'direction': 'up',
+                    })
                     vals = mapping.dict_transfer(self._name, vals)
-                    vals.update({'id': r.id})
-                    params = Params(type=3, cityCode=cityCode, tableName=LINE_TABLE, data=vals).to_dict()
+                    params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
 
                     # clientThread(url,params,res).start()
@@ -90,24 +105,31 @@ class op_line(models.Model):
         '''
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
-        vals = {"ids": self.ids}
-        res = super(op_line, self).unlink()
+        origin_ids = map(lambda x: str(x) + 'up', self.ids)
+        vals = {"ids": origin_ids}
+        res = super(Bigsitesetup, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
             # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
             _logger.info('Start unlink data: %s', self._name)
-            params = Params(type=3, cityCode=cityCode, tableName=LINE_TABLE, data=vals).to_dict()
+            params = Params(type = 3, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
             clientThread(url,params,res).start()
         except Exception,e:
             _logger.info('%s', e.message)
         return res
 
-class Station(models.Model):
-    _inherit = 'opertation_resources_station'
-    """
-     继承站台模块,在站台数据创建时,调用restful api
-    """
+class Bigsitesetdown(models.Model):
+
+    _inherit = 'scheduleplan.bigsitesetdown'
+
+    '''
+        继承大站设置数据,调用restful api
+    '''
+
+    # #调度数据逐渐
+    # fk_id = fields.Char()
+
     @api.model
     def create(self, vals):
         '''
@@ -115,16 +137,20 @@ class Station(models.Model):
         :param vals:
         :return:
         '''
-        res = super(Station, self).create(vals)
+
+        res = super(Bigsitesetdown, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
             _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
+
             vals.update({
-                'id': res.id,
+                'id': str(res.id) + 'down',
+                'station_name': res.site_id.name,
+                'direction': 'down',
             })
-            params = Params(type=1, cityCode=cityCode,tableName=STATION_TABLE, data=vals).to_dict()
+            vals = mapping.dict_transfer(self._name, vals)
+            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
         except Exception,e:
             _logger.info('%s', e.message)
@@ -137,7 +163,8 @@ class Station(models.Model):
         :param vals:
         :return:
         '''
-        res = super(Station, self).write(vals)
+
+        res = super(Bigsitesetdown, self).write(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
@@ -145,11 +172,18 @@ class Station(models.Model):
             second_now = int(fields.Datetime.now()[-2:])
             if second_now - second_create > 5:
                 try:
+                    # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
+                    vals.update({
+                        'id': str(res.id) + 'down',
+                        'station_name': res.site_id.name,
+                        'direction': 'down',
+                    })
                     vals = mapping.dict_transfer(self._name, vals)
-                    vals.update({'id': r.id})
-                    params = Params(type=3, cityCode=cityCode,tableName=STATION_TABLE, data=vals).to_dict()
+                    params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
+
+                    # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
         return res
@@ -162,13 +196,15 @@ class Station(models.Model):
         '''
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
-        vals = {"ids": self.ids}
-        res = super(Station, self).unlink()
+        origin_ids = map(lambda x: str(x) + 'down', self.ids)
+        vals = {"ids": origin_ids}
+        res = super(Bigsitesetdown, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
             _logger.info('Start unlink data: %s', self._name)
-            params = Params(type=3, cityCode=cityCode,tableName=STATION_TABLE, data=vals).to_dict()
+            params = Params(type = 3, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
             clientThread(url,params,res).start()
         except Exception,e:
             _logger.info('%s', e.message)

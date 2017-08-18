@@ -36,8 +36,8 @@ class Station(models.Model):
         继承站点基础数据,调用restful api
     '''
 
-    #调度数据逐渐
-    fk_id = fields.Char()
+    # #调度数据逐渐
+    # fk_id = fields.Char()
 
     @api.model
     def create(self, vals):
@@ -55,6 +55,14 @@ class Station(models.Model):
             vals = mapping.dict_transfer(self._name, vals)
             vals.update({
                 'id': res.id,
+                'gprsId': res.route_id.gprs_id,
+                'stationName': res.station_id.name,
+                'longitude': res.station_id.entrance_longitude,
+                'latitude': res.station_id.entrance_latitude,
+                'angle': res.station_id.entrance_azimuth,
+                'longitudeOut': res.station_id.exit_longitude,
+                'latitudeOut': res.station_id.exit_latitude,
+                'angleOut': res.station_id.exit_azimuth,
             })
             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
@@ -81,7 +89,17 @@ class Station(models.Model):
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(self._name, vals)
-                    vals.update({'id': r.id})
+                    vals.update({
+                        'id': r.id,
+                        'gprsId': r.route_id.gprs_id,
+                        'stationName': r.station_id.name,
+                        'longitude': r.station_id.entrance_longitude,
+                        'latitude': r.station_id.entrance_latitude,
+                        'angle': r.station_id.entrance_azimuth,
+                        'longitudeOut': r.station_id.exit_longitude,
+                        'latitudeOut': r.station_id.exit_latitude,
+                        'angleOut': r.station_id.exit_azimuth,
+                    })
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
 

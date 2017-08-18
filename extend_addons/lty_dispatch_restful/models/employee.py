@@ -36,8 +36,8 @@ class Employee(models.Model):
         继承人员基础数据,调用restful api
     '''
 
-    #调度数据逐渐
-    fk_id = fields.Char()
+    # #调度数据逐渐
+    # fk_id = fields.Char()
 
     @api.model
     def create(self, vals):
