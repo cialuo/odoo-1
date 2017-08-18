@@ -410,35 +410,7 @@
                             </field>
                         </page>
                         <page string="operation plan" name="operation_plan_page">
-                            <table class="time_start_arrive_stop o_list_view table table-condensed table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>班次</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
 
-                                </tbody>
-                            </table>
-
-                            <div class="start_over_stop_time">
-                                <div>
-                                    <span>发</span>
-                                    <span class="start_time"></span>
-                                </div>
-                                <div>
-                                    <span>达</span>
-                                    <span class="over_time"></span>
-                                </div>
-                                <div>
-                                    <span>停</span>
-                                    <span class="stop_time"></span>
-                                </div>
-                            </div>
-                            <link rel="stylesheet" href="/bus_schedule_plan/static/src/css/operation_plan.css"/>
-                            <script src="/bus_schedule_plan/static/src/js/operation_plan.js"
-                                    type="text/javascript">
-                            </script>
                         </page>
                     </notebook>
                 </form>
@@ -448,38 +420,38 @@
         <!-- 普通公交行车规则输出 -->
         <menuitem id="normal_bus_rule_output_menu" name="normal bus rule output menu"
                   parent="operation_menu.bus_working_plan_menu"
-                  sequence="1"/>
+                  sequence="10"/>
 
         <!-- 行车规则输出 -->
         <menuitem id="bus_work_rule_output_menu" name="bus work rule output menu"
                   parent="normal_bus_rule_output_menu" action="bus_work_rule_output_action"
-                  sequence="1"/>
+                  sequence="10"/>
 
         <!-- 行车规则管理 -->
         <menuitem id="bus_work_rule_manage_menu" name="bus work rule manage menu"
                   parent="normal_bus_rule_output_menu" action="bus_work_rule_manage_action"
-                  sequence="2"/>
+                  sequence="20"/>
 
         <!-- 定制公交行车规则输出 -->
         <menuitem id="custem_bus_rule_output_menu" name="custem bus rule output menu"
                   parent="operation_menu.bus_working_plan_menu"
-                  sequence="2"/>
+                  sequence="20"/>
 
         <!-- 行车规则输出 定制公交 -->
         <menuitem id="custem_bus_work_rule_output_menu" name="custem bus work rule output menu"
                   parent="custem_bus_rule_output_menu" action="custem_bus_work_rule_output_action"
-                  sequence="1"/>
+                  sequence="10"/>
 
         <!-- 行车规则管理 定制公交 -->
         <menuitem id="custem_bus_work_rule_manage_menu" name="custem bus work rule manage menu"
                   parent="custem_bus_rule_output_menu" action="custem_bus_work_rule_manage_action"
-                  sequence="2"/>
+                  sequence="20"/>
 
         <!-- 行车时刻表 -->
         <menuitem id="bus_move_time_menu" name="bus move time table menu"
                   parent="operation_menu.bus_working_plan_menu"
                   action="bus_move_time_table_action"
-                  sequence="3"/>
+                  sequence="30"/>
 
     </data>
 </openerp>

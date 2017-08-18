@@ -29,56 +29,41 @@ odoo.define('abc', function (require) {
         for (var bn = 1; bn < (bus_num + 1); bn++) {
             $('.time_start_arrive_stop tbody').append('<tr><td>' + bn + '</td></tr>');
             for (var bTd = 0; bTd < data.bus[bn].length; bTd++) {
-                if(data.bus[bn][bTd][1][1] !=null){
+                if (data.bus[bn][bTd][1][1] != null) {
                     var timesHours = checkTime(new Date(data.bus[bn][bTd][1][1].startmovetime).getHours());
                     var timesMin = checkTime(new Date(data.bus[bn][bTd][1][1].startmovetime).getMinutes());
                     var timeaHours = checkTime(new Date(data.bus[bn][bTd][1][1].arrive_time).getHours());
                     var timeaMin = checkTime(new Date(data.bus[bn][bTd][1][1].arrive_time).getMinutes());
-                    $('.time_start_arrive_stop').find('tr').eq(bn).append('<td>'+$('.start_over_stop_time').html()+'</td>');
-                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd+1).find('.start_time').html(timesHours + ':' + timesMin);
-                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd+1).find('.over_time').html(timeaHours + ':' + timeaMin);
-                }else{
-                    $('.time_start_arrive_stop').find('tr').eq(bn).append('<td>'+$('.start_over_stop_time').html()+'</td>');
+                    $('.time_start_arrive_stop').find('tr').eq(bn).append('<td>' + $('.start_over_stop_time').html() + '</td>');
+                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).attr('direction', data.bus[bn][bTd][1][1].direction)
+                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).find('.start_time').html('<span>发</span><span class="time_left">' + timesHours + ':' + timesMin + '</span>');
+                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).find('.over_time').html('<span>达</span><span class="time_left">' + timeaHours + ':' + timeaMin + '</span>');
+                    if (data.bus[bn][bTd][4] != undefined) {
+                        $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).find('.stop_time').html('<span>停</span><span class="time_left">' + data.bus[bn][bTd][4] + '</span>');
+                    }
+                } else {
+                    $('.time_start_arrive_stop').find('tr').eq(bn).append('<td>' + $('.start_over_stop_time').html() + '</td>');
                 }
             }
         }
+        sessionStorage.setItem('direction', JSON.stringify(data.direction));
     })
-    // function move() {
-    //     $('.opera_sort').on('dblclick', '.sort_top li', function () {
-    //         var startTime = sessionStorage.getItem("start_time");
-    //         var arrive_time = sessionStorage.getItem("arrive_time");
-    //         var arr_startTime = startTime.split(",");
-    //         var arr_arriveTime = arrive_time.split(",");
-    //         console.log($(".sort_top li:not(.sort_out)").eq(2).find('start_time').html())
-    //         if (!$(this).hasClass('sort_out') && $(this).html() != '') {
-    //             if ($('.sort_top li.sort_out').length % 5 == 0) {
-    //                 $('.opera_sort').append('<ul class="sort_top"><li></li><li></li><li></li><li></li></ul>')
-    //                 var a = parseInt($('.sort_title li').last().find('div').html()) + 1;
-    //                 $('.sort_title').append('<li><div>' + a + '</div><div>竹-林</div></li>');
-    //             }
-    //             $(this).css('background', '#cccccc').html('').addClass('sort_out');
-    //             for (var i = 0; i < startTime.length; i++) {
-    //                 $(".sort_top li:not(.sort_out)").eq(i).find('.start_time').html(arr_startTime[i]);
-    //                 $(".sort_top li:not(.sort_out)").eq(i).find('.over_time').html(arr_arriveTime[i]);
-    //                 model.call("reoppaln2web", [recid]).then(function (data) {
-    //
-    //                 })
-    //             }
-    //         } else if ($(this).hasClass('sort_out')) {
-    //             if ($('.sort_top  li.sort_out').length % 5 == 1) {
-    //                 $('.opera_sort').find('ul:last').remove();
-    //                 $('.sort_title').find('li:last').remove();
-    //             }
-    //             $(this).css('background', 'white').removeClass('sort_out');
-    //             $(".sort_top li:not(.sort_out)").html('');
-    //             for (var i = 0; i < arr.length; i++) {
-    //                 $(".sort_top li:not(.sort_out)").eq(i).html(arr[i]);
-    //             }
-    //         }
-    //         return false;
-    //     });
-    // }
-    //
-    // move();
-    // model_students.call('get_examination_info').then(function (data) {
+    $('.time_start_arrive_stop').on('dblclick', 'tbody td', function () {
+        if (!$(this).hasClass('sort_out') && $(this).html() != '') {
+            $(this).css('background', '#cccccc').html('').addClass('sort_out');
+            // 点击的index
+            var this_index = $(this).index();
+            //点击的direction
+            var direction = $(this).attr('direction');
+            // direction缓存对象
+            var directionObj = JSON.parse(sessionStorage.getItem('direction'));
+            model.call("changeOpplan", [this_index, direction, directionObj, 0]).then(function () {
+
+            });
+        } else if ($(this).hasClass('sort_out')) {
+            var bgColor = $(this).parent('tr').css('background');
+            $(this).css('background', bgColor).removeClass('sort_out');
+        }
+        return false;
+    });
 })
