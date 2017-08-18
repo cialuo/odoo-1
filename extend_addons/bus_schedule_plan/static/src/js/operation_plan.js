@@ -13,7 +13,6 @@ odoo.define('abc', function (require) {
 
     model.call("reoppaln2web", [recid]).then(function (data) {
         console.log(data)
-        debugger
         var bus_num = Object.keys(data.bus).length;
         var m = 0, n = 0;
         for (var ts = 0; ts < data.bus[1].length; ts++) {
