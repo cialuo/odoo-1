@@ -17,17 +17,11 @@
                         </tbody>
                     </table>
                     <div class="start_over_stop_time">
-                        <div>
-                            <span>发</span>
-                            <span class="start_time"></span>
+                        <div class="start_time">
                         </div>
-                        <div>
-                            <span>达</span>
-                            <span class="over_time"></span>
+                        <div class="over_time">
                         </div>
-                        <div>
-                            <span>停</span>
-                            <span class="stop_time"></span>
+                        <div class="stop_time">
                         </div>
                     </div>
                     <link rel="stylesheet" href="/bus_schedule_plan/static/src/css/operation_plan.css"/>

@@ -36,28 +36,34 @@ odoo.define('abc', function (require) {
                     var timeaMin = checkTime(new Date(data.bus[bn][bTd][1][1].arrive_time).getMinutes());
                     $('.time_start_arrive_stop').find('tr').eq(bn).append('<td>' + $('.start_over_stop_time').html() + '</td>');
                     $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).attr('direction', data.bus[bn][bTd][1][1].direction)
-                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).find('.start_time').html(timesHours + ':' + timesMin);
-                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).find('.over_time').html(timeaHours + ':' + timeaMin);
+                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).find('.start_time').html('<span>发</span><span class="time_left">' + timesHours + ':' + timesMin + '</span>');
+                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).find('.over_time').html('<span>达</span><span class="time_left">' + timeaHours + ':' + timeaMin + '</span>');
+                    if (data.bus[bn][bTd][4] != undefined) {
+                        $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).find('.stop_time').html('<span>停</span><span class="time_left">' + data.bus[bn][bTd][4] + '</span>');
+                    }
                 } else {
                     $('.time_start_arrive_stop').find('tr').eq(bn).append('<td>' + $('.start_over_stop_time').html() + '</td>');
                 }
             }
         }
+        sessionStorage.setItem('direction', JSON.stringify(data.direction));
     })
-    function move() {
-        $('.time_start_arrive_stop').on('dblclick', 'tbody td', function () {
-            if (!$(this).hasClass('sort_out') && $(this).html() != '') {
-                $(this).css('background', '#cccccc').html('').addClass('sort_out');
-                var zIndex = $(this).index();
-                //传 index ,增删动作,direction
-                var direction = $(this).attr('direction');
-                console.log(zIndex, direction);
-            } else if ($(this).hasClass('sort_out')) {
-                var bgColor = $(this).parent('tr').css('background');
-                $(this).css('background', bgColor).removeClass('sort_out');
-            }
-            return false;
-        });
-    }
-    move();
+    $('.time_start_arrive_stop').on('dblclick', 'tbody td', function () {
+        if (!$(this).hasClass('sort_out') && $(this).html() != '') {
+            $(this).css('background', '#cccccc').html('').addClass('sort_out');
+            // 点击的index
+            var this_index = $(this).index();
+            //点击的direction
+            var direction = $(this).attr('direction');
+            // direction缓存对象
+            var directionObj = JSON.parse(sessionStorage.getItem('direction'));
+            model.call("changeOpplan", [this_index, direction, directionObj, 0]).then(function () {
+
+            });
+        } else if ($(this).hasClass('sort_out')) {
+            var bgColor = $(this).parent('tr').css('background');
+            $(this).css('background', bgColor).removeClass('sort_out');
+        }
+        return false;
+    });
 })
