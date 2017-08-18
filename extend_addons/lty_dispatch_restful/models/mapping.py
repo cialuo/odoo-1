@@ -470,34 +470,57 @@ op_commandtext = {
 }
 
 #1.3.14	调度计划
-# op_dispatchplan -- scheduleplan.excutetable
+# op_dispatchplan -- scheduleplan.execupplanitem,scheduleplan.execdownplanitem
 op_dispatchplan = {
     ('id', 'id'): None,
-    #线路Id  long
+    #线路Id
     ('lineId', 'line_id'): None,
     #线路名称 String 后台获取传值
-    ('lineName', 'line_name'): None,
+    ('lineName', None): None,
     #线路gprsid  int后台获取传值
-    ('gprsId', 'gprs_id'): None,
-    #运行线路编码 int not found
+    ('gprsId', None): None,
+    #运行线路编码 int 后台获取传值
     ('runGprsId', None): None,
-    #顺序编号int not found
-    ('orderNo', None): None,
-    #车辆编号Stirng not found
+    #车辆编号Stirng not found后台获取传值
     ('selfId', None): None,
-    #设备号int not found
+    #设备号int not found后台获取传值
     ('onBoardId', None): None,
-    #设备名称String not found
-    ('onBoardName', None): None,
-    #驾驶员工号String not found
+    #驾驶员工号String not found后台获取传值
     ('workerId', None): None,
-
+    #发车方向int not found后台获取传值
+    ('direction', None): None,
+    #计划发车时间
+    ('planRunTime', 'starttime'): None,
+    #计划时长
+    ('planDuration', 'timelenght'): None,
+    #计划里程
+    ('planKm', 'mileage'): None,
+    #乘务员卡号
+    ('trainId', 'steward'): None,
 }
 
-#1.3.15	车辆资源 无对应表
+#1.3.15	车辆资源
 # op_busresource -- scheduleplan.vehicleresource
 op_busresource = {
-
+    ('id', 'id'): None,
+    #线路id not found 后台获取
+    ('lineId', None): None,
+    #线路NameString not found 后台获取
+    ('lineName', None): None,
+    #线路编码 int
+    ('gprsId', None): None,
+    #设备编号int not found 后台获取
+    ('onBoardId', None): None,
+    #车号 not found 后台获取
+    ('carNum', None): None,
+    #台次 add
+    ('orderNo', 'order_no'): None,
+    #车辆状态 add
+    ('carStateId', 'car_state'): {'zc': 1001, 'jd': 2008},
+    #方向 add
+    ('direction', 'direction'): None,
+    #工作日期date
+    ('workDate', 'create_date'): None,
 }
 
 #1.3.16	出勤司机
@@ -626,9 +649,13 @@ origin_data = {
     #1.3.12	控制台
     # op_controlline -- dispatch.control.desktop.component
     'dispatch.control.desktop.component': op_controlline,
-    #调度计划
-    #op_dispatchplan
-    'scheduleplan.excutetable': op_dispatchplan,
+    # 1.3.14	调度计划
+    # op_dispatchplan -- scheduleplan.execupplanitem,scheduleplan.execdownplanitem
+    'scheduleplan.execupplanitem': op_dispatchplan,
+    'scheduleplan.execdownplanitem': op_dispatchplan,
+    #1.3.15	车辆资源
+    # op_busresource -- scheduleplan.vehicleresource
+    'scheduleplan.vehicleresource': op_busresource,
     #出勤司机
     'scheduleplan.motorcyclists.driver': op_attendance,
     #出勤乘务员
