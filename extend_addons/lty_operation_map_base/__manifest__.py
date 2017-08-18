@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','operation_menu'],
+    'depends': ['base','scheduling_parameters'],
 
     # always loaded
     'data': [
