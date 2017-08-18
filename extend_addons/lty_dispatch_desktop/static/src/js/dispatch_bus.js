@@ -533,6 +533,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         show_chose_line: function () {
             var self = this;
             self.model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (data) {
+                console.log(data)
                 self.$('.edit_content .chs').html('')
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].id) {
@@ -540,7 +541,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         self.$('.edit_content .chs').append(oLi);
                     }
                 }
-            })
+            });
             self.$('.edit_content');
             self.$('.edit_content').show();
 
@@ -615,35 +616,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var data = this.data;
             var type = this.type;
             // 界面初始渲染
-            if (type == 0) {
-                // 只存在其中一种组件
-                if (data.length == 1) {
-                    // 只存在dispatch_desktop组件
-                    if (data[0].model_type == "dispatch_desktop") {
-                        new dispatch_canvas(this, data[0]).appendTo(this.$el);
-                        this.$el.find('.line_edit').hide();
-                        // 只存在updown_line_table组件
-                    } else if (data[0].model_type == "updown_line_table") {
-                        new dispatch_updown_line(this, data[0]).appendTo(this.$el);
-                    }
-                    // 存在完整组件
-                } else if (data.length > 1) {
-                    new dispatch_canvas(this, data[0]).appendTo(this.$el);
-                    new dispatch_updown_line(this, data[1]).appendTo(this.$el);
-                    // this.$el.find('.show_right').hide();
-                    if (data[1].tem_display == 'none') {
-                        this.$el.find('.show_right').show();
-                        this.$el.find('.line_edit').hide();
-                    } else {
-                        this.$el.find('.show_right').hide();
-                        this.$el.find('.line_edit').show();
-                    }
-                }
-                // 手动添加渲染
-            } else if (type == 1) {
                 new dispatch_canvas(this, data[0]).appendTo(this.$el);
                 new dispatch_updown_line(this, data[1]).appendTo(this.$el);
-            }
         },
         events: {
             'click .chs>li': 'chose_line',
