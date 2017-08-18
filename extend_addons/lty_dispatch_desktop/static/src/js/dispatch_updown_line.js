@@ -86,7 +86,14 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             $(x).html('完成').addClass('is_check').siblings().hide();
         },
         process_chchk: function () {
-            this.$el.find('.no_absnormal').show().siblings().hide();
+            var self = this;
+            this.$el.find('.normal').show().siblings().hide();
+            var content = '.' + self.$el.find('.carousel_content')[0].className;
+            self.$(content + '>li').last().remove();
+            carousel({
+                content: content,
+                self: self
+            });
         }
     });
     return dispatch_updown_line;
