@@ -965,7 +965,7 @@ class BusMoveTimeTable(models.Model):
 
 
     @api.model
-    def changeOpplan(self, index, direction):
+    def changeOpplan(self, index, direction, op, data):
         # 修改运营计划
         return self.genWebRetunData({},{})
 
