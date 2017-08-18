@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* lty_dispatch_abnormal_monitor
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-18 07:06+0000\n"
+"PO-Revision-Date: 2017-08-18 07:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: lty_dispatch_abnormal_monitor
+#: model:ir.ui.menu,name:lty_dispatch_abnormal_monitor.lty_dispatch_abnormal_monitor_bus_condition
+msgid "Bus Condition Abnormal"
+msgstr "车况异常"
+
+#. module: lty_dispatch_abnormal_monitor
+#: model:ir.ui.menu,name:lty_dispatch_abnormal_monitor.lty_dispatch_abnormal_monitor_location
+msgid "Location Abnormal"
+msgstr "位置异常"
+
+#. module: lty_dispatch_abnormal_monitor
+#: model:ir.ui.menu,name:lty_dispatch_abnormal_monitor.lty_dispatch_abnormal_monitor_pf
+msgid "Passenger flow Abnormal"
+msgstr "客流异常"
+
+#. module: lty_dispatch_abnormal_monitor
+#: model:ir.ui.menu,name:lty_dispatch_abnormal_monitor.lty_dispatch_abnormal_monitor_person
+msgid "Person Abnormal"
+msgstr "人员异常"
+
+#. module: lty_dispatch_abnormal_monitor
+#: model:ir.ui.menu,name:lty_dispatch_abnormal_monitor.lty_dispatch_abnormal_monitor_safty
+msgid "Safty Abnormal"
+msgstr "安全异常"
+
+#. module: lty_dispatch_abnormal_monitor
+#: model:ir.ui.menu,name:lty_dispatch_abnormal_monitor.lty_dispatch_abnormal_monitor_time
+msgid "Time Abnormal"
+msgstr "时间异常"
+
