@@ -57,7 +57,7 @@ odoo.define('abc', function (require) {
             var direction = $(this).attr('direction');
             // direction缓存对象
             var directionObj = JSON.parse(sessionStorage.getItem('direction'));
-            model.call("changeOpplan", [this_index, direction, directionObj, 0]).then(function () {
+            model.call("changeOpplan", [recid, this_index, direction, directionObj, 0]).then(function () {
 
             });
         } else if ($(this).hasClass('sort_out')) {

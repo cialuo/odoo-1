@@ -963,11 +963,71 @@ class BusMoveTimeTable(models.Model):
         station2 = row.line_id.down_station.name
         return self.genWebRetunData(arg1, arg2, station1, station2)
 
+    @classmethod
+    def rebuildOpPlanAdd(cls, data, index, seq):
+        for i in range(index+1, len(data)):
+            temp = data[i][1]
+            data[i-1][1] = temp
+        data[-1][1] = None
+        num = 0
+        for i in range(len(data)-1, 0, -1):
+            if data[i][1] != None:
+                num += 1
+            else:
+                break
+        # 去掉尾部为None的序列
+        if num / len(seq) > 0:
+            data = data[0:-((num / len(seq)) * len(seq))]
+
+        return data
+
+    @classmethod
+    def rebuildOpPlanRemove(cls, data, index, seq):
+        if data[-1][1] != None:
+            for item in seq:
+                data.append([item, None])
+        pre = None
+        for i in range(index, len(data)):
+            temp = data[i][1]
+            data[i][1] = pre
+            pre = temp
+        return data
+
+
 
     @api.model
-    def changeOpplan(self, index, direction, op, data):
+    def changeOpplan(self, recid, index, direction, data, op):
         # 修改运营计划
-        return self.genWebRetunData({},{})
+        row = self.search([('id', '=', recid)])
+        row = row[0]
+        upVechicleSeq, downVehicleSeq = self.genVehicleSeq(row.upworkvehicle, row.downworkvehicle)
+        upRepeatSeq = upVechicleSeq + downVehicleSeq
+        downRepeatSeq = downVehicleSeq + upVechicleSeq
+        result = None
+        if direction == 'up':
+            if op == 0:
+                result = self.rebuildOpPlanRemove(data['up'], index, upRepeatSeq)
+            else:
+                result = self.rebuildOpPlanAdd(data['up'], index, upRepeatSeq)
+            data['up'] = result
+        elif direction == 'down':
+            if op == 0:
+                result = self.rebuildOpPlanRemove(data['down'], index, downRepeatSeq)
+            else:
+                result = self.rebuildOpPlanAdd(data['down'], index, downRepeatSeq)
+            data['down'] = result
+
+        busMoveTable = None
+        if data['down'] != None:
+            # 双头调
+            busMoveTable = self.genBusMoveSeqDouble(data['up'], data['down'], upVechicleSeq, downVehicleSeq)
+        elif self.schedule_method == 'singleway':
+            # 单头调
+            busMoveTable = self.genBusMoveSeqsingle(data['up'], upVechicleSeq)
+        busMoveTable = self.culculateStopTime(busMoveTable)
+        station1 = row.line_id.up_station.name
+        station2 = row.line_id.down_station.name
+        return self.genWebRetunData(data, busMoveTable, station1, station2)
 
     @api.model
     def saveOpPlan(self):
