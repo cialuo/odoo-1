@@ -90,17 +90,20 @@ class op_line(models.Model):
         '''
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
-        vals = {"ids": self.ids}
-        res = super(op_line, self).unlink()
+        # vals = {"ids": self.ids}
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            params = Params(type=3, cityCode=cityCode, tableName=LINE_TABLE, data=vals).to_dict()
-            clientThread(url,params,res).start()
-        except Exception,e:
-            _logger.info('%s', e.message)
+        for r in self:
+            try:
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                _logger.info('Start unlink data: %s', self._name)
+                vals = {'id': r.id}
+                params = Params(type=2, cityCode=cityCode, tableName=LINE_TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+                # clientThread(url,params,res).start()
+            except Exception,e:
+                _logger.info('%s', e.message)
+        res = super(op_line, self).unlink()
         return res
 
 class Station(models.Model):

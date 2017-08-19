@@ -8,3 +8,9 @@ import res_company
 import scheduleplan_motorcyclists
 import station_platform
 import scheduleplan_bigsite
+import line_plan
+import control_desktop
+import employees_iccards
+import scheduleplan_execplanitem
+import scheduleplan_toupdown
+import scheduleplan_vehicleresource
