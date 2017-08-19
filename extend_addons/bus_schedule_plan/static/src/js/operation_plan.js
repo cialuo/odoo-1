@@ -46,7 +46,6 @@ odoo.define('abc', function (require) {
             }
         }
         if(sessionStorage.getItem('direction')){
-            alert(1)
             sessionStorage.removeItem('direction');
         }
         sessionStorage.setItem('direction', JSON.stringify(data.direction));

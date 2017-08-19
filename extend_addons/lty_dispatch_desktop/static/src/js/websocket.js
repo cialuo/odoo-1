@@ -9,8 +9,8 @@ var websocket = null;
 
 //判断当前浏览器是否支持WebSocket
 if ('WebSocket' in window) {
-    websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
-    // websocket = new WebSocket("ws://202.104.136.228:8085/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
+    // websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
+    websocket = new WebSocket("ws://202.104.136.228:8085/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
 } else {
     alert('当前浏览器 Not support websocket');
 }
@@ -57,13 +57,12 @@ websocket.onmessage123 = function (event) {
 // };
 // websocket.send(JSON.stringify(package));
 websocket.onmessage = function (event) {
-    // console.log(event.data)
+    console.log(event.data)
     for (socket_model in socket_model_info) {
         var socket_model_obj = socket_model_info[socket_model];
         socket_model_obj.fn(event.data, socket_model_obj.arg);
     }
     var obj = {modelName: "bus_real_state", controllerId: "1", data: [event.data]};
-    console.log('随机数为'+event.data.slice(78, 80));
     if (event.data.slice(78, 80) < 15) {
         obj.modelName = "passenger_delay";
     } else if (event.data.slice(78, 80) < 30) {
@@ -119,6 +118,8 @@ function absnormal_del(controllerObj, data_list) {
     if (controllerObj.find('.updown_line_table[line_id=1]').length > 0) {
         if (data_list[0].substring(78, 79) > 3) {
             controllerObj.find('.updown_line_table[line_id=1]').find('.no_absnormal').show().siblings().hide();
+            controllerObj.find('.updown_line_table[line_id=1]').find('.passenger_flow_list .absnormal_type  p').html('有危险');
+            controllerObj.find('.updown_line_table[line_id=1]').addClass('warn');
             var timer_carousel = sessionStorage.getItem('timer1');
             clearInterval(timer_carousel);
             controllerObj.find('.updown_line_table[line_id=1]').find('.carousel_content').css({left: 0});
@@ -189,7 +190,6 @@ function busRealStateModel_socket_fn(controllerObj, data_list) {
             lineInfo.find(".lineRoad").html('18'+'路')
             lineInfo.find(".trip").html(data.slice(76, 77));
             lineInfo.find(".total_trip").html(data.slice(76, 77) + data.slice(77, 78));
-
             var busRealStateModel_set = JSON.parse(sessionStorage.getItem("busRealStateModel_set"));
             layer.close(busRealStateModel_set.layer_index);
             dom.removeClass('hide_model');

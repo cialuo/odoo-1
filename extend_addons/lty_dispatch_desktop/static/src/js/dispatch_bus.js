@@ -59,12 +59,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     site_info.id = res_down[i].id;
                                     site_down_infos.push(site_info);
                                 }
-                                // var package = {
-                                //     type: 1023,
-                                //     open_modules: "dispatch-bus_real_state-4524",
-                                //     msgId: Date.parse(new Date())
-                                // };
-                                // websocket.send(JSON.stringify(package));
+                                var package = {
+                                    type: 1035,
+                                    open_modules: "dispatch-line_message-1",
+                                    msgId: Date.parse(new Date())
+                                };
+                                websocket.send(JSON.stringify(package));
                                 self.site_top_infos = site_top_infos;
                                 self.site_down_infos = site_down_infos;
                                 // 库
