@@ -51,7 +51,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
         },
         events: {
             'click .manual': 'manual_process',
-            'click .manual.is_check': 'process_chchk',
+            'click .finishBtn .is_check': 'process_chchk',
             'click .min': 'closeFn'
         },
         show_echarts: function (innerHTML, arg) {
@@ -82,14 +82,16 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
         },
         manual_process: function (event) {
             this.$el.find('.real_time_process').show().css("display", "inline-block");
-            var x = event.currentTarget;
-            $(x).html('完成').addClass('is_check').siblings().hide();
+            var x_deal = event.currentTarget;
+            $(x_deal).parent().hide().siblings('.finishBtn').show();
         },
-        process_chchk: function () {
+        process_chchk: function (event) {
+            stopPropagation(event);
+            var x_comp = event.currentTarget;
+            $(x_comp).parent().hide().siblings('.handleBtn').show();
             var self = this;
             this.$el.find('.normal').show().siblings().hide();
             var content = '.' + self.$el.find('.carousel_content')[0].className;
-            self.$(content + '>li').last().remove();
             carousel({
                 content: content,
                 self: self

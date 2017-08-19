@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "lty_dispatch_desktop",
+    'name': "lty_opertation_map_base",
 
     'summary': """
-                            智能调度控制台""",
-
-    'description': """
-                            智能调度控制台
+        线路地图
     """,
 
-    'author': "jie.chen",
+    'description': """
+        线路地图
+    """,
+
+    'author': "lihaihe",
     'website': "http://www.lantaiyuan.com",
 
     # Categories can be used to filter modules in modules listing
@@ -19,18 +20,15 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['dispatch_monitor_menu','lty_dispatch_desktop_base'],
+    'depends': ['base','scheduling_parameters'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/templates.xml',
+        #'views/cloud_server_config.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
-    ],
-    'qweb': [
-        "static/src/xml/*.xml",
     ],
 }

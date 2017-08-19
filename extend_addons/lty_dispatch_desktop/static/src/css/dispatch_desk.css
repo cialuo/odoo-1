@@ -151,6 +151,7 @@
     right: 10px;
 }
 
+
 .dispatch_desktop a.min, .dispatch_desktop a.line_edit, .dispatch_desktop a.show_right {
     font-weight: bold;
     width: 16px;
@@ -164,7 +165,9 @@
     display: inline-block;
     margin-right: 2px;
 }
-
+.dispatch_desktop a.show_right{
+    display: none;
+}
 .dispatch_desktop .edit_content {
     position: absolute;
     right: 0;
@@ -359,10 +362,10 @@
     word-wrap: break-word;
 }
 
-no_absnormal .is_check {
+.no_absnormal .finishBtn .is_check {
     width: 204px !important;
 }
-no_absnormal .finishBtn{
+.no_absnormal .finishBtn{
     display: none;
 }
 .updown_line_table .no_absnormal {
@@ -373,7 +376,7 @@ no_absnormal .finishBtn{
     color: #4ecfc7;
 }
 
-.updown_line_table .handleBtn a {
+.updown_line_table .handleBtn a, .updown_line_table .finishBtn a{
     display: block;
     float: left;
     color: #cb413c;
