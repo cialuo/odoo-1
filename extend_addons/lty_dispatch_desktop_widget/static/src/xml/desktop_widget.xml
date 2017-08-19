@@ -637,7 +637,11 @@
     <t t-name="vehicles_plan_template">
         <div class="plan_box vehicle_box">
             <div class="section_plan_cont bus_plan">
-                <div class="title"><t t-esc="widget.plan_data.name"></t>计划</div>
+                <div class="title">
+                    <t t-if="widget.plan_data.direction==0">上行</t>
+                    <t t-else="">下行</t>
+                    计划
+                </div>
                 <table class="content_tb">
                     <tr class="th">
                         <th class="pL">状态</th>
@@ -648,17 +652,26 @@
                         <th class="pR">状态</th>
                     </tr>
                     <t t-foreach="widget.plan_data.data_list" t-as="item">
-                        <tr class="point" t-attf-pid="{{item.id}}">
-                            <td class="pL">
-                                <span t-attf-class="icon scheduling_status icon_{{item.scheduling_status}}"></span>
-                                <span t-attf-class="icon vehicles_status icon_{{item.vehicles_status}}"></span>
-                            </td>
-                            <td><t t-esc="item.plan_time"></t></td>
-                            <td><t t-esc="item.arrive_time"></t></td>
-                            <td><t t-esc="item.vehicle"></t></td>
-                            <td><t t-esc="item.driver"></t></td>
-                            <td class="pR"><t t-esc="item.start_status"></t></td>
-                        </tr>
+                        <t t-if="item.direction==widget.plan_data.direction">
+                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}">
+                                <td class="pL">
+                                    <span t-attf-class="icon scheduling_status icon_{{item.sendToScreen}}"></span>
+                                    <span t-attf-class="icon vehicles_status icon_{{item.sendToBus}}"></span>
+                                </td>
+                                <td><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,8)"></t></td>
+                                <td><t t-esc="new Date(item.planReachTime).toTimeString().slice(0,8)"></t></td>
+                                <td><t t-esc="item.selfId"></t></td>
+                                <td><t t-esc="item.driverName"></t></td>
+                                <td class="pR">
+                                    <t t-if="item.planState!=2">
+                                        待发
+                                    </t>
+                                    <t t-else="">
+                                        已发
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
                     </t>
                 </table>
             </div>
@@ -676,7 +689,11 @@
     <t t-name="vehicles_yard_template">
         <div class="yard_box vehicle_box">
             <div class="section_plan_cont bus_yard">
-                <div class="title"><t t-esc="widget.yard_data.name"></t>车场</div>
+                <div class="title">
+                    <t t-if="widget.yard_data.direction==0">上行</t>
+                    <t t-else="">下行</t>
+                    车场
+                </div>
                 <table class="content_tb">
                     <tr class="th">
                         <th class="pL">状态</th>
@@ -687,17 +704,33 @@
                         <th class="pR">停车</th>
                     </tr>
                     <t t-foreach="widget.yard_data.data_list" t-as="item">
-                        <tr class="point" t-attf-pid="{{item.id}}">
-                            <td class="pL">
-                                <span t-attf-class="icon driver_status icon1_{{item.driver_status}}"></span>
-                                <span t-attf-class="icon vehicles_status icon2_{{item.vehicles_status}}"></span>
-                            </td>
-                            <td><t t-esc="item.plan_time"></t></td>
-                            <td><t t-esc="item.vehicle"></t></td>
-                            <td><t t-esc="item.line"></t></td>
-                            <td><t t-esc="item.back_time"></t></td>
-                            <td class="pR"><t t-esc="item.parking"></t></td>
-                        </tr>
+                        <t t-if="item.inField==widget.yard_data.inField &amp;&amp; item.direction==widget.yard_data.direction">
+                            <tr class="point" t-attf-pid="{{item.id}}">
+                                <td class="pL">
+                                    <span t-attf-class="icon driver_status icon1_{{item.checkOut}}"></span>
+                                    <span t-attf-class="icon vehicles_status icon2_{{item.runState}}"></span>
+                                </td>
+                                <td><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,8)"></t></td>
+                                <td><t t-esc="item.carNum"></t></td>
+                                <td><t t-esc="item.lineName"></t></td>
+                                <td>
+                                    <t t-if="item.realReachTime">
+                                        <t t-esc="new Date(item.realReachTime).toTimeString().slice(0,8)"></t>
+                                    </t>
+                                    <t t-else="">
+                                        
+                                    </t>
+                                </td>
+                                <td class="pR">
+                                    <t t-if="item.stopTime">
+                                        <t t-esc="item.stopTime"></t>
+                                    </t>
+                                    <t t-else="">
+                                        0
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
                     </t>
                 </table>
             </div>
@@ -707,28 +740,48 @@
     <t t-name="vehicles_transit_template">
         <div class="yard_box vehicle_box">
             <div class="section_plan_cont bus_transit">
-                <div class="title"><t t-esc="widget.transit_data.name"></t>在途</div>
+                <div class="title">
+                    <t t-if="widget.transit_data.direction==0">上行</t>
+                    <t t-else="">下行</t>
+                    在途
+                </div>
                 <table class="content_tb">
                     <tr class="th">
                         <th class="pL">状态</th>
-                        <th><t t-if="widget.transit_data.name=='上行'">下行</t><t t-else="">上行</t>计划</th>
+                        <th><t t-if="widget.transit_data.direction==0">下行</t><t t-else="">上行</t>计划</th>
                         <th>车辆</th>
                         <th>线路</th>
                         <th>回场</th>
                         <th class="pR">停车</th>
                     </tr>
                     <t t-foreach="widget.transit_data.data_list" t-as="item">
-                        <tr class="point" t-attf-pid="{{item.id}}">
-                            <td class="pL">
-                                <span t-attf-class="icon driver_status icon1_{{item.driver_status}}"></span>
-                                <span t-attf-class="icon vehicles_status icon2_{{item.vehicles_status}}"></span>
-                            </td>
-                            <td><t t-esc="item.plan_time"></t></td>
-                            <td><t t-esc="item.vehicle"></t></td>
-                            <td><t t-esc="item.line"></t></td>
-                            <td><t t-esc="item.back_time"></t></td>
-                            <td class="pR"><t t-esc="item.parking"></t></td>
-                        </tr>
+                        <t t-if="item.inField==widget.transit_data.inField &amp;&amp; item.direction==widget.transit_data.direction">
+                            <tr class="point" t-attf-pid="{{item.id}}">
+                                <td class="pL">
+                                    <span t-attf-class="icon driver_status icon1_{{item.checkOut}}"></span>
+                                    <span t-attf-class="icon vehicles_status icon2_{{item.runState}}"></span>
+                                </td>
+                                <td><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,8)"></t></td>
+                                <td><t t-esc="item.carNum"></t></td>
+                                <td><t t-esc="item.lineName"></t></td>
+                                <td>
+                                    <t t-if="item.planReachTime">
+                                        <t t-esc="new Date(item.planReachTime).toTimeString().slice(0,8)"></t>
+                                    </t>
+                                    <t t-else="">
+                                        
+                                    </t>
+                                </td>
+                                <td class="pR">
+                                    <t t-if="item.stopTime">
+                                        <t t-esc="item.stopTime"></t>
+                                    </t>
+                                    <t t-else="">
+                                        0
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
                     </t>
                 </table>
             </div>

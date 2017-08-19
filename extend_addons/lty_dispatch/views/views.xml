@@ -1,0 +1,65 @@
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="dispatch_control_desktop_list">
+      <field name="name">dispatch_control_desktop list</field>
+      <field name="model">dispatch.control.desktop</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="user"/>
+          <field name="is_default"/>
+        </tree>
+      </field>
+    </record>
+    
+    <record id="dispatch_control_desktop_kanban" model="ir.ui.view">
+        <field name="name">dispatch_control_desktop kanban</field>
+        <field name="model">dispatch.control.desktop</field>
+        <field name="arch" type="xml">
+            <kanban create="false" class="o_kanban_dashboard o_pos_kanban">
+                <field name="name"/>
+                <field name="user"/>
+                <field name="id"/>
+                <templates>
+					<t t-name="kanban-box">
+                        <div>
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <div class="o_primary"><t t-esc="record.name.value"/></div>
+                                    <div class="o_secondary"><t t-esc="record.user.value"/></div>
+                                </div>
+                                <div class="o_kanban_manage_button_section">
+                                    <a class="o_kanban_manage_toggle_button" href="#">More <i class="fa fa-caret-down"/></a>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_content o_visible">
+                                <div class="row">
+                                    <div class="col-xs-6 o_kanban_primary_left">
+                                        
+                                        <button  class="btn btn-primary" t-attf-desktop_id="{{record.id.value}}" name="open_dispatch_desktop" type="object">Open Desktop</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>    
+    <record model="ir.actions.act_window" id="dispatch_control_desktop_action_window">
+      <field name="name">Dispatch Control Desktop</field>
+      <field name="res_model">dispatch.control.desktop</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="domain">[('user','=',uid)]</field>	  
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          Click to create a new desktop.<br/>
+	      </p>
+	  </field>      
+      
+    </record>
+    <menuitem name="Dispatch Desktop" id="dispatch_control_desktop_menu2" parent="dispatch_monitor_menu.dispatch_work_menu"
+              action="dispatch_control_desktop_action_window" sequence="0"/>
+  </data>
+</openerp>
