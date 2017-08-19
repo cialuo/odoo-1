@@ -25,6 +25,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/dispatch_abnormal_views.xml',
+        'data/abnormal_categ_data.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

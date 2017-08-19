@@ -7,6 +7,7 @@ from itertools import izip_longest
 import json
 import math
 import collections
+from utils import *
 
 timeFormatStr = "%Y-%m-%d %H:%M:%S"
 
@@ -31,21 +32,21 @@ class RouteInBusSchedule(models.Model):
         self.ensure_one()
 
         # 上行大站检查
-        mode = self.env['opertation_resources_station_up']
-        sitelist = mode.search([('route_id', '=', self.id)])
+        mode = self.env['opertation_resources_station_platform']
+        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'up')])
         sitecollection = []
         for item in sitelist:
             sitecollection.append((0, 0, {
-                'site_id': item.station_id.id,
+                'site_id': item.id,
             }))
 
         # 下行大站检查
-        mode = self.env['opertation_resources_station_down']
-        sitelist = mode.search([('route_id', '=', self.id)])
+        mode = self.env['opertation_resources_station_platform']
+        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'up')])
         sitecollection_down = []
         for item in sitelist:
             sitecollection_down.append((0, 0, {
-                'site_id': item.station_id.id,
+                'site_id': item.id,
             }))
 
         context = dict(self.env.context,
@@ -73,9 +74,7 @@ class RouteInBusSchedule(models.Model):
         }
 
 class BusWorkRules(models.Model):
-    """
-    行车规则
-    """
+
     _name = 'scheduleplan.schedulrule'
 
     name = fields.Char(string="rule name")
@@ -423,13 +422,13 @@ class BusWorkRules(models.Model):
             if item[2]['driver']:
                 driverworklist[item[2]['driver']].append((item[2]['starttime'], item[2]['arrivetime'],item[2]['vehicle_id']))
             if item[2]['steward']:
-                conductorworklist[item[2]['steward']].append((item[2]['starttime'], item[2]['arrivetime'],item[2]['vehicle_id']))
+                conductorworklist[item[2]['steward']].append((item[2]['starttime'], item[2]['arrivetime']))
 
         for item in downexeitems:
             if item[2]['driver']:
                 driverworklist[item[2]['driver']].append((item[2]['starttime'], item[2]['arrivetime'],item[2]['vehicle_id']))
             if item[2]['steward']:
-                conductorworklist[item[2]['steward']].append((item[2]['starttime'], item[2]['arrivetime'],item[2]['vehicle_id']))
+                conductorworklist[item[2]['steward']].append((item[2]['starttime'], item[2]['arrivetime']))
 
         for k, v in driverworklist.items():
             driverworklist[k] = sorted(v, key=lambda x:x[0])
@@ -447,7 +446,7 @@ class BusWorkRules(models.Model):
             for item in result:
                 value = {
                     'worktime': movetimeobj.executedate,
-                    'vehicle_id' : v[-1][-1],
+                    'vehicle_id' : item[-1],
                     'title' : 'steward',
                     'employee_id' : k,
                     'checkintime' : item[1][0],
@@ -465,7 +464,7 @@ class BusWorkRules(models.Model):
             for item in result:
                 value = {
                     'worktime': movetimeobj.executedate,
-                    'vehicle_id': v[-1][-1],
+                    'vehicle_id': item[-1],
                     'title': 'driver',
                     'employee_id': k,
                     'checkintime': item[1][0],
@@ -510,7 +509,7 @@ class BusWorkRules(models.Model):
         """
         spliter = []
         for item in range(1, len(worksection)):
-            spliter.append(worksection[item][0])
+            spliter.append(item[0])
         spliter.append(-1)
         result = []
         temp = []
@@ -564,8 +563,7 @@ class BusWorkRules(models.Model):
             if timerec == None:
                 # a = 99885
                 continue
-            if item[0] not in stafflist:
-                continue
+
             value = {
                 'seq_id':item[1]['seqid'],
                 'vehicle_id': stafflist[item[0]]['vehicle_id'].id,
@@ -671,7 +669,7 @@ class RuleBusArrangeUp(models.Model):
     _name = "scheduleplan.up.rulebusarrange"
 
 
-    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule", ondelete="cascade")
+    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule")
 
     # 车型
     vehiclemode = fields.Many2one("fleet.vehicle.model", string="vehicle mode")
@@ -699,7 +697,7 @@ class ToUp(models.Model):
     """
     _name = "scheduleplan.toup"
 
-    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule", ondelete="cascade")
+    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule")
 
     # 开始时间
     starttime = fields.Char(string="start time", required=True)
@@ -767,9 +765,9 @@ class BigSiteSettingsUp(models.Model):
 
     _name = "scheduleplan.bigsitesetup"
 
-    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule", ondelete="cascade")
+    rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule")
 
-    site_id = fields.Many2one("opertation_resources_station")
+    site_id = fields.Many2one("opertation_resources_station_up")
 
     # 是否签点
     needsign = fields.Boolean(string="need sign")
@@ -798,6 +796,9 @@ class BigSiteSettingsDown(models.Model):
     _name = "scheduleplan.bigsitesetdown"
 
     _inherit = "scheduleplan.bigsitesetup"
+
+    site_id = fields.Many2one("opertation_resources_station_down")
+
 
 
 class BusMoveTimeTable(models.Model):
@@ -921,12 +922,26 @@ class BusMoveTimeTable(models.Model):
         return result
 
     @classmethod
-    def genWebRetunData(cls, data4direction, dataforbus):
+    def genWebRetunData(cls, data4direction, dataforbus, upstation, downstation):
         data = {
             'direction':data4direction,
-            'bus':dataforbus
+            'bus':dataforbus,
+            'upstation':upstation,
+            'downstation':downstation
         }
-        return json.dumps(data)
+        return data
+
+    @classmethod
+    def preprocess2WebData(cls, data):
+        """
+        对返回给客户端的运营数据做预处理
+        """
+        for item in data.values():
+            for x in item:
+                if x[1][1] != None:
+                    x[1][1]['arrive_time'] = adjustDateTime2ZhCn(x[1][1]['arrive_time'])
+                    x[1][1]['startmovetime'] = adjustDateTime2ZhCn(x[1][1]['startmovetime'])
+        return data
 
     @api.model
     def reoppaln2web(self, recid):
@@ -941,13 +956,16 @@ class BusMoveTimeTable(models.Model):
             arg1 = {}
         try:
             arg2 = json.loads(row.operationplanbus)
-        except Exception:
+            arg2 = self.preprocess2WebData(arg2)
+        except Exception as e:
             arg2 = {}
-        return self.genWebRetunData(arg1, arg2)
+        station1 = row.line_id.up_station.name
+        station2 = row.line_id.down_station.name
+        return self.genWebRetunData(arg1, arg2, station1, station2)
 
 
     @api.model
-    def changeOpplan(self, index, direction):
+    def changeOpplan(self, index, direction, op, data):
         # 修改运营计划
         return self.genWebRetunData({},{})
 
@@ -966,8 +984,8 @@ class BusMoveTimeTable(models.Model):
         return busMoveSeq
 
 
-    @staticmethod
-    def culculateStopTime(busMoveTimeCol):
+    @classmethod
+    def culculateStopTime(cls, busMoveTimeCol):
         for k, v in busMoveTimeCol.items():
             l = len(v)
             for index, item in enumerate(v):
@@ -979,8 +997,9 @@ class BusMoveTimeTable(models.Model):
                         continue
                     stime = datetime.datetime.strptime(v[i][1][1]['startmovetime'], timeFormatStr)
                     atime = datetime.datetime.strptime(item[1][1]['arrive_time'], timeFormatStr)
-                    item.append(stime - atime)
+                    item.append((stime - atime).total_seconds()/60)
                     break
+        return busMoveTimeCol
 
 
     # 生成运营方案数据
@@ -1001,6 +1020,8 @@ class BusMoveTimeTable(models.Model):
         elif self.schedule_method == 'singleway':
             busMoveTable = self.genBusMoveSeqsingle(upMoveOnSeq, upVechicleSeq)
 
+        busMoveTable = self.culculateStopTime(busMoveTable)
+
         self.operationplanbus = json.dumps(busMoveTable)
 
         self.operationplan = json.dumps(operationPlan)
@@ -1010,7 +1031,7 @@ class MoveTimeUP(models.Model):
 
     _name = "scheduleplan.movetimeup"
 
-    movetimetable_id = fields.Many2one("scheduleplan.busmovetime", ondelete="cascade")
+    movetimetable_id = fields.Many2one("scheduleplan.busmovetime")
 
     # 序号
     seqid = fields.Integer(string="sequence id")
@@ -1127,7 +1148,7 @@ class ExecUpPlanItem(models.Model):
     """
     _name = "scheduleplan.execupplanitem"
 
-    execplan_id = fields.Many2one("scheduleplan.excutetable", ondelete="cascade")
+    execplan_id = fields.Many2one("scheduleplan.excutetable")
 
     # 序号
     seq_id = fields.Integer(string="sequence id")
@@ -1174,7 +1195,7 @@ class MotorcyclistsTime(models.Model):
 
     _name = "scheduleplan.motorcyclists"
 
-    execplan_id = fields.Many2one("scheduleplan.excutetable", ondelete="cascade")
+    execplan_id = fields.Many2one("scheduleplan.excutetable")
 
     employee_id = fields.Many2one("hr.employee", string="emplyee id")
 
@@ -1218,7 +1239,7 @@ class VehicleResource(models.Model):
 
     _name = "scheduleplan.vehicleresource"
 
-    execplan_id = fields.Many2one("scheduleplan.excutetable", ondelete="cascade")
+    execplan_id = fields.Many2one("scheduleplan.excutetable")
 
     vehicle_id = fields.Many2one("fleet.vehicle")
 

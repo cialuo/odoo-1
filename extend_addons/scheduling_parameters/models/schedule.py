@@ -36,8 +36,6 @@ class Area(models.Model):
         return True
 
 
-
-
 class Road(models.Model):
     """
     道路管理
@@ -104,7 +102,10 @@ class Station(models.Model):
     active = fields.Boolean(default=True)
 
     route_ids = fields.Many2many('route_manage.route_manage', 'opertation_resources_station_rel',
-                                 'station_id', 'route_station_id', 'Routes')
+                                 'station_id', 'route_station_id', 'Station Routes')
+
+    address = fields.Char()
+    nearby = fields.Char()
 
     @api.multi
     def name_get(self):
@@ -169,7 +170,7 @@ class route_manage(models.Model):
                                     ('regional_line', 'regional_line'),
                                     ('express_line', 'express_line'),
                                     ('interval_line', 'interval_line')],
-                                    default='main_line', required=True)  # 线路类型
+                                    default='main_line', required=True, string="Line Type")  # 线路类型
 
     main_line_id = fields.Many2one('route_manage.route_manage', string='Main Route',
                                     domain="[('line_type_name', '=', 'main_line')]") # 主线
@@ -177,8 +178,13 @@ class route_manage(models.Model):
                                  ('custom_bus', 'custom_bus')],
                                 default='regular_bus', string='bus_type', required=True)  # 公交类型
 
-    station_up_ids = fields.One2many('opertation_resources_station_up', 'route_id', string='StationUps')
-    station_down_ids = fields.One2many('opertation_resources_station_down', 'route_id', string='StationDowns')
+    # station_up_ids = fields.One2many('opertation_resources_station_up', 'route_id', string='StationUps')
+    # station_down_ids = fields.One2many('opertation_resources_station_down', 'route_id', string='StationDowns')
+
+    station_up_ids = fields.One2many('opertation_resources_station_platform', 'route_id', string='StationUps',
+                                     domain=[('direction', '=', 'up')])
+    station_down_ids = fields.One2many('opertation_resources_station_platform', 'route_id', string='StationDowns',
+                                     domain=[('direction', '=', 'down')])
 
     up_first_time = fields.Char('up_first_time', required=True, default='06:00') # 上行首班时间
     up_end_time = fields.Char('up_end_time', required=True, default='22:00')  # 上行首班时间
@@ -196,9 +202,21 @@ class route_manage(models.Model):
 
     child_route_ids = fields.One2many('route_manage.route_manage', 'main_line_id', string='ChildRoutes')
 
+    yard_ids = fields.One2many('opertation_resources_vehicle_yard', 'route_id', string='VehicleYards')
+
+    start_date = fields.Datetime(string="Open date") #线路开始日期
+    end_date = fields.Datetime(string="Stop date")  #线路停运日期
+    is_artificial_ticket = fields.Boolean(default=True) #是否人工售票
+    ticket_price = fields.Float() #票价
+
+    loop_type = fields.Selection([('not_loop', 'not_loop'),
+                                    ('single_loop', 'single_loop'),
+                                    ('double_loop', 'double_loop'),
+                                    ('double_line', 'double_line')],
+                                    default='main_line', required=True)  # 线路类型
+
     @api.onchange('up_first_time','up_end_time','down_first_time','down_end_time')
     def _on_change_time(self):
-
         reg = '^(0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1})$'
         if self.up_first_time:
             if not re.match(reg, self.up_first_time):
@@ -211,7 +229,6 @@ class route_manage(models.Model):
                 }
 
         if self.up_end_time:
-            reg = '^(0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1})$'
             if not re.match(reg , self.up_end_time):
                 self.up_end_time = ''
                 return {
@@ -290,7 +307,6 @@ class route_manage(models.Model):
                 i.down_station = downs[0].station_id
 
 
-
 class StationUp(models.Model):
     _name = 'opertation_resources_station_up'
     _rec_name = 'route_id'
@@ -298,8 +314,8 @@ class StationUp(models.Model):
     上行站台管理
     """
     _sql_constraints = [
-        ('sequence_unique', 'unique(sequence, route_id)', _('The up sequence and route  must be unique!'))
-    ] #站序，线路， 必须唯一
+        ('sequence_unique', 'unique(sequence, route_id)', _('The up sequence and route must be unique!'))
+    ]  # 站序，线路， 必须唯一
 
     sequence = fields.Integer("Station Sequence", default=2, required=True)
     route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
@@ -375,3 +391,67 @@ class human_resource(models.Model):
     # 所属线路
     lines = fields.Many2many('route_manage.route_manage', string='Choose Line')
 
+
+class Platform(models.Model):
+    _name = 'opertation_resources_station_platform'
+    _rec_name = 'route_id'
+    """
+    站台管理
+    """
+
+    _sql_constraints = [
+        ('sequence_unique', 'unique(sequence, route_id, direction)', _('The up sequence and route  must be unique!'))
+    ] #站序，线路， 必须唯一
+
+    direction = fields.Selection([('up', 'up'),
+                                 ('down', 'down')], default='up')
+
+    sequence = fields.Integer("Station Sequence", default=2, required=True)
+    route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
+    gprs_id = fields.Integer('code', related='route_id.gprs_id', required=True)  # 线路编码
+    station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
+                                 required=True)
+    entrance_azimuth = fields.Char('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
+    entrance_longitude = fields.Float(digits=(10, 6), string='Entrance longitude',
+                                      related='station_id.entrance_longitude', readonly=True) # 进站经度
+    entrance_latitude = fields.Float(digits=(10, 6), string='Entrance latitude',
+                                     related='station_id.entrance_latitude', readonly=True) # 进站纬度
+    exit_azimuth = fields.Char('Exit azimuth', related='station_id.exit_azimuth', readonly=True) # 出站方位角
+    exit_longitude = fields.Float(digits=(10, 6), string='Exit longitude', related='station_id.exit_longitude',
+                                  readonly=True) # 出站经度
+    exit_latitude = fields.Float(digits=(10, 6), string='Exit latitude', related='station_id.exit_latitude',
+                                 readonly=True) # 出站纬度
+
+    station_type = fields.Selection([('first_station', 'first_station'),
+                                     ('mid_station', 'mid_station'),
+                                     ('last_station', 'last_station')], default='mid_station', required=True)
+    is_show_name = fields.Boolean(default=True)
+
+    @api.onchange('sequence')
+    def _get_station_type(self):
+        for i in self:
+            if i.sequence == 1:
+                i.station_type = 'first_station'
+
+
+class VehicleYard(models.Model):
+    _name = 'opertation_resources_vehicle_yard'
+    """
+    车场
+    """
+    name = fields.Char('Yard Name', required=True)
+    route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
+    direction = fields.Selection([('up', 'up'),
+                                 ('down', 'down')], default='up')
+    is_yard = fields.Boolean(default=True)
+
+    dispatch_screen_ids = fields.One2many('opertation_resources_dispatch_screen', 'yard_id')
+
+
+class DispatchScreen(models.Model):
+    _name = 'opertation_resources_dispatch_screen'
+
+    name = fields.Char('Screen Name', required=True)
+    yard_id = fields.Many2one('opertation_resources_vehicle_yard')
+    screen_code = fields.Char('Screen Code', required=True)
+    screen_ip = fields.Char('Screen IP')

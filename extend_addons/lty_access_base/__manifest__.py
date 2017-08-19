@@ -32,7 +32,7 @@
     'category': 'Uncategorized',
     'version': '0.1',
 
-    'depends': ['scheduling_parameters','vehicle_manage'],
+    'depends': ['scheduling_parameters','vehicle_manage','lty_server_access'],
 
     'data': [
         # 'security/ir.model.access.csv',

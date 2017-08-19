@@ -68,6 +68,14 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                 layer_index: layer_index
             }
             sessionStorage.setItem("passengerDelayModel_set", JSON.stringify(passengerDelayModel_set));
+
+            // 订阅滞客信息
+            var package = {
+                type: 1000,
+                open_modules: ["dispatch-passenger_delay-"+this.location_data.controllerId],
+                msgId: Date.parse(new Date())
+            };
+            websocket.send(JSON.stringify(package));
         },
         send_express_info: function(){
             var passenger_flow_cont = this.$(".trend_chart_single .passenger_flow_cont");
@@ -120,6 +128,13 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
             }
         },
         closeFn: function(){
+            // 取消订阅滞客信息
+            var package = {
+                type: 1001,
+                open_modules: ["dispatch-passenger_delay-"+this.location_data.controllerId],
+                msgId: Date.parse(new Date())
+            };
+            websocket.send(JSON.stringify(package));
             this.destroy();
         }
     });

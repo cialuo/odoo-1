@@ -123,5 +123,5 @@
     <menuitem id="bus_work_exec_table_menu" name="bus work exec table menu"
               parent="operation_menu.bus_working_plan_menu"
               action="bus_work_exec_table_action"
-              sequence="4"/>
+              sequence="50"/>
 </odoo>

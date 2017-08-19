@@ -214,12 +214,20 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             this.down_transit = uplink_transit;
         },
         start: function(){
+            this.cont_info();
             var layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
             var linePlanParkOnlineModel_set = {
                 layer_index: layer_index
             }
             sessionStorage.setItem("linePlanParkOnlineModel_set", JSON.stringify(linePlanParkOnlineModel_set));
-            this.cont_info();
+
+            // 订阅线路计划、车场、状态
+            var package = {
+                type: 1000,
+                open_modules: ["dispatch-line_plan-"+this.location_data.controllerId, "dispatch-line_park-"+this.location_data.controllerId, "dispatch-line_online-"+this.location_data.controllerId],
+                msgId: Date.parse(new Date())
+            };
+            websocket.send(JSON.stringify(package));
         },
         cont_info: function(){
             new bus_plan(this, this.uplink_plan).appendTo(this.$(".plan_group"));
@@ -267,6 +275,13 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             });
         },
         closeFn: function(){
+            // 取消线路计划、车场、状态
+            var package = {
+                type: 1001,
+                open_modules: ["dispatch-line_plan-"+this.location_data.controllerId, "dispatch-line_park-"+this.location_data.controllerId, "dispatch-line_online-"+this.location_data.controllerId],
+                msgId: Date.parse(new Date())
+            };
+            websocket.send(JSON.stringify(package));
             this.destroy();
         },
     });
