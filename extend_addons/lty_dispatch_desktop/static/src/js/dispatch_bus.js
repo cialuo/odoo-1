@@ -562,7 +562,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var y = event.pageY - c.getBoundingClientRect().top;
             var zIndex = parseInt(this.$el[0].style.zIndex);
             cxt.arc(13, 58, 13, 0, 360, false);
-
             if (cxt.isPointInPath(x, y)) {
                 var options =
                     {
@@ -725,7 +724,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 }]).then(function (res) {
                 self.$el.find('.updown_line_table').show();
                 $(x).hide();
-                $(x).siblings('.line_edit').show()
+                $(x).siblings('.line_edit').show();
             });
         }
     });
