@@ -242,6 +242,7 @@ function linePlanParkOnlineModel_socket_fn(controllerObj, data_list){
 	if (dom.length>0){
 		var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("linePlanParkOnlineModel_set"));
         layer.close(passengerDelayModel_set.layer_index);
+        $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar(); 
         dom.removeClass('hide_model');
 	}
 }
