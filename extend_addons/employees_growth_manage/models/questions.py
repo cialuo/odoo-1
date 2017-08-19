@@ -25,13 +25,13 @@ class questions(models.Model):
      total_count = fields.Integer(string='Total count',compute="_compute_total_count")
 
      multiselect_questions = fields.One2many('employees_growth.multiselect_question',
-                                            'questions_id',string='Multiselect question id')
+                                            'questions_id', copy=True, string='Multiselect question id')
 
      radio_questions = fields.One2many('employees_growth.radio_question',
-                                            'questions_id', string='Radio question id')
+                                            'questions_id', copy=True, string='Radio question id')
 
      judge_questions = fields.One2many('employees_growth.judge_question',
-                                            'questions_id', string='Judge question id')
+                                            'questions_id',  copy=True, string='Judge question id')
 
      @api.depends('multiselect_questions','radio_questions','judge_questions')
      def _compute_total_count(self):

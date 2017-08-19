@@ -284,6 +284,8 @@
                                     <field name="indicator_name"/>
                                     <field name="indicator_standardofgrading"/>
                                     <field name="point"/>
+                                    <field name="weight"/>
+                                    <field name="actual_point"/>
                                     <field name="judge"/>
                                 </tree>
                                 <form>
