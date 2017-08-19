@@ -23,6 +23,8 @@
         'scheduling_parameters',
         'vehicle_manage',
         'bus_schedule_plan',
+        'lty_dispatch_config',
+        'lty_dispatch_desktop_base',
     ],
 
     # always loaded

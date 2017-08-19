@@ -22,6 +22,7 @@ from odoo import api, fields, models
 from extend_addons.lty_dispatch_restful.core.restful_client import *
 import mapping
 import logging
+import time
 
 #对接系统  人员基础数据表名
 
@@ -74,9 +75,11 @@ class Employee(models.Model):
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
-            second_create = int(r.create_date[-2:])
-            second_now = int(fields.Datetime.now()[-2:])
-            if second_now - second_create > 5:
+            #时间戳 避免 create方法进入 write方法
+            create_time = time.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
+            time_create = int(time.mktime(create_time))
+            time_now = time.time()
+            if time_now - time_create > 5:
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -98,15 +101,17 @@ class Employee(models.Model):
         '''
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
-        vals = {"ids": self.ids}
+        # vals = {"ids": self.ids}
         res = super(Employee, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            params = Params(type = 3, cityCode = cityCode,tableName = HR_TABLE, data = vals).to_dict()
-            clientThread(url,params,res).start()
-        except Exception,e:
-            _logger.info('%s', e.message)
+        for r in self:
+            try:
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                vals = {'id': r.id}
+                _logger.info('Start unlink data: %s', self._name)
+                params = Params(type = 2, cityCode = cityCode,tableName = HR_TABLE, data = vals).to_dict()
+                rp = Client().http_post(url, data=params)
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res
