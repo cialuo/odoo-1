@@ -57,24 +57,31 @@ websocket.onmessage123 = function (event) {
 // };
 // websocket.send(JSON.stringify(package));
 websocket.onmessage = function (event) {
-    console.log(event.data)
-    for (socket_model in socket_model_info) {
-        var socket_model_obj = socket_model_info[socket_model];
-        socket_model_obj.fn(event.data, socket_model_obj.arg);
-    }
-    var obj = {modelName: "bus_real_state", controllerId: "1", data: [event.data]};
-    if (event.data.slice(78, 80) < 15) {
-        obj.modelName = "passenger_delay";
-    } else if (event.data.slice(78, 80) < 30) {
-        // line_plan line_park line_online
-        obj.modelName = "linePlanParkOnlineModel";
-    } else if (event.data.slice(78, 80) < 45) {
-        obj.modelName = "passenger_flow_capacity";
-    } else if (event.data.slice(78, 80) < 60) {
-        obj.modelName = "absnormal";
-    }
-    var modelName = obj.modelName;
-    var controllerId = obj.controllerId;
+    // console.log(event)
+    // for (socket_model in socket_model_info) {
+    //     var socket_model_obj = socket_model_info[socket_model];
+    //     socket_model_obj.fn(event.data, socket_model_obj.arg);
+    // }
+    // var obj = {modelName: "bus_real_state", controllerId: "1", data: [event.data]};
+    // console.log('随机数为'+event.data.slice(78, 80));
+    // if (event.data.slice(78, 80) < 15) {
+    //     obj.modelName = "passenger_delay";
+    // } else if (event.data.slice(78, 80) < 30) {
+    //     // line_plan line_park line_online
+    //     obj.modelName = "linePlanParkOnlineModel";
+    // } else if (event.data.slice(78, 80) < 45) {
+    //     obj.modelName = "passenger_flow_capacity";
+    // } else if (event.data.slice(78, 80) < 60) {
+    //     obj.modelName = "absnormal";
+    // }
+    // var modelName = obj.modelName;
+    // if (!event.data){
+    // 	return false;
+    // }
+    var eventObj = JSON.parse(event.data);
+    console.log(eventObj.data);
+    var modelName = eventObj.moduleName;
+    var controllerId = eventObj.controllerId;
 
     if (modelName == "线路") {
     } else if (modelName == "passenger_flow_capacity") {
@@ -84,9 +91,9 @@ websocket.onmessage = function (event) {
         // console.log('3');
     } else if (modelName == "人力资源状态") {
         // console.log('4');
-    } else if (modelName == "bus_real_state") {
+    } else if (eventObj.moduleName == "bus_real_state") {
         // console.log('5');
-        busRealStateModel_socket_fn($(".controller_" + controllerId), obj.data);
+        busRealStateModel_socket_fn($(".controller_" + controllerId), eventObj.data);
     } else if (modelName == "passenger_delay") {
         // console.log('6');
         passengerDelayModel_socket_fn($(".controller_" + controllerId), obj.data);
@@ -118,8 +125,6 @@ function absnormal_del(controllerObj, data_list) {
     if (controllerObj.find('.updown_line_table[line_id=1]').length > 0) {
         if (data_list[0].substring(78, 79) > 3) {
             controllerObj.find('.updown_line_table[line_id=1]').find('.no_absnormal').show().siblings().hide();
-            controllerObj.find('.updown_line_table[line_id=1]').find('.passenger_flow_list .absnormal_type  p').html('有危险');
-            controllerObj.find('.updown_line_table[line_id=1]').addClass('warn');
             var timer_carousel = sessionStorage.getItem('timer1');
             clearInterval(timer_carousel);
             controllerObj.find('.updown_line_table[line_id=1]').find('.carousel_content').css({left: 0});
@@ -145,51 +150,31 @@ function passenger_flow_capacity(controllerObj, data_list) {
     }
 }
 
-var map_i = 0;
 // 车辆实时状态模块
-function busRealStateModel_socket_fn(controllerObj, data_list) {
-    for (var i = 0, dl = data_list.length; i < dl; i++) {
-        var dataObj = data_list[i];
-        // debugger;
+function busRealStateModel_socket_fn(controllerObj, dataObj) {
         // var dom = controllerObj.find(".busRealStateModel_"+dataObj.line_on+"_"+dataObj.bus_on);
-        var data = dataObj;
-        var map_list = [
-            {longitude: 114.39973, latitude: 30.45787},
-            {longitude: 114.398595, latitude: 30.457569},
-            {longitude: 114.39948, latitude: 30.457231},
-            {longitude: 114.400939, latitude: 30.45688},
-            {longitude: 114.402237, latitude: 30.45639},
-            {longitude: 114.402977, latitude: 30.457102},
-            {longitude: 114.403675, latitude: 30.457823}
-        ];
         var dom = controllerObj.find(".busRealStateModel_1_222");
         if (dom.length > 0) {
-            console.log('come on');
             var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
             var carReportObj = dom.find(".popupContent .carReport");
             var lineInfo = dom.find(".lineInfo");
-            var back_door_status = data.slice(83, 84) > 8 ? "<e class='danger'>开启</e>" : "关闭"
-            var front_door_status = data.slice(84, 85) < 8 ? "<e class='danger'>开启</e>" : "关闭"
-            var new_date = new Date();
-            var date_time = new_date.getHours() + ":" + new_date.getMinutes();
-            var new_data_2 = new Date(new_date.getTime() + 1000 * 60 * 30);
-            var date_time_2 = new_data_2.getHours() + ":" + new_data_2.getMinutes();
-            vehicleInformationObj.find(".passenger_number").html('62' + data.slice(78, 79));
-            vehicleInformationObj.find(".satisfaction_rate").html(data.slice(78, 80) + "%");
-            vehicleInformationObj.find(".inside_temperature").html(data.slice(80, 82));
-            vehicleInformationObj.find(".outside_temperature").html(data.slice(82, 84));
-            vehicleInformationObj.find(".back_door_status").html(back_door_status);
-            vehicleInformationObj.find(".front_door_status").html(front_door_status);
-            vehicleInformationObj.find(".current_speed").html(data.slice(84, 86) + 'KM/H');
-            vehicleInformationObj.find(".direction").html('大亚湾'+data.slice(88, 89));
-            vehicleInformationObj.find(".front_distance").html(data.slice(86, 87) + 'KM');
-            vehicleInformationObj.find(".back_distance").html(data.slice(87, 88) + 'KM');
-            vehicleInformationObj.find(".return_time").html(date_time);
-            vehicleInformationObj.find(".next_trip_time").html(date_time_2);
-            vehicleInformationObj.find(".residual_clearance").html(data.slice(76, 78) + 'KM');
+            vehicleInformationObj.find(".passenger_number").html(dataObj.passenger_number);
+            vehicleInformationObj.find(".satisfaction_rate").html(dataObj.satisfaction_rate);
+            vehicleInformationObj.find(".inside_temperature").html(dataObj.inside_temperature);
+            vehicleInformationObj.find(".outside_temperature").html(dataObj.outside_temperature);
+            vehicleInformationObj.find(".back_door_status").html(dataObj.back_door_status);
+            vehicleInformationObj.find(".front_door_status").html(dataObj.front_door_status);
+            vehicleInformationObj.find(".current_speed").html(dataObj.current_speed + 'KM/H');
+            vehicleInformationObj.find(".direction").html(dataObj.direction);
+            vehicleInformationObj.find(".front_distance").html(dataObj.front_distance + 'KM');
+            vehicleInformationObj.find(".back_distance").html(dataObj.back_distance + 'KM');
+            vehicleInformationObj.find(".return_time").html(dataObj.return_time);
+            vehicleInformationObj.find(".next_trip_time").html(dataObj.next_trip_time);
+            vehicleInformationObj.find(".residual_clearance").html(dataObj.residual_clearance + 'KM');
             lineInfo.find(".lineRoad").html('18'+'路')
-            lineInfo.find(".trip").html(data.slice(76, 77));
-            lineInfo.find(".total_trip").html(data.slice(76, 77) + data.slice(77, 78));
+            lineInfo.find(".trip").html(dataObj.satisfaction_rate);
+            lineInfo.find(".total_trip").html(dataObj.satisfaction_rate);
+
             var busRealStateModel_set = JSON.parse(sessionStorage.getItem("busRealStateModel_set"));
             layer.close(busRealStateModel_set.layer_index);
             dom.removeClass('hide_model');
@@ -199,28 +184,23 @@ function busRealStateModel_socket_fn(controllerObj, data_list) {
             if (mapDom.length>0){
             	socket_load.remove();
             	mapDom.removeClass("hide_model");
-	            if (map_i<6){
-	            	map_i+=1;
-	            	busRealStateModel_map(mapDom[0], map_list[map_i]);
-	            	console.log('我是i'+map_i);
-	            }
+            	busRealStateModel_map(mapDom[0], dataObj);
             }
             if (chartDom.length > 0){
             	socket_load.remove();
             	chartDom.removeClass("hide_model");
             }
         }
-    }
 }
 
 function busRealStateModel_map(dom, gps){
 	if (socket_model_api_obj.busRealStateModel.marker){
-		socket_model_api_obj.busRealStateModel.marker.setPosition(new AMap.LngLat(gps.longitude, gps.latitude));
+		socket_model_api_obj.busRealStateModel.marker.setPosition(new AMap.LngLat(gps.location_log, gps.location_lan));
 	}else{
-		var mapObj = new AMap.Map(dom, {zoom: 14, center: [gps.longitude, gps.latitude]});
+		var mapObj = new AMap.Map(dom, {zoom: 14, center: [gps.location_log, gps.location_lan]});
 		var marker = new AMap.Marker({
 	        map: mapObj,
-	        position: [gps.longitude, gps.latitude]
+	        position: [gps.location_log, gps.location_lan]
 	    });
 	    socket_model_api_obj.busRealStateModel.marker = marker;
 	}
@@ -242,6 +222,9 @@ function linePlanParkOnlineModel_socket_fn(controllerObj, data_list){
 	if (dom.length>0){
 		var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("linePlanParkOnlineModel_set"));
         layer.close(passengerDelayModel_set.layer_index);
+        $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar({
+            theme: 'minimal'
+        });
         dom.removeClass('hide_model');
 	}
 }
