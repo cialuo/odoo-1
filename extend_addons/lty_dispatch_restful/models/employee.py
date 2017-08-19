@@ -76,10 +76,8 @@ class Employee(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
             #时间戳 避免 create方法进入 write方法
-            create_time = time.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            time_create = int(time.mktime(create_time))
-            time_now = time.time()
-            if time_now - time_create > 5:
+            seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
+            if seconds.seconds > 5:
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)

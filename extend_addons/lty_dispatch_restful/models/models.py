@@ -48,6 +48,10 @@ class op_line(models.Model):
                 'isShowPoint': 0,
                 'isShowStationName': 0,
             })
+            if not res.start_date:
+                del vals['startDate']
+            if not res.end_date:
+                del vals['endDate']
             params = Params(type=1, cityCode=cityCode,tableName=LINE_TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
 
@@ -68,15 +72,20 @@ class op_line(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
             #时间戳 避免 create方法进入 write方法
-            create_time = time.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            time_create = int(time.mktime(create_time))
-            time_now = time.time()
-            if time_now - time_create > 5:
+            # create_time = time.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
+            # time_create = int(time.mktime(create_time))
+            # time_now = time.time()
+            seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
+            if seconds.seconds > 5:
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(self._name, vals)
                     vals.update({'id': r.id})
+                    if not res.start_date:
+                        del vals['startDate']
+                    if not res.end_date:
+                        del vals['endDate']
                     params = Params(type=3, cityCode=cityCode, tableName=LINE_TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
 
@@ -148,10 +157,8 @@ class Station(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
             #时间戳 避免 create方法进入 write方法
-            create_time = time.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            time_create = int(time.mktime(create_time))
-            time_now = time.time()
-            if time_now - time_create > 5:
+            seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
+            if seconds.seconds > 5:
                 try:
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(self._name, vals)
