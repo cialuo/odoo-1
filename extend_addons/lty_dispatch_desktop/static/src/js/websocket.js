@@ -77,6 +77,7 @@ websocket.onmessage = function (event) {
     var modelName = obj.modelName;
     var controllerId = obj.controllerId;
 
+
     if (modelName == "线路") {
     } else if (modelName == "passenger_flow_capacity") {
         //客流与运力组件
@@ -242,7 +243,9 @@ function linePlanParkOnlineModel_socket_fn(controllerObj, data_list){
 	if (dom.length>0){
 		var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("linePlanParkOnlineModel_set"));
         layer.close(passengerDelayModel_set.layer_index);
-        $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar(); 
+        $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar({
+        	theme: 'minimal'
+        }); 
         dom.removeClass('hide_model');
 	}
 }
