@@ -7,6 +7,7 @@ from itertools import izip_longest
 import json
 import math
 import collections
+from utils import *
 
 timeFormatStr = "%Y-%m-%d %H:%M:%S"
 
@@ -31,8 +32,8 @@ class RouteInBusSchedule(models.Model):
         self.ensure_one()
 
         # 上行大站检查
-        mode = self.env['opertation_resources_station_up']
-        sitelist = mode.search([('route_id', '=', self.id)])
+        mode = self.env['opertation_resources_station_platform']
+        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'up')])
         sitecollection = []
         for item in sitelist:
             sitecollection.append((0, 0, {
@@ -40,8 +41,8 @@ class RouteInBusSchedule(models.Model):
             }))
 
         # 下行大站检查
-        mode = self.env['opertation_resources_station_down']
-        sitelist = mode.search([('route_id', '=', self.id)])
+        mode = self.env['opertation_resources_station_platform']
+        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'up')])
         sitecollection_down = []
         for item in sitelist:
             sitecollection_down.append((0, 0, {
@@ -921,12 +922,26 @@ class BusMoveTimeTable(models.Model):
         return result
 
     @classmethod
-    def genWebRetunData(cls, data4direction, dataforbus):
+    def genWebRetunData(cls, data4direction, dataforbus, upstation, downstation):
         data = {
             'direction':data4direction,
-            'bus':dataforbus
+            'bus':dataforbus,
+            'upstation':upstation,
+            'downstation':downstation
         }
-        return json.dumps(data)
+        return data
+
+    @classmethod
+    def preprocess2WebData(cls, data):
+        """
+        对返回给客户端的运营数据做预处理
+        """
+        for item in data.values():
+            for x in item:
+                if x[1][1] != None:
+                    x[1][1]['arrive_time'] = adjustDateTime2ZhCn(x[1][1]['arrive_time'])
+                    x[1][1]['startmovetime'] = adjustDateTime2ZhCn(x[1][1]['startmovetime'])
+        return data
 
     @api.model
     def reoppaln2web(self, recid):
@@ -941,13 +956,16 @@ class BusMoveTimeTable(models.Model):
             arg1 = {}
         try:
             arg2 = json.loads(row.operationplanbus)
-        except Exception:
+            arg2 = self.preprocess2WebData(arg2)
+        except Exception as e:
             arg2 = {}
-        return self.genWebRetunData(arg1, arg2)
+        station1 = row.line_id.up_station.name
+        station2 = row.line_id.down_station.name
+        return self.genWebRetunData(arg1, arg2, station1, station2)
 
 
     @api.model
-    def changeOpplan(self, index, direction):
+    def changeOpplan(self, index, direction, op, data):
         # 修改运营计划
         return self.genWebRetunData({},{})
 
@@ -966,8 +984,8 @@ class BusMoveTimeTable(models.Model):
         return busMoveSeq
 
 
-    @staticmethod
-    def culculateStopTime(busMoveTimeCol):
+    @classmethod
+    def culculateStopTime(cls, busMoveTimeCol):
         for k, v in busMoveTimeCol.items():
             l = len(v)
             for index, item in enumerate(v):
@@ -979,8 +997,9 @@ class BusMoveTimeTable(models.Model):
                         continue
                     stime = datetime.datetime.strptime(v[i][1][1]['startmovetime'], timeFormatStr)
                     atime = datetime.datetime.strptime(item[1][1]['arrive_time'], timeFormatStr)
-                    item.append(stime - atime)
+                    item.append((stime - atime).total_seconds()/60)
                     break
+        return busMoveTimeCol
 
 
     # 生成运营方案数据
@@ -1000,6 +1019,8 @@ class BusMoveTimeTable(models.Model):
             busMoveTable = self.genBusMoveSeqDouble(upMoveOnSeq, downMoveOnSeq, upVechicleSeq, downVehicleSeq)
         elif self.schedule_method == 'singleway':
             busMoveTable = self.genBusMoveSeqsingle(upMoveOnSeq, upVechicleSeq)
+
+        busMoveTable = self.culculateStopTime(busMoveTable)
 
         self.operationplanbus = json.dumps(busMoveTable)
 

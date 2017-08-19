@@ -3,7 +3,7 @@
 
         <!--调度接口数据-->
         <menuitem id="lty_access_base.menu_root" name="lty_access_base_menu"
-                  parent="dispatch_monitor_menu.dispatch_monitor_menu_root" sequence="100"/>
+                  parent="lty_server_access.lty_dsp_server_config_menu" sequence="100"/>
 
         <!--线路分时客流-->
         <menuitem id="lineTimeTopic_menu" name="lineTimeTopic_menu" parent="lty_access_base.menu_root" sequence="10" action="act_lineTimeTopic" />

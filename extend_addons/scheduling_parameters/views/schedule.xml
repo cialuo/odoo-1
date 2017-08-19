@@ -180,6 +180,11 @@
                                 <field name="electronic_bus_board_number"/>
                                 <field name="road_id" options="{'no_open':True,'no_create':True}"/>
                             </group>
+
+                        </group>
+                        <group>
+                                <field name="address" col="4"/>
+                                <field name="nearby" col="4"/>
                         </group>
 
                         <notebook>
@@ -229,7 +234,7 @@
                     <sheet>
                         <div class="oe_title">
                             <h1>
-                                <field name="line_name" placeholder="Route"/>
+                                <field name="line_name" placeholder="Line Name"/>
                             </h1>
                         </div>
 
@@ -240,6 +245,7 @@
                                 <field name="main_line_id" options="{'no_create':True}"
                                        attrs="{'required':[('line_type_name','!=','main_line')],
                                             'invisible': [('line_type_name', '=', 'main_line')]}"/>
+                                <field name="loop_type"/>
                                 <field name="oil_wear_coefficient"/>
                                 <field name="department_id" options="{'no_create':True}"/>
                                 <field name="class_system_name"/>
@@ -256,15 +262,17 @@
                                 <field name="bus_type"/>
                                 <field name="mileage"/>
                                 <field name="speed"/>
-
+                                <field name="start_date"/>
+                                <field name="end_date"/>
                             </group>
                         </group>
                         <notebook>
 
                             <page string="StationUps" name="StationUps">
-                                <field name="station_up_ids">
+                                <field name="station_up_ids" context="{'default_direction':'up'}">
                                     <tree string="StationUps" editable="bottom" default_order="sequence">
                                         <field name="sequence"/>
+                                        <field name="direction" invisible="1"/>
                                         <field name="station_id" options="{'no_create':True}"/>
                                         <field name="station_type"/>
                                         <field name="entrance_azimuth"/>
@@ -278,9 +286,10 @@
                                 </field>
                             </page>
                             <page string="StationDowns" name="StationDowns">
-                                <field name="station_down_ids">
+                                <field name="station_down_ids" context="{'default_direction':'down'}">
                                     <tree string="StationDowns" editable="bottom" default_order="sequence">
                                         <field name="sequence"/>
+                                        <field name="direction" invisible="1"/>
                                         <field name="station_id" options="{'no_create':True}"/>
                                         <field name="station_type"/>
                                         <field name="entrance_azimuth"/>
@@ -293,23 +302,91 @@
                                     </tree>
                                 </field>
                             </page>
+                            <page string="VehicleYards">
+                                <field name="yard_ids" readonly="1">
+                                    <tree>
+										<field name="name"/>
+                                        <field name="direction"/>
+                                        <field name="is_yard"/>
+									</tree>
+                                </field>
+                            </page>
 
                             <page string="human resource" name="hr_page">
                                 <field name="human_resource"/>
                             </page>
 
-                            <page name="ChirdRoutes" string="ChirdRoutes" attrs="{'invisible': [('line_type_name', '!=', 'main_line')]}">
+                            <page name="ChildRoutes" string="ChildRoutes" attrs="{'invisible': [('line_type_name', '!=', 'main_line')]}">
 								<field name="child_route_ids"  readonly="1">
 									<tree>
 										<field name="line_name"/>
 									</tree>
 								</field>
 							</page>
+
                         </notebook>
                     </sheet>
                 </form>
             </field>
         </record>
+
+        <!-- 车场管理 tree-->
+        <record model="ir.ui.view" id="opertation_resources_vehicle_yard_tree_view">
+            <field name="name">opertation_resources_vehicle_yard_tree_view</field>
+            <field name="model">opertation_resources_vehicle_yard</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id"/>
+                    <field name="route_id"/>
+                    <field name="direction"/>
+                    <field name="name"/>
+                    <field name="is_yard"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- 车场管理 form-->
+        <record model="ir.ui.view" id="opertation_resources_vehicle_yard_form_view">
+            <field name="name">opertation_resources_vehicle_yard_form_view</field>
+            <field name="model">opertation_resources_vehicle_yard</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group col="2">
+                            <group>
+                                <field name="route_id" options="{'no_create':True}"/>
+                                <field name="direction" required="1"/>
+                            </group>
+                            <group>
+                                <field name="is_yard"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="DispatchScreens">
+                                <field name="dispatch_screen_ids" >
+                                    <tree editable="bottom">
+										<field name="name"/>
+                                        <field name="screen_code"/>
+                                        <field name="screen_ip"/>
+									</tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
 
         <!-- 调度参数管理——Action -->
         <record model="ir.actions.act_window" id="opertation_resources_area_action">
@@ -333,6 +410,12 @@
         <record model="ir.actions.act_window" id="act_route_manage">
             <field name="name">act_route_manage</field>
             <field name="res_model">route_manage.route_manage</field>
+            <field name="view_model">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="opertation_resources_vehicle_yard_action">
+            <field name="name">opertation_resources_vehicle_yard_action</field>
+            <field name="res_model">opertation_resources_vehicle_yard</field>
             <field name="view_model">tree,form</field>
         </record>
 
@@ -360,5 +443,12 @@
                   action="act_route_manage"
                   sequence="40"
         />
+        <menuitem id="opertation_resources_vehicle_yard_menu"
+                  name="vehicle_yard management"
+                  parent="dispatch_monitor_menu.opertation_resources_menu"
+                  action="opertation_resources_vehicle_yard_action"
+                  sequence="45"
+        />
+
     </data>
 </odoo>
