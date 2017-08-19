@@ -273,10 +273,10 @@ class BusGroupDriverVehicleShift(models.Model):
         5，根据前面2，3，4的条件生成今天的人车配班数据
         :return:
         """
-        domain = []
+        domain = [('state', '=', 'use')]
 
         if route_id:
-            domain = [('route_id', '=', route_id)]
+            domain += [('route_id', '=', route_id)]
 
         res = self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', route_id),
                                                                  ('use_date', '<', str(datetime.date.today()))])
