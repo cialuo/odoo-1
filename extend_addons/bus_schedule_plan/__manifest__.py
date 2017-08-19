@@ -39,7 +39,7 @@
         'data/algorithm_data.xml',
         'data/bus_group_data.xml',
 
-
+        'views/operation_plan.xml'
 
     ],
     # only loaded in demonstration mode

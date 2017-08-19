@@ -46,6 +46,10 @@ var socket_model_api_obj = {};
 	// console.log(event.data);
 	// return false;
 
+websocket.onmessage123 = function (event) {
+	console.log(event.data);
+}
+
 // var package = {
 //     type: 1001,
 //     open_modules: "dispatch-line_message-4",
@@ -53,12 +57,13 @@ var socket_model_api_obj = {};
 // };
 // websocket.send(JSON.stringify(package));
 websocket.onmessage = function (event) {
-    console.log(event.data)
+    // console.log(event.data)
     for (socket_model in socket_model_info) {
         var socket_model_obj = socket_model_info[socket_model];
         socket_model_obj.fn(event.data, socket_model_obj.arg);
     }
-    var obj = {modelName: "bus_real_state", controllerId: "4", data: [event.data]};
+    var obj = {modelName: "bus_real_state", controllerId: "1", data: [event.data]};
+    console.log('随机数为'+event.data.slice(78, 80));
     if (event.data.slice(78, 80) < 15) {
         obj.modelName = "passenger_delay";
     } else if (event.data.slice(78, 80) < 30) {
@@ -96,6 +101,7 @@ websocket.onmessage = function (event) {
     } else if (modelName == "消息") {
         console.log('10');
     } else if (modelName == "absnormal") {
+        console.log(event.data[0].substring(78, 80))
         absnormal_del($(".controller_" + controllerId), obj.data);
     }
 };
@@ -119,8 +125,11 @@ function absnormal_del(controllerObj, data_list) {
         }
     }
     if (controllerObj.find('.updown_line_table[line_id=2]').length > 0) {
-        if (data_list[0].substring(78, 80) > 50) {
+        if (data_list[0].substring(78, 79) > 3) {
             controllerObj.find('.updown_line_table[line_id=2]').find('.no_absnormal').show().siblings().hide();
+            var timer_carouse2 = sessionStorage.getItem('timer2');
+            clearInterval(timer_carouse2);
+            controllerObj.find('.updown_line_table[line_id=2]').find('.carousel_content').css({left: 0});
         }
     }
 }

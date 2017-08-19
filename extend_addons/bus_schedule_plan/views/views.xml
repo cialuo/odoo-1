@@ -209,8 +209,8 @@
                         </page>
                         <page string="big site setting up">
                             <field name="bigsite_up">
-                                <tree create="0" delete="0" editable="1">
-                                    <field name="site_id" readonly="1"/>
+                                <tree create="0" delete="0">
+                                    <field name="site_id"/>
                                     <field name="needsign"/>
                                     <field name="needchecking"/>
                                     <field name="tolastsit_low"/>
@@ -240,8 +240,8 @@
                         </page>
                         <page string="big site setting down">
                             <field name="bigsite_down">
-                                <tree create="0" delete="0" editable="1">
-                                    <field name="site_id" readonly="1"/>
+                                <tree create="0" delete="0">
+                                    <field name="site_id"/>
                                     <field name="needsign"/>
                                     <field name="needchecking"/>
                                     <field name="tolastsit_low"/>
@@ -332,6 +332,7 @@
             <field name="name">bus move time table</field>
             <field name="res_model">scheduleplan.busmovetime</field>
             <field name="view_mode">tree,form</field>
+            <!--<field name="context">{'record_ids':5}</field>-->
         </record>
 
         <!-- 行车时刻表tree视图 -->
@@ -409,74 +410,7 @@
                             </field>
                         </page>
                         <page string="operation plan" name="operation_plan_page">
-                            <div>
-                                <ul class="title1">
-                                    <li>班次</li>
-                                    <li>
-                                        <div>1</div>
-                                        <div>竹-竹</div>
-                                    </li>
-                                    <li>
-                                        <div>2</div>
-                                        <div>竹-竹</div>
-                                    </li>
-                                    <li>
-                                        <div>3</div>
-                                        <div>竹-竹</div>
-                                    </li>
-                                    <li>
-                                        <div>4</div>
-                                        <div>竹-竹</div>
-                                    </li>
-                                    <li>
-                                        <div>5</div>
-                                        <div>竹-竹</div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class='abcd'>
-                                <ul>
-                                    <li>1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                    <li>4</li>
-                                </ul>
-                                <ul class="abcde">
-                                    <li>5</li>
-                                    <li>6</li>
-                                    <li>7</li>
-                                    <li>8</li>
-                                </ul>
-                                <ul class="abcde">
-                                    <li>9</li>
-                                    <li>10</li>
-                                    <li>11</li>
-                                    <li>12</li>
-                                </ul>
-                                <ul class="abcde">
-                                    <li>13</li>
-                                    <li>14</li>
-                                    <li>15</li>
-                                    <li>16</li>
-                                </ul>
-                                <ul class="abcde">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                                <ul class="abcde">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                            </div>
-                            <link rel="stylesheet" href="/bus_schedule_plan/static/src/css/operation_plan.css"/>
-                            <script src="/bus_schedule_plan/static/src/js/operation_plan.js"
-                                    type="text/javascript">
 
-                            </script>
                         </page>
                     </notebook>
                 </form>
@@ -486,38 +420,38 @@
         <!-- 普通公交行车规则输出 -->
         <menuitem id="normal_bus_rule_output_menu" name="normal bus rule output menu"
                   parent="operation_menu.bus_working_plan_menu"
-                  sequence="1"/>
+                  sequence="10"/>
 
         <!-- 行车规则输出 -->
         <menuitem id="bus_work_rule_output_menu" name="bus work rule output menu"
                   parent="normal_bus_rule_output_menu" action="bus_work_rule_output_action"
-                  sequence="1"/>
+                  sequence="10"/>
 
         <!-- 行车规则管理 -->
         <menuitem id="bus_work_rule_manage_menu" name="bus work rule manage menu"
                   parent="normal_bus_rule_output_menu" action="bus_work_rule_manage_action"
-                  sequence="2"/>
+                  sequence="20"/>
 
         <!-- 定制公交行车规则输出 -->
         <menuitem id="custem_bus_rule_output_menu" name="custem bus rule output menu"
                   parent="operation_menu.bus_working_plan_menu"
-                  sequence="2"/>
+                  sequence="20"/>
 
         <!-- 行车规则输出 定制公交 -->
         <menuitem id="custem_bus_work_rule_output_menu" name="custem bus work rule output menu"
                   parent="custem_bus_rule_output_menu" action="custem_bus_work_rule_output_action"
-                  sequence="1"/>
+                  sequence="10"/>
 
         <!-- 行车规则管理 定制公交 -->
         <menuitem id="custem_bus_work_rule_manage_menu" name="custem bus work rule manage menu"
                   parent="custem_bus_rule_output_menu" action="custem_bus_work_rule_manage_action"
-                  sequence="2"/>
+                  sequence="20"/>
 
         <!-- 行车时刻表 -->
         <menuitem id="bus_move_time_menu" name="bus move time table menu"
                   parent="operation_menu.bus_working_plan_menu"
                   action="bus_move_time_table_action"
-                  sequence="3"/>
+                  sequence="30"/>
 
     </data>
 </openerp>

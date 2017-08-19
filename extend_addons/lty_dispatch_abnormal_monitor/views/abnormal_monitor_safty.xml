@@ -1,0 +1,28 @@
+<openerp>
+  <data>
+    <record model="ir.actions.act_window" id="abnormal_monitor_safty_chaosu_action">
+      <field name="name">超速</field>
+      <field name="res_model">dispatch.abnormal.mgt</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="abnormal_monitor_safty_shigu_action">
+      <field name="name">事故</field>
+      <field name="res_model">dispatch.abnormal.mgt</field>
+      <field name="view_mode">tree,form</field>
+    </record>    
+    <record model="ir.actions.act_window" id="abnormal_monitor_safty_kouche_action">
+      <field name="name">扣车</field>
+      <field name="res_model">dispatch.abnormal.mgt</field>
+      <field name="view_mode">tree,form</field>
+    </record>        
+    
+
+    <menuitem name="超速" id="abnormal_monitor_safty_chaosu_menu" parent="lty_dispatch_abnormal_monitor_safty"
+              action="abnormal_monitor_safty_chaosu_action" sequence="10"/>   
+    <menuitem name="事故" id="abnormal_monitor_safty_shigu_menu" parent="lty_dispatch_abnormal_monitor_safty"
+              action="abnormal_monitor_safty_shigu_action" sequence="10"/>      
+    <menuitem name="扣车" id="abnormal_monitor_safty_skouche_menu" parent="lty_dispatch_abnormal_monitor_safty"
+              action="abnormal_monitor_safty_kouche_action" sequence="10"/>                       
+    
+  </data>
+</openerp>

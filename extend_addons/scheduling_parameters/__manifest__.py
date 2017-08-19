@@ -8,6 +8,7 @@
         c）站点管理
         d）线路管理
         e）施救车队
+        f）线路地图制作
     """,
 
     'summary': """
@@ -27,10 +28,13 @@
     'data': [
         # 'security/security.xml',
         # 'security/ir.model.access.csv',
+        # 'views/template_view.xml',
         'views/schedule_employee.xml',
         'views/schedule.xml',
         'views/rescue_fleet.xml',
+        'views/line_map_production.xml',
     ],
+    'qweb': ['static/src/xml/*.xml'],
 
     'installable': True,
     'application': True,
