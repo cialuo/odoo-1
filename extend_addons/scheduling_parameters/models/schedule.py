@@ -213,7 +213,7 @@ class route_manage(models.Model):
                                     ('single_loop', 'single_loop'),
                                     ('double_loop', 'double_loop'),
                                     ('double_line', 'double_line')],
-                                    default='main_line', required=True)  # 线路类型
+                                    default='double_line', required=True)  # 线路类型
 
     @api.onchange('up_first_time','up_end_time','down_first_time','down_end_time')
     def _on_change_time(self):
