@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='first_group']/field[@name='schedule_type']" position="after">
                     <field name="is_big_rotation" />
-                    <field name="rotation_cycle" attrs="{'invisible':[('is_big_rotation','=',False)]}"/>
+                    <field name="rotation_cycle" attrs="{'invisible':[('is_big_rotation','=',False)],'required':[('is_big_rotation','=',True)]}"/>
                 </xpath>
             </field>
         </record>

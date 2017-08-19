@@ -214,7 +214,11 @@ function carousel(carousel) {
     var self = carousel.self;
     var content = carousel.content;
     var i = 0;
-    var firstcarousel_content = self.$(content + '>li').first().clone(); //复制第一张图片
+    if(self.$(content + '>li').length ==2){
+            var firstcarousel_content = self.$(content + '>li').first().clone(); //复制第一张图片
+    }else{
+      var firstcarousel_content = self.$(content + '>li').eq(2); //复制第一张图片
+    }
     //将第一张图片放到最后一张图片后，设置ul的宽度为图片张数*图片宽度
     self.$(content).append(firstcarousel_content).width(self.$(content + '>li').length * 600);
     //定时器自动播放

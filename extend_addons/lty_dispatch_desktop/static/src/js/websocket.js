@@ -63,7 +63,7 @@ websocket.onmessage = function (event) {
         socket_model_obj.fn(event.data, socket_model_obj.arg);
     }
     var obj = {modelName: "bus_real_state", controllerId: "1", data: [event.data]};
-    // console.log('随机数为'+event.data.slice(78, 80));
+    console.log('随机数为'+event.data.slice(78, 80));
     if (event.data.slice(78, 80) < 15) {
         obj.modelName = "passenger_delay";
     } else if (event.data.slice(78, 80) < 30) {

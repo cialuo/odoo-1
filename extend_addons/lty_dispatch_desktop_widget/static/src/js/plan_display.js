@@ -12,8 +12,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             this._super(parent);
             this.location_data = data;
             var uplink_plan = {
-                name: "上行",
-                directory: 0,
+                direction: 0,
                 data_list: [
                     {
                         id: "plan_1",
@@ -29,32 +28,38 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 ]
             };
             var uplink_yard = {
-                name: "上行",
+                direction: 0,
+                inField: 1,
                 data_list: [
                     {
                         id: "yard_1",
-                        driver_status: 0,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        vehicle: "264",
+                        checkOut: 0,
+                        runState: 1,
+                        planRunTime: new Date().getTime(),
+                        carNum: "264",
                         line: 16,
-                        back_time: "8:10",
-                        parking: "5"
+                        realReachTime: new Date().getTime(),
+                        stopTime: "5",
+                        direction: 0,
+                        inField: 1
                     }
                 ]
             };
             var uplink_transit = {
-                name: "上行",
+                direction: 0,
+                inField: 0,
                 data_list: [
                     {
-                        id: "yard_1",
-                        driver_status: 0,
-                        vehicles_status: 1,
-                        plan_time: "8:15",
-                        vehicle: "264",
+                        id: "transit_1",
+                        checkOut: 0,
+                        runState: 1,
+                        planRunTime: new Date().getTime(),
+                        carNum: "264",
                         line: 16,
-                        back_time: "8:10",
-                        parking: "5"
+                        planReachTime: new Date().getTime(),
+                        stopTime: "5",
+                        direction: 0,
+                        inField: 0
                     }
                 ]
             }
@@ -85,35 +90,55 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         load_plan: function(){
             var self = this;
             $.ajax({
-                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:2032,gprsId:161}',
-                // url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:2032,gprsId:161}',
+                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:2032,gprsId:161}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
-                success: function(data){
-                    // self.uplink_plan = {
-                    //     name: "上行",
-                    //     directory: 0,
-                    //     data_list: data.respose
-                    // };
-                    // self.down_plan = {
-                    //     name: "下行",
-                    //     directory: 1,
-                    //     data_list: data.respose
-                    // };
-                    console.log(data.respose[0]);
-                    self.cont_info();
+                success: function(ret){
+                    self.uplink_plan = {
+                        direction: 0,
+                        data_list: ret.respose
+                    };
+                    self.down_plan = {
+                        direction: 1,
+                        data_list: ret.respose
+                    };
+                    $.ajax({
+                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:2032,gprsId:161}',
+                        type: 'get',
+                        dataType: 'json',
+                        data: {},
+                        success: function(data){
+                            self.uplink_yard = {
+                                inField: 1,
+                                direction: 0,
+                                data_list: data.respose
+                            };
+                            self.down_yard = {
+                                inField: 1,
+                                direction: 1,
+                                data_list: data.respose
+                            };
+                            self.uplink_transit = {
+                                inField: 0,
+                                direction: 0,
+                                data_list: data.respose
+                            };
+                            self.down_transit = {
+                                inField: 0,
+                                direction: 1,
+                                data_list: data.respose
+                            };
+                            self.cont_info();
+                        }
+                    });
                 }
-            })
-            
+            });
         },
         cont_info: function(){
             new bus_plan(this, this.uplink_plan).appendTo(this.$(".plan_group"));
             new bus_yard(this, this.uplink_yard).appendTo(this.$(".plan_group"));
             new bus_transit(this, this.uplink_transit).appendTo(this.$(".plan_group"));
-            this.down_plan.name = "下行";
-            this.down_yard.name = "下行";
-            this.down_transit.name = "下行";
             new bus_plan(this, this.down_plan).appendTo(this.$(".plan_group"));
             new bus_yard(this, this.down_yard).appendTo(this.$(".plan_group"));
             new bus_transit(this, this.down_transit).appendTo(this.$(".plan_group"));
