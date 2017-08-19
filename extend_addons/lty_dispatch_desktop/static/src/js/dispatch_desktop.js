@@ -109,6 +109,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                     for (var j = 0; j < s.length; j++) {
                         self.model2.query().filter([["line_id", "=", parseInt(s[j])]]).all().then(function (res) {
                             new dispatch_bus(this, res, 0).appendTo(self.$el);
+                            console.log(JSON.stringify(res))
                         });
                     }
                 }

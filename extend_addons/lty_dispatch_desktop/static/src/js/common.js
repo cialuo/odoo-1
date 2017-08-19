@@ -251,7 +251,14 @@ function carousel(carousel) {
     //         clearInterval(timer);
     //     }
     // }, 100);
-
 };
+window.onhashchange=function(){
+    if($('body').find('.back_style').length>0){
+        $('body').find('.o_content').css('overflow','hidden');
+    }else{
+        $('body').find('.o_content').css('overflow','auto');
+    }
+};
+
 
 

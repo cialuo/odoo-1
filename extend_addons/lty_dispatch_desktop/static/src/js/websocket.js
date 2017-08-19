@@ -77,31 +77,32 @@ websocket.onmessage = function (event) {
     var modelName = obj.modelName;
     var controllerId = obj.controllerId;
 
+
     if (modelName == "线路") {
     } else if (modelName == "passenger_flow_capacity") {
         //客流与运力组件
         passenger_flow_capacity($(".controller_" + controllerId), obj.data);
     } else if (modelName == "车辆资源状态") {
-        console.log('3');
+        // console.log('3');
     } else if (modelName == "人力资源状态") {
-        console.log('4');
+        // console.log('4');
     } else if (modelName == "bus_real_state") {
-        console.log('5');
+        // console.log('5');
         busRealStateModel_socket_fn($(".controller_" + controllerId), obj.data);
     } else if (modelName == "passenger_delay") {
-        console.log('6');
+        // console.log('6');
         passengerDelayModel_socket_fn($(".controller_" + controllerId), obj.data);
     } else if (modelName == "linePlanParkOnlineModel") {
-        console.log('7');
+        // console.log('7');
         linePlanParkOnlineModel_socket_fn($(".controller_" + controllerId), obj.data);
     } else if (modelName == "线路车场") {
-        console.log('8');
+        // console.log('8');
     } else if (modelName == "线路在途") {
-        console.log('9');
+        // console.log('9');
     } else if (modelName == "消息") {
-        console.log('10');
+        // console.log('10');
     } else if (modelName == "absnormal") {
-        console.log(event.data[0].substring(78, 80))
+        // console.log(event.data[0].substring(78, 80))
         absnormal_del($(".controller_" + controllerId), obj.data);
     }
 };
@@ -242,6 +243,9 @@ function linePlanParkOnlineModel_socket_fn(controllerObj, data_list){
 	if (dom.length>0){
 		var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("linePlanParkOnlineModel_set"));
         layer.close(passengerDelayModel_set.layer_index);
+        $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar({
+            theme: 'minimal'
+        });
         dom.removeClass('hide_model');
 	}
 }
