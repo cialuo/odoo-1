@@ -913,6 +913,7 @@ class BusMoveTimeTable(models.Model):
                 result[k] = temp
             else:
                 temp = []
+                # t = [g for g in izip_longest(v['down'], v['up'])]
                 for x, y in izip_longest(v['down'], v['up']):
                     if x!= None:
                         temp.append(x)
