@@ -244,8 +244,8 @@ function linePlanParkOnlineModel_socket_fn(controllerObj, data_list){
 		var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("linePlanParkOnlineModel_set"));
         layer.close(passengerDelayModel_set.layer_index);
         $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar({
-        	theme: 'minimal'
-        }); 
+            theme: 'minimal'
+        });
         dom.removeClass('hide_model');
 	}
 }

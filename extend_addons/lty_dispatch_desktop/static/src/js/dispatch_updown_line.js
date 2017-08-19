@@ -89,12 +89,12 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             stopPropagation(event);
             var x_comp = event.currentTarget;
             $(x_comp).parent().hide().siblings('.handleBtn').show();
-            var self = this;
+            this.$el.removeClass('warn')
             this.$el.find('.normal').show().siblings().hide();
-            var content = '.' + self.$el.find('.carousel_content')[0].className;
+            var content = '.' + this.$el.find('.carousel_content')[0].className;
             carousel({
                 content: content,
-                self: self
+                self: this
             });
         }
     });

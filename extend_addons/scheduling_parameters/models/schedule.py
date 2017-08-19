@@ -213,7 +213,7 @@ class route_manage(models.Model):
                                     ('single_loop', 'single_loop'),
                                     ('double_loop', 'double_loop'),
                                     ('double_line', 'double_line')],
-                                    default='main_line', required=True)  # 线路类型
+                                    default='double_line', required=True)  # 线路类型
 
     @api.onchange('up_first_time','up_end_time','down_first_time','down_end_time')
     def _on_change_time(self):
@@ -439,10 +439,15 @@ class VehicleYard(models.Model):
     """
     车场
     """
+    _sql_constraints = [
+        ('code_unique', 'unique(code)', _('The yard code must be unique!'))
+    ]
     name = fields.Char('Yard Name', required=True)
+    code = fields.Integer ("Code", required=True)
     route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
     direction = fields.Selection([('up', 'up'),
-                                 ('down', 'down')], default='up')
+                                 ('down', 'down'),
+                                ('one_way', 'one_way'),], default='up')
     is_yard = fields.Boolean(default=True)
 
     dispatch_screen_ids = fields.One2many('opertation_resources_dispatch_screen', 'yard_id')
