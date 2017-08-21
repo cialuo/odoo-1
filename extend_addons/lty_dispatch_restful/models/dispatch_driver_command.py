@@ -23,14 +23,14 @@ from extend_addons.lty_dispatch_restful.core.restful_client import *
 import mapping
 import logging
 
-#对接系统  IC卡管理
+#对接系统  司机手动命令
 
-TABLE = 'pub_hr_iccardmap'
+TABLE = 'op_commandtext'
 
 _logger = logging.getLogger(__name__)
-class ICCard(models.Model):
+class Command(models.Model):
 
-    _inherit = 'employees.iccards'
+    _inherit = 'dispatch.driver.command'
 
     '''
         继承IC卡管理,调用restful api
@@ -47,15 +47,16 @@ class ICCard(models.Model):
         :return:
         '''
 
-        res = super(ICCard, self).create(vals)
+        res = super(Command, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
             _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
             vals.update({
                 'id': res.id,
+                'command_type_name': res.command_type_id.name,
             })
+            vals = mapping.dict_transfer(self._name, vals)
             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
         except Exception,e:
@@ -70,7 +71,7 @@ class ICCard(models.Model):
         :return:
         '''
 
-        res = super(ICCard, self).write(vals)
+        res = super(Command, self).write(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
@@ -79,13 +80,13 @@ class ICCard(models.Model):
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
+                    vals.update({
+                        'id': res.id,
+                        'command_type_name': res.command_type_id.name,
+                    })
                     vals = mapping.dict_transfer(self._name, vals)
-                    if vals:
-                        vals.update({
-                            'id': r.id,
-                        })
-                        params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-                        rp = Client().http_post(url, data=params)
+                    params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                    rp = Client().http_post(url, data=params)
 
                     # clientThread(url,params,res).start()
                 except Exception,e:
@@ -101,7 +102,7 @@ class ICCard(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         # vals = {"ids": self.ids}
-        res = super(ICCard, self).unlink()
+        res = super(Command, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
