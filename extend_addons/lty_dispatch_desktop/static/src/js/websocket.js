@@ -203,12 +203,12 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
 // 车辆实时状态模块-地理位置
 function busRealStateModel_map(dom, gps){
 	if (socket_model_api_obj.busRealStateModel.marker){
-		socket_model_api_obj.busRealStateModel.marker.setPosition(new AMap.LngLat(gps.longitude, gps.latitude));
+		socket_model_api_obj.busRealStateModel.marker.setPosition(new AMap.LngLat(gps.location_log, gps.location_lan));
 	}else{
-		var mapObj = new AMap.Map(dom, {zoom: 14, center: [gps.longitude, gps.latitude]});
+		var mapObj = new AMap.Map(dom, {zoom: 14, center: [gps.location_log, gps.location_lan]});
 		var marker = new AMap.Marker({
 	        map: mapObj,
-	        position: [gps.longitude, gps.latitude]
+	        position: [gps.location_log, gps.location_lan]
 	    });
 	    socket_model_api_obj.busRealStateModel.marker = marker;
 	}
