@@ -65,7 +65,8 @@ class Client:
             try:
                 logger.info(u"第%s次发送请求===>url：%s ,参数：%s" % ((i+1),url,kwargs))
                 response = requests.post(url, **kwargs)
-                logger.info(u"接受响应===>结果：%s" % (response.content))
+                res = response.json()['resultMsg']
+                logger.info(u"接受响应===>状态：%s，", res)
                 return response
 
             except ConnectionError , e:

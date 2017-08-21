@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data>
+    <data noupdate="1">
         <record id="restful_url" model="ir.config_parameter">
             <field name="key">restful.url</field>
-            <field name="value">http://10.1.50.83:8080/ltyop/syn/synData/</field>
+            <field name="value">http://10.1.10.18:8081/ltyop/syn/synData/</field>
         </record>
         <record id="city_code" model="ir.config_parameter">
             <field name="key">city.code</field>
