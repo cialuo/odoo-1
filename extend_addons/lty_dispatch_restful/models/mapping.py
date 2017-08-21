@@ -453,20 +453,20 @@ op_controlline = {
     #设备号 long
     ('onBoardId', 'on_bord_id'): None,
 }
-#1.3.13	司机手动命令，无对应表
-# op_commandtext
+#1.3.13	司机手动命令，
+# op_commandtext  dispatch.driver.command
 op_commandtext = {
     ('id', 'id'): None,
     #long 无描述
-    ('priorityId', None): None,
+    ('priorityId', 'priority'): None,
     #命令名称String
-    ('name', None): None,
+    ('name', 'name'): None,
     #命令编号 int
-    ('eventId', None): None,
+    ('eventId', 'event_code'): None,
     #命令类型int
-    ('commandType', None): None,
-    #String 无描述
-    ('commandTypeName', None): None,
+    ('commandType', 'command_type_id'): None,
+    #String 无描述 后台获取
+    ('commandTypeName', 'command_type_name'): None,
 }
 
 #1.3.14	调度计划
