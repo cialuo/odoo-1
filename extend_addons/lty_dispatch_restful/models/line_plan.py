@@ -83,10 +83,10 @@ class LinePlan(models.Model):
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
                     vals.update({
-                        'id': res.id,
+                        'id': r.id,
                         # 后台取值,
-                        'gprs_id': res.line_id.gprs_id,
-                        'schedule_type': res.line_id.schedule_type,
+                        'gprs_id': r.line_id.gprs_id,
+                        'schedule_type': r.line_id.schedule_type,
                     })
                     vals = mapping.dict_transfer(self._name, vals)
                     params = Params(type=3, cityCode=cityCode,tableName=LINEPLAN_TABLE, data=vals).to_dict()
@@ -105,15 +105,17 @@ class LinePlan(models.Model):
         '''
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
-        vals = {"ids": self.ids}
+        # vals = {"ids": self.ids}
         res = super(LinePlan, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            params = Params(type = 3, cityCode = cityCode,tableName = LINEPLAN_TABLE, data = vals).to_dict()
-            clientThread(url,params,res).start()
-        except Exception,e:
-            _logger.info('%s', e.message)
+        for r in self:
+            try:
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                vals = {'id': r.id}
+                _logger.info('Start unlink data: %s', self._name)
+                params = Params(type = 2, cityCode = cityCode,tableName = LINEPLAN_TABLE, data = vals).to_dict()
+                rp = Client().http_post(url, data=params)
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res

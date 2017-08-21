@@ -83,8 +83,8 @@ class Bigsitesetup(models.Model):
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
                     vals.update({
-                        'id': str(res.id) + 'up',
-                        'station_name': res.site_id.name,
+                        'id': str(r.id) + 'up',
+                        'station_name': r.site_id.name,
                         'direction': 'up',
                     })
                     vals = mapping.dict_transfer(self._name, vals)
@@ -105,17 +105,19 @@ class Bigsitesetup(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         origin_ids = map(lambda x: str(x) + 'up', self.ids)
-        vals = {"ids": origin_ids}
+        # vals = {"ids": origin_ids}
         res = super(Bigsitesetup, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            params = Params(type = 3, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-            clientThread(url,params,res).start()
-        except Exception,e:
-            _logger.info('%s', e.message)
+        for up_id in origin_ids:
+            try:
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                _logger.info('Start unlink data: %s', self._name)
+                vals = {'id': up_id}
+                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+                rp = Client().http_post(url, data=params)
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res
 
 class Bigsitesetdown(models.Model):
@@ -173,8 +175,8 @@ class Bigsitesetdown(models.Model):
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
                     vals.update({
-                        'id': str(res.id) + 'down',
-                        'station_name': res.site_id.name,
+                        'id': str(r.id) + 'down',
+                        'station_name': r.site_id.name,
                         'direction': 'down',
                     })
                     vals = mapping.dict_transfer(self._name, vals)
@@ -195,15 +197,17 @@ class Bigsitesetdown(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         origin_ids = map(lambda x: str(x) + 'down', self.ids)
-        vals = {"ids": origin_ids}
+        # vals = {"ids": origin_ids}
         res = super(Bigsitesetdown, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            params = Params(type = 3, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-            clientThread(url,params,res).start()
-        except Exception,e:
-            _logger.info('%s', e.message)
+        for down_id in origin_ids:
+            try:
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                _logger.info('Start unlink data: %s', self._name)
+                vals = {'id': down_id}
+                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+                rp = Client().http_post(url, data=params)
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res

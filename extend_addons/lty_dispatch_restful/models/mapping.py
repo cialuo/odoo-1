@@ -159,10 +159,10 @@ hr_employee = {
     ('userId', 'user_id'): None,
     #用户名称
     ('userStateName', 'name'): None,
-    #手机号码
-    ('mobilePhone', 'mobile_phone'): None,
-    #邮箱
-    ('email', 'work_email'): None,
+    # #手机号码 不传
+    # ('mobilePhone', 'mobile_phone'): None,
+    # #邮箱 不传
+    # ('email', 'work_email'): None,
     #工号
     ('Serils', 'jobnumber'): None,
     #员工类型编码，无对应字段，使用岗位ID
