@@ -636,7 +636,7 @@
 
     <t t-name="vehicles_plan_template">
         <div class="plan_box vehicle_box">
-            <div class="section_plan_cont bus_plan">
+            <div class="section_plan_cont bus_plan" t-attf-direction="{{widget.plan_data.direction}}">
                 <div class="title">
                     <t t-if="widget.plan_data.direction==0">上行</t>
                     <t t-else="">下行</t>
@@ -655,19 +655,19 @@
                         <t t-if="item.direction==widget.plan_data.direction">
                             <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}">
                                 <td class="pL">
-                                    <span t-attf-class="icon scheduling_status icon_{{item.sendToScreen}}"></span>
-                                    <span t-attf-class="icon vehicles_status icon_{{item.sendToBus}}"></span>
+                                    <span t-attf-class="icon sendToScreen icon_{{item.sendToScreen}}"></span>
+                                    <span t-attf-class="icon sendToBus icon_{{item.sendToBus}}"></span>
                                 </td>
-                                <td><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,8)"></t></td>
-                                <td><t t-esc="new Date(item.planReachTime).toTimeString().slice(0,8)"></t></td>
-                                <td><t t-esc="item.selfId"></t></td>
-                                <td><t t-esc="item.driverName"></t></td>
-                                <td class="pR">
+                                <td class="planRunTime"><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,8)"></t></td>
+                                <td class="planReachTime"><t t-esc="new Date(item.planReachTime).toTimeString().slice(0,8)"></t></td>
+                                <td class="selfId"><t t-esc="item.selfId"></t></td>
+                                <td class="driverName"><t t-esc="item.driverName"></t></td>
+                                <td class="pR planState">
                                     <t t-if="item.planState!=2">
                                         待发
                                     </t>
                                     <t t-else="">
-                                        已发
+                                        已完成
                                     </t>
                                 </td>
                             </tr>
@@ -688,7 +688,7 @@
 
     <t t-name="vehicles_yard_template">
         <div class="yard_box vehicle_box">
-            <div class="section_plan_cont bus_yard">
+            <div class="section_plan_cont bus_yard" t-attf-direction="{{widget.yard_data.direction}}">
                 <div class="title">
                     <t t-if="widget.yard_data.direction==0">上行</t>
                     <t t-else="">下行</t>
@@ -739,7 +739,7 @@
 
     <t t-name="vehicles_transit_template">
         <div class="yard_box vehicle_box">
-            <div class="section_plan_cont bus_transit">
+            <div class="section_plan_cont bus_transit" t-attf-direction="{{widget.transit_data.direction}}">
                 <div class="title">
                     <t t-if="widget.transit_data.direction==0">上行</t>
                     <t t-else="">下行</t>
