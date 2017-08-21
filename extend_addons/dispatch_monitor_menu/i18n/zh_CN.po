@@ -41,7 +41,7 @@ msgid "dispatch_work"
 msgstr "调度作业"
 
 #. module: dispatch_monitor_menu
-#: model:ir.ui.menu,name:dispatch_monitor_menu.opertation_resources_menu
+#: model:ir.ui.menu,name:operation_menu.opertation_resources_menu
 msgid "opertation_resources"
 msgstr "运营资源"
 
@@ -51,7 +51,7 @@ msgid "other_monitor_menu"
 msgstr "其他监控"
 
 #. module: dispatch_monitor_menu
-#: model:ir.ui.menu,name:dispatch_monitor_menu.revenue_menu
+#: model:ir.ui.menu,name:operation_menu.revenue_menu
 msgid "revenue manage"
 msgstr "营收管理"
 

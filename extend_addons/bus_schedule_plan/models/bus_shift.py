@@ -10,7 +10,7 @@ class BusShift(models.Model):
     """
     _name = 'bus_shift'
 
-    name = fields.Char('Shift Name', required=True)
+    name = fields.Char('Bus Shift Name', required=True)
     shift_ct = fields.Integer(compute='_get_shift_ct')
     shift_line_ids = fields.One2many('bus_shift_choose_line', 'shift_id')
 
