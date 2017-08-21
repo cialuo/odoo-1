@@ -102,17 +102,19 @@ class Toup(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         origin_ids = map(lambda x: int(str(x) + '0'), self.ids)
-        vals = {"ids": origin_ids}
+        # vals = {"ids": origin_ids}
         res = super(Toup, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            params = Params(type = 3, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-            clientThread(url,params,res).start()
-        except Exception,e:
-            _logger.info('%s', e.message)
+        for up_id in origin_ids:
+            try:
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                _logger.info('Start unlink data: %s', self._name)
+                vals = {'id': up_id}
+                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+                rp = Client().http_post(url, data=params)
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res
 class Todown(models.Model):
 
@@ -188,15 +190,17 @@ class Todown(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         origin_ids = map(lambda x: int(str(x) + '1'), self.ids)
-        vals = {"ids": origin_ids}
+        # vals = {"ids": origin_ids}
         res = super(Todown, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            params = Params(type = 3, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-            clientThread(url,params,res).start()
-        except Exception,e:
-            _logger.info('%s', e.message)
+        for down_id in origin_ids:
+            try:
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                _logger.info('Start unlink data: %s', self._name)
+                vals = {'id': down_id}
+                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+                clientThread(url,params,res).start()
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res

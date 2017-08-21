@@ -23,21 +23,20 @@ from extend_addons.lty_dispatch_restful.core.restful_client import *
 import mapping
 import logging
 
-#对接系统
-#出勤司机
-#出勤乘务员
+#对接系统  调度线路基础数据
 
+TABLE = 'op_dspLine'
 
 _logger = logging.getLogger(__name__)
-class attendance(models.Model):
+class Yard(models.Model):
 
-    _inherit = 'scheduleplan.motorcyclists'
+    _inherit = 'opertation_resources_vehicle_yard'
 
     '''
-        继承出勤司乘,调用restful api
+        继承调度线路基础数据,调用restful api
     '''
 
-    #调度数据逐渐
+    # #调度数据逐渐
     # fk_id = fields.Char()
 
     @api.model
@@ -48,26 +47,21 @@ class attendance(models.Model):
         :return:
         '''
 
-        res = super(attendance, self).create(vals)
+        res = super(Yard, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
             _logger.info('Start create data: %s', self._name)
-            table = self._name + '.%s' % res.title
-            vals = mapping.dict_transfer(table, vals)
+            vals = mapping.dict_transfer(self._name, vals)
             vals.update({
                 'id': res.id,
-                'lineId': res.execplan_id.line_id.id,
-                'lineName': res.execplan_id.line_id.name,
-                'gprsId': res.execplan_id.line_id.gprs_id,
-                'driverName': res.employee_id.name,
+                'screen1': 0,
+                'screen2': 0,
             })
-            if res.title == 'driver':
-                #出勤司机
-                TABLE = 'op_attendance'
-            if res.title == 'steward':
-                #出勤乘务员
-                TABLE = 'op_trainattendance'
+            if len(res.dispatch_screen_ids) >= 1:
+                vals.update({'screen1': res.dispatch_screen_ids[0].screen_code})
+                if len(res.dispatch_screen_ids) > 1:
+                    vals.update({'screen2': res.dispatch_screen_ids[1].screen_code})
             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
         except Exception,e:
@@ -82,7 +76,7 @@ class attendance(models.Model):
         :return:
         '''
 
-        res = super(attendance, self).write(vals)
+        res = super(Yard, self).write(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
@@ -91,23 +85,20 @@ class attendance(models.Model):
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
-                    table = self._name + '.%s' % r.title
-                    vals = mapping.dict_transfer(table, vals)
+                    vals = mapping.dict_transfer(self._name, vals)
                     vals.update({
                         'id': r.id,
-                        'lineId': r.execplan_id.line_id.id,
-                        'lineName': r.execplan_id.line_id.name,
-                        'gprsId': r.execplan_id.line_id.gprs_id,
-                        'driverName': r.employee_id.name,
+                        'screen1': 0,
+                        'screen2': 0,
                     })
-                    if r.title == 'driver':
-                        # 出勤司机
-                        TABLE = 'op_attendance'
-                    if r.title == 'steward':
-                        # 出勤乘务员
-                        TABLE = 'op_trainattendance'
-                    params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-                    rp = Client().http_post(url, data=params)
+                    if len(r.dispatch_screen_ids) >= 1:
+                        vals.update({'screen1': r.dispatch_screen_ids[0].screen_code})
+                        if len(r.dispatch_screen_ids) > 1:
+                            vals.update({'screen2': r.dispatch_screen_ids[1].screen_code})
+                        params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                        rp = Client().http_post(url, data=params)
+
+                    # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
         return res
@@ -120,24 +111,17 @@ class attendance(models.Model):
         '''
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
-        drivervals = {"ids": self.filtered(lambda x: x.title == 'driver').ids}
-        stewardvals = {"ids": self.filtered(lambda x: x.title == 'steward').ids}
-        res = super(attendance, self).unlink()
+        # vals = {"ids": self.ids}
+        res = super(Yard, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            #出勤司机
-            if drivervals:
-                for driver in drivervals:
-                    params = Params(type = 2, cityCode = cityCode,tableName = 'op_attendance', data = {'id': driver}).to_dict()
-                    rp = Client().http_post(url, data=params)
-            #出勤乘务员
-            if stewardvals:
-                for steward in stewardvals:
-                    params = Params(type = 2, cityCode = cityCode,tableName = 'op_trainattendance', data = {'id': steward}).to_dict()
-                    rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+        for r in self:
+            try:
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                _logger.info('Start unlink data: %s', self._name)
+                vals = {'id': r.id}
+                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+                rp = Client().http_post(url, data=params)
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res

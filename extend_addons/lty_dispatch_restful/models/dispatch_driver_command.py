@@ -33,7 +33,7 @@ class Command(models.Model):
     _inherit = 'dispatch.driver.command'
 
     '''
-        继承IC卡管理,调用restful api
+        继承司机手动命令,调用restful api
     '''
 
     # #调度数据逐渐

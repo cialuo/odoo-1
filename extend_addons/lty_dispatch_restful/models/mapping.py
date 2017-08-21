@@ -214,7 +214,7 @@ op_lineplan = {
 
 }
 
-#大站设置 无对应的表
+#大站设置
 # op_planstationbigmain  scheduleplan.bigsitesetdown scheduleplan.bigsitesetup
 op_planstationbigmain = {
     #id string,id+ up /down
@@ -249,26 +249,26 @@ op_planstationbigmain = {
     ('checkTime', None): None,
 }
 
-#调度线路基础数据 无对应的数据库表
-# op_DspLine
+#调度线路基础数据
+# op_DspLine opertation_resources_vehicle_yard
 op_dspLine = {
     ('id', 'id'): None,
     #名称 int
-    ('lineId', None): None,
-    #调度服务Id int
-    ('dspId', None): None,
-    #线路名称 string
-    ('lineName', None): None,
+    ('lineId', 'route_id'): None,
+    # #调度服务Id int not found 不传
+    # ('dspId', None): None,
+    #线路名称 string,后台获取 route_id.name
+    ('lineName', 'route_name'): None,
     #方向int  必填;0：上行；1：下行
-    ('direction', None): None,
-    #车场编码long 必填;文档要求long，提供的为001：起始站,002：途中站,003：终点站
-    ('fieldNo', None): None,
+    ('direction', 'direction'): {'up': 0,'down': 1},
+    #车场编码long 必填;
+    ('fieldNo', 'code'): None,
     #车场名称String
-    ('fieldName', None): None,
-    #屏幕1 int
-    ('screen1', None): None,
-    #屏幕2 int
-    ('screen2', None): None,
+    ('fieldName', 'name'): None,
+    #屏幕1 int 后台获取编码
+    ('screen1', 'screen1'): None,
+    #屏幕2 int  后台获取编码
+    ('screen2', 'screen2'): None,
 
 }
 
@@ -638,6 +638,9 @@ origin_data = {
     #大站设置
     'scheduleplan.bigsitesetdown': op_planstationbigmain,
     'scheduleplan.bigsitesetup': op_planstationbigmain,
+    #调度线路基础数据 无对应的数据库表
+    # op_DspLine opertation_resources_vehicle_yard
+    'opertation_resources_vehicle_yard': op_dspLine,
     #调度参数基础数据
     'res.company': op_param,
     #IC卡管理
@@ -649,6 +652,9 @@ origin_data = {
     #1.3.12	控制台
     # op_controlline -- dispatch.control.desktop.component
     'dispatch.control.desktop.component': op_controlline,
+    #1.3.13	司机手动命令，
+    # op_commandtext  dispatch.driver.command
+    'dispatch.driver.command': op_commandtext,
     # 1.3.14	调度计划
     # op_dispatchplan -- scheduleplan.execupplanitem,scheduleplan.execdownplanitem
     'scheduleplan.execupplanitem': op_dispatchplan,

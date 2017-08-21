@@ -85,11 +85,16 @@ class upplanitem(models.Model):
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
-                    vals.update({
-                        'id': int(str(r.id)+'0'),
-                        'direction': 'up',
-                    })
                     vals = mapping.dict_transfer(self._name, vals)
+                    vals.update({
+                        'id': int(str(r.id) + '0'),
+                        'lineName': r.line_id.name,
+                        'gprsId': r.line_id.gprs_id,
+                        'selfId': r.vehicle_id.inner_code,
+                        'onBoardId': r.vehicle_id.on_board_id,
+                        'workerId': r.driver.jobnumber,
+                        'direction': 0,
+                    })
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
 
@@ -107,17 +112,19 @@ class upplanitem(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         origin_ids = map(lambda x: int(str(x) + '0'), self.ids)
-        vals = {"ids": origin_ids}
+        # vals = {"ids": origin_ids}
         res = super(upplanitem, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            params = Params(type = 3, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-            clientThread(url,params,res).start()
-        except Exception,e:
-            _logger.info('%s', e.message)
+        for up_id in origin_ids:
+            try:
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                _logger.info('Start unlink data: %s', self._name)
+                vals = {'id': up_id}
+                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+                rp = Client().http_post(url, data=params)
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res
 class downplanitem(models.Model):
 
@@ -145,7 +152,7 @@ class downplanitem(models.Model):
             _logger.info('Start create data: %s', self._name)
             vals = mapping.dict_transfer(self._name, vals)
             vals.update({
-                'id': int(str(res.id)+'0'),
+                'id': int(str(res.id)+'1'),
                 'lineName': res.line_id.name,
                 'gprsId': res.line_id.gprs_id,
                 'selfId': res.vehicle_id.inner_code,
@@ -178,12 +185,12 @@ class downplanitem(models.Model):
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(self._name, vals)
                     vals.update({
-                        'id': int(str(res.id) + '0'),
-                        'lineName': res.line_id.name,
-                        'gprsId': res.line_id.gprs_id,
-                        'selfId': res.vehicle_id.inner_code,
-                        'onBoardId': res.vehicle_id.on_board_id,
-                        'workerId': res.driver.jobnumber,
+                        'id': int(str(r.id) + '1'),
+                        'lineName': r.line_id.name,
+                        'gprsId': r.line_id.gprs_id,
+                        'selfId': r.vehicle_id.inner_code,
+                        'onBoardId': r.vehicle_id.on_board_id,
+                        'workerId': r.driver.jobnumber,
                         'direction': 0,
                     })
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
@@ -203,15 +210,17 @@ class downplanitem(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         origin_ids = map(lambda x: int(str(x) + '1'), self.ids)
-        vals = {"ids": origin_ids}
+        # vals = {"ids": origin_ids}
         res = super(downplanitem, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            params = Params(type = 3, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-            clientThread(url,params,res).start()
-        except Exception,e:
-            _logger.info('%s', e.message)
+        for down_id in origin_ids:
+            try:
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                _logger.info('Start unlink data: %s', self._name)
+                vals = {'id': down_id}
+                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+                rp = Client().http_post(url, data=params)
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res
