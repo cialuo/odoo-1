@@ -23,10 +23,11 @@ class map_line_station_info(models.Model):
         self._cr.execute("""
             CREATE OR REPLACE VIEW map_line_station_info AS (
 
-			select  *
+select  *
 				 from 
 
 				(select 
+				   (opertation_resources_station_down.id)::text||'down'::text  as id,
 				   opertation_resources_station_down.route_id,
 				   opertation_resources_station_down.station_id,
 				   opertation_resources_station_down.station_type,
@@ -48,6 +49,7 @@ class map_line_station_info(models.Model):
 				union
 
 				(select 
+				   (opertation_resources_station_up.route_id)::text||'up'::text  as id,
 				   opertation_resources_station_up.route_id,
 				   opertation_resources_station_up.station_id,
 				   opertation_resources_station_up.station_type,
