@@ -30,6 +30,18 @@ class dispatch_abnormal_mgt(models.Model):
     #异常状态
     abnormal_state = fields.Selection([('active', 'Active'), ('ignore', 'Ignore'), ('done', 'Done')],default='active')
     
+    @api.multi
+    def action_confirm(self):
+        """
+        """
+        self.write({"abnormal_state": 'done'})    
+    @api.multi
+    def action_ignore(self):
+        """
+        """
+        self.write({"abnormal_state": 'ignore'})        
+    
+    
     
 class dispatch_abnormal_logs(models.Model):
     _name = 'dispatch.abnormal.logs'
