@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <t t-name="line_map_production_template">
+		<div class="line_map_production">
+			<div class="title">
+				线路地图制作
+			</div>
+			<div class="mapPage">
+			</div>
+		</div>
+    </t>
+
+    <t t-name="line_map_production_line_set_template">
+    	<div>
+	    	<div class="map_coord">
+				<span class="map_zoom"><t t-esc="widget.location_set.zoom"></t></span>,
+				<span class="lnglat"><t t-esc="widget.location_set.center.join()"></t></span>
+			</div>
+			<div class="mapCustomPanel">
+				<div class="mapSetLineDiv">
+					<span class="line">
+						选择线路: 
+						<select name="line" class="valid line">
+							<option value="">--请选择--</option>
+							<t t-foreach="widget.line_data" t-as="item">
+	                            <option t-attf-value="{{item.id}}"><t t-esc="item.lineName"></t></option>
+	                        </t>
+						</select>
+					</span>
+				</div>
+				<div class="mapSet">
+				</div>
+			</div>
+		</div>
+    </t>
+
+    <t t-name="line_map_production_set_template">
+    	<div>
+    		<div class="mapSetLineDiv">
+				<h2 class="mapSetLinePropTitle">线路信息</h2>
+				<div class="mapSetLineContext">
+					正在绘制线路 "24路"的线路轨迹图。建议自16级别以上进行绘制。
+				</div>
+			</div>
+			
+			<div class="mapSetLineDiv theBrushTool">
+				<h2 class="mapSetLinePropTitle">画笔工具</h2>
+				<div class="mapSetLineContext">
+					<span class="btBox">
+						<input type="button" class="mr_1" value="打开" onclick="openBrush()" />
+						<input type="button" class="mr_1" value="关闭" onclick="closeBrush()" />
+						<input type="button" class="mr_1" value="删除" onclick="delLsatLine()" />
+						<input type="button" value="清空" onclick="delAllLine()" />
+					</span>
+				</div>
+			</div>
+			
+			<div class="mapSetLineDiv lineAttribute">
+				<h2 class="mapSetLinePropTitle">线路属性</h2>
+				<div class="mapSetLineContext">
+					<span>线条颜色：<input type="text" name="color" value="#CCAC31B" onblur="mapLineColorChange(this)" readonly="readonly" class="textInput readonly valid mapLineColor" /></span>
+					<br/>
+					<span>线条宽度：<select name="width" onchange="mapLineWidthChange(this)" class="valid mapLineWidth">
+							<option value="1">1</option>
+							<option value="2" selected="selected">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+						</select>
+					</span>
+					<br/>
+					<input type="checkbox" class="isShowPoint vt" name="isShowPoint" value="1" onchange="showAuxiliaryPoint(this)" />显示辅助点
+					<br/>
+				  	<input type="radio" name="direction" class="upDirection vt" value="0" checked="checked" />上行
+				  	<input type="radio" name="direction" class="downDirection vt" value="1" />下行
+				</div>
+			</div>
+			
+			<div class="mapSetLineDiv stationAttribute">
+				<h2 class="mapSetLinePropTitle">站点属性</h2>
+				<div class="mapSetLineContext">
+					<span>站点属性：<select name="stationNamefont" class="valid mapStationFontFamily siteType">
+							<option value="宋体" style="font-family: 宋体">宋体</option>
+							<option value="微软雅黑" style="font-family: 微软雅黑">微软雅黑</option>
+							<option value="华文细黑" style="font-family: 华文细黑">华文细黑</option>
+							<option value="黑体" style="font-family: 黑体">黑体</option>
+							<option value="sans-serif" style="font-family: sans-serif;">sans-serif</option>
+							<option value="serif" style="font-family: serif;">serif</option>
+						</select>
+					</span>
+					<br/>
+					<span>标签颜色：<input type="color" name="stationNameColor" value="#000000" readonly="readonly" class="textInput readonly mapStationFontColor siteType" /></span>
+					<br/>
+					<span>站点样式：<select name="stationIcon" class="valid mapStationIcon siteType">
+							<option value="●">●</option>
+							<option value="★">★</option>
+							<option value="◆">◆</option>
+							<option value="◇">◇</option>
+							<option value="▲">▲</option>
+						</select>
+					</span>
+					<br/>
+					<span>站点颜色：<input type="color" name="stationColor" value="#000000" class="textInput readonly mapStationColor siteType" /></span>
+					<br/>
+					<span>
+						<label><input type="checkbox" class="isShowStation vt siteType" name="isShowStation" value="1" checked="true" />显示站点</label>
+						<label><input type="checkbox" class="isShowStationName vt siteType" name="isShowStationName" value="1" checked="true" />显示站点名</label>
+					</span>
+				</div>
+			</div>
+			
+			<div class="mapSetLineDiv dataSave">
+				<h2 class="mapSetLinePropTitle">数据保存</h2>
+				<div class="mapSetLineContext">
+					<span class="btBox">
+						<input type="button" class="save mr_2" value="保存" onclick="hrefBeforeSave_OnClick();" />
+						<input type="button" value="返回" onclick="hrefExit_OnClick()" />
+					</span>
+				</div>
+			</div>
+    	</div>
+    </t>
+</templates>

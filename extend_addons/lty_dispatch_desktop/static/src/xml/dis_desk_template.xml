@@ -283,7 +283,7 @@
                     <!--替换-->
 					<div class="carousel ovf">
 						<ul class="carousel_content">
-							<li>
+							<li class="passenger_flow_list">
 								<div class="lunbo_child">
 								<!--替换-->
 									<div class="absnormal_chart fl">
@@ -293,7 +293,7 @@
 										<li class="no_absnormal">
 											<div class="absnormal_type">
 												<h4>异常<span class="real_time_process">请及时处理</span></h4>
-												<p>实际客流大于运力供给30%</p>
+												<p></p>
 											</div>
 											<div class="absnormal_sug">
 												<h4>建议</h4>
@@ -370,17 +370,17 @@
 						<div>
 							<dl>
 								<dt>背景设置</dt>
-								<dd>
-									<span>
-										背景色
-									</span>
-										<input type="color"/>
-								</dd>
+								<!--<dd>-->
+									<!--<span>-->
+										<!--背景色-->
+									<!--</span>-->
+										<!--<input type="color"/>-->
+								<!--</dd>-->
 								<dd>
 									<span>资源字体颜色设置</span>
 									<input type="color" class="src_font_color"/>
 								</dd>
-								<dd>资源字体大小设置</dd>
+								<!--<dd>资源字体大小设置</dd>-->
 							</dl>
 							<dl>
 								<dt>资源设置</dt>
