@@ -86,7 +86,7 @@
                         </group>
 
                         <notebook>
-                            <page string="Shift list">
+                            <page string="Shift Time list">
                                 <field name="detail_ids">
                                     <tree editable="bottom">
                                         <field name="start_time" placeholder="00:00"/>

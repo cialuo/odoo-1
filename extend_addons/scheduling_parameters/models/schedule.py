@@ -443,11 +443,11 @@ class VehicleYard(models.Model):
         ('code_unique', 'unique(code)', _('The yard code must be unique!'))
     ]
     name = fields.Char('Yard Name', required=True)
-    code = fields.Integer ("Code", required=True)
+    code = fields.Integer("Yard Code", required=True)
     route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
     direction = fields.Selection([('up', 'up'),
                                  ('down', 'down'),
-                                ('one_way', 'one_way'),], default='up')
+                                ('one_way', 'one_way')], default='up')
     is_yard = fields.Boolean(default=True)
 
     dispatch_screen_ids = fields.One2many('opertation_resources_dispatch_screen', 'yard_id')

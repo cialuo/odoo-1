@@ -16,8 +16,15 @@
 		<!--线路效益分析-->
         <menuitem name="benefit of line analysis" id="benefit_of_line_analysis_menu" parent="operation_menu_root" sequence="50"/>
 
+        <!--应收管理-->
+        <menuitem name="revenue manage" id="revenue_menu" parent="operation_menu_root" sequence="60"/>
+
         <!--企业效益分析-->
         <menuitem name="benefit of company analysis" id="benefit_of_company_analysis_menu" parent="operation_menu_root" sequence="70"/>
+
+        <!--运营资源-->
+		<menuitem name="opertation_resources" id="opertation_resources_menu" parent="operation_menu_root"
+                  sequence="80"/>
 
         <!--公交线网优化分析-->
         <menuitem name="bus line optimize analysis" id="bus_line_optimize_analysis_menu" parent="operation_menu_root" sequence="90"/>
