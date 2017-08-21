@@ -34,6 +34,7 @@ class map_line_station_info(models.Model):
 				   opertation_resources_station.latitude,
 				   opertation_resources_station.longitude,
 				   opertation_resources_station.state,
+				   opertation_resources_station.name as station_name,
 				   'down'::text as derection
 				from   
 				   
@@ -54,6 +55,7 @@ class map_line_station_info(models.Model):
 				   opertation_resources_station.latitude,
 				   opertation_resources_station.longitude,
 				   opertation_resources_station.state,
+				   opertation_resources_station.name as station_name,
 				   'up'::text as derection
 				from   
 				   
@@ -62,7 +64,7 @@ class map_line_station_info(models.Model):
 				left join opertation_resources_station on opertation_resources_station_up.station_id = opertation_resources_station.id
 
 				where 
-				opertation_resources_station.state = 'inuse') 
+				opertation_resources_station.state = 'inuse') order by derection,sequence
 				
             )""")        
     
