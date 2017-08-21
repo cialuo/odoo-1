@@ -79,9 +79,13 @@ websocket.onmessage = function (event) {
     // 	return false;
     // }
     var eventObj = JSON.parse(event.data);
-    // console.log(eventObj.data);
+    console.log(eventObj.data);
     var modelName = eventObj.moduleName;
     var controllerId = eventObj.controllerId;
+    for (socket_model in socket_model_info) {
+        var socket_model_obj = socket_model_info[socket_model];
+        socket_model_obj.fn(event.data, socket_model_obj.arg);
+    }
 
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
     linePlanParkOnlineModel_display($(".controller_" + controllerId)); 
@@ -94,7 +98,7 @@ websocket.onmessage = function (event) {
         // console.log('3');
     } else if (modelName == "人力资源状态") {
         // console.log('4');
-    } else if (eventObj.moduleName == "bus_real_state") {
+    } else if (modelName == "bus_real_state") {
         // console.log('5');
         busRealStateModel_socket_fn($(".controller_" + controllerId), eventObj.data);
     } else if (modelName == "passenger_delay") {
@@ -199,12 +203,12 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
 // 车辆实时状态模块-地理位置
 function busRealStateModel_map(dom, gps){
 	if (socket_model_api_obj.busRealStateModel.marker){
-		socket_model_api_obj.busRealStateModel.marker.setPosition(new AMap.LngLat(gps.location_log, gps.location_lan));
+		socket_model_api_obj.busRealStateModel.marker.setPosition(new AMap.LngLat(gps.longitude, gps.latitude));
 	}else{
-		var mapObj = new AMap.Map(dom, {zoom: 14, center: [gps.location_log, gps.location_lan]});
+		var mapObj = new AMap.Map(dom, {zoom: 14, center: [gps.longitude, gps.latitude]});
 		var marker = new AMap.Marker({
 	        map: mapObj,
-	        position: [gps.location_log, gps.location_lan]
+	        position: [gps.longitude, gps.latitude]
 	    });
 	    socket_model_api_obj.busRealStateModel.marker = marker;
 	}
@@ -227,8 +231,8 @@ function linePlanParkOnlineModel_display(controllerObj){
 		var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("linePlanParkOnlineModel_set"));
         layer.close(passengerDelayModel_set.layer_index);
         $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar({
-        	theme: 'minimal'
-        }); 
+            theme: 'minimal'
+        });
         dom.removeClass('hide_model');
 	}
 }

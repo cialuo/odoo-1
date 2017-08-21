@@ -422,16 +422,18 @@
 
 }
 
-.updown_line_table .updown_drag {
+.updown_line_table {
     left: 1300px;
     top: 150px;
     width: 600px;
     height: 190px;
     background: #343B58;
     border-radius: 8px;
+
+}
+.updown_line_table.warn {
     box-shadow: 0px 0px 10px #9d3d42;
 }
-
 .updown_line_table .updown_title {
     height: 30px;
 }

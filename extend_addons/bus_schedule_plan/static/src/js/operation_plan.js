@@ -10,10 +10,9 @@ odoo.define('abc', function (require) {
         }
         return i;
     }
-
-    model.call("reoppaln2web", [recid]).then(function (data) {
-        console.log(data)
-        var bus_num = Object.keys(data.bus).length;
+    function render_plan(data) {
+        console.log(data);
+         var bus_num = Object.keys(data.bus).length;
         var m = 0, n = 0;
         for (var ts = 0; ts < data.bus[1].length; ts++) {
             if (ts % 2 == 0) {
@@ -46,7 +45,13 @@ odoo.define('abc', function (require) {
                 }
             }
         }
+        if(sessionStorage.getItem('direction')){
+            sessionStorage.removeItem('direction');
+        }
         sessionStorage.setItem('direction', JSON.stringify(data.direction));
+    }
+    model.call("reoppaln2web", [recid]).then(function (data) {
+        render_plan(data);
     })
     $('.time_start_arrive_stop').on('dblclick', 'tbody td', function () {
         if (!$(this).hasClass('sort_out') && $(this).html() != '') {
@@ -57,8 +62,10 @@ odoo.define('abc', function (require) {
             var direction = $(this).attr('direction');
             // direction缓存对象
             var directionObj = JSON.parse(sessionStorage.getItem('direction'));
-            model.call("changeOpplan", [this_index, direction, directionObj, 0]).then(function () {
-
+            sessionStorage.removeItem('direction')
+            model.call("changeOpplan", [recid, this_index, direction, directionObj, 0]).then(function (res) {
+                $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
+                render_plan(res);
             });
         } else if ($(this).hasClass('sort_out')) {
             var bgColor = $(this).parent('tr').css('background');
