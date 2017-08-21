@@ -49,7 +49,7 @@ select  *
 				union
 
 				(select 
-				   (opertation_resources_station_up.route_id)::text||'up'::text  as id,
+				   (opertation_resources_station_up.id)::text||'up'::text  as id,
 				   opertation_resources_station_up.route_id,
 				   opertation_resources_station_up.station_id,
 				   opertation_resources_station_up.station_type,
