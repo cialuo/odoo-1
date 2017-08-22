@@ -31,7 +31,7 @@ select  *
 				   opertation_resources_station_down.route_id,
 				   opertation_resources_station_down.station_id,
 				   opertation_resources_station_down.station_type,
-				   opertation_resources_station_down.sequence,
+				   opertation_resources_station_down.sequence as squence,
 				   opertation_resources_station.latitude,
 				   opertation_resources_station.longitude,
 				   opertation_resources_station.state,
@@ -53,7 +53,7 @@ select  *
 				   opertation_resources_station_up.route_id,
 				   opertation_resources_station_up.station_id,
 				   opertation_resources_station_up.station_type,
-				   opertation_resources_station_up.sequence,
+				   opertation_resources_station_up.sequence as squence,
 				   opertation_resources_station.latitude,
 				   opertation_resources_station.longitude,
 				   opertation_resources_station.state,
@@ -66,7 +66,7 @@ select  *
 				left join opertation_resources_station on opertation_resources_station_up.station_id = opertation_resources_station.id
 
 				where 
-				opertation_resources_station.state = 'inuse') order by derection,sequence
+				opertation_resources_station.state = 'inuse') order by derection,squence
 				
             )""")        
     

@@ -24,7 +24,7 @@
 						<select name="line" class="valid line">
 							<option value="">--请选择--</option>
 							<t t-foreach="widget.line_data" t-as="item">
-	                            <option t-attf-value="{{item.id}}"><t t-esc="item.lineName"></t></option>
+	                            <option t-attf-value="{{item.id}}"><t t-esc="item.line_name"></t></option>
 	                        </t>
 						</select>
 					</span>
@@ -47,11 +47,15 @@
 			<div class="mapSetLineDiv theBrushTool">
 				<h2 class="mapSetLinePropTitle">画笔工具</h2>
 				<div class="mapSetLineContext">
-					<span class="btBox">
-						<input type="button" class="mr_1" value="打开" onclick="openBrush()" />
-						<input type="button" class="mr_1" value="关闭" onclick="closeBrush()" />
-						<input type="button" class="mr_1" value="删除" onclick="delLsatLine()" />
-						<input type="button" value="清空" onclick="delAllLine()" />
+					<span class="btBox setMapBt">
+						<!-- <input type="button" class="mr_1 on" value="打开" onclick="openBrush()" />
+						<input type="button" class="mr_1 off" value="关闭" onclick="closeBrush()" />
+						<input type="button" class="mr_1 del" value="删除" onclick="delLsatLine()" />
+						<input type="button" class="empty" value="清空" onclick="delAllLine()" /> -->
+						<input type="button" class="mr_1 open_bt" value="打开" />
+						<input type="button" class="mr_1 close_bt" value="关闭" />
+						<input type="button" class="mr_1 del_bt" value="删除" />
+						<input type="button" class="empty_bt" value="清空" />
 					</span>
 				</div>
 			</div>
@@ -59,19 +63,22 @@
 			<div class="mapSetLineDiv lineAttribute">
 				<h2 class="mapSetLinePropTitle">线路属性</h2>
 				<div class="mapSetLineContext">
-					<span>线条颜色：<input type="text" name="color" value="#CCAC31B" onblur="mapLineColorChange(this)" readonly="readonly" class="textInput readonly valid mapLineColor" /></span>
+					<span>线条颜色：<input type="color" name="color" t-attf-value="{{widget.options.his_dict['0'].c}}" readonly="readonly" class="textInput readonly valid mapLineColor" /></span>
 					<br/>
-					<span>线条宽度：<select name="width" onchange="mapLineWidthChange(this)" class="valid mapLineWidth">
-							<option value="1">1</option>
-							<option value="2" selected="selected">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
+					<span>线条宽度：
+						<select name="width" class="valid mapLineWidth">
+							<t t-foreach="[1, 2, 3, 4, 5, 6]" t-as="i">
+								<t t-if="widget.options.his_dict['0'].w==i">
+									<option t-attf-value="i" selected="selected"><t t-esc="i"></t></option>		
+								</t>
+								<t t-else="">
+									<option t-attf-value="i"><t t-esc="i"></t></option>		
+								</t>
+							</t>
 						</select>
 					</span>
 					<br/>
-					<input type="checkbox" class="isShowPoint vt" name="isShowPoint" value="1" onchange="showAuxiliaryPoint(this)" />显示辅助点
+					<input type="checkbox" class="isShowPoint vt" name="isShowPoint" value="1" />显示辅助点
 					<br/>
 				  	<input type="radio" name="direction" class="upDirection vt" value="0" checked="checked" />上行
 				  	<input type="radio" name="direction" class="downDirection vt" value="1" />下行
