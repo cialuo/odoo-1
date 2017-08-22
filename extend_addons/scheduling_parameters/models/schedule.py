@@ -104,8 +104,8 @@ class Station(models.Model):
     route_ids = fields.Many2many('route_manage.route_manage', 'opertation_resources_station_rel',
                                  'station_id', 'route_station_id', 'Station Routes')
 
-    address = fields.Char()
-    nearby = fields.Char()
+    address = fields.Char() #地址
+    nearby = fields.Char() #附近
 
     @api.multi
     def name_get(self):
@@ -122,7 +122,6 @@ class Station(models.Model):
         self.state = 'archive'
         self.active = False
         return True
-
 
 
 class route_manage(models.Model):
@@ -257,7 +256,6 @@ class route_manage(models.Model):
                     },
                 }
 
-
     @api.multi
     def do_inuse(self):
         self.state = 'inuse'
@@ -307,89 +305,12 @@ class route_manage(models.Model):
                 i.down_station = downs[0].station_id
 
 
-class StationUp(models.Model):
-    _name = 'opertation_resources_station_up'
-    _rec_name = 'route_id'
-    """
-    上行站台管理
-    """
-    _sql_constraints = [
-        ('sequence_unique', 'unique(sequence, route_id)', _('The up sequence and route must be unique!'))
-    ]  # 站序，线路， 必须唯一
-
-    sequence = fields.Integer("Station Sequence", default=2, required=True)
-    route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
-    gprs_id = fields.Integer('code', related='route_id.gprs_id', required=True)  # 线路编码
-    station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
-                                 required=True)
-    entrance_azimuth = fields.Integer('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
-    entrance_longitude = fields.Float(digits=(10, 6), string='Entrance longitude',
-                                      related='station_id.entrance_longitude', readonly=True) # 进站经度
-    entrance_latitude = fields.Float(digits=(10, 6), string='Entrance latitude',
-                                     related='station_id.entrance_latitude', readonly=True) # 进站纬度
-    exit_azimuth = fields.Integer('Exit azimuth', related='station_id.exit_azimuth', readonly=True) # 出站方位角
-    exit_longitude = fields.Float(digits=(10, 6), string='Exit longitude', related='station_id.exit_longitude',
-                                  readonly=True) # 出站经度
-    exit_latitude = fields.Float(digits=(10, 6), string='Exit latitude', related='station_id.exit_latitude',
-                                 readonly=True) # 出站纬度
-    station_type = fields.Selection([('first_station', 'first_station'),
-                                     ('mid_station', 'mid_station'),
-                                     ('last_station', 'last_station')], default='mid_station')
-
-    is_show_name = fields.Boolean(default=True)
-
-    @api.onchange('sequence')
-    def _get_station_type(self):
-        for i in self:
-            if i.sequence == 1:
-                i.station_type = 'first_station'
-
-
-class StationDown(models.Model):
-    _name = 'opertation_resources_station_down'
-    _rec_name = 'route_id'
-    """
-    下行站台管理
-    """
-    _sql_constraints = [
-        ('record_unique', 'unique(sequence,route_id)', _('The down sequence and route must be unique!'))
-    ]  # 站序，线路， 必须唯一
-
-    sequence = fields.Integer("Station Sequence", default=2, required=True)
-    route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
-    gprs_id = fields.Integer('code', related='route_id.gprs_id', required=True)  # 线路编码
-    station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
-                                 required=True)
-    entrance_azimuth = fields.Integer('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
-    entrance_longitude = fields.Float(digits=(10, 6), string='Entrance longitude',
-                                      related='station_id.entrance_longitude', readonly=True) # 进站经度
-    entrance_latitude = fields.Float(digits=(10, 6), string='Entrance latitude',
-                                     related='station_id.entrance_latitude', readonly=True) # 进站纬度
-    exit_azimuth = fields.Integer('Exit azimuth', related='station_id.exit_azimuth', readonly=True) # 出站方位角
-    exit_longitude = fields.Float(digits=(10, 6), string='Exit longitude', related='station_id.exit_longitude',
-                                  readonly=True) # 出站经度
-    exit_latitude = fields.Float(digits=(10, 6), string='Exit latitude', related='station_id.exit_latitude',
-                                 readonly=True) # 出站纬度
-
-    station_type = fields.Selection([('first_station', 'first_station'),
-                                     ('mid_station', 'mid_station'),
-                                     ('last_station', 'last_station')], default='mid_station', required=True)
-    is_show_name = fields.Boolean(default=True)
-
-    @api.onchange('sequence')
-    def _get_station_type(self):
-        for i in self:
-            if i.sequence == 1:
-                i.station_type = 'first_station'
-
-
-# 人力资源
 class human_resource(models.Model):
     _inherit = 'hr.employee'
-
-    # human_resource = fields.Many2one('route_manage.route_manage', string='Human resource')
-    # 所属线路
-    lines = fields.Many2many('route_manage.route_manage', string='Choose Line')
+    """
+    人力资源
+    """
+    lines = fields.Many2many('route_manage.route_manage', string='Choose Line') # 所属线路
 
 
 class Platform(models.Model):
@@ -401,7 +322,7 @@ class Platform(models.Model):
 
     _sql_constraints = [
         ('sequence_unique', 'unique(sequence, route_id, direction)', _('The sequence and route must be unique!'))
-    ] #站序，线路， 必须唯一
+    ] #站序，线路，方向必须唯一
 
     direction = fields.Selection([('up', 'up'),
                                  ('down', 'down')], default='up')
@@ -426,6 +347,9 @@ class Platform(models.Model):
                                      ('mid_station', 'mid_station'),
                                      ('last_station', 'last_station')], default='mid_station', required=True)
     is_show_name = fields.Boolean(default=True)
+
+    by_start_distance = fields.Float(string="By Start Distance")
+    to_next_time = fields.Float(string="To Next Time")
 
     @api.onchange('sequence')
     def _get_station_type(self):
@@ -456,7 +380,14 @@ class VehicleYard(models.Model):
 class DispatchScreen(models.Model):
     _name = 'opertation_resources_dispatch_screen'
 
+    """
+    调度屏
+    """
+    _sql_constraints = [
+        ('code_unique', 'unique(screen_code)', _('The screen code must be unique!'))
+    ]
+
     name = fields.Char('Screen Name', required=True)
-    yard_id = fields.Many2one('opertation_resources_vehicle_yard')
+    yard_id = fields.Many2one('opertation_resources_vehicle_yard', ondelete='cascade')
     screen_code = fields.Integer('Screen Code', required=True)
     screen_ip = fields.Char('Screen IP')
