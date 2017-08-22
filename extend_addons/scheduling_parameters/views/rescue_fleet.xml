@@ -51,7 +51,7 @@
 
         <menuitem id="menu_rescue"
                   name="Rescue management"
-                  parent="dispatch_monitor_menu.opertation_resources_menu"
+                  parent="operation_menu.opertation_resources_menu"
                   action="act_rescue_fleet_action"
                   sequence="50"
         />

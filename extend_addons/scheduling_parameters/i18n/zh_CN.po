@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-19 02:42+0000\n"
-"PO-Revision-Date: 2017-08-19 02:42+0000\n"
+"POT-Creation-Date: 2017-08-21 06:23+0000\n"
+"PO-Revision-Date: 2017-08-21 06:23+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -98,11 +98,6 @@ msgid "Class system name"
 msgstr "班制"
 
 #. module: scheduling_parameters
-#: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_vehicle_yard_code
-msgid "Code"
-msgstr "编码"
-
-#. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_company
 msgid "Company"
 msgstr "公司"
@@ -133,7 +128,7 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_create_date
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_create_date
 msgid "Created on"
-msgstr "设立时间"
+msgstr "创建时间"
 
 #. module: scheduling_parameters
 #: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_station_form
@@ -475,19 +470,19 @@ msgstr "速度(km/h)"
 #. module: scheduling_parameters
 #: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_station_form
 msgid "Station"
-msgstr "站点"
+msgstr "站台"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_down_station_id
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_platform_station_id
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_up_station_id
 msgid "Station Choose"
-msgstr "站点"
+msgstr "站台"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_code
 msgid "Station Code"
-msgstr "站点编码"
+msgstr "站台编码"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_station_condition
@@ -497,7 +492,7 @@ msgstr "站台状况"
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_name
 msgid "Station Name"
-msgstr "站点名称"
+msgstr "站台名称"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_route_ids
@@ -514,12 +509,12 @@ msgstr "站序"
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_road_station_ids
 msgid "Station lists"
-msgstr "站点列表"
+msgstr "站台列表"
 
 #. module: scheduling_parameters
 #: model:ir.ui.menu,name:scheduling_parameters.opertation_resources_station_menu
 msgid "Station management"
-msgstr "站点管理"
+msgstr "站台管理"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_station_down_station_type
@@ -532,19 +527,19 @@ msgstr "类型"
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_station_down_ids
 #: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
 msgid "StationDowns"
-msgstr "下行站台资源"
+msgstr "下行站点资源"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_station_up_ids
 #: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
 msgid "StationUps"
-msgstr "上行站台资源"
+msgstr "上行站点资源"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_route_manage_route_manage_station_route_ids
 #: model:ir.ui.view,arch_db:scheduling_parameters.opertation_resources_road_form
 msgid "Stations"
-msgstr "站点列表"
+msgstr "站台列表"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_rescue_fleet_stop_address
@@ -599,6 +594,13 @@ msgid "The route name must be unique!"
 msgstr "线路名称必须是唯一的！"
 
 #. module: scheduling_parameters
+#: code:addons/scheduling_parameters/models/schedule.py:403
+#: sql_constraint:opertation_resources_station_platform:0
+#, python-format
+msgid "The sequence and route must be unique!"
+msgstr "站序必须唯一"
+
+#. module: scheduling_parameters
 #: code:addons/scheduling_parameters/models/schedule.py:77
 #: sql_constraint:opertation_resources_station:0
 #, python-format
@@ -611,13 +613,6 @@ msgstr "站点编码必须唯一"
 #, python-format
 msgid "The station name must be unique!"
 msgstr "站点名称必要唯一!"
-
-#. module: scheduling_parameters
-#: code:addons/scheduling_parameters/models/schedule.py:403
-#: sql_constraint:opertation_resources_station_platform:0
-#, python-format
-msgid "The up sequence and route  must be unique!"
-msgstr "上行站台的站序必须唯一"
 
 #. module: scheduling_parameters
 #: code:addons/scheduling_parameters/models/schedule.py:317
@@ -662,6 +657,11 @@ msgstr "车队"
 #: model:ir.ui.view,arch_db:scheduling_parameters.route_form_view
 msgid "VehicleYards"
 msgstr "车场"
+
+#. module: scheduling_parameters
+#: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_vehicle_yard_code
+msgid "Yard Code"
+msgstr "编码"
 
 #. module: scheduling_parameters
 #: model:ir.model.fields,field_description:scheduling_parameters.field_opertation_resources_vehicle_yard_name
@@ -930,6 +930,20 @@ msgid "route_manage.route_manage"
 msgstr "线路表"
 
 #. module: scheduling_parameters
+#. openerp-web
+#: code:addons/scheduling_parameters/static/src/xml/line_map_production.xml:89
+#, python-format
+msgid "sans-serif"
+msgstr "sans-serif"
+
+#. module: scheduling_parameters
+#. openerp-web
+#: code:addons/scheduling_parameters/static/src/xml/line_map_production.xml:90
+#, python-format
+msgid "serif"
+msgstr "serif"
+
+#. module: scheduling_parameters
 #: selection:route_manage.route_manage,loop_type:0
 msgid "single_loop"
 msgstr "单向环线"
@@ -986,4 +1000,11 @@ msgstr "上行首班时间不正确"
 #: model:ir.ui.menu,name:scheduling_parameters.opertation_resources_vehicle_yard_menu
 msgid "vehicle_yard management"
 msgstr "车场管理"
+
+#. module: scheduling_parameters
+#. openerp-web
+#: code:addons/scheduling_parameters/static/src/xml/line_map_production.xml:42
+#, python-format
+msgid "正在绘制线路 \"24路\"的线路轨迹图。建议自16级别以上进行绘制。"
+msgstr "正在绘制线路 \"24路\"的线路轨迹图。建议自16级别以上进行绘制。"
 

@@ -87,11 +87,11 @@ class Station(models.Model):
     longitude = fields.Float(digits=(10, 6), string="longitude")  # 经度
     latitude = fields.Float(digits=(10, 6), string="latitude") # 纬度
 
-    entrance_azimuth = fields.Char('Entrance azimuth') # 进站方位角
+    entrance_azimuth = fields.Integer('Entrance azimuth') # 进站方位角
     entrance_longitude = fields.Float(digits=(10, 6), string='Entrance longitude') # 进站经度
     entrance_latitude = fields.Float(digits=(10, 6), string='Entrance latitude') # 进站纬度
 
-    exit_azimuth = fields.Char('Exit azimuth') # 出站方位角
+    exit_azimuth = fields.Integer('Exit azimuth') # 出站方位角
     exit_longitude = fields.Float(digits=(10, 6), string='Exit longitude') # 出站经度
     exit_latitude = fields.Float(digits=(10, 6), string='Exit latitude') # 出站纬度
 
@@ -322,12 +322,12 @@ class StationUp(models.Model):
     gprs_id = fields.Integer('code', related='route_id.gprs_id', required=True)  # 线路编码
     station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
                                  required=True)
-    entrance_azimuth = fields.Char('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
+    entrance_azimuth = fields.Integer('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
     entrance_longitude = fields.Float(digits=(10, 6), string='Entrance longitude',
                                       related='station_id.entrance_longitude', readonly=True) # 进站经度
     entrance_latitude = fields.Float(digits=(10, 6), string='Entrance latitude',
                                      related='station_id.entrance_latitude', readonly=True) # 进站纬度
-    exit_azimuth = fields.Char('Exit azimuth', related='station_id.exit_azimuth', readonly=True) # 出站方位角
+    exit_azimuth = fields.Integer('Exit azimuth', related='station_id.exit_azimuth', readonly=True) # 出站方位角
     exit_longitude = fields.Float(digits=(10, 6), string='Exit longitude', related='station_id.exit_longitude',
                                   readonly=True) # 出站经度
     exit_latitude = fields.Float(digits=(10, 6), string='Exit latitude', related='station_id.exit_latitude',
@@ -360,12 +360,12 @@ class StationDown(models.Model):
     gprs_id = fields.Integer('code', related='route_id.gprs_id', required=True)  # 线路编码
     station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
                                  required=True)
-    entrance_azimuth = fields.Char('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
+    entrance_azimuth = fields.Integer('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
     entrance_longitude = fields.Float(digits=(10, 6), string='Entrance longitude',
                                       related='station_id.entrance_longitude', readonly=True) # 进站经度
     entrance_latitude = fields.Float(digits=(10, 6), string='Entrance latitude',
                                      related='station_id.entrance_latitude', readonly=True) # 进站纬度
-    exit_azimuth = fields.Char('Exit azimuth', related='station_id.exit_azimuth', readonly=True) # 出站方位角
+    exit_azimuth = fields.Integer('Exit azimuth', related='station_id.exit_azimuth', readonly=True) # 出站方位角
     exit_longitude = fields.Float(digits=(10, 6), string='Exit longitude', related='station_id.exit_longitude',
                                   readonly=True) # 出站经度
     exit_latitude = fields.Float(digits=(10, 6), string='Exit latitude', related='station_id.exit_latitude',
@@ -400,7 +400,7 @@ class Platform(models.Model):
     """
 
     _sql_constraints = [
-        ('sequence_unique', 'unique(sequence, route_id, direction)', _('The up sequence and route  must be unique!'))
+        ('sequence_unique', 'unique(sequence, route_id, direction)', _('The sequence and route must be unique!'))
     ] #站序，线路， 必须唯一
 
     direction = fields.Selection([('up', 'up'),
@@ -411,12 +411,12 @@ class Platform(models.Model):
     gprs_id = fields.Integer('code', related='route_id.gprs_id', required=True)  # 线路编码
     station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
                                  required=True)
-    entrance_azimuth = fields.Char('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
+    entrance_azimuth = fields.Integer('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
     entrance_longitude = fields.Float(digits=(10, 6), string='Entrance longitude',
                                       related='station_id.entrance_longitude', readonly=True) # 进站经度
     entrance_latitude = fields.Float(digits=(10, 6), string='Entrance latitude',
                                      related='station_id.entrance_latitude', readonly=True) # 进站纬度
-    exit_azimuth = fields.Char('Exit azimuth', related='station_id.exit_azimuth', readonly=True) # 出站方位角
+    exit_azimuth = fields.Integer('Exit azimuth', related='station_id.exit_azimuth', readonly=True) # 出站方位角
     exit_longitude = fields.Float(digits=(10, 6), string='Exit longitude', related='station_id.exit_longitude',
                                   readonly=True) # 出站经度
     exit_latitude = fields.Float(digits=(10, 6), string='Exit latitude', related='station_id.exit_latitude',
@@ -443,11 +443,11 @@ class VehicleYard(models.Model):
         ('code_unique', 'unique(code)', _('The yard code must be unique!'))
     ]
     name = fields.Char('Yard Name', required=True)
-    code = fields.Integer ("Code", required=True)
+    code = fields.Integer("Yard Code", required=True)
     route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
     direction = fields.Selection([('up', 'up'),
                                  ('down', 'down'),
-                                ('one_way', 'one_way'),], default='up')
+                                ('one_way', 'one_way')], default='up')
     is_yard = fields.Boolean(default=True)
 
     dispatch_screen_ids = fields.One2many('opertation_resources_dispatch_screen', 'yard_id')
@@ -458,5 +458,5 @@ class DispatchScreen(models.Model):
 
     name = fields.Char('Screen Name', required=True)
     yard_id = fields.Many2one('opertation_resources_vehicle_yard')
-    screen_code = fields.Char('Screen Code', required=True)
+    screen_code = fields.Integer('Screen Code', required=True)
     screen_ip = fields.Char('Screen IP')
