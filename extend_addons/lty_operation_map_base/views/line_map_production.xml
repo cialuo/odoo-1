@@ -7,6 +7,6 @@
             <field name="tag">scheduling_parameters.line_map_production</field>
         </record>
         <!-- 调度参数管理——Menu -->
-        <menuitem id="opertation_resources_map_menu" name="线路地图制作" parent="dispatch_monitor_menu.opertation_resources_menu" action="opertation_resources_map_action" sequence="50" />
+        <menuitem id="opertation_resources_map_menu" name="线路地图制作" parent="operation_menu.opertation_resources_menu" action="opertation_resources_map_action" sequence="50" />
     </data>
 </odoo>

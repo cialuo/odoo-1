@@ -273,13 +273,14 @@ class BusGroupDriverVehicleShift(models.Model):
         5，根据前面2，3，4的条件生成今天的人车配班数据
         :return:
         """
-        domain = []
+        domain = [('state', '=', 'use')]
 
         if route_id:
-            domain = [('route_id', '=', route_id)]
+            domain += [('route_id', '=', route_id)]
 
-        res = self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', route_id),
-                                                                 ('use_date', '<', str(datetime.date.today()))])
+        last_use_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") - timedelta(days=1)
+        next_use_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") + timedelta(days=1)
+        res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '<', str(last_use_date))])
 
         if res:
             res.write({'active': False})
@@ -292,9 +293,7 @@ class BusGroupDriverVehicleShift(models.Model):
             is_big_rotation = res_groups[0].route_id.is_big_rotation
             rotation_cycle = res_groups[0].route_id.rotation_cycle
             last_rotation_date = res_groups[0].route_id.last_rotation_date
-            # use_date = str(datetime.date.today())
 
-            next_use_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") + timedelta(days=1)
             route_id = res_groups[0].route_id.id
 
             res = self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', route_id),
@@ -329,7 +328,6 @@ class BusGroupDriverVehicleShift(models.Model):
             大轮换 start
             """
             last_rotation_date = datetime.datetime.strptime(last_rotation_date, "%Y-%m-%d")
-            # is_big_rotation = False
 
             if is_big_rotation and (next_use_date - last_rotation_date).days >= rotation_cycle:
                 for k, v in old_group_dict.iteritems():

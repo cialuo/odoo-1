@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-09 01:29+0000\n"
-"PO-Revision-Date: 2017-08-09 01:29+0000\n"
+"POT-Creation-Date: 2017-08-21 08:08+0000\n"
+"PO-Revision-Date: 2017-08-21 08:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -56,9 +56,19 @@ msgid "operation plans"
 msgstr "运营计划编制"
 
 #. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.opertation_resources_menu
+msgid "opertation_resources"
+msgstr "运营资源"
+
+#. module: operation_menu
 #: model:ir.ui.menu,name:operation_menu.platform_join_up_menu
 msgid "platform join up"
 msgstr "平台接入"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.revenue_menu
+msgid "revenue manage"
+msgstr "营收管理"
 
 #. module: operation_menu
 #: model:ir.ui.menu,name:operation_menu.settings_menu
