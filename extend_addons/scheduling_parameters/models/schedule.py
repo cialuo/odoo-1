@@ -458,5 +458,5 @@ class DispatchScreen(models.Model):
 
     name = fields.Char('Screen Name', required=True)
     yard_id = fields.Many2one('opertation_resources_vehicle_yard')
-    screen_code = fields.Char('Screen Code', required=True)
+    screen_code = fields.Integer('Screen Code', required=True)
     screen_ip = fields.Char('Screen IP')

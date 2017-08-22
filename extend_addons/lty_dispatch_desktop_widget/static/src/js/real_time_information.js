@@ -178,7 +178,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
         closeFn: function(){
             // 取消订阅车辆实时状态
             var package = {
-                type: 1000,
+                type: 1001,
                 open_modules: ["dispatch-bus_real_state-"+this.location_data.controllerId],
                 msgId: Date.parse(new Date())
             };
