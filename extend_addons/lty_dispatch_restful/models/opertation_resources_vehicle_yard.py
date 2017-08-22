@@ -57,6 +57,7 @@ class Yard(models.Model):
                 'id': res.id,
                 'screen1': 0,
                 'screen2': 0,
+                'lineName': res.route_id.line_name,
             })
             if len(res.dispatch_screen_ids) >= 1:
                 vals.update({'screen1': res.dispatch_screen_ids[0].screen_code})
@@ -90,6 +91,7 @@ class Yard(models.Model):
                         'id': r.id,
                         'screen1': 0,
                         'screen2': 0,
+                        'lineName': r.route_id.line_name,
                     })
                     if len(r.dispatch_screen_ids) >= 1:
                         vals.update({'screen1': r.dispatch_screen_ids[0].screen_code})

@@ -241,7 +241,7 @@ op_planstationbigmain = {
     ('Direction', 'direction'): {'up': 0,'down':1},
     #编号 int not found
     ('orderNo', None): None,
-    #峰段标志ID 1:低峰；2：平峰；3：高峰 not found
+    #峰段标志ID 1001:低峰；1002：平峰；1003：高峰 not found
     ('flagId', None): None,
     #峰段标志名称 string not found
     ('flagName', None): None,

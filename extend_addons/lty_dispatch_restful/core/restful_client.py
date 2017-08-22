@@ -16,7 +16,7 @@ class Client:
     def __init__(self):
 
         #重试次数
-        self.retry = 4
+        self.retry = 2
 
         #超时时间
         self.timeout = 5
