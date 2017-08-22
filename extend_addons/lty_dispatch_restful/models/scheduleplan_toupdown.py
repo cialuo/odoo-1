@@ -52,9 +52,19 @@ class Toup(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
             _logger.info('Start create data: %s', self._name)
+            if self._name == 'scheduleplan.toup':
+                vals.update({
+                    'id': int(str(res.id)+'0'),
+                    'direction': 'up',
+                })
+            if self._name == 'scheduleplan.todown':
+                vals.update({
+                    'id': int(str(res.id) + '1'),
+                    'direction': 'down',
+                })
             vals.update({
-                'id': int(str(res.id)+'0'),
-                'direction': 'up',
+                'starttime': '2017-01-01 ' + res.starttime + ":00",
+                'endtime': '2017-01-01 ' + res.endtime + ":00",
             })
             vals = mapping.dict_transfer(self._name, vals)
             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
@@ -80,9 +90,19 @@ class Toup(models.Model):
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
+                    if self._name == 'scheduleplan.toup':
+                        vals.update({
+                            'id': int(str(r.id) + '0'),
+                            'direction': 'up',
+                        })
+                    if self._name == 'scheduleplan.todown':
+                        vals.update({
+                            'id': int(str(r.id) + '1'),
+                            'direction': 'down',
+                        })
                     vals.update({
-                        'id': int(str(r.id)+'0'),
-                        'direction': 'up',
+                        'starttime': '2017-01-01 ' + r.starttime + ":00",
+                        'endtime': '2017-01-01 ' + r.endtime + ":00",
                     })
                     vals = mapping.dict_transfer(self._name, vals)
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
@@ -101,7 +121,11 @@ class Toup(models.Model):
         '''
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
-        origin_ids = map(lambda x: int(str(x) + '0'), self.ids)
+        origin_ids = None
+        if self._name == 'scheduleplan.toup':
+            origin_ids += map(lambda x: int(str(x) + '0'), self.ids)
+        if self._name == 'scheduleplan.todown':
+            origin_ids += map(lambda x: int(str(x) + '1'), self.ids)
         # vals = {"ids": origin_ids}
         res = super(Toup, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
@@ -116,91 +140,91 @@ class Toup(models.Model):
             except Exception,e:
                 _logger.info('%s', e.message)
         return res
-class Todown(models.Model):
-
-    _inherit = 'scheduleplan.todown'
-
-    '''
-        继承运营计划峰值段,调用restful api
-    '''
-
-    # #调度数据逐渐
-    # fk_id = fields.Char()
-
-    @api.model
-    def create(self, vals):
-        '''
-            数据创建完成调用api
-        :param vals:
-        :return:
-        '''
-
-        res = super(Todown, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            vals.update({
-                'id': int(str(res.id)+'1'),
-                'direction': 'down',
-            })
-            vals = mapping.dict_transfer(self._name, vals)
-            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
-        return res
-
-    @api.multi
-    def write(self, vals):
-        '''
-            数据编辑时调用api
-        :param vals:
-        :return:
-        '''
-
-        res = super(Todown, self).write(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        for r in self:
-            seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
-                try:
-                    # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                    _logger.info('Start write data: %s', self._name)
-                    vals.update({
-                        'id': int(str(r.id)+'1'),
-                        'direction': 'down',
-                    })
-                    vals = mapping.dict_transfer(self._name, vals)
-                    params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-                    rp = Client().http_post(url, data=params)
-
-                    # clientThread(url,params,res).start()
-                except Exception,e:
-                    _logger.info('%s', e.message)
-        return res
-
-    @api.multi
-    def unlink(self):
-        '''
-            数据删除时调用api
-        :return:
-        '''
-        # fk_ids = self.mapped('fk_id')
-        # vals = {"ids":fk_ids}
-        origin_ids = map(lambda x: int(str(x) + '1'), self.ids)
-        # vals = {"ids": origin_ids}
-        res = super(Todown, self).unlink()
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        for down_id in origin_ids:
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': down_id}
-                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-                clientThread(url,params,res).start()
-            except Exception,e:
-                _logger.info('%s', e.message)
-        return res
+# class Todown(models.Model):
+#
+#     _inherit = 'scheduleplan.todown'
+#
+#     '''
+#         继承运营计划峰值段,调用restful api
+#     '''
+#
+#     # #调度数据逐渐
+#     # fk_id = fields.Char()
+#
+#     @api.model
+#     def create(self, vals):
+#         '''
+#             数据创建完成调用api
+#         :param vals:
+#         :return:
+#         '''
+#
+#         res = super(Todown, self).create(vals)
+#         url = self.env['ir.config_parameter'].get_param('restful.url')
+#         cityCode = self.env['ir.config_parameter'].get_param('city.code')
+#         try:
+#             _logger.info('Start create data: %s', self._name)
+#             vals.update({
+#                 'id': int(str(res.id)+'1'),
+#                 'direction': 'down',
+#             })
+#             vals = mapping.dict_transfer(self._name, vals)
+#             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+#             rp = Client().http_post(url, data=params)
+#         except Exception,e:
+#             _logger.info('%s', e.message)
+#         return res
+#
+#     @api.multi
+#     def write(self, vals):
+#         '''
+#             数据编辑时调用api
+#         :param vals:
+#         :return:
+#         '''
+#
+#         res = super(Todown, self).write(vals)
+#         url = self.env['ir.config_parameter'].get_param('restful.url')
+#         cityCode = self.env['ir.config_parameter'].get_param('city.code')
+#         for r in self:
+#             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
+#             if seconds.seconds > 5:
+#                 try:
+#                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+#                     _logger.info('Start write data: %s', self._name)
+#                     vals.update({
+#                         'id': int(str(r.id)+'1'),
+#                         'direction': 'down',
+#                     })
+#                     vals = mapping.dict_transfer(self._name, vals)
+#                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+#                     rp = Client().http_post(url, data=params)
+#
+#                     # clientThread(url,params,res).start()
+#                 except Exception,e:
+#                     _logger.info('%s', e.message)
+#         return res
+#
+#     @api.multi
+#     def unlink(self):
+#         '''
+#             数据删除时调用api
+#         :return:
+#         '''
+#         # fk_ids = self.mapped('fk_id')
+#         # vals = {"ids":fk_ids}
+#         origin_ids = map(lambda x: int(str(x) + '1'), self.ids)
+#         # vals = {"ids": origin_ids}
+#         res = super(Todown, self).unlink()
+#         url = self.env['ir.config_parameter'].get_param('restful.url')
+#         cityCode = self.env['ir.config_parameter'].get_param('city.code')
+#         for down_id in origin_ids:
+#             try:
+#                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+#                 _logger.info('Start unlink data: %s', self._name)
+#                 vals = {'id': down_id}
+#                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+#                 clientThread(url,params,res).start()
+#             except Exception,e:
+#                 _logger.info('%s', e.message)
+#         return res

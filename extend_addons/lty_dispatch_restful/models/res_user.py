@@ -22,19 +22,18 @@ from odoo import api, fields, models
 from extend_addons.lty_dispatch_restful.core.restful_client import *
 import mapping
 import logging
-import time
 
-#对接系统  控制台
+#对接系统  用户表管理
 
-TABLE = 'op_controlline'
+TABLE = 'sys_user'
 
 _logger = logging.getLogger(__name__)
-class Desktop(models.Model):
+class User(models.Model):
 
-    _inherit = 'dispatch.control.desktop.component'
+    _inherit = 'res.users'
 
     '''
-        继承控制台,调用restful api
+        继承用户管理管理,调用restful api
     '''
 
     # #调度数据逐渐
@@ -48,7 +47,7 @@ class Desktop(models.Model):
         :return:
         '''
 
-        res = super(Desktop, self).create(vals)
+        res = super(User, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
@@ -56,7 +55,6 @@ class Desktop(models.Model):
             vals = mapping.dict_transfer(self._name, vals)
             vals.update({
                 'id': res.id,
-                'lineName': res.line_id.line_name,
             })
             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
@@ -72,7 +70,7 @@ class Desktop(models.Model):
         :return:
         '''
 
-        res = super(Desktop, self).write(vals)
+        res = super(User, self).write(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
@@ -82,12 +80,12 @@ class Desktop(models.Model):
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(self._name, vals)
-                    vals.update({
-                        'id': r.id,
-                        'lineName': res.line_id.line_name,
-                    })
-                    params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-                    rp = Client().http_post(url, data=params)
+                    if vals:
+                        vals.update({
+                            'id': r.id,
+                        })
+                        params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                        rp = Client().http_post(url, data=params)
 
                     # clientThread(url,params,res).start()
                 except Exception,e:
@@ -103,14 +101,14 @@ class Desktop(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         # vals = {"ids": self.ids}
-        res = super(Desktop, self).unlink()
+        res = super(User, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
             try:
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                vals = {'id': r.id}
                 _logger.info('Start unlink data: %s', self._name)
+                vals = {'id': r.id}
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
                 rp = Client().http_post(url, data=params)
             except Exception,e:

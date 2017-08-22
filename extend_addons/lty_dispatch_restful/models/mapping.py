@@ -621,7 +621,14 @@ op_trainattendance = {
     # 员工类型int 1019:司机 1020:售票员
     ('type', 'title'): {'driver': 1019, 'steward': 1020},
 }
-
+#用户表
+#sys_user -- res.users
+sys_user = {
+    ('id', 'id'): None,
+    ('UserName', 'name'): None,
+    ('UserPwd', 'password'): None,
+    ('delState', 'active'): {True:1,False:0}
+}
 origin_data = {
     #线路基础数据
     'route_manage.route_manage': op_line,

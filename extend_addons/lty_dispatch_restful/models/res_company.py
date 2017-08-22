@@ -70,24 +70,25 @@ class Company(models.Model):
         :return:
         '''
 
-        res = super(Company, self).write(vals)
+
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
-            seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
-                try:
-                    # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                    _logger.info('Start write data: %s', self._name)
-                    vals = mapping.dict_transfer(self._name, vals)
-                    if vals:
-                        vals.update({'id': r.id})
-                        params = Params(type=3, cityCode=cityCode,tableName=PARAM_TABLE, data=vals).to_dict()
-                        rp = Client().http_post(url, data=params)
+            # seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
+            # if seconds.seconds > 5:
+            try:
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                _logger.info('Start write data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)
+                if vals:
+                    vals.update({'id': r.id})
+                    params = Params(type=3, cityCode=cityCode,tableName=PARAM_TABLE, data=vals).to_dict()
+                    rp = Client().http_post(url, data=params)
 
-                    # clientThread(url,params,res).start()
-                except Exception,e:
-                    _logger.info('%s', e.message)
+                # clientThread(url,params,res).start()
+            except Exception,e:
+                _logger.info('%s', e.message)
+        res = super(Company, self).write(vals)
         return res
 
     # @api.multi
