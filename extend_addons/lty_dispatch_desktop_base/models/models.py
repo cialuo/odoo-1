@@ -31,9 +31,9 @@ class dispatch_control_desktop_component(models.Model):
     position_left = fields.Char()
     line_id = fields.Many2one('route_manage.route_manage')
     desktop_id = fields.Many2one('dispatch.control.desktop', ondelete='restrict', string='Control Desktop')
-	#备注
+    #备注
     remark = fields.Char()
-	#显示顺序
+    #显示顺序
     show_order = fields.Integer()
-	#设备号
+    #设备号
     on_bord_id = fields.Integer()
