@@ -804,7 +804,7 @@
 
 .plan_display .plan_group .section_plan_cont td {
     color: #fff;
-    font-size: 14px;
+    font-size: 12px;
     height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #6D7487;
@@ -838,7 +838,7 @@
 .plan_display .plan_group .bus_plan {
     border: 1px solid #6D7487;
     width: 300px;
-    min-height: 493px;
+    height: 493px;
     overflow: auto;
 }
 
@@ -977,6 +977,7 @@
     border-radius: 4px;
     box-shadow: 0 0 50px #1e2335;
     min-width: 100px;
+    font-size: 12px;
 }
 
 .plan_display .plan_display_set .setBox .nav {

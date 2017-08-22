@@ -1,0 +1,160 @@
+/*----------线路地图制作-----------*/
+
+.line_map_production {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    width: 100%;
+    height: 100%;
+    color: #000;
+}
+
+.line_map_production .title {
+    height: 48px;
+    line-height: 48px;
+    font-size: 18px;
+    padding: 0 22px;
+    border-top: 1px solid #ccc;
+}
+
+.line_map_production .mapPage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.line_map_production .mapPage .cont {
+    text-align: center;
+    white-space:nowrap;
+    font-size: 14px;
+}
+
+.line_map_production .mapPage .cont .siteName {
+    background: #fff;
+}
+
+.line_map_production .mapPage .map_coord {
+    position: absolute;
+    right: 8px;
+    top: 0;
+    z-index: 1;
+    width: 200px;
+    text-align: center;
+    padding: 0 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: initial;
+}
+
+.line_map_production .mapPage .map_zoom {
+    display: inline-block;
+    font-size: 16px;
+    width: 22px;
+}
+
+.line_map_production .mapPage .lnglat {
+    display: inline-block;
+    font-size: 12px;
+    width: 145px;
+}
+
+.line_map_production .mapPage .mapCustomPanel {
+    width: 200px;
+    position: absolute;
+    z-index: 1;
+    right: 8px;
+    top: 60px;
+}
+
+.line_map_production .mapCustomPanel .mapSetLineDiv {
+    font-size: 14px;
+    background-color: #FFFFFF;
+    width: 200px;
+    filter: alpha(opacity=70);
+    opacity: 0.8;
+    border: 1px solid #669900;
+    margin-top: 5px;
+    cursor: default;
+}
+
+.line_map_production .mapCustomPanel .mapSetLineDiv .vt {
+    vertical-align: top;
+}
+
+.line_map_production .mapCustomPanel .mapSetLineDiv span.line {
+    padding: 5px 10px; 
+}
+
+.line_map_production .mapCustomPanel .mapSetLinePropTitle {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #669900;
+    line-height: 22px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+}
+
+.line_map_production .mapCustomPanel .mapSetLineContext {
+    padding: 5px 10px;
+}
+
+.line_map_production .mapCustomPanel .mapSetLineContext .btBox {
+    font-size: 0;
+    display: inline-block;
+    margin: 5px 0 30px;
+}
+
+.line_map_production .mapCustomPanel .mapSetLineContext input, .line_map_production .mapCustomPanel select {
+    text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.line_map_production .mapCustomPanel .mapSetLineContext input[type='button'] {
+    border: 0;
+    margin: 0;
+}
+
+.line_map_production .mapCustomPanel .mapSetLineContext input[type='button']:hover {
+    background: #669900;
+    color: #fff;
+}
+
+.line_map_production .mapCustomPanel .mapSetLineContext input[type=text] {
+    width: 88px;
+    text-align: center;
+    font-size: 13px;
+    height: 18px;
+}
+
+.line_map_production .mapCustomPanel select {
+    width: auto;
+    height: 22px;
+    padding: 0 3px;
+}
+
+.line_map_production .mapCustomPanel .dataSave {
+    height: 90px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.line_map_production .mapCustomPanel .dataSave input {
+    width: 75px;
+    text-align: center;
+}
+
+.line_map_production .mapCustomPanel .mapSetLineContext .btBox .mr_1 {
+    margin-right: 6px;
+}
+
+.line_map_production .mapCustomPanel .mapSetLineContext .btBox .mr_2 {
+    margin-right: 12px;
+}

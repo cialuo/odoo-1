@@ -13,13 +13,34 @@ class dispatch_abnormal_mgt(models.Model):
     _name = 'dispatch.abnormal.mgt'
 
     name = fields.Char()
-    line_id = fields.Char()
+    #线路
+    line_id = fields.Many2one('route_manage.route_manage')
+    #是否显示
     display = fields.Boolean()
+    #异常描述
     abnormal_description = fields.Text()
+    #建议
     suggest = fields.Text()
+    #方案
     solution = fields.Text()
+    #异常目录
     categ_id = fields.Many2one('lty.dispatch.abnorma.categ')
+    #异常日志
     log_ids = fields.One2many('dispatch.abnormal.logs', 'abnormal_id',  string="logs")
+    #异常状态
+    abnormal_state = fields.Selection([('active', 'Active'), ('ignore', 'Ignore'), ('done', 'Done')],default='active')
+    
+    @api.multi
+    def action_confirm(self):
+        """
+        """
+        self.write({"abnormal_state": 'done'})    
+    @api.multi
+    def action_ignore(self):
+        """
+        """
+        self.write({"abnormal_state": 'ignore'})        
+    
     
     
 class dispatch_abnormal_logs(models.Model):

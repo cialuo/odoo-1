@@ -28,13 +28,13 @@
     'data': [
         # 'security/security.xml',
         # 'security/ir.model.access.csv',
-        'views/template_view.xml',
+        #'views/template_view.xml',
         'views/schedule_employee.xml',
         'views/schedule.xml',
         'views/rescue_fleet.xml',
-        'views/line_map_production.xml',
+        #'views/line_map_production.xml',
     ],
-    'qweb': ['static/src/xml/*.xml'],
+    #'qweb': ['static/src/xml/*.xml'],
 
     'installable': True,
     'application': True,
