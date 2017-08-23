@@ -101,7 +101,7 @@ op_station = {
     #站台id int
     ('blockId ', 'station_id'): None,
     #距起点站距离 float,notfound
-    ('byStartDistance', None): None,
+    ('byStartDistance', 'by_start_distance'): None,
     #进站经度 float,后台获取 station_id.entrance_longitude
     ('longitude', None): None,
     #进站纬度 float 后台获取 station_id.entrance_latitude
@@ -115,7 +115,7 @@ op_station = {
     #出站角度 int 后台获取 station_id.exit_azimuth
     ('angleOut', None): None,
     #距下一站时间 ， not found
-    ('toNextTime', ''): None,
+    ('toNextTime', 'to_next_time'): None,
 
 }
 #车辆基础数据
@@ -129,7 +129,7 @@ tjs_car = {
     #车辆状态编码,文档中提供的是 001,002,003，004，不符合文档中提供的类型long，改为1,2,3,4
     ('carStateId', 'state'): {'normal': 3, 'repair': 1, 'stop': 4},
     #设备号，无对应字段
-    ('onBoardId', None): None,
+    ('onBoardId', 'on_board_id'): None,
     #车辆编号
     ('carNum', 'inner_code'): None,
     #车辆牌照
@@ -198,14 +198,14 @@ op_lineplan = {
     ('firstTime', 'upfirsttime'): None,
     #上行末班时间 Datetime
     ('lastTime', 'uplasttime'): None,
-    #计划趟次,无对应字段
-    ('planCount', None): None,
+    # #计划趟次,无对应字段
+    # ('planCount', None): None,
     #下行首班时间 Datetime
     ('firstTimeD', 'downfirsttime'): None,
     #下行末班时间 Datetime
     ('lastTimeD', 'downlasttime'): None,
     #开始计划 Datetime,无对应字段
-    ('startPlanTime', None): None,
+    ('startPlanTime', 'start_plan_time'): None,
     #创建日期
     ('createDate', 'create_date'): None,
     #主场站ID
@@ -223,13 +223,13 @@ op_planstationbigmain = {
     #运营计划ID int
     ('linePlanId', 'rule_id'): None,
     #方案站点ID int not found
-    ('opStationMainId', None): None,
+    ('opStationMainId', 'id'): None,
     #站点ID int
     ('stationId', 'site_id'): None,
     #站点名称,后台获取 site_id.name
     ('stationName', 'station_name'): None,
-    #距起点站距离float,not found
-    ('byStartDistance', None): None,
+    # #距起点站距离float,not found
+    # ('byStartDistance', None): None,
     #是否大站考核,0:否，1：是
     ('isCheck', 'needchecking'): {True: 1,False:0},
     #是否签点,0：否，1：是
@@ -240,14 +240,20 @@ op_planstationbigmain = {
     ('slowTime', 'slowthen'): None,
     #方向 int  0
     ('Direction', 'direction'): {'up': 0,'down':1},
-    #编号 int not found
-    ('orderNo', None): None,
-    #峰段标志ID 1001:低峰；1002：平峰；1003：高峰 not found
-    ('flagId', None): None,
-    #峰段标志名称 string not found
-    ('flagName', None): None,
-    #到下站考核时间点 string not found
-    ('checkTime', None): None,
+    #距上一站时间（低峰）
+    ('ByLastStationLow', 'tolastsite_low'): None,
+    #距上一站时间（平峰）
+    ('ByLastStationNormal', 'tolastsite_flat'): None,
+    #距上一站时间（高峰）
+    ('ByLastStationHigh', 'tolastsite_peak'): None,
+    # #编号 int not found
+    # ('orderNo', None): None,
+    # #峰段标志ID 1001:低峰；1002：平峰；1003：高峰 not found
+    # ('flagId', None): None,
+    # #峰段标志名称 string not found
+    # ('flagName', None): None,
+    # #到下站考核时间点 string not found
+    # ('checkTime', None): None,
 }
 
 #调度线路基础数据
@@ -394,7 +400,7 @@ op_param = {
 pub_hr_iccardmap = {
     ('id', 'id'): None,
     ('name', 'cardsn'): None,
-    ('codeValue', 'code_value'): None,
+    ('codeValue', 'cardsn'): None,
 }
 
 #运营计划峰值段  （scheduleplan.toup，scheduleplan.todown）
@@ -405,7 +411,7 @@ op_planparam = {
     #计划类型
     ('linePlanId', 'rule_id'): None,
     #参数标志long
-    ('flagId', 'mark'): {'peak': 3,'flat': 2,'low': 1},
+    ('flagId', 'mark'): {'peak': 3,'flat': 2,'low': 1, False:0},
     #参数标志String
     ('flagName', 'mark'): None,
     #开始时间Date
@@ -413,29 +419,29 @@ op_planparam = {
     #结束时间Date
     ('endTime', 'endtime'): None,
     #上行间隔1 int not found
-    ('level1', None): None,
-    #上行间隔2 int not found
-    ('level2', None): None,
-    #上行间隔3 int not found
-    ('level3', None): None,
-    #上行间隔4 int not found
-    ('level4', None): None,
-    #上行间隔5 int not found
-    ('level5', None): None,
+    ('level1', 'uptimearrage'): None,
+    # #上行间隔2 int not found
+    # ('level2', None): None,
+    # #上行间隔3 int not found
+    # ('level3', None): None,
+    # #上行间隔4 int not found
+    # ('level4', None): None,
+    # #上行间隔5 int not found
+    # ('level5', None): None,
     #时长 int
     ('runTime', 'worktimelength'): None,
     #方向 int not found 0:上行，1：下行，2：默认
     ('direction', 'direction'): {'up': 0,'down': 1},
-    #备注 String not found
-    ('remark', None): None,
-    #int 无描述不传
-    ('planCount', None): None,
-    #int 无描述不传
-    ('avgRestTime', None): None,
-    #int 无描述不传
-    ('maxRestTime', None): None,
-    #int 无描述不传
-    ('minRestTime', None): None,
+    # #备注 String not found
+    # ('remark', None): None,
+    # #int 无描述不传
+    # ('planCount', None): None,
+    # #int 无描述不传
+    # ('avgRestTime', None): None,
+    # #int 无描述不传
+    # ('maxRestTime', None): None,
+    # #int 无描述不传
+    # ('minRestTime', None): None,
 }
 #1.3.12	控制台
 # op_controlline -- dispatch.control.desktop.component
