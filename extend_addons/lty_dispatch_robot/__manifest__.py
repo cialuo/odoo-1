@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "lty_dispatch_jobs",
+    'name': "lty_dispatch_robot",
 
     'summary': """
-        调度作业""",
+        调度机器人""",
 
     'description': """
-        调度作业
+        调度机器人
     """,
 
     'author': "lihaihe",
@@ -19,19 +19,19 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['dispatch_monitor_menu','scheduling_parameters','vehicle_manage'],
+    'depends': [
+        'lty_dispatch_jobs', 
+        'fleet'    
+    ],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/dispatch_abnormal_views.xml',
-        'views/driver_records_view.xml',
-        'data/abnormal_categ_data.xml',
-		
-		
+        # 'security/ir.model.access.csv', 
+        'views/views.xml',     
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+    'application': True
 }
