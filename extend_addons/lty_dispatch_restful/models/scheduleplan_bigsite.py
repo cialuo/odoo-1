@@ -117,7 +117,7 @@ class Bigsitesetup(models.Model):
         '''
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
-        origin_ids = None
+        origin_ids = []
         if self._name == 'scheduleplan.bigsitesetup':
             origin_ids += map(lambda x: str(x) + 'up', self.ids)
         if self._name == 'scheduleplan.bigsitesetdown':

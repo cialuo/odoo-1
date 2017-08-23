@@ -281,7 +281,7 @@ op_dspLine = {
 
 
 #调度参数基础数据
-#由于参数在不同的Model定义，只能从res.company取值，则只有 write 接口
+#对应两个表  dispatch.config.settings   general.config.settings
 # op_param
 op_param = {
     ('id', 'id'): None,
@@ -656,7 +656,8 @@ origin_data = {
     # op_DspLine opertation_resources_vehicle_yard
     'opertation_resources_vehicle_yard': op_dspLine,
     #调度参数基础数据
-    'res.company': op_param,
+    'dispatch.config.settings': op_param,
+    'general.config.settings': op_param,
     #IC卡管理
     'employees.iccards': pub_hr_iccardmap,
     # 运营计划峰值段  （scheduleplan.toup，scheduleplan.todown）

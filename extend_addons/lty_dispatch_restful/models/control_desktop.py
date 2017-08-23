@@ -105,7 +105,7 @@ class Desktop(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         # vals = {"ids": self.ids}
-        res = super(Desktop, self).unlink()
+
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
@@ -117,4 +117,5 @@ class Desktop(models.Model):
                 rp = Client().http_post(url, data=params)
             except Exception,e:
                 _logger.info('%s', e.message)
+        res = super(Desktop, self).unlink()
         return res

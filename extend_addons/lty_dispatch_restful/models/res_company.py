@@ -28,86 +28,64 @@ import logging
 PARAM_TABLE = 'op_param'
 
 _logger = logging.getLogger(__name__)
-class Company(models.Model):
 
-    _inherit = 'res.company'
-
-    '''
-        继承公司，获取调度参数及通用设置,调用restful api
-    '''
-
-    #调度数据逐渐
-    # fk_id = fields.Char()
-
-    # @api.model
-    # def create(self, vals):
-    #     '''
-    #         数据创建完成调用api
-    #     :param vals:
-    #     :return:
-    #     '''
-    #
-    #     res = super(Company, self).create(vals)
-    #     url = self.env['ir.config_parameter'].get_param('restful.url')
-    #     cityCode = self.env['ir.config_parameter'].get_param('city.code')
-    #     try:
-    #         _logger.info('Start create data: %s', self._name)
-    #         vals = mapping.dict_transfer(self._name, vals)
-    #         vals.update({
-    #             'id': res.id,
-    #         })
-    #         params = Params(type=1, cityCode=cityCode,tableName=PARAM_TABLE, data=vals).to_dict()
-    #         rp = Client().http_post(url, data=params)
-    #     except Exception,e:
-    #         _logger.info('%s', e.message)
-    #     return res
+class Dispatch(models.TransientModel):
+    _inherit = 'dispatch.config.settings'
 
     @api.multi
-    def write(self, vals):
-        '''
-            数据编辑时调用api
-        :param vals:
-        :return:
-        '''
-
-
+    def execute(self):
+        super(Dispatch, self).execute()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        for r in self:
-            # seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            # if seconds.seconds > 5:
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                _logger.info('Start write data: %s', self._name)
-                vals = mapping.dict_transfer(self._name, vals)
-                if vals:
-                    vals.update({'id': r.id})
-                    params = Params(type=3, cityCode=cityCode,tableName=PARAM_TABLE, data=vals).to_dict()
-                    rp = Client().http_post(url, data=params)
-
-                # clientThread(url,params,res).start()
-            except Exception,e:
-                _logger.info('%s', e.message)
-        res = super(Company, self).write(vals)
+        vals = self.read()[0]
+        vals = mapping.dict_transfer(self._name, vals)
+        vals.update({'id': 1})
+        params = Params(type=3, cityCode=cityCode, tableName=PARAM_TABLE, data=vals).to_dict()
+        rp = Client().http_post(url, data=params)
+        res = self.env['ir.actions.act_window'].for_xml_id('lty_dispatch_config', 'action_dispatch_config_settings')
         return res
 
-    # @api.multi
-    # def unlink(self):
-    #     '''
-    #         数据删除时调用api
-    #     :return:
-    #     '''
-    #     # fk_ids = self.mapped('fk_id')
-    #     # vals = {"ids":fk_ids}
-    #     vals = {"ids": self.ids}
-    #     res = super(Company, self).unlink()
-    #     url = self.env['ir.config_parameter'].get_param('restful.url')
-    #     cityCode = self.env['ir.config_parameter'].get_param('city.code')
-    #     try:
-    #         # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-    #         _logger.info('Start unlink data: %s', self._name)
-    #         params = Params(type = 3, cityCode = cityCode,tableName = PARAM_TABLE, data = vals).to_dict()
-    #         clientThread(url,params,res).start()
-    #     except Exception,e:
-    #         _logger.info('%s', e.message)
-    #     return res
+class general(models.TransientModel):
+    _inherit = 'general.config.settings'
+
+    @api.multi
+    def execute(self):
+        super(general, self).execute()
+        url = self.env['ir.config_parameter'].get_param('restful.url')
+        cityCode = self.env['ir.config_parameter'].get_param('city.code')
+        vals = self.read()[0]
+        vals = mapping.dict_transfer(self._name, vals)
+        vals.update({'id': 1})
+        params = Params(type=3, cityCode=cityCode, tableName=PARAM_TABLE, data=vals).to_dict()
+        rp = Client().http_post(url, data=params)
+        res = self.env['ir.actions.act_window'].for_xml_id('lty_dispatch_config', 'action_general_config_settings')
+        return res
+
+# class Company(models.Model):
+#
+#     _inherit = 'res.company'
+#
+#     '''
+#         继承公司，获取调度参数及通用设置,调用restful api
+#     '''
+#     @api.multi
+#     def write(self, vals):
+#         '''
+#             数据编辑时调用api
+#         :param vals:
+#         :return:
+#         '''
+#         url = self.env['ir.config_parameter'].get_param('restful.url')
+#         cityCode = self.env['ir.config_parameter'].get_param('city.code')
+#         # for r in self:
+#         #     try:
+#         #         _logger.info('Start write data: %s', self._name)
+#         #         vals = mapping.dict_transfer(self._name, vals)
+#         #         if vals:
+#         #             vals.update({'id': r.id})
+#         #             params = Params(type=3, cityCode=cityCode,tableName=PARAM_TABLE, data=vals).to_dict()
+#         #             rp = Client().http_post(url, data=params)
+#         #     except Exception,e:
+#         #         _logger.info('%s', e.message)
+#         res = super(Company, self).write(vals)
+#         return res
