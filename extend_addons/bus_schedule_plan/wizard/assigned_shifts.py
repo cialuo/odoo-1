@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+from itertools import izip_longest
+import datetime
 
 
 class AssignedShifts(models.TransientModel):
@@ -33,15 +36,16 @@ class AssignedShifts(models.TransientModel):
 
     @api.multi
     def import_driver(self):
+        if self.use_date < datetime.date.today():
+            raise UserError(_("use_date is more than today"))
+
         for i in self.driver_vehicle_shift_ids:
             i.unlink()
 
         driver_list = self.driver_ids.ids
         conductor_list = self.conductor_ids.ids
         if len(driver_list) < len(conductor_list): #售票员比司机多的情况
-            pass
-        elif len(driver_list) > len(conductor_list):
-            conductor_list = conductor_list + [''] * (len(driver_list) - len(conductor_list))
+            raise UserError(_("The conductor is more than the driver"))
 
         vehicle_list = []
         for i in range(len(self.vehicle_ids.ids)):
@@ -63,14 +67,9 @@ class AssignedShifts(models.TransientModel):
 
         shift_line_lists = self.bus_shift_id.shift_line_ids.ids * len(self.vehicle_ids.ids)
 
-        vehicle_list = vehicle_list + [''] * (len(driver_list)-len(vehicle_list))
-        t_sequence_list = t_sequence_list + [''] * (len(driver_list) - len(t_sequence_list))
-        shift_line_lists = shift_line_lists + [''] * (len(driver_list) - len(shift_line_lists))
-
-        sequence = 0
-
-        xyz = zip(driver_list, conductor_list, vehicle_list, shift_line_lists, t_sequence_list)
+        xyz = izip_longest(driver_list, conductor_list, vehicle_list, shift_line_lists, t_sequence_list)
         datas = []
+        sequence = 0
         for j in xyz:
             sequence += 1
             data = {
@@ -97,6 +96,7 @@ class AssignedShifts(models.TransientModel):
             'type': 'ir.actions.act_window',
             'context': {'default_active_id': self._context.get('active_id')}
         }
+
 
     @api.multi
     def assigned_shifts(self):

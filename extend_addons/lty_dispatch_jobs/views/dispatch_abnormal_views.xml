@@ -133,8 +133,8 @@
               action="dispatch_abnormal_active_action_window" sequence="10"/>
     <menuitem name="Abnormal logs" id="dispatch_abnormal_logs_menu" parent="dispatch_monitor_menu.dispatch_work_menu"
               action="dispatch_abnormal_logs_action_window" sequence="20"/>      
-    <menuitem name="Driving Records" id="dispatch_driving_records_menu" parent="dispatch_monitor_menu.dispatch_work_menu"
-              action="dispatch_driving_records_action_window" sequence="30"/>                 
+    <!-- <menuitem name="Driving Records" id="dispatch_driving_records_menu" parent="dispatch_monitor_menu.dispatch_work_menu"
+              action="dispatch_driving_records_action_window" sequence="30"/>  -->                  
               
                                   
   </data>

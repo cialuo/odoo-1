@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "lty_dispatch_desktop_base",
+    'name': "lty_dispatch_robot",
 
     'summary': """
-        调度监控台基础模块""",
+        调度机器人""",
 
     'description': """
-        调度监控台基础模块
+        调度机器人
     """,
 
     'author': "lihaihe",
@@ -19,17 +19,19 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['web_kanban','dispatch_monitor_menu','scheduling_parameters'],
+    'depends': [
+        'lty_dispatch_jobs', 
+        'fleet'    
+    ],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/views.xml',
-        'data/default_desktop_cfg_data.xml',   
-        'views/dispatch_drver_command.xml',   		
+        # 'security/ir.model.access.csv', 
+        'views/views.xml',     
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+    'application': True
 }
