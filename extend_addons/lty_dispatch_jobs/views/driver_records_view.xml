@@ -1,0 +1,36 @@
+<openerp>
+  <data>
+    <!-- 行驶记录 -->
+    <record model="ir.ui.view" id="dispatch_vehicleusage_driverecords_list">
+      <field name="name">vehicleusage driverecords list</field>
+      <field name="model">vehicleusage.driverecords</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="direction"/>
+          <field name="GPSmileage"/>
+          <field name="plandepart"/>
+          <field name="realitydepart"/>
+          <field name="driver_id"/>
+          <field name="planarrive"/>
+		  <field name="realityarrive"/>
+          <field name="dirvetimes"/>
+		  <field name="planmileage"/>
+        </tree>
+      </field>
+    </record>
+    <!-- 行驶记录动作 -->  
+    <record model="ir.actions.act_window" id="dispatch_vehicleusage_driverecords_action">
+      <field name="name">vehicleusage driverecords</field>
+      <field name="res_model">vehicleusage.driverecords</field>
+      <field name="view_mode">tree,form</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          No Drive Records.<br/>
+	      </p>
+	  </field>           
+    </record>
+    <!-- 行驶记录菜单 -->  
+    <menuitem name="Driving Records" id="dispatch_driving_records_menu" parent="dispatch_monitor_menu.dispatch_work_menu"
+              action="dispatch_vehicleusage_driverecords_action" sequence="30"/>                                                
+  </data>
+</openerp>

@@ -1,0 +1,29 @@
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="dispatch_driver_command_list">
+      <field name="name">dispatch_driver_command_list</field>
+      <field name="model">dispatch.driver.command</field>
+      <field name="arch" type="xml">
+        <tree editable='top'>
+          <field name="name" required='1'/>
+          <field name="event_code" required='1'/>	
+          <field name="proiority" />
+          <field name="command_type_id"/>
+        </tree>
+      </field>
+    </record>      
+    <record model="ir.actions.act_window" id="dispatch_driver_command_action">
+      <field name="name">dispatch_driver_command_action</field>
+      <field name="res_model">dispatch.driver.command</field>
+      <field name="view_mode">tree</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          Click to create commands.<br/>
+	      </p>
+	  </field>      
+      
+    </record>
+    <menuitem name="Config Driver Command" id="dispatch_driver_command_action_menu" parent="dispatch_monitor_menu.dispatch_monitor_setting_menu"
+              action="dispatch_driver_command_action" sequence="20"/>
+  </data>
+</openerp>
