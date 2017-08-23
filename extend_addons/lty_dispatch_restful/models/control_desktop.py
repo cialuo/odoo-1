@@ -83,9 +83,11 @@ class Desktop(models.Model):
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(self._name, vals)
                     vals.update({
-                        'id': r.id,
-                        'lineName': res.line_id.line_name,
+                        'controlsId': r.desktop_id.id,
+
                     })
+                    if vals.get('line_id'):
+                        vals.update({'lineName': r.line_id.line_name})
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
 
@@ -109,7 +111,7 @@ class Desktop(models.Model):
         for r in self:
             try:
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                vals = {'id': r.id}
+                vals = {'controlsId': r.desktop_id.id}
                 _logger.info('Start unlink data: %s', self._name)
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
                 rp = Client().http_post(url, data=params)

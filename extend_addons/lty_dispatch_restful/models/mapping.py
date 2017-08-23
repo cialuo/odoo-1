@@ -91,7 +91,7 @@ op_station = {
     #站点名称string，后台获取station_id.name
     ('stationName', None): None,
     #站点方案Id int ，not found
-    ('opStationMainId', None): None,
+    ('opStationMainId', 'id'): None,
     #线路Id int，route_id
     ('lineId', 'route_id'): None,
     #站序 int ，
@@ -115,7 +115,7 @@ op_station = {
     #出站角度 int 后台获取 station_id.exit_azimuth
     ('angleOut', None): None,
     #距下一站时间 ， not found
-    ('toNextTime', None): None,
+    ('toNextTime', ''): None,
 
 }
 #车辆基础数据
@@ -155,22 +155,23 @@ tjs_car = {
 # hr_employee
 hr_employee = {
     ('id', 'id'): None,
-    #用户编号，无对应字段，ODOO中用户编码为string，使用登录用户ID，
+    #用户ID，
     ('userId', 'user_id'): None,
     #用户名称
-    ('userStateName', 'name'): None,
-    # #手机号码 不传
-    # ('mobilePhone', 'mobile_phone'): None,
-    # #邮箱 不传
-    # ('email', 'work_email'): None,
+    ('trueName', 'name'): None,
     #工号
-    ('Serils', 'jobnumber'): None,
-    #员工类型编码，无对应字段，使用岗位ID
+    ('serils', 'jobnumber'): None,
+    #岗位ID
     ('sysPostId', 'workpost'): None,
     #IC卡号
     ('ICCardNoId', 'iccard'): None,
     #身份证
     ('sfz', 'id_card'): None,
+    #删除状态
+    ('delState', 'active'): {True:0,False:1},
+    #部门ID
+    ('sysDepartmentId', 'department_id'): None,
+
 }
 
 #线路计划基础数据
@@ -627,7 +628,7 @@ sys_user = {
     ('id', 'id'): None,
     ('UserName', 'name'): None,
     ('UserPwd', 'password'): None,
-    ('delState', 'active'): {True:1,False:0}
+    ('delState', 'active'): {True:0,False:1}
 }
 origin_data = {
     #线路基础数据
@@ -673,6 +674,8 @@ origin_data = {
     'scheduleplan.motorcyclists.driver': op_attendance,
     #出勤乘务员
     'scheduleplan.motorcyclists.steward': op_trainattendance,
+    #用户表
+    'res.users': sys_user,
 }
 
 def dict_transfer(table, data):
@@ -695,6 +698,8 @@ def dict_transfer(table, data):
                             value = v[data[key]]
                         else:
                             value = data[key]
+                            if not value:
+                                value = 0
                         new_data.update({k[0]: value})
             _logger.info('Table: %s, origin Data: %s', table, data)
             _logger.info('Table: %s, Prepare New Data: %s', table, new_data)

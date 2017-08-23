@@ -56,10 +56,11 @@ class Vehicle(models.Model):
             vals.update({
                 'id': res.id,
                 'lineId': res.execplan_id.line_id.id,
-                'lineName': res.execplan_id.line_id.name,
+                'lineName': res.execplan_id.line_id.line_name,
                 'gprsId': res.execplan_id.line_id.gprs_id,
-                'onBoardId': res.vehicle_id.on_board_id,
+                # 'onBoardId': res.vehicle_id.on_board_id,
                 'carNum': res.vehicle_id.license_plate,
+                'workDate': res.create_date,
             })
             params = Params(type=1, cityCode=cityCode,tableName=CAR_TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
@@ -88,9 +89,9 @@ class Vehicle(models.Model):
                     vals.update({
                         'id': r.id,
                         'lineId': r.execplan_id.line_id.id,
-                        'lineName': r.execplan_id.line_id.name,
+                        'lineName': r.execplan_id.line_id.line_name,
                         'gprsId': r.execplan_id.line_id.gprs_id,
-                        'onBoardId': r.vehicle_id.on_board_id,
+                        # 'onBoardId': r.vehicle_id.on_board_id,
                         'carNum': r.vehicle_id.license_plate,
                     })
                     params = Params(type=3, cityCode=cityCode,tableName=CAR_TABLE, data=vals).to_dict()
@@ -117,7 +118,7 @@ class Vehicle(models.Model):
             try:
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                 _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': r}
+                vals = {'id': r.id}
                 params = Params(type = 2, cityCode = cityCode,tableName = CAR_TABLE, data = vals).to_dict()
                 rp = Client().http_post(url, data=params)
             except Exception,e:

@@ -121,7 +121,7 @@ class Toup(models.Model):
         '''
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
-        origin_ids = None
+        origin_ids = []
         if self._name == 'scheduleplan.toup':
             origin_ids += map(lambda x: int(str(x) + '0'), self.ids)
         if self._name == 'scheduleplan.todown':

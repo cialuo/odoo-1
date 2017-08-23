@@ -58,16 +58,17 @@ class attendance(models.Model):
             vals.update({
                 'id': res.id,
                 'lineId': res.execplan_id.line_id.id,
-                'lineName': res.execplan_id.line_id.name,
+                'lineName': res.execplan_id.line_id.line_name,
                 'gprsId': res.execplan_id.line_id.gprs_id,
-                'driverName': res.employee_id.name,
             })
             if res.title == 'driver':
-                #出勤司机
+                # 出勤司机
                 TABLE = 'op_attendance'
+                vals.update({'driverName': res.employee_id.name})
             if res.title == 'steward':
-                #出勤乘务员
+                # 出勤乘务员
                 TABLE = 'op_trainattendance'
+                vals.update({'trainName': res.employee_id.name})
             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
         except Exception,e:
@@ -96,16 +97,18 @@ class attendance(models.Model):
                     vals.update({
                         'id': r.id,
                         'lineId': r.execplan_id.line_id.id,
-                        'lineName': r.execplan_id.line_id.name,
+                        'lineName': r.execplan_id.line_id.line_name,
                         'gprsId': r.execplan_id.line_id.gprs_id,
-                        'driverName': r.employee_id.name,
+
                     })
                     if r.title == 'driver':
                         # 出勤司机
                         TABLE = 'op_attendance'
+                        vals.update({'driverName': r.employee_id.name})
                     if r.title == 'steward':
                         # 出勤乘务员
                         TABLE = 'op_trainattendance'
+                        vals.update({'trainName': r.employee_id.name})
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
                 except Exception,e:
@@ -120,8 +123,8 @@ class attendance(models.Model):
         '''
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
-        drivervals = {"ids": self.filtered(lambda x: x.title == 'driver').ids}
-        stewardvals = {"ids": self.filtered(lambda x: x.title == 'steward').ids}
+        drivervals = self.filtered(lambda x: x.title == 'driver').ids
+        stewardvals = self.filtered(lambda x: x.title == 'steward').ids
         res = super(attendance, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
