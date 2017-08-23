@@ -373,12 +373,17 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     $("body").click();
                     $(this).addClass("active_tr")
                     var parent_obj = $(this).parents(".plan_display")[0];
+                    var y = e.clientY + 5 - parseInt(parent_obj.style.top.replace("px",""));
+                    if ((y + 48*8)>document.body.clientHeight){
+                        y -= 48*6;
+                    }
+
                     var options = {
                         model: "bus_plan",
                         direction: $(this).attr("direction"),
                         pid: pid,
                         x: e.clientX + 5 - parseInt(parent_obj.style.left.replace("px","")),
-                        y: e.clientY + 5 - parseInt(parent_obj.style.top.replace("px","")),
+                        y: y,
                         zIndex: 1,
                         data_list: [
                             {name: "发送计划到车辆", en_name: "send_plan_vehicles_bt"},
@@ -456,14 +461,19 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     if (self.$(".set_"+pid).length > 0){
                         return false;
                     }
+                    $("body").click();
                     $(this).addClass("active_tr")
                     var parent_obj = $(this).parents(".plan_display")[0];
+                    var y = e.clientY + 5 - parseInt(parent_obj.style.top.replace("px",""));
+                    if ((y + 48*10)>document.body.clientHeight){
+                        y -= 48*7;
+                    }
                     var options = {
                         model: "bus_yard",
                         direction: $(this).attr("direction"),
                         pid: pid,
                         x: e.clientX + 5 - parseInt(parent_obj.style.left.replace("px","")),
-                        y: e.clientY + 5 - parseInt(parent_obj.style.top.replace("px","")),
+                        y: y,
                         zIndex: 1,
                         data_list: [
                             {name: "添加计划", en_name: "add_plan_bt"},
@@ -478,7 +488,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                             {name: "电子地图", en_name: "electronic_map_bt"}
                         ]
                     }
-                    $("body").click();
                     var dialog = new plan_display_set(self, options);
                     dialog.appendTo(self.$(".section_plan_cont").parents(".plan_display"));
                     return false;
@@ -505,12 +514,16 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     $("body").click();
                     $(this).addClass("active_tr")
                     var parent_obj = $(this).parents(".plan_display")[0];
+                    var y = e.clientY + 5 - parseInt(parent_obj.style.top.replace("px",""));
+                    if ((y + 48*8)>document.body.clientHeight){
+                        y -= 48*6;
+                    }
                     var options = {
                         model: "bus_transit",
                         direction: $(this).attr("direction"),
                         pid: pid,
                         x: e.clientX + 5 - parseInt(parent_obj.style.left.replace("px","")),
-                        y: e.clientY + 5 - parseInt(parent_obj.style.top.replace("px","")),
+                        y: y,
                         zIndex: 1,
                         data_list: [
                             {name: "添加计划", en_name: "add_plan_bt"},
