@@ -465,7 +465,7 @@ op_controlline = {
 op_commandtext = {
     ('id', 'id'): None,
     #long 无描述
-    ('priorityId', 'priority'): None,
+    ('priorityId', 'proiority'): None,
     #命令名称String
     ('name', 'name'): None,
     #命令编号 int

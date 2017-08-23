@@ -81,8 +81,8 @@ class Command(models.Model):
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
                     vals.update({
-                        'id': res.id,
-                        'command_type_name': res.command_type_id.name,
+                        'id': r.id,
+                        'command_type_name': r.command_type_id.name,
                     })
                     vals = mapping.dict_transfer(self._name, vals)
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
