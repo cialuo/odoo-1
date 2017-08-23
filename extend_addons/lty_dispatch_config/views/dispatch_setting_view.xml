@@ -272,7 +272,7 @@
         </record>
 
         <menuitem id="dispatch_settings_meun" name="dispatch_settings_meun"
-                  parent="dispatch_monitor_menu_setting_root"
+                  parent="dispatch_monitor_menu.dispatch_monitor_setting_menu"
                   sequence="20" action="action_dispatch_config_settings"
         />
     </data>
