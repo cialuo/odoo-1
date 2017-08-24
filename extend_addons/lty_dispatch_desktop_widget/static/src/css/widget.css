@@ -826,7 +826,10 @@
     border: 1px solid #6D7487;
     border-radius: 4px;
     color: #fff;
-    padding: 4px 8px;
+    padding: 0;
+    width: 46px;
+    height: 30px;\line-height: 30px;
+    text-align: center;
     font-size: 14px;
     margin-right: 4.8px;
 }
