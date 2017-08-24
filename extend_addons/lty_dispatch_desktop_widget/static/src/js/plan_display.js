@@ -103,6 +103,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         direction: 1,
                         data_list: ret.respose
                     };
+                    console.log(ret);
                     $.ajax({
                         url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:2032,gprsId:161}',
                         type: 'get',
@@ -157,134 +158,206 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 if (plan_display_set.length>0){
                     var plan_pid = plan_display_set.attr("plan_pid");
                     var model = plan_display_set.attr("model");
-                    self.$("."+model+" .content_tb .point[pid="+plan_pid+"]").removeClass("active_tr");
+                    self.$("."+model+" .content_tb .point[pid="+plan_pid+"]").removeClass("active_tr").removeClass("right");
                     $(".plan_display_set").remove();
                 }                
             })
 
-            // 重置
-            $("body").on("click", ".adjust_box .reset_bt", function(){
-                $(".adjust_box .plan_num").val("");
-            });
-
-            // 提交
-            $("body").on("click", ".adjust_box .ok_bt", function(){
-                layer.msg("请求接口还没有给到", {time: 2000, shade: 0.3});
-            });
-
-            // 关闭
-            $("body").on("click", ".adjust_box .close_bt", function(){
-                layer.closeAll();
-            });
-
-            // 计划右键菜单相关事件
-            self.bus_plan_set_fn();
-
-            // 车场右键菜单相关事件
-            self.bus_yard_set_fn();
-
-            // 在途右键菜单相关事件
-            self.bus_transit_set_fn();
+            // 计划，在场，在途手动操作交互事件
+            self.linePlanParktransit_bt_fn();
         },
-        bus_plan_set_fn: function(){
+        linePlanParktransit_bt_fn: function(){
             var self = this;
+            var plan_display = self.$(".plan_display");
+            // 车辆计划底部交互事件
+            self.plan_bottom_fn();
+
             // 发送计划都车辆
-            self.$(".plan_display").on("click", ".plan_display_set[model='bus_plan'] li.send_plan_vehicles_bt", function(){
+            plan_display.on("click", ".plan_display_set[model='bus_plan'] li.send_plan_vehicles_bt", function(){
                 var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
                 var obj = $(this).parents(".plan_display_set");
-                var id = obj.attr("plan_pid");
-                var direction = obj.attr("direction");
-                $.ajax({
-                    url: 'http://10.1.254.122:8080/ltyop/plan/sendPlanToBus?apikey=71029270&params={id: "'+id+'"}',
-                    type: 'get',
-                    dataType: 'json',
-                    data: {},
-                    success: function(ret){
-                        layer.close(layer_index);
-                        if (ret.result == 0){
-                            //这里特别说明一下，由于请求成功后，后台会立即触发一次推送websoket，页面状态更新这里将不在做处理
-                        }
-                        layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    }
-                });
+                var options = {
+                    obj: obj,
+                    id: obj.attr("plan_pid"),
+                    direction: obj.attr("direction"),
+                    layer_index: layer_index
+                };
+                self.send_plan_vehicles_fn(options);
             });
 
             // 计划车辆还原时间
-            self.$(".plan_display").on("click", ".plan_display_set[model='bus_plan'] li.reduction_time_bt", function(){
+            plan_display.on("click", ".plan_display_set[model='bus_plan'] li.reduction_time_bt", function(){
                 var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
                 var obj = $(this).parents(".plan_display_set");
-                var id = obj.attr("plan_pid");
-                $.ajax({
-                    url: 'http://10.1.254.122:8080/ltyop/plan/restoreTime?apikey=71029270&params={id: "'+id+'"}',
-                    type: 'get',
-                    dataType: 'json',
-                    data: {},
-                    success: function(ret){
-                        layer.close(layer_index);
-                        if (ret.result == 0){
-                            //这里特别说明一下，由于请求成功后，后台会立即触发一次推送websoket，页面状态更新这里将不在做处理
-                        }
-                        layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    }
-                });
+                var options = {
+                    obj: obj,
+                    id: obj.attr("plan_pid"),
+                    direction: obj.attr("direction"),
+                    layer_index: layer_index
+                };
+                self.reduction_time_fn(options);
             });
-        },
-        bus_yard_set_fn: function(){
-            var self = this;
+
             // 立即排班
-            self.$(".plan_display").on("click", ".plan_display_set[model='bus_yard'] li.immediately_scheduling_bt", function(){
+            plan_display.on("click", ".plan_display_set[model='bus_yard'] li.immediately_scheduling_bt", function(){
                 var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
                 var obj = $(this).parents(".plan_display_set");
-                var id = obj.attr("plan_pid");
-                var direction = obj.attr("direction");
-                $.ajax({
-                    url: 'http://10.1.254.122:8080/ltyop/resource/applyPlanById?apikey=71029270&params={id: "'+id+'"}',
-                    type: 'get',
-                    dataType: 'json',
-                    data: {},
-                    success: function(ret){
-                        layer.close(layer_index);
-                        layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    }
-                });
+                var options = {
+                    obj: obj,
+                    id: obj.attr("plan_pid"),
+                    direction: obj.attr("direction"),
+                    layer_index: layer_index
+                };
+                self.immediate_scheduling_fn(options);
             });
 
             // 取消排班
-            self.$(".plan_display").on("click", ".plan_display_set[model='bus_yard'] li.cancel_scheduling_bt", function(){
+            plan_display.on("click", ".plan_display_set[model='bus_yard'] li.cancel_scheduling_bt", function(){
                 var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
                 var obj = $(this).parents(".plan_display_set");
-                var id = obj.attr("plan_pid");
-                $.ajax({
-                    url: 'http://10.1.254.122:8080/ltyop/resource/cancelWorkPlan?apikey=71029270&params={id: "'+id+'"}',
-                    type: 'get',
-                    dataType: 'json',
-                    data: {},
-                    success: function(ret){
-                        layer.close(layer_index);
-                        layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    }
-                });
+                var options = {
+                    obj: obj,
+                    id: obj.attr("plan_pid"),
+                    direction: obj.attr("direction"),
+                    layer_index: layer_index
+                };
+                self.cancel_scheduling_fn(options);
             });
-
             // 退出运营
-            self.$(".plan_display").on("click", ".plan_display_set[model='bus_yard'] li.exit_operation_bt", function(){
+            plan_display.on("click", ".plan_display_set[model='bus_yard'] li.exit_operation_bt", function(){
                 var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
                 var obj = $(this).parents(".plan_display_set");
-                var id = obj.attr("plan_pid");
-                $.ajax({
-                    url: 'http://10.1.254.122:8080/ltyop/resource/exitRun?apikey=71029270&params={id: "'+id+'"}',
-                    type: 'get',
-                    dataType: 'json',
-                    data: {},
-                    success: function(ret){
-                        layer.close(layer_index);
-                        layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    }
-                });
+                var options = {
+                    obj: obj,
+                    id: obj.attr("plan_pid"),
+                    direction: obj.attr("direction"),
+                    layer_index: layer_index
+                };
+                self.exit_operation_fn(options);
             });
         },
-        bus_transit_set_fn: function(){
+        plan_bottom_fn: function(){
             var self = this;
+            var plan_display = self.$(".plan_display");
+            //上下移动计划
+            plan_display.on("click", ".bottom_bt .move_bt", function(){
+                var plan_box = $(this).parents(".plan_box");
+                var bus_plan = plan_box.find(".bus_plan");
+                var direction = bus_plan.attr("direction");
+                 // 先去掉右键浮层及active
+                var r_pid = plan_display.find(".content_tb tr.right").attr("pid");
+                plan_display.find(".plan_display_set").remove();
+                plan_display.find(".content_tb tr.right").removeClass("active_tr").removeClass("right");
+                var active_tr = bus_plan.find(".content_tb tr.active_tr");
+                if (active_tr.length == 1) {
+                    var options = {
+                        active_tr: active_tr,
+                        type: $(this).attr("name")
+                    };
+                    self.move_up_or_down_fn(options);
+                }else{
+                    layer.msg("请选择需要处理的计划", {time: 1000, shade: 0.3});
+                }
+            });
+        },
+        send_plan_vehicles_fn: function(options){
+            $.ajax({
+                url: 'http://10.1.254.122:8080/ltyop/plan/sendPlanToBus?apikey=71029270&params={id: "'+options.id+'"}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(options.layer_index);
+                    if (ret.result == 0){
+                        //这里特别说明一下，由于请求成功后，后台会立即触发一次推送websoket，页面状态更新这里将不在做处理
+                    }
+                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                }
+            });
+        },
+        reduction_time_fn: function(options){
+            $.ajax({
+                url: 'http://10.1.254.122:8080/ltyop/plan/restoreTime?apikey=71029270&params={id: "'+options.id+'"}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(options.layer_index);
+                    if (ret.result == 0){
+                        //这里特别说明一下，由于请求成功后，后台会立即触发一次推送websoket，页面状态更新这里将不在做处理
+                    }
+                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                }
+            });
+        },
+        immediate_scheduling_fn: function(options){
+            $.ajax({
+                url: 'http://10.1.254.122:8080/ltyop/resource/applyPlanById?apikey=71029270&params={id: "'+options.id+'"}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(options.layer_index);
+                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                }
+            });
+        },
+        cancel_scheduling_fn: function(options){
+            $.ajax({
+                url: 'http://10.1.254.122:8080/ltyop/resource/cancelWorkPlan?apikey=71029270&params={id: "'+options.id+'"}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(options.layer_index);
+                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                }
+            });
+        },
+        exit_operation_fn: function(options){
+            $.ajax({
+                url: 'http://10.1.254.122:8080/ltyop/resource/exitRun?apikey=71029270&params={id: "'+options.id+'"}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(options.layer_index);
+                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                }
+            });
+        },
+        move_up_or_down_fn: function(options){
+            var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
+            var active_tr = options.active_tr;
+            var id = active_tr.attr("pid");
+            var type = options.type;
+            var prev_tr = active_tr.prev ('tr.point');
+            var next_tr = active_tr.next ('tr.point');
+            if (type == 1 && prev_tr.length == 0){
+                layer.msg("该计划已经是最前面的", {time: 1000, shade: 0.3});
+                return;
+            }
+            if (type == 2 && next_tr.length == 0){
+                layer.msg("该计划已经是最后面的", {time: 1000, shade: 0.3});
+                return;
+            }
+            $.ajax({
+                url: 'http://10.1.254.122:8080/ltyop/plan/movePlan?apikey=71029270&params={id: "'+id+'", type: "'+type+'"}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(layer_index);
+                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                    if (ret.result == 0){
+                        if (type == 1){
+                            prev_tr.before(active_tr);
+                        }else{
+                            next_tr.after(active_tr);
+                        }
+                    }
+                }
+            });
         },
         closeFn: function(){
             // 取消线路计划、车场、状态
@@ -321,46 +394,12 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 self.$(".active_tr").removeClass("active_tr");
             });
 
-            //上下移动计划
-            self.$el.find(".bottom_bt").on("click", ".move_bt", function(){
-                var active_tr = self.$(".active_tr");
-                if (active_tr.length == 0){
-                    layer.msg("请选择需要处理的计划", {time: 1000, shade: 0.3});
-                    return;
-                }
-                var name = $(this).attr("name");
-                self.move_fn(active_tr, name);
-            });
-
             // 增加icon浮层说明
             self.$(".content_tb .icon").hover(function(){
                 var txt = ($(this).attr("st")==1)?'已发送':'未发送'
                 self.layer_f_index = layer.tips(txt, this);
             },function(){
                 layer.close(self.layer_f_index);
-            });
-
-            // 调整计划
-            self.$el.find(".bottom_bt").on("click", ".adjust", function(){
-                var init_data = {
-                    vehicle:1,
-                    direction_of:1,
-                    driver:1,
-                    adjust_the_reason:1,
-                    time:1,
-                    line:1,
-                    run_line:1,
-                    trip_time:1,
-                    type:1,
-                    mileage:1
-                };
-                self.layer_index = layer.open({
-                    type: 1,
-                    title: "调整计划",
-                    area: ['600px', ''],
-                    resize: false,
-                    content: QWeb.render("adjust_the_plan_template", {quota: init_data}),
-                });
             });
 
             // 右键事件
@@ -371,7 +410,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         return false;
                     }
                     $("body").click();
-                    $(this).addClass("active_tr")
+                    $(this).addClass("active_tr").addClass("right");
                     var parent_obj = $(this).parents(".plan_display")[0];
                     var y = e.clientY + 5 - parseInt(parent_obj.style.top.replace("px",""));
                     if ((y + 48*8)>document.body.clientHeight){
@@ -401,38 +440,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     return false;
                 }
             });
-        },
-        move_fn: function(active_tr, type){
-            var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
-            var id = active_tr.attr('pid');
-            var prev_tr = active_tr.prev ('tr.point');
-            var next_tr = active_tr.next ('tr.point');
-            if (type == 1 && prev_tr.length == 0){
-                layer.msg("该计划已经是最前面的", {time: 1000, shade: 0.3});
-                return;
-            }
-            if (type == 2 && next_tr.length == 0){
-                layer.msg("该计划已经是最后面的", {time: 1000, shade: 0.3});
-                return;
-            }
-            $.ajax({
-                url: 'http://10.1.254.122:8080/ltyop/plan/movePlan?apikey=71029270&params={id: "'+id+'", type: "'+type+'"}',
-                type: 'get',
-                dataType: 'json',
-                data: {},
-                success: function(ret){
-                    layer.close(layer_index);
-                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    if (ret.result == 0){
-                        if (type == 1){
-                            prev_tr.before(active_tr);
-                        }else{
-                            next_tr.after(active_tr);
-                        }
-                    }
-                }
-            });
-        },
+        }
     });
 
     var bus_yard = Widget.extend({
@@ -462,7 +470,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         return false;
                     }
                     $("body").click();
-                    $(this).addClass("active_tr")
+                    $(this).addClass("active_tr").addClass("right");
                     var parent_obj = $(this).parents(".plan_display")[0];
                     var y = e.clientY + 5 - parseInt(parent_obj.style.top.replace("px",""));
                     if ((y + 48*10)>document.body.clientHeight){
@@ -512,7 +520,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         return false;
                     }
                     $("body").click();
-                    $(this).addClass("active_tr")
+                    $(this).addClass("active_tr").addClass("right");
                     var parent_obj = $(this).parents(".plan_display")[0];
                     var y = e.clientY + 5 - parseInt(parent_obj.style.top.replace("px",""));
                     if ((y + 48*8)>document.body.clientHeight){
