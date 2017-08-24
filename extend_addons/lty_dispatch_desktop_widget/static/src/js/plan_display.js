@@ -103,7 +103,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         direction: 1,
                         data_list: ret.respose
                     };
-                    console.log(ret);
                     $.ajax({
                         url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:2032,gprsId:161}',
                         type: 'get',
