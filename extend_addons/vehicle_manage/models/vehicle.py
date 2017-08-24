@@ -72,7 +72,9 @@ class Vehicle(models.Model):
     #线路修正系数
     route_correct_value = fields.Float(related='route_id.oil_wear_coefficient', string="oil_wear_coefficient", readonly=True)
 
-    ride_number = fields.Integer('Ride Number', related='model_id.ride_number', readonly=True)
+    ride_number = fields.Integer('Ride Number', related='model_id.ride_number', readonly=True) #核载人数
+
+    on_boardid = fields.Integer(string='OnBoardId') #终端设备编号
 
     @api.multi
     def copy(self, default=None):

@@ -16,7 +16,7 @@ class Client:
     def __init__(self):
 
         #重试次数
-        self.retry = 4
+        self.retry = 2
 
         #超时时间
         self.timeout = 5
@@ -65,7 +65,8 @@ class Client:
             try:
                 logger.info(u"第%s次发送请求===>url：%s ,参数：%s" % ((i+1),url,kwargs))
                 response = requests.post(url, **kwargs)
-                logger.info(u"接受响应===>结果：" % (response.json()))
+                res = response.json()['resultMsg']
+                logger.info(u"接受响应===>状态：%s，", res)
                 return response
 
             except ConnectionError , e:

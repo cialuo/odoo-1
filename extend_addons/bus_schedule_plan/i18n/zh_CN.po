@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-21 08:56+0000\n"
-"PO-Revision-Date: 2017-08-21 08:56+0000\n"
+"POT-Creation-Date: 2017-08-22 09:18+0000\n"
+"PO-Revision-Date: 2017-08-22 09:18+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -779,43 +779,43 @@ msgid "Sunday"
 msgstr "周日"
 
 #. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:48
+#, python-format
+msgid "The conductor is more than the driver"
+msgstr "售票员比司机多，请重新分配"
+
+#. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/bus_shift.py:63
-#: sql_constraint:bus_shift_line:0
 #, python-format
 msgid "The name must be unique!"
 msgstr "班次名称必须唯一!"
 
 #. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/bus_shift.py:31
-#: sql_constraint:bus_shift_choose_line:0
 #, python-format
 msgid "The record must be unique!"
 msgstr "班次必须唯一!"
 
 #. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/bus_group.py:233
-#: sql_constraint:bus_group_conductor:0
 #, python-format
 msgid "The route and conductor must be unique!"
 msgstr "该线路的乘务员必须唯一!"
 
 #. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/bus_group.py:214
-#: sql_constraint:bus_group_driver:0
 #, python-format
 msgid "The route and driver must be unique!"
 msgstr "该线路的司机必须唯一!"
 
 #. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/bus_group.py:15
-#: sql_constraint:bus_group:0
 #, python-format
 msgid "The route and name must be unique!"
 msgstr "该线路的班组名称必须唯一"
 
 #. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/bus_group.py:193
-#: sql_constraint:bus_group_vehicle:0
 #, python-format
 msgid "The route and vehicle must be unique!"
 msgstr "线路和车辆必须唯一"
@@ -910,11 +910,6 @@ msgid "Wednesday"
 msgstr "周三"
 
 #. module: bus_schedule_plan
-#: model:ir.ui.view,arch_db:bus_schedule_plan.bus_group_form
-msgid "action_tomorrow"
-msgstr "action_tomorrow"
-
-#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_down_rulebusarrange_allvehicles
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_up_rulebusarrange_allvehicles
 msgid "all vehcile number"
@@ -934,7 +929,7 @@ msgid "arrive time"
 msgstr "到达时间"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:91
+#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:90
 #: model:ir.actions.act_window,name:bus_schedule_plan.act_assigned_shifts
 #: model:ir.model,name:bus_schedule_plan.model_assigned_shifts
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_group_form
@@ -1956,6 +1951,12 @@ msgstr "上行运营车辆"
 #: selection:bus_group,state:0
 msgid "use"
 msgstr "可用"
+
+#. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:40
+#, python-format
+msgid "use_date is more than today"
+msgstr "使用时间不能小于当天"
 
 #. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/models.py:166

@@ -19,11 +19,18 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['scheduling_parameters'],
+    'depends': [
+        'scheduling_parameters',
+        'vehicle_manage',
+        'bus_schedule_plan',
+        'lty_dispatch_config',
+        'lty_dispatch_desktop_base',
+    ],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'data/data.xml',
         'views/menus.xml',
     ]
 

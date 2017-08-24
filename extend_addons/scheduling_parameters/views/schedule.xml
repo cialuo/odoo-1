@@ -281,6 +281,8 @@
                                         <field name="exit_azimuth"/>
                                         <field name="exit_longitude"/>
                                         <field name="exit_latitude"/>
+                                        <field name="by_start_distance"/>
+                                        <field name="to_next_time"/>
                                         <field name="is_show_name"/>
                                     </tree>
                                 </field>
@@ -298,6 +300,8 @@
                                         <field name="exit_azimuth"/>
                                         <field name="exit_longitude"/>
                                         <field name="exit_latitude"/>
+                                        <field name="by_start_distance"/>
+                                        <field name="to_next_time"/>
                                         <field name="is_show_name"/>
                                     </tree>
                                 </field>
