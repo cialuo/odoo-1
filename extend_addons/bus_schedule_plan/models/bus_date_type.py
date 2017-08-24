@@ -36,12 +36,15 @@ class BusDateType(models.Model):
                 i.priority = 'two level'
 
     @api.constrains('start_date', 'end_date')
-    def _check_change_count(self):
+    def _check_date(self):
         for r in self:
             if r.start_date > r.end_date:
                 raise exceptions.ValidationError(_("end_date must be greater than start_date"))
 
     def check_type_date(self, date_type, start_date, end_date, id=False):
+        """
+        判断时间是否有重复
+        """
         if id:
             res = self.search([('type', '=', date_type),('id', '!=', id)])
         else:
@@ -59,8 +62,7 @@ class BusDateType(models.Model):
     @api.model
     def create(self, data):
         """
-        报修单:
-            功能：自动生成人车配班名称 线路名称/当前日期
+        新增时判断时间是否有重复
         """
         date_type = data['type']
         start_date = data['start_date']
@@ -75,6 +77,9 @@ class BusDateType(models.Model):
 
     @api.multi
     def write(self, vals):
+        """
+        修改时判断时间是否有重复
+        """
         if 'type' in vals or 'start_date' in vals or 'end_date' in vals:
             if 'type' in vals:
                 date_type = vals.get('type', '')

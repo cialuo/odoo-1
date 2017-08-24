@@ -151,8 +151,7 @@
     right: 10px;
 }
 
-
-.dispatch_desktop a.min, .dispatch_desktop a.line_edit, .dispatch_desktop a.show_right {
+.dispatch_desktop a.min, .dispatch_desktop a.line_edit, .dispatch_desktop a.show_right{
     font-weight: bold;
     width: 16px;
     height: 16px;
@@ -165,9 +164,7 @@
     display: inline-block;
     margin-right: 2px;
 }
-.dispatch_desktop a.show_right{
-    display: none;
-}
+
 .dispatch_desktop .edit_content {
     position: absolute;
     right: 0;
@@ -349,6 +346,21 @@
 
 .updown_line_table .absnormal_sug h4 {
     color: #4ecfc7;
+    margin-bottom: 5px;
+}
+
+.absnormal_diaodu {
+    display: none;
+}
+
+.absnormal_operate .abs_info {
+    height: 110px;
+    overflow: hidden;
+}
+
+.absnormal_operate .absnormal_height p {
+    height: 20px;
+    line-height: 20px;
 }
 
 .updown_line_table .absnormal_operate {
@@ -365,9 +377,11 @@
 .no_absnormal .finishBtn .is_check {
     width: 204px !important;
 }
-.no_absnormal .finishBtn{
+
+.no_absnormal .finishBtn {
     display: none;
 }
+
 .updown_line_table .no_absnormal {
     display: none;
 }
@@ -376,7 +390,7 @@
     color: #4ecfc7;
 }
 
-.updown_line_table .handleBtn a, .updown_line_table .finishBtn a{
+.updown_line_table .handleBtn a, .updown_line_table .finishBtn a {
     display: block;
     float: left;
     color: #cb413c;
@@ -424,16 +438,18 @@
 
 .updown_line_table {
     left: 1300px;
-    top: 150px;
+    top: 50px;
     width: 600px;
     height: 190px;
     background: #343B58;
     border-radius: 8px;
 
 }
+
 .updown_line_table.warn {
     box-shadow: 0px 0px 10px #9d3d42;
 }
+
 .updown_line_table .updown_title {
     height: 30px;
 }
@@ -444,13 +460,13 @@
     right: 20px;
 }
 
-.updown_line_table .line_btn {
+.updown_line_table .line_btn,.bus_src_config .min ,.main_controll_interface .min {
     position: absolute;
     top: 5px;
     right: 10px;
 }
 
-.updown_line_table a.min {
+.updown_line_table a.min,.bus_src_config .min ,.main_controll_interface .min {
     width: 16px;
     height: 16px;
     line-height: 12px;
@@ -462,7 +478,7 @@
     cursor: pointer;
 }
 
-.del {
+dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     font-weight: bold;
     width: 16px;
     height: 16px;
@@ -654,12 +670,12 @@
     height: 80px;
 }
 
-.bus_src_config .closeBox {
+.bus_src_config .closeBox, .main_controll_interface .closeBox {
     height: 30px;
     position: relative;
 }
 
-.bus_src_config .dis_close_bt {
+.bus_src_config .dis_close_bt, .main_controll_interface .dis_close_bt, .digital_map .dis_close_bt {
     position: absolute;
     right: 5px;
     top: 13px;
@@ -682,9 +698,14 @@
 
 .main_controll_interface {
     width: 924px;
-    border: 1px solid #ccc;
-    background: #fff;
     position: absolute;
+    border-radius: 8px;
+    background: #37405F;
+    color: #fff;
+}
+
+.main_controll_interface a {
+    color: #fff;
 }
 
 .main_controll_interface .src_title {
@@ -697,9 +718,6 @@
     padding-left: 31px;
 }
 
-.bus_src_config .src_line_number {
-    margin-left: 10px;
-}
 
 .bus_src_config .line_list > div > div {
     height: 26px;
@@ -739,7 +757,7 @@
 }
 
 .bus_src_config .src_content table {
-    width: 1336px;
+    width: 1344px;
     margin: 0 auto;
     color: #838697;
     border: 1px solid #6D7487;
@@ -754,6 +772,7 @@
     height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #6D7487;
+    width:95px;
 }
 
 .bus_src_config th {
@@ -857,14 +876,14 @@
 }
 
 #digital_map {
-    height: 600px;
+    height: 520px;
+    width: 660px;
 }
 
 .main_controll_interface .line_list {
     height: 34px;
     padding-left: 30px;
     padding-top: 5px;
-    background: #7c7bad;
 }
 
 .main_controll_interface .line_list ul {
@@ -897,7 +916,7 @@
     position: relative;
     height: 30px;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 20px;
 
 }
 
@@ -926,6 +945,21 @@
     width: 842px;
     margin-left: 10px;
     margin-top: 10px;
+}
+.table_bus_num tbody.table_bus_num_tbody{
+    height: 408px;
+    overflow: scroll;
+    display: block;
+}
+.table_bus_num .th_end{
+    width:109px;
+    padding-right: 0;
+}
+.table_bus_num thead{
+    display: block;
+}
+.table_bus_num.towarn{
+    color: #be4151;
 }
 
 .main_controll_interface .table_bus_num table {
@@ -960,39 +994,37 @@
 
 .active_a {
     border: 1px solid #ccc;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #37405F;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
 }
 
-
-
 /*运营管理*/
-.scheme_parameter{
+.scheme_parameter {
     color: #A37BC2;
 }
-.run_bus_times{
+
+.run_bus_times {
     overflow: hidden;
 }
-.run_bus_times li{
+
+.run_bus_times li {
     float: left;
-    width:186px;
+    width: 186px;
 }
-.run_bus_times .li_list1{
-border-right: 1px solid #ccc;
+
+.run_bus_times .li_list1 {
+    border-right: 1px solid #ccc;
 }
-.abcd ul{
-    margin: 0;
-    padding: 0;
-    width: 100px;
-    height: 400px;
-    float: left;
+
+.btn.map_destory {
+    position: absolute;
+    left: 10px;
+    top: 10px;
 }
-.abcd ul li{
-    list-style: none;
-    width: 99px;
-    height: 99px;
-    border: 1px solid #ccc;
-    line-height: 100px;
-    text-align: center;
+
+.driver_site_map #driver_site{
+    width:300px;
+    height:300px;
 }
+
