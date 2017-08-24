@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <!--主菜单-->
-        <menuitem id="materials_menu_root" name="materials_menu"  sequence="50"/>
+        <menuitem id="materials_menu_root" name="materials_menu"  sequence="50" web_icon="materials_menu,static/description/icon.png"/>
         <!--采购管理 -->
         <menuitem id="materials_menu_purchase"
                   name="purchase_menu"
