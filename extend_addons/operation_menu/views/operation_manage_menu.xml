@@ -1,8 +1,7 @@
 <odoo>
     <data>
-
         <!-- 运营管理 -->
-        <menuitem name="operation manage"  id="operation_menu_root"  sequence="10"/>
+        <menuitem name="operation manage"  id="operation_menu_root"  sequence="10" web_icon="operation_menu,static/description/icon.png"/>
         <!--供需平衡分析-->
 		<menuitem name="balance of supply and demand" id="balance_of_supply_and_demand_menu" parent="operation_menu_root" sequence="10"/>
         <!--行车作业编制-->
@@ -33,6 +32,5 @@
         <menuitem name="platform join up" id="platform_join_up_menu" parent="operation_menu_root" sequence="100"/>
         <!--配置-->
         <menuitem name="settings" id="settings_menu" parent="operation_menu_root" sequence="110"/>
-
     </data>
 </odoo>

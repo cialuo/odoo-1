@@ -1,7 +1,7 @@
 <odoo>
 	<data>
 
-		<menuitem name="vehicle_manage_menu" sequence="40" id="vehicle_manage_menu_root"/> <!--车辆管理-->
+		<menuitem name="vehicle_manage_menu" sequence="40" id="vehicle_manage_menu_root" web_icon="vehicle_manage_menu,static/description/icon.png"/> <!--车辆管理-->
 
         <menuitem name="vehicle_basic_manage" id="vehicle_basic_manage" parent="vehicle_manage_menu_root" sequence="10"/> <!--车辆基础管理-->
 

@@ -1,0 +1,84 @@
+
+.o_application_switcher {
+    height: 100%;
+    overflow: auto;
+    .o-flex-display();
+    .o-flex-flow(column, nowrap);
+    .o-align-items(center);
+    padding:0 15px;
+
+    .o_application_switcher_scrollable {
+        .o-flex-display();
+        .o-flex-flow(column, nowrap);
+        .o-align-items(center);
+        .o-flex(1, 0, auto);
+        width: 100%;
+        max-width: @screen-sm-min;
+        @media (min-width: 1440px) {
+                max-width:1280px;
+            }
+        .o_apps {
+            .o-flex(0, 0, auto);
+            width: 100%;
+            max-width: @screen-sm-min;
+            //padding:0 15px;
+            @media (min-width: 1440px) {
+                max-width:1280px;
+            }
+            .clearfix();
+
+            .o_app {
+                float: left;
+                margin-bottom:15px;
+
+                    //width: 22%; // +3% margin = 4 apps per line
+                    &:nth-child(1){width:20%;margin-right: 1.4%;background-color: #287ac9;}
+                    &:nth-child(2){width:20%;margin-right: 1.4%;background-color: #573aa3;}
+                    &:nth-child(3){width:11%;margin-right: 1.4%;background-color: #2b89d0;}
+                    &:nth-child(4){width:11%;margin-right: 1.4%;background-color: #c22062;}
+                    &:nth-child(5){width:20%;margin-right: 1.4%;background-color: #d5733f;}
+                    &:nth-child(6){width:11%;background-color: #0aa116;}
+                    &:nth-child(7){width:20%;margin-right: 1.4%;background-color: #623dbd;}
+                    &:nth-child(8){width:20%;margin-right: 1.4%;background-color: #07921c;}
+                    &:nth-child(9){width:11%;margin-right: 1.4%;background-color: #d37a43;}
+                    &:nth-child(10){width:11%;margin-right: 1.4%;background-color: #1d519c;}
+                    &:nth-child(11){width:20%;margin-right: 1.4%;background-color: #2c8cce;}
+                    &:nth-child(12){width:11%;background-color: #c52167;}
+                @media (max-width: @screen-xs-max) {
+                //width: 13.66%; // +3% margin = 6 apps per line
+                &:nth-child(1){width:49%;margin-right: 2%;background-color: #287ac9;}
+                &:nth-child(2){width:49%;margin-right: 0;background-color: #573aa3;}
+                &:nth-child(3){width:23.5%;margin-right: 2%;background-color: #2b89d0;}
+                &:nth-child(4){width:23.5%;margin-right: 2%;background-color: #c22062;}
+                &:nth-child(5){width:49%;margin-right: 0;background-color: #d5733f;}
+                &:nth-child(6){width:23.5%;margin-right: 2%;background-color: #0aa116;}
+                &:nth-child(7){width:49%;margin-right: 2%;background-color: #623dbd;}
+                &:nth-child(8){width:23.5%;margin-right: 0;background-color: #07921c;}
+                &:nth-child(9){width:49%;margin-right: 2%;background-color: #d37a43;}
+                &:nth-child(10){width:49%;margin-right: 0;background-color: #1d519c;}
+                &:nth-child(11){width:20%;margin-right: 1.4%;background-color: #2c8cce;display: none;}
+                &:nth-child(12){width:11%;background-color: #c52167;display: none;}
+                }
+            }
+        }
+        .o_menuitems {
+            width: 100%;
+
+            .o-flex(1, 0, auto);
+            .o_menuitem {
+                @media (max-width: @screen-xs-max) {
+                    padding: 6px;
+                }
+            }
+            
+        }
+        .o_no_results {
+            .o-flex(1, 0, auto);
+        }
+    }
+    .o_application_switcher_footer {
+        .o-flex-display();
+        .o-flex(1, 0, auto);
+        align-items: flex-end;
+    }
+}
