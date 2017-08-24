@@ -222,8 +222,8 @@ op_planstationbigmain = {
     ('id', 'id'): None,
     #运营计划ID int
     ('linePlanId', 'rule_id'): None,
-    #方案站点ID int not found
-    ('opStationMainId', 'id'): None,
+    #方案站点ID int not found  线路ID ，后台获取
+    ('opStationMainId', 'line_id'): None,
     #站点ID int
     ('stationId', 'site_id'): None,
     #站点名称,后台获取 site_id.name
@@ -239,13 +239,13 @@ op_planstationbigmain = {
     #允许慢几分钟 int
     ('slowTime', 'slowthen'): None,
     #方向 int  0
-    ('Direction', 'direction'): {'up': 0,'down':1},
+    ('direction', 'direction'): {'up': 0,'down':1},
     #距上一站时间（低峰）
-    ('ByLastStationLow', 'tolastsit_low'): None,
+    ('byLastStationLow', 'tolastsit_low'): None,
     #距上一站时间（平峰）
-    ('ByLastStationNormal', 'tolastsit_flat'): None,
+    ('byLastStationNormal', 'tolastsit_flat'): None,
     #距上一站时间（高峰）
-    ('ByLastStationHigh', 'tolastsit_peak'): None,
+    ('byLastStationHigh', 'tolastsit_peak'): None,
     # #编号 int not found
     # ('orderNo', None): None,
     # #峰段标志ID 1001:低峰；1002：平峰；1003：高峰 not found

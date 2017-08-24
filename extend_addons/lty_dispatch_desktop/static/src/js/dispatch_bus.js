@@ -568,9 +568,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if ($(".linePlanParkOnlineModel_" + options.line_id).length > 0) {
                     return;
                 } else {
-                    $(".linePlanParkOnlineModel").remove();
-                    var dialog = new plan_display(self, options);
-                    dialog.appendTo($(".controller_" + options.controllerId));
+                    try {
+                        $(".linePlanParkOnlineModel").remove();
+                        var dialog = new plan_display(self, options);
+                        dialog.appendTo($(".controller_" + options.controllerId));
+                    } catch(e){
+                        var layer_index = layer.msg("websoket断开链接，请检查网络是否通畅", {shade: 0.3});
+                    }
                 }
             }
         }
