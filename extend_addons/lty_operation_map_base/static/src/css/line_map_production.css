@@ -102,6 +102,11 @@
     margin: 5px 0 30px;
 }
 
+.line_map_production .mapCustomPanel .mapSetLineContext .btBox input.active_bt {
+    background: #669900;
+    color: #fff;
+}
+
 .line_map_production .mapCustomPanel .mapSetLineContext input, .line_map_production .mapCustomPanel select {
     text-rendering: auto;
     color: initial;
