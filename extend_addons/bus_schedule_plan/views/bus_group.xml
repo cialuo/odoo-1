@@ -34,11 +34,11 @@
                             <!--/>-->
 
 
-                        <button string="action_tomorrow"
-                            type="object"
-                            name="action_tomorrow"
-                            attrs="{'invisible': [('is_not_match', '=', True)]}"
-                            />
+                        <!--<button string="action_tomorrow"-->
+                            <!--type="object"-->
+                            <!--name="action_tomorrow"-->
+                            <!--attrs="{'invisible': [('is_not_match', '=', True)]}"-->
+                            <!--/>-->
 
                         <button string="assigned_shifts"
                             type="action"
@@ -128,7 +128,7 @@
 
                             <page string="GroupVehicleShifts">
                                 <field name="driver_vehicle_shift_ids" >
-                                    <tree editable="bottom" create="false">
+                                    <tree editable="bottom" create="false" delete="false">
                                         <field name="use_date"/>
                                         <field name="create_date"/>
                                         <field name="sequence"/>

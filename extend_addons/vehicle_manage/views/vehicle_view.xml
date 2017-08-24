@@ -80,6 +80,7 @@
                                         <field name="emission_standard"/>
                                         <field name="model_id" options="{'no_open':True,'no_create':True}" string="车型"/>
                                         <field name="start_service_date" readonly="1"/>
+                                        <field name="on_boardid"/>
                                     </group>
                                     <group>
                                         <!--<field name="route_correct_value"/>-->

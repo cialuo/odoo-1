@@ -6,7 +6,9 @@ class lty_dispatch_abnorma_categ(models.Model):
     _name = 'lty.dispatch.abnorma.categ'
 
     name = fields.Char(required='1')
-    code = fields.Char(required='1')   
+    code = fields.Char(required='1')
+    type = fields.Char()
+    description = fields.Char()   
 
 
 class dispatch_abnormal_mgt(models.Model):
