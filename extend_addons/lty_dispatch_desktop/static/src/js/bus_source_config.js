@@ -22,7 +22,9 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
                 msgId: Date.parse(new Date())
             };
             websocket.send(JSON.stringify(package_send));
-
+            $('.table_bus_num_tbody').mCustomScrollbar({
+                theme: 'minimal'
+            });
             self.$el.find('.line_src li').click(function () {
                 $(this).addClass('active').siblings().removeClass('active');
                 self.$el.find('.src_content>div').eq($(this).index()).show().siblings().hide();

@@ -373,7 +373,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         dataType: 'json',
                         data: {},
                         success: function (data) {
-                            console.log(data)
                             new bus_source_config(this, options, data).appendTo($(".controller_" + options.controllerId));
                         }
                     });

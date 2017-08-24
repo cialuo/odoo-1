@@ -718,9 +718,6 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     padding-left: 31px;
 }
 
-.bus_src_config .src_line_number {
-    margin-left: 10px;
-}
 
 .bus_src_config .line_list > div > div {
     height: 26px;
@@ -760,7 +757,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
 }
 
 .bus_src_config .src_content table {
-    width: 1336px;
+    width: 1344px;
     margin: 0 auto;
     color: #838697;
     border: 1px solid #6D7487;
@@ -775,6 +772,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #6D7487;
+    width:95px;
 }
 
 .bus_src_config th {
@@ -947,6 +945,18 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     width: 842px;
     margin-left: 10px;
     margin-top: 10px;
+}
+.table_bus_num tbody.table_bus_num_tbody{
+    height: 408px;
+    overflow: scroll;
+    display: block;
+}
+.table_bus_num .th_end{
+    width:109px;
+    padding-right: 0;
+}
+.table_bus_num thead{
+    display: block;
 }
 .table_bus_num.towarn{
     color: #be4151;

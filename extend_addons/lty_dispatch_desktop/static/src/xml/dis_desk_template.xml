@@ -467,8 +467,7 @@
 				</div>
 				<div class="line_list">
 					<div class="line_company">
-						<div>四分公司</div>
-						<div class="src_line_number">16路</div>
+						<div class="src_line_number"><t t-esc="widget.line_src.respose[0].lineName"></t></div>
 						<div>资源配备</div>
 					</div>
 					<div class="line_src">
@@ -483,56 +482,59 @@
 			<div class="src_content">
 				<div class="table_bus_num">
 					<table>
-					<tr>
-						<th>线路</th>
-						<th>车号</th>
-						<th>车牌</th>
-						<th>司机</th>
-						<th>位置</th>
-						<th>状态</th>
-						<th>当前任务</th>
-						<th>乘客数量</th>
-						<th>满载率</th>
-						<th>信号状态</th>
-						<th>车速</th>
-						<th>下趟发车</th>
-						<th>回场时间</th>
-						<th class="control_btn">
-							<p>
-								能源剩余里程
-							</p>
-							<p class="add_btn">
-								+
-							</p>
-							<div class="config_bus_source">
-								<ul>
-									<li><a>字段选择</a></li>
-									<li><a>样式修订</a></li>
-									<li><a>面板重置</a></li>
-								</ul>
-								<div><a>关闭面板</a></div>
-							</div>
-						</th>
-					</tr>
-						<t t-foreach="widget.line_src.respose" t-as="item">
-							<tr t-attf-src_id="item.id">
+						<thead>
+						<tr>
+							<th>线路</th>
+							<th>车号</th>
+							<th>车牌</th>
+							<th>司机</th>
+							<th>位置</th>
+							<th>状态</th>
+							<th>当前任务</th>
+							<th>乘客数量</th>
+							<th>满载率</th>
+							<th>信号状态</th>
+							<th>车速</th>
+							<th>下趟发车</th>
+							<th>回场时间</th>
+							<th class="control_btn th_end">
+								<p>
+									能源剩余里程
+								</p>
+								<p class="add_btn">
+									+
+								</p>
+								<div class="config_bus_source">
+									<ul>
+										<li><a>字段选择</a></li>
+										<li><a>样式修订</a></li>
+										<li><a>面板重置</a></li>
+									</ul>
+									<div><a>关闭面板</a></div>
+								</div>
+							</th>
+						</tr>
+					</thead>
+						<tbody class="table_bus_num_tbody">
+							<t t-foreach="widget.line_src.respose" t-as="item">
+							<tr t-attf-src_id="{{item.id}}">
 								<!--线路-->
 								<td class="line_src_lineName">
 									<t t-esc="item.lineName"></t>
 								</td>
-								<!--车号-->
+                                <!--车号-->
 								<td class="line_src_carNum">
 									<t t-esc="item.carNum"></t>
 								</td>
-								<!--车牌-->
+                                <!--车牌-->
 								<td class="line_src_onBoardId">
 									<t t-esc="item.onBoardId"></t>
 								</td>
-								<!--司机名字-->
+                                <!--司机名字-->
 								<td class="line_src_driverName">
 									<t t-esc="item.driverName"></t>
 								</td>
-								
+
 								<td class="line_src_site">
 									<a href="#" class="position_site">
 										<!--<t t-esc="item.location_gps"></t>-->
@@ -541,27 +543,27 @@
 								<td class="line_src_status">
 									状态
 								</td>
-								<!--当前任务-->
+                                <!--当前任务-->
 								<td class="line_src_current_task">
 									<!--<t t-esc="item.Current_task"></t>-->
 									当前任务
 								</td>
-								<!--乘客数量-->
+                                <!--乘客数量-->
 								<td class="line_src_Passanger_number">
 									<!--<t t-esc="Passenger_number"></t>-->
 									乘客数量
 								</td>
-								<!--满载率-->
+                                <!--满载率-->
 								<td class="line_src_full_load_rate">
 									<!--<t t-esc=""></t>-->
 									满载率
 								</td>
-								<!--信号状态-->
+                                <!--信号状态-->
 								<td class="line_src_sinal_status">
 									<!--<t t-esc="item.sinal_status"></t>-->
 									信号状态
 								</td>
-								<!--车速-->
+                                <!--车速-->
 								<td class="line_src_speed">
 									车速
 								</td>
@@ -576,6 +578,7 @@
 								</td>
 							</tr>
 						</t>
+					</tbody>
 				</table>
 				</div>
 				<div class="table_source">

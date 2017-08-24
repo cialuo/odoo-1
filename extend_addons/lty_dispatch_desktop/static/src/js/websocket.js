@@ -117,10 +117,11 @@ function line_resource(controllerObj, data_list) {
     // 通过lineid以及资源id拿到信息
     if (dom.length > 0) {
         //遍历车辆资源新增的数据
-        var tid = data_list.data.id;
+        debugger
+        var tid = data_list.id;
         var tr_num = $('.table_bus_num').find('tr[src_id=' + tid + ']');
-        for (var i = 0; i < data_list.data.length; i++) {
-            tr_num.find('.line_src' + data_list.data[i]).html(data_list.data[i]);
+        for (var i = 0; i < data_list.length; i++) {
+            tr_num.find('.line_src' + data_list[i]).html(data_list[i]);
         }
         if(tr_num.find('.line_src_sinal_status').html() == '异常'){
             tr_num.find('.line_src_sinal_status').addClass('towarn');
