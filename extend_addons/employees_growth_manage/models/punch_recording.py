@@ -66,8 +66,7 @@ class punch_recording(models.Model):
           """
           for order in self:
                if order:
-                    order.name = str(order.teacher_id.name)+u'的'+str(order.course_id.name)+u'培训'
-
+                    order.name = order.teacher_id.name or '' +'-'+ order.course_id.name or ''
      @api.multi
      def _compute_time_no(self):
           """
@@ -255,7 +254,7 @@ class punch_recording_details(models.Model):
 
           res = super(punch_recording_details, self).write(vals)
 
-          if vals.has_key('is_sign'):
+          if vals.has_key('is_sign') and self.punch_recording_id.state != 'complete':
                if self.punch_recording_id.details.mapped('is_sign').count(True) > 0:
                     self.punch_recording_id.state = 'ingSign'
                if self.punch_recording_id.details.mapped('is_sign').count(True) == len(self.punch_recording_id.details):

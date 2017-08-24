@@ -27,7 +27,7 @@ class external_training_plan(models.Model):
                                ('pendingExecution','Pending execution'),
                                ('complete','Complete')],default='draft')
 
-     curriculum_schedules = fields.One2many('employees_growth.external_curriculum_schedule','plan_id',
+     curriculum_schedules = fields.One2many('employees_growth.external_curriculum_schedule','plan_id',copy=True,
                                             string='Curriculum schedules')
 
      plan_return_record_ids = fields.One2many('employees_growth.external_plan_return_record',
@@ -60,7 +60,12 @@ class external_training_plan(models.Model):
 
      @api.multi
      def pendingAudit_to_pendingExecution(self):
-         self.state = 'pendingExecution'
+         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
+         if emp_ids :
+             self.auditor = emp_ids[0].id
+             self.state = 'pendingExecution'
+         else :
+            raise exceptions.UserError(_("Please relation user to employee first!"))
 
      @api.multi
      def pendingAudit_to_draft(self,reason=''):

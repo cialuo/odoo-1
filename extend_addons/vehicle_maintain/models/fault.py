@@ -172,7 +172,7 @@ class FaultMethod(models.Model):
     维修办法
     """
     _name = 'maintain.fault.method'
-    _sql_constraints = [('code_uniq', 'unique (category_id, inner_code)', _("Method code already exists"))]
+    _sql_constraints = [('code_uniq', 'unique (reason_id, inner_code)', _("Method code already exists"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
