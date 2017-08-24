@@ -663,7 +663,7 @@
                                 <td class="selfId"><t t-esc="item.selfId"></t></td>
                                 <td class="driverName"><t t-esc="item.driverName"></t></td>
                                 <td class="pR planState">
-                                    <t t-if="item.planState!=2">
+                                    <t t-if="item.planState!=3">
                                         待发
                                     </t>
                                     <t t-else="">
@@ -680,7 +680,7 @@
                 <a class="fix" href="javascript:;">修改</a>
                 <a class="forward_lead move_bt" name="1" href="javascript:;">前移</a>
                 <a class="retroposition move_bt" name="2" href="javascript:;">后移</a>
-                <a class="adjust" href="javascript:;">调整</a>
+                <a class="adjust" href="javascript:;">调换</a>
                 <a class="inquire" href="javascript:;">查询</a>
             </div>
         </div>
@@ -789,7 +789,7 @@
     </t>
 
     <t t-name="plan_display_set_template">
-        <div t-attf-class="plan_display_set set_{{widget.location_data.pid}}" t-attf-model="{{widget.location_data.model}}" t-attf-plan_pid="{{widget.location_data.pid}}" t-attf-direction="widget.location_data.direction" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
+        <div t-attf-class="plan_display_set set_{{widget.location_data.pid}}" t-attf-model="{{widget.location_data.model}}" t-attf-plan_pid="{{widget.location_data.pid}}" t-attf-direction="{{widget.location_data.direction}}" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
             <div class="setBox">
                 <ul class="nav">
                     <t t-foreach="widget.location_data.data_list" t-as="item">
@@ -808,53 +808,69 @@
                 <div class="adjust_info">
                     <table class="adjust_content">
                         <tr>
+                            <td>开始时间：</td>
+                            <td>
+                                
+                            </td>
+                            <td class="pdL">计划趟次：</td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        <tr>
                             <td>车辆：</td>
                             <td>
-                                <t t-esc="quota.vehicle"></t>
+                                
                             </td>
                             <td class="pdL">线路：</td>
                             <td>
-                                <t t-esc="quota.line"></t>
+                                
                             </td>
                         </tr>
                         <tr>
-                            <td>方向：</td>
+                            <td class="pdL">运行线路：</td>
                             <td>
-                                <t t-esc="quota.direction_of"></t>
+                                
                             </td>
-                            <td class="pdL">运行线路</td>
+                            <td>运行方向：</td>
                             <td>
-                                <t t-esc="quota.run_line"></t>
+                                
                             </td>
                         </tr>
                         <tr>
+                            <td class="pdL">司机工号：</td>
+                            <td>
+                            </td>
                             <td>司机：</td>
                             <td>
-                                <t t-esc="quota.driver"></t>
                             </td>
-                            <td class="pdL">趟次</td>
+                        </tr>
+                        <tr>
+                            <td class="pdL">乘务员工号：</td>
                             <td>
-                                <t t-esc="quota.trip_time"></t>
+                            </td>
+                            <td>乘务员姓名：</td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>计划里程：</td>
+                            <td>
+                                
+                            </td>
+                            <td class="pdL">运营属性：</td>
+                            <td>
+                                
                             </td>
                         </tr>
                         <tr>
                             <td>调整原因：</td>
                             <td>
-                                <t t-esc="quota.adjust_the_reason"></t>
+                                
                             </td>
-                            <td class="pdL">计划类型</td>
+                            <td class="pdL">备注：</td>
                             <td>
-                                <t t-esc="quota.type"></t>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>时间：</td>
-                            <td>
-                                <t t-esc="quota.time"></t>
-                            </td>
-                            <td class="pdL">计划里程</td>
-                            <td>
-                                <t t-esc="quota.mileage"></t>
+                                
                             </td>
                         </tr>
                         <tr>
