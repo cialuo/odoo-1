@@ -57,12 +57,14 @@ class Bigsitesetup(models.Model):
                     'id': str(res.id) + 'up',
                     'station_name': res.site_id.name,
                     'direction': 'up',
+                    'line_id': res.rule_id.line_id.id,
                 })
             if self._name == 'scheduleplan.bigsitesetdown':
                 vals.update({
                     'id': str(res.id) + 'down',
                     'station_name': res.site_id.name,
                     'direction': 'down',
+                    'line_id': res.rule_id.line_id.id,
                 })
             vals = mapping.dict_transfer(self._name, vals)
             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
@@ -93,12 +95,14 @@ class Bigsitesetup(models.Model):
                             'id': str(r.id) + 'up',
                             'station_name': r.site_id.name,
                             'direction': 'up',
+                            'line_id': r.rule_id.line_id.id,
                         })
                     if self._name == 'scheduleplan.bigsitesetdown':
                         vals.update({
                             'id': str(r.id) + 'down',
                             'station_name': r.site_id.name,
                             'direction': 'down',
+                            'line_id': r.rule_id.line_id.id,
                         })
                     vals = mapping.dict_transfer(self._name, vals)
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()

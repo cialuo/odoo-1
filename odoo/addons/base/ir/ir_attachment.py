@@ -95,6 +95,8 @@ class IrAttachment(models.Model):
         r = ''
         try:
             if bin_size:
+
+                
                 r = human_size(os.path.getsize(full_path))
             else:
                 r = open(full_path,'rb').read().encode('base64')
