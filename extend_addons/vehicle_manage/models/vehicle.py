@@ -16,7 +16,7 @@ class Vehicle(models.Model):
                               ('normal', "normal"),
                               ('rush', "rush"),
                               ('repair', "repair"),
-                              ('stop', "stop"),], default='normal',
+                              ('stop', "stop"),], default='normal',string="Vehicle State",
                                help='Current state of the vehicle', ondelete="set null")
 
     license_plate = fields.Char(required=True, help='车牌')
