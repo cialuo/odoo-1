@@ -279,7 +279,7 @@ function update_linePlan(obj, dataObj, obj_list){
                         dataObj.driverName +
                     '</td>' +
                     '<td class="pR planState">' +
-                        待发 +
+                        '待发' +
                     '</td>' +
                 '</tr>';
             for (var i=0, L=obj_list.length; i<L; i++){
