@@ -241,11 +241,11 @@ op_planstationbigmain = {
     #方向 int  0
     ('Direction', 'direction'): {'up': 0,'down':1},
     #距上一站时间（低峰）
-    ('ByLastStationLow', 'tolastsite_low'): None,
+    ('ByLastStationLow', 'tolastsit_low'): None,
     #距上一站时间（平峰）
-    ('ByLastStationNormal', 'tolastsite_flat'): None,
+    ('ByLastStationNormal', 'tolastsit_flat'): None,
     #距上一站时间（高峰）
-    ('ByLastStationHigh', 'tolastsite_peak'): None,
+    ('ByLastStationHigh', 'tolastsit_peak'): None,
     # #编号 int not found
     # ('orderNo', None): None,
     # #峰段标志ID 1001:低峰；1002：平峰；1003：高峰 not found
