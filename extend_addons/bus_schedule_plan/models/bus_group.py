@@ -58,14 +58,17 @@ class BusGroup(models.Model):
     @api.multi
     def action_tomorrow(self):
         """
-        1.大轮换
-        2.车辆轮趟算法
-        3.轮班算法
+        生成明天的人车配班
         """
         self.env['bus_group_driver_vehicle_shift'].scheduler_vehicle_shift(self.route_id.id)
 
     @api.multi
     def write(self, vals):
+        """
+        司乘轮班算法，车辆轮趟算法，班制 如果发生修改，修改状态为待审核，和记录是否发生改变
+        :param vals:
+        :return:
+        """
         if "bus_algorithm_id" in vals or 'bus_driver_algorithm_id' in vals or 'bus_shift_id' in vals:
             vals.update({'state': 'wait_check'})
         if "bus_algorithm_id" in vals:
@@ -86,7 +89,7 @@ class BusGroup(models.Model):
     @api.multi
     def action_check_success(self):
         """
-        审核通过
+        审核通过 修改轮班算法的修改时间
         """
         vals = {'state': 'use'}
         if self.is_algorithm_change:
@@ -107,6 +110,11 @@ class BusGroup(models.Model):
 
     @api.depends('vehicle_ids', 'driver_ids', 'bus_shift_id')
     def check_vehicle_is_match(self):
+        """
+        计算车辆数，司机数和班制的关系
+        如果车辆乘以版次数大于司机数 产生警告，并且不能够初始化人车配班
+        :return:
+        """
         for i in self:
             vehicle_ct = len(i.vehicle_ids)
             driver_ct = len(i.driver_ids)
@@ -133,6 +141,10 @@ class BusGroup(models.Model):
 
     @api.onchange('route_id')
     def _get_route_id_onchange(self):
+        """
+        创建班组时 选择线路，自动带出线路下面的车辆，司机，售票员
+        :return:
+        """
         for i in self:
             datas = []
             count = 0
@@ -451,4 +463,8 @@ class BusGroupDriverVehicleShift(models.Model):
 
     @api.model
     def run_scheduler(self):
+        """
+        班组管理 定时任务的入口
+        :return:
+        """
         self.scheduler_vehicle_shift()
