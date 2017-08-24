@@ -27,8 +27,7 @@ class BusStaffGroup(models.Model):
     @api.model
     def create(self, data):
         """
-        报修单:
-            功能：自动生成人车配班名称 线路名称/当前日期
+        修改名称
         """
         if data.get('name', '/') == '/':
             data['name'] = data['line_name'] + '/' + str(datetime.date.today())
@@ -42,7 +41,15 @@ class BusStaffGroup(models.Model):
 
     @api.multi
     def action_gen_staff_group(self, route_id, move_time_id=None, staff_date=datetime.date.today(), operation_ct=0, force=False):
-
+        """
+        生成人车配班
+        :param route_id: 线路
+        :param move_time_id: 行车时间表
+        :param staff_date: 行车时间
+        :param operation_ct: 运营车辆数
+        :param force: 是否强制更新班组信息
+        :return:
+        """
         use_date = datetime.datetime.strftime(staff_date-timedelta(days=1), "%Y-%m-%d")
         staff_date_str = datetime.datetime.strftime(staff_date, "%Y-%m-%d")
 

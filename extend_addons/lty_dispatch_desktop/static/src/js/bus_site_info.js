@@ -13,7 +13,7 @@ odoo.define('lty_dispatch_desktop.bus_site_info', function (require) {
             this.location_data = data;
         },
         start: function () {
-            var self = this;
+            this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
         },
         events: {
             'click .del': 'bus_site_hide',
@@ -24,23 +24,31 @@ odoo.define('lty_dispatch_desktop.bus_site_info', function (require) {
             this.destroy();
         },
         get_digital_map: function (e) {
-            var zIndex = this.$el[0].style.zIndex;
+            var zIndex = parseInt(this.$el[0].style.zIndex)+1;
             var e = e || window.event;
             var options = {
                 x: e.clientX + 5,
                 y: e.clientY + 5,
-                zIndex: zIndex + 1
+                zIndex: zIndex,
+                controllerId:this.desktop_id
             };
-            new digital_map(this, options).appendTo($('body'));
+            var layer_map = layer.msg("加载中...", {time: 0, shade: 0.3});
+            var elec_map_layer = {
+                layer_map: layer_map
+            }
+
+            sessionStorage.setItem("elec_map_layer", JSON.stringify(elec_map_layer));
+            new digital_map(this, options).appendTo($(".controller_" + options.controllerId));
         },
         get_main_controll_interface: function (e) {
-            var e = e || window.event;
+            var zIndex = parseInt(this.$el[0].style.zIndex)+1;
             var options = {
                 x: e.clientX + 5,
                 y: e.clientY + 5,
-                zIndex: 10
+                zIndex: zIndex,
+                controllerId:this.desktop_id
             };
-            new main_controll_interface(this, options).appendTo($('body'));
+            new main_controll_interface(this, options).appendTo($(".controller_" + options.controllerId));
         }
     });
     var digital_map = Widget.extend({
@@ -48,48 +56,18 @@ odoo.define('lty_dispatch_desktop.bus_site_info', function (require) {
         init: function (parent, data) {
             this._super(parent, data);
             this.location_data = data;
+            socket_model_api_obj.electronicMapModel = {};
         },
         start: function () {
-            var tid = 1
-            var map = new AMap.Map("digital_map", {
-                resizeEnable: true,
-                center: [114.408539, 30.465158],
-                zoom: 12
-            });
-            var marker = new AMap.Marker({
-                icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
-            });
-            var model_id = 'model_' + tid;
-            this.marker = marker;
-            this.map = map;
-            if (socket_model_info[model_id]) {
-                delete socket_model_info[model_id];
-            }
-            socket_model_info[model_id] = {
-                arg: {
-                    self:this,
-                    marker:this.marker,
-                    map:this.map
-
-                }, fn: this.setMessageInnerHTML
+            var package_elmap = {
+                type: 1000,
+                open_modules: ["dispatch-bus_real_state-1"],
+                msgId: Date.parse(new Date())
             };
+            websocket.send(JSON.stringify(package_elmap));
         },
         events: {
             'click .close_bt': 'closeFn'
-        },
-        setMessageInnerHTML:function (innerHTML,arg) {
-            var self = arg.self;
-            var a = innerHTML.substring(78, 79);
-                console.log(innerHTML)
-                if (a) {
-                    // 实例化点标记
-                    var ab = [114.408 + a + 39, 30.461 + a + 58];
-                    function addMarker() {
-                       self.marker.setPosition(ab);
-                       self.marker.setMap(self.map);
-                    }
-                    addMarker();
-                }
         },
         closeFn: function () {
             this.destroy();
@@ -107,9 +85,13 @@ odoo.define('lty_dispatch_desktop.bus_site_info', function (require) {
         },
         events: {
             'click .close_bt': 'closeFn',
+            'click .min':'dis_closeFn',
             'click .bus_list a': 'chose_btn'
         },
         closeFn: function () {
+            this.destroy();
+        },
+        dis_closeFn:function () {
             this.destroy();
         },
         chose_btn: function (event) {
