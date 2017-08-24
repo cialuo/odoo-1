@@ -13,6 +13,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             this.model2 = new Model('dispatch.control.desktop.component');
         },
         start: function () {
+            this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
             var self = this
             var data = this.dis_desk;
             if (data) {
@@ -32,12 +33,12 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 self.absnormalChart1 = echarts.init(self.$el.find('.absnormal_chart')[1]);
                 self.lagstation_chart = echarts.init(self.$el.find('.lagstation_chart')[0]);
                 self.dataJson = [[120, 152], [220, 182], [150, 232], [320, 332]];
-                // var package = {
-                //     type: 1022,
-                //     open_modules: "dispatch-line_message-4",
-                //     msgId: Date.parse(new Date())
-                // };
-                // websocket.send(JSON.stringify(package));
+                var package = {
+                    type: 1000,
+                    open_modules: ["dispatch-abnormal-" + this.desktop_id],
+                    msgId: Date.parse(new Date())
+                };
+                websocket.send(JSON.stringify(package));
                 socket_model_info[model_id] = {
                     arg: {
                         self: self,
@@ -69,7 +70,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var tid = this.$el.attr('tid');
             var line_id = this.$el.attr('line_id');
             self.$el.parent().find('.dispatch_desktop').find('.line_edit').hide();
-            self.$el.parent().find('.dispatch_desktop').find('.show_right').show();
+            self.$el.parent().find('.dispatch_desktop').find('.show_right').css('display', 'inline-block');
             self.model2.call("write", [parseInt(tid),
                 {
                     'tem_display': 'none',
@@ -85,17 +86,36 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var x_deal = event.currentTarget;
             $(x_deal).parent().hide().siblings('.finishBtn').show();
         },
+
         process_chchk: function (event) {
             stopPropagation(event);
             var x_comp = event.currentTarget;
-            $(x_comp).parent().hide().siblings('.handleBtn').show();
-            this.$el.removeClass('warn')
-            this.$el.find('.normal').show().siblings().hide();
-            var content = '.' + this.$el.find('.carousel_content')[0].className;
-            carousel({
-                content: content,
-                self: this
-            });
+            this.$el.find('.abs_info .absnormal_height').eq(0).remove();
+            $.ajax({
+                url: 'http://202.104.136.228:8080/ltyop/resource/exceptionHandle?apikey=71029270&params={onBoardId:15745,exceptKm:10,exceptStationId:13655,exceptReasonId:6}',
+                type: 'post',
+                dataType: 'json',
+                data: {
+
+                },
+                success: function(data){
+
+                }}
+            )
+            if (this.$el.find('.abs_info .absnormal_height').length < 1) {
+                $(x_comp).parent().hide().siblings('.handleBtn').show();
+                this.$el.removeClass('warn');
+                this.$el.find('.normal').show().siblings().hide();
+                var content = '.' + this.$el.find('.carousel_content')[0].className;
+                carousel({
+                    content: content,
+                    self: this
+                });
+            }
+            else{
+                $(x_comp).parent().hide().siblings().show();
+            }
+
         }
     });
     return dispatch_updown_line;
