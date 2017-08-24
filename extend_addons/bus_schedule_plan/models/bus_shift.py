@@ -51,8 +51,6 @@ class BusShiftChooseLine(models.Model):
         return res
 
 
-
-
 class BusShiftLine(models.Model):
     """
      班次列表
@@ -68,11 +66,10 @@ class BusShiftLine(models.Model):
 
     @api.constrains('detail_ids')
     def onchange_detail(self):
+        reg = '^(0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1})$'
         for i in self:
             for j in i.detail_ids:
-                reg = '^(0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1})$'
                 if j.start_time:
-                    reg = '^(0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1})$'
                     if not re.match(reg, j.start_time):
                         raise exceptions.ValidationError(_("Time format is not correct"))
                 if j.end_time:

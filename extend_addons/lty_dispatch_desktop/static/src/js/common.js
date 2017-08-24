@@ -37,13 +37,13 @@ function cir_and_text(canvas) {
         //站点文字居中显示
         cxt.textAlign = "center";
         //文字，左距离，上距离，最大px量
-        var mySite = canvas.site_infos[i].name;
+        var mySite = canvas.site_infos[i].station_id[1].split('/')[0];
         var myColor = canvas.dataSite_color[i].color;
-        if (canvas.site_infos[i].status == false) {
+        if (canvas.site_infos[i].is_show_name == false) {
             mySite = '';
             myColor = '#ffffff';
         } else {
-            mySite = canvas.site_infos[i].name;
+            mySite = canvas.site_infos[i].station_id[1].split('/')[0];
             myColor = canvas.dataSite_color[i].color;
         }
         cxt.fillText(mySite, canvas.dataCir[i], canvas.testy);
@@ -136,12 +136,12 @@ function can_left_right(canvas) {
 
 //渲染车辆实况的cancvas图像
 function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
-    var traffic = {
+    var traffic_top = {
         id: dom_site,
         y: 26,
         self: selfDom,
         subsection: data.subsection,
-        color: data.color
+        color: data.color,
     };
     var traffic_bottom = {
         id: domB,
@@ -150,7 +150,7 @@ function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
         subsection: data.subsection,
         color: data.color
     };
-    traffic_distance(traffic);
+    traffic_distance(traffic_top);
     traffic_distance(traffic_bottom);
 
     var cirTop = {
