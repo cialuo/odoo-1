@@ -78,10 +78,10 @@ websocket.onmessage = function (event) {
     } else if (modelName == "人力资源状态") {
         // console.log('4');
     }
-    // else if (modelName == "bus_real_state") {
-    //     // console.log('5');
-    //     busRealStateModel_socket_fn($(".controller_" + controllerId), eventObj.data);
-    // }
+    else if (modelName == "bus_real_state") {
+        // console.log('5');
+        busRealStateModel_socket_fn($(".controller_" + controllerId), eventObj.data);
+    }
     else if (modelName == "passenger_delay") {
         // console.log('6');
         passengerDelayModel_socket_fn($(".controller_" + controllerId), eventObj.data);
@@ -98,9 +98,9 @@ websocket.onmessage = function (event) {
         // console.log(event.data[0].substring(78, 80))
         absnormal_del($(".controller_" + controllerId), eventObj.data);
     }
-    else if (modelName == "bus_real_state") {
-        show_electronic_map($(".controller_" + controllerId).find('#digital_map'), eventObj.data, 'elec_map_layer')
-    }
+    // else if (modelName == "bus_real_state") {
+    //     show_electronic_map($(".controller_" + controllerId).find('#digital_map'), eventObj.data, 'elec_map_layer')
+    // }
 };
 
 //连接关闭的回调方法
@@ -339,8 +339,7 @@ function update_linePlan(obj, dataObj, obj_list){
 
     // 已完成的计划移除
     if (dataObj.planState==3){
-        console.log(obj);
-        // obj.remove();
+        obj.remove();
         return false;
     }
 
