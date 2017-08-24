@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from datetime import datetime
+from datetime import datetime,timedelta
+import odoo.addons.decimal_precision as dp
 
 
 class Vehicle(models.Model):
@@ -75,6 +76,58 @@ class Vehicle(models.Model):
     ride_number = fields.Integer('Ride Number', related='model_id.ride_number', readonly=True) #核载人数
 
     on_boardid = fields.Integer(string='OnBoardId') #终端设备编号
+    #2017年7月24日 ERP-394 新增字段：编码(车辆创建时，自动生成)
+    vehicle_code = fields.Char(string='Vehicle Code',default='/',readonly=True)
+
+    #2017年7月24日 ERP-431 新增字段：日均里程
+    daily_mileage = fields.Float(string='Daily Mileage',readonly=True,digits=dp.get_precision('Operate pram'),compute='_compute_daily_mileage')
+
+    company_id_s = fields.Many2one('res.company', 'Company',
+                                 default=lambda self: self.env['res.company']._company_default_get('fleet.vehicle'),
+                                 index=True, required=True)
+
+    average_day_number = fields.Integer(related='company_id_s.average_day_number')
+
+    @api.depends('driverecords')
+    def _compute_daily_mileage(self):
+        """
+            计算日均里程：
+                周期总里程 / 周期天数 ， 周期天数 =  百公里油耗设置的周期
+        :return:
+        """
+        today = datetime.now()
+
+        for order in self:
+            yesterday = today - timedelta(days=order.average_day_number)
+            driverecords = order.driverecords.filtered(lambda x: x.realityarrive >= unicode(yesterday))
+            if driverecords:
+                order.daily_mileage = sum(driverecords.mapped('GPSmileage')) / order.average_day_number
+
+    @api.multi
+    def return_action_to_mileage(self):
+        """
+            刷新
+        :return:
+        """
+        return False
+    def get_vehicle_code(self,vals):
+        """
+            生成车辆编码：
+                车型代码+车辆自编号+投入运营（年份2位数）
+
+                初始车辆编码只有 车型代码 + 车辆自编号
+                当车辆投入运营时，加上年份数
+        :return:
+        """
+        vehicle_code = "/"
+        vehicle_model = self.env['fleet.vehicle.model'].search([('id', '=', vals.get('model_id'))])
+
+        self_number = vals.get('inner_code',"")
+        vehicle_model_code = vehicle_model.code if vehicle_model.code else ""
+
+        vehicle_code = vehicle_model_code + self_number
+
+        return vehicle_code
 
     @api.multi
     def copy(self, default=None):
@@ -117,6 +170,7 @@ class Vehicle(models.Model):
         :param vals:
         :return:
         """
+        vals['vehicle_code'] = self.get_vehicle_code(vals)
         res = super(Vehicle, self).create(vals)
         name = res.license_plate
         virtual_parent = self.env.ref('stock.stock_location_locations_virtual', raise_if_not_found=False)
@@ -288,3 +342,33 @@ class route_manage(models.Model):
                 item.synthesize_rate = 0
 
 
+class InheritVehicle(models.Model):
+
+    _inherit = "fleet.vehicle"
+
+    """
+        新增车辆录入流
+    """
+
+    entry_state = fields.Selection([('draft','draft'),('submitted','submitted'),('audited','audited')],string='Entry state',default='draft')
+
+    def draft_to_submitted(self):
+        """
+            状态：草稿--->已提交
+        :return:
+        """
+        self.entry_state = 'submitted'
+
+    def submitted_to_audited(self):
+        """
+            状态：已提交--->已审核
+        :return:
+        """
+        self.entry_state = 'audited'
+
+    def submitted_to_draft(self):
+        """
+            状态：已提交--->草稿
+        :return:
+        """
+        self.entry_state = 'draft'

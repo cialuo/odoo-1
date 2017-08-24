@@ -7,13 +7,14 @@
             <field name="name">security.vehicle_special_check.tree</field>
             <field name="model">security.vehicle_special_check</field>
             <field name="arch" type="xml">
-                <tree string="vehicle front check list">
+                <tree>
                     <field name="vehicle_id"/>
                     <field name="plate"/>
                     <field name="route"/>
                     <field name="checkout_date"/>
                     <field name="inspector"/>
                     <field name="vehicle_manager"/>
+                    <field name="state"/>
                     <field name="check_result"/>
 
                 </tree>
@@ -25,7 +26,7 @@
             <field name="name">security.vehicle_special_check.form</field>
             <field name="model">security.vehicle_special_check</field>
             <field name="arch" type="xml">
-                <form string="vehicle special check">
+                <form string="vehicle special check" duplicate="0">
                     <header>
                         <button name="action_done" type="object"
                                 string="vehicle_check_submit" states="draft"

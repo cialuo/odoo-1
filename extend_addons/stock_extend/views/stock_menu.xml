@@ -2,8 +2,8 @@
 <odoo>
     <data>
         <!--补货管理-->
-        <menuitem id="materials_menu_reorder" name="reorder_menu" sequence="10"
-                  parent="materials_menu.materials_menu_stock" groups="stock.group_stock_user"/>
+        <menuitem id="materials_menu_reorder" name="reorder_menu" sequence="50"
+                  parent="stock_picking_types.materials_menu_config" groups="stock.group_stock_user"/>
         <!--补货规则-->
         <menuitem id="materials_menu_reorder_rules"
                   name="reorder_rules_menu"
@@ -29,8 +29,8 @@
                   groups="stock.group_stock_user"
         />
         <!--仓储管理-->
-        <menuitem id="materials_menu_location" name="Location Menu" sequence="20"
-                  parent="materials_menu.materials_menu_stock" groups="stock.group_stock_user"/>
+        <menuitem id="materials_menu_location" name="Location Menu" sequence="1"
+                  parent="stock_picking_types.materials_menu_config" groups="stock.group_stock_user"/>
         <!--仓库-->
         <menuitem id="materials_menu_warehouse"
                   name="WareHouse Menu"
@@ -79,7 +79,7 @@
                   name="Stock Move Menu"
                   sequence="30"
                   action="materials_stock_move_action"
-                  parent="materials_menu_location"
+                  parent="materials_menu.materials_menu_stock"
                   groups="stock.group_stock_user"
         />
     </data>

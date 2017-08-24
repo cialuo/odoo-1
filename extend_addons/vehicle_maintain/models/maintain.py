@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, exceptions, _
+import datetime
 from datetime import timedelta
+import odoo.addons.decimal_precision as dp
+
 
 
 class MaintainReport(models.Model):
@@ -10,6 +13,7 @@ class MaintainReport(models.Model):
     """
     _inherit = 'mail.thread'
     _name = 'maintain.manage.report'
+    _order = "id desc"
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -24,14 +28,14 @@ class MaintainReport(models.Model):
                                 readonly=True, copy=False)
 
     report_user_id = fields.Many2one('hr.employee', string="Report Name", default=_default_employee, required=True)
+    report_date = fields.Date('Report Date', help='Report Date', default=fields.Date.context_today)
 
-
-    report_date = fields.Date('Report Date',help='Report Date',default=fields.Date.context_today)
     repair_category = fields.Selection([('normal repair', "normal repair"),
                                         ('anchor repair', "anchor repair"),
                                         ('accident repair', "accident repair"),
                                         ('maintain repair', 'maintain repair')],
                                        string='repair category', default='normal repair')
+
     repair_level = fields.Char(string="Repair Level")
     is_fault_vehicle = fields.Boolean("Is Fault Vehicle", default=True)
 
@@ -43,15 +47,14 @@ class MaintainReport(models.Model):
                             ('wait_repair',"Wait Repair"),
                             ('repair', "Repair"),
                             ('inspect', "Inspect"),
-                            ('completed', "Completed")], default='draft')
+                            ('completed', "Completed")], default='draft', string="Report State")
     repair_ids = fields.One2many("maintain.manage.repair", 'report_id', string='Maintain Repair',
                                  states={'completed':[('readonly', True)],
                                          # 'repair':[('readonly', True)]
                                          }
     )
 
-    create_name = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, required=True,
-                                  readonly=True)
+    create_name = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, required=True, readonly=True)
 
     create_name_department = fields.Many2one('hr.department', string="Create Name Department", related='create_name.department_id',
                                              readonly=True)
@@ -61,10 +64,10 @@ class MaintainReport(models.Model):
     repair_plant = fields.Char(string="Repair Plant")
     remark = fields.Text(string="Remark")
 
-
-
     dispatch_count = fields.Integer("Dispatch Count",compute="_get_dispatch_count")
 
+    #2017年7月25日 新增字段：预检时间；用于计算抢修总时长
+    preflight_date = fields.Datetime(string='Preflight date')
 
     @api.multi
     def unlink(self):
@@ -162,8 +165,10 @@ class MaintainReport(models.Model):
 
         report_user_id = self._default_employee()
         self.state = 'repair'
+        #2017年7月25日 记录预检通过时间
+        self.preflight_date = fields.Datetime.now()
         for i in self.repair_ids:
-            if i.state == 'precheck':
+            if i.state in ('precheck','draft'):
                 i.state = 'dispatch'
 
 class MaintainRepair(models.Model):
@@ -172,6 +177,7 @@ class MaintainRepair(models.Model):
     """
     _inherit = 'mail.thread'
     _name = 'maintain.manage.repair'
+    _order = "id desc"
 
     name = fields.Char(string="Repair Order", help='Repair Order', required=True, index=True,
                        copy=False, default='/', readonly=True)
@@ -185,8 +191,7 @@ class MaintainRepair(models.Model):
     license_plate = fields.Char(string="License Plate", help='License Plate',
                                 related='report_id.vehicle_id.license_plate', store=True, readonly=True, copy=False)
     repair_category = fields.Selection(string="repair category", help='repair category',
-                                   related='report_id.repair_category', store=True, readonly=True, copy=False)
-
+                                       related='report_id.repair_category', store=True, readonly=True, copy=False)
     fault_category_id = fields.Many2one("maintain.fault.category", ondelete='set null', string="Fault Category",
                                         required=True, states={
                                           'completed': [('readonly', True)],
@@ -195,9 +200,9 @@ class MaintainRepair(models.Model):
                                         })
     fault_appearance_id = fields.Many2one("maintain.fault.appearance", ondelete='set null',
                                           string="Fault Appearance", states={
-                                          'completed': [('readonly', True)],
-                                          'inspect': [('readonly', True)],
-                                          'repair': [('readonly', True)],
+                                              'completed': [('readonly', True)],
+                                              'inspect': [('readonly', True)],
+                                              'repair': [('readonly', True)],
                                         })
     fault_reason_id = fields.Many2one("maintain.fault.reason", ondelete='set null',
                                       string="Fault Reason", states={
@@ -212,9 +217,8 @@ class MaintainRepair(models.Model):
                                           'repair': [('readonly', True)],
                                         })
     fault_method_code = fields.Char(related='fault_method_id.fault_method_code', store=True, readonly=True, copy=False)
-    work_time = fields.Integer(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
-
-
+    work_time = fields.Float(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
+    warranty_deadline = fields.Integer(related='fault_method_id.warranty_deadline', string="Warranty Deadline(Days)", readonly=1, required=True)
     plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
     plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time", compute='_get_end_datetime')
     real_start_time = fields.Datetime("Real Start Time", help="Real Start Time")
@@ -229,7 +233,7 @@ class MaintainRepair(models.Model):
         ('wait_repair', "Wait Repair"),
         ('repair', "Repair"),
         ('inspect', "Inspect"),
-        ('completed', "Completed")], default='draft', readonly=True)
+        ('completed', "Completed")], default='draft', readonly=True, string="Repair State")
 
     repair_type = fields.Selection([('vehicle_repair',"vehicle_repair"),
                                     ('assembly_repair',"assembly_repair")],
@@ -247,12 +251,75 @@ class MaintainRepair(models.Model):
     available_product_ids = fields.One2many("maintain.manage.available_product", 'repair_id',
                                             string='Available Product')
     operation_manual = fields.Text("Operation Manual", related='fault_method_id.operation_manual',
-                                   help="Operation Manual",store=True, readonly=True, copy=False)
+                                   help="Operation Manual", store=True, readonly=True, copy=False)
     inspect_standard = fields.Text("Inspect Standard", related='fault_method_id.inspect_standard',
-                                   help="Inspect Standard",store=True, readonly=True, copy=False)
+                                   help="Inspect Standard", store=True, readonly=True, copy=False)
 
     picking_ids = fields.One2many("stock.picking", 'repair_id', string='Stock Pickings')
 
+    return_repair_state = fields.Selection([('yes', "yes"), ('no', "no"), ('doubt', "doubt")],
+                                           default='no', string="Return Repair State",states={
+                                          'completed': [('readonly', True)],
+                                          'inspect': [('readonly', True)],
+                                          'repair': [('readonly', True)],
+                                        })
+
+    return_repair_reason = fields.Text("Return Repair Reason")
+
+    return_repair_type = fields.Selection(
+                            [('vehicle quality problems(manufacturer)', "vehicle quality problems(manufacturer)"),
+                             ('material problem(suppliers)', "material problem(suppliers)"),
+                             ('repair(repair)', "repair(repair)"),
+                             ('traffic problems(lines)', 'traffic problems(lines)'),
+                             ('driving problem(driver)', 'driving problem(driver)')],
+                            states={
+                                'completed': [('readonly', True)],
+                                'inspect': [('readonly', True)],
+                                'repair': [('readonly', True)],}
+                        )
+
+    return_repair_ids = fields.Many2many('maintain.manage.repair', 'maintain_manage_repair_return_rel', 'return_repair_id',
+                                         'repair_id', string='Return Repair Order', states={
+                                                        'completed': [('readonly', True)],
+                                                        'inspect': [('readonly', True)],
+                                                        'repair': [('readonly', True)],}
+                                         )
+
+    return_repair_names = fields.Char("Return Repair Names")
+
+    #2017年7月25日 新增字段：抢修总时长
+    repair_total_time = fields.Float(string='Repair total time', readonly=True,
+                                       digits=dp.get_precision('Operate pram'), compute='_compute_repair_total_time')
+    repair_start_time = fields.Datetime(related='report_id.preflight_date', string='Repair start time')
+
+    @api.depends('repair_start_time', 'end_inspect_time')
+    def _compute_repair_total_time(self):
+        """
+            计算抢修总时长
+        :return:
+        """
+        for order in self:
+            if order.repair_start_time and order.end_inspect_time:
+                repair_start_time = datetime.datetime.strptime(order.repair_start_time, "%Y-%m-%d %H:%M:%S")
+                end_inspect_time = datetime.datetime.strptime(order.end_inspect_time, "%Y-%m-%d %H:%M:%S")
+                repair_time = end_inspect_time - repair_start_time
+                days, seconds = repair_time.days, repair_time.seconds
+                if days >= 0 and seconds >= 0:
+                    hours = days * 24 + seconds // 3600
+                    order.repair_total_time = hours
+
+
+    @api.onchange('return_repair_ids')
+    def _get_return_repair_names(self):
+        """
+        获取返修单中的返修人员
+        :return:
+        """
+        for i in self:
+            repair_names_list=[]
+            for j in i.return_repair_ids:
+                repair_names_list.append(j.repair_names)
+            i.return_repair_names = ':'.join(list(set(repair_names_list)))
 
 
     @api.multi
@@ -281,6 +348,14 @@ class MaintainRepair(models.Model):
 
     @api.multi
     def write(self, vals):
+        if 'return_repair_state' in vals:
+            return_repair_state = vals.get('return_repair_state')
+            if return_repair_state == 'doubt':
+                raise exceptions.UserError(_('Maintenance exists the type is doubt, please set to yes or no'))
+            elif return_repair_state == 'yes':
+                if self.name.startswith("WXD"):
+                    vals.update({'name': self.name.replace('WXD', 'FXD')})
+
         if "fault_method_id" in vals and vals.get('fault_method_id'):
             for i in self.available_product_ids:  # 维修单存在物料清单，要删除
                 i.unlink()
@@ -331,6 +406,22 @@ class MaintainRepair(models.Model):
             else:
                 self.fault_category_id = self.fault_method_id.reason_id.category_id
                 self.fault_appearance_id = None
+
+            domain = [('vehicle_id', '=', self.vehicle_id.id),
+                         ('state', '=', 'completed'),
+                         ('fault_method_id', '=', self.fault_method_id.id),
+                         ('end_inspect_time', '>=', fields.Datetime.to_string(fields.datetime.now() - timedelta(days=self.warranty_deadline)))
+                         ]
+
+            res = self.search(domain)
+            if res:
+                self.return_repair_state = 'doubt'
+                self.return_repair_ids = [(6, 0, res.ids)]
+            else:
+                self.return_repair_state = 'no'
+                self.return_repair_ids = []
+
+
 
     @api.model
     def create(self, vals):

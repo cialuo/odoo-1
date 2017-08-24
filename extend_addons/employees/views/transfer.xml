@@ -176,7 +176,7 @@
         <field name="name">employees transfer record form</field>
         <field name="model">employees.transfer.record</field>
         <field name="arch" type="xml">
-            <form edit="0" create="0">
+            <form edit="0" create="0" delete="0">
                 <group>
                     <group>
                         <field name="name"/>
@@ -206,6 +206,7 @@
         <field name="res_model">employees.innertransfer</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('transfer_type', '=', 'unit')]</field>
+        <field name="context" eval="{'transtype': 'unit'}"/>
     </record>
 
     <!--岗位调动action页面-->
@@ -214,6 +215,7 @@
         <field name="res_model">employees.innertransfer</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('transfer_type', '=', 'post')]</field>
+         <field name="context" eval="{'transtype': 'post'}"/>
     </record>
 
     <!--对外调动-->
@@ -242,11 +244,11 @@
               action="ltyhr_employees_post_transfer"
               parent="ltyhr_employee_document_transfer_menu"/>
 
-    <!--对外调动-->
+    <!--对外调动 2017年7月24日 需求变更：移除菜单
     <menuitem id="ltyhr_employee_foreign_transfer_menu" name="foreign_transfer"
               sequence="40"
               action="ltyhr_employees_foreign_transfer"
-              parent="ltyhr_employee_document_transfer_menu"/>
+              parent="ltyhr_employee_document_transfer_menu"/>-->
 
 
     <!--调动记录-->

@@ -30,7 +30,7 @@ msgstr "系统设置"
 #. module: employees_menu
 #: model:ir.ui.menu,name:employees_menu.ltyhr_employee_document_menu
 msgid "employee document"
-msgstr "员工档案"
+msgstr "人力资源档案"
 
 #. module: employees_menu
 #: model:ir.ui.menu,name:employees_menu.leave_and_checking_in

@@ -43,16 +43,30 @@ class vehicle_life(models.Model):
         # 设置投入日期
         self.start_service_date = datetime.date.today()
 
+        #修改车辆编码
+        self.update_vehicle_code()
+
         # 费用金额必须大于零
         for item in self.investment_ids:
 
-            if (item.cost_amount <= 0):
+            if u'yes' == item.is_required:
+                if (item.cost_amount <= 0):
 
-                raise exceptions.except_orm(_('Error'), _('The cost must be greater than zero'))
+                    raise exceptions.except_orm(_('Error'), _(' %s The cost must be greater than zero' % (item.cost_type)))
 
         self.vehicle_life_state = 'operation_period'
 
         return True
+
+    def update_vehicle_code(self):
+        """
+            变更车辆编码
+        :return:
+        """
+        vehicle_code = self.vehicle_code if self.vehicle_code else ""
+        year = datetime.date.today().strftime('%Y')
+        year = year[len(year)-2:]
+        self.vehicle_code = vehicle_code + year
 
     @api.multi
     def action_scrap(self):

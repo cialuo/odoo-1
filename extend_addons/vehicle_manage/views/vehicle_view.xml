@@ -5,8 +5,8 @@
             <field name="name">vehicle.tree</field>
             <field name="model">fleet.vehicle</field>
             <field name="priority">0</field>
-            <field name="arch" type="xml">
-                <tree string="Vehicle">
+            <field name="arch" type="xml" >
+                <tree string="Vehicle" create="false" delete="false">
                     <field name="active" invisible="1"/>
                     <field name="license_plate" />
                     <field name="inner_code" />
@@ -39,7 +39,7 @@
             <field name="model">fleet.vehicle</field>
             <field name="priority">0</field>
             <field name="arch" type="xml">
-                <form string="Vehicle">
+                <form string="Vehicle" create="false" delete="false">
                     <header>
                         <field name="state"  widget="statusbar"/>
                     </header>
@@ -70,12 +70,25 @@
                         </div>
 
                         <notebook>
+
+                            <page string="Register Information">
+                                <group>
+                                    <field name="reg_no" />
+                                    <field name="reg_date" />
+                                    <field name="forced_destroy" />
+                                    <field name="entry_state" invisible="1"/>
+                                    <field name="annual_inspection_date" attrs="{'readonly':[('entry_state','!=','draft')]}"/>
+                                    <field name="emissions"/>
+                                    <field name="vin_sn"/>
+                                    <field name="start_service_date" readonly="1"/>
+                                </group>
+                            </page>
+
                             <page  string="General Properties">
                                 <group col="2">
                                     <group>
                                         <field name="company_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="route_id" options="{'no_open':True,'no_create':True}"/>
-                                        <field name="vin_sn"/>
                                         <field name="length_width_height"/>
                                         <field name="emission_standard"/>
                                         <field name="model_id" options="{'no_open':True,'no_create':True}" string="车型"/>
@@ -84,6 +97,7 @@
                                     </group>
                                     <group>
                                         <!--<field name="route_correct_value"/>-->
+                                        <field name="vehicle_code"/>
                                         <field name="deadline"/>
 
                                         <!--<field name="service_year"/>-->
@@ -134,15 +148,7 @@
                                     <field name="brand_name" />
                                 </group>
                             </page>
-                            <page string="Register Information">
-                                <group>
-                                    <field name="reg_no" />
-                                    <field name="reg_date" />
-                                    <field name="forced_destroy" />
-                                    <field name="annual_inspection_date" />
-                                    <field name="emissions"/>
-                                </group>
-                            </page>
+
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">
@@ -154,12 +160,12 @@
         </record>
 
 
-        <record id='fleet_vehicle_view_kanban_extend' model='ir.ui.view'>
+        <!--<record id='fleet_vehicle_view_kanban_extend' model='ir.ui.view'>
             <field name="name">fleet.vehicle.kanban</field>
             <field name="model">fleet.vehicle</field>
             <field name="priority">0</field>
             <field name="arch" type="xml">
-                <kanban>
+                <kanban create="false" delete="false">
                     <field name="license_plate" />
                     <field name="model_id" />
                     <field name="inner_code" />
@@ -194,7 +200,7 @@
                     </templates>
                 </kanban>
             </field>
-        </record>
+        </record>-->
 
 
         <!-- VehicleModel Form-->
@@ -360,7 +366,8 @@
             <field name="name">vehicle_manage_action</field>
             <field name="res_model">fleet.vehicle</field>
             <field name="view_type">form</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('entry_state','=','audited')]</field>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 Click to create a new vehicle.
@@ -387,7 +394,7 @@
         <menuitem name="vehicle_manage" id="vehicle_manage"
                   parent="vehicle_manage_menu.vehicle_basic_manage"
                   action = "vehicle_manage_action"
-                  sequence="10"
+                  sequence="20"
                   groups="materials_product.base_extend_tech_user,vehicle_group.vehicle_driver"/>
 
         <menuitem name="vehicle_manage_model_brand" id="vehicle_manage_model_brand"
@@ -397,9 +404,9 @@
                   groups="materials_product.base_extend_tech_user"/>
 
         <menuitem name="vehicle_manage_model" id="vehicle_manage_model"
-                  parent="vehicle_manage_menu.warranty_maintain_basic_manage"
+                  parent="vehicle_manage_menu.vehicle_basic_info_menu"
 				  action = "vehicle_manage_model_action"
-                  sequence="40"
+                  sequence="10"
                   groups="materials_product.base_extend_tech_user"/>
 
         <menuitem name="vehicle_manage_emission_standard" id="vehicle_manage_emission_standard"

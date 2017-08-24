@@ -1,43 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * stock
-# 
-# Translators:
-# Jeffery Chenn <jeffery9@gmail.com>, 2016
-# Gary Wei <Gary.wei@elico-corp.com>, 2016
-# Martin Trigaux <mat@odoo.com>, 2016
-# Talway <9010446@qq.com>, 2016
-# 苏州远鼎 <tiexinliu@126.com>, 2016
-# fausthuang <faust_huang@hotmail.com>, 2016
-# Michael Chong <michaelchong2005@gmail.com>, 2016
-# 卓忆科技 <zhanghao@jointd.com>, 2016
-# liAnGjiA <liangjia@qq.com>, 2016
-# Rona Lin <ssauapw@qq.com>, 2016
-# waveyeung <waveyeung@qq.com>, 2016
-# xiaobin wu <bd5dml@gmail.com>, 2016
-# Eddie Lim <bhweelim@yahoo.com>, 2016
-# glovebx <ruinning@163.com>, 2016
-# liulixia <liu.lixia@elico-corp.com>, 2016
-# Joray <13637815@qq.com>, 2016
-# 老肖 <xfx@oscg.com.hk>, 2016
-# 智源软件 <likaiyuan2006@gmail.com>, 2016
-# Wei "oldrev" Li <liwei@sandwych.com>, 2016
-# Joshua Jan <popkar77@gmail.com>, 2016
-# zhangpeiqing <zpq001@live.com>, 2016
-# yueqin <602559817@qq.com>, 2016
+# 	* stock
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0c\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-07 08:55+0000\n"
-"PO-Revision-Date: 2016-09-07 08:55+0000\n"
-"Last-Translator: yueqin <602559817@qq.com>, 2016\n"
-"Language-Team: Chinese (China) (https://www.transifex.com/odoo/teams/41243/zh_CN/)\n"
+"POT-Creation-Date: 2017-07-13 06:13+0000\n"
+"PO-Revision-Date: 2017-07-13 14:15+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Language: zh_CN\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh\n"
+"X-Generator: Poedit 2.0.2\n"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_config_settings_module_stock_dropshipping
@@ -46,15 +24,18 @@ msgid ""
 "Creates the dropship route and add more complex tests\n"
 "-This installs the module stock_dropshipping."
 msgstr ""
+"\n"
+"Creates the dropship route and add more complex tests\n"
+"-This installs the module stock_dropshipping."
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:217
+#: code:addons/stock/models/stock_move.py:214
 #, python-format
 msgid " (%s reserved)"
 msgstr " (%s 已保留)"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:220
+#: code:addons/stock/models/stock_move.py:217
 #, python-format
 msgid " (reserved)"
 msgstr " (已保留)"
@@ -71,6 +52,13 @@ msgid ""
 " * Transferred: has been processed, can't be modified or cancelled anymore\n"
 " * Cancelled: has been cancelled, can't be confirmed anymore"
 msgstr ""
+" * Draft: not confirmed yet and will not be scheduled until confirmed\n"
+" * Waiting Another Operation: waiting for another move to proceed before it becomes automatically available (e.g. in Make-To-Order flows)\n"
+" * Waiting Availability: still waiting for the availability of products\n"
+" * Partially Available: some products are available and reserved\n"
+" * Ready to Transfer: products reserved, simply waiting for confirmation.\n"
+" * Transferred: has been processed, can't be modified or cancelled anymore\n"
+" * Cancelled: has been cancelled, can't be confirmed anymore"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_move_picking_form
@@ -78,7 +66,7 @@ msgid "#Products"
 msgstr "#产品"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:449
+#: code:addons/stock/models/stock_warehouse.py:453
 #, python-format
 msgid "%s: Supply Product from %s"
 msgstr "%s: 供应产品来自 %s"
@@ -98,6 +86,11 @@ msgid ""
 "* Available: When products are reserved, it is set to 'Available'.\n"
 "* Done: When the shipment is processed, the state is 'Done'."
 msgstr ""
+"* New: When the stock move is created and not yet confirmed.\n"
+"* Waiting Another Move: This state can be seen when a move is waiting for another one, for example in a chained flow.\n"
+"* Waiting Availability: This state is reached when the procurement resolution is not straight forward. It may need the scheduler to run, a component to be manufactured...\n"
+"* Available: When products are reserved, it is set to 'Available'.\n"
+"* Done: When the shipment is processed, the state is 'Done'."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_usage
@@ -111,6 +104,14 @@ msgid ""
 "* Production: Virtual counterpart location for production operations: this location consumes the raw material and produces finished products\n"
 "* Transit Location: Counterpart location that should be used in inter-companies or inter-warehouses operations"
 msgstr ""
+"* Vendor Location: Virtual location representing the source location for products coming from your vendors\n"
+"* View: Virtual location used to create a hierarchical structures for your warehouse, aggregating its child locations ; can't directly contain products\n"
+"* Internal Location: Physical locations inside your own warehouses,\n"
+"* Customer Location: Virtual location representing the destination location for products sent to your customers\n"
+"* Inventory Loss: Virtual location serving as counterpart for inventory operations used to correct stock levels (Physical inventories)\n"
+"* Procurement: Virtual location serving as temporary counterpart for procurement operations when the source (vendor or production) is not known yet. This location should be empty when the procurement scheduler has finished running.\n"
+"* Production: Virtual counterpart location for production operations: this location consumes the raw material and produces finished products\n"
+"* Transit Location: Counterpart location that should be used in inter-companies or inter-warehouses operations"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -120,73 +121,51 @@ msgstr ", 会计或采购模块是否已安装"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "- The Odoo Team"
-msgstr "- Odoo团队"
+msgstr "- 团队"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<span class=\"label label-default text-center "
-"odoo_purple\">'Available'</span>"
+msgid "<span class=\"label label-default text-center odoo_purple\">'Available'</span>"
 msgstr "<span class=\"label label-default text-center odoo_purple\">'可用'</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<span class=\"label label-default text-center odoo_purple\">Click on <span "
-"class=\"fa fa-truck\"/> Delivery</span>"
-msgstr ""
-"<span class=\"label label-default text-center odoo_purple\">点击 <span "
-"class=\"fa fa-truck\"/> 发货</span>"
+msgid "<span class=\"label label-default text-center odoo_purple\">Click on <span class=\"fa fa-truck\"/> Delivery</span>"
+msgstr "<span class=\"label label-default text-center odoo_purple\">点击 <span class=\"fa fa-truck\"/> 发货</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<span class=\"label label-default text-center odoo_purple\">Click on <span "
-"class=\"fa fa-truck\"/> Shipment</span>"
-msgstr ""
-"<span class=\"label label-default text-center odoo_purple\">点击 <span "
-"class=\"fa fa-truck\"/> 发货</span>"
+msgid "<span class=\"label label-default text-center odoo_purple\">Click on <span class=\"fa fa-truck\"/> Shipment</span>"
+msgstr "<span class=\"label label-default text-center odoo_purple\">点击 <span class=\"fa fa-truck\"/> 发货</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<span class=\"label label-default text-center odoo_purple\">Confirm "
-"Order</span>"
+msgid "<span class=\"label label-default text-center odoo_purple\">Confirm Order</span>"
 msgstr "<span class=\"label label-default text-center odoo_purple\">订单确认</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<span class=\"label label-default text-center odoo_purple\">Confirm "
-"Sale</span>"
+msgid "<span class=\"label label-default text-center odoo_purple\">Confirm Sale</span>"
 msgstr "<span class=\"label label-default text-center odoo_purple\">销售确认</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<span class=\"label label-default text-center odoo_purple\">Find Incoming "
-"Shipments</span>"
+msgid "<span class=\"label label-default text-center odoo_purple\">Find Incoming Shipments</span>"
 msgstr "<span class=\"label label-default text-center odoo_purple\">查找入库送货</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<span class=\"label label-default text-center odoo_purple\">Process the "
-"products</span>"
+msgid "<span class=\"label label-default text-center odoo_purple\">Process the products</span>"
 msgstr "<span class=\"label label-default text-center odoo_purple\">移动产品</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<span class=\"label label-default text-center odoo_purple\">Validate the "
-"Delivery</span>"
+msgid "<span class=\"label label-default text-center odoo_purple\">Validate the Delivery</span>"
 msgstr "<span class=\"label label-default text-center odoo_purple\">>发货确认</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<span class=\"label label-default text-center odoo_purple\">Validate the "
-"Receipt Order</span>"
+msgid "<span class=\"label label-default text-center odoo_purple\">Validate the Receipt Order</span>"
 msgstr "<span class=\"label label-default text-center odoo_purple\">确认收货单</span>"
 
 #. module: stock
@@ -344,21 +323,17 @@ msgstr "<span>查看</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<span>You need to install the Accounting or Purchases app to manage "
-"vendors.</span>"
+msgid "<span>You need to install the Accounting or Purchases app to manage vendors.</span>"
 msgstr "<span>你需要安装财务模块或者采购模块来管理供应商</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<span>You need to install the Purchases Management app for this flow.</span>"
+msgid "<span>You need to install the Purchases Management app for this flow.</span>"
 msgstr "<span>这个流程需要安装采购管理模块.</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<span>You need to install the Sales Management app for this flow.</span>"
+msgid "<span>You need to install the Sales Management app for this flow.</span>"
 msgstr "<span>这个流程需要安装销售管理模块.</span>"
 
 #. module: stock
@@ -368,9 +343,7 @@ msgstr "<strong>激活 <i>跟踪批次或者序列号</i></strong> 在你的"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>Automated flows</strong>: from sale to delivery, and purchase to "
-"reception"
+msgid "<strong>Automated flows</strong>: from sale to delivery, and purchase to reception"
 msgstr "<strong>自动流程</strong>: 从销售到交货，从采购到收货"
 
 #. module: stock
@@ -380,13 +353,8 @@ msgstr "<strong>自动补货规则</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>Available products</strong> are currently available for use in "
-"filling a new order for purposes such as production or distribution. This "
-"quantity does not include items already allocated to other orders or items "
-"that are in transit from a supplier"
-msgstr ""
-"<strong>可用产品</strong> 是能够满足新的出货需求或者生产需要的产品，这个数量不包含已经被其他订单占用的数量或者采购在途的数量"
+msgid "<strong>Available products</strong> are currently available for use in filling a new order for purposes such as production or distribution. This quantity does not include items already allocated to other orders or items that are in transit from a supplier"
+msgstr "<strong>可用产品</strong> 是能够满足新的出货需求或者生产需要的产品，这个数量不包含已经被其他订单占用的数量或者采购在途的数量"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_picking
@@ -395,9 +363,7 @@ msgstr "<strong>条码</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>Buy:</strong> the product is bought from a vendor through a Purchase"
-" Order"
+msgid "<strong>Buy:</strong> the product is bought from a vendor through a Purchase Order"
 msgstr "<strong>买:</strong> 产品通过采购订单从供应航处购买"
 
 #. module: stock
@@ -407,9 +373,7 @@ msgstr "<strong>承诺交期 </strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>Consumable products</strong> are always assumed to be in sufficient "
-"quantity in your stock, therefore their available quantities are not tracked"
+msgid "<strong>Consumable products</strong> are always assumed to be in sufficient quantity in your stock, therefore their available quantities are not tracked"
 msgstr "<strong>消耗品</strong> 被设定为数量总是能够满足需求，也就是对可用数量不做监控"
 
 #. module: stock
@@ -431,7 +395,7 @@ msgstr "<strong>目的地</strong>"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "<strong>Enjoy your Inventory management with Odoo!</strong>"
-msgstr "<strong>Odoo更好的帮你管理库存!</strong>"
+msgstr "<strong>系统更好的帮你管理库存!</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -455,68 +419,46 @@ msgstr "<strong>批次/序列号码</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>Make to Order:</strong> the product is acquired only as demand "
-"requires, each time a Sales Order is confirmed. This does not modify stock "
-"in the medium term because you restock with the exact amount that was "
-"ordered"
+msgid "<strong>Make to Order:</strong> the product is acquired only as demand requires, each time a Sales Order is confirmed. This does not modify stock in the medium term because you restock with the exact amount that was ordered"
 msgstr "<strong>MTO:</strong> 产品只在销售订单确认后根据需求补货， 因为会补货下单的准确数量，这不会更改中间物料 "
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>Make to Stock:</strong> your customers are supplied from available "
-"stock. If the quantities in stock are too low to fulfill the order, a "
-"Purchase Order is generated according the minimum stock rules in order to "
-"get the products required"
-msgstr ""
-"<strong>MTS:</strong>仓库中有足够的货物可以满足你的客户。如果仓库中的数量不能够满足出货，系统会根据最小库存规则自动生成采购订单"
+msgid "<strong>Make to Stock:</strong> your customers are supplied from available stock. If the quantities in stock are too low to fulfill the order, a Purchase Order is generated according the minimum stock rules in order to get the products required"
+msgstr "<strong>MTS:</strong>仓库中有足够的货物可以满足你的客户。如果仓库中的数量不能够满足出货，系统会根据最小库存规则自动生成采购订单"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>Manufacture:</strong> the product is manufactured internally or the "
-"service is supplied from internal resources"
+msgid "<strong>Manufacture:</strong> the product is manufactured internally or the service is supplied from internal resources"
 msgstr "<strong>制造:</strong>产品内部制造或者服务通过内部资源实现"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>No address defined on the supplier partner:</strong> you have to "
-"complete an address for the default supplier for the product concerned."
+msgid "<strong>No address defined on the supplier partner:</strong> you have to complete an address for the default supplier for the product concerned."
 msgstr ""
 "<strong>供应商没有定义地址信息:\n"
 "</strong> 你必须给默认的供应商定义一个产品相关的地址"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>No bill of materials defined for production:</strong> you need to "
-"create a BoM or indicate that the product can be purchased instead."
+msgid "<strong>No bill of materials defined for production:</strong> you need to create a BoM or indicate that the product can be purchased instead."
 msgstr ""
 "<strong>该生产没有产品物料表:\n"
 "</strong> 你需要创建一个物料表或者指定该产品是采购产品"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>No quantity available in stock:</strong> you have to create a "
-"reordering rule and put it in the order, or manually procure it."
+msgid "<strong>No quantity available in stock:</strong> you have to create a reordering rule and put it in the order, or manually procure it."
 msgstr "<strong>库存中没有足够的数量:</strong> 你需要通过创建订货规则来自动创建订单或者手工产生它"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>No supplier available for a purchase:</strong> you have to define a "
-"supplier in the Procurements tab of the product form."
+msgid "<strong>No supplier available for a purchase:</strong> you have to define a supplier in the Procurements tab of the product form."
 msgstr "<strong>采购信息中缺少供应商信息:</strong> 你可以在产品表单的补货页面中定义供应商"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>On Hand products</strong> are physically located in the warehouse "
-"location at the current time. This includes items that are already allocated"
-" to fulfilling production needs or sales orders"
+msgid "<strong>On Hand products</strong> are physically located in the warehouse location at the current time. This includes items that are already allocated to fulfilling production needs or sales orders"
 msgstr "<strong>在手产品</strong>目前仓库中的数量。包含已经被相关生产订单或者销售订单占用的数量 "
 
 #. module: stock
@@ -560,9 +502,7 @@ msgstr "<strong>安排的日期 </strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>Service products</strong> are non-material products provided by a "
-"company or an individual"
+msgid "<strong>Service products</strong> are non-material products provided by a company or an individual"
 msgstr "<strong>服务类产品：</strong> 由公司或者个人提供的非实物产品 "
 
 #. module: stock
@@ -577,9 +517,7 @@ msgstr "<strong>State</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>Stockable products</strong> are subject to the full inventory "
-"management system: minimum stock rules, automatic procurement, etc."
+msgid "<strong>Stockable products</strong> are subject to the full inventory management system: minimum stock rules, automatic procurement, etc."
 msgstr "<strong>库存产品</strong> 被应用在库存管理的所有方面，例如最小库存规则，自动补货等等"
 
 #. module: stock
@@ -594,16 +532,11 @@ msgstr "<strong>仓库位置</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"<strong>When you process an incoming shipment, internal transfer or "
-"delivery</strong>, assign a lot number or different lot numbers or serial "
-"numbers to a product by clicking on the <span class=\"fa fa-list\"/> icon"
-msgstr ""
-"<strong>当你在操作一个收货，内部调拨，或者交货</strong>, 通过点击 <span class=\"fa fa-list\"/> "
-"图标，指派一个批次号，或者不同的批次号或序列号"
+msgid "<strong>When you process an incoming shipment, internal transfer or delivery</strong>, assign a lot number or different lot numbers or serial numbers to a product by clicking on the <span class=\"fa fa-list\"/> icon"
+msgstr "<strong>当你在操作一个收货，内部调拨，或者交货</strong>, 通过点击 <span class=\"fa fa-list\"/> 图标，指派一个批次号，或者不同的批次号或序列号"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:102
+#: code:addons/stock/models/stock_inventory.py:100
 #, python-format
 msgid "A Pack"
 msgstr "包裹"
@@ -625,6 +558,9 @@ msgid ""
 "                        you may find yourself out of stock) and not too high (your products occupy\n"
 "                        space and may lose value)."
 msgstr ""
+"A good inventory management aims to optimize stock levels: not too low (or\n"
+"                        you may find yourself out of stock) and not too high (your products occupy\n"
+"                        space and may lose value)."
 
 #. module: stock
 #: model:res.groups,name:stock.group_warning_stock
@@ -660,9 +596,8 @@ msgstr "使用供应商的开放天数日历调整交货时间(高级)"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
-msgid ""
-"Add an internal note that will be printed on the Picking Operations sheet"
-msgstr ""
+msgid "Add an internal note that will be printed on the Picking Operations sheet"
+msgstr "Add an internal note that will be printed on the Picking Operations sheet"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
@@ -723,10 +658,8 @@ msgstr "一次性全部"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_delivery_document
-msgid ""
-"All items couldn't be shipped, the remaining ones will be shipped as soon as"
-" they become available."
-msgstr ""
+msgid "All items couldn't be shipped, the remaining ones will be shipped as soon as they become available."
+msgstr "All items couldn't be shipped, the remaining ones will be shipped as soon as they become available."
 
 #. module: stock
 #: code:addons/stock/models/stock_inventory.py:90
@@ -745,7 +678,7 @@ msgid "All returned moves"
 msgstr "所有退货移动"
 
 #. module: stock
-#: code:addons/stock/models/procurement.py:221
+#: code:addons/stock/models/procurement.py:227
 #, python-format
 msgid "All stock moves have been cancelled for this procurement."
 msgstr "这个补货的所有库存移动都会被取消。"
@@ -773,18 +706,18 @@ msgid ""
 "        products when confirming a sale order.\n"
 "            This installs the module procurement_jit."
 msgstr ""
+"Allows you to automatically reserve the available\n"
+"        products when confirming a sale order.\n"
+"            This installs the module procurement_jit."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_config_settings_group_stock_packaging
-msgid ""
-"Allows you to create and manage your packaging dimensions and types you want"
-" to be maintained in your system."
+msgid "Allows you to create and manage your packaging dimensions and types you want to be maintained in your system."
 msgstr "允许创建和管理你要在系统中保留的的包装尺寸和类型。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_config_settings_group_uom
-msgid ""
-"Allows you to select and maintain different units of measure for products."
+msgid "Allows you to select and maintain different units of measure for products."
 msgstr "允许为产品选择和维护不同的计量单位"
 
 #. module: stock
@@ -796,16 +729,6 @@ msgstr "可以针对合作伙伴设置提示信息或者警告"
 #: model:ir.model.fields,field_description:stock.field_stock_quant_package_ancestor_ids
 msgid "Ancestors"
 msgstr "祖先"
-
-#. module: stock
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_2
-msgid "Apple In-Ear Headphones"
-msgstr "苹果入耳式耳机"
-
-#. module: stock
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_4
-msgid "Apple Wireless Keyboard"
-msgstr "苹果无线键盘"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_location_route_form_view
@@ -850,9 +773,7 @@ msgstr "已归档"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_config_settings_decimal_precision
-msgid ""
-"As an example, a decimal precision of 2 will allow weights like: 9.99 kg, "
-"whereas a decimal precision of 4 will allow weights like:  0.0231 kg."
+msgid "As an example, a decimal precision of 2 will allow weights like: 9.99 kg, whereas a decimal precision of 4 will allow weights like:  0.0231 kg."
 msgstr "作为一个例子，十进制精度为2允许重量是这样的：9.99千克，而一个十进制精度为4，将允许重量是这样的，如：0.0231千克。"
 
 #. module: stock
@@ -928,7 +849,7 @@ msgid "Back order <em>%s</em> <b>cancelled</b>."
 msgstr "欠单 <em>%s</em> <b>已取消</b>."
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:974
+#: code:addons/stock/models/stock_picking.py:984
 #, python-format
 msgid "Back order <em>%s</em> <b>created</b>."
 msgstr "欠单 <em>%s</em> <b>已创建</b>。"
@@ -982,25 +903,13 @@ msgstr "条码扫描支持"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"Before creating your products, here are a few concepts your should "
-"understand:"
+msgid "Before creating your products, here are a few concepts your should understand:"
 msgstr "在你创建产品之前，需要先了解几条概念"
-
-#. module: stock
-#: model:stock.location,name:stock.stock_location_4
-msgid "Big Vendors"
-msgstr "超级供应商"
 
 #. module: stock
 #: selection:res.partner,picking_warn:0
 msgid "Blocking Message"
 msgstr "受阻消息"
-
-#. module: stock
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_15
-msgid "Bose Mini Bluetooth Speaker"
-msgstr "玻色迷你蓝牙音箱"
 
 #. module: stock
 #: selection:stock.warehouse,delivery_steps:0
@@ -1024,40 +933,29 @@ msgid "By Unique Serial Number"
 msgstr "唯一序列号"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:397
+#: code:addons/stock/models/stock_move.py:389
 #, python-format
-msgid ""
-"By changing this quantity here, you accept the new quantity as complete: "
-"Odoo will not automatically generate a back order."
-msgstr "通过改变这里的数量，您确认新的完成数量: Odoo不会自动生成欠单。"
+msgid "By changing this quantity here, you accept the new quantity as complete: Odoo will not automatically generate a back order."
+msgstr "通过改变这里的数量，您确认新的完成数量: 系统不会自动生成欠单。"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"By default, Odoo measures products by 'units', which are generic and "
-"represent just about anything"
+msgid "By default, Odoo measures products by 'units', which are generic and represent just about anything"
 msgstr "默认情况下，产品的通用单位是‘件’，所有的产品都可以用它来表示"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_procure_method
-msgid ""
-"By default, the system will take from the stock in the source location and "
-"passively wait for availability.The other possibility allows you to directly"
-" create a procurement on the source location (and thus ignore its current "
-"stock) to gather products. If we want to chain moves and have this one to "
-"wait for the previous,this second option should be chosen."
-msgstr ""
+msgid "By default, the system will take from the stock in the source location and passively wait for availability.The other possibility allows you to directly create a procurement on the source location (and thus ignore its current stock) to gather products. If we want to chain moves and have this one to wait for the previous,this second option should be chosen."
+msgstr "By default, the system will take from the stock in the source location and passively wait for availability.The other possibility allows you to directly create a procurement on the source location (and thus ignore its current stock) to gather products. If we want to chain moves and have this one to wait for the previous,this second option should be chosen."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_active
-msgid ""
-"By unchecking the active field, you may hide a location without deleting it."
+msgid "By unchecking the active field, you may hide a location without deleting it."
 msgstr "通过取消勾选有效字段，您能隐藏一个位置而不是删除它"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_incoterms_active
-msgid ""
-"By unchecking the active field, you may hide an INCOTERM you will not use."
+msgid "By unchecking the active field, you may hide an INCOTERM you will not use."
 msgstr "通过取消勾选有效字段，您能隐藏不再使用的INCOTERM。"
 
 #. module: stock
@@ -1066,13 +964,13 @@ msgid "Calendar View"
 msgstr "日历视图"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:396
+#: code:addons/stock/models/stock_warehouse.py:400
 #, python-format
 msgid "Can't find any customer or supplier location."
 msgstr "找不到任何客户或供应商位置。"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:444
+#: code:addons/stock/models/stock_warehouse.py:448
 #, python-format
 msgid "Can't find any generic Make To Order route."
 msgstr "找不到任何按订单生产路线。"
@@ -1100,7 +998,7 @@ msgid "Cancelled"
 msgstr "已取消"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:357
+#: code:addons/stock/models/stock_move.py:349
 #, python-format
 msgid "Cannot unreserve a done move"
 msgstr "不能取消保留一个已完成的移动"
@@ -1134,7 +1032,7 @@ msgstr "勾选这次拣货关联的数量的存在"
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_pack_operation_exist
 msgid "Check the existence of pack operation on the picking"
-msgstr ""
+msgstr "Check the existence of pack operation on the picking"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_return_location
@@ -1144,8 +1042,7 @@ msgstr "勾选允许这个位置作为默认的退货位置"
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_scrap_location
 #: model:ir.model.fields,help:stock.field_stock_move_scrapped
-msgid ""
-"Check this box to allow using this location to put scrapped/damaged goods."
+msgid "Check this box to allow using this location to put scrapped/damaged goods."
 msgstr "这选项允许这位置能不能放置报废/毁坏的物资"
 
 #. module: stock
@@ -1354,9 +1251,7 @@ msgstr "通道(X)"
 #. module: stock
 #: code:addons/stock/wizard/stock_immediate_transfer.py:30
 #, python-format
-msgid ""
-"Could not reserve all requested products. Please use the 'Mark as Todo' "
-"button to handle the reservation manually."
+msgid "Could not reserve all requested products. Please use the 'Mark as Todo' button to handle the reservation manually."
 msgstr "当前单据所需要的库存数量不足 无法为您做出库存预留。请使用‘标记为待做’按钮手工的处理保留"
 
 #. module: stock
@@ -1395,7 +1290,7 @@ msgid "Create Backorder"
 msgstr "创建欠单"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:810
+#: code:addons/stock/models/stock_picking.py:819
 #, python-format
 msgid "Create Backorder?"
 msgstr "创建欠单？"
@@ -1547,7 +1442,7 @@ msgid "Creation Date, usually the time of the order"
 msgstr "创建日期,通常是订单的时间"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:401
+#: code:addons/stock/models/stock_warehouse.py:405
 #, python-format
 msgid "Cross-Dock"
 msgstr "越库"
@@ -1610,6 +1505,11 @@ msgstr "客户位置"
 #: model:ir.ui.view,arch_db:stock.view_location_search
 msgid "Customer Locations"
 msgstr "客户位置"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_product_product_taxes_id
+msgid "Customer Taxes"
+msgstr "客户税金"
 
 #. module: stock
 #: model:stock.location,name:stock.stock_location_customers
@@ -1688,27 +1588,6 @@ msgid "Day(s) to purchase"
 msgstr "采购的天数"
 
 #. module: stock
-#: model:res.company,overdue_msg:stock.res_company_1
-msgid ""
-"Dear Sir/Madam,\n"
-"\n"
-"Our records indicate that some payments on your account are still due. Please find details below.\n"
-"If the amount has already been paid, please disregard this notice. Otherwise, please forward us the total amount stated below.\n"
-"If you have any queries regarding your account, Please contact us.\n"
-"\n"
-"Thank you in advance for your cooperation.\n"
-"Best Regards,"
-msgstr ""
-"尊敬的先生/女士,\n"
-"    我们的记录表明，您的账户仍有到期的付款。请查找下面的明细。\n"
-"    如果款项已经支付，请忽略此通知。否则，请按如下所述的总金额转交给我们。\n"
-"    如果有任何关于账户的疑问，请联系我们。\n"
-"\n"
-"    谢谢您的合作。\n"
-"    此致  \n"
-"           敬礼"
-
-#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_config_settings_decimal_precision
 msgid "Decimal precision on weight"
 msgstr "重量的小数精度"
@@ -1767,9 +1646,7 @@ msgstr "在序列号中定义到期日"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"Define routes within your warehouse according to business needs, such as "
-"Quality Control, After Sales Services or Supplier Returns"
+msgid "Define routes within your warehouse according to business needs, such as Quality Control, After Sales Services or Supplier Returns"
 msgstr "在你的仓库中根据业务需求设定路径，例如数量控制，售后服务或者供应商退货"
 
 #. module: stock
@@ -1782,23 +1659,21 @@ msgid ""
 "            the stock operations like the manufacturing orders\n"
 "            consumptions, inventories, etc."
 msgstr ""
+"Define your locations to reflect your warehouse structure and\n"
+"            organization. Odoo is able to manage physical locations\n"
+"            (warehouses, shelves, bin, etc), partner locations (customers,\n"
+"            vendors) and virtual locations which are the counterpart of\n"
+"            the stock operations like the manufacturing orders\n"
+"            consumptions, inventories, etc."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_putaway_strategy_id
-msgid ""
-"Defines the default method used for suggesting the exact location (shelf) "
-"where to store the products. This method can be enforced at the product "
-"category level, and a fallback is made on the parent locations if none is "
-"set here."
+msgid "Defines the default method used for suggesting the exact location (shelf) where to store the products. This method can be enforced at the product category level, and a fallback is made on the parent locations if none is set here."
 msgstr "定义储存产品的确切位置(层)的默认方法。这个方法可被用于产品类别，如果上级位置没有设置也可以延伸到其上级位置。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_removal_strategy_id
-msgid ""
-"Defines the default method used for suggesting the exact location (shelf) "
-"where to take the products from, which lot etc. for this location. This "
-"method can be enforced at the product category level, and a fallback is made"
-" on the parent locations if none is set here."
+msgid "Defines the default method used for suggesting the exact location (shelf) where to take the products from, which lot etc. for this location. This method can be enforced at the product category level, and a fallback is made on the parent locations if none is set here."
 msgstr "定义此位置提取产品的确切位置(层)的默认方法，这个方法可被用于产品类别，如果上级位置没有设置也可以延伸到其上级位置。"
 
 #. module: stock
@@ -1831,8 +1706,7 @@ msgid "Delivery"
 msgstr "交货"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:206
-#: model:stock.picking.type,name:stock.chi_picking_type_out
+#: code:addons/stock/models/stock_warehouse.py:210
 #: model:stock.picking.type,name:stock.picking_type_out
 #, python-format
 msgid "Delivery Orders"
@@ -1856,9 +1730,7 @@ msgstr "交货类型"
 #. module: stock
 #: model:ir.model.fields,help:stock.field_product_product_route_ids
 #: model:ir.model.fields,help:stock.field_product_template_route_ids
-msgid ""
-"Depending on the modules installed, this will allow you to define the route "
-"of the product: whether it will be bought, manufactured, MTO/MTS,..."
+msgid "Depending on the modules installed, this will allow you to define the route of the product: whether it will be bought, manufactured, MTO/MTS,..."
 msgstr "取决于安装的模块，它允许在产品定义路线：是否购买，制造，MTO/MTS，等等..."
 
 #. module: stock
@@ -1935,10 +1807,7 @@ msgstr "详细信息"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_procurement_rule_procure_method
-msgid ""
-"Determines the procurement method of the stock move that will be generated: "
-"whether it will need to 'take from the available stock' in its source "
-"location or needs to ignore its stock and create a procurement over there."
+msgid "Determines the procurement method of the stock move that will be generated: whether it will need to 'take from the available stock' in its source location or needs to ignore its stock and create a procurement over there."
 msgstr "确定要生成的库存移动的补货方法：是从源位置的可用库存中提取产品还是忽略其库存直接创建补货单。"
 
 #. module: stock
@@ -1946,11 +1815,6 @@ msgstr "确定要生成的库存移动的补货方法：是从源位置的可用
 #: model:ir.ui.view,arch_db:stock.view_pack_operation_lot_form
 msgid "Discard"
 msgstr "丢弃"
-
-#. module: stock
-#: model:stock.location,name:stock.location_dispatch_zone
-msgid "Dispatch Zone"
-msgstr "派件区"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_make_procurement_display_name
@@ -1989,21 +1853,12 @@ msgstr "显示名称"
 
 #. module: stock
 #: model:ir.actions.act_window,help:stock.action_stock_line_date
-msgid ""
-"Display the latest Inventories and Moves done on your products and easily "
-"sort them with specific filtering criteria. If you do frequent and partial "
-"inventories, you need this report in order to ensure that the stock of each "
-"product is controlled at least once a year. This also lets you find out "
-"which products have seen little move lately and may deserve special measures"
-" (discounted sale, quality control...)"
-msgstr ""
-"显示您产品的最后盘点和完成的移动，还可以方便的使用特定的筛选规则去排序。如果您经常操作移库及部分盘点，您需要每年至少一次用这报表来控制您的产品库存。这也让您更容易发现哪些产品很少移动，从而采用特定的措施(销售折扣、质量控制...)"
+msgid "Display the latest Inventories and Moves done on your products and easily sort them with specific filtering criteria. If you do frequent and partial inventories, you need this report in order to ensure that the stock of each product is controlled at least once a year. This also lets you find out which products have seen little move lately and may deserve special measures (discounted sale, quality control...)"
+msgstr "显示您产品的最后盘点和完成的移动，还可以方便的使用特定的筛选规则去排序。如果您经常操作移库及部分盘点，您需要每年至少一次用这报表来控制您的产品库存。这也让您更容易发现哪些产品很少移动，从而采用特定的措施(销售折扣、质量控制...)"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"Do not hesitate to send us an email to describe your experience or to "
-"suggest improvements!"
+msgid "Do not hesitate to send us an email to describe your experience or to suggest improvements!"
 msgstr "不要有任何迟疑发送邮件给我们说明你的经历或者提出建议"
 
 #. module: stock
@@ -2077,11 +1932,6 @@ msgid "End"
 msgstr "结束"
 
 #. module: stock
-#: model:stock.location,name:stock.stock_location_7
-msgid "European Customers"
-msgstr "欧洲客户"
-
-#. module: stock
 #: model:ir.actions.act_window,help:stock.action_location_form
 msgid ""
 "Every stock operation in Odoo moves the products from one\n"
@@ -2090,9 +1940,14 @@ msgid ""
 "            location to the Stock location. Each report can be performed on\n"
 "            physical, partner or virtual locations."
 msgstr ""
+"Every stock operation in Odoo moves the products from one\n"
+"            location to another one.  For instance, if you receive products\n"
+"            from a vendor, Odoo will move products from the Vendor\n"
+"            location to the Stock location. Each report can be performed on\n"
+"            physical, partner or virtual locations."
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:647
+#: code:addons/stock/models/stock_quant.py:664
 #, python-format
 msgid "Everything inside a package should be in the same location"
 msgstr "包裹里面的东西应该在同一个位置"
@@ -2115,6 +1970,11 @@ msgid "Expected Date"
 msgstr "预计日期"
 
 #. module: stock
+#: model:ir.model.fields,field_description:stock.field_product_product_property_account_expense_id
+msgid "Expense Account"
+msgstr "费用科目"
+
+#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_config_settings_module_product_expiry
 msgid "Expiration Dates"
 msgstr "到期日"
@@ -2130,7 +1990,7 @@ msgid "Extra Features"
 msgstr "额外功能"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:949
+#: code:addons/stock/models/stock_picking.py:959
 #, python-format
 msgid "Extra Move: "
 msgstr "额外移动： "
@@ -2166,7 +2026,7 @@ msgid ""
 "For the Odoo Team,<br/>\n"
 "                            Fabien Pinckaers, Founder"
 msgstr ""
-"关于Odoo团队,<br/>\n"
+"关于团队,<br/>\n"
 "                            Fabien Pinckaers, 创始人F胖子：）"
 
 #. module: stock
@@ -2246,25 +2106,8 @@ msgid "Future Receipts"
 msgstr "未来收货"
 
 #. module: stock
-#: model:stock.location,name:stock.location_gate_a
-msgid "Gate A"
-msgstr "A 大门"
-
-#. module: stock
-#: model:stock.location,name:stock.location_gate_b
-msgid "Gate B"
-msgstr "B 大门"
-
-#. module: stock
-#: model:stock.location,name:stock.stock_location_5
-msgid "Generic IT Vendors"
-msgstr "通用IT供应商"
-
-#. module: stock
 #: model:ir.model.fields,help:stock.field_stock_fixed_putaway_strat_sequence
-msgid ""
-"Give to the more specialized category, a higher priority to have them in top"
-" of the list."
+msgid "Give to the more specialized category, a higher priority to have them in top of the list."
 msgstr "给予更专业的类别，更高的优先级让他们显示在列表的顶部。"
 
 #. module: stock
@@ -2293,11 +2136,6 @@ msgid "Graph"
 msgstr "图形"
 
 #. module: stock
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_1
-msgid "Graphics Card"
-msgstr "显卡"
-
-#. module: stock
 #: model:ir.ui.view,arch_db:stock.search_product_lot_filter
 #: model:ir.ui.view,arch_db:stock.stock_scrap_search_view
 #: model:ir.ui.view,arch_db:stock.view_inventory_filter
@@ -2318,11 +2156,6 @@ msgstr "分组 于"
 #: model:ir.ui.view,arch_db:stock.view_procurement_form_stock_inherit
 msgid "Group's Pickings"
 msgstr "同组的分拣"
-
-#. module: stock
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_9
-msgid "HDD SH-1"
-msgstr "硬盘 SH-1"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_pack_operation_exist
@@ -2346,9 +2179,7 @@ msgstr "高度(Z)"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"Help rental management, by generating automated return moves for rented "
-"products"
+msgid "Help rental management, by generating automated return moves for rented products"
 msgstr "租用管理是用自动产生从租借地位置的产品退回移动"
 
 #. module: stock
@@ -2422,7 +2253,7 @@ msgstr "如何使用批次跟踪："
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_id
 #: model:ir.model.fields,field_description:stock.field_stock_production_lot_id
 #: model:ir.model.fields,field_description:stock.field_stock_quant_id
-#: model:ir.model.fields,field_description:stock.field_stock_quant_package_id_8295
+#: model:ir.model.fields,field_description:stock.field_stock_quant_package_id_4649
 #: model:ir.model.fields,field_description:stock.field_stock_return_picking_id
 #: model:ir.model.fields,field_description:stock.field_stock_return_picking_line_id
 #: model:ir.model.fields,field_description:stock.field_stock_scrap_id
@@ -2432,7 +2263,7 @@ msgid "ID"
 msgstr "ID"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:374
+#: code:addons/stock/models/stock_inventory.py:372
 #, python-format
 msgid "INV:"
 msgstr "INV:"
@@ -2444,63 +2275,29 @@ msgid "INV: %s"
 msgstr "INV: %s"
 
 #. module: stock
-#: model:stock.location,name:stock.stock_location_3
-msgid "IT Vendors"
-msgstr "IT 供应商"
-
-#. module: stock
-#: model:product.product,name:stock.product_icecream
-#: model:product.template,name:stock.product_icecream_product_template
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_icecream_lot0
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_icecream_lot1
-msgid "Ice Cream"
-msgstr "冰淇淋"
-
-#. module: stock
-#: model:product.product,description:stock.product_icecream
-#: model:product.template,description:stock.product_icecream_product_template
-msgid ""
-"Ice cream can be mass-produced and thus is widely available in developed "
-"parts of the world. Ice cream can be purchased in large cartons (vats and "
-"squrounds) from supermarkets and grocery stores, in smaller quantities from "
-"ice cream shops, convenience stores, and milk bars, and in individual "
-"servings from small carts or vans at public events."
-msgstr ""
-"冰淇淋可以被批量生产并且广泛存在于发展中国家。大纸盒(有纸板间隔)的冰淇淋可从超市和杂货店采购。较少数量可从冰淇淋店，便利店及牛奶吧购买。个人份可以从购物车或公共场所的冰淇淋连锁零售车购买。"
-
-#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_quant_name
 msgid "Identifier"
 msgstr "标识"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
-msgid ""
-"If a product is not at the right place, set the checked quantity to 0 and "
-"create a new line with correct location."
+msgid "If a product is not at the right place, set the checked quantity to 0 and create a new line with correct location."
 msgstr "如果产品没有在正确的位置上，设置检查数量为0，并用正确的位置创建一条新的记录。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_picking_type_entire_packs
 #: model:ir.model.fields,help:stock.field_stock_picking_type_show_entire_packs
-msgid ""
-"If checked, this shows the packs to be moved as a whole in the Operations "
-"tab all the time, even if there was no entire pack reserved."
+msgid "If checked, this shows the packs to be moved as a whole in the Operations tab all the time, even if there was no entire pack reserved."
 msgstr "如果选用，包裹会被在作业页卡不断的移动，即便没有全部的包裹被预留"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_path_propagate
-msgid ""
-"If checked, when the previous move is cancelled or split, the move generated"
-" by this move will too"
+msgid "If checked, when the previous move is cancelled or split, the move generated by this move will too"
 msgstr "如果选中这里。当之前移动取消或被分割，此移动产生的相关移动也会被取消或分割"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_procurement_rule_propagate
-msgid ""
-"If checked, when the previous move of the move (which was generated by a "
-"next procurement) is cancelled or split, the move generated by this move "
-"will too"
+msgid "If checked, when the previous move of the move (which was generated by a next procurement) is cancelled or split, the move generated by this move will too"
 msgstr "如果选中这里。当(从下一个需求单生成的)移动的前一个移动被取消或分割，此移动产生的相关移动也会被取消或分割"
 
 #. module: stock
@@ -2520,16 +2317,12 @@ msgstr "如果设置，此作业即打包到此包裹内"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint_active
-msgid ""
-"If the active field is set to False, it will allow you to hide the "
-"orderpoint without removing it."
+msgid "If the active field is set to False, it will allow you to hide the orderpoint without removing it."
 msgstr "如果没有选中“可用”字段，那么将隐藏需求单记录且不会删除它。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_route_active
-msgid ""
-"If the active field is set to False, it will allow you to hide the route "
-"without removing it."
+msgid "If the active field is set to False, it will allow you to hide the route without removing it."
 msgstr "如果active字段设置为假，允许您在不删除它的情况下隐藏它。"
 
 #. module: stock
@@ -2539,32 +2332,23 @@ msgstr "路线是否是全局的"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_quant_negative_move_id
-msgid ""
-"If this is a negative quant, this will be the move that caused this negative"
-" quant."
+msgid "If this is a negative quant, this will be the move that caused this negative quant."
 msgstr "如果这是一个负的份。将会因这个负的份被移动。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_type_use_create_lots
-msgid ""
-"If this is checked only, it will suppose you want to create new Lots/Serial "
-"Numbers, so you can provide them in a text field. "
-msgstr ""
+msgid "If this is checked only, it will suppose you want to create new Lots/Serial Numbers, so you can provide them in a text field. "
+msgstr "If this is checked only, it will suppose you want to create new Lots/Serial Numbers, so you can provide them in a text field. "
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_type_use_existing_lots
-msgid ""
-"If this is checked, you will be able to choose the Lots/Serial Numbers. You "
-"can also decide to not put lots in this picking type.  This means it will "
-"create stock with no lot or not put a restriction on the lot taken. "
-msgstr ""
+msgid "If this is checked, you will be able to choose the Lots/Serial Numbers. You can also decide to not put lots in this picking type.  This means it will create stock with no lot or not put a restriction on the lot taken. "
+msgstr "If this is checked, you will be able to choose the Lots/Serial Numbers. You can also decide to not put lots in this picking type.  This means it will create stock with no lot or not put a restriction on the lot taken. "
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_backorder_id
 #: model:ir.model.fields,help:stock.field_stock_picking_backorder_id
-msgid ""
-"If this shipment was split, then this field links to the shipment which "
-"contains the already processed part."
+msgid "If this shipment was split, then this field links to the shipment which contains the already processed part."
 msgstr "如果这个送货被拆分，该字段将连接到包括了已经处理的部分的送货。"
 
 #. module: stock
@@ -2585,21 +2369,13 @@ msgid ""
 "                        sometimes the system can remain blocked without generating a\n"
 "                        corresponding document, usually due to a configuration problem."
 msgstr ""
-"如果你配置了自动补货，Odoo可以自动产生补货单，通常你不需要担心，\n"
+"如果你配置了自动补货，系统可以自动产生补货单，通常你不需要担心，\n"
 "但是有时候会有异常出现，基本上是因为配置出现了问题"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_inventory_filter
-msgid ""
-"If you do an entire inventory, you can choose 'All Products' and it will "
-"prefill the inventory with the current stock.  If you only do some products"
-"  (e.g. Cycle Counting) you can choose 'Manual Selection of Products' and "
-"the system won't propose anything.  You can also let the system propose for "
-"a single product / lot /... "
-msgstr ""
-"如果您要做全库盘点，请选择“所有产品(All "
-"Product)”，系统自动用当前库存产品及数量填充盘点单。如果您只想部分点数，请选择“手选产品(Manual Selection of "
-"Products)”，系统不会自动填充盘点单，需要您手工填写盘点产品及数量。您也可以只盘点一个产品，系统会自动填充该产品当前库存数量、批次号。"
+msgid "If you do an entire inventory, you can choose 'All Products' and it will prefill the inventory with the current stock.  If you only do some products  (e.g. Cycle Counting) you can choose 'Manual Selection of Products' and the system won't propose anything.  You can also let the system propose for a single product / lot /... "
+msgstr "如果您要做全库盘点，请选择“所有产品(All Product)”，系统自动用当前库存产品及数量填充盘点单。如果您只想部分点数，请选择“手选产品(Manual Selection of Products)”，系统不会自动填充盘点单，需要您手工填写盘点产品及数量。您也可以只盘点一个产品，系统会自动填充该产品当前库存数量、批次号。"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -2619,7 +2395,7 @@ msgid "Immediate Transfer"
 msgstr "立即调拨"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:792
+#: code:addons/stock/models/stock_picking.py:801
 #, python-format
 msgid "Immediate Transfer?"
 msgstr "立即调拨？"
@@ -2640,7 +2416,7 @@ msgid ""
 "In Odoo, <strong>Reordering Rules</strong> are used to replenish your products.\n"
 "                        Odoo will automatically propose a procurement to buy new products if you are\n"
 "                        running out of stock."
-msgstr "在Odoo中，<strong>订货规则</strong>被用来补货，Odoo自动的创建补货单"
+msgstr "在系统中，<strong>订货规则</strong>被用来补货，系统自动的创建补货单"
 
 #. module: stock
 #: selection:stock.inventory,state:0
@@ -2654,9 +2430,7 @@ msgstr "入库类型"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_procurement_order_partner_dest_id
-msgid ""
-"In case of dropshipping, we need to know the destination address more "
-"precisely"
+msgid "In case of dropshipping, we need to know the destination address more precisely"
 msgstr "当采用供应商直接送货时，我们要更精确的知道目的地地址"
 
 #. module: stock
@@ -2678,6 +2452,11 @@ msgstr "简言之，更加有效的仓库管理能让库存见到最低并且在
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_exhausted
 msgid "Include Exhausted Products"
 msgstr "包含短缺的产品"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_product_product_property_account_income_id
+msgid "Income Account"
+msgstr "收入科目"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_product_product_incoming_qty
@@ -2717,10 +2496,7 @@ msgstr "贸易术语"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_incoterms_name
-msgid ""
-"Incoterms are series of sales terms. They are used to divide transaction "
-"costs and responsibilities between buyer and seller and reflect state-of-"
-"the-art transportation practices."
+msgid "Incoterms are series of sales terms. They are used to divide transaction costs and responsibilities between buyer and seller and reflect state-of-the-art transportation practices."
 msgstr "贸易术语是一系列的销售术语,用来划分交易成本和买卖双方的责任,反映运输方法的发展。"
 
 #. module: stock
@@ -2734,7 +2510,7 @@ msgid "Initial Inventory"
 msgstr "初始库存"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:93
+#: code:addons/stock/models/stock_warehouse.py:97
 #: model:stock.location,name:stock.stock_location_company
 #, python-format
 msgid "Input"
@@ -2747,9 +2523,7 @@ msgstr "进货位置"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_config_settings_module_stock_picking_wave
-msgid ""
-"Install the picking wave module which will help you grouping your pickings "
-"and processing them in batch"
+msgid "Install the picking wave module which will help you grouping your pickings and processing them in batch"
 msgstr "安装stock_picking_wave模块，会帮助您分组分拣的货物并批量处理它们。"
 
 #. module: stock
@@ -2785,7 +2559,7 @@ msgid "Internal Reference"
 msgstr "内部参考"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:228
+#: code:addons/stock/models/stock_warehouse.py:232
 #: model:stock.picking.type,name:stock.picking_type_internal
 #, python-format
 msgid "Internal Transfers"
@@ -2803,10 +2577,8 @@ msgstr "内部类型"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_production_lot_ref
-msgid ""
-"Internal reference number in case it differs from the manufacturer's "
-"lot/serial number"
-msgstr ""
+msgid "Internal reference number in case it differs from the manufacturer's lot/serial number"
+msgstr "Internal reference number in case it differs from the manufacturer's lot/serial number"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_category_id
@@ -2956,10 +2728,8 @@ msgstr "库存调整"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
-msgid ""
-"Inventory adjustments will be made by comparing the theoretical and the "
-"checked quantities."
-msgstr "库存调整是通过比较产品在odoo系统中的数量和实际复核的数量再进行调整。"
+msgid "Inventory adjustments will be made by comparing the theoretical and the checked quantities."
+msgstr "库存调整是通过比较产品在系统中的数量和实际复核的数量再进行调整。"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_filter
@@ -2997,28 +2767,17 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "It is time to make your initial Inventory. In order to do so:"
-msgstr "是时候创建期初库存了,在Odoo中可以这样做："
+msgstr "是时候创建期初库存了,在系统中可以这样做："
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_product_packaging
-msgid ""
-"It specifies attributes of packaging like type, quantity of packaging,etc."
+msgid "It specifies attributes of packaging like type, quantity of packaging,etc."
 msgstr "指定包装的属性如数量,类型等"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_move_type
 msgid "It specifies goods to be deliver partially or all at once"
 msgstr "指定货物是部分交货，还是一次性交货"
-
-#. module: stock
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_13
-msgid "Laptop Customized"
-msgstr "定制便携计算机"
-
-#. module: stock
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_14
-msgid "Laptop E5023"
-msgstr "便携式电脑 E5023"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_last_done_picking
@@ -3181,7 +2940,7 @@ msgstr "如果这个位置是公司间共享的，则此字段留空"
 msgid ""
 "Like with the sales flow, Odoo inventory management is\n"
 "                        fully integrated with the purchase app."
-msgstr "就像和销售模块集成一样，Odoo的仓库也和采购模块集成"
+msgstr "就像和销售模块集成一样，系统的仓库也和采购模块集成"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_pack_operation_linked_move_operation_ids
@@ -3320,7 +3079,7 @@ msgid "Lot/Serial Number"
 msgstr "批次/序列号码"
 
 #. module: stock
-#: code:addons/stock/models/stock_pack_operation.py:198
+#: code:addons/stock/models/stock_pack_operation.py:199
 #, python-format
 msgid "Lot/Serial Number Details"
 msgstr "批次/序列号码详情"
@@ -3331,7 +3090,7 @@ msgid "Lot/Serial Number Inventory"
 msgstr "批次/序列号码库存"
 
 #. module: stock
-#: code:addons/stock/models/stock_pack_operation.py:268
+#: code:addons/stock/models/stock_pack_operation.py:282
 #, python-format
 msgid "Lot/Serial Number required"
 msgstr "批次/序列号码必须"
@@ -3378,7 +3137,7 @@ msgid "Lots/Serial Numbers Used"
 msgstr "批次/序列号码使用"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:504
+#: code:addons/stock/models/stock_warehouse.py:514
 #, python-format
 msgid "MTO"
 msgstr "基于订单备货"
@@ -3394,7 +3153,7 @@ msgid "Make Procurements"
 msgstr "建立补货"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:442
+#: code:addons/stock/models/stock_warehouse.py:446
 #: model:stock.location.route,name:stock.route_warehouse0_mto
 #, python-format
 msgid "Make To Order"
@@ -3402,9 +3161,7 @@ msgstr "按订单生成"
 
 #. module: stock
 #: selection:stock.warehouse,delivery_steps:0
-msgid ""
-"Make packages into a dedicated location, then bring them to the output "
-"location for shipping (Pick + Pack + Ship)"
+msgid "Make packages into a dedicated location, then bring them to the output location for shipping (Pick + Pack + Ship)"
 msgstr "在专用位置制作包裹，然后将他们送到出货位置等待送货(分拣+打包+发货)"
 
 #. module: stock
@@ -3484,8 +3241,7 @@ msgstr "管理质量控制点，检查以及测量"
 
 #. module: stock
 #: selection:stock.config.settings,warehouse_and_location_usage_level:0
-msgid ""
-"Manage several Warehouses, each one composed by several stock locations"
+msgid "Manage several Warehouses, each one composed by several stock locations"
 msgstr "管理 多个仓库每个仓库有多个库位"
 
 #. module: stock
@@ -3507,11 +3263,6 @@ msgstr "管理员"
 #: selection:stock.location.path,auto:0
 msgid "Manual Operation"
 msgstr "手动作业"
-
-#. module: stock
-#: selection:stock.picking.type,code:0
-msgid "Manufacturing Operation"
-msgstr "制造作业"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
@@ -3541,8 +3292,7 @@ msgstr "方法"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_company_propagation_minimum_delta
-msgid ""
-"Minimum Delta for Propagation of a Date Change on moves linked together"
+msgid "Minimum Delta for Propagation of a Date Change on moves linked together"
 msgstr "连接在一起的库存移动的日期变化传播的最小差值。"
 
 #. module: stock
@@ -3568,8 +3318,7 @@ msgstr "最小库存规则"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_config_settings_propagation_minimum_delta
-msgid ""
-"Minimum days to trigger a propagation of date change in pushed/pull flows."
+msgid "Minimum days to trigger a propagation of date change in pushed/pull flows."
 msgstr "在推/拉流中触发日期变更传播的最小天数"
 
 #. module: stock
@@ -3598,17 +3347,7 @@ msgid ""
 "Most operations are prepared automatically by Odoo according\n"
 "                to your preconfigured logistics rules, but you can also record\n"
 "                manual stock movements."
-msgstr "大部分作业被Odoo根据你的预先配置的物流规则自动准备，但是你也可以人工记录库存运动。"
-
-#. module: stock
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_5
-msgid "Mouse, Optical"
-msgstr "光学鼠标"
-
-#. module: stock
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_11
-msgid "Mouse, Wireless"
-msgstr "无线鼠标"
+msgstr "大部分作业被系统根据你的预先配置的物流规则自动准备，但是你也可以人工记录库存运动。"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_operation_link_move_id
@@ -3617,7 +3356,7 @@ msgid "Move"
 msgstr "分录"
 
 #. module: stock
-#: code:addons/stock/models/procurement.py:50
+#: code:addons/stock/models/procurement.py:53
 #, python-format
 msgid "Move From Another Location"
 msgstr "从其它位置移动"
@@ -3639,9 +3378,7 @@ msgstr "移动供应方法"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_date
-msgid ""
-"Move date: scheduled date until move is done, then date of actual move "
-"processing"
+msgid "Move date: scheduled date until move is done, then date of actual move processing"
 msgstr "移动日期: 安排的日期直到移动完成的日期，这日期是移动实际处理完成的日期."
 
 #. module: stock
@@ -3680,17 +3417,12 @@ msgstr "补货创建的库存移动"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint_group_id
-msgid ""
-"Moves created through this orderpoint will be put in this procurement group."
-" If none is given, the moves generated by procurement rules will be grouped "
-"into one big picking."
+msgid "Moves created through this orderpoint will be put in this procurement group. If none is given, the moves generated by procurement rules will be grouped into one big picking."
 msgstr "通过此订购点创建的移动将放在此补货组中。如果没有被提供，由补货规则产品的移动将被组合为一个大的分拣。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_pack_operation_linked_move_operation_ids
-msgid ""
-"Moves impacted by this operation for the computation of the remaining "
-"quantities"
+msgid "Moves impacted by this operation for the computation of the remaining quantities"
 msgstr "计算剩余数量时，被这个作业影响的移库明细。"
 
 #. module: stock
@@ -3775,7 +3507,7 @@ msgid "No automatic routing of products"
 msgstr "没有产品的自动路线"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:823
+#: code:addons/stock/models/stock_picking.py:832
 #, python-format
 msgid "No negative quantities allowed"
 msgstr "不允许负数"
@@ -3783,13 +3515,11 @@ msgstr "不允许负数"
 #. module: stock
 #: code:addons/stock/wizard/stock_picking_return.py:60
 #, python-format
-msgid ""
-"No products to return (only lines in Done state and not fully returned yet "
-"can be returned)!"
+msgid "No products to return (only lines in Done state and not fully returned yet can be returned)!"
 msgstr "没有产品被退货（只有完成状态和未完全退货的 行能被退货）！"
 
 #. module: stock
-#: code:addons/stock/models/procurement.py:182
+#: code:addons/stock/models/procurement.py:188
 #, python-format
 msgid "No source location defined!"
 msgstr "未定义源位置！"
@@ -3798,11 +3528,6 @@ msgstr "未定义源位置！"
 #: selection:stock.config.settings,group_product_variant:0
 msgid "No variants on products"
 msgstr "产品无任何变型"
-
-#. module: stock
-#: model:stock.location,name:stock.stock_location_8
-msgid "Non European Customers"
-msgstr "非欧洲客户"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_pack_operation_product_ids
@@ -3827,7 +3552,7 @@ msgid "Notes"
 msgstr "备注"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:461
+#: code:addons/stock/models/stock_picking.py:470
 #, python-format
 msgid "Nothing to check the availability for."
 msgstr "没有要检查的可用"
@@ -3844,9 +3569,7 @@ msgstr "天数"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint_lead_days
-msgid ""
-"Number of days after the orderpoint is triggered to receive the products or "
-"to order to the vendor"
+msgid "Number of days after the orderpoint is triggered to receive the products or to order to the vendor"
 msgstr "天数在订购点被触发到收到产品或者给供应商下单。"
 
 #. module: stock
@@ -3862,15 +3585,13 @@ msgstr "Ok"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"Odoo handles <strong>advanced push/pull routes configuration</strong>, for "
-"example:"
-msgstr "Odoo处理<strong>高级推/拉式路线配置</strong>，例如："
+msgid "Odoo handles <strong>advanced push/pull routes configuration</strong>, for example:"
+msgstr "处理<strong>高级推/拉式路线配置</strong>，例如："
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "Odoo has preconfigured <strong>one Warehouse</strong> for you."
-msgstr " Odoo已经为你预先配置好<strong>一个仓库</strong>"
+msgstr " 系统已经为你预先配置好<strong>一个仓库</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -3879,7 +3600,7 @@ msgid ""
 "                        invoicing process. Everything is automated from the initial\n"
 "                        quotation to the delivery and the final invoice."
 msgstr ""
-"Odoo的库存管理完全的和销售和开票流程集成\n"
+"系统的库存管理完全的和销售和开票流程集成\n"
 "从原始的报价单到发货再到最后的开票所有的一切都被集成"
 
 #. module: stock
@@ -3893,11 +3614,8 @@ msgstr ""
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"Of course, feel free to add your own. Please note that Odoo is able to "
-"convert units within the same category, for example, liters to gallons in "
-"the volume category"
-msgstr "当然，可以任意的添加。请注意Odoo可以在在同一种类之间的计量单位中间转换例如体积中的升和加仑"
+msgid "Of course, feel free to add your own. Please note that Odoo is able to convert units within the same category, for example, liters to gallons in the volume category"
+msgstr "当然，可以任意的添加。请注意系统可以在在同一种类之间的计量单位中间转换例如体积中的升和加仑"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.product_form_view_procurement_button
@@ -3917,20 +3635,17 @@ msgstr "在手："
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"Once it's fully working, give us some feedback: we love to hear from our "
-"customer. It would be great if you could send us a photo of your warehouse "
-"to"
+msgid "Once it's fully working, give us some feedback: we love to hear from our customer. It would be great if you could send us a photo of your warehouse to"
 msgstr "如果能够完全的工作，请给我们一些回馈：我们渴望从客户得到回馈，如果你给我们发送一张你们仓库的照片，那就更好了"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:100
+#: code:addons/stock/models/stock_inventory.py:98
 #, python-format
 msgid "One Lot/Serial Number"
 msgstr "一个批次/序列号"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:98
+#: code:addons/stock/models/stock_inventory.py:96
 #, python-format
 msgid "One owner only"
 msgstr "仅一个所有者"
@@ -3942,7 +3657,7 @@ msgid "One product category"
 msgstr "一个产品类别"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:98
+#: code:addons/stock/models/stock_inventory.py:96
 #, python-format
 msgid "One product for a specific owner"
 msgstr "一个产品给一个指定的所有者"
@@ -3959,7 +3674,7 @@ msgid "Operation"
 msgstr "操作"
 
 #. module: stock
-#: code:addons/stock/models/stock_pack_operation.py:215
+#: code:addons/stock/models/stock_pack_operation.py:216
 #, python-format
 msgid "Operation Details"
 msgstr "作业详情"
@@ -3994,16 +3709,12 @@ msgstr "作业类型"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_linked_move_operation_ids
-msgid ""
-"Operations that impact this move for the computation of the remaining "
-"quantities"
+msgid "Operations that impact this move for the computation of the remaining quantities"
 msgstr "此移库作业将影响余量的计算"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_partner_id
-msgid ""
-"Optional address where goods are to be delivered, specifically used for "
-"allotment"
+msgid "Optional address where goods are to be delivered, specifically used for allotment"
 msgstr "用于交货的可选地址，专门用于配发"
 
 #. module: stock
@@ -4031,12 +3742,7 @@ msgstr "选项: 链接它们会引起上个库存移动"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "Order Date"
-msgstr "订购日期"
-
-#. module: stock
-#: model:stock.location,name:stock.location_order
-msgid "Order Processing"
-msgstr "订单处理"
+msgstr "单据日期"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_ordered_qty
@@ -4071,7 +3777,7 @@ msgid "Original location id"
 msgstr "源库位"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:222
+#: code:addons/stock/models/stock_quant.py:226
 #, python-format
 msgid "Otherwise make sure the right stock/owner is set."
 msgstr "否则确认仓库/所有者正确"
@@ -4093,7 +3799,7 @@ msgid "Outgoing Shippings"
 msgstr "出货的送货"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:95
+#: code:addons/stock/models/stock_warehouse.py:99
 #: model:stock.location,name:stock.stock_location_output
 #, python-format
 msgid "Output"
@@ -4138,7 +3844,7 @@ msgid "P&L Qty"
 msgstr "P&L Qty"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:213
+#: code:addons/stock/models/stock_warehouse.py:217
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_line_package_id
 #: model:ir.model.fields,field_description:stock.field_stock_picking_pack_operation_pack_ids
 #, python-format
@@ -4224,14 +3930,8 @@ msgstr "包裹"
 
 #. module: stock
 #: model:ir.actions.act_window,help:stock.action_package_view
-msgid ""
-"Packages are usually created by pack operations made on transfers and can "
-"contains several different products. You can then reuse a package to move "
-"its whole content somewhere else, or to pack it into another bigger package."
-" A package can also be unpacked, allowing the disposal of its former content"
-" as single units again."
-msgstr ""
-"包裹通常是由包装作业员在调拨的时候创建的，能够包含多个不同产品你可以把包裹里面的东西拿出之后再次利用这个包裹，或者把这个包裹打包在更大的包裹中一个包裹可以被拆解，让包裹里面的产品作为一个单一的单位"
+msgid "Packages are usually created by pack operations made on transfers and can contains several different products. You can then reuse a package to move its whole content somewhere else, or to pack it into another bigger package. A package can also be unpacked, allowing the disposal of its former content as single units again."
+msgstr "包裹通常是由包装作业员在调拨的时候创建的，能够包含多个不同产品你可以把包裹里面的东西拿出之后再次利用这个包裹，或者把这个包裹打包在更大的包裹中一个包裹可以被拆解，让包裹里面的产品作为一个单一的单位"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.quant_package_search_view
@@ -4254,7 +3954,7 @@ msgid "Packing Operation"
 msgstr "打包作业"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:96
+#: code:addons/stock/models/stock_warehouse.py:100
 #: model:stock.location,name:stock.location_pack_zone
 #, python-format
 msgid "Packing Zone"
@@ -4345,19 +4045,19 @@ msgid "Physical Packages"
 msgstr "物理包裹"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:221
+#: code:addons/stock/models/stock_warehouse.py:225
 #, python-format
 msgid "Pick"
 msgstr "分拣"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:403
+#: code:addons/stock/models/stock_warehouse.py:407
 #, python-format
 msgid "Pick + Pack + Ship"
 msgstr "分拣+打包+发货"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:402
+#: code:addons/stock/models/stock_warehouse.py:406
 #, python-format
 msgid "Pick + Ship"
 msgstr "分拣+发货"
@@ -4411,9 +4111,7 @@ msgstr "拣货类型名称"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_procurement_rule_picking_type_id
-msgid ""
-"Picking Type determines the way the picking should be shown in the view, "
-"reports, ..."
+msgid "Picking Type determines the way the picking should be shown in the view, reports, ..."
 msgstr "拣货类型决定了展示拣货在视图、报告...等中的展示方式"
 
 #. module: stock
@@ -4467,15 +4165,13 @@ msgid "Planner"
 msgstr "计划"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:779
+#: code:addons/stock/models/stock_picking.py:788
 #, python-format
-msgid ""
-"Please create some Initial Demand or Mark as Todo and create some "
-"Operations. "
+msgid "Please create some Initial Demand or Mark as Todo and create some Operations. "
 msgstr "请创建一些原始的需求，或者标识为待办并创建一些作业。"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:1008
+#: code:addons/stock/models/stock_picking.py:1022
 #, python-format
 msgid "Please process some quantities to put in the pack first!"
 msgstr "请先放置部分数量在包裹中"
@@ -4514,9 +4210,7 @@ msgstr "补货订单遵循的首选路线"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_procurement_order_route_ids
-msgid ""
-"Preferred route to be followed by the procurement order. Usually copied from"
-" the generating document (SO) but could be set up manually."
+msgid "Preferred route to be followed by the procurement order. Usually copied from the generating document (SO) but could be set up manually."
 msgstr "首选路线，其次是补货单。通常从文档自动生成(如销售订单)，也可以手动设置。"
 
 #. module: stock
@@ -4538,9 +4232,7 @@ msgstr "优先级"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_priority
-msgid ""
-"Priority for this picking. Setting manually a value here would set it as "
-"priority for all the moves"
+msgid "Priority for this picking. Setting manually a value here would set it as priority for all the moves"
 msgstr "此分拣的优先级。手动在这设定一个值作为所有移动的优先级。"
 
 #. module: stock
@@ -4731,9 +4423,7 @@ msgstr "产品"
 
 #. module: stock
 #: selection:stock.config.settings,group_product_variant:0
-msgid ""
-"Products can have several attributes, defining variants (Example: size, "
-"color,...)"
+msgid "Products can have several attributes, defining variants (Example: size, color,...)"
 msgstr "产品可以有好几个属性，通过不同属性来定义不同的产品变体型(属性如: 尺寸, 颜色.....)"
 
 #. module: stock
@@ -4743,9 +4433,7 @@ msgstr "产品只有一个计量单位"
 
 #. module: stock
 #: model:ir.actions.act_window,help:stock.action_stock_scrap
-msgid ""
-"Products you scrap will be removed from the stock and moved to a specific "
-"scrap location, for reporting purposes."
+msgid "Products you scrap will be removed from the stock and moved to a specific scrap location, for reporting purposes."
 msgstr "报废的产品将从库存移动到报废库位，便于报表统计"
 
 #. module: stock
@@ -4815,7 +4503,7 @@ msgid "Quality"
 msgstr "质量"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:94
+#: code:addons/stock/models/stock_warehouse.py:98
 #, python-format
 msgid "Quality Control"
 msgstr "质量管理"
@@ -4826,11 +4514,9 @@ msgid "Quality Control Location"
 msgstr "质量管理位置"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:264
+#: code:addons/stock/models/stock_move.py:261
 #, python-format
-msgid ""
-"Quantities, Units of Measure, Products and Locations cannot be modified on "
-"stock moves that have already been processed (except by the Administrator)."
+msgid "Quantities, Units of Measure, Products and Locations cannot be modified on stock moves that have already been processed (except by the Administrator)."
 msgstr "已经被处理过的调拨单中，数量，计量单位，产品和位置不能修改（除非是管理员处理）。"
 
 #. module: stock
@@ -4885,9 +4571,7 @@ msgstr "数量必须大于等于0.0"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_quant_qty
-msgid ""
-"Quantity of products in this quant, in the default unit of measure of the "
-"product"
+msgid "Quantity of products in this quant, in the default unit of measure of the product"
 msgstr "默认计量单位下，这份的产品数量。"
 
 #. module: stock
@@ -4918,10 +4602,7 @@ msgstr ""
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_operation_link_qty
-msgid ""
-"Quantity of products to consider when talking about the contribution of this"
-" pack operation towards the remaining quantity of the move (and inverse). "
-"Given in the product main uom."
+msgid "Quantity of products to consider when talking about the contribution of this pack operation towards the remaining quantity of the move (and inverse). Given in the product main uom."
 msgstr "在谈到此打包作业对移动(以及反向)剩余数量的贡献时，需要考虑的产品数量。基于产品主记录单位给出。"
 
 #. module: stock
@@ -4938,19 +4619,14 @@ msgid "Quants"
 msgstr "份"
 
 #. module: stock
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_12
-msgid "RAM SR5"
-msgstr "内存SR5"
-
-#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_rate_picking_backorders
 msgid "Rate picking backorders"
-msgstr ""
+msgstr "Rate picking backorders"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_rate_picking_late
 msgid "Rate picking late"
-msgstr ""
+msgstr "Rate picking late"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_picking_type_kanban
@@ -4977,28 +4653,27 @@ msgid "Receipt Route"
 msgstr "收货路线"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:400
+#: code:addons/stock/models/stock_warehouse.py:404
 #, python-format
 msgid "Receipt in 1 step"
 msgstr "1步收货"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:400
+#: code:addons/stock/models/stock_warehouse.py:404
 #, python-format
 msgid "Receipt in 2 steps"
 msgstr "2步收货"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:401
+#: code:addons/stock/models/stock_warehouse.py:405
 #, python-format
 msgid "Receipt in 3 steps"
 msgstr "3步收货"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:199
+#: code:addons/stock/models/stock_warehouse.py:203
 #: model:ir.actions.act_window,name:stock.action_receive_move
 #: model:ir.ui.view,arch_db:stock.product_kanban_stock_view
-#: model:stock.picking.type,name:stock.chi_picking_type_in
 #: model:stock.picking.type,name:stock.picking_type_in
 #, python-format
 msgid "Receipts"
@@ -5072,9 +4747,7 @@ msgstr "剩余数量"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_remaining_qty
-msgid ""
-"Remaining Quantity in default UoM according to operations matched with this "
-"move"
+msgid "Remaining Quantity in default UoM according to operations matched with this move"
 msgstr " 与本移动匹配的作业的剩余数量，基于默认计量单位"
 
 #. module: stock
@@ -5084,10 +4757,8 @@ msgstr "部分分拣后的剩余部分"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_pack_operation_remaining_qty
-msgid ""
-"Remaining quantity in default UoM according to moves matched with this "
-"operation."
-msgstr ""
+msgid "Remaining quantity in default UoM according to moves matched with this operation."
+msgstr "Remaining quantity in default UoM according to moves matched with this operation."
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_removal
@@ -5101,7 +4772,7 @@ msgid "Removal Strategy"
 msgstr "下架策略"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:467
+#: code:addons/stock/models/stock_quant.py:484
 #, python-format
 msgid "Removal strategy %s not implemented."
 msgstr "下架策略 %s 没有实现."
@@ -5282,9 +4953,7 @@ msgstr "路线管理"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_resupply_route_ids
-msgid ""
-"Routes will be created for these resupply warehouses and you can select them"
-" on products and product categories"
+msgid "Routes will be created for these resupply warehouses and you can select them on products and product categories"
 msgstr "将会为这些补给仓库创建路线，然后你可以在产品和产品类别选择它们"
 
 #. module: stock
@@ -5336,9 +5005,7 @@ msgstr "此库存移动处理的日程表日期"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_min_date
-msgid ""
-"Scheduled time for the first part of the shipment to be processed. Setting "
-"manually a value here would set it as expected date for all the stock moves."
+msgid "Scheduled time for the first part of the shipment to be processed. Setting manually a value here would set it as expected date for all the stock moves."
 msgstr "计划时间的第一部分送货即将进行。在此手动设定一个值表示所有库存移动的期望时间。"
 
 #. module: stock
@@ -5352,7 +5019,7 @@ msgid "Schedulers"
 msgstr "调度"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:1015
+#: code:addons/stock/models/stock_picking.py:1029
 #: model:ir.actions.act_window,name:stock.action_stock_scrap
 #: model:ir.ui.menu,name:stock.menu_stock_scrap
 #: model:ir.ui.view,arch_db:stock.stock_scrap_form_view
@@ -5412,10 +5079,7 @@ msgstr "选择这条路线可以被选择的位置"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_res_partner_picking_warn
-msgid ""
-"Selecting the \"Warning\" option will notify user with the message, "
-"Selecting \"Blocking Message\" will throw an exception with the message and "
-"block the flow. The Message has to be written in the next field."
+msgid "Selecting the \"Warning\" option will notify user with the message, Selecting \"Blocking Message\" will throw an exception with the message and block the flow. The Message has to be written in the next field."
 msgstr ""
 "选择此“警告“选项，将通知用户此消息。\n"
 "选择“受阻消息“选项，将在流程受阻时将抛出一个消息。\n"
@@ -5431,31 +5095,31 @@ msgid "Sequence"
 msgstr "序号"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:658
+#: code:addons/stock/models/stock_warehouse.py:688
 #, python-format
 msgid "Sequence in"
 msgstr " 入库序列"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:662
+#: code:addons/stock/models/stock_warehouse.py:692
 #, python-format
 msgid "Sequence internal"
 msgstr " 内部序列"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:659
+#: code:addons/stock/models/stock_warehouse.py:689
 #, python-format
 msgid "Sequence out"
 msgstr " 出库序列"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:660
+#: code:addons/stock/models/stock_warehouse.py:690
 #, python-format
 msgid "Sequence packing"
 msgstr " 包装序列"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:661
+#: code:addons/stock/models/stock_warehouse.py:691
 #, python-format
 msgid "Sequence picking"
 msgstr " 分拣序列"
@@ -5472,9 +5136,7 @@ msgstr "服务的仓库"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_product_category_removal_strategy_id
-msgid ""
-"Set a specific removal strategy that will be used regardless of the source "
-"location for this product category"
+msgid "Set a specific removal strategy that will be used regardless of the source location for this product category"
 msgstr "设置一个特定的下架策略，它将被使用，而不考虑此产品分类的源位置。"
 
 #. module: stock
@@ -5484,16 +5146,12 @@ msgstr "按日历天数设置交货时间(简单)"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"Set the <i>Real Quantity</i> for each Product and <i>Validate the "
-"Inventory</i>"
+msgid "Set the <i>Real Quantity</i> for each Product and <i>Validate the Inventory</i>"
 msgstr "给每个产品设置 <i>实时数量</i> 和<i>确认库存</i> "
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"Set the products you want to track with lots or serial numbers by setting "
-"the Tracking field on the product form"
+msgid "Set the products you want to track with lots or serial numbers by setting the Tracking field on the product form"
 msgstr "在产品表单设置追踪字段可以用来追踪批次或者序列号管理"
 
 #. module: stock
@@ -5503,9 +5161,7 @@ msgstr "设为草稿"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_location_id
-msgid ""
-"Sets a location if you produce at a fixed location. This can be a partner "
-"location if you subcontract the manufacturing operations."
+msgid "Sets a location if you produce at a fixed location. This can be a partner location if you subcontract the manufacturing operations."
 msgstr "如果您的产品在一个固定的位置配置一个位置,如果您转包生产这可以是业务伙伴的位置."
 
 #. module: stock
@@ -5515,22 +5171,12 @@ msgid "Settings"
 msgstr "设置"
 
 #. module: stock
-#: model:stock.location,name:stock.stock_location_components
-msgid "Shelf 1"
-msgstr "货架 1"
-
-#. module: stock
-#: model:stock.location,name:stock.stock_location_14
-msgid "Shelf 2"
-msgstr "货架 2"
-
-#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_location_posy
 msgid "Shelves (Y)"
 msgstr "货架(Y)"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:402
+#: code:addons/stock/models/stock_warehouse.py:406
 #, python-format
 msgid "Ship Only"
 msgstr "仅发货"
@@ -5561,23 +5207,15 @@ msgid "Show various information on stock availability for this move"
 msgstr "为本移动的可用库存显示多方面的信息"
 
 #. module: stock
-#: model:stock.location,name:stock.location_refrigerator_small
-msgid "Small Refrigerator"
-msgstr "小型冷藏库"
-
-#. module: stock
 #: selection:stock.config.settings,group_uom:0
-msgid ""
-"Some products may be sold/purchased in different units of measure (advanced)"
+msgid "Some products may be sold/purchased in different units of measure (advanced)"
 msgstr "一些产品可使用不同的销售 / 采购单位 ( 高级 )"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:787
+#: code:addons/stock/models/stock_picking.py:796
 #, python-format
-msgid ""
-"Some products require lots/serial numbers, so you need to specify those "
-"first!"
-msgstr ""
+msgid "Some products require lots/serial numbers, so you need to specify those first!"
+msgstr "有些产品需要批次/序列号，所以你需要先指定一下！"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_move_search
@@ -5618,9 +5256,7 @@ msgstr "只有Action为Move情况下需要源位置"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_inventory_lot_id
-msgid ""
-"Specify Lot/Serial Number to focus your inventory on a particular Lot/Serial"
-" Number."
+msgid "Specify Lot/Serial Number to focus your inventory on a particular Lot/Serial Number."
 msgstr "指定批次/序列号使您的存货有一个特定的批次/序列号。"
 
 #. module: stock
@@ -5635,9 +5271,8 @@ msgstr "指定包装以作为特定包装来专注于您的库存。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_inventory_category_id
-msgid ""
-"Specify Product Category to focus your inventory on a particular Category."
-msgstr ""
+msgid "Specify Product Category to focus your inventory on a particular Category."
+msgstr "Specify Product Category to focus your inventory on a particular Category."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_inventory_product_id
@@ -5668,8 +5303,7 @@ msgid "Status"
 msgstr "状态"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:92
-#: model:stock.location,name:stock.stock_location_shop0
+#: code:addons/stock/models/stock_warehouse.py:96
 #: model:stock.location,name:stock.stock_location_stock
 #, python-format
 msgid "Stock"
@@ -5822,62 +5456,42 @@ msgstr "技术信息"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_operation_link_reserved_quant_id
-msgid ""
-"Technical field containing the quant that created this link between an "
-"operation and a stock move. Used at the stock_move_obj.action_done() time to"
-" avoid seeking a matching quant again"
-msgstr ""
-"本技术字段包含创建此链接的作业和移库之间的份。被用于stock_move_obj.action_done() time来避免再次寻求一个匹配的份。"
+msgid "Technical field containing the quant that created this link between an operation and a stock move. Used at the stock_move_obj.action_done() time to avoid seeking a matching quant again"
+msgstr "本技术字段包含创建此链接的作业和移库之间的份。被用于stock_move_obj.action_done() time来避免再次寻求一个匹配的份。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_warehouse_id
-msgid ""
-"Technical field depicting the warehouse to consider for the route selection "
-"on the next procurement (if any)."
+msgid "Technical field depicting the warehouse to consider for the route selection on the next procurement (if any)."
 msgstr "本技术字段描述了仓库中下一补货（如果有的话）的路线选择。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_res_company_internal_transit_location_id
-msgid ""
-"Technical field used for resupply routes between warehouses that belong to "
-"this company"
+msgid "Technical field used for resupply routes between warehouses that belong to this company"
 msgstr "本技术字段用于对属于此公司之间的仓库进行补给的路线。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_restrict_lot_id
-msgid ""
-"Technical field used to depict a restriction on the lot/serial number of "
-"quants to consider when marking this move as 'done'"
-msgstr ""
+msgid "Technical field used to depict a restriction on the lot/serial number of quants to consider when marking this move as 'done'"
+msgstr "Technical field used to depict a restriction on the lot/serial number of quants to consider when marking this move as 'done'"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_restrict_partner_id
-msgid ""
-"Technical field used to depict a restriction on the ownership of quants to "
-"consider when marking this move as 'done'"
+msgid "Technical field used to depict a restriction on the ownership of quants to consider when marking this move as 'done'"
 msgstr "该技术字段用来描述当所有者的份移动标记为’完成‘时的限制"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_quant_negative_dest_location_id
-msgid ""
-"Technical field used to record the destination location of a move that "
-"created a negative quant"
+msgid "Technical field used to record the destination location of a move that created a negative quant"
 msgstr "该技术字段是用来记录已创建负数量移动的目标位置"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_price_unit
-msgid ""
-"Technical field used to record the product cost set by the user during a "
-"picking confirmation (when costing method used is 'average price' or "
-"'real'). Value given in company currency and in product uom."
-msgstr ""
-"该技术字段用来记录用户在分拣确认期间设置的产品成本（在使用 '平均价格' 或'实际价格'的成本方法时）。以公司的当前货币及产品的默认计量单位赋值。"
+msgid "Technical field used to record the product cost set by the user during a picking confirmation (when costing method used is 'average price' or 'real'). Value given in company currency and in product uom."
+msgstr "该技术字段用来记录用户在分拣确认期间设置的产品成本（在使用 '平均价格' 或'实际价格'的成本方法时）。以公司的当前货币及产品的默认计量单位赋值。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_split_from
-msgid ""
-"Technical field used to track the origin of a split move, which can be "
-"useful in case of debug"
+msgid "Technical field used to track the origin of a split move, which can be useful in case of debug"
 msgstr "技术字段是用来跟踪拆分移动的原始，调试时非常有用处。"
 
 #. module: stock
@@ -5904,11 +5518,8 @@ msgstr "模板"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_path_auto
-msgid ""
-"The 'Manual Operation' value will create a stock move after the current "
-"one.With 'Automatic No Step Added', the location is replaced in the original"
-" move."
-msgstr ""
+msgid "The 'Manual Operation' value will create a stock move after the current one.With 'Automatic No Step Added', the location is replaced in the original move."
+msgstr "The 'Manual Operation' value will create a stock move after the current one.With 'Automatic No Step Added', the location is replaced in the original move."
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -5918,10 +5529,7 @@ msgstr "询价单变成采购订单同时调拨单生成"
 #. module: stock
 #: model:ir.model.fields,help:stock.field_product_product_sale_delay
 #: model:ir.model.fields,help:stock.field_product_template_sale_delay
-msgid ""
-"The average delay in days between the confirmation of the customer order and"
-" the delivery of the finished products. It's the time you promise to your "
-"customers."
+msgid "The average delay in days between the confirmation of the customer order and the delivery of the finished products. It's the time you promise to your customers."
 msgstr "在客户订单确认和完工产品交付之间的平均的延期日子。这是你承诺给客户的日期。"
 
 #. module: stock
@@ -5942,7 +5550,7 @@ msgstr "产品和序列号的绑定必须是唯一的"
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_company_id
 msgid "The company is automatically set from your user preferences."
-msgstr ""
+msgstr "The company is automatically set from your user preferences."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_quant_company_id
@@ -5951,31 +5559,24 @@ msgstr "份所属于的公司"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_inventory_date
-msgid ""
-"The date that will be used for the stock level check of the products and the"
-" validation of the stock move related to this inventory."
+msgid "The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."
 msgstr "这个日期将被用于：产品的库存水平和关于盘点的库存移动确认。"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:140
+#: code:addons/stock/models/stock_warehouse.py:144
 #, python-format
-msgid ""
-"The default resupply warehouse should be different than the warehouse "
-"itself!"
+msgid "The default resupply warehouse should be different than the warehouse itself!"
 msgstr "默认补给仓库应该和自身仓库不同!"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:517
+#: code:addons/stock/models/stock_picking.py:526
 #, python-format
-msgid ""
-"The destination location must be the same for all the moves of the picking."
+msgid "The destination location must be the same for all the moves of the picking."
 msgstr "分拣动作的目标位置必须相同的"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.product_category_form_view_inherit
-msgid ""
-"The following routes will apply to the products in this category taking into"
-" account parent categories:"
+msgid "The following routes will apply to the products in this category taking into account parent categories:"
 msgstr "考虑到其上级类别，下面的路线将应用到这个类别的产品："
 
 #. module: stock
@@ -6010,10 +5611,8 @@ msgstr "该包裹包含此份"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_location_id
-msgid ""
-"The parent location that includes this location. Example : The 'Dispatch "
-"Zone' is the 'Gate 1' parent location."
-msgstr ""
+msgid "The parent location that includes this location. Example : The 'Dispatch Zone' is the 'Gate 1' parent location."
+msgstr "The parent location that includes this location. Example : The 'Dispatch Zone' is the 'Gate 1' parent location."
 
 #. module: stock
 #: model:ir.model,name:stock.model_stock_picking_type
@@ -6033,10 +5632,8 @@ msgstr ""
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint_qty_multiple
-msgid ""
-"The procurement quantity will be rounded up to this multiple.  If it is 0, "
-"the exact quantity will be used."
-msgstr ""
+msgid "The procurement quantity will be rounded up to this multiple.  If it is 0, the exact quantity will be used."
+msgstr "The procurement quantity will be rounded up to this multiple.  If it is 0, the exact quantity will be used."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_rule_id
@@ -6049,7 +5646,7 @@ msgid "The push rule that created this stock move"
 msgstr "创建了此库存移动的推式规则"
 
 #. module: stock
-#: code:addons/stock/models/stock_pack_operation.py:170
+#: code:addons/stock/models/stock_pack_operation.py:171
 #, python-format
 msgid "The quantity to split should be smaller than the quantity To Do.  "
 msgstr "要分离的数量需要小于要作业的数量"
@@ -6062,37 +5659,32 @@ msgstr "报价单变为销售订单同时调拨单生成"
 #. module: stock
 #: code:addons/stock/models/stock_move.py:166
 #, python-format
-msgid ""
-"The requested operation cannot be processed because of a programming error "
-"setting the `product_qty` field instead of the `product_uom_qty`."
+msgid "The requested operation cannot be processed because of a programming error setting the `product_qty` field instead of the `product_uom_qty`."
 msgstr "请求的作业无法处理，因为一个程序错误，设置`product_qty`字段取代了 `product_uom_qty`。"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:817
+#: code:addons/stock/models/stock_move.py:810
 #, python-format
-msgid ""
-"The roundings of your unit of measure %s on the move vs. %s on the product "
-"don't allow to do these operations or you are not transferring the picking "
-"at once. "
-msgstr ""
+msgid "The roundings of your unit of measure %s on the move vs. %s on the product don't allow to do these operations or you are not transferring the picking at once. "
+msgstr "The roundings of your unit of measure %s on the move vs. %s on the product don't allow to do these operations or you are not transferring the picking at once. "
 
 #. module: stock
+#: code:addons/stock/models/stock_inventory.py:124
 #: code:addons/stock/models/stock_inventory.py:126
 #: code:addons/stock/models/stock_inventory.py:128
 #: code:addons/stock/models/stock_inventory.py:130
-#: code:addons/stock/models/stock_inventory.py:132
 #, python-format
 msgid "The selected inventory options are not coherent."
 msgstr "选择的库存选项并不相干。"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:222
+#: code:addons/stock/models/stock_quant.py:226
 #, python-format
 msgid "The serial number %s is already in stock."
 msgstr "序列号%s已经在库存中 "
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:515
+#: code:addons/stock/models/stock_picking.py:524
 #, python-format
 msgid "The source location must be the same for all the moves of the picking."
 msgstr "分拣动作的源位置必须相同的"
@@ -6109,10 +5701,7 @@ msgstr "仓库规则"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_procurement_rule_propagate_warehouse_id
-msgid ""
-"The warehouse to propagate on the created move/procurement, which can be "
-"different of the warehouse this rule is for (e.g for resupplying rules from "
-"another warehouse)"
+msgid "The warehouse to propagate on the created move/procurement, which can be different of the warehouse this rule is for (e.g for resupplying rules from another warehouse)"
 msgstr "仓库在创建移动到传送/采购,这个规则可以是不同的仓库(例如从另一个仓库进行再补给)"
 
 #. module: stock
@@ -6121,19 +5710,23 @@ msgid "Theoretical Quantity"
 msgstr "理论数量"
 
 #. module: stock
+#: model:ir.model.fields,help:stock.field_product_product_property_account_expense_id
+msgid "This account will be used for invoices instead of the default one to value expenses for the current product."
+msgstr "这个科目将代替当前产品的默认费用科目用来开票"
+
+#. module: stock
+#: model:ir.model.fields,help:stock.field_product_product_property_account_income_id
+msgid "This account will be used for invoices instead of the default one to value sales for the current product."
+msgstr "这个科目将被用来代替当前产品的默认销售科目用来开票"
+
+#. module: stock
 #: model:ir.model.fields,help:stock.field_stock_config_settings_group_stock_tracking_lot
-msgid ""
-"This allows to manipulate packages.  You can put something in, take "
-"something from a package, but also move entire packages and put them even in"
-" another package.  "
+msgid "This allows to manipulate packages.  You can put something in, take something from a package, but also move entire packages and put them even in another package.  "
 msgstr "此处允许这样打包法。甚至允许你拆包，把一些东西移到另一个包里头。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_config_settings_group_stock_production_lot
-msgid ""
-"This allows you to assign a lot (or serial number) to the pickings and "
-"moves.  This can make it possible to know which production lot was sent to a"
-" certain client, ..."
+msgid "This allows you to assign a lot (or serial number) to the pickings and moves.  This can make it possible to know which production lot was sent to a certain client, ..."
 msgstr "这允许你给分拣或移动指定一个批次(或序列号)。这样才有可能知道哪个批次的产品被送到了哪个客户。"
 
 #. module: stock
@@ -6147,17 +5740,13 @@ msgstr ""
 
 #. module: stock
 #: model:ir.actions.act_window,help:stock.quantsact
-msgid ""
-"This analysis gives you a fast overview on the current stock level of your "
-"products and their current inventory value."
+msgid "This analysis gives you a fast overview on the current stock level of your products and their current inventory value."
 msgstr "这个分析让你能够快速的查看产品的当前库存水平和当前的库存价值 "
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_quant_package_packaging_id
 #: model:ir.model.fields,help:stock.field_stock_quant_packaging_type_id
-msgid ""
-"This field should be completed only if everything inside the package share "
-"the same product, otherwise it doesn't really makes sense."
+msgid "This field should be completed only if everything inside the package share the same product, otherwise it doesn't really makes sense."
 msgstr "只有里面的所有包共享同一个产品时，这个区域才会完成，其他情况下它不起作用"
 
 #. module: stock
@@ -6171,32 +5760,18 @@ msgstr ""
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"This is quite complex to set up, so <strong>contact your Project "
-"Manager</strong> to address this."
+msgid "This is quite complex to set up, so <strong>contact your Project Manager</strong> to address this."
 msgstr "这些很难设置，所以<strong>联系你的项目经理</strong>反映这个问题"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_type_default_location_dest_id
-msgid ""
-"This is the default destination location when you create a picking manually "
-"with this picking type. It is possible however to change it or that the "
-"routes put another location. If it is empty, it will check for the customer "
-"location on the partner. "
-msgstr ""
-"当你用这种拣货类型手工创建一个移库时候，这是一个默认的目标位置 "
-"你也可以改变这个位置或者在路径设置中更改为其他位置如果为空，系统会检查相关业务伙伴的客户位置 "
+msgid "This is the default destination location when you create a picking manually with this picking type. It is possible however to change it or that the routes put another location. If it is empty, it will check for the customer location on the partner. "
+msgstr "当你用这种拣货类型手工创建一个移库时候，这是一个默认的目标位置 你也可以改变这个位置或者在路径设置中更改为其他位置如果为空，系统会检查相关业务伙伴的客户位置 "
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_type_default_location_src_id
-msgid ""
-"This is the default source location when you create a picking manually with "
-"this picking type. It is possible however to change it or that the routes "
-"put another location. If it is empty, it will check for the supplier "
-"location on the partner. "
-msgstr ""
-"当你用这种拣货类型手工创建一个移库时候，这是一个默认的源位置 "
-"你也可以改变这个位置或者在路径设置中更改为其他位置如果为空，系统会检查相关业务伙伴的供应商位置 "
+msgid "This is the default source location when you create a picking manually with this picking type. It is possible however to change it or that the routes put another location. If it is empty, it will check for the supplier location on the partner. "
+msgstr "当你用这种拣货类型手工创建一个移库时候，这是一个默认的源位置 你也可以改变这个位置或者在路径设置中更改为其他位置如果为空，系统会检查相关业务伙伴的供应商位置 "
 
 #. module: stock
 #: model:ir.actions.act_window,help:stock.action_production_lot_form
@@ -6204,6 +5779,8 @@ msgid ""
 "This is the list of all the production lots you recorded. When\n"
 "            you select a lot, you can get the traceability of the products contained in lot."
 msgstr ""
+"This is the list of all the production lots you recorded. When\n"
+"            you select a lot, you can get the traceability of the products contained in lot."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_quant_owner_id
@@ -6217,15 +5794,8 @@ msgstr "这是一个在移库上的拣货类型"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_product_uom_qty
-msgid ""
-"This is the quantity of products from an inventory point of view. For moves "
-"in the state 'done', this is the quantity of products that were actually "
-"moved. For other moves, this is the quantity of product that is planned to "
-"be moved. Lowering this quantity does not generate a backorder. Changing "
-"this quantity on assigned moves affects the product reservation, and should "
-"be done with care."
-msgstr ""
-"这是库存视角的产品数量。对于状态为“完成”的移动，这就是真正完成了移动的产品数量。对于其它移动，则是计划进行移动的数量。降低这个数量不会生成欠单。在已指定的移动变更这个数量将影响产品保留，应该慎之又慎。"
+msgid "This is the quantity of products from an inventory point of view. For moves in the state 'done', this is the quantity of products that were actually moved. For other moves, this is the quantity of product that is planned to be moved. Lowering this quantity does not generate a backorder. Changing this quantity on assigned moves affects the product reservation, and should be done with care."
+msgstr "这是库存视角的产品数量。对于状态为“完成”的移动，这就是真正完成了移动的产品数量。对于其它移动，则是计划进行移动的数量。降低这个数量不会生成欠单。在已指定的移动变更这个数量将影响产品保留，应该慎之又慎。"
 
 #. module: stock
 #: model:ir.actions.act_window,help:stock.stock_move_action
@@ -6240,79 +5810,59 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_config_settings_module_quality
 msgid "This module allows you to generate quality alerts and quality check"
-msgstr ""
+msgstr "This module allows you to generate quality alerts and quality check"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_config_settings_group_stock_adv_location
-msgid ""
-"This option supplements the warehouse application by effectively "
-"implementing Push and Pull inventory flows through Routes."
+msgid "This option supplements the warehouse application by effectively implementing Push and Pull inventory flows through Routes."
 msgstr "此选项使用路线一笔有效实施推/拉式物流来补充仓库应用"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_stock_return_picking_form
-msgid ""
-"This picking appears to be chained with another operation. Later, if you "
-"receive the goods you are returning now, make sure to <b>reverse</b> the "
-"returned picking in order to avoid logistic rules to be applied again (which"
-" would create duplicated operations)"
-msgstr ""
-"这个拣货显示和别的作业链接起来. 稍后, 如果你正在接收退回的货物，确保<b>逆转</b> ，这样是为了防止同样的物流规则再次被执行 (创建重复操作)"
+msgid "This picking appears to be chained with another operation. Later, if you receive the goods you are returning now, make sure to <b>reverse</b> the returned picking in order to avoid logistic rules to be applied again (which would create duplicated operations)"
+msgstr "这个拣货显示和别的作业链接起来. 稍后, 如果你正在接收退回的货物，确保<b>逆转</b> ，这样是为了防止同样的物流规则再次被执行 (创建重复操作)"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_change_product_qty_new_quantity
-msgid ""
-"This quantity is expressed in the Default Unit of Measure of the product."
+msgid "This quantity is expressed in the Default Unit of Measure of the product."
 msgstr "此数量以该产品的默认计量单位表示"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_path_location_from_id
-msgid ""
-"This rule can be applied when a move is confirmed that has this location as "
-"destination location"
+msgid "This rule can be applied when a move is confirmed that has this location as destination location"
 msgstr "这条规则在以这个位置为目标位置的移动被确认后生效"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_delivery_document
 msgid "This shipment is a backorder of"
-msgstr ""
+msgstr "This shipment is a backorder of"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_res_partner_property_stock_customer
-msgid ""
-"This stock location will be used, instead of the default one, as the "
-"destination location for goods you send to this partner"
+msgid "This stock location will be used, instead of the default one, as the destination location for goods you send to this partner"
 msgstr "这位置替代默认值作为您送货到业务伙伴的目标位置."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_res_partner_property_stock_supplier
-msgid ""
-"This stock location will be used, instead of the default one, as the source "
-"location for goods you receive from the current partner"
+msgid "This stock location will be used, instead of the default one, as the source location for goods you receive from the current partner"
 msgstr "默认作为您接收当前业务伙伴产品的源位置"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_product_product_property_stock_production
 #: model:ir.model.fields,help:stock.field_product_template_property_stock_production
-msgid ""
-"This stock location will be used, instead of the default one, as the source "
-"location for stock moves generated by manufacturing orders."
+msgid "This stock location will be used, instead of the default one, as the source location for stock moves generated by manufacturing orders."
 msgstr "该位置将被使用以替换默认的，同样的，库存移动的源位置将根据制造单生成。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_product_product_property_stock_procurement
 #: model:ir.model.fields,help:stock.field_product_template_property_stock_procurement
-msgid ""
-"This stock location will be used, instead of the default one, as the source "
-"location for stock moves generated by procurements."
+msgid "This stock location will be used, instead of the default one, as the source location for stock moves generated by procurements."
 msgstr "该位置将被使用以替换默认的，同样的，库存移动的源位置将根据补货生成。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_product_product_property_stock_inventory
 #: model:ir.model.fields,help:stock.field_product_template_property_stock_inventory
-msgid ""
-"This stock location will be used, instead of the default one, as the source "
-"location for stock moves generated when you do an inventory."
+msgid "This stock location will be used, instead of the default one, as the source location for stock moves generated when you do an inventory."
 msgstr "该位置将被使用以替换默认的，同样当您做盘点时，库存移动的源位置将被生成。"
 
 #. module: stock
@@ -6359,20 +5909,18 @@ msgid ""
 "                       Choose a lot in the list and click on <i>Traceability</i>i&gt;. You may also\n"
 "                       filter the Quantitative Valuation of a product with a certain lot."
 msgstr ""
+"To check the trajectory of a lot, find it back in <strong><i>Inventory Control &gt; Serial Numbers / lots</i></strong>.\n"
+"                       Choose a lot in the list and click on <i>Traceability</i>i&gt;. You may also\n"
+"                       filter the Quantitative Valuation of a product with a certain lot."
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"To create them, click on <strong><span class=\"fa fa-refresh\"/> "
-"Reordering</strong> on"
+msgid "To create them, click on <strong><span class=\"fa fa-refresh\"/> Reordering</strong> on"
 msgstr "为了创建他们，点击 <strong><span class=\"fa fa-refresh\"/> 订购</strong>在"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"To use more precise units like pounds or kilograms, activate<i> Some "
-"products may be sold/purchased in different unit of measures (advanced)</i> "
-"in the"
+msgid "To use more precise units like pounds or kilograms, activate<i> Some products may be sold/purchased in different unit of measures (advanced)</i> in the"
 msgstr "用更加精确的计量单位，例如英镑和千克, 激活<i> 一些 可能买／卖用不同计量单位的产品(高级)</i> 在"
 
 #. module: stock
@@ -6412,6 +5960,13 @@ msgid ""
 "                - alert date.\n"
 "                This installs the module product_expiry."
 msgstr ""
+"Track different dates on products and serial numbers.\n"
+"                The following dates can be tracked:\n"
+"                - end of life\n"
+"                - best before date\n"
+"                - removal date\n"
+"                - alert date.\n"
+"                This installs the module product_expiry."
 
 #. module: stock
 #: selection:stock.config.settings,group_stock_production_lot:0
@@ -6426,7 +5981,7 @@ msgid "Tracking"
 msgstr "追踪"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:958
+#: code:addons/stock/models/stock_move.py:951
 #: model:ir.model,name:stock.model_stock_picking
 #: model:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 #: model:ir.ui.view,arch_db:stock.view_picking_form
@@ -6462,9 +6017,7 @@ msgstr "中转位置"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_recompute_pack_op
-msgid ""
-"True if reserved quants changed, which mean we might need to recompute the "
-"package operations"
+msgid "True if reserved quants changed, which mean we might need to recompute the package operations"
 msgstr "如果保留的份变化了，则为True，这意味着我们需要重新计算包裹作业"
 
 #. module: stock
@@ -6489,7 +6042,7 @@ msgid "USPS integration"
 msgstr "USPS集成"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:98
+#: code:addons/stock/models/stock_quant.py:102
 #, python-format
 msgid "Under no circumstances should you delete or change quants yourselves!"
 msgstr "在任何情况下，您都不应该自行删除或更改定量分析！"
@@ -6550,16 +6103,14 @@ msgid "Units of Measures"
 msgstr "计量单位"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:569
+#: code:addons/stock/models/stock_quant.py:586
 #, python-format
 msgid "Unknown Pack"
 msgstr "未知包裹"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"Unless you are starting a new business, you probably have a list of vendors "
-"you would like to import."
+msgid "Unless you are starting a new business, you probably have a list of vendors you would like to import."
 msgstr "除非你要开创一项新的生意，一般情况下你会有一些供应商需要导入"
 
 #. module: stock
@@ -6569,9 +6120,7 @@ msgstr "在进货位置卸货，然后进入库存（2步）"
 
 #. module: stock
 #: selection:stock.warehouse,reception_steps:0
-msgid ""
-"Unload in input location, go through a quality control before being admitted"
-" in stock (3 steps)"
+msgid "Unload in input location, go through a quality control before being admitted in stock (3 steps)"
 msgstr "在进货位置卸货, 确认库存之前, 通过质量管理(3步)"
 
 #. module: stock
@@ -6684,6 +6233,11 @@ msgid "Vendor Locations"
 msgstr "供应商位置"
 
 #. module: stock
+#: model:ir.model.fields,field_description:stock.field_product_product_supplier_taxes_id
+msgid "Vendor Taxes"
+msgstr "供应商税"
+
+#. module: stock
 #: model:stock.location,name:stock.stock_location_suppliers
 #: selection:stock.picking.type,code:0
 msgid "Vendors"
@@ -6794,7 +6348,7 @@ msgid "Warehouse to consider for the route selection"
 msgstr "路线选择考虑的仓库"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:688
+#: code:addons/stock/models/stock_warehouse.py:718
 #, python-format
 msgid "Warehouse's Routes"
 msgstr "仓库的路线"
@@ -6854,7 +6408,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "We hope this guide helped you implement Odoo Inventory."
-msgstr "希望这个向导能够帮你完成Odoo的盘点"
+msgstr "希望这个向导能够帮你完成系统的盘点"
 
 #. module: stock
 #: code:addons/stock/models/barcode.py:11
@@ -6869,26 +6423,17 @@ msgstr "欢迎"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_route_warehouse_selectable
-msgid ""
-"When a warehouse is selected for this route, this route should be seen as "
-"the default route when products pass through this warehouse.  This behaviour"
-" can be overridden by the routes on the Product/Product Categories or by the"
-" Preferred Routes on the Procurement"
-msgstr ""
-"当仓库中这条路径被勾选, 那么这个仓库中所有的产品都会被设为默认的这条路径 但是这条规则能够被在产品或者产品种类或者补货拉规则中的路径设置覆盖"
+msgid "When a warehouse is selected for this route, this route should be seen as the default route when products pass through this warehouse.  This behaviour can be overridden by the routes on the Product/Product Categories or by the Preferred Routes on the Procurement"
+msgstr "当仓库中这条路径被勾选, 那么这个仓库中所有的产品都会被设为默认的这条路径 但是这条规则能够被在产品或者产品种类或者补货拉规则中的路径设置覆盖"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_route_product_selectable
-msgid ""
-"When checked, the route will be selectable in the Inventory tab of the "
-"Product form.  It will take priority over the Warehouse route. "
+msgid "When checked, the route will be selectable in the Inventory tab of the Product form.  It will take priority over the Warehouse route. "
 msgstr "一旦勾选了，这条路径在产品表单中的库存管理页面中将会显示会可选的，这比仓库中路径优先级要高"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_route_product_categ_selectable
-msgid ""
-"When checked, the route will be selectable on the Product Category.  It will"
-" take priority over the Warehouse route. "
+msgid "When checked, the route will be selectable on the Product Category.  It will take priority over the Warehouse route. "
 msgstr "一旦勾选了，这条路径在产品种类中将会显示会可选的，这比仓库中路径优先级要高"
 
 #. module: stock
@@ -6898,25 +6443,18 @@ msgstr "当所有的一切设置好，点击<i>开始盘点</i>"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_product_putaway_fixed_location_ids
-msgid ""
-"When the method is fixed, this location will be used to store the products"
+msgid "When the method is fixed, this location will be used to store the products"
 msgstr "当方法被确定后，这个位置将被用于存储产品"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint_product_min_qty
-msgid ""
-"When the virtual stock goes below the Min Quantity specified for this field,"
-" Odoo generates a procurement to bring the forecasted quantity to the Max "
-"Quantity."
-msgstr "当虚拟库存小于指定的最小数量，Odoo生成补货将预测数量带到最大数量。"
+msgid "When the virtual stock goes below the Min Quantity specified for this field, Odoo generates a procurement to bring the forecasted quantity to the Max Quantity."
+msgstr "当虚拟库存小于指定的最小数量，系统生成补货将预测数量带到最大数量。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint_product_max_qty
-msgid ""
-"When the virtual stock goes below the Min Quantity, Odoo generates a "
-"procurement to bring the forecasted quantity to the Quantity specified as "
-"Max Quantity."
-msgstr "当虚拟库存低于最小数量， Odoo生成补货将预测数量带到最大数量。"
+msgid "When the virtual stock goes below the Min Quantity, Odoo generates a procurement to bring the forecasted quantity to the Quantity specified as Max Quantity."
+msgstr "当虚拟库存低于最小数量， 系统生成补货将预测数量带到最大数量。"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_change_product_quantity
@@ -6934,15 +6472,12 @@ msgstr "向导"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_procurement_compute_wizard
-msgid ""
-"Wizard checks all the stock minimum rules and generate procurement order."
+msgid "Wizard checks all the stock minimum rules and generate procurement order."
 msgstr "向导检查所有最小库存规则并生成补货单"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_config_settings_group_product_variant
-msgid ""
-"Work with product variant allows you to define some variant of the same "
-"products, an ease the product management in the ecommerce for example"
+msgid "Work with product variant allows you to define some variant of the same products, an ease the product management in the ecommerce for example"
 msgstr "产品变型可以让你为同一个产品定义不同的变型，例如在电商业务中是一种简单的产品管理方式"
 
 #. module: stock
@@ -6959,16 +6494,8 @@ msgstr ""
 
 #. module: stock
 #: model:ir.actions.act_window,help:stock.action_orderpoint_form
-msgid ""
-"You can define your minimum stock rules, so that Odoo will automatically "
-"create draft manufacturing orders or request for quotations according to the"
-" stock level. Once the virtual stock of a product (= stock on hand minus all"
-" confirmed orders and reservations) is below the minimum quantity, Odoo will"
-" generate a procurement request to increase the stock up to the maximum "
-"quantity."
-msgstr ""
-"你可以定义最小库存规则，这样系统将会根据库存水平创建草稿生产订单，或者询价单。一旦产品的虚拟库存少于最小数量(= "
-"在手库存减去所有的确认的订单数量和预留数量)， 系统 将会产生一个补货请求，以便增加库存到最大数量。"
+msgid "You can define your minimum stock rules, so that Odoo will automatically create draft manufacturing orders or request for quotations according to the stock level. Once the virtual stock of a product (= stock on hand minus all confirmed orders and reservations) is below the minimum quantity, Odoo will generate a procurement request to increase the stock up to the maximum quantity."
+msgstr "你可以定义最小库存规则，这样系统将会根据库存水平创建草稿生产订单，或者询价单。一旦产品的虚拟库存少于最小数量(= 在手库存减去所有的确认的订单数量和预留数量)， 系统 将会产生一个补货请求，以便增加库存到最大数量。"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
@@ -6986,18 +6513,13 @@ msgstr "本次未盘点的产品行请删除"
 #: model:ir.actions.act_window,help:stock.action_picking_tree_waiting
 #: model:ir.actions.act_window,help:stock.action_picking_type_list
 #: model:ir.actions.act_window,help:stock.stock_picking_action_picking_type
-msgid ""
-"You can either do it immediately or mark it as Todo for future processing. "
-"Use your scanner to validate the transferred quantity quicker."
+msgid "You can either do it immediately or mark it as Todo for future processing. Use your scanner to validate the transferred quantity quicker."
 msgstr "你可以立即完成调拨，也可以新建后将其标记为待办以便下一步处理。扫描枪可以帮助您更加高效地验证进出库数量。"
 
 #. module: stock
-#: code:addons/stock/models/product.py:486
+#: code:addons/stock/models/product.py:500
 #, python-format
-msgid ""
-"You can not change the unit of measure of a product that has already been "
-"used in a done stock move. If you need to change the unit of measure, you "
-"may deactivate this product."
+msgid "You can not change the unit of measure of a product that has already been used in a done stock move. If you need to change the unit of measure, you may deactivate this product."
 msgstr "已经被用于库存移动，你不能变更该产品的计量单位。如果你需要变更计量单位,你可以关闭这个产品。"
 
 #. module: stock
@@ -7007,13 +6529,13 @@ msgid "You can not delete pack operations of a done picking"
 msgstr "已经完成的拣货不能被删除"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:143
+#: code:addons/stock/models/stock_quant.py:147
 #, python-format
 msgid "You can not reserve a negative quantity or a negative quant."
 msgstr "你不能保留负数数量，或者负数份。"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:901
+#: code:addons/stock/models/stock_move.py:894
 #, python-format
 msgid "You can only delete draft moves."
 msgstr "您只能删除草稿状态的移动。"
@@ -7024,23 +6546,19 @@ msgid "You can review and edit the predefined units via the"
 msgstr "你可以审查并且编辑之前定义的单位"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:652
+#: code:addons/stock/models/stock_move.py:645
 #, python-format
 msgid "You cannot cancel a stock move that has been set to 'Done'."
 msgstr "你不能取消一个标记为‘完成’的库存迁移"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:352
+#: code:addons/stock/models/stock_inventory.py:350
 #, python-format
-msgid ""
-"You cannot have two inventory adjustements in state 'in Progess' with the "
-"same product(%s), same location(%s), same package, same owner and same lot. "
-"Please first validatethe first inventory adjustement with this product "
-"before creating another one."
-msgstr ""
+msgid "You cannot have two inventory adjustements in state 'in Progess' with the same product(%s), same location(%s), same package, same owner and same lot. Please first validatethe first inventory adjustement with this product before creating another one."
+msgstr "You cannot have two inventory adjustements in state 'in Progess' with the same product(%s), same location(%s), same package, same owner and same lot. Please first validatethe first inventory adjustement with this product before creating another one."
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:176
+#: code:addons/stock/models/stock_quant.py:180
 #, python-format
 msgid "You cannot move to a location of type view %s."
 msgstr "您不能移动到视图类型的位置 %s ."
@@ -7048,29 +6566,27 @@ msgstr "您不能移动到视图类型的位置 %s ."
 #. module: stock
 #: code:addons/stock/models/stock_scrap.py:85
 #, python-format
-msgid ""
-"You cannot scrap a move without having available stock for %s. You can "
-"correct it with an inventory adjustment."
-msgstr ""
+msgid "You cannot scrap a move without having available stock for %s. You can correct it with an inventory adjustment."
+msgstr "You cannot scrap a move without having available stock for %s. You can correct it with an inventory adjustment."
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:144
+#: code:addons/stock/models/stock_inventory.py:142
 #, python-format
 msgid ""
 "You cannot set a negative product quantity in an inventory line:\n"
 "\t%s - qty: %s"
 msgstr ""
-"你不能设置一个负的产品数量：\n"
+"You cannot set a negative product quantity in an inventory line:\n"
 "\t%s - qty: %s"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:919
+#: code:addons/stock/models/stock_move.py:912
 #, python-format
 msgid "You cannot split a draft move. It needs to be confirmed first."
 msgstr "不能拆分一个移动草稿。你需要先确认它。"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:915
+#: code:addons/stock/models/stock_move.py:908
 #, python-format
 msgid "You cannot split a move done"
 msgstr "您无法拆分一个已完成的移动"
@@ -7083,11 +6599,9 @@ msgid ""
 msgstr "你没有为这个Picking保留任何产品，你需要点击‘保留'按钮检查产品是否可用"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:800
+#: code:addons/stock/models/stock_move.py:793
 #, python-format
-msgid ""
-"You have a difference between the quantity on the operation and the "
-"quantities specified for the lots. "
+msgid "You have a difference between the quantity on the operation and the quantities specified for the lots. "
 msgstr "一般要出货的产品数量和批次中数量会有不同 "
 
 #. module: stock
@@ -7114,17 +6628,13 @@ msgstr "你已经处理了初始需求的部分产品"
 #. module: stock
 #: code:addons/stock/models/product.py:320
 #, python-format
-msgid ""
-"You have products in stock that have no lot number.  You can assign serial "
-"numbers by doing an inventory.  "
+msgid "You have products in stock that have no lot number.  You can assign serial numbers by doing an inventory.  "
 msgstr "库存中有的产品没有批次号，你可以通过盘点赋予这些产品序列号"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:768
+#: code:addons/stock/models/stock_warehouse.py:798
 #, python-format
-msgid ""
-"You have to select a product unit of measure in the same category than the "
-"default unit of measure of the product"
+msgid "You have to select a product unit of measure in the same category than the default unit of measure of the product"
 msgstr "你必须选择产品默认计量单位的类型一样的计量单位。"
 
 #. module: stock
@@ -7141,30 +6651,28 @@ msgid "You may only return Done pickings"
 msgstr "您只能退回已完成的分拣"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:553
-#: code:addons/stock/models/stock_pack_operation.py:234
+#: code:addons/stock/models/stock_move.py:545
+#: code:addons/stock/models/stock_pack_operation.py:235
 #, python-format
 msgid "You need to provide a Lot/Serial Number for product %s"
 msgstr "你需要提供产品的批次／序列号%s"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:260
+#: code:addons/stock/models/stock_quant.py:264
 #, python-format
 msgid "You should only receive by the piece with the same serial number"
 msgstr "你应该只能每一片用同一个序列号收货"
 
 #. module: stock
-#: code:addons/stock/models/stock_pack_operation.py:238
+#: code:addons/stock/models/stock_pack_operation.py:239
 #, python-format
 msgid "You should provide a different serial number for each piece"
 msgstr "你应该为每一片提供一个不同的序列号"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:226
+#: code:addons/stock/models/stock_move.py:223
 #, python-format
-msgid ""
-"You try to move a product using a UoM that is not compatible with the UoM of"
-" the product moved. Please use an UoM in the same UoM category."
+msgid "You try to move a product using a UoM that is not compatible with the UoM of the product moved. Please use an UoM in the same UoM category."
 msgstr "你尝试迁移的产品使用的计量单位与已迁移产品的计量单位不兼容。请在相同计量单位类别中使用一个计量单位。"
 
 #. module: stock
@@ -7243,18 +6751,13 @@ msgstr "例如：PO0032"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"either by manually updating the Done quantity on the product lines, or let "
-"Odoo do it automatically while validating"
-msgstr "在产品行上手动更新完成数量，或当验证后让Odoo自动更新"
+msgid "either by manually updating the Done quantity on the product lines, or let Odoo do it automatically while validating"
+msgstr "在产品行上手动更新完成数量，或当验证后让系统自动更新"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"either by manually updating the Done quantity on the product lines, or scan "
-"them with the Odoo Barcode app, or let Odoo do it automatically while "
-"validating"
-msgstr "或者手动在产品行更新完成数量，或者通过扫描枪扫描或者Odoo在确认的时候自动做掉"
+msgid "either by manually updating the Done quantity on the product lines, or scan them with the Odoo Barcode app, or let Odoo do it automatically while validating"
+msgstr "或者手动在产品行更新完成数量，或者通过扫描枪扫描或者系统在确认的时候自动做掉"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -7281,20 +6784,8 @@ msgid "from your vendor with the products and the requested quantities"
 msgstr "从带有产品和所需数量的供应商那里"
 
 #. module: stock
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_3
-msgid "iPad Mini"
-msgstr "iPad迷你"
-
-#. module: stock
-#: model:stock.inventory.line,product_name:stock.stock_inventory_line_6
-msgid "iPod"
-msgstr "iPod"
-
-#. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"is displayed on the transfer if your products supply chain is properly "
-"configured. Otherwise, <strong>Check the availability</strong> manually"
+msgid "is displayed on the transfer if your products supply chain is properly configured. Otherwise, <strong>Check the availability</strong> manually"
 msgstr "如果产品的供应链正确的设置，显示在调拨单上。否则，手工<strong>检查可用</strong>"
 
 #. module: stock
@@ -7315,9 +6806,7 @@ msgstr "在"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid ""
-"on the purchase order form or click on <i>Receive Products</i> to see the "
-"Transfer Order"
+msgid "on the purchase order form or click on <i>Receive Products</i> to see the Transfer Order"
 msgstr "子产品表单上或者点击<i>接收货物</i>查看调拨单"
 
 #. module: stock
@@ -7348,7 +6837,7 @@ msgstr "stock.return.picking.line"
 #. module: stock
 #: model:ir.model,name:stock.model_stock_scrap
 msgid "stock.scrap"
-msgstr ""
+msgstr "stock.scrap"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner

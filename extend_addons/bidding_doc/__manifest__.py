@@ -11,4 +11,5 @@
     """,
     'data': ['views/bidding_doc_view.xml', 'security/ir.model.access.csv'],
     'depends': ['base', 'materials_menu'],
+    'application': True,
 }

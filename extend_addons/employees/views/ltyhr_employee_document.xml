@@ -147,7 +147,7 @@
             <field name="name">family.tree</field>
             <field name="model">employees.employeefamily</field>
             <field name="arch" type="xml">
-                <tree string="Course Tree">
+                <tree>
                     <field name="name"/>
                     <field name="relation"/>
                     <field name="sex"/>
@@ -228,7 +228,7 @@
             <field name="inherit_id" ref="hr.view_department_form"/>
             <field name="arch" type="xml">
                 <xpath expr="/form" position="replace">
-                    <form string="department">
+                    <form string="department" duplicate="0">
                         <sheet>
                             <div class="oe_button_box" name="button_box">
                                 <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
@@ -355,22 +355,28 @@
             </field>
         </record>
 
-        <!-- 员工档案档案 -->
-        <menuitem id="ltyhr_employee_document_employeeinfo_menu" name="employee infomation"
-                  parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_information"
-                  groups="hr.group_hr_user"/>
+
         <!--组织架构-->
         <menuitem id="ltyhr_employee_document_department_menu" name="employee department"
                   parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_department"
-                  groups="hr.group_hr_user"/>
+                  groups="hr.group_hr_user" sequence="10"/>
+
         <!--岗位设置-->
         <menuitem id="ltyhr_employee_document_post_menu" name="employee post"
                   parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_post"
-                  groups="hr.group_hr_user"/>
+                  groups="hr.group_hr_user" sequence="20"/>
+
+        <!--2017年7月24日新增需求：员工档案-->
+        <menuitem id="staff_file_menu" name="Staff file" parent="employees_menu.ltyhr_employee_document_menu" sequence="30" />
+
+        <!-- 员工档案档案 -->
+        <menuitem id="ltyhr_employee_document_employeeinfo_menu" name="employee infomation"
+                  parent="staff_file_menu" action="ltyhr_employee_information"
+                  groups="hr.group_hr_user" sequence="10"/>
 
         <!-- 档案与调动 -->
         <menuitem id="ltyhr_employee_document_transfer_menu" name="document_transfer"
-                  sequence="50"
+                  sequence="40"
                   parent="employees_menu.ltyhr_employee_document_menu"/>
 
         <!--劳动合同档案-->
@@ -378,7 +384,7 @@
                 id="ltyhr_employee_contract_menu"
                 name="contracts_document"
                 action="hr_contract.action_hr_contract"
-                parent="ltyhr_employee_document_transfer_menu"
-                sequence="10"/>
+                parent="staff_file_menu"
+                sequence="20"/>
     </data>
 </odoo>

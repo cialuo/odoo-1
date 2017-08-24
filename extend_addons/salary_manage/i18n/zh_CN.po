@@ -61,7 +61,7 @@ msgstr "输入"
 #: code:addons/salary_manage/models/models.py:23
 #, python-format
 msgid "Normal Working Days paid at 100%"
-msgstr "Normal Working Days paid at 100%"
+msgstr "出勤工时"
 
 #. module: salary_manage
 #: model:ir.model,name:salary_manage.model_hr_payslip

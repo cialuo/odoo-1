@@ -16,4 +16,5 @@
         'web',
     ],
     'qweb': ['static/src/xml/form_month_widget.xml'],
+    'application': True,
 }

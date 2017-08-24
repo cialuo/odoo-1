@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api,_
-import time,datetime
+from odoo import models, fields, api,_,exceptions
 import random
 class punch_recording(models.Model):
 
@@ -17,7 +16,7 @@ class punch_recording(models.Model):
 
      time_no = fields.Char(string='Time no',compute='_compute_time_no')
 
-     teacher_id = fields.Many2one('employees_growth.training_teacher',string='Teacher id',required=True,)
+     teacher_id = fields.Many2one('employees_growth.training_teacher',string='Teacher id',required=True,domain=[('teacher_type','=','inside')])
 
      address = fields.Char(string='Curriculum address',required=True)
 
@@ -46,6 +45,18 @@ class punch_recording(models.Model):
      course_id = fields.Many2one('employees_growth.course',related='curriculum_schedule_id.course_id',
                                  string='Course id', store=True,
                                  readonly=True)
+
+     @api.constrains('start_time','end_time')
+     def check_datetime(self):
+          """
+               检查课时的开始时间和结束时间
+          :return:
+          """
+          for order in self:
+              if order.start_time > order.end_time:
+                   raise exceptions.ValidationError(_("Start can not be greater than the end time"))
+
+
      @api.multi
      def _compute_name(self):
           """
@@ -54,8 +65,8 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               order.name = order.teacher_id.name + u'的' + order.course_id.name + u'培训'
-
+               if order:
+                    order.name = order.teacher_id.name or '' +'-'+ order.course_id.name or ''
      @api.multi
      def _compute_time_no(self):
           """
@@ -64,7 +75,8 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               order.time_no = order.start_time.replace('-', '').replace(':', '').replace(' ', '')
+               if order:
+                    order.time_no = order.start_time.replace('-', '').replace(':', '').replace(' ', '')
 
      @api.multi
      def _compute_total_student(self):
@@ -73,7 +85,8 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               order.total_student = len(order.details)
+               if order:
+                    order.total_student = len(order.details)
 
      @api.multi
      def _compute_unsign_number(self):
@@ -82,8 +95,9 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               domain = ['&',('punch_recording_id', '=', order.id),('is_sign','=',False)]
-               order.unsign_number = len(self.env['employees_growth.punch_recording_details'].search(domain))
+               if order:
+                    domain = ['&',('punch_recording_id', '=', order.id),('is_sign','=',False)]
+                    order.unsign_number = len(self.env['employees_growth.punch_recording_details'].search(domain))
 
      @api.multi
      def _compute_sign_number(self):
@@ -92,8 +106,9 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               domain = ['&',('punch_recording_id','=', order.id),('is_sign', '=',True)]
-               order.sign_number = len(self.env['employees_growth.punch_recording_details'].search(domain))
+               if order:
+                    domain = ['&',('punch_recording_id','=', order.id),('is_sign', '=',True)]
+                    order.sign_number = len(self.env['employees_growth.punch_recording_details'].search(domain))
 
      @api.multi
      def _compute_sign_rate(self):
@@ -102,10 +117,14 @@ class punch_recording(models.Model):
           :return:
           """
           for order in self:
-               if order.total_student > 0:
-                    order.sign_rate = str(round(order.sign_number / order.total_student,3) * 100) + "%"
-               else:
-                    order.sign_rate = "0.0%"
+
+               if order:
+
+                    if order.total_student > 0:
+
+                         order.sign_rate = str(round(order.sign_number / order.total_student,3) * 100) + "%"
+                    else:
+                         order.sign_rate = "0.0%"
 
      @api.multi
      def ingSign_to_havingClass(self):
@@ -137,8 +156,9 @@ class punch_recording(models.Model):
           :return:
           """
           for student in self.curriculum_schedule_id.students:
-               student.test_paper_id = self.curriculum_schedule_id.course_id.test_paper_id
-               self.get_questions(student)
+               if student:
+                    student.test_paper_id = self.curriculum_schedule_id.course_id.test_paper_id
+                    self.get_questions(student)
 
      def save_radio_question(self,id,questions,type):
           """
@@ -234,7 +254,7 @@ class punch_recording_details(models.Model):
 
           res = super(punch_recording_details, self).write(vals)
 
-          if vals.has_key('is_sign'):
+          if vals.has_key('is_sign') and self.punch_recording_id.state != 'complete':
                if self.punch_recording_id.details.mapped('is_sign').count(True) > 0:
                     self.punch_recording_id.state = 'ingSign'
                if self.punch_recording_id.details.mapped('is_sign').count(True) == len(self.punch_recording_id.details):

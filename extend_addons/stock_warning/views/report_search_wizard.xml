@@ -1,0 +1,31 @@
+<odoo>
+
+    <data>
+
+        <!--wizard的表单-->
+        <record id="stock_warning.stock_search_wizard_form" model="ir.ui.view">
+            <field name="name">stock_search_wizard_form</field>
+            <field name="model">stock_search_wizard</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="warehouse_id" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="action_search" string="Search" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--wizard动作-->
+        <act_window id="stock_search_wizard_action" name="Stock Warning Menu"
+                    res_model="stock_search_wizard"
+                    view_mode="form" target="new" multi="False"/>
+
+    </data>
+
+</odoo>

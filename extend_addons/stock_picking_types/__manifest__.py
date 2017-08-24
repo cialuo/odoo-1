@@ -14,6 +14,11 @@
     'data': [
         # 'security/ir.model.access.csv',
         'data/picking_types.xml',
+        'views/materialout_view.xml',
+        'views/material_view.xml',
+        'views/older_old_view.xml',
+        'views/return_material_view.xml',
+        'views/internal_allocation_view.xml',
         'views/views.xml',
 
     ],

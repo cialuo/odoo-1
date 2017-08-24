@@ -10,4 +10,5 @@
     """,
     'data': ['module_view.xml'],
     'depends': ['base'],
+    'application': True,
 }

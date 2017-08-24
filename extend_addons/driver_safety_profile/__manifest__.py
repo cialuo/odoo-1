@@ -18,7 +18,7 @@
 
     'version': '1.0',
 
-    'depends': ['security_manage_menu','employees', 'scheduling_parameters'],
+    'depends': ['security_manage_menu','employees', 'scheduling_parameters','vehicle_manage'],
 
     'data': [
         'security/ir.model.access.csv',

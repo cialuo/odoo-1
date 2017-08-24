@@ -1,0 +1,248 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* vehicle_plant_manage
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-31 09:39+0000\n"
+"PO-Revision-Date: 2017-07-31 17:39+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.2\n"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_active
+msgid "Active"
+msgstr "有效"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_create_uid
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_create_date
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_department_id
+msgid "Department id"
+msgstr "所属单位"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_display_name
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_form
+msgid "Ditch Info"
+msgstr "车沟信息"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch_name
+msgid "Ditch Name"
+msgstr "名称"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch_work_time
+msgid "Ditch Work time"
+msgstr "工作时间"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch_ids
+msgid "Ditch ids"
+msgstr "车沟信息(s)"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch_ditch_type
+msgid "Ditch type"
+msgstr "车沟类型"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant,state:0
+msgid "Done"
+msgstr "归档"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_form
+msgid "Employee"
+msgstr "员工"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant.ditch,work_time:0
+msgid "Friday"
+msgstr "周五"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch_id
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_id
+msgid "ID"
+msgstr "ID"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant___last_update
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch_write_uid
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch_write_date
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_form
+msgid "Mark as done"
+msgstr "归档"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant.ditch,work_time:0
+msgid "Monday"
+msgstr "周一"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_address
+msgid "Plant Address"
+msgstr "地址"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_plant_code
+msgid "Plant Code"
+msgstr "维修厂编号"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_employee_ids
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_form
+msgid "Plant Employee"
+msgstr "维修厂人员"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_form
+msgid "Plant Form"
+msgstr "修理厂表单"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch_plant_id
+msgid "Plant Id"
+msgstr "修理厂"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_name
+msgid "Plant Name"
+msgstr "维修厂名称"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_scale
+msgid "Plant Scale"
+msgstr "规模"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_tree
+msgid "Plant Tree"
+msgstr "维修厂tree"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.view,arch_db:vehicle_plant_manage.vehicle_plant_form
+msgid "Reset"
+msgstr "重新启用"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant.ditch,work_time:0
+msgid "Saturday"
+msgstr "周六"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_state
+msgid "State"
+msgstr "状态"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant.ditch,work_time:0
+msgid "Sunday"
+msgstr "周日"
+
+#. module: vehicle_plant_manage
+#: code:addons/vehicle_plant_manage/models/vehicle_plant.py:13
+#, python-format
+msgid "The plant code must be unique"
+msgstr "维修厂编号必须唯一"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant.ditch,work_time:0
+msgid "Thursday"
+msgstr "周四"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant.ditch,work_time:0
+msgid "Tuesday"
+msgstr "周二"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant,state:0
+msgid "Use"
+msgstr "正常"
+
+#. module: vehicle_plant_manage
+#: model:ir.model,name:vehicle_plant_manage.model_vehicle_plant_ditch
+msgid "Vehicle plant ditch"
+msgstr "车沟信息"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant.ditch,work_time:0
+msgid "Wednesday"
+msgstr "周三"
+
+#. module: vehicle_plant_manage
+#: code:addons/vehicle_plant_manage/models/vehicle_plant.py:12
+#, python-format
+msgid "plant name already exists"
+msgstr "维修厂名称已经存在"
+
+#. module: vehicle_plant_manage
+#: model:ir.model.fields,field_description:vehicle_plant_manage.field_vehicle_plant_ditch_remarks
+msgid "remarks"
+msgstr "备注"
+
+#. module: vehicle_plant_manage
+#: model:ir.model,name:vehicle_plant_manage.model_vehicle_plant
+msgid "vehicle.plant"
+msgstr "维修厂"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant.ditch,ditch_type:0
+msgid "vehicleMaintain"
+msgstr "抢修"
+
+#. module: vehicle_plant_manage
+#: selection:vehicle.plant.ditch,ditch_type:0
+msgid "vehicleWarranty"
+msgstr "保养"
+
+#. module: vehicle_plant_manage
+#: model:ir.actions.act_window,name:vehicle_plant_manage.vehicle_plant_manage_action
+msgid "vehicle_plant_action"
+msgstr "维修厂管理"
+
+#. module: vehicle_plant_manage
+#: model:ir.ui.menu,name:vehicle_plant_manage.vehicle_plant_manage
+msgid "vehicle_plant_manage"
+msgstr "维修厂管理"

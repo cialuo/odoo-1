@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _,exceptions
 import time
 from odoo.exceptions import ValidationError
 import  datetime
@@ -58,10 +58,12 @@ class FleetVehicle(models.Model):
     @api.multi
     def _getInspectionState(self):
         for item in self:
-            planitem = self.env['vehicle_usage.planitem']
-            count = planitem.search_count([('vehicle_id', '=', item.id), ('state', '=', 'execution')])
-            if count > 0:
+            #planitem = self.env['vehicle_usage.planitem']
+            #count = planitem.search_count([('vehicle_id', '=', item.id), ('state', '=', 'execution')])
+            if item.deadlinedays > 0:
                 item.inspectionState = _('checking')
+            elif item.deadlinedays < 0:
+                item.inspectionState = _('expired')
             else:
                 item.inspectionState = _('checking done')
 
@@ -188,13 +190,23 @@ class InspectionPlan(models.Model):
                     raise ValidationError(_("there is a vehicle that already have inspection plan "))
         return res
 
+    @api.constrains('startdate', 'enddate')
+    def _check_inspectionexpire(self):
+        """
+            2017年7月26日 新增验证：
+                年检过期时间不能小于年检日期
+        :return:
+        """
+        for order in self:
+            if order.startdate > order.enddate:
+                raise exceptions.ValidationError(_("Inspectionexpire can not be greater than the inspectiondate"))
 
 class PlanItem(models.Model):
 
     _name = 'vehicle_usage.planitem'
 
     # 车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True)
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,domain=[('entry_state','=','audited')])
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
@@ -235,14 +247,14 @@ class InspectionRecords(models.Model):
     _rec_name = 'inner_code'
 
     # 年检执行日期
-    inspectiondate = fields.Date(string="inspection date")
+    inspectiondate = fields.Date(string="inspection date", required=True)
     # 年检过期日期
-    inspectionexpire = fields.Date(string="inspection expire")
+    inspectionexpire = fields.Date(string="inspection expire", required=True)
     # 备注
     inspectionremark = fields.Char(string="inspection remark")
 
     # 车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info")
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,domain=[('entry_state','=','audited')])
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code')
@@ -263,6 +275,43 @@ class InspectionRecords(models.Model):
 
     # 到期日期
     annual_inspection_date = fields.Date(string="inspection end date")
+
+    #2017年7月25日 新增字段：年检记录状态
+    state = fields.Selection([('draft', "draft"),('passed', "passed")],string='Inspection state',default='draft')
+
+    @api.multi
+    def action_draft_to_passed(self):
+        """
+            年检记录状态：草稿-->已通过
+            更新车辆年检的到期时间
+            更新车辆年检计划的状态
+        :return:
+        """
+        self.state = 'passed'
+
+        #更新车辆的年检到期时间
+        if self.vehicle_id:
+
+            self.vehicle_id.annual_inspection_date = self.inspectionexpire
+            #更新车辆年检计划
+            planItem = self.getPlanItem(self.vehicle_id.id)
+            if planItem:
+                planItem.write({'state': 'done', 'actualdate': self.inspectionexpire})
+                inspectionplan = planItem.inspectionplan_id
+                if inspectionplan.planitem_id.mapped('state').count('done') == len(inspectionplan.planitem_id):
+                    inspectionplan.state = 'done'
+
+    @api.constrains('inspectiondate', 'inspectionexpire')
+    def _check_inspectionexpire(self):
+        """
+            2017年7月26日 新增验证：
+                年检过期时间不能小于年检日期
+        :return:
+        """
+        for order in self:
+            if order.inspectiondate > order.inspectionexpire:
+                raise exceptions.ValidationError(_("Inspectionexpire can not be greater than the inspectiondate"))
+
 
     @api.onchange('vehicle_id')
     def _onchange_vehicle_id(self):
@@ -337,17 +386,19 @@ class InspectionRecords(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('vehicle_id',None) != None:
-            vehicleinfo = self.getVehicleIdById(vals['vehicle_id'])
-        elif vals.get('inner_code', None) != None:
-            vehicleinfo = self.getVehicleIdByInnercode(vals['inner_code'])
-        vals['vehicle_id'] = vehicleinfo['id']
-        vals['annual_inspection_date'] = vehicleinfo.annual_inspection_date
-        vehicleinfo.write({'annual_inspection_date':vals['inspectionexpire']})
+
+        #if vals.get('vehicle_id',None) != None:
+        #    vehicleinfo = self.getVehicleIdById(vals['vehicle_id'])
+        #elif vals.get('inner_code', None) != None:
+        #    vehicleinfo = self.getVehicleIdByInnercode(vals['inner_code'])
+        #vals['vehicle_id'] = vehicleinfo['id']
+        #vals['annual_inspection_date'] = vehicleinfo.annual_inspection_date
+        #vehicleinfo.write({'annual_inspection_date':vals['inspectionexpire']})
+
         res = super(InspectionRecords, self).create(vals)
-        planItem = self.getPlanItem(vehicleinfo['id'])
-        if planItem!=False:
-            planItem.write({'state':'done','actualdate':vals['inspectiondate']})
+        #planItem = self.getPlanItem(vehicleinfo['id'])
+        #if planItem!=False:
+            #planItem.write({'state':'done','actualdate':vals['inspectiondate']})
         return res
 
 

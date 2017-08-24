@@ -9,6 +9,7 @@
                 <sheet>
                     <group>
                         <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="socialsecurityaccount"/>
                         <field name="chargetime"/>
                         <field name="money_company"/>
                         <field name="money_employee"/>
@@ -26,7 +27,7 @@
         <field name="name">social security tree</field>
         <field name="model">social.socialsecurity</field>
         <field name="arch" type="xml">
-            <tree string="Course Tree">
+            <tree>
                 <field name="summary"/>
                 <field name="employee_id"/>
                 <field name="id_card"/>
@@ -48,6 +49,7 @@
                 <sheet>
                     <group>
                         <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="socialsecurityaccount"/>
                         <field name="chargetime"/>
                         <field name="money_company"/>
                         <field name="money_employee"/>
@@ -65,7 +67,7 @@
         <field name="name">social security tree</field>
         <field name="model">social.housingprovident</field>
         <field name="arch" type="xml">
-            <tree string="Course Tree">
+            <tree>
                 <field name="summary"/>
                 <field name="employee_id"/>
                 <field name="id_card"/>
@@ -84,7 +86,7 @@
         <field name="model">social.workinjury</field>
         <field name="priority">0</field>
         <field name="arch" type="xml">
-            <tree string="Course Tree">
+            <tree>
                 <field name="employee_id"/>
                 <field name="workpost"/>
                 <field name="id_card"/>
@@ -147,7 +149,7 @@
         <field name="model">social.workinjury</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
-            <tree string="Course Tree" create="0" >
+            <tree create="0" >
                 <field name="employee_id"/>
                 <field name="workpost"/>
                 <field name="id_card"/>
@@ -221,7 +223,7 @@
                                     </div>
                                 </group>
                                 <group>
-                                    <field name="attachments"/>
+                                    <field name="attachment_ids" widget="many2many_binary"/>
                                 </group>
                             </group>
                         </page>
@@ -311,7 +313,7 @@
         <field name="name">retire apply tree</field>
         <field name="model">retire.retiremanage</field>
         <field name="arch" type="xml">
-            <tree string="Course Tree" >
+            <tree>
                 <field name="employee_id"/>
                 <field name="retiredate"/>
                 <field name="reason"/>

@@ -21,7 +21,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'hr', 'security_manage_menu'],
+    'depends': ['base', 'hr', 'security_manage_menu','web_editor'],
 
     # always loaded
     'data': [
@@ -52,7 +52,9 @@
     'demo': [
         'demo/demo.xml',
     ],
-
+    'qweb': [
+            'static/src/xml/*.xml',
+    ],
     'installable': True,
     'application': True,
 }

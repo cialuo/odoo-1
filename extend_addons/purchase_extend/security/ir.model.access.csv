@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_partner_type_user,access.partner.type.user,model_partner_type,purchase.group_purchase_user,1,1,1,1
+access_product_template_user,access.product.template.user,product.model_product_template,purchase.group_purchase_user,1,1,1,1
+access_product_product_user,access.product.product.user,product.model_product_product,purchase.group_purchase_user,1,1,1,1
+access_stock_picking_type_user,access.stock.picking.type.user,stock.model_stock_picking_type,stock.group_stock_user,1,1,0,0

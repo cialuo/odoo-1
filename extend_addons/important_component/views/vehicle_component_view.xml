@@ -64,15 +64,15 @@
                 <xpath expr="//page[@name='dropanchorrecords']" position="after">
                     <page name="component_dismantle" string="Component Dismantle">
                         <field name="dismantle_ids">
-                            <tree create="false" delete="false">
+                            <tree create="false" delete="false" open="false">
                                 <field name="component_code"/>
                                 <field name="product_id"/>
                                 <field name="install_date"/>
                                 <field name="install_type"/>
-                                <field name="install_user"/>
+                                <field name="install_user" widget="many2many_tags"/>
                                 <field name="dismantle_type"/>
                                 <field name="dismantle_date"/>
-                                <field name="dismantle_user"/>
+                                <field name="dismantle_user" widget="many2many_tags"/>
                                 <field name="operate_days"/>
                                 <field name="operate_mileage"/>
                             </tree>

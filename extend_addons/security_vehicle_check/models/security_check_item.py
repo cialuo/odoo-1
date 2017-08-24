@@ -5,8 +5,8 @@ from odoo import models, fields, api, _
 
 class security_check_item(models.Model):
     _name = 'security_manage.check_item'
-    _sql_constraints = [('check_item_no_unique', 'unique (name)', u"编号已经存在!"),
-                        ('check_item_name_unique', 'unique (check_item_name)', u"名字已经存在!")]
+    _sql_constraints = [('check_item_no_unique', 'unique (name)', u"检查项目编号已存在!"),
+                        ('check_item_name_unique', 'unique (check_item_name)', u"检查项目名称已存在!")]
 
     name = fields.Char(string='check_id', required=True)
 
@@ -23,6 +23,16 @@ class security_check_item(models.Model):
     state = fields.Selection([('use', 'Use'),('archive', "Archive"),], default='use', string='security_check_item_state')
 
     active = fields.Boolean(string="MyActive", default=True)
+    
+    @api.multi
+    def copy(self, default=None):
+        self.ensure_one()
+        default = dict(default or {})
+        if ('name' not in default) :
+            default['name'] = _("%s (copy)") % self.name
+        if 'check_item_name' not in default:
+            default['check_item_name'] = _("%s (copy)") % self.check_item_name
+        return super(security_check_item, self).copy(default)    
 
     @api.multi
     def action_to_default(self):

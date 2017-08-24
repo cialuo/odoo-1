@@ -5,7 +5,7 @@ from odoo import models, fields, api, _
 class security_check_table(models.Model):
 
     _name = 'security_manage.check_table'
-    _sql_constraints = [('check_item_detail_name_unique', 'unique (name)', u"名字已经存在!")]
+    _sql_constraints = [('check_item_detail_name_unique', 'unique (name)', u"检查表名称已存在!")]
 
     check_table_id = fields.Char(string='security_check_table_id')
 
@@ -19,9 +19,9 @@ class security_check_table(models.Model):
     responser = fields.Many2one('hr.employee', string='check_responser')
 
     # TODO many2one
-    parent_company = fields.Many2one('hr.department', related="responser.department_id", string='check_parent_company')
+    parent_company = fields.Many2one('hr.department', related="responser.department_id", string='check_parent_company',readonly=True)
 
-    plan_detail = fields.One2many('security_manage.check_item_detail', 'check_table_item_id')
+    plan_detail = fields.One2many('security_manage.check_item_detail', 'check_table_item_id', copy=True)
 
     active = fields.Boolean(string="MyActive", default=True)
 
@@ -44,6 +44,13 @@ class security_check_table(models.Model):
     def action_archive(self):
         self.state = 'archive'
         self.active = False
+    @api.multi
+    def copy(self, default=None):
+        self.ensure_one()
+        default = dict(default or {})
+        if ('name' not in default) :
+            default['name'] = _("%s (copy)") % self.name
+        return super(security_check_table, self).copy(default)  
 
 
 class security_check_table_item(models.Model):
@@ -62,5 +69,6 @@ class security_check_table_item(models.Model):
     check_standards = fields.Char(related='item_id.check_standards', readonly=1)
 
     state = fields.Selection(related='item_id.state', readonly=1)
+
 
 

@@ -5,7 +5,7 @@
         <field name="name">performance checking indicator form</field>
         <field name="model">performance.indicator</field>
         <field name="arch" type="xml">
-            <form>
+            <form duplicate="0">
                 <sheet>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
@@ -61,7 +61,7 @@
         <field name="name">performance checking table form</field>
         <field name="model">performance.checkingtable</field>
         <field name="arch" type="xml">
-            <form>
+            <form duplicate="0">
                 <sheet>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
@@ -127,7 +127,7 @@
         <field name="name">performance checking table indicator form</field>
         <field name="model">performance.indecatorfortable</field>
         <field name="arch" type="xml">
-            <form>
+            <form duplicate="0">
                 <sheet>
                     <group>
                         <field name="weight"/>
@@ -166,7 +166,7 @@
         <field name="name">performance checking form</field>
         <field name="model">perf.checking</field>
         <field name="arch" type="xml">
-            <form>
+            <form duplicate="0">
                 <header>
                     <button name="action_checking" type="object"
                             string="submit" states="draft"
@@ -251,7 +251,7 @@
         <field name="name">performance invite checking form</field>
         <field name="model">perf.checkingresult</field>
         <field name="arch" type="xml">
-            <form>
+            <form duplicate="0">
                 <header>
                     <button name="action_done" type="object"
                             string="done checking" states="checking"
@@ -284,6 +284,8 @@
                                     <field name="indicator_name"/>
                                     <field name="indicator_standardofgrading"/>
                                     <field name="point"/>
+                                    <field name="weight"/>
+                                    <field name="actual_point"/>
                                     <field name="judge"/>
                                 </tree>
                                 <form>

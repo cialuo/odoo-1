@@ -17,4 +17,5 @@
         'views/supplier_view.xml',
     ],
     'depends': ['base', 'materials_menu', 'hr', 'purchase'],
+    'application': True,
 }

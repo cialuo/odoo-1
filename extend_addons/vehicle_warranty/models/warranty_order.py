@@ -3,6 +3,7 @@ from odoo import models, fields, api, exceptions, _
 import datetime
 from datetime import timedelta
 from odoo.exceptions import UserError
+import odoo.addons.decimal_precision as dp
 
 class WarrantyOrder(models.Model): # 保养单
     _inherit = 'mail.thread'
@@ -33,13 +34,11 @@ class WarrantyOrder(models.Model): # 保养单
 
     average_daily_kilometer = fields.Float(digits=(6, 1), string="Average Daily Kilometer")  # 平均日公里
 
-    line = fields.Char()  # 线路
+    line = fields.Many2one("route_manage.route_manage")  # 线路
 
     repair_unit = fields.Char()  # 承修单位
 
-    repair_workshop = fields.Char()  # 承修车间
-
-    fleet = fields.Char()  # 车队
+    fleet = fields.Many2one("hr.department")  # 车队
 
     maintenance_level = fields.Char()  # 维修等级
 
@@ -49,7 +48,12 @@ class WarrantyOrder(models.Model): # 保养单
 
     remark = fields.Char()  # 备注信息
 
-    warranty_location = fields.Char()  # 保养地点
+    warranty_location = fields.Many2one('vehicle.plant')  # 保养地点
+
+    # 修理厂所属部门
+    depa_id = fields.Many2one('hr.department', related='warranty_location.department_id',
+                              store=True, readonly=True)
+    repair_workshop = fields.Many2one('hr.department')  # 承修车间
 
     state = fields.Selection([ # 状态
         ('draft', "draft"),
@@ -60,6 +64,13 @@ class WarrantyOrder(models.Model): # 保养单
     ], default='draft', string="MyState")
 
     plan_order_ids = fields.One2many('warranty_plan_order', 'maintain_sheet_id', 'Plan Order')  # 保养计划单
+
+    #车辆设置
+    company_id_stting = fields.Many2one('res.company', 'Company',
+                                   default=lambda self: self.env['res.company']._company_default_get('warranty_order'),
+                                   index=True, required=True)
+    #是否验证数据
+    maintenance_settings = fields.Selection(related='company_id_stting.maintenance_settings')
 
     @api.multi
     def action_confirm_effective(self): # 确认生效 生成保养单
@@ -135,8 +146,10 @@ class WarrantyOrder(models.Model): # 保养单
         for i in self.manhour_manage_ids:
             i.real_start_time = datetime.datetime.utcnow()
         for project in self.project_ids:
-            project.state = 'maintain'
-
+            if project.state == 'dispatch' :
+                project.state = 'maintain'
+            else:
+                raise exceptions.UserError(_("Please batch dispatch first!"))
         avail_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0)
         location_dest_id = self.env.ref('stock_picking_types.stock_location_ullage').id  # 维修(生产)虚位
         self._generate_picking(avail_products, location_dest_id)
@@ -237,6 +250,42 @@ class WarrantyOrder(models.Model): # 保养单
     instruction_ids = fields.One2many('warranty_order_instruction', 'warranty_order_id', 'Warranty Order') # 作业指导
 
     return_record_ids = fields.One2many('warranty_order_reject', 'warranty_order_id', 'Warranty Order') # 退检记录
+
+    # 2017年7月25日 新增字段：保养总时长,保养开始时间，保研结束时间
+    warranty_total_time = fields.Float(string='Warranty total time', readonly=True,
+                                       digits=dp.get_precision('Operate pram'), compute='_compute_warranty_total_time')
+    warranty_start_time = fields.Datetime(related='plan_id.approval_time',string='Warranty start time')
+    warranty_end_time = fields.Datetime(compute='compute_warranty_end_time')
+
+    @api.depends('project_ids')
+    def compute_warranty_end_time(self):
+        """
+            获取检验单内的的最后一个检验通过时间
+        :return:
+        """
+        for order in self:
+
+            if order.project_ids.mapped('state').count('complete') == len(order.project_ids):
+                #所有检验单完成情况下，取最后一个时间
+                order.warranty_end_time = max(order.project_ids.mapped('end_inspect_time'))
+
+
+
+    @api.depends('warranty_start_time', 'warranty_end_time')
+    def _compute_warranty_total_time(self):
+        """
+            计算保养总时长
+        :return:
+        """
+        for order in self:
+            if order.warranty_end_time and order.warranty_start_time:
+                warranty_end_time = datetime.datetime.strptime(order.warranty_end_time, "%Y-%m-%d %H:%M:%S")
+                warranty_start_time = datetime.datetime.strptime(order.warranty_start_time, "%Y-%m-%d %H:%M:%S")
+                warrant_time = warranty_end_time - warranty_start_time
+                days, seconds = warrant_time.days, warrant_time.seconds
+                if days >= 0 and seconds >= 0:
+                    hours = days * 24 + seconds // 3600
+                    order.warranty_total_time = hours
 
 
     @api.model
@@ -365,6 +414,10 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
             i.rework_count = len(i.return_record_ids)
 
     work_time = manhour = fields.Float(digits=(6, 1)) # 工时定额 # fields.Integer('WorkTime') # work_time = fields.Integer(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
+
+    #修理厂所属部门
+    depa_id = fields.Many2one('hr.department', related='warranty_order_id.warranty_location.department_id',
+                                    store=True, readonly=True)
     user_id = fields.Many2one('hr.employee', string="Repair Name", ondelete='set null')
     plan_start_time = fields.Datetime("Plan Start Time", default=datetime.datetime.utcnow())
     plan_end_time = fields.Datetime("Plan End Time", compute='_get_end_datetime') # ,compute='_get_end_datetime'
@@ -672,6 +725,19 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
 
     sheetId=fields.Char(default=_default_sheetId)
 
+    def _defaultwarranty_order_id(self):
+        """
+            获取保养单
+        :return:
+        """
+        active_id = self._context.get('active_id')
+        return self.env['warranty_order'].search([('id', '=', active_id)])
+
+    # 2017年7月31日 新增字段:保养单ID
+    warranty_order_id = fields.Many2one('warranty_order', default=_defaultwarranty_order_id)
+
+    department_id = fields.Many2one('hr.department',related='warranty_order_id.warranty_location.department_id', store=True, readonly=True)
+
     # def _default_item(self):
     #     active_id=self._context.get('active_id')
     #     maintain_sheet = self.env['warranty_order'].search([('id', '=', active_id)])
@@ -688,13 +754,52 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
 
     @api.multi
     def batch_dispatch(self):
+
+        self.save_batch_dispatch()
+
+        return False
+
+    @api.multi
+    def batch_dispatch_continue(self):
+        """
+            派工并继续
+        :return:
+        """
+
+        self.save_batch_dispatch()
+
+        return {
+            'name': _('Batch Dispatch'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'wizard_batch_dispatch',  # 'res_model': 'hr.expense.sheet',
+            # 'id':'batch_dispatch_view_form',
+            'context': {
+                'default_sheetId': self.sheetId
+                # 'default_name': self.id
+                # 'default_expense_line_ids': [line.id for line in self],
+                # 'default_employee_id': self[0].employee_id.id,
+                # 'default_name': 'mingger' # self[0].name if len(self.ids) == 1 else ''
+            },
+            'view_id': self.env.ref('vehicle_warranty.wizard_batch_dispatch_form').id,
+            # 'target': 'current',
+            'target': 'new'
+            # 'res_id': self.id, # self.env.context.get('cashbox_id')
+        }
+
+
+    def save_batch_dispatch(self):
+        """
+            保存派工数据
+        :return:
+        """
         sheetId = self._context.get('active_id')
 
         maintain_sheet = self.env['warranty_order'].search([('id', '=', sheetId)])
-        manhours=[]
-        manhour_count=len(maintain_sheet.manhour_manage_ids)
+        manhours = []
+        manhour_count = len(maintain_sheet.manhour_manage_ids)
 
-        user_count=len(self.user_id)
+        user_count = len(self.user_id)
 
         for project in self.project_id:
             sum_manhour_percentage_work = sum(project.manhour_manage_ids.mapped('percentage_work'))
@@ -710,7 +815,7 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
                 val_manhour_percentage_work = 100 / user_count
 
             for user in self.user_id:
-                manhour_count+=1
+                manhour_count += 1
 
                 plan_start_time = datetime.datetime.utcnow()
                 plan_end_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=project.work_time * 60)
@@ -725,17 +830,14 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
                     'work_time': project.work_time,
                     'percentage_work': val_manhour_percentage_work,
                     # 'self_work': self_work,
-                    'warranty_order_id':sheetId
+                    'warranty_order_id': sheetId
                 }
                 manhours.append((0, 0, manhour))
             project.update({
                 'state': 'dispatch',
-                'percentage_work':100-(sum_manhour_percentage_work+val_manhour_percentage_work*user_count)
+                'percentage_work': 100 - (sum_manhour_percentage_work + val_manhour_percentage_work * user_count)
             })
         maintain_sheet.write({'manhour_manage_ids': manhours})
-
-        return False
-
 
 class WizardInspectOrderReject(models.TransientModel): # 检验单_退回重修
     _name = "wizard_inspect_order_reject"

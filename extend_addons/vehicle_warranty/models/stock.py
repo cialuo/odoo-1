@@ -26,6 +26,11 @@ class StockPicking(models.Model):
             type = order.picking_type_id.name
 
             if type in [u'退料'] and order.warranty_order_id:
+
+                """当控制物料信息时：验证"""
+                if u'control' == order.warranty_order_id.maintenance_settings:
+                    self.check_product_avail_warranty(type, order)
+
                 location_id = self.env.ref('stock_picking_types.stock_location_ullage').id  # 维修(生产)虚位
                 order.write({
                     'location_id': location_id
@@ -79,6 +84,48 @@ class StockPicking(models.Model):
                 count = i.product_uom_qty + get_ct - back_ct - ret[0].max_count
                 if count > 0:
                     raise UserError(_('%s more than max_count %s') % (i.name, count))
+        elif type == u'退料':
+            """退料的时候验证物料和数量"""
+            """
+                1.查询当前保养单的所有退料和领料单据
+                2.统计退料单和领料单里的物资种类和数量
+                3.对比验证
+            """
+            res_get_domain = [('warranty_order_id', '=', order.warranty_order_id.id),('state', '=', 'done'),('picking_type_id.name', 'in', [u'领料',u'发料']),]
+            res_back_domain = [('warranty_order_id', '=', order.warranty_order_id.id),('state', 'in', ['done']),('picking_type_id.name', '=', u'退料'),]
+
+            res_get = self.env['stock.picking'].search(res_get_domain)
+            res_back = self.env['stock.picking'].search(res_back_domain)
+
+            pc_products = self._get_products(res_get)
+            re_products = self._get_products(res_back)
+
+            '''判断物料是否匹配'''
+            for move in order.move_lines:
+                product = move.product_id
+                key = product.name
+                if pc_products.has_key(key):
+                    '''对比物料的数量'''
+                    back_count = move.product_uom_qty
+                    if re_products.has_key(key):
+                        back_count += re_products.get(key)
+                    count = back_count - pc_products.get(key)
+                    if count > 0:
+                        raise UserError(_('%s more than get %s') % (key, count))
+                else:
+                    raise UserError(_('product is not exist,please remove:%s') % (key))
+
+    def _get_products(self,pickings):
+        """根据库存移动获取物料和数量"""
+        products = dict()
+        for picking in pickings:
+            for line in picking.move_lines:
+                key = line.product_id.name
+                if products.has_key(key):
+                    products[key] = int(line.product_uom_qty) + int(products[key])
+                else:
+                    products[key] = line.product_uom_qty
+        return products
 
     def _gen_old_new_picking_warranty(self, order, products, location_id, location_dest_id):
         picking_type = self.env.ref('stock_picking_types.picking_old_to_new_material')  # 交旧领新分拣类型

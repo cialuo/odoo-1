@@ -5,6 +5,16 @@
             <field name="name">vehicle_front_check</field>
             <field name="res_model">security.vehicle_front_check</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('security_vehicle_front_check_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('security_vehicle_front_check_form')})]"/>
+        </record>
+
+        <!--默认跳转-->
+        <record model="ir.actions.act_window" id="vehicle_front_check_default_action">
+            <field name="name">vehicle_front_check</field>
+            <field name="res_model">security.vehicle_front_check</field>
+            <field name="view_mode">tree</field>
         </record>
 
         <record model="ir.actions.act_window" id="vehicle_everyday_check_action">

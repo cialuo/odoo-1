@@ -6,14 +6,35 @@
         <record id="security_vehicle_front_check_tree" model="ir.ui.view">
             <field name="name">security.vehicle_front_check.tree</field>
             <field name="model">security.vehicle_front_check</field>
+            <field name="priority">100</field>
             <field name="arch" type="xml">
-                <tree string="vehicle front check list">
+                <tree>
                     <field name="vehicle_id"/>
                     <field name="plate"/>
                     <field name="route"/>
                     <field name="checkout_date"/>
                     <field name="inspector"/>
                     <field name="vehicle_manager"/>
+                    <field name="state"/>
+                    <field name="check_result"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--复写车辆出车前检查列表用作默认列表-->
+        <record id="security_vehicle_front_check_default_tree" model="ir.ui.view">
+            <field name="name">security.vehicle_front_check.tree</field>
+            <field name="model">security.vehicle_front_check</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false">
+                    <field name="vehicle_id"/>
+                    <field name="plate"/>
+                    <field name="route"/>
+                    <field name="checkout_date"/>
+                    <field name="inspector"/>
+                    <field name="vehicle_manager"/>
+                    <field name="state"/>
                     <field name="check_result"/>
                 </tree>
             </field>
@@ -23,8 +44,9 @@
         <record id="security_vehicle_front_check_form" model="ir.ui.view">
             <field name="name">security.vehicle_front_check.form</field>
             <field name="model">security.vehicle_front_check</field>
+            <field name="priority">100</field>
             <field name="arch" type="xml">
-                <form string="vehicle front check">
+                <form string="vehicle front check" duplicate="0">
                     <header>
                         <button name="action_done" type="object"
                                 string="vehicle_check_submit" states="draft"
@@ -85,7 +107,7 @@
                             type="object"
                             class="oe_stat_button"
                             icon="fa-book"
-                            context="{'xml_id':'vehicle_front_check_action'}">
+                            context="{'xml_id':'vehicle_front_check_default_action'}">
                         <field name="vehicle_front_check_count" widget="statinfo" string="routine_check"/>
                     </button>
                 </xpath>

@@ -5,6 +5,7 @@
     <record model="ir.ui.view" id="employees_growth_manage.curriculum_schedule_list">
       <field name="name">curriculum_schedule list</field>
       <field name="model">employees_growth.curriculum_schedule</field>
+      <field name="priority">1</field>
       <field name="arch" type="xml">
         <tree>
           <field name="curriculum_no"/>
@@ -22,8 +23,9 @@
     <record model="ir.ui.view" id="employees_growth_manage.curriculum_schedule_form">
       <field name="name">curriculum_schedule form</field>
       <field name="model">employees_growth.curriculum_schedule</field>
+      <field name="priority">1</field>
       <field name="arch" type="xml">
-        <form>
+        <form duplicate="0">
              <header>
                  <button name="sign_to_examination" type="object" string="sign_to_examination" states="sign" class="oe_highlight" groups="employees_growth_manage.training_teacher"/>
                  <button name="examination_to_complete" type="object" string="examination_to_complete" states="examination" class="oe_highlight" groups="employees_growth_manage.training_teacher"/>
@@ -53,7 +55,7 @@
                     <page name="class_arrangement" string="Class arrangement">
                          <field name="time_arrangements" >
                             <tree editable="top">
-                                <field name="teacher_id"/>
+                                <field name="teacher_id" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="start_time"/>
                                 <field name="end_time"/>
                                 <field name="address"/>
@@ -64,7 +66,7 @@
                     <page names="page_trainers" string="Trainers page">
                         <field name="students" >
                             <tree editable="top">
-                                <field name="student_id"/>
+                                <field name="student_id" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="jobnumber"/>
                                 <field name="department_id"/>
                                 <field name="post_id"/>
