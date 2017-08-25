@@ -318,11 +318,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     car_num: car_num,
                     controllerId: this.desktop_id
                 };
-            if (line_id != 1 || car_num != 222) {
-                layer.alert("模拟soket实时加载，请选择810线路222号车进行点击", {title: "车辆实时信息"});
+            if (line_id != 5 || car_num != 222) {
+                layer.alert("模拟soket实时加载，请选择572线路222号车进行点击", {title: "车辆实时信息"});
                 return false;
-            }
-            ;
+            };
             if ($(".busRealStateModel_" + options.line_id + "_" + options.car_num).length > 0) {
                 return;
             } else {
@@ -591,13 +590,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if ($(".linePlanParkOnlineModel_" + options.line_id).length > 0) {
                     return;
                 } else {
-                    try {
-                        $(".linePlanParkOnlineModel").remove();
+                    // try {
+                    //     $(".linePlanParkOnlineModel").remove();
                         var dialog = new plan_display(self, options);
                         dialog.appendTo($(".controller_" + options.controllerId));
-                    } catch(e){
-                        var layer_index = layer.msg("websoket断开链接，请检查网络是否通畅", {shade: 0.3});
-                    }
+                    // } catch(e){
+                        // var layer_index = layer.msg("websoket断开链接，请检查网络是否通畅", {shade: 0.3});
+                    // }
                 }
             }
         }

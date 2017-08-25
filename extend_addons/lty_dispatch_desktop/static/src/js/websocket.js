@@ -24,39 +24,11 @@ websocket.onopen = function () {
     console.log("WebSocket连接成功");
 }
 
-// 定义模块调用
-// 示例 {model: {fn: "", arg: ""}},
-// 解释 model:打开的模块, fn:渲染执行函数, arg:所需参数
-// var socket_model_info = {
-// 	'异常':{},
-// 	'消息':{},
-// 	'线路':{},
-// 	'客流运力':{},
-// 	'modelBus':{}, //车辆实时状态
-// 	'滞客信息':{},
-// 	'线路行计划':{},
-// 	'线路车场状态':{},
-// 	'线路在途状态':{},
-// 	'车辆资源状态':{},
-// 	'人力资源状态':{}
-// };
 var socket_model_info = {};
 var socket_model_api_obj = {};
 //接收到消息的回调方法
-// console.log(event.data);
-// return false;
-
-websocket.onmessage123 = function (event) {
-    console.log(event.data);
-}
-
-// var package = {
-//     type: 1001,
-//     open_modules: "dispatch-line_message-4",
-//     msgId: Date.parse(new Date())
-// };
-// websocket.send(JSON.stringify(package));
 websocket.onmessage = function (event) {
+    // console.log(event);
     // debugger;
     // var package = {
     //             type: 1002,
@@ -70,21 +42,19 @@ websocket.onmessage = function (event) {
 
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
     linePlanParkOnlineModel_display($(".controller_" + controllerId));
+
     if (modelName == "line_message") {
         use_odoo_model()
     } else if (modelName == "passenger_flow_capacity") {
         //客流与运力组件
         passenger_flow_capacity($(".controller_" + controllerId), eventObj.data);
     } else if (modelName == "人力资源状态") {
-        // console.log('4');
     }
     else if (modelName == "bus_real_state") {
-        // console.log('5');
         busRealStateModel_socket_fn($(".controller_" + controllerId), eventObj.data);
         // console.log(eventObj);
     }
     else if (modelName == "passenger_delay") {
-        // console.log('6');
         passengerDelayModel_socket_fn($(".controller_" + controllerId), eventObj.data);
     } else if ($.inArray(modelName, ["line_plan", "bus_resource"]) != -1) {
         if (modelName != "line_plan"){
@@ -99,15 +69,11 @@ websocket.onmessage = function (event) {
     } else if (modelName == "消息") {
         // console.log('10');
     } else if (modelName == "abnormal") {
-        // console.log(event.data[0].substring(78, 80))
         absnormal_del($(".controller_" + controllerId), eventObj.data);
         line_car_src_on_line($(".controller_" + controllerId), eventObj)
     }
-    else if (modelName == "bus_real_state") {
-        line_car_src_real_state($(".controller_" + controllerId), eventObj.data);
-        show_electronic_map($(".controller_" + controllerId).find('#digital_map'), eventObj.data, 'elec_map_layer')
-    }
     // else if (modelName == "bus_real_state") {
+    //     line_car_src_real_state($(".controller_" + controllerId), eventObj.data);
     //     show_electronic_map($(".controller_" + controllerId).find('#digital_map'), eventObj.data, 'elec_map_layer')
     // }
 };
@@ -219,7 +185,7 @@ function passenger_flow_capacity(controllerObj, data_list) {
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
     // var dom = controllerObj.find(".busRealStateModel_"+dataObj.line_on+"_"+dataObj.bus_on);
-    var dom = controllerObj.find(".busRealStateModel_1_222");
+    var dom = controllerObj.find(".busRealStateModel_5_222");
     if (dom.length > 0) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
         var carReportObj = dom.find(".popupContent .carReport");
@@ -443,7 +409,6 @@ function update_linePlan(obj, obj_list, dataObj){
 
 // 车场在途更新
 function update_busResource(controllerObj, dataObj){
-    console.log("go")
     var busResource_sectionPlanCont_list = controllerObj.find(".section_plan_cont").not(controllerObj.find(".bus_plan"));
     var active_tr = busResource_sectionPlanCont_list.find("tr[pid="+dataObj.id+"]");
     if (dataObj.carStateId == 2008){
@@ -728,8 +693,3 @@ function update_update_busResource_fn(controllerObj, dataObj, active_tr){
 //         obj.find(".stopTime").html(new Date(dataObj.stopTime).toTimeString().slice(0,8));
 //     }
 // }
-
-
-setTimeout(function(){
-    linePlanParkOnlineModel_display($(".controller_1"));
-}, 8000)
