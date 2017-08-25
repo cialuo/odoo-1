@@ -15,22 +15,17 @@
         width: 100%;
         max-width: @screen-sm-min;
         @media (min-width: 1440px) {
-                max-width:1280px;
+                max-width:66.7%;
             }
         .o_apps {
             .o-flex(0, 0, auto);
             width: 100%;
-            max-width: @screen-sm-min;
-            //padding:0 15px;
-            @media (min-width: 1440px) {
-                max-width:1280px;
-            }
+
             .clearfix();
 
             .o_app {
                 float: left;
                 margin-bottom:15px;
-
                     //width: 22%; // +3% margin = 4 apps per line
                     &:nth-child(1){width:20%;margin-right: 1.4%;background-color: #287ac9;}
                     &:nth-child(2){width:20%;margin-right: 1.4%;background-color: #573aa3;}
@@ -44,6 +39,8 @@
                     &:nth-child(10){width:11%;margin-right: 1.4%;background-color: #1d519c;}
                     &:nth-child(11){width:20%;margin-right: 1.4%;background-color: #2c8cce;}
                     &:nth-child(12){width:11%;background-color: #c52167;}
+                    &:nth-child(12)~a{width:60px;background-color: transparent;}
+
                 @media (max-width: @screen-xs-max) {
                 //width: 13.66%; // +3% margin = 6 apps per line
                 &:nth-child(1){width:49%;margin-right: 2%;background-color: #287ac9;}
@@ -56,8 +53,8 @@
                 &:nth-child(8){width:23.5%;margin-right: 0;background-color: #07921c;}
                 &:nth-child(9){width:49%;margin-right: 2%;background-color: #d37a43;}
                 &:nth-child(10){width:49%;margin-right: 0;background-color: #1d519c;}
-                &:nth-child(11){width:20%;margin-right: 1.4%;background-color: #2c8cce;display: none;}
-                &:nth-child(12){width:11%;background-color: #c52167;display: none;}
+                &:nth-child(10) ~ a{display: none;}
+                /*&:nth-child(12){width:11%;background-color: #c52167;display: none;}*/
                 }
             }
         }
