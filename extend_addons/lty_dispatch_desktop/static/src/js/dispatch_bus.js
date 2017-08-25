@@ -37,8 +37,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     var model_name = self.$el[0].className;
                     // 根据tid拿到线路id
                     mode_line.query().filter([["id", "=", parseInt(tid)]]).all().then(function (data) {
-                        model_station_platform.query().filter([["route_id", "=", data[0].line_id[0]],["direction","=","up"]]).all().then(function (res_top) {
-                            model_station_platform.query().filter([["route_id", "=", data[0].line_id[0]],["direction","=","down"]]).all().then(function (res_down) {
+                        model_station_platform.query().filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "up"]]).all().then(function (res_top) {
+                            model_station_platform.query().filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "down"]]).all().then(function (res_down) {
                                 // 库
                                 var model_id = model_name + "" + tid;
                                 if (socket_model_info[model_id]) {
@@ -46,19 +46,34 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                                 var package_send = {
                                     type: 1000,
-                                    open_modules: ["dispatch-bus_resource-1"],
+                                    open_modules: ["dispatch-line_message-1"],
                                     msgId: Date.parse(new Date())
                                 };
                                 websocket.send(JSON.stringify(package_send));
+                                var dataSite_top_color_cof = {};
+                                var dataSite_down_color_cof = {};
+                                for (var i = 0; i < res_top.length; i++) {
+                                    var color = 'color' + res_top[i].id;
+                                    dataSite_top_color_cof[color] = 'blue';
+                                }
+                                for (var i = 0; i < res_down.length; i++) {
+                                    var color = 'color' + res_down[i].id;
+                                    dataSite_down_color_cof[color] = 'blue';
+                                }
                                 socket_model_info[model_id] =
                                     {
                                         fn: self.site_websocket,
                                         arg: {
                                             self: self,
                                             site_top_infos: res_top,
-                                            site_down_infos: res_down     //此处修改
+                                            site_down_infos: res_down,     //此处修改
+                                            dataSite_top_color_cof:dataSite_top_color_cof,
+                                            dataSite_down_color_cof:dataSite_down_color_cof,
+                                            busTopNumber : '',
+                                            busDownNumber : ''
                                         }
                                     };
+
                             });
                         });
                     });
@@ -77,107 +92,107 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 return false;
             });
         },
-        site_websocket: function (innerHTML, arg) {
+        site_websocket: function (data_list, arg) {
             var self = arg.self;
+            var data_use = JSON.parse(data_list)
             //配车数量...
             for (var i = 0; i < self.$('.bus_info li').length; i++) {
-                self.$('.bus_info li').eq(i).find('span').html(innerHTML.substring(78 + i, 80 + i));
+                self.$('.bus_info li').eq(i).find('span').html(10);
             }
             var data = new Object();
-
             //站点到起点距离
-            data.dataCir = [12, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 780, 860, 1000, 1170];
-            data.dataCir2 = [12, 150, 200, 250, 300, 350, 400, 450, 500, 550, 650, 700, 860, 1000, 1170];
             //分段颜色
             data.color = [
-                "#ff46" + innerHTML.substring(78, 80),
-                "#4dcf" + innerHTML.substring(78, 80),
-                "#ffd2" + innerHTML.substring(78, 80),
-                "#cc21" + innerHTML.substring(78, 80),
-                "#4dcf" + innerHTML.substring(78, 80),
-                "#f691" + innerHTML.substring(78, 80),
-                "#a19e" + innerHTML.substring(78, 80),
-                "#cc21" + innerHTML.substring(78, 80),
+                "#4dcf22",
+                "#ffd233",
+                "#cc2111",
+                "#f69144",
+                "#a19dde",
+                "#cc21ff",
             ];
-
             data.site_top_infos = arg.site_top_infos;
             data.site_down_infos = arg.site_down_infos;
-            //上行站点的颜色
-            data.dataSite_top_color = [
-                {'color': '#f' + innerHTML.substring(78, 80) + 'f75'},
-                {'color': '#cc2' + innerHTML.substring(78, 80) + '3'},
-                {'color': '#ffd2' + innerHTML.substring(78, 80)},
-                {'color': '#4' + innerHTML.substring(78, 80) + 'df7'},
-                {'color': '#ffcf' + innerHTML.substring(78, 80)},
-                {'color': '#ffd2' + innerHTML.substring(78, 80)},
-                {'color': '#aad2' + innerHTML.substring(78, 80)},
-                {'color': '#cc21' + innerHTML.substring(78, 80)},
-                {'color': '#f' + innerHTML.substring(78, 80) + 'f75'},
-                {'color': '#cc2' + innerHTML.substring(78, 80) + '3'},
-                {'color': '#ffd2' + innerHTML.substring(78, 80)},
-                {'color': '#4' + innerHTML.substring(78, 80) + 'df7'},
-                {'color': '#ffcf' + innerHTML.substring(78, 80)},
-                {'color': '#ffd2' + innerHTML.substring(78, 80)},
-                {'color': '#aad2' + innerHTML.substring(78, 80)},
-                {'color': '#cc21' + innerHTML.substring(78, 80)},
-                {'color': '#cc21' + innerHTML.substring(78, 80)},
-            ];
-            // 下行站点的颜色
-            data.dataSite_down_color = [
-                {'color': '#f' + innerHTML.substring(78, 80) + 'f75'},
-                {'color': '#cc2' + innerHTML.substring(78, 80) + '3'},
-                {'color': '#ffd2' + innerHTML.substring(78, 80)},
-                {'color': '#4' + innerHTML.substring(78, 80) + 'df7'},
-                {'color': '#ffcf' + innerHTML.substring(78, 80)},
-                {'color': '#ffd2' + innerHTML.substring(78, 80)},
-                {'color': '#aad2' + innerHTML.substring(78, 80)},
-                {'color': '#cc21' + innerHTML.substring(78, 80)},
-                {'color': '#f' + innerHTML.substring(78, 80) + 'f75'},
-                {'color': '#cc2' + innerHTML.substring(78, 80) + '3'},
-                {'color': '#ffd2' + innerHTML.substring(78, 80)},
-                {'color': '#4' + innerHTML.substring(78, 80) + 'df7'},
-                {'color': '#ffcf' + innerHTML.substring(78, 80)},
-                {'color': '#ffd2' + innerHTML.substring(78, 80)},
-                {'color': '#aad2' + innerHTML.substring(78, 80)},
-            ];
-            data.subsection = [];
-            for (var j = 0; j < 8; j++) {
-                data.subsection.push(parseInt(innerHTML.substring(78 + j, 79 + j)));
+            if (data_use.type == "1032") {
+                var road_distance_color =data_use.data.road_condition;
+
             }
-            data.busNumber = parseInt(innerHTML.substring(78, 79));
+
+            if (data_use.type == "2001") {
+                if (data_use.data.direction == 0) {
+                    var color_id = data_use.data.location_id;
+                    arg.dataSite_top_color_cof['color' + color_id] = data_use.data.state;
+                    for (var each in  arg.dataSite_top_color_cof) {
+                        if ( arg.dataSite_top_color_cof[each] == 1) {
+                             arg.dataSite_top_color_cof[each] = '#123145';
+                        } else if ( arg.dataSite_top_color_cof[each] == 2) {
+                             arg.dataSite_top_color_cof[each] = '#1dd345';
+                        } else if ( arg.dataSite_top_color_cof[each] == 3) {
+                            arg.dataSite_top_color_cof[each] = '#123c45';
+                        } else if ( arg.dataSite_top_color_cof[each] == 4) {
+                             arg.dataSite_top_color_cof[each] = '#f12345';
+                        } else if ( arg.dataSite_top_color_cof[each] == 5) {
+                             arg.dataSite_top_color_cof[each] = '#1c2345';
+                        }
+                    }
+                } else {
+                    var color_id = data_use.data.location_id;
+                    arg.dataSite_down_color_cof['color' + color_id] = data_use.data.state;
+                    for (var each in arg.dataSite_down_color_cof) {
+                        if (arg.dataSite_down_color_cof[each] == 1) {
+                            arg.dataSite_down_color_cof[each] = 'green';
+                        } else if (arg.dataSite_down_color_cof[each] == 2) {
+                            arg.dataSite_down_color_cof[each] = 'yellow';
+                        } else if (arg.dataSite_down_color_cof[each] == 3) {
+                            arg.dataSite_down_color_cof[each] = 'orange';
+                        } else if (arg.dataSite_down_color_cof[each] == 4) {
+                            arg.dataSite_down_color_cof[each] = 'red';
+                        } else if (arg.dataSite_down_color_cof[each] == 5) {
+                            arg.dataSite_down_color_cof[each] = 'blue';
+                        }
+                    }
+                }
+            }
+            data.dataSite_top_color=arg.dataSite_top_color_cof;
+            data.dataSite_down_color=arg.dataSite_down_color_cof;
+
+            if (data_use.type == "1031") {
+                if (data_use.data.direction == 0) {
+                    arg.busTopNumber = data_use.data.bus_no_of_park + '辆';
+                }
+                if (data_use.data.direction == 1) {
+                    arg.busDownNumber = data_use.data.bus_no_of_park + '辆';
+                }
+            }
+            if(data_use.type=="1035"){
+                self.$el.find('.content_car_road_top').html($('.run_car_hide').html());
+            }
+            data.busTopNumber = arg.busTopNumber;
+            data.busDownNumber = arg.busDownNumber;
+            data.subsection = [1, 2, 3, 4, 5, 6];
             //公交模拟地图canvas
             // 距离车场距离
-            if (!isNaN((data.subsection[0]))) {
-
-                qrend_desktop_canvas(data, '.can_top', '.can_bottom', '.canvas_left', '.canvas_right', self.$el);
-                self.dataCir = data.dataCir;
-                self.dataCir2 = data.dataCir2;
-                self.color = data.color;
-                self.site_top_infos = data.site_top_infos;
-                self.site_down_infos = data.site_down_infos;
-                self.dataSite_top_color = data.dataSite_top_color;
-                self.dataSite_down_color = data.dataSite_down_color;
-                self.subsection = data.subsection;
-                self.busNumber = data.busNumber;
-            }
+            // if (!isNaN((data.subsection[0]))) {
+            qrend_desktop_canvas(data, '.can_top', '.can_bottom', '.canvas_left', '.canvas_right', self.$el);
+            self.color = data.color;
+            self.site_top_infos = data.site_top_infos;
+            self.site_down_infos = data.site_down_infos;
+            self.dataSite_top_color = arg.dataSite_top_color_cof;
+            self.dataSite_down_color = arg.dataSite_down_color_cof;
+            self.subsection = data.subsection;
+            // }
             // 上下行的车辆的拥挤人数数量
             // $('.park_left').html('')
-            var toLeft = parseInt(innerHTML.substring(80, 81));
             var oLeft = self.$el.find('.line_car')[0].offsetLeft;
-
             // oleft值由车子距离车场的距离决定
-            toLeft += oLeft;
             self.$('.content_car_road').eq(0).find('.line_car').css({
                 'position': 'absolute',
-                'left': toLeft + 'px',
+                'left': oLeft + 'px',
                 'top': '0'
             });
-            if (toLeft >= '车场距离') {
-                self.$('.content_car_road').eq(0)
-            }
+
             self.$('.content_car_road').eq(1).find('.line_car').css({
                 'position': 'absolute',
-                'left': toLeft + 100 + 'px',
+                'left': oLeft + 'px',
                 'top': '0'
             });
         },
@@ -195,10 +210,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             'click .canvas_left': 'clk_can_left',
             'click .canvas_right': 'clk_can_right',
             // 鼠标划过上左右车场时的cursor属性
-            // 'mousemove .canvas_left': 'slide_cursor_pointer_left',
-            // 'mousemove .canvas_right': 'slide_cursor_pointer_right',
-            // 'mousemove .can_top': 'slide_cursor_pointer_top',
-            // 'mousemove .can_bottom': 'slide_cursor_pointer_bottom',
+            'mousemove .canvas_left': 'slide_cursor_pointer_left',
+            'mousemove .canvas_right': 'slide_cursor_pointer_right',
+            'mousemove .can_top': 'slide_cursor_pointer_top',
+            'mousemove .can_bottom': 'slide_cursor_pointer_bottom',
             //点击上方详情
             'mouseup .bus_info': 'bus_man_src',
             //鼠标划过上下行车路线时的cursor属性
@@ -247,11 +262,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var x = e.pageX - c.getBoundingClientRect().left;
             var y = e.pageY - c.getBoundingClientRect().top;
             c.style.cursor = 'auto';
-            if (canvas.dataCir) {
-                for (var i = 0; i < canvas.dataCir.length; i++) {
+            if (canvas.site_infos) {
+                for (var i = 0; i < canvas.site_infos.length; i++) {
+                    var everyLen = 1190 * (i + 0.5) / canvas.site_infos.length;
                     cxt.beginPath();
                     //渲染参数，x距离,y距离,半径,起始角，结束角，是否顺势针
-                    cxt.arc(canvas.dataCir[i], canvas.ciry, 3, 0, 360, false);
+                    cxt.arc(everyLen, canvas.ciry, 3, 0, 360, false);
                     //判断鼠标的点是否在圆圈内
                     if (cxt.isPointInPath(x, y)) {
                         c.style.cursor = 'pointer';
@@ -260,7 +276,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     cxt.beginPath();
                     if (canvas.site_infos[i].is_show_name == true) {
                         // 计算每段文字的长度，算出点击的区域
-                        cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].station_id[1].split('/')[0].length), canvas.testy - 16, 12 * canvas.site_infos[i].station_id[1].split('/')[0].length, 16)
+                        cxt.rect(everyLen - (6 * canvas.site_infos[i].station_id[1].split('/')[0].length), canvas.testy - 16, 12 * canvas.site_infos[i].station_id[1].split('/')[0].length, 16)
                         if (cxt.isPointInPath(x, y)) {
                             c.style.cursor = 'pointer';
                         }
@@ -272,7 +288,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         slide_cursor_pointer_top: function (e) {
             var option = {
                 cId: '.can_top',
-                dataCir: this.dataCir,
                 dataSite_color: this.dataSite_top_color,
                 site_infos: this.site_top_infos,
                 testy: 13,
@@ -283,7 +298,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         slide_cursor_pointer_bottom: function (e) {
             var option = {
                 cId: '.can_bottom',
-                dataCir: this.dataCir2,
                 dataSite_color: this.dataSite_down_color,
                 site_infos: this.site_down_infos,
                 testy: 25,
@@ -294,7 +308,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         bus_info: function (e) {
             var car_num = e.currentTarget.getElementsByClassName("type_car")[0].children[0].textContent;
             var line_id = e.delegateTarget.getAttribute("line_id");
-            var zIndex = parseInt(this.$el[0].style.zIndex)+1;
+            var zIndex = parseInt(this.$el[0].style.zIndex) + 1;
             var options =
                 {
                     x: e.clientX + 5,
@@ -324,12 +338,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 ciry: 27,
                 testy: 13,
                 self: this.$el,
-                dataCir: this.dataCir,
                 color: this.color,
                 site_infos: this.site_top_infos,
                 dataSite_color: this.dataSite_top_color,
                 subsection: this.subsection,
-                model: this.model_site_top
+                model: this.model_station_platform
             }, e);
             //调用点击canvas事件
         },
@@ -339,18 +352,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 ciry: 6,
                 testy: 25,
                 self: this.$el,
-                dataCir: this.dataCir2,
                 color: this.color,
                 site_infos: this.site_down_infos,
                 dataSite_color: this.dataSite_down_color,
                 subsection: this.subsection,
-                model: this.model_site_down
+                model: this.model_station_platform
             }, e);
         },
         bus_man_src: function (e) {
             var self = this;
             var ev = e || window.event;
-            var zIndex = parseInt(this.$el[0].style.zIndex)+1;
+            var zIndex = parseInt(this.$el[0].style.zIndex) + 1;
             if (ev.button == 0) {
                 if (!isDrag) {
                     if ($('body').find('.bus_src_config').length > 0) {
@@ -373,6 +385,18 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         dataType: 'json',
                         data: {},
                         success: function (data) {
+                            function getLocalTime(nS) {
+                                return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+                            }
+
+                            for (var i = 0; i < data.respose.length; i++) {
+                                if (data.respose[i].planRunTime > 0) {
+                                    data.respose[i].planRunTime = getLocalTime(data.respose[i].planRunTime / 1000);
+                                }
+                                if (data.respose[i].realReachTime > 0) {
+                                    data.respose[i].realReachTime = getLocalTime(data.respose[i].realReachTime / 1000);
+                                }
+                            }
                             new bus_source_config(this, options, data).appendTo($(".controller_" + options.controllerId));
                         }
                     });
@@ -389,7 +413,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var cxt = c.getContext("2d");
             var x = event.pageX - c.getBoundingClientRect().left;
             var y = event.pageY - c.getBoundingClientRect().top;
-            var zIndex = parseInt(this.$el[0].style.zIndex)+1;
+            var zIndex = parseInt(this.$el[0].style.zIndex) + 1;
+
             if (e.button == 2) {
                 if ($('body').find('.bus_site_info').length > 0) {
                     $('body').find('.bus_site_info').remove();
@@ -402,12 +427,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     };
                 new bus_site_info(this, options).appendTo(this.$el);
             }
-            if (canvas.dataCir) {
-                for (var i = 0; i < canvas.dataCir.length; i++) {
+            if (canvas.site_infos) {
+                for (var i = 0; i < canvas.site_infos.length; i++) {
                     cxt.beginPath();
                     //渲染参数，x距离,y距离,半径,起始角，结束角，是否顺势针
-                    cxt.arc(canvas.dataCir[i], canvas.ciry, 3, 0, 360, false);
-
+                    var everyLen = 1190 * (i + 0.5) / canvas.site_infos.length;
+                    cxt.arc(everyLen, canvas.ciry, 3, 0, 360, false);
                     //判断鼠标的点是否在圆圈内
                     if (cxt.isPointInPath(x, y)) {
                         c.style.cursor = 'pointer';
@@ -436,7 +461,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             testy: canvas.testy,
                             self: canvas.self,
                             color: canvas.color,
-                            dataCir: canvas.dataCir,
                             dataSite_color: canvas.dataSite_color,
                             site_infos: canvas.site_infos
                         };
@@ -448,13 +472,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             // 清除画布
                             // 绘上实心圆
                             cxt.beginPath();
-                            cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
-                            cxt.fillStyle = canvas.dataSite_color[i].color;
+                            cxt.arc(everyLen, canvas.ciry, 4, 0, 360, false);
+                            cxt.fillStyle = transform(canvas.dataSite_color)[i];
                             cxt.fill();
                             cxt.closePath();
                         } else {
                             cxt.beginPath();
-                            cxt.arc(canvas.dataCir[i], canvas.ciry, 4, 0, 360, false);
+                            cxt.arc(everyLen, canvas.ciry, 4, 0, 360, false);
                             cxt.fillStyle = "white";
                             cxt.fill();
                             cxt.closePath();
@@ -464,8 +488,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     cxt.closePath();
                     cxt.beginPath();
                     if (canvas.site_infos[i].is_show_name == true) {
-
-                        cxt.rect(canvas.dataCir[i] - (6 * canvas.site_infos[i].station_id[1].split('/')[0].length), canvas.testy - 16, 12 * canvas.site_infos[i].station_id[1].split('/')[0].length, 16)
+                        cxt.rect(everyLen - (6 * canvas.site_infos[i].station_id[1].split('/')[0].length), canvas.testy - 16, 12 * canvas.site_infos[i].station_id[1].split('/')[0].length, 16)
                         if (cxt.isPointInPath(x, y)) {
                             //如果是左击
                             if (e.button == 0) {
@@ -553,7 +576,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var cxt = c.getContext("2d");
             var x = event.pageX - c.getBoundingClientRect().left;
             var y = event.pageY - c.getBoundingClientRect().top;
-            var zIndex = parseInt(this.$el[0].style.zIndex)+1;
+            var zIndex = parseInt(this.$el[0].style.zIndex) + 1;
             cxt.arc(13, 58, 13, 0, 360, false);
             if (cxt.isPointInPath(x, y)) {
                 var options =
