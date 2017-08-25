@@ -359,7 +359,7 @@ class BusWorkRules(models.Model):
                                                                operation_ct=vehiclenums, move_time_id=res, force=True)
             # 生成运营方案数据
             res.genOperatorPlan()
-
+            # 生成行车执行数据
             BusWorkRules.genExcuteRecords(res)
 
     @classmethod
@@ -866,11 +866,13 @@ class BusMoveTimeTable(models.Model):
     def genVehicleSeq(up, down=None):
         uprepeatSeq = []  # 上行轮换序列
         downrepeatSeq = []  # 下行轮换序列
-        for i in range(1, up + 1):
-            uprepeatSeq.append(i)
+
         if down!=None:
-            for i in range(up + 1, up + 1 + down):
+            for i in range(1, down + 1):
                 downrepeatSeq.append(i)
+        for i in range(down + 1, down + up + 1):
+            uprepeatSeq.append(i)
+
         return uprepeatSeq, downrepeatSeq
 
     @staticmethod
