@@ -65,7 +65,7 @@ websocket.onmessage = function (event) {
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
     linePlanParkOnlineModel_display($(".controller_" + controllerId));
     if (modelName == "line_message") {
-        use_odoo_model()
+        use_odoo_model(event);
     } else if (modelName == "passenger_flow_capacity") {
         //客流与运力组件
         passenger_flow_capacity($(".controller_" + controllerId), eventObj.data);
@@ -110,10 +110,10 @@ window.onbeforeunload = function () {
     websocket.close();
 };
 
-function use_odoo_model() {
+function use_odoo_model(event) {
     for (socket_model in socket_model_info) {
-            var socket_model_obj = socket_model_info[socket_model];
-            socket_model_obj.fn(event.data, socket_model_obj.arg);
+        var socket_model_obj = socket_model_info[socket_model];
+        socket_model_obj.fn(event.data, socket_model_obj.arg);
     }
 }
 
