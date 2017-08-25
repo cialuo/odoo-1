@@ -66,8 +66,8 @@ websocket.onmessage = function (event) {
     // return;
     var eventObj = JSON.parse(event.data);
     var modelName = eventObj.moduleName;
-    if (modelName != 'abnormal'){
-        console.log(eventObj);
+    if (!($.inArray(modelName, ["line_plan", "bus_resource"]) != -1)){
+        return;
     }
     var controllerId = eventObj.controllerId;
     for (socket_model in socket_model_info) {
@@ -82,26 +82,23 @@ websocket.onmessage = function (event) {
     } else if (modelName == "passenger_flow_capacity") {
         //客流与运力组件
         passenger_flow_capacity($(".controller_" + controllerId), eventObj.data);
-    } else if (modelName == "bus_resource") {
-        
     } else if (modelName == "人力资源状态") {
         // console.log('4');
     }
     else if (modelName == "bus_real_state") {
         // console.log('5');
         busRealStateModel_socket_fn($(".controller_" + controllerId), eventObj.data);
-        console.log(eventObj);
+        // console.log(eventObj);
     }
     else if (modelName == "passenger_delay") {
         // console.log('6');
         passengerDelayModel_socket_fn($(".controller_" + controllerId), eventObj.data);
     } else if ($.inArray(modelName, ["line_plan", "bus_resource"]) != -1) {
-        // console.log('7');
-        if (modelName != "bus_resource"){
-            update_linePlanParkOnlineModel_socket_fn($(".controller_" + controllerId), eventObj.data, modelName);
+        if (modelName != "line_plan"){
+            line_resource($(".controller_" + controllerId), eventObj.data);
         }
-        line_resource($(".controller_" + controllerId), eventObj.data);
-        console.log(eventObj);
+        update_linePlanParkOnlineModel_socket_fn($(".controller_" + controllerId), eventObj.data, modelName);
+        // console.log(eventObj);
     } else if (modelName == "线路车场") {
         // console.log('8');
     } else if (modelName == "线路在途") {
@@ -110,7 +107,7 @@ websocket.onmessage = function (event) {
         // console.log('10');
     } else if (modelName == "abnormal") {
         // console.log(event.data[0].substring(78, 80))
-        absnormal_del($(".controller_" + controllerId), eventObj.data);
+        // absnormal_del($(".controller_" + controllerId), eventObj.data);
     }
     // else if (modelName == "bus_real_state") {
     //     show_electronic_map($(".controller_" + controllerId).find('#digital_map'), eventObj.data, 'elec_map_layer')
@@ -417,12 +414,124 @@ function update_linePlan(obj, obj_list, dataObj){
 
 // 车场在途更新
 function update_busResource(controllerObj, dataObj){
-    var busResource_sectionPlanCont_list = controllerObj.find(".section_plan_cont").not(cobj.find(".bus_plan"));
+    console.log("go")
+    var busResource_sectionPlanCont_list = controllerObj.find(".section_plan_cont").not(controllerObj.find(".bus_plan"));
     var active_tr = busResource_sectionPlanCont_list.find("tr[pid="+dataObj.id+"]");
     if (dataObj.carStateId == 2008){
         active_tr.remove();
     }else{
+        if (active_tr.length>0){
+            update_update_busResource_fn(controllerObj, dataObj, active_tr);
+        }else{
+            if (dataObj.direction!=undefined && dataObj.inField!=undefined){
+                var tr_list = controllerObj.find(".section_plan_cont[direction="+dataObj.direction+"][inField="+dataObj.inField+"] .content_tb tr.point");
+                add_busResource(controllerObj, tr_list, dataObj)
+            }
+        }
+    }
+}
 
+function add_busResource(controllerObj, obj_list, dataObj){
+    var td_str = '';
+    if (dataObj.inField == 0){
+        td_str = '<td class="planReachTime">' + new Date(dataObj.planReachTime).toTimeString().slice(0,8).replace('Invalid','') +'</td>';
+    }else{
+        td_str = '<td class="realReachTime">' + new Date(dataObj.realReachTime).toTimeString().slice(0,8).replace('Invalid','') +'</td>';
+    }
+    var op_dict = {
+        checkOut: dataObj.checkOut || "0",
+        runState: dataObj.runState || "0",
+        selfId: dataObj.selfId || "",
+        lineName: dataObj.lineName || "",
+        stopTime: dataObj.stopTime || "",
+    };
+    var obj_str =
+        '<tr class="point" pid="'+dataObj.id+'" direction="'+dataObj.direction+'" inField'+dataObj.inField+' planRunTime="'+dataObj.planRunTime+'">' +
+            '<td class="pL">' +
+                '<span st="'+op_dict.checkOut+'" class="icon sendToScreen icon1_'+op_dict.checkOut+'"></span>' +
+                '<span st="'+op_dict.runState+'" class="icon sendToBus icon2_'+op_dict.runState+'"></span>' +
+            '</td>' +
+            '<td class="planRunTime">' +
+                new Date(dataObj.planRunTime).toTimeString().slice(0,8).replace('Invalid','') +
+            '</td>' +
+            '<td class="selfId">' +
+                op_dict.selfId +
+            '</td>' +
+            '<td class="lineName">' +
+                op_dict.lineName +
+            '</td>' +
+                td_str +
+            '<td class="pR stopTime">' +
+                op_dict.stopTime +
+            '</td>' +
+        '</tr>';
+
+
+    if (obj_list.length==0){
+        controllerObj.find(".section_plan_cont[direction="+dataObj.direction+"][inField="+dataObj.inField+"] .content_tb").append(obj_str);
+        return false;
+    }
+
+     // 排序规则
+     // 先根据计划时间排序，如果没有计划时间则根据回场时间排序，如果两者都没有则根据车辆编号进行，前三者都没有给到，则添加末尾
+    for (var i=0;i<obj_list.length;i++){
+        var obj = obj_list[i];
+        if (dataObj.planRunTime){
+            if (obj.getAttribute("planRunTime")){
+                if (obj.getAttribute("planRunTime") > dataObj.planRunTime){
+                    obj.before(obj_str);
+                    break;
+                }
+            }else{
+                obj.after(obj_str);
+                break;
+            }
+        }else{
+            if (!obj.getAttribute("planRunTime")){
+                if (dataObj.planReachTime || dataObj.realReachTime){
+                    if (obj.getAttribute('realReachTime') || obj.getAttribute('realReachTime')){
+                        var time_1 = dataObj.planReachTime || dataObj.realReachTime;
+                        var time_2 = obj.getAttribute('realReachTime') || obj.getAttribute('realReachTime');
+                        if (time_2>time_1){
+                            obj.before(obj_str);
+                            break;
+                        }
+                    }else{
+                        abj.before(obj_str);
+                        break;
+                    }
+                }else{
+                    if (!(obj.getAttribute('realReachTime') || obj.getAttribute('realReachTime'))){
+                        if (dataObj.carNum){
+                            if (obj.getAttribute('carNum')>dataObj.carNum){
+                                abj.before(obj_str);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (controllerObj.find(".section_plan_cont").find("tr[pid="+dataObj.id+"]").length ==0){
+        controllerObj.find(".section_plan_cont[direction="+dataObj.direction+"][inField="+dataObj.inField+"] .content_tb").append(obj_str);
+    }
+}
+
+function update_update_busResource_fn(controllerObj, dataObj, active_tr){
+    var ac_abj = active_tr.parents(".section_plan_cont");
+    var ac_direction = ac_abj.attr("direction");
+    var ac_inField = ac_abj.attr("inField");
+    if (dataObj.direction!=undefined && dataObj.inField!=undefined){
+
+    }else{
+        if (dataObj.direction!=undefined){
+
+        }else if(dataObj.inField!=undefined){
+
+        }else{
+
+        }
     }
 }
 
