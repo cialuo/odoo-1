@@ -704,8 +704,8 @@
                         <th class="pR">停车</th>
                     </tr>
                     <t t-foreach="widget.yard_data.data_list" t-as="item">
-                        <t t-if="item.inField==widget.yard_data.inField &amp;&amp; item.direction==widget.yard_data.direction">
-                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}">
+                        <t t-if="item.inField==widget.yard_data.inField &amp;&amp; item.direction==widget.yard_data.direction &amp;&amp; item.carStateId!=2008">
+                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}" t-attf-realReachTime="{{item.realReachTime}}">
                                 <td class="pL">
                                     <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                     <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>

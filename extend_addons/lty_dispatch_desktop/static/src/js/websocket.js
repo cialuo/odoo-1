@@ -57,9 +57,18 @@ websocket.onmessage123 = function (event) {
 // };
 // websocket.send(JSON.stringify(package));
 websocket.onmessage = function (event) {
+    // debugger;
+    // var package = {
+    //             type: 1002,
+    //             msgId: Date.parse(new Date())
+    //         };
+    // websocket.send(JSON.stringify(package));
+    // return;
     var eventObj = JSON.parse(event.data);
-    console.log(eventObj)
     var modelName = eventObj.moduleName;
+    if (modelName != 'abnormal'){
+        console.log(eventObj);
+    }
     var controllerId = eventObj.controllerId;
     for (socket_model in socket_model_info) {
         var socket_model_obj = socket_model_info[socket_model];
@@ -74,20 +83,25 @@ websocket.onmessage = function (event) {
         //客流与运力组件
         passenger_flow_capacity($(".controller_" + controllerId), eventObj.data);
     } else if (modelName == "bus_resource") {
-        line_resource($(".controller_" + controllerId), eventObj.data);
+        
     } else if (modelName == "人力资源状态") {
         // console.log('4');
     }
     else if (modelName == "bus_real_state") {
         // console.log('5');
         busRealStateModel_socket_fn($(".controller_" + controllerId), eventObj.data);
+        console.log(eventObj);
     }
     else if (modelName == "passenger_delay") {
         // console.log('6');
         passengerDelayModel_socket_fn($(".controller_" + controllerId), eventObj.data);
-    } else if ($.inArray(modelName, ["line_plan", "line_park", "line_online"]) != -1) {
+    } else if ($.inArray(modelName, ["line_plan", "bus_resource"]) != -1) {
         // console.log('7');
-        update_linePlanParkOnlineModel_socket_fn($(".controller_" + controllerId), eventObj.data, modelName);
+        if (modelName != "bus_resource"){
+            update_linePlanParkOnlineModel_socket_fn($(".controller_" + controllerId), eventObj.data, modelName);
+        }
+        line_resource($(".controller_" + controllerId), eventObj.data);
+        console.log(eventObj);
     } else if (modelName == "线路车场") {
         // console.log('8');
     } else if (modelName == "线路在途") {
@@ -117,7 +131,6 @@ function line_resource(controllerObj, data_list) {
     // 通过lineid以及资源id拿到信息
     if (dom.length > 0) {
         //遍历车辆资源新增的数据
-        debugger
         var tid = data_list.id;
         var tr_num = $('.table_bus_num').find('tr[src_id=' + tid + ']');
         for (var i = 0; i < data_list.length; i++) {
@@ -187,6 +200,10 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
         var carReportObj = dom.find(".popupContent .carReport");
         var lineInfo = dom.find(".lineInfo");
+        vehicleInformationObj.find(".license_number").html(dataObj.license_number);
+        vehicleInformationObj.find(".license_plate").html(dataObj.license_plate);
+        vehicleInformationObj.find(".driver").html(dataObj.driver);
+        vehicleInformationObj.find(".crew").html(dataObj.conductor);
         vehicleInformationObj.find(".passenger_number").html(dataObj.passenger_number);
         vehicleInformationObj.find(".satisfaction_rate").html(dataObj.satisfaction_rate);
         vehicleInformationObj.find(".inside_temperature").html(dataObj.inside_temperature);
@@ -197,8 +214,8 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
         vehicleInformationObj.find(".direction").html(dataObj.direction);
         vehicleInformationObj.find(".front_distance").html(dataObj.front_distance + 'KM');
         vehicleInformationObj.find(".back_distance").html(dataObj.back_distance + 'KM');
-        vehicleInformationObj.find(".return_time").html(dataObj.return_time);
-        vehicleInformationObj.find(".next_trip_time").html(dataObj.next_trip_time);
+        vehicleInformationObj.find(".return_time").html(dataObj.return_time.split(" ")[1].slice(0, 5));
+        vehicleInformationObj.find(".next_trip_time").html(dataObj.next_trip_time.split(" ")[1].slice(0, 5));
         vehicleInformationObj.find(".residual_clearance").html(dataObj.residual_clearance + 'KM');
         lineInfo.find(".lineRoad").html('18' + '路')
         lineInfo.find(".trip").html(dataObj.satisfaction_rate);
@@ -266,13 +283,15 @@ function passengerDelayModel_socket_fn(controllerObj, data_list) {
 // 线路计划，车场，在途模块 显示
 function linePlanParkOnlineModel_display(controllerObj) {
     var dom = controllerObj.find(".linePlanParkOnlineModel");
-    if (dom.length > 0) {
+    if (dom.length>0) {
         var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("linePlanParkOnlineModel_set"));
         layer.close(passengerDelayModel_set.layer_index);
         $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar({
             theme: 'minimal'
         });
-        dom.removeClass('hide_model');
+        if (dom.find(".mCustomScrollbar").length>0){
+            dom.removeClass('hide_model');
+        }
     }
 }
 
@@ -283,23 +302,28 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
         if (modelName == "line_plan"){
             var tr_obj_list = controllerObj.find(".bus_plan[direction="+dataObj.direction+"] .content_tb tr.point");
             var tr_obj = controllerObj.find(".bus_plan[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
-            update_linePlan(tr_obj, dataObj, tr_obj_list);
-        }else if (modelName == "line_park"){
-            var tr_obj_list = controllerObj.find(".bus_yard[direction="+dataObj.direction+"] .content_tb tr.point");
-            var tr_obj = controllerObj.find(".bus_yard[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
-            update_linePark(tr_obj, dataObj, tr_obj_list);
-        }else{
-            var tr_obj_list = controllerObj.find(".bus_transit[direction="+dataObj.direction+"] .content_tb tr.point");
-            var tr_obj = controllerObj.find(".bus_transit[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
-            update_busTransit(tr_obj, dataObj, tr_obj_list);
+            update_linePlan(tr_obj, tr_obj_list, dataObj);
+        // 模块划分更改之前的丢弃
+        // }else if (modelName == "line_park"){
+        //     var tr_obj_list = controllerObj.find(".bus_yard[direction="+dataObj.direction+"] .content_tb tr.point");
+        //     var tr_obj = controllerObj.find(".bus_yard[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
+        //     update_linePark(tr_obj, dataObj, tr_obj_list);
+        // }else{
+        //     var tr_obj_list = controllerObj.find(".bus_transit[direction="+dataObj.direction+"] .content_tb tr.point");
+        //     var tr_obj = controllerObj.find(".bus_transit[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
+        //     update_busTransit(tr_obj, dataObj, tr_obj_list);
+        // }
+        }else {
+            // 模块合并
+            update_busResource(controllerObj, dataObj);
         }
-        
+        $('.linePlanParkOnlineModel').mCustomScrollbar("update");
     }
 }
 
 
 // 计划更新
-function update_linePlan(obj, dataObj, obj_list){
+function update_linePlan(obj, obj_list, dataObj){
     // 没有且计划状态非完成则为新增,需按照计划发车时间先后插入
     if (obj.length==0){
         if (dataObj.planState!=3){
@@ -391,170 +415,181 @@ function update_linePlan(obj, dataObj, obj_list){
     }
 }
 
-// 车场更新
-function update_linePark(obj, dataObj, obj_list){
-    if (obj.length == 0){
-        // 没有则为新增,需按照计划发车时间先后插入
-        var obj_str =
-            '<tr class="point" pid="'+dataObj.id+'" direction="'+dataObj.direction+'" planRunTime="'+dataObj.planRunTime+'">' +
-                '<td class="pL">' +
-                    '<span st="'+dataObj.checkOut+'" class="icon sendToScreen icon_'+dataObj.checkOut+'"></span>' +
-                    '<span st="'+dataObj.runState+'" class="icon sendToBus icon_'+dataObj.runState+'"></span>' +
-                '</td>' +
-                '<td class="planRunTime">' +
-                    new Date(dataObj.planRunTime).toTimeString().slice(0,8) +
-                '</td>' +
-                '<td class="selfId">' +
-                    dataObj.selfId +
-                '</td>' +
-                '<td class="lineName">' +
-                    dataObj.lineName +
-                '</td>' +
-                '<td class="realReachTime">' +
-                    new Date(dataObj.realReachTime).toTimeString().slice(0,8) +
-                '</td>' +
-                '<td class="pR stopTime">' +
-                    dataObj.stopTime +
-                '</td>' +
-            '</tr>';
-        for (var i=0, L=obj_list.length; i<L; i++){
-            var tr_obj  = obj_list[i];
-            var planRunTime = tr_obj.getAttribute("planRunTime");
-            if (planRunTime>dataObj.planRunTime){
-                tr_obj.before(obj_str);
-                break;
-            }
-        }
-        return false;
-    }
+// 车场在途更新
+function update_busResource(controllerObj, dataObj){
+    var busResource_sectionPlanCont_list = controllerObj.find(".section_plan_cont").not(cobj.find(".bus_plan"));
+    var active_tr = busResource_sectionPlanCont_list.find("tr[pid="+dataObj.id+"]");
+    if (dataObj.carStateId == 2008){
+        active_tr.remove();
+    }else{
 
-    // 司机签到状态
-    if (dataObj.checkOut != undefined){
-        if (dataObj.checkOut == 1){
-            obj.find(".checkOut").addClass('icon1_1').removeClass("icon1_0");
-        }else{
-            obj.find(".checkOut").removeClass('icon1_1').addClass("icon1_0");    
-        }
-    }
-
-    // 车辆在线状态
-    if (dataObj.runState != undefined){
-        if (dataObj.runState == 0){
-            obj.find(".runState").addClass('icon2_1').removeClass("icon2_0");
-        }else{
-            obj.find(".runState").removeClass('icon2_1').addClass("icon2_0");   
-        }
-    }
-
-    // 计划到达时间
-    if (dataObj.planRunTime != undefined){
-        obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0,8));
-    }
-
-
-    // 车辆
-    if (dataObj.carNum != undefined){
-        obj.find(".carNum").html(dataObj.carNum);
-    }
-
-    // 线路
-    if (dataObj.lineName != undefined){
-        obj.find(".lineName").html(dataObj.lineName);
-    }
-
-    // 回场时间
-    if (dataObj.realReachTime != undefined){
-        obj.find(".realReachTime").html(new Date(dataObj.realReachTime).toTimeString().slice(0,8));
-    }
-
-    // 停车
-    if (dataObj.stopTime != undefined){
-        obj.find(".stopTime").html(new Date(dataObj.stopTime).toTimeString().slice(0,8));
     }
 }
 
+// 车场更新 模块最初定义跟后台不符合丢弃暂时保存，防止需求变更
+// function update_linePark(obj, dataObj, obj_list){
+//     if (obj.length == 0){
+//         // 没有则为新增,需按照计划发车时间先后插入
+//         var obj_str =
+//             '<tr class="point" pid="'+dataObj.id+'" direction="'+dataObj.direction+'" planRunTime="'+dataObj.planRunTime+'">' +
+//                 '<td class="pL">' +
+//                     '<span st="'+dataObj.checkOut+'" class="icon sendToScreen icon_'+dataObj.checkOut+'"></span>' +
+//                     '<span st="'+dataObj.runState+'" class="icon sendToBus icon_'+dataObj.runState+'"></span>' +
+//                 '</td>' +
+//                 '<td class="planRunTime">' +
+//                     new Date(dataObj.planRunTime).toTimeString().slice(0,8) +
+//                 '</td>' +
+//                 '<td class="selfId">' +
+//                     dataObj.selfId +
+//                 '</td>' +
+//                 '<td class="lineName">' +
+//                     dataObj.lineName +
+//                 '</td>' +
+//                 '<td class="realReachTime">' +
+//                     new Date(dataObj.realReachTime).toTimeString().slice(0,8) +
+//                 '</td>' +
+//                 '<td class="pR stopTime">' +
+//                     dataObj.stopTime +
+//                 '</td>' +
+//             '</tr>';
+//         for (var i=0, L=obj_list.length; i<L; i++){
+//             var tr_obj  = obj_list[i];
+//             var planRunTime = tr_obj.getAttribute("planRunTime");
+//             if (planRunTime>dataObj.planRunTime){
+//                 tr_obj.before(obj_str);
+//                 break;
+//             }
+//         }
+//         return false;
+//     }
 
-// 在途更新
-function update_busTransit(obj, dataObj){
-    if (obj.length == 0){
-        // 没有则为新增,需按照计划发车时间先后插入
-        var obj_str =
-            '<tr class="point" pid="'+dataObj.id+'" direction="'+dataObj.direction+'" planRunTime="'+dataObj.planRunTime+'">' +
-                '<td class="pL">' +
-                    '<span st="'+dataObj.checkOut+'" class="icon sendToScreen icon_'+dataObj.checkOut+'"></span>' +
-                    '<span st="'+dataObj.runState+'" class="icon sendToBus icon_'+dataObj.runState+'"></span>' +
-                '</td>' +
-                '<td class="planRunTime">' +
-                    new Date(dataObj.planRunTime).toTimeString().slice(0,8) +
-                '</td>' +
-                '<td class="carNum">' +
-                    dataObj.carNum +
-                '</td>' +
-                '<td class="lineName">' +
-                    dataObj.lineName +
-                '</td>' +
-                '<td class="planReachTime">' +
-                    new Date(dataObj.planReachTime).toTimeString().slice(0,8) +
-                '</td>' +
-                '<td class="pR stopTime">' +
-                    dataObj.stopTime +
-                '</td>' +
-            '</tr>';
-        for (var i=0, L=obj_list.length; i<L; i++){
-            var tr_obj  = obj_list[i];
-            var planRunTime = tr_obj.getAttribute("planRunTime");
-            if (planRunTime>dataObj.planRunTime){
-                tr_obj.before(obj_str);
-                break;
-            }
-        }
-        return false;
-    }
+//     // 司机签到状态
+//     if (dataObj.checkOut != undefined){
+//         if (dataObj.checkOut == 1){
+//             obj.find(".checkOut").addClass('icon1_1').removeClass("icon1_0");
+//         }else{
+//             obj.find(".checkOut").removeClass('icon1_1').addClass("icon1_0");    
+//         }
+//     }
 
-    // 司机签到状态
-    if (dataObj.checkOut != undefined){
-        if (dataObj.checkOut == 1){
-            obj.find(".checkOut").addClass('icon1_1').removeClass("icon1_0");
-        }else{
-            obj.find(".checkOut").removeClass('icon1_1').addClass("icon1_0");
-        }
-    }
+//     // 车辆在线状态
+//     if (dataObj.runState != undefined){
+//         if (dataObj.runState == 0){
+//             obj.find(".runState").addClass('icon2_1').removeClass("icon2_0");
+//         }else{
+//             obj.find(".runState").removeClass('icon2_1').addClass("icon2_0");   
+//         }
+//     }
 
-    // 车辆在线状态
-    if (dataObj.runState != undefined){
-        if (dataObj.runState == 0){
-            obj.find(".runState").addClass('icon2_1').removeClass("icon2_0");
-        }else{
-            obj.find(".runState").removeClass('icon2_1').addClass("icon2_0");   
-        }
-    }
-
-    // 计划到达时间
-    if (dataObj.planRunTime != undefined){
-        obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0,8));
-    }
+//     // 计划到达时间
+//     if (dataObj.planRunTime != undefined){
+//         obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0,8));
+//     }
 
 
-    // 车辆
-    if (dataObj.carNum != undefined){
-        obj.find(".carNum").html(dataObj.carNum);
-    }
+//     // 车辆
+//     if (dataObj.carNum != undefined){
+//         obj.find(".carNum").html(dataObj.carNum);
+//     }
 
-    // 线路
-    if (dataObj.lineName != undefined){
-        obj.find(".lineName").html(dataObj.lineName);
-    }
+//     // 线路
+//     if (dataObj.lineName != undefined){
+//         obj.find(".lineName").html(dataObj.lineName);
+//     }
 
-    // 回场时间
-    if (dataObj.planReachTime != undefined){
-        obj.find(".planReachTime").html(new Date(dataObj.planReachTime).toTimeString().slice(0,8));
-    }
+//     // 回场时间
+//     if (dataObj.realReachTime != undefined){
+//         obj.find(".realReachTime").html(new Date(dataObj.realReachTime).toTimeString().slice(0,8));
+//     }
 
-    // 停车
-    if (dataObj.stopTime != undefined){
-        obj.find(".stopTime").html(new Date(dataObj.stopTime).toTimeString().slice(0,8));
-    }
-}
+//     // 停车
+//     if (dataObj.stopTime != undefined){
+//         obj.find(".stopTime").html(new Date(dataObj.stopTime).toTimeString().slice(0,8));
+//     }
+// }
+
+
+// 在途更新 模块最初定义跟后台不符合丢弃暂时保存，防止需求变更
+// function update_busTransit(obj, dataObj){
+//     if (obj.length == 0){
+//         // 没有则为新增,需按照计划发车时间先后插入
+//         var obj_str =
+//             '<tr class="point" pid="'+dataObj.id+'" direction="'+dataObj.direction+'" planRunTime="'+dataObj.planRunTime+'">' +
+//                 '<td class="pL">' +
+//                     '<span st="'+dataObj.checkOut+'" class="icon sendToScreen icon_'+dataObj.checkOut+'"></span>' +
+//                     '<span st="'+dataObj.runState+'" class="icon sendToBus icon_'+dataObj.runState+'"></span>' +
+//                 '</td>' +
+//                 '<td class="planRunTime">' +
+//                     new Date(dataObj.planRunTime).toTimeString().slice(0,8) +
+//                 '</td>' +
+//                 '<td class="carNum">' +
+//                     dataObj.carNum +
+//                 '</td>' +
+//                 '<td class="lineName">' +
+//                     dataObj.lineName +
+//                 '</td>' +
+//                 '<td class="planReachTime">' +
+//                     new Date(dataObj.planReachTime).toTimeString().slice(0,8) +
+//                 '</td>' +
+//                 '<td class="pR stopTime">' +
+//                     dataObj.stopTime +
+//                 '</td>' +
+//             '</tr>';
+//         for (var i=0, L=obj_list.length; i<L; i++){
+//             var tr_obj  = obj_list[i];
+//             var planRunTime = tr_obj.getAttribute("planRunTime");
+//             if (planRunTime>dataObj.planRunTime){
+//                 tr_obj.before(obj_str);
+//                 break;
+//             }
+//         }
+//         return false;
+//     }
+
+//     // 司机签到状态
+//     if (dataObj.checkOut != undefined){
+//         if (dataObj.checkOut == 1){
+//             obj.find(".checkOut").addClass('icon1_1').removeClass("icon1_0");
+//         }else{
+//             obj.find(".checkOut").removeClass('icon1_1').addClass("icon1_0");
+//         }
+//     }
+
+//     // 车辆在线状态
+//     if (dataObj.runState != undefined){
+//         if (dataObj.runState == 0){
+//             obj.find(".runState").addClass('icon2_1').removeClass("icon2_0");
+//         }else{
+//             obj.find(".runState").removeClass('icon2_1').addClass("icon2_0");   
+//         }
+//     }
+
+//     // 计划到达时间
+//     if (dataObj.planRunTime != undefined){
+//         obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0,8));
+//     }
+
+
+//     // 车辆
+//     if (dataObj.carNum != undefined){
+//         obj.find(".carNum").html(dataObj.carNum);
+//     }
+
+//     // 线路
+//     if (dataObj.lineName != undefined){
+//         obj.find(".lineName").html(dataObj.lineName);
+//     }
+
+//     // 回场时间
+//     if (dataObj.planReachTime != undefined){
+//         obj.find(".planReachTime").html(new Date(dataObj.planReachTime).toTimeString().slice(0,8));
+//     }
+
+//     // 停车
+//     if (dataObj.stopTime != undefined){
+//         obj.find(".stopTime").html(new Date(dataObj.stopTime).toTimeString().slice(0,8));
+//     }
+// }
 
 
 setTimeout(function(){

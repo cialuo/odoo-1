@@ -731,6 +731,7 @@
     border-radius: 8px;
     box-shadow: 0 0 50px #1e2335;
     width: 1874px;
+
 }
 
 .plan_display .plan_group .vehicle_box {
@@ -788,6 +789,9 @@
 
 .plan_display .plan_group .section_plan_cont tr {
     padding: 0 12px;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
 }
 
 .plan_display .plan_group .section_plan_cont .th {
@@ -805,8 +809,6 @@
 .plan_display .plan_group .section_plan_cont td {
     color: #fff;
     font-size: 12px;
-    height: 40px;
-    line-height: 40px;
     border-bottom: 1px solid #6D7487;
     white-space:nowrap;
 }
