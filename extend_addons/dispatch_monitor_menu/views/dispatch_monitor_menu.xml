@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <!-- 调度监控 -->
-        <menuitem name="dispatch_monitor" id="dispatch_monitor_menu_root" sequence="20"/>
+        <menuitem name="dispatch_monitor" id="dispatch_monitor_menu_root" sequence="20" web_icon="dispatch_monitor_menu,static/description/icon.png"/>
 
         <!--调度作业-->
         <menuitem name="dispatch_work" id="dispatch_work_menu" parent="dispatch_monitor_menu_root"  sequence="10"/>

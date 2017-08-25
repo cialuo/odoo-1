@@ -688,7 +688,7 @@
 
     <t t-name="vehicles_yard_template">
         <div class="yard_box vehicle_box">
-            <div class="section_plan_cont bus_yard" t-attf-direction="{{widget.yard_data.direction}}">
+            <div class="section_plan_cont bus_yard" t-attf-inField="{{widget.yard_data.inField}}" t-attf-direction="{{widget.yard_data.direction}}">
                 <div class="title">
                     <t t-if="widget.yard_data.direction==0">上行</t>
                     <t t-else="">下行</t>
@@ -704,18 +704,18 @@
                         <th class="pR">停车</th>
                     </tr>
                     <t t-foreach="widget.yard_data.data_list" t-as="item">
-                        <t t-if="item.inField==widget.yard_data.inField &amp;&amp; item.direction==widget.yard_data.direction">
-                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}">
+                        <t t-if="item.inField==widget.yard_data.inField &amp;&amp; item.direction==widget.yard_data.direction &amp;&amp; item.carStateId!=2008">
+                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}" t-attf-realReachTime="{{item.realReachTime}}">
                                 <td class="pL">
                                     <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                     <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>
                                 </td>
-                                <td class="planRunTime"><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,8)"></t></td>
+                                <td class="planRunTime"><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,8).replace('Invalid','')"></t></td>
                                 <td class="carNum"><t t-esc="item.carNum"></t></td>
                                 <td class="lineName"><t t-esc="item.lineName"></t></td>
                                 <td class="realReachTime">
                                     <t t-if="item.realReachTime">
-                                        <t t-esc="new Date(item.realReachTime).toTimeString().slice(0,8)"></t>
+                                        <t t-esc="new Date(item.realReachTime).toTimeString().slice(0,8).replace('Invalid','')"></t>
                                     </t>
                                     <t t-else="">
                                         
@@ -739,7 +739,7 @@
 
     <t t-name="vehicles_transit_template">
         <div class="yard_box vehicle_box">
-            <div class="section_plan_cont bus_transit" t-attf-direction="{{widget.transit_data.direction}}">
+            <div class="section_plan_cont bus_transit" t-attf-inField="{{widget.transit_data.inField}}" t-attf-direction="{{widget.transit_data.direction}}">
                 <div class="title">
                     <t t-if="widget.transit_data.direction==0">上行</t>
                     <t t-else="">下行</t>

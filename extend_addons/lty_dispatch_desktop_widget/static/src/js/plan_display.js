@@ -80,7 +80,11 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             // 订阅线路计划、车场、状态
             var package = {
                 type: 1000,
-                open_modules: ["dispatch-line_plan-"+this.location_data.controllerId, "dispatch-line_park-"+this.location_data.controllerId, "dispatch-line_online-"+this.location_data.controllerId],
+                open_modules: ["dispatch-line_plan-"+this.location_data.controllerId, "dispatch-line_park-"+this.location_data.controllerId, "dispatch-line_online-"+this.location_data.controllerId, "dispatch-bus_resource-"+this.location_data.controllerId],
+                // 变更
+                // open_modules: ["dispatch-line_plan-"+this.location_data.controllerId, "dispatch-bus_resource-"+this.location_data.controllerId],
+                // 测试阶段
+                // open_modules: ["dispatch-bus_resource-23421","dispatch-line_plan-23421"],
                 msgId: Date.parse(new Date())
             };
             websocket.send(JSON.stringify(package));
