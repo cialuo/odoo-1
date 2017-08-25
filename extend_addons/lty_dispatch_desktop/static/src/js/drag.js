@@ -88,7 +88,7 @@ function dragFn(parent, title, maxL, maxT) {
         }
     });
     $("body").on('mousedown', p_class, function (e) {
-        k++;
+            k++;
         var oDrag = $(this)[0];
         oDrag.style.zIndex = k;
     });
