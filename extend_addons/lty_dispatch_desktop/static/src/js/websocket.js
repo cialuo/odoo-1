@@ -61,15 +61,11 @@ websocket.onmessage = function (event) {
     console.log(eventObj)
     var modelName = eventObj.moduleName;
     var controllerId = eventObj.controllerId;
-    for (socket_model in socket_model_info) {
-        var socket_model_obj = socket_model_info[socket_model];
-        socket_model_obj.fn(event.data, socket_model_obj.arg);
-    }
+
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
     linePlanParkOnlineModel_display($(".controller_" + controllerId));
-
     if (modelName == "line_message") {
-        show_electronic_map($(".controller_" + controllerId).find('#driver_site'), eventObj.data, 'driver_map_layer')
+        use_odoo_model()
     } else if (modelName == "passenger_flow_capacity") {
         //客流与运力组件
         passenger_flow_capacity($(".controller_" + controllerId), eventObj.data);
@@ -97,8 +93,10 @@ websocket.onmessage = function (event) {
     } else if (modelName == "abnormal") {
         // console.log(event.data[0].substring(78, 80))
         absnormal_del($(".controller_" + controllerId), eventObj.data);
+        line_car_src_on_line($(".controller_" + controllerId), eventObj)
     }
     else if (modelName == "bus_real_state") {
+        line_car_src_real_state($(".controller_" + controllerId), eventObj.data);
         show_electronic_map($(".controller_" + controllerId).find('#digital_map'), eventObj.data, 'elec_map_layer')
     }
 };
@@ -112,22 +110,50 @@ window.onbeforeunload = function () {
     websocket.close();
 };
 
+function use_odoo_model() {
+    for (socket_model in socket_model_info) {
+            var socket_model_obj = socket_model_info[socket_model];
+            socket_model_obj.fn(event.data, socket_model_obj.arg);
+    }
+}
+
+// 在线掉线包
+function line_car_src_on_line(controllerObj, data_list) {
+    var dom = controllerObj.find('.bus_src_config[line_id=1]');
+    // 根据车辆id去进行处理
+    if (dom.length > 0 && data_list.type == 1003) {
+        dom.find('.line_src_sinal_status').html(data_list.data.status);
+    }
+}
+
+//根据车辆实时状态修改车辆资源
+function line_car_src_real_state(controllerObj, data_list){
+    var dom = controllerObj.find('.bus_src_config[line_id=1]');
+    var bus_no =data_list.bus_no;
+    if(dom.length > 0){
+        dom.find('tr[src_id='+bus_no+']').find('.line_src_site .position_site').html('('+data_list.location_lan+','+data_list.location_log+')');
+        dom.find('tr[src_id='+bus_no+']').find('.line_src_Passanger_number').html(data_list.passenger_number);
+        dom.find('tr[src_id='+bus_no+']').find('.line_src_Passanger_number').html(data_list.full_load_rate+'%');
+        dom.find('tr[src_id='+bus_no+']').find('.line_src_speed').html(data_list.speed);
+        dom.find('tr[src_id='+bus_no+']').find('.line_src_speed').html(data_list.residual_clearance);
+    }
+}
+
 function line_resource(controllerObj, data_list) {
     var dom = controllerObj.find('.bus_src_config[line_id=1]');
     // 通过lineid以及资源id拿到信息
     if (dom.length > 0) {
         //遍历车辆资源新增的数据
-        debugger
-        var tid = data_list.id;
-        var tr_num = $('.table_bus_num').find('tr[src_id=' + tid + ']');
-        for (var i = 0; i < data_list.length; i++) {
-            tr_num.find('.line_src' + data_list[i]).html(data_list[i]);
-        }
-        if(tr_num.find('.line_src_sinal_status').html() == '异常'){
+        var theid = data_list.id;
+        var tr_num = $('.table_bus_num').find('tr[src_id=' + theid + ']');
+        // if(data_list.data.planRunTime.length>0){
+        //     tr_num.find('.line_src' + planRunTime).html(data_list.data.planRunTime);
+        // }
+        if (tr_num.find('.line_src_sinal_status').html() == '异常') {
             tr_num.find('.line_src_sinal_status').addClass('towarn');
             tr_num.find('.line_src_onBoardId').addClass('towarn');
         }
-        else{
+        else {
             tr_num.find('.line_src_sinal_status').removeClass('towarn');
             tr_num.find('.line_src_onBoardId').removeClass('towarn');
         }
@@ -238,7 +264,8 @@ function busRealStateModel_map(dom, gps) {
 
 // 电子地图模块
 function show_electronic_map(dom, data_list, session_ayer) {
-    var layer_map_close = JSON.parse(sessionStorage.getItem(session_ayer));
+    if(dom.length>0){
+       var layer_map_close = JSON.parse(sessionStorage.getItem(session_ayer));
     layer.close(layer_map_close.layer_map);
     if (socket_model_api_obj.electronicMapModel.marker) {
         socket_model_api_obj.electronicMapModel.marker.setPosition(new AMap.LngLat(data_list.location_log, data_list.location_lan));
@@ -250,6 +277,7 @@ function show_electronic_map(dom, data_list, session_ayer) {
         });
         socket_model_api_obj.electronicMapModel.marker = marker;
 
+    }
     }
 }
 

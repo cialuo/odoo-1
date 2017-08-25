@@ -239,7 +239,7 @@
     padding: 1px 0;
 }
 
-.dispatch_desktop .content_car_road {
+.dispatch_desktop .content_car_road_top,.dispatch_desktop .content_car_road_down {
     height: 20px;
     position: relative;
     margin-bottom: 8px;
@@ -247,7 +247,7 @@
 }
 
 /*左至右车辆*/
-.dispatch_desktop .content_car_road .line_car {
+.dispatch_desktop .content_car_road_top .line_car{
     position: absolute;
     width: 44px;
     height: 20px;
@@ -286,7 +286,7 @@
 }
 
 /*右至左车辆*/
-.dispatch_desktop .content_car_road .line_car_right {
+.dispatch_desktop .content_car_road_down .line_car {
     position: absolute;
     width: 44px;
     height: 20px;
@@ -294,13 +294,13 @@
     top: 0px;
 }
 
-.dispatch_desktop .line_car_right .num_car {
+.dispatch_desktop .content_car_road_down .line_car .num_car {
     width: 42px;
     height: 7px;
     text-align: right;
 }
 
-.dispatch_desktop .line_car_right .num_car span {
+.dispatch_desktop .content_car_road_down .line_car .num_car span {
     font-size: 6px;
     -webkit-transform: scale(0.5);
     color: #fff;
@@ -308,22 +308,18 @@
     line-height: 7px
 }
 
-.dispatch_desktop .line_car_right .type_car {
+.dispatch_desktop .content_car_road_down .line_car .type_car {
     width: 24px;
     height: 8px;
     text-align: right;
 }
 
-.dispatch_desktop .line_car_right .type_car span {
+.dispatch_desktop .content_car_road_down .line_car .type_car span {
     font-size: 8px;
     -webkit-transform: scale(0.75);
     color: #fff;
     display: inline-block;
     line-height: 8px
-}
-
-.dispatch_desktop .content_car_road:first-of-type {
-    margin-bottom: 8px;
 }
 
 .absnormal_chart, .lagstation_chart {
@@ -762,6 +758,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     color: #838697;
     border: 1px solid #6D7487;
     border-bottom: none;
+
 }
 
 .bus_src_config .table_source th:first-of-type, .bus_src_config .table_source td:first-of-type, .bus_src_config .table_bus_num th:first-of-type, .bus_src_config .table_bus_num td:first-of-type {
@@ -772,9 +769,11 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #6D7487;
-    width:95px;
+    width:130px;
 }
-
+.bus_src_config .td_small{
+    width:70px;
+}
 .bus_src_config th {
     color: #53CAC8;
 }
@@ -820,7 +819,9 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     border-bottom: 1px solid #6D91A9;
     width: 80px;
 }
-
+.bus_src_config .position_site{
+    color: #7c7bad;
+}
 .bus_src_config .config_bus_source a {
     color: #fff;
 }
@@ -831,7 +832,9 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     text-align: center;
 
 }
-
+.dispatch_desktop .run_car_hide{
+    display: none;
+}
 .bus_src_config .config_bus_source div {
     text-align: center;
 }
@@ -952,7 +955,6 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     display: block;
 }
 .table_bus_num .th_end{
-    width:109px;
     padding-right: 0;
 }
 .table_bus_num thead{
