@@ -103,20 +103,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var data = new Object();
             //站点到起点距离
             //分段颜色
-            data.color = [
-                "#4dcf22",
-                "#ffd233",
-                "#cc2111",
-                "#f69144",
-                "#a19dde",
-                "#cc21ff",
-            ];
             data.site_top_infos = arg.site_top_infos;
             data.site_down_infos = arg.site_down_infos;
-            if (data_use.type == "1032") {
-                var road_distance_color = data_use.data.road_condition;
-
-            }
             if (data_use.type == "2001") {
                 if (data_use.data.direction == 0) {
                     var color_id = data_use.data.location_id;
@@ -163,6 +151,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     arg.busDownNumber = data_use.data.bus_no_of_park + '辆';
                 }
             }
+            if(data_use.type== "1032"){
+                var road_info = data_use.data.road_condition.split('|');
+                for(var i = 0;i<road_info.length;i++){
+                    data.color.push(parseInt(road_info[i].split(',')[0]));
+                }
+            }
+            data.subsection=['yellow','orange','blue']
             //车辆实时位置
             if (data_use.type == "1035") {
                 //如果车辆id未出现
@@ -191,7 +186,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
             data.busTopNumber = arg.busTopNumber;
             data.busDownNumber = arg.busDownNumber;
-            data.subsection = [1, 2, 3, 4, 5, 6];
+
             //公交模拟地图canvas
             // 距离车场距离
             // if (!isNaN((data.subsection[0]))) {
