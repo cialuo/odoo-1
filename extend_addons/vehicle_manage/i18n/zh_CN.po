@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* vehicle_manage
+#	* vehicle_manage
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-03 07:47+0000\n"
-"PO-Revision-Date: 2017-08-03 15:48+0800\n"
+"POT-Creation-Date: 2017-08-25 07:11+0000\n"
+"PO-Revision-Date: 2017-08-25 07:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: zh\n"
-"X-Generator: Poedit 2.0.2\n"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicle_life_cycle.py:55
@@ -95,7 +93,7 @@ msgstr "二氧化碳排放量"
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_co2_ext
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_co2_ext
 msgid "CO2 emissions of the vehicle"
-msgstr "车辆的CO2排放量"
+msgstr "二氧化碳排放量"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.view_vehicle_config_settings
@@ -149,22 +147,22 @@ msgid "Control Number"
 msgstr "检验"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:136
-#: code:addons/vehicle_manage/models/vehicle.py:145
+#: code:addons/vehicle_manage/models/vehicle.py:139
+#: code:addons/vehicle_manage/models/vehicle.py:148
 #, python-format
 msgid "Copy of {}"
 msgstr "Copy of {}"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:138
-#: code:addons/vehicle_manage/models/vehicle.py:147
+#: code:addons/vehicle_manage/models/vehicle.py:141
+#: code:addons/vehicle_manage/models/vehicle.py:150
 #, python-format
 msgid "Copy of {} ({})"
 msgstr "Copy of {} ({})"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:134
-#: code:addons/vehicle_manage/models/vehicle.py:143
+#: code:addons/vehicle_manage/models/vehicle.py:137
+#: code:addons/vehicle_manage/models/vehicle.py:146
 #, python-format
 msgid "Copy of {}%"
 msgstr "Copy of {}%"
@@ -535,7 +533,7 @@ msgstr "等级代码"
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_license_plate
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicleusage_driverecords_license_plate
 msgid "License plate"
-msgstr "车牌"
+msgstr "车辆牌照"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.fleet_vehicle_view_form
@@ -581,7 +579,7 @@ msgstr "备注"
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_doors_ext
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_doors_ext
 msgid "Number of doors of the vehicle"
-msgstr "车辆车门数量"
+msgstr "车门数量"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_seats_ext
@@ -602,6 +600,11 @@ msgid "Odometer"
 msgstr "里程表"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_on_boardid
+msgid "OnBoardId"
+msgstr "设备号"
+
+#. module: vehicle_manage
 #: selection:fleet.vehicle,vehicle_life_state:0
 msgid "Operation period"
 msgstr "运营期"
@@ -610,7 +613,7 @@ msgstr "运营期"
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_power_ext
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_power_ext
 msgid "Power"
-msgstr "幂数"
+msgstr "车辆总功率"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_model_power_ext
@@ -667,12 +670,18 @@ msgid "Reset"
 msgstr "重新启用"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_model_ride_number
+#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_ride_number
+msgid "Ride Number"
+msgstr "核载人数"
+
+#. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_route_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_route_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_route_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicleusage_driverecords_route_id
 msgid "Route"
-msgstr "路线"
+msgstr "线路"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_salvage_rate
@@ -718,7 +727,7 @@ msgid "Specifications"
 msgstr "型号规格"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:262
+#: code:addons/vehicle_manage/models/vehicle.py:267
 #, python-format
 msgid "Standard code already exists"
 msgstr "排放等级编码已经存在"
@@ -730,7 +739,6 @@ msgstr "投入日期"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_state
-#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_state
 msgid "State"
 msgstr "状态"
 
@@ -837,6 +845,11 @@ msgstr "车辆编码"
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_vehicle_label
 msgid "Vehicle Label"
 msgstr "标志"
+
+#. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_state
+msgid "Vehicle State"
+msgstr "状态"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.vehicle_drive_records_tree_list
@@ -1309,7 +1322,7 @@ msgstr "重置为草稿"
 #. module: vehicle_manage
 #: model:ir.model,name:vehicle_manage.model_route_manage_route_manage
 msgid "route_manage.route_manage"
-msgstr "route_manage.route_manage"
+msgstr "线路表"
 
 #. module: vehicle_manage
 #: selection:fleet.vehicle,state:0
@@ -1475,7 +1488,7 @@ msgstr "车型录入"
 #. module: vehicle_manage
 #: model:ir.actions.act_window,name:vehicle_manage.vehicle_manage_model_action
 msgid "vehicle_manage_model_action"
-msgstr "车型管理"
+msgstr "车型录入"
 
 #. module: vehicle_manage
 #: model:ir.ui.menu,name:vehicle_manage.vehicle_manage_model_brand
@@ -1506,3 +1519,4 @@ msgstr "行车记录"
 #: selection:fleet.vehicle,state:0
 msgid "warrantly"
 msgstr "保养"
+
