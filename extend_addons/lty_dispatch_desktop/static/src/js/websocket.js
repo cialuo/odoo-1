@@ -66,9 +66,6 @@ websocket.onmessage = function (event) {
     // return;
     var eventObj = JSON.parse(event.data);
     var modelName = eventObj.moduleName;
-    if (!($.inArray(modelName, ["line_plan", "bus_resource"]) != -1)){
-        return;
-    }
     var controllerId = eventObj.controllerId;
     for (socket_model in socket_model_info) {
         var socket_model_obj = socket_model_info[socket_model];
@@ -211,8 +208,8 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
         vehicleInformationObj.find(".direction").html(dataObj.direction);
         vehicleInformationObj.find(".front_distance").html(dataObj.front_distance + 'KM');
         vehicleInformationObj.find(".back_distance").html(dataObj.back_distance + 'KM');
-        vehicleInformationObj.find(".return_time").html(dataObj.return_time.split(" ")[1].slice(0, 5));
-        vehicleInformationObj.find(".next_trip_time").html(dataObj.next_trip_time.split(" ")[1].slice(0, 5));
+        vehicleInformationObj.find(".return_time").html(dataObj.return_time);
+        vehicleInformationObj.find(".next_trip_time").html(dataObj.next_trip_time);
         vehicleInformationObj.find(".residual_clearance").html(dataObj.residual_clearance + 'KM');
         lineInfo.find(".lineRoad").html('18' + '路')
         lineInfo.find(".trip").html(dataObj.satisfaction_rate);
