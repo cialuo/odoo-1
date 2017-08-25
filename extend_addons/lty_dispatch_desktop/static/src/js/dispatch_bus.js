@@ -173,18 +173,20 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
                     // 上下行方向
                 }
+                // 车辆进出站
                 if (data_use.data.type == "in") {
                     var oLeft = 1190 * (parseInt(data_use.data.status) + 0.5) / arg.site_top_infos.length;
                 } else {
-                    var oLeft = 1190 * (parseInt(data_use.data.status) + 1) / arg.site_top_infos.length;
+                    var oLeft = 1190 * (parseInt(data_use.data.status) + 1) / arg.site_down_infos.length;
                 }
+                //车辆上下行
                 if (data_use.data.direction == 0) {
                     self.$('.content_car_road_top').find('.line_car').attr('bus_no', data_use.data.bus_no).css('left', oLeft - 22 + 'px');
                 } else {
-                    self.$('.content_car_road_top').find('.line_car').attr('bus_no', data_use.data.bus_no).css('left', 1190 - oLeft - 22 + 'px');
+                    self.$('.content_car_road_down').find('.line_car').attr('bus_no', data_use.data.bus_no).css('left', 1190 - oLeft - 22 + 'px');
                 }
-                self.$('.content_car_road_top').find('.line_car[bus_no' + data_use.data.bus_no + ']').find('.type_car span').html(data_use.data.line_no);
-                self.$('.content_car_road_top').find('.line_car[bus_no' + data_use.data.bus_no + ']').find('.type_car span').html(data_use.data.status);
+                self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.bus_no + ']').find('.num_car span').html(data_use.data.line_id);
+                self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.bus_no + ']').find('.type_car span').html(data_use.data.status);
                 // 进出场
             }
             data.busTopNumber = arg.busTopNumber;
@@ -401,6 +403,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         dataType: 'json',
                         data: {},
                         success: function (data) {
+                            console.log(data)
                             function getLocalTime(nS) {
                                 return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
                             }
