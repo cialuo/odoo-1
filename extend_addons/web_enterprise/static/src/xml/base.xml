@@ -3,8 +3,10 @@
 
 
 <div t-name="AppSwitcher" class="o_application_switcher">
-    <h1 class="o_titles">中国领先的智慧公交出行综合管理平台</h1>
-    <div class="o_menu_search o_bar_hidden">
+    <img src="/web/static/src/img/logo.png" class="logo_top hidden-xs hidden-sm"/>
+    <h1 class="o_titles hidden-xs hidden-sm">中国领先的智慧公交出行综合管理平台</h1>
+    <h1 class="o_titles hidden-lg hidden-md">智慧公交出行综合管理平台</h1>
+    <div class="o_menu_search">
         <span class="fa fa-search fa-2x o_menu_search_icon"/>
         <input type="text" placeholder="Search..." class="o_menu_search_input" onfocus="this.value = this.value;"/>
     </div>
@@ -44,9 +46,9 @@
     <t t-if="widget.state.apps.length + widget.state.menu_items.length === 0">
         <div class="o_no_result">No result</div>
     </t>
-    <div class="o_application_switcher_footer">
+    <!--<div class="o_application_switcher_footer">
         <img src="/web/static/src/img/logo_inverse_white_206px.png"/>
-    </div>
+    </div>-->
 </t>
 
 <!--<t t-name="WebClient.database_expiration_panel">-->

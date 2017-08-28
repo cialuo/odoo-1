@@ -176,29 +176,22 @@
 									<div>
 										<canvas width="1190" height="33" class="can_top"></canvas>
 										<div class="traffic_car">
-											<div class="content_car_road">
-												<div class="line_car" style="">
-													<div class="num_car">
-														<span>222</span>
-													</div>
-													<div class="type_car">
-														<span>222</span>
-													</div>
-												</div>
+											<div class="content_car_road_top">
 											</div>
-											<div class="content_car_road">
-												<div class="line_car" style="">
-													<div class="num_car">
-														<span>111</span>
-													</div>
-													<div class="type_car">
-														<span>111</span>
-													</div>
-												</div>
+											<div class="content_car_road_down">
 											</div>
-
 										</div>
 										<canvas width="1190" height="33" class="can_bottom"></canvas>
+										<div class="run_car_hide">
+											<div class="line_car">
+												<div class="num_car">
+													<span></span>
+												</div>
+												<div class="type_car">
+													<span></span>
+												</div>
+											</div>
+										</div>
 									</div>
 									<canvas class="canvas_right fl" width="26" height="116">
 
@@ -248,7 +241,7 @@
 						<s class="s-icon"></s>
 					</div>
 					<div class="div-a">
-						<a href="#">添加模拟地图</a>
+						<a href="javascript:;">添加模拟地图</a>
 					</div>
 				</li>
 				<li class="save_console">
@@ -256,7 +249,7 @@
 						<s class="s-icon"></s>
 					</div>
 					<div class="div-a">
-						<a href="#">保存控制台</a>
+						<a href="javascript:;">保存控制台</a>
 					</div>
 				</li>
 				<li class="read_console">
@@ -264,7 +257,7 @@
 						<s class="s-icon"></s>
 					</div>
 					<div class="div-a">
-						<a href="#">配置</a>
+						<a href="javascript:;">配置</a>
 					</div>
 				</li>
 			</ul>
@@ -484,17 +477,17 @@
 					<table>
 						<thead>
 						<tr>
-							<th>线路</th>
-							<th>车号</th>
-							<th>车牌</th>
-							<th>司机</th>
+							<th class="td_small">线路</th>
+							<th class="td_small">车号</th>
+							<th class="td_small">车牌</th>
+							<th class="td_small">司机</th>
 							<th>位置</th>
-							<th>状态</th>
+							<th class="td_small">状态</th>
 							<th>当前任务</th>
-							<th>乘客数量</th>
-							<th>满载率</th>
+							<th class="td_small">乘客数量</th>
+							<th class="td_small">满载率</th>
 							<th>信号状态</th>
-							<th>车速</th>
+							<th class="td_small">车速</th>
 							<th>下趟发车</th>
 							<th>回场时间</th>
 							<th class="control_btn th_end">
@@ -519,62 +512,94 @@
 							<t t-foreach="widget.line_src.respose" t-as="item">
 							<tr t-attf-src_id="{{item.id}}">
 								<!--线路-->
-								<td class="line_src_lineName">
+								<td class="line_src_lineName td_small">
 									<t t-esc="item.lineName"></t>
 								</td>
                                 <!--车号-->
-								<td class="line_src_carNum">
+								<td class="line_src_carNum td_small">
 									<t t-esc="item.carNum"></t>
 								</td>
                                 <!--车牌-->
-								<td class="line_src_onBoardId">
+								<td class="line_src_onBoardId td_small">
 									<t t-esc="item.onBoardId"></t>
 								</td>
                                 <!--司机名字-->
-								<td class="line_src_driverName">
+								<td class="line_src_driverName td_small">
 									<t t-esc="item.driverName"></t>
 								</td>
-
+                                <!--位置-->
 								<td class="line_src_site">
 									<a href="#" class="position_site">
 										<!--<t t-esc="item.location_gps"></t>-->
 									</a>
 								</td>
-								<td class="line_src_status">
-									状态
+								<td class="line_src_status td_small">
+									<p t-if="item.carStateId==1001">正常</p>
+									<p t-elif="item.carStateId==2003">休息</p>
+									<p t-elif="item.carStateId==2008">机动</p>
+									<p t-elif="item.carStateId==2004">包车</p>
+									<p t-elif="item.carStateId==2009">取消</p>
+									<p t-elif="item.carStateId==2010">调车</p>
+									<p t-elif="item.carStateId==255">不做</p>
+									<p t-elif="item.carStateId==2011">什么也不做</p>
+									<p t-elif="item.carStateId==2013">被锁</p>
+									<p t-elif="item.carStateId==2005">加油</p>
+									<p t-elif="item.carStateId==1002">报修</p>
+									<p t-elif="item.carStateId==2006">在保</p>
+									<p t-elif="item.carStateId==2007">保养</p>
+									<p t-else="">其他</p>
 								</td>
                                 <!--当前任务-->
 								<td class="line_src_current_task">
 									<!--<t t-esc="item.Current_task"></t>-->
-									当前任务
+                                    <!--当前任务-->
+									<p t-if="item.task==1000">正常</p>
+									<p t-elif="item.carStateId==1001">进场包车开始</p>
+									<p t-elif="item.carStateId==1002">进场包车结束</p>
+									<p t-elif="item.carStateId==1003">进场加气开始</p>
+									<p t-elif="item.carStateId==1004">进场加气结束</p>
+									<p t-elif="item.carStateId==1005">进场报修开始</p>
+									<p t-elif="item.carStateId==1006">进场报修结束</p>
+									<p t-elif="item.carStateId==0">进场后小休息</p>
+									<p t-elif="item.carStateId==1007">进场保养开始</p>
+									<p t-elif="item.carStateId==1008">进场保养结束</p>
+									<p t-elif="item.carStateId==1009">进场空放开始</p>
+									<p t-elif="item.carStateId==1010">进场空放结束</p>
+									<p t-elif="item.carStateId==1011">进场不操作</p>
+									<p t-elif="item.carStateId==1012">进场下班，变机动</p>
+									<p t-elif="item.carStateId==2011">什么也不做</p>
+									<p t-elif="item.carStateId==2015">进场医疗开始</p>
+									<p t-elif="item.carStateId==2016">进场医疗结束</p>
 								</td>
                                 <!--乘客数量-->
-								<td class="line_src_Passanger_number">
+								<td class="line_src_Passanger_number td_small">
 									<!--<t t-esc="Passenger_number"></t>-->
-									乘客数量
+
 								</td>
                                 <!--满载率-->
-								<td class="line_src_full_load_rate">
+								<td class="line_src_full_load_rate td_small">
 									<!--<t t-esc=""></t>-->
-									满载率
+                                    <!--满载率-->
 								</td>
                                 <!--信号状态-->
 								<td class="line_src_sinal_status">
 									<!--<t t-esc="item.sinal_status"></t>-->
-									信号状态
+                                    <!--信号状态-->
 								</td>
                                 <!--车速-->
-								<td class="line_src_speed">
-									车速
+								<td class="line_src_speed td_small">
+									<!--车速-->
 								</td>
 								<td class="line_src_next_trip_time">
-									下趟发车
+									<!--下趟发车-->
+									<t t-esc="item.planRunTime"></t>
 								</td>
 								<td class="line_src_return_time">
-									回场时间
+									<!--回场时间-->
+									<t t-esc="item.realReachTime"></t>
 								</td>
 								<td class="line_src_residual_clearance">
-									能源剩余里程
+									<!--能源剩余里程-->
 								</td>
 							</tr>
 						</t>

@@ -131,6 +131,11 @@
     margin: 10px 0;
     background: #3a4263;
     color: #fff;
+    border: 1px solid #ccc;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 4px;
+    padding: 0 12px;
 }
 
 .express_train_box .express_train_part .vehicle_op,
@@ -731,6 +736,7 @@
     border-radius: 8px;
     box-shadow: 0 0 50px #1e2335;
     width: 1874px;
+
 }
 
 .plan_display .plan_group .vehicle_box {
@@ -788,6 +794,9 @@
 
 .plan_display .plan_group .section_plan_cont tr {
     padding: 0 12px;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
 }
 
 .plan_display .plan_group .section_plan_cont .th {
@@ -805,8 +814,6 @@
 .plan_display .plan_group .section_plan_cont td {
     color: #fff;
     font-size: 12px;
-    height: 40px;
-    line-height: 40px;
     border-bottom: 1px solid #6D7487;
     white-space:nowrap;
 }

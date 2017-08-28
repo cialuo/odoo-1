@@ -18,7 +18,7 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
             var self = this;
             var package_send = {
                 type: 1000,
-                open_modules: ["dispatch-bus_resource-1"],
+                open_modules: ["dispatch-abnormal-"+this.desktop_id,"dispatch-bus_real_state-"+this.desktop_id,"dispatch-bus_resource-"+this.desktop_id],
                 msgId: Date.parse(new Date())
             };
             websocket.send(JSON.stringify(package_send));

@@ -72,15 +72,17 @@
                         <notebook>
 
                             <page string="Register Information">
-                                <group>
-                                    <field name="reg_no" />
-                                    <field name="reg_date" />
-                                    <field name="forced_destroy" />
-                                    <field name="entry_state" invisible="1"/>
-                                    <field name="annual_inspection_date" attrs="{'readonly':[('entry_state','!=','draft')]}"/>
-                                    <field name="emissions"/>
-                                    <field name="vin_sn"/>
-                                    <field name="start_service_date" readonly="1"/>
+                                <group col="2">
+                                    <group>
+                                        <field name="reg_no" />
+                                        <field name="reg_date" />
+                                        <field name="forced_destroy" />
+                                        <field name="entry_state" invisible="1"/>
+                                        <field name="annual_inspection_date" attrs="{'readonly':[('entry_state','!=','draft')]}"/>
+                                        <field name="emissions"/>
+                                        <field name="vin_sn"/>
+                                        <field name="start_service_date" readonly="1"/>
+                                    </group>
                                 </group>
                             </page>
 
@@ -92,7 +94,6 @@
                                         <field name="length_width_height"/>
                                         <field name="emission_standard"/>
                                         <field name="model_id" options="{'no_open':True,'no_create':True}" string="车型"/>
-                                        <field name="start_service_date" readonly="1"/>
                                         <field name="on_boardid"/>
                                     </group>
                                     <group>
@@ -124,28 +125,32 @@
 
                             </page>
                             <page  string="Technical Properties">
-                                <group>
-                                    <field name="engine_no" />
-                                    <field name="transmission_ext" />
-                                    <field name="fuel_type_ext" />
-                                    <label for="co2_ext"/>
-                                    <div class="o_row">
-                                        <field name="co2_ext"/><span>g/km</span>
-                                    </div>
-                                    <field name="horsepower_ext" />
-                                    <label for="power_ext"/>
-                                    <div class="o_row">
-                                        <field name="power_ext"/><span>kW</span>
-                                    </div>
-                                    <field name="weight" />
+                                <group col="2">
+                                    <group>
+                                        <field name="engine_no" />
+                                        <field name="transmission_ext" />
+                                        <field name="fuel_type_ext" />
+                                        <label for="co2_ext"/>
+                                        <div class="o_row">
+                                            <field name="co2_ext"/><span>g/km</span>
+                                        </div>
+                                        <field name="horsepower_ext" />
+                                        <label for="power_ext"/>
+                                        <div class="o_row">
+                                            <field name="power_ext"/><span>kW</span>
+                                        </div>
+                                        <field name="weight" />
+                                    </group>
                                 </group>
                             </page>
                             <page string="Appearance Properties">
-                                <group>
-                                    <field name="doors_ext" />
-                                    <field name="seats_ext" />
-                                    <field name="color" />
-                                    <field name="brand_name" />
+                                <group col="2">
+                                    <group>
+                                        <field name="doors_ext" />
+                                        <field name="seats_ext" />
+                                        <field name="color" />
+                                        <field name="brand_name" />
+                                    </group>
                                 </group>
                             </page>
 

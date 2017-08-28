@@ -36,7 +36,12 @@ class AssignedShifts(models.TransientModel):
 
     @api.multi
     def import_driver(self):
-        if self.use_date < datetime.date.today():
+        use_date = datetime.datetime.strptime(str(self.use_date), '%Y-%m-%d')
+        now = datetime.datetime.now()
+        now = datetime.datetime.strftime(now, '%Y-%m-%d')
+        now = datetime.datetime.strptime(now, '%Y-%m-%d')
+
+        if use_date < now:
             raise UserError(_("use_date is more than today"))
 
         for i in self.driver_vehicle_shift_ids:

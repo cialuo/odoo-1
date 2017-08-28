@@ -38,21 +38,23 @@ function cir_and_text(canvas) {
         cxt.textAlign = "center";
         //文字，左距离，上距离，最大px量
         var mySite = canvas.site_infos[i].station_id[1].split('/')[0];
-        var myColor = canvas.dataSite_color[i].color;
+        var myColor = transform(canvas.dataSite_color)[i];
         if (canvas.site_infos[i].is_show_name == false) {
             mySite = '';
             myColor = '#ffffff';
         } else {
             mySite = canvas.site_infos[i].station_id[1].split('/')[0];
-            myColor = canvas.dataSite_color[i].color;
+            myColor = transform(canvas.dataSite_color)[i];
         }
-        cxt.fillText(mySite, canvas.dataCir[i], canvas.testy);
+        //无法获得站点实际位置，先用平均距离展示
+        var everyLen = 1190*(i+0.5)/canvas.site_infos.length;
+        cxt.fillText(mySite, everyLen, canvas.testy);
         cxt.closePath();
         //渲染圆环
         var obj_list = [
             {
                 cir: 6,
-                color: canvas.dataSite_color[i].color
+                color: transform(canvas.dataSite_color)[i]
             },
             {
                 cir: 5,
@@ -66,7 +68,7 @@ function cir_and_text(canvas) {
         for (var j = 0; j < obj_list.length; j++) {
             var obj = obj_list[j];
             cxt.beginPath();
-            cxt.arc(canvas.dataCir[i], canvas.ciry, obj.cir, 0, 360, false);
+            cxt.arc(everyLen, canvas.ciry, obj.cir, 0, 360, false);
             cxt.fillStyle = obj.color;
             cxt.fill();
             cxt.closePath();
@@ -91,7 +93,7 @@ function can_left_right(canvas) {
     cxt.textAlign = "center";
     cxt.fillStyle = "black";
     //文字，左距离，上距离，最大px量
-    cxt.fillText(canvas.busNumber + '辆', 13, 64, 50);
+    cxt.fillText(canvas.busNumber , 13, 64, 50);
     cxt.fill();
     cxt.closePath();
     cxt.beginPath();
@@ -159,7 +161,6 @@ function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
         testy: 13,
         color: data.color,
         self: selfDom,
-        dataCir: data.dataCir,
         dataSite_color: data.dataSite_top_color,
         site_infos: data.site_top_infos
     };
@@ -169,7 +170,6 @@ function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
         testy: 25,
         self: selfDom,
         color: data.color,
-        dataCir: data.dataCir2,
         dataSite_color: data.dataSite_down_color,
         site_infos: data.site_down_infos
     };
@@ -184,7 +184,7 @@ function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
             r: 4,
             lineLen: 17,
             sta: 1,
-            busNumber: data.busNumber
+            busNumber: data.busTopNumber
         }
     );
     can_left_right(
@@ -196,7 +196,7 @@ function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
             r: 4,
             lineLen: 0,
             sta: 1.5,
-            busNumber: data.busNumber
+            busNumber: data.busDownNumber
         }
     );
 }
@@ -259,6 +259,12 @@ window.onhashchange=function(){
         $('body').find('.o_content').css('overflow','auto');
     }
 };
-
+function transform(obj){
+    var arr = [];
+    for(var item in obj){
+        arr.push(obj[item]);
+    }
+    return arr;
+}
 
 
