@@ -71,7 +71,7 @@ var isDrag = false;
 function dragFn(parent, title, maxL, maxT) {
     var c_class = "." + parent + " ." + title;
     var p_class = "." + parent;
-    var k = 1;
+    var k = 1
     $("body").on('mouseover', c_class, function () {
         var oDrag = $(this).parents("." + parent)[0];
         // var oDrag = $(this).parents(parent)[0];
@@ -88,7 +88,11 @@ function dragFn(parent, title, maxL, maxT) {
         }
     });
     $("body").on('mousedown', p_class, function (e) {
+        if(k == $(this).css('z-index')){
             k++;
+        }else{
+            k+=20
+        }
         var oDrag = $(this)[0];
         oDrag.style.zIndex = k;
     });
