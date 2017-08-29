@@ -4,6 +4,16 @@ import datetime
 import requests
 import json
 
+timeFormatStr = "%Y-%m-%d %H:%M:%S"
+
+def str2datetime(timestr):
+    return datetime.datetime.strptime(timestr,timeFormatStr)
+
+def timesubtraction(time1, time2):
+    time1 = str2datetime(time1)
+    time2 = str2datetime(time2)
+    return round((time1 - time2).total_seconds()/3600.00,1)
+
 TIMEFORMAT = "%Y-%m-%d %H:%M:%S"
 
 def adjustDateTime2ZhCn(datatimsstr):
