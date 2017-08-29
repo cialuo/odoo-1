@@ -107,6 +107,12 @@ class BusWorkRules(models.Model):
         if vcount > obj.bus_number:
             raise ValidationError(_("vechile count large then vehicle number"))
 
+    @api.multi
+    def genBusMovetime(self):
+        """
+        生成行车时刻表
+        """
+        return
 
     @staticmethod
     def _validate_sqenum(datalist):
