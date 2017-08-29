@@ -27,6 +27,7 @@
         # 'security/ir.model.access.csv',
 
         'wizard/assigned_shifts.xml',
+        'wizard/gen_bus_move_time.xml',
         'views/views.xml',
         'views/bus_work_exec_table.xml',
         'views/bus_date_type.xml',

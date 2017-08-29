@@ -64,6 +64,15 @@ class BusMoveTimeTable(models.Model):
     # 下行机动车辆数
     downbackupvehicle = fields.Integer(string="down backup vehicle")
 
+    @api.multi
+    def genStaffArrange(self):
+        staffdata = self.env['bus_staff_group'].action_gen_staff_group(self.line_id,
+                                                                       staff_date=datetime.datetime.strptime(
+                                                                           self.executedate, "%Y-%m-%d"),
+                                                                       operation_ct=self.vehiclenums,
+                                                                       move_time_id=self,
+                                                                       force=True)
+        return
 
     @staticmethod
     def genVehicleSeq(up, down=None):
