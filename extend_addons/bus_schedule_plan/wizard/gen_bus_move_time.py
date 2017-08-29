@@ -18,4 +18,5 @@ class GenBusMoveTime(models.TransientModel):
     @api.multi
     def gendata(self):
         res = self.rule_id.createMoveTimeRecord(self.use_date,self.rule_id)
+        res.genOperatorPlan()
         return
