@@ -148,6 +148,8 @@ tjs_car = {
     ('typeId', 'model_id'): None,
     #客门形式ID，无在对应字段；（1:1前2后；2:2前2后；3:2前1后；4:2前2后），2,4重复，默认传值：1
     ('doorTypeId', None): None,
+    #部门ID
+    ('departmentId', 'company_id'): None,
 
 }
 
