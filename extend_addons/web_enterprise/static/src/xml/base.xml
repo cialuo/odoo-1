@@ -3,7 +3,7 @@
 
 
 <div t-name="AppSwitcher" class="o_application_switcher">
-    <img src="/web/static/src/img/logo.png" class="logo_top"/>
+    <img src="/web/static/src/img/logo.png" class="logo_top hidden-xs hidden-sm"/>
     <h1 class="o_titles hidden-xs hidden-sm">中国领先的智慧公交出行综合管理平台</h1>
     <h1 class="o_titles hidden-lg hidden-md">智慧公交出行综合管理平台</h1>
     <div class="o_menu_search">

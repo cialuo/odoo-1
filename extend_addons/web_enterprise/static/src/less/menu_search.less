@@ -29,10 +29,18 @@
     @media (max-width: @screen-xs-max) {
         margin-top: 10px;
         opacity: 1!important;
-        height: @odoo-navbar-height/2;
-        //max-width: 66.7%;
+        height: @odoo-navbar-height/1.5;
         .o_menu_search_icon {
-            font-size: 18px;
+            font-size: 20px;
+        }
+    }
+    @media (min-width:992px)and(max-width:1440px){
+        margin-top: 25px;
+        opacity: 1!important;
+        max-width: 66.7%;
+        height: 45px;
+        .o_menu_search_icon {
+            font-size: 22px;
         }
     }
     .o_menu_search_input {

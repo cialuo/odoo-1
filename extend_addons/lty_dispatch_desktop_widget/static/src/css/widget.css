@@ -131,6 +131,11 @@
     margin: 10px 0;
     background: #3a4263;
     color: #fff;
+    border: 1px solid #ccc;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 4px;
+    padding: 0 12px;
 }
 
 .express_train_box .express_train_part .vehicle_op,
