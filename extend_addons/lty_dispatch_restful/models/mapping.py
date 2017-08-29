@@ -99,7 +99,7 @@ op_station = {
     #方向 0:上行，1：下行
     ('direction', 'direction'): {'up': 0, 'down': 1},
     #站台id int
-    ('blockId ', 'station_id'): None,
+    ('blockId', 'station_id'): None,
     #距起点站距离 float,notfound
     ('byStartDistance', 'by_start_distance'): None,
     #进站经度 float,后台获取 station_id.entrance_longitude
