@@ -47,6 +47,10 @@
             <field name="priority">0</field>
             <field name="arch" type="xml">
                 <form create="0">
+                    <header>
+                        <button name="genBusMovetime" type="object"
+                                string="generate bus move time" />
+                    </header>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
                         <h1>
