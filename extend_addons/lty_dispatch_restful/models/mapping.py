@@ -128,8 +128,8 @@ tjs_car = {
     ('lineId', 'route_id'): None,
     #车辆状态编码,文档中提供的是 001,002,003，004，不符合文档中提供的类型long，改为1,2,3,4
     ('carStateId', 'state'): {'normal': 3, 'repair': 1, 'stop': 4},
-    #设备号，无对应字段
-    ('onBoardId', 'on_board_id'): None,
+    #设备号
+    ('onBoardId', 'on_boardid'): None,
     #车辆编号
     ('carNum', 'inner_code'): None,
     #车辆牌照
