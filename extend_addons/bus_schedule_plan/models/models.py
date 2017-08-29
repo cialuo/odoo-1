@@ -152,6 +152,12 @@ class BusWorkRules(models.Model):
     # 日期类型
     date_type = fields.Many2one("bus_date_type", string="bus date type", required=True)
 
+    def fetchRuleFromBigData(self):
+        """
+        从大数据获取行车规则
+        """
+        url = "http://10.1.10.169:8082/ltyop/trafficRules/getBusTraffRule"
+        getRuleFromBigData(url, 'sdf123', self.line_id, )
 
     @staticmethod
     def _validateVehicleNums(obj):
