@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gen_bus_move_time_wizard" model="ir.ui.view">
+        <field name="name">gen bus move time</field>
+        <field name="model">genbusmovetime</field>
+        <field name="arch" type="xml">
+            <form string="gen bus move time">
+                <group col="2">
+                    <group>
+                        <field name="rule_id" readonly="1" invisible="1"/>
+                        <field name="use_date"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="gendata" string="gen movet time" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_gen_bus_move_time">
+        <field name="name">gen bus move time</field>
+        <field name="res_model">genbusmovetime</field>
+        <field name="src_model">scheduleplan.schedulrule</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_active_id': active_id}</field>
+    </record>
+</odoo>

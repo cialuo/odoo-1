@@ -48,8 +48,11 @@
             <field name="arch" type="xml">
                 <form create="0">
                     <header>
-                        <button name="genBusMovetime" type="object"
-                                string="generate bus move time" />
+                        <button name="%(act_gen_bus_move_time)d"
+                                type="action"
+                                string="generate bus move time"
+                                class="oe_highlight"
+                        />
                     </header>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
