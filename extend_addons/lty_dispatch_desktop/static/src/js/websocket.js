@@ -37,6 +37,7 @@ websocket.onmessage = function (event) {
     // websocket.send(JSON.stringify(package));
     // return;
     var eventObj = JSON.parse(event.data);
+    console.log(eventObj)
     var modelName = eventObj.moduleName;
     var controllerId = eventObj.controllerId;
     for (socket_model in socket_model_info) {
