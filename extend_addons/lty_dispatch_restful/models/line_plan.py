@@ -57,6 +57,7 @@ class LinePlan(models.Model):
                 #后台取值,
                 'gprs_id': res.line_id.gprs_id,
                 'schedule_type': res.line_id.schedule_type,
+                'line_id': res.line_id.id,
             })
             vals = mapping.dict_transfer(self._name, vals)
             params = Params(type=1, cityCode=cityCode,tableName=LINEPLAN_TABLE, data=vals).to_dict()
@@ -84,6 +85,7 @@ class LinePlan(models.Model):
                     _logger.info('Start write data: %s', self._name)
                     vals.update({
                         'id': r.id,
+                        'line_id': r.line_id.id,
                         # 后台取值,
                         'gprs_id': r.line_id.gprs_id,
                         'schedule_type': r.line_id.schedule_type,
