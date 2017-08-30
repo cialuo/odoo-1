@@ -3,6 +3,7 @@
 import datetime
 import requests
 import json
+import re
 
 timeFormatStr = "%Y-%m-%d %H:%M:%S"
 
@@ -39,3 +40,12 @@ def getRuleFromBigData(url, citycode, lineId, curDate, reverseType):
         return json.loads(response.text, encoding='utf-8')
     except Exception:
         return None
+
+def check_time_format(time):
+    """
+    检查时间格式是否正确
+    :param time: 09:00
+    :return: False/True
+    """
+    reg = '^(0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1})$'
+    return re.match(reg, time)

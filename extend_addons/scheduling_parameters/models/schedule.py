@@ -41,7 +41,11 @@ class Road(models.Model):
     道路管理
     """
     _name = 'opertation_resources_road'
-
+    # sql约束
+    _sql_constraints = [
+        ('name_unique', 'unique(name)', _('The road name must be unique!')),
+        ('code_unique', 'unique(code)', _('The road code must be unique!'))
+    ]
     name = fields.Char('Road name', required=True)  # 道路名称
     code = fields.Char('Road code', required=True) # 道路编码
     area_id = fields.Many2one('opertation_resources_area', ondelete='cascade', string='Area', required=True) # 区域
@@ -62,18 +66,12 @@ class Road(models.Model):
         self.active = False
         return True
 
-    # sql 约束，效率高
-    _sql_constraints = [
-        ('name_unique', 'unique(name)', _('The road name must be unique!')),
-        ('code_unique', 'unique(code)', _('The road code must be unique!'))
-    ]
-
 
 class Station(models.Model):
     _name = 'opertation_resources_station'
 
     _sql_constraints = [
-        ('name_unique', 'unique(name)', _('The station name must be unique!')),
+        # ('name_unique', 'unique(name)', _('The station name must be unique!')),
         ('code_unique', 'unique(code)', _('The station code must be unique!'))
     ]
 
@@ -138,7 +136,7 @@ class route_manage(models.Model):
     # 显示名称
     _rec_name = 'line_name'
 
-    # sql 约束，效率高
+    # sql约束
     _sql_constraints = [
         # ('coding_unique', 'unique(gprs_id)', _('The route code must be unique!')),
         ('route_unique', 'unique(line_name)', _('The route name must be unique!')),

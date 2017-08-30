@@ -13,6 +13,12 @@ class BusWorkRules(models.Model):
     """
     行车规则
     """
+
+    # 同一条线路下只有一个日期类型的行车规则
+    _sql_constraints = [
+        ('line_datetype_unique', 'unique (line_id, date_type)', 'one line one datetype ')
+    ]
+
     _name = 'scheduleplan.schedulrule'
 
     name = fields.Char(string="rule name")
@@ -221,6 +227,15 @@ class BusWorkRules(models.Model):
         return dateobj.strftime("%Y-%m-%d")
 
     def genTimeRecords(self, rulelist, datestr, startstation, endstation, lineid, mileage):
+        """
+        根据行车规则的发车安排生成每一趟发车时刻
+        :param rulelist: 发车规则
+        :param datestr: 规则日期
+        :param startstation: 首发站
+        :param endstation: 终点站
+        :param lineid: 线路id
+        :param mileage: 里程
+        """
         sortedRuleList = sorted(rulelist, key=lambda k: k.seqid)
         recordslist = []
         startTimeStr = datestr + ' ' + sortedRuleList[0].starttime + ":00"
@@ -708,11 +723,14 @@ class ToUp(models.Model):
     spanday = fields.Boolean(string="span day")
 
     @api.one
-    @api.constrains('interval')
+    @api.constrains('interval', 'starttime', 'endtime')
     def _check_interval(self):
         if self.interval <= 0:
             raise ValidationError(_("interval must be an positive integer"))
-
+        if check_time_format(self.starttime) == None:
+            raise ValidationError(_("time format error: ") + self.starttime)
+        if check_time_format(self.endtime) == None:
+            raise ValidationError(_("time format error: ") + self.endtime)
 
 class RuleBusArrangeDown(models.Model):
 

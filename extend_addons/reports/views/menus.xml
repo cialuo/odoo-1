@@ -1,0 +1,19 @@
+<odoo>
+	<data>
+
+        <!--报表-->
+        <menuitem id="reports_menu_root" name="Reports"/>
+
+        <!--普通报表-->
+        <menuitem id="reports.menu_common" name="Common Reports" parent="reports_menu_root"/>
+
+        <!--登录用户-->
+        <menuitem id="reports.menu_user" name="User Report" parent="reports.menu_common" action="action_report"/>
+
+        <!--报表设置-->
+        <menuitem id="reports.setting_menu" name="Reports Setting Menu" parent="reports_menu_root" />
+
+        <!--设置-->
+        <menuitem id="report_config_settings_menu" name="Setting Menu" parent="reports.setting_menu" action="report_config_settings_action"/>
+    </data>
+</odoo>
