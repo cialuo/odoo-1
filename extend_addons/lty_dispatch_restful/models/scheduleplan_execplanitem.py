@@ -57,8 +57,9 @@ class upplanitem(models.Model):
                 'lineName': res.line_id.line_name,
                 'gprsId': res.line_id.gprs_id,
                 'selfId': res.vehicle_id.inner_code,
-                # 'onBoardId': res.vehicle_id.on_board_id,
+                'onBoardId': res.vehicle_id.on_boardid,
                 'workerId': res.driver.jobnumber,
+                'workDate': res.execplan_id.excutedate,
             })
             if self._name == 'scheduleplan.execupplanitem':
                 vals.update({
@@ -99,8 +100,9 @@ class upplanitem(models.Model):
                         'lineName': r.line_id.line_name,
                         'gprsId': r.line_id.gprs_id,
                         'selfId': r.vehicle_id.inner_code,
-                        # 'onBoardId': r.vehicle_id.on_board_id,
+                        'onBoardId': r.vehicle_id.on_boardid,
                         'workerId': r.driver.jobnumber,
+                        'workDate': r.execplan_id.excutedate,
                         # 'direction': 0,
                     })
                     if self._name == 'scheduleplan.execupplanitem':

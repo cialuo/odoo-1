@@ -506,6 +506,8 @@ op_dispatchplan = {
     ('planKm', 'mileage'): None,
     #乘务员卡号
     ('trainId', 'steward'): None,
+    #工作日期 后台获取 计划 执行时间
+    ('workDate', 'work_date'): None,
 }
 
 #1.3.15	车辆资源
@@ -542,10 +544,10 @@ op_attendance = {
     ('lineName', None): None,
     #调度计划ID long notfound
     ('dispatchPlanId', 'execplan_id'): None,
-    #车辆编号 String
+    #车辆编号 String 车辆自编号，后台获取
     ('selfId', 'self_id'): None,
-    #设备编号 int
-    ('onBoardId', 'on_bord_id'): None,
+    #设备编号 int 车辆获取
+    ('onBoardId', 'on_boardid'): None,
     #线路编码int,notfound，计划中获取
     ('gprsId', None): None,
     #台次int
@@ -594,7 +596,7 @@ op_trainattendance = {
     # 车辆编号 String
     ('selfId', 'self_id'): None,
     # 设备编号 int,
-    ('onBoardId', 'on_bord_id'): None,
+    ('onBoardId', 'on_boardid'): None,
     # 线路编码int,notfound，计划中获取
     ('gprsId', None): None,
     # 台次int,
