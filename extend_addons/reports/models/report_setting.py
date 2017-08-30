@@ -45,11 +45,22 @@ class report_setting(models.TransientModel):
         self.service_url = "http://%s:%s/jasperserver/flow.html?j_username=%s&amp;j_password=%s" % (self.service_ip,self.service_port,self.service_user,self.service_password)
 
 
+    @api.model
+    def get_service_url(self):
+        """
+            获取报表服务器
+        :return:
+        """
+        company_id = self.env.user.company_id
+        service_url = "http://%s:%s/jasperserver/flow.html?j_username=%s&amp;j_password=%s" % (
+            company_id.service_ip, company_id.service_port, company_id.service_user, company_id.service_password)
+        print service_url
+        return service_url
 
 
 
     @api.multi
     def execute(self):
         res = super(report_setting, self).execute()
-        res = self.env['ir.actions.act_window'].for_xml_id('reports', 'action_report_setting')
+        res = self.env['ir.actions.act_window'].for_xml_id('reports', 'report_config_settings_action')
         return res
