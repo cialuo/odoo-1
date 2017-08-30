@@ -31,6 +31,12 @@
     background: #fff;
 }
 
+.line_map_production .mapPage .ancillary {
+    position: absolute;
+    left: 5px;
+    top: 20px;
+}
+
 .line_map_production .mapPage .map_coord {
     position: absolute;
     right: 8px;
@@ -153,6 +159,13 @@
 
 .line_map_production .mapCustomPanel .dataSave input {
     width: 75px;
+    text-align: center;
+}
+
+.line_map_production .mapCustomPanel .mapSetLineContext .setMapBt input {
+    width: 40px;
+    height: 22px;
+    line-height: 22px;
     text-align: center;
 }
 
