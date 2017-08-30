@@ -16,6 +16,7 @@ odoo.define('abc', function (require) {
         var bus_num = Object.keys(data.bus).length;
         var m = 0, n = 0;
         for (var ts = 0; ts < data.bus[1].length; ts++) {
+
             if (ts % 2 == 0) {
                 $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.downstation.substr(0, 1) + '</div></th>')
                 m++;
@@ -26,14 +27,15 @@ odoo.define('abc', function (require) {
                 // $('.time_start_arrive_stop thead').append('<ul class="sort_down"></ul>');
             }
         }
-
-
+        if (data.bus[1][0][2] == "down") {
+            $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.downstation.substr(0, 1) + '</div></th>')
+        }
+        console.log($('.time_start_arrive_stop thead tr th').length)
         for (var bn = 1; bn < (bus_num + 1); bn++) {
             $('.time_start_arrive_stop tbody').append('<tr><td>' + bn + '</td></tr>');
-            for (var bTdo = 0; bTdo < data.bus[bn].length; bTdo++) {
+            for (var bTdo = 0; bTdo < $('.time_start_arrive_stop thead tr th').length; bTdo++) {
                 $('.time_start_arrive_stop').find('tr').eq(bn).append('<td>' + $('.start_over_stop_time').html() + '</td>');
             }
-            ;
             for (var bTd = 0; bTd < data.bus[bn].length; bTd++) {
                 if (data.bus[bn][bTd][1][1] != null) {
                     var timesHours = checkTime(new Date(data.bus[bn][bTd][1][1].startmovetime).getHours());
@@ -65,6 +67,7 @@ odoo.define('abc', function (require) {
         }
         sessionStorage.setItem('direction', JSON.stringify(data.direction));
     }
+
     model.call("reoppaln2web", [recid]).then(function (data) {
         render_plan(data);
     })
