@@ -62,6 +62,7 @@ class attendance(models.Model):
                 'gprsId': res.execplan_id.line_id.gprs_id,
                 'selfId': res.vehicle_id.inner_code,
                 'onBoardId': res.vehicle_id.on_boardid,
+                'workDate': res.execplan_id.excutedate,
             })
             if res.title == 'driver':
                 # 出勤司机
@@ -103,6 +104,7 @@ class attendance(models.Model):
                         'gprsId': r.execplan_id.line_id.gprs_id,
                         'selfId': r.vehicle_id.inner_code,
                         'onBoardId': r.vehicle_id.on_boardid,
+                        'workDate': r.execplan_id.excutedate,
                     })
                     if r.title == 'driver':
                         # 出勤司机

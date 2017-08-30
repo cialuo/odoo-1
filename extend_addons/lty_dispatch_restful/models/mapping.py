@@ -530,8 +530,8 @@ op_busresource = {
     ('carStateId', 'car_state'): {'zc': 1001, 'jd': 2008},
     #方向 add
     ('direction', 'direction'): None,
-    #工作日期date
-    ('workDate', 'create_date'): None,
+    #工作日期date 后台获取，
+    ('workDate', 'work_date'): None,
 }
 
 #1.3.16	出勤司机
@@ -566,8 +566,8 @@ op_attendance = {
     ('workerId', 'employee_sn'): None,
     #姓名String,notfound，员工中获取
     ('driverName', None): None,
-    #执行日期date
-    ('workDate' ,'worktime'): None,
+    #执行日期date 后台获取
+    ('workDate', 'work_date'): None,
     #备注String
     ('remark', 'remark'): None,
     #计划发车时间
@@ -617,8 +617,8 @@ op_trainattendance = {
     ('trainId', 'employee_sn'): None,
     # 姓名String,notfound，员工中获取
     ('trainName', None): None,
-    # 执行日期date
-    ('workDate', 'worktime'): None,
+    #执行日期date 后台获取
+    ('workDate', 'work_date'): None,
     # 备注String,
     ('remark', 'remark'): None,
     # 计划发车时间,
