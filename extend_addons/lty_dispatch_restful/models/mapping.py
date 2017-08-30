@@ -350,7 +350,7 @@ op_param = {
     #取消发车计划时向司机发送短消息
     ('cancelGridPlan', 'cancel_departure_plan'): {True: 1, False:0},
     #向司机发送短消息 司机上班签到时
-    ('driverSingin', 'driver_command'): {True: 1, False:0},
+    ('driverSingin', 'driver_goes_to_work'): {True: 1, False:0},
     #向司机发送短消息 司机下班签到时
     ('driverSingout', 'driver_checked_out'): {True: 1, False:0},
     #:向司机发送短消息 安排司机短休时
@@ -601,8 +601,8 @@ op_trainattendance = {
     ('gprsId', None): None,
     # 台次int,
     ('orderNo', 'order_numer'): None,
-    # 计划签到时间,
-    ('onWorkTime', 'on_work_time'): None,
+    # 计划签到时间, 等于 上班时间
+    ('onWorkTime', 'checkintime'): None,
     # 实际签到时间,
     ('conWorkTime', 'con_work_time'): None,
     # 实际签到车辆,
