@@ -246,3 +246,6 @@ class VehicleResource(models.Model):
 
     # 运营时长
     worktimelength = fields.Float(string="work time length")
+
+    # 车辆台次
+    arrangenumber = fields.Integer(string="arrange number")

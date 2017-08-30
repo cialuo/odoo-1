@@ -128,8 +128,8 @@ tjs_car = {
     ('lineId', 'route_id'): None,
     #车辆状态编码,文档中提供的是 001,002,003，004，不符合文档中提供的类型long，改为1,2,3,4
     ('carStateId', 'state'): {'normal': 3, 'repair': 1, 'stop': 4},
-    #设备号，无对应字段
-    ('onBoardId', 'on_board_id'): None,
+    #设备号
+    ('onBoardId', 'on_boardid'): None,
     #车辆编号
     ('carNum', 'inner_code'): None,
     #车辆牌照
@@ -148,6 +148,8 @@ tjs_car = {
     ('typeId', 'model_id'): None,
     #客门形式ID，无在对应字段；（1:1前2后；2:2前2后；3:2前1后；4:2前2后），2,4重复，默认传值：1
     ('doorTypeId', None): None,
+    #部门ID
+    ('departmentId', 'company_id'): None,
 
 }
 
@@ -348,7 +350,7 @@ op_param = {
     #取消发车计划时向司机发送短消息
     ('cancelGridPlan', 'cancel_departure_plan'): {True: 1, False:0},
     #向司机发送短消息 司机上班签到时
-    ('driverSingin', 'driver_command'): {True: 1, False:0},
+    ('driverSingin', 'driver_goes_to_work'): {True: 1, False:0},
     #向司机发送短消息 司机下班签到时
     ('driverSingout', 'driver_checked_out'): {True: 1, False:0},
     #:向司机发送短消息 安排司机短休时
@@ -504,6 +506,8 @@ op_dispatchplan = {
     ('planKm', 'mileage'): None,
     #乘务员卡号
     ('trainId', 'steward'): None,
+    #工作日期 后台获取 计划 执行时间
+    ('workDate', 'work_date'): None,
 }
 
 #1.3.15	车辆资源
@@ -526,8 +530,8 @@ op_busresource = {
     ('carStateId', 'car_state'): {'zc': 1001, 'jd': 2008},
     #方向 add
     ('direction', 'direction'): None,
-    #工作日期date
-    ('workDate', 'create_date'): None,
+    #工作日期date 后台获取，
+    ('workDate', 'work_date'): None,
 }
 
 #1.3.16	出勤司机
@@ -540,10 +544,10 @@ op_attendance = {
     ('lineName', None): None,
     #调度计划ID long notfound
     ('dispatchPlanId', 'execplan_id'): None,
-    #车辆编号 String
+    #车辆编号 String 车辆自编号，后台获取
     ('selfId', 'self_id'): None,
-    #设备编号 int
-    ('onBoardId', 'on_bord_id'): None,
+    #设备编号 int 车辆获取
+    ('onBoardId', 'on_boardid'): None,
     #线路编码int,notfound，计划中获取
     ('gprsId', None): None,
     #台次int
@@ -562,8 +566,8 @@ op_attendance = {
     ('workerId', 'employee_sn'): None,
     #姓名String,notfound，员工中获取
     ('driverName', None): None,
-    #执行日期date
-    ('workDate' ,'worktime'): None,
+    #执行日期date 后台获取
+    ('workDate', 'work_date'): None,
     #备注String
     ('remark', 'remark'): None,
     #计划发车时间
@@ -592,13 +596,13 @@ op_trainattendance = {
     # 车辆编号 String
     ('selfId', 'self_id'): None,
     # 设备编号 int,
-    ('onBoardId', 'on_bord_id'): None,
+    ('onBoardId', 'on_boardid'): None,
     # 线路编码int,notfound，计划中获取
     ('gprsId', None): None,
     # 台次int,
     ('orderNo', 'order_numer'): None,
-    # 计划签到时间,
-    ('onWorkTime', 'on_work_time'): None,
+    # 计划签到时间, 等于 上班时间
+    ('onWorkTime', 'checkintime'): None,
     # 实际签到时间,
     ('conWorkTime', 'con_work_time'): None,
     # 实际签到车辆,
@@ -613,8 +617,8 @@ op_trainattendance = {
     ('trainId', 'employee_sn'): None,
     # 姓名String,notfound，员工中获取
     ('trainName', None): None,
-    # 执行日期date
-    ('workDate', 'worktime'): None,
+    #执行日期date 后台获取
+    ('workDate', 'work_date'): None,
     # 备注String,
     ('remark', 'remark'): None,
     # 计划发车时间,

@@ -111,6 +111,7 @@
                                 <field name="firstmovetime"/>
                                 <field name="lastmovetime"/>
                                 <field name="worktimelength"/>
+                                <field name="arrangenumber"/>
                             </tree>
                         </field>
                     </page>

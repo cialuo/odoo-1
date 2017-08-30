@@ -107,10 +107,22 @@ class BusWorkRules(models.Model):
         if vcount > obj.bus_number:
             raise ValidationError(_("vechile count large then vehicle number"))
 
+    def getBusMoveTimeInSpecialday(self, ruleid, datestr):
+        """
+        获取指定行车规则下的指定日期的行车时刻表
+        :param ruleid: 规则id
+        :param datestr: 日期字符串
+        """
+        result = self.env['scheduleplan.busmovetime'].search([('rule_id', '=', ruleid), ('executedate', '=', datestr)])
+        if len(result) == 0:
+            return None
+        else:
+            return result[0]
+
     @api.multi
     def genBusMovetime(self):
         """
-        生成行车时刻表
+        生成行车时刻表按钮动作
         """
         return
 
@@ -301,14 +313,8 @@ class BusWorkRules(models.Model):
             movetimerecord['vehiclenums'] = vehiclenums
             movetimerecord['backupvehicles'] = backupvehicles
             res = self.env['scheduleplan.busmovetime'].create(movetimerecord)
-            # 生成人车配班数据
-            staffdata = self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
-                                                               staff_date=datetime.datetime.strptime(datestr, "%Y-%m-%d"),
-                                                               operation_ct=vehiclenums, move_time_id=res, force=True)
-            # 生成运营方案数据
-            res.genOperatorPlan()
-            # 生成行车执行数据
-            BusWorkRules.genExcuteRecords(res)
+            return res
+
 
     @classmethod
     def genExcuteRecords(cls, movetimeobj):
@@ -432,19 +438,21 @@ class BusWorkRules(models.Model):
         values['stewardnum'] = conductornum
 
         busworklist = collections.defaultdict(list)
+        # 生成车辆资源数据
         result = []
         for item in upexeitems:
-            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime']])
+            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime'], item[2]['taici']])
         for item in downexeitems:
-            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime']])
+            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime'], item[2]['taici']])
         for k, v in busworklist.items():
             temp = sorted(v, key=lambda x: x[0])
             temp = [temp[0], temp[-1]]
             recval = {
-                'vehicle_id':k,
-                'firstmovetime':temp[0][0],
-                'lastmovetime':temp[-1][0],
-                'worktimelength': timesubtraction(temp[-1][0], temp[0][0])
+                'vehicle_id': k,
+                'firstmovetime': temp[0][0],
+                'lastmovetime': temp[-1][0],
+                'worktimelength': timesubtraction(temp[-1][0], temp[0][0]),
+                'arrangenumber': temp[0][2]
             }
             result.append((0,0,recval))
         values['vehicleresource'] = result
@@ -522,7 +530,8 @@ class BusWorkRules(models.Model):
                 'arrivetime': item[1]['arrive_time'],
                 'timelenght': timerec.timelength,
                 'mileage' : timerec.mileage,
-                'line_id' : timerec.line_id.id
+                'line_id' : timerec.line_id.id,
+                'taici' : item[0]
             }
             driver, steward = cls.searchDriverAndSteward(item[1]['startmovetime'], stafflist[item[0]])
             value['driver'] = driver
@@ -579,6 +588,7 @@ class BusWorkRules(models.Model):
                     # 修正到utc时间
                     timestart = str2datetime(datestr+ " "+ y.start_time + ':00')
                     timestart = timestart - datetime.timedelta(hours=8)
+                    # 跨天bug待处理
                     timeend = str2datetime(datestr+ " "+ y.end_time + ':00')
                     timeend = timeend - datetime.timedelta(hours=8)
                     data['timelist'].append((timestart.strftime(timeFormatStr), timeend.strftime(timeFormatStr)))
@@ -608,7 +618,18 @@ class BusWorkRules(models.Model):
         datatype = result[0]
         rulelist = rulemode.search([("date_type", '=', datatype.id)])
         for item in rulelist:
-            self.createMoveTimeRecord(tomorrow_str, item)
+            mvtime = self.createMoveTimeRecord(tomorrow_str, item)
+            # 生成人车配班数据
+            staffdata = self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
+                                                                           staff_date=datetime.datetime.strptime(
+                                                                               tomorrow_str, "%Y-%m-%d"),
+                                                                           operation_ct=mvtime.vehiclenums,
+                                                                           move_time_id=mvtime,
+                                                                           force=True)
+            # 生成运营方案数据
+            mvtime.genOperatorPlan()
+            # 生成行车执行数据
+            BusWorkRules.genExcuteRecords(mvtime)
 
 
 class RuleBusArrangeUp(models.Model):
