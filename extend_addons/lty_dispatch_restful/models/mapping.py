@@ -525,7 +525,7 @@ op_busresource = {
     #车号 not found 后台获取
     ('carNum', None): None,
     #台次 add
-    ('orderNo', 'order_no'): None,
+    ('orderNo', 'arrangenumber'): None,
     #车辆状态 add
     ('carStateId', 'car_state'): {'zc': 1001, 'jd': 2008},
     #方向 add
