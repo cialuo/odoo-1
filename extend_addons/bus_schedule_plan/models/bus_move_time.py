@@ -117,7 +117,7 @@ class BusMoveTimeTable(models.Model):
 
         result = {}
         for (k, v) in moveseqCol.items():
-            if k <= upBusCol[-1]:
+            if k > downBusCol[-1]:
                 temp = []
                 for x, y in izip_longest(v['up'], v['down']):
                     if x != None:
@@ -127,7 +127,6 @@ class BusMoveTimeTable(models.Model):
                 result[k] = temp
             else:
                 temp = []
-                # t = [g for g in izip_longest(v['down'], v['up'])]
                 for x, y in izip_longest(v['down'], v['up']):
                     if x!= None:
                         temp.append(x)
