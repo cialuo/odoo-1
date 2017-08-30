@@ -125,15 +125,15 @@
 						</div>
 						<div class="bus_info fl">
 							<ul>
-								<li>配车数量：<span></span></li>
-								<li>挂牌数量：<span></span></li>
-								<li>机动车辆：<span></span></li>
-								<li>维保停运：<span></span></li>
-								<li>共享机位：<span></span></li>
-								<li>信号在线：<span></span></li>
-								<li>信号掉线：<span></span></li>
-								<li>司机：<span></span></li>
-								<li>乘务：<span></span></li>
+								<li class="amountCar">配车数量：<span></span></li>
+								<li class="trailerNum">挂车数量：<span></span></li>
+								<li class="motorVehicle">机动车辆：<span></span></li>
+								<li class="mainOutage">维保停运：<span></span></li>
+								<li class="shareCar">共享机位：<span></span></li>
+								<li class="singalIn">信号在线：<span></span></li>
+								<li class="singalOut">信号掉线：<span></span></li>
+								<li class="carDriver">司机：<span></span></li>
+								<li class="carHelper">乘务：<span></span></li>
 							</ul>
 						</div>
 						<div class="line_btn">
