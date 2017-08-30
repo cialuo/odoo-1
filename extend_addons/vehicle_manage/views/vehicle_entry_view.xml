@@ -63,14 +63,16 @@
                         <notebook>
 
                             <page string="Register Information">
-                                <group>
-                                    <field name="reg_no" />
-                                    <field name="reg_date" />
-                                    <field name="forced_destroy" />
-                                    <field name="annual_inspection_date" attrs="{'readonly':[('entry_state','!=','draft')]}"/>
-                                    <field name="emissions"/>
-                                    <field name="vin_sn"/>
-                                    <field name="start_service_date" readonly="1"/>
+                                <group col="2">
+                                    <group>
+                                        <field name="reg_no" />
+                                        <field name="reg_date" />
+                                        <field name="forced_destroy" />
+                                        <field name="annual_inspection_date" attrs="{'readonly':[('entry_state','!=','draft')]}"/>
+                                        <field name="emissions"/>
+                                        <field name="vin_sn"/>
+                                        <field name="start_service_date" readonly="1"/>
+                                    </group>
                                 </group>
                             </page>
 
