@@ -2,9 +2,6 @@
  * Created by Administrator on 2017/8/5.
  */
 
-
-
-
 var websocket = null;
 
 //判断当前浏览器是否支持WebSocket
@@ -28,17 +25,9 @@ var socket_model_info = {};
 var socket_model_api_obj = {};
 //接收到消息的回调方法
 websocket.onmessage = function (event) {
-    // console.log(event);
-    // debugger;
-    // var package = {
-    //             type: 1002,
-    //             msgId: Date.parse(new Date())
-    //         };
-    // websocket.send(JSON.stringify(package));
-    // return;
     var eventObj = JSON.parse(event.data);
-    console.log(eventObj)
     var modelName = eventObj.moduleName;
+    console.log(eventObj)
     var controllerId = eventObj.controllerId;
     for (socket_model in socket_model_info) {
         var socket_model_obj = socket_model_info[socket_model];
@@ -188,7 +177,7 @@ function passenger_flow_capacity(controllerObj, data_list) {
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
     // var dom = controllerObj.find(".busRealStateModel_"+dataObj.line_on+"_"+dataObj.bus_on);
-    var dom = controllerObj.find(".busRealStateModel_5_222");
+    var dom = controllerObj.find(".busRealStateModel_5_1");
     if (dom.length > 0) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
         var carReportObj = dom.find(".popupContent .carReport");
