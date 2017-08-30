@@ -438,19 +438,21 @@ class BusWorkRules(models.Model):
         values['stewardnum'] = conductornum
 
         busworklist = collections.defaultdict(list)
+        # 生成车辆资源数据
         result = []
         for item in upexeitems:
-            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime']])
+            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime'], item[2]['taici']])
         for item in downexeitems:
-            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime']])
+            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime'], item[2]['taici']])
         for k, v in busworklist.items():
             temp = sorted(v, key=lambda x: x[0])
             temp = [temp[0], temp[-1]]
             recval = {
-                'vehicle_id':k,
-                'firstmovetime':temp[0][0],
-                'lastmovetime':temp[-1][0],
-                'worktimelength': timesubtraction(temp[-1][0], temp[0][0])
+                'vehicle_id': k,
+                'firstmovetime': temp[0][0],
+                'lastmovetime': temp[-1][0],
+                'worktimelength': timesubtraction(temp[-1][0], temp[0][0]),
+                'arrangenumber': temp[0][2]
             }
             result.append((0,0,recval))
         values['vehicleresource'] = result
@@ -528,7 +530,8 @@ class BusWorkRules(models.Model):
                 'arrivetime': item[1]['arrive_time'],
                 'timelenght': timerec.timelength,
                 'mileage' : timerec.mileage,
-                'line_id' : timerec.line_id.id
+                'line_id' : timerec.line_id.id,
+                'taici' : item[0]
             }
             driver, steward = cls.searchDriverAndSteward(item[1]['startmovetime'], stafflist[item[0]])
             value['driver'] = driver
