@@ -71,7 +71,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                             dataSite_down_color_cof: dataSite_down_color_cof,
                                             busTopNumber: '',
                                             busDownNumber: '',
-                                            hasCar:[]
+                                            hasCar: []
                                         }
                                     };
 
@@ -103,6 +103,14 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var data = new Object();
             //站点到起点距离
             //分段颜色
+            data.color = [
+                "#4dcf22",
+                "#ffd233",
+                "#cc2111",
+                "#f69144",
+                "#a19dde",
+                "#cc21ff",
+            ];
             data.site_top_infos = arg.site_top_infos;
             data.site_down_infos = arg.site_down_infos;
             if (data_use.type == "2001") {
@@ -151,13 +159,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     arg.busDownNumber = data_use.data.bus_no_of_park + '辆';
                 }
             }
-            if(data_use.type== "1032"){
-                var road_info = data_use.data.road_condition.split('|');
-                for(var i = 0;i<road_info.length;i++){
-                    data.color.push(parseInt(road_info[i].split(',')[0]));
-                }
-            }
-            data.subsection=['yellow','orange','blue']
+            // if(data_use.type== "1032"){
+            //     debugger
+            //     var road_info = data_use.data.road_condition.split('|');
+            //     for(var i = 0;i<road_info.length;i++){
+            //         data.color.push(parseInt(road_info[i].split(',')[0]));
+            //     }
+            // }
             //车辆实时位置
             if (data_use.type == "1035") {
                 //如果车辆id未出现
@@ -186,14 +194,16 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
             data.busTopNumber = arg.busTopNumber;
             data.busDownNumber = arg.busDownNumber;
-
+            data.subsection = [1, 2, 3, 4, 5, 6];
             //公交模拟地图canvas
             // 距离车场距离
             // if (!isNaN((data.subsection[0]))) {
             qrend_desktop_canvas(data, '.can_top', '.can_bottom', '.canvas_left', '.canvas_right', self.$el);
+            // 线路颜色
             self.color = data.color;
             self.site_top_infos = data.site_top_infos;
             self.site_down_infos = data.site_down_infos;
+            // 站点颜色
             self.dataSite_top_color = arg.dataSite_top_color_cof;
             self.dataSite_down_color = arg.dataSite_down_color_cof;
             self.subsection = data.subsection;
@@ -331,7 +341,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             if (line_id != 5 || car_num != 222) {
                 layer.alert("模拟soket实时加载，请选择572线路222号车进行点击", {title: "车辆实时信息"});
                 return false;
-            };
+            }
+            ;
             if ($(".busRealStateModel_" + options.line_id + "_" + options.car_num).length > 0) {
                 return;
             } else {
@@ -411,6 +422,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                             }
                             new bus_source_config(this, options, data).appendTo($(".controller_" + options.controllerId));
+                        },
+                        error: function () {
+                            alert("请求出错")
                         }
                     });
                 }
@@ -615,10 +629,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 } else {
                     // try {
                     //     $(".linePlanParkOnlineModel").remove();
-                        var dialog = new plan_display(self, options);
-                        dialog.appendTo($(".controller_" + options.controllerId));
+                    var dialog = new plan_display(self, options);
+                    dialog.appendTo($(".controller_" + options.controllerId));
                     // } catch(e){
-                        // var layer_index = layer.msg("websoket断开链接，请检查网络是否通畅", {shade: 0.3});
+                    // var layer_index = layer.msg("websoket断开链接，请检查网络是否通畅", {shade: 0.3});
                     // }
                 }
             }
