@@ -52,16 +52,18 @@ class Vehicle(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         try:
             _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
+            # vals = mapping.dict_transfer(self._name, vals)
             vals.update({
                 'id': res.id,
-                'engineNo': res.model_id.engine_no,
-                'Zkrs': res.model_id.ride_number,
-                'Zws': res.model_id.seats_ext,
-                'Zyygl': res.total_odometer,
+                'engine_no': res.model_id.engine_no,
+                'ride_number': res.model_id.ride_number,
+                'seats_ext': res.model_id.seats_ext,
+                'total_odometer': res.total_odometer,
                 #增加默认传值
                 'doorTypeId': 1,
+                'state': res.state,
             })
+            vals = mapping.dict_transfer(self._name, vals)
             params = Params(type=1, cityCode=cityCode,tableName=CAR_TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
         except Exception,e:
@@ -85,16 +87,18 @@ class Vehicle(models.Model):
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
-                    vals = mapping.dict_transfer(self._name, vals)
+
                     vals.update({
                         'id': r.id,
-                        'engineNo': r.model_id.engine_no,
-                        'Zkrs': r.model_id.ride_number,
-                        'Zws': r.model_id.seats_ext,
-                        'Zyygl': r.total_odometer,
+                        'engine_no': res.model_id.engine_no,
+                        'ride_number': res.model_id.ride_number,
+                        'seats_ext': res.model_id.seats_ext,
+                        'total_odometer': res.total_odometer,
                         # 增加默认传值
                         'doorTypeId': 1,
+                        'state': res.state,
                     })
+                    vals = mapping.dict_transfer(self._name, vals)
                     params = Params(type=3, cityCode=cityCode,tableName=CAR_TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
 
