@@ -3,6 +3,7 @@
 from odoo import models, fields, api, exceptions, _
 import datetime
 from datetime import timedelta
+from bus_work_rule import BusWorkRules
 
 
 class BusStaffGroup(models.Model):
@@ -24,15 +25,9 @@ class BusStaffGroup(models.Model):
 
     move_time_id = fields.Many2one("scheduleplan.busmovetime")
 
-    @api.model
-    def create(self, data):
-        """
-        修改名称
-        """
-        if data.get('name', '/') == '/':
-            data['name'] = data['line_name'] + '/' + str(datetime.date.today())
-        res = super(BusStaffGroup, self).create(data)
-        return res
+    @api.multi
+    def action_excute_records(self):
+        BusWorkRules.genExcuteRecords(self.move_time_id)
 
     @api.depends("vehicle_line_ids")
     def _get_vehicle_ct(self):
