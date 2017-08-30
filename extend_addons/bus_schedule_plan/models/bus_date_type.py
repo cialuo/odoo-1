@@ -18,10 +18,12 @@ class BusDateType(models.Model):
                             ('Saturday', "Saturday"),
                             ('Sunday', "Sunday"),
                             ('Vacation', 'Vacation'),
+                            ('General', 'General'),
                             ], default='Monday', string='Date Type', required=True)
 
     priority = fields.Selection([('one level', 'one level'),
                                  ('two level', 'two level'),
+                                 ('three level', 'three level'),
                                  ], default='two level', readonly=True)
 
     start_date = fields.Date(required=True)
@@ -30,10 +32,12 @@ class BusDateType(models.Model):
     @api.onchange('type')
     def onchange_priority(self):
         for i in self:
-            if i.type == 'Vacation':
+            if i.type == 'General':
                 i.priority = 'one level'
-            else:
+            elif i.type == 'Vacation':
                 i.priority = 'two level'
+            else:
+                i.priority = 'three level'
 
     @api.constrains('start_date', 'end_date')
     def _check_date(self):

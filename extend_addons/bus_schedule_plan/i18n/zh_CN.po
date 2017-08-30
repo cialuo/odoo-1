@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-22 09:18+0000\n"
-"PO-Revision-Date: 2017-08-22 09:18+0000\n"
+"POT-Creation-Date: 2017-08-28 09:19+0000\n"
+"PO-Revision-Date: 2017-08-28 09:19+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -378,6 +378,11 @@ msgstr "Execplan id"
 #: selection:bus_date_type,type:0
 msgid "Friday"
 msgstr "周五"
+
+#. module: bus_schedule_plan
+#: selection:bus_date_type,type:0
+msgid "General"
+msgstr "通用"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_assigned_shifts_group_id
@@ -779,43 +784,49 @@ msgid "Sunday"
 msgstr "周日"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:48
+#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:53
 #, python-format
 msgid "The conductor is more than the driver"
 msgstr "售票员比司机多，请重新分配"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_shift.py:63
+#: code:addons/bus_schedule_plan/models/bus_shift.py:61
+#: sql_constraint:bus_shift_line:0
 #, python-format
 msgid "The name must be unique!"
 msgstr "班次名称必须唯一!"
 
 #. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/bus_shift.py:31
+#: sql_constraint:bus_shift_choose_line:0
 #, python-format
 msgid "The record must be unique!"
 msgstr "班次必须唯一!"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_group.py:233
+#: code:addons/bus_schedule_plan/models/bus_group.py:245
+#: sql_constraint:bus_group_conductor:0
 #, python-format
 msgid "The route and conductor must be unique!"
 msgstr "该线路的乘务员必须唯一!"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_group.py:214
+#: code:addons/bus_schedule_plan/models/bus_group.py:226
+#: sql_constraint:bus_group_driver:0
 #, python-format
 msgid "The route and driver must be unique!"
 msgstr "该线路的司机必须唯一!"
 
 #. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/bus_group.py:15
+#: sql_constraint:bus_group:0
 #, python-format
 msgid "The route and name must be unique!"
 msgstr "该线路的班组名称必须唯一"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_group.py:193
+#: code:addons/bus_schedule_plan/models/bus_group.py:205
+#: sql_constraint:bus_group_vehicle:0
 #, python-format
 msgid "The route and vehicle must be unique!"
 msgstr "线路和车辆必须唯一"
@@ -826,8 +837,8 @@ msgid "Thursday"
 msgstr "周四"
 
 #. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/models/bus_shift.py:74
 #: code:addons/bus_schedule_plan/models/bus_shift.py:77
-#: code:addons/bus_schedule_plan/models/bus_shift.py:80
 #, python-format
 msgid "Time format is not correct"
 msgstr "时间格式不正确"
@@ -929,7 +940,7 @@ msgid "arrive time"
 msgstr "到达时间"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:90
+#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:95
 #: model:ir.actions.act_window,name:bus_schedule_plan.act_assigned_shifts
 #: model:ir.model,name:bus_schedule_plan.model_assigned_shifts
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_group_form
@@ -1257,10 +1268,10 @@ msgid "custem bus work rule output menu"
 msgstr "行车规则输出"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:51
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:53
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:55
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:57
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:58
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:60
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:62
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:64
 #, python-format
 msgid "date type have repeat of time"
 msgstr "选择的日期类型的时间有重复，请重新选择时间"
@@ -1413,9 +1424,9 @@ msgid "end time"
 msgstr "结束时间"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:42
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:69
-#: code:addons/bus_schedule_plan/models/bus_date_type.py:92
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:46
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:75
+#: code:addons/bus_schedule_plan/models/bus_date_type.py:101
 #, python-format
 msgid "end_date must be greater than start_date"
 msgstr "结束时间必须大于开始时间"
@@ -1836,6 +1847,11 @@ msgid "steward number"
 msgstr "乘务员数量"
 
 #. module: bus_schedule_plan
+#: selection:bus_date_type,priority:0
+msgid "three level"
+msgstr "三级"
+
+#. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/models.py:190
 #, python-format
 msgid "time arrange must have continuity"
@@ -1953,7 +1969,7 @@ msgid "use"
 msgstr "可用"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:40
+#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:45
 #, python-format
 msgid "use_date is more than today"
 msgstr "使用时间不能小于当天"

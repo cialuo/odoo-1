@@ -58,9 +58,9 @@ class Vehicle(models.Model):
                 'lineId': res.execplan_id.line_id.id,
                 'lineName': res.execplan_id.line_id.line_name,
                 'gprsId': res.execplan_id.line_id.gprs_id,
-                # 'onBoardId': res.vehicle_id.on_board_id,
-                'carNum': res.vehicle_id.license_plate,
-                'workDate': res.create_date,
+                'onBoardId': res.vehicle_id.on_boardid,
+                'carNum': res.vehicle_id.inner_code,
+                'workDate': res.execplan_id.excutedate,
             })
             params = Params(type=1, cityCode=cityCode,tableName=CAR_TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
@@ -91,8 +91,9 @@ class Vehicle(models.Model):
                         'lineId': r.execplan_id.line_id.id,
                         'lineName': r.execplan_id.line_id.line_name,
                         'gprsId': r.execplan_id.line_id.gprs_id,
-                        # 'onBoardId': r.vehicle_id.on_board_id,
-                        'carNum': r.vehicle_id.license_plate,
+                        'onBoardId': r.vehicle_id.on_boardid,
+                        'carNum': r.vehicle_id.inner_code,
+                        'workDate': r.execplan_id.excutedate,
                     })
                     params = Params(type=3, cityCode=cityCode,tableName=CAR_TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
