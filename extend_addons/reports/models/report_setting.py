@@ -14,8 +14,6 @@ class Company(models.Model):
 
     service_password = fields.Char(default='jasperadmin')
 
-    service_url = fields.Char()
-
 class report_setting(models.TransientModel):
 
     _name = 'report_setting'
@@ -31,20 +29,6 @@ class report_setting(models.TransientModel):
 
     service_password = fields.Char(related="company_id.service_password")
 
-    service_url = fields.Char(related="company_id.service_url",compute="_compute_service_url")
-
-    @api.depends('service_ip', 'service_port','service_user','service_password')
-    def _compute_service_url(self):
-
-        """
-            计算报表服务器的url
-            http:// ip : port /jasperserver/flow.html?j_username= service_user &amp;j_password= service_password
-        :return:
-        """
-
-        self.service_url = "http://%s:%s/jasperserver/flow.html?j_username=%s&amp;j_password=%s" % (self.service_ip,self.service_port,self.service_user,self.service_password)
-
-
     @api.model
     def get_service_url(self):
         """
@@ -54,10 +38,7 @@ class report_setting(models.TransientModel):
         company_id = self.env.user.company_id
         service_url = "http://%s:%s/jasperserver/flow.html?j_username=%s&amp;j_password=%s" % (
             company_id.service_ip, company_id.service_port, company_id.service_user, company_id.service_password)
-        print service_url
         return service_url
-
-
 
     @api.multi
     def execute(self):

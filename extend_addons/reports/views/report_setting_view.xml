@@ -17,7 +17,6 @@
                         <field name="service_port"/>
                         <field name="service_user"/>
                         <field name="service_password"/>
-                        <field name="service_url"/>
                     </group>
                 </form>
             </field>
