@@ -482,30 +482,36 @@ op_commandtext = {
 # op_dispatchplan -- scheduleplan.execupplanitem,scheduleplan.execdownplanitem
 op_dispatchplan = {
     ('id', 'id'): None,
-    #线路Id
-    ('lineId', 'line_id'): None,
+    #线路Id  主表 行车作业时间表的线路ID
+    ('lineId', 'main_line_id'): None,
     #线路名称 String 后台获取传值
     ('lineName', None): None,
     #线路gprsid  int后台获取传值
     ('gprsId', None): None,
-    #运行线路编码 int 后台获取传值
-    ('runGprsId', None): None,
+    #运行线路编码 int  当前线路ID
+    ('runGprsId', 'run_gprsid'): None,
     #车辆编号Stirng not found后台获取传值
     ('selfId', None): None,
     #设备号int not found后台获取传值
     ('onBoardId', None): None,
     #驾驶员工号String not found后台获取传值
     ('workerId', None): None,
+    #驾驶员姓名 string 后台取值
+    ('driverName', None): None,
     #发车方向int not found后台获取传值
     ('direction', None): None,
     #计划发车时间
     ('planRunTime', 'starttime'): None,
+    #计划到达时间，
+    ('planReachTime', 'arrivetime'): None,
     #计划时长
     ('planDuration', 'timelenght'): None,
     #计划里程
     ('planKm', 'mileage'): None,
-    #乘务员卡号
-    ('trainId', 'steward'): None,
+    #乘务员工号，后台获取
+    ('trainId', None): None,
+    # 乘务员姓名，后台获取
+    ('trainName', None): None,
     #工作日期 后台获取 计划 执行时间
     ('workDate', 'work_date'): None,
 }
