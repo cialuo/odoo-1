@@ -56,6 +56,8 @@ class ICCard(models.Model):
             vals.update({
                 'id': res.id,
             })
+            if res.employee_id:
+                vals.update({'name': res.employee_id.jobnumber})
             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
         except Exception,e:
@@ -80,6 +82,8 @@ class ICCard(models.Model):
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(self._name, vals)
+                    if r.employee_id:
+                        vals.update({'name': r.employee_id.jobnumber})
                     if vals:
                         vals.update({
                             'id': r.id,
