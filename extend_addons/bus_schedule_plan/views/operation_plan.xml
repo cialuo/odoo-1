@@ -16,6 +16,9 @@
                         <tbody>
                         </tbody>
                     </table>
+                    <div>
+                        <div class="btn btn-primary save_plan">保存</div>
+                    </div>
                     <div class="start_over_stop_time">
                         <div class="start_time">
                         </div>

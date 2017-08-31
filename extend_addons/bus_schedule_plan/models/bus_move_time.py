@@ -234,6 +234,7 @@ class BusMoveTimeTable(models.Model):
     @api.model
     def changeOpplan(self, recid, index, direction, data, op):
         # 修改运营计划
+        index = int(index)
         row = self.search([('id', '=', recid)])
         row = row[0]
         upVechicleSeq, downVehicleSeq = self.genVehicleSeq(row.upworkvehicle, row.downworkvehicle)
@@ -263,7 +264,7 @@ class BusMoveTimeTable(models.Model):
         busMoveTable = self.culculateStopTime(busMoveTable)
         station1 = row.line_id.up_station.name
         station2 = row.line_id.down_station.name
-        return self.genWebRetunData(data, busMoveTable, station1, station2)
+        return self.genWebRetunData(data, busMoveTable, station1, station2, self.schedule_method)
 
     @api.model
     def saveOpPlan(self):

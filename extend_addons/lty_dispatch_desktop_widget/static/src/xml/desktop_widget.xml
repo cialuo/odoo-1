@@ -586,7 +586,7 @@
                                                         <td>
                                                             <label>
                                                                 <input type="checkbox" t-att-value="station.id" />
-                                                                <t t-esc="station.name"></t>
+                                                                <t t-esc="station.station_id[1].split('/')[0]"></t>
                                                             </label>
                                                         </td>
                                                     </t>
