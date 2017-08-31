@@ -559,7 +559,7 @@ op_attendance = {
     #台次int
     ('orderNo', 'order_numer'): None,
     #计划签到时间
-    ('onWorkTime', 'on_work_time'): None,
+    ('onWorkTime', 'checkintime'): None,
     #实际签到时间,
     ('conWorkTime', 'con_work_time'): None,
     #实际签到车辆,

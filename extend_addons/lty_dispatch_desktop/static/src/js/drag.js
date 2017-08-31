@@ -67,11 +67,10 @@ function drag(oDrag, handle, maxL, maxT) {
 }
 var timmerHandle = null;
 var isDrag = false;
-
+var k = 1;
 function dragFn(parent, title, maxL, maxT) {
     var c_class = "." + parent + " ." + title;
     var p_class = "." + parent;
-    var k = 1
     $("body").on('mouseover', c_class, function () {
         var oDrag = $(this).parents("." + parent)[0];
         // var oDrag = $(this).parents(parent)[0];
@@ -88,17 +87,18 @@ function dragFn(parent, title, maxL, maxT) {
         }
     });
     $("body").on('mousedown', p_class, function (e) {
-        if(k == $(this).css('z-index')){
+        if (typeof($(this).attr("click")) == "undefined") {
             k++;
-        }else{
-            k+=20
         }
+        $('*[click="yes"]').removeAttr('click');
+        $(this).attr("click", "yes");
         var oDrag = $(this)[0];
         oDrag.style.zIndex = k;
     });
     function setDragTrue() {
         isDrag = true;
     }
+
     $("body").on('mousedown', c_class, function () {
         isDrag = false;
         timmerHandle = setTimeout(setDragTrue, 200);
