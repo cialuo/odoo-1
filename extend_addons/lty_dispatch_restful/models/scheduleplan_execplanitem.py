@@ -54,12 +54,17 @@ class upplanitem(models.Model):
             _logger.info('Start create data: %s', self._name)
             vals = mapping.dict_transfer(self._name, vals)
             vals.update({
-                'lineName': res.line_id.line_name,
-                'gprsId': res.line_id.gprs_id,
+                'lineName': res.execplan_id.line_id.line_name,
+                'gprsId': res.execplan_id.line_id.gprs_id,
                 'selfId': res.vehicle_id.inner_code,
                 'onBoardId': res.vehicle_id.on_boardid,
                 'workerId': res.driver.jobnumber,
+                'driverName': res.driver.name,
+                'trainName': res.steward.name,
+                'trainId': res.steward.jobnumber,
                 'workDate': res.execplan_id.excutedate,
+                'lineId': res.execplan_id.line_id.id,
+                'runGprsId': res.line_id.gprs_id,
             })
             if self._name == 'scheduleplan.execupplanitem':
                 vals.update({
@@ -97,12 +102,18 @@ class upplanitem(models.Model):
                     vals = mapping.dict_transfer(self._name, vals)
                     vals.update({
                         # 'id': int(str(r.id) + '0'),
-                        'lineName': r.line_id.line_name,
-                        'gprsId': r.line_id.gprs_id,
+                        'lineName': r.execplan_id.line_id.line_name,
+                        'gprsId': r.execplan_id.line_id.gprs_id,
                         'selfId': r.vehicle_id.inner_code,
                         'onBoardId': r.vehicle_id.on_boardid,
                         'workerId': r.driver.jobnumber,
+                        'driverName': r.driver.name,
+                        'trainName': r.steward.name,
+                        'trainId': r.steward.jobnumber,
                         'workDate': r.execplan_id.excutedate,
+                        'lineId': r.execplan_id.line_id.id,
+                        'runGprsId': r.line_id.gprs_id,
+
                         # 'direction': 0,
                     })
                     if self._name == 'scheduleplan.execupplanitem':
