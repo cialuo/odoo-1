@@ -122,36 +122,47 @@ class BusMoveTimeTable(models.Model):
                 for x, y in izip_longest(v['up'], v['down']):
                     if x != None:
                         temp.append(x)
+                    else:
+                        temp.append(None)
                     if y != None:
                         temp.append(y)
+                    else:
+                        temp.append(None)
                 result[k] = temp
             else:
-                temp = []
+                temp = [None]
                 for x, y in izip_longest(v['down'], v['up']):
                     if x!= None:
                         temp.append(x)
+                    else:
+                        temp.append(None)
                     if y != None:
                         temp.append(y)
+                    else:
+                        temp.append(None)
                 result[k] = temp
         return result
 
     @classmethod
-    def genWebRetunData(cls, data4direction, dataforbus, upstation, downstation):
+    def genWebRetunData(cls, data4direction, dataforbus, upstation, downstation, direction):
         data = {
             'direction':data4direction,
             'bus':dataforbus,
             'upstation':upstation,
-            'downstation':downstation
+            'downstation':downstation,
+            'directiontype':direction
         }
         return data
 
     @classmethod
     def preprocess2WebData(cls, data):
         """
-        对返回给客户端的运营数据做预处理
+        将时间调整为北京时间
         """
         for item in data.values():
             for x in item:
+                if x == None:
+                    continue
                 if x[1][1] != None:
                     x[1][1]['arrive_time'] = adjustDateTime2ZhCn(x[1][1]['arrive_time'])
                     x[1][1]['startmovetime'] = adjustDateTime2ZhCn(x[1][1]['startmovetime'])
@@ -175,7 +186,18 @@ class BusMoveTimeTable(models.Model):
             arg2 = {}
         station1 = row.line_id.up_station.name
         station2 = row.line_id.down_station.name
-        return self.genWebRetunData(arg1, arg2, station1, station2)
+
+        # 双头调 保证所有有列表长度一致 None补齐长度不够的列表
+        if row.schedule_method == 'dubleway':
+            maxlen = 0
+            for item in arg2.values():
+                if len(item) > maxlen:
+                    maxlen = len(item)
+            for index, item in arg2.items():
+                if (maxlen - len(item)) > 0:
+                    arg2[index] = item + [None]*(maxlen - len(item))
+
+        return self.genWebRetunData(arg1, arg2, station1, station2, row.schedule_method)
 
     @classmethod
     def rebuildOpPlanAdd(cls, data, index, seq):
@@ -263,11 +285,14 @@ class BusMoveTimeTable(models.Model):
         for k, v in busMoveTimeCol.items():
             l = len(v)
             for index, item in enumerate(v):
+                x = item
+                if item == None:
+                    continue
                 item.append(0)
                 if item[1][1] == None:
                     continue
                 for i in range(index+1, l):
-                    if v[i][1][1] == None:
+                    if v[i] == None or v[i][1][1] == None:
                         continue
                     stime = datetime.datetime.strptime(v[i][1][1]['startmovetime'], timeFormatStr)
                     atime = datetime.datetime.strptime(item[1][1]['arrive_time'], timeFormatStr)

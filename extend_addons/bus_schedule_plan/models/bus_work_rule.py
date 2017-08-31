@@ -143,6 +143,12 @@ class BusWorkRules(models.Model):
 
     @staticmethod
     def _validate_startendtime(datalist, start, end):
+        """
+        验证发车安排是否和线路的首班末班时间匹配
+        :param datalist: 发车安排
+        :param start: 首班时间
+        :param end: 末班时间
+        """
         if datalist[0].starttime != start or datalist[-1].endtime != end:
             raise ValidationError(_("start and end time not match"))
 
@@ -159,10 +165,13 @@ class BusWorkRules(models.Model):
     @staticmethod
     def _validate(dataList, startTime, endTime, type):
         if len(dataList) <= 0:
-            return
+            raise ValidationError(_("time arrange must not empty"))
         newlist = sorted(dataList, key=lambda k: k.seqid)
+        # 验证序列号
         BusWorkRules._validate_sqenum(newlist)
+        # 验证开始结束时间
         BusWorkRules._validate_startendtime(newlist, startTime, endTime)
+        # 验证时间连续性
         BusWorkRules._validateTimeContinuity(newlist)
 
     @staticmethod
@@ -238,6 +247,8 @@ class BusWorkRules(models.Model):
         """
         sortedRuleList = sorted(rulelist, key=lambda k: k.seqid)
         recordslist = []
+        if len(sortedRuleList) == 0 :
+            return []
         startTimeStr = datestr + ' ' + sortedRuleList[0].starttime + ":00"
 
         startTime = datetime.datetime.strptime(startTimeStr, timeFormatStr)
@@ -378,8 +389,11 @@ class BusWorkRules(models.Model):
         movetimelist = json.loads(movetimeobj.operationplan)
 
         upexeitems = BusWorkRules.genModedetailRecords(movetimelist['up'], stafftimearrange, movetimeobj.env['scheduleplan.movetimeup'])
-        downexeitems = BusWorkRules.genModedetailRecords(movetimelist['down'], stafftimearrange, movetimeobj.env['scheduleplan.movetimedown'])
-        # 上行排班计划
+        if movetimelist['down'] != None:
+            downexeitems = BusWorkRules.genModedetailRecords(movetimelist['down'], stafftimearrange, movetimeobj.env['scheduleplan.movetimedown'])
+        else:
+            downexeitems = []
+            # 上行排班计划
         values['upmoveplan'] = upexeitems
         # 下行排班计划
         values['downmoveplan'] = downexeitems
