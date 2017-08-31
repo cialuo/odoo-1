@@ -21,16 +21,18 @@ class ProductTemplate(models.Model):
         obj_id = self.env['ir.model'].search([('model', 'ilike', self._name)], limit=1).id
         cfg_id =  self.env['lty.advanced.workflow.cfg'].search([('model', '=',obj_id)], limit=1).id
         for cfg_line in self.env['lty.advanced.workflow.cfg'].browse(cfg_id).line_ids :
-            print cfg_line
+            # print cfg_line
             val_dict = {
                 'name': self.env['lty.advanced.workflow.cfg'].browse(cfg_id).code + '-' + productid.name + '-'+ str(cfg_line.squence),  
                 'description':self.env['lty.advanced.workflow.cfg'].browse(cfg_id).name,                  
                 'object_id': self._name + ',' +str(productid.id), 
                 'approve_node':cfg_line.name,  
                 'status':'commited',  
-                'cfg_line_id':cfg_line.id,                               
+                'cfg_line_id':cfg_line.id,
+                #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
+                'approve_post': cfg_line.approve_post.id,
             }
-            self.env['lty.approve.center'].create(val_dict)
+            self.env['lty.approve.center'].sudo().create(val_dict)
         return productid
     
     @api.multi
@@ -43,11 +45,17 @@ class ProductTemplate(models.Model):
     
         return productid
     
-    
-    
 class stock_picking(models.Model):
     _inherit = 'stock.picking'
-       
+    
+    @api.multi
+    def _adv_wkf_id_get(self):
+        link_obj = self.env['lty.advanced.workflow.cfg']
+        #return [(r.object, r.name) for r in link_obj.search([])]    
+        return 1
+    #adv_wkf_id = fields.Many2one('lty.advanced.workflow.cfg', default=_adv_wkf_id_get )
+    #adv_wkf_status = fields.Char()
+    
     @api.model
     @api.multi
     def create(self, vals):
@@ -55,16 +63,18 @@ class stock_picking(models.Model):
         obj_id = self.env['ir.model'].search([('model', 'ilike', self._name)], limit=1).id
         cfg_id =  self.env['lty.advanced.workflow.cfg'].search([('model', '=',obj_id)], limit=1).id
         for cfg_line in self.env['lty.advanced.workflow.cfg'].browse(cfg_id).line_ids :
-            print cfg_line
+            # print cfg_line
             val_dict = {
                 'name': self.env['lty.advanced.workflow.cfg'].browse(cfg_id).code + '-' + productid.name + '-'+ str(cfg_line.squence),  
                 'description':self.env['lty.advanced.workflow.cfg'].browse(cfg_id).name,                  
                 'object_id': self._name + ',' +str(productid.id), 
                 'approve_node':cfg_line.name,  
                 'status':'commited',  
-                'cfg_line_id':cfg_line.id,                               
+                'cfg_line_id':cfg_line.id,
+                #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
+                'approve_post': cfg_line.approve_post.id,
             }
-            self.env['lty.approve.center'].create(val_dict)
+            self.env['lty.approve.center'].sudo().create(val_dict)
         return productid
     
     @api.multi
@@ -75,7 +85,7 @@ class stock_picking(models.Model):
                 raise UserError(('Approving is not done. '))   
         productid = super(stock_picking, self).write(vals)
     
-        return productid    
+        return productid
     
     
     

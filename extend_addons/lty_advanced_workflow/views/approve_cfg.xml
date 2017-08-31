@@ -44,7 +44,7 @@
 									<field name="name"/>
 									<field name="conditions"/>
 									<field name="approve_type"/>
-									<field name="approve_posts" widget="many2many_tags"/>
+									<field name="approve_post"/>
 									<field name="approved_nubmber"/>
 									<field name="farther_node"/>
 									<field name="node_type"/>

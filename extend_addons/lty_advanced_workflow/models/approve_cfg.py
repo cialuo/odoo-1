@@ -40,12 +40,13 @@ class lty_advanced_workflow_cfg_line(models.Model):
 
     squence = fields.Integer(default=10)
     name = fields.Char(required=True)
-    conditions = fields.Char(default='[()]')
+    conditions = fields.Char(default='[()]', help='domain conditions')  
     approve_type =  fields.Selection([
             ('singel', 'singel'),
             ('mutil', 'mutil')
         ], string='Type', required=True, default='singel')
     approve_posts = fields.Many2many('employees.post', 'lty_wkf_cfg_line_post', 'post_id', 'approve_posts', 'Approve Post', help="")
+    approve_post = fields.Many2one('employees.post','Approve Post', help="")
     approved_nubmber = fields.Char()
     farther_node = fields.Many2one('lty.advanced.workflow.cfg.line')
     next_node = fields.Many2one('lty.advanced.workflow.cfg.line')
