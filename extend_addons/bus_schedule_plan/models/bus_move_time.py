@@ -106,17 +106,30 @@ class BusMoveTimeTable(models.Model):
 
     @staticmethod
     def genBusMoveSeqDouble(upMoveSeq, downMoveSeq, upBusCol, downBusCol):
+        """
+        生成运营方案数据
+        :param upMoveSeq: 上行发车安排
+        :param downMoveSeq: 下行发车安排
+        :param upBusCol: 上行车辆序号
+        :param downBusCol: 下行车辆序号
+        """
         busCol = upBusCol + downBusCol
         moveseqCol = {busid:{'up':[],'down':[] } for busid in busCol}
         for index, item in enumerate(upMoveSeq):
-            moveseqCol[item[0]]['up'].append([index, item, 'up'])
+            if item[1] != -1:
+                moveseqCol[item[0]]['up'].append([index, item, 'up'])
 
         for index , item in  enumerate(downMoveSeq):
-            moveseqCol[item[0]]['down'].append([index, item, 'down'])
+            if item[1] != -1:
+                moveseqCol[item[0]]['down'].append([index, item, 'down'])
 
         result = {}
+        tu = []
         for (k, v) in moveseqCol.items():
+            if k == 1:
+                tu.append((k,v))
             if k > downBusCol[-1]:
+                # 上行车辆
                 temp = []
                 for x, y in izip_longest(v['up'], v['down']):
                     if x != None:
@@ -133,8 +146,11 @@ class BusMoveTimeTable(models.Model):
                             temp.append(y)
                     else:
                         temp.append(None)
+                if temp[-1] == None:
+                    temp = temp[0:-1]
                 result[k] = temp
             else:
+                # 下行车辆
                 temp = [None]
                 for x, y in izip_longest(v['down'], v['up']):
                     if x!= None:
@@ -151,6 +167,8 @@ class BusMoveTimeTable(models.Model):
                             temp.append(y)
                     else:
                         temp.append(None)
+                if temp[-1] == None:
+                    temp = temp[0:-1]
                 result[k] = temp
         return result
 
@@ -327,7 +345,7 @@ class BusMoveTimeTable(models.Model):
         downRepeatSeq = downVehicleSeq + upVechicleSeq
 
         upMoveOnSeq = self.genWorkMap(self.uptimeslist, upRepeatSeq, 'up')
-        downMoveOnSeq = None
+        downMoveOnSeq = []
         if self.schedule_method == 'dubleway':
             downMoveOnSeq = self.genWorkMap(self.downtimeslist, downRepeatSeq, 'down')
 
