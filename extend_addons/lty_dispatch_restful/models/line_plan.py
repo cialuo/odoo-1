@@ -58,10 +58,14 @@ class LinePlan(models.Model):
                 'gprs_id': res.line_id.gprs_id,
                 'schedule_type': res.line_id.schedule_type,
                 'line_id': res.line_id.id,
-                'upfirsttime': res.upfirsttime,
-                'uplasttime': res.uplasttime,
-                'downfirsttime': res.downfirsttime,
-                'downlasttime': res.downlasttime,
+                'upfirsttime': '2017-01-01 ' + res.upfirsttime + ':00',
+                'uplasttime': '2017-01-01 ' + res.uplasttime + ':00',
+                'downfirsttime': '2017-01-01 ' + res.downfirsttime + ':00',
+                'downlasttime': '2017-01-01 ' + res.downlasttime + ':00',
+                # 'upfirsttime': res.upfirsttime,
+                # 'uplasttime': res.uplasttime,
+                # 'downfirsttime': res.downfirsttime,
+                # 'downlasttime': res.downlasttime,
             })
             vals = mapping.dict_transfer(self._name, vals)
             params = Params(type=1, cityCode=cityCode,tableName=LINEPLAN_TABLE, data=vals).to_dict()
@@ -90,10 +94,10 @@ class LinePlan(models.Model):
                     vals.update({
                         'id': r.id,
                         'line_id': r.line_id.id,
-                        'upfirsttime': r.upfirsttime,
-                        'uplasttime': r.uplasttime,
-                        'downfirsttime': r.downfirsttime,
-                        'downlasttime': r.downlasttime,
+                        'upfirsttime': '2017-01-01 ' + r.upfirsttime + ':00',
+                        'uplasttime': '2017-01-01 ' + r.uplasttime + ':00',
+                        'downfirsttime': '2017-01-01 ' + r.downfirsttime + ':00',
+                        'downlasttime': '2017-01-01 ' + r.downlasttime + ':00',
                         # 后台取值,
                         'gprs_id': r.line_id.gprs_id,
                         'schedule_type': r.line_id.schedule_type,

@@ -67,11 +67,11 @@ class attendance(models.Model):
             if res.title == 'driver':
                 # 出勤司机
                 TABLE = 'op_attendance'
-                vals.update({'driverName': res.employee_id.name})
+                vals.update({'driverName': res.employee_id.name, 'workerId': res.employee_sn})
             if res.title == 'steward':
                 # 出勤乘务员
                 TABLE = 'op_trainattendance'
-                vals.update({'trainName': res.employee_id.name})
+                vals.update({'trainName': res.employee_id.name, 'trainId': res.employee_sn})
             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
         except Exception,e:
@@ -109,11 +109,11 @@ class attendance(models.Model):
                     if r.title == 'driver':
                         # 出勤司机
                         TABLE = 'op_attendance'
-                        vals.update({'driverName': r.employee_id.name})
+                        vals.update({'driverName': r.employee_id.name, 'workerId': r.employee_sn})
                     if r.title == 'steward':
                         # 出勤乘务员
                         TABLE = 'op_trainattendance'
-                        vals.update({'trainName': r.employee_id.name})
+                        vals.update({'trainName': r.employee_id.name, 'trainId': r.employee_sn})
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
                 except Exception,e:

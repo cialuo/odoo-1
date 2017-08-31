@@ -401,7 +401,9 @@ op_param = {
 # pub_hr_iccardmap  employees.iccards
 pub_hr_iccardmap = {
     ('id', 'id'): None,
-    ('name', 'cardsn'): None,
+    #传 员工工号
+    ('name', 'employee_jobnumber'): None,
+    # IC卡名称，也为 物理卡号
     ('codeValue', 'cardsn'): None,
 }
 
