@@ -543,7 +543,7 @@ class BusWorkRules(models.Model):
         """
         result = []
         for item in movetimelist:
-            if item[1] == None:
+            if item[1] == None or item[1] == -1:
                 continue
 
             timerec = cls.getTimeRecordDetail(timerecmode, item[1]['id'])

@@ -76,7 +76,7 @@ odoo.define('abc', function (require) {
             var directionObj = JSON.parse(sessionStorage.getItem('direction'));
             sessionStorage.removeItem('direction');
             model.call("changeOpplan", [recid, this_index, direction, directionObj, 0]).then(function (res) {
-                // $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
+                $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
                 render_plan(res);
             });
         } else if ($(this).hasClass('sort_out')) {
