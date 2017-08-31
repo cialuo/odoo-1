@@ -35,6 +35,7 @@
     position: absolute;
     left: 5px;
     top: 20px;
+    font-size: 10px;
 }
 
 .line_map_production .mapPage .map_coord {
