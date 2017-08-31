@@ -100,7 +100,7 @@
     <!-- menu categories -->
     <menuitem name="Approve mgt" id="lty_advanced_workflow_mgt" parent="lty_advanced_workflow.menu_root"/>
     <!-- actions -->
-    <menuitem name="Approve cfg" id="lty_advanced_workflow_cfg_menu" parent="lty_advanced_workflow_mgt"
+    <menuitem name="Approve cfg" sequence="20" id="lty_advanced_workflow_cfg_menu" parent="lty_advanced_workflow_mgt"
               action="lty_advanced_workflow_cfg_action"/>
   </data>
 </openerp>

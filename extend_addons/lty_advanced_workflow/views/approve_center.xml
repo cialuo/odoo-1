@@ -4,12 +4,13 @@
       <field name="name">lty_advanced_workflow_approve_center list</field>
       <field name="model">lty.approve.center</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree create="false">
           <field name="object_id"/>
           <field name="description"/>
           <field name="approve_node"/>
           <field name="status"/>
           <field name="active_node"/>
+          <field name="approved"/>
         </tree>
       </field>
     </record>
@@ -27,25 +28,25 @@
                 <sheet>
 					<group>
 						<group>
-                            <field name="name"/>
-                            <field name="description"/>
-                            <field name="approve_node"/>
-                            <field name="object_id"/>
-                            <field name="cfg_line_id"/>							
+                            <field name="name" readonly='1'/>
+                            <field name="description" readonly='1'/>
+                            <field name="approve_node" readonly='1'/>
+                            <field name="object_id" readonly='1'/>
+                            <field name="cfg_line_id" readonly='1'/>							
 						</group>
 						<group>
-                            <field name="commit_date"/>
-                            <field name="source"/>
+                            <field name="commit_date" readonly='1'/>
+                            <field name="source" readonly='1'/>
                             <field name="approve_opinions"/>	
-                            <field name="active_node"/>
-                            <field name="approved"/>
+                            <field name="active_node" readonly='1'/>
+                            <field name="approved" readonly='1'/>
                             
 						</group>
 					</group>
 					<notebook>
 						<page string = 'Approve logs'>
                             <field name="line_ids">
-								<tree editable='bottom'>
+								<tree editable='bottom' create="false">
 									<field name="user_id" readonly='1'/>
 									<field name="approve_date" readonly='1' />
 									<field name="approve_status" readonly='1'/>
@@ -74,7 +75,7 @@
 
 
     <!-- actions -->
-    <menuitem name="Approve Center" id="lty_advanced_workflow_approve_center_menu" parent="lty_advanced_workflow_mgt"
+    <menuitem name="Approve Center"  sequence="10" id="lty_advanced_workflow_approve_center_menu" parent="lty_advanced_workflow_mgt"
               action="lty_advanced_workflow_approve_center_action"/>
   </data>
 </openerp>

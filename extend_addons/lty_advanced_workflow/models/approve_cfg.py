@@ -40,7 +40,7 @@ class lty_advanced_workflow_cfg_line(models.Model):
 
     squence = fields.Integer(default=10)
     name = fields.Char(required=True)
-    conditions = fields.Char()
+    conditions = fields.Char(default='[()]')
     approve_type =  fields.Selection([
             ('singel', 'singel'),
             ('mutil', 'mutil')
