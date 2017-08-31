@@ -28,7 +28,7 @@ odoo.define('abc', function (require) {
             }
         }
         if (data.bus[1][0][2] == "down") {
-            $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.downstation.substr(0, 1) + '</div></th>')
+            $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.downstation.substr(0, 1) + '-' + data.upstation.substr(0, 1) + '</div></th>')
         }
         console.log($('.time_start_arrive_stop thead tr th').length)
         for (var bn = 1; bn < (bus_num + 1); bn++) {
