@@ -84,7 +84,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         fn: self.site_websocket,
                                         arg: {
                                             self: self,
-                                            line_id:line_id,
+                                            line_id: line_id,
                                             site_top_infos: res_top,
                                             site_down_infos: res_down,     //此处修改
                                             dataSite_top_color_cof: dataSite_top_color_cof,
@@ -256,8 +256,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             // 右击站点事件
             'click .min': 'closeFn'
             // 行车组件关闭
-        }
-        ,
+        },
         closeFn: function () {
             var self = this;
             var tid = this.$el.attr('tid');
@@ -272,7 +271,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             if (tid != undefined) {
                 // socket_model_info[tid].status =false;
                 // 查询tid,拿到tid下面的lineid并得到相同lineid的一条线路
-                self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["id", "=", tid]]).all().then(function (pp) {
+                self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["id", "=", parseInt(tid)]]).all().then(function (pp) {
                     // 查询tid下的lineid
                     self.model_line.query().filter([["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
                         // 删除该tid，即此线路
@@ -290,8 +289,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 self.$el.parent().find('.updown_line_table').remove();
                 self.destroy();
             }
-        }
-        ,
+        },
         cursor_pointer_tb: function (canvas, e) {
             var e = e || window.event;
             var c = this.$el.find(canvas.cId)[0];
@@ -431,7 +429,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             function getLocalTime(nS) {
                                 return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
                             }
-
                             for (var i = 0; i < data.respose.length; i++) {
                                 if (data.respose[i].planRunTime > 0) {
                                     data.respose[i].planRunTime = getLocalTime(data.respose[i].planRunTime / 1000);
@@ -443,7 +440,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             new bus_source_config(this, options, data).appendTo($(".controller_" + options.controllerId));
                         },
                         error: function () {
-                            alert("请求出错")
+                            alert("请求出错");
                         }
                     });
                 }
