@@ -84,7 +84,7 @@ odoo.define('abc', function (require) {
     });
     $('.save_plan.btn').click(function () {
         var directionObj = JSON.parse(sessionStorage.getItem('direction'));
-        model.call("saveOpPlan", [directionObj]).then(function (res) {
+        model.call("saveOpPlan", [recid, directionObj]).then(function (res) {
             console.log(res);
         });
     });
