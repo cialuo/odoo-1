@@ -352,6 +352,7 @@ class BusWorkRules(models.Model):
             'excutedate' : movetimeobj.executedate,
             'line_id' : movetimeobj.line_id.id,
             'movetimetable_id':movetimeobj.id,
+            'rule_id': movetimeobj.rule_id.id
         }
         # 生成上行时刻表列表并排序
         uptimelist = [item for item in movetimeobj.uptimeslist]

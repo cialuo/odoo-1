@@ -234,13 +234,18 @@ class BusMoveTimeTable(models.Model):
 
     @classmethod
     def rebuildOpPlanAdd(cls, data, index, seq):
+
+        x=0
+
         for i in range(index+1, len(data)):
             temp = data[i][1]
             data[i-1][1] = temp
         data[-1][1] = -1
+
         num = 0
+
         for i in range(len(data)-1, 0, -1):
-            if data[i][1] != None or data[i][1] != -1:
+            if data[i][1] == None or data[i][1] == -1:
                 num += 1
             else:
                 break
