@@ -357,8 +357,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     car_num: car_num,
                     controllerId: this.desktop_id
                 };
-            if (line_id != 5 || car_num != 1) {
-                layer.alert("模拟soket实时加载，请选择572线路1号车进行点击", {title: "车辆实时信息"});
+            if (line_id != 1 || car_num != 1) {
+                layer.alert("模拟soket实时加载，请选择810线路1号车进行点击", {title: "车辆实时信息"});
                 return false;
             }
             ;
