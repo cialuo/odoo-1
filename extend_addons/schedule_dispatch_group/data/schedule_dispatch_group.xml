@@ -3,7 +3,7 @@
     <data>
         <!-- 运营 调度-->
         <record id="module_schedule_dispatch" model="ir.module.category">
-            <field name="name">Schedule Dispatch</field>
+            <field name="name">schedule_dispatch</field>
             <field name="sequence">60</field>
         </record>
     </data>
