@@ -8,6 +8,7 @@ from odoo.exceptions import UserError
 class lty_approve_center(models.Model):
     _name = 'lty.approve.center'
     _inherit = ['mail.thread']
+    _order = 'status desc'
 
     @api.multi
     def _links_get(self):
@@ -31,9 +32,10 @@ class lty_approve_center(models.Model):
     line_ids = fields.One2many('lty.approve.logs','center_id') 
     cfg_line_id = fields.Many2one('lty.advanced.workflow.cfg.line')     
     active_node = fields.Boolean(compute='_active_wkf_node')
-    approved = fields.Boolean(compute='_compute_approve_state') 
+    approved = fields.Boolean(compute='_compute_approve_state')
 
-
+    approve_posts = fields.Many2many('employees.post', 'lty_wkf_center_line_post', 'post_id', 'approve_posts', 'Approve Post', help="")
+    approve_post = fields.Many2one('employees.post','Approve Post', help="")
 
     @api.multi
     def _active_wkf_node(self):
