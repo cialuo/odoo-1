@@ -3,13 +3,13 @@
 
         <!--运营管理 ===> 设置-->
         <menuitem id="scheduling_parameters_setting_root" name="Scheduling setting root"
-                  parent="operation_menu.operation_menu_root" sequence="200"/>
+                  parent="operation_menu.operation_menu_root" sequence="200" groups="schedule_dispatch_group.schedule_user"/>
 
 
 
         <!--调度监控-->
         <menuitem id="dispatch_monitor_menu_setting_root" name="Monitor setting root"
-                  parent="dispatch_monitor_menu.dispatch_monitor_menu_root" sequence="200"/>
+                  parent="dispatch_monitor_menu.dispatch_monitor_menu_root" sequence="200" groups="schedule_dispatch_group.dispatch_user"/>
 
     </data>
 </odoo>

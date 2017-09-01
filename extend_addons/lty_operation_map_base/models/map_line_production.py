@@ -12,7 +12,7 @@ class map_line_production_info(models.Model):
     #线路方向
     direction = fields.Selection([('up', 'up'), ('down', 'down')])
     #地图数据
-    map_date = fields.Text()
+    map_data = fields.Text()
     #线路线条颜色
     tools_line_color = fields.Char()
     #线路线条宽度
@@ -20,7 +20,7 @@ class map_line_production_info(models.Model):
     #线路是否显示
     tools_line_display = fields.Boolean()		
     #站台字体
-    tools_station_font_name = fields.Char()
+    tools_station_font_family = fields.Char()
     #站台字体颜色
     tools_station_font_color = fields.Char()
     #站台字体样式

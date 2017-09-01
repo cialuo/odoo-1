@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-01 06:18+0000\n"
-"PO-Revision-Date: 2017-09-01 06:18+0000\n"
+"POT-Creation-Date: 2017-09-01 06:34+0000\n"
+"PO-Revision-Date: 2017-09-01 06:34+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,6 @@ msgid "Dispatch User"
 msgstr "调度员"
 
 #. module: schedule_dispatch_group
-#: model:ir.module.category,name:schedule_dispatch_group.module_schedule_dispatch
-msgid "Schedule Dispatch"
-msgstr "运营调度"
-
-#. module: schedule_dispatch_group
 #: model:res.groups,name:schedule_dispatch_group.schedule_manager
 msgid "Schedule Manager"
 msgstr "运营经理"
@@ -34,4 +29,9 @@ msgstr "运营经理"
 #: model:res.groups,name:schedule_dispatch_group.schedule_user
 msgid "Schedule User"
 msgstr "运营专员"
+
+#. module: schedule_dispatch_group
+#: model:ir.module.category,name:schedule_dispatch_group.module_schedule_dispatch
+msgid "schedule_dispatch"
+msgstr "运营调度"
 

@@ -429,30 +429,35 @@
                   name="Area management"
                   parent="operation_menu.opertation_resources_menu"
                   action="opertation_resources_area_action"
+                  groups="schedule_dispatch_group.schedule_user"
                   sequence="10"/>
         <menuitem id="opertation_resources_road_menu"
                   name="Road management"
                   parent="operation_menu.opertation_resources_menu"
                   action="opertation_resources_road_action"
+                  groups="schedule_dispatch_group.schedule_user"
                   sequence="20"
         />
         <menuitem id="opertation_resources_station_menu"
                   name="Station management"
                   parent="operation_menu.opertation_resources_menu"
                   action="opertation_resources_station_action"
+                  groups="schedule_dispatch_group.schedule_user"
                   sequence="30"
         />
         <menuitem id="menu_route"
                   name="Route management"
                   parent="operation_menu.opertation_resources_menu"
                   action="act_route_manage"
+                  groups="schedule_dispatch_group.schedule_user"
                   sequence="40"
         />
         <menuitem id="opertation_resources_vehicle_yard_menu"
                   name="vehicle_yard management"
                   parent="operation_menu.opertation_resources_menu"
                   action="opertation_resources_vehicle_yard_action"
-                  sequence="45"
+                  groups="schedule_dispatch_group.schedule_user"
+                  sequence="50"
         />
 
     </data>

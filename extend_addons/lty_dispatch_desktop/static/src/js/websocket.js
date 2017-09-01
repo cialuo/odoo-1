@@ -7,7 +7,8 @@ var websocket = null;
 //判断当前浏览器是否支持WebSocket
 if ('WebSocket' in window) {
     // websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
-    websocket = new WebSocket("ws:/202.104.136.228:8085/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
+    // websocket = new WebSocket("ws://202.104.136.228:8085/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
+    websocket = new WebSocket("ws://202.104.136.228:8085/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
 } else {
     alert('当前浏览器 Not support websocket');
 }

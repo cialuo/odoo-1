@@ -717,7 +717,7 @@ class ToUp(models.Model):
     speed = fields.Float(string="vehicle speed")
 
     # 运营时长
-    worktimelength = fields.Integer(string="line work time length")
+    worktimelength = fields.Integer(string="line work time length", required=True)
 
     # 停车时间
     resttime = fields.Integer(string="rest time")
