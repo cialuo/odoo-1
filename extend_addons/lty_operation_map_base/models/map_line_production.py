@@ -25,6 +25,8 @@ class map_line_production_info(models.Model):
     tools_station_font_color = fields.Char()
     #站台字体样式
     tools_station_font_style= fields.Char()
+    #站台字体样式颜色
+    tools_station_font_style_color= fields.Char()	
     #站台是否显示
     tools_station_is_display= fields.Boolean()
     #站台名称是否显示
