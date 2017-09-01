@@ -48,10 +48,6 @@
 				<h2 class="mapSetLinePropTitle">画笔工具</h2>
 				<div class="mapSetLineContext">
 					<span class="btBox setMapBt">
-						<!-- <input type="button" class="mr_1 on" value="打开" onclick="openBrush()" />
-						<input type="button" class="mr_1 off" value="关闭" onclick="closeBrush()" />
-						<input type="button" class="mr_1 del" value="删除" onclick="delLsatLine()" />
-						<input type="button" class="empty" value="清空" onclick="delAllLine()" /> -->
 						<input type="button" class="mr_1 open_bt" value="打开" />
 						<input type="button" class="mr_1 close_bt" value="关闭" />
 						<input type="button" class="mr_1 del_bt" value="删除" />
@@ -80,8 +76,8 @@
 					<br/>
 					<label><input type="checkbox" class="isShowPoint mapLineSet vt" name="isShowPoint" value="1" />显示辅助点</label>
 					<br/>
-				  	<label><input type="radio" name="direction" class="upDirection vt" value="0" checked="checked" />上行</label>
-				  	<label><input type="radio" name="direction" class="downDirection vt" value="1" />下行</label>
+				  	<label><input type="radio" name="direction" class="upDirection vt direction_bt" value="0" checked="checked" />上行</label>
+				  	<label><input type="radio" name="direction" class="downDirection vt direction_bt" value="1" />下行</label>
 				</div>
 			</div>
 			
@@ -89,23 +85,28 @@
 				<h2 class="mapSetLinePropTitle">站点属性</h2>
 				<div class="mapSetLineContext">
 					<span>站点属性：<select name="stationNamefont" class="valid mapStationFontFamily siteType">
-							<option value="宋体" style="font-family: 宋体">宋体</option>
-							<option value="微软雅黑" style="font-family: 微软雅黑">微软雅黑</option>
-							<option value="华文细黑" style="font-family: 华文细黑">华文细黑</option>
-							<option value="黑体" style="font-family: 黑体">黑体</option>
-							<option value="sans-serif" style="font-family: sans-serif;">sans-serif</option>
-							<option value="serif" style="font-family: serif;">serif</option>
+						<t t-foreach="widget.family_list" t-as="family">
+							<t t-if="family==widget.options.site_dict['0'].family">
+								<option t-attf-value="{{family}}" selected="selected"><t t-esc="family"></t></option>
+							</t>
+							<t t-else="">
+								<option t-attf-value="{{family}}"><t t-esc="family"></t></option>
+							</t>
+						</t>
 						</select>
 					</span>
 					<br/>
 					<span>标签颜色：<input type="color" name="stationNameColor" value="#000000" readonly="readonly" class="textInput readonly mapStationFontColor siteType" /></span>
 					<br/>
 					<span>站点样式：<select name="stationIcon" class="valid mapStationIcon siteType">
-							<option value="●">●</option>
-							<option value="★">★</option>
-							<option value="◆">◆</option>
-							<option value="◇">◇</option>
-							<option value="▲">▲</option>
+							<t t-foreach="widget.station_style_list" t-as="station">
+								<t t-if="station==widget.options.site_dict['0'].style">
+									<option t-attf-value="{{station}}" selected="selected"><t t-esc="station"></t></option>
+								</t>
+								<t t-else="">
+									<option t-attf-value="{{station}}"><t t-esc="station"></t></option>
+								</t>
+							</t>
 						</select>
 					</span>
 					<br/>
@@ -122,8 +123,8 @@
 				<h2 class="mapSetLinePropTitle">数据保存</h2>
 				<div class="mapSetLineContext">
 					<span class="btBox">
-						<input type="button" class="save mr_2" value="保存" onclick="hrefBeforeSave_OnClick();" />
-						<input type="button" value="返回" onclick="hrefExit_OnClick()" />
+						<input type="button" class="save_bt mr_2" value="保存" />
+						<input type="button" class="back_bt" value="返回" />
 					</span>
 				</div>
 			</div>

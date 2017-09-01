@@ -24,22 +24,31 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 });
             }
             var tid = self.$el.attr('tid');
-            var model_id = 'model_' + tid;
-            if (socket_model_info[model_id]) {
-                delete socket_model_info[model_id];
+            var model_abnormal = 'abnormal';
+            var model_chart = 'passenge_flow';
+            if (socket_model_info[model_abnormal]) {
+                delete socket_model_info[model_abnormal];
+            }
+            if (socket_model_info[model_chart]) {
+                delete socket_model_info[model_chart];
             }
             if (self.$el.find('.absnormal_chart')[0] != undefined) {
                 self.absnormalChart = echarts.init(self.$el.find('.absnormal_chart')[0]);
                 self.absnormalChart1 = echarts.init(self.$el.find('.absnormal_chart')[1]);
                 self.lagstation_chart = echarts.init(self.$el.find('.lagstation_chart')[0]);
                 self.dataJson = [[120, 152], [220, 182], [150, 232], [320, 332]];
-                var package = {
-                    type: 1000,
-                    open_modules: ["dispatch-abnormal-" + this.desktop_id],
-                    msgId: Date.parse(new Date())
+                // var package = {
+                //     type: 1000,
+                //     open_modules: ["dispatch-abnormal-" + this.desktop_id],
+                //     msgId: Date.parse(new Date())
+                // };
+                // websocket.send(JSON.stringify(package));
+                socket_model_info[model_abnormal] = {
+                    arg: {
+                        self: self,
+                    }, fn: self.abnormal_save
                 };
-                websocket.send(JSON.stringify(package));
-                socket_model_info[model_id] = {
+                socket_model_info[model_chart] = {
                     arg: {
                         self: self,
                         dataJson: self.dataJson,
@@ -54,6 +63,10 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             'click .manual': 'manual_process',
             'click .finishBtn .is_check': 'process_chchk',
             'click .min': 'closeFn'
+        },
+        abnormal_save:function (datalist,arg) {
+            var self = arg.self;
+
         },
         show_echarts: function (innerHTML, arg) {
             var self = arg.self;
