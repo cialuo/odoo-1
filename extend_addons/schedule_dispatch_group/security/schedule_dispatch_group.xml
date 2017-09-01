@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--营运专员-->
+        <record id="schedule_user" model="res.groups">
+            <field name="name">Schedule User</field>
+            <field name="category_id" ref="module_schedule_dispatch"/>
+        </record>
+
+        <!--营运经理-->
+        <record id="schedule_manager" model="res.groups">
+            <field name="name">Schedule Manager</field>
+            <field name="category_id" ref="module_schedule_dispatch"/>
+            <field name="implied_ids" eval="[(4, ref('schedule_dispatch_group.schedule_user'))]"/>
+        </record>
+
+        <!--调度员-->
+        <record id="dispatch_user" model="res.groups">
+            <field name="name">Dispatch User</field>
+            <field name="category_id" ref="module_schedule_dispatch"/>
+        </record>
+    </data>
+</odoo>
