@@ -21,7 +21,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['dispatch_monitor_menu','operation_menu'],
+    'depends': ['dispatch_monitor_menu','operation_menu','schedule_dispatch_group'],
 
     # always loaded
     'data': [
