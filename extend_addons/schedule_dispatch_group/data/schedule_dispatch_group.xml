@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- 运营 调度-->
+        <record id="module_schedule_dispatch" model="ir.module.category">
+            <field name="name">Schedule Dispatch</field>
+            <field name="sequence">60</field>
+        </record>
+    </data>
+</odoo>
