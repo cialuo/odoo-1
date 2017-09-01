@@ -44,7 +44,7 @@
 									<field name="name"/>
 									<field name="conditions"/>
 									<field name="approve_type"/>
-									<field name="approve_posts" widget="many2many_tags"/>
+									<field name="approve_post"/>
 									<field name="approved_nubmber"/>
 									<field name="farther_node"/>
 									<field name="node_type"/>
@@ -100,7 +100,7 @@
     <!-- menu categories -->
     <menuitem name="Approve mgt" id="lty_advanced_workflow_mgt" parent="lty_advanced_workflow.menu_root"/>
     <!-- actions -->
-    <menuitem name="Approve cfg" id="lty_advanced_workflow_cfg_menu" parent="lty_advanced_workflow_mgt"
+    <menuitem name="Approve cfg" sequence="20" id="lty_advanced_workflow_cfg_menu" parent="lty_advanced_workflow_mgt"
               action="lty_advanced_workflow_cfg_action"/>
   </data>
 </openerp>

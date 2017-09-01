@@ -1,0 +1,393 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* lty_advanced_workflow
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-31 12:52+0000\n"
+"PO-Revision-Date: 2017-08-31 12:52+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_active_node
+msgid "Active node"
+msgstr "审批结点"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_product_template_adv_wkf_status
+msgid "Adv wkf status"
+msgstr "状态"
+
+#. module: lty_advanced_workflow
+#: model:ir.ui.view,arch_db:lty_advanced_workflow.lty_advanced_workflow_approve_center_form
+#: model:ir.ui.view,arch_db:lty_advanced_workflow.lty_advanced_workflow_cfg_form
+msgid "Approve"
+msgstr "审批"
+
+#. module: lty_advanced_workflow
+#: model:ir.actions.act_window,name:lty_advanced_workflow.lty_advanced_workflow_approve_center_action
+#: model:ir.ui.menu,name:lty_advanced_workflow.lty_advanced_workflow_approve_center_menu
+#: model:ir.ui.view,arch_db:lty_advanced_workflow.lty_advanced_workflow_approve_center_form
+msgid "Approve Center"
+msgstr "审批中心"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_approve_posts
+msgid "Approve Post"
+msgstr "审批岗位"
+
+#. module: lty_advanced_workflow
+#: model:ir.actions.act_window,name:lty_advanced_workflow.lty_advanced_workflow_cfg_action
+#: model:ir.ui.menu,name:lty_advanced_workflow.lty_advanced_workflow_cfg_menu
+#: model:ir.ui.view,arch_db:lty_advanced_workflow.lty_advanced_workflow_cfg_form
+#: model:ir.ui.view,arch_db:lty_advanced_workflow.lty_advanced_workflow_cfg_line_form
+msgid "Approve cfg"
+msgstr "审批流设置"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs_approve_date
+msgid "Approve date"
+msgstr "审批时间"
+
+#. module: lty_advanced_workflow
+#: model:ir.ui.view,arch_db:lty_advanced_workflow.lty_advanced_workflow_approve_center_form
+msgid "Approve logs"
+msgstr "审批记录"
+
+#. module: lty_advanced_workflow
+#: model:ir.ui.menu,name:lty_advanced_workflow.lty_advanced_workflow_mgt
+msgid "Approve mgt"
+msgstr "审批管理"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_approve_node
+msgid "Approve node"
+msgstr "审批节点"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_approve_opinions
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs_approve_opinions
+msgid "Approve opinions"
+msgstr "审批意见"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_approved
+msgid "Approved"
+msgstr "审批"
+
+#. module: lty_advanced_workflow
+#: model:ir.ui.menu,name:lty_advanced_workflow.menu_root
+msgid "Approved Center"
+msgstr "审批中心"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_approved_nubmber
+msgid "Approved nubmber"
+msgstr "结点人数"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs_center_id
+msgid "Center id"
+msgstr "审批中心"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_cfg_id
+msgid "Cfg id"
+msgstr "审批设置"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_cfg_line_id
+msgid "Cfg line id"
+msgstr "审批节点"
+
+#. module: lty_advanced_workflow
+#: model:ir.actions.act_window,help:lty_advanced_workflow.lty_advanced_workflow_approve_center_action
+msgid "Click here to add new document"
+msgstr "点击此处创建"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_code
+msgid "Code"
+msgstr "代码"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_commit_date
+msgid "Commit date"
+msgstr "提交日期"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_company_id
+msgid "Company id"
+msgstr "公司"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_conditions
+msgid "Conditions"
+msgstr "条件"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_create_uid
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_create_uid
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_create_uid
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_create_date
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_create_date
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_create_date
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_description
+msgid "Description"
+msgstr "说明"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_display_name
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_display_name
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_display_name
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_farther_node
+msgid "Farther node"
+msgstr "上级节点"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_id
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_id
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_id
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs_id
+msgid "ID"
+msgstr "ID"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg___last_update
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line___last_update
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center___last_update
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_write_uid
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_write_uid
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_write_uid
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_write_date
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_write_date
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_write_date
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_ids
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_line_ids
+msgid "Line ids"
+msgstr "Line ids"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_model
+msgid "Model"
+msgstr "型号"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_name
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_name
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_name
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs_name
+msgid "Name"
+msgstr "名字"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_next_node
+msgid "Next node"
+msgstr "下一节点"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_node_type
+msgid "Node Type"
+msgstr "节点类型"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_note
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_note
+msgid "Note"
+msgstr "备注"
+
+#. module: lty_advanced_workflow
+#: model:ir.model,name:lty_advanced_workflow.model_product_template
+msgid "Product Template"
+msgstr "产品模板"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_object_id
+msgid "Reference"
+msgstr "参考"
+
+#. module: lty_advanced_workflow
+#: model:ir.ui.view,arch_db:lty_advanced_workflow.lty_advanced_workflow_approve_center_form
+msgid "Reject"
+msgstr "不通过"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_source
+msgid "Source"
+msgstr "源"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_squence
+msgid "Squence"
+msgstr "序列"
+
+#. module: lty_advanced_workflow
+#: model:ir.model,name:lty_advanced_workflow.model_stock_picking
+msgid "Transfer"
+msgstr "调拨"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_approve_type
+msgid "Type"
+msgstr "类型"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs_user_id
+msgid "User id"
+msgstr "用户 ID"
+
+#. module: lty_advanced_workflow
+#: sql_constraint:lty.approve.logs:0
+msgid "You have approve or reject !"
+msgstr "你已经审批或拒决 !"
+
+#. module: lty_advanced_workflow
+#: selection:lty.advanced.workflow.cfg,end_status:0
+#: selection:lty.advanced.workflow.cfg,start_status:0
+#: selection:lty.advanced.workflow.cfg,status:0
+#: selection:lty.approve.center,status:0
+#: selection:lty.approve.logs,approve_status:0
+msgid "approved"
+msgstr "通过"
+
+#. module: lty_advanced_workflow
+#: selection:lty.advanced.workflow.cfg.line,status:0
+msgid "close"
+msgstr "关闭"
+
+#. module: lty_advanced_workflow
+#: selection:lty.advanced.workflow.cfg,end_status:0
+#: selection:lty.advanced.workflow.cfg,start_status:0
+#: selection:lty.advanced.workflow.cfg,status:0
+#: selection:lty.approve.center,status:0
+msgid "commited"
+msgstr "已提交"
+
+#. module: lty_advanced_workflow
+#: model:ir.ui.view,arch_db:lty_advanced_workflow.lty_advanced_workflow_cfg_form
+msgid "confirm"
+msgstr "已确认"
+
+#. module: lty_advanced_workflow
+#: selection:lty.advanced.workflow.cfg,end_status:0
+#: selection:lty.advanced.workflow.cfg,start_status:0
+#: selection:lty.advanced.workflow.cfg,status:0
+msgid "draft"
+msgstr "草稿"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_end_status
+msgid "end status"
+msgstr "结束状态"
+
+#. module: lty_advanced_workflow
+#: model:ir.model,name:lty_advanced_workflow.model_lty_advanced_workflow_cfg
+msgid "lty.advanced.workflow.cfg"
+msgstr "审批流设置"
+
+#. module: lty_advanced_workflow
+#: model:ir.model,name:lty_advanced_workflow.model_lty_advanced_workflow_cfg_line
+msgid "lty.advanced.workflow.cfg.line"
+msgstr "审批节点设置"
+
+#. module: lty_advanced_workflow
+#: model:ir.model,name:lty_advanced_workflow.model_lty_approve_center
+msgid "lty.approve.center"
+msgstr "审批中心"
+
+#. module: lty_advanced_workflow
+#: model:ir.model,name:lty_advanced_workflow.model_lty_approve_logs
+msgid "lty.approve.logs"
+msgstr "审批记录"
+
+#. module: lty_advanced_workflow
+#: selection:lty.advanced.workflow.cfg.line,approve_type:0
+msgid "mutil"
+msgstr "多人"
+
+#. module: lty_advanced_workflow
+#: selection:lty.advanced.workflow.cfg.line,status:0
+msgid "open"
+msgstr "打开"
+
+#. module: lty_advanced_workflow
+#: selection:lty.advanced.workflow.cfg.line,node_type:0
+msgid "process"
+msgstr "过程"
+
+#. module: lty_advanced_workflow
+#: selection:lty.approve.center,status:0
+#: selection:lty.approve.logs,approve_status:0
+msgid "rejected"
+msgstr "拒决"
+
+#. module: lty_advanced_workflow
+#: selection:lty.advanced.workflow.cfg.line,approve_type:0
+msgid "singel"
+msgstr "单人"
+
+#. module: lty_advanced_workflow
+#: selection:lty.advanced.workflow.cfg.line,node_type:0
+msgid "start"
+msgstr "开始"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_start_status
+msgid "start status"
+msgstr "开始状态"
+
+#. module: lty_advanced_workflow
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_line_status
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_advanced_workflow_cfg_status
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_center_status
+#: model:ir.model.fields,field_description:lty_advanced_workflow.field_lty_approve_logs_approve_status
+msgid "status"
+msgstr "状态"
+
+#. module: lty_advanced_workflow
+#: selection:lty.advanced.workflow.cfg.line,node_type:0
+msgid "stop"
+msgstr "结束"
+
+#. module: lty_advanced_workflow
+#: model:ir.ui.view,arch_db:lty_advanced_workflow.lty_advanced_workflow_cfg_form
+msgid "workflow config"
+msgstr "工作流设置"
+

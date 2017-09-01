@@ -19,13 +19,14 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['employees','mail','product'],
+    'depends': ['employees','mail','product','stock','purchase'],
 
     # always loaded
     'data': [
         'views/approve_cfg.xml',
         'views/approve_center.xml',
         'security/ir.model.access.csv',
+        'security/security.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

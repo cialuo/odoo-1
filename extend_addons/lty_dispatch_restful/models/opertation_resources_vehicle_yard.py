@@ -97,8 +97,8 @@ class Yard(models.Model):
                         vals.update({'screen1': r.dispatch_screen_ids[0].screen_code})
                         if len(r.dispatch_screen_ids) > 1:
                             vals.update({'screen2': r.dispatch_screen_ids[1].screen_code})
-                        params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-                        rp = Client().http_post(url, data=params)
+                    params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                    rp = Client().http_post(url, data=params)
 
                     # clientThread(url,params,res).start()
                 except Exception,e:

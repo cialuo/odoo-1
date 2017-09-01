@@ -352,6 +352,7 @@ class BusWorkRules(models.Model):
             'excutedate' : movetimeobj.executedate,
             'line_id' : movetimeobj.line_id.id,
             'movetimetable_id':movetimeobj.id,
+            'rule_id': movetimeobj.rule_id.id
         }
         # 生成上行时刻表列表并排序
         uptimelist = [item for item in movetimeobj.uptimeslist]
@@ -543,7 +544,7 @@ class BusWorkRules(models.Model):
         """
         result = []
         for item in movetimelist:
-            if item[1] == None:
+            if item[1] == None or item[1] == -1:
                 continue
 
             timerec = cls.getTimeRecordDetail(timerecmode, item[1]['id'])
