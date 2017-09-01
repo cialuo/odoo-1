@@ -516,6 +516,8 @@ op_dispatchplan = {
     ('trainName', None): None,
     #工作日期 后台获取 计划 执行时间
     ('workDate', 'work_date'): None,
+    #行车规则ID 后台获取
+    ('linePlanId', 'rule_id'): None,
 }
 
 #1.3.15	车辆资源
