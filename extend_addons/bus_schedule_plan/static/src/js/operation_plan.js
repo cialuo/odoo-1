@@ -88,4 +88,10 @@ odoo.define('abc', function (require) {
             console.log(res);
         });
     });
+    $('.giveup_plan').click(function () {
+        model.call("reoppaln2web", [recid]).then(function (data) {
+            $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
+             render_plan(data);
+        });
+    });
 });

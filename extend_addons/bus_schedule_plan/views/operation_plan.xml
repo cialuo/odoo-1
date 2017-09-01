@@ -18,6 +18,7 @@
                     </table>
                     <div>
                         <div class="btn btn-primary save_plan">保存</div>
+                        <div class="btn btn-default giveup_plan">取消</div>
                     </div>
                     <div class="start_over_stop_time">
                         <div class="start_time">
