@@ -24,6 +24,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 });
             }
             var tid = self.$el.attr('tid');
+            var line_id = self.$el.attr('line_id');
             var model_abnormal = 'abnormal';
             var model_chart = 'passenge_flow';
             if (socket_model_info[model_abnormal]) {
@@ -46,6 +47,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 socket_model_info[model_abnormal] = {
                     arg: {
                         self: self,
+                        line_id: line_id,
                     }, fn: self.abnormal_save
                 };
                 socket_model_info[model_chart] = {
@@ -64,9 +66,10 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             'click .finishBtn .is_check': 'process_chchk',
             'click .min': 'closeFn'
         },
-        abnormal_save:function (datalist,arg) {
+        abnormal_save: function (datalist, arg) {
             var self = arg.self;
-
+            var data_use = JSON.parse(datalist);
+            // if(data_use.line_id == parseInt(arg.line_id))
         },
         show_echarts: function (innerHTML, arg) {
             var self = arg.self;
@@ -105,15 +108,14 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var x_comp = event.currentTarget;
             this.$el.find('.abs_info .absnormal_height').eq(0).remove();
             $.ajax({
-                url: 'http://202.104.136.228:8080/ltyop/resource/exceptionHandle?apikey=71029270&params={onBoardId:15745,exceptKm:10,exceptStationId:13655,exceptReasonId:6}',
-                type: 'post',
-                dataType: 'json',
-                data: {
+                    url: 'http://202.104.136.228:8080/ltyop/resource/exceptionHandle?apikey=71029270&params={onBoardId:15745,exceptKm:10,exceptStationId:13655,exceptReasonId:6}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {},
+                    success: function (data) {
 
-                },
-                success: function(data){
-
-                }}
+                    }
+                }
             )
             if (this.$el.find('.abs_info .absnormal_height').length < 1) {
                 $(x_comp).parent().hide().siblings('.handleBtn').show();
@@ -125,7 +127,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                     self: this
                 });
             }
-            else{
+            else {
                 $(x_comp).parent().hide().siblings().show();
             }
 

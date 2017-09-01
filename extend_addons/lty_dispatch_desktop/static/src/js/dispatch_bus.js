@@ -118,7 +118,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             //配车数量...
             var data = new Object();
             // 判断line_id是否一致
-            if (data_use.data.line_id == parseInt(arg.line_id) + 324) {
+            var line_c = parseInt(arg.line_id) + 331;
+            console.log(line_c)
+            if (data_use.data.line_id == line_c) {
                 //站点到起点距离
                 //分段颜色
                 data.color = [
