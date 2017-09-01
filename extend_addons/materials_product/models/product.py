@@ -28,12 +28,18 @@ class Product(models.Model):
     contract_price = fields.Float(string='Contract Price')
     tech_ids = fields.One2many('product.tech.info', 'product_id', string='Tec Info')
     categ_id = fields.Many2one('product.category', help="Select category")
+    cost_method = fields.Char(compute='_compute_cost_method')
 
     _sql_constraints = [
         ('code_parent_category_uniq',
          'unique (inter_code,categ_id)',
          u'同分类物资编码必须唯一')
     ]
+
+    @api.one
+    @api.depends('categ_id.property_cost_method')
+    def _compute_cost_method(self):
+        self.cost_method = self.categ_id.property_cost_method
 
     @api.depends('inter_code', 'categ_id.code', 'parent_id.default_code')
     def _compute_default_code(self):

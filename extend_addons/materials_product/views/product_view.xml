@@ -116,6 +116,7 @@
                                         <field name="barcode"/>
                                     </group>
                                     <group name="general_top_right">
+                                        <field name="cost_method"/>
                                         <field name="list_price"/>
                                         <field name="standard_price"/>
                                         <field name="contract_price"/>
