@@ -13,13 +13,21 @@ odoo.define('abc', function (require) {
 
     function render_plan(data) {
         var bus_num = Object.keys(data.bus).length;
-        for (var ts = 0; ts < data.bus[1].length; ts++) {
-            if (ts % 2 == 0) {
-                $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.downstation.substr(0, 1) + '</div></th>')
-            } else {
-                $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.downstation.substr(0, 1) + '-' + data.upstation.substr(0, 1) + '</div></th>')
+        //渲染table
+        if (data.direction.down.length != 0 && data.direction.up.length != 0) {
+            for (var ts = 0; ts < data.bus[1].length; ts++) {
+                if (ts % 2 == 0) {
+                    $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.downstation.substr(0, 1) + '</div></th>')
+                } else {
+                    $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.downstation.substr(0, 1) + '-' + data.upstation.substr(0, 1) + '</div></th>')
+                }
+            }
+        } else {
+            for (var ts = 0; ts < data.bus[1].length; ts++) {
+                $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.downstation.substr(0, 1) + '</div></th>');
             }
         }
+
         for (var bn = 1; bn < (bus_num + 1); bn++) {
             $('.time_start_arrive_stop tbody').append('<tr><td>' + bn + '</td></tr>');
             for (var bTdo = 0; bTdo < $('.time_start_arrive_stop thead tr th').length - 1; bTdo++) {
@@ -58,6 +66,7 @@ odoo.define('abc', function (require) {
     }
 
     model.call("reoppaln2web", [recid]).then(function (data) {
+        console.log(data)
         render_plan(data);
     })
     $('.time_start_arrive_stop').on('dblclick', 'tbody td', function () {
