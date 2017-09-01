@@ -7,7 +7,7 @@ var websocket = null;
 //判断当前浏览器是否支持WebSocket
 if ('WebSocket' in window) {
     // websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
-    websocket = new WebSocket("ws://202.104.136.228:8085/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
+    websocket = new WebSocket("ws:/202.104.136.228:8085/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
 } else {
     alert('当前浏览器 Not support websocket');
 }
@@ -29,22 +29,20 @@ websocket.onmessage = function (event) {
     var modelName = eventObj.moduleName;
     console.log(eventObj)
     var controllerId = eventObj.controllerId;
-    for (socket_model in socket_model_info) {
-        var socket_model_obj = socket_model_info[socket_model];
-        socket_model_obj.fn(event.data, socket_model_obj.arg);
-    }
+
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
     linePlanParkOnlineModel_display($(".controller_" + controllerId));
 
     if (modelName == "line_message") {
-    } else if (modelName == "passenger_flow_capacity") {
+        use_odoo_model(event,"line_message");
+    } else if (modelName == "passenger_flow") {
         //客流与运力组件
+        use_odoo_model(event,"passenger_flow");
         passenger_flow_capacity($(".controller_" + controllerId), eventObj.data);
     } else if (modelName == "人力资源状态") {
     }
     else if (modelName == "bus_real_state") {
         busRealStateModel_socket_fn($(".controller_" + controllerId), eventObj.data);
-        // console.log(eventObj);
     }
     else if (modelName == "passenger_delay") {
         passengerDelayModel_socket_fn($(".controller_" + controllerId), eventObj.data);
@@ -53,7 +51,6 @@ websocket.onmessage = function (event) {
             line_resource($(".controller_" + controllerId), eventObj.data);
         }
         update_linePlanParkOnlineModel_socket_fn($(".controller_" + controllerId), eventObj.data, modelName);
-        // console.log(eventObj);
     } else if (modelName == "线路车场") {
         // console.log('8');
     } else if (modelName == "线路在途") {
@@ -62,7 +59,8 @@ websocket.onmessage = function (event) {
         // console.log('10');
     } else if (modelName == "abnormal") {
         absnormal_del($(".controller_" + controllerId), eventObj.data);
-        line_car_src_on_line($(".controller_" + controllerId), eventObj)
+        use_odoo_model(event,"abnormal");
+        line_car_src_on_line($(".controller_" + controllerId), eventObj);
     }
     // else if (modelName == "bus_real_state") {
     //     line_car_src_real_state($(".controller_" + controllerId), eventObj.data);
@@ -78,13 +76,15 @@ websocket.onclose = function () {
 window.onbeforeunload = function () {
     websocket.close();
 };
-//
-// function use_odoo_model(event) {
-//     for (socket_model in socket_model_info) {
-//         var socket_model_obj = socket_model_info[socket_model];
-//         socket_model_obj.fn(event.data, socket_model_obj.arg);
-//     }
-// }
+
+function use_odoo_model(event,model_name) {
+    for (socket_model in socket_model_info) {
+        var socket_model_obj = socket_model_info[socket_model];
+        if(socket_model == model_name){
+            socket_model_obj.fn(event.data, socket_model_obj.arg);
+        }
+    }
+}
 
 // 在线掉线包
 function line_car_src_on_line(controllerObj, data_list) {
@@ -130,8 +130,8 @@ function line_resource(controllerObj, data_list) {
 }
 // 异常
 function absnormal_del(controllerObj, data_list) {
-    var dom =controllerObj.find('.updown_line_table[line_id=1]');
-    var dom_singal =controllerObj.find('.dispatch_desktop[line_id=1]');
+    var dom = controllerObj.find('.updown_line_table[line_id=1]');
+    var dom_singal = controllerObj.find('.dispatch_desktop[line_id=1]');
     if (dom.length > 0) {
         dom.find('.no_absnormal').show().siblings().hide();
         $('body').find('.absnormal_diaodu .absnormal_type p').html(data_list.abnormal_description.bus_no);
@@ -145,6 +145,7 @@ function absnormal_del(controllerObj, data_list) {
             dom_singal.find('.singalIn span').html(parseInt(dom_singal.find('.singalIn span').html()) - 1);
             dom_singal.find('.singalOut span').html(parseInt(dom_singal.find('.singalOut span').html()) + 1);
         }
+
     }
 }
 
