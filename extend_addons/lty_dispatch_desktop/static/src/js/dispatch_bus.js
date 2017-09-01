@@ -5,6 +5,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var Model = require('web.Model');
+    var QWeb = core.qweb;
     var dispatch_updown_line = require('lty_dispaych_desktop.updown_line');
     var bus_source_config = require('lty_dispatch_desktop.bus_source_config');
     var bus_site_info = require('lty_dispatch_desktop.bus_site_info');
@@ -59,7 +60,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     //乘务
                                     self.$el.find('.carHelper span').html(src[0].stewardnum);
                                 });
-                                var model_id = model_name + "" + line_id;
+                                var model_id = "line_message";
                                 if (socket_model_info[model_id]) {
                                     delete socket_model_info[model_id];
                                 }
@@ -94,13 +95,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                             hasCar: []
                                         }
                                     };
-
                             });
                         });
                     });
                 }
             }
-
             // 上行站点
             site_info(this.model_line, this.model_station_platform, this.model_linesrc)
             // 下行站点
@@ -119,7 +118,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             //配车数量...
             var data = new Object();
             // 判断line_id是否一致
-            if (data_use.data.line_id == parseInt(arg.line_id) + 331) {
+            if (data_use.data.line_id == parseInt(arg.line_id) + 324) {
                 //站点到起点距离
                 //分段颜色
                 data.color = [
@@ -429,6 +428,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             function getLocalTime(nS) {
                                 return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
                             }
+
                             for (var i = 0; i < data.respose.length; i++) {
                                 if (data.respose[i].planRunTime > 0) {
                                     data.respose[i].planRunTime = getLocalTime(data.respose[i].planRunTime / 1000);

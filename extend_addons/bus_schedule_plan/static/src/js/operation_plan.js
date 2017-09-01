@@ -12,7 +12,6 @@ odoo.define('abc', function (require) {
     }
 
     function render_plan(data) {
-        console.log(data);
         var bus_num = Object.keys(data.bus).length;
         for (var ts = 0; ts < data.bus[1].length; ts++) {
             if (ts % 2 == 0) {
@@ -79,13 +78,16 @@ odoo.define('abc', function (require) {
         }
         model.call("changeOpplan", [recid, this_index, direction, directionObj, click_td]).then(function (res) {
             $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
-            render_plan(res);
         });
     });
     $('.save_plan.btn').click(function () {
         var directionObj = JSON.parse(sessionStorage.getItem('direction'));
         model.call("saveOpPlan", [recid, directionObj]).then(function (res) {
-            console.log(res);
+        });
+    });
+    $('.giveup_plan').click(function () {
+        model.call("reoppaln2web", [recid]).then(function (data) {
+            $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
         });
     });
 });
