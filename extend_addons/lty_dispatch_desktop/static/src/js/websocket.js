@@ -81,7 +81,7 @@ window.onbeforeunload = function () {
 function use_odoo_model(event,model_name) {
     for (socket_model in socket_model_info) {
         var socket_model_obj = socket_model_info[socket_model];
-        if(socket_model == model_name){
+        if(socket_model.split("__")[0] == model_name){
             socket_model_obj.fn(event.data, socket_model_obj.arg);
         }
     }

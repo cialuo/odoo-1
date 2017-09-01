@@ -60,7 +60,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     //乘务
                                     self.$el.find('.carHelper span').html(src[0].stewardnum);
                                 });
-                                var model_id = "line_message";
+                                var model_id = "line_message__"+line_id;
                                 if (socket_model_info[model_id]) {
                                     delete socket_model_info[model_id];
                                 }
@@ -119,7 +119,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var data = new Object();
             // 判断line_id是否一致
             var line_c = parseInt(arg.line_id) + 331;
-            console.log(line_c)
+            //匹配line_id
             if (data_use.data.line_id == line_c) {
                 //站点到起点距离
                 //分段颜色
