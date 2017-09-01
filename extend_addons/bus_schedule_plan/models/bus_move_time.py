@@ -3,6 +3,7 @@ from odoo import models, fields, api, _
 from utils import *
 import math
 from itertools import izip_longest
+import copy
 
 class BusMoveTimeTable(models.Model):
 
@@ -93,53 +94,81 @@ class BusMoveTimeTable(models.Model):
         workBusSeq = repeatseq * int(math.ceil(upworklen / float(len(repeatseq))))
         workBusSeqDetail = []
         for busid, moveTimeObj in izip_longest(workBusSeq, moveTimeSeq):
-            unit = [busid, None]
+            unit = [busid, -1]
             if moveTimeObj != None:
                 unit[1] = {'id': moveTimeObj.id,
                            'seqid': moveTimeObj.seqid,
                            'startmovetime': moveTimeObj.startmovetime,
                            'arrive_time': moveTimeObj.arrive_time,
                            'direction': direction}
-            else:
-                unit[1] = None
             workBusSeqDetail.append(unit)
         return workBusSeqDetail
 
     @staticmethod
     def genBusMoveSeqDouble(upMoveSeq, downMoveSeq, upBusCol, downBusCol):
+        """
+        生成运营方案数据
+        :param upMoveSeq: 上行发车安排
+        :param downMoveSeq: 下行发车安排
+        :param upBusCol: 上行车辆序号
+        :param downBusCol: 下行车辆序号
+        """
         busCol = upBusCol + downBusCol
         moveseqCol = {busid:{'up':[],'down':[] } for busid in busCol}
         for index, item in enumerate(upMoveSeq):
-            moveseqCol[item[0]]['up'].append([index, item, 'up'])
+            if item[1] != -1:
+                moveseqCol[item[0]]['up'].append([index, item, 'up'])
 
         for index , item in  enumerate(downMoveSeq):
-            moveseqCol[item[0]]['down'].append([index, item, 'down'])
+            if item[1] != -1:
+                moveseqCol[item[0]]['down'].append([index, item, 'down'])
 
         result = {}
+        tu = []
         for (k, v) in moveseqCol.items():
+            if k == 1:
+                tu.append((k,v))
             if k > downBusCol[-1]:
+                # 上行车辆
                 temp = []
                 for x, y in izip_longest(v['up'], v['down']):
                     if x != None:
-                        temp.append(x)
+                        if x[1][1] == -1:
+                            temp.append(None)
+                        else:
+                            temp.append(x)
                     else:
                         temp.append(None)
                     if y != None:
-                        temp.append(y)
+                        if y[1][1] == -1:
+                            temp.append(None)
+                        else:
+                            temp.append(y)
                     else:
                         temp.append(None)
+                if temp[-1] == None:
+                    temp = temp[0:-1]
                 result[k] = temp
             else:
+                # 下行车辆
                 temp = [None]
                 for x, y in izip_longest(v['down'], v['up']):
                     if x!= None:
-                        temp.append(x)
+                        if x[1][1] == -1:
+                            temp.append(None)
+                        else:
+                            temp.append(x)
                     else:
                         temp.append(None)
                     if y != None:
-                        temp.append(y)
+                        if y[1][1] == -1:
+                            temp.append(None)
+                        else:
+                            temp.append(y)
                     else:
                         temp.append(None)
+                if temp[-1] == None:
+                    temp = temp[0:-1]
                 result[k] = temp
         return result
 
@@ -168,6 +197,16 @@ class BusMoveTimeTable(models.Model):
                     x[1][1]['startmovetime'] = adjustDateTime2ZhCn(x[1][1]['startmovetime'])
         return data
 
+    def resizeData(self, data):
+        # 双头调 保证所有有列表长度一致 None补齐长度不够的列表
+        maxlen = 0
+        for item in data.values():
+            if len(item) > maxlen:
+                maxlen = len(item)
+        for index, item in data.items():
+            if (maxlen - len(item)) > 0:
+                data[index] = item + [None] * (maxlen - len(item))
+
     @api.model
     def reoppaln2web(self, recid):
         """
@@ -181,33 +220,30 @@ class BusMoveTimeTable(models.Model):
             arg1 = {}
         try:
             arg2 = json.loads(row.operationplanbus)
-            arg2 = self.preprocess2WebData(arg2)
         except Exception as e:
             arg2 = {}
+        arg2 = self.preprocess2WebData(arg2)
         station1 = row.line_id.up_station.name
         station2 = row.line_id.down_station.name
 
         # 双头调 保证所有有列表长度一致 None补齐长度不够的列表
         if row.schedule_method == 'dubleway':
-            maxlen = 0
-            for item in arg2.values():
-                if len(item) > maxlen:
-                    maxlen = len(item)
-            for index, item in arg2.items():
-                if (maxlen - len(item)) > 0:
-                    arg2[index] = item + [None]*(maxlen - len(item))
+            self.resizeData(arg2)
 
         return self.genWebRetunData(arg1, arg2, station1, station2, row.schedule_method)
 
     @classmethod
     def rebuildOpPlanAdd(cls, data, index, seq):
         for i in range(index+1, len(data)):
-            temp = data[i][1]
-            data[i-1][1] = temp
-        data[-1][1] = None
+            if data[i][1] != None :
+                data[index][1] = data[i][1]
+                index = i
+        data[-1][1] = -1
+
         num = 0
+
         for i in range(len(data)-1, 0, -1):
-            if data[i][1] != None:
+            if data[i][1] == None or data[i][1] == -1:
                 num += 1
             else:
                 break
@@ -219,17 +255,18 @@ class BusMoveTimeTable(models.Model):
 
     @classmethod
     def rebuildOpPlanRemove(cls, data, index, seq):
-        if data[-1][1] != None:
+        if data[-1][1] != None and data[-1][1] != -1:
             for item in seq:
-                data.append([item, None])
-        pre = None
-        for i in range(index, len(data)):
-            temp = data[i][1]
-            data[i][1] = pre
-            pre = temp
+                data.append([item, -1])
+
+        pre = data[index][1]
+        data[index][1] = None
+        for i in range(index+1, len(data)):
+            if data[i][1] != None:
+                temp = data[i][1]
+                data[i][1] = pre
+                pre = temp
         return data
-
-
 
     @api.model
     def changeOpplan(self, recid, index, direction, data, op):
@@ -243,34 +280,50 @@ class BusMoveTimeTable(models.Model):
         result = None
         if direction == 'up':
             if op == 0:
-                result = self.rebuildOpPlanRemove(data['up'], index, upRepeatSeq)
+                result = self.rebuildOpPlanRemove(copy.deepcopy(data['up']), index, upRepeatSeq)
             else:
-                result = self.rebuildOpPlanAdd(data['up'], index, upRepeatSeq)
+                result = self.rebuildOpPlanAdd(copy.deepcopy(data['up']), index, upRepeatSeq)
             data['up'] = result
         elif direction == 'down':
             if op == 0:
-                result = self.rebuildOpPlanRemove(data['down'], index, downRepeatSeq)
+                result = self.rebuildOpPlanRemove(copy.deepcopy(data['down']), index, downRepeatSeq)
             else:
-                result = self.rebuildOpPlanAdd(data['down'], index, downRepeatSeq)
+                result = self.rebuildOpPlanAdd(copy.deepcopy(data['down']), index, downRepeatSeq)
             data['down'] = result
 
         busMoveTable = None
         if data['down'] != None:
             # 双头调
-            busMoveTable = self.genBusMoveSeqDouble(data['up'], data['down'], upVechicleSeq, downVehicleSeq)
+            busMoveTable = self.genBusMoveSeqDouble(copy.deepcopy(data['up']), copy.deepcopy(data['down']), upVechicleSeq, downVehicleSeq)
         elif self.schedule_method == 'singleway':
             # 单头调
-            busMoveTable = self.genBusMoveSeqsingle(data['up'], upVechicleSeq)
+            busMoveTable = self.genBusMoveSeqsingle(copy.deepcopy(data['up']), upVechicleSeq)
         busMoveTable = self.culculateStopTime(busMoveTable)
         station1 = row.line_id.up_station.name
         station2 = row.line_id.down_station.name
+        self.preprocess2WebData(busMoveTable)
+        if row.schedule_method == 'dubleway':
+            self.resizeData(busMoveTable)
         return self.genWebRetunData(data, busMoveTable, station1, station2, self.schedule_method)
 
     @api.model
-    def saveOpPlan(self):
+    def saveOpPlan(self, recid, data):
         """
         保存运营方案数据
         """
+        row = self.search([('id', '=', recid)])
+        row = row[0]
+        upVechicleSeq, downVehicleSeq = self.genVehicleSeq(row.upworkvehicle, row.downworkvehicle)
+        busMoveTable = None
+        if data['down'] != None:
+            # 双头调
+            busMoveTable = self.genBusMoveSeqDouble(copy.deepcopy(data['up']), copy.deepcopy(data['down']),
+                                                    upVechicleSeq, downVehicleSeq)
+        elif self.schedule_method == 'singleway':
+            # 单头调
+            busMoveTable = self.genBusMoveSeqsingle(copy.deepcopy(data['up']), upVechicleSeq)
+        row.operationplanbus = json.dumps(busMoveTable)
+        row.operationplan = json.dumps(data)
         return json.dumps({})
 
     @staticmethod
@@ -287,16 +340,17 @@ class BusMoveTimeTable(models.Model):
             l = len(v)
             for index, item in enumerate(v):
                 x = item
-                if item == None:
+                if item == None or item[1][1] == -1:
                     continue
                 item.append(0)
                 if item[1][1] == None:
                     continue
                 for i in range(index+1, l):
-                    if v[i] == None or v[i][1][1] == None:
+                    if v[i] == None or v[i][1][1] == None or v[i][1][1] == -1:
                         continue
                     stime = datetime.datetime.strptime(v[i][1][1]['startmovetime'], timeFormatStr)
                     atime = datetime.datetime.strptime(item[1][1]['arrive_time'], timeFormatStr)
+
                     item.append((stime - atime).total_seconds()/60)
                     break
         return busMoveTimeCol
@@ -309,7 +363,7 @@ class BusMoveTimeTable(models.Model):
         downRepeatSeq = downVehicleSeq + upVechicleSeq
 
         upMoveOnSeq = self.genWorkMap(self.uptimeslist, upRepeatSeq, 'up')
-        downMoveOnSeq = None
+        downMoveOnSeq = []
         if self.schedule_method == 'dubleway':
             downMoveOnSeq = self.genWorkMap(self.downtimeslist, downRepeatSeq, 'down')
 

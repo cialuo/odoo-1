@@ -72,6 +72,9 @@ class BusMoveExcuteTable(models.Model):
     # 线路
     line_id = fields.Many2one("route_manage.route_manage", string="related line")
 
+    # 行车规则id
+    rule_id = fields.Many2one("scheduleplan.schedulrule", string="rule id")
+
     # 状态
     status = fields.Selection([("draft", "draft"),              # 草稿
                                 ("wait4use", "wait for use"),   # 待使用

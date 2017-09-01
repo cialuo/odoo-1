@@ -65,6 +65,7 @@ class upplanitem(models.Model):
                 'workDate': res.execplan_id.excutedate,
                 'lineId': res.execplan_id.line_id.id,
                 'runGprsId': res.line_id.gprs_id,
+                'linePlanId': res.execplan_id.rule_id.id,
             })
             if self._name == 'scheduleplan.execupplanitem':
                 vals.update({
@@ -113,6 +114,7 @@ class upplanitem(models.Model):
                         'workDate': r.execplan_id.excutedate,
                         'lineId': r.execplan_id.line_id.id,
                         'runGprsId': r.line_id.gprs_id,
+                        'linePlanId': r.execplan_id.rule_id.id,
 
                         # 'direction': 0,
                     })
