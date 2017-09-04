@@ -353,17 +353,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var options =
                 {
                     x: e.clientX + 5,
-                    y: e.clientY + 5,
+                    y: e.clientY + 5 - 60,
                     zIndex: zIndex,
                     line_id: line_id,
                     car_num: car_num,
                     controllerId: this.desktop_id
                 };
-            if (line_id != 1 || car_num != 1) {
-                layer.alert("模拟soket实时加载，请选择810线路1号车进行点击", {title: "车辆实时信息"});
-                return false;
-            }
-            ;
+            // if (line_id != 1 || car_num != 1) {
+            //     layer.alert("模拟soket实时加载，请选择810线路1号车进行点击", {title: "车辆实时信息"});
+            //     return false;
+            // }
+            // ;
             if ($(".busRealStateModel_" + options.line_id + "_" + options.car_num).length > 0) {
                 return;
             } else {
@@ -543,7 +543,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 var options =
                                     {
                                         x: e.clientX + 5,
-                                        y: e.clientY + 5,
+                                        y: e.clientY + 5 - 60,
                                         zIndex: zIndex,
                                         controllerId: self.desktop_id,
                                         line_id: canvas.self.attr("line_id"),
@@ -638,7 +638,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 var options =
                     {
                         x: e.clientX + 5,
-                        y: e.clientY + 5,
+                        y: e.clientY + 5 - 60,
                         zIndex: zIndex,
                         line_id: self.$el.attr("line_id"),
                         line_name: self.$el.attr("line_name"),
