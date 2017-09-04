@@ -42,7 +42,7 @@
                         <group name="group_top">
                             <group name="group_left">
                                 <field name="archives_class_big" options="{'no_open':True,'no_create':True}"/>
-                                <field name="archives_class_little" options="{'no_open':True,'no_create':True}"/>
+                                <field name="archives_class_little" domain="[('parent', '=', archives_class_big), ('class_type', '=', 'little_class')]" options="{'no_open':True,'no_create':True}"/>
                             </group>
 
                             <group name="group_right">
