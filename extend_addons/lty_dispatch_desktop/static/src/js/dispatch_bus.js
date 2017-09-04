@@ -67,7 +67,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                                 var package_send = {
                                     type: 1000,
-                                    open_modules: ["dispatch-line_message-1"],
+                                    open_modules: ["dispatch-line_message-" + this.desktop_id],
                                     msgId: Date.parse(new Date())
                                 };
                                 websocket.send(JSON.stringify(package_send));
@@ -120,7 +120,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             //配车数量...
             var data = new Object();
             // 判断line_id是否一致
-            var line_c = parseInt(arg.line_id) + 331;
+            var line_c = parseInt(arg.line_id) + 317;
             //匹配line_id
             if (data_use.data.line_id == line_c) {
                 //站点到起点距离
@@ -424,7 +424,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             controllerId: self.desktop_id,
                         };
                     $.ajax({
-                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:2032,gprsId:161}',
+                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:7,gprsId:161}',
                         type: 'get',
                         dataType: 'json',
                         data: {},
