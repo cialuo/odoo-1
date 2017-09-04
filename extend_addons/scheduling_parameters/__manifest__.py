@@ -22,7 +22,7 @@
     'version': '0.1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['dispatch_monitor_menu', 'employees'],
+    'depends': ['operation_menu', 'employees'],
 
     # always loaded
     'data': [

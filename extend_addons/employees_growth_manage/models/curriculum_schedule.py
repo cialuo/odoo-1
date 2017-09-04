@@ -43,7 +43,7 @@ class curriculum_schedule(models.Model):
      time_arrangements = fields.One2many('employees_growth.time_arrangement',
                                          'curriculum_schedule_id',string='Time arrangements')
 
-     students = fields.One2many('employees_growth.students','curriculum_schedule_id',string='Students')
+     students = fields.One2many('employees_growth.students','curriculum_schedule_id',string='Students',copy=True)
 
 
      def get_curriculum_no(self,vals):
