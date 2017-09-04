@@ -275,11 +275,34 @@ class route_manage(models.Model):
         down_ids = res.station_down_ids.mapped('station_id')
         res_ids = up_ids | down_ids
         res.write({'station_route_ids': [(6, 0, res_ids.ids)]})
+        if len(self.station_up_ids) > 1:
+            self.station_up_ids.filtered(lambda x: x.station_type in ['last_station', 'first_station']).write(
+                {'station_type': 'mid_station'})
+            self.station_up_ids[-1].write({'station_type': 'first_station'})
+            self.station_up_ids[0].write({'station_type':'last_station'})
+        if len(self.station_down_ids) > 1:
+            self.station_down_ids.filtered(lambda x: x.station_type in ['last_station', 'first_station']).write(
+                {'station_type': 'mid_station'})
+            self.station_down_ids[-1].write({'station_type': 'first_station'})
+            self.station_down_ids[0].write({'station_type': 'last_station'})
         return res
 
     @api.multi
     def write(self, vals):
+        print 11111111111, vals
         res = super(route_manage, self).write(vals)
+
+        if len(self.station_up_ids) > 1:
+            self.station_up_ids.filtered(lambda x: x.station_type in ['last_station', 'first_station']).write(
+                {'station_type': 'mid_station'})
+            self.station_up_ids[-1].write({'station_type': 'first_station'})
+            self.station_up_ids[0].write({'station_type':'last_station'})
+        if len(self.station_down_ids) > 1:
+            self.station_down_ids.filtered(lambda x: x.station_type in ['last_station', 'first_station']).write(
+                {'station_type': 'mid_station'})
+            self.station_down_ids[-1].write({'station_type': 'first_station'})
+            self.station_down_ids[0].write({'station_type': 'last_station'})
+
         if vals.get('station_up_ids') or vals.get('station_down_ids'):
             up_ids = self.station_up_ids.mapped('station_id')
             down_ids = self.station_down_ids.mapped('station_id')
@@ -314,6 +337,7 @@ class human_resource(models.Model):
 class Platform(models.Model):
     _name = 'opertation_resources_station_platform'
     _rec_name = 'route_id'
+    _order = "sequence desc"
     """
     站台管理
     """

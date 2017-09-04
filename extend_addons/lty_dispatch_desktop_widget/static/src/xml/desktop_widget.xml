@@ -475,7 +475,7 @@
     </t>
 
     <t t-name="passenger_flow_template">
-        <div t-attf-class="passengerDelayModel line_{{widget.location_data.line_id}} passengerDelayModel_{{widget.location_data.line_id}}_{{widget.location_data.site_id}} ">
+        <div t-attf-class="passengerDelayModel line_{{widget.location_data.line_id}} passengerDelayModel_{{widget.location_data.line_id}}_{{widget.location_data.site_id}} hide_model">
             <div class="passenger_flow_trend_chart dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
                 <div class="closeBox dragArea"><a class="close_bt" href="javascript:;"></a></div>
                 <t t-foreach="widget.passenger_data" t-as="passenger">
@@ -704,7 +704,7 @@
                         <th class="pR">停车</th>
                     </tr>
                     <t t-foreach="widget.yard_data.data_list" t-as="item">
-                        <t t-if="item.inField==widget.yard_data.inField &amp;&amp; item.direction==widget.yard_data.direction &amp;&amp; item.carStateId!=2008">
+                        <t t-if="item.inField==widget.yard_data.inField &amp;&amp; item.direction==widget.yard_data.direction &amp;&amp; item.carStateId==1001">
                             <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}" t-attf-realReachTime="{{item.realReachTime}}">
                                 <td class="pL">
                                     <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
