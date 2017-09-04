@@ -295,7 +295,7 @@ class BusMoveTimeTable(models.Model):
             data['down'] = result
 
         busMoveTable = None
-        if self.schedule_method == 'dubleway':
+        if row.schedule_method == 'dubleway':
             # 双头调
             busMoveTable = self.genBusMoveSeqDouble(copy.deepcopy(data['up']), copy.deepcopy(data['down']), upVechicleSeq, downVehicleSeq)
         else:
