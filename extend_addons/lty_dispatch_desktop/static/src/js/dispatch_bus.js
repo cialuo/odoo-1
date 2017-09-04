@@ -44,23 +44,24 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 // 库
                                 var timeNow = new Date().toLocaleDateString().replace(/\//g, "-");
                                 model_src.query().filter([["line_id", "=", 1], ["excutedate", "=", timeNow]]).all().then(function (src) {
-
-                                    //配车数量
-                                    self.$el.find('.amountCar span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
-                                    //挂车数量
-                                    self.$el.find('.trailerNum span').html(src[0].workvehiclenum);
-                                    //机动车辆
-                                    self.$el.find('.motorVehicle span').html(src[0].backupvehiclenum);
-                                    // 信号在线
-                                    self.$el.find('.singalIn span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
-                                    //信号掉线
-                                    self.$el.find('.singalOut span').html(0);
-                                    //司机
-                                    self.$el.find('.carDriver span').html(src[0].drivernum);
-                                    //乘务
-                                    self.$el.find('.carHelper span').html(src[0].stewardnum);
+                                    if (src.length > 0) {
+                                        //配车数量
+                                        self.$el.find('.amountCar span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
+                                        //挂车数量
+                                        self.$el.find('.trailerNum span').html(src[0].workvehiclenum);
+                                        //机动车辆
+                                        self.$el.find('.motorVehicle span').html(src[0].backupvehiclenum);
+                                        // 信号在线
+                                        self.$el.find('.singalIn span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
+                                        //信号掉线
+                                        self.$el.find('.singalOut span').html(0);
+                                        //司机
+                                        self.$el.find('.carDriver span').html(src[0].drivernum);
+                                        //乘务
+                                        self.$el.find('.carHelper span').html(src[0].stewardnum);
+                                    }
                                 });
-                                var model_id = "line_message__"+line_id;
+                                var model_id = "line_message__" + line_id;
                                 if (socket_model_info[model_id]) {
                                     delete socket_model_info[model_id];
                                 }
@@ -100,6 +101,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     });
                 }
             }
+
             // 上行站点
             site_info(this.model_line, this.model_station_platform, this.model_linesrc)
             // 下行站点
