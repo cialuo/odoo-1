@@ -1,4 +1,4 @@
-odoo.define('abc', function (require) {
+odoo.define('operate_plan_conf', function (require) {
     "use strict";
     var Model = require('web.Model');
     var model = new Model("scheduleplan.busmovetime");
@@ -12,7 +12,6 @@ odoo.define('abc', function (require) {
     }
 
     function render_plan(data) {
-        console.log(data)
         var bus_num = Object.keys(data.bus).length;
         //渲染table
         if (data.direction.down.length != 0 && data.direction.up.length != 0) {
