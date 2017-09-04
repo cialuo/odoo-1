@@ -66,7 +66,6 @@ odoo.define('abc', function (require) {
     }
 
     model.call("reoppaln2web", [recid]).then(function (data) {
-        console.log(data)
         render_plan(data);
     })
     $('.time_start_arrive_stop').on('dblclick', 'tbody td', function () {
@@ -85,8 +84,10 @@ odoo.define('abc', function (require) {
         } else {
             click_td = 0;
         }
+
         model.call("changeOpplan", [recid, this_index, direction, directionObj, click_td]).then(function (res) {
             $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
+            render_plan(res);
         });
     });
     $('.save_plan.btn').click(function () {
