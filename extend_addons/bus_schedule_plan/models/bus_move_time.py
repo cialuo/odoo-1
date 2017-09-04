@@ -230,8 +230,7 @@ class BusMoveTimeTable(models.Model):
         station2 = row.line_id.down_station.name
 
         # 双头调 保证所有有列表长度一致 None补齐长度不够的列表
-        if row.schedule_method == 'dubleway':
-            self.resizeData(arg2)
+        self.resizeData(arg2)
 
         return self.genWebRetunData(arg1, arg2, station1, station2, row.schedule_method)
 
@@ -305,8 +304,7 @@ class BusMoveTimeTable(models.Model):
         station1 = row.line_id.up_station.name
         station2 = row.line_id.down_station.name
         self.preprocess2WebData(busMoveTable)
-        if row.schedule_method == 'dubleway':
-            self.resizeData(busMoveTable)
+        self.resizeData(busMoveTable)
         return self.genWebRetunData(data, busMoveTable, station1, station2, self.schedule_method)
 
     @api.model
@@ -318,11 +316,11 @@ class BusMoveTimeTable(models.Model):
         row = row[0]
         upVechicleSeq, downVehicleSeq = self.genVehicleSeq(row.upworkvehicle, row.downworkvehicle)
         busMoveTable = None
-        if data['down'] != None:
+        if row.schedule_method == "dubleway":
             # 双头调
             busMoveTable = self.genBusMoveSeqDouble(copy.deepcopy(data['up']), copy.deepcopy(data['down']),
                                                     upVechicleSeq, downVehicleSeq)
-        elif self.schedule_method == 'singleway':
+        elif row.schedule_method == 'singleway':
             # 单头调
             busMoveTable = self.genBusMoveSeqsingle(copy.deepcopy(data['up']), upVechicleSeq)
 
