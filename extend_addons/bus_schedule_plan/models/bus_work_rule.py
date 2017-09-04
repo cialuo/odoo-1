@@ -14,11 +14,6 @@ class BusWorkRules(models.Model):
     行车规则
     """
 
-    # 同一条线路下只有一个日期类型的行车规则
-    _sql_constraints = [
-        ('line_datetype_unique', 'unique (line_id, date_type)', 'one line one datetype ')
-    ]
-
     _name = 'scheduleplan.schedulrule'
 
     name = fields.Char(string="rule name")
@@ -257,7 +252,7 @@ class BusWorkRules(models.Model):
             markpoints.append((item.interval, datetime.datetime.strptime(datestr + ' ' + item.endtime + ":00", timeFormatStr)))
         seqcounter = 0
         for index, item in enumerate(sortedRuleList):
-            while startTime <= markpoints[index][1]:
+            while startTime < markpoints[index][1]:
                 seqcounter += 1
                 data = {
                     'seqid' : seqcounter,
@@ -271,11 +266,11 @@ class BusWorkRules(models.Model):
                 }
                 recordslist.append((0, 0, data))
                 startTime = startTime + datetime.timedelta(minutes=item.interval)
-        if startTime != markpoints[-1][1]:
+        if startTime >= markpoints[-1][1]:
             # 如果最后一趟超出了计划时间的最后时间 则调整为计划最后发车时间
             startTime = markpoints[-1][1]
             data = {
-                'seqid': seqcounter,
+                'seqid': seqcounter+1,
                 'startmovetime': startTime - datetime.timedelta(hours=8),
                 'arrive_time': startTime + datetime.timedelta(minutes=sortedRuleList[-1].worktimelength) - datetime.timedelta(
                     hours=8),
