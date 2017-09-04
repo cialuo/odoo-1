@@ -129,7 +129,7 @@ class external_plan_return_record(models.Model):
 class external_curriculum_schedule(models.Model):
     _name = 'employees_growth.external_curriculum_schedule'
     _description = 'External curriculum schedule'
-
+    _rec_name = 'course_id'
     """
        培训课程表：
            培训时间、培训地点、讲师、学生
@@ -165,7 +165,7 @@ class external_curriculum_schedule(models.Model):
                               ('complete', 'Complete')],
                              default='draft')
 
-    students = fields.One2many('employees_growth.external_students', 'curriculum_schedule_id', string='Students')
+    students = fields.One2many('employees_growth.external_students', 'curriculum_schedule_id', string='Students',copy=True)
 
     @api.multi
     def start_to_sign(self):
