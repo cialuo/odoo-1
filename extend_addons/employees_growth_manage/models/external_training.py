@@ -183,6 +183,7 @@ class external_curriculum_schedule(models.Model):
 class external_students(models.Model):
     _name = 'employees_growth.external_students'
     _description = 'External students'
+    _sql_constraints = [('check_external_students_unique', 'unique (curriculum_schedule_id,student_id)', u"存在相同的培训人员!")]
 
     """
          参加培训的人员：
