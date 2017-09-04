@@ -28,7 +28,9 @@ var socket_model_api_obj = {};
 websocket.onmessage = function (event) {
     var eventObj = JSON.parse(event.data);
     var modelName = eventObj.moduleName;
-    console.log(eventObj)
+    if ($.inArray(modelName, ['passenger_delay', 'bus_real_state', "line_plan", "line_park", "line_online"])!=-1){
+        console.log(eventObj)
+    }
     var controllerId = eventObj.controllerId;
 
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
@@ -41,16 +43,15 @@ websocket.onmessage = function (event) {
         use_odoo_model(event,"passenger_flow");
         passenger_flow_capacity($(".controller_" + controllerId), eventObj.data);
     } else if (modelName == "人力资源状态") {
+    }else if (modelName == "bus_resource"){
+        line_resource($(".controller_" + controllerId), eventObj.data);
     }
     else if (modelName == "bus_real_state") {
         busRealStateModel_socket_fn($(".controller_" + controllerId), eventObj.data);
     }
     else if (modelName == "passenger_delay") {
         passengerDelayModel_socket_fn($(".controller_" + controllerId), eventObj.data);
-    } else if ($.inArray(modelName, ["line_plan", "bus_resource"]) != -1) {
-        if (modelName != "line_plan") {
-            line_resource($(".controller_" + controllerId), eventObj.data);
-        }
+    } else if ($.inArray(modelName, ["line_plan", "line_park", "line_online"]) != -1) {
         update_linePlanParkOnlineModel_socket_fn($(".controller_" + controllerId), eventObj.data, modelName);
     } else if (modelName == "线路车场") {
         // console.log('8');
@@ -184,16 +185,16 @@ function passenger_flow_capacity(controllerObj, data_list) {
 
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
-    // var dom = controllerObj.find(".busRealStateModel_"+dataObj.line_on+"_"+dataObj.bus_on);
-    var dom = controllerObj.find(".busRealStateModel_1_1");
+    var dom = controllerObj.find(".busRealStateModel_"+dataObj.line_on+"_"+dataObj.bus_on);
+    // var dom = controllerObj.find(".busRealStateModel_1_1");
     if (dom.length > 0) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
         var carReportObj = dom.find(".popupContent .carReport");
         var lineInfo = dom.find(".lineInfo");
-        vehicleInformationObj.find(".license_number").html(dataObj.license_number);
+        vehicleInformationObj.find(".license_number").html("车号："+dataObj.license_number);
         vehicleInformationObj.find(".license_plate").html(dataObj.license_plate);
-        vehicleInformationObj.find(".driver").html(dataObj.driver);
-        vehicleInformationObj.find(".crew").html(dataObj.conductor);
+        vehicleInformationObj.find(".driver").html("司机："+dataObj.driver);
+        vehicleInformationObj.find(".crew").html("乘务："+dataObj.conductor);
         vehicleInformationObj.find(".passenger_number").html(dataObj.passenger_number);
         vehicleInformationObj.find(".satisfaction_rate").html(dataObj.satisfaction_rate);
         vehicleInformationObj.find(".inside_temperature").html(dataObj.inside_temperature);
@@ -289,7 +290,8 @@ function linePlanParkOnlineModel_display(controllerObj) {
 
 // 线路计划，车场，在途模块 update
 function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelName) {
-    var dom = controllerObj.find(".linePlanParkOnlineModel_1");
+    console.log(dataObj);
+    var dom = controllerObj.find(".linePlanParkOnlineModel_"+dataObj.line_id);
     if (dom.length > 0) {
         if (modelName == "line_plan") {
             var tr_obj_list = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb tr.point");

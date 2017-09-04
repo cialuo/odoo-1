@@ -67,7 +67,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                                 var package_send = {
                                     type: 1000,
-                                    open_modules: ["dispatch-line_message-1"],
+                                    open_modules: ["dispatch-line_message-" + this.desktop_id],
                                     msgId: Date.parse(new Date())
                                 };
                                 websocket.send(JSON.stringify(package_send));
@@ -120,7 +120,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             //配车数量...
             var data = new Object();
             // 判断line_id是否一致
-            var line_c = parseInt(arg.line_id) + 331;
+            var line_c = parseInt(arg.line_id) + 317;
             //匹配line_id
             if (data_use.data.line_id == line_c) {
                 //站点到起点距离
@@ -353,17 +353,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var options =
                 {
                     x: e.clientX + 5,
-                    y: e.clientY + 5,
+                    y: e.clientY + 5 - 60,
                     zIndex: zIndex,
                     line_id: line_id,
                     car_num: car_num,
                     controllerId: this.desktop_id
                 };
-            if (line_id != 1 || car_num != 1) {
-                layer.alert("模拟soket实时加载，请选择810线路1号车进行点击", {title: "车辆实时信息"});
-                return false;
-            }
-            ;
+            // if (line_id != 1 || car_num != 1) {
+            //     layer.alert("模拟soket实时加载，请选择810线路1号车进行点击", {title: "车辆实时信息"});
+            //     return false;
+            // }
+            // ;
             if ($(".busRealStateModel_" + options.line_id + "_" + options.car_num).length > 0) {
                 return;
             } else {
@@ -424,7 +424,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             controllerId: self.desktop_id,
                         };
                     $.ajax({
-                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:2032,gprsId:161}',
+                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:7,gprsId:161}',
                         type: 'get',
                         dataType: 'json',
                         data: {},
@@ -543,7 +543,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 var options =
                                     {
                                         x: e.clientX + 5,
-                                        y: e.clientY + 5,
+                                        y: e.clientY + 5 - 60,
                                         zIndex: zIndex,
                                         controllerId: self.desktop_id,
                                         line_id: canvas.self.attr("line_id"),
@@ -638,7 +638,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 var options =
                     {
                         x: e.clientX + 5,
-                        y: e.clientY + 5,
+                        y: e.clientY + 5 - 60,
                         zIndex: zIndex,
                         line_id: self.$el.attr("line_id"),
                         line_name: self.$el.attr("line_name"),

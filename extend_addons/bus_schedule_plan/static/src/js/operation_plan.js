@@ -1,4 +1,4 @@
-odoo.define('abc', function (require) {
+odoo.define('operate_plan_conf', function (require) {
     "use strict";
     var Model = require('web.Model');
     var model = new Model("scheduleplan.busmovetime");
@@ -24,7 +24,7 @@ odoo.define('abc', function (require) {
             }
         } else {
             for (var ts = 0; ts < data.bus[1].length; ts++) {
-                $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.downstation.substr(0, 1) + '</div></th>');
+                $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.upstation.substr(0, 1) + '</div></th>');
             }
         }
 
@@ -53,8 +53,7 @@ odoo.define('abc', function (require) {
                     }
                 } else {
                     $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).css({
-                        'pointer-events': 'none',
-                        'background': '#d7d9e0'
+                        'pointer-events': 'none'
                     });
                 }
             }

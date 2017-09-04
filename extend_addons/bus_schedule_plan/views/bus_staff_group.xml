@@ -141,6 +141,7 @@
         <menuitem id="bus_staff_group_menu" name="bus_staff_group_menu"
                   parent="operation_menu.bus_working_plan_menu"
                   action="bus_staff_group_action"
+                  groups="schedule_dispatch_group.schedule_user"
                   sequence="40"/>
 
     </data>
