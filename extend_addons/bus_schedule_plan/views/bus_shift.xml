@@ -117,11 +117,13 @@
         <menuitem id="bus_shift_menu" name="bus_shift_menu"
                   parent="operation_menu.bus_working_plan_basic_info"
                   action="bus_shift_action"
+                  groups="schedule_dispatch_group.schedule_user"
                   sequence="30"/>
 
         <menuitem id="bus_shift_line_menu" name="bus_shift_line_menu"
                   parent="operation_menu.bus_working_plan_basic_info"
                   action="bus_shift_line_action"
+                  groups="schedule_dispatch_group.schedule_user"
                   sequence="40"/>
 
     </data>
