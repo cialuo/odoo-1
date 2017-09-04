@@ -384,12 +384,14 @@ class BusWorkRules(models.Model):
 
         movetimelist = json.loads(movetimeobj.operationplan)
 
+        # 上行行车执行记录
         upexeitems = BusWorkRules.genModedetailRecords(movetimelist['up'], stafftimearrange, movetimeobj.env['scheduleplan.movetimeup'])
-        if movetimelist['down'] != None:
+        # 下行行车执行记录
+        if movetimeobj.schedule_method == 'dubleway':
             downexeitems = BusWorkRules.genModedetailRecords(movetimelist['down'], stafftimearrange, movetimeobj.env['scheduleplan.movetimedown'])
         else:
             downexeitems = []
-            # 上行排班计划
+        # 上行排班计划
         values['upmoveplan'] = upexeitems
         # 下行排班计划
         values['downmoveplan'] = downexeitems
