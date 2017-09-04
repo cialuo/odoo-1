@@ -20,11 +20,12 @@
     'version': '1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','operation_menu', 'scheduling_parameters', 'employees', 'vehicle_manage','web_duplicate_visibility'],
+    'depends': ['base','operation_menu', 'scheduling_parameters', 'employees',
+                'vehicle_manage','web_duplicate_visibility','schedule_dispatch_group'],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
 
         'wizard/assigned_shifts.xml',
         'wizard/gen_bus_move_time.xml',

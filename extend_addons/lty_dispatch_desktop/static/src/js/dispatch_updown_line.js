@@ -70,7 +70,6 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var self = arg.self;
             var data_use = JSON.parse(datalist);
             // if(data_use.line_id == parseInt(arg.line_id))
-            console.log(11)
         },
         show_echarts: function (innerHTML, arg) {
             var self = arg.self;

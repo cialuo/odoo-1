@@ -112,6 +112,7 @@
                                 <field name="lastmovetime"/>
                                 <field name="worktimelength"/>
                                 <field name="arrangenumber"/>
+                                <field name="workstatus"/>
                             </tree>
                         </field>
                     </page>

@@ -14,11 +14,6 @@ class BusWorkRules(models.Model):
     行车规则
     """
 
-    # 同一条线路下只有一个日期类型的行车规则
-    _sql_constraints = [
-        ('line_datetype_unique', 'unique (line_id, date_type)', 'one line one datetype ')
-    ]
-
     _name = 'scheduleplan.schedulrule'
 
     name = fields.Char(string="rule name")
@@ -257,7 +252,7 @@ class BusWorkRules(models.Model):
             markpoints.append((item.interval, datetime.datetime.strptime(datestr + ' ' + item.endtime + ":00", timeFormatStr)))
         seqcounter = 0
         for index, item in enumerate(sortedRuleList):
-            while startTime <= markpoints[index][1]:
+            while startTime < markpoints[index][1]:
                 seqcounter += 1
                 data = {
                     'seqid' : seqcounter,
@@ -271,11 +266,11 @@ class BusWorkRules(models.Model):
                 }
                 recordslist.append((0, 0, data))
                 startTime = startTime + datetime.timedelta(minutes=item.interval)
-        if startTime != markpoints[-1][1]:
+        if startTime >= markpoints[-1][1]:
             # 如果最后一趟超出了计划时间的最后时间 则调整为计划最后发车时间
             startTime = markpoints[-1][1]
             data = {
-                'seqid': seqcounter,
+                'seqid': seqcounter+1,
                 'startmovetime': startTime - datetime.timedelta(hours=8),
                 'arrive_time': startTime + datetime.timedelta(minutes=sortedRuleList[-1].worktimelength) - datetime.timedelta(
                     hours=8),
@@ -345,7 +340,7 @@ class BusWorkRules(models.Model):
     @classmethod
     def genExcuteRecords(cls, movetimeobj):
         """
-        生成行车记录执行表
+        生成行车作业执行表
         """
         values = {
             'name' : movetimeobj.name,
@@ -482,7 +477,8 @@ class BusWorkRules(models.Model):
                 'firstmovetime': temp[0][0],
                 'lastmovetime': temp[-1][0],
                 'worktimelength': timesubtraction(temp[-1][0], temp[0][0]),
-                'arrangenumber': temp[0][2]
+                'arrangenumber': temp[0][2],
+                'workstatus':stafftimearrange[temp[0][2]]['operation_state']
             }
             result.append((0,0,recval))
         values['vehicleresource'] = result
@@ -608,6 +604,7 @@ class BusWorkRules(models.Model):
         for item in record.vehicle_line_ids:
             temp = {}
             temp['vehicle_id'] = item.vehicle_id
+            temp['operation_state'] = item.operation_state
             timelist = {}
             for x in item.staff_line_ids:
                 data = {'driver': x.driver_id.id,
@@ -618,7 +615,7 @@ class BusWorkRules(models.Model):
                     # 修正到utc时间
                     timestart = str2datetime(datestr+ " "+ y.start_time + ':00')
                     timestart = timestart - datetime.timedelta(hours=8)
-                    # 跨天bug待处理
+                    # ！！！ *** 跨天bug待处理 ***** ！
                     timeend = str2datetime(datestr+ " "+ y.end_time + ':00')
                     timeend = timeend - datetime.timedelta(hours=8)
                     data['timelist'].append((timestart.strftime(timeFormatStr), timeend.strftime(timeFormatStr)))

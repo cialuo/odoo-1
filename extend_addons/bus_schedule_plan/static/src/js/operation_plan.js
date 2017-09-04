@@ -1,4 +1,4 @@
-odoo.define('abc', function (require) {
+odoo.define('operate_plan_conf', function (require) {
     "use strict";
     var Model = require('web.Model');
     var model = new Model("scheduleplan.busmovetime");
@@ -24,7 +24,7 @@ odoo.define('abc', function (require) {
             }
         } else {
             for (var ts = 0; ts < data.bus[1].length; ts++) {
-                $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.downstation.substr(0, 1) + '</div></th>');
+                $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.upstation.substr(0, 1) + '</div></th>');
             }
         }
 
@@ -53,8 +53,7 @@ odoo.define('abc', function (require) {
                     }
                 } else {
                     $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).css({
-                        'pointer-events': 'none',
-                        'background': '#d7d9e0'
+                        'pointer-events': 'none'
                     });
                 }
             }
@@ -66,7 +65,6 @@ odoo.define('abc', function (require) {
     }
 
     model.call("reoppaln2web", [recid]).then(function (data) {
-        console.log(data)
         render_plan(data);
     })
     $('.time_start_arrive_stop').on('dblclick', 'tbody td', function () {
@@ -85,8 +83,10 @@ odoo.define('abc', function (require) {
         } else {
             click_td = 0;
         }
+
         model.call("changeOpplan", [recid, this_index, direction, directionObj, click_td]).then(function (res) {
             $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
+            render_plan(res);
         });
     });
     $('.save_plan.btn').click(function () {
@@ -97,6 +97,7 @@ odoo.define('abc', function (require) {
     $('.giveup_plan').click(function () {
         model.call("reoppaln2web", [recid]).then(function (data) {
             $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
+            render_plan(data);
         });
     });
 });
