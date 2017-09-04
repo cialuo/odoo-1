@@ -340,7 +340,7 @@ class BusWorkRules(models.Model):
     @classmethod
     def genExcuteRecords(cls, movetimeobj):
         """
-        生成行车记录执行表
+        生成行车作业执行表
         """
         values = {
             'name' : movetimeobj.name,
@@ -477,7 +477,8 @@ class BusWorkRules(models.Model):
                 'firstmovetime': temp[0][0],
                 'lastmovetime': temp[-1][0],
                 'worktimelength': timesubtraction(temp[-1][0], temp[0][0]),
-                'arrangenumber': temp[0][2]
+                'arrangenumber': temp[0][2],
+                'workstatus':stafftimearrange[temp[0][2]]['operation_state']
             }
             result.append((0,0,recval))
         values['vehicleresource'] = result
@@ -603,6 +604,7 @@ class BusWorkRules(models.Model):
         for item in record.vehicle_line_ids:
             temp = {}
             temp['vehicle_id'] = item.vehicle_id
+            temp['operation_state'] = item.operation_state
             timelist = {}
             for x in item.staff_line_ids:
                 data = {'driver': x.driver_id.id,
@@ -613,7 +615,7 @@ class BusWorkRules(models.Model):
                     # 修正到utc时间
                     timestart = str2datetime(datestr+ " "+ y.start_time + ':00')
                     timestart = timestart - datetime.timedelta(hours=8)
-                    # 跨天bug待处理
+                    # ！！！ *** 跨天bug待处理 ***** ！
                     timeend = str2datetime(datestr+ " "+ y.end_time + ':00')
                     timeend = timeend - datetime.timedelta(hours=8)
                     data['timelist'].append((timestart.strftime(timeFormatStr), timeend.strftime(timeFormatStr)))
