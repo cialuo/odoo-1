@@ -252,3 +252,7 @@ class VehicleResource(models.Model):
 
     # 车辆台次
     arrangenumber = fields.Integer(string="arrange number")
+
+    # 车辆状态
+    workstatus = fields.Selection([('operation', "operation"),('flexible', "flexible")],
+                                  default='operation', required=True)

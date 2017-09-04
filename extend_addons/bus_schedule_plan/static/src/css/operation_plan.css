@@ -1,49 +1,10 @@
-/*.opera_sort ul {*/
-    /*float: left;*/
-/*}*/
-
-/*ul {*/
-    /*margin: 0;*/
-    /*padding: 0;*/
-/*}*/
-
-/*.opera_sort ul li {*/
-    /*list-style: none;*/
-    /*width: 70px;*/
-    /*height: 50px;*/
-    /*border: 1px solid #ccc;*/
-    /*line-height: 50px;*/
-    /*text-align: center;*/
-/*}*/
-
-/*.sort_title {*/
-    /*overflow: hidden;*/
-/*}*/
-
-/*.sort_title li {*/
-    /*float: left;*/
-    /*list-style: none;*/
-    /*width: 70px;*/
-    /*text-align: center;*/
-    /*line-height: 50px;*/
-    /*height: 50px;*/
-    /*border: 1px solid #ccc;*/
-/*}*/
-
-/*.sort_title li div {*/
-    /*width: 70px;*/
-    /*height: 25px;*/
-    /*line-height: 25px;*/
-    /*text-align: center;*/
-/*}*/
 .start_over_stop_time{
     display: none;
 }
-/*.opera_sort li div{*/
-    /*line-height: 16px;*/
-    /*padding-left: 10px;*/
-    /*text-align: left;*/
-/*}*/
+
 .time_start_arrive_stop  .time_left{
     padding-left: 5px;
+}
+.time_start_arrive_stop{
+    cursor: auto !important;
 }
