@@ -82,5 +82,7 @@
                   parent="materials_menu.materials_menu_stock"
                   groups="stock.group_stock_user"
         />
+        <!--盘点功能-->
+        <menuitem id="menu_stock_inverntory" name="Stock Inentory Menu" action="stock.action_inventory_form" sequence="40" parent="materials_menu.materials_menu_stock" groups="stock.group_stock_user"/>
     </data>
 </odoo>
