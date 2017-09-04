@@ -44,23 +44,24 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 // 库
                                 var timeNow = new Date().toLocaleDateString().replace(/\//g, "-");
                                 model_src.query().filter([["line_id", "=", 1], ["excutedate", "=", timeNow]]).all().then(function (src) {
-
-                                    //配车数量
-                                    self.$el.find('.amountCar span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
-                                    //挂车数量
-                                    self.$el.find('.trailerNum span').html(src[0].workvehiclenum);
-                                    //机动车辆
-                                    self.$el.find('.motorVehicle span').html(src[0].backupvehiclenum);
-                                    // 信号在线
-                                    self.$el.find('.singalIn span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
-                                    //信号掉线
-                                    self.$el.find('.singalOut span').html(0);
-                                    //司机
-                                    self.$el.find('.carDriver span').html(src[0].drivernum);
-                                    //乘务
-                                    self.$el.find('.carHelper span').html(src[0].stewardnum);
+                                    if (src.length > 0) {
+                                        //配车数量
+                                        self.$el.find('.amountCar span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
+                                        //挂车数量
+                                        self.$el.find('.trailerNum span').html(src[0].workvehiclenum);
+                                        //机动车辆
+                                        self.$el.find('.motorVehicle span').html(src[0].backupvehiclenum);
+                                        // 信号在线
+                                        self.$el.find('.singalIn span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
+                                        //信号掉线
+                                        self.$el.find('.singalOut span').html(0);
+                                        //司机
+                                        self.$el.find('.carDriver span').html(src[0].drivernum);
+                                        //乘务
+                                        self.$el.find('.carHelper span').html(src[0].stewardnum);
+                                    }
                                 });
-                                var model_id = "line_message";
+                                var model_id = "line_message__" + line_id;
                                 if (socket_model_info[model_id]) {
                                     delete socket_model_info[model_id];
                                 }
@@ -100,6 +101,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     });
                 }
             }
+
             // 上行站点
             site_info(this.model_line, this.model_station_platform, this.model_linesrc)
             // 下行站点
@@ -118,7 +120,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             //配车数量...
             var data = new Object();
             // 判断line_id是否一致
-            if (data_use.data.line_id == parseInt(arg.line_id) + 324) {
+            var line_c = parseInt(arg.line_id) + 331;
+            //匹配line_id
+            if (data_use.data.line_id == line_c) {
                 //站点到起点距离
                 //分段颜色
                 data.color = [
@@ -355,8 +359,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     car_num: car_num,
                     controllerId: this.desktop_id
                 };
-            if (line_id != 5 || car_num != 1) {
-                layer.alert("模拟soket实时加载，请选择572线路1号车进行点击", {title: "车辆实时信息"});
+            if (line_id != 1 || car_num != 1) {
+                layer.alert("模拟soket实时加载，请选择810线路1号车进行点击", {title: "车辆实时信息"});
                 return false;
             }
             ;

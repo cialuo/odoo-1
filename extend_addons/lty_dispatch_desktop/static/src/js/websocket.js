@@ -81,7 +81,7 @@ window.onbeforeunload = function () {
 function use_odoo_model(event,model_name) {
     for (socket_model in socket_model_info) {
         var socket_model_obj = socket_model_info[socket_model];
-        if(socket_model == model_name){
+        if(socket_model.split("__")[0] == model_name){
             socket_model_obj.fn(event.data, socket_model_obj.arg);
         }
     }
@@ -185,7 +185,7 @@ function passenger_flow_capacity(controllerObj, data_list) {
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
     // var dom = controllerObj.find(".busRealStateModel_"+dataObj.line_on+"_"+dataObj.bus_on);
-    var dom = controllerObj.find(".busRealStateModel_5_1");
+    var dom = controllerObj.find(".busRealStateModel_1_1");
     if (dom.length > 0) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
         var carReportObj = dom.find(".popupContent .carReport");
