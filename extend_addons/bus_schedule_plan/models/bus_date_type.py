@@ -24,7 +24,7 @@ class BusDateType(models.Model):
     priority = fields.Selection([(1, 'one level'),
                                  (2, 'two level'),
                                  (3, 'three level'),
-                                 ], default='two level', compute='_get_priority',readonly=True)
+                                 ], default='two level', compute='_get_priority',readonly=True, store=True)
 
     start_date = fields.Date(required=True)
     end_date = fields.Date(required=True)
