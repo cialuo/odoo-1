@@ -28,6 +28,11 @@ class BusWorkRules(models.Model):
         elif type == 'custem':
             return 'custem'
 
+    active = fields.Boolean('Active', default=True)
+
+    def toggle_active(self):
+        return super(BusWorkRules, self).toggle_active()
+
     # 公交类型
     bustype = fields.Selection([("normal", "normal bus"),           # 普通公交
                                 ("custem", "custem bus"),           # 定制公交
@@ -340,7 +345,7 @@ class BusWorkRules(models.Model):
     @classmethod
     def genExcuteRecords(cls, movetimeobj):
         """
-        生成行车作业执行表
+        生成行车作业执行表数据
         """
         values = {
             'name' : movetimeobj.name,
@@ -638,14 +643,14 @@ class BusWorkRules(models.Model):
         tomorrow_str = BusWorkRules.formatDateStr(tomorrow)
         condition = [
             ("start_date", '<=', tomorrow_str), ("end_date", '>=', tomorrow_str),
-            '|', ("type", '=', tomorrow_type), ("type", '=', "Vacation")
+            ("type", 'in', [tomorrow_type, "Vacation", "General"])
         ]
-        result = datetypemode.search(condition, order='priority desc', limit=1)
+        result = datetypemode.search(condition, order='priority', limit=1)
 
         if len(result) <= 0:
             return
         datatype = result[0]
-        rulelist = rulemode.search([("date_type", '=', datatype.id)])
+        rulelist = rulemode.search([("date_type", '=', datatype.id),("active", "=", True)])
         for item in rulelist:
             mvtime = self.createMoveTimeRecord(tomorrow_str, item)
             # 生成人车配班数据
@@ -657,7 +662,7 @@ class BusWorkRules(models.Model):
                                                                            force=True)
             # 生成运营方案数据
             mvtime.genOperatorPlan()
-            # 生成行车执行数据
+            # 生成行车作业执行数据
             BusWorkRules.genExcuteRecords(mvtime)
 
 
