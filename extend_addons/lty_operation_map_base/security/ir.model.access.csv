@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_lty_server_access_lty_server_access,lty_server_access.lty_server_access,model_lty_server_access_lty_server_access,,1,0,0,0
+access_map_line_production_info_user1,map_line_production_info_access,model_map_line_production_info,schedule_dispatch_group.dispatch_user,1,1,1,0
+access_map_line_station_info_user2,map_line_station_info_access,model_map_line_station_info,schedule_dispatch_group.dispatch_user,1,1,1,0
