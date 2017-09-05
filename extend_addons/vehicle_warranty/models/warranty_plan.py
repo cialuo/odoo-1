@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _,exceptions
 import datetime
 
 class WarrantyPlan(models.Model): # 车辆保养计划
@@ -56,6 +56,13 @@ class WarrantyPlan(models.Model): # 车辆保养计划
 
     @api.multi
     def action_commit(self):
+
+        """新增数据验证：
+            确认时判断是否存在计划详情!
+        """
+        if len(self.plan_order_ids) == 0:
+            raise exceptions.UserError(_('Program details can not be empty.'))
+
         self.state = 'commit'
         for plan_order in self.plan_order_ids:
             if plan_order.state == 'draft':
@@ -81,7 +88,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
     def action_done(self):
         self.state = 'done'
 
-    plan_order_ids = fields.One2many('warranty_plan_order', 'parent_id', 'sheetIds') # 计划单ids
+    plan_order_ids = fields.One2many('warranty_plan_order', 'parent_id', 'sheetIds',required=True) # 计划单ids
 
     @api.depends('plan_order_ids')
     def _compute_task_count(self):
