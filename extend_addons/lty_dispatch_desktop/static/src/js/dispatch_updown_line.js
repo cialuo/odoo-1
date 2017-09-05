@@ -72,13 +72,16 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var data_use = JSON.parse(datalist);
             // if(data_use.line_id == parseInt(arg.line_id))
             var line_c = parseInt(arg.line_id) + 317;
-            if (line_c == data_use.data.line_id) {
-                self.model_abnormal.call("create", [
-                    {
-                        'name': data_use.name,
-                    }]).then(function (res) {
-                });
-            }
+            // if (line_c == data_use.data.line_id) {
+            //     self.model_abnormal.call("create", [
+            //         {
+            //             'name': data_use.name,
+            //             'suggest':data_use.data.suggest,
+            //             'abnormal_description':data_use.data.abnormal_description,
+            //             'solution':data_use.data.solution
+            //         }]).then(function (res) {
+            //     });
+            // }
         },
         show_echarts: function (innerHTML, arg) {
             var self = arg.self;

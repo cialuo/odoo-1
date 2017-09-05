@@ -56,7 +56,12 @@ class Employee(models.Model):
             vals = mapping.dict_transfer(self._name, vals)
             vals.update({
                 'id': res.id,
+                'sysPostId': '1021',
             })
+            if res.workpost.posttype == "driver":
+                vals['sysPostId'] = '1019'
+            if res.workpost.posttype == "conductor":
+                vals['sysPostId'] = '1020'
             params = Params(type=1, cityCode=cityCode,tableName=HR_TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
         except Exception,e:
@@ -82,10 +87,16 @@ class Employee(models.Model):
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(self._name, vals)
-                    if vals:
-                        vals.update({'id': r.id})
-                        params = Params(type=3, cityCode=cityCode,tableName=HR_TABLE, data=vals).to_dict()
-                        rp = Client().http_post(url, data=params)
+                    vals.update({
+                        'id': r.id,
+                        'sysPostId': '1021',
+                    })
+                    if r.workpost.posttype == "driver":
+                        vals['sysPostId'] = '1019'
+                    if r.workpost.posttype == "conductor":
+                        vals['sysPostId'] = '1020'
+                    params = Params(type=3, cityCode=cityCode,tableName=HR_TABLE, data=vals).to_dict()
+                    rp = Client().http_post(url, data=params)
 
                     # clientThread(url,params,res).start()
                 except Exception,e:

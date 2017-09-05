@@ -52,8 +52,8 @@ odoo.define('operate_plan_conf', function (require) {
                         $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).attr('direction', data.bus[bn][bTd][2]).attr('index', data.bus[bn][bTd][0]).addClass('sort_out').html($('.start_over_stop_time').html());
                     }
                 } else {
-                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).css({
-                        'pointer-events': 'none'
+                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).addClass("not_click").css({
+                        'cursor':'not-allowed'
                     });
                 }
             }
@@ -67,7 +67,7 @@ odoo.define('operate_plan_conf', function (require) {
     model.call("reoppaln2web", [recid]).then(function (data) {
         render_plan(data);
     })
-    $('.time_start_arrive_stop').on('dblclick', 'tbody td', function () {
+    $('.time_start_arrive_stop').on('dblclick', 'tbody td:not(.not_click)', function () {
         // 不是空的
         // 点击的index
         var this_index = $(this).attr("index");
