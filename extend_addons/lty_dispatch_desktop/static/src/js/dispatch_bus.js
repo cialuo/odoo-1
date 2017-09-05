@@ -31,11 +31,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         start: function () {
             var self = this;
             this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
+            this.line_id = self.$el.attr('line_id');
+            var tid = self.$el.attr('tid');
             function site_info(mode_line, model_station_platform, model_src) {
                 if (self.$el.find('.line_line')[0] != undefined) {
-                    var tid = self.$el.attr('tid');
-                    var line_id = self.$el.attr('line_id');
-                    var model_name = self.$el[0].className;
                     // 根据tid拿到线路id
                     mode_line.query().filter([["id", "=", parseInt(tid)]]).all().then(function (data) {
 
@@ -43,7 +42,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             model_station_platform.query().filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "down"]]).all().then(function (res_down) {
                                 // 库
                                 var timeNow = new Date().toLocaleDateString().replace(/\//g, "-");
-                                model_src.query().filter([["line_id", "=", 1], ["excutedate", "=", timeNow]]).all().then(function (src) {
+                                model_src.query().filter([["line_id", "=", parseInt(self.line_id)], ["excutedate", "=", timeNow]]).all().then(function (src) {
                                     if (src.length > 0) {
                                         //配车数量
                                         self.$el.find('.amountCar span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
@@ -61,16 +60,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         self.$el.find('.carHelper span').html(src[0].stewardnum);
                                     }
                                 });
-                                var model_id = "line_message__" + line_id;
+                                var model_id = "line_message__" + self.line_id;
                                 if (socket_model_info[model_id]) {
                                     delete socket_model_info[model_id];
                                 }
-                                var package_send = {
+                                var package_line_message = {
                                     type: 1000,
-                                    open_modules: ["dispatch-line_message-" + this.desktop_id],
+                                    controlId:self.desktop_id,
+                                    open_modules: ["dispatch-line_message"],
                                     msgId: Date.parse(new Date())
                                 };
-                                websocket.send(JSON.stringify(package_send));
+                                websocket.send(JSON.stringify(package_line_message));
                                 var dataSite_top_color_cof = {};
                                 var dataSite_down_color_cof = {};
                                 for (var i = 0; i < res_top.length; i++) {
@@ -86,7 +86,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         fn: self.site_websocket,
                                         arg: {
                                             self: self,
-                                            line_id: line_id,
+                                            line_id: self.line_id,
                                             site_top_infos: res_top,
                                             site_down_infos: res_down,     //此处修改
                                             dataSite_top_color_cof: dataSite_top_color_cof,
@@ -119,8 +119,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var data_use = JSON.parse(data_list)
             //配车数量...
             var data = new Object();
-            // 判断line_id是否一致
-            var line_c = parseInt(arg.line_id) + 317;
+            var line_c = parseInt(arg.line_id);
             //匹配line_id
             if (data_use.data.line_id == line_c) {
                 //站点到起点距离
@@ -196,19 +195,21 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         //车辆上行方向
                         // 添加车辆
                         self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
-                        // 上下行方向
                     }
-                    // 车辆进出站
-                    if (data_use.data.type == "in") {
+                    // 车辆进出站上下行
+                    // 根据state方向
+                    if (data_use.data.type == "in"&&data_use.data.direction==0) {
                         var oLeft = 1190 * (parseInt(data_use.data.status) + 0.5) / arg.site_top_infos.length;
-                    } else {
-                        var oLeft = 1190 * (parseInt(data_use.data.status) + 1) / arg.site_down_infos.length;
-                    }
-                    //车辆上下行
-                    if (data_use.data.direction == 0) {
                         self.$('.content_car_road_top').find('.line_car').attr('bus_no', data_use.data.bus_no).css('left', oLeft - 22 + 'px');
-                    } else {
-                        self.$('.content_car_road_down').find('.line_car').attr('bus_no', data_use.data.bus_no).css('left', 1190 - oLeft - 22 + 'px');
+                    } else if(data_use.data.type == "out"&&data_use.data.direction==0) {
+                        var oLeft = 1190 * (parseInt(data_use.data.status) + 1) / arg.site_top_infos.length;
+                        self.$('.content_car_road_top').find('.line_car').attr('bus_no', data_use.data.bus_no).css('left', oLeft - 22 + 'px');
+                    }else if(data_use.data.type == "in"&&data_use.data.direction==1){
+                        var oLeft = 1190 * (parseInt(data_use.data.status) + 0.5) / arg.site_down_infos.length;
+                        self.$('.content_car_road_down').find('.line_car').attr('bus_no', data_use.data.bus_no).css('left', oLeft - 22 + 'px');
+                    }else{
+                        var oLeft = 1190 * (parseInt(data_use.data.status) - 0.5) / arg.site_down_infos.length;
+                        self.$('.content_car_road_down').find('.line_car').attr('bus_no', data_use.data.bus_no).css('left', oLeft - 22 + 'px');
                     }
                     self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.bus_no + ']').find('.num_car span').html(data_use.data.line_id);
                     self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.bus_no + ']').find('.type_car span').html(data_use.data.status);
@@ -424,7 +425,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             controllerId: self.desktop_id,
                         };
                     $.ajax({
-                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:7,gprsId:161}',
+                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:'+self.desktop_id+',lineId:'+self.line_id+'}',
                         type: 'get',
                         dataType: 'json',
                         data: {},

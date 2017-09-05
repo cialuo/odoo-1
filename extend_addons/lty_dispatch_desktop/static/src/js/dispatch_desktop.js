@@ -128,7 +128,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             var self = this;
             var a = new config(this);
             a.appendTo(self.$el);
-            self.$el.find('.modal').modal({backdrop: 'static', keyboard: false});
+            self.$el.find('.info_config .modal').modal({backdrop: 'static', keyboard: false});
         },
         save_click: function () {
             var self = this;
