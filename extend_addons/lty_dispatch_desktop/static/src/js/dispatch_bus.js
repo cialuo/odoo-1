@@ -102,10 +102,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 cir_and_text(cirBottom);
                                 // self.color = data.color;
                                 self.site_top_infos = res_top;
-                                // self.site_down_infos = data.site_down_infos;
+                                self.site_down_infos = res_down;
                                 // 站点颜色
                                 self.dataSite_top_color = dataSite_top_color_cof;
-                                // self.dataSite_down_color = arg.dataSite_down_color_cof;
+                                self.dataSite_down_color = dataSite_down_color_cof;
                                 self.subsection = '';
 
                                 socket_model_info[model_id] =
@@ -427,7 +427,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 color: this.color,
                 site_infos: this.site_down_infos,
                 dataSite_color: this.dataSite_down_color,
-                // subsection: this.subsection,
+                subsection: this.subsection,
                 model: this.model_station_platform
             }, e);
         }
