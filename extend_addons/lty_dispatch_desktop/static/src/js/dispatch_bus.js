@@ -605,7 +605,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     });
                 self.$('.edit_content').show();
             });
-
         }
         ,
         cursor_pointer_lr: function (canvas, e) {
@@ -716,7 +715,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
         },
         events: {
-            'click .chs>li': 'chose_line',
+            'click .chs li': 'chose_line',
         },
         chose_line: function (event) {
             var x = event.currentTarget;
