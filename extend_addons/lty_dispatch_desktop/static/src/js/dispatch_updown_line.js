@@ -11,10 +11,11 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             this._super(parent);
             this.dis_desk = data;
             this.model2 = new Model('dispatch.control.desktop.component');
+            this.model_abnormal = new Model('dispatch.abnormal.mgt');
         },
         start: function () {
             this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
-            var self = this
+            var self = this;
             var data = this.dis_desk;
             if (data) {
                 var content = '.' + self.$el.find('.carousel_content')[0].className;
@@ -25,8 +26,8 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             }
             var tid = self.$el.attr('tid');
             var line_id = self.$el.attr('line_id');
-            var model_abnormal = 'abnormal__'+line_id;
-            var model_chart = 'passenge_flow__'+line_id;
+            var model_abnormal = 'abnormal__' + line_id;
+            var model_chart = 'passenge_flow__' + line_id;
             if (socket_model_info[model_abnormal]) {
                 delete socket_model_info[model_abnormal];
             }
@@ -70,6 +71,17 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var self = arg.self;
             var data_use = JSON.parse(datalist);
             // if(data_use.line_id == parseInt(arg.line_id))
+            var line_c = parseInt(arg.line_id) + 317;
+            // if (line_c == data_use.data.line_id) {
+            //     self.model_abnormal.call("create", [
+            //         {
+            //             'name': data_use.name,
+            //             'suggest':data_use.data.suggest,
+            //             'abnormal_description':data_use.data.abnormal_description,
+            //             'solution':data_use.data.solution
+            //         }]).then(function (res) {
+            //     });
+            // }
         },
         show_echarts: function (innerHTML, arg) {
             var self = arg.self;
