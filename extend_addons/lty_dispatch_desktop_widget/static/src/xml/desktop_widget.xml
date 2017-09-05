@@ -624,7 +624,7 @@
             <div class="plan_display dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
                 <div class="closeBox dragArea">
                     <div class="title">线路
-                        <span class="num"><t t-esc="widget.location_data.line_name"></t>路</span>
+                        <span class="num"><t t-esc="widget.location_data.line_name"></t></span>
                     </div>
                     <a class="close_bt" href="javascript:;"></a>
                 </div>
@@ -802,99 +802,229 @@
         </div>
     </t>
 
-    <t t-name="adjust_the_plan_template">
-        <div>
-            <div class="adjust_box">
-                <div class="adjust_info">
-                    <table class="adjust_content">
-                        <tr>
-                            <td>开始时间：</td>
-                            <td>
-                                
-                            </td>
-                            <td class="pdL">计划趟次：</td>
-                            <td>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>车辆：</td>
-                            <td>
-                                
-                            </td>
-                            <td class="pdL">线路：</td>
-                            <td>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pdL">运行线路：</td>
-                            <td>
-                                
-                            </td>
-                            <td>运行方向：</td>
-                            <td>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pdL">司机工号：</td>
-                            <td>
-                            </td>
-                            <td>司机：</td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pdL">乘务员工号：</td>
-                            <td>
-                            </td>
-                            <td>乘务员姓名：</td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>计划里程：</td>
-                            <td>
-                                
-                            </td>
-                            <td class="pdL">运营属性：</td>
-                            <td>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>调整原因：</td>
-                            <td>
-                                
-                            </td>
-                            <td class="pdL">备注：</td>
-                            <td>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" width="50%">
-                                批量调整同方向<input class="plan_num" type="number" value="10" />条计划
-                            </td>
-                            <td colspan="2" width="50%" class="pdL">
-                                间隔<input class="time_num plan_num" type="number" value="0" />分钟
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" width="50%">
-                                批量调整<input class="plan_num start_time" type="time" value="9:00" />~<input class="plan_num end_time" type="time" value="10:00" />的计划
-                            </td>
-                            <td colspan="2" width="50%" class="pdL">
-                                间隔<input class="time_num plan_num" type="number" value="0" />分钟
-                            </td>
-                        </tr>
-                    </table>
+    <t t-name="plan_display_add_plan_template">
+        <div class="modal customModal customModalAddPlan" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">添加计划</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <td class="planTime">
+                                    计划时间&#160;
+                                    <input class="w1" t-attf-value="{{new Date().getHours()}}" type="number" min="0" max="24" />&#160;:&#160;<input class="w1" t-attf-value="{{new Date().getMinutes()}}" type="number" min="0" max="59" autofocus="autofocus" />
+                                </td>
+                                <td>
+                                    车辆编号&#160;
+                                    <input class="w2 carNum" min="1" t-attf-value="{{widget.set_data.onBoardId}}" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    计划趟次&#160;
+                                    <select name="" class="w2 planCount" id="">
+                                        <option value="0.5" selected="selected">0.5</option>
+                                        <option value="1">1</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    司机工号&#160;
+                                    <input class="w2 worker" t-attf-value="{{widget.set_data.workerId}}" type="number" min="1" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
+                                    <select name="" class="w2 line" id="">
+                                        <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
+                                            <t t-esc="widget.set_data.lineName"></t>
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    司机名称&#160;
+                                    <input class="w2 driverName" min="1" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    行驶方向&#160;
+                                    <select name="" class="w2 direction" id="">
+                                        <t t-if="widget.set_data.direction==0">
+                                            <option value="0" selected="selected">上行</option>
+                                            <option value="1">下行</option>
+                                        </t>
+                                        <t t-else="">
+                                            <option value="0">上行</option>
+                                            <option value="1" selected="selected">下行</option>
+                                        </t>
+                                    </select>
+                                </td>
+                                <td>
+                                    乘务员工号&#160;
+                                    <input class="w2 train" min="1" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    计划里程&#160;
+                                    <input class="w2 planKm" type="number" t-attf-value="{{widget.set_data.planKm}}" min="1" />
+                                </td>
+                                <td>
+                                    乘务员姓名&#160;
+                                    <input class="w2 trainName" min="1" t-attf-value="{{widget.set_data.trainName}}" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    运行管理&#160;
+                                    <select name="" class="w2 addType" id="">
+                                        <option value="2001" selected="selected">正常</option>
+                                        <option value="1">包车</option>
+                                        <option value="2003">大站</option>
+                                        <option value="2004">区间车</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    &#160;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    添加原因&#160;
+                                    <select name="" class="w2 addReason" id="">
+                                        <option value="1001" selected="selected">无进出场信号</option>
+                                        <option value="1002">公司指派</option>
+                                        <option value="1004">司机原因</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    &#160;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <textarea name="" class="remark" placeholder="请输入添加原因说明" rows="4"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
                 </div>
-                <div class="adjust_bt_box">
-                    <a class="adjust_bt reset_bt" href="javascript:;">重置</a>
-                    <a class="adjust_bt close_bt" href="javascript:;">关闭</a>
-                    <a class="adjust_bt ok_bt" href="javascript:;">确定</a>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="plan_display_fix_plan_template">
+        <div class="modal customModal customModalAddPlan" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">调整计划</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <td>
+                                    车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
+                                    <input class="w2 carNum" min="1" t-attf-value="{{widget.set_data.onBoardId}}" type="text"/>
+                                </td>
+                                <td>
+                                    线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
+                                    <select name="" class="w2 line" id="">
+                                        <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
+                                            <t t-esc="widget.set_data.lineName"></t>
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    方&#160;&#160;&#160;&#160;&#160;&#160;&#160;向&#160;
+                                    <select name="" class="w2 direction" id="">
+                                        <t t-if="widget.set_data.direction==0">
+                                            <option value="0" selected="selected">上行</option>
+                                            <option value="1">下行</option>
+                                        </t>
+                                        <t t-else="">
+                                            <option value="0">上行</option>
+                                            <option value="1" selected="selected">下行</option>
+                                        </t>
+                                    </select>
+                                </td>
+                                <td>
+                                    运行线路&#160;
+                                    <select name="" class="w2 runGprs" id="">
+                                        <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
+                                            <t t-esc="widget.set_data.lineName"></t>
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    司&#160;&#160;&#160;&#160;&#160;&#160;&#160;机&#160;
+                                    <input class="w2 driverName" min="1" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
+                                </td>
+                                <td>
+                                    趟&#160;&#160;&#160;&#160;&#160;&#160;&#160;次&#160;
+                                    <select name="" class="w2 planCount" id="">
+                                        <option value="0.5" selected="selected">0.5</option>
+                                        <option value="1">1</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    调整原因&#160;
+                                    <select name="" class="w2 changeReason" id="">
+                                        <option value="1001" selected="selected">无进出场信号</option>
+                                        <option value="1002">公司指派</option>
+                                        <option value="1004">司机原因</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    计划类型&#160;
+                                    <input class="w2 why" min="1" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    计划时间&#160;
+                                    <input class="w2 planTime" t-attf-value="{{new Date().toTimeString().slice(0, 5)}}" type="time" />
+                                </td>
+                                <td>
+                                    计划里程&#160;
+                                    <input class="w2 planKm" type="number" t-attf-value="{{widget.set_data.planKm}}" min="1" />
+                                </td>
+                            </tr>
+                            <tr class="tmp">
+                                <td>
+                                    批量调整同方向&#160;<input class="w3"  type="number" min="1" />&#160; 计划</td>
+                                <td>
+                                    间&#160;&#160;&#160;&#160;&#160;&#160;&#160;隔&#160;&#160;<input class="w4" type="number" min="1" />&#160;分钟
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    批量调整&#160;<input class="w5"  type="time" />~<input class="w5"  type="time" />&#160;的计划</td>
+                                <td>
+                                    间&#160;&#160;&#160;&#160;&#160;&#160;&#160;隔&#160;&#160;<input class="w4" type="number" min="1" />&#160;分钟
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
                 </div>
             </div>
         </div>

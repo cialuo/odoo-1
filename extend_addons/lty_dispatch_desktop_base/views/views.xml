@@ -13,6 +13,27 @@
       </field>
     </record>
     
+    <record id="dispatch_control_desktop_form" model="ir.ui.view">
+        <field name="name">dispatch_control_desktop form</field>
+        <field name="model">dispatch.control.desktop</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form string="Desktop Config">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="user" readonly='1' />
+                            <field name="is_default" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>    
+    
+    
+    
     <record id="dispatch_control_desktop_kanban" model="ir.ui.view">
         <field name="name">dispatch_control_desktop kanban</field>
         <field name="model">dispatch.control.desktop</field>

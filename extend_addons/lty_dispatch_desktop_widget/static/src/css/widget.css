@@ -203,6 +203,7 @@
     border-radius: 4px;
 }
 
+
 /*---------车辆实时状态---------*/
 
 .back_style .hide_model {
@@ -412,6 +413,7 @@
     padding: 0 7px;
 }
 
+
 .bus_real_info .popupContent .vehicleInformation .fmax {
     font-size: 20px;
 }
@@ -499,6 +501,7 @@
     float: left;
     border: 1px solid #aaa;
     width: 334px;
+    height:
 }
 
 .bus_real_info .carPassenge .carPassenger .top {
@@ -555,6 +558,7 @@
     float: left;
     line-height: 70px;
 }
+
 
 .bus_real_info .more_info_box .info_title {
     height: 30px;
@@ -702,7 +706,7 @@
     width: 126px;
     height: 20px;
     line-height: 20px;
-    font-size: 13px;
+    font-style: 13px;
     background: #7c7bad;
     color: #fff;
 }
@@ -725,6 +729,7 @@
 .bus_real_info .more_info_part .record_cont tr {
     border: 1px solid #6D7487;
 }
+
 
 /*----------车辆计划展示------------*/
 .plan_display {
@@ -768,7 +773,7 @@
 }
 
 .plan_display .plan_group .section_plan_cont table tr.active_tr {
-    background: #272d46;
+    background: #272d46;   
 }
 
 .plan_display .plan_group .bus_plan table tr.point {
@@ -810,7 +815,7 @@
     color: #fff;
     font-size: 12px;
     border-bottom: 1px solid #6D7487;
-    white-space: nowrap;
+    white-space:nowrap;
 }
 
 .plan_display .plan_group .plan_box {
@@ -830,15 +835,14 @@
     color: #fff;
     padding: 0;
     width: 46px;
-    height: 30px;
-    \line-height: 30px;
+    height: 30px;\line-height: 30px;
     text-align: center;
     font-size: 14px;
     margin-right: 4.8px;
 }
 
 .plan_display .plan_group .plan_box .bottom_bt a:last-child {
-    margin-right: 0;
+    margin-right: 0;   
 }
 
 .plan_display .plan_group .bus_plan {
@@ -873,7 +877,7 @@
 }
 
 .plan_display .plan_group .section_plan_cont .icon {
-    background: url("/lty_dispatch_desktop_widget/static/src/image/icon_combination.png") no-repeat;
+    background: url('/lty_dispatch_desktop_widget/static/src/image/icon_combination.png') no-repeat;
     width: 14px;
     height: 14px;
     display: inline-block;
@@ -885,7 +889,7 @@
 }
 
 .plan_display .plan_group .bus_plan .icon_1 {
-    background-position: -97px 0;
+    background-position: -97px 0;  
 }
 
 .plan_display .plan_group .section_plan_cont .icon1_0 {
@@ -903,6 +907,8 @@
 .plan_display .plan_group .section_plan_cont .icon2_1 {
     background-position: -19px 0;
 }
+
+
 
 /*------调整计划----------*/
 .adjust_box .adjust_info {
@@ -959,7 +965,7 @@
     line-height: 26px;
     text-align: center;
     width: 56px;
-    color: #4ecfc7;
+    color:  #4ecfc7;
     border: 1px solid #4ecfc7;
     border-radius: 4px;
 }
@@ -971,6 +977,7 @@
 .adjust_box .adjust_bt_box .ok_bt {
     margin-right: 20px;
 }
+
 
 /*------右键设置----------*/
 .plan_display .plan_display_set .setBox {
@@ -995,15 +1002,135 @@
     text-align: center;
 }
 
-.plan_display .plan_display_set .setBox .nav li:last-child {
-    border-bottom: none;
-}
-
 .plan_display .plan_display_set .setBox .nav li:hover {
     background: #3a4263;
     color: #4ecfc7;
 }
 
+
+/*customModal*/
+.customModal .modal-dialog {
+    height: auto !important;
+    padding: 0 !important;
+    color: #fff !important;
+}
+
+.customModal .modal-dialog .modal-content {
+    border-radius: 8px;
+    background: #384060;
+}
+
+.customModal .modal-dialog .modal-content .modal-header {
+    border-bottom: none;
+    padding: 28px 28px 18px;
+}
+
+.customModal .modal-dialog .modal-content .modal-body {
+    padding: 10px 28px;
+}
+
+.customModal .modal-dialog .modal-content .modal-footer {
+    border-top: none;
+    padding: 28px;
+}
+
+.customModal .modal-dialog .modal-content .modal-header .close {
+    color: #fff;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.customModal .modal-dialog .modal-content .modal-header .modal-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.customModal .modal-dialog .modal-content table {
+    width: 100%;
+}
+
+.customModal .modal-dialog .modal-content input {
+    border: 1px solid #6d7487;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 10px;
+    display: inline-block;
+    border-radius: 4px;
+    background: #384060;
+    color: #fff;
+}
+
+.customModal .modal-dialog .modal-content select {
+    border: 1px solid #6d7487;
+    height: 26px;
+    line-height: 26px;
+    padding: 0 10px;
+    display: inline-block;
+    border-radius: 4px;
+    background: #384060;
+    color: #fff;
+}
+
+.customModal .modal-dialog .modal-content textarea {
+    border-radius: 4px;
+    background: #384060;
+    border: 1px solid #6d7487;
+    padding: 0 10px;
+    resize: none;
+}
+
+.customModal .btn {
+    background: none;
+    padding: 2px 12px;
+}
+
+.customModal .btn-default {
+    border: 1px solid #6d7487;
+    color: #6d7487;
+}
+
+.customModal .btn-primary {
+    border: 1px solid #21b799;
+    color: #21b799;
+}
+
+.customModalAddPlan .modal-content {
+    width: 668px;
+}
+
+.customModalAddPlan table tr td {
+    line-height: 28px;
+    width: 50%;
+    padding-top: 12px;
+}
+
+.customModalAddPlan .tmp td {
+    padding-top: 26px;
+}
+
+.customModalAddPlan table tr td:last-child {
+    text-align: right;
+}
+
+.customModalAddPlan .w1 {
+    width: 94px;
+}
+
+.customModalAddPlan .w2 {
+    width: 200px;
+}
+
+.customModalAddPlan .w3 {
+    width: 126px;
+}
+
+.customModalAddPlan .w4 {
+    width: 168px;
+}
+
+.customModalAddPlan .w5 {
+    width: 90px;
+}
 .modal_lty {
     color: #fff;
 }
