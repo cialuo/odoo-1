@@ -187,10 +187,24 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 self.send_plan_vehicles_fn(options);
             });
 
+            //发送消息
+            plan_display.on("click", ".plan_display_set li.send_message_bt", function(){
+                var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
+                var obj = $(this).parents(".plan_display_set");
+                var options = {
+                    obj: obj,
+                    id: obj.attr("plan_pid"),
+                    direction: obj.attr("direction"),
+                    layer_index: layer_index
+                };
+                self.send_short_msg__fn(options);
+            });
+
             // 添加计划
             plan_display.on("click", ".plan_display_set[model='bus_plan'] li.add_plan_bt", function(){
                 
             });
+
 
             // 计划车辆还原时间
             plan_display.on("click", ".plan_display_set[model='bus_plan'] li.reduction_time_bt", function(){
@@ -281,6 +295,21 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
                 }
             });
+        },
+        send_short_msg__fn:function (options) {
+            var self = this;
+            layer.close(options.layer_index);
+            new send_short_msg_msg(self).appendTo(self.$el);
+            self.$el.find('.send_short_msg_msg .modal').on('shown.bs.modal', function (e) {
+            // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
+            $(this).css('display', 'block');
+            console.log($(window).height())
+            var modalHeight=$(window).height() / 2 - self.$el.find('.send_short_msg_msg .modal').find('.modal-dialog').height() / 2;
+            $(this).find('.modal-dialog').css({
+                'margin-top': modalHeight
+            });
+        });
+        self.$el.find('.send_short_msg_msg .modal').modal({backdrop: 'static', keyboard: false});
         },
         reduction_time_fn: function(options){
             $.ajax({
@@ -565,6 +594,20 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             this._super(parent);
             this.location_data =  data;
         },
+    });
+    var send_short_msg_msg = Widget.extend({
+        template: "send_short_msg_msg",
+        init: function(parent, data){
+            this._super(parent);
+            this.location_data =  data;
+        },
+        events:{
+            'click .modal_lty .close':'closeFn'
+        },
+        closeFn:function () {
+            this.destroy();
+            $(".modal-backdrop").remove();
+        }
     });
 
     return plan_display;

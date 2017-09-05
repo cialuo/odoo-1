@@ -1032,4 +1032,61 @@
             </div>
         </div>
     </t>
+
+    <t t-name="send_short_msg_msg">
+		<div class="send_short_msg_msg">
+			<div class="modal fade modal_lty" tabindex="-1" role="dialog">
+			    <div class="modal-dialog" style="width:720px" role="document">
+					<div class="modal-content model_change_content">
+					    <div class="modal-header">
+						    <button type="button" class="close" style="opacity:1;color:white" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+						    <h4 class="modal-title">发送短信</h4>
+					    </div>
+					  <div class="modal-body">
+                          <div class="short_msg_content"></div>
+                          <div class="msg_content_config" style="overflow:hidden">
+                              <div class="checkbox fl">
+                                  <label class="">
+                                      重要短信
+                                      <input class="input-checkbox" type="checkbox" name="demo-checkbox2"/>
+                                      <span class="demo--checkbox"></span>
+                                  </label>
+                              </div>
+                              <div class="fl" style="width:270px;margin-left:24px">
+                                  <label class="col-sm-3 control-label" style="padding:0;line-height:40px;">
+                                    短信渠道
+                                  </label>
+                                  <div class="col-sm-9 pd0">
+                                      <select class="msg_send_info">
+                                          <option>司机喇叭</option>
+                                          <option>外喇叭</option>
+                                          <option>内喇叭</option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="fl" style="width:270px;margin-left:24px">
+                                  <label class="col-sm-3 control-label" style="padding:0;line-height:40px;">
+                                    预设短信
+                                  </label>
+                                  <div class="col-sm-9 pd0">
+                                      <select class="msg_send_info">
+                                          <option>选择预设短信</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                          <input class="short_msg_text"/>
+					  </div>
+					  <div class="modal-footer">
+						  <button type="button" class="btn btn-primary send_msg_btn btn_confirm_lty">发送</button>
+                      </div>
+					</div><!-- /.modal-content -->
+			    </div><!-- /.modal-dialog -->
+			</div>
+		</div>
+	</t>
+
+
 </templates>
