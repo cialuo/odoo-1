@@ -33,6 +33,7 @@
         'lty_operation_map_base',
         'lty_operation_plan',
         'lty_server_access',
+        'lty_dispatch_robot',
         'revenue'        
     ],
 
