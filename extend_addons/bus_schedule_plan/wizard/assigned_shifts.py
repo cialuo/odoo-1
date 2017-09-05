@@ -4,12 +4,13 @@ from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from itertools import izip_longest
 import datetime
+from datetime import timedelta
 
 
 class AssignedShifts(models.TransientModel):
     _name = 'assigned_shifts'
 
-    group_id = fields.Many2one('bus_group', 'Group', required=True)
+    group_id = fields.Many2one('bus_group', 'Group', ondelete='cascade', required=True)
     route_id = fields.Many2one('route_manage.route_manage', related='group_id.route_id', required=True)
 
     driver_vehicle_shift_ids = fields.One2many('bus_group_driver_vehicle_shift_tran', 'assign_id')
@@ -37,12 +38,13 @@ class AssignedShifts(models.TransientModel):
     @api.multi
     def import_driver(self):
         use_date = datetime.datetime.strptime(str(self.use_date), '%Y-%m-%d')
-        now = datetime.datetime.now()
-        now = datetime.datetime.strftime(now, '%Y-%m-%d')
-        now = datetime.datetime.strptime(now, '%Y-%m-%d')
 
-        if use_date < now:
-            raise UserError(_("use_date is more than today"))
+        yesterday = datetime.datetime.strptime(str(datetime.date.today()-timedelta(days=1)), '%Y-%m-%d')
+        if len(self.bus_shift_id.shift_line_ids.ids)<1:
+            raise UserError(_("The shift line is not exists， please choose the right shifts"))
+
+        if use_date < yesterday:
+            raise UserError(_("use_date is more than yesterday"))
 
         for i in self.driver_vehicle_shift_ids:
             i.unlink()

@@ -163,8 +163,8 @@ hr_employee = {
     ('trueName', 'name'): None,
     #工号
     ('serils', 'jobnumber'): None,
-    #岗位ID
-    ('sysPostId', 'workpost'): None,
+    #岗位ID, 后台获取  1019 司机 1020 乘务员  1021其他
+    ('sysPostId', None): None,
     #IC卡号
     ('ICCardNoId', 'iccard'): None,
     #身份证
@@ -518,6 +518,7 @@ op_dispatchplan = {
     ('workDate', 'work_date'): None,
     #行车规则ID 后台获取
     ('linePlanId', 'rule_id'): None,
+    #
 }
 
 #1.3.15	车辆资源
@@ -537,7 +538,7 @@ op_busresource = {
     #台次 add
     ('orderNo', 'arrangenumber'): None,
     #车辆状态 add
-    ('carStateId', 'car_state'): {'zc': 1001, 'jd': 2008},
+    ('carStateId', 'workstatus'): {'operation': 1001, 'flexible': 2008},
     #方向 add
     ('direction', 'direction'): None,
     #工作日期date 后台获取，

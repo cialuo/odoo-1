@@ -89,8 +89,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         load_plan: function(){
             var self = this;
+            console.log(self.location_data.controllerId+'_'+self.location_data.line_id);
             $.ajax({
-                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:2032,gprsId:161}',
+                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:'+self.location_data.controllerId+',lineId:'+self.location_data.line_id+'}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -104,7 +105,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         data_list: ret.respose
                     };
                     $.ajax({
-                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:2032,gprsId:161}',
+                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:'+self.location_data.controllerId+',lineId:'+self.location_data.line_id+'}',
                         type: 'get',
                         dataType: 'json',
                         data: {},
@@ -168,6 +169,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         linePlanParktransit_bt_fn: function(){
             var self = this;
             var plan_display = self.$(".plan_display");
+            var controllerId = self.location_data.controllerId;
+            var controllerObj = self.$el.parents($(".controller_"+controllerId));
             // 车辆计划底部交互事件
             self.plan_bottom_fn();
 
@@ -182,6 +185,11 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     layer_index: layer_index
                 };
                 self.send_plan_vehicles_fn(options);
+            });
+
+            // 添加计划
+            plan_display.on("click", ".plan_display_set[model='bus_plan'] li.add_plan_bt", function(){
+                
             });
 
             // 计划车辆还原时间
@@ -261,7 +269,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         send_plan_vehicles_fn: function(options){
             $.ajax({
-                url: 'http://10.1.254.122:8080/ltyop/plan/sendPlanToBus?apikey=71029270&params={id: "'+options.id+'"}',
+                url: 'http://202.104.136.228:8888/ltyop/plan/sendPlanToBus?apikey=71029270&params={id: "'+options.id+'"}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -276,7 +284,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         reduction_time_fn: function(options){
             $.ajax({
-                url: 'http://10.1.254.122:8080/ltyop/plan/restoreTime?apikey=71029270&params={id: "'+options.id+'"}',
+                url: 'http://202.104.136.228:8888/ltyop/plan/restoreTime?apikey=71029270&params={id: "'+options.id+'"}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -291,7 +299,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         immediate_scheduling_fn: function(options){
             $.ajax({
-                url: 'http://10.1.254.122:8080/ltyop/resource/applyPlanById?apikey=71029270&params={id: "'+options.id+'"}',
+                url: 'http://202.104.136.228:8888/ltyop/resource/applyPlanById?apikey=71029270&params={id: "'+options.id+'"}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -303,7 +311,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         cancel_scheduling_fn: function(options){
             $.ajax({
-                url: 'http://10.1.254.122:8080/ltyop/resource/cancelWorkPlan?apikey=71029270&params={id: "'+options.id+'"}',
+                url: 'http://202.104.136.228:8888/ltyop/resource/cancelWorkPlan?apikey=71029270&params={id: "'+options.id+'"}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -315,7 +323,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         exit_operation_fn: function(options){
             $.ajax({
-                url: 'http://10.1.254.122:8080/ltyop/resource/exitRun?apikey=71029270&params={id: "'+options.id+'"}',
+                url: 'http://202.104.136.228:8888/ltyop/resource/exitRun?apikey=71029270&params={id: "'+options.id+'"}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -341,7 +349,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 return;
             }
             $.ajax({
-                url: 'http://10.1.254.122:8080/ltyop/plan/movePlan?apikey=71029270&params={id: "'+id+'", type: "'+type+'"}',
+                url: 'http://202.104.136.228:8888/ltyop/plan/movePlan?apikey=71029270&params={id: "'+id+'", type: "'+type+'"}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -421,7 +429,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         direction: $(this).attr("direction"),
                         pid: pid,
                         x: e.clientX + 5 - parseInt(parent_obj.style.left.replace("px","")),
-                        y: y,
+                        y: y-60,
                         zIndex: 1,
                         data_list: [
                             {name: "发送计划到车辆", en_name: "send_plan_vehicles_bt"},
@@ -480,7 +488,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         direction: $(this).attr("direction"),
                         pid: pid,
                         x: e.clientX + 5 - parseInt(parent_obj.style.left.replace("px","")),
-                        y: y,
+                        y: y-60,
                         zIndex: 1,
                         data_list: [
                             {name: "添加计划", en_name: "add_plan_bt"},
@@ -530,7 +538,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         direction: $(this).attr("direction"),
                         pid: pid,
                         x: e.clientX + 5 - parseInt(parent_obj.style.left.replace("px","")),
-                        y: y,
+                        y: y-60,
                         zIndex: 1,
                         data_list: [
                             {name: "添加计划", en_name: "add_plan_bt"},

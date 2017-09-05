@@ -90,13 +90,13 @@ class Vehicle(models.Model):
 
                     vals.update({
                         'id': r.id,
-                        'engine_no': res.model_id.engine_no,
-                        'ride_number': res.model_id.ride_number,
-                        'seats_ext': res.model_id.seats_ext,
-                        'total_odometer': res.total_odometer,
+                        'engine_no': r.model_id.engine_no,
+                        'ride_number': r.model_id.ride_number,
+                        'seats_ext': r.model_id.seats_ext,
+                        'total_odometer': r.total_odometer,
                         # 增加默认传值
                         'doorTypeId': 1,
-                        'state': res.state,
+                        'state': r.state,
                     })
                     vals = mapping.dict_transfer(self._name, vals)
                     params = Params(type=3, cityCode=cityCode,tableName=CAR_TABLE, data=vals).to_dict()

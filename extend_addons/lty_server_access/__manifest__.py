@@ -20,11 +20,11 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','operation_menu','scheduling_parameters'],
+    'depends': ['base','operation_menu','scheduling_parameters','schedule_dispatch_group'],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/cloud_server_config.xml',
         'views/dsp_server_config.xml',
         'views/templates.xml',

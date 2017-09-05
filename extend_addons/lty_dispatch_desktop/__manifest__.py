@@ -19,7 +19,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['dispatch_monitor_menu','lty_dispatch_desktop_base'],
+    'depends': ['dispatch_monitor_menu','lty_dispatch_desktop_base','lty_dispatch_jobs'],
 
     # always loaded
     'data': [

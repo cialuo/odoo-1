@@ -21,23 +21,23 @@ class BusDateType(models.Model):
                             ('General', 'General'),
                             ], default='Monday', string='Date Type', required=True)
 
-    priority = fields.Selection([('one level', 'one level'),
-                                 ('two level', 'two level'),
-                                 ('three level', 'three level'),
-                                 ], default='two level', readonly=True)
+    priority = fields.Selection([(1, 'one level'),
+                                 (2, 'two level'),
+                                 (3, 'three level'),
+                                 ], default='two level', compute='_get_priority',readonly=True, store=True)
 
     start_date = fields.Date(required=True)
     end_date = fields.Date(required=True)
 
-    @api.onchange('type')
-    def onchange_priority(self):
+    @api.depends('type')
+    def _get_priority(self):
         for i in self:
             if i.type == 'General':
-                i.priority = 'one level'
+                i.priority = 1
             elif i.type == 'Vacation':
-                i.priority = 'two level'
+                i.priority = 2
             else:
-                i.priority = 'three level'
+                i.priority = 3
 
     @api.constrains('start_date', 'end_date')
     def _check_date(self):
