@@ -19,11 +19,11 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['web_kanban','dispatch_monitor_menu','scheduling_parameters'],
+    'depends': ['web_kanban','dispatch_monitor_menu','scheduling_parameters','schedule_dispatch_group'],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/views.xml',
         'data/default_desktop_cfg_data.xml',   
         'views/dispatch_drver_command.xml',   		

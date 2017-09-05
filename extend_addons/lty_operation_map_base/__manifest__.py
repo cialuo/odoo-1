@@ -20,12 +20,11 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['lty_dispatch_desktop_widget','scheduling_parameters'],
+    'depends': ['lty_dispatch_desktop_widget','scheduling_parameters','schedule_dispatch_group'],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
-        #'views/cloud_server_config.xml',
+        'security/ir.model.access.csv',
         'views/line_map_production.xml',
         'views/template_view.xml',
 
