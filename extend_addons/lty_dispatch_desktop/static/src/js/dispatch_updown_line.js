@@ -39,12 +39,13 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 self.absnormalChart1 = echarts.init(self.$el.find('.absnormal_chart')[1]);
                 self.lagstation_chart = echarts.init(self.$el.find('.lagstation_chart')[0]);
                 self.dataJson = [[120, 152], [220, 182], [150, 232], [320, 332]];
-                var package = {
+                var package_abnormal = {
                     type: 1000,
-                    open_modules: ["dispatch-abnormal-" + this.desktop_id],
+                    controlId:this.desktop_id,
+                    open_modules: ["dispatch-abnormal"],
                     msgId: Date.parse(new Date())
                 };
-                websocket.send(JSON.stringify(package));
+                websocket.send(JSON.stringify(package_abnormal));
                 socket_model_info[model_abnormal] = {
                     arg: {
                         self: self,
@@ -71,11 +72,15 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var self = arg.self;
             var data_use = JSON.parse(datalist);
             // if(data_use.line_id == parseInt(arg.line_id))
-            var line_c = parseInt(arg.line_id) + 317;
+            var line_c = parseInt(arg.line_id);
+            //匹配line_id
             if (line_c == data_use.data.line_id) {
                 self.model_abnormal.call("create", [
                     {
                         'name': data_use.name,
+                        'suggest':data_use.data.suggest,
+                        'abnormal_description':data_use.data.abnormal_description,
+                        'solution':data_use.data.solution
                     }]).then(function (res) {
                 });
             }

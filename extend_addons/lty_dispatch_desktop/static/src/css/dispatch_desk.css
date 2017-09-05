@@ -98,6 +98,8 @@
 
 .dispatch_desktop .line_way li:first-of-type {
     background: #4ED0C8;
+    overflow: hidden;
+    height: 30px;
 }
 
 .dispatch_desktop .line_way li {
@@ -180,13 +182,19 @@
     padding-bottom: 20px;
 }
 
-.dispatch_desktop .edit_content > ul > li li {
+.dispatch_desktop .edit_content > ul li {
     line-height: 20px;
     height: 20px;
     width: 100px;
     font-size: 14px;
     text-align: center;
     cursor: pointer;
+    overflow: hidden;
+}
+
+.dispatch_desktop .edit_content .chs{
+    overflow: scroll;
+    height: 100px;
 }
 
 /*控制台车辆线路css*/
@@ -757,8 +765,6 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     margin: 0 auto;
     color: #838697;
     border: 1px solid #6D7487;
-    border-bottom: none;
-
 }
 
 .bus_src_config .table_source th:first-of-type, .bus_src_config .table_source td:first-of-type, .bus_src_config .table_bus_num th:first-of-type, .bus_src_config .table_bus_num td:first-of-type {

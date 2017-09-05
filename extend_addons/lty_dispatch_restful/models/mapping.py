@@ -163,8 +163,8 @@ hr_employee = {
     ('trueName', 'name'): None,
     #工号
     ('serils', 'jobnumber'): None,
-    #岗位ID
-    ('sysPostId', 'workpost'): None,
+    #岗位ID, 后台获取  1019 司机 1020 乘务员  1021其他
+    ('sysPostId', None): None,
     #IC卡号
     ('ICCardNoId', 'iccard'): None,
     #身份证
