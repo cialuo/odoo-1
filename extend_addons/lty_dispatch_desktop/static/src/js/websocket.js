@@ -28,12 +28,11 @@ var socket_model_api_obj = {};
 websocket.onmessage = function (event) {
     var eventObj = JSON.parse(event.data);
     var modelName = eventObj.moduleName;
-            console.log(eventObj)
+    console.log(eventObj)
     if ($.inArray(modelName, ['passenger_delay', 'bus_real_state', "line_plan", "line_park", "line_online"])!=-1){
         console.log(eventObj)
     }
     var controllerId = eventObj.controllerId;
-
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
     linePlanParkOnlineModel_display($(".controller_" + controllerId));
 
