@@ -185,7 +185,8 @@ function passenger_flow_capacity(controllerObj, data_list) {
 
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
-    var dom = controllerObj.find(".busRealStateModel_"+dataObj.line_on+"_"+dataObj.bus_on);
+    console.log(dataObj+"_bus")
+    var dom = controllerObj.find(".busRealStateModel_"+dataObj.line_id+"_"+dataObj.bus_no);
     // var dom = controllerObj.find(".busRealStateModel_1_1");
     if (dom.length > 0) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");

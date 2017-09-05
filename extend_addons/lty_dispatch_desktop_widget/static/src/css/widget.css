@@ -1002,11 +1002,132 @@
     text-align: center;
 }
 
-.plan_display .plan_display_set .setBox .nav li:last-child {
-    border-bottom: none;
-}
-
 .plan_display .plan_display_set .setBox .nav li:hover {
     background: #3a4263;
     color: #4ecfc7;
+}
+
+
+/*customModal*/
+.customModal .modal-dialog {
+    height: auto !important;
+    padding: 0 !important;
+    color: #fff !important;
+}
+
+.customModal .modal-dialog .modal-content {
+    border-radius: 8px;
+    background: #384060;
+}
+
+.customModal .modal-dialog .modal-content .modal-header {
+    border-bottom: none;
+    padding: 28px 28px 18px;
+}
+
+.customModal .modal-dialog .modal-content .modal-body {
+    padding: 10px 28px;
+}
+
+.customModal .modal-dialog .modal-content .modal-footer {
+    border-top: none;
+    padding: 28px;
+}
+
+.customModal .modal-dialog .modal-content .modal-header .close {
+    color: #fff;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.customModal .modal-dialog .modal-content .modal-header .modal-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.customModal .modal-dialog .modal-content table {
+    width: 100%;
+}
+
+.customModal .modal-dialog .modal-content input {
+    border: 1px solid #6d7487;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 10px;
+    display: inline-block;
+    border-radius: 4px;
+    background: #384060;
+    color: #fff;
+}
+
+.customModal .modal-dialog .modal-content select {
+    border: 1px solid #6d7487;
+    height: 26px;
+    line-height: 26px;
+    padding: 0 10px;
+    display: inline-block;
+    border-radius: 4px;
+    background: #384060;
+    color: #fff;
+}
+
+.customModal .modal-dialog .modal-content textarea {
+    border-radius: 4px;
+    background: #384060;
+    border: 1px solid #6d7487;
+    padding: 0 10px;
+    resize: none;
+}
+
+.customModal .btn {
+    background: none;
+    padding: 2px 12px;
+}
+
+.customModal .btn-default {
+    border: 1px solid #6d7487;
+    color: #6d7487;
+}
+
+.customModal .btn-primary {
+    border: 1px solid #21b799;
+    color: #21b799;
+}
+
+.customModalAddPlan .modal-content {
+    width: 668px;
+}
+
+.customModalAddPlan table tr td {
+    line-height: 28px;
+    width: 50%;
+    padding-top: 12px;
+}
+
+.customModalAddPlan .tmp td {
+    padding-top: 26px;
+}
+
+.customModalAddPlan table tr td:last-child {
+    text-align: right;
+}
+
+.customModalAddPlan .w1 {
+    width: 94px;
+}
+
+.customModalAddPlan .w2 {
+    width: 200px;
+}
+
+.customModalAddPlan .w3 {
+    width: 126px;
+}
+
+.customModalAddPlan .w4 {
+    width: 168px;
+}
+
+.customModalAddPlan .w5 {
+    width: 90px;
 }
