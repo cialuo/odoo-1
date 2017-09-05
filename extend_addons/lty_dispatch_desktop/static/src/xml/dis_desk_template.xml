@@ -359,7 +359,7 @@
 		</t>
 	</t>
 	<t t-name="config">
-		<div>
+		<div class="info_config">
 			<div class="modal fade config" tabindex="-1" role="dialog">
 			    <div class="modal-dialog" role="document">
 					<div class="modal-content">
