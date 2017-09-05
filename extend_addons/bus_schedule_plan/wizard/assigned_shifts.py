@@ -10,7 +10,7 @@ from datetime import timedelta
 class AssignedShifts(models.TransientModel):
     _name = 'assigned_shifts'
 
-    group_id = fields.Many2one('bus_group', 'Group', required=True)
+    group_id = fields.Many2one('bus_group', 'Group', ondelete='cascade', required=True)
     route_id = fields.Many2one('route_manage.route_manage', related='group_id.route_id', required=True)
 
     driver_vehicle_shift_ids = fields.One2many('bus_group_driver_vehicle_shift_tran', 'assign_id')
@@ -40,6 +40,8 @@ class AssignedShifts(models.TransientModel):
         use_date = datetime.datetime.strptime(str(self.use_date), '%Y-%m-%d')
 
         yesterday = datetime.datetime.strptime(str(datetime.date.today()-timedelta(days=1)), '%Y-%m-%d')
+        if len(self.bus_shift_id.shift_line_ids.ids)<1:
+            raise UserError(_("所选版制的班次不存在，请选择正确的班制"))
 
         if use_date < yesterday:
             raise UserError(_("use_date is more than yesterday"))

@@ -24,13 +24,13 @@ class BusDateType(models.Model):
     priority = fields.Selection([('one level', 'one level'),
                                  ('two level', 'two level'),
                                  ('three level', 'three level'),
-                                 ], default='two level', readonly=True)
+                                 ], default='two level', compute='_get_priority',readonly=True)
 
     start_date = fields.Date(required=True)
     end_date = fields.Date(required=True)
 
-    @api.onchange('type')
-    def onchange_priority(self):
+    @api.depends('type')
+    def _get_priority(self):
         for i in self:
             if i.type == 'General':
                 i.priority = 'one level'

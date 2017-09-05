@@ -292,7 +292,7 @@ class BusGroupDriverVehicleShift(models.Model):
 
         last_use_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") - timedelta(days=1)
         next_use_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") + timedelta(days=1)
-        res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '<', str(last_use_date))])
+        res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '<', str(datetime.date.today()-timedelta(days=1)))])
 
         if res:
             res.write({'active': False})
