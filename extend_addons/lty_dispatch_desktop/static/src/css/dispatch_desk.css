@@ -182,7 +182,7 @@
     padding-bottom: 20px;
 }
 
-.dispatch_desktop .edit_content > ul > li li {
+.dispatch_desktop .edit_content > ul li {
     line-height: 20px;
     height: 20px;
     width: 100px;
@@ -190,6 +190,11 @@
     text-align: center;
     cursor: pointer;
     overflow: hidden;
+}
+
+.dispatch_desktop .edit_content .chs{
+    overflow: scroll;
+    height: 100px;
 }
 
 /*控制台车辆线路css*/

@@ -33,6 +33,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
             this.line_id = self.$el.attr('line_id');
             var tid = self.$el.attr('tid');
+
             function site_info(mode_line, model_station_platform, model_src) {
                 if (self.$el.find('.line_line')[0] != undefined) {
                     // 根据tid拿到线路id
@@ -65,10 +66,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     delete socket_model_info[model_id];
                                 }
                                 var package_line_message = {
-                                    type: 1000,
-                                    controlId:self.desktop_id,
-                                    open_modules: ["dispatch-line_message"],
-                                    msgId: Date.parse(new Date())
+                                    type: 2000,
+                                    controlId: self.desktop_id,
+                                    open_modules: ["line_message"]
                                 };
                                 websocket.send(JSON.stringify(package_line_message));
                                 var dataSite_top_color_cof = {};
@@ -198,16 +198,16 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     }
                     // 车辆进出站上下行
                     // 根据state方向
-                    if (data_use.data.type == "in"&&data_use.data.direction==0) {
+                    if (data_use.data.type == "in" && data_use.data.direction == 0) {
                         var oLeft = 1190 * (parseInt(data_use.data.status) + 0.5) / arg.site_top_infos.length;
                         self.$('.content_car_road_top').find('.line_car').attr('bus_no', data_use.data.bus_no).css('left', oLeft - 22 + 'px');
-                    } else if(data_use.data.type == "out"&&data_use.data.direction==0) {
+                    } else if (data_use.data.type == "out" && data_use.data.direction == 0) {
                         var oLeft = 1190 * (parseInt(data_use.data.status) + 1) / arg.site_top_infos.length;
                         self.$('.content_car_road_top').find('.line_car').attr('bus_no', data_use.data.bus_no).css('left', oLeft - 22 + 'px');
-                    }else if(data_use.data.type == "in"&&data_use.data.direction==1){
+                    } else if (data_use.data.type == "in" && data_use.data.direction == 1) {
                         var oLeft = 1190 * (parseInt(data_use.data.status) + 0.5) / arg.site_down_infos.length;
                         self.$('.content_car_road_down').find('.line_car').attr('bus_no', data_use.data.bus_no).css('left', oLeft - 22 + 'px');
-                    }else{
+                    } else {
                         var oLeft = 1190 * (parseInt(data_use.data.status) - 0.5) / arg.site_down_infos.length;
                         self.$('.content_car_road_down').find('.line_car').attr('bus_no', data_use.data.bus_no).css('left', oLeft - 22 + 'px');
                     }
@@ -425,7 +425,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             controllerId: self.desktop_id,
                         };
                     $.ajax({
-                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:'+self.desktop_id+',lineId:'+self.line_id+'}',
+                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + self.line_id + '}',
                         type: 'get',
                         dataType: 'json',
                         data: {},
@@ -442,7 +442,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     data.respose[i].realReachTime = getLocalTime(data.respose[i].realReachTime / 1000);
                                 }
                             }
-                            new bus_source_config(this, options, data).appendTo($(".controller_" + options.controllerId));
+                            if (data.respose != '') {
+                                new bus_source_config(this, options, data).appendTo($(".controller_" + options.controllerId));
+                            } else {
+                                layer.msg('暂无数据');
+                            }
                         },
                         error: function () {
                             alert("请求出错");
@@ -587,6 +591,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         ,
         show_chose_line: function () {
             var self = this;
+            $(".edit_content .chs").mCustomScrollbar("destroy");
             self.model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (data) {
                 self.$('.edit_content .chs').html('')
                 for (var i = 0; i < data.length; i++) {
@@ -595,9 +600,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         self.$('.edit_content .chs').append(oLi);
                     }
                 }
+                $('.edit_content .chs').mCustomScrollbar({
+                        theme: 'minimal'
+                    });
+                self.$('.edit_content').show();
             });
-            self.$('.edit_content');
-            self.$('.edit_content').show();
+
         }
         ,
         cursor_pointer_lr: function (canvas, e) {
@@ -675,6 +683,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
             var data = this.data;
             var type = this.type;
+
             // 界面初始渲染
             if (type == 0) {
                 // 只存在其中一种组件
@@ -729,7 +738,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             // 不存在其他的组件时候
             if (tid == '') {
                 if (resName.indexOf(x.innerHTML) != -1) {
-                    alert('该线路已被选择，请重新选择');
+                    layer.msg('该线路已被选择，请重新选择');
                 } else {
                     self.model_line.call("create", [
                         {
@@ -762,7 +771,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 }
             } else {
                 if (resName.indexOf(x.innerHTML) != -1) {
-                    alert('该线路已被选择，请重新选择');
+                    layer.msg('该线路已被选择，请重新选择');
                 } else {
                     self.model_line.call("write", [parseInt(tid),
                         {
