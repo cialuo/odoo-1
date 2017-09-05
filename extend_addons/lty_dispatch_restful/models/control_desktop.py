@@ -111,7 +111,7 @@ class Desktop(models.Model):
         for r in self:
             try:
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                vals = {'controlsId': r.desktop_id.id}
+                vals = {'controlsId': r.desktop_id.id, 'lineId': r.line_id.id}
                 _logger.info('Start unlink data: %s', self._name)
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
                 rp = Client().http_post(url, data=params)
