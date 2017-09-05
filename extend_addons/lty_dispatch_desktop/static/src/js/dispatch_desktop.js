@@ -107,7 +107,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                     }
                     // 遍历
                     for (var j = 0; j < s.length; j++) {
-                        self.model2.query().filter([["line_id", "=", parseInt(s[j])]]).all().then(function (res) {
+                        self.model2.query().filter([["desktop_id", "=", parseInt(desktop_id)],["line_id", "=", parseInt(s[j])]]).all().then(function (res) {
                             new dispatch_bus(this, res, 0).appendTo(self.$el);
                         });
                     }
@@ -139,14 +139,13 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                     var id = tidNum[i].getAttribute('tid');
                     var left = tidNum[i].style.left.split('px')[0];
                     var top = tidNum[i].style.top.split('px')[0];
-                    var zIndex = parseInt(tidNum[i].style.zIndex);
                     self.model2.call("write", [parseInt(id),
                         {
                             'position_left': left,
                             'position_top': top,
                             'position_z_index': 0,
                         }]).then(function (data) {
-
+                            layer.msg('保存成功');
                     });
                 }
             }

@@ -27,7 +27,7 @@
 	<t t-name="bus_site_info">
 		<div class="bus_site_info" t-attf-style="left:#{widget.location_data.x}px;top:#{widget.location_data.y}px;z-index:#{widget.location_data.zIndex}">
 			<div class="ovf">
-				<a class="del" href="javascript:;" title="最小化">-</a>
+				<a class="del" href="javascript:;" title="删除">-</a>
 			</div>
 			<ul class="bus_site_content">
 				<li class="get_digital_map">电子地图</li>
