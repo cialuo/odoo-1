@@ -119,6 +119,9 @@ class BusGroup(models.Model):
             vehicle_ct = len(i.vehicle_ids)
             driver_ct = len(i.driver_ids)
             shift_ct = len(i.bus_shift_id.shift_line_ids)
+            if shift_ct == 0:
+                i.is_not_match = True
+                i.not_match_reason = u'所选班制的班次不存在，请选择正确的班制'
             if vehicle_ct and shift_ct and driver_ct:
                 if vehicle_ct * shift_ct > driver_ct:
                     i.is_not_match = True

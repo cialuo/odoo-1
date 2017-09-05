@@ -41,7 +41,7 @@ class AssignedShifts(models.TransientModel):
 
         yesterday = datetime.datetime.strptime(str(datetime.date.today()-timedelta(days=1)), '%Y-%m-%d')
         if len(self.bus_shift_id.shift_line_ids.ids)<1:
-            raise UserError(_("所选版制的班次不存在，请选择正确的班制"))
+            raise UserError(_("The shift line is not exists， please choose the right shifts"))
 
         if use_date < yesterday:
             raise UserError(_("use_date is more than yesterday"))
