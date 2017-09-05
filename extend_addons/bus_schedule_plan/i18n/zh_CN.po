@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-04 10:22+0000\n"
-"PO-Revision-Date: 2017-09-04 10:22+0000\n"
+"POT-Creation-Date: 2017-09-05 09:26+0000\n"
+"PO-Revision-Date: 2017-09-05 09:26+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -792,7 +792,7 @@ msgid "Sunday"
 msgstr "周日"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:53
+#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:55
 #, python-format
 msgid "The conductor is more than the driver"
 msgstr "售票员比司机多，请重新分配"
@@ -838,6 +838,12 @@ msgstr "该线路的班组名称必须唯一"
 #, python-format
 msgid "The route and vehicle must be unique!"
 msgstr "线路和车辆必须唯一"
+
+#. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:44
+#, python-format
+msgid "The shift line is not exists， please choose the right shifts"
+msgstr "所选班制的班次不存在，请选择正确的班制"
 
 #. module: bus_schedule_plan
 #: selection:bus_date_type,type:0
@@ -969,7 +975,7 @@ msgid "arrive time"
 msgstr "到达时间"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:95
+#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:97
 #: model:ir.actions.act_window,name:bus_schedule_plan.act_assigned_shifts
 #: model:ir.model,name:bus_schedule_plan.model_assigned_shifts
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_group_form
@@ -2066,7 +2072,7 @@ msgid "use"
 msgstr "可用"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:45
+#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:47
 #, python-format
 msgid "use_date is more than yesterday"
 msgstr "使用时间不能小于昨天"
