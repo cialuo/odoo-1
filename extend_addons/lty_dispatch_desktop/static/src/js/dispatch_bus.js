@@ -38,7 +38,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if (self.$el.find('.line_line')[0] != undefined) {
                     // 根据tid拿到线路id
                     mode_line.query().filter([["id", "=", parseInt(tid)]]).all().then(function (data) {
-
                         model_station_platform.query().filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "up"]]).all().then(function (res_top) {
                             model_station_platform.query().filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "down"]]).all().then(function (res_down) {
                                 // 库
@@ -75,12 +74,40 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 var dataSite_down_color_cof = {};
                                 for (var i = 0; i < res_top.length; i++) {
                                     var color = 'color' + res_top[i].id;
-                                    dataSite_top_color_cof[color] = 'blue';
+                                    dataSite_top_color_cof[color] = '#18d76b';
                                 }
                                 for (var i = 0; i < res_down.length; i++) {
                                     var color = 'color' + res_down[i].id;
-                                    dataSite_down_color_cof[color] = 'blue';
+                                    dataSite_down_color_cof[color] = '#18d76b';
                                 }
+                                var cirTop = {
+                                    id: '.can_top',
+                                    ciry: 27,
+                                    testy: 13,
+                                    // color: data.color,
+                                    self: self.$el,
+                                    dataSite_color: dataSite_top_color_cof,
+                                    site_infos: res_top
+                                };
+                                var cirBottom = {
+                                    id: '.can_bottom',
+                                    ciry: 6,
+                                    testy: 25,
+                                    self: self.$el,
+                                    // color: data.color,
+                                    dataSite_color: dataSite_down_color_cof,
+                                    site_infos: res_down
+                                };
+                                cir_and_text(cirTop);
+                                cir_and_text(cirBottom);
+                                // self.color = data.color;
+                                self.site_top_infos = res_top;
+                                self.site_down_infos = res_down;
+                                // 站点颜色
+                                self.dataSite_top_color = dataSite_top_color_cof;
+                                self.dataSite_down_color = dataSite_down_color_cof;
+                                self.subsection = '';
+
                                 socket_model_info[model_id] =
                                     {
                                         fn: self.site_websocket,
@@ -221,6 +248,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 //公交模拟地图canvas
                 // 距离车场距离
                 // if (!isNaN((data.subsection[0]))) {
+
                 qrend_desktop_canvas(data, '.can_top', '.can_bottom', '.canvas_left', '.canvas_right', self.$el);
                 // 线路颜色
                 self.color = data.color;
@@ -375,6 +403,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             // e.delegateTarget.parentElement.append(dialog);
         }
         ,
+
         clk_can_top: function (e) {
             this.clickTb({
                 id: '.can_top',
@@ -387,7 +416,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 subsection: this.subsection,
                 model: this.model_station_platform
             }, e);
-            //调用点击canvas事件
         }
         ,
         clk_can_bottom: function (e) {
@@ -467,7 +495,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var x = event.pageX - c.getBoundingClientRect().left;
             var y = event.pageY - c.getBoundingClientRect().top;
             var zIndex = parseInt(this.$el[0].style.zIndex) + 1;
-
             if (e.button == 2) {
                 if ($('body').find('.bus_site_info').length > 0) {
                     $('body').find('.bus_site_info').remove();
@@ -500,7 +527,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             }]).then(function (res) {
 
                         });
-                        var traffic_top = {
+                        if(canvas.subsection!=''){
+                             var traffic_top = {
                             id: canvas.id,
                             y: canvas.ciry - 1,
                             self: canvas.self,
@@ -508,12 +536,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             color: canvas.color
                         };
                         traffic_distance(traffic_top);
+                        }
                         var cir_text = {
                             id: canvas.id,
                             ciry: canvas.ciry,
                             testy: canvas.testy,
                             self: canvas.self,
-                            color: canvas.color,
+                            // color: canvas.color,
                             dataSite_color: canvas.dataSite_color,
                             site_infos: canvas.site_infos
                         };
@@ -601,8 +630,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     }
                 }
                 $('.edit_content .chs').mCustomScrollbar({
-                        theme: 'minimal'
-                    });
+                    theme: 'minimal'
+                });
                 self.$('.edit_content').show();
             });
         }
