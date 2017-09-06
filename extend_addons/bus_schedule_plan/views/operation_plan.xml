@@ -10,15 +10,15 @@
                     <div>方案参数</div>
                     <ul class="plan_operate_config">
                         <li class="poc_intro">上行首发台次</li>
-                        <li>10</li>
+                        <li class="up_carNum"></li>
                         <li class="poc_intro">上行方向</li>
-                        <li>竹子林-车公庙</li>
+                        <li class="up_station_info"></li>
                     </ul>
-                    <ul class="plan_operate_config">
+                    <ul class="plan_operate_config dbl_state">
                         <li class="poc_intro">下行首发台次</li>
-                        <li>10</li>
+                        <li class="down_carNum"></li>
                         <li class="poc_intro">下行方向</li>
-                        <li>车公庙-竹子林</li>
+                        <li class="down_station_info"></li>
                     </ul>
                     <table class="time_start_arrive_stop o_list_view table table-condensed table-striped">
                         <thead>
@@ -29,7 +29,7 @@
                         <tbody>
                         </tbody>
                     </table>
-                    <div>
+                    <div class="mgt10">
                         <div class="btn btn-primary save_plan">保存</div>
                         <div class="btn btn-default giveup_plan">取消</div>
                     </div>

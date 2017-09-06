@@ -7,11 +7,16 @@
 }
 .plan_operate_config{
     overflow: hidden;
+    margin:10px 0;
+    color: #000;
 }
 .plan_operate_config li{
-    width:150px;
+    width:200px;
     float: left;
 }
 .plan_operate_config .poc_intro{
     border-right: 1px solid #ccc;
+}
+.mgt10{
+    margin-top: 10px;
 }
