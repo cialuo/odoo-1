@@ -7,6 +7,19 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='operation_plan_page']" position="replace">
                 <page string="运营计划" name="operation_plan_page">
+                    <div>方案参数</div>
+                    <ul class="plan_operate_config">
+                        <li class="poc_intro">上行首发台次</li>
+                        <li>10</li>
+                        <li class="poc_intro">上行方向</li>
+                        <li>竹子林-车公庙</li>
+                    </ul>
+                    <ul class="plan_operate_config">
+                        <li class="poc_intro">下行首发台次</li>
+                        <li>10</li>
+                        <li class="poc_intro">下行方向</li>
+                        <li>车公庙-竹子林</li>
+                    </ul>
                     <table class="time_start_arrive_stop o_list_view table table-condensed table-striped">
                         <thead>
                             <tr>

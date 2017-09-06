@@ -5,3 +5,13 @@
 .time_start_arrive_stop  .time_left{
     padding-left: 5px;
 }
+.plan_operate_config{
+    overflow: hidden;
+}
+.plan_operate_config li{
+    width:150px;
+    float: left;
+}
+.plan_operate_config .poc_intro{
+    border-right: 1px solid #ccc;
+}
