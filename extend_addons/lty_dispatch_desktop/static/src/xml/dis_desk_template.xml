@@ -138,13 +138,13 @@
 						</div>
 						<div class="line_btn">
 							<div class="line_btn_content posR">
-								<a class="min" href="javascript:;" title="最小化">-</a>
+								<a class="min" href="javascript:;" title="删除">-</a>
 								<a href="javascript:;" title="客流展示" class="show_right">></a>
 								<a class="line_edit" href="javascript:;" title="设置">+</a>
 							</div>
 							<div class="edit_content">
 								<div class="ovf">
-									<a class="del" href="javascript:;" title="最小化">-</a>
+									<a class="del" href="javascript:;" title="删除">-</a>
 								</div>
 								<ul class="chs">
 								</ul>
@@ -263,7 +263,7 @@
 					<div class="updown_title dragAreaDesk">
 						<div class="line_btn">
 							<div class="line_btn_content posR">
-								<a class="min" href="javascript:;" title="删除">×</a>
+								<a class="min" href="javascript:;" title="最小化">×</a>
 							</div>
 						</div>
 					</div>
