@@ -458,7 +458,7 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
     def dispatch(self): # 派工
         self.ensure_one()
         if not self.user_id:
-            raise exceptions.UserError("user_id Required!")
+            raise exceptions.UserError(_("user_id Required!"))
 
         manhour_percentage_work = 0
         for manhour_manage in self.manhour_manage_ids:
