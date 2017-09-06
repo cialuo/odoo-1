@@ -233,6 +233,25 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 self.reduction_time_fn(options);
             });
 
+            // 批量更改车辆或司机
+            plan_display.on("click", ".plan_display_set[model='bus_plan'] li.batch_change_drivers_bt", function(){
+                var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
+                var id = $(this).parents(".plan_display_set").attr("plan_pid");
+                var direction = $(this).parents(".plan_display_set").attr("direction");
+                var active_tr = plan_display.find(".bus_plan .content_tb").find("tr.active_tr[direction="+direction+"][pid="+id+"]");
+                var title_obj = plan_display.find(".closeBox .num");
+                var options = {
+                    id: id,
+                    layer_index: layer_index
+                    // direction: direction,
+                    // lineId: title_obj.attr("line_id"),
+                    // lineName: title_obj.text(),
+                    // carNum: active_tr.find("td:eq(3)").text(),
+                    // driverName: active_tr.find("td:eq(4)").text()
+                };
+                self.batch_fix_switch_fn(options);
+            });
+
             // 立即排班
             plan_display.on("click", ".plan_display_set[model='bus_yard'] li.immediately_scheduling_bt", function(){
                 var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
@@ -374,6 +393,23 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         //这里特别说明一下，由于请求成功后，后台会立即触发一次推送websoket，页面状态更新这里将不在做处理
                     }
                     layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                }
+            });
+        },
+        batch_fix_switch_fn: function(options){
+            var self = this;
+            $.ajax({
+                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:'+self.location_data.controllerId+',lineId:'+self.location_data.line_id+',id:'+options.id+'}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(options.layer_index);
+                    var op = ret.respose[0];
+                    op.controllerId = self.location_data.controllerId;
+                    console.log(op);
+                    var dialog = new batch_fix_switch_w(self, op);
+                    dialog.appendTo($('body'));
                 }
             });
         },
@@ -677,6 +713,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         }
     });
 
+    // 添加计划
     var add_plan_w = Widget.extend({
         template: 'plan_display_add_plan_template',
         init: function(parent, data){
@@ -701,9 +738,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 var dialogHeight = $modal_dialog.height();
                 //计算出距离顶部的高度
                 var m_top = (clientHeight - dialogHeight)/2;
-                console.log("clientHeight : " + clientHeight);
-                console.log("dialogHeight : " + dialogHeight);
-                console.log("m_top : " + m_top);
                 $modal_dialog.css({'margin': m_top + 'px auto'});
             });
             self.$el.modal({
@@ -750,6 +784,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         }
     });
 
+    // 修改计划
     var fix_plan_w = Widget.extend({
         template: 'plan_display_fix_plan_template',
         init: function(parent, data){
@@ -774,9 +809,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 var dialogHeight = $modal_dialog.height();
                 //计算出距离顶部的高度
                 var m_top = (clientHeight - dialogHeight)/2;
-                console.log("clientHeight : " + clientHeight);
-                console.log("dialogHeight : " + dialogHeight);
-                console.log("m_top : " + m_top);
                 $modal_dialog.css({'margin': m_top + 'px auto'});
             });
             self.$el.modal({
@@ -813,6 +845,97 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             };
             $.ajax({
                 url: 'http://202.104.136.228:8888/ltyop/plan/updatePlan?apikey=71029270&params='+JSON.stringify(params),
+                type: 'post',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(layer_index);
+                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                    self.$('.btn-default').click();
+                }
+            });
+        }
+    });
+
+    // 批量更改车辆或司机
+    var batch_fix_switch_w = Widget.extend({
+        template: 'batch_fix_switch_template',
+        init: function(parent, data){
+            this._super(parent);
+            this.set_data = data;
+        },
+        start: function(){
+            this.modal_fn();
+        },
+        modal_fn: function(){
+            var self = this;
+            self.$el.on('hide.bs.modal', function () {
+                self.destroy();
+            });
+            self.$el.on('show.bs.modal', function () {
+                $(this).css('display', 'block');
+                // 是弹出框居中。。。
+                var $modal_dialog = $(this).find('.modal-dialog');
+                //获取可视窗口的高度
+                var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;
+                //得到dialog的高度
+                var dialogHeight = $modal_dialog.height();
+                //计算出距离顶部的高度
+                var m_top = (clientHeight - dialogHeight)/2;
+                $modal_dialog.css({'margin': m_top + 'px auto'});
+            });
+            self.$el.modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            self.$('.modal-body').on("click", ".mode_type a", function(){
+                $(this).addClass("active").siblings().removeClass('active');
+            });
+            // 提交
+            self.$('.btn-primary').on('click', function(){
+                self.submit_fn();
+            });
+        },
+        submit_fn: function(){
+            var self = this;
+            var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
+            var confObj = self.$('.modal-body table');
+            var params = {
+                controllerId: self.set_data.controllerId,
+                planId_1: self.set_data.id,
+                driverId_1: confObj.find(".driverName").attr("workerId"),
+                chooseOnboardId: confObj.find(".selfId").attr("onBoardId"),
+                lineId: confObj.find(".line").val(),
+                startTime: confObj.find(".startTime").val(),
+                endTime: confObj.find(".endTime").val(),
+                planOnboardId: confObj.find(".replace_vehicles").attr("planOnboardId"),
+                driverId_2: confObj.find(".replace_driver").attr("driverId_2"),
+                driverName_2: confObj.find(".replace_driver").val(),
+                modeType: confObj.find(".mode_type .active").attr("name")
+            };
+            if (params.modeType == "replace"){
+                self.replace_ajax_fn(params, layer_index);
+                return;
+            }
+            self.switch_ajax_fn(params, layer_index);
+        },
+        replace_ajax_fn: function(op, layer_index){
+            $.ajax({
+                url: 'http://202.104.136.228:8888/plan/batchReplaceDriverOrCar?apikey=71029270&params='+JSON.stringify(op),
+                type: 'post',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(layer_index);
+                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                    self.$('.btn-default').click();
+                }
+            });
+        },
+        switch_ajax_fn: function(op, layer_index){
+            $.ajax({
+                url: 'http://202.104.136.228:8888/plan/batchUpdateDriverOrCar?apikey=71029270&params='+JSON.stringify(op),
                 type: 'post',
                 dataType: 'json',
                 data: {},

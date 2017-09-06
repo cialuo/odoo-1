@@ -1036,7 +1036,8 @@
 .customModal .modal-dialog .modal-content .modal-header .close {
     color: #fff;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 14px;
+    opacity: 1;
 }
 
 .customModal .modal-dialog .modal-content .modal-header .modal-title {
@@ -1066,7 +1067,8 @@
     padding: 0 10px;
     display: inline-block;
     border-radius: 4px;
-    background: #384060;
+    background-color: #384060;
+    background-position: right 10px center;
     color: #fff;
 }
 
@@ -1093,6 +1095,12 @@
     color: #21b799;
 }
 
+.customModal .modal-dialog .modal-content a {
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+}
+
 .customModalAddPlan .modal-content {
     width: 668px;
 }
@@ -1103,12 +1111,53 @@
     padding-top: 12px;
 }
 
+.customModalAddPlan .mode .mode_type {
+    position: relative;
+    border-bottom: 2px solid #6d7487;
+    height: 30px;
+    margin: 20px 0;
+}
+
+.customModalAddPlan .mode .mode_type a {    
+    width: 68px;
+    height: 30px;
+    line-height: 30px;
+    background: #384060;
+}
+
+.customModalAddPlan .mode .mode_type .replace_bt {
+    position: absolute;
+    left: 20px;
+    bottom: 0;
+    z-index: 1
+}
+.customModalAddPlan .mode .mode_type .switch_bt {
+    position: absolute;
+    left: 88px;
+    bottom: 0;
+    z-index: 1
+}
+
+.customModalAddPlan .mode .mode_type a.active {
+    border-left: 2px solid #6d7487;
+    border-top: 2px solid #6d7487;
+    border-right: 2px solid #6d7487;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    bottom: -2px;
+    height: 32px;
+}
+
 .customModalAddPlan .tmp td {
     padding-top: 26px;
 }
 
 .customModalAddPlan table tr td:last-child {
     text-align: right;
+}
+
+.customModalAddPlan table tr td:first-child {
+    text-align: left;
 }
 
 .customModalAddPlan .w1 {
@@ -1130,6 +1179,15 @@
 .customModalAddPlan .w5 {
     width: 90px;
 }
+
+
+
+
+
+
+
+
+
 .modal_lty {
     color: #fff;
 }
