@@ -61,10 +61,10 @@ class BusMoveTimeTable(models.Model):
     # 上行运营车辆数
     upworkvehicle = fields.Integer(string="up work vehicle")
 
-    # 下行机动车辆数
+    # 上行机动车辆数
     upbackupvehicle = fields.Integer(string="up backup vehicle")
 
-    # 下行车辆数
+    # 下行运营车辆数
     downworkvehicle = fields.Integer(string="down work vehicle")
 
     # 下行机动车辆数
@@ -178,13 +178,16 @@ class BusMoveTimeTable(models.Model):
         return result
 
     @classmethod
-    def genWebRetunData(cls, data4direction, dataforbus, upstation, downstation, direction):
+    def genWebRetunData(cls, data4direction, dataforbus, upstation,
+                        downstation, direction, upvehicle, downvehicle):
         data = {
             'direction':data4direction,
             'bus':dataforbus,
             'upstation':upstation,
             'downstation':downstation,
-            'directiontype':direction
+            'directiontype':direction,
+            'upvehicle':upvehicle,
+            'downvehicle':downvehicle
         }
         return data
 
@@ -237,7 +240,8 @@ class BusMoveTimeTable(models.Model):
         # 双头调 保证所有有列表长度一致 None补齐长度不够的列表
         self.resizeData(arg2)
 
-        return self.genWebRetunData(arg1, arg2, station1, station2, row.schedule_method)
+        return self.genWebRetunData(arg1, arg2, station1, station2, row.schedule_method,
+                                    row.upworkvehicle, row.downworkvehicle)
 
     @classmethod
     def rebuildOpPlanAdd(cls, data, index, seq):
@@ -310,7 +314,8 @@ class BusMoveTimeTable(models.Model):
         station2 = row.line_id.down_station.name
         self.preprocess2WebData(busMoveTable)
         self.resizeData(busMoveTable)
-        return self.genWebRetunData(data, busMoveTable, station1, station2, self.schedule_method)
+        return self.genWebRetunData(data, busMoveTable, station1, station2, self.schedule_method,
+                                    row.upworkvehicle, row.downworkvehicle)
 
     @api.model
     def saveOpPlan(self, recid, data):
