@@ -12,6 +12,7 @@ odoo.define('operate_plan_conf', function (require) {
     }
 
     function render_plan(data) {
+        console.log(data)
         var bus_num = Object.keys(data.bus).length;
         //渲染table
         if (data.direction.down.length != 0 && data.direction.up.length != 0) {
