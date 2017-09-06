@@ -148,6 +148,14 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         load_fn: function(){
             var self = this;
+
+            var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("linePlanParkOnlineModel_set"));
+            layer.close(passengerDelayModel_set.layer_index);
+            $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar({
+                theme: 'minimal'
+            });
+            self.$el.removeClass('hide_model');
+
             // 阻止默认右键
             self.$(".section_plan_cont").on("contextmenu ", ".content_tb .point", function(){
                 return false;
