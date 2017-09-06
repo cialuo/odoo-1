@@ -435,7 +435,7 @@ msgstr "库存移动"
 #: code:addons/important_component/models/stock.py:110
 #, python-format
 msgid "There are important & not important components,please remove: %s "
-msgstr "重要部件和非重要不能不能同时申领,请移除非重要部件: %s "
+msgstr "重要部件和非重要部件不能同时申领,请移除非重要部件: %s "
 
 #. module: important_component
 #: code:addons/important_component/models/component.py:48
