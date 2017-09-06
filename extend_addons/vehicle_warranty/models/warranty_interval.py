@@ -76,7 +76,7 @@ class WarrantyCapability(models.Model): # 保养能力参数设置
         :return:
         """
         for order in self:
-            if order.warranty_vehicle_count < 0:
+            if order.warranty_vehicle_count <= 0:
                 raise exceptions.ValidationError(_("warranty_vehicle_count Can not be negative！"))
 
 class WarrantyLevel(models.Model):  # 维保级别

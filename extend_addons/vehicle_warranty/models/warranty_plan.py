@@ -32,11 +32,11 @@ class WarrantyPlan(models.Model): # 车辆保养计划
     made_company_id = fields.Many2one('hr.department', string='Made Company', related='create_name.department_id')
 
 
-    auditor_id = fields.Many2one('hr.employee', string="Auditor Man")
-    auditor_time = fields.Datetime(string="Auditor Time")
+    auditor_id = fields.Many2one('hr.employee', string="Auditor Man",copy=False)
+    auditor_time = fields.Datetime(string="Auditor Time",copy=False)
 
-    approval_id = fields.Many2one('hr.employee', string="Approval Man")
-    approval_time = fields.Datetime(string="Approval Time")
+    approval_id = fields.Many2one('hr.employee', string="Approval Man",copy=False)
+    approval_time = fields.Datetime(string="Approval Time",copy=False)
 
     remark = fields.Char()
 
