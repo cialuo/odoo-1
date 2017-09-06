@@ -2,7 +2,6 @@ odoo.define('operate_plan_conf', function (require) {
     "use strict";
     var Model = require('web.Model');
     var model = new Model("scheduleplan.busmovetime");
-    var recid = $('#the_rec_id .o_form_field').text();
 
     function checkTime(i) {
         if (i < 10) {
@@ -12,6 +11,14 @@ odoo.define('operate_plan_conf', function (require) {
     }
 
     function render_plan(data) {
+        $('.up_carNum').html(data.upvehicle);
+        $('.up_station_info').html(data.upstation + "-" + data.downstation)
+        if (data.directiontype != 'singleway') {
+            $('.down_carNum').html(data.downvehicle);
+            $('.down_station_info').html(data.downstation + "-" + data.upstation);
+        } else {
+            $('.dbl_state').hide();
+        }
         var bus_num = Object.keys(data.bus).length;
         //渲染table
         if (data.direction.down.length != 0 && data.direction.up.length != 0) {
@@ -27,7 +34,6 @@ odoo.define('operate_plan_conf', function (require) {
                 $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.upstation.substr(0, 1) + '</div></th>');
             }
         }
-
         for (var bn = 1; bn < (bus_num + 1); bn++) {
             $('.time_start_arrive_stop tbody').append('<tr><td>' + bn + '</td></tr>');
             for (var bTdo = 0; bTdo < $('.time_start_arrive_stop thead tr th').length - 1; bTdo++) {
@@ -53,7 +59,7 @@ odoo.define('operate_plan_conf', function (require) {
                     }
                 } else {
                     $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).addClass("not_click").css({
-                        'cursor':'not-allowed'
+                        'cursor': 'not-allowed'
                     });
                 }
             }
@@ -64,7 +70,10 @@ odoo.define('operate_plan_conf', function (require) {
         sessionStorage.setItem('direction', JSON.stringify(data.direction));
     }
 
+    // window.onhashchange = function () {
+    var recid = $('#the_rec_id .o_form_field').text();
     model.call("reoppaln2web", [recid]).then(function (data) {
+        $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
         render_plan(data);
     })
     $('.time_start_arrive_stop').on('dblclick', 'tbody td:not(.not_click)', function () {
@@ -83,7 +92,6 @@ odoo.define('operate_plan_conf', function (require) {
         } else {
             click_td = 0;
         }
-
         model.call("changeOpplan", [recid, this_index, direction, directionObj, click_td]).then(function (res) {
             $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
             render_plan(res);
@@ -100,4 +108,5 @@ odoo.define('operate_plan_conf', function (require) {
             render_plan(data);
         });
     });
+    // };
 });
