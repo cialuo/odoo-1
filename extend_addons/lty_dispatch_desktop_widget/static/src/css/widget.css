@@ -1124,6 +1124,10 @@
     width: 668px;
 }
 
+.driverCheckIn .modal-content {
+    width: 358px;
+}
+
 .customModalAddPlan table tr td {
     line-height: 28px;
     width: 50%;
@@ -1202,6 +1206,10 @@
     width: 90px;
 }
 
+.customModalAddPlan .w6 {
+    width: 185px;
+}
+
 
 
 
@@ -1272,6 +1280,10 @@
     border: 1px solid #6d738a;
     border-radius: 4px;
     margin-left: 10px;
+}
+.modal_lty .msg_send_info option{
+    color: white;
+    background: none;
 }
 
 .modal_lty .col-sm-9.pd0 {

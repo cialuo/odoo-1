@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* bus_schedule_plan
+# 	* bus_schedule_plan
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-05 09:26+0000\n"
-"PO-Revision-Date: 2017-09-05 09:26+0000\n"
+"POT-Creation-Date: 2017-09-07 06:56+0000\n"
+"PO-Revision-Date: 2017-09-07 15:02+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_shift_line_form
@@ -67,6 +69,7 @@ msgstr "90天一轮换"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_vehicle_shift_active
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_schedulrule_active
 msgid "Active"
 msgstr "有效"
 
@@ -235,7 +238,7 @@ msgstr "Course Tree"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_up_rulebusarrange_create_uid
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_vehicleresource_create_uid
 msgid "Created by"
-msgstr "创建人"
+msgstr "设立人"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_assigned_shifts_create_date
@@ -376,7 +379,7 @@ msgstr "结束时间"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_motorcyclists_execplan_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_vehicleresource_execplan_id
 msgid "Execplan id"
-msgstr "Execplan id"
+msgstr "作业执行表"
 
 #. module: bus_schedule_plan
 #: selection:bus_date_type,type:0
@@ -611,7 +614,7 @@ msgstr "线路名称"
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_vehicle_type
 msgid "Model"
-msgstr "车型"
+msgstr "型号"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,help:bus_schedule_plan.field_bus_group_vehicle_vehicle_type
@@ -632,7 +635,7 @@ msgstr "行车时刻表"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimedown_movetimetable_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_movetimeup_movetimetable_id
 msgid "Movetimetable id"
-msgstr "Movetimetable id"
+msgstr "行车时刻表"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_not_match_reason
@@ -812,28 +815,28 @@ msgid "The record must be unique!"
 msgstr "班次必须唯一!"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_group.py:245
+#: code:addons/bus_schedule_plan/models/bus_group.py:250
 #: sql_constraint:bus_group_conductor:0
 #, python-format
 msgid "The route and conductor must be unique!"
 msgstr "该线路的乘务员必须唯一!"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_group.py:226
+#: code:addons/bus_schedule_plan/models/bus_group.py:231
 #: sql_constraint:bus_group_driver:0
 #, python-format
 msgid "The route and driver must be unique!"
 msgstr "该线路的司机必须唯一!"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_group.py:15
+#: code:addons/bus_schedule_plan/models/bus_group.py:17
 #: sql_constraint:bus_group:0
 #, python-format
 msgid "The route and name must be unique!"
 msgstr "该线路的班组名称必须唯一"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_group.py:205
+#: code:addons/bus_schedule_plan/models/bus_group.py:210
 #: sql_constraint:bus_group_vehicle:0
 #, python-format
 msgid "The route and vehicle must be unique!"
@@ -943,7 +946,7 @@ msgstr "周三"
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_vehicleresource_workstatus
 msgid "Workstatus"
-msgstr "Workstatus"
+msgstr "状态"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_staff_group_form
@@ -964,7 +967,7 @@ msgstr "车辆"
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_vehicleresource_arrangenumber
 msgid "arrange number"
-msgstr "arrange number"
+msgstr "车辆台次"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_execdownplanitem_arrivetime
@@ -1265,7 +1268,7 @@ msgstr "售票员工号"
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_rule_manage_tree
 msgid "create move time"
-msgstr "create move time"
+msgstr "生成行车时刻表"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_rule_output_tree
@@ -1312,7 +1315,7 @@ msgid "date type have repeat of time"
 msgstr "选择的日期类型的时间有重复，请重新选择时间"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_work_rule.py:137
+#: code:addons/bus_schedule_plan/models/bus_work_rule.py:142
 #, python-format
 msgid "difference bettwen two sequence number must be 1"
 msgstr "序号为单调递增 且增量为1"
@@ -1394,8 +1397,7 @@ msgid "down work vehicle"
 msgstr "下行车辆数"
 
 #. module: bus_schedule_plan
-#: selection:bus_group,state:0
-#: selection:scheduleplan.excutetable,status:0
+#: selection:bus_group,state:0 selection:scheduleplan.excutetable,status:0
 msgid "draft"
 msgstr "草稿"
 
@@ -1494,8 +1496,7 @@ msgid "first run time"
 msgstr "首班时间"
 
 #. module: bus_schedule_plan
-#: selection:scheduleplan.todown,mark:0
-#: selection:scheduleplan.toup,mark:0
+#: selection:scheduleplan.todown,mark:0 selection:scheduleplan.toup,mark:0
 msgid "flat"
 msgstr "平峰"
 
@@ -1509,27 +1510,27 @@ msgstr "机动"
 #: model:ir.actions.act_window,name:bus_schedule_plan.act_gen_bus_move_time
 #: model:ir.ui.view,arch_db:bus_schedule_plan.view_gen_bus_move_time_wizard
 msgid "gen bus move time"
-msgstr "gen bus move time"
+msgstr "生成行车时刻表"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.view_gen_bus_move_time_wizard
 msgid "gen movet time"
-msgstr "gen movet time"
+msgstr "生成行车时刻表"
 
 #. module: bus_schedule_plan
 #: model:ir.model,name:bus_schedule_plan.model_genbusmovetime
 msgid "genbusmovetime"
-msgstr "genbusmovetime"
+msgstr "生成行车时刻表"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_rule_manage_form
 msgid "generate bus move time"
-msgstr "generate bus move time"
+msgstr "生成行车时刻表"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_move_time_table_form
 msgid "generate staff arrange data"
-msgstr "generate staff arrange data"
+msgstr "生成人车排班表"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.view_assigned_shifts_wizard
@@ -1543,7 +1544,7 @@ msgid "interval"
 msgstr "发车间隔"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_work_rule.py:741
+#: code:addons/bus_schedule_plan/models/bus_work_rule.py:748
 #, python-format
 msgid "interval must be an positive integer"
 msgstr "发车间隔必须是正整数"
@@ -1576,8 +1577,7 @@ msgid "load mark"
 msgstr "标志"
 
 #. module: bus_schedule_plan
-#: selection:scheduleplan.todown,mark:0
-#: selection:scheduleplan.toup,mark:0
+#: selection:scheduleplan.todown,mark:0 selection:scheduleplan.toup,mark:0
 msgid "low"
 msgstr "低峰"
 
@@ -1651,12 +1651,12 @@ msgstr "一级"
 #. module: bus_schedule_plan
 #: sql_constraint:scheduleplan.excutetable:0
 msgid "one line one date one execute table"
-msgstr "one line one date one execute table"
+msgstr "不能生成重复的行车作业执行表"
 
 #. module: bus_schedule_plan
 #: sql_constraint:scheduleplan.busmovetime:0
 msgid "one line one executedate one move time table"
-msgstr "one line one executedate one move time table"
+msgstr "不能生成重复的行车时刻表"
 
 #. module: bus_schedule_plan
 #: selection:bus_staff_group_vehicle_line,operation_state:0
@@ -1682,8 +1682,7 @@ msgid "passenger number"
 msgstr "核载人数"
 
 #. module: bus_schedule_plan
-#: selection:scheduleplan.todown,mark:0
-#: selection:scheduleplan.toup,mark:0
+#: selection:scheduleplan.todown,mark:0 selection:scheduleplan.toup,mark:0
 msgid "peak"
 msgstr "高峰"
 
@@ -1883,10 +1882,10 @@ msgid "staff arrange table"
 msgstr "人车配班表"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_work_rule.py:148
+#: code:addons/bus_schedule_plan/models/bus_work_rule.py:153
 #, python-format
 msgid "start and end time not match"
-msgstr "start and end time not match"
+msgstr "开始时间结束时间跟线路信息不匹配"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_execdownplanitem_starttime
@@ -1934,7 +1933,7 @@ msgstr "乘务员数量"
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_genbusmovetime_use_date
 msgid "target date"
-msgstr "target date"
+msgstr "目标日期"
 
 #. module: bus_schedule_plan
 #: selection:bus_date_type,priority:0
@@ -1942,23 +1941,23 @@ msgid "three level"
 msgstr "三级"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_work_rule.py:157
+#: code:addons/bus_schedule_plan/models/bus_work_rule.py:162
 #, python-format
 msgid "time arrange must have continuity"
 msgstr "排班时间必须保持连续性"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_work_rule.py:163
+#: code:addons/bus_schedule_plan/models/bus_work_rule.py:168
 #, python-format
 msgid "time arrange must not empty"
-msgstr "time arrange must not empty"
+msgstr "发车时间安排不能为空"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_work_rule.py:743
-#: code:addons/bus_schedule_plan/models/bus_work_rule.py:745
+#: code:addons/bus_schedule_plan/models/bus_work_rule.py:750
+#: code:addons/bus_schedule_plan/models/bus_work_rule.py:752
 #, python-format
 msgid "time format error: "
-msgstr "time format error: "
+msgstr "时间格式错误："
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_execdownplanitem_timelenght
@@ -2078,7 +2077,7 @@ msgid "use_date is more than yesterday"
 msgstr "使用时间不能小于昨天"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_work_rule.py:109
+#: code:addons/bus_schedule_plan/models/bus_work_rule.py:114
 #, python-format
 msgid "vechile count large then vehicle number"
 msgstr "车辆总数超过了线路可用车辆总数"
@@ -2161,4 +2160,3 @@ msgstr "职务"
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_rule_manage_form
 msgid "working_amount"
 msgstr "working_amount"
-
