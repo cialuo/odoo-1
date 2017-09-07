@@ -450,7 +450,8 @@ op_planparam = {
 #1.3.12	控制台
 # op_controlline -- dispatch.control.desktop.component
 op_controlline = {
-    #无主键ID
+    #主键ID
+    ('id', 'id'): None,
     #调度台id  long
     ('controlsId', 'desktop_id'): None,
     #线路id  long

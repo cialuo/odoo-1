@@ -28,7 +28,6 @@ var socket_model_api_obj = {};
 websocket.onmessage = function (event) {
     var eventObj = JSON.parse(event.data);
     var modelName = eventObj.moduleName;
-    console.log(eventObj)
     if ($.inArray(modelName, ['passenger_delay', 'bus_real_state', "line_plan", "line_park", "line_online"])!=-1){
         console.log(eventObj)
     }

@@ -1111,6 +1111,62 @@
         </div>
     </t>
 
+    <t t-name="driver_check_in_template">
+        <div class="modal customModal customModalAddPlan driverCheckIn" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">司乘签到</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <td>
+                                    车&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
+                                    <input class="w6 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    线&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
+                                    <select name="" class="w6 line" id="">
+                                        <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
+                                            <t t-esc="widget.set_data.lineName"></t>
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    司机/乘务员工号&#160;
+                                    <input class="w6" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    司机/乘务员名称&#160;
+                                    <input class="w6" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    时&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;间&#160;
+                                    <input class="w6 workTime" t-attf-value="{{new Date().toTimeString().slice(0, 5)}}" type="time" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" name="btn_on" class="btn btn-primary">签到</button>
+                        <button type="button" name="btn_quit" class="btn btn-primary">签退</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
     <t t-name="communication_template">
         <div>
             <div class="communication dragContent nofix">
