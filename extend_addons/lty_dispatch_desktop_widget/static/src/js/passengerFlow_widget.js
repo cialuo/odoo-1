@@ -62,12 +62,12 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
             this.passenger_data = init_data;
         },
         start: function(){
-            this.trend_chart_fn();
             var layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
             var passengerDelayModel_set = {
                 layer_index: layer_index
             }
             sessionStorage.setItem("passengerDelayModel_set", JSON.stringify(passengerDelayModel_set));
+            this.trend_chart_fn();
 
             // 订阅滞客信息
             var package = {
@@ -126,6 +126,9 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                     new trend_chart(this, trend_chart_obj.data).appendTo(this.$(".trend_chart_summary .passenger_flow_cont")); 
                 }
             }
+            var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("passengerDelayModel_set"));
+            layer.close(passengerDelayModel_set.layer_index);
+            this.$el.removeClass('hide_model');
         },
         closeFn: function(){
             // 取消订阅滞客信息

@@ -237,9 +237,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             plan_display.on("click", ".plan_display_set[model='bus_plan'] li.batch_change_drivers_bt", function() {
                 var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
                 var id = $(this).parents(".plan_display_set").attr("plan_pid");
-                var direction = $(this).parents(".plan_display_set").attr("direction");
-                var active_tr = plan_display.find(".bus_plan .content_tb").find("tr.active_tr[direction=" + direction + "][pid=" + id + "]");
-                var title_obj = plan_display.find(".closeBox .num");
+                // var direction = $(this).parents(".plan_display_set").attr("direction");
+                // var active_tr = plan_display.find(".bus_plan .content_tb").find("tr.active_tr[direction=" + direction + "][pid=" + id + "]");
+                // var title_obj = plan_display.find(".closeBox .num");
                 var options = {
                     id: id,
                     layer_index: layer_index
@@ -254,7 +254,14 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
 
             // 司乘签到
             plan_display.on("click", ".plan_display_set[model='bus_yard'] li.sign_in_bt, .plan_display_set[model='bus_transit'] li.sign_in_bt", function() {
-                alert("我是司乘签到");
+                // alert("我是司乘签到");
+                var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+                var id = $(this).parents(".plan_display_set").attr("plan_pid");
+                var options = {
+                    id: id,
+                    layer_index: layer_index
+                };
+                self.driver_check_in_fn(options);
             });
 
             // 编辑车辆
@@ -430,6 +437,23 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     op.controllerId = self.location_data.controllerId;
                     console.log(op);
                     var dialog = new batch_fix_switch_w(self, op);
+                    dialog.appendTo($('body'));
+                }
+            });
+        },
+        driver_check_in_fn: function(options){
+            var self = this;
+            $.ajax({
+                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:'+self.location_data.controllerId+',lineId:'+self.location_data.line_id+',id:'+options.id+'}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(options.layer_index);
+                    var op = ret.respose[0];
+                    op.controllerId = self.location_data.controllerId;
+                    console.log(op);
+                    var dialog = new driver_check_in_w(self, op);
                     dialog.appendTo($('body'));
                 }
             });
@@ -718,6 +742,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             this.location_data =  data;
         },
     });
+
     var send_short_msg_msg = Widget.extend({
         template: "send_short_msg_msg",
         init: function(parent, data){
@@ -960,6 +985,73 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         switch_ajax_fn: function(op, layer_index){
             $.ajax({
                 url: 'http://202.104.136.228:8888/plan/batchUpdateDriverOrCar?apikey=71029270&params='+JSON.stringify(op),
+                type: 'post',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(layer_index);
+                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                    self.$('.btn-default').click();
+                }
+            });
+        }
+    });
+
+    // 司乘签到
+    var driver_check_in_w = Widget.extend({
+        template: 'driver_check_in_template',
+        init: function(parent, data){
+            this._super(parent);
+            this.set_data = data;
+        },
+        start: function(){
+            this.modal_fn();
+        },
+        modal_fn: function(){
+            var self = this;
+            self.$el.on('hide.bs.modal', function () {
+                self.destroy();
+            });
+            self.$el.on('show.bs.modal', function () {
+                $(this).css('display', 'block');
+                // 是弹出框居中。。。
+                var $modal_dialog = $(this).find('.modal-dialog');
+                //获取可视窗口的高度
+                var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;
+                //得到dialog的高度
+                var dialogHeight = $modal_dialog.height();
+                //计算出距离顶部的高度
+                var m_top = (clientHeight - dialogHeight)/2;
+                $modal_dialog.css({'margin': m_top + 'px auto'});
+            });
+            self.$el.modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            self.$('.modal-body').on("click", ".mode_type a", function(){
+                $(this).addClass("active").siblings().removeClass('active');
+            });
+            // 提交
+            self.$('.btn-primary').on('click', function(){
+                var name = $(this).attr('name');
+                self.submit_fn(name);
+            });
+        },
+        submit_fn: function(name){
+            var self = this;
+            var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
+            var confObj = self.$('.modal-body table');
+            var params = {
+                id: self.set_data.id,
+                onBoardId: confObj.find(".selfId").attr("onBoardId"),
+                workerId: confObj.find(".driverName").attr("workerId"),
+                driverName: confObj.find(".replace_driver").val(),
+                workTime: confObj.find(".workTime").val(),
+                workTime: "1"
+            };
+            $.ajax({
+                url: 'http://202.104.136.228:8888/ltyop/resource/busResourceOpAttendance?apikey=71029270&params='+JSON.stringify(params),
                 type: 'post',
                 dataType: 'json',
                 data: {},
