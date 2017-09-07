@@ -293,7 +293,6 @@
 .bus_real_info .infoR {
     width: 100%;
     z-index: 2;
-    float: left;
     position: relative;
 }
 
