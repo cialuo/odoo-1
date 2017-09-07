@@ -1006,15 +1006,19 @@
                                 </td>
                             </tr>
                             <tr class="tmp">
-                                <td>
-                                    批量调整同方向&#160;<input class="w3"  type="number" min="1" />&#160; 计划</td>
-                                <td>
-                                    间&#160;&#160;&#160;&#160;&#160;&#160;&#160;隔&#160;&#160;<input class="w4" type="number" min="1" />&#160;分钟
+                                <td colspan="2">
+                                    <div class="fgx"></div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    批量调整&#160;<input class="w5"  type="time" />~<input class="w5"  type="time" />&#160;的计划</td>
+                                    <div class="selectType">
+                                        <span class="ckIcon active"></span>批量调整同方向&#160;<input class="w3"  type="number" min="1" />&#160;计划
+                                        <br/>
+                                        <br/>
+                                        <span class="ckIcon"></span>批量调整&#160;<input class="w5"  type="time" />~<input class="w5"  type="time" />&#160;的计划
+                                    </div>
+                                </td>
                                 <td>
                                     间&#160;&#160;&#160;&#160;&#160;&#160;&#160;隔&#160;&#160;<input class="w4" type="number" min="1" />&#160;分钟
                                 </td>

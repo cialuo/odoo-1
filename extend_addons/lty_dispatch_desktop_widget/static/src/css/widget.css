@@ -1001,6 +1001,10 @@
     text-align: center;
 }
 
+.plan_display .plan_display_set .setBox .nav li:last-child {
+    border-bottom: none;
+}
+
 .plan_display .plan_display_set .setBox .nav li:hover {
     background: #3a4263;
     color: #4ecfc7;
@@ -1101,6 +1105,22 @@
     text-align: center;
 }
 
+.customModalAddPlan .modal-content span.ckIcon {
+    cursor: pointer;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-right: 5px;
+    background: url("/lty_dispatch_desktop_widget/static/src/image/checkIcon.png") no-repeat center center;
+    background-position: 0 -14px;
+}
+
+.customModalAddPlan .modal-content span.active {
+    background-position: 0 0;
+}
+
 .customModalAddPlan .modal-content {
     width: 668px;
 }
@@ -1148,8 +1168,10 @@
     height: 32px;
 }
 
-.customModalAddPlan .tmp td {
-    padding-top: 26px;
+.customModalAddPlan .tmp .fgx {
+    margin: 26px 0;
+    height: 1px;
+    border-bottom: 1px solid #6d7487;
 }
 
 .customModalAddPlan table tr td:last-child {
@@ -1158,6 +1180,7 @@
 
 .customModalAddPlan table tr td:first-child {
     text-align: left;
+    width: 54%;
 }
 
 .customModalAddPlan .w1 {
@@ -1169,7 +1192,7 @@
 }
 
 .customModalAddPlan .w3 {
-    width: 126px;
+    width: 156px;
 }
 
 .customModalAddPlan .w4 {

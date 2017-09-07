@@ -72,9 +72,8 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
             // 订阅滞客信息
             var package = {
                 type: 2000,
-                controllerId: this.location_data.controllerId,
-                open_modules: ["passenger_delay"],
-                msgId: Date.parse(new Date())
+                controlId: this.location_data.controllerId,
+                open_modules: ["passenger_delay"]
             };
             websocket.send(JSON.stringify(package));
         },
@@ -132,9 +131,8 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
             // 取消订阅滞客信息
             var package = {
                 type: 2001,
-                controllerId: this.location_data.controllerId,
-                open_modules: ["passenger_delay"],
-                msgId: Date.parse(new Date())
+                controlId: this.location_data.controllerId,
+                open_modules: ["passenger_delay"]
             };
             websocket.send(JSON.stringify(package));
             this.destroy();
