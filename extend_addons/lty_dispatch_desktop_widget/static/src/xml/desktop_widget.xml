@@ -1348,10 +1348,10 @@
                                     短信渠道
                                   </label>
                                   <div class="col-sm-9 pd0">
-                                      <select class="msg_send_info">
-                                          <option>司机喇叭</option>
-                                          <option>外喇叭</option>
-                                          <option>内喇叭</option>
+                                      <select class="msg_send_info laba">
+                                          <option value="1">司机喇叭</option>
+                                          <option value="2">外喇叭</option>
+                                          <option value="3">内喇叭</option>
                                       </select>
                                   </div>
                               </div>
@@ -1360,8 +1360,11 @@
                                     预设短信
                                   </label>
                                   <div class="col-sm-9 pd0">
-                                      <select class="msg_send_info">
+                                      <select class="msg_send_info ready_info">
                                           <option>选择预设短信</option>
+                                          <option>信息1</option>
+                                          <option>信息2</option>
+                                          <option>信息3</option>
                                       </select>
                                   </div>
                               </div>

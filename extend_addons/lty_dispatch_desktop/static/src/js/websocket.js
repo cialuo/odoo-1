@@ -28,7 +28,7 @@ var socket_model_api_obj = {};
 websocket.onmessage = function (event) {
     var eventObj = JSON.parse(event.data);
     var modelName = eventObj.moduleName;
-    // console.log(eventObj);
+    console.log(eventObj);
     if ($.inArray(modelName, ['passenger_delay', 'bus_real_state', "line_plan", "line_park", "line_online"])!=-1){
         console.log(eventObj);
     }
@@ -41,7 +41,6 @@ websocket.onmessage = function (event) {
     } else if (modelName == "passenger_flow") {
         //客流与运力组件
         use_odoo_model(event,"passenger_flow");
-        // passenger_flow_capacity($(".controller_" + controllerId), eventObj.data);
     } else if (modelName == "人力资源状态") {
     }else if (modelName == "bus_resource"){
         line_resource($(".controller_" + controllerId), eventObj.data);
@@ -86,7 +85,7 @@ function use_odoo_model(event,model_name) {
 
 // 在线掉线包
 function line_car_src_on_line(controllerObj, data_list) {
-    var dom = controllerObj.find('.bus_src_config[line_id=1]');
+    var dom = controllerObj.find('.bus_src_config[line_id='+data_list.line_id+']');
     // 根据车辆id去进行处理
     if (dom.length > 0 && data_list.type == 1003) {
         dom.find('.line_src_sinal_status').html(data_list.data.status);
@@ -95,7 +94,7 @@ function line_car_src_on_line(controllerObj, data_list) {
 
 //根据车辆实时状态修改车辆资源
 function line_car_src_real_state(controllerObj, data_list) {
-    var dom = controllerObj.find('.bus_src_config[line_id=1]');
+    var dom = controllerObj.find('.bus_src_config[line_id='+data_list.line_id+']');
     var bus_no = data_list.bus_no;
     if (dom.length > 0) {
         dom.find('tr[src_id=' + bus_no + ']').find('.line_src_site .position_site').html('(' + data_list.location_lan + ',' + data_list.location_log + ')');
@@ -107,7 +106,7 @@ function line_car_src_real_state(controllerObj, data_list) {
 }
 
 function line_resource(controllerObj, data_list) {
-    var dom = controllerObj.find('.bus_src_config[line_id=1]');
+    var dom = controllerObj.find('.bus_src_config[line_id='+data_list.line_id+']');
     // 通过lineid以及资源id拿到信息
     if (dom.length > 0) {
         //遍历车辆资源新增的数据
@@ -146,38 +145,6 @@ function absnormal_del(controllerObj, data_list) {
 
     }
 }
-
-// function absnormal_del(controllerObj, data_list) {
-//     if (controllerObj.find('.updown_line_table[line_id=1]').length > 0) {
-//         if (data_list[0].substring(78, 79) > 3) {
-//             controllerObj.find('.updown_line_table[line_id=1]').find('.no_absnormal').show().siblings().hide();
-//             controllerObj.find('.updown_line_table[line_id=1]').find('.passenger_flow_list .absnormal_type  p').html('有危险');
-//             controllerObj.find('.updown_line_table[line_id=1]').addClass('warn');
-//             var timer_carousel = sessionStorage.getItem('timer1');
-//             clearInterval(timer_carousel);
-//             controllerObj.find('.updown_line_table[line_id=1]').find('.carousel_content').css({left: 0});
-//         }
-//     }
-//     if (controllerObj.find('.updown_line_table[line_id=2]').length > 0) {
-//         if (data_list[0].substring(78, 79) > 3) {
-//             controllerObj.find('.updown_line_table[line_id=2]').find('.no_absnormal').show().siblings().hide();
-//             var timer_carouse2 = sessionStorage.getItem('timer2');
-//             clearInterval(timer_carouse2);
-//             controllerObj.find('.updown_line_table[line_id=2]').find('.carousel_content').css({left: 0});
-//         }
-//     }
-// }
-
-//客流运力
-// function passenger_flow_capacity(controllerObj, data_list) {
-//     if (controllerObj.find('.bus_src_config[line_id=1]').find('.src_line_number').length > 0) {
-//         controllerObj.find('.bus_src_config[line_id=1]').find('.src_line_number').html(data_list[0].substring(78, 80));
-//
-//     }
-//     if (controllerObj.find('.bus_src_config[line_id=2]').find('.src_line_number').length > 0) {
-//         controllerObj.find('.bus_src_config[line_id=2]').find('.src_line_number').html(12334);
-//     }
-// }
 
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
