@@ -705,7 +705,7 @@
                     </tr>
                     <t t-foreach="widget.yard_data.data_list" t-as="item">
                         <t t-if="item.inField==widget.yard_data.inField &amp;&amp; item.direction==widget.yard_data.direction &amp;&amp; item.carStateId==1001">
-                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}" t-attf-realReachTime="{{item.realReachTime}}">
+                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}">
                                 <td class="pL">
                                     <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                     <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>
@@ -819,7 +819,7 @@
                                 </td>
                                 <td>
                                     车辆编号&#160;
-                                    <input class="w2 carNum" min="1" t-attf-value="{{widget.set_data.onBoardId}}" type="text"/>
+                                    <input class="w2 carNum" t-attf-value="{{widget.set_data.onBoardId}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -832,7 +832,7 @@
                                 </td>
                                 <td>
                                     司机工号&#160;
-                                    <input class="w2 worker" t-attf-value="{{widget.set_data.workerId}}" type="number" min="1" />
+                                    <input class="w2 worker" t-attf-value="{{widget.set_data.workerId}}" type="number" />
                                 </td>
                             </tr>
                             <tr>
@@ -865,7 +865,7 @@
                                 </td>
                                 <td>
                                     乘务员工号&#160;
-                                    <input class="w2 train" min="1" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
+                                    <input class="w2 train" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -875,7 +875,7 @@
                                 </td>
                                 <td>
                                     乘务员姓名&#160;
-                                    <input class="w2 trainName" min="1" t-attf-value="{{widget.set_data.trainName}}" type="text"/>
+                                    <input class="w2 trainName" t-attf-value="{{widget.set_data.trainName}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -934,7 +934,7 @@
                             <tr>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
-                                    <input class="w2 carNum" min="1" t-attf-value="{{widget.set_data.onBoardId}}" type="text"/>
+                                    <input class="w2 carNum" t-attf-value="{{widget.set_data.onBoardId}}" type="text"/>
                                 </td>
                                 <td>
                                     线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
@@ -971,7 +971,7 @@
                             <tr>
                                 <td>
                                     司&#160;&#160;&#160;&#160;&#160;&#160;&#160;机&#160;
-                                    <input class="w2 driverName" min="1" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
+                                    <input class="w2 driverName" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
                                 </td>
                                 <td>
                                     趟&#160;&#160;&#160;&#160;&#160;&#160;&#160;次&#160;
@@ -992,7 +992,7 @@
                                 </td>
                                 <td>
                                     计划类型&#160;
-                                    <input class="w2 why" min="1" type="text"/>
+                                    <input class="w2 why" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -1047,7 +1047,7 @@
                             <tr>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
-                                    <input class="w2 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <input class="w2 selfId" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
                                 </td>
                                 <td>
                                     线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
@@ -1061,7 +1061,7 @@
                             <tr>
                                 <td>
                                     司&#160;&#160;&#160;&#160;&#160;&#160;&#160;机&#160;
-                                    <input class="w2 driverName" min="1" t-attf-workerId="{{widget.set_data.workerId}}" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
+                                    <input class="w2 driverName" t-attf-workerId="{{widget.set_data.workerId}}" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
                                 </td>
                                 <td>
                                     方&#160;&#160;&#160;&#160;&#160;&#160;&#160;向&#160;
@@ -1124,7 +1124,7 @@
                             <tr>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
-                                    <input class="w6 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <input class="w6 selfId" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>

@@ -28,7 +28,6 @@ var socket_model_api_obj = {};
 websocket.onmessage = function (event) {
     var eventObj = JSON.parse(event.data);
     var modelName = eventObj.moduleName;
-    console.log(eventObj);
     if ($.inArray(modelName, ['passenger_delay', 'bus_real_state', "line_plan", "line_park", "line_online"])!=-1){
         console.log(eventObj);
     }
@@ -405,7 +404,7 @@ function update_linePark(obj, dataObj, obj_list) {
     if (obj.length == 0) {
         // 没有则为新增,需按照计划发车时间先后插入
         var obj_str =
-            '<tr class="point" pid="' + dataObj.id + '" direction="' + dataObj.direction + '" planRunTime="' + dataObj.planRunTime + '" realReachTime="' + item.realReachTime + '">' +
+            '<tr class="point" pid="' + dataObj.id + '" direction="' + dataObj.direction + '" planRunTime="' + dataObj.planRunTime + '">' +
             '<td class="pL">' +
             '<span st="' + dataObj.checkOut + '" class="icon sendToScreen icon_' + dataObj.checkOut + '"></span>' +
             '<span st="' + dataObj.runState + '" class="icon sendToBus icon_' + dataObj.runState + '"></span>' +
