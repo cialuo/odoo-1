@@ -817,9 +817,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if (resName.indexOf(x.innerHTML) != -1) {
                     layer.msg('该线路已被选择，请重新选择');
                 } else {
+                    console.log('tid:'+parseInt(tid))
+                    console.log('lineid:'+$(x).attr("lineid"))
                     self.model_line.call("write", [parseInt(tid),
                         {
-                            'grsid': $(x).attr("lineid"),
+                            'line_id': $(x).attr("lineid"),
                             'position_left': siteLeft,
                             'position_top': siteTop,
                             'position_z_index': 0,
@@ -834,6 +836,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 'name': x.innerHTML,
                             }]).then(function (res) {
                             self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["line_id", "=", parseInt(line)]]).all().then(function (data) {
+                                console.log(data)
                                 data[1].position_left = self.$el.find('.updown_line_table')[0].offsetLeft;
                                 data[1].position_top = self.$el.find('.updown_line_table')[0].offsetTop;
                                 data[1].position_z_index = self.$el.find('.updown_line_table')[0].style.zIndex;
