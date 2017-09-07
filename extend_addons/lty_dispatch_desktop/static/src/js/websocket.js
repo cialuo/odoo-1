@@ -40,7 +40,7 @@ websocket.onmessage = function (event) {
     } else if (modelName == "passenger_flow") {
         //客流与运力组件
         use_odoo_model(event,"passenger_flow");
-        passenger_flow_capacity($(".controller_" + controllerId), eventObj.data);
+        // passenger_flow_capacity($(".controller_" + controllerId), eventObj.data);
     } else if (modelName == "人力资源状态") {
     }else if (modelName == "bus_resource"){
         line_resource($(".controller_" + controllerId), eventObj.data);
@@ -172,15 +172,15 @@ function absnormal_del(controllerObj, data_list) {
 // }
 
 //客流运力
-function passenger_flow_capacity(controllerObj, data_list) {
-    if (controllerObj.find('.bus_src_config[line_id=1]').find('.src_line_number').length > 0) {
-        controllerObj.find('.bus_src_config[line_id=1]').find('.src_line_number').html(data_list[0].substring(78, 80));
-
-    }
-    if (controllerObj.find('.bus_src_config[line_id=2]').find('.src_line_number').length > 0) {
-        controllerObj.find('.bus_src_config[line_id=2]').find('.src_line_number').html(12334);
-    }
-}
+// function passenger_flow_capacity(controllerObj, data_list) {
+//     if (controllerObj.find('.bus_src_config[line_id=1]').find('.src_line_number').length > 0) {
+//         controllerObj.find('.bus_src_config[line_id=1]').find('.src_line_number').html(data_list[0].substring(78, 80));
+//
+//     }
+//     if (controllerObj.find('.bus_src_config[line_id=2]').find('.src_line_number').length > 0) {
+//         controllerObj.find('.bus_src_config[line_id=2]').find('.src_line_number').html(12334);
+//     }
+// }
 
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
