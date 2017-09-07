@@ -154,27 +154,27 @@ class ExecUpPlanItem(models.Model):
     execplan_id = fields.Many2one("scheduleplan.excutetable", ondelete="cascade")
 
     # 序号
-    seq_id = fields.Integer(string="sequence id")
+    seq_id = fields.Integer(string="sequence id", readonly=True)
 
-    vehicle_id = fields.Many2one("fleet.vehicle")
+    vehicle_id = fields.Many2one("fleet.vehicle", readonly=True)
 
     # 司机
-    driver = fields.Many2one("hr.employee", string="dirver")
+    driver = fields.Many2one("hr.employee", string="dirver", readonly=True)
 
     # 乘务员
-    steward = fields.Many2one("hr.employee", string="steward")
+    steward = fields.Many2one("hr.employee", string="steward", readonly=True)
 
     # 发车时间
-    starttime = fields.Datetime(string="start move time")
+    starttime = fields.Datetime(string="start move time", readonly=True)
 
     # 到达时间
-    arrivetime = fields.Datetime(string="arrive time")
+    arrivetime = fields.Datetime(string="arrive time", readonly=True)
 
     # 时长 分钟记
-    timelenght = fields.Integer(string="time length (min)")
+    timelenght = fields.Integer(string="time length (min)", readonly=True)
 
     # 里程
-    mileage = fields.Integer(string="mileage number")
+    mileage = fields.Integer(string="mileage number", readonly=True)
 
     # 线路
     line_id = fields.Many2one("route_manage.route_manage", string="related line")
