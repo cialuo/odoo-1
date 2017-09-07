@@ -62,9 +62,8 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             // 订阅车辆实时状态
             var package = {
                 type: 2000,
-                controllerId: this.location_data.controllerId,
-                open_modules: ["bus_real_state"],
-                msgId: Date.parse(new Date())
+                controlId: this.location_data.controllerId,
+                open_modules: ["bus_real_state"]
             };
             websocket.send(JSON.stringify(package));
         },
@@ -176,9 +175,8 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             // 取消订阅车辆实时状态
             var package = {
                 type: 2001,
-                controllerId: this.location_data.controllerId,
-                open_modules: ["bus_real_state"],
-                msgId: Date.parse(new Date())
+                controlId: this.location_data.controllerId,
+                open_modules: ["bus_real_state"]
             };
             websocket.send(JSON.stringify(package));
             this.destroy();

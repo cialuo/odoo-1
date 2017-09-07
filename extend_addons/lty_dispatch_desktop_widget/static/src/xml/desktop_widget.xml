@@ -624,7 +624,7 @@
             <div class="plan_display dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
                 <div class="closeBox dragArea">
                     <div class="title">线路
-                        <span class="num"><t t-esc="widget.location_data.line_name"></t></span>
+                        <span class="num" t-attf-line_id="{{widget.location_data.line_id}}"><t t-esc="widget.location_data.line_name"></t></span>
                     </div>
                     <a class="close_bt" href="javascript:;"></a>
                 </div>
@@ -1006,17 +1006,98 @@
                                 </td>
                             </tr>
                             <tr class="tmp">
-                                <td>
-                                    批量调整同方向&#160;<input class="w3"  type="number" min="1" />&#160; 计划</td>
-                                <td>
-                                    间&#160;&#160;&#160;&#160;&#160;&#160;&#160;隔&#160;&#160;<input class="w4" type="number" min="1" />&#160;分钟
+                                <td colspan="2">
+                                    <div class="fgx"></div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    批量调整&#160;<input class="w5"  type="time" />~<input class="w5"  type="time" />&#160;的计划</td>
+                                    <div class="selectType">
+                                        <span class="ckIcon active"></span>批量调整同方向&#160;<input class="w3"  type="number" min="1" />&#160;计划
+                                        <br/>
+                                        <br/>
+                                        <span class="ckIcon"></span>批量调整&#160;<input class="w5"  type="time" />~<input class="w5"  type="time" />&#160;的计划
+                                    </div>
+                                </td>
                                 <td>
                                     间&#160;&#160;&#160;&#160;&#160;&#160;&#160;隔&#160;&#160;<input class="w4" type="number" min="1" />&#160;分钟
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="batch_fix_switch_template">
+        <div class="modal customModal customModalAddPlan" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">批量更改车辆或司机</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <td>
+                                    车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
+                                    <input class="w2 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                </td>
+                                <td>
+                                    线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
+                                    <select name="" class="w2 line" id="">
+                                        <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
+                                            <t t-esc="widget.set_data.lineName"></t>
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    司&#160;&#160;&#160;&#160;&#160;&#160;&#160;机&#160;
+                                    <input class="w2 driverName" min="1" t-attf-workerId="{{widget.set_data.workerId}}" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
+                                </td>
+                                <td>
+                                    方&#160;&#160;&#160;&#160;&#160;&#160;&#160;向&#160;
+                                    <select name="" class="w2 direction" id="">
+                                        <t t-if="widget.set_data.direction==0">
+                                            <option value="0" selected="selected">上行</option>
+                                            <option value="1">下行</option>
+                                        </t>
+                                        <t t-else="">
+                                            <option value="0">上行</option>
+                                            <option value="1" selected="selected">下行</option>
+                                        </t>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="mode">
+                                    <div class="mode_type">
+                                        <a name="replace" class="active replace_bt" href="javascript:;">批量更换</a>
+                                        <a name="switch" class="switch_bt" href="javascript:;">批量调换</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    更换时间范围&#160;&#160;<input t-attf-workerId="{{widget.set_data.workerId}}" class="w2 startTime" type="time"/>&#160;~&#160;<input class="w2 endTime" type="time"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    &#160;&#160;&#160;&#160;&#160;&#160;&#160;更换车辆&#160;&#160;<input class="w2 replace_vehicles" t-attf-planOnboardId="{{widget.set_data.planOnboardId}}" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    &#160;&#160;&#160;&#160;&#160;&#160;&#160;更换司机&#160;&#160;<input t-attf-driverId_2="{{widget.set_data.driverId_2}}" class="w2 replace_driver" type="text"/>
                                 </td>
                             </tr>
                         </table>

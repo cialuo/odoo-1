@@ -696,7 +696,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     return;
                 } else {
                     // try {
-                    //     $(".linePlanParkOnlineModel").remove();
+                    $(".linePlanParkOnlineModel").remove();
                     var dialog = new plan_display(self, options);
                     dialog.appendTo($(".controller_" + options.controllerId));
                     // } catch(e){
