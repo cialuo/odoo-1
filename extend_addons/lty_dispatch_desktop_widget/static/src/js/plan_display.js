@@ -164,7 +164,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             $("body").click(function(){
                 var plan_display_set = $(".plan_display_set");
                 if (plan_display_set.length>0){
-                    debugger;
                     var plan_pid = plan_display_set.attr("plan_pid");
                     var model = plan_display_set.attr("model");
                     $("."+model+" .content_tb .point[pid="+plan_pid+"]").removeClass("active_tr").removeClass("right");
