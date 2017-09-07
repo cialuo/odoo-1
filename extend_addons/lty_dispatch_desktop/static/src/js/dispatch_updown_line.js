@@ -27,7 +27,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var tid = self.$el.attr('tid');
             var line_id = self.$el.attr('line_id');
             var model_abnormal = 'abnormal__' + line_id;
-            var model_chart = 'passenge_flow__' + line_id;
+            var model_chart = 'passenger_flow__' + line_id;
             if (socket_model_info[model_abnormal]) {
                 delete socket_model_info[model_abnormal];
             }
@@ -38,14 +38,18 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 self.absnormalChart = echarts.init(self.$el.find('.absnormal_chart')[0]);
                 self.absnormalChart1 = echarts.init(self.$el.find('.absnormal_chart')[1]);
                 self.lagstation_chart = echarts.init(self.$el.find('.lagstation_chart')[0]);
-                self.dataJson = [[120, 152], [220, 182], [150, 232], [320, 332]];
                 var package_abnormal = {
-                    type: 1000,
+                    type: 2000,
                     controlId:this.desktop_id,
-                    open_modules: ["dispatch-abnormal"],
-                    msgId: Date.parse(new Date())
+                    open_modules: ["abnormal"],
                 };
                 websocket.send(JSON.stringify(package_abnormal));
+                var package_passenger_flow = {
+                    type: 2000,
+                    controlId:this.desktop_id,
+                    open_modules: ["passenger_flow"],
+                };
+                websocket.send(JSON.stringify(package_passenger_flow));
                 socket_model_info[model_abnormal] = {
                     arg: {
                         self: self,
@@ -55,7 +59,6 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 socket_model_info[model_chart] = {
                     arg: {
                         self: self,
-                        dataJson: self.dataJson,
                         absnormalChart: self.absnormalChart,
                         absnormalChart1: self.absnormalChart1,
                         lagstation_chart: self.lagstation_chart,
@@ -85,15 +88,39 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 });
             }
         },
-        show_echarts: function (innerHTML, arg) {
+        show_echarts: function (data_list, arg) {
             var self = arg.self;
-            var dataJson = self.dataJson;
-            for (var i = 0; i < dataJson.length; i++) {
-                dataJson[i].push(innerHTML.substring(78, 80) + i * 3);
+            var data_use = JSON.parse(data_list);
+            function push_data(data_item,item) {
+                var data_time=[];
+                for(var i = 0;i<data_item.length;i++){
+                data_time.push(data_item[i][item]);
+                }
+                return data_time;
             }
-            chartLineBar(self.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流', '调整客流'], optionLineBar, ['5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00'], dataJson, '');
-            chartLineBar(self.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流', '调整客流'], optionLineBar, ['5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00', '5:00', '8:00', '13:00', '16:00', '19:00', '0:00'], dataJson, '');
-            chartLineBar(self.lagstation_chart, 0, ["#ff4634", "#4dcfc7"], 'bar', true, ['滞站客流', '预测滞站'], optionLineBar, ['周一', '周二', '周三', '周四', '周五', '周六'], [[120, 152, 101, 134, 90, 230], [220, 182, 191, 234, 290, 330]], '');
+            var data_time=[];
+            var dataJson_passenger_flow_real =[];
+            var dataJson_transport_capacity_plan =[];
+            var dataJson_transport_capacity_suggest =[];
+            for(var i = 0;i<data_use.data.passenger_flow_real.length;i++){
+                data_time.push(data_use.data.passenger_flow_real[i].datetime.split(' ')[1]);
+            }
+            push_data(data_use.data.passenger_flow_real,'passenger_flow')
+            push_data(data_use.data.transport_capacity_plan,'capacity')
+            push_data(data_use.data.transport_capacity_suggest,'capacity')
+             for(var j = 0;j<data_use.data.transport_capacity_plan.length;j++){
+                dataJson_passenger_flow_real.push(data_use.data.passenger_flow_real[j].passenger_flow);
+            }
+            for(var j = 0;j<data_use.data.transport_capacity_plan.length;j++){
+                dataJson_transport_capacity_plan.push(data_use.data.transport_capacity_plan[j].capacity);
+            }
+
+             for(var k = 0;k<data_use.data.transport_capacity_suggest.length;k++){
+                dataJson_transport_capacity_suggest.push(data_use.data.transport_capacity_suggest[k].capacity);
+            }
+            chartLineBar(arg.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流'], optionLineBar, data_time, [dataJson_passenger_flow_real,dataJson_transport_capacity_plan,dataJson_transport_capacity_suggest], '');
+            chartLineBar(arg.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流'], optionLineBar, data_time, [dataJson_passenger_flow_real,dataJson_transport_capacity_plan,dataJson_transport_capacity_suggest], '');
+            // chartLineBar(arg.lagstation_chart, 0, ["#ff4634", "#4dcfc7"], 'bar', true, ['滞站客流', '预测滞站'], optionLineBar, ['周一', '周二', '周三', '周四', '周五', '周六'], [[120, 152, 101, 134, 90, 230], [220, 182, 191, 234, 290, 330]], '');
         },
         closeFn: function () {
             var self = this;
