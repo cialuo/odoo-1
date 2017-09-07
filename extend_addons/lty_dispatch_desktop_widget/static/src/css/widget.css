@@ -1124,6 +1124,10 @@
     width: 668px;
 }
 
+.driverCheckIn .modal-content {
+    width: 358px;
+}
+
 .customModalAddPlan table tr td {
     line-height: 28px;
     width: 50%;
@@ -1200,6 +1204,10 @@
 
 .customModalAddPlan .w5 {
     width: 90px;
+}
+
+.customModalAddPlan .w6 {
+    width: 185px;
 }
 
 
