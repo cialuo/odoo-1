@@ -1001,6 +1001,10 @@
     text-align: center;
 }
 
+.plan_display .plan_display_set .setBox .nav li:last-child {
+    border-bottom: none;
+}
+
 .plan_display .plan_display_set .setBox .nav li:hover {
     background: #3a4263;
     color: #4ecfc7;
@@ -1036,7 +1040,8 @@
 .customModal .modal-dialog .modal-content .modal-header .close {
     color: #fff;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 14px;
+    opacity: 1;
 }
 
 .customModal .modal-dialog .modal-content .modal-header .modal-title {
@@ -1066,7 +1071,8 @@
     padding: 0 10px;
     display: inline-block;
     border-radius: 4px;
-    background: #384060;
+    background-color: #384060;
+    background-position: right 10px center;
     color: #fff;
 }
 
@@ -1093,6 +1099,28 @@
     color: #21b799;
 }
 
+.customModal .modal-dialog .modal-content a {
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+}
+
+.customModalAddPlan .modal-content span.ckIcon {
+    cursor: pointer;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-right: 5px;
+    background: url("/lty_dispatch_desktop_widget/static/src/image/checkIcon.png") no-repeat center center;
+    background-position: 0 -14px;
+}
+
+.customModalAddPlan .modal-content span.active {
+    background-position: 0 0;
+}
+
 .customModalAddPlan .modal-content {
     width: 668px;
 }
@@ -1103,12 +1131,56 @@
     padding-top: 12px;
 }
 
-.customModalAddPlan .tmp td {
-    padding-top: 26px;
+.customModalAddPlan .mode .mode_type {
+    position: relative;
+    border-bottom: 2px solid #6d7487;
+    height: 30px;
+    margin: 20px 0;
+}
+
+.customModalAddPlan .mode .mode_type a {    
+    width: 68px;
+    height: 30px;
+    line-height: 30px;
+    background: #384060;
+}
+
+.customModalAddPlan .mode .mode_type .replace_bt {
+    position: absolute;
+    left: 20px;
+    bottom: 0;
+    z-index: 1
+}
+.customModalAddPlan .mode .mode_type .switch_bt {
+    position: absolute;
+    left: 88px;
+    bottom: 0;
+    z-index: 1
+}
+
+.customModalAddPlan .mode .mode_type a.active {
+    border-left: 2px solid #6d7487;
+    border-top: 2px solid #6d7487;
+    border-right: 2px solid #6d7487;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    bottom: -2px;
+    height: 32px;
+}
+
+.customModalAddPlan .tmp .fgx {
+    margin: 26px 0;
+    height: 1px;
+    border-bottom: 1px solid #6d7487;
 }
 
 .customModalAddPlan table tr td:last-child {
     text-align: right;
+}
+
+.customModalAddPlan table tr td:first-child {
+    text-align: left;
+    width: 54%;
 }
 
 .customModalAddPlan .w1 {
@@ -1120,7 +1192,7 @@
 }
 
 .customModalAddPlan .w3 {
-    width: 126px;
+    width: 156px;
 }
 
 .customModalAddPlan .w4 {
@@ -1130,6 +1202,15 @@
 .customModalAddPlan .w5 {
     width: 90px;
 }
+
+
+
+
+
+
+
+
+
 .modal_lty {
     color: #fff;
 }
