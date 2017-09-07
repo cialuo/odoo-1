@@ -25,9 +25,9 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 });
             }
             var tid = self.$el.attr('tid');
-            var line_id = self.$el.attr('line_id');
-            var model_abnormal = 'abnormal__' + line_id;
-            var model_chart = 'passenger_flow__' + line_id;
+            self.line_id = self.$el.attr('line_id');
+            var model_abnormal = 'abnormal__' + self.line_id;
+            var model_chart = 'passenger_flow__' + self.line_id;
             if (socket_model_info[model_abnormal]) {
                 delete socket_model_info[model_abnormal];
             }
@@ -40,25 +40,26 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 self.lagstation_chart = echarts.init(self.$el.find('.lagstation_chart')[0]);
                 var package_abnormal = {
                     type: 2000,
-                    controlId:this.desktop_id,
+                    controlId: this.desktop_id,
                     open_modules: ["abnormal"],
                 };
                 websocket.send(JSON.stringify(package_abnormal));
                 var package_passenger_flow = {
                     type: 2000,
-                    controlId:this.desktop_id,
+                    controlId: this.desktop_id,
                     open_modules: ["passenger_flow"],
                 };
                 websocket.send(JSON.stringify(package_passenger_flow));
                 socket_model_info[model_abnormal] = {
                     arg: {
                         self: self,
-                        line_id: line_id,
+                        line_id: self.line_id,
                     }, fn: self.abnormal_save
                 };
                 socket_model_info[model_chart] = {
                     arg: {
                         self: self,
+                        line_id: self.line_id,
                         absnormalChart: self.absnormalChart,
                         absnormalChart1: self.absnormalChart1,
                         lagstation_chart: self.lagstation_chart,
@@ -76,56 +77,60 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var data_use = JSON.parse(datalist);
             // if(data_use.line_id == parseInt(arg.line_id))
             var line_c = parseInt(arg.line_id);
-            //匹配line_id
-            if (line_c == data_use.data.line_id) {
+            //匹配line_id和desktop_id
+            if (line_c == data_use.data.line_id&&data_use.controllerId == this.desktop_id) {
                 self.model_abnormal.call("create", [
                     {
                         'name': data_use.name,
-                        'suggest':data_use.data.suggest,
-                        'abnormal_description':data_use.data.abnormal_description,
-                        'solution':data_use.data.solution
+                        'suggest': data_use.data.suggest,
+                        'abnormal_description': data_use.data.abnormal_description,
+                        'solution': data_use.data.solution
                     }]).then(function (res) {
                 });
             }
         },
         show_echarts: function (data_list, arg) {
-            var self = arg.self;
             var data_use = JSON.parse(data_list);
-            function push_data(data_item,item) {
-                var data_time=[];
-                for(var i = 0;i<data_item.length;i++){
-                data_time.push(data_item[i][item]);
+
+            function push_data(data_item, item) {
+                var data_time = [];
+                for (var i = 0; i < data_item.length; i++) {
+                    data_time.push(data_item[i][item]);
                 }
                 return data_time;
             }
-            var data_time=[];
-            var dataJson_passenger_flow_real =[];
-            var dataJson_transport_capacity_plan =[];
-            var dataJson_transport_capacity_suggest =[];
-            for(var i = 0;i<data_use.data.passenger_flow_real.length;i++){
-                data_time.push(data_use.data.passenger_flow_real[i].datetime.split(' ')[1]);
-            }
-            push_data(data_use.data.passenger_flow_real,'passenger_flow')
-            push_data(data_use.data.transport_capacity_plan,'capacity')
-            push_data(data_use.data.transport_capacity_suggest,'capacity')
-             for(var j = 0;j<data_use.data.transport_capacity_plan.length;j++){
-                dataJson_passenger_flow_real.push(data_use.data.passenger_flow_real[j].passenger_flow);
-            }
-            for(var j = 0;j<data_use.data.transport_capacity_plan.length;j++){
-                dataJson_transport_capacity_plan.push(data_use.data.transport_capacity_plan[j].capacity);
-            }
+            //匹配line_id和desktop_id
+            var line_c = parseInt(arg.line_id);
+            if (data_use.data.line_id == line_c && data_use.controllerId == this.desktop_id) {
+                var data_time = [];
+                var dataJson_passenger_flow_real = [];
+                var dataJson_transport_capacity_plan = [];
+                var dataJson_transport_capacity_suggest = [];
+                for (var i = 0; i < data_use.data.passenger_flow_real.length; i++) {
+                    data_time.push(data_use.data.passenger_flow_real[i].datetime.split(' ')[1]);
+                }
+                push_data(data_use.data.passenger_flow_real, 'passenger_flow')
+                push_data(data_use.data.transport_capacity_plan, 'capacity')
+                push_data(data_use.data.transport_capacity_suggest, 'capacity')
+                for (var j = 0; j < data_use.data.transport_capacity_plan.length; j++) {
+                    dataJson_passenger_flow_real.push(data_use.data.passenger_flow_real[j].passenger_flow);
+                }
+                for (var j = 0; j < data_use.data.transport_capacity_plan.length; j++) {
+                    dataJson_transport_capacity_plan.push(data_use.data.transport_capacity_plan[j].capacity);
+                }
 
-             for(var k = 0;k<data_use.data.transport_capacity_suggest.length;k++){
-                dataJson_transport_capacity_suggest.push(data_use.data.transport_capacity_suggest[k].capacity);
+                for (var k = 0; k < data_use.data.transport_capacity_suggest.length; k++) {
+                    dataJson_transport_capacity_suggest.push(data_use.data.transport_capacity_suggest[k].capacity);
+                }
+                chartLineBar(arg.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流'], optionLineBar, data_time, [dataJson_passenger_flow_real, dataJson_transport_capacity_plan, dataJson_transport_capacity_suggest], '');
+                chartLineBar(arg.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流'], optionLineBar, data_time, [dataJson_passenger_flow_real, dataJson_transport_capacity_plan, dataJson_transport_capacity_suggest], '');
+                // chartLineBar(arg.lagstation_chart, 0, ["#ff4634", "#4dcfc7"], 'bar', true, ['滞站客流', '预测滞站'], optionLineBar, ['周一', '周二', '周三', '周四', '周五', '周六'], [[120, 152, 101, 134, 90, 230], [220, 182, 191, 234, 290, 330]], '');
             }
-            chartLineBar(arg.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流'], optionLineBar, data_time, [dataJson_passenger_flow_real,dataJson_transport_capacity_plan,dataJson_transport_capacity_suggest], '');
-            chartLineBar(arg.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流'], optionLineBar, data_time, [dataJson_passenger_flow_real,dataJson_transport_capacity_plan,dataJson_transport_capacity_suggest], '');
-            // chartLineBar(arg.lagstation_chart, 0, ["#ff4634", "#4dcfc7"], 'bar', true, ['滞站客流', '预测滞站'], optionLineBar, ['周一', '周二', '周三', '周四', '周五', '周六'], [[120, 152, 101, 134, 90, 230], [220, 182, 191, 234, 290, 330]], '');
         },
         closeFn: function () {
             var self = this;
-            var tid = this.$el.attr('tid');
-            var line_id = this.$el.attr('line_id');
+            var tid = self.$el.attr('tid');
+            var line_id = self.$el.attr('line_id');
             self.$el.parent().find('.dispatch_desktop').find('.line_edit').hide();
             self.$el.parent().find('.dispatch_desktop').find('.show_right').css('display', 'inline-block');
             self.model2.call("write", [parseInt(tid),
@@ -135,7 +140,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                     'position_top': self.$el[0].offsetTop,
                     'position_z_index': self.$el[0].style.zIndex,
                 }]).then(function (res) {
-                self.$el.hide();
+                    self.$el.hide();
             });
         },
         manual_process: function (event) {

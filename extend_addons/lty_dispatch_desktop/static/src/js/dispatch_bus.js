@@ -147,8 +147,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             //配车数量...
             var data = new Object();
             var line_c = parseInt(arg.line_id);
-            //匹配line_id
-            if (data_use.data.line_id == line_c) {
+            //匹配line_id和desktop_id
+            if (data_use.data.line_id == line_c&&data_use.controllerId == self.desktop_id) {
                 //站点到起点距离
                 //分段颜色
                 data.color = [
@@ -241,7 +241,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
                             var oLeft = 1190 * (parseInt(data_use.data.stationNo)) / arg.site_top_infos.length;
                         }
-                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft - 44 + 'px');
+                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft-22 + 'px');
                         self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.num_car span').html(data_use.data.stationProperty);
                         self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.type_car span').html(data_use.data.terminalNo);
                     } else if (data_use.data.direction == 1) {
@@ -252,7 +252,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
                             var oLeft =1190- 1190 * (parseInt(data_use.data.stationNo)) / arg.site_down_infos.length;
                         }
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft  + 'px');
+                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft -22 + 'px');
                         self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.num_car span').html(data_use.data.stationProperty);
                         self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.type_car span').html(data_use.data.terminalNo);
                     }
