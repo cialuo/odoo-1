@@ -223,7 +223,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     if (arg.hasCar.indexOf(data_use.data.car_id) == -1) {
                         arg.hasCar.push(data_use.data.car_id);
                         //车辆上行方向
-                        $('run_car_hide').find('.line_car').attr('bus_no', data_use.data.car_id);
+                        $('.run_car_hide').find('.line_car').attr('bus_no', data_use.data.car_id);
                         if(data_use.data.direction == 0){
                             self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
                         }else if(data_use.data.direction == 1){
