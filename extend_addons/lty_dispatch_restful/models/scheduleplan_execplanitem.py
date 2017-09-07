@@ -181,6 +181,8 @@ class Excutetable(models.Model):
                 rp = Client().http_post(url, data=params)
             except Exception,e:
                 _logger.info('%s', e.message)
+        res = super(Excutetable, self).unlink()
+        return res
 
 # class downplanitem(models.Model):
 #
