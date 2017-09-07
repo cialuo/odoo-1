@@ -658,8 +658,8 @@
                                     <span t-attf-st="{{item.sendToScreen}}" t-attf-class="icon sendToScreen icon_{{item.sendToScreen}}"></span>
                                     <span t-attf-st="{{item.sendToBus}}" t-attf-class="icon sendToBus icon_{{item.sendToBus}}"></span>
                                 </td>
-                                <td class="planRunTime"><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,8)"></t></td>
-                                <td class="planReachTime"><t t-esc="new Date(item.planReachTime).toTimeString().slice(0,8)"></t></td>
+                                <td class="planRunTime"><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,5)"></t></td>
+                                <td class="planReachTime"><t t-esc="new Date(item.planReachTime).toTimeString().slice(0,5)"></t></td>
                                 <td class="selfId"><t t-esc="item.selfId"></t></td>
                                 <td class="driverName"><t t-esc="item.driverName"></t></td>
                                 <td class="pR planState">
@@ -710,12 +710,12 @@
                                     <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                     <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>
                                 </td>
-                                <td class="planRunTime"><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,8).replace('Invalid','')"></t></td>
+                                <td class="planRunTime"><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,5).replace('Invalid','')"></t></td>
                                 <td class="carNum"><t t-esc="item.carNum"></t></td>
                                 <td class="lineName"><t t-esc="item.lineName"></t></td>
                                 <td class="realReachTime">
                                     <t t-if="item.realReachTime">
-                                        <t t-esc="new Date(item.realReachTime).toTimeString().slice(0,8).replace('Invalid','')"></t>
+                                        <t t-esc="new Date(item.realReachTime).toTimeString().slice(0,5).replace('Invalid','')"></t>
                                     </t>
                                     <t t-else="">
                                         
@@ -761,12 +761,12 @@
                                     <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                     <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>
                                 </td>
-                                <td class="planRunTime"><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,8)"></t></td>
+                                <td class="planRunTime"><t t-esc="new Date(item.planRunTime).toTimeString().slice(0,5)"></t></td>
                                 <td class="carNum"><t t-esc="item.carNum"></t></td>
                                 <td class="lineName"><t t-esc="item.lineName"></t></td>
                                 <td class="planReachTime">
                                     <t t-if="item.planReachTime">
-                                        <t t-esc="new Date(item.planReachTime).toTimeString().slice(0,8)"></t>
+                                        <t t-esc="new Date(item.planReachTime).toTimeString().slice(0,5)"></t>
                                     </t>
                                     <t t-else="">
                                         
