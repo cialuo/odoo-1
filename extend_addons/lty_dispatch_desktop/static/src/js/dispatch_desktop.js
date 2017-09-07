@@ -45,7 +45,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         start: function () {
             // 动态加载高德地图api
             var self = this;
-
+            $('.desktop_head_deal.dd_person').html("调度员:"+odoo.session_info.name)
             function startTime() {
                 var today = new Date();//定义日期对象
                 var yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年
