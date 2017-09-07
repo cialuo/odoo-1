@@ -258,17 +258,20 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
     var dom = controllerObj.find(".linePlanParkOnlineModel_"+dataObj.line_id);
     if (dom.length > 0) {
         if (modelName == "line_plan") {
-            var tr_obj_list = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb tr.point");
+            var content_tb_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb");
+            // var tr_obj_list = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb tr.point");
             var tr_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "]").find(".content_tb tr[pid=" + dataObj.id + "]");
-            update_linePlan(tr_obj, tr_obj_list, dataObj);
+            update_linePlan(tr_obj, content_tb_obj, dataObj);
         }else if (modelName == "line_park"){
-            var tr_obj_list = controllerObj.find(".bus_yard[direction="+dataObj.direction+"] .content_tb tr.point");
+            var content_tb_obj = controllerObj.find(".bus_yard[direction=" + dataObj.direction + "] .content_tb");
+            // var tr_obj_list = controllerObj.find(".bus_yard[direction="+dataObj.direction+"] .content_tb tr.point");
             var tr_obj = controllerObj.find(".bus_yard[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
-            update_linePark(tr_obj, tr_obj_list, dataObj);
+            update_linePark(tr_obj, content_tb_obj, dataObj);
         }else{
-            var tr_obj_list = controllerObj.find(".bus_transit[direction="+dataObj.direction+"] .content_tb tr.point");
+            var content_tb_obj = controllerObj.find(".bus_transit[direction=" + dataObj.direction + "] .content_tb");
+            // var tr_obj_list = controllerObj.find(".bus_transit[direction="+dataObj.direction+"] .content_tb tr.point");
             var tr_obj = controllerObj.find(".bus_transit[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
-            update_busTransit(tr_obj, tr_obj_list, dataObj);
+            update_busTransit(tr_obj, content_tb_obj, dataObj);
         }
         $('.linePlanParkOnlineModel').mCustomScrollbar("update");
     }
@@ -276,7 +279,7 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
 
 
 // 计划更新
-function update_linePlan(obj, obj_list, dataObj) {
+function update_linePlan(obj, content_tb_obj, dataObj) {
     // 没有且计划状态非完成则为新增,需按照计划发车时间先后插入
     if (obj.length == 0) {
         if (dataObj.planState!=2 && dataObj.planState!=3) {
@@ -302,6 +305,11 @@ function update_linePlan(obj, obj_list, dataObj) {
                 '待发' +
                 '</td>' +
                 '</tr>';
+            var obj_list = content_tb_obj.find("tr.point");
+            if (obj_list.length == 0){
+                content_tb_obj.append(obj_str);
+                return;
+            }
             for (var i = 0, L = obj_list.length; i < L; i++) {
                 var tr_obj = obj_list[i];
                 var planRunTime = tr_obj.getAttribute("planRunTime");
@@ -369,7 +377,8 @@ function update_linePlan(obj, obj_list, dataObj) {
 }
 
 // 车场更新
-function update_linePark(obj, obj_list, dataObj) {
+function update_linePark(obj, content_tb_obj, dataObj) {
+    debugger;
     if (obj.length == 0) {
         // 没有则为新增,需按照计划发车时间先后插入
         var obj_str =
@@ -394,6 +403,12 @@ function update_linePark(obj, obj_list, dataObj) {
             dataObj.stopTime +
             '</td>' +
             '</tr>';
+
+        var obj_list = content_tb_obj.find("tr.point");
+        if (obj_list.length == 0){
+            content_tb_obj.append(obj_str);
+            return;
+        }
         for (var i = 0, L = obj_list.length; i < L; i++) {
             var tr_obj = obj_list[i];
             var planRunTime = tr_obj.getAttribute("planRunTime");
@@ -451,7 +466,8 @@ function update_linePark(obj, obj_list, dataObj) {
 }
 
 // 在途更新
-function update_busTransit(obj, obj_list, dataObj){
+function update_busTransit(obj, content_tb_obj, dataObj){
+    debugger;
     if (obj.length == 0){
         // 没有则为新增,需按照计划发车时间先后插入
         var obj_str =
@@ -476,6 +492,12 @@ function update_busTransit(obj, obj_list, dataObj){
             dataObj.stopTime +
             '</td>' +
             '</tr>';
+        
+        var obj_list = content_tb_obj.find("tr.point");
+        if (obj_list.length == 0){
+            content_tb_obj.append(obj_str);
+            return;
+        }
         for (var i=0, L=obj_list.length; i<L; i++){
             var tr_obj  = obj_list[i];
             var planRunTime = tr_obj.getAttribute("planRunTime");
