@@ -219,6 +219,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 //车辆实时位置
                 if (data_use.type == "1035") {
                     //如果车辆id未出现
+                    //删除车辆此时的位置显示，并重新渲染，防止上行穿到下行不显示
                     $('.traffic_car .line_car[bus_no=' + data_use.data.car_id + ']').remove();
                     $('.run_car_hide').find('.line_car').attr('bus_no', data_use.data.car_id);
                     // if (arg.hasCar.indexOf(data_use.data.car_id) == -1) {
@@ -251,7 +252,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
                             var oLeft =1190- 1190 * (parseInt(data_use.data.stationNo)) / arg.site_down_infos.length;
                         }
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft - 44 + 'px');
+                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft  + 'px');
                         self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.num_car span').html(data_use.data.stationProperty);
                         self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.type_car span').html(data_use.data.terminalNo);
                     }
@@ -320,7 +321,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 // 查询tid,拿到tid下面的lineid并得到相同lineid的一条线路
                 self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["id", "=", parseInt(tid)]]).all().then(function (pp) {
                     // 查询tid下的lineid
-                    self.model_line.query().filter([["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
+                    self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)],["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
                         // 删除该tid，即此线路
                         self.model_line.call("unlink", [data[1].id]).then(function () {
                             self.$el.parent().find('.updown_line_table').remove();
