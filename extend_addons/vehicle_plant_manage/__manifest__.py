@@ -14,12 +14,12 @@
     'version': '0.3.2',
 
     # any module necessary for this one to work correctly
-    'depends': ['vehicle_manage_menu', 'employees', 'web_tree_no_open'],
+    'depends': ['vehicle_manage_menu', 'employees', 'web_tree_no_open','vehicle_group'],
 
     # always loaded
     'data': [
         # 'security/security.xml',
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/view.xml',
 
     ],

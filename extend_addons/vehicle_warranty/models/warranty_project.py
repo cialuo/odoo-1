@@ -42,6 +42,17 @@ class WarrantyProject(models.Model): # 保修项目
 
     is_materials = fields.Boolean(string='Is Materials',defaul=False)
 
+    @api.constrains('manhour')
+    def check_manhour(self):
+        """
+            新增验证：
+                保存数据时，校验工时定额
+        :return:
+        """
+        for order in self:
+                if order.manhour <= 0:
+                    raise exceptions.ValidationError(_("manhour Can not be less than or equal to 0！"))
+
 class WarrantyProjectProduct(models.Model): # 维保项目_用料清单
     _name = 'warranty_project_product'
 

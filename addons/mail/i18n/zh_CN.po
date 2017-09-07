@@ -3658,7 +3658,7 @@ msgstr "UUID"
 #: code:addons/mail/models/mail_message.py:31
 #, python-format
 msgid "Unable to send email, please configure the sender's email address."
-msgstr "Unable to send email, please configure the sender's email address."
+msgstr "无法发送电子邮件，请配置发件人的电子邮件地址."
 
 #. module: mail
 #. openerp-web
