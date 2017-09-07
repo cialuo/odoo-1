@@ -220,38 +220,36 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 //车辆实时位置
                 if (data_use.type == "1035") {
                     //如果车辆id未出现
-                    if (arg.hasCar.indexOf(data_use.data.gprsId) == -1) {
-                        debugger
-                        arg.hasCar.push(data_use.data.gprsId);
+                    if (arg.hasCar.indexOf(data_use.data.car_id) == -1) {
+                        arg.hasCar.push(data_use.data.car_id);
+                        consol.log(arg.hasCar);
                         //车辆上行方向
+                        $('run_car_hide').find('.line_car').attr('bus_no', data_use.data.car_id);
                         if(data_use.data.direction == 0){
                             self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
                         }else if(data_use.data.direction == 1){
                             self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
                         }
                     }
-                    // 车辆进出站上下行
-                    // 根据type
+                    // 车辆进出站上下行 进出站
                     if (data_use.data.direction == 0) {
                         if (data_use.data.type == "in") {
                             var oLeft = 1190 * (parseInt(data_use.data.stationNo) + 0.5) / arg.site_top_infos.length;
-                            self.$('.content_car_road_top').find('.line_car').attr('bus_no', data_use.data.gprsId).css('left', oLeft - 22 + 'px');
                         } else if (data_use.data.type == "out") {
                             var oLeft = 1190 * (parseInt(data_use.data.stationNo) + 1) / arg.site_top_infos.length;
-                            self.$('.content_car_road_top').find('.line_car').attr('bus_no', data_use.data.gprsId).css('left', oLeft - 22 + 'px');
                         }
-                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.gprsId + ']').find('.num_car span').html(data_use.data.stationProperty);
-                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.gprsId + ']').find('.type_car span').html(data_use.data.terminalNo);
+                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft - 22 + 'px');
+                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.num_car span').html(data_use.data.stationProperty);
+                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.type_car span').html(data_use.data.terminalNo);
                     } else if (data_use.data.direction == 1) {
                         if (data_use.data.type == "in") {
                             var oLeft = 1190 * (parseInt(data_use.data.stationNo) + 0.5) / arg.site_down_infos.length;
-                            self.$('.content_car_road_down').find('.line_car').attr('bus_no', data_use.data.gprsId).css('left', oLeft - 22 + 'px');
                         } else if (data_use.data.type == "out") {
                             var oLeft = 1190 * (parseInt(data_use.data.stationNo) - 0.5) / arg.site_down_infos.length;
-                            self.$('.content_car_road_down').find('.line_car').attr('bus_no', data_use.data.gprsId).css('left', oLeft - 22 + 'px');
                         }
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.gprsId + ']').find('.num_car span').html(data_use.data.stationProperty);
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.gprsId + ']').find('.type_car span').html(data_use.data.terminalNo);
+                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft - 22 + 'px');
+                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.num_car span').html(data_use.data.stationProperty);
+                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.type_car span').html(data_use.data.terminalNo);
                     }
                     // 进出场
                 }
