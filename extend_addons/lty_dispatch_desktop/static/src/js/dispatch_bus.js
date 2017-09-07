@@ -222,7 +222,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     //如果车辆id未出现
                     if (arg.hasCar.indexOf(data_use.data.car_id) == -1) {
                         arg.hasCar.push(data_use.data.car_id);
-                        consol.log(arg.hasCar);
                         //车辆上行方向
                         $('run_car_hide').find('.line_car').attr('bus_no', data_use.data.car_id);
                         if(data_use.data.direction == 0){
