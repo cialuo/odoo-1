@@ -183,14 +183,19 @@ class external_curriculum_schedule(models.Model):
 class external_students(models.Model):
     _name = 'employees_growth.external_students'
     _description = 'External students'
-    _sql_constraints = [('check_external_students_unique', 'unique (curriculum_schedule_id,student_id)', u"存在相同的培训人员!")]
+
+    _sql_constraints = [
+        ('check_external_students_unique',
+         'unique(curriculum_schedule_id,student_id)',
+         u'存在相同的培训人员!')
+    ]
 
     """
          参加培训的人员：
               姓名，工号，部门
     """
 
-    curriculum_schedule_id = fields.Many2one('employees_growth.external_curriculum_schedule', string='Curriculum schedule id')
+    curriculum_schedule_id = fields.Many2one('employees_growth.external_curriculum_schedule', string='Curriculum schedule id',ondelete='cascade')
 
     student_id = fields.Many2one('hr.employee', string='Student id', required=True)
 
