@@ -19,7 +19,7 @@
 				</div>
 				<div>
 					<img src="/lty_dispatch_desktop/static/src/img/icon_user.png"/>
-					<div class="desktop_head_deal">调度员：admin</div>
+					<div class="desktop_head_deal dd_person">调度员：</div>
 				</div>
 			</li>
 		</ul>

@@ -148,7 +148,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var data = new Object();
             var line_c = parseInt(arg.line_id);
             //匹配line_id和desktop_id
-            if (data_use.data.line_id == line_c&&data_use.controllerId == self.desktop_id) {
+            if (data_use.data.line_id == line_c && data_use.controllerId == self.desktop_id) {
                 //站点到起点距离
                 //分段颜色
                 data.color = [
@@ -241,18 +241,18 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
                             var oLeft = 1190 * (parseInt(data_use.data.stationNo)) / arg.site_top_infos.length;
                         }
-                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft-22 + 'px');
+                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft - 22 + 'px');
                         self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.num_car span').html(data_use.data.stationProperty);
                         self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.type_car span').html(data_use.data.terminalNo);
                     } else if (data_use.data.direction == 1) {
                         if (data_use.data.type == "in") {
                             self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
-                            var oLeft =1190 - 1190 * (parseInt(data_use.data.stationNo) - 0.5) / arg.site_down_infos.length;
+                            var oLeft = 1190 - 1190 * (parseInt(data_use.data.stationNo) - 0.5) / arg.site_down_infos.length;
                         } else if (data_use.data.type == "out") {
                             self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
-                            var oLeft =1190- 1190 * (parseInt(data_use.data.stationNo)) / arg.site_down_infos.length;
+                            var oLeft = 1190 - 1190 * (parseInt(data_use.data.stationNo)) / arg.site_down_infos.length;
                         }
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft -22 + 'px');
+                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft - 22 + 'px');
                         self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.num_car span').html(data_use.data.stationProperty);
                         self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.type_car span').html(data_use.data.terminalNo);
                     }
@@ -321,7 +321,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 // 查询tid,拿到tid下面的lineid并得到相同lineid的一条线路
                 self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["id", "=", parseInt(tid)]]).all().then(function (pp) {
                     // 查询tid下的lineid
-                    self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)],["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
+                    self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
                         // 删除该tid，即此线路
                         self.model_line.call("unlink", [data[1].id]).then(function () {
                             self.$el.parent().find('.updown_line_table').remove();
@@ -474,16 +474,22 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         dataType: 'json',
                         data: {},
                         success: function (data) {
-                            function getLocalTime(nS) {
-                                return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+                            function formatDate(now) {
+                                var year = now.getYear();
+                                var month = now.getMonth() + 1;
+                                var date = now.getDate();
+                                var hour = now.getHours();
+                                var minute = now.getMinutes();
+                                var second = now.getSeconds();
+                                return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
                             }
-
                             for (var i = 0; i < data.respose.length; i++) {
                                 if (data.respose[i].planRunTime > 0) {
-                                    data.respose[i].planRunTime = getLocalTime(data.respose[i].planRunTime / 1000);
+                                    data.respose[i].planRunTime = formatDate(new Date(data.respose[i].planRunTime)).split(' ')[1];
+                                    console.log(data.respose[i].planRunTime)
                                 }
                                 if (data.respose[i].realReachTime > 0) {
-                                    data.respose[i].realReachTime = getLocalTime(data.respose[i].realReachTime / 1000);
+                                    data.respose[i].realReachTime = formatDate(new Date(data.respose[i].realReachTime)).split(' ')[1];
                                 }
                             }
                             if (data.respose != '') {
