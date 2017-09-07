@@ -176,7 +176,7 @@ class Excutetable(models.Model):
             try:
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                 _logger.info('Start unlink data: %s', self._name)
-                vals = {'lineId ': s.line_id.id, 'workDate': s.excutedate}
+                vals = {'lineId': s.line_id.id, 'workDate': s.excutedate}
                 params = Params(type = 2, cityCode = cityCode,tableName='op_dispatchplan', data = vals).to_dict()
                 rp = Client().http_post(url, data=params)
             except Exception,e:
