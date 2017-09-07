@@ -289,7 +289,6 @@ class route_manage(models.Model):
 
     @api.multi
     def write(self, vals):
-        print 11111111111, vals
         res = super(route_manage, self).write(vals)
 
         if len(self.station_up_ids) > 1:
