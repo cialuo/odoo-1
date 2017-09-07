@@ -1240,10 +1240,12 @@
     border: 1px solid #6d738a;
     border-radius: 4px;
 }
-.modal_lty textarea.short_msg_text {
+.modal_lty input.short_msg_text {
     background: none;
+    width:100%;
     word-break: break-all;
     height: 100px;
+    padding-left: 20px;
     border: 1px solid #6d7487;
     border-radius: 4px;
 }
