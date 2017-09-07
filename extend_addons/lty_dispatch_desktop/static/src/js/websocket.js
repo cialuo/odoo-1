@@ -128,8 +128,8 @@ function line_resource(controllerObj, data_list) {
 }
 // 异常
 function absnormal_del(controllerObj, data_list) {
-    var dom = controllerObj.find('.updown_line_table[line_id=1]');
-    var dom_singal = controllerObj.find('.dispatch_desktop[line_id=1]');
+    var dom = controllerObj.find('.updown_line_table[line_id='+data_list.line_id+']');
+    var dom_singal = controllerObj.find('.dispatch_desktop[line_id='+data_list.line_id+']');
     if (dom.length > 0) {
         dom.find('.no_absnormal').show().siblings().hide();
         $('body').find('.absnormal_diaodu .absnormal_type p').html(data_list.abnormal_description.bus_no);
