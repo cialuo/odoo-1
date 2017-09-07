@@ -311,6 +311,7 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
 // 计划更新
 function update_linePlan(obj, obj_list, dataObj) {
     // 没有且计划状态非完成则为新增,需按照计划发车时间先后插入
+    console.log('on');
     if (obj.length == 0) {
         if (dataObj.planState != 3) {
             var obj_str =
