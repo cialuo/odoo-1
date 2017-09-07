@@ -173,6 +173,14 @@
 										<canvas width="1190" height="33" class="can_top"></canvas>
 										<div class="traffic_car">
 											<div class="content_car_road_top">
+												<div class="line_car">
+												<div class="num_car">
+													<span>11</span>
+												</div>
+												<div class="type_car">
+													<span>22</span>
+												</div>
+											</div>
 											</div>
 											<div class="content_car_road_down">
 											</div>
