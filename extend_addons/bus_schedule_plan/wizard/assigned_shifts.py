@@ -137,7 +137,7 @@ class BusGroupDriverVehicleShiftTran(models.TransientModel):
 
     sequence = fields.Integer("Shift Line Sequence", default=1, readonly=True)
 
-    group_id = fields.Many2one('bus_group', 'Group', required=True)
+    group_id = fields.Many2one('bus_group', 'Group', ondelete='cascade', required=True)
     route_id = fields.Many2one('route_manage.route_manage', related='group_id.route_id', required=True)
     bus_shift_id = fields.Many2one('bus_shift', readonly=True)
     bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line', domain="[('shift_id','=',bus_shift_id)]")
