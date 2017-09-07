@@ -28,7 +28,7 @@ var socket_model_api_obj = {};
 websocket.onmessage = function (event) {
     var eventObj = JSON.parse(event.data);
     var modelName = eventObj.moduleName;
-    console.log(eventObj);
+    // console.log(eventObj);
     if ($.inArray(modelName, ['passenger_delay', 'bus_real_state', "line_plan", "line_park", "line_online"])!=-1){
         console.log(eventObj);
     }
@@ -297,11 +297,11 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
         }else if (modelName == "line_park"){
             var tr_obj_list = controllerObj.find(".bus_yard[direction="+dataObj.direction+"] .content_tb tr.point");
             var tr_obj = controllerObj.find(".bus_yard[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
-            update_linePark(tr_obj, dataObj, tr_obj_list);
+            update_linePark(tr_obj, tr_obj_list, dataObj);
         }else{
             var tr_obj_list = controllerObj.find(".bus_transit[direction="+dataObj.direction+"] .content_tb tr.point");
             var tr_obj = controllerObj.find(".bus_transit[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
-            update_busTransit(tr_obj, dataObj, tr_obj_list);
+            update_busTransit(tr_obj, tr_obj_list, dataObj);
         }
         $('.linePlanParkOnlineModel').mCustomScrollbar("update");
     }
@@ -311,9 +311,8 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
 // 计划更新
 function update_linePlan(obj, obj_list, dataObj) {
     // 没有且计划状态非完成则为新增,需按照计划发车时间先后插入
-    console.log('on');
     if (obj.length == 0) {
-        if (dataObj.planState != 3) {
+        if (dataObj.planState!=2 && dataObj.planState!=3) {
             var obj_str =
                 '<tr class="point" pid="' + dataObj.id + '" direction="' + dataObj.direction + '" planRunTime="' + dataObj.planRunTime + '">' +
                 '<td class="pL">' +
@@ -374,12 +373,12 @@ function update_linePlan(obj, obj_list, dataObj) {
 
     // 计划到达时间
     if (dataObj.planRunTime != undefined) {
-        obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0, 8));
+        obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0, 5));
     }
 
     // 计划到达时间
     if (dataObj.planReachTime != undefined) {
-        obj.find(".planReachTime").html(new Date(dataObj.planReachTime).toTimeString().slice(0, 8));
+        obj.find(".planReachTime").html(new Date(dataObj.planReachTime).toTimeString().slice(0, 5));
     }
 
     // 车辆
@@ -402,7 +401,8 @@ function update_linePlan(obj, obj_list, dataObj) {
     }
 }
 
-function update_linePark(obj, dataObj, obj_list) {
+// 车场更新
+function update_linePark(obj, obj_list, dataObj) {
     if (obj.length == 0) {
         // 没有则为新增,需按照计划发车时间先后插入
         var obj_str =
@@ -412,7 +412,7 @@ function update_linePark(obj, dataObj, obj_list) {
             '<span st="' + dataObj.runState + '" class="icon sendToBus icon_' + dataObj.runState + '"></span>' +
             '</td>' +
             '<td class="planRunTime">' +
-            new Date(dataObj.planRunTime).toTimeString().slice(0, 5) +
+            new Date(dataObj.planRunTime).toTimeString().slice(0, 5).replace("Inval", "") +
             '</td>' +
             '<td class="selfId">' +
             dataObj.selfId +
@@ -421,7 +421,7 @@ function update_linePark(obj, dataObj, obj_list) {
             dataObj.lineName +
             '</td>' +
             '<td class="realReachTime">' +
-            new Date(dataObj.realReachTime).toTimeString().slice(0, 5) +
+            new Date(dataObj.realReachTime).toTimeString().slice(0, 5).replace("Inval", "") +
             '</td>' +
             '<td class="pR stopTime">' +
             dataObj.stopTime +
@@ -458,7 +458,7 @@ function update_linePark(obj, dataObj, obj_list) {
 
     // 计划到达时间
     if (dataObj.planRunTime != undefined) {
-        obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0, 8));
+        obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0, 5));
     }
 
 
@@ -479,13 +479,12 @@ function update_linePark(obj, dataObj, obj_list) {
 
     // 停车
     if (dataObj.stopTime != undefined) {
-        obj.find(".stopTime").html(new Date(dataObj.stopTime).toTimeString().slice(0, 5));
+        obj.find(".stopTime").html(dataObj.stopTime);
     }
 }
 
-
-// 在途更新 模块最初定义跟后台不符合丢弃暂时保存，防止需求变更
-function update_busTransit(obj, dataObj){
+// 在途更新
+function update_busTransit(obj, obj_list, dataObj){
     if (obj.length == 0){
         // 没有则为新增,需按照计划发车时间先后插入
         var obj_str =
@@ -495,7 +494,7 @@ function update_busTransit(obj, dataObj){
             '<span st="' + dataObj.runState + '" class="icon sendToBus icon_' + dataObj.runState + '"></span>' +
             '</td>' +
             '<td class="planRunTime">' +
-            new Date(dataObj.planRunTime).toTimeString().slice(0, 5) +
+            new Date(dataObj.planRunTime).toTimeString().slice(0, 5).replace("Inval", "") +
             '</td>' +
             '<td class="carNum">' +
             dataObj.carNum +
@@ -504,7 +503,7 @@ function update_busTransit(obj, dataObj){
             dataObj.lineName +
             '</td>' +
             '<td class="planReachTime">' +
-            new Date(dataObj.planReachTime).toTimeString().slice(0, 5) +
+            new Date(dataObj.planReachTime).toTimeString().slice(0, 5).replace("Inval", "") +
             '</td>' +
             '<td class="pR stopTime">' +
             dataObj.stopTime +
@@ -541,7 +540,7 @@ function update_busTransit(obj, dataObj){
 
     // 计划到达时间
     if (dataObj.planRunTime != undefined){
-        obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0,8));
+        obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0,5));
     }
 
 
@@ -557,11 +556,11 @@ function update_busTransit(obj, dataObj){
 
     // 回场时间
     if (dataObj.planReachTime != undefined){
-        obj.find(".planReachTime").html(new Date(dataObj.planReachTime).toTimeString().slice(0,8));
+        obj.find(".planReachTime").html(new Date(dataObj.planReachTime).toTimeString().slice(0,5));
     }
 
     // 停车
     if (dataObj.stopTime != undefined){
-        obj.find(".stopTime").html(new Date(dataObj.stopTime).toTimeString().slice(0,8));
+        obj.find(".stopTime").html(dataObj.stopTime);
     }
 }
