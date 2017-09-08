@@ -135,13 +135,13 @@ function absnormal_del(controllerObj, data_list) {
     var dom_singal = controllerObj.find('.dispatch_desktop[line_id='+data_list.line_id+']');
     if (dom.length > 0) {
         dom.find('.no_absnormal').show().siblings().hide();
-        $('body').find('.absnormal_diaodu .absnormal_type p').html(data_list.abnormal_description.bus_no);
+        $('body').find('.absnormal_diaodu .absnormal_type p').html('异常状态码：'+data_list.abnormal_description.bus_no);
         $('body').find('.absnormal_diaodu .absnormal_sug p').html(data_list.suggest);
         dom.addClass('warn').find('.passenger_flow_list').eq(0).find('.abs_info').append($('body').find('.absnormal_diaodu').html());
         var timer_carousel = sessionStorage.getItem('timer'+data_list.line_id);
         clearInterval(timer_carousel);
         dom.find('.carousel_content').css({left: 0});
-        sessionStorage.removeItem('timer'+data_list.line_id)
+        sessionStorage.removeItem('timer'+data_list.line_id);
         //信号在线掉线处理
         if (data_list.packageType == "1003") {
             dom_singal.find('.singalIn span').html(parseInt(dom_singal.find('.singalIn span').html()) - 1);
