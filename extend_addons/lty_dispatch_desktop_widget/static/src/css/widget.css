@@ -1212,9 +1212,16 @@
 
 
 
+/*.layui-layer {
+    background: #384060;
+    color: #fff;
+}
 
-
-
+.layui-layer .layui-layer-title {
+    background: #384060;
+    color: #fff;
+}
+*/
 
 
 

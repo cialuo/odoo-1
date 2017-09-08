@@ -902,7 +902,7 @@
                                 <td>
                                     运行管理&#160;
                                     <select name="" class="w2 addType" id="">
-                                        <option value="2001" selected="selected">正常</option>
+                                        <option value="0" selected="selected">正常</option>
                                         <option value="1">包车</option>
                                         <option value="2003">大站</option>
                                         <option value="2004">区间车</option>
