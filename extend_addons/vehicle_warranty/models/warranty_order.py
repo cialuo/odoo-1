@@ -506,6 +506,10 @@ class WarrantyOrderManhour(models.Model): # 保养单_工时管理
     _name = 'warranty_order_manhour'
     _order = "sequence"
 
+    _sql_constraints = [
+        ('check_percentage_work_value', 'CHECK (percentage_work > 0 and percentage_work < 100)', u'额度工时的数值在100以内！')
+    ]
+
     name = fields.Char("Manhour")
 
     sequence = fields.Integer()
@@ -552,6 +556,21 @@ class WarrantyOrderManhour(models.Model): # 保养单_工时管理
             r.real_work = (end_time - start_time).seconds / 3600.0
 
     warranty_order_id = fields.Many2one('warranty_order', index=True)
+
+    @api.constrains('percentage_work')
+    def check_percentage_work(self):
+        """
+            检查额定工时的值是否超出界限
+        :return:
+        """
+        project_ids = self.mapped('project_id')
+        for project in project_ids:
+            manhours = self.env['warranty_order_manhour'].search([('project_id', '=', project.id)])
+            total = sum(manhours.mapped('percentage_work'))
+            if total < 0 or total > 100:
+                raise exceptions.ValidationError(_("Please check the allocation of deadline!"))
+
+
 
 
 class WarrantyOrderProduct(models.Model): # 保养单_可领物料

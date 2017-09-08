@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-07 02:30+0000\n"
-"PO-Revision-Date: 2017-09-07 10:37+0800\n"
+"POT-Creation-Date: 2017-09-08 08:47+0000\n"
+"PO-Revision-Date: 2017-09-08 16:50+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -123,7 +123,7 @@ msgstr "计算客户报价的基准价格。也叫目录价格"
 
 #. module: vehicle_warranty
 #: code:addons/vehicle_warranty/models/warranty_order.py:313
-#: code:addons/vehicle_warranty/models/warranty_order.py:772
+#: code:addons/vehicle_warranty/models/warranty_order.py:791
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_form
 #, python-format
 msgid "Batch Dispatch"
@@ -959,6 +959,12 @@ msgid "Please batch dispatch first!"
 msgstr "请先批量派工!"
 
 #. module: vehicle_warranty
+#: code:addons/vehicle_warranty/models/warranty_order.py:571
+#, python-format
+msgid "Please check the allocation of deadline!"
+msgstr "请合理的分配额定工时!"
+
+#. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_product_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_project_product_product_id
 msgid "Product"
@@ -1128,7 +1134,7 @@ msgstr "承修车间"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_report_repair_user
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_order_report_repair_user
 msgid "Report Name"
-msgstr "送保人"
+msgstr "报修人"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_require_trans
@@ -1187,26 +1193,26 @@ msgid "Select category"
 msgstr "Select category"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:913
+#: code:addons/vehicle_warranty/models/warranty_order.py:932
 #, python-format
 msgid "Selected project cannot be check as they are not in 'check' state"
 msgstr "非检验状态的项目不能检验通过"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:893
+#: code:addons/vehicle_warranty/models/warranty_order.py:912
 #, python-format
 msgid "Selected project cannot be check as they are not in 'maintain' state"
 msgstr "非保养状态的项目不能报检"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:669
+#: code:addons/vehicle_warranty/models/warranty_order.py:688
 #, python-format
 msgid "Selected project cannot be complete as they are not in 'check' state"
 msgstr "非检验状态的项目不能检验通过"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_order.py:854
-#: code:addons/vehicle_warranty/models/warranty_order.py:878
+#: code:addons/vehicle_warranty/models/warranty_order.py:873
+#: code:addons/vehicle_warranty/models/warranty_order.py:897
 #, python-format
 msgid "Selected project cannot be return as they are not in 'check' state."
 msgstr "非检验状态的项目不能退回返工"
@@ -2044,3 +2050,8 @@ msgstr "批量检验通过"
 #: model:ir.model,name:vehicle_warranty.model_wizard_warranty_plan
 msgid "wizard_warranty_plan"
 msgstr "保养计划"
+
+#. module: vehicle_warranty
+#: sql_constraint:warranty_order_manhour:0
+msgid "额度工时的数值在100以内！"
+msgstr "额度工时的数值在100以内！"
