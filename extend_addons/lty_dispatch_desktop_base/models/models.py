@@ -7,6 +7,7 @@ class dispatch_control_desktop(models.Model):
 
     name = fields.Char()
     value = fields.Integer()
+    color = fields.Integer()
     description = fields.Text()
     user = fields.Many2one('res.users', default=lambda self: self.env.user.id, readonly='1')
     is_default = fields.Boolean(default=False)
@@ -29,7 +30,9 @@ class dispatch_control_desktop_component(models.Model):
     model_type = fields.Char()
     tem_display = fields.Char()
     position_left = fields.Char()
+    #线路ID
     line_id = fields.Many2one('route_manage.route_manage')
+    #控制台ID
     desktop_id = fields.Many2one('dispatch.control.desktop',ondelete='cascade', string='Control Desktop')
     #备注
     remark = fields.Char()
