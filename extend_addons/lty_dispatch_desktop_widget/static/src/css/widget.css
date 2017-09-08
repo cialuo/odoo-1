@@ -1246,6 +1246,7 @@
     width: 100%;
     border: 1px solid #6d738a;
     border-radius: 4px;
+    padding: 20px;
 }
 .modal_lty input.short_msg_text {
     background: none;
