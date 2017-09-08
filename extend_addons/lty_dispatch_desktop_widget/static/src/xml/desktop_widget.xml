@@ -1369,7 +1369,7 @@
                                   </div>
                               </div>
                           </div>
-                          <input class="short_msg_text"/>
+                          <input class="short_msg_text" placeholder="请输入短信内容"/>
 					  </div>
 					  <div class="modal-footer">
 						  <button type="button" class="btn btn-primary send_msg_btn btn_confirm_lty">发送</button>
