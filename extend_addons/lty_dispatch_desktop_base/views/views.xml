@@ -20,9 +20,12 @@
         <field name="arch" type="xml">
             <form string="Desktop Config">
                 <sheet>
+	                <header>
+                   	     <button name="open_dispatch_desktop"  string="进入控制台" type="object" class="oe_highlight" groups="base.group_user"/>                   	
+	                </header>
                     <group>
                         <group>
-                            <field name="name" />
+                            <field name="name" required="1"/>
                             <field name="user" readonly='1' />
                             <field name="is_default" />
                         </group>
@@ -42,26 +45,55 @@
                 <field name="name"/>
                 <field name="user"/>
                 <field name="id"/>
+                <field name="color"/>
                 <templates>
 					<t t-name="kanban-box">
-                        <div>
-                            <div class="o_kanban_card_header">
-                                <div class="o_kanban_card_header_title">
-                                    <div class="o_primary"><t t-esc="record.name.value"/></div>
-                                    <div class="o_secondary"><t t-esc="record.user.value"/></div>
-                                </div>
-                                <div class="o_kanban_manage_button_section">
-                                    <a class="o_kanban_manage_toggle_button" href="#">More <i class="fa fa-caret-down"/></a>
-                                </div>
-                            </div>
-                            <div class="container o_kanban_card_content o_visible">
-                                <div class="row">
-                                    <div class="col-xs-6 o_kanban_primary_left">
-                                        
-                                        <button  class="btn btn-primary" t-attf-desktop_id="{{record.id.value}}" name="open_dispatch_desktop" type="object">Open Desktop</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div name="desktop">
+                            <!--<div t-attf-class="#{kanban_color(record.color.value)}">-->
+							<div>
+								<div class="o_kanban_card_header">
+									<div class="o_kanban_card_header_title">
+										<div class="o_primary"><t t-esc="record.name.value"/></div>
+										<div class="o_secondary"><t t-esc="record.user.value"/></div>
+									</div>
+									<div class="o_kanban_manage_button_section">
+										<a class="o_kanban_manage_toggle_button" href="#">More <i class="fa fa-caret-down"/></a>
+									</div>
+								</div>
+								
+								
+								
+								<div class="container o_kanban_card_content o_visible">
+									<div class="row">
+										<div class="col-xs-6 o_kanban_primary_left">
+											<button  class="btn btn-primary" t-attf-desktop_id="{{record.id.value}}" name="open_dispatch_desktop" type="object">Open Desktop</button>
+										</div>
+									</div>								
+								</div>
+								
+								<div class="container o_kanban_card_manage_pane o_invisible">
+								
+									<!--<div class="row">
+										<div class="col-xs-6 o_kanban_card_manage_section o_kanban_manage_new">
+											<div class="o_kanban_card_manage_title">
+												<span>操作</span>
+											</div>
+											<div>
+												<a name="%(dispatch_control_desktop_action_window)d" type="action" >新建</a>
+											</div>
+										</div>
+									</div>		-->						
+								
+									<div t-if="widget.editable" class="o_kanban_card_manage_settings row">
+										<div class="col-xs-8">
+											<!--<ul class="oe_kanban_colorpicker" data-field="color"/>-->
+										</div>
+										<div class="col-xs-4 text-right">
+											<a type="edit">Settings</a>
+										</div>
+									</div>									
+								</div>
+							</div>												
                         </div>
                     </t>
                 </templates>

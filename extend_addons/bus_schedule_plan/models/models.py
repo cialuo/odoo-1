@@ -30,7 +30,7 @@ class RouteInBusSchedule(models.Model):
 
         # 下行大站检查
         mode = self.env['opertation_resources_station_platform']
-        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'up')])
+        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'down')])
         sitecollection_down = []
         for item in sitelist:
             sitecollection_down.append((0, 0, {
