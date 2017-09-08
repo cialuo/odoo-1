@@ -110,6 +110,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         dataType: 'json',
                         data: {},
                         success: function (data) {
+                            sessionStorage.setItem("busResource", JSON.stringify(data.respose));
                             self.uplink_yard = {
                                 inField: 1,
                                 direction: 0,
@@ -147,7 +148,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         load_fn: function () {
             var self = this;
-
             var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("linePlanParkOnlineModel_set"));
             layer.close(passengerDelayModel_set.layer_index);
             $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar({
