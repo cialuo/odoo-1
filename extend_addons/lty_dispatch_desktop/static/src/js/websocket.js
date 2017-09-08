@@ -285,14 +285,19 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
             }
 
             $.extend(active_resource, dataObj);
+            var tr_obj = controllerObj.find(".content_tb tr[pid="+dataObj.id+"]");
+            var direction = dataObj.direction;
+            if (tr_obj.length){
+                direction = tr_obj.attr("direction");
+            }
 
             if (modelName == "line_park"){
-                var content_tb_obj = controllerObj.find(".bus_yard[direction=" + dataObj.direction + "] .content_tb");
-                var tr_obj = controllerObj.find(".bus_yard[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
+                var content_tb_obj = controllerObj.find(".bus_yard[direction=" + direction + "] .content_tb");
+                // var tr_obj = controllerObj.find(".bus_yard[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
                 update_linePark(tr_obj, content_tb_obj, active_resource);
             }else{
-                var content_tb_obj = controllerObj.find(".bus_transit[direction=" + dataObj.direction + "] .content_tb");
-                var tr_obj = controllerObj.find(".bus_transit[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
+                var content_tb_obj = controllerObj.find(".bus_transit[direction=" + direction + "] .content_tb");
+                // var tr_obj = controllerObj.find(".bus_transit[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
                 update_busTransit(tr_obj, content_tb_obj, active_resource);
             }
         }
