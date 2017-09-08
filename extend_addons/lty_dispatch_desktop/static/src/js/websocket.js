@@ -113,8 +113,9 @@ function line_resource(controllerObj, data_list) {
         //遍历车辆资源新增的数据
         var theid = data_list.id;
         var tr_num = $('.table_bus_num').find('tr[src_id=' + theid + ']');
-        dom.find('.line_src_next_trip_time').html(data_list.planRunTime.split(' ')[1]);
-
+        if(data_list.planRunTime!=''){
+            dom.find('.line_src_next_trip_time').html(data_list.planRunTime.split(' ')[1]);
+        }
         // if(data_list.data.planRunTime.length>0){
         //     tr_num.find('.line_src' + planRunTime).html(data_list.data.planRunTime);
         // }
@@ -137,9 +138,10 @@ function absnormal_del(controllerObj, data_list) {
         $('body').find('.absnormal_diaodu .absnormal_type p').html(data_list.abnormal_description.bus_no);
         $('body').find('.absnormal_diaodu .absnormal_sug p').html(data_list.suggest);
         dom.addClass('warn').find('.passenger_flow_list').eq(0).find('.abs_info').append($('body').find('.absnormal_diaodu').html());
-        var timer_carousel = sessionStorage.getItem('timer1');
+        var timer_carousel = sessionStorage.getItem('timer'+data_list.line_id);
         clearInterval(timer_carousel);
         dom.find('.carousel_content').css({left: 0});
+        sessionStorage.removeItem('timer'+data_list.line_id)
         //信号在线掉线处理
         if (data_list.packageType == "1003") {
             dom_singal.find('.singalIn span').html(parseInt(dom_singal.find('.singalIn span').html()) - 1);
@@ -381,7 +383,6 @@ function update_linePlan(obj, content_tb_obj, dataObj) {
 
 // 车场更新
 function update_linePark(obj, content_tb_obj, dataObj) {
-    debugger;
     if (obj.length == 0) {
         // 没有则为新增,需按照计划发车时间先后插入
         var obj_str =

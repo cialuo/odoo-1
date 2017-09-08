@@ -487,11 +487,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
                             }
                             for (var i = 0; i < data.respose.length; i++) {
-                                if (data.respose[i].planRunTime > 0) {
+                                if (data.respose[i].planRunTime !=null ) {
                                     data.respose[i].planRunTime = formatDate(new Date(data.respose[i].planRunTime)).split(' ')[1];
-                                    console.log(data.respose[i].planRunTime)
                                 }
-                                if (data.respose[i].realReachTime > 0) {
+                                if (data.respose[i].realReachTime !=null) {
                                     data.respose[i].realReachTime = formatDate(new Date(data.respose[i].realReachTime)).split(' ')[1];
                                 }
                             }
@@ -645,7 +644,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         ,
         show_chose_line: function () {
             var self = this;
-            $(".edit_content .chs").mCustomScrollbar("destroy");
+            self.$el.find(".edit_content .chs").mCustomScrollbar("destroy");
             self.model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (data) {
                 self.$('.edit_content .chs').html('')
                 for (var i = 0; i < data.length; i++) {
@@ -654,7 +653,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         self.$('.edit_content .chs').append(oLi);
                     }
                 }
-                $('.edit_content .chs').mCustomScrollbar({
+                self.$el.find('.edit_content .chs').mCustomScrollbar({
                     theme: 'minimal'
                 });
                 self.$('.edit_content').show();

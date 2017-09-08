@@ -48,7 +48,7 @@
 			<div class="src_title">
 				<div class="closeBox dragArea">
 					<div class="line_btn">
-						<a class="min" href="javascript:;">x</a>
+						<a class="min" href="javascript:;">×</a>
 					</div>
 				</div>
 				<div class="line_list">
@@ -342,7 +342,7 @@
 					<div class="updown_title dragAreaDesk">
 						<div class="line_btn">
 							<div class="line_btn_content posR">
-								<a class="min" href="javascript:;" title="删除">x</a>
+								<a class="min" href="javascript:;" title="删除">×</a>
 							</div>
 						</div>
 					</div>
@@ -447,7 +447,7 @@
 			<div class="src_title">
 				<div class="closeBox dragArea">
 					<div class="line_btn">
-						<a class="min" href="javascript:;">x</a>
+						<a class="min" href="javascript:;">×</a>
 					</div>
 				</div>
 				<div class="line_list">
