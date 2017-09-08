@@ -479,8 +479,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 var month = now.getMonth() + 1;
                                 var date = now.getDate();
                                 var hour = now.getHours();
+                                if(hour<10){hour="0"+hour}
                                 var minute = now.getMinutes();
+                                if(minute<10){minute="0"+minute}
                                 var second = now.getSeconds();
+                                if(second<10){second="0"+second}
                                 return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
                             }
                             for (var i = 0; i < data.respose.length; i++) {
