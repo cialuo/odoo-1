@@ -67,8 +67,11 @@ class Product(models.Model):
         :param value: 
         :return: 
         """
-        products = self.env['product.product'].search([], limit=100).filtered(lambda x: value in x.default_code)
-        return [('id', 'in', products.ids)]
+        ids = []
+        self._cr.execute("""SELECT p.id FROM product_product p JOIN product_category c ON (c.id=p.categ_id) WHERE p.inter_code ILIKE %s OR c.code ILIKE %s """, ("%%%s%%" % value, "%%%s%%" % value))
+        ids.extend([row['id'] for row in self._cr.dictfetchall()])
+        # products = self.env['product.product'].search([], limit=100).filtered(lambda x: value in x.default_code)
+        return [('id', 'in', ids)]
 
 class ProductCategory(models.Model):
     _inherit = 'product.category'
