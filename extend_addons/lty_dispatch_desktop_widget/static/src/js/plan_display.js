@@ -747,7 +747,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         events: {
             'click .modal_lty .close': 'closeFn',
             'click .btn_confirm_lty': 'send_msg',
-            'change .msg_send_info': 'ready_msg'
+            'change .ready_info': 'ready_msg'
         },
         ready_msg: function () {
             var val_select = this.$el.find('.ready_info');
@@ -765,6 +765,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             if (this.$el.find('.input-checkbox').is(':checked')) {
                 is_check = 1;
             };
+            var self = this;
             console.log('http://202.104.136.228:8888/ltyop/msg/sendMsg2GW?apikey=71029270&params={input:"' + input_msg + '",nodeIdArr:"1406,1403",type:"note",isImport:' + is_check + ',msgChannel:' + laba_msg + '}')
             if (input_msg != '') {
                 $.ajax({
@@ -774,7 +775,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     dataType: 'json',
                     data: {},
                     success: function (data) {
-                        console.log(data);
+                        self.$el.find('.short_msg_content').html('已发送：'+input_msg);
                     },
                     error: function () {
                         layer.msg('请求失败');
