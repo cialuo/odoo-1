@@ -828,7 +828,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 self.submit_fn();
             });
         },
-        submit_fn: function () {
+        submit_fn: function (isConfirm) {
             var self = this;
             var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
             var confObj = self.$('.modal-body table');
@@ -848,6 +848,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 addType: confObj.find(".addType").val(),
                 addReasonId: confObj.find(".addReason").val(),
                 remark: confObj.find(".remark").val(),
+                isConfirm: isConfirm || 0
             };
             $.ajax({
                 url: 'http://202.104.136.228:8888/ltyop/plan/addPlan?apikey=71029270&params=' + JSON.stringify(params),
@@ -856,6 +857,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 data: {},
                 success: function (ret) {
                     layer.close(layer_index);
+                    if (ret.result == 2){
+                        layer.confirm(ret.respose.text, {
+                            btn: ['确认', '取消'],
+                            title: '消息'
+                        }, function() {
+                            self.submit_fn(1);
+                        });
+                        return false;
+                    }
                     layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
                     self.$('.btn-default').click();
                 }

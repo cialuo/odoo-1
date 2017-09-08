@@ -262,14 +262,15 @@ function linePlanParkOnlineModel_display(controllerObj) {
 function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelName) {
     var dom = controllerObj.find(".linePlanParkOnlineModel_"+dataObj.line_id);
     if (dom.length > 0 && dataObj.id) {
-        console.log(modelName);
-        console.log(dataObj);
         var busResource = JSON.parse(sessionStorage.getItem("busResource"));
         if (modelName == "line_plan") {
             var content_tb_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb");
             var tr_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "]").find(".content_tb tr[pid=" + dataObj.id + "]");
             update_linePlan(tr_obj, content_tb_obj, dataObj);
         }else{
+            console.log(modelName);
+            console.log(dataObj);
+            // debugger;
             var active_resource = new Object();
             for (var o=0, ol=busResource.length; o<ol; o++){
                 var ol_resource = busResource[o];
@@ -298,7 +299,6 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
         $('.linePlanParkOnlineModel').mCustomScrollbar("update");
     }
 }
-
 
 // 计划更新
 function update_linePlan(obj, content_tb_obj, dataObj) {
@@ -410,14 +410,12 @@ function update_linePlan(obj, content_tb_obj, dataObj) {
 
 // 车场更新
 function update_linePark(obj, content_tb_obj, active_resource) {
+    // debugger;
     if (active_resource.inField == 0){
         obj.remove();
         return false;
     }
-    if (obj.attr('direction') != active_resource.direction){
-        obj.remove();
-        return false;
-    }
+
     if (obj.length == 0) {
         // 没有则为新增,需按照计划发车时间先后插入
         var obj_str =
@@ -460,6 +458,11 @@ function update_linePark(obj, content_tb_obj, active_resource) {
         if ($(".bus_yard[direction=" + active_resource.direction + "] .content_tb tr[pid="+active_resource.id+"]").length==0){
             content_tb_obj.append(obj_str);
         }
+        return false;
+    }
+
+    if (obj.attr('direction') != active_resource.direction){
+        obj.remove();
         return false;
     }
 
@@ -510,11 +513,8 @@ function update_linePark(obj, content_tb_obj, active_resource) {
 
 // 在途更新
 function update_busTransit(obj, content_tb_obj, active_resource){
+    // debugger;
     if (active_resource.inField == 1){
-        obj.remove();
-        return false;
-    }
-    if (obj.attr('direction') != active_resource.direction){
         obj.remove();
         return false;
     }
@@ -560,6 +560,11 @@ function update_busTransit(obj, content_tb_obj, active_resource){
         if ($(".bus_transit[direction=" + active_resource.direction + "] .content_tb tr[pid="+active_resource.id+"]").length==0){
             content_tb_obj.append(obj_str);
         }
+        return false;
+    }
+
+    if (obj.attr('direction') != active_resource.direction){
+        obj.remove();
         return false;
     }
 
