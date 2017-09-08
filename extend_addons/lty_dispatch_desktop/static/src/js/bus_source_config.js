@@ -17,9 +17,9 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
             this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
             var self = this;
             var package_send = {
-                type: 1000,
-                open_modules: ["dispatch-abnormal-"+this.desktop_id,"dispatch-bus_real_state-"+this.desktop_id,"dispatch-bus_resource-"+this.desktop_id],
-                msgId: Date.parse(new Date())
+                type: 2000,
+                controlId:this.desktop_id,
+                open_modules: ["abnormal","bus_real_state","bus_resource"]
             };
             websocket.send(JSON.stringify(package_send));
             $('.table_bus_num_tbody').mCustomScrollbar({

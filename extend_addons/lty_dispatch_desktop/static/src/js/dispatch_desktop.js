@@ -45,7 +45,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         start: function () {
             // 动态加载高德地图api
             var self = this;
-
+            $('.desktop_head_deal.dd_person').html("调度员:"+odoo.session_info.name)
             function startTime() {
                 var today = new Date();//定义日期对象
                 var yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年
@@ -94,6 +94,9 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             var self = this;
             // self.$el.addClass('controller_kz123 back_style');
             self.$el.append(QWeb.render("myConsole"));
+            self.$el.find('.back_style').mCustomScrollbar({
+                    theme: 'minimal'
+            });
             var desktop_id = window.location.href.split("active_id=")[1].split("&")[0];
             self.$el.parent().addClass("controller_"+desktop_id).attr("desktop_id", desktop_id);
             self.model2.query(["line_id"]).filter([["desktop_id", "=", parseInt(desktop_id)]]).all().then(function (data) {

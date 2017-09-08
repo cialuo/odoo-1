@@ -37,9 +37,59 @@ def getRuleFromBigData(url, citycode, lineId, curDate, reverseType):
     if response.status_code != '200':
         return None
     try:
-        return json.loads(response.text, encoding='utf-8')
+        data = json.loads(response.text, encoding='utf-8')
     except Exception:
         return None
+    vehicleup = []
+    for item in data['planvehiclearrageup']:
+        vehicleup.append((0,0,{
+            'vehiclemode':item['vehiclemodel'],
+            'workingnumber':item['workingnumber'],
+            'backupnumber':item['backupnumber'],
+        }))
+    timeup = []
+    for item in data['timearrageup']:
+        timeup.append((0,0,{
+            'starttime':item['starttime'],
+            'seqid':item['seqid'],
+            'endtime':item['endtime'],
+            'interval':item['interval'],
+            'speed':item['speed'],
+            'worktimelength':item['worktimelength'],
+            'resttime':item['resttime'],
+            'minvehicles':item['minvehicles'],
+            'mark':item['mark'],
+            'spanday':item['spanday']
+        }))
+    vehicledown = []
+    timedown = []
+    if reverseType == 'dubleway':
+        for item in data['planvehiclearragedown']:
+            vehicledown.append((0, 0, {
+                'vehiclemode': item['vehiclemodel'],
+                'workingnumber': item['workingnumber'],
+                'backupnumber': item['backupnumber'],
+            }))
+        for item in data['timearragedwon']:
+            timedown.append((0, 0, {
+                'starttime': item['starttime'],
+                'seqid': item['seqid'],
+                'endtime': item['endtime'],
+                'interval': item['interval'],
+                'speed': item['speed'],
+                'worktimelength': item['worktimelength'],
+                'resttime': item['resttime'],
+                'minvehicles': item['minvehicles'],
+                'mark': item['mark'],
+                'spanday': item['spanday']
+            }))
+    return {
+        'vup':vehicleup,
+        'tup':timeup,
+        'vdown':vehicledown,
+        'tdown':timedown
+    }
+
 
 def check_time_format(time):
     """
