@@ -261,6 +261,7 @@
     height: 20px;
     background: url("/lty_dispatch_desktop/static/src/img/runcar.png") no-repeat left top;
     top: 0px;
+    cursor: pointer;
 }
 
 .dispatch_desktop .line_car .type_car span {
@@ -292,6 +293,7 @@
     height: 20px;
     background: url("/lty_dispatch_desktop/static/src/img/runcar_right.png") no-repeat left top;
     top: 0px;
+    cursor: pointer;
 }
 .dispatch_desktop .content_car_road_top .line_car .type_car{
     float: right;
@@ -810,6 +812,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     background: -webkit-linear-gradient(top, #32817E, #356691);
     background: -moz-linear-gradient(top, #32817E, #356691);
     display: none;
+    z-index:10000;
 }
 
 .bus_src_config .config_bus_source ul {
