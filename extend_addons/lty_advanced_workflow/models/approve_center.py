@@ -7,7 +7,7 @@ from odoo.exceptions import UserError
 
 class lty_approve_center(models.Model):
     _name = 'lty.approve.center'
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread','ir.needaction_mixin']
     _order = 'status desc'
 
     @api.multi
@@ -31,12 +31,16 @@ class lty_approve_center(models.Model):
         ], string='status', required=True, track_visibility='always', default='commited')
     line_ids = fields.One2many('lty.approve.logs','center_id') 
     cfg_line_id = fields.Many2one('lty.advanced.workflow.cfg.line')     
-    active_node = fields.Boolean(compute='_active_wkf_node')
+    active_node = fields.Boolean(compute='_active_wkf_node', store=True)
     approved = fields.Boolean(compute='_compute_approve_state')
 
     approve_posts = fields.Many2many('employees.post', 'lty_wkf_center_line_post', 'post_id', 'approve_posts', 'Approve Post', help="")
     approve_post = fields.Many2one('employees.post','Approve Post', help="")
+    start_user = fields.Many2one('res.users')
 
+    @api.model
+    def _needaction_domain_get(self):
+        return [('status', '=', 'commited')]
     @api.multi
     def _active_wkf_node(self):
         #todo compute active status
@@ -47,14 +51,15 @@ class lty_approve_center(models.Model):
             if user.cfg_line_id.farther_node :
                 object2 = user.object_id._name+','+str(user.object_id.id)
                 farther_node_state = self.search([('cfg_line_id', '=',user.cfg_line_id.farther_node.id),('object_id', '=',object2)]).approved
+            else:
+                farther_node_state = True
             
             domain = eval( user.cfg_line_id.conditions)
             domain.append(('id', '=', user.object_id.id))                    
             if len(self.env[user.object_id._name].search(domain))>0 :
                 condiction_state = True
-               
             
-            if condiction_state and farther_node_state or user.cfg_line_id.node_type == 'start' :
+            if condiction_state and farther_node_state :
                 user.active_node = True
             
     @api.multi

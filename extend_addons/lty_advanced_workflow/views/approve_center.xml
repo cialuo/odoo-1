@@ -73,10 +73,35 @@
       <field name="res_model">lty.approve.center</field>
       <field name="view_mode">tree,form</field>
     </record>
+    
+    <!-- 已审批 -->
+    <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_done_action">
+      <field name="name">Approve Done</field>
+      <field name="res_model">lty.approve.center</field>
+      <field name="domain">[('status','=','approved')]</field>
+      <field name="view_mode">tree,form</field>
+    </record>   
+    <!-- 我发起的审批-->
+    <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_mystart_action">
+      <field name="name">My Start Approve</field>
+      <field name="res_model">lty.approve.center</field>
+      <field name="domain">[('start_user','=',uid)]</field>
+      <field name="view_mode">tree,form</field>
+    </record>    
+     
 
 
     <!-- actions -->
     <menuitem name="Approve Center"  sequence="10" id="lty_advanced_workflow_approve_center_menu" parent="lty_advanced_workflow_mgt"
-              action="lty_advanced_workflow_approve_center_action"/>
+              action="lty_advanced_workflow_approve_center_action"/>              
+    <menuitem name="我发起的审批"  sequence="30" id="lty_advanced_workflow_approve_center_start_by_me_menu" parent="lty_advanced_workflow_approve_center_menu"
+              action="lty_advanced_workflow_approve_center_mystart_action"/>    
+    <menuitem name="待我审批的"  sequence="10" id="lty_advanced_workflow_approve_center_approve_to_me_menu" parent="lty_advanced_workflow_approve_center_menu"
+              action="lty_advanced_workflow_approve_center_action"/>    
+    <menuitem name="我已审批的"  sequence="20" id="lty_advanced_workflow_approve_center_approve_by_me_menu" parent="lty_advanced_workflow_approve_center_menu"
+              action="lty_advanced_workflow_approve_center_done_action"/>    
+                                                        
+                        
+              
   </data>
 </openerp>
