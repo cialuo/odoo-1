@@ -12,12 +12,10 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             this._super(parent, context);
         },
         start: function () {
-            var self = this;
-            // self.$el.append(QWeb.render("config"));
         },
         events: {
             'click .btn_cancel': 'close_dialog',
-            'click .config_btn': 'change_style'
+            // 'click .config_btn': 'change_style'
         },
         close_dialog: function () {
             var self = this;
@@ -25,6 +23,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             $(".modal-backdrop").remove();
             self.$el.remove();
         },
+        // 配置修改颜色   暂无
         change_style: function () {
             var self = this;
             var font_color = self.$el.find('.src_font_color').val();
@@ -40,12 +39,10 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             this.data = {
                 component_ids: 13
             };
-
         },
         start: function () {
-            // 动态加载高德地图api
             var self = this;
-
+            $('.desktop_head_deal.dd_person').html("调度员:" + odoo.session_info.name);
             function startTime() {
                 var today = new Date();//定义日期对象
                 var yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年
@@ -77,7 +74,6 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                 }
                 return i;
             }
-
             startTime();
         }
     });
@@ -86,17 +82,16 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         template: 'dispatch_desktop_component',
         init: function (parent, context) {
             this._super(parent, context);
-            this.model2 = new Model('dispatch.control.desktop.component');
+            this.model_line = new Model('dispatch.control.desktop.component');
             layer.close(context);
-      },
+        },
         start: function () {
             $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
             var self = this;
-            // self.$el.addClass('controller_kz123 back_style');
             self.$el.append(QWeb.render("myConsole"));
             var desktop_id = window.location.href.split("active_id=")[1].split("&")[0];
-            self.$el.parent().addClass("controller_"+desktop_id).attr("desktop_id", desktop_id);
-            self.model2.query(["line_id"]).filter([["desktop_id", "=", parseInt(desktop_id)]]).all().then(function (data) {
+            self.$el.parent().addClass("controller_" + desktop_id).attr("desktop_id", desktop_id);
+            self.model_line.query(["line_id"]).filter([["desktop_id", "=", parseInt(desktop_id)]]).all().then(function (data) {
                 var s = [];
                 if (data.length > 0) {
                     // 去重
@@ -107,7 +102,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                     }
                     // 遍历
                     for (var j = 0; j < s.length; j++) {
-                        self.model2.query().filter([["desktop_id", "=", parseInt(desktop_id)],["line_id", "=", parseInt(s[j])]]).all().then(function (res) {
+                        self.model_line.query().filter([["desktop_id", "=", parseInt(desktop_id)], ["line_id", "=", parseInt(s[j])]]).all().then(function (res) {
                             new dispatch_bus(this, res, 0).appendTo(self.$el);
                         });
                     }
@@ -139,13 +134,13 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                     var id = tidNum[i].getAttribute('tid');
                     var left = tidNum[i].style.left.split('px')[0];
                     var top = tidNum[i].style.top.split('px')[0];
-                    self.model2.call("write", [parseInt(id),
+                    self.model_line.call("write", [parseInt(id),
                         {
                             'position_left': left,
                             'position_top': top,
                             'position_z_index': 0,
                         }]).then(function (data) {
-                            layer.msg('保存成功');
+                        layer.msg('保存成功');
                     });
                 }
             }
@@ -155,9 +150,8 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         template: 'dispatch_control',
         init: function (parent, context) {
             this._super(parent, context);
-            this.model2 = new Model('dispatch.control.desktop.component');
-            this.layer = layer.msg("加载中...",{time:0, shade: 0.3});
-      },
+            this.layer = layer.msg("加载中...", {time: 0, shade: 0.3});
+        },
         start: function () {
             this.load_fn();
         },
@@ -165,7 +159,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             var self = this;
             setTimeout(function () {
                 new dispatch_desktop(self, self.layer).appendTo(self.$el);
-            },1000);
+            }, 1000);
         }
     });
     core.action_registry.add('dispatch_desktop.page', dispatch_control);

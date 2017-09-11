@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 from odoo import api, fields, models, _
+import datetime
 
 class GenBusMoveTime(models.TransientModel):
     _name = 'genbusmovetime'
@@ -19,4 +20,11 @@ class GenBusMoveTime(models.TransientModel):
     def gendata(self):
         res = self.rule_id.createMoveTimeRecord(self.use_date,self.rule_id)
         res.genOperatorPlan()
+        self.env['bus_staff_group'].action_gen_staff_group(res.line_id,
+                                                           staff_date=datetime.datetime.strptime(
+                                                               res.executedate, "%Y-%m-%d"),
+                                                           operation_ct=res.vehiclenums,
+                                                           move_time_id=res,
+                                                           force=True)
+        self.env['scheduleplan.schedulrule'].genExcuteRecords(res)
         return

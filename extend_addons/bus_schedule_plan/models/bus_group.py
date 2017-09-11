@@ -120,14 +120,15 @@ class BusGroup(models.Model):
         for i in self:
             vehicle_ct = len(i.vehicle_ids)
             driver_ct = len(i.driver_ids)
-            shift_ct = len(i.bus_shift_id.shift_line_ids)
-            if shift_ct == 0:
-                i.is_not_match = True
-                i.not_match_reason = u'所选班制的班次不存在，请选择正确的班制'
-            if vehicle_ct and shift_ct and driver_ct:
-                if vehicle_ct * shift_ct > driver_ct:
+            if i.bus_shift_id:
+                shift_ct = len(i.bus_shift_id.shift_line_ids)
+                if shift_ct == 0:
                     i.is_not_match = True
-                    i.not_match_reason = u'所选的班制，车辆数，司机数配置不合理，建议重新选择'
+                    i.not_match_reason = u'所选班制的班次不存在，请选择正确的班制'
+                if vehicle_ct and shift_ct and driver_ct:
+                    if vehicle_ct * shift_ct > driver_ct:
+                        i.is_not_match = True
+                        i.not_match_reason = u'所选的班制，车辆数，司机数配置不合理，建议重新选择'
 
     @api.depends('vehicle_ids')
     def get_vehicle_ct(self):
@@ -296,6 +297,9 @@ class BusGroupDriverVehicleShift(models.Model):
             domain += [('route_id', '=', route_id)]
 
         next_use_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") + timedelta(days=1)
+
+        _logger.info(u"班组管理人车配班同步时间:%s" % (str(next_use_date)))
+
         res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '<', str(datetime.date.today()-timedelta(days=3)))])
 
         if res:
@@ -315,7 +319,6 @@ class BusGroupDriverVehicleShift(models.Model):
 
             res = self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', route_id),
                                                                      ('use_date', '=', next_use_date)])
-
             for m in res:
                 m.unlink()
 
@@ -466,9 +469,10 @@ class BusGroupDriverVehicleShift(models.Model):
     def run_scheduler(self):
         """
         班组管理 定时任务的入口
-        :return:use_date 指 执行时间的前一天 如2017-09-08的计划，use_date：2017-09-07
+        :return:
         """
         _logger.info(u'Start run_scheduler')
-        use_date = datetime.datetime.strftime(datetime.date.today() - timedelta(days=1), "%Y-%m-%d")
-        self.scheduler_vehicle_shift(use_date=use_date)
+        # use_date = datetime.datetime.strftime(datetime.date.today() - timedelta(days=1), "%Y-%m-%d")
+        # self.scheduler_vehicle_shift(use_date=use_date)
+        self.scheduler_vehicle_shift()
         _logger.info(u'End run_scheduler')

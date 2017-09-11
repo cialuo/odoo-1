@@ -1279,9 +1279,16 @@
 
 
 
+/*.layui-layer {
+    background: #384060;
+    color: #fff;
+}
 
-
-
+.layui-layer .layui-layer-title {
+    background: #384060;
+    color: #fff;
+}
+*/
 
 
 
@@ -1313,6 +1320,7 @@
     width: 100%;
     border: 1px solid #6d738a;
     border-radius: 4px;
+    padding: 20px;
 }
 .modal_lty input.short_msg_text {
     background: none;
@@ -1347,6 +1355,10 @@
     border: 1px solid #6d738a;
     border-radius: 4px;
     margin-left: 10px;
+}
+.modal_lty .msg_send_info option{
+    color: white;
+    background: #384060;
 }
 
 .modal_lty .col-sm-9.pd0 {

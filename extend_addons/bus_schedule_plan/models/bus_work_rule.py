@@ -94,12 +94,23 @@ class BusWorkRules(models.Model):
     # 日期类型
     date_type = fields.Many2one("bus_date_type", string="bus date type", required=True)
 
+    def getTargetDate(self):
+        return '2017-05-06'
+
+    @api.multi
     def fetchRuleFromBigData(self):
         """
         从大数据获取行车规则
         """
         url = "http://10.1.10.169:8082/ltyop/trafficRules/getBusTraffRule"
-        getRuleFromBigData(url, 'sdf123', self.line_id, )
+        datestr = self.getTargetDate()
+        data = getRuleFromBigData(url, 'sdf123', self.line_id, self.schedule_method, datestr)
+        if data == None:
+            raise ValidationError(_("fetch data failed from bigdata system"))
+        self.upplanvehiclearrange = data['vup']
+        self.uptimearrange = data['tup']
+        self.downplanvehiclearrange = data['vdown']
+        self.downtimearrange = data['tdown']
 
     @staticmethod
     def _validateVehicleNums(obj):
@@ -124,13 +135,6 @@ class BusWorkRules(models.Model):
             return None
         else:
             return result[0]
-
-    @api.multi
-    def genBusMovetime(self):
-        """
-        生成行车时刻表按钮动作
-        """
-        return
 
     @staticmethod
     def _validate_sqenum(datalist):
@@ -652,9 +656,11 @@ class BusWorkRules(models.Model):
         datatype = result[0]
         rulelist = rulemode.search([("date_type", '=', datatype.id),("active", "=", True)])
         for item in rulelist:
-            mvtime = self.createMoveTimeRecord(tomorrow_str, item)
+            mvtime = self._timeTableExist(tomorrow_str, item.id)
+            if mvtime == None:
+                mvtime = self.createMoveTimeRecord(tomorrow_str, item)
             # 生成人车配班数据
-            staffdata = self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
+            self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
                                                                            staff_date=datetime.datetime.strptime(
                                                                                tomorrow_str, "%Y-%m-%d"),
                                                                            operation_ct=mvtime.vehiclenums,
@@ -662,8 +668,23 @@ class BusWorkRules(models.Model):
                                                                            force=True)
             # 生成运营方案数据
             mvtime.genOperatorPlan()
-            # 生成行车作业执行数据
-            BusWorkRules.genExcuteRecords(mvtime)
+            if self._execTableExist(tomorrow_str, item.id) == None:
+                # 生成行车作业执行数据
+                BusWorkRules.genExcuteRecords(mvtime)
+
+    def _timeTableExist(self, datestr, ruleid):
+        res = self.env['scheduleplan.busmovetime'].search([('executedate', '=', datestr), ('rule_id', '=', ruleid)])
+        if len(res) == 0:
+            return None
+        else:
+            return res
+
+    def _execTableExist(self, datestr, ruleid):
+        res = self.env['scheduleplan.excutetable'].search([('excutedate', '=', datestr), ('rule_id', '=', ruleid)])
+        if len(res) == 0:
+            return None
+        else:
+            return res[0]
 
 
 class RuleBusArrangeUp(models.Model):
