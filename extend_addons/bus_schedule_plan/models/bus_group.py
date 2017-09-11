@@ -297,6 +297,9 @@ class BusGroupDriverVehicleShift(models.Model):
             domain += [('route_id', '=', route_id)]
 
         next_use_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") + timedelta(days=1)
+
+        _logger.info(u"班组管理人车配班同步时间:%s" % (str(next_use_date)))
+
         res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '<', str(datetime.date.today()-timedelta(days=3)))])
 
         if res:
@@ -316,7 +319,6 @@ class BusGroupDriverVehicleShift(models.Model):
 
             res = self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', route_id),
                                                                      ('use_date', '=', next_use_date)])
-
             for m in res:
                 m.unlink()
 
@@ -467,9 +469,10 @@ class BusGroupDriverVehicleShift(models.Model):
     def run_scheduler(self):
         """
         班组管理 定时任务的入口
-        :return:use_date 指 执行时间的前一天 如2017-09-08的计划，use_date：2017-09-07
+        :return:
         """
         _logger.info(u'Start run_scheduler')
-        use_date = datetime.datetime.strftime(datetime.date.today() - timedelta(days=1), "%Y-%m-%d")
-        self.scheduler_vehicle_shift(use_date=use_date)
+        # use_date = datetime.datetime.strftime(datetime.date.today() - timedelta(days=1), "%Y-%m-%d")
+        # self.scheduler_vehicle_shift(use_date=use_date)
+        self.scheduler_vehicle_shift()
         _logger.info(u'End run_scheduler')
