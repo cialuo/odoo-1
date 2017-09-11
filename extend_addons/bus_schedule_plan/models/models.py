@@ -21,7 +21,7 @@ class RouteInBusSchedule(models.Model):
 
         # 上行大站检查
         mode = self.env['opertation_resources_station_platform']
-        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'up')])
+        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'up')], order="sequence")
         sitecollection = []
         for item in sitelist:
             sitecollection.append((0, 0, {
@@ -30,7 +30,7 @@ class RouteInBusSchedule(models.Model):
 
         # 下行大站检查
         mode = self.env['opertation_resources_station_platform']
-        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'down')])
+        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'down')], order="sequence")
         sitecollection_down = []
         for item in sitelist:
             sitecollection_down.append((0, 0, {
