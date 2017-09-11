@@ -210,7 +210,19 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             });
 
             // 添加计划
-            plan_display.on("click", ".plan_display_set[model='bus_plan'] li.add_plan_bt", function () {
+            plan_display.on("click", ".plan_display_set li.add_plan_bt", function () {
+                var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
+                var obj = $(this).parents(".plan_display_set");
+                var options = {
+                    id: obj.attr("plan_pid"),
+                    layer_index: layer_index
+                };
+                self.add_plan_fn(options);
+            });
+
+
+            // 修改计划
+            plan_display.on("click", ".plan_display_set[model='bus_plan'] li.fix_bt", function () {
                 var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
                 var obj = $(this).parents(".plan_display_set");
                 var options = {
