@@ -297,6 +297,9 @@ class BusGroupDriverVehicleShift(models.Model):
             domain += [('route_id', '=', route_id)]
 
         next_use_date = datetime.datetime.strptime(use_date, "%Y-%m-%d") + timedelta(days=1)
+
+        _logger.info(u"班组管理人车配班同步时间:%s" % (str(next_use_date)))
+
         res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '<', str(datetime.date.today()-timedelta(days=3)))])
 
         if res:
@@ -316,7 +319,7 @@ class BusGroupDriverVehicleShift(models.Model):
 
             res = self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', route_id),
                                                                      ('use_date', '=', next_use_date)])
-
+            print res
             for m in res:
                 m.unlink()
 
