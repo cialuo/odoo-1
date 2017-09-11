@@ -5,6 +5,7 @@ import datetime
 class WarrantyPlan(models.Model): # 车辆保养计划
     _inherit = 'mail.thread'
     _name = 'warranty_plan'
+    _order = 'id desc'
     name = fields.Char(string='Warranty Plan', required=True, index=True)
 
     plan_month = fields.Date(default=datetime.datetime.utcnow())

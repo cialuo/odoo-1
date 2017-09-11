@@ -8,6 +8,7 @@ import odoo.addons.decimal_precision as dp
 class WarrantyOrder(models.Model): # 保养单
     _inherit = 'mail.thread'
     _name = 'warranty_order'
+    _order = 'id desc'
     name = fields.Char(string='Warranty Order', required=True, index=True, default='/')
 
     sequence = fields.Integer('Sequence', default=1)
