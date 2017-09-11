@@ -129,11 +129,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 }
             }
 
-            // 上行站点
             site_info(this.model_line, this.model_station_platform, this.model_linesrc)
-            // 下行站点
-            // site_info(this.model_site_down)
-            //阻止右键引起的默认事件
+            //阻止右键引起的默认事件必须使用contextmenu
             self.$('.can_top').bind('contextmenu', function () {
                 return false;
             });
@@ -144,13 +141,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         site_websocket: function (data_list, arg) {
             var self = arg.self;
             var data_use = JSON.parse(data_list)
-            //配车数量...
             var data = new Object();
             var line_c = parseInt(arg.line_id);
             //匹配line_id和desktop_id
             if (data_use.data.line_id == line_c && data_use.controllerId == self.desktop_id) {
-                //站点到起点距离
-                //分段颜色
+                //线路状态分段颜色   目前使用的假数据
                 data.color = [
                     "#4dcf22",
                     "#ffd233",
@@ -159,9 +154,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     "#a19dde",
                     "#cc21ff",
                 ];
+                // 线路路况实时反馈
+                // if(data_use.type== "1032"){
+                //     debugger
+                //     var road_info = data_use.data.road_condition.split('|');
+                //     for(var i = 0;i<road_info.length;i++){
+                //         data.color.push(parseInt(road_info[i].split(',')[0]));
+                //     }
+                // }
                 data.site_top_infos = arg.site_top_infos;
                 data.site_down_infos = arg.site_down_infos;
-                //滞站客流
+                //站点滞站客流  根据状态值决定显示
                 if (data_use.type == "1036") {
                     if (data_use.data.direction == 0) {
                         var color_id = data_use.data.location_id;
@@ -208,31 +211,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         arg.busDownNumber = data_use.data.bus_no_of_park + '辆';
                     }
                 }
-                // 线路路况实时反馈
-                // if(data_use.type== "1032"){
-                //     debugger
-                //     var road_info = data_use.data.road_condition.split('|');
-                //     for(var i = 0;i<road_info.length;i++){
-                //         data.color.push(parseInt(road_info[i].split(',')[0]));
-                //     }
-                // }
-                //车辆实时位置
+                //车辆实时位置  分上下行已经进出站
                 if (data_use.type == "1035") {
-                    //如果车辆id未出现
+                    //如果车辆id未出现   车辆到达最后站点出站remove未做处理
                     //删除车辆此时的位置显示，并重新渲染，防止上行穿到下行不显示
                     $('.traffic_car .line_car[bus_no=' + data_use.data.car_id + ']').remove();
                     $('.run_car_hide').find('.line_car').attr('bus_no', data_use.data.car_id);
-                    // if (arg.hasCar.indexOf(data_use.data.car_id) == -1) {
-                    //     arg.hasCar.push(data_use.data.car_id);
-                    //     //车辆上行方向
-                    //     $('.run_car_hide').find('.line_car').attr('bus_no', data_use.data.car_id);
-                    //     if(data_use.data.direction == 0){
-                    //         self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
-                    //     }else if(data_use.data.direction == 1){
-                    //         self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
-                    //     }
-                    // }
-                    // 车辆进出站上下行 进出站
+                    // 车辆进出站上下行 进出站  0 上行 in进站
                     if (data_use.data.direction == 0) {
                         if (data_use.data.type == "in") {
                             self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
@@ -253,18 +238,14 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             var oLeft = 1190 - 1190 * (parseInt(data_use.data.stationNo)) / arg.site_down_infos.length;
                         }
                         self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft - 22 + 'px');
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.num_car span').html(data_use.data.stationProperty);
+                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.num_car span').html('无');
                         self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.type_car span').html(data_use.data.terminalNo);
                     }
-                    // 进出场
                 }
                 data.busTopNumber = arg.busTopNumber;
                 data.busDownNumber = arg.busDownNumber;
                 data.subsection = [1, 2, 3, 4, 5, 6];
-                //公交模拟地图canvas
-                // 距离车场距离
-                // if (!isNaN((data.subsection[0]))) {
-
+                //公交模拟地图canvas绘制
                 qrend_desktop_canvas(data, '.can_top', '.can_bottom', '.canvas_left', '.canvas_right', self.$el);
                 // 线路颜色
                 self.color = data.color;
@@ -274,13 +255,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 self.dataSite_top_color = arg.dataSite_top_color_cof;
                 self.dataSite_down_color = arg.dataSite_down_color_cof;
                 self.subsection = data.subsection;
-                // }
-                // 上下行的车辆的拥挤人数数量
-                // $('.park_left').html('')
             }
         },
         events: {
-            //上下的车辆是否隐藏
+            //上下的车辆是否隐藏 click事件被占用
             'mouseup .can_top': 'clk_can_top',
             'mouseup .can_bottom': 'clk_can_bottom',
             // 删除选择路线弹框
@@ -300,25 +278,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             //点击上方详情
             'mouseup .bus_info': 'bus_man_src',
             //鼠标划过上下行车路线时的cursor属性
-
-            // 右击站点事件
-            'click .min': 'closeFn'
             // 行车组件关闭
+            'click .min': 'closeFn'
         },
         closeFn: function () {
             var self = this;
             var tid = this.$el.attr('tid');
             var desktop_id = self.desktop_id;
-            //已经添加了路线
-            //  var package = {
-            //     type: 1001,
-            //     open_modules: "dispatch-passenge_flow-4",
-            //     msgId: Date.parse(new Date())
-            // };
-            // websocket.send(JSON.stringify(package));
+
             if (tid != undefined) {
                 // socket_model_info[tid].status =false;
-                // 查询tid,拿到tid下面的lineid并得到相同lineid的一条线路
+                // 查询tid,拿到tid下面的lineid并得到相同lineid的一条线路  desktopid!!!
                 self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["id", "=", parseInt(tid)]]).all().then(function (pp) {
                     // 查询tid下的lineid
                     self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["line_id", "=", pp[0].line_id[0]]]).all().then(function (data) {
@@ -331,9 +301,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         });
                     });
                 });
-            }
-            //未添加路线
-            else {
+            } else {
                 self.$el.parent().find('.updown_line_table').remove();
                 self.destroy();
             }
@@ -474,24 +442,31 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         dataType: 'json',
                         data: {},
                         success: function (data) {
+                            console.log(data)
                             function formatDate(now) {
                                 var year = now.getYear();
                                 var month = now.getMonth() + 1;
                                 var date = now.getDate();
                                 var hour = now.getHours();
-                                if(hour<10){hour="0"+hour}
+                                if (hour < 10) {
+                                    hour = "0" + hour
+                                }
                                 var minute = now.getMinutes();
-                                if(minute<10){minute="0"+minute}
+                                if (minute < 10) {
+                                    minute = "0" + minute
+                                }
                                 var second = now.getSeconds();
-                                if(second<10){second="0"+second}
+                                if (second < 10) {
+                                    second = "0" + second
+                                }
                                 return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
                             }
+
                             for (var i = 0; i < data.respose.length; i++) {
-                                if (data.respose[i].planRunTime > 0) {
+                                if (data.respose[i].planRunTime != null) {
                                     data.respose[i].planRunTime = formatDate(new Date(data.respose[i].planRunTime)).split(' ')[1];
-                                    console.log(data.respose[i].planRunTime)
                                 }
-                                if (data.respose[i].realReachTime > 0) {
+                                if (data.respose[i].realReachTime != null) {
                                     data.respose[i].realReachTime = formatDate(new Date(data.respose[i].realReachTime)).split(' ')[1];
                                 }
                             }
@@ -645,7 +620,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         ,
         show_chose_line: function () {
             var self = this;
-            $(".edit_content .chs").mCustomScrollbar("destroy");
+            self.$el.find(".edit_content .chs").mCustomScrollbar("destroy");
             self.model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (data) {
                 self.$('.edit_content .chs').html('')
                 for (var i = 0; i < data.length; i++) {
@@ -654,7 +629,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         self.$('.edit_content .chs').append(oLi);
                     }
                 }
-                $('.edit_content .chs').mCustomScrollbar({
+                self.$el.find('.edit_content .chs').mCustomScrollbar({
                     theme: 'minimal'
                 });
                 self.$('.edit_content').show();
@@ -853,7 +828,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     });
                 }
             }
-        },
+        }
     });
 //车辆组件
 

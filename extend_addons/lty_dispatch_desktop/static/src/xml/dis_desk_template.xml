@@ -48,7 +48,7 @@
 			<div class="src_title">
 				<div class="closeBox dragArea">
 					<div class="line_btn">
-						<a class="min" href="javascript:;">x</a>
+						<a class="min" href="javascript:;">×</a>
 					</div>
 				</div>
 				<div class="line_list">
@@ -140,7 +140,7 @@
 							<div class="line_btn_content posR">
 								<a class="min" href="javascript:;" title="删除">-</a>
 								<a href="javascript:;" title="客流展示" class="show_right">></a>
-								<a class="line_edit" href="javascript:;" title="设置">+</a>
+								<a class="line_edit" href="javascript:;" title="添加路线">+</a>
 							</div>
 							<div class="edit_content">
 								<div class="ovf">
@@ -313,21 +313,36 @@
 									<div class="lagstation_chart fl">
 									</div>
 									<ul class="absnormal_operate fl">
-										<li>
-											<div class="absnormal_type">
-												<h4>异常</h4>
-												<p>实际客流大于运力供给30%</p>
+										<li class="no_absnormal">
+											<div class="abs_info"></div>
+											<div class="handleBtn ovf">
+												<a class="manual" href="javascript:;">人工</a>
+												<a class="process_check" href="javascript:;">校准</a>
+												<a>忽略</a>
 											</div>
-											<div class="absnormal_sug">
-												<h4>建议<t t-esc="widget.dis_desk.name"></t></h4>
-												<p>2趟/分钟/20分钟,需补充2台机动车</p>
+											<div class="finishBtn">
+												<a href="javascript:;" class="is_check">完成</a>
 											</div>
 										</li>
-										<li class="handleBtn ovf">
-											<a>人工</a>
-											<a>校准</a>
-											<a>忽略</a>
+										<li class="normal">
+											<h4>异常</h4>
+											<p>无</p>
 										</li>
+										<!--<li>-->
+											<!--<div class="absnormal_type">-->
+												<!--<h4>异常</h4>-->
+												<!--<p>实际客流大于运力供给30%</p>-->
+											<!--</div>-->
+											<!--<div class="absnormal_sug">-->
+												<!--<h4>建议<t t-esc="widget.dis_desk.name"></t></h4>-->
+												<!--<p>2趟/分钟/20分钟,需补充2台机动车</p>-->
+											<!--</div>-->
+										<!--</li>-->
+										<!--<li class="handleBtn ovf">-->
+											<!--<a>人工</a>-->
+											<!--<a>校准</a>-->
+											<!--<a>忽略</a>-->
+										<!--</li>-->
 									</ul>
 								</div>
 							</li>
@@ -342,7 +357,7 @@
 					<div class="updown_title dragAreaDesk">
 						<div class="line_btn">
 							<div class="line_btn_content posR">
-								<a class="min" href="javascript:;" title="删除">x</a>
+								<a class="min" href="javascript:;" title="删除">×</a>
 							</div>
 						</div>
 					</div>
@@ -447,7 +462,7 @@
 			<div class="src_title">
 				<div class="closeBox dragArea">
 					<div class="line_btn">
-						<a class="min" href="javascript:;">x</a>
+						<a class="min" href="javascript:;">×</a>
 					</div>
 				</div>
 				<div class="line_list">
@@ -473,18 +488,20 @@
 							<th class="td_small">车号</th>
 							<th class="td_small">车牌</th>
 							<th class="td_small">司机</th>
-							<th>位置</th>
+							<th class="td_small">方向</th>
+							<th class="td_small">位置</th>
 							<th class="td_small">状态</th>
-							<th>当前任务</th>
+							<th class="td_small">当前任务</th>
 							<th class="td_small">乘客数量</th>
 							<th class="td_small">满载率</th>
-							<th>信号状态</th>
+							<th class="td_small">信号状态</th>
 							<th class="td_small">车速</th>
-							<th>下趟发车</th>
-							<th>回场时间</th>
+							<th class="td_small">下趟发车</th>
+							<th class="td_small">回场时间</th>
+							<th>能源剩余里程</th>
 							<th class="control_btn th_end">
 								<p>
-									能源剩余里程
+									操作
 								</p>
 								<p class="add_btn">
 									+
@@ -519,8 +536,12 @@
 								<td class="line_src_driverName td_small">
 									<t t-esc="item.driverName"></t>
 								</td>
+								<td class="td_small">
+									<t t-if="item.direction==0">上行</t>
+									<t t-elif="item.direction==1">下行</t>
+								</td>
                                 <!--位置-->
-								<td class="line_src_site">
+								<td class="line_src_site td_small">
 									<a href="#" class="position_site">
 										<!--<t t-esc="item.location_gps"></t>-->
 									</a>
@@ -542,7 +563,7 @@
 									<p t-else="">其他</p>
 								</td>
                                 <!--当前任务-->
-								<td class="line_src_current_task">
+								<td class="line_src_current_task td_small">
 									<!--<t t-esc="item.Current_task"></t>-->
                                     <!--当前任务-->
 									<p t-if="item.task==1000">正常</p>
@@ -574,7 +595,7 @@
                                     <!--满载率-->
 								</td>
                                 <!--信号状态-->
-								<td class="line_src_sinal_status">
+								<td class="line_src_sinal_status td_small">
 									<!--<t t-esc="item.sinal_status"></t>-->
                                     <!--信号状态-->
 								</td>
@@ -582,16 +603,19 @@
 								<td class="line_src_speed td_small">
 									<!--车速-->
 								</td>
-								<td class="line_src_next_trip_time">
+								<td class="line_src_next_trip_time td_small">
 									<!--下趟发车-->
 									<t t-esc="item.planRunTime"></t>
 								</td>
-								<td class="line_src_return_time">
+								<td class="line_src_return_time td_small">
 									<!--回场时间-->
 									<t t-esc="item.realReachTime"></t>
 								</td>
 								<td class="line_src_residual_clearance">
 									<!--能源剩余里程-->
+								</td>
+								<td>
+									<button class="add_operate">+加入运营</button>
 								</td>
 							</tr>
 						</t>

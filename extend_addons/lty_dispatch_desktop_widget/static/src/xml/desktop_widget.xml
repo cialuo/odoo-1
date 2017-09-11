@@ -711,7 +711,7 @@
                     </tr>
                     <t t-foreach="widget.yard_data.data_list" t-as="item">
                         <t t-if="item.inField==widget.yard_data.inField &amp;&amp; item.direction==widget.yard_data.direction &amp;&amp; item.carStateId==1001">
-                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}">
+                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}" t-attf-planReachTime="{{item.realReachTime}}">
                                 <td class="pL">
                                     <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                     <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>
@@ -769,7 +769,7 @@
                     </tr>
                     <t t-foreach="widget.transit_data.data_list" t-as="item">
                         <t t-if="item.inField==widget.transit_data.inField &amp;&amp; item.direction==widget.transit_data.direction">
-                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}">
+                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}" t-attf-planReachTime="{{item.planReachTime}}">
                                 <td class="pL">
                                     <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                     <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>
@@ -902,7 +902,7 @@
                                 <td>
                                     运行管理&#160;
                                     <select name="" class="w2 addType" id="">
-                                        <option value="2001" selected="selected">正常</option>
+                                        <option value="0" selected="selected">正常</option>
                                         <option value="1">包车</option>
                                         <option value="2003">大站</option>
                                         <option value="2004">区间车</option>
@@ -1189,6 +1189,154 @@
         </div>
     </t>
 
+<!-- gy 编辑车辆 -->
+     <t t-name="edit_the_vehicle_template">
+        <div class="modal customModal customModalAddPlan editTheVehicle" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">编辑车辆</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <td>
+                                    车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;&#160;
+                                    <input class="w6 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                </td>
+                                <td>
+                                    方&#160;&#160;&#160;&#160;&#160;&#160;&#160;向&#160;&#160;
+                                    <select name="" class="w6 line" id="">
+                                        <!-- <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
+                                            <t t-esc="widget.set_data.lineName"></t>
+                                        </option> -->
+                                        <!-- gy上行下行 -->
+                                        <option selected="selected" value="0">上行</option>
+                                        <option value="1">下行</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;&#160;
+                                    <input class="w6 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                </td>
+                                <td>
+                                    上班时间&#160;&#160;
+                                    <input class="w6 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    运营线路&#160;&#160;
+                                    <input class="w6 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                </td>
+                                <td>
+                                    趟&#160;&#160;&#160;&#160;&#160;&#160;&#160;次&#160;&#160;
+                                    <input class="w6 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" name="btn_on" class="btn btn-primary">确认</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+<!--end-->
+<!-- gy 异常状态 -->
+    <t t-name="error_state_template">
+        <div class="modal customModal customModalAddPlan errorState" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">异常状态</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="yczt-ul selectType">
+                            <li>
+                                <span class="ckIcon active"></span>&#160;<i></i>&#160;&#160;设置为正常状态
+                            </li>
+                            <li>
+                                <span class="ckIcon"></span>&#160;<i></i>&#160;&#160;设置为休息状态
+                            </li>
+                            <li>
+                                <span class="ckIcon"></span>&#160;<i></i>&#160;&#160;设置为加气状态
+                            </li>
+                            <li>
+                                <span class="ckIcon"></span>&#160;<i></i>&#160;&#160;设置为故障状态
+                            </li>
+                            <li>
+                                <span class="ckIcon"></span>&#160;<i></i>&#160;&#160;设置为保养状态
+                            </li>
+                            <li>
+                                <span class="ckIcon"></span>&#160;<i></i>&#160;&#160;设置为空放状态
+                            </li>
+                            <li>
+                                <span class="ckIcon"></span>&#160;<i></i>&#160;&#160;设置为其它状态
+                            </li>
+                        </ul>                       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" name="btn_on" class="btn btn-primary">确认</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+<!-- end -->
+<!-- gy 进场任务 -->
+    <t t-name="in_the_task_template">
+        <div class="modal customModal customModalAddPlan InTheTask" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">进场任务</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="selectType">
+                            <tr>
+                                <td>
+                                    包车任务&#160;&#160;<span class="ckIcon active"></span>&#160;开始&#160;&#160;<span class="ckIcon"></span>&#160;结束
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    加油任务&#160;&#160;<span class="ckIcon active"></span>&#160;开始&#160;&#160;<span class="ckIcon"></span>&#160;结束
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    修车任务&#160;&#160;<span class="ckIcon active"></span>&#160;开始&#160;&#160;<span class="ckIcon"></span>&#160;结束
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    运营任务&#160;&#160;<span class="ckIcon active"></span>&#160;退出
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    车辆任务&#160;&#160;<span class="ckIcon"></span>&#160;结束
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+<!-- end -->
     <t t-name="communication_template">
         <div>
             <div class="communication dragContent nofix">
@@ -1369,7 +1517,7 @@
                                   </div>
                               </div>
                           </div>
-                          <input class="short_msg_text"/>
+                          <input class="short_msg_text" placeholder="请输入短信内容"/>
 					  </div>
 					  <div class="modal-footer">
 						  <button type="button" class="btn btn-primary send_msg_btn btn_confirm_lty">发送</button>

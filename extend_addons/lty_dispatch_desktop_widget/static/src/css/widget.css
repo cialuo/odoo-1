@@ -1127,7 +1127,74 @@
 .driverCheckIn .modal-content {
     width: 358px;
 }
+/* GY编辑车辆  */
+.editTheVehicle .modal-content {
+    width: 668px;
+}
+/* 异常状态 */
+.errorState .modal-content {
+    width: 214px;
+    height: 427px;
+    color: #fff !important;
+    font-size: 14px;
+    font-family: "microsoft yahei";
+    margin: 0 auto;    
+}
+.errorState .modal-content .yczt-ul li {
+    display: inline-block;
+    line-height:32px;
+    position: relative;    
+}
+.errorState .modal-content .yczt-ul li span {
+    display: inline-block;
+    padding-right: 25px;
+}
+.errorState .modal-content .yczt-ul li i{
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    /* background-color: red; */
+    top:7px;
+    left:20px;
+    /* background: url("../image/icon_tc.png") no-repeat -74px -26px; */
+}
+.errorState .modal-content .yczt-ul li:nth-child(1) i{
+    background: url("../image/icon_tc.png") no-repeat -74px -26px;
+}
+.errorState .modal-content .yczt-ul li:nth-child(2) i{
+    background: url("../image/icon_tc.png") no-repeat -98px -26px;
+}
+.errorState .modal-content .yczt-ul li:nth-child(3) i{
+    background: url("../image/icon_tc.png") no-repeat -122px -26px;
+}
+.errorState .modal-content .yczt-ul li:nth-child(4) i{
+    background: url("../image/icon_tc.png") no-repeat -146px -26px;
+}
+.errorState .modal-content .yczt-ul li:nth-child(5) i{
+    background: url("../image/icon_tc.png") no-repeat -170px -26px;
+}
+.errorState .modal-content .yczt-ul li:nth-child(6) i{
+    background: url("../image/icon_tc.png") no-repeat -194px -26px;
+}
+.errorState .modal-content .yczt-ul li:nth-child(7) i{
+    background: url("../image/icon_tc.png") no-repeat -218px -26px;
+}
 
+/* 进场任务*/
+.InTheTask .modal-dialog .modal-content .modal-header{
+    padding-bottom: 0px;
+}
+.InTheTask .modal-content .selectType span.ckIcon {
+    margin-left: 8px;
+}
+.InTheTask .modal-content {
+    width: 264px;
+    height: 370px;
+    margin: 0 auto;    
+    
+}
+
+/* end */
 .customModalAddPlan table tr td {
     line-height: 28px;
     width: 50%;
@@ -1212,9 +1279,16 @@
 
 
 
+/*.layui-layer {
+    background: #384060;
+    color: #fff;
+}
 
-
-
+.layui-layer .layui-layer-title {
+    background: #384060;
+    color: #fff;
+}
+*/
 
 
 
@@ -1246,6 +1320,7 @@
     width: 100%;
     border: 1px solid #6d738a;
     border-radius: 4px;
+    padding: 20px;
 }
 .modal_lty input.short_msg_text {
     background: none;

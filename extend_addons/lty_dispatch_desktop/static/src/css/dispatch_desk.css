@@ -261,6 +261,7 @@
     height: 20px;
     background: url("/lty_dispatch_desktop/static/src/img/runcar.png") no-repeat left top;
     top: 0px;
+    cursor: pointer;
 }
 
 .dispatch_desktop .line_car .type_car span {
@@ -292,6 +293,7 @@
     height: 20px;
     background: url("/lty_dispatch_desktop/static/src/img/runcar_right.png") no-repeat left top;
     top: 0px;
+    cursor: pointer;
 }
 .dispatch_desktop .content_car_road_top .line_car .type_car{
     float: right;
@@ -661,6 +663,17 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     background: #37405F;
 }
 
+.bus_src_config .add_operate{
+    height: 30px;
+    line-height: 26px;
+    background: none;
+    border: 1px solid #6D7487;
+    border-radius: 4px;
+}
+.bus_src_config .add_success{
+    border-color: #53CAC8;
+    color: #53CAC8;
+}
 .bus_src_config .src_title {
     height: 80px;
 }
@@ -766,15 +779,17 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #6D7487;
-    width:130px;
+    width:110px;
 }
 .bus_src_config .td_small{
-    width:70px;
+    width:80px;
 }
 .bus_src_config th {
     color: #53CAC8;
 }
-
+.bus_src_config td {
+    font-size:13px;
+}
 .bus_src_config .control_btn {
     padding-right: 10px;
     position: relative;
@@ -810,6 +825,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     background: -webkit-linear-gradient(top, #32817E, #356691);
     background: -moz-linear-gradient(top, #32817E, #356691);
     display: none;
+    z-index:10000;
 }
 
 .bus_src_config .config_bus_source ul {
