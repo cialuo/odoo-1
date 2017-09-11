@@ -23,7 +23,7 @@
 
     # any module necessary for this one to work correctly
 
-    'depends': ['operation_menu', 'employees'],
+    'depends': ['operation_menu', 'employees', 'schedule_dispatch_group'],
 
 
     # always loaded
