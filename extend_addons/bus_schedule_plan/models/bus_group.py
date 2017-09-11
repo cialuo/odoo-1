@@ -319,7 +319,6 @@ class BusGroupDriverVehicleShift(models.Model):
 
             res = self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', route_id),
                                                                      ('use_date', '=', next_use_date)])
-            print res
             for m in res:
                 m.unlink()
 
