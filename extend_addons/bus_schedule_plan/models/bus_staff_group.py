@@ -152,24 +152,26 @@ class BusStaffGroupVehicleLine(models.Model):
 
     staff_line_ids = fields.One2many('bus_staff_group_vehicle_staff_line', 'vehicle_line_id')
 
-    staff_names = fields.Char(string='Staff Names', compute='_get_staff_names')
+    staff_driver_names = fields.Char(string='Staff Driver Names', compute='_get_staff_names')
+
+    staff_conductor_names = fields.Char(string='Staff Conductor Names', compute='_get_staff_names')
 
     @api.depends("staff_line_ids")
     def _get_staff_names(self):
         """
-        司机:
-            功能：获取司机名字
+            功能：获取司机和售票员名字
         """
         for i in self:
-            staff_names = set()
+            staff_driver_names = set()
+            staff_conductor_names = set()
             for j in i.staff_line_ids:
-                staff_names.add(j.driver_id.name)
-            if staff_names:
-                staff_names = list(staff_names)
-            else:
-                staff_names = []
-            i.staff_names = ",".join(staff_names)
+                if j.driver_id:
+                    staff_driver_names.add(j.driver_id.name)
+                if j.conductor_id:
+                    staff_conductor_names.add(j.conductor_id.name)
 
+            i.staff_driver_names = ",".join(list(staff_driver_names))
+            i.staff_conductor_names = ",".join(list(staff_conductor_names))
 
     @api.multi
     def dispatch_staff_line(self):
