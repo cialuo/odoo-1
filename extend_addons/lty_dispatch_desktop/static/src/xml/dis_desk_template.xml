@@ -201,7 +201,7 @@
 		</t>
 		<t t-else="">
 			<div>
-				<div class="dispatch_desktop dragContent tidClass" tid="">
+				<div class="dispatch_desktop dragContent tidClass" t-attf-style="z-index:#{widget.rendr_index}" tid="">
 					<div class="content">
 					<!--线路信息展示-->
 						<div class="line_info dragAreaDesk">
@@ -352,7 +352,7 @@
 			</div>
 		</t>
 		<t t-else="">
-			<div class="updown_line_table posA dragContent tidClass" tid="">
+			<div class="updown_line_table posA dragContent tidClass" tid=""  t-attf-style="z-index:#{widget.rendr_index}">
 				<div class="updown_drag">
 					<div class="updown_title dragAreaDesk">
 						<div class="line_btn">
@@ -536,7 +536,7 @@
 								<td class="line_src_driverName td_small">
 									<t t-esc="item.driverName"></t>
 								</td>
-								<td class="td_small">
+								<td class="td_small bus_direct" t-attf-direct="{{item.direction}}">
 									<t t-if="item.direction==0">上行</t>
 									<t t-elif="item.direction==1">下行</t>
 								</td>
@@ -547,20 +547,8 @@
 									</a>
 								</td>
 								<td class="line_src_status td_small">
-									<p t-if="item.carStateId==1001">正常</p>
-									<p t-elif="item.carStateId==2003">休息</p>
-									<p t-elif="item.carStateId==2008">机动</p>
-									<p t-elif="item.carStateId==2004">包车</p>
-									<p t-elif="item.carStateId==2009">取消</p>
-									<p t-elif="item.carStateId==2010">调车</p>
-									<p t-elif="item.carStateId==255">不做</p>
-									<p t-elif="item.carStateId==2011">什么也不做</p>
-									<p t-elif="item.carStateId==2013">被锁</p>
-									<p t-elif="item.carStateId==2005">加油</p>
-									<p t-elif="item.carStateId==1002">报修</p>
-									<p t-elif="item.carStateId==2006">在保</p>
-									<p t-elif="item.carStateId==2007">保养</p>
-									<p t-else="">其他</p>
+									<p t-if="item.carStateId==2008">机动</p>
+									<p t-else="">运营</p>
 								</td>
                                 <!--当前任务-->
 								<td class="line_src_current_task td_small">
@@ -615,7 +603,12 @@
 									<!--能源剩余里程-->
 								</td>
 								<td>
-									<button class="add_operate">+加入运营</button>
+									<t t-if="item.carStateId==2008">
+										<button class="add_operate">+加入运营</button>
+									</t>
+									<t t-else="">
+										<button class="add_operate add_success">+加入运营</button>
+									</t>
 								</td>
 							</tr>
 						</t>
