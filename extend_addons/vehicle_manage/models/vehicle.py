@@ -43,6 +43,10 @@ class Vehicle(models.Model):
     reg_no = fields.Char(help='The registration number')
     reg_date = fields.Date(help='Reg Date')
     forced_destroy = fields.Char(help='Forced to destroy')
+
+    #新增需求：变更强制报废属性
+    forced_destroy_date = fields.Date(string='Forced destroy',help='Forced to destroy')
+
     annual_inspection_date = fields.Date(help='The annual inspection date', required=True)
     emissions = fields.Char(help='The vehicle emissions')
     total_odometer = fields.Float(compute='_get_total_odometer', string='Total Odometer', help='Total Odometer')
