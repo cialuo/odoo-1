@@ -277,7 +277,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             });
 
             // 编辑车辆
-<<<<<<< HEAD
             plan_display.on("click", ".plan_display_set[model='bus_yard'] li.edit_vehicles_bt, .plan_display_set[model='bus_transit'] li.edit_vehicles_bt", function() {
                 // alert("我是编辑车辆");
                 var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
@@ -484,7 +483,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 }
             });
         },
-<<<<<<< HEAD
         edit_the_vehicle_fn: function(options){
             var self = this;
             $.ajax({
