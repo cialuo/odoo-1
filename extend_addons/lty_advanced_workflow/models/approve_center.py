@@ -31,7 +31,7 @@ class lty_approve_center(models.Model):
         ], string='status', required=True, track_visibility='always', default='commited')
     line_ids = fields.One2many('lty.approve.logs','center_id') 
     cfg_line_id = fields.Many2one('lty.advanced.workflow.cfg.line')     
-    active_node = fields.Boolean(compute='_active_wkf_node', store=True)
+    active_node = fields.Boolean(compute='_active_wkf_node')
     approved = fields.Boolean(compute='_compute_approve_state')
 
     approve_posts = fields.Many2many('employees.post', 'lty_wkf_center_line_post', 'post_id', 'approve_posts', 'Approve Post', help="")
@@ -40,7 +40,7 @@ class lty_approve_center(models.Model):
 
     @api.model
     def _needaction_domain_get(self):
-        return [('status', '=', 'commited')]
+        return [('status', '=', 'commited'),('active_node', '=', True)]
     @api.multi
     def _active_wkf_node(self):
         #todo compute active status
