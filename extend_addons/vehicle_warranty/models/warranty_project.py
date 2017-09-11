@@ -3,6 +3,7 @@ from odoo import models, fields, api, exceptions, _
 
 class WarrantyProject(models.Model): # 保修项目
     _name = 'warranty_project'
+    _order = 'id desc'
 
     name = fields.Char(string='Project Name', required=True) # 项目名称
     code = fields.Char(string='Project Code', required=True) # 项目编码
