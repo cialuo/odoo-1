@@ -3,6 +3,8 @@ odoo.define("", function(require) {
     var Widget = require('web.Widget');
     var QWeb = core.qweb;
     var Model = require('web.Model');
+    // 地图线路配置
+    var model_map_line_info= new Model('map.line.production.info');
 
     // 加载高德地图组件
     $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
@@ -59,7 +61,7 @@ odoo.define("", function(require) {
             // 上行下行站点
             this.model_site = new Model('opertation_resources_station_platform');
             // 站点信息
-            this.model_site_info = new Model('map_line_station_info');
+            // this.model_site_info = new Model('map_line_station_info');
         },
         start: function() {
             var self = this;
@@ -67,44 +69,67 @@ odoo.define("", function(require) {
             var site_dict = {};
             // 选择线路
             self.$('.mapSetLineDiv').on('change', 'select.line', function() {
-                var line_id = $(this).val();
+                self.line_id = $(this).val();
                 self.$('.mapSet').html('');
-                if (line_id == '') {
+                if (self.line_id == '') {
                     return;
                 }
-                self.line_id = line_id;
-                //线假设保存制定线路数据库已经存在
-                var his_dict = {
-                    '0': {
-                        gps_list: [],
-                        c: '#CCAC31B',
-                        w: '2'
-                    },
-                    '1': {
-                        gps_list: [],
-                        c: '#CCAC31B',
-                        w: '2'
-                    },
-                };
-
-                self.model_site.query().filter([
-                    ["route_id", "=", parseInt(self.line_id)]
-                ]).all().then(function(site_info) {
-                    var site_top_list = [];
-                    var site_down_list = [];
-                    _.each(site_info, function(ret) {
-                        if (ret.direction == "up") {
-                            site_top_list.push(ret);
-                        } else {
-                            site_down_list.push(ret);
+                model_map_line_info.query().filter([
+                    ["line_id", "=", parseInt(self.line_id)]
+                ]).all().then(function(set_list) {
+                    // 默认配置显示
+                    var his_dict = {
+                        '0': {
+                            gps_list: [],
+                            c: '#000',        //线条颜色
+                            w: '2',           //线条宽度
+                            family: '宋体',   //站点字体
+                            f_color: '#000',  //标签颜色
+                            style: '●',       //站点样式
+                            s_color: '#000'   //站点样式颜色
+                        },
+                        '1': {
+                            gps_list: [],
+                            c: '#000',
+                            w: '2',
+                            family: '宋体',
+                            f_color: '#000',
+                            style: '●',
+                            s_color: '#000'
                         }
-                    });
-                    var options = {
-                        map: map,
-                        site_dict: { '0': site_top_list, '1': site_down_list },
-                        his_dict: his_dict
                     };
-                    new line_map_production_set(self, options).appendTo(self.$('.mapSet'));
+                    if (set_list.length > 0){
+                        _.each(set_list, function(set){
+                            var direction = set.direction=='up'?'0':'1'
+                            his_dict[direction].gps_list = JSON.parse(set.map_data);
+                            his_dict[direction].c = set.tools_line_color;
+                            his_dict[direction].w = set.tools_line_width;
+                            his_dict[direction].family = set.tools_station_font_name;
+                            his_dict[direction].f_color = set.tools_station_font_color;
+                            his_dict[direction].style = set.tools_station_font_style;
+                            his_dict[direction].s_color = set.tools_line_font_style_color;
+                        });
+                    }
+                    self.model_site.query().filter([
+                        ["route_id", "=", parseInt(self.line_id)]
+                    ]).all().then(function(site_info) {
+                        var site_top_list = [];
+                        var site_down_list = [];
+                        _.each(site_info, function(ret) {
+                            if (ret.direction == "up") {
+                                site_top_list.push(ret);
+                            } else {
+                                site_down_list.push(ret);
+                            }
+                        });
+                        var options = {
+                            map: map,
+                            site_dict: { '0': site_top_list, '1': site_down_list },
+                            his_dict: his_dict,
+                            line_id: self.line_id
+                        };
+                        new line_map_production_set(self, options).appendTo(self.$('.mapSet'));
+                    });
                 });
             });
             self.map_binding_fn(map);
@@ -133,17 +158,15 @@ odoo.define("", function(require) {
             this.options = options;
             // 站点信息
             this.model_station = new Model('opertation_resources_station');
+            this.family_list = ['宋体', '微软雅黑', '华文细黑', '黑体', 'sans-serif', 'serif'];
+            this.station_style_list = ['●', '★', '◆', '◇', '▲'];
         },
         start: function() {
             var self = this;
             self.ancillary_list = [];
             var map = self.options.map;
-            var direction = self.$("input[name='direction']").val();
-            // 初始化站点信息
-            self.site_line(map, self.options.site_dict[direction]);
-
-            // 初始化历史制定线路
-            self.load_his_establishment_line(map, self.options.his_dict[direction], self.options.site_dict[direction]);
+            var line_id = self.options.line_id;
+            self.direction = self.$("input[name='direction']").val();
 
             // 地图划线事件
             self.$('.mapSetLineContext').on('click', '.setMapBt input', function() {
@@ -158,16 +181,6 @@ odoo.define("", function(require) {
                 } else {
                     self.emptyLine();
                 }
-            });
-
-            // 修改站点属性触发事件
-            self.$('.stationAttribute').on('change', '.siteType', function() {
-                self.set_site_type();
-            });
-
-            // 地图划线配置属性
-            self.$('.mapSetLineContext').on('change', '.mapLineSet', function() {
-                self.set_map_line_type();
             });
 
             // 辅助点显示切换
@@ -193,7 +206,90 @@ odoo.define("", function(require) {
                         ret.setMap(null);
                     });
                 }
-            })
+            });
+
+            // 修改站点属性触发事件
+            self.$('.stationAttribute').on('change', '.siteType', function() {
+                self.set_site_type();
+            });
+
+            // 地图划线配置属性
+            self.$('.mapSetLineContext').on('change', '.mapLineSet', function() {
+                self.set_map_line_type();
+            });
+
+            // 上下行切换
+            self.$('.mapSetLineContext').on('click', '.direction_bt', function(){
+                var v = $(this).val();
+                if (self.direction == v){
+                    return;
+                }
+                self.direction = v;
+                self.init_map_fn(map, self.direction);
+            });
+
+            // 保存
+            self.$('.dataSave').on('click', '.save_bt', function(){
+                var tools_info = self.getMapLineInfo();
+                var site_info = self.getSiteInfo();
+                var direction = self.direction==0?'up':'down'
+                model_map_line_info.query().filter([
+                    ["line_id", "=", parseInt(line_id)],
+                    ["direction", "=", direction]
+                ]).all().then(function(set_list) {
+                    if (set_list.length>0){
+                        model_map_line_info.call("write", [set_list[0].id,
+                        {
+                            'map_data': JSON.stringify(self.polyline_gps_list),
+                            'tools_line_color': tools_info.color,
+                            'tools_line_width': tools_info.lineW,
+                            'tools_station_font_family': site_info.family,
+                            'tools_station_font_color': site_info.color,
+                            'tools_station_font_style': site_info.lab,
+                            'tools_station_font_style_color': site_info.lab_color,
+                        }]).then(function (res) {
+                            layer.close(layer_index);
+                            layer.msg('保存成功', {time: 2000, shade: 0.3});
+                        });
+                    }else{
+                        var layer_index = layer.msg('保存中...', {time: 0, shade: 0.3});
+                        model_map_line_info.call("create", [
+                            {
+                                'line_id': parseInt(line_id),
+                                'direction': direction,
+                                'map_data': JSON.stringify(self.polyline_gps_list),
+                                'tools_line_color': tools_info.color,
+                                'tools_line_width': tools_info.lineW,
+                                'tools_station_font_family': site_info.family,
+                                'tools_station_font_color': site_info.color,
+                                'tools_station_font_style': site_info.lab,
+                                'tools_station_font_style_color': site_info.lab_color,
+                            }]).then(function () {
+                            layer.close(layer_index);
+                            layer.msg('保存成功', {time: 2000, shade: 0.3});
+                        });
+                    }
+                })
+            });
+
+            // 取消
+            self.$('.dataSave').on('click', '.back_bt', function(){
+                alert("w");
+            });
+
+            // 初始化地图事件
+            self.init_map_fn(map, self.direction);
+        },
+        init_map_fn: function(map, direction){
+            var self = this;
+            // 地图图层清空;
+            map.clearMap();
+
+            // 初始化站点信息
+            self.site_line(map, self.options.site_dict[direction]);
+
+            // 初始化历史制定线路
+            self.load_his_establishment_line(map, self.options.his_dict[direction], self.options.site_dict[direction]);
         },
         // 打开
         openBrush: function(map) {
@@ -242,7 +338,7 @@ odoo.define("", function(require) {
             } else {
                 // 默认第一个点为起始站
                 self.model_station.query().filter([
-                    ["id", "=", parseInt(site_list[0].id)]
+                    ["id", "=", parseInt(site_list[0].station_id)]
                 ]).all().then(function(ret) {
                     self.polyline_gps_list = [
                         [ret[0].longitude, ret[0].latitude]

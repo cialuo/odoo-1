@@ -44,7 +44,12 @@ function drag(oDrag, handle, maxL, maxT) {
             } else {
                 var maxdT = document.documentElement.clientHeight - oDrag.offsetHeight;
             }
-            iL <= 0 && (iL = 0 );
+            if(maxT){
+                var mindL =- oDrag.offsetWidth;
+            }else{
+                var mindL = 0;
+            }
+            iL <= mindL && (iL = mindL );
             iT <= 50 && (iT = 50 );
             iL >= maxdL && (iL = maxdL );
             iT >= maxdT - 50 && (iT = maxdT - 50 );

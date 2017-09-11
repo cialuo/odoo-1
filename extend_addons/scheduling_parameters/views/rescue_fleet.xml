@@ -53,7 +53,8 @@
                   name="Rescue management"
                   parent="operation_menu.opertation_resources_menu"
                   action="act_rescue_fleet_action"
-                  sequence="50"
+                  groups="schedule_dispatch_group.schedule_user"
+                  sequence="60"
         />
 
     </data>

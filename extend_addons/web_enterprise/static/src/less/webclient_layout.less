@@ -49,13 +49,15 @@ html {
                 &.o_form_field {
                     @media (max-width: @screen-xs-max) {
                         position: static;  // reset the height 100% distribution on flex item
-                        height: auto;  // reset height inheritance
+                        height: auto;
+                        overflow: scroll;// reset height inheritance
                     }
                 }
 
                 .o_view_manager_content {
                     position: static;  // Reset position for nested view managers
-                    height: auto;  // reset height inheritance for nested view managers
+                    height: auto;
+                    overflow: scroll;// reset height inheritance for nested view managers
                 }
             }
         }

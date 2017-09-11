@@ -22,12 +22,14 @@
     'version': '0.1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['operation_menu', 'employees'],
+
+    'depends': ['operation_menu', 'employees', 'schedule_dispatch_group'],
+
 
     # always loaded
     'data': [
         # 'security/security.xml',
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         #'views/template_view.xml',
         'views/schedule_employee.xml',
         'views/schedule.xml',

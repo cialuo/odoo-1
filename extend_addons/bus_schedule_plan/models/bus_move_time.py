@@ -193,7 +193,10 @@ class BusMoveTimeTable(models.Model):
                 if x == None:
                     continue
                 if x[1][1] != None:
-                    x[1][1]['arrive_time'] = adjustDateTime2ZhCn(x[1][1]['arrive_time'])
+                    try:
+                        x[1][1]['arrive_time'] = adjustDateTime2ZhCn(x[1][1]['arrive_time'])
+                    except Exception as e:
+                        pass
                     x[1][1]['startmovetime'] = adjustDateTime2ZhCn(x[1][1]['startmovetime'])
         return data
 
@@ -234,12 +237,10 @@ class BusMoveTimeTable(models.Model):
 
     @classmethod
     def rebuildOpPlanAdd(cls, data, index, seq):
-
-        x=0
-
         for i in range(index+1, len(data)):
-            temp = data[i][1]
-            data[i-1][1] = temp
+            if data[i][1] != None :
+                data[index][1] = data[i][1]
+                index = i
         data[-1][1] = -1
 
         num = 0
@@ -260,14 +261,15 @@ class BusMoveTimeTable(models.Model):
         if data[-1][1] != None and data[-1][1] != -1:
             for item in seq:
                 data.append([item, -1])
-        pre = None
-        for i in range(index, len(data)):
-            temp = data[i][1]
-            data[i][1] = pre
-            pre = temp
+
+        pre = data[index][1]
+        data[index][1] = None
+        for i in range(index+1, len(data)):
+            if data[i][1] != None:
+                temp = data[i][1]
+                data[i][1] = pre
+                pre = temp
         return data
-
-
 
     @api.model
     def changeOpplan(self, recid, index, direction, data, op):
@@ -293,10 +295,10 @@ class BusMoveTimeTable(models.Model):
             data['down'] = result
 
         busMoveTable = None
-        if data['down'] != None:
+        if self.schedule_method == 'dubleway':
             # 双头调
             busMoveTable = self.genBusMoveSeqDouble(copy.deepcopy(data['up']), copy.deepcopy(data['down']), upVechicleSeq, downVehicleSeq)
-        elif self.schedule_method == 'singleway':
+        else:
             # 单头调
             busMoveTable = self.genBusMoveSeqsingle(copy.deepcopy(data['up']), upVechicleSeq)
         busMoveTable = self.culculateStopTime(busMoveTable)
@@ -308,17 +310,33 @@ class BusMoveTimeTable(models.Model):
         return self.genWebRetunData(data, busMoveTable, station1, station2, self.schedule_method)
 
     @api.model
-    def saveOpPlan(self):
+    def saveOpPlan(self, recid, data):
         """
         保存运营方案数据
         """
+        row = self.search([('id', '=', recid)])
+        row = row[0]
+        upVechicleSeq, downVehicleSeq = self.genVehicleSeq(row.upworkvehicle, row.downworkvehicle)
+        busMoveTable = None
+        if data['down'] != None:
+            # 双头调
+            busMoveTable = self.genBusMoveSeqDouble(copy.deepcopy(data['up']), copy.deepcopy(data['down']),
+                                                    upVechicleSeq, downVehicleSeq)
+        elif self.schedule_method == 'singleway':
+            # 单头调
+            busMoveTable = self.genBusMoveSeqsingle(copy.deepcopy(data['up']), upVechicleSeq)
+
+        busMoveTable = self.culculateStopTime(busMoveTable)
+        row.operationplanbus = json.dumps(busMoveTable)
+        row.operationplan = json.dumps(data)
         return json.dumps({})
 
     @staticmethod
     def genBusMoveSeqsingle(upMoveSeq, upBusCol):
         busMoveSeq = {busid: [] for busid in upBusCol}
         for index, item in enumerate(upMoveSeq):
-            busMoveSeq[item[0]].append([index, item])
+            if item[1] != -1:
+                busMoveSeq[item[0]].append([index, item, 'up'])
         return busMoveSeq
 
 
@@ -338,6 +356,7 @@ class BusMoveTimeTable(models.Model):
                         continue
                     stime = datetime.datetime.strptime(v[i][1][1]['startmovetime'], timeFormatStr)
                     atime = datetime.datetime.strptime(item[1][1]['arrive_time'], timeFormatStr)
+
                     item.append((stime - atime).total_seconds()/60)
                     break
         return busMoveTimeCol

@@ -13,7 +13,8 @@ OPERATORS = {
     '>': py_operator.gt,
     '<=': py_operator.le,
     '>=': py_operator.ge,
-    '==': py_operator.eq,
+    # '==': py_operator.eq,
+    '=': py_operator.eq,
     '!=': py_operator.ne
 }
 
