@@ -715,7 +715,8 @@ class RuleBusArrangeUp(models.Model):
 
     @api.depends('workingnumber', 'backupnumber')
     def _sumvehicles(self):
-        self.allvehicles = self.workingnumber + self.backupnumber
+        for item in self:
+            item.allvehicles = item.workingnumber + item.backupnumber
 
 
 class ToUp(models.Model):
