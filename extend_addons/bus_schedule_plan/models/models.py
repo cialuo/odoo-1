@@ -176,8 +176,16 @@ class ExecUpPlanItem(models.Model):
     # 里程
     mileage = fields.Integer(string="mileage number", readonly=True)
 
+    rule_lineid = fields.Integer(compute="_getRuleLineId")
+
+    @api.multi
+    def _getRuleLineId(self):
+        for item in self:
+            item.rule_lineid = item.execplan_id.line_id
+
     # 线路
-    line_id = fields.Many2one("route_manage.route_manage", string="related line")
+    line_id = fields.Many2one("route_manage.route_manage", string="related line",
+                              domain="['|',('id','=',rule_lineid),('main_line_id','=',rule_lineid)]")
 
 
 class ExecDownPlanItem(models.Model):
