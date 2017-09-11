@@ -827,7 +827,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">添加计划</h4>
                     </div>
                     <div class="modal-body">
@@ -900,7 +900,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    运行管理&#160;
+                                    运行属性&#160;
                                     <select name="" class="w2 addType" id="">
                                         <option value="0" selected="selected">正常</option>
                                         <option value="1">包车</option>
@@ -948,16 +948,22 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">调整计划</h4>
                     </div>
                     <div class="modal-body">
                         <table>
                             <tr>
                                 <td>
+                                    计划时间&#160;
+                                    <input class="w2 planTime" t-attf-value="{{new Date().toTimeString().slice(0, 5)}}" type="time" />
+                                </td>
+                                <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
                                     <input class="w2 carNum" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.onBoardId}}" type="text"/>
                                 </td>
+                            </tr>
+                            <tr>
                                 <td>
                                     线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
                                     <select name="" class="w2 line" id="">
@@ -965,6 +971,37 @@
                                             <t t-esc="widget.set_data.lineName"></t>
                                         </option>
                                     </select>
+                                </td>
+                                <td>
+                                    司&#160;&#160;&#160;&#160;&#160;&#160;&#160;机&#160;
+                                    <input class="w2 driverName"  t-attf-value="{{widget.set_data.driverName}}" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    运行线路&#160;
+                                    <select name="" class="w2 runGprs" id="">
+                                        <option selected="selected" t-attf-value="{{widget.set_data.runGprsId}}">
+                                            <t t-esc="widget.set_data.runGprsName"></t>
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    司机工号&#160;
+                                    <input class="w2 workerId" t-attf-value="{{widget.set_data.workerId}}" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    趟&#160;&#160;&#160;&#160;&#160;&#160;&#160;次&#160;
+                                    <select name="" class="w2 planCount" id="">
+                                        <option value="0.5" selected="selected">0.5</option>
+                                        <option value="1">1</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    乘务员&#160;
+                                    <input class="w2 trainName" t-attf-value="{{widget.set_data.trainName}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -982,49 +1019,33 @@
                                     </select>
                                 </td>
                                 <td>
-                                    运行线路&#160;
-                                    <select name="" class="w2 runGprs" id="">
-                                        <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
-                                            <t t-esc="widget.set_data.lineName"></t>
-                                        </option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    司&#160;&#160;&#160;&#160;&#160;&#160;&#160;机&#160;
-                                    <input class="w2 driverName" t-attf-workerId="{{widget.set_data.workerId}}" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
-                                </td>
-                                <td>
-                                    趟&#160;&#160;&#160;&#160;&#160;&#160;&#160;次&#160;
-                                    <select name="" class="w2 planCount" id="">
-                                        <option value="0.5" selected="selected">0.5</option>
-                                        <option value="1">1</option>
-                                    </select>
+                                    乘务员工号&#160;
+                                    <input class="w2 trainId" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     调整原因&#160;
-                                    <select name="" class="w2 changeReason" id="">
+                                    <select name="" class="w2 addReasonId" id="">
                                         <option value="1001" selected="selected">无进出场信号</option>
                                         <option value="1002">公司指派</option>
                                         <option value="1004">司机原因</option>
                                     </select>
                                 </td>
                                 <td>
-                                    计划类型&#160;
-                                    <input class="w2 why" type="text"/>
+                                    计划里程&#160;
+                                    <input class="w2 planKm" type="number" t-attf-value="{{widget.set_data.planKm}}" min="1" />
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    计划时间&#160;
-                                    <input class="w2 planTime" t-attf-value="{{new Date().toTimeString().slice(0, 5)}}" type="time" />
-                                </td>
-                                <td>
-                                    计划里程&#160;
-                                    <input class="w2 planKm" type="number" t-attf-value="{{widget.set_data.planKm}}" min="1" />
+                                <td colspan="2">
+                                    运行属性&#160;
+                                    <select name="" class="w2 addType" id="">
+                                        <option value="0" selected="selected">正常</option>
+                                        <option value="1">包车</option>
+                                        <option value="2003">大站</option>
+                                        <option value="2004">区间车</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr class="tmp">
@@ -1035,14 +1056,14 @@
                             <tr>
                                 <td>
                                     <div class="selectType">
-                                        <span class="ckIcon active"></span>批量调整同方向&#160;<input class="w3"  type="number" min="1" />&#160;计划
+                                        <span typeName="1" class="ckIcon"></span>批量调整同方向&#160;<input class="w3 changePlanCount"  type="number" min="1" />&#160;计划
                                         <br/>
                                         <br/>
-                                        <span class="ckIcon"></span>批量调整&#160;<input class="w5"  type="time" />~<input class="w5"  type="time" />&#160;的计划
+                                        <span typeName="2" class="ckIcon"></span>批量调整&#160;<input class="w5 startTime"  type="time" />~<input class="w5 endTime"  type="time" />&#160;的计划
                                     </div>
                                 </td>
                                 <td>
-                                    间&#160;&#160;&#160;&#160;&#160;&#160;&#160;隔&#160;&#160;<input class="w4" type="number" min="1" />&#160;分钟
+                                    间&#160;&#160;&#160;&#160;&#160;&#160;&#160;隔&#160;&#160;<input class="w4 changeInterval" type="number" min="1" />&#160;分钟
                                 </td>
                             </tr>
                         </table>
@@ -1061,7 +1082,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">批量更改车辆或司机</h4>
                     </div>
                     <div class="modal-body">
@@ -1102,8 +1123,8 @@
                             <tr>
                                 <td colspan="2" class="mode">
                                     <div class="mode_type">
-                                        <a name="replace" class="active replace_bt" href="javascript:;">批量更换</a>
-                                        <a name="switch" class="switch_bt" href="javascript:;">批量调换</a>
+                                        <a name="3" class="active type_bt" href="javascript:;">批量更换</a>
+                                        <a name="4" class="type_bt" href="javascript:;">批量调换</a>
                                     </div>
                                 </td>
                             </tr>
@@ -1114,12 +1135,12 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    &#160;&#160;&#160;&#160;&#160;&#160;&#160;更换车辆&#160;&#160;<input class="w2 replace_vehicles" t-attf-planOnboardId="{{widget.set_data.planOnboardId}}" type="text"/>
+                                    &#160;&#160;&#160;&#160;&#160;&#160;&#160;更换车辆&#160;&#160;<input class="w2 replace_vehicles" onBoardId="" selfId="" type="text"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    &#160;&#160;&#160;&#160;&#160;&#160;&#160;更换司机&#160;&#160;<input t-attf-driverId_2="{{widget.set_data.driverId_2}}" class="w2 replace_driver" type="text"/>
+                                    &#160;&#160;&#160;&#160;&#160;&#160;&#160;更换司机&#160;&#160;<input workerId="" driverName="" class="w2 replace_driver" type="text"/>
                                 </td>
                             </tr>
                         </table>
@@ -1138,20 +1159,20 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">司乘签到</h4>
                     </div>
                     <div class="modal-body">
                         <table>
                             <tr>
                                 <td>
-                                    车&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
-                                    <input class="w6 selfId" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    车&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
+                                    <input class="w6 carNum" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.carNum}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    线&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
+                                    线&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
                                     <select name="" class="w6 line" id="">
                                         <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
                                             <t t-esc="widget.set_data.lineName"></t>
@@ -1161,27 +1182,39 @@
                             </tr>
                             <tr>
                                 <td>
-                                    司机/乘务员工号&#160;
-                                    <input class="w6" type="text"/>
+                                    司&#160;机&#160;工&#160;号&#160;
+                                    <input class="w6 workerId" t-attf-value="{{widget.set_data.workerId}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    司机/乘务员名称&#160;
-                                    <input class="w6" type="text"/>
+                                    司&#160;机&#160;名&#160;称&#160;
+                                    <input class="w6 driverName" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    时&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;间&#160;
+                                    乘务员工号&#160;
+                                    <input class="w6 trainId" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    乘务员名称&#160;
+                                    <input class="w6 trainName" t-attf-value="{{widget.set_data.trainName}}" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    时&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;间&#160;
                                     <input class="w6 workTime" t-attf-value="{{new Date().toTimeString().slice(0, 5)}}" type="time" />
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" name="btn_on" class="btn btn-primary">签到</button>
-                        <button type="button" name="btn_quit" class="btn btn-primary">签退</button>
+                        <button type="button" name="1" class="btn btn-primary">签到</button>
+                        <button type="button" name="2" class="btn btn-primary">签退</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     </div>
                 </div>
@@ -1189,13 +1222,12 @@
         </div>
     </t>
 
-<!-- gy 编辑车辆 -->
-     <t t-name="edit_the_vehicle_template">
+    <t t-name="edit_the_vehicle_template">
         <div class="modal customModal customModalAddPlan editTheVehicle" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">编辑车辆</h4>
                     </div>
                     <div class="modal-body">
@@ -1203,38 +1235,52 @@
                             <tr>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;&#160;
-                                    <input class="w6 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <input class="w6 carNum" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.carNum}}" type="text" />
                                 </td>
                                 <td>
                                     方&#160;&#160;&#160;&#160;&#160;&#160;&#160;向&#160;&#160;
-                                    <select name="" class="w6 line" id="">
-                                        <!-- <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
-                                            <t t-esc="widget.set_data.lineName"></t>
-                                        </option> -->
-                                        <!-- gy上行下行 -->
-                                        <option selected="selected" value="0">上行</option>
-                                        <option value="1">下行</option>
+                                    <select name="" class="w6 direction" id="">
+                                        <t t-if="widget.set_data.direction==0">
+                                            <option value="0" selected="selected">上行</option>
+                                            <option value="1">下行</option>
+                                        </t>
+                                        <t t-else="">
+                                            <option value="0">上行</option>
+                                            <option value="1" selected="selected">下行</option>
+                                        </t>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;&#160;
-                                    <input class="w6 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <select name="" class="w6 line" id="">
+                                        <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
+                                            <t t-esc="widget.set_data.lineName"></t>
+                                        </option>
+                                    </select>
                                 </td>
                                 <td>
                                     上班时间&#160;&#160;
-                                    <input class="w6 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <input class="w6 onWorkTime"  t-attf-value="{{new Date().toTimeString().slice(0, 5)}}" type="text" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     运营线路&#160;&#160;
-                                    <input class="w6 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <select name="" class="w6 runGprs" id="">
+                                        <option selected="selected" t-attf-value="{{widget.set_data.gprsId}}">
+                                            <t t-esc="widget.set_data.runLineName"></t>
+                                        </option>
+                                    </select>
                                 </td>
                                 <td>
                                     趟&#160;&#160;&#160;&#160;&#160;&#160;&#160;次&#160;&#160;
-                                    <input class="w6 selfId" min="1" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <select name="" class="w6 realCount" id="">
+                                        <option selected="selected" t-attf-value="{{widget.set_data.realCount}}">
+                                            <t t-esc="widget.set_data.realCount"></t>
+                                        </option>
+                                    </select>
                                 </td>
                             </tr>
                         </table>
@@ -1247,14 +1293,13 @@
             </div>
         </div>
     </t>
-<!--end-->
-<!-- gy 异常状态 -->
+
     <t t-name="error_state_template">
         <div class="modal customModal customModalAddPlan errorState" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">异常状态</h4>
                     </div>
                     <div class="modal-body">
@@ -1290,14 +1335,13 @@
             </div>
         </div>
     </t>
-<!-- end -->
-<!-- gy 进场任务 -->
+
     <t t-name="in_the_task_template">
         <div class="modal customModal customModalAddPlan InTheTask" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">进场任务</h4>
                     </div>
                     <div class="modal-body">
@@ -1336,7 +1380,7 @@
             </div>
         </div>
     </t>
-<!-- end -->
+
     <t t-name="communication_template">
         <div>
             <div class="communication dragContent nofix">

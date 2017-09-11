@@ -34,7 +34,7 @@ websocket.onmessage = function (event) {
     }
     var controllerId = eventObj.controllerId;
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
-    linePlanParkOnlineModel_display($(".controller_" + controllerId));
+    // linePlanParkOnlineModel_display($(".controller_" + controllerId));
 
     if (modelName == "line_message") {
         use_odoo_model(event,"line_message");
