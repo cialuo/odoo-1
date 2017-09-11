@@ -67,9 +67,9 @@
                    		 </group>
 						<notebook>
 							<page string="Deliverys">
-                                <field name="list_ids">
-                                    <tree string="Deliverys">
-										<field name="equipment_id"/>
+                                <field name="list_ids" >
+                                    <tree string="Deliverys" editable="top">
+										<field name="equipment_id" options="{'no_open': True, 'no_create': True}"/>
 										<field name="serial_no"/>
 										<field name="fixed_asset_number"/>
 										<field name="create_date_ext"/>
@@ -78,8 +78,8 @@
                             </page>
 							<page string="ReturnDeliverys" >
                                 <field name="back_list_ids">
-                                    <tree string="ReturnDeliverys">
-										<field name="equipment_id"/>
+                                    <tree string="ReturnDeliverys" editable="top">
+										<field name="equipment_id" options="{'no_open': True, 'no_create': True}"/>
 										<field name="serial_no"/>
 										<field name="fixed_asset_number"/>
 										<field name="create_date_ext"/>

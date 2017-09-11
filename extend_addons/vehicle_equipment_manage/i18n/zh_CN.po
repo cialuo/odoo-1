@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-02 06:01+0000\n"
-"PO-Revision-Date: 2017-06-02 06:01+0000\n"
+"POT-Creation-Date: 2017-09-07 06:53+0000\n"
+"PO-Revision-Date: 2017-09-07 06:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -228,7 +228,7 @@ msgstr "ID"
 #. module: vehicle_equipment_manage
 #: model:ir.model,name:vehicle_equipment_manage.model_fleet_vehicle
 msgid "Information on a vehicle"
-msgstr "车辆信息"
+msgstr "车辆上的信息"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_order_name
@@ -292,7 +292,7 @@ msgstr "交接单"
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_delivery_vehicle_type
 msgid "Model"
-msgstr "车型"
+msgstr "型号"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,help:vehicle_equipment_manage.field_vehicle_equipment_delivery_vehicle_type
@@ -376,7 +376,6 @@ msgstr "状态"
 #. module: vehicle_equipment_manage
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_vehicle_equipment_equipment_vehicle_id
 #: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_back_list_handover_order_id
-#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_handover_order_id
 msgid "Vehicle"
 msgstr "车辆"
 
@@ -485,11 +484,12 @@ msgstr "清单"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model,name:vehicle_equipment_manage.model_warranty_handover_order
+#: model:ir.model.fields,field_description:vehicle_equipment_manage.field_warranty_handover_list_handover_order_id
 msgid "warranty_handover_order"
 msgstr "保养单"
 
 #. module: vehicle_equipment_manage
 #: model:ir.model,name:vehicle_equipment_manage.model_warranty_order
 msgid "warranty_order"
-msgstr "保养单"
+msgstr "保养作业指导书"
 

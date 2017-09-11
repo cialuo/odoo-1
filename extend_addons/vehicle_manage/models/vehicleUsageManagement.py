@@ -113,6 +113,15 @@ class InspectionPlan(models.Model):
 
     @api.multi
     def action_submitted(self):
+
+        """
+            新增验证：
+                在提交时验证是否存在详情
+        :return:
+        """
+        if len(self.planitem_id) == 0:
+            raise exceptions.UserError(_('Annual inspection details can not be empty.'))
+
         self.state = 'submitted'
 
     @api.multi

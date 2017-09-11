@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_vehicle_plant_vehicle_dispatch,vehicle_plant,model_vehicle_plant,vehicle_group.vehicle_dispatch,1,1,1,1
+access_vehicle_plant_vehicle_driver,vehicle_plant,model_vehicle_plant,vehicle_group.vehicle_driver,1,0,0,0
+access_vehicle_plant_ditch_vehicle_dispatch,vehicle_plant_ditch,model_vehicle_plant_ditch,vehicle_group.vehicle_dispatch,1,1,1,1

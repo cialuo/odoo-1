@@ -248,7 +248,7 @@
             <field name="name">vehicle usage records form</field>
             <field name="model">fleet.vehicle</field>
             <field name="arch" type="xml">
-                <form string="Vehicle">
+                <form string="Vehicle" create="false" delete="false">
                     <header>
                         <field name="state"  widget="statusbar"/>
                     </header>

@@ -129,7 +129,6 @@ class external_plan_return_record(models.Model):
 class external_curriculum_schedule(models.Model):
     _name = 'employees_growth.external_curriculum_schedule'
     _description = 'External curriculum schedule'
-
     """
        培训课程表：
            培训时间、培训地点、讲师、学生
@@ -139,7 +138,7 @@ class external_curriculum_schedule(models.Model):
 
     plan_state = fields.Selection(related='plan_id.state', store=True,readonly=True)
 
-    name = fields.Char(string='Name', related='plan_id.name', store=True, readonly=True)
+    name = fields.Char(string='Name',readonly=True,default="/")
 
     training_cycle = fields.Char(related='plan_id.training_cycle', store=True, readonly=True,string='Training cycle')
 
@@ -165,7 +164,23 @@ class external_curriculum_schedule(models.Model):
                               ('complete', 'Complete')],
                              default='draft')
 
-    students = fields.One2many('employees_growth.external_students', 'curriculum_schedule_id', string='Students')
+    students = fields.One2many('employees_growth.external_students', 'external_curriculum_schedule_id', string='Students',copy=True)
+
+    def get_name_by_course(self,vals):
+        """
+            根据课程来定义名称
+        :return:
+        """
+        name = "/"
+        course = self.env['employees_growth.course'].search([('id', '=', vals.get('course_id'))])
+        name = u"%s的课程" % (course.name)
+        return name
+
+    @api.model
+    def create(self, vals):
+        vals['name'] = self.get_name_by_course(vals)
+        res = super(external_curriculum_schedule, self).create(vals)
+        return res
 
     @api.multi
     def start_to_sign(self):
@@ -184,12 +199,16 @@ class external_students(models.Model):
     _name = 'employees_growth.external_students'
     _description = 'External students'
 
+    _sql_constraints = [
+        ('checkout_student_id', 'unique (external_curriculum_schedule_id,student_id)', u"存在相同的培训人员!")
+    ]
+
     """
          参加培训的人员：
               姓名，工号，部门
     """
 
-    curriculum_schedule_id = fields.Many2one('employees_growth.external_curriculum_schedule', string='Curriculum schedule id')
+    external_curriculum_schedule_id = fields.Many2one('employees_growth.external_curriculum_schedule', string='Curriculum schedule id',ondelete='cascade')
 
     student_id = fields.Many2one('hr.employee', string='Student id', required=True)
 

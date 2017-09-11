@@ -5633,7 +5633,7 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint_qty_multiple
 msgid "The procurement quantity will be rounded up to this multiple.  If it is 0, the exact quantity will be used."
-msgstr "The procurement quantity will be rounded up to this multiple.  If it is 0, the exact quantity will be used."
+msgstr "采购数量将四舍五入为此倍数。 如果为0，将使用确切的数量."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_rule_id

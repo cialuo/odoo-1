@@ -118,11 +118,17 @@ class test_paper_detail(models.Model):
 
     total_score = fields.Integer(string='Total score',compute='_compute_total_score')
     
-    @api.onchange('score')
+    @api.constrains('score')
     def onchange_score(self):
-        if self.score < 0:
+        for order in self:
+            if order.score < 0:
                 raise exceptions.UserError(_(u'分数需大于零.'))
-                
+
+    @api.constrains('question_count')
+    def check_question_count(self):
+        for order in self:
+            if order.question_count <= 0:
+                 raise exceptions.UserError(_(u'题目数量需要大于零.'))
 
     @api.depends('question_count','score')
     def _compute_total_score(self):
