@@ -449,3 +449,9 @@ class DriveRecords(models.Model):
             instance = vechileinfo[0]
             instance.write({'value':instance.value+vals['GPSmileage']})
         return res
+
+
+
+
+
+
