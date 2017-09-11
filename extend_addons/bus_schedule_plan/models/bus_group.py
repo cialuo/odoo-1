@@ -467,9 +467,10 @@ class BusGroupDriverVehicleShift(models.Model):
     def run_scheduler(self):
         """
         班组管理 定时任务的入口
-        :return:use_date 指 执行时间的前一天 如2017-09-08的计划，use_date：2017-09-07
+        :return:
         """
         _logger.info(u'Start run_scheduler')
-        use_date = datetime.datetime.strftime(datetime.date.today() - timedelta(days=1), "%Y-%m-%d")
-        self.scheduler_vehicle_shift(use_date=use_date)
+        # use_date = datetime.datetime.strftime(datetime.date.today() - timedelta(days=1), "%Y-%m-%d")
+        # self.scheduler_vehicle_shift(use_date=use_date)
+        self.scheduler_vehicle_shift()
         _logger.info(u'End run_scheduler')
