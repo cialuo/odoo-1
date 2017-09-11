@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-07 01:43+0000\n"
-"PO-Revision-Date: 2017-09-07 09:47+0800\n"
+"POT-Creation-Date: 2017-09-11 03:07+0000\n"
+"PO-Revision-Date: 2017-09-11 11:07+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,12 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 "Language: zh_CN\n"
 "X-Generator: Poedit 2.0.3\n"
-
-#. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle_life_cycle.py:55
-#, python-format
-msgid "The cost must be greater than zero"
-msgstr "费用不能小于0!"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.fleet_vehicle_view_form
@@ -155,22 +149,22 @@ msgid "Control Number"
 msgstr "检验"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:139
-#: code:addons/vehicle_manage/models/vehicle.py:148
+#: code:addons/vehicle_manage/models/vehicle.py:143
+#: code:addons/vehicle_manage/models/vehicle.py:152
 #, python-format
 msgid "Copy of {}"
 msgstr "Copy of {}"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:141
-#: code:addons/vehicle_manage/models/vehicle.py:150
+#: code:addons/vehicle_manage/models/vehicle.py:145
+#: code:addons/vehicle_manage/models/vehicle.py:154
 #, python-format
 msgid "Copy of {} ({})"
 msgstr "Copy of {} ({})"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:137
-#: code:addons/vehicle_manage/models/vehicle.py:146
+#: code:addons/vehicle_manage/models/vehicle.py:141
+#: code:addons/vehicle_manage/models/vehicle.py:150
 #, python-format
 msgid "Copy of {}%"
 msgstr "Copy of {}%"
@@ -317,12 +311,14 @@ msgstr "每百公里额度的燃油消耗(厂家数据)"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_forced_destroy
+#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_forced_destroy_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_forced_destroy
 msgid "Forced destroy"
 msgstr "强制报废"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_forced_destroy
+#: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_forced_destroy_date
 #: model:ir.model.fields,help:vehicle_manage.field_vehicle_usage_inspectionrecords_forced_destroy
 msgid "Forced to destroy"
 msgstr "强制报废"
@@ -541,7 +537,7 @@ msgstr "等级代码"
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_license_plate
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicleusage_driverecords_license_plate
 msgid "License plate"
-msgstr "车辆牌照"
+msgstr "车牌"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.fleet_vehicle_view_form
@@ -689,7 +685,7 @@ msgstr "核载人数"
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_route_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicleusage_driverecords_route_id
 msgid "Route"
-msgstr "线路"
+msgstr "路线"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_salvage_rate
@@ -735,7 +731,7 @@ msgid "Specifications"
 msgstr "型号规格"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:267
+#: code:addons/vehicle_manage/models/vehicle.py:271
 #: sql_constraint:vehicle_manage.emission_standard:0
 #, python-format
 msgid "Standard code already exists"
@@ -767,6 +763,12 @@ msgstr "技术参数"
 #: model:ir.model.fields,help:vehicle_manage.field_vehicle_usage_planitem_annual_inspection_date
 msgid "The annual inspection date"
 msgstr "年检日期"
+
+#. module: vehicle_manage
+#: code:addons/vehicle_manage/models/vehicle_life_cycle.py:55
+#, python-format
+msgid "The cost must be greater than zero"
+msgstr "费用不能小于0!"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicle.py:14
