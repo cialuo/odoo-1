@@ -40,7 +40,7 @@ class lty_approve_center(models.Model):
 
     @api.model
     def _needaction_domain_get(self):
-        return [('status', '=', 'commited'),('active_node', '=', True)]
+        return [('status', '=', 'commited'),('active_node', '=', True),('approved', '=', False)]
     @api.multi
     def _active_wkf_node(self):
         #todo compute active status

@@ -100,9 +100,9 @@
     <!-- menu categories -->
     <menuitem name="Approve mgt" id="lty_advanced_workflow_mgt" parent="lty_advanced_workflow.menu_root"/>
     <!-- actions -->
-    <menuitem name="设置" sequence="20" id="lty_advanced_workflow_cfg_menu" parent="lty_advanced_workflow_mgt"
+    <menuitem name="设置" sequence="20" id="lty_advanced_workflow_cfg_menu" parent="lty_advanced_workflow.menu_root"
               action="lty_advanced_workflow_cfg_action"/>    
-    <menuitem name="审批流设置" sequence="20" id="lty_advanced_workflow_node_cfg_menu" parent="lty_advanced_workflow_cfg_menu"
+    <menuitem name="审批流设置" sequence="100" id="lty_advanced_workflow_node_cfg_menu" parent="lty_advanced_workflow_cfg_menu"
               action="lty_advanced_workflow_cfg_action"/>
   </data>
 </openerp>
