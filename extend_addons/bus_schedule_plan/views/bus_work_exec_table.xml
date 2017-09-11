@@ -67,6 +67,7 @@
                                 <field name="starttime"/>
                                 <field name="arrivetime"/>
                                 <field name="timelenght"/>
+                                <field name="rule_lineid" invisible="1"/>
                                 <field name="mileage"/>
                                 <field name="line_id" options="{'no_open': True, 'no_create': True}"/>
                             </tree>
@@ -83,6 +84,7 @@
                                 <field name="arrivetime"/>
                                 <field name="timelenght"/>
                                 <field name="mileage"/>
+                                <field name="rule_lineid" invisible="1"/>
                                 <field name="line_id" options="{'no_open': True, 'no_create': True}"/>
                             </tree>
                         </field>
