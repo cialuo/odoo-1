@@ -210,7 +210,19 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             });
 
             // 添加计划
-            plan_display.on("click", ".plan_display_set[model='bus_plan'] li.add_plan_bt", function () {
+            plan_display.on("click", ".plan_display_set li.add_plan_bt", function () {
+                var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
+                var obj = $(this).parents(".plan_display_set");
+                var options = {
+                    id: obj.attr("plan_pid"),
+                    layer_index: layer_index
+                };
+                self.add_plan_fn(options);
+            });
+
+
+            // 修改计划
+            plan_display.on("click", ".plan_display_set[model='bus_plan'] li.fix_bt", function () {
                 var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
                 var obj = $(this).parents(".plan_display_set");
                 var options = {
@@ -265,18 +277,39 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             });
 
             // 编辑车辆
-            plan_display.on("click", ".plan_display_set[model='bus_yard'] li.edit_vehicles_bt, .plan_display_set[model='bus_transit'] li.edit_vehicles_bt", function () {
-                alert("我是编辑车辆");
+            plan_display.on("click", ".plan_display_set[model='bus_yard'] li.edit_vehicles_bt, .plan_display_set[model='bus_transit'] li.edit_vehicles_bt", function() {
+                // alert("我是编辑车辆");
+                var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+                var id = $(this).parents(".plan_display_set").attr("plan_pid");
+                var options = {
+                    id: id,
+                    layer_index: layer_index
+                };
+                self.edit_the_vehicle_fn(options);
             });
 
             // 异常状态
-            plan_display.on("click", ".plan_display_set[model='bus_yard'] li.abnormal_state_bt, .plan_display_set[model='bus_transit'] li.abnormal_state_bt", function () {
-                alert("我是异常状态");
+            plan_display.on("click", ".plan_display_set[model='bus_yard'] li.abnormal_state_bt, .plan_display_set[model='bus_transit'] li.abnormal_state_bt", function() {
+                // alert("我是异常状态");
+                var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+                var id = $(this).parents(".plan_display_set").attr("plan_pid");
+                var options = {
+                    id: id,
+                    layer_index: layer_index
+                };
+                self.error_state_fn(options);
             });
 
-            // 异常状态
-            plan_display.on("click", ".plan_display_set[model='bus_yard'] li.in_task_bt, .plan_display_set[model='bus_transit'] li.in_task_bt", function () {
-                alert("我是进场任务");
+            // 进场任务
+            plan_display.on("click", ".plan_display_set[model='bus_yard'] li.in_task_bt, .plan_display_set[model='bus_transit'] li.in_task_bt", function() {
+                // alert("我是进场任务");
+                var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+                var id = $(this).parents(".plan_display_set").attr("plan_pid");
+                var options = {
+                    id: id,
+                    layer_index: layer_index
+                };
+                self.in_the_task_fn(options);
             });
 
             // 立即排班
@@ -450,7 +483,58 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 }
             });
         },
-        immediate_scheduling_fn: function (options) {
+        edit_the_vehicle_fn: function(options){
+            var self = this;
+            $.ajax({
+                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:'+self.location_data.controllerId+',lineId:'+self.location_data.line_id+',id:'+options.id+'}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(options.layer_index);
+                    var op = ret.respose[0];
+                    op.controllerId = self.location_data.controllerId;
+                    console.log(op);
+                    var dialog = new edit_the_vehicle_w(self, op);
+                    dialog.appendTo($('body'));
+                }
+            });
+        },
+        error_state_fn: function(options){
+            var self = this;
+            $.ajax({
+                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:'+self.location_data.controllerId+',lineId:'+self.location_data.line_id+',id:'+options.id+'}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(options.layer_index);
+                    var op = ret.respose[0];
+                    op.controllerId = self.location_data.controllerId;
+                    console.log(op);
+                    var dialog = new error_state_w(self, op);
+                    dialog.appendTo($('body'));
+                }
+            });
+        },
+        in_the_task_fn: function(options){
+            var self = this;
+            $.ajax({
+                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:'+self.location_data.controllerId+',lineId:'+self.location_data.line_id+',id:'+options.id+'}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(options.layer_index);
+                    var op = ret.respose[0];
+                    op.controllerId = self.location_data.controllerId;
+                    console.log(op);
+                    var dialog = new in_the_task_w(self, op);
+                    dialog.appendTo($('body'));
+                }
+            });
+        },      
+        immediate_scheduling_fn: function(options){
             $.ajax({
                 url: 'http://202.104.136.228:8888/ltyop/resource/applyPlanById?apikey=71029270&params={id: "' + options.id + '"}',
                 type: 'get',
@@ -1111,6 +1195,207 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         }
     });
 
+    // 编辑车辆
+    var edit_the_vehicle_w = Widget.extend({
+        template: 'edit_the_vehicle_template',
+        init: function(parent, data){
+            this._super(parent);
+            this.set_data = data;
+        },
+        start: function(){
+            this.modal_fn();
+        },
+        modal_fn: function(){
+            var self = this;
+            self.$el.on('hide.bs.modal', function () {
+                self.destroy();
+            });
+            self.$el.on('show.bs.modal', function () {
+                $(this).css('display', 'block');
+                // 是弹出框居中。。。
+                var $modal_dialog = $(this).find('.modal-dialog');
+                //获取可视窗口的高度
+                var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;
+                //得到dialog的高度
+                var dialogHeight = $modal_dialog.height();
+                //计算出距离顶部的高度
+                var m_top = (clientHeight - dialogHeight)/2;
+                $modal_dialog.css({'margin': m_top + 'px auto'});
+            });
+            self.$el.modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            self.$('.modal-body').on("click", ".mode_type a", function(){
+                $(this).addClass("active").siblings().removeClass('active');
+            });
+            // 提交
+            self.$('.btn-primary').on('click', function(){
+                var name = $(this).attr('name');
+                self.submit_fn(name);
+            });
+        },
+        submit_fn: function(name){
+            var self = this;
+            var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
+            var confObj = self.$('.modal-body table');
+            var params = {
+                id: self.set_data.id,
+                onBoardId: confObj.find(".selfId").attr("onBoardId"),
+                workerId: confObj.find(".driverName").attr("workerId"),
+                driverName: confObj.find(".replace_driver").val(),
+                workTime: confObj.find(".workTime").val(),
+                workTime: "1"
+            };
+            $.ajax({
+                url: 'http://202.104.136.228:8888/ltyop/resource/busResourceOpAttendance?apikey=71029270&params='+JSON.stringify(params),
+                type: 'post',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(layer_index);
+                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                    self.$('.btn-default').click();
+                }
+            });
+        }
+    });
+    // 编辑车辆 end
+    //异常状态
+    var error_state_w = Widget.extend({
+        template: 'error_state_template',
+        init: function(parent, data){
+            this._super(parent);
+            this.set_data = data;
+        },
+        start: function(){
+            this.modal_fn();
+        },
+        modal_fn: function(){
+            var self = this;
+            self.$el.on('hide.bs.modal', function () {
+                self.destroy();
+            });
+            self.$el.on('show.bs.modal', function () {
+                $(this).css('display', 'block');
+                // 是弹出框居中。。。
+                var $modal_dialog = $(this).find('.modal-dialog');
+                //获取可视窗口的高度
+                var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;
+                //得到dialog的高度
+                var dialogHeight = $modal_dialog.height();
+                //计算出距离顶部的高度
+                var m_top = (clientHeight - dialogHeight)/2;
+                $modal_dialog.css({'margin': m_top + 'px auto'});
+            });
+            self.$el.modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            self.$('.modal-body').on("click", ".selectType .ckIcon", ".mode_type a", function(){
+                // $(this).addClass("active").siblings().removeClass('active');
+                $(this).toggleClass("active")  //gy切换active 
+            });
+            // 提交
+            self.$('.btn-primary').on('click', function(){
+                var name = $(this).attr('name');
+                self.submit_fn(name);
+            });
+        },
+        submit_fn: function(name){
+            var self = this;
+            var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
+            var confObj = self.$('.modal-body ul');
+            var params = {
+                id: self.set_data.id,
+                onBoardId: confObj.find(".selfId").attr("onBoardId"),
+                workerId: confObj.find(".driverName").attr("workerId"),
+                driverName: confObj.find(".replace_driver").val(),
+                workTime: confObj.find(".workTime").val(),
+                workTime: "1"
+            };
+            $.ajax({
+                url: 'http://202.104.136.228:8888/ltyop/resource/busResourceOpAttendance?apikey=71029270&params='+JSON.stringify(params),
+                type: 'post',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(layer_index);
+                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                    self.$('.btn-default').click();
+                }
+            });
+        }
+    });
+    //异常状态 end
+    //进场任务
+    var in_the_task_w = Widget.extend({
+        template: 'in_the_task_template',
+        init: function(parent, data){
+            this._super(parent);
+            this.set_data = data;
+        },
+        start: function(){
+            this.modal_fn();
+        },
+        modal_fn: function(){
+            var self = this;
+            self.$el.on('hide.bs.modal', function () {
+                self.destroy();
+            });
+            self.$el.on('show.bs.modal', function () {
+                $(this).css('display', 'block');
+                // 是弹出框居中。。。
+                var $modal_dialog = $(this).find('.modal-dialog');
+                //获取可视窗口的高度
+                var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;
+                //得到dialog的高度
+                var dialogHeight = $modal_dialog.height();
+                //计算出距离顶部的高度
+                var m_top = (clientHeight - dialogHeight)/2;
+                $modal_dialog.css({'margin': m_top + 'px auto'});
+            });
+            self.$el.modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            self.$('.modal-body').on("click", ".selectType .ckIcon", ".mode_type a", function(){
+                $(this).toggleClass("active")   //gy切换active                
+                // $(this).addClass("active").siblings().removeClass('active');
+            });
+            // 提交
+            self.$('.btn-primary').on('click', function(){
+                var name = $(this).attr('name');
+                self.submit_fn(name);
+            });
+        },
+        submit_fn: function(name){
+            var self = this;
+            var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
+            var confObj = self.$('.modal-body table');
+            var params = {
+                id: self.set_data.id,
+                onBoardId: confObj.find(".selfId").attr("onBoardId"),
+                workerId: confObj.find(".driverName").attr("workerId"),
+                driverName: confObj.find(".replace_driver").val(),
+                workTime: confObj.find(".workTime").val(),
+                workTime: "1"
+            };
+            $.ajax({
+                url: 'http://202.104.136.228:8888/ltyop/resource/busResourceOpAttendance?apikey=71029270&params='+JSON.stringify(params),
+                type: 'post',
+                dataType: 'json',
+                data: {},
+                success: function(ret){
+                    layer.close(layer_index);
+                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                    self.$('.btn-default').click();
+                }
+            });
+        }
+    });
+    // 进场任务end
     return plan_display;
 });
 
