@@ -46,7 +46,7 @@ class lty_approve_center(models.Model):
             
             if user.cfg_line_id.farther_node :
                 object2 = user.object_id._name+','+str(user.object_id.id)
-                farther_node_state = self.search([('cfg_line_id', '=',user.cfg_line_id.farther_node.id),('object_id', '=',object2)]).approved
+                farther_node_state = self.sudo().search([('cfg_line_id', '=',user.cfg_line_id.farther_node.id),('object_id', '=',object2)]).approved
             
             domain = eval( user.cfg_line_id.conditions)
             domain.append(('id', '=', user.object_id.id))                    

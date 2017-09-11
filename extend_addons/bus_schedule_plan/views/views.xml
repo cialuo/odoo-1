@@ -410,28 +410,30 @@
                     </group>
                     <notebook>
                         <page string="up move time">
-                            <field name="uptimeslist">
-                                <tree>
+                            <field name="uptimeslist" >
+                                <tree editable="bottom" delete="0" create="0">
                                     <field name="seqid"/>
                                     <field name="startmovetime"/>
+                                    <field name="rule_lineid" invisible="1"/>
                                     <field name="arrive_time"/>
                                     <field name="timelength"/>
                                     <field name="mileage"/>
-                                    <field name="line_id"/>
+                                    <field name="line_id" options="{'no_open': True, 'no_create': True}"/>
                                     <field name="start_site"/>
                                     <field name="end_site"/>
                                 </tree>
                             </field>
                         </page>
                         <page string="down move time" attrs="{'invisible': [('schedule_method', '=', 'singleway')]}">
-                            <field name="downtimeslist">
-                                <tree>
+                            <field name="downtimeslist" editable="bottom" delete="0" create="0">
+                                <tree editable="bottom" delete="0" create="0">
                                     <field name="seqid"/>
+                                    <field name="rule_lineid" invisible="1"/>
                                     <field name="startmovetime"/>
                                     <field name="arrive_time"/>
                                     <field name="timelength"/>
                                     <field name="mileage"/>
-                                    <field name="line_id"/>
+                                    <field name="line_id" options="{'no_open': True, 'no_create': True}"/>
                                     <field name="start_site"/>
                                     <field name="end_site"/>
                                 </tree>

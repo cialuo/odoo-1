@@ -402,28 +402,36 @@ class MoveTimeUP(models.Model):
     movetimetable_id = fields.Many2one("scheduleplan.busmovetime", ondelete="cascade")
 
     # 序号
-    seqid = fields.Integer(string="sequence id")
+    seqid = fields.Integer(string="sequence id", readonly=True)
 
     # 发车时间
-    startmovetime = fields.Datetime(string="start move time")
+    startmovetime = fields.Datetime(string="start move time", readonly=True)
 
     # 到达时间
-    arrive_time = fields.Datetime(string="arrive time")
+    arrive_time = fields.Datetime(string="arrive time", readonly=True)
 
     # 时长
-    timelength = fields.Integer(string="move time length")
+    timelength = fields.Integer(string="move time length", readonly=True)
 
     # 里程
-    mileage = fields.Integer(string="move mile age")
+    mileage = fields.Integer(string="move mile age", readonly=True)
+
+    rule_lineid = fields.Integer(compute="_getRuleLineId")
+
+    @api.multi
+    def _getRuleLineId(self):
+        for item in self:
+            item.rule_lineid = item.movetimetable_id.line_id
 
     # 线路
-    line_id = fields.Many2one("route_manage.route_manage", string="related line")
+    line_id = fields.Many2one("route_manage.route_manage", string="related line",
+                              domain="['|',('id','=',rule_lineid),('main_line_id','=',rule_lineid)]")
 
     # 起始站点
-    start_site = fields.Many2one("opertation_resources_station", string="start site")
+    start_site = fields.Many2one("opertation_resources_station", string="start site", readonly=True)
 
     # 结束站点
-    end_site = fields.Many2one("opertation_resources_station", string="end site")
+    end_site = fields.Many2one("opertation_resources_station", string="end site", readonly=True)
 
 
 class MoveTimeDown(models.Model):
