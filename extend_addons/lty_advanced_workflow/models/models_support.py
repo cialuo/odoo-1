@@ -58,17 +58,19 @@ class stock_picking(models.Model):
     _inherit = 'stock.picking'
     
     total_qty = fields.Integer(compute='_compute_picking_total_qty',store=True)
-    
+    total_price = fields.Integer(compute='_compute_picking_total_qty',store=True)
     
     
     @api.one
     @api.depends('move_lines')
     def _compute_picking_total_qty(self):
         total_qty = 0
+        total_price = 0
         for move_line in self.move_lines:
-            total_qty = total_qty + move_line.price_unit*move_line.product_uom_qty
-        
+            total_qty = total_qty + move_line.product_uom_qty
+            total_price = total_price + move_line.price_unit*move_line.product_uom_qty
         self.total_qty = total_qty
+        self.total_price = total_price
     
     @api.multi
     def _adv_wkf_id_get(self):
