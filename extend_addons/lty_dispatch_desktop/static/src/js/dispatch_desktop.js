@@ -163,5 +163,4 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         }
     });
     core.action_registry.add('dispatch_desktop.page', dispatch_control);
-})
-;
+});
