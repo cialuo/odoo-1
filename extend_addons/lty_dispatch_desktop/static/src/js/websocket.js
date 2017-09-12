@@ -520,7 +520,7 @@ function update_linePark(obj, content_tb_obj, active_resource) {
 
     // 车辆在线状态
     if (active_resource.runState != undefined) {
-        if (active_resource.runState == 0) {
+        if (active_resource.runState == 1) {
             obj.find(".runState").addClass('icon2_1').removeClass("icon2_0");
         } else {
             obj.find(".runState").removeClass('icon2_1').addClass("icon2_0");
@@ -623,7 +623,7 @@ function update_busTransit(obj, content_tb_obj, active_resource){
 
     // 车辆在线状态
     if (active_resource.runState != undefined){
-        if (active_resource.runState == 0){
+        if (active_resource.runState == 1){
             obj.find(".runState").addClass('icon2_1').removeClass("icon2_0");
         }else{
             obj.find(".runState").removeClass('icon2_1').addClass("icon2_0");   
@@ -634,7 +634,6 @@ function update_busTransit(obj, content_tb_obj, active_resource){
     if (active_resource.planRunTime != undefined){
         obj.find(".planRunTime").html(new Date(active_resource.planRunTime).toTimeString().slice(0,5));
     }
-
 
     // 车辆
     if (active_resource.carNum != undefined){
