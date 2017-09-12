@@ -117,6 +117,9 @@ class lty_approve_center(models.Model):
             raise UserError(('This node is not start!. '))        
         if not self.approve_opinions  :
             raise UserError(('Please input approve opinions. '))
+        for next_node in self.search([('active', '=',False),('cfg_father_line_id', '=',self.cfg_line_id.id),('object_id', '=',self.object_id._name+','+str(self.object_id.id))]):
+            #todo 这里需要判断下，节点人数
+            next_node.write({'active': False})          
         else:
             val_dict = {
                 'center_id': self.id,

@@ -59,7 +59,7 @@ class stock_picking(models.Model):
     def _compute_picking_total_qty(self):
         total_qty = 0
         for move_line in self.move_lines:
-            total_qty = total_qty + move_line.product_uom_qty
+            total_qty = total_qty + move_line.price_unit*move_line.product_uom_qty
         
         self.total_qty = total_qty
     
