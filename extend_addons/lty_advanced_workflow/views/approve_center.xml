@@ -72,9 +72,11 @@
       <field name="model">lty.approve.center.group</field>
       <field name="arch" type="xml">
         <tree create="false">
-          <field name="object_id"/>
-          <field name="name"/>
-          <field name="start_user"/>
+          <field name="name" string='序号'/>
+          <field name="object_id" string='源单据'/>
+          <field name="start_user" string='发起人'/>
+          <field name="create_date" string='发起时间'/>
+          <field name="status" string='状态'/>
 
         </tree>
       </field>
@@ -88,6 +90,7 @@
 			<form string="Approve Center">
 				<header>
                     <button name="do_approve"  string="重新发起" type="object" class="oe_highlight"/>
+                    <field name="status" widget="statusbar" statusbar_visible="approving,rejected,done" />
                 </header>			
 			
                 <sheet>
@@ -98,6 +101,7 @@
 						</group>
 						<group>
                             <field name="start_user" string = '发起人' readonly='1'/>
+                            <field name="cfg_id" string = '审批节点' readonly='1'/>
 						</group>
 					</group>
 					<notebook>
@@ -165,7 +169,7 @@
               action="lty_advanced_workflow_approve_center_action"/>    
     <menuitem name="我已审批的"  sequence="20" id="lty_advanced_workflow_approve_center_approve_by_me_menu" parent="lty_advanced_workflow_mgt"
               action="lty_advanced_workflow_approve_center_done_action"/>    
-    <menuitem name="我已审批的(2)"  sequence="20" id="lty_advanced_workflow_approve_center_approve_group_by_me_menu" parent="lty_advanced_workflow_mgt"
+    <menuitem name="我发起的审批(2)"  sequence="40" id="lty_advanced_workflow_approve_center_approve_group_by_me_menu" parent="lty_advanced_workflow_mgt"
               action="lty_advanced_workflow_approve_center_group_mystart_action"/>                                                            
                         
               
