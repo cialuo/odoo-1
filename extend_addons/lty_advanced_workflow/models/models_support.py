@@ -32,6 +32,7 @@ class ProductTemplate(models.Model):
                 'cfg_line_id':cfg_line.id,
                 #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
                 'approve_post': cfg_line.approve_post.id,
+                'start_user': self.env.user.id,
             }
             self.env['lty.approve.center'].sudo().create(val_dict)
         return productid
@@ -85,8 +86,10 @@ class stock_picking(models.Model):
                 'approve_node':cfg_line.name,  
                 'status':'commited',  
                 'cfg_line_id':cfg_line.id,
+                'cfg_father_line_id':cfg_line.farther_node.id,
                 #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
                 'approve_post': cfg_line.approve_post.id,
+                'start_user': self.env.user.id,
             }
             self.env['lty.approve.center'].sudo().create(val_dict)
         return productid
@@ -238,7 +241,7 @@ class StockMove(models.Model):
                 for node in approve_nodes :
                     if node.approved is False  and node.active_node is True :
                         raise UserError(('Approving is not done. '))   
-            productid = super(StockMove, stock_move).write(vals)
+        productid = super(StockMove, self).write(vals)
     
         return productid           
         
