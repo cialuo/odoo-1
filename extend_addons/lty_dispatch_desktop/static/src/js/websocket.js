@@ -153,7 +153,7 @@ function absnormal_del(controllerObj, data_list) {
 
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
-    console.log(dataObj+"_bus")
+    // console.log(dataObj+"_bus")
     var dom = controllerObj.find(".busRealStateModel_"+dataObj.line_id+"_"+dataObj.bus_no);
     if (dom.length > 0) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
@@ -232,12 +232,23 @@ function show_electronic_map(dom, data_list, session_ayer) {
 }
 
 // 站点实时状态模块
-function passengerDelayModel_socket_fn(controllerObj, data_list) {
+function passengerDelayModel_socket_fn(controllerObj, dataObj) {
+    // console.log(dataObj);
     var dom = controllerObj.find(".passengerDelayModel");
     if (dom.length > 0) {
-        var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("passengerDelayModel_set"));
-        layer.close(passengerDelayModel_set.layer_index);
-        dom.removeClass('hide_model');
+
+        // var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("passengerDelayModel_set"));
+        // layer.close(passengerDelayModel_set.layer_index);
+        // dom.removeClass('hide_model');
+        var trendObj = dom.find(".trend_chart_single");
+        if (dataObj.packageType == 1034){
+            trendObj = dom.find(".trend_chart_summary");
+        }
+        var trend_chart_map = trendObj.find(".trend_chart_map");
+        var map_botton_info = trendObj.find(".map_botton_info");
+        map_botton_info.find("li:eq(0) span").html(dataObj.station_lag_passengers);
+        map_botton_info.find("li:eq(1) span").html(dataObj.down_passengers);
+        map_botton_info.find("li:eq(2) span").html(dataObj.up_passengers);
     }
 }
 
@@ -264,8 +275,8 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
     if (dom.length > 0 && dataObj.id) {
         var busResource = JSON.parse(sessionStorage.getItem("busResource"));
         // debugger;
-        console.log(dataObj);
-        console.log(modelName);
+        // console.log(dataObj);
+        // console.log(modelName);
         if (modelName == "line_plan") {
             // var content_tb_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb");
             // var tr_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "]").find(".content_tb tr[pid=" + dataObj.id + "]");
