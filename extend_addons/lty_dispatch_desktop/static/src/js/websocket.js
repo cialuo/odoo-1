@@ -34,7 +34,7 @@ websocket.onmessage = function (event) {
     }
     var controllerId = eventObj.controllerId;
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
-    linePlanParkOnlineModel_display($(".controller_" + controllerId));
+    // linePlanParkOnlineModel_display($(".controller_" + controllerId));
 
     if (modelName == "line_message") {
         use_odoo_model(event,"line_message");
@@ -140,7 +140,7 @@ function absnormal_del(controllerObj, data_list) {
         dom.addClass('warn').find('.passenger_flow_list').eq(0).find('.abs_info').append($('body').find('.absnormal_diaodu').html());
         var timer_carousel = sessionStorage.getItem('timer'+data_list.line_id);
         clearInterval(timer_carousel);
-        dom.find('.carousel_content').css({left: 0});
+        dom.find('.carousel_content').addClass('abnormal_active');
         sessionStorage.removeItem('timer'+data_list.line_id);
         //信号在线掉线处理
         if (data_list.packageType == "1003") {
@@ -176,7 +176,7 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
         vehicleInformationObj.find(".return_time").html(dataObj.return_time);
         vehicleInformationObj.find(".next_trip_time").html(dataObj.next_trip_time);
         vehicleInformationObj.find(".residual_clearance").html(dataObj.residual_clearance + 'KM');
-        lineInfo.find(".lineRoad").html('18' + '路')
+        lineInfo.find(".lineRoad").html('18' + '路');
         lineInfo.find(".trip").html(dataObj.satisfaction_rate);
         lineInfo.find(".total_trip").html(dataObj.satisfaction_rate);
 
