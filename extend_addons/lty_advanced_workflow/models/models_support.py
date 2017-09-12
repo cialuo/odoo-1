@@ -32,6 +32,7 @@ class ProductTemplate(models.Model):
                 'cfg_line_id':cfg_line.id,
                 #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
                 'approve_post': cfg_line.approve_post.id,
+                'start_user': self.env.user.id,
             }
             self.env['lty.approve.center'].sudo().create(val_dict)
         return productid
@@ -41,7 +42,7 @@ class ProductTemplate(models.Model):
         approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(self.id))])
         for node in approve_nodes :
             if node.approved is False  and node.active_node is True :
-                raise UserError(('Approving is not done. '))   
+                raise UserError((u'审批未完成或被拒绝. '))   
         productid = super(ProductTemplate, self).write(vals)
     
         return productid
@@ -58,7 +59,7 @@ class stock_picking(models.Model):
     def _compute_picking_total_qty(self):
         total_qty = 0
         for move_line in self.move_lines:
-            total_qty = total_qty + move_line.product_uom_qty
+            total_qty = total_qty + move_line.price_unit*move_line.product_uom_qty
         
         self.total_qty = total_qty
     
@@ -85,8 +86,10 @@ class stock_picking(models.Model):
                 'approve_node':cfg_line.name,  
                 'status':'commited',  
                 'cfg_line_id':cfg_line.id,
+                'cfg_father_line_id':cfg_line.farther_node.id,
                 #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
                 'approve_post': cfg_line.approve_post.id,
+                'start_user': self.env.user.id,
             }
             self.env['lty.approve.center'].sudo().create(val_dict)
         return productid
@@ -96,7 +99,7 @@ class stock_picking(models.Model):
         approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(self.id))])
         for node in approve_nodes :
             if node.approved is False  and node.active_node is True :
-                raise UserError(('Approving is not done. '))   
+                raise UserError((u'审批未完成或被拒绝. '))   
         productid = super(stock_picking, self).write(vals)
     
         return productid
@@ -127,6 +130,7 @@ class purchase_order(models.Model):
                 'approve_node':cfg_line.name,  
                 'status':'commited',  
                 'cfg_line_id':cfg_line.id,
+                'cfg_father_line_id':cfg_line.farther_node.id,
                 #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
                 'approve_post': cfg_line.approve_post.id,
                 'start_user': self.env.user.id,
@@ -141,7 +145,7 @@ class purchase_order(models.Model):
         approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(self.id))])
         for node in approve_nodes :
             if node.approved is False  and node.active_node is True :
-                raise UserError(('Approving is not done. '))   
+                raise UserError((u'审批未完成或被拒绝. '))   
         productid = super(purchase_order, self).write(vals)
     
         return productid    
@@ -172,6 +176,7 @@ class PuchasePlan(models.Model):
                 'approve_node':cfg_line.name,  
                 'status':'commited',  
                 'cfg_line_id':cfg_line.id,
+                'cfg_father_line_id':cfg_line.farther_node.id,
                 #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
                 'approve_post': cfg_line.approve_post.id,
                 'start_user': self.env.user.id,
@@ -186,7 +191,7 @@ class PuchasePlan(models.Model):
         approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(self.id))])
         for node in approve_nodes :
             if node.approved is False  and node.active_node is True :
-                raise UserError(('Approving is not done. '))   
+                raise UserError((u'审批未完成或被拒绝. '))   
         productid = super(PuchasePlan, self).write(vals)
     
         return productid 
@@ -220,6 +225,7 @@ class StockMove(models.Model):
                 'approve_node':cfg_line.name,  
                 'status':'commited',  
                 'cfg_line_id':cfg_line.id,
+                'cfg_father_line_id':cfg_line.farther_node.id,
                 #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
                 'approve_post': cfg_line.approve_post.id,
                 'start_user': self.env.user.id,
@@ -237,8 +243,8 @@ class StockMove(models.Model):
                 approve_nodes = stock_move.env['lty.approve.center'].search([('object_id', '=',stock_move._name+','+str(stock_move.id))])
                 for node in approve_nodes :
                     if node.approved is False  and node.active_node is True :
-                        raise UserError(('Approving is not done. '))   
-            productid = super(StockMove, stock_move).write(vals)
+                        raise UserError((u'审批未完成或被拒绝. '))   
+        productid = super(StockMove, self).write(vals)
     
         return productid           
         
