@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-      <record forcecreate="True" id="ir_cron_bus_group_generator" model="ir.cron">
+    <record forcecreate="True" id="ir_cron_bus_group_generator" model="ir.cron">
         <field name="name">班组管理定时任务</field>
-        <field eval="True" name="active" />
-        <field name="user_id" ref="base.user_root" />
+        <field eval="True" name="active"/>
+        <field name="user_id" ref="base.user_root"/>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
-        <field eval="False" name="doall" />
-        <field eval="'bus_group_driver_vehicle_shift'" name="model" />
-        <field eval="'run_scheduler'" name="function" />
-        <field eval="'()'" name="args" />
-        <field name="nextcall" eval="DateTime.now().strftime('%Y-%m-%d 16:05:00')" /><!--加8个小时-->
-      </record>
+        <field eval="False" name="doall"/>
+        <field eval="'bus_group_driver_vehicle_shift'" name="model"/>
+        <field eval="'run_scheduler'" name="function"/>
+        <field eval="'()'" name="args"/>
+        <field name="nextcall" eval="DateTime.now().strftime('%Y-%m-%d 16:05:00')"/><!--加8个小时-->
+    </record>
+    <record forcecreate="True" id="ir_cron_operation_plan_generator" model="ir.cron">
+        <field name="name">生成运营方案和行车时刻表定时任务</field>
+        <field eval="True" name="active"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall"/>
+        <field eval="'scheduleplan.schedulrule'" name="model"/>
+        <field eval="'createMoveTimeTable'" name="function"/>
+        <field eval="'()'" name="args"/>
+        <field name="nextcall" eval="DateTime.now().strftime('%Y-%m-%d 17:05:00')"/><!--加8个小时-->
+    </record>
 </odoo>
