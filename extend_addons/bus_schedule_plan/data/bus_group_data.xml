@@ -24,6 +24,6 @@
         <field eval="'scheduleplan.schedulrule'" name="model"/>
         <field eval="'createMoveTimeTable'" name="function"/>
         <field eval="'()'" name="args"/>
-        <field name="nextcall" eval="DateTime.now().strftime('%Y-%m-%d 17:05:00')"/><!--加8个小时-->
+        <field name="nextcall" eval="DateTime.now().strftime('%Y-%m-%d 19:00:00')"/><!--加8个小时 每天凌晨3点执行-->
     </record>
 </odoo>
