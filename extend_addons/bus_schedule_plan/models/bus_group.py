@@ -319,11 +319,6 @@ class BusGroupDriverVehicleShift(models.Model):
 
             route_id = res_groups[0].route_id.id
 
-            res = self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', route_id),
-                                                                     ('use_date', '=', next_use_date)])
-            for m in res:
-                m.unlink()
-
             res_seq = self.env['bus_group_driver_vehicle_shift'].search(
                                                                 [('use_date', '=', use_date),
                                                                  ('route_id', '=', route_id),
@@ -364,7 +359,6 @@ class BusGroupDriverVehicleShift(models.Model):
                 group_dict = old_group_dict
                 _logger.info(u"线路id:%s 线路下所有的组 没有进行大论换" % (route_id, ))
 
-
             '''车辆轮趟算法'''
             new_group_dict_vehicle = {}
             for k, v in group_dict.iteritems():
@@ -402,6 +396,12 @@ class BusGroupDriverVehicleShift(models.Model):
                     [('route_id', '=', route_id),
                      ('use_date', '=', use_date),
                      ('group_id', '=', k)])
+                if not res_group_shift: #如果班组管理人车配班前一天的数据不存在，生成不了第二天的人车配班
+                    continue
+                else:  #存在第二天的人车配班，先删除
+                    self.env['bus_group_driver_vehicle_shift'].search([('route_id', '=', route_id),
+                                                                     ('use_date', '=', next_use_date),
+                                                                     ('group_id', '=', k)]).unlink()
 
                 shift_list = res_group_shift.mapped('choose_sequence')
                 old_shift_list = shift_list[:]

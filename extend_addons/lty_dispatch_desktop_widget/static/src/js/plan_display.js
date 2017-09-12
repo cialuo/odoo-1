@@ -206,7 +206,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     direction: obj.attr("direction"),
                     layer_index: layer_index
                 };
-                self.send_short_msg__fn(options);
+                self.send_short_msg_fn(options);
             });
 
             // 添加计划
@@ -409,12 +409,19 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 }
             });
         },
-        send_short_msg__fn: function (options) {
+        send_short_msg_fn: function (options) {
             var self = this;
-            layer.close(options.layer_index);
-            new send_short_msg_msg(self).appendTo(self.$el);
-            self.$el.find('.send_short_msg_msg .modal').modal({backdrop: 'static', keyboard: false});
-
+            $.ajax({
+                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + ',id:' + options.id + '}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (ret) {
+                    layer.close(options.layer_index);
+                    console.log(ret.respose[0]);
+                    new send_short_msg_msg(self, ret.respose[0]).appendTo($('body'));
+                }
+            });
         },
         add_plan_fn: function (options) {
             var self = this;
@@ -652,7 +659,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
 
             // 增加icon浮层说明
             self.$(".content_tb .icon").hover(function () {
-                var txt = ($(this).attr("st") == 1) ? '已发送' : '未发送'
+                var txt = ($(this).attr("st") == 2) ? '已发送' : '未发送'
                 self.layer_f_index = layer.tips(txt, this);
             }, function () {
                 layer.close(self.layer_f_index);
@@ -808,6 +815,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         }
     });
 
+    // 右键内容
     var plan_display_set = Widget.extend({
         template: "plan_display_set_template",
         init: function (parent, data) {
@@ -816,6 +824,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
     });
 
+    // 发送消息
     var send_short_msg_msg = Widget.extend({
         template: "send_short_msg_msg",
         init: function (parent, data) {
@@ -823,12 +832,34 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             this.location_data = data;
         },
         start:function () {
-          this.select_title = this.$el.find('.ready_info').val();
+            this.load_fn();
+            this.select_title = this.$el.find('.ready_info').val();
         },
         events: {
-            'click .modal_lty .close': 'closeFn',
             'click .btn_confirm_lty': 'send_msg',
             'change .ready_info': 'ready_msg'
+        },
+        load_fn: function(){
+            var self = this;
+            self.$(".modal").on('hide.bs.modal', function () {
+                self.destroy();
+            });
+            self.$(".modal").on('show.bs.modal', function () {
+                $(this).css('display', 'block');
+                // 是弹出框居中。。。
+                var $modal_dialog = $(this).find('.modal-dialog');
+                //获取可视窗口的高度
+                var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+                //得到dialog的高度
+                var dialogHeight = $modal_dialog.height();
+                //计算出距离顶部的高度
+                var m_top = (clientHeight - dialogHeight) / 2;
+                $modal_dialog.css({'margin': m_top + 'px auto'});
+            });
+            self.$(".modal").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
         },
         ready_msg: function () {
             var val_select = this.$el.find('.ready_info');
@@ -847,28 +878,27 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 is_check = 1;
             };
             var self = this;
-            console.log('http://202.104.136.228:8888/ltyop/msg/sendMsg2GW?apikey=71029270&params={input:"' + input_msg + '",nodeIdArr:"1406,1403",type:"note",isImport:' + is_check + ',msgChannel:' + laba_msg + '}')
+            var nodeIdArr = this.location_data.selfId;
+            var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
             if (input_msg != '') {
                 $.ajax({
                     //nodeIdArr是设备号
-                    url: 'http://202.104.136.228:8888/ltyop/msg/sendMsg2GW?apikey=71029270&params={input:"' + input_msg + '",nodeIdArr:"1406,1403",type:"note",isImport:' + is_check + ',msgChannel:' + laba_msg + '}',
+                    url: 'http://202.104.136.228:8888/ltyop/msg/sendMsg2GW?apikey=71029270&params={input:"' + input_msg + '",nodeIdArr:"'+nodeIdArr+'",type:"note",isImport:' + is_check + ',msgChannel:' + laba_msg + '}',
                     type: 'post',
                     dataType: 'json',
                     data: {},
-                    success: function (data) {
-                        self.$el.find('.short_msg_content').html('已发送：'+input_msg);
-                    },
-                    error: function () {
-                        layer.msg('请求失败');
+                    success: function (ret) {
+                        layer.close(layer_index);
+                        layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
+                        if (ret.result == 0){
+                            self.$el.find('.short_msg_content').html('已发送：'+input_msg);
+                            self.$el.find('.short_msg_text').val("");
+                        }
                     }
                 });
             }else{
                 layer.msg('请输入短信内容或选择预设短信');
             }
-        },
-        closeFn: function () {
-            this.destroy();
-            $(".modal-backdrop").remove();
         }
     });
 
@@ -1048,19 +1078,19 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
     // 批量更改车辆或司机
     var batch_fix_switch_w = Widget.extend({
         template: 'batch_fix_switch_template',
-        init: function (parent, data) {
+        init: function(parent, data) {
             this._super(parent);
             this.set_data = data;
         },
-        start: function () {
+        start: function() {
             this.modal_fn();
         },
-        modal_fn: function () {
+        modal_fn: function() {
             var self = this;
-            self.$el.on('hide.bs.modal', function () {
+            self.$el.on('hide.bs.modal', function() {
                 self.destroy();
             });
-            self.$el.on('show.bs.modal', function () {
+            self.$el.on('show.bs.modal', function() {
                 $(this).css('display', 'block');
                 // 是弹出框居中。。。
                 var $modal_dialog = $(this).find('.modal-dialog');
@@ -1070,24 +1100,24 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 var dialogHeight = $modal_dialog.height();
                 //计算出距离顶部的高度
                 var m_top = (clientHeight - dialogHeight) / 2;
-                $modal_dialog.css({'margin': m_top + 'px auto'});
+                $modal_dialog.css({ 'margin': m_top + 'px auto' });
             });
             self.$el.modal({
                 backdrop: 'static',
                 keyboard: false
             });
 
-            self.$('.modal-body').on("click", ".mode_type a", function () {
+            self.$('.modal-body').on("click", ".mode_type a", function() {
                 $(this).addClass("active").siblings().removeClass('active');
             });
             // 提交
-            self.$('.btn-primary').on('click', function () {
+            self.$('.btn-primary').on('click', function() {
                 self.submit_fn();
             });
         },
-        submit_fn: function () {
+        submit_fn: function() {
             var self = this;
-            var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
+            var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
             var confObj = self.$('.modal-body table');
             var params = {
                 controlId: self.set_data.controllerId,
@@ -1102,39 +1132,13 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             };
             console.log(params);
             $.ajax({
-                url: 'http://202.104.136.228:8888/ltyop/plan/batchChangeDriverOrCar?apikey=71029270&params=' + JSON.stringify(params),
-                type: 'put',
+                url: 'http://202.104.136.228:8888/ltyop/plan/batchChangeDriverCar?apikey=71029270&params=' + JSON.stringify(params),
+                type: 'post',
                 dataType: 'json',
                 data: {},
-                success: function (ret) {
+                success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    self.$('.btn-default').click();
-                }
-            });
-        },
-        replace_ajax_fn: function (op, layer_index) {
-            $.ajax({
-                url: 'http://202.104.136.228:8888/ltyop/plan/batchReplaceDriverOrCar?apikey=71029270&params=' + JSON.stringify(op),
-                type: 'get',
-                dataType: 'json',
-                data: {},
-                success: function (ret) {
-                    layer.close(layer_index);
-                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    self.$('.btn-default').click();
-                }
-            });
-        },
-        switch_ajax_fn: function (op, layer_index) {
-            $.ajax({
-                url: 'http://202.104.136.228:8888/ltyop/plan/batchUpdateDriverOrCar?apikey=71029270&params=' + JSON.stringify(op),
-                type: 'get',
-                dataType: 'json',
-                data: {},
-                success: function (ret) {
-                    layer.close(layer_index);
-                    layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
+                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
                     self.$('.btn-default').click();
                 }
             });
@@ -1187,7 +1191,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 onBoardId: confObj.find(".carNum").attr("onBoardId"),
                 workerId: confObj.find(".workerId").val(),
                 driverName: confObj.find(".driverName").val(),
-                trainId: confObj.find(".trainId").var(),
+                trainId: confObj.find(".trainId").val(),
                 trainName: confObj.find(".trainName").val(),
                 workTime: confObj.find(".workTime").val(),
                 opType: name
@@ -1256,7 +1260,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 realCount: confObj.find(".realCount").val(),
             };
             $.ajax({
-                url: 'http://127.0.0.1/ltyop/resource/updateBusResource?apikey=&params='+JSON.stringify(params),
+                url: 'http://202.104.136.228:8888/ltyop/resource/editBusResource?apikey=&params='+JSON.stringify(params),
                 type: 'post',
                 dataType: 'json',
                 data: {},
@@ -1300,30 +1304,27 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 backdrop: 'static',
                 keyboard: false
             });
-            self.$('.modal-body').on("click", ".selectType .ckIcon", ".mode_type a", function(){
-                // $(this).addClass("active").siblings().removeClass('active');
-                $(this).toggleClass("active")  //gy切换active 
+            self.$('.modal-body').on("click", ".selectType .ckIcon", function(){
+                self.$(".selectType .ckIcon").removeClass("active");
+                $(this).addClass("active").siblings();
+                // $(this).toggleClass("active")  //gy切换active 
             });
             // 提交
             self.$('.btn-primary').on('click', function(){
-                var name = $(this).attr('name');
-                self.submit_fn(name);
+                self.submit_fn();
             });
         },
-        submit_fn: function(name){
+        submit_fn: function(){
             var self = this;
             var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
             var confObj = self.$('.modal-body ul');
             var params = {
-                id: self.set_data.id,
-                onBoardId: confObj.find(".selfId").attr("onBoardId"),
-                workerId: confObj.find(".driverName").attr("workerId"),
-                driverName: confObj.find(".replace_driver").val(),
-                workTime: confObj.find(".workTime").val(),
-                workTime: "1"
+                onBoardId: self.set_data.onBoardId,
+                state: self.$(".selectType .active").attr("name")
             };
+            console.log(params);
             $.ajax({
-                url: 'http://202.104.136.228:8888/ltyop/resource/busResourceOpAttendance?apikey=71029270&params='+JSON.stringify(params),
+                url: 'http://202.104.136.228:8888/ltyop/resource/updateBusResourceState?apikey=71029270&params='+JSON.stringify(params),
                 type: 'post',
                 dataType: 'json',
                 data: {},
@@ -1367,14 +1368,13 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 backdrop: 'static',
                 keyboard: false
             });
-            self.$('.modal-body').on("click", ".selectType .ckIcon", ".mode_type a", function(){
-                $(this).toggleClass("active")   //gy切换active                
-                // $(this).addClass("active").siblings().removeClass('active');
+            self.$('.modal-body').on("click", ".selectType .ckIcon", function(){
+                self.$(".selectType .ckIcon").removeClass("active");
+                $(this).addClass("active").siblings();
             });
             // 提交
             self.$('.btn-primary').on('click', function(){
-                var name = $(this).attr('name');
-                self.submit_fn(name);
+                self.submit_fn();
             });
         },
         submit_fn: function(name){
@@ -1382,15 +1382,11 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
             var confObj = self.$('.modal-body table');
             var params = {
-                id: self.set_data.id,
-                onBoardId: confObj.find(".selfId").attr("onBoardId"),
-                workerId: confObj.find(".driverName").attr("workerId"),
-                driverName: confObj.find(".replace_driver").val(),
-                workTime: confObj.find(".workTime").val(),
-                workTime: "1"
+                onBoardId: self.set_data.onBoardId,
+                taskCode: self.$(".selectType .active").attr("name")
             };
             $.ajax({
-                url: 'http://202.104.136.228:8888/ltyop/resource/busResourceOpAttendance?apikey=71029270&params='+JSON.stringify(params),
+                url: 'http://202.104.136.228:8888/ltyop/resource/procDevTask?apikey=71029270&params='+JSON.stringify(params),
                 type: 'post',
                 dataType: 'json',
                 data: {},
@@ -1402,7 +1398,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             });
         }
     });
-    // 进场任务end
     return plan_display;
 });
 
