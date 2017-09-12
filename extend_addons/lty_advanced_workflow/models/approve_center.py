@@ -38,7 +38,7 @@ class lty_approve_center(models.Model):
     
     active_node = fields.Boolean(compute='_active_wkf_node')
     
-    active = fields.Boolean(compute='_active_wkf_node')
+    active = fields.Boolean(compute='_compute_node_active', store = True)
     
     approved = fields.Boolean(compute='_compute_approve_state')
 
@@ -100,8 +100,9 @@ class lty_approve_center(models.Model):
         if not self.active_node  :
             raise UserError(('This node is not start!. '))
         #更新下级流程节点状态
-        #for user in self :
-        #    self.search([('center_id', '=',user.id),('cfg_father_line_id', '=',user.cfg_father_line_id.id)]))         
+        for next_node in self.search([('active', '=',False),('cfg_father_line_id', '=',self.cfg_line_id.id),('object_id', '=',self.object_id._name+','+str(self.object_id.id))]):
+            #todo 这里需要判断下，节点人数
+            next_node.write({'active': True})   
         val_dict = {
             'name': '1234',
             'center_id': self.id,
