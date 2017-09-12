@@ -8,7 +8,7 @@ from odoo.exceptions import UserError
 class lty_approve_center(models.Model):
     _name = 'lty.approve.center'
     _inherit = ['mail.thread','ir.needaction_mixin']
-    _order = 'status desc'
+    _order = 'object_id desc'
 
     @api.multi
     def _links_get(self):

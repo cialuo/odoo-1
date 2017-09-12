@@ -73,6 +73,12 @@
       <field name="res_model">lty.approve.center</field>
       <field name="domain">[('status','=','commited')]</field>
       <field name="view_mode">tree,form</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	                           没有需要审批的任务.<br/>
+	      </p>
+	  </field>       
+      
     </record>
     
     <!-- 已审批 -->
