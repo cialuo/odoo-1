@@ -3,7 +3,20 @@
 from odoo import models, fields, api 
 from odoo.exceptions import UserError
 
+class lty_approve_center_group(models.Model):
+    _name = 'lty.approve.center.group'
 
+    @api.multi
+    def _links_get(self):
+        link_obj = self.env['res.request.link']
+        return [(r.object, r.name) for r in link_obj.search([])]
+
+    name = fields.Char()     
+    center_id = fields.One2many('lty.approve.center','center_id','center_id') 
+    start_user = fields.Many2one('res.users')
+    object_id = fields.Reference(
+        string='Reference', selection=_links_get, 
+        status={'commited': [('readonly', False)]}, ondelete="set null")
 
 class lty_approve_center(models.Model):
     _name = 'lty.approve.center'
@@ -47,6 +60,7 @@ class lty_approve_center(models.Model):
     approve_post = fields.Many2one('employees.post','Approve Post', help="")
     #发起人
     start_user = fields.Many2one('res.users')
+    center_id = fields.Many2one('lty.approve.center.group')
     
     
     @api.one
@@ -130,8 +144,8 @@ class lty_approve_center(models.Model):
                 'approve_opinions':self.approve_opinions,
             }
             self.env['lty.approve.logs'].create(val_dict)            
-            self.write({'status': 'rejected','approve_opinions': ''})
-    
+            self.write({'status': 'rejected','approve_opinions': ''})   
+
 class lty_approve_logs(models.Model):
     _name = 'lty.approve.logs'
 

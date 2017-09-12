@@ -21,6 +21,12 @@ class ProductTemplate(models.Model):
         productid = super(ProductTemplate, self).create(vals)
         obj_id = self.env['ir.model'].search([('model', 'ilike', self._name)], limit=1).id
         cfg_id =  self.env['lty.advanced.workflow.cfg'].search([('model', '=',obj_id)], limit=1).id
+        
+        group_val_dict = {
+            'object_id': self._name + ',' +str(productid.id), 
+            'start_user': self.env.user.id,
+        }
+        center_id = self.env['lty.approve.center.group'].sudo().create(group_val_dict)        
         for cfg_line in self.env['lty.advanced.workflow.cfg'].browse(cfg_id).line_ids :
             # print cfg_line
             val_dict = {
@@ -33,6 +39,7 @@ class ProductTemplate(models.Model):
                 #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
                 'approve_post': cfg_line.approve_post.id,
                 'start_user': self.env.user.id,
+                'center_id': center_id,
             }
             self.env['lty.approve.center'].sudo().create(val_dict)
         return productid
@@ -77,6 +84,12 @@ class stock_picking(models.Model):
         productid = super(stock_picking, self).create(vals)
         obj_id = self.env['ir.model'].search([('model', 'ilike', self._name)], limit=1).id
         cfg_id =  self.env['lty.advanced.workflow.cfg'].search([('model', '=',obj_id)], limit=1).id
+        group_val_dict = {
+            'object_id': self._name + ',' +str(productid.id), 
+            'start_user': self.env.user.id,
+        }
+        #center_id = self.env['lty.approve.center.group'].sudo().create(group_val_dict) 
+        #center_id = self.env['lty.approve.center.group'].sudo().create(group_val_dict)
         for cfg_line in self.env['lty.advanced.workflow.cfg'].browse(cfg_id).line_ids :
             # print cfg_line
             val_dict = {
@@ -86,10 +99,10 @@ class stock_picking(models.Model):
                 'approve_node':cfg_line.name,  
                 'status':'commited',  
                 'cfg_line_id':cfg_line.id,
-                'cfg_father_line_id':cfg_line.farther_node.id,
                 #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
                 'approve_post': cfg_line.approve_post.id,
                 'start_user': self.env.user.id,
+                #'center_id': center_id,
             }
             self.env['lty.approve.center'].sudo().create(val_dict)
         return productid
