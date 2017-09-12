@@ -115,8 +115,11 @@ class purchase_order(models.Model):
                 'cfg_line_id':cfg_line.id,
                 #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
                 'approve_post': cfg_line.approve_post.id,
+                'start_user': self.env.user.id,
+                
             }
             self.env['lty.approve.center'].sudo().create(val_dict)
+            
         return productid
     
     @api.multi
