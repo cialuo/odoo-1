@@ -6,7 +6,7 @@
       <field name="arch" type="xml">
         <tree create="false">
           <field name="object_id"/>
-          <field name="approve_post"/>
+          <field name="approve_post" string='审批岗位'/>
           <field name="description"/>
           <field name="approve_node"/>
           <field name="status"/>
@@ -29,19 +29,19 @@
                 <sheet>
 					<group>
 						<group>
-                            <field name="name" readonly='1'/>
-                            <field name="description" readonly='1'/>
-                            <field name="approve_node" readonly='1'/>
-                            <field name="object_id" readonly='1'/>
-                            <field name="cfg_line_id" readonly='1'/>							
+                            <field name="name" readonly='1' string='节点编号'/>
+                            <field name="description" readonly='1' string='节点说明'/>
+                            <field name="approve_node" readonly='1' string='当前节点'/>
+                            <field name="object_id" readonly='1' string='参考单据'/>
+                            <field name="cfg_line_id" readonly='1' string='节点设置'/>							
 						</group>
 						<group>
                             <field name="commit_date" readonly='1'/>
-                            <field name="source" readonly='1'/>
+                            <field name="source" readonly='1' string='来源'/>
                             <field name="approve_opinions"/>	
-                            <field name="active_node" readonly='1'/>
-                            <field name="approved" readonly='1'/>                            
-                            <field name="approve_post" readonly='1'/>
+                            <field name="active_node" readonly='1' string='节点激活'/>
+                            <field name="approved" readonly='1' string='是否通过'/>                            
+                            <field name="approve_post" readonly='1' string='审批岗位'/>
 						</group>
 					</group>
 					<notebook>

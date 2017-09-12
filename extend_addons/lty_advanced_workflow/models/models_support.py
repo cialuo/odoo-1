@@ -42,7 +42,7 @@ class ProductTemplate(models.Model):
         approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(self.id))])
         for node in approve_nodes :
             if node.approved is False  and node.active_node is True :
-                raise UserError(('Approving is not done. '))   
+                raise UserError((u'审批未完成或被拒绝. '))   
         productid = super(ProductTemplate, self).write(vals)
     
         return productid
@@ -99,7 +99,7 @@ class stock_picking(models.Model):
         approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(self.id))])
         for node in approve_nodes :
             if node.approved is False  and node.active_node is True :
-                raise UserError(('Approving is not done. '))   
+                raise UserError((u'审批未完成或被拒绝. '))   
         productid = super(stock_picking, self).write(vals)
     
         return productid
@@ -145,7 +145,7 @@ class purchase_order(models.Model):
         approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(self.id))])
         for node in approve_nodes :
             if node.approved is False  and node.active_node is True :
-                raise UserError(('Approving is not done. '))   
+                raise UserError((u'审批未完成或被拒绝. '))   
         productid = super(purchase_order, self).write(vals)
     
         return productid    
@@ -191,7 +191,7 @@ class PuchasePlan(models.Model):
         approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(self.id))])
         for node in approve_nodes :
             if node.approved is False  and node.active_node is True :
-                raise UserError(('Approving is not done. '))   
+                raise UserError((u'审批未完成或被拒绝. '))   
         productid = super(PuchasePlan, self).write(vals)
     
         return productid 
@@ -243,7 +243,7 @@ class StockMove(models.Model):
                 approve_nodes = stock_move.env['lty.approve.center'].search([('object_id', '=',stock_move._name+','+str(stock_move.id))])
                 for node in approve_nodes :
                     if node.approved is False  and node.active_node is True :
-                        raise UserError(('Approving is not done. '))   
+                        raise UserError((u'审批未完成或被拒绝. '))   
         productid = super(StockMove, self).write(vals)
     
         return productid           

@@ -29,11 +29,11 @@
                             <field name="name"/>
                             <field name="code"/>
                             <field name="model"/>
-                            <field name="start_status"/>
+                            <!--<field name="start_status"/>-->
 						</group>
 						<group>
                             <field name="note"/>
-                            <field name="end_status"/>
+                            <!--<field name="end_status"/>-->
 						</group>
 					</group>
 					<notebook>
