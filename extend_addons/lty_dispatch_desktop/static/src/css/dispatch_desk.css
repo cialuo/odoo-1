@@ -216,9 +216,10 @@
     float: left;
     color: #fff;
     margin-right: 4px;
-    font-size: 10px;
+    font-size: 12px;
     display: inline-block;
     -webkit-transform: scale(0.833);
+    -moz-transform: scale(0.833);
 }
 
 .dispatch_desktop .line_status li:last-of-type {
@@ -265,11 +266,12 @@
 }
 
 .dispatch_desktop .line_car .type_car span {
-    font-size: 8px;
+    font-size: 12px;
     -webkit-transform: scale(0.75);
+    -moz-transform: scale(0.75);
     color: #fff;
     display: inline-block;
-    line-height: 8px;
+    line-height: 9px;
 }
 
 .dispatch_desktop .line_car .num_car {
@@ -279,8 +281,8 @@
 }
 
 .dispatch_desktop .line_car .num_car span {
-    font-size: 6px;
     -webkit-transform: scale(0.5);
+    -moz-transform: scale(0.5);
     color: #fff;
     display: inline-block;
     line-height: 9px
@@ -303,11 +305,10 @@
 }
 
 .dispatch_desktop .line_car .num_car span {
-    font-size: 6px;
-    -webkit-transform: scale(0.5);
+    font-size: 12px;
     color: #fff;
     display: inline-block;
-    line-height: 7px
+    line-height: 6px
 }
 
 .dispatch_desktop  .line_car .type_car {
@@ -315,13 +316,7 @@
     height: 8px;
     text-align: center;
 }
-.dispatch_desktop .line_car .type_car span {
-    font-size: 8px;
-    -webkit-transform: scale(0.75);
-    color: #fff;
-    display: inline-block;
-    line-height: 8px
-}
+
 
 .absnormal_chart, .lagstation_chart {
     width: 350px;
@@ -421,6 +416,9 @@
     position: absolute;
 }
 
+.updown_line_table .carousel_content.abnormal_active{
+    left:0 !important;
+}
 .updown_line_table .carousel_content > li {
     width: 600px;
     float: left;
@@ -428,10 +426,6 @@
 }
 
 /*上下行路线图表和是否异常*/
-
-.updown_line_table {
-
-}
 
 .updown_line_table {
     left: 1300px;
@@ -612,6 +606,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     height: 20px;
     position: relative;
     -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
     transition: 0.3s;
     margin: 0px 20px;
     box-sizing: border-box;
@@ -627,6 +622,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     width: 20px;
     height: 20px;
     -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
     transition: 0.3s;
     cursor: pointer;
 }
@@ -667,12 +663,14 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     height: 30px;
     line-height: 26px;
     background: none;
-    border: 1px solid #6D7487;
+    border: 1px solid #53CAC8;
     border-radius: 4px;
+    color: #53CAC8;
 }
 .bus_src_config .add_success{
-    border-color: #53CAC8;
-    color: #53CAC8;
+    border-color: #6D7487;
+    color: #838697;
+    cursor: not-allowed;
 }
 .bus_src_config .src_title {
     height: 80px;
@@ -776,7 +774,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
 }
 
 .bus_src_config th, .bus_src_config td {
-    height: 40px;
+    max-height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #6D7487;
     width:110px;

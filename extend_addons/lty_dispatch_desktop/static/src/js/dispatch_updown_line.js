@@ -7,11 +7,12 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
     var Model = require('web.Model');
     var dispatch_updown_line = Widget.extend({
         template: 'updown_line_table',
-        init: function (parent, data) {
+        init: function (parent, data,rendr_index) {
             this._super(parent);
             this.dis_desk = data;
             this.model2 = new Model('dispatch.control.desktop.component');
             this.model_abnormal = new Model('dispatch.abnormal.mgt');
+            this.rendr_index = rendr_index;
         },
         start: function () {
             this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
@@ -47,13 +48,13 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 var package_passenger_flow = {
                     type: 2000,
                     controlId: this.desktop_id,
-                    open_modules: ["passenger_flow"],
+                    open_modules: ["passenger_flow"]
                 };
                 websocket.send(JSON.stringify(package_passenger_flow));
                 socket_model_info[model_abnormal] = {
                     arg: {
                         self: self,
-                        line_id: self.line_id,
+                        line_id: self.line_id
                     }, fn: self.abnormal_save
                 };
                 socket_model_info[model_chart] = {
@@ -62,7 +63,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                         line_id: self.line_id,
                         absnormalChart: self.absnormalChart,
                         absnormalChart1: self.absnormalChart1,
-                        lagstation_chart: self.lagstation_chart,
+                        lagstation_chart: self.lagstation_chart
                     }, fn: self.show_echarts
                 };
             }
@@ -138,7 +139,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                     'tem_display': 'none',
                     'position_left': self.$el[0].offsetLeft,
                     'position_top': self.$el[0].offsetTop,
-                    'position_z_index': self.$el[0].style.zIndex,
+                    'position_z_index': self.$el[0].style.zIndex
                 }]).then(function (res) {
                     self.$el.hide();
             });
@@ -148,10 +149,10 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var x_deal = event.currentTarget;
             $(x_deal).parent().hide().siblings('.finishBtn').show();
         },
-
         process_chchk: function (event) {
             stopPropagation(event);
             var x_comp = event.currentTarget;
+            this.$el.find('.carousel_content.abnormal_active').removeClass('abnormal_active');
             this.$el.find('.abs_info .absnormal_height').eq(0).remove();
             $.ajax({
                     url: 'http://202.104.136.228:8080/ltyop/resource/exceptionHandle?apikey=71029270&params={onBoardId:15745,exceptKm:10,exceptStationId:13655,exceptReasonId:6}',
@@ -162,7 +163,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
 
                     }
                 }
-            )
+            );
             if (this.$el.find('.abs_info .absnormal_height').length < 1) {
                 $(x_comp).parent().hide().siblings('.handleBtn').show();
                 this.$el.removeClass('warn');
@@ -176,7 +177,6 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             else {
                 $(x_comp).parent().hide().siblings().show();
             }
-
         }
     });
     return dispatch_updown_line;
