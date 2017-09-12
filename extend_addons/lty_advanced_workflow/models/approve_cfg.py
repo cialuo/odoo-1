@@ -25,7 +25,7 @@ class lty_advanced_workflow_cfg(models.Model):
             ('commited', 'commited'),
             ('approved', 'approved')
         ], string='status', required=True, default='draft')
-    line_ids = fields.One2many('lty.advanced.workflow.cfg.line','cfg_id') 
+    line_ids = fields.One2many('lty.advanced.workflow.cfg.line','cfg_id', copy=True) 
     
     def do_confirm(self):    
         self.write({'status': 'commited'})

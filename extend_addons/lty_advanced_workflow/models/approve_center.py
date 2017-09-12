@@ -8,7 +8,7 @@ from odoo.exceptions import UserError
 class lty_approve_center(models.Model):
     _name = 'lty.approve.center'
     _inherit = ['mail.thread','ir.needaction_mixin']
-    _order = 'status desc'
+    _order = 'object_id desc'
 
     @api.multi
     def _links_get(self):
@@ -30,14 +30,42 @@ class lty_approve_center(models.Model):
             ('rejected', 'rejected')
         ], string='status', required=True, track_visibility='always', default='commited')
     line_ids = fields.One2many('lty.approve.logs','center_id') 
-    cfg_line_id = fields.Many2one('lty.advanced.workflow.cfg.line')     
+    cfg_line_id = fields.Many2one('lty.advanced.workflow.cfg.line')
+    # 上级工作流节点
+    cfg_father_line_id = fields.Many2one('lty.advanced.workflow.cfg.line')
+    #上级节点状态
+    father_node_state = fields.Boolean()
+    #节点激活状态
     active_node = fields.Boolean(compute='_active_wkf_node')
+    #是否显示
+    active = fields.Boolean(compute='_compute_node_active', store = True)
+    #是否通过
     approved = fields.Boolean(compute='_compute_approve_state')
-
+    #审批岗位
     approve_posts = fields.Many2many('employees.post', 'lty_wkf_center_line_post', 'post_id', 'approve_posts', 'Approve Post', help="")
+    #审批岗位
     approve_post = fields.Many2one('employees.post','Approve Post', help="")
+    #发起人
     start_user = fields.Many2one('res.users')
-
+    
+    
+    @api.one
+    @api.depends('active_node')
+    def _compute_node_active(self):
+        for user in self :
+            user.active = user.active_node        
+        
+        #total_qty = 0
+        #for move_line in self.move_lines:
+        #    total_qty = total_qty + move_line.product_uom_qty
+        
+        #self.total_qty = total_qty
+        
+    @api.onchange('active_node')
+    def onchange_quantity(self):
+        if self.active_node :
+            self.active = True     
+        
     @api.model
     def _needaction_domain_get(self):
         return [('status', '=', 'commited'),('active_node', '=', True),('approved', '=', False)]
@@ -72,7 +100,11 @@ class lty_approve_center(models.Model):
     @api.multi
     def do_approve(self):
         if not self.active_node  :
-            raise UserError(('This node is not start!. '))         
+            raise UserError((u'审批节点未被激活!. '))
+        #更新下级流程节点状态
+        for next_node in self.search([('active', '=',False),('cfg_father_line_id', '=',self.cfg_line_id.id),('object_id', '=',self.object_id._name+','+str(self.object_id.id))]):
+            #todo 这里需要判断下，节点人数
+            next_node.write({'active': True})   
         val_dict = {
             'name': '1234',
             'center_id': self.id,
@@ -84,9 +116,12 @@ class lty_approve_center(models.Model):
         self.write({'status': 'approved','approve_opinions': ''})
     def do_reject(self):
         if not self.active_node  :
-            raise UserError(('This node is not start!. '))        
+            raise UserError((u'审批节点未被活活!. '))        
         if not self.approve_opinions  :
-            raise UserError(('Please input approve opinions. '))
+            raise UserError((u'拒审必须输入原因. '))
+        for next_node in self.search([('active', '=',False),('cfg_father_line_id', '=',self.cfg_line_id.id),('object_id', '=',self.object_id._name+','+str(self.object_id.id))]):
+            #todo 这里需要判断下，节点人数
+            next_node.write({'active': False})          
         else:
             val_dict = {
                 'center_id': self.id,

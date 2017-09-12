@@ -298,7 +298,7 @@ msgstr "关闭"
 #: selection:lty.advanced.workflow.cfg,status:0
 #: selection:lty.approve.center,status:0
 msgid "commited"
-msgstr "已提交"
+msgstr "待审"
 
 #. module: lty_advanced_workflow
 #: model:ir.ui.view,arch_db:lty_advanced_workflow.lty_advanced_workflow_cfg_form
