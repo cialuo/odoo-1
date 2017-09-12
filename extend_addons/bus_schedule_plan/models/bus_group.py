@@ -3,6 +3,8 @@
 from odoo import models, fields, api, _
 import datetime
 from datetime import timedelta
+import pytz
+
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -282,7 +284,7 @@ class BusGroupDriverVehicleShift(models.Model):
     active = fields.Boolean(default=True)
 
     @api.model
-    def scheduler_vehicle_shift(self, route_id=None, use_date=str(datetime.date.today())):
+    def scheduler_vehicle_shift(self, route_id=None, use_date=use_date):
         """
         1，查询出所有的线路
         2，查询出线路对应的所有班组及线路是否需要大轮换
@@ -472,7 +474,7 @@ class BusGroupDriverVehicleShift(models.Model):
         :return:
         """
         _logger.info(u'Start run_scheduler')
-        # use_date = datetime.datetime.strftime(datetime.date.today() - timedelta(days=1), "%Y-%m-%d")
-        # self.scheduler_vehicle_shift(use_date=use_date)
-        self.scheduler_vehicle_shift()
+        use_date = datetime.datetime.now(tz=pytz.timezone('Asia/Shanghai'))
+        use_date = use_date.strftime('%Y-%m-%d')
+        self.scheduler_vehicle_shift(use_date=use_date)
         _logger.info(u'End run_scheduler')
