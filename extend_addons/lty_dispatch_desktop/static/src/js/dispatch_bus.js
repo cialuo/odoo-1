@@ -34,7 +34,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
             this.line_id = self.$el.attr('line_id');
             var tid = self.$el.attr('tid');
-
+            $('*[click="yes"]').removeAttr('click');
+            this.$el.attr("click", "yes");
             function site_info(mode_line, model_station_platform, model_src) {
                 if (self.$el.find('.line_line')[0] != undefined) {
                     // 根据tid拿到线路id
@@ -299,6 +300,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             self.$el.parent().find('.updown_line_table').remove();
                             self.model_line.call("unlink", [data[0].id]).then(function () {
                                 self.destroy();
+
                             });
                         });
                     });
@@ -306,6 +308,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             } else {
                 self.$el.parent().find('.updown_line_table').remove();
                 self.destroy();
+            }
+            if($('body').find('.dispatch_desktop').length>0){
+                $('body').find('.dispatch_desktop:last').attr("click", "yes");
             }
         },
         cursor_pointer_tb: function (canvas, e) {
@@ -719,7 +724,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 // 只存在其中一种组件
                 if (data.length == 1) {
                     // 只存在dispatch_desktop组件
-                    if (data[0].model_type == "dispatch_desktop") {
+                    if (data[0].model_type == "dis patch_desktop") {
                         new dispatch_canvas(this, data[0],0).appendTo(this.$el);
                         this.$el.find('.line_edit').hide();
                         // 只存在updown_line_table组件
@@ -745,7 +750,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if($('body').find('.dragContent[click]').length>0){
                     zr_index = parseInt($('body').find('.dragContent[click]')[0].style.zIndex)+1;
                 }
-                console.log(zr_index)
+
                 new dispatch_canvas(this, data[0],zr_index).appendTo(this.$el);
                 new dispatch_updown_line(this, data[1],zr_index).appendTo(this.$el);
             }
