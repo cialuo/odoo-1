@@ -73,7 +73,20 @@ class BusGroup(models.Model):
         :param vals:
         :return:
         """
-        if "bus_algorithm_id" in vals or 'bus_driver_algorithm_id' in vals or 'bus_shift_id' in vals:
+        change_list = ['bus_algorithm_id',
+                       'bus_driver_algorithm_id',
+                       'bus_shift_id',
+                       'vehicle_ids',
+                       'driver_ids',
+                       'conductor_ids',
+                       ]
+
+        def is_change(vals):
+            for i in change_list:
+                if i in vals:
+                    return True
+            return False
+        if is_change(vals):
             vals.update({'state': 'wait_check'})
         if "bus_algorithm_id" in vals:
             vals.update({'is_algorithm_change': True})
@@ -97,11 +110,9 @@ class BusGroup(models.Model):
         """
         vals = {'state': 'use'}
         if self.is_algorithm_change:
-            vals.update({'bus_algorithm_date':datetime.date.today(),
-                         'is_algorithm_change': False})
+            vals.update({'bus_algorithm_date':datetime.date.today(), 'is_algorithm_change': False})
         if self.is_driver_algorithm_change:
-            vals.update({'bus_driver_algorithm_date': datetime.date.today(),
-                         'is_driver_algorithm_change': False})
+            vals.update({'bus_driver_algorithm_date': datetime.date.today(), 'is_driver_algorithm_change': False})
         self.write(vals)
 
     @api.multi

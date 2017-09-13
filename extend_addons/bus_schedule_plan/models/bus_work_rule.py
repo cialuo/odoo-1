@@ -556,7 +556,6 @@ class BusWorkRules(models.Model):
 
             timerec = cls.getTimeRecordDetail(timerecmode, item[1]['id'])
             if timerec == None:
-                # a = 99885
                 continue
             if item[0] not in stafflist:
                 continue
