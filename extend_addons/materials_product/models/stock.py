@@ -30,7 +30,8 @@ class StockMove(models.Model):
         for picking in self:
             if picking.pack_operation_ids:
                 for p in picking.pack_operation_ids:
-                    operation_lot_val = {
-                        ''
-                    }
+                    if p.product_id.tracking == 'lot' and p.product_id.auto_lot:
+                        vals = {
+                            'qty' : p.product_qty,
+                        }
         return res
