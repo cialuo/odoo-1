@@ -160,10 +160,20 @@ class lty_approve_center(models.Model):
         if not self.active_node  :
             raise UserError((u'审批节点未被激活!. '))
         #更新下级流程节点状态
-        for next_node in self.search([('active', '=',False),('cfg_father_line_id', '=',self.cfg_line_id.id),('object_id', '=',self.object_id._name+','+str(self.object_id.id))]):
-            #todo 这里需要判断下，节点人数
-            next_node.write({'active': True})
-        self.sudo().object_id.write({'approve_state': u'审批节点'+':'+self.approve_node + u'通过'})  
+        next_nodes = self.sudo().search([('active', '=',False),('active_node', '=',True),('cfg_father_line_id', '=',self.cfg_line_id.id),('object_id', '=',self.object_id._name+','+str(self.object_id.id))])
+        next_nodes.active_node
+        if  next_nodes :       
+            for next_node in next_nodes:
+                #todo 这里需要判断下节点人数
+                domain = eval( next_nodes.cfg_line_id.conditions)
+                domain.append(('id', '=', next_nodes.object_id.id))
+                if self.sudo().env[next_nodes.object_id._name].search(domain):
+                    next_node.sudo().write({'active': True})
+                else:
+                    self.sudo().center_id.write({'status': 'done'})
+        else :
+            self.sudo().center_id.write({'status': 'done'})
+        self.sudo().object_id.write({'approve_state': u'审批节点'+':'+self.approve_node + u'通过'}) 
         val_dict = {
             'name': '1234',
             'center_id': self.id,
@@ -189,8 +199,8 @@ class lty_approve_center(models.Model):
                 'approve_status':'rejected',
                 'approve_opinions':self.approve_opinions,
             }
-            self.env['lty.approve.logs'].create(val_dict)            
-            self.write({'status': 'rejected','approve_opinions': ''})
+            self.sudo().env['lty.approve.logs'].create(val_dict)            
+            self.sudo().write({'status': 'rejected','approve_opinions': ''})
             #更新当前节点对应的组状态为拒绝
             self.sudo().center_id.write({'status': 'rejected'})                                
         self.sudo().object_id.write({'approve_state': u'审批节点'+':'+self.approve_node + u'拒绝'})  
