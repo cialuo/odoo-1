@@ -63,8 +63,8 @@ function cir_and_text(canvas) {
             {
                 cir: 4,
                 color: myColor
-            },
-        ]
+            }
+        ];
         for (var j = 0; j < obj_list.length; j++) {
             var obj = obj_list[j];
             cxt.beginPath();
@@ -143,7 +143,7 @@ function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
         y: 26,
         self: selfDom,
         subsection: data.subsection,
-        color: data.color,
+        color: data.color
     };
     var traffic_bottom = {
         id: domB,
@@ -215,7 +215,7 @@ function carousel(carousel) {
     var content = carousel.content;
     var i = 0;
     if(self.$(content + '>li').length ==2){
-            var firstcarousel_content = self.$(content + '>li').first().clone(); //复制第一张图片
+        var firstcarousel_content = self.$(content + '>li').first().clone(); //复制第一张图片
     }else{
       var firstcarousel_content = self.$(content + '>li').eq(2); //复制第一张图片
     }
@@ -251,7 +251,7 @@ function carousel(carousel) {
     //         clearInterval(timer);
     //     }
     // }, 100);
-};
+}
 window.onhashchange=function(){
     if($('body').find('.back_style').length>0){
         $('body').find('.o_content').css('overflow','hidden');

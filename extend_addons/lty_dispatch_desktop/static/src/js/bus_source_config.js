@@ -77,8 +77,10 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
                         dataType: 'json',
                         data: {},
                         success: function (data) {
-                            layer.msg(data.respose.text);
+                            if(data.result == 0){
+                                 layer.msg(data.respose.text);
                             $(x).addClass('add_success');
+                            }
                         }
                     });
                 }

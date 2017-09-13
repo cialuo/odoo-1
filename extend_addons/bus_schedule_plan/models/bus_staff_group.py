@@ -72,7 +72,6 @@ class BusStaffGroup(models.Model):
         for j in res_group_shift:
             res_vehicles = self.env['bus_group_driver_vehicle_shift'].search(j['__domain'])
             sequence = 0
-            count += 1
             data_shift = []
             for m in res_vehicles:
                 sequence += 1
@@ -85,24 +84,27 @@ class BusStaffGroup(models.Model):
                     "sequence": sequence
                 }
                 data_shift.append((0, 0, vals_shift))
-
-            vals = {
-                "route_id": res_vehicles[0].route_id.id,
-                'vehicle_id': res_vehicles[0].bus_group_vehicle_id.vehicle_id.id,
-                'operation_state': 'flexible',
-                'sequence': res_vehicles[0].vehicle_sequence,
-                'bus_group_id': res_vehicles[0].group_id.id,
-                'staff_line_ids': data_shift
-            }
-            if count <= operation_ct:
-                vals.update({'operation_state': 'operation'})
-            datas.append((0, 0, vals))
+            if data_shift:
+                count += 1
+                vals = {
+                    "route_id": res_vehicles[0].route_id.id,
+                    'vehicle_id': res_vehicles[0].bus_group_vehicle_id.vehicle_id.id,
+                    'operation_state': 'flexible',
+                    'sequence': res_vehicles[0].vehicle_sequence,
+                    'bus_group_id': res_vehicles[0].group_id.id,
+                    'staff_line_ids': data_shift
+                }
+                if count <= operation_ct:
+                    vals.update({'operation_state': 'operation'})
+                datas.append((0, 0, vals))
+        if not datas:
+            raise exceptions.UserError(_('bus_group_driver_vehicle_shift is not exists,please check bus_group.'))
         return self.env['bus_staff_group'].create({'vehicle_line_ids': datas,
-                                            'route_id': route_id.id,
-                                            'move_time_id':move_time_id.id or None,
-                                            'name': route_id.line_name + '/' + staff_date_str,
-                                            'staff_date': staff_date
-                                            })
+                                                   'route_id': route_id.id,
+                                                   'move_time_id':move_time_id.id or None,
+                                                   'name': route_id.line_name + '/' + staff_date_str,
+                                                   'staff_date': staff_date
+                                                  })
 
 
 

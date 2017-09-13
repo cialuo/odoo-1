@@ -1,6 +1,5 @@
 var optionLineBar = {
     title: {
-        text: '34路·客流与动力',
         left: '35%',
         textStyle: {
             color: 'white',
@@ -50,14 +49,14 @@ var optionLineBar = {
         top: "23%",
         show: true,
         containLabel: true,
-        borderColor: "#3F4663",
+        borderColor: "#3F4663"
 
     },
     xAxis: [
         {
             axisLabel: {
                 rotate: '',
-                interval: 0,
+                interval: 0,     //表示x轴长度除以n 若为2则x轴数量除以2
             },
             textStyle: {
                 fontSize: '',
@@ -67,7 +66,7 @@ var optionLineBar = {
             data: [],
             axisLine: {
                 lineStyle: {
-                    color: '#3F4663',//左边线的颜色
+                    color: '#3F4663'        //左边线的颜色
                 }
             },
             boundaryGap: '',
@@ -86,7 +85,7 @@ var optionLineBar = {
             name: '人力',
             axisLine: {
                 lineStyle: {
-                    color: '#3F4663',//左边线的颜色
+                    color: '#3F4663'          //左边线的颜色
                 }
             },
             splitLine: {
@@ -100,10 +99,11 @@ var optionLineBar = {
     series: ''
 };
 
-var chartLineBar = function (dom,border_width, color, lineOrbar, boundaryGap, title, option, keyJson, dataJson, stackType) {
+var chartLineBar = function (dom,border_width, color, lineOrbar, boundaryGap, title, option, keyJson, dataJson, stackType,line_num) {
     option.xAxis[0].data = keyJson;
     option.xAxis[0].boundaryGap = boundaryGap;
     option.legend.data = title;
+    option.title.text='lineid:'+line_num+'·客流与动力';
     option.series = function () {
         var res = [];
         for (var i = 0, size = dataJson.length; i < size; i++) {
@@ -128,7 +128,7 @@ var chartLineBar = function (dom,border_width, color, lineOrbar, boundaryGap, ti
             });
         }
         return res;
-    }()
+    }();
     dom.setOption(option);
     dom.hideLoading();
     // window.addEventListener("resize", function () {

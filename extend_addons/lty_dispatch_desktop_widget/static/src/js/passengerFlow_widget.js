@@ -11,55 +11,66 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
             'click .close_bt': 'closeFn',
         },
         init: function(parent, data){
-            var init_data = [
-                {   
-                    name: data.site,
-                    line_car: [16],
-                    data: [
-                        {
-                            name: "运力",
-                            value: "11",
-                        },
-                        {
-                            name: "滞站候车",
-                            value: [11, 12, 10, 12, 13, 11, 11, 9, 13, 12, 11]
-                        },
-                        {
-                            name: "0.5h上车",
-                            value: [10, 9, 9, 8, 10, 10]
-                        },
-                        {
-                            name: "0.5h下车",
-                            value: [5, 6, 7, 6, 5, 8]
-                        },
-                    ]
-                },
-                {   
-                    name: "",
-                    line_car: [16, 23, 45, 38, 54],
-                    data: [
-                        {
-                            name: "运力",
-                            value: "11",
-                        },
-                        {
-                            name: "滞站候车",
-                            value: [11, 12, 10, 12, 13, 11, 11, 9, 13, 12, 11]
-                        },
-                        {
-                            name: "0.5h上车",
-                            value: [10, 9, 9, 8, 10, 10]
-                        },
-                        {
-                            name: "0.5h下车",
-                            value: [5, 6, 7, 6, 5, 8]
-                        },
-                    ]
-                },
-            ];
             this._super(parent);
             this.location_data = data;
-            this.passenger_data = init_data;
+            // var init_data = [
+            //     {   
+            //         name: data.site,
+            //         line_car: [this.location_data.line_name],
+            //         data: [
+            //             {
+            //                 name: "运力",
+            //                 value: "11",
+            //             },
+            //             {
+            //                 name: "滞站候车",
+            //                 value: [11, 12, 10, 12, 13, 11, 11, 9, 13, 12, 11]
+            //             },
+            //             {
+            //                 name: "0.5h上车",
+            //                 value: [10, 9, 9, 8, 10, 10]
+            //             },
+            //             {
+            //                 name: "0.5h下车",
+            //                 value: [5, 6, 7, 6, 5, 8]
+            //             },
+            //         ]
+            //     },
+            //     {   
+            //         name: "",
+            //         line_car: [16, 23, 45, 38, 54],
+            //         data: [
+            //             {
+            //                 name: "运力",
+            //                 value: "11",
+            //             },
+            //             {
+            //                 name: "滞站候车",
+            //                 value: [11, 12, 10, 12, 13, 11, 11, 9, 13, 12, 11]
+            //             },
+            //             {
+            //                 name: "0.5h上车",
+            //                 value: [10, 9, 9, 8, 10, 10]
+            //             },
+            //             {
+            //                 name: "0.5h下车",
+            //                 value: [5, 6, 7, 6, 5, 8]
+            //             },
+            //         ]
+            //     },
+            // ];
+            // this.passenger_data = init_data;
+            this.passenger_data = [
+                {   
+                    name: data.site,
+                    line_car: [this.location_data.line_name],
+                    data: []
+                },
+                {   
+                    line_car: [],
+                    data: []
+                },
+            ];
         },
         start: function(){
             var layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
@@ -151,7 +162,7 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
             this.passenger_data = data;
         },
         start: function(){
-            this.passengerMapFn();
+            // this.passengerMapFn();
         },
         passengerMapFn: function(){
             var dataArray = this.passenger_data;
