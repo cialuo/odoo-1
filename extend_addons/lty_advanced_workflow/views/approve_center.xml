@@ -89,8 +89,9 @@
 		<field name="arch" type="xml">
 			<form string="Approve Center">
 				<header>
-                    <button name="do_reset"  string="重新发起" type="object" class="oe_highlight"/>
-                    <field name="status" widget="statusbar" statusbar_visible="approving,rejected,done" />
+                    <button name="do_reset"  string="取消审批"  attrs="{'invisible': [('status','not in',('rejected'))]}" type="object" class="oe_highlight"/>
+                    <button name="do_reopen"  string="重新发起" attrs="{'invisible': [('status','not in',('cancel'))]}" type="object" class="oe_highlight"/>
+                    <field name="status" widget="statusbar" statusbar_visible="approving,rejected,cancel,done" />
                 </header>			
 			
                 <sheet>
@@ -124,7 +125,7 @@
 	
     <!-- 待我审批的 -->
     <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_action">
-      <field name="name">Approve Center</field>
+      <field name="name">待我审批的任务r</field>
       <field name="res_model">lty.approve.center</field>
       <field name="domain">[('status','=','commited')]</field>
       <field name="view_mode">tree,form</field>
@@ -138,14 +139,14 @@
     
     <!-- 已审批 -->
     <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_done_action">
-      <field name="name">Approve Done</field>
+      <field name="name">我已审批的任务</field>
       <field name="res_model">lty.approve.center</field>
       <field name="domain">[('status','=','approved')]</field>
       <field name="view_mode">tree,form</field>
     </record>   
     <!-- 我发起的审批-->
     <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_mystart_action">
-      <field name="name">My Start Approve</field>
+      <field name="name">我发起的审批</field>
       <field name="res_model">lty.approve.center</field>
       <field name="domain">[('start_user','=',uid)]</field>
       <field name="view_mode">tree,form</field>
@@ -153,7 +154,7 @@
     
     <!-- 我发起的审批-->
     <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_group_mystart_action">
-      <field name="name">My Start Approve</field>
+      <field name="name">我发起的审批</field>
       <field name="res_model">lty.approve.center.group</field>
       <field name="domain">[('start_user','=',uid)]</field>
       <field name="view_mode">tree,form</field>
