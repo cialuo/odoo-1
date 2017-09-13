@@ -176,6 +176,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 });
             }
             else {
+                this.$el.find('.carousel_content').addClass('abnormal_active');
                 $(x_comp).parent().hide().siblings().show();
             }
         }

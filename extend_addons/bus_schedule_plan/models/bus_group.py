@@ -14,6 +14,7 @@ class BusGroup(models.Model):
     班组管理
     """
     _name = 'bus_group'
+    _order = "id desc"
 
     _sql_constraints = [
         ('record_unique', 'unique(route_id,name)', _('The route and name must be unique!'))
@@ -229,7 +230,7 @@ class BusGroupVehicle(models.Model):
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", help='Vehicle No', required=True,
                                  domain="[('route_id','=',route_id)]")
     vehicle_type = fields.Many2one("fleet.vehicle.model", related='vehicle_id.model_id',
-                                   readonly=True, copy=False)
+                                   readonly=True, copy=False, string="Vehicle Model")
     ride_number = fields.Integer('Ride Number', related='vehicle_id.ride_number', readonly=True)
     state = fields.Selection(related='vehicle_id.state', readonly=True, string="Vehicle State")
 

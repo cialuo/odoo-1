@@ -204,7 +204,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     obj: obj,
                     id: obj.attr("plan_pid"),
                     direction: obj.attr("direction"),
-                    layer_index: layer_index
+                    layer_index: layer_index,
+                    model: obj.attr("model")
                 };
                 self.send_short_msg_fn(options);
             });
@@ -215,7 +216,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 var obj = $(this).parents(".plan_display_set");
                 var options = {
                     id: obj.attr("plan_pid"),
-                    layer_index: layer_index
+                    layer_index: layer_index,
+                    model: obj.attr("model")
                 };
                 self.add_plan_fn(options);
             });
@@ -411,29 +413,45 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         send_short_msg_fn: function (options) {
             var self = this;
+            var tablename = "op_dispatchplan";
+            if (options.model != "bus_plan"){
+                tablename = "op_busresource";
+            }
             $.ajax({
-                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + ',id:' + options.id + '}',
+                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename: "'+tablename+'",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + ',id:' + options.id + '}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
                 success: function (ret) {
                     layer.close(options.layer_index);
-                    console.log(ret.respose[0]);
-                    new send_short_msg_msg(self, ret.respose[0]).appendTo($('body'));
+                    var retData = ret.respose[0];
+                    console.log(retData);
+                    if (!retData.selfId){
+                        retData.selfId = retData.carNum;
+                    }
+                    new send_short_msg_msg(self, retData).appendTo($('body'));
                 }
             });
         },
         add_plan_fn: function (options) {
             var self = this;
+            var tablename = "op_dispatchplan";
+            if (options.model != "bus_plan"){
+                tablename = "op_busresource";
+            }
             $.ajax({
-                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + ',id:' + options.id + '}',
+                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"'+tablename+'",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + ',id:' + options.id + '}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
                 success: function (ret) {
                     layer.close(options.layer_index);
-                    console.log(ret.respose[0]);
-                    var dialog = new add_plan_w(self, ret.respose[0]);
+                    var retData = ret.respose[0];
+                    console.log(retData);
+                    if (!retData.selfId){
+                        retData.selfId = retData.carNum;
+                    }
+                    var dialog = new add_plan_w(self, retData);
                     dialog.appendTo($('body'));
                 }
             });

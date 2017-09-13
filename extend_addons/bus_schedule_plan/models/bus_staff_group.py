@@ -14,6 +14,8 @@ class BusStaffGroup(models.Model):
     #     ('record_unique', 'unique(name)', _('The staff name must be unique!'))
     # ]
     _name = 'bus_staff_group'
+    _order = "id desc"
+
     name = fields.Char("Staff Group Name", default="/")
     route_id = fields.Many2one('route_manage.route_manage', required=True)
     line_name = fields.Char(related="route_id.line_name")

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-13 02:10+0000\n"
-"PO-Revision-Date: 2017-09-13 02:10+0000\n"
+"POT-Creation-Date: 2017-09-13 06:17+0000\n"
+"PO-Revision-Date: 2017-09-13 06:17+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -464,6 +464,11 @@ msgid "ID"
 msgstr "ID"
 
 #. module: bus_schedule_plan
+#: model:ir.ui.view,arch_db:bus_schedule_plan.view_assigned_shifts_wizard
+msgid "Init Vehicle Driver"
+msgstr "人车配班初始化"
+
+#. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_is_algorithm_change
 msgid "Is algorithm change"
 msgstr "轮趟算法是否发生改变"
@@ -608,11 +613,6 @@ msgstr "最后大轮换日期"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_line_name
 msgid "Line Name"
 msgstr "线路名称"
-
-#. module: bus_schedule_plan
-#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_vehicle_type
-msgid "Model"
-msgstr "车型"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,help:bus_schedule_plan.field_bus_group_vehicle_vehicle_type
@@ -860,6 +860,18 @@ msgid "The shift line is not exists， please choose the right shifts"
 msgstr "所选班制的班次不存在，请选择正确的班制"
 
 #. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:123
+#, python-format
+msgid "There are duplicate conductor"
+msgstr "售票员有重复，请检查"
+
+#. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/wizard/assigned_shifts.py:121
+#, python-format
+msgid "There are duplicate driver"
+msgstr "司机有重复，请检查"
+
+#. module: bus_schedule_plan
 #: selection:bus_date_type,type:0
 msgid "Thursday"
 msgstr "周四"
@@ -893,6 +905,11 @@ msgstr "使用日期"
 #: selection:bus_date_type,type:0
 msgid "Vacation"
 msgstr "法定假日"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_vehicle_type
+msgid "Vehicle Model"
+msgstr "车型"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_vehicle_vehicle_id
@@ -1428,7 +1445,6 @@ msgstr "草稿"
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_group_driver_driver_id
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_staff_line_driver_id
-#: model:ir.ui.view,arch_db:bus_schedule_plan.view_assigned_shifts_wizard
 #: selection:scheduleplan.motorcyclists,title:0
 msgid "driver"
 msgstr "司机"

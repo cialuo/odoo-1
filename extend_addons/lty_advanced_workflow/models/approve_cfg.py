@@ -31,7 +31,8 @@ class lty_advanced_workflow_cfg(models.Model):
         self.write({'status': 'commited'})
     def do_approve(self):    
         self.write({'status': 'approved'})    
-    
+    def do_cancel(self):    
+        self.write({'status': 'draft'})        
     
     
 class lty_advanced_workflow_cfg_line(models.Model):
@@ -47,7 +48,7 @@ class lty_advanced_workflow_cfg_line(models.Model):
         ], string='Type', required=True, default='singel')
     approve_posts = fields.Many2many('employees.post', 'lty_wkf_cfg_line_post', 'post_id', 'approve_posts', 'Approve Post', help="")
     approve_post = fields.Many2one('employees.post','Approve Post', help="")
-    approved_nubmber = fields.Char()
+    approved_nubmber = fields.Char(default='1',readonly='1')
     farther_node = fields.Many2one('lty.advanced.workflow.cfg.line')
     next_node = fields.Many2one('lty.advanced.workflow.cfg.line')
     node_type = fields.Selection([
