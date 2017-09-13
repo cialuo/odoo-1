@@ -134,7 +134,7 @@ function absnormal_del(controllerObj, data_list) {
     var dom = controllerObj.find('.updown_line_table[line_id=' + data_list.line_id + ']');
     var dom_singal = controllerObj.find('.dispatch_desktop[line_id=' + data_list.line_id + ']');
     if (dom.length > 0) {
-        dom.find('.no_absnormal').show().siblings().hide();
+        dom.find('.no_absnormal').eq(0).show().siblings().hide();
         var abnoraml_desc = $('body').find('.absnormal_diaodu .absnormal_type p');
         //车辆掉线
         if (data_list.packageType == 1003) {
@@ -193,7 +193,7 @@ function absnormal_del(controllerObj, data_list) {
         // 提前或延后发车
         else if (data_list.packageType == 1016) {
             if (data_list.abnormal_description.advance_time > 0) {
-                abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_no + '提前发车,提前' + data_list.abnormal_description.advance_time);
+                abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '提前发车,提前' + data_list.abnormal_description.advance_time +'分钟');
             } else if (data_list.abnormal_description.advance_time < 0) {
                 abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_no + '提前发车,滞后' + (-1 * data_list.abnormal_description.advance_time));
             }
@@ -204,11 +204,11 @@ function absnormal_del(controllerObj, data_list) {
         }
         // 意外高峰
         else if (data_list.packageType == 1018) {
-            abnoraml_desc.html(data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外客流高峰');
+            abnoraml_desc.html(data_list.abnormal_description.date_start.split(' ')[1] + '到' + data_list.abnormal_description.date_end.split(' ')[1] + '产生意外客流高峰');
         }
         // 时段意外低峰
         else if (data_list.packageType == 1019) {
-            abnoraml_desc.html(data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外客流高峰');
+            abnoraml_desc.html(data_list.abnormal_description.date_start.split(' ')[1] + '到' + data_list.abnormal_description.date_end.split(' ')[1] + '产生意外客流高峰');
         }
         // 站点意外高峰
         else if (data_list.packageType == 1020) {
