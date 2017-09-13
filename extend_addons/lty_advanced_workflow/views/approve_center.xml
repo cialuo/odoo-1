@@ -5,13 +5,13 @@
       <field name="model">lty.approve.center</field>
       <field name="arch" type="xml">
         <tree create="false">
-          <field name="object_id"/>
-          <field name="approve_post"/>
+          <field name="object_id" string='源单据'/>
+          <field name="approve_post" string='审批岗位'/>
           <field name="description"/>
           <field name="approve_node"/>
           <field name="status"/>
-          <field name="active_node"/>
-          <field name="approved"/>
+          <!--<field name="active_node"/>
+          <field name="approved"/>-->
         </tree>
       </field>
     </record>
@@ -29,19 +29,20 @@
                 <sheet>
 					<group>
 						<group>
-                            <field name="name" readonly='1'/>
-                            <field name="description" readonly='1'/>
-                            <field name="approve_node" readonly='1'/>
-                            <field name="object_id" readonly='1'/>
-                            <field name="cfg_line_id" readonly='1'/>							
+                            <field name="name" readonly='1' string='节点编号'/>
+                            <field name="description" readonly='1' string='节点说明'/>
+                            <field name="approve_node" readonly='1' string='当前节点'/>
+                            <field name="object_id" readonly='1' string='参考单据'/>
+                            <field name="cfg_line_id" readonly='1' string='节点设置'/>							
 						</group>
 						<group>
                             <field name="commit_date" readonly='1'/>
-                            <field name="source" readonly='1'/>
-                            <field name="approve_opinions"/>	
-                            <field name="active_node" readonly='1'/>
-                            <field name="approved" readonly='1'/>                            
-                            <field name="approve_post" readonly='1'/>
+                            <field name="source" readonly='1' string='来源'/>
+                            <field name="approve_opinions"/>
+                            <field name="center_id" string='审批组'/>	
+                            <field name="active_node" readonly='1' string='节点激活'/>
+                            <field name="approved" readonly='1' string='是否通过'/>                            
+                            <field name="approve_post" readonly='1' string='审批岗位'/>
 						</group>
 					</group>
 					<notebook>
@@ -65,18 +66,113 @@
 		</field>
 	</record>	
 	
+    <!-- 审批组list -->
+    <record model="ir.ui.view" id="lty_advanced_workflow_approve_center_group_list">
+      <field name="name">lty_advanced_workflow_approve_center_group list</field>
+      <field name="model">lty.approve.center.group</field>
+      <field name="arch" type="xml">
+        <tree create="false">
+          <field name="name" string='序号'/>
+          <field name="object_id" string='源单据'/>
+          <field name="start_user" string='发起人'/>
+          <field name="create_date" string='发起时间'/>
+          <field name="status" string='状态'/>
+
+        </tree>
+      </field>
+    </record>	
 	
+    <!-- 审批组form -->
+	<record id="lty_advanced_workflow_approve_center_group_form" model="ir.ui.view">
+		<field name="name">lty_advanced_workflow_approve_center_group form</field>
+		<field name="model">lty.approve.center.group</field>
+		<field name="arch" type="xml">
+			<form string="Approve Center">
+				<header>
+                    <button name="do_reset"  string="取消审批"  attrs="{'invisible': [('status','not in',('rejected'))]}" type="object" class="oe_highlight"/>
+                    <button name="do_reopen"  string="重新发起" attrs="{'invisible': [('status','not in',('cancel'))]}" type="object" class="oe_highlight"/>
+                    <field name="status" widget="statusbar" statusbar_visible="approving,rejected,cancel,done" />
+                </header>			
+			
+                <sheet>
+					<group>
+						<group>
+                            <field name="name" readonly='1' string='节点编号'/>	
+         					<field name="object_id" string='源单据'/>
+						</group>
+						<group>
+                            <field name="start_user" string = '发起人' readonly='1'/>
+                            <field name="cfg_id" string = '审批节点' readonly='1'/>
+						</group>
+					</group>
+					<notebook>
+						<page string = '审批记录'>
+                            <field name="center_id">
+								<tree editable='bottom' create="false">
+								  <field name="object_id"/>
+								  <field name="approve_post" string='审批岗位'/>
+								  <field name="description"/>
+								  <field name="approve_node"/>
+								  <field name="status"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+                </sheet>				
+			</form>
+		</field>
+	</record>		
 	
-    <!-- actions opening views on models -->
+    <!-- 待我审批的 -->
     <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_action">
       <field name="name">Approve Center</field>
       <field name="res_model">lty.approve.center</field>
+      <field name="domain">[('status','=','commited')]</field>
       <field name="view_mode">tree,form</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	                           没有需要审批的任务.<br/>
+	      </p>
+	  </field>       
+      
     </record>
+    
+    <!-- 已审批 -->
+    <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_done_action">
+      <field name="name">Approve Done</field>
+      <field name="res_model">lty.approve.center</field>
+      <field name="domain">[('status','=','approved')]</field>
+      <field name="view_mode">tree,form</field>
+    </record>   
+    <!-- 我发起的审批-->
+    <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_mystart_action">
+      <field name="name">My Start Approve</field>
+      <field name="res_model">lty.approve.center</field>
+      <field name="domain">[('start_user','=',uid)]</field>
+      <field name="view_mode">tree,form</field>
+    </record>  
+    
+    <!-- 我发起的审批-->
+    <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_group_mystart_action">
+      <field name="name">My Start Approve</field>
+      <field name="res_model">lty.approve.center.group</field>
+      <field name="domain">[('start_user','=',uid)]</field>
+      <field name="view_mode">tree,form</field>
+    </record>         
 
 
     <!-- actions -->
-    <menuitem name="Approve Center"  sequence="10" id="lty_advanced_workflow_approve_center_menu" parent="lty_advanced_workflow_mgt"
-              action="lty_advanced_workflow_approve_center_action"/>
+    <!-- <menuitem name="Approve Center"  sequence="10" id="lty_advanced_workflow_approve_center_menu" parent="lty_advanced_workflow_mgt"
+              action="lty_advanced_workflow_approve_center_action"/>  -->            
+    <!--<menuitem name="我发起的审批"  sequence="30" id="lty_advanced_workflow_approve_center_start_by_me_menu" parent="lty_advanced_workflow_mgt"
+              action="lty_advanced_workflow_approve_center_mystart_action"/>    -->
+    <menuitem name="待我审批的"  sequence="10" id="lty_advanced_workflow_approve_center_approve_to_me_menu" parent="lty_advanced_workflow_mgt"
+              action="lty_advanced_workflow_approve_center_action"/>    
+    <menuitem name="我已审批的"  sequence="20" id="lty_advanced_workflow_approve_center_approve_by_me_menu" parent="lty_advanced_workflow_mgt"
+              action="lty_advanced_workflow_approve_center_done_action"/>    
+    <menuitem name="我发起的审批"  sequence="40" id="lty_advanced_workflow_approve_center_approve_group_by_me_menu" parent="lty_advanced_workflow_mgt"
+              action="lty_advanced_workflow_approve_center_group_mystart_action"/>                                                            
+                        
+              
   </data>
 </openerp>
