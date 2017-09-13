@@ -15,13 +15,13 @@
                   groups="purchase.group_purchase_user"
         />
         <!--询价管理-->
-        <menuitem id="materials_menu_purchase_rfq"
-                  name="purchase_rfq_menu"
-                  sequence="20"
-                  parent="materials_menu.materials_menu_purchase"
-                  action="purchase.purchase_rfq"
-                  groups="purchase.group_purchase_user"
-        />
+        <!--<menuitem id="materials_menu_purchase_rfq"-->
+                  <!--name="purchase_rfq_menu"-->
+                  <!--sequence="20"-->
+                  <!--parent="materials_menu.materials_menu_purchase"-->
+                  <!--action="purchase.purchase_rfq"-->
+                  <!--groups="purchase.group_purchase_user"-->
+        <!--/>-->
         <!--采购管理-->
         <menuitem id="materials_menu_purchase_order"
                   name="purchase_order_menu"
