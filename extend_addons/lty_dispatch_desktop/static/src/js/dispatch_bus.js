@@ -578,9 +578,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         zIndex: zIndex,
                                         controllerId: self.desktop_id,
                                         line_id: canvas.self.attr("line_id"),
+                                        line_name: canvas.self.attr("line_name"),
                                         site: canvas.site_infos[i].station_id[1].split('/')[0],
                                         site_id: canvas.site_infos[i].id,
-                                        site_infos: self.site_top_infos
+                                        site_infos: canvas.site_infos[i].direction=="up"?self.site_top_infos:self.site_down_infos
                                     };
                                 if ($(".passengerDelayModel_" + options.line_id + "_" + options.site_id).length > 0) {
                                     return;

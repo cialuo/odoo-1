@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-11 08:42+0000\n"
-"PO-Revision-Date: 2017-09-11 08:42+0000\n"
+"POT-Creation-Date: 2017-09-12 09:55+0000\n"
+"PO-Revision-Date: 2017-09-12 09:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -750,7 +750,7 @@ msgstr "站点"
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_staff_conductor_names
 msgid "Staff Conductor Names"
-msgstr "排班乘务员"
+msgstr "排班售票员"
 
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_bus_staff_group_vehicle_line_staff_driver_names
@@ -818,28 +818,28 @@ msgid "The record must be unique!"
 msgstr "班次必须唯一!"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_group.py:251
+#: code:addons/bus_schedule_plan/models/bus_group.py:253
 #: sql_constraint:bus_group_conductor:0
 #, python-format
 msgid "The route and conductor must be unique!"
 msgstr "该线路的乘务员必须唯一!"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_group.py:232
+#: code:addons/bus_schedule_plan/models/bus_group.py:234
 #: sql_constraint:bus_group_driver:0
 #, python-format
 msgid "The route and driver must be unique!"
 msgstr "该线路的司机必须唯一!"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_group.py:17
+#: code:addons/bus_schedule_plan/models/bus_group.py:19
 #: sql_constraint:bus_group:0
 #, python-format
 msgid "The route and name must be unique!"
 msgstr "该线路的班组名称必须唯一"
 
 #. module: bus_schedule_plan
-#: code:addons/bus_schedule_plan/models/bus_group.py:211
+#: code:addons/bus_schedule_plan/models/bus_group.py:213
 #: sql_constraint:bus_group_vehicle:0
 #, python-format
 msgid "The route and vehicle must be unique!"
@@ -1154,6 +1154,12 @@ msgstr "司机组"
 #: model:ir.model,name:bus_schedule_plan.model_bus_group_driver_vehicle_shift
 msgid "bus_group_driver_vehicle_shift"
 msgstr "人车配班"
+
+#. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/models/bus_staff_group.py:101
+#, python-format
+msgid "bus_group_driver_vehicle_shift is not exists,please check bus_group."
+msgstr "该线路班组管理前一天没有人车配班数据，请检查."
 
 #. module: bus_schedule_plan
 #: model:ir.model,name:bus_schedule_plan.model_bus_group_driver_vehicle_shift_tran

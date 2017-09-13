@@ -230,8 +230,8 @@ function absnormal_del(controllerObj, data_list) {
 
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
-    console.log(dataObj + "_bus")
-    var dom = controllerObj.find(".busRealStateModel_" + dataObj.line_id + "_" + dataObj.bus_no);
+    // console.log(dataObj+"_bus")
+    var dom = controllerObj.find(".busRealStateModel_"+dataObj.line_id+"_"+dataObj.bus_no);
     if (dom.length > 0) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
         var carReportObj = dom.find(".popupContent .carReport");
@@ -309,12 +309,23 @@ function show_electronic_map(dom, data_list, session_ayer) {
 }
 
 // 站点实时状态模块
-function passengerDelayModel_socket_fn(controllerObj, data_list) {
+function passengerDelayModel_socket_fn(controllerObj, dataObj) {
+    // console.log(dataObj);
     var dom = controllerObj.find(".passengerDelayModel");
     if (dom.length > 0) {
-        var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("passengerDelayModel_set"));
-        layer.close(passengerDelayModel_set.layer_index);
-        dom.removeClass('hide_model');
+
+        // var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("passengerDelayModel_set"));
+        // layer.close(passengerDelayModel_set.layer_index);
+        // dom.removeClass('hide_model');
+        var trendObj = dom.find(".trend_chart_single");
+        if (dataObj.packageType == 1034){
+            trendObj = dom.find(".trend_chart_summary");
+        }
+        var trend_chart_map = trendObj.find(".trend_chart_map");
+        var map_botton_info = trendObj.find(".map_botton_info");
+        map_botton_info.find("li:eq(0) span").html(dataObj.station_lag_passengers);
+        map_botton_info.find("li:eq(1) span").html(dataObj.down_passengers);
+        map_botton_info.find("li:eq(2) span").html(dataObj.up_passengers);
     }
 }
 
@@ -341,8 +352,8 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
     if (dom.length > 0 && dataObj.id) {
         var busResource = JSON.parse(sessionStorage.getItem("busResource"));
         // debugger;
-        console.log(dataObj);
-        console.log(modelName);
+        // console.log(dataObj);
+        // console.log(modelName);
         if (modelName == "line_plan") {
             // var content_tb_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb");
             // var tr_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "]").find(".content_tb tr[pid=" + dataObj.id + "]");
@@ -457,7 +468,7 @@ function update_linePlan(controllerObj, dataObj) {
         return false;
     }
 
-    if (typeof dataObj.direction != undefined && active_tr_obj.attr('direction') != dataObj.direction) {
+    if (typeof dataObj.direction!=undefined && active_tr_obj.attr('direction')!=dataObj.direction){
         var content_tb_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb");
         var obj_list = content_tb_obj.find("tr.point");
         for (var i = 0, L = obj_list.length; i < L; i++) {
@@ -597,7 +608,7 @@ function update_linePark(obj, content_tb_obj, active_resource) {
 
     // 车辆在线状态
     if (active_resource.runState != undefined) {
-        if (active_resource.runState == 0) {
+        if (active_resource.runState == 1) {
             obj.find(".runState").addClass('icon2_1').removeClass("icon2_0");
         } else {
             obj.find(".runState").removeClass('icon2_1').addClass("icon2_0");
@@ -699,8 +710,8 @@ function update_busTransit(obj, content_tb_obj, active_resource) {
     }
 
     // 车辆在线状态
-    if (active_resource.runState != undefined) {
-        if (active_resource.runState == 0) {
+    if (active_resource.runState != undefined){
+        if (active_resource.runState == 1){
             obj.find(".runState").addClass('icon2_1').removeClass("icon2_0");
         } else {
             obj.find(".runState").removeClass('icon2_1').addClass("icon2_0");
@@ -711,7 +722,6 @@ function update_busTransit(obj, content_tb_obj, active_resource) {
     if (active_resource.planRunTime != undefined) {
         obj.find(".planRunTime").html(new Date(active_resource.planRunTime).toTimeString().slice(0, 5));
     }
-
 
     // 车辆
     if (active_resource.carNum != undefined) {
