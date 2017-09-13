@@ -111,9 +111,10 @@ class AssignedShifts(models.TransientModel):
             driver_ids = []
             conductor_ids = []
             for j in wizard.driver_vehicle_shift_ids:
-                driver_ids.append(j.driver_id.id)
-                conductor_ids.append(j.conductor_id.id)
-
+                if j.driver_id:
+                    driver_ids.append(j.driver_id.id)
+                if j.conductor_id:
+                    conductor_ids.append(j.conductor_id.id)
             if len(driver_ids) > len(list(set(driver_ids))):#判断司机是否有重复
                 raise UserError(_("There are duplicate driver"))
             if len(conductor_ids)>len(list(set(conductor_ids))):#判断售票员是否有重复
