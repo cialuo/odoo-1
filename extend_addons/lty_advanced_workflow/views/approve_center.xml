@@ -89,7 +89,7 @@
 		<field name="arch" type="xml">
 			<form string="Approve Center">
 				<header>
-                    <button name="do_approve"  string="重新发起" type="object" class="oe_highlight"/>
+                    <button name="do_reset"  string="重新发起" type="object" class="oe_highlight"/>
                     <field name="status" widget="statusbar" statusbar_visible="approving,rejected,done" />
                 </header>			
 			

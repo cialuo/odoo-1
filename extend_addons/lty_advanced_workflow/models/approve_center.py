@@ -23,6 +23,19 @@ class lty_approve_center_group(models.Model):
             ('rejected', u'拒绝'),
             ('done', u'完成')
         ], string=u'状态', required=True, track_visibility='always', default='approving')
+    
+    @api.multi
+    def do_reset(self):
+        if  self.status == 'rejected'  :
+            for node in self.center_id :
+                node.unlink()
+        else:
+            raise UserError((u'只有被拒绝的审批才充许重置!. '))
+
+        self.sudo().object_id.write({'approve_state': u'审批被重置'})  
+        #self.write({'status': 'approved','approve_opinions': ''})    
+    
+    
 class lty_approve_center(models.Model):
     _name = 'lty.approve.center'
     _inherit = ['mail.thread','ir.needaction_mixin']
