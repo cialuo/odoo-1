@@ -54,7 +54,7 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
             var package_line_message = {
                 type: 2001,
                 controlId: this.desktop_id,
-                open_modules: ["line_message"]
+                open_modules: ["bus_resource"]
             };
             websocket.send(JSON.stringify(package_line_message));
             this.destroy();
@@ -129,6 +129,7 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
         events: {
             'click .map_destory': 'close_map'
         },
+
         close_map: function () {
             this.destroy();
         }
