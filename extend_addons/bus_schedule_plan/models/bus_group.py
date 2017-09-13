@@ -14,6 +14,7 @@ class BusGroup(models.Model):
     班组管理
     """
     _name = 'bus_group'
+    _order = "id desc"
 
     _sql_constraints = [
         ('record_unique', 'unique(route_id,name)', _('The route and name must be unique!'))
