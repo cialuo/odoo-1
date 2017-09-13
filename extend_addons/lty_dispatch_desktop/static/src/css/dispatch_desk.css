@@ -153,7 +153,7 @@
     right: 10px;
 }
 
-.dispatch_desktop a.min, .dispatch_desktop a.line_edit, .dispatch_desktop a.show_right{
+.dispatch_desktop a.min, .dispatch_desktop a.line_edit, .dispatch_desktop a.show_right {
     font-weight: bold;
     width: 16px;
     height: 16px;
@@ -192,7 +192,7 @@
     overflow: hidden;
 }
 
-.dispatch_desktop .edit_content .chs{
+.dispatch_desktop .edit_content .chs {
     overflow: scroll;
     height: 100px;
 }
@@ -248,7 +248,7 @@
     padding: 1px 0;
 }
 
-.dispatch_desktop .content_car_road_top,.dispatch_desktop .content_car_road_down {
+.dispatch_desktop .content_car_road_top, .dispatch_desktop .content_car_road_down {
     height: 20px;
     position: relative;
     margin-bottom: 8px;
@@ -256,7 +256,7 @@
 }
 
 /*左至右车辆*/
-.dispatch_desktop .content_car_road_top .line_car{
+.dispatch_desktop .content_car_road_top .line_car {
     position: absolute;
     width: 44px;
     height: 20px;
@@ -297,9 +297,11 @@
     top: 0px;
     cursor: pointer;
 }
-.dispatch_desktop .content_car_road_top .line_car .type_car{
+
+.dispatch_desktop .content_car_road_top .line_car .type_car {
     float: right;
 }
+
 .dispatch_desktop .content_car_road_down .line_car .num_car {
     float: right;
 }
@@ -311,12 +313,11 @@
     line-height: 6px
 }
 
-.dispatch_desktop  .line_car .type_car {
+.dispatch_desktop .line_car .type_car {
     width: 30px;
     height: 8px;
     text-align: center;
 }
-
 
 .absnormal_chart, .lagstation_chart {
     width: 350px;
@@ -416,9 +417,10 @@
     position: absolute;
 }
 
-.updown_line_table .carousel_content.abnormal_active{
-    left:0 !important;
+.updown_line_table .carousel_content.abnormal_active {
+    left: 0 !important;
 }
+
 .updown_line_table .carousel_content > li {
     width: 600px;
     float: left;
@@ -451,13 +453,13 @@
     right: 20px;
 }
 
-.updown_line_table .line_btn,.bus_src_config .min ,.main_controll_interface .min {
+.updown_line_table .line_btn, .bus_src_config .min, .main_controll_interface .min {
     position: absolute;
     top: 5px;
     right: 10px;
 }
 
-.updown_line_table a.min,.bus_src_config .min ,.main_controll_interface .min {
+.updown_line_table a.min, .bus_src_config .min, .main_controll_interface .min {
     width: 16px;
     height: 16px;
     line-height: 12px;
@@ -659,7 +661,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     background: #37405F;
 }
 
-.bus_src_config .add_operate{
+.bus_src_config .add_operate {
     height: 30px;
     line-height: 26px;
     background: none;
@@ -667,11 +669,13 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     border-radius: 4px;
     color: #53CAC8;
 }
-.bus_src_config .add_success{
+
+.bus_src_config .add_success {
     border-color: #6D7487;
     color: #838697;
     cursor: not-allowed;
 }
+
 .bus_src_config .src_title {
     height: 80px;
 }
@@ -723,7 +727,6 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     overflow: hidden;
     padding-left: 31px;
 }
-
 
 .bus_src_config .line_list > div > div {
     height: 26px;
@@ -777,17 +780,21 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     max-height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #6D7487;
-    width:110px;
+    width: 110px;
 }
-.bus_src_config .td_small{
-    width:80px;
+
+.bus_src_config .td_small {
+    width: 80px;
 }
+
 .bus_src_config th {
     color: #53CAC8;
 }
+
 .bus_src_config td {
-    font-size:13px;
+    font-size: 13px;
 }
+
 .bus_src_config .control_btn {
     padding-right: 10px;
     position: relative;
@@ -823,16 +830,18 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     background: -webkit-linear-gradient(top, #32817E, #356691);
     background: -moz-linear-gradient(top, #32817E, #356691);
     display: none;
-    z-index:10000;
+    z-index: 10000;
 }
 
 .bus_src_config .config_bus_source ul {
     border-bottom: 1px solid #6D91A9;
     width: 80px;
 }
-.bus_src_config .position_site{
+
+.bus_src_config .position_site {
     color: #7c7bad;
 }
+
 .bus_src_config .config_bus_source a {
     color: #fff;
 }
@@ -843,9 +852,11 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     text-align: center;
 
 }
-.dispatch_desktop .run_car_hide{
+
+.dispatch_desktop .run_car_hide {
     display: none;
 }
+
 .bus_src_config .config_bus_source div {
     text-align: center;
 }
@@ -960,18 +971,22 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     margin-left: 10px;
     margin-top: 10px;
 }
-.table_bus_num tbody.table_bus_num_tbody{
+
+.table_bus_num tbody.table_bus_num_tbody {
     height: 408px;
     overflow: scroll;
     display: block;
 }
-.table_bus_num .th_end{
+
+.table_bus_num .th_end {
     padding-right: 0;
 }
-.table_bus_num thead{
+
+.table_bus_num thead {
     display: block;
 }
-.table_bus_num.towarn{
+
+.table_bus_num.towarn {
     color: #be4151;
 }
 
@@ -1036,8 +1051,8 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     top: 10px;
 }
 
-.driver_site_map #driver_site{
-    width:300px;
-    height:300px;
+.driver_site_map #driver_site {
+    width: 300px;
+    height: 300px;
 }
 
