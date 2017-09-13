@@ -485,7 +485,7 @@
                                 <t t-esc="passenger.name"></t>
                             </span>
                             <span class="mR10">
-                                <t t-esc="passenger.line_car.join()"></t>路
+                                <t t-esc="passenger.line_car.join()"></t>
                             </span>客流走势图
                             <a class="express_bt" href="javascript:;">发出越站客车</a>
                         </div>
@@ -508,11 +508,35 @@
         <div class="trend_chart_info">
             <div class="trend_chart_map" style="width:466px;height:250px;" ></div>
             <ul class="map_botton_info">
-                <li><span class="num red" t-attf-style="{{widget.passenger_data}}">
-                    <t t-esc="widget.passenger_data[1].value[2]"></t>
-                </span>滞站候车</li>
-                <li><span class="num blue"><t t-esc="widget.passenger_data[2].value[1]"></t></span>0.5h上车</li>
-                <li><span class="num gray"><t t-esc="widget.passenger_data[3].value[1]"></t></span>0.5h下车</li>
+                <li>
+                    <span class="num red">
+                        <t t-if="widget.passenger_data.length &gt; 0">
+                            <t t-esc="widget.passenger_data[1].value[2]"></t>
+                        </t>
+                        <t t-else="">
+                            &#160;&#160;
+                        </t>
+                    </span>滞站候车
+                </li>
+                <li>
+                    <span class="num blue">
+                        <t t-if="widget.passenger_data.length &gt; 0">
+                            <t t-esc="widget.passenger_data[2].value[1]"></t>
+                        </t>
+                        <t t-else="">
+                            &#160;&#160;
+                        </t>
+                    </span>0.5h上车</li>
+                <li>
+                    <span class="num gray">
+                        <t t-if="widget.passenger_data.length &gt; 0">
+                            <t t-esc="widget.passenger_data[3].value[1]"></t>
+                        </t>
+                        <t t-else="">
+                            &#160;&#160;
+                        </t>
+                    </span>0.5h下车
+                </li>
             </ul>
         </div>
     </t>

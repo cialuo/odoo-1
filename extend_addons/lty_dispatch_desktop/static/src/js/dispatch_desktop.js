@@ -29,7 +29,6 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             var font_color = self.$el.find('.src_font_color').val();
             $('body').find('.bus_info li').eq(2).hide();
         }
-
     });
     // 控制台顶部
     var desktop_top = Widget.extend({
@@ -74,6 +73,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                 }
                 return i;
             }
+
             startTime();
         }
     });
@@ -121,8 +121,8 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         config_click: function () {
             var self = this;
-            var a = new config(this);
-            a.appendTo(self.$el);
+            var config_act = new config(this);
+            config_act.appendTo(self.$el);
             self.$el.find('.info_config .modal').modal({backdrop: 'static', keyboard: false});
         },
         save_click: function () {
@@ -138,7 +138,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                         {
                             'position_left': left,
                             'position_top': top,
-                            'position_z_index': 0,
+                            'position_z_index': 0
                         }]).then(function (data) {
                         layer.msg('保存成功');
                     });
