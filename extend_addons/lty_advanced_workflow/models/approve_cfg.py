@@ -49,7 +49,7 @@ class lty_advanced_workflow_cfg_line(models.Model):
     approve_posts = fields.Many2many('employees.post', 'lty_wkf_cfg_line_post', 'post_id', 'approve_posts', 'Approve Post', help="")
     approve_post = fields.Many2one('employees.post','Approve Post', help="")
     approved_nubmber = fields.Char(default='1',readonly='1')
-    farther_node = fields.Many2one('lty.advanced.workflow.cfg.line')
+    farther_node = fields.Many2one('lty.advanced.workflow.cfg.line', domain="[('cfg_id','=',cfg_id)]")
     next_node = fields.Many2one('lty.advanced.workflow.cfg.line')
     node_type = fields.Selection([
             ('start', 'start'),
@@ -61,7 +61,7 @@ class lty_advanced_workflow_cfg_line(models.Model):
             ('open', 'open'),
             ('close', 'close')
         ], string='status', required=True, default='open')
-    cfg_id = fields.Many2one('lty.advanced.workflow.cfg')    
+    cfg_id = fields.Many2one('lty.advanced.workflow.cfg',ondelete='cascade')    
 
 
 
