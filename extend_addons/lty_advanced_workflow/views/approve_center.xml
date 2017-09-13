@@ -89,8 +89,9 @@
 		<field name="arch" type="xml">
 			<form string="Approve Center">
 				<header>
-                    <button name="do_reset"  string="重新发起" type="object" class="oe_highlight"/>
-                    <field name="status" widget="statusbar" statusbar_visible="approving,rejected,done" />
+                    <button name="do_reset"  string="取消审批"  attrs="{'invisible': [('status','not in',('rejected'))]}" type="object" class="oe_highlight"/>
+                    <button name="do_reopen"  string="重新发起" attrs="{'invisible': [('status','not in',('cancel'))]}" type="object" class="oe_highlight"/>
+                    <field name="status" widget="statusbar" statusbar_visible="approving,rejected,cancel,done" />
                 </header>			
 			
                 <sheet>
