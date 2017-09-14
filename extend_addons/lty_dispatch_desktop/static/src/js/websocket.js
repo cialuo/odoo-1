@@ -28,13 +28,15 @@ var socket_model_api_obj = {};
 websocket.onmessage = function (event) {
     var eventObj = JSON.parse(event.data);
     var modelName = eventObj.moduleName;
-    console.log(eventObj);
-    if ($.inArray(modelName, ['passenger_delay', 'bus_real_state', "line_plan", "line_park", "line_online"]) != -1) {
-        // console.log(eventObj);
-    }
     var controllerId = eventObj.controllerId;
+    var controllerObj = $(".controller_" + controllerId);
+    var eventData = eventObj.data;
+    console.log(eventObj);
+    // if ($.inArray(modelName, ['passenger_delay', 'bus_real_state', "line_plan", "line_park", "line_online"])!=-1){
+        // console.log(eventObj);
+    // }
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
-    // linePlanParkOnlineModel_display($(".controller_" + controllerId));
+    // linePlanParkOnlineModel_display(controllerObj);
 
     if (modelName == "line_message") {
         use_odoo_model(event, "line_message");
@@ -43,22 +45,26 @@ websocket.onmessage = function (event) {
         use_odoo_model(event, "passenger_flow");
     } else if (modelName == "人力资源状态") {
 
-    } else if (modelName == "bus_resource") {
-        line_resource($(".controller_" + controllerId), eventObj.data);
+    }else if (modelName == "bus_resource"){
+        line_resource(controllerObj, eventData);
     }
     else if (modelName == "bus_real_state") {
-        busRealStateModel_socket_fn($(".controller_" + controllerId), eventObj.data);
+        busRealStateModel_socket_fn(controllerObj, eventData);
     }
     else if (modelName == "passenger_delay") {
-        passengerDelayModel_socket_fn($(".controller_" + controllerId), eventObj.data);
+        passengerDelayModel_socket_fn(controllerObj, eventData);
     } else if ($.inArray(modelName, ["line_plan", "line_park", "line_online"]) != -1) {
-        update_linePlanParkOnlineModel_socket_fn($(".controller_" + controllerId), eventObj.data, modelName);
+        update_linePlanParkOnlineModel_socket_fn(controllerObj, eventData, modelName);
     } else if (modelName == "消息") {
         // console.log('10');
     } else if (modelName == "abnormal") {
-        absnormal_del($(".controller_" + controllerId), eventObj.data);
-        use_odoo_model(event, "abnormal");
-        line_car_src_on_line($(".controller_" + controllerId), eventObj);
+        absnormal_del(controllerObj, eventData);
+        use_odoo_model(event,"abnormal");
+        line_car_src_on_line(controllerObj, eventObj);
+        //车辆掉线包
+        if (eventObj.type == 1003){
+            vehicle_drop(controllerObj, eventData);
+        }
     }
     // else if (modelName == "bus_real_state") {
     //     line_car_src_real_state($(".controller_" + controllerId), eventObj.data);
@@ -224,6 +230,37 @@ function absnormal_del(controllerObj, data_list) {
     }
 }
 
+// 电子地图模块
+function show_electronic_map(dom, data_list, session_ayer) {
+    if (dom.length > 0) {
+        var layer_map_close = JSON.parse(sessionStorage.getItem(session_ayer));
+        layer.close(layer_map_close.layer_map);
+        if (socket_model_api_obj.electronicMapModel.marker) {
+            socket_model_api_obj.electronicMapModel.marker.setPosition(new AMap.LngLat(data_list.location_log, data_list.location_lan));
+        } else {
+            var mapObj = new AMap.Map(dom[0], {zoom: 14, center: [data_list.location_log, data_list.location_lan]});
+            var marker = new AMap.Marker({
+                map: mapObj,
+                position: [data_list.location_log, data_list.location_lan]
+            });
+            socket_model_api_obj.electronicMapModel.marker = marker;
+
+        }
+    }
+}
+
+// 车辆掉线
+function vehicle_drop(controllerObj, dataObj){
+    var dom = controllerObj.find("linePlanParkOnlineModel");
+    if (dom.length>0){
+        var abnormal_description = dataObj.abnormal_description;
+        var vehicle = dom.find(".yard_box .content_tb tr[pid="+abnormal_description.bus_on+"]");
+        if (vehicle.length>0){
+            vehicle.find(".runState").removeClass("icon2_1").addClass("icon2_0");
+        }
+    }
+}
+
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
     // console.log(dataObj+"_bus")
@@ -285,28 +322,9 @@ function busRealStateModel_map(dom, gps) {
     }
 }
 
-// 电子地图模块
-function show_electronic_map(dom, data_list, session_ayer) {
-    if (dom.length > 0) {
-        var layer_map_close = JSON.parse(sessionStorage.getItem(session_ayer));
-        layer.close(layer_map_close.layer_map);
-        if (socket_model_api_obj.electronicMapModel.marker) {
-            socket_model_api_obj.electronicMapModel.marker.setPosition(new AMap.LngLat(data_list.location_log, data_list.location_lan));
-        } else {
-            var mapObj = new AMap.Map(dom[0], {zoom: 14, center: [data_list.location_log, data_list.location_lan]});
-            var marker = new AMap.Marker({
-                map: mapObj,
-                position: [data_list.location_log, data_list.location_lan]
-            });
-            socket_model_api_obj.electronicMapModel.marker = marker;
-
-        }
-    }
-}
-
 // 站点实时状态模块
 function passengerDelayModel_socket_fn(controllerObj, dataObj) {
-    // console.log(dataObj);
+    console.log(dataObj);
     var dom = controllerObj.find(".passengerDelayModel");
     if (dom.length > 0) {
 
@@ -347,16 +365,16 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
     var dom = controllerObj.find(".linePlanParkOnlineModel_" + dataObj.line_id);
     if (dom.length > 0 && dataObj.id) {
         var busResource = JSON.parse(sessionStorage.getItem("busResource"));
-        // debugger;
-        // console.log(dataObj);
-        // console.log(modelName);
         if (modelName == "line_plan") {
             // var content_tb_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb");
             // var tr_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "]").find(".content_tb tr[pid=" + dataObj.id + "]");
             // var tr_obj = controllerObj.find(".bus_plan .content_tb tr[pid=" + dataObj.id + "]");
             // update_linePlan(tr_obj, content_tb_obj, dataObj);
             update_linePlan(controllerObj, dataObj);
-        } else {
+        }else{
+            // console.log(dataObj);
+            // console.log(modelName);
+            // debugger;
             var active_resource = new Object();
             for (var o = 0, ol = busResource.length; o < ol; o++) {
                 var ol_resource = busResource[o];
@@ -379,11 +397,9 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
 
             if (modelName == "line_park") {
                 var content_tb_obj = controllerObj.find(".bus_yard[direction=" + direction + "] .content_tb");
-                // var tr_obj = controllerObj.find(".bus_yard[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
                 update_linePark(tr_obj, content_tb_obj, active_resource);
             } else {
                 var content_tb_obj = controllerObj.find(".bus_transit[direction=" + direction + "] .content_tb");
-                // var tr_obj = controllerObj.find(".bus_transit[direction="+dataObj.direction+"]").find(".content_tb tr[pid="+dataObj.id+"]");
                 update_busTransit(tr_obj, content_tb_obj, active_resource);
             }
         }

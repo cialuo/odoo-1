@@ -19,33 +19,34 @@
 		<field name="arch" type="xml">
 			<form string="Approve cfg">
 				<header>
-                    <button name="do_confirm" string="confirm" type="object" class="oe_highlight"/>
-                    <button name="do_approve" string="Approve" type="object" class="oe_highlight"/>
-                    <field name="status" widget="statusbar" statusbar_visible="draft,commited,approved" />
+                    <button name="do_approve" string="审核" attrs="{'invisible': [('status','not in',('draft'))]}" type="object" class="oe_highlight"/>
+                    <button name="do_cancel" string="弃审" attrs="{'invisible': [('status','not in',('approved'))]}" type="object" class="oe_highlight"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,approved" />
                 </header>
                 <sheet>
 					<group>
 						<group>
-                            <field name="name"/>
-                            <field name="code"/>
-                            <field name="model"/>
+                            <field name="name" attrs="{'readonly': [('status','in',('approved'))]}"/>
+                            <field name="code" attrs="{'readonly': [('status','in',('approved'))]}"/>
+                            <field name="model" attrs="{'readonly': [('status','in',('approved'))]}"/>
                             <!--<field name="start_status"/>-->
 						</group>
 						<group>
-                            <field name="note"/>
+                            <field name="note" attrs="{'readonly': [('status','in',('approved'))]}"/>
                             <!--<field name="end_status"/>-->
 						</group>
 					</group>
 					<notebook>
 						<page string = 'workflow config'>
-                            <field name="line_ids">
+                            <field name="line_ids" context="{'default_cfg_id': active_id}">
 								<tree editable='bottom'>
 									<field name="squence"/>
 									<field name="name"/>
 									<field name="conditions"/>
 									<field name="approve_type"/>
-									<field name="approve_post"/>
+									<field name="approve_post" string='审批岗位'/>
 									<field name="approved_nubmber"/>
+									<field name="cfg_id" invisible="1"/>
 									<field name="farther_node"/>
 									<field name="node_type"/>
 									<field name="note"/>
