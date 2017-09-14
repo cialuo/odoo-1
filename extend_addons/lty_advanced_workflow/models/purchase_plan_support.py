@@ -59,11 +59,12 @@ class PuchasePlan(models.Model):
     
     @api.multi
     def write(self, vals):
-        approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(self.id))])
-        if not vals.get('approve_state'):
-            for node in approve_nodes :
-                if node.approved is False  and node.active_node is True :
-                    raise UserError((u'审批未完成或被拒绝. '))   
+        for order in self:
+            approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(order.id))])
+            if not vals.get('approve_state'):
+                for node in approve_nodes :
+                    if node.approved is False  and node.active_node is True :
+                        raise UserError((u'审批未完成或被拒绝. '))
         productid = super(PuchasePlan, self).write(vals)
     
         return productid   
