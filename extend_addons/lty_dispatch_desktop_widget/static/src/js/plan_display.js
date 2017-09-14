@@ -793,6 +793,17 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         start: function () {
             var self = this;
+            // 增加icon浮层说明
+            self.$(".content_tb .icon").hover(function () {
+                if ($(this).hasClass("checkOut")) {
+                    var txt = ($(this).attr("st") == 1) ? '已签到' : '未签到'
+                } else {
+                    var txt = ($(this).attr("st") == 1) ? '在线' : '未在线'
+                }
+                self.layer_f_index = layer.tips(txt, this);
+            }, function () {
+                layer.close(self.layer_f_index);
+            });
             // 右键事件
             self.$(".content_tb").on("mousedown", ".point", function (e) {
                 if (e.button == 2) {
@@ -1416,6 +1427,60 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             });
         }
     });
+
+    function opDisPatchPlanOpEditDriver_onfocus_Autocomplete(evt) {
+        var workDate = $("#opDispatchPlanOpEditWorkDate").val();
+        $(evt).autocomplete("/ltyop/opAttendance/autocompleteAttendanceByGprsid?controlId=2068&dateSearch=" + workDate + "&gprsid=", {
+        // $(evt).autocomplete("ltyop/dspSimulationDisPatchPlan/autocompleteBusResourcByControlIdNoCarState?apikey=&params={
+            minChars: 1, //自动完成激活之前填入的最小字符
+            mustMatch: true,
+            matchSubset: false,
+            max: 180,
+            width: 180,
+            dateSearch: xxxx,
+            controlId: xxx,
+            lineId: xxx,
+            carNum: xxx,
+            formatItem: function(row, i, max, id, term) {
+                return getAutocompleteCss(term, row.workerId, row.driverName, '180');
+            },
+            formatMatch: function(row, i, max) {
+                return row.driverName + row.driverName;
+            },
+            formatResult: function(row) {
+                return row.workerId;
+            }
+        }).result(function(event, row, formatted) {
+            if (row != null) {
+                $("input[name='driverName']").val(row.driverName);
+            }
+        });
+    }
+
+
+    function getAutocompleteCss(term, arg1, arg2, width) {
+        if (arg1 != undefined) {
+            var wid = 120;
+            if (width == "" || width == undefined) {
+
+            } else {
+                wid = width;
+            }
+
+            var str = "<table width='" + wid + "px'><tr><td align='left'>" +
+                arg1.replace(term, "<font style='color: red; font-style: italic'>" + term + "</font>").replace(term.toUpperCase(), "<font style='color: red; font-style: italic'>" + term.toUpperCase() + "</font>") +
+                "</td>";
+
+            if (arg2 == "" || arg2 == undefined) {} else {
+                str = str + "<td align='right'><font style='font-family: 黑体; font-style: italic'>" +
+                    arg2.replace(term, "<font style='color: red; font-style: italic'>" + term + "</font>").replace(term.toUpperCase(), "<font style='color: red; font-style: italic'>" + term.toUpperCase() + "</font>") +
+                    "</font></td>";
+            }
+            str = str + "</tr></table>";
+            return str;
+        }
+    }
+
     return plan_display;
 });
 
