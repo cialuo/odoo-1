@@ -251,6 +251,14 @@
                                 <field name="slow_after_the_start_to_determine" class="oe_inline"/>
                             </div>
                         </div>
+                        <label for="id" string="Plan Hidden Time"/>
+                        <div>
+                            <div>
+                                <span>Plan Hidden Time</span>
+                                <field name="plan_hidden_time" class="oe_inline"/>
+                            </div>
+
+                        </div>						
                     </group>
 
                     <group string="Vehicle program" name="Vehicle program">
