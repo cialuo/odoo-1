@@ -352,7 +352,7 @@ class General_setting(models.TransientModel):
     dark_red_font_color_less = fields.Integer(related='company_id.dark_red_font_color_less')
 	
     #计划超时隐藏时间
-    plan_hidden_time = fields.Datetime(related='company_id.plan_hidden_time')
+    plan_hidden_time = fields.Integer(related='company_id.plan_hidden_time')
 
     @api.multi
     def execute(self):
