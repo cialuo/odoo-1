@@ -30,9 +30,11 @@ class lty_approve_center_group(models.Model):
         if  self.status != 'done' :
             self.env['lty.approve.center'].search([('center_id','=',self.id)])
             for node in self.center_id :
-                node.unlink()
-            for node_false in self.env['lty.approve.center'].search([('center_id','=',self.id),('active','=',False)]) :
-                node_false.unlink()
+                #node.unlink()
+                node.sudo().write({'status': 'cancel','cfg_line_id': '', 'cfg_father_line_id': ''})  
+            for node_false in self.sudo().env['lty.approve.center'].search([('center_id','=',self.id),('active','=',False)]) :
+                #node_false.unlink()
+                node_false.sudo().write({'status': 'cancel','cfg_line_id': '', 'cfg_father_line_id': ''})  
         else:
             raise UserError((u'该流程已审批完成，禁止取消!. '))
 
@@ -88,7 +90,8 @@ class lty_approve_center(models.Model):
     status = fields.Selection([
             ('commited', 'commited'),
             ('approved', 'approved'),
-            ('rejected', 'rejected')
+            ('rejected', 'rejected'),
+            ('cancel', u'取消')
         ], string='status', required=True, track_visibility='always', default='commited')
     line_ids = fields.One2many('lty.approve.logs','center_id') 
     cfg_line_id = fields.Many2one('lty.advanced.workflow.cfg.line')
@@ -138,14 +141,15 @@ class lty_approve_center(models.Model):
                 object2 = user.object_id._name+','+str(user.object_id.id)
                 farther_node_state = self.sudo().search([('cfg_line_id', '=',user.cfg_line_id.farther_node.id),('object_id', '=',object2)],limit = 1).approved
             else:
-                farther_node_state = True                            
-            domain = eval( user.cfg_line_id.conditions)
-            domain.append(('id', '=', user.object_id.id))                    
-            if len(self.env[user.object_id._name].search(domain))>0 :
-                condiction_state = True
-            
-            if condiction_state and farther_node_state :
-                user.active_node = True
+                farther_node_state = True
+            if user.cfg_line_id:                           
+                domain = eval( user.cfg_line_id.conditions)
+                domain.append(('id', '=', user.object_id.id))                    
+                if len(self.env[user.object_id._name].search(domain))>0 :
+                    condiction_state = True
+                
+                if condiction_state and farther_node_state :
+                    user.active_node = True
             
     @api.multi
     def _compute_approve_state(self):
@@ -160,7 +164,7 @@ class lty_approve_center(models.Model):
         if not self.active_node  :
             raise UserError((u'审批节点未被激活!. '))
         #更新下级流程节点状态
-        next_nodes = self.sudo().search([('active', '=',False),('active_node', '=',True),('cfg_father_line_id', '=',self.cfg_line_id.id),('object_id', '=',self.object_id._name+','+str(self.object_id.id))])
+        next_nodes = self.sudo().search([('active', '=',False),('status', '<>','cancel'),('cfg_father_line_id', '=',self.cfg_line_id.id),('object_id', '=',self.object_id._name+','+str(self.object_id.id))])
         next_nodes.active_node
         if  next_nodes :       
             for next_node in next_nodes:
