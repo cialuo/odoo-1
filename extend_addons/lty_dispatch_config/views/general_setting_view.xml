@@ -254,7 +254,8 @@
                         <label for="id" string="Plan Hidden Time"/>
                         <div>
                             <div>
-                                <span>Plan Hidden Time</span>
+                                <span>Plan Hidden Time(min)</span>
+								<!--计划隐藏时间-->
                                 <field name="plan_hidden_time" class="oe_inline"/>
                             </div>
 
