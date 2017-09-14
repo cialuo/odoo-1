@@ -35,6 +35,7 @@ class RouteInBusSchedule(models.Model):
         for item in sitelist:
             sitecollection_down.append((0, 0, {
                 'site_id': item.station_id.id,
+                'site_seq': item.sequence
             }))
 
         context = dict(self.env.context,

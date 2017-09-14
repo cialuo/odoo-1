@@ -248,8 +248,8 @@ op_planstationbigmain = {
     ('byLastStationNormal', 'tolastsit_flat'): None,
     #距上一站时间（高峰）
     ('byLastStationHigh', 'tolastsit_peak'): None,
-    # #编号 int not found
-    # ('orderNo', None): None,
+    #站点序号 int 9-13增加
+    ('orderNo', 'site_seq'): None,
     # #峰段标志ID 1001:低峰；1002：平峰；1003：高峰 not found
     # ('flagId', None): None,
     # #峰段标志名称 string not found
