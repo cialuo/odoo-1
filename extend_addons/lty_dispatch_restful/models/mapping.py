@@ -302,7 +302,7 @@ op_param = {
     #计划执行方式,不在调度参数表，在通用设置表
     ('planExeStyle', 'plan_execution_mode'): {'earliest': 1, 'recent':0},
     #计划显示范围, 无对应字段
-    ('planViewRange', None): None,
+    #('planViewRange', None): None,
     #同意请求排班
     ('agreeReqWorkPlan', 'is_agree_ask'): {True: 0, False:1},
     #签到立即派班
@@ -396,7 +396,7 @@ op_param = {
     #有效签点数,不在调度参数表，在通用设置表
     ('dispatchStationLimit', 'number_of_signatures'): None,
     #计划陷藏时间，在通用设置表
-    ('planViewRange ', 'plan_hidden_time'): None,		
+    ('planViewRange', 'plan_hidden_time'): None,		
 }
 
 #人员-IC卡管理
