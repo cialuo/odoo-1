@@ -14,6 +14,7 @@
         'security/security.xml',
         'security/ir.model.access.csv',
         'views/product_view.xml',
+        'views/multi_lot_wizard.xml',
     ],
     'depends': ['materials_menu', 'stock', 'purchase', 'fleet'],
     'application': True,
