@@ -198,15 +198,11 @@ function absnormal_del(controllerObj, data_list) {
         }
         // 提前或延后发车
         else if (data_list.packageType == 1016) {
-            if (data_list.abnormal_description.advance_time > 0) {
                 abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '提前发车,提前' + data_list.abnormal_description.advance_time +'分钟');
-            } else if (data_list.abnormal_description.advance_time < 0) {
-                abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_no + '提前发车,滞后' + (-1 * data_list.abnormal_description.advance_time));
-            }
         }
         // 到点未发车
         else if (data_list.packageType == 1017) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '到点未发车,滞后' + data_list.abnormal_description.retention_time);
+            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '到点未发车,滞后' + data_list.abnormal_description.retention_time+'分钟');
         }
         // 意外高峰
         else if (data_list.packageType == 1018) {

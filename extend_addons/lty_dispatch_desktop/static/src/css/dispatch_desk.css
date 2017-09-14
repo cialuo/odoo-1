@@ -71,6 +71,12 @@
     position: absolute;
 }
 
+.dispatch_desktop .park_left, .dispatch_desktop .park_right {
+    /*visibility: hidden;*/
+    background: #4ED0C6;
+    cursor: pointer;
+}
+
 .dispatch_desktop .content {
     width: 1276px;
     height: 190px;
@@ -215,7 +221,6 @@
     text-align: center;
     float: left;
     color: #fff;
-    margin-right: 4px;
     font-size: 12px;
     display: inline-block;
     -webkit-transform: scale(0.833);
@@ -270,6 +275,7 @@
     -webkit-transform: scale(0.75);
     -moz-transform: scale(0.75);
     color: #fff;
+    margin-left: -2px;
     display: inline-block;
     line-height: 9px;
 }

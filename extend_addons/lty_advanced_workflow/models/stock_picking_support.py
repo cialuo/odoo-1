@@ -4,10 +4,26 @@ from odoo import models, fields, api
 from odoo.exceptions import UserError
 import datetime
 
-class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+
     
+class stock_picking(models.Model):
+    _inherit = 'stock.picking'
+    
+    total_qty = fields.Integer(compute='_compute_picking_total_qty',store=True)
+    total_price = fields.Integer(compute='_compute_picking_total_qty',store=True)
     approve_state = fields.Char(u'审批状态',track_visibility='always')
+    
+    
+    @api.one
+    @api.depends('move_lines')
+    def _compute_picking_total_qty(self):
+        total_qty = 0
+        total_price = 0
+        for move_line in self.move_lines:
+            total_qty = total_qty + move_line.product_uom_qty
+            total_price = total_price + move_line.price_unit*move_line.product_uom_qty
+        self.total_qty = total_qty
+        self.total_price = total_price
     
     @api.multi
     def _adv_wkf_id_get(self):
@@ -25,7 +41,7 @@ class ProductTemplate(models.Model):
                 'approve_state': u'单据进入审批状态，此期间禁止任何修改',
             })        
         
-        productid = super(ProductTemplate, self).create(vals)
+        productid = super(stock_picking, self).create(vals)
         obj_id = self.env['ir.model'].search([('model', 'ilike', self._name)], limit=1).id
         cfg =  self.env['lty.advanced.workflow.cfg'].search([('model', '=',obj_id),('status','=','approved')], limit=1)
         if cfg :
@@ -63,10 +79,9 @@ class ProductTemplate(models.Model):
             for node in approve_nodes :
                 if node.approved is False  and node.active_node is True :
                     raise UserError((u'审批未完成或被拒绝. '))   
-        productid = super(ProductTemplate, self).write(vals)
+        productid = super(stock_picking, self).write(vals)
     
-        return productid   
-              
+        return productid
         
     
  

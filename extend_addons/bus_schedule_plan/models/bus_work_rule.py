@@ -118,8 +118,9 @@ class BusWorkRules(models.Model):
         for item in obj.upplanvehiclearrange:
             vcount += item.allvehicles
 
-        for item in obj.downplanvehiclearrange:
-            vcount += item.allvehicles
+        if obj.schedule_method == 'dubleway':
+            for item in obj.downplanvehiclearrange:
+                vcount += item.allvehicles
 
         if vcount > obj.bus_number:
             raise ValidationError(_("vechile count large then vehicle number"))
@@ -698,13 +699,13 @@ class RuleBusArrangeUp(models.Model):
     rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule", ondelete="cascade")
 
     # 车型
-    vehiclemode = fields.Many2one("fleet.vehicle.model", string="vehicle mode")
+    vehiclemode = fields.Many2one("fleet.vehicle.model", string="vehicle mode", required=True)
 
     # 运营数量
-    workingnumber = fields.Integer(string="vehicle working number")
+    workingnumber = fields.Integer(string="vehicle working number", required=True)
 
     # 机动车数量
-    backupnumber = fields.Integer(string="vehicle backup number")
+    backupnumber = fields.Integer(string="vehicle backup number", required=True)
 
     # 核载人数
     passengernumber = fields.Integer(related="vehiclemode.ride_number", string="passenger number")
@@ -799,19 +800,22 @@ class BigSiteSettingsUp(models.Model):
 
     site_id = fields.Many2one("opertation_resources_station")
 
+    # 站序
+    site_seq = fields.Integer(string="site sequence")
+
     # 是否签点
     needsign = fields.Boolean(string="need sign")
 
     # 是否大站考核
     needchecking = fields.Boolean(string="need checking")
 
-    # 距上一站时间(低峰)
+    # 距首站时间(低峰)
     tolastsit_low = fields.Integer(string="to last site time (low)")
 
-    # 距上一站时间(平峰)
+    # 距首站时间(平峰)
     tolastsit_flat = fields.Integer(string="to last site time (flat)")
 
-    # 距上一站时间(高峰)
+    # 距首站时间(高峰)
     tolastsit_peak = fields.Integer(string="to last site time (high)")
 
     # 允许快几分钟

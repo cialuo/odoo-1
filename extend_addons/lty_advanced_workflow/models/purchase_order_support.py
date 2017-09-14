@@ -3,10 +3,11 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 import datetime
-
-class ProductTemplate(models.Model):
-    _inherit = 'product.template'
     
+class purchase_order(models.Model):
+    _inherit = 'purchase.order'
+	
+	
     approve_state = fields.Char(u'审批状态',track_visibility='always')
     
     @api.multi
@@ -24,8 +25,7 @@ class ProductTemplate(models.Model):
             vals.update({
                 'approve_state': u'单据进入审批状态，此期间禁止任何修改',
             })        
-        
-        productid = super(ProductTemplate, self).create(vals)
+        productid = super(purchase_order, self).create(vals)
         obj_id = self.env['ir.model'].search([('model', 'ilike', self._name)], limit=1).id
         cfg =  self.env['lty.advanced.workflow.cfg'].search([('model', '=',obj_id),('status','=','approved')], limit=1)
         if cfg :
@@ -63,11 +63,6 @@ class ProductTemplate(models.Model):
             for node in approve_nodes :
                 if node.approved is False  and node.active_node is True :
                     raise UserError((u'审批未完成或被拒绝. '))   
-        productid = super(ProductTemplate, self).write(vals)
+        productid = super(purchase_order, self).write(vals)
     
         return productid   
-              
-        
-    
- 
-    

@@ -104,15 +104,25 @@ class AssignedShifts(models.TransientModel):
             'context': {'default_active_id': self._context.get('active_id')}
         }
 
-
     @api.multi
     def assigned_shifts(self):
-        print self.group_id
         for wizard in self:
-            res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '=', self.use_date),
-                                                               ('group_id', '=', self.group_id.id)])
-            for i in res:
-                i.unlink()
+            flag = False
+            driver_ids = []
+            conductor_ids = []
+            for j in wizard.driver_vehicle_shift_ids:
+                if j.driver_id:
+                    driver_ids.append(j.driver_id.id)
+                if j.conductor_id:
+                    conductor_ids.append(j.conductor_id.id)
+            if len(driver_ids) > len(list(set(driver_ids))):#判断司机是否有重复
+                raise UserError(_("There are duplicate driver"))
+            if len(conductor_ids)>len(list(set(conductor_ids))):#判断售票员是否有重复
+                raise UserError(_("There are duplicate conductor"))
+
+            #删除之前的初始化数据
+            self.env['bus_group_driver_vehicle_shift'].search([('use_date', '=', self.use_date),
+                                                               ('group_id', '=', self.group_id.id)]).unlink()
 
             for j in wizard.driver_vehicle_shift_ids:
                 data = {
@@ -127,6 +137,9 @@ class AssignedShifts(models.TransientModel):
                     'bus_group_vehicle_id': j.bus_group_vehicle_id.id
                 }
                 self.env['bus_group_driver_vehicle_shift'].create(data)
+                flag = True
+            if flag and self.group_id.state == 'use':
+                self.group_id.write({'state': 'wait_check'})
         return False
 
 
