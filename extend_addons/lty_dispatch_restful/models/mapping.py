@@ -395,6 +395,8 @@ op_param = {
     ('openCloseDoor2', 'out_not_closed_the_door'): {True: 1, False:0},
     #有效签点数,不在调度参数表，在通用设置表
     ('dispatchStationLimit', 'number_of_signatures'): None,
+    #计划陷藏时间，在通用设置表
+    ('planViewRange ', 'plan_hidden_time'): None,		
 }
 
 #人员-IC卡管理
