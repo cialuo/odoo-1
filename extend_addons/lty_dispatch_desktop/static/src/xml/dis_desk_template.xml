@@ -156,15 +156,11 @@
 						<div class="road_distribute">
 							<div  class="">
 								<div class="line_status ovf">
-									<ul class="fl park_left">
-										<li>8</li>
-										<li>12</li>
+									<ul class="fl park_left park_top_down_way">
+										<li></li>
 									</ul>
-									<ul  class="fr park_right">
-										<li>24</li>
-										<li>12</li>
-										<li>8</li>
-										<li>65</li>
+									<ul  class="fr park_right park_top_down_way">
+										<li></li>
 									</ul>
 								</div>
 								<div class="actual_traffic ovf">
@@ -359,17 +355,17 @@
 							<div>
 								<dl>
 									<dt>背景设置</dt>
-									<!--<dd>-->
-									<!--<span>-->
-									<!--背景色-->
-									<!--</span>-->
-									<!--<input type="color"/>-->
-									<!--</dd>-->
+                                    <!--<dd>-->
+                                    <!--<span>-->
+                                    <!--背景色-->
+                                    <!--</span>-->
+                                    <!--<input type="color"/>-->
+                                    <!--</dd>-->
 									<dd>
 										<span>资源字体颜色设置</span>
 										<input type="color" class="src_font_color"/>
 									</dd>
-									<!--<dd>资源字体大小设置</dd>-->
+                                    <!--<dd>资源字体大小设置</dd>-->
 								</dl>
 								<dl>
 									<dt>资源设置</dt>
@@ -502,15 +498,15 @@
 									<td class="line_src_lineName td_small">
 										<t t-esc="item.lineName"></t>
 									</td>
-									<!--车号-->
+                                    <!--车号-->
 									<td class="line_src_carNum td_small">
 										<t t-esc="item.carNum"></t>
 									</td>
-									<!--车牌-->
+                                    <!--车牌-->
 									<td class="line_src_onBoardId td_small">
 										<t t-esc="item.onBoardId"></t>
 									</td>
-									<!--司机名字-->
+                                    <!--司机名字-->
 									<td class="line_src_driverName td_small">
 										<t t-esc="item.driverName"></t>
 									</td>
@@ -518,7 +514,7 @@
 										<t t-if="item.direction==0">上行</t>
 										<t t-elif="item.direction==1">下行</t>
 									</td>
-									<!--位置-->
+                                    <!--位置-->
 									<td class="line_src_site td_small">
 										<a href="#" class="position_site">
 											<!--<t t-esc="item.location_gps"></t>-->
@@ -528,10 +524,10 @@
 										<p t-if="item.carStateId==2008">机动</p>
 										<p t-else="">运营</p>
 									</td>
-									<!--当前任务-->
+                                    <!--当前任务-->
 									<td class="line_src_current_task td_small">
 										<!--<t t-esc="item.Current_task"></t>-->
-										<!--当前任务-->
+                                        <!--当前任务-->
 										<p t-if="item.task==1000">正常</p>
 										<p t-elif="item.carStateId==1001">进场包车开始</p>
 										<p t-elif="item.carStateId==1002">进场包车结束</p>
@@ -550,22 +546,22 @@
 										<p t-elif="item.carStateId==2015">进场医疗开始</p>
 										<p t-elif="item.carStateId==2016">进场医疗结束</p>
 									</td>
-									<!--乘客数量-->
+                                    <!--乘客数量-->
 									<td class="line_src_Passanger_number td_small">
 										<!--<t t-esc="Passenger_number"></t>-->
 
 									</td>
-									<!--满载率-->
+                                    <!--满载率-->
 									<td class="line_src_full_load_rate td_small">
 										<!--<t t-esc=""></t>-->
-										<!--满载率-->
+                                        <!--满载率-->
 									</td>
-									<!--信号状态-->
+                                    <!--信号状态-->
 									<td class="line_src_sinal_status td_small">
 										<!--<t t-esc="item.sinal_status"></t>-->
-										<!--信号状态-->
+                                        <!--信号状态-->
 									</td>
-									<!--车速-->
+                                    <!--车速-->
 									<td class="line_src_speed td_small">
 										<!--车速-->
 									</td>

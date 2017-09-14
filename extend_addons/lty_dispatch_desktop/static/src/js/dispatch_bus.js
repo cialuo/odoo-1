@@ -102,7 +102,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 };
                                 cir_and_text(cirTop);
                                 cir_and_text(cirBottom);
-                                var m = n = 0;
+                                var bus_park_top = bus_park_down = bus_way_top = bus_way_down = 0;
                                 $.ajax({
                                     url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + self.line_id + '}',
                                     type: 'get',
@@ -113,13 +113,20 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
 
                                         for (var i = 0; i < data.respose.length; i++) {
                                             if (data.respose[i].direction == 0 && data.respose[i].inField == 1 && data.respose[i].carStateId == 1001) {
-                                                m++;
+                                                bus_park_top++;
                                             }
-                                            if (data.respose[i].direction == 1 && data.respose[i].inField == 1 && data.respose[i].carStateId == 1001) {
-                                                n++;
+                                            else if (data.respose[i].direction == 1 && data.respose[i].inField == 1 && data.respose[i].carStateId == 1001) {
+                                                bus_park_down++;
+                                            }
+                                            else if (data.respose[i].direction == 0 && data.respose[i].inField == 0) {
+                                                bus_way_top++;
+                                            }
+                                            else if (data.respose[i].direction == 1 && data.respose[i].inField == 0) {
+                                                bus_way_down++;
                                             }
                                         }
-
+                                        self.$el.find('.park_left li').html(bus_way_top);
+                                        self.$el.find('.park_right li').html(bus_way_down);
                                         can_left_right(
                                             {
                                                 id: '.canvas_left',
@@ -129,7 +136,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                 r: 4,
                                                 lineLen: 17,
                                                 sta: 1,
-                                                busNumber: m+'辆'
+                                                busNumber: bus_park_top + '辆'
                                             }
                                         );
                                         can_left_right(
@@ -141,10 +148,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                 r: 4,
                                                 lineLen: 0,
                                                 sta: 1.5,
-                                                busNumber: n+'辆'
+                                                busNumber: bus_park_down + '辆'
                                             }
                                         );
-                                        return m,n;
+                                        return bus_park_top, bus_park_down;
                                     },
                                     error: function () {
                                         alert("请求出错");
@@ -164,12 +171,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         arg: {
                                             self: self,
                                             line_id: self.line_id,
+                                            desktop_id: self.desktop_id,
                                             site_top_infos: res_top,
                                             site_down_infos: res_down,     //此处修改
                                             dataSite_top_color_cof: dataSite_top_color_cof,
                                             dataSite_down_color_cof: dataSite_down_color_cof,
-                                            busTopNumber: m+'辆',
-                                            busDownNumber: n+'辆',
+                                            busTopNumber: bus_park_top + '辆',
+                                            busDownNumber: bus_park_down + '辆',
                                             hasCar: []
                                         }
                                     };
@@ -193,6 +201,29 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var data_use = JSON.parse(data_list)
             var data = new Object();
             var line_c = parseInt(arg.line_id);
+            //车辆在途刷新  后期socket推送
+            $.ajax({
+                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (data) {
+                    bus_way_top = bus_way_down = 0;
+                    for (var i = 0; i < data.respose.length; i++) {
+                        if (data.respose[i].direction == 0 && data.respose[i].inField == 0) {
+                            bus_way_top++;
+                        }
+                        else if (data.respose[i].direction == 1 && data.respose[i].inField == 0) {
+                            bus_way_down++;
+                        }
+                    }
+                    self.$el.find('.park_left li').html(bus_way_top);
+                    self.$el.find('.park_right li').html(bus_way_down);
+                },
+                error: function () {
+                    alert("请求出错");
+                }
+            });
             //匹配line_id和desktop_id
             if (data_use.data.line_id == line_c && data_use.controllerId == self.desktop_id) {
                 //线路状态分段颜色   目前使用的假数据
@@ -330,7 +361,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             'mouseup .bus_info': 'bus_man_src',
             //鼠标划过上下行车路线时的cursor属性
             // 行车组件关闭
-            'click .min': 'closeFn'
+            'click .min': 'closeFn',
+            'click .park_top_down_way': 'open_park_way'
         },
         closeFn: function () {
             var self = this;
@@ -358,6 +390,30 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
             if ($('body').find('.dispatch_desktop').length > 0) {
                 $('body').find('.dispatch_desktop:last').attr("click", "yes");
+            }
+        },
+        open_park_way: function (e) {
+            var self = this;
+            var zIndex = parseInt(this.$el[0].style.zIndex) + 1;
+            var options =
+                {
+                    x: e.clientX + 5,
+                    y: e.clientY + 5 - 60,
+                    zIndex: zIndex,
+                    line_id: self.$el.attr("line_id"),
+                    line_name: self.$el.attr("line_name"),
+                    controllerId: self.desktop_id
+                };
+            if ($(".linePlanParkOnlineModel_" + options.line_id).length > 0) {
+                return;
+            } else {
+                // try {
+                $(".linePlanParkOnlineModel").remove();
+                var dialog = new plan_display(self, options);
+                dialog.appendTo($(".controller_" + options.controllerId));
+                // } catch(e){
+                // var layer_index = layer.msg("websoket断开链接，请检查网络是否通畅", {shade: 0.3});
+                // }
             }
         },
         cursor_pointer_tb: function (canvas, e) {
