@@ -41,6 +41,11 @@ msgid "Stock Inentory Menu"
 msgstr "库存盘点"
 
 #. module: stock_extend
+#: model:ir.ui.menu,name:stock_extend.menu_stock_value
+msgid "Stock Value Menu"
+msgstr "库存计价"
+
+#. module: stock_extend
 #: model:ir.actions.act_window,name:stock_extend.materials_stock_move_action
 msgid "Stock Move Action"
 msgstr "出入库记录"
