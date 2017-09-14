@@ -102,6 +102,54 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 };
                                 cir_and_text(cirTop);
                                 cir_and_text(cirBottom);
+                                var m = n = 0;
+                                $.ajax({
+                                    url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + self.line_id + '}',
+                                    type: 'get',
+                                    async: false,
+                                    dataType: 'json',
+                                    data: {},
+                                    success: function (data) {
+
+                                        for (var i = 0; i < data.respose.length; i++) {
+                                            if (data.respose[i].direction == 0 && data.respose[i].inField == 1 && data.respose[i].carStateId == 1001) {
+                                                m++;
+                                            }
+                                            if (data.respose[i].direction == 1 && data.respose[i].inField == 1 && data.respose[i].carStateId == 1001) {
+                                                n++;
+                                            }
+                                        }
+
+                                        can_left_right(
+                                            {
+                                                id: '.canvas_left',
+                                                color: '#2E3550',
+                                                ciry: 27,
+                                                self: self.$el,
+                                                r: 4,
+                                                lineLen: 17,
+                                                sta: 1,
+                                                busNumber: m+'辆'
+                                            }
+                                        );
+                                        can_left_right(
+                                            {
+                                                id: '.canvas_right',
+                                                color: '#2E3550',
+                                                ciry: 27,
+                                                self: self.$el,
+                                                r: 4,
+                                                lineLen: 0,
+                                                sta: 1.5,
+                                                busNumber: n+'辆'
+                                            }
+                                        );
+                                        return m,n;
+                                    },
+                                    error: function () {
+                                        alert("请求出错");
+                                    }
+                                });
                                 // self.color = data.color;
                                 self.site_top_infos = res_top;
                                 self.site_down_infos = res_down;
@@ -120,8 +168,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                             site_down_infos: res_down,     //此处修改
                                             dataSite_top_color_cof: dataSite_top_color_cof,
                                             dataSite_down_color_cof: dataSite_down_color_cof,
-                                            busTopNumber: '',
-                                            busDownNumber: '',
+                                            busTopNumber: m+'辆',
+                                            busDownNumber: n+'辆',
                                             hasCar: []
                                         }
                                     };
@@ -440,7 +488,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         dataType: 'json',
                         data: {},
                         success: function (data) {
-                            console.log(data)
                             function formatDate(now) {
                                 var year = now.getYear();
                                 var month = now.getMonth() + 1;
@@ -581,7 +628,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         line_name: canvas.self.attr("line_name"),
                                         site: canvas.site_infos[i].station_id[1].split('/')[0],
                                         site_id: canvas.site_infos[i].id,
-                                        site_infos: canvas.site_infos[i].direction=="up"?self.site_top_infos:self.site_down_infos
+                                        site_infos: canvas.site_infos[i].direction == "up" ? self.site_top_infos : self.site_down_infos
                                     };
                                 if ($(".passengerDelayModel_" + options.line_id + "_" + options.site_id).length > 0) {
                                     return;
@@ -724,7 +771,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         this.$el.find('.line_edit').show();
                     }
                 }
-            // 手动添加渲染
+                // 手动添加渲染
             } else if (type == 1) {
                 var zr_index = 1;
                 if ($('body').find('.dragContent[click]').length > 0) {

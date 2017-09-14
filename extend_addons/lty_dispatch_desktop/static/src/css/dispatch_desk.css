@@ -71,6 +71,10 @@
     position: absolute;
 }
 
+.dispatch_desktop .park_left, .dispatch_desktop .park_right {
+    visibility: hidden;
+}
+
 .dispatch_desktop .content {
     width: 1276px;
     height: 190px;
@@ -270,6 +274,7 @@
     -webkit-transform: scale(0.75);
     -moz-transform: scale(0.75);
     color: #fff;
+    margin-left: -2px;
     display: inline-block;
     line-height: 9px;
 }

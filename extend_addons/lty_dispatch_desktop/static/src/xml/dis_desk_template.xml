@@ -180,12 +180,8 @@
 										<canvas width="1190" height="33" class="can_bottom"></canvas>
 										<div class="run_car_hide">
 											<div class="line_car">
-												<div class="num_car">
-													<span></span>
-												</div>
-												<div class="type_car">
-													<span></span>
-												</div>
+												<div class="num_car"><span></span></div>
+												<div class="type_car"><span></span></div>
 											</div>
 										</div>
 									</div>
@@ -625,54 +621,6 @@
 									<div><a>关闭面板</a></div>
 								</div>
 							</th>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
 						</tr>
 						<tr>
 							<td></td>
