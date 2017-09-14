@@ -27,14 +27,20 @@ class Product(models.Model):
     shelf = fields.Char(string='Shelf')
     contract_price = fields.Float(string='Contract Price')
     tech_ids = fields.One2many('product.tech.info', 'product_id', string='Tec Info')
-    categ_id = fields.Many2one('product.category', help="Select category")
+    categ_id = fields.Many2one('product.category', help="Select category", required=True)
     cost_method = fields.Char(compute='_compute_cost_method')
+    auto_lot = fields.Boolean(string="Auto Lot", default=False)
 
     _sql_constraints = [
         ('code_parent_category_uniq',
          'unique (inter_code,categ_id)',
          u'同分类物资编码必须唯一')
     ]
+    @api.model
+    def create(self, vals):
+        res = super(Product, self).create(vals)
+        res.product_tmpl_id.write({'categ_id': res.categ_id.id})
+        return res
 
     @api.one
     @api.depends('categ_id.property_cost_method')

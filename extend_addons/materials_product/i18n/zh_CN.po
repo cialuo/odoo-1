@@ -314,3 +314,8 @@ msgstr "产品技术参数"
 #: model:ir.ui.menu,name:materials_product.materials_menu_product
 msgid "product_menu"
 msgstr "物资管理"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_auto_lot
+msgid "Auto Lot"
+msgstr "自动生成批次号"
