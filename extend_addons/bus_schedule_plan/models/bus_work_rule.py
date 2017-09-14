@@ -95,16 +95,21 @@ class BusWorkRules(models.Model):
     date_type = fields.Many2one("bus_date_type", string="bus date type", required=True)
 
     def getTargetDate(self):
-        return '2017-05-06'
+        return '20170913'
 
     @api.multi
     def fetchRuleFromBigData(self):
         """
         从大数据获取行车规则
         """
-        url = "http://10.1.10.169:8082/ltyop/trafficRules/getBusTraffRule"
+        url = "http://10.1.10.169:8081/ltyop/trafficRules/getBusTraffRule"
         datestr = self.getTargetDate()
-        data = getRuleFromBigData(url, 'sdf123', self.line_id, self.schedule_method, datestr)
+        # data = getRuleFromBigData(url, 'sdf123', self.line_id.id, datestr, self.schedule_method)
+        if self.schedule_method == 'singleway':
+            schedule = 0
+        else:
+            schedule = 1
+        data = getRuleFromBigData(url, '130400', 10, datestr, 0)
         if data == None:
             raise ValidationError(_("fetch data failed from bigdata system"))
         self.upplanvehiclearrange = data['vup']
@@ -170,7 +175,9 @@ class BusWorkRules(models.Model):
     @staticmethod
     def _validate(dataList, startTime, endTime, type):
         if len(dataList) <= 0:
-            raise ValidationError(_("time arrange must not empty"))
+            return
+        # if len(dataList) <= 0:
+        #     raise ValidationError(_("time arrange must not empty"))
         newlist = sorted(dataList, key=lambda k: k.seqid)
         # 验证序列号
         BusWorkRules._validate_sqenum(newlist)
