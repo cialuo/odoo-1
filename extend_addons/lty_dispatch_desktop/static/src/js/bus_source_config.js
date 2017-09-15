@@ -78,7 +78,9 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
                         data: {},
                         success: function (data) {
                             if(data.result == 0){
-                                 layer.msg(data.respose.text);
+                            //最终需要删除掉
+                            $(x).parent().siblings('.line_src_status').html('运营');
+                            layer.msg(data.respose.text);
                             $(x).addClass('add_success');
                             }
                         }

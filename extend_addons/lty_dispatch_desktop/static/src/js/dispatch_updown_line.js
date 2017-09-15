@@ -119,7 +119,6 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 for (var j = 0; j < data_use.data.transport_capacity_plan.length; j++) {
                     dataJson_transport_capacity_plan.push(data_use.data.transport_capacity_plan[j].capacity);
                 }
-
                 for (var k = 0; k < data_use.data.transport_capacity_suggest.length; k++) {
                     dataJson_transport_capacity_suggest.push(data_use.data.transport_capacity_suggest[k].capacity);
                 }
@@ -155,16 +154,16 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             var x_comp = event.currentTarget;
             this.$el.find('.carousel_content.abnormal_active').removeClass('abnormal_active');
             this.$el.find('.abs_info .absnormal_height').eq(0).remove();
-            $.ajax({
-                    url: 'http://202.104.136.228:8080/ltyop/resource/exceptionHandle?apikey=71029270&params={onBoardId:15745,exceptKm:10,exceptStationId:13655,exceptReasonId:6}',
-                    type: 'post',
-                    dataType: 'json',
-                    data: {},
-                    success: function (data) {
-
-                    }
-                }
-            );
+            this.$el.find('.real_time_process').show().css("display", "none");
+            // $.ajax({
+            //         url: 'http://202.104.136.228:8080/ltyop/resource/exceptionHandle?apikey=71029270&params={onBoardId:15745,exceptKm:10,exceptStationId:13655,exceptReasonId:6}',
+            //         type: 'post',
+            //         dataType: 'json',
+            //         data: {},
+            //         success: function (data) {
+            //
+            //         }
+            //     });
             if (this.$el.find('.abs_info .absnormal_height').length < 1) {
                 $(x_comp).parent().hide().siblings('.handleBtn').show();
                 this.$el.removeClass('warn');

@@ -10,24 +10,66 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         template: "config",
         init: function (parent, context) {
             this._super(parent, context);
+            this.model_config = new Model('dispatch.control.desktop');
         },
         start: function () {
+            var self = this;
+            this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
+            this.model_config.query().filter([["id", "=", parseInt(this.desktop_id)]]).all().then(function (conf) {
+                for (var i = 0, chkLen = $('.src_config').length; i < chkLen; i++) {
+                    var chg_name = $('.src_config').eq(i).attr('class').split('conf_')[1];
+                    if (conf[0][chg_name] == true) {
+                        $('.src_config').eq(i).prop("checked", true);
+                    }
+                }
+                self.$el.find('.src_font_color').val(conf[0].src_font_conf);
+            });
+            this.$el.on('hide.bs.modal', function () {
+                self.destroy();
+            });
         },
         events: {
             'click .btn_cancel': 'close_dialog',
-            // 'click .config_btn': 'change_style'
+            'click .config_btn': 'change_style'
         },
         close_dialog: function () {
             var self = this;
-            self.$el.find('.modal').modal('hide');
-            $(".modal-backdrop").remove();
-            self.$el.remove();
         },
-        // 配置修改颜色   暂无
+        // 配置修改颜色
         change_style: function () {
             var self = this;
-            var font_color = self.$el.find('.src_font_color').val();
-            $('body').find('.bus_info li').eq(2).hide();
+            var chg_sty = {};
+            for (var i = 0, chkLen = $('.src_config').length; i < chkLen; i++) {
+                var chg_name = $('.src_config').eq(i).attr('class').split('conf_')[1];
+                if ($('.src_config').eq(i).is(":checked")) {
+                    chg_sty[chg_name] = true;
+                } else {
+                    chg_sty[chg_name] = false;
+                }
+            }
+            var now_clr_sty = self.$el.find('.src_font_color').val();
+            this.model_config.call("write", [parseInt(self.desktop_id),
+                {
+                    'applycar_num': chg_sty['applycar_num'],
+                    'active_car': chg_sty['active_car'],
+                    'main_outage': chg_sty['main_outage'],
+                    'share_active_car': chg_sty['share_active_car'],
+                    'signal_online': chg_sty['signal_online'],
+                    'car_driver': chg_sty['car_driver'],
+                    'car_attendant': chg_sty['car_attendant'],
+                    'trailerNum': chg_sty['trailerNum'],
+                    'src_font_conf': now_clr_sty
+                }]).then(function (res) {
+                self.$el.find('.btn-default').click();
+                for (var m = 0, cg_ln = Object.keys(chg_sty); m < cg_ln.length; m++) {
+                    if (chg_sty[cg_ln[m]] == true) {
+                        $('body').find('.bus_info .show_' + cg_ln[m]).show();
+                    } else {
+                        $('body').find('.bus_info .show_' + cg_ln[m]).hide();
+                    }
+                }
+                $('body').find('.bus_info>ul>li').css('color', now_clr_sty);
+            });
         }
     });
     // 控制台顶部

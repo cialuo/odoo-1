@@ -248,8 +248,8 @@ op_planstationbigmain = {
     ('byLastStationNormal', 'tolastsit_flat'): None,
     #距上一站时间（高峰）
     ('byLastStationHigh', 'tolastsit_peak'): None,
-    # #编号 int not found
-    # ('orderNo', None): None,
+    #站点序号 int 9-13增加
+    ('orderNo', 'site_seq'): None,
     # #峰段标志ID 1001:低峰；1002：平峰；1003：高峰 not found
     # ('flagId', None): None,
     # #峰段标志名称 string not found
@@ -302,7 +302,7 @@ op_param = {
     #计划执行方式,不在调度参数表，在通用设置表
     ('planExeStyle', 'plan_execution_mode'): {'earliest': 1, 'recent':0},
     #计划显示范围, 无对应字段
-    ('planViewRange', None): None,
+    #('planViewRange', None): None,
     #同意请求排班
     ('agreeReqWorkPlan', 'is_agree_ask'): {True: 0, False:1},
     #签到立即派班
@@ -395,6 +395,8 @@ op_param = {
     ('openCloseDoor2', 'out_not_closed_the_door'): {True: 1, False:0},
     #有效签点数,不在调度参数表，在通用设置表
     ('dispatchStationLimit', 'number_of_signatures'): None,
+    #计划陷藏时间，在通用设置表
+    ('planViewRange', 'plan_hidden_time'): None,		
 }
 
 #人员-IC卡管理

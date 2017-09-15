@@ -854,7 +854,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">添加计划</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" t-attf-workDate="{{widget.set_data.workDate}}">
                         <table>
                             <tr>
                                 <td class="planTime">
@@ -863,7 +863,8 @@
                                 </td>
                                 <td>
                                     车辆编号&#160;
-                                    <input class="w2 carNum" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <input class="w2 carNum" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <input class="onBoardId" type="hidden" t-attf-value="{{widget.set_data.onBoardId}}" />
                                 </td>
                             </tr>
                             <tr>
@@ -975,16 +976,18 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">调整计划</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" t-attf-workDate="{{widget.set_data.workDate}}">
                         <table>
                             <tr>
                                 <td>
                                     计划时间&#160;
-                                    <input class="w2 planTime" t-attf-value="{{new Date().toTimeString().slice(0, 5)}}" type="time" />
+                                    <input class="w2 planTimeShow" t-attf-value="{{new Date(widget.set_data.planRunTime).toTimeString().slice(0, 5)}}" type="time" />
+                                    <input class="w2 planTime" t-attf-value="{{widget.set_data.planRunTime}}" type="hidden" />
                                 </td>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
-                                    <input class="w2 carNum" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.onBoardId}}" type="text"/>
+                                    <input class="w2 carNum" t-attf-value="{{widget.set_data.onBoardId}}" type="text"/>
+                                    <input class="onBoardId" t-attf-value="{{widget.set_data.onBoardId}}" type="hidden" />
                                 </td>
                             </tr>
                             <tr>
@@ -1109,12 +1112,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">批量更改车辆或司机</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" t-attf-workDate="{{widget.set_data.workDate}}">
                         <table>
                             <tr>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
-                                    <input class="w2 selfId" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <input class="w2 selfId" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <input class="onBoardId" type="hidden" t-attf-value="{{widget.set_data.onBoardId}}" />
                                 </td>
                                 <td>
                                     线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
@@ -1186,12 +1190,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">司乘签到</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" t-attf-workDate="{{widget.set_data.workDate}}">
                         <table>
                             <tr>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
-                                    <input class="w6 carNum" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.carNum}}" type="text"/>
+                                    <input class="w6 carNum" t-attf-value="{{widget.set_data.carNum}}" type="text"/>
+                                    <input class="onBoardId" t-attf-value="{{widget.set_data.onBoardId}}" type="hidden" />
                                 </td>
                             </tr>
                             <tr>
@@ -1254,12 +1259,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">编辑车辆</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" t-attf-workDate="{{widget.set_data.workDate}}">
                         <table>
                             <tr>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;&#160;
-                                    <input class="w6 carNum" t-attf-onBoardId="{{widget.set_data.onBoardId}}" t-attf-value="{{widget.set_data.carNum}}" type="text" />
+                                    <input class="w6 carNum" t-attf-value="{{widget.set_data.carNum}}" type="text" />
+                                    <input class="onBoardId" t-attf-value="{{widget.set_data.onBoardId}}" type="hidden" />
                                 </td>
                                 <td>
                                     方&#160;&#160;&#160;&#160;&#160;&#160;&#160;向&#160;&#160;
@@ -1286,7 +1292,8 @@
                                 </td>
                                 <td>
                                     上班时间&#160;&#160;
-                                    <input class="w6 onWorkTime"  t-attf-value="{{new Date().toTimeString().slice(0, 5)}}" type="text" />
+                                    <input class="w6 onWorkTimeShow"  t-attf-value="{{new Date(widget.set_data.onWorkTime).toTimeString().slice(0, 5)}}" type="text" />
+                                    <input class="onWorkTime"  t-attf-value="{{widget.set_data.onWorkTime}}" type="hidden" />
                                 </td>
                             </tr>
                             <tr>
@@ -1464,7 +1471,7 @@
         </div>
     </t>
 
-        <t t-name="communication_template">
+    <t t-name="communication_template">
             <div>
                 <div class="communication dragContent nofix">
                     <div class="directory dragArea">

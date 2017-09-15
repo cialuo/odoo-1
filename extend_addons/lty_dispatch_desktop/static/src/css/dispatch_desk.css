@@ -71,6 +71,12 @@
     position: absolute;
 }
 
+.dispatch_desktop .park_left, .dispatch_desktop .park_right {
+    /*visibility: hidden;*/
+    background: #4ED0C6;
+    cursor: pointer;
+}
+
 .dispatch_desktop .content {
     width: 1276px;
     height: 190px;
@@ -117,16 +123,12 @@
     float: left;
     text-align: center;
     line-height: 30px;
-    color: #A3A6AD;
     cursor: pointer;
+    display: none;
 }
 
 .dispatch_desktop .bus_info li:nth-of-type(8) {
     margin-left: 20px;
-}
-
-.dispatch_desktop .bus_info li:nth-of-type(8), .dispatch_desktop .bus_info li:last-of-type {
-    color: #4ecfc7;
 }
 
 .dispatch_desktop .bus_info li:first-of-type {
@@ -215,7 +217,6 @@
     text-align: center;
     float: left;
     color: #fff;
-    margin-right: 4px;
     font-size: 12px;
     display: inline-block;
     -webkit-transform: scale(0.833);
@@ -270,6 +271,7 @@
     -webkit-transform: scale(0.75);
     -moz-transform: scale(0.75);
     color: #fff;
+    margin-left: -2px;
     display: inline-block;
     line-height: 9px;
 }
@@ -572,8 +574,45 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     height: 540px;
 }
 
-.modal.config modal-body .dl {
+.modal.config .modal-dialog {
+    width: 450px;
+}
 
+@media (min-width: 768px) {
+    .modal.config .conf_bg {
+        background: #252c44;
+        color: #fff;
+        border-radius: 8px;
+    }
+}
+.modal.config .src_font_color{
+    margin-left: 60px;
+}
+.modal.config .close{
+    opacity:1;
+    color: #fff;
+}
+.modal.config .modal-header {
+    border: none;
+}
+.modal.config .modal-footer .btn-primary{
+    background: none;
+    border: 1px solid #4ecfc7;
+    color: #4ecfc7;
+}
+.modal.config .modal-footer .btn-default{
+    background: none;
+    border: 1px solid #909aa4;
+    color: #909aa4;
+}
+.modal.config .modal-footer {
+    border: none;
+}
+.modal.config modal-body{
+    padding: 16px 16px 4px 16px;
+}
+.modal.config modal-body dt {
+    font-size: 15px;
 }
 
 .modal.config dd {
@@ -630,14 +669,11 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
 }
 
 .src_config:checked + label.green {
-    background: #AEDCAE;
+    background: #9fFFFC;
 }
 
 .src_config:checked + label.green:after {
-    background: #5CB85C;
-}
-
-.src_config:checked + label:after {
+    background: #18FFFC;
     left: calc(100% - 20px);
 }
 

@@ -232,7 +232,7 @@ function carousel(carousel) {
     }, 3000);
     var carousel_line_id = self.$el.attr('line_id');
     sessionStorage.setItem('timer'+carousel_line_id,timer);
-    //鼠标移入，暂停自动播放，移出，开始自动播放
+    // 鼠标移入，暂停自动播放，移出，开始自动播放
     // self.$('.carousel').hover(function () {
     //     clearInterval(timer);
     // }, function () {
@@ -245,12 +245,6 @@ function carousel(carousel) {
     //         self.$(content).stop().animate({left: -i * 600}, 500);
     //     }, 3000);
     // });
-    // var text_change = setInterval(function () {
-    //     if (self.$(content + '>li').find('.no_absnormal').css('display') != 'none') {
-    //         self.$(content).css({left: 0});
-    //         clearInterval(timer);
-    //     }
-    // }, 100);
 }
 window.onhashchange=function(){
     if($('body').find('.back_style').length>0){

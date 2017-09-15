@@ -96,6 +96,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 dataType: 'json',
                 data: {},
                 success: function (ret) {
+                    console.log(ret.respose);
                     self.uplink_plan = {
                         direction: 0,
                         data_list: ret.respose
@@ -179,6 +180,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             var plan_display = self.$(".plan_display");
             var controllerId = self.location_data.controllerId;
             var controllerObj = self.$el.parents($(".controller_" + controllerId));
+            var lineId = this.location_data.line_id;
 
             // 车辆计划底部交互事件
             self.plan_bottom_fn();
@@ -251,17 +253,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             plan_display.on("click", ".plan_display_set[model='bus_plan'] li.batch_change_drivers_bt", function () {
                 var layer_index = layer.msg("请求中，请稍后...", {shade: 0.3, time: 0});
                 var id = $(this).parents(".plan_display_set").attr("plan_pid");
-                // var direction = $(this).parents(".plan_display_set").attr("direction");
-                // var active_tr = plan_display.find(".bus_plan .content_tb").find("tr.active_tr[direction=" + direction + "][pid=" + id + "]");
-                // var title_obj = plan_display.find(".closeBox .num");
                 var options = {
                     id: id,
                     layer_index: layer_index
-                    // direction: direction,
-                    // lineId: title_obj.attr("line_id"),
-                    // lineName: title_obj.text(),
-                    // carNum: active_tr.find("td:eq(3)").text(),
-                    // driverName: active_tr.find("td:eq(4)").text()
                 };
                 self.batch_fix_switch_fn(options);
             });
@@ -348,6 +342,19 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     layer_index: layer_index
                 };
                 self.exit_operation_fn(options);
+            });
+
+            // 搜索-车辆编号
+            $("body").on("keyup", ".customModal .carNum", function(){
+                var workDate = $(".customModal .modal-body").attr("workDate");
+                var options = {
+                    event: this,
+                    dateSearch: workDate,
+                    controlId: controllerId,
+                    lineId: lineId,
+                    carNum: $(this).val()
+                };
+                opDisPatchPlanOpEditDriver_onfocus_Autocomplete(options);
             });
         },
         plan_bottom_fn: function () {
@@ -793,6 +800,17 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
         },
         start: function () {
             var self = this;
+            // 增加icon浮层说明
+            self.$(".content_tb .icon").hover(function () {
+                if ($(this).hasClass("checkOut")) {
+                    var txt = ($(this).attr("st") == 1) ? '已签到' : '未签到'
+                } else {
+                    var txt = ($(this).attr("st") == 1) ? '在线' : '未在线'
+                }
+                self.layer_f_index = layer.tips(txt, this);
+            }, function () {
+                layer.close(self.layer_f_index);
+            });
             // 右键事件
             self.$(".content_tb").on("mousedown", ".point", function (e) {
                 if (e.button == 2) {
@@ -966,7 +984,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 planTime: confObj.find(".planTime input:eq(0)").val() + ":" + confObj.find(".planTime input:eq(1)").val(),
                 planCount: confObj.find(".planCount").val(),
                 lineId: confObj.find(".line").val(),
-                onBoardId: confObj.find(".carNum").attr("onBoardId"),
+                onBoardId: confObj.find(".onBoardId").val(),
                 carNum: confObj.find(".carNum").val(),
                 planKm: confObj.find(".planKm").val(),
                 direction: confObj.find(".direction").val(),
@@ -1053,7 +1071,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 planCount: confObj.find(".planCount").val(),
                 lineId: confObj.find(".line").val(),
                 runGprsId: confObj.find(".runGprs").val(),
-                onBoardId: confObj.find(".carNum").attr("onBoardId"),
+                onBoardId: confObj.find(".onBoardId").val(),
                 carNum: confObj.find(".carNum").val(),
                 planKm: confObj.find(".planKm").val(),
                 direction: confObj.find(".direction").val(),
@@ -1206,7 +1224,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             var confObj = self.$('.modal-body table');
             var params = {
                 id: self.set_data.id,
-                onBoardId: confObj.find(".carNum").attr("onBoardId"),
+                onBoardId: confObj.find(".onBoardId").val(),
                 workerId: confObj.find(".workerId").val(),
                 driverName: confObj.find(".driverName").val(),
                 trainId: confObj.find(".trainId").val(),
@@ -1271,7 +1289,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             var confObj = self.$('.modal-body table');
             var params = {
                 id: self.set_data.id,
-                onBoardId: confObj.find(".carNum").attr("onBoardId"),
+                onBoardId: confObj.find(".onBoardId").val(),
                 runGprsId: confObj.find(".runGprs").val(),
                 direction: confObj.find(".direction").val(),
                 onWorkTime: confObj.find(".onWorkTime").val(),
@@ -1416,6 +1434,86 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             });
         }
     });
+
+    function opDisPatchPlanOpEditDriver_onfocus_Autocomplete(options) {
+        // $(options.event).autocomplete('http://202.104.136.228:8888/ltyop/dspSimulationDisPatchPlan/autocompleteBusResourcByControlIdNoCarState?apikey=71029270&params={dateSearch: "'+options.dateSearch+'" ,controlId: "'+options.controlId+'" ,lineId: "'+options.lineId+'" ,carNum: "'+options.carNum+'"}', {
+        // $(options.event).autocomplete({
+        //     source: function(request, response) {
+        //         $.ajax({
+        //             url: 'http://202.104.136.228:8888/ltyop/dspSimulationDisPatchPlan/autocompleteBusResourcByControlIdNoCarState?apikey=71029270&params={dateSearch: "'+options.dateSearch+'" ,controlId: "'+options.controlId+'" ,lineId: "'+options.lineId+'" ,carNum: "'+options.carNum+'"}',
+        //             dataType: "json",
+        //             type: 'get',
+        //             success: function(ret) {
+        //                 response($.map(ret, function(item) {
+        //                     return item;
+        //                 }));
+        //             }
+        //         });
+        //     },
+        //     minChars: 1, //自动完成激活之前填入的最小字符
+        //     mustMatch: true,
+        //     matchSubset: false,
+        //     max: 180,
+        //     width: 180,
+        //     formatItem: function(row, i, max, id, term) {
+        //         return getAutocompleteCss(term, row.workerId, row.driverName, '180');
+        //     },
+        //     formatMatch: function(row, i, max) {
+        //         return row.driverName + row.driverName;
+        //     },
+        //     formatResult: function(row) {
+        //         return row.workerId;
+        //     }
+        // }).result(function(event, row, formatted) {
+        //     if (row != null) {
+        //         $("input[name='driverName']").val(row.driverName);
+        //     }
+        // });
+
+        $(options.event).autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url: 'http://202.104.136.228:8888/ltyop/dspSimulationDisPatchPlan/autocompleteBusResourcByControlIdNoCarState?apikey=71029270&params={dateSearch: "'+options.dateSearch+'" ,controlId: "'+options.controlId+'" ,lineId: "'+options.lineId+'" ,carNum: "'+options.carNum+'"}',
+                    dataType: "json",
+                    type: 'get',
+                    success: function(ret) {
+                        response($.map(ret, function(item) {
+                            return item;
+                        }));
+                    }
+                });
+            },
+            delay: 500,//延迟500ms便于输入  
+            select : function(event, ui) {  
+                console.log('111');
+            }
+        });
+    }
+
+
+    function getAutocompleteCss(term, arg1, arg2, width) {
+        if (arg1 != undefined) {
+            var wid = 120;
+            if (width == "" || width == undefined) {
+
+            } else {
+                wid = width;
+            }
+
+            var str = "<table width='" + wid + "px'><tr><td align='left'>" +
+                arg1.replace(term, "<font style='color: red; font-style: italic'>" + term + "</font>").replace(term.toUpperCase(), "<font style='color: red; font-style: italic'>" + term.toUpperCase() + "</font>") +
+                "</td>";
+
+            if (arg2 == "" || arg2 == undefined) {} else {
+                str = str + "<td align='right'><font style='font-family: 黑体; font-style: italic'>" +
+                    arg2.replace(term, "<font style='color: red; font-style: italic'>" + term + "</font>").replace(term.toUpperCase(), "<font style='color: red; font-style: italic'>" + term.toUpperCase() + "</font>") +
+                    "</font></td>";
+            }
+            str = str + "</tr></table>";
+            return str;
+        }
+    }
+
     return plan_display;
 });
 
