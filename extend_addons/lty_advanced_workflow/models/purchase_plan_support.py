@@ -29,40 +29,42 @@ class PuchasePlan(models.Model):
         productid = super(PuchasePlan, self).create(vals)
         obj_id = self.env['ir.model'].search([('model', 'ilike', self._name)], limit=1).id
         cfg =  self.env['lty.advanced.workflow.cfg'].search([('model', '=',obj_id),('status','=','approved')], limit=1)
-        cfg_id =  cfg.id
-        group_val_dict = {
-            'object_id': self._name + ',' +str(productid.id), 
-            'start_user': self.env.user.id,
-            'name': cfg.code+'-'+productid.name,
-            'cfg_id': cfg_id,
-        }
-        #center_id = self.env['lty.approve.center.group'].sudo().create(group_val_dict) 
-        center_id = self.env['lty.approve.center.group'].sudo().create(group_val_dict).id
-        for cfg_line in self.env['lty.advanced.workflow.cfg'].browse(cfg_id).line_ids :
-            # print cfg_line
-            val_dict = {
-                'name': self.env['lty.advanced.workflow.cfg'].browse(cfg_id).code + '-' + productid.name + '-'+ str(cfg_line.squence),  
-                'description':self.env['lty.advanced.workflow.cfg'].browse(cfg_id).name,                  
+        if cfg :
+            cfg_id =  cfg.id
+            group_val_dict = {
                 'object_id': self._name + ',' +str(productid.id), 
-                'approve_node':cfg_line.name,  
-                'status':'commited',  
-                'cfg_line_id':cfg_line.id,
-                'cfg_father_line_id':cfg_line.farther_node.id,
-                #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
-                'approve_post': cfg_line.approve_post.id,
                 'start_user': self.env.user.id,
-                'center_id': center_id,
+                'name': cfg.code+'-'+productid.name,
+                'cfg_id': cfg_id,
             }
-            self.env['lty.approve.center'].sudo().create(val_dict)
+            #center_id = self.env['lty.approve.center.group'].sudo().create(group_val_dict) 
+            center_id = self.env['lty.approve.center.group'].sudo().create(group_val_dict).id
+            for cfg_line in self.env['lty.advanced.workflow.cfg'].browse(cfg_id).line_ids :
+                # print cfg_line
+                val_dict = {
+                    'name': self.env['lty.advanced.workflow.cfg'].browse(cfg_id).code + '-' + productid.name + '-'+ str(cfg_line.squence),  
+                    'description':self.env['lty.advanced.workflow.cfg'].browse(cfg_id).name,                  
+                    'object_id': self._name + ',' +str(productid.id), 
+                    'approve_node':cfg_line.name,  
+                    'status':'commited',  
+                    'cfg_line_id':cfg_line.id,
+                    'cfg_father_line_id':cfg_line.farther_node.id,
+                    #'approve_posts': [(6,0,cfg_line.approve_posts.ids)],
+                    'approve_post': cfg_line.approve_post.id,
+                    'start_user': self.env.user.id,
+                    'center_id': center_id,
+                }
+                self.env['lty.approve.center'].sudo().create(val_dict)
         return productid
     
     @api.multi
     def write(self, vals):
-        approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(self.id))])
-        if not vals.get('approve_state'):
-            for node in approve_nodes :
-                if node.approved is False  and node.active_node is True :
-                    raise UserError((u'审批未完成或被拒绝. '))   
+        for order in self:
+            approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(order.id))])
+            if not vals.get('approve_state'):
+                for node in approve_nodes :
+                    if node.approved is False  and node.active_node is True :
+                        raise UserError((u'审批未完成或被拒绝. '))
         productid = super(PuchasePlan, self).write(vals)
     
         return productid   

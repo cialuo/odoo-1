@@ -38,7 +38,7 @@
 					</group>
 					<notebook>
 						<page string = 'workflow config'>
-                            <field name="line_ids">
+                            <field name="line_ids" context="{'default_cfg_id': active_id}">
 								<tree editable='bottom'>
 									<field name="squence"/>
 									<field name="name"/>
@@ -46,6 +46,7 @@
 									<field name="approve_type"/>
 									<field name="approve_post" string='审批岗位'/>
 									<field name="approved_nubmber"/>
+									<field name="cfg_id" invisible="1"/>
 									<field name="farther_node"/>
 									<field name="node_type"/>
 									<field name="note"/>
