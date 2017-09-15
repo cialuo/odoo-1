@@ -239,7 +239,6 @@ function carousel(carousel) {
     //     timer = setInterval(function () {
     //         i++;
     //         if (i == self.$(content + '>li').length) {
-
     //             i = 1;
     //             self.$(content).css({left: 0});
     //         };

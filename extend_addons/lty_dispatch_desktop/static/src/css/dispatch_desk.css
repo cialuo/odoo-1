@@ -119,20 +119,16 @@
 }
 
 .dispatch_desktop .bus_info li {
-    margin-right: 10px;
+    margin-right: 25px;
     float: left;
     text-align: center;
     line-height: 30px;
-    color: #A3A6AD;
     cursor: pointer;
+    display: none;
 }
 
 .dispatch_desktop .bus_info li:nth-of-type(8) {
     margin-left: 20px;
-}
-
-.dispatch_desktop .bus_info li:nth-of-type(8), .dispatch_desktop .bus_info li:last-of-type {
-    color: #4ecfc7;
 }
 
 .dispatch_desktop .bus_info li:first-of-type {
@@ -578,10 +574,50 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     height: 540px;
 }
 
-.modal.config modal-body .dl {
-
+.modal.config .modal-dialog {
+    width: 520px;
 }
 
+@media (min-width: 768px) {
+    .modal.config .conf_bg {
+        background: #252c44;
+        color: #fff;
+        border-radius: 8px;
+    }
+}
+.modal.config .src_font_color{
+    margin-left: 180px;
+}
+.modal.config .close{
+    opacity:1;
+    color: #fff;
+}
+.modal.config .modal-header {
+    border: none;
+}
+.modal.config .modal-footer .btn-primary{
+    background: none;
+    border: 1px solid #4ecfc7;
+    color: #4ecfc7;
+}
+.modal.config .modal-footer .btn-default{
+    background: none;
+    border: 1px solid #909aa4;
+    color: #909aa4;
+}
+.modal.config .modal-footer {
+    border: none;
+}
+.modal.config modal-body{
+    padding: 16px 16px 4px 16px;
+}
+.modal.config modal-body dt {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+.modal.config modal-body dl:first-of-type{
+    margin-bottom: 20px;
+}
 .modal.config dd {
     overflow: hidden;
     margin-bottom: 5px;
@@ -595,7 +631,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     line-height: 22px;
     font-size: 14px;
     text-align: left;
-    width: 160px;
+    width: 280px;
 
 }
 
@@ -636,14 +672,11 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
 }
 
 .src_config:checked + label.green {
-    background: #AEDCAE;
+    background: #9fFFFC;
 }
 
 .src_config:checked + label.green:after {
-    background: #5CB85C;
-}
-
-.src_config:checked + label:after {
+    background: #18FFFC;
     left: calc(100% - 20px);
 }
 
