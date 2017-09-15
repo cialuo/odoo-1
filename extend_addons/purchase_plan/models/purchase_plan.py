@@ -228,7 +228,7 @@ class PlanLine(models.Model):
         for line in self:
             line.sub_total = line.qty * line.price_unit
 
-    @api.onchange('product_id')
+    @api.onchange('product_id', 'qty')
     def _onchange_vendor(self):
         """
         根据选择的产品，默认填入该产品的上一次采购供应商
@@ -241,7 +241,9 @@ class PlanLine(models.Model):
         #     self.seller_id = p_supplierinfo
         #     self.product_tmpl_id = self.product_id.product_tmpl_id
         if self.product_id:
-            pass
+            seller = self.product_id._select_seller(quantity=self.qty)
+            self.seller_id = seller
+            self.product_tmpl_id = self.product_id.product_tmpl_id
 
 
     @api.onchange('seller_id')
@@ -304,8 +306,8 @@ class Supplier(models.Model):
         #修改成供应商名称+价格
         res = []
         for s in self:
-            name = s.name.name + ':' + s.price
-            res.append((id, name))
+            name = s.name.name + ':' + str(s.price)
+            res.append((s.id, name))
         return res
 
 class StockMove(models.Model):
