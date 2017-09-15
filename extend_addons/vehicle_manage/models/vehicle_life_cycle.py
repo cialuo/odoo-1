@@ -38,11 +38,13 @@ class vehicle_life(models.Model):
                                           string='Vehicle life cycle state',
                                           readonly=True)
 
+    operation_date = fields.Datetime(string='operation date')
+    scrap_date = fields.Datetime(string='scrap date')
+
     @api.multi
     def action_operation(self):
         # 设置投入日期
         self.start_service_date = datetime.date.today()
-
         #修改车辆编码
         self.update_vehicle_code()
 
@@ -55,7 +57,7 @@ class vehicle_life(models.Model):
                     raise exceptions.except_orm(_('Error'), ('%s %s' % ((item.cost_type) , _('The cost must be greater than zero'))))
 
         self.vehicle_life_state = 'operation_period'
-
+        self.operation_date = datetime.datetime.now()
         return True
 
     def update_vehicle_code(self):
@@ -71,6 +73,7 @@ class vehicle_life(models.Model):
     @api.multi
     def action_scrap(self):
         self.vehicle_life_state = 'scrap_period'
+        self.scrap_date = datetime.datetime.now()
         return True
 
 # 投入期费用

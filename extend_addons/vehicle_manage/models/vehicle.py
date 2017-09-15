@@ -23,7 +23,7 @@ class Vehicle(models.Model):
     license_plate = fields.Char(required=True, help='车牌')
     name = fields.Char("Vehicle Number", compute="_cumpute_model_name", store=True)
     inner_code = fields.Char(string="Inner Code", help="Inner Code", required=True)
-    route_id = fields.Many2one('route_manage.route_manage', string="Route")
+    route_id = fields.Many2one('route_manage.route_manage', string="Route Name")
     company_id = fields.Many2one('hr.department', 'Company')
 
     engine_no = fields.Char("Engine No",related='model_id.engine_no')

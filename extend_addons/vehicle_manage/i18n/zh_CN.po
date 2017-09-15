@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* vehicle_manage
+#	* vehicle_manage
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-11 03:07+0000\n"
-"PO-Revision-Date: 2017-09-11 11:07+0800\n"
+"POT-Creation-Date: 2017-09-15 02:07+0000\n"
+"PO-Revision-Date: 2017-09-15 02:07+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 2.0.3\n"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.fleet_vehicle_view_form
@@ -81,6 +79,11 @@ msgid "Average Day Number"
 msgstr "计算周期"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_tran_batch_id
+msgid "Batch id"
+msgstr "批次"
+
+#. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_brand_name
 msgid "Brand name"
 msgstr "车辆品牌"
@@ -98,6 +101,8 @@ msgid "CO2 emissions of the vehicle"
 msgstr "二氧化碳排放量"
 
 #. module: vehicle_manage
+#: model:ir.ui.view,arch_db:vehicle_manage.view_batch_update_vehicle_status_warn
+#: model:ir.ui.view,arch_db:vehicle_manage.view_batch_update_vehicle_status_wizard
 #: model:ir.ui.view,arch_db:vehicle_manage.view_vehicle_config_settings
 msgid "Cancel"
 msgstr "取消"
@@ -191,6 +196,8 @@ msgid "Cost type set"
 msgstr "费用类型设置"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_create_uid
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_tran_create_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_create_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_create_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_create_uid
@@ -203,6 +210,8 @@ msgid "Created by"
 msgstr "创建人"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_create_date
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_tran_create_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_create_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_create_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_create_date
@@ -231,6 +240,8 @@ msgid "Deadline"
 msgstr "使用年限"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_display_name
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_tran_display_name
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_display_name
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_display_name
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_display_name
@@ -299,7 +310,7 @@ msgid "Entry state"
 msgstr "状态"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle_life_cycle.py:55
+#: code:addons/vehicle_manage/models/vehicle_life_cycle.py:57
 #, python-format
 msgid "Error"
 msgstr "错误"
@@ -389,6 +400,8 @@ msgid "Horsepower"
 msgstr "马力"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_id
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_tran_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_id
@@ -454,6 +467,7 @@ msgid "Invest operation"
 msgstr "投入运营"
 
 #. module: vehicle_manage
+#: selection:batch_update_vehicle,vehicle_life_state:0
 #: selection:fleet.vehicle,vehicle_life_state:0
 msgid "Invest period"
 msgstr "投入期"
@@ -480,6 +494,8 @@ msgid "Is_required"
 msgstr "是否必填"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle___last_update
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_tran___last_update
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set___last_update
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost___last_update
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings___last_update
@@ -492,6 +508,8 @@ msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_tran_write_uid
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_write_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_write_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_write_uid
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_write_uid
@@ -504,6 +522,8 @@ msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_tran_write_date
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_write_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_write_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_investment_cost_write_date
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_config_settings_write_date
@@ -533,6 +553,7 @@ msgid "Level Code"
 msgstr "等级代码"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_tran_license_plate
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_license_plate
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_license_plate
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicleusage_driverecords_license_plate
@@ -609,6 +630,7 @@ msgid "OnBoardId"
 msgstr "设备号"
 
 #. module: vehicle_manage
+#: selection:batch_update_vehicle,vehicle_life_state:0
 #: selection:fleet.vehicle,vehicle_life_state:0
 msgid "Operation period"
 msgstr "运营期"
@@ -684,8 +706,8 @@ msgstr "核载人数"
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_route_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_route_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicleusage_driverecords_route_id
-msgid "Route"
-msgstr "路线"
+msgid "Route Name"
+msgstr "线路"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_salvage_rate
@@ -765,7 +787,7 @@ msgid "The annual inspection date"
 msgstr "年检日期"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle_life_cycle.py:55
+#: code:addons/vehicle_manage/models/vehicle_life_cycle.py:57
 #, python-format
 msgid "The cost must be greater than zero"
 msgstr "费用不能小于0!"
@@ -881,9 +903,16 @@ msgid "Vehicle life cycle"
 msgstr "车辆生命周期"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_tran_vehicle_life_state
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_vehicle_life_state
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_vehicle_life_state
 msgid "Vehicle life cycle state"
 msgstr "状态"
+
+#. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_vehicle_tran_ids
+msgid "Vehicle tran ids"
+msgstr "Vehicle tran ids"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_warnning
@@ -928,6 +957,11 @@ msgid "Yes"
 msgstr "是"
 
 #. module: vehicle_manage
+#: model:ir.ui.view,arch_db:vehicle_manage.view_batch_update_vehicle_status_wizard
+msgid "action_batch_update_vehicle"
+msgstr "确认更新"
+
+#. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_actualdate
 msgid "actual inspection date"
 msgstr "实际年检日期"
@@ -952,6 +986,28 @@ msgstr "审批人"
 #: selection:fleet.vehicle,entry_state:0
 msgid "audited"
 msgstr "已审核"
+
+#. module: vehicle_manage
+#: code:addons/vehicle_manage/wizard/batch_update_vehicle.py:37
+#: model:ir.actions.act_window,name:vehicle_manage.action_batch_update_vehicle
+#: model:ir.model,name:vehicle_manage.model_batch_update_vehicle
+#: model:ir.ui.menu,name:vehicle_manage.batch_update_vehicle
+#: model:ir.ui.view,arch_db:vehicle_manage.view_batch_update_vehicle_status_warn
+#: model:ir.ui.view,arch_db:vehicle_manage.view_batch_update_vehicle_status_wizard
+#, python-format
+msgid "batch_update_vehicle"
+msgstr "批量更新车辆状态"
+
+#. module: vehicle_manage
+#: model:ir.model,name:vehicle_manage.model_batch_update_vehicle_tran
+msgid "batch_update_vehicle_tran"
+msgstr "批量更新车辆临时表"
+
+#. module: vehicle_manage
+#: code:addons/vehicle_manage/wizard/batch_update_vehicle.py:87
+#, python-format
+msgid "batch_update_vehicle_warning"
+msgstr "批量更新警告"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionplan_branchcompany
@@ -995,7 +1051,7 @@ msgstr "乘务员人车比"
 #. module: vehicle_manage
 #: model:ir.model,name:vehicle_manage.model_cost_type_set_cost_type_set
 msgid "cost_type_set.cost_type_set"
-msgstr "cost_type_set.cost_type_set"
+msgstr "费用类型设置"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_deadlinedays
@@ -1093,6 +1149,11 @@ msgstr "生成计划明细"
 #: model:ir.ui.view,arch_db:vehicle_manage.schedule_route_manage_form
 msgid "human vehcile rate"
 msgstr "人车比"
+
+#. module: vehicle_manage
+#: model:ir.ui.view,arch_db:vehicle_manage.view_batch_update_vehicle_status_wizard
+msgid "import vehicle"
+msgstr "导入车辆"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicle.py:13
@@ -1264,6 +1325,11 @@ msgid "oil_wear_coefficient"
 msgstr "油耗系数"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_operation_date
+msgid "operation date"
+msgstr "运营期时间"
+
+#. module: vehicle_manage
 #: selection:vehicle_usage.inspectionrecords,state:0
 msgid "passed"
 msgstr "通过"
@@ -1344,6 +1410,11 @@ msgid "rush"
 msgstr "抢修"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_scrap_date
+msgid "scrap date"
+msgstr "报废期时间"
+
+#. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.fleet_vehicle_view_form
 #: model:ir.ui.view,arch_db:vehicle_manage.vehicle_life_cycle_form
 #: model:ir.ui.view,arch_db:vehicle_manage.vehicle_usage_records_view_form
@@ -1399,6 +1470,11 @@ msgid "total_amount"
 msgstr "总金额"
 
 #. module: vehicle_manage
+#: model:ir.model.fields,field_description:vehicle_manage.field_batch_update_vehicle_tran_vehicle_id
+msgid "vehicle"
+msgstr "车辆"
+
+#. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_inspectionrecords_vehicle_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicle_usage_planitem_vehicle_id
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicleusage_driverecords_vehicle_id
@@ -1435,6 +1511,12 @@ msgstr "年检执行结果"
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_inspectionState
 msgid "vehicle inspection state"
 msgstr "年检状态"
+
+#. module: vehicle_manage
+#: model:ir.ui.view,arch_db:vehicle_manage.view_batch_update_vehicle_status_warn
+#: model:ir.ui.view,arch_db:vehicle_manage.view_batch_update_vehicle_status_wizard
+msgid "vehicle list"
+msgstr "车辆列表"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_route_manage_route_manage_vehiclenums
@@ -1533,3 +1615,4 @@ msgstr "行车记录"
 #: selection:fleet.vehicle,state:0
 msgid "warrantly"
 msgstr "保养"
+
