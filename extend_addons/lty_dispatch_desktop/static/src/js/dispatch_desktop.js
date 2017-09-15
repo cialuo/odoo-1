@@ -130,6 +130,11 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         start: function () {
             $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
             var self = this;
+            if (window.location.href.split("action=")[1].split('&')[0] != undefined) {
+                if (window.location.href.split("action=")[1].split('&')[0] == "dispatch_desktop.page") {
+                    $('body').find('.o_content').css('overflow', 'hidden');
+                }
+            }
             self.$el.append(QWeb.render("myConsole"));
             var desktop_id = window.location.href.split("active_id=")[1].split("&")[0];
             self.$el.parent().addClass("controller_" + desktop_id).attr("desktop_id", desktop_id);
