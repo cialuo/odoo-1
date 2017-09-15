@@ -552,6 +552,10 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
         return false;
     }
 
+    if (dataObj.carStateId == 2008){
+        active_obj.remove();
+    }
+
     // 司机签到状态
     if (dataObj.checkOut != undefined) {
         if (dataObj.checkOut == 1) {

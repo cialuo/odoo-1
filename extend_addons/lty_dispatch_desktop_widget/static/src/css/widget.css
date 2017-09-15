@@ -1308,3 +1308,15 @@
     margin: 2px;
     width: 12px
 }
+
+
+/*ui-autocomplete*/
+
+.ui-autocomplete {
+    background-color: #464f76;
+}
+
+.ui-autocomplete .ui-menu-item > a {
+    color: #fff;
+    padding: 3px 10px;
+}

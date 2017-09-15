@@ -346,16 +346,35 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
 
             // 搜索-车辆编号
             $("body").on("keyup", ".customModal .carNum", function(){
-                var workDate = $(".customModal .modal-body").attr("workDate");
-                var options = {
-                    event: this,
-                    dateSearch: workDate,
-                    controlId: controllerId,
-                    lineId: lineId,
-                    carNum: $(this).val()
-                };
-                opDisPatchPlanOpEditDriver_onfocus_Autocomplete(options);
+                self.vehicle_search_autocomplete({evt: this, controlId: controllerId, lineId: lineId});
             });
+            // $("body").on("focus", ".customModal .carNum", function(){
+            //     self.vehicle_search_autocomplete({evt: this, controlId: controllerId, lineId: lineId});
+            // });
+
+            // 搜索-司机工号
+            $("body").on("keyup", ".customModal .workerId", function(){
+                self.driver_search_autocomplete({evt: this, controlId: controllerId});
+            });
+            // $("body").bind("focus", ".customModal .workerId", function(){
+            //     self.driver_search_autocomplete({evt: this, controlId: controllerId});
+            // });
+
+            // 搜索-乘务工号
+            $("body").on("keyup", ".customModal .train", function(){
+                self.trainman_search_autocomplete({evt: this, controlId: controllerId});
+            });
+            // $("body").bind("focus", ".customModal .train", function(){
+            //     self.trainman_search_autocomplete({evt: this, controlId: controllerId});
+            // });
+
+            // 搜索-线路
+            $("body").on("keyup", ".customModal .train", function(){
+                self.trainman_search_autocomplete({evt: this, controlId: controllerId});
+            });
+            // $("body").bind("focus", ".customModal .train", function(){
+            //     self.trainman_search_autocomplete({evt: this, controlId: controllerId});
+            // });
         },
         plan_bottom_fn: function () {
             var self = this;
@@ -644,6 +663,101 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     console.log(ret.respose[0]);
                     var dialog = new fix_plan_w(self, ret.respose[0]);
                     dialog.appendTo($('body'));
+                }
+            });
+        },
+        vehicle_search_autocomplete: function(data) {
+            var workDate = $(".customModal .modal-body").attr("workDate");
+            var options = {
+                event: data.evt,
+                dateSearch: workDate,
+                controlId: data.controlId,
+                lineId: data.lineId,
+                carNum: $(data.evt).val()
+            };
+            console.log(options);
+            $(options.event).autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: 'http://202.104.136.228:8888/ltyop/dspSimulationDisPatchPlan/autocompleteBusResourcByControlIdNoCarState?apikey=71029270&params={dateSearch: "'+options.dateSearch+'" ,controlId: "'+options.controlId+'" ,lineId: "'+options.lineId+'" ,carNum: "'+options.carNum+'"}',
+                        dataType: "json",
+                        type: 'get',
+                        success: function(ret) {
+                            response($.map(ret, function(item) {
+                                return item.carNum
+                            }));
+                        }
+                    });
+                },
+                minChars: 1, //自动完成激活之前填入的最小字符
+                mustMatch: true,
+                matchSubset: false,
+                select : function(event, ui) {  
+                    console.log('111');
+                }
+            });
+        },
+        driver_search_autocomplete: function(data) {
+            var workDate = $(".customModal .modal-body").attr("workDate");
+            var gprsid = $(".customModal .modal-body").attr("gprsid");
+            var options = {
+                event: data.evt,
+                dateSearch: workDate,
+                controlId: data.controlId,
+                gprsid: gprsid,
+                workerId: $(data.evt).val()
+            };
+            console.log(options);
+            $(options.event).autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: 'http://202.104.136.228:8888/ltyop/dspSimulationDisPatchPlan/autocompleteAttendanceByGprsid?apikey=71029270&params={dateSearch: "'+options.dateSearch+'" ,controlId: "'+options.controlId+'" ,gprsid: "'+options.gprsid+'" ,workerId: "'+options.workerId+'"}',
+                        dataType: "json",
+                        type: 'get',
+                        success: function(ret) {
+                            response($.map(ret, function(item) {
+                                return item.carNum
+                            }));
+                        }
+                    });
+                },
+                minChars: 1, //自动完成激活之前填入的最小字符
+                mustMatch: true,
+                matchSubset: false,
+                select : function(event, ui) {  
+                    console.log('111');
+                }
+            });
+        },
+        trainman_search_autocomplete: function(data) {
+            var workDate = $(".customModal .modal-body").attr("workDate");
+            var gprsid = $(".customModal .modal-body").attr("gprsid");
+            var options = {
+                event: data.evt,
+                dateSearch: workDate,
+                controlId: data.controlId,
+                gprsid: gprsid,
+                workerId: $(data.evt).val()
+            };
+            console.log(options);
+            $(options.event).autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: 'http://202.104.136.228:8888/ltyop/dspSimulationDisPatchPlan/autocompleteTrainAttendanceByGprsid?apikey=71029270&params={dateSearch: "'+options.dateSearch+'" ,controlId: "'+options.controlId+'" ,gprsid: "'+options.gprsid+'" ,workerId: "'+options.workerId+'"}',
+                        dataType: "json",
+                        type: 'get',
+                        success: function(ret) {
+                            response($.map(ret, function(item) {
+                                return item.carNum
+                            }));
+                        }
+                    });
+                },
+                minChars: 1, //自动完成激活之前填入的最小字符
+                mustMatch: true,
+                matchSubset: false,
+                select : function(event, ui) {  
+                    console.log('111');
                 }
             });
         },
@@ -989,7 +1103,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 planKm: confObj.find(".planKm").val(),
                 direction: confObj.find(".direction").val(),
                 driverName: confObj.find(".driverName").val(),
-                workerId: confObj.find(".worker").val(),
+                workerId: confObj.find(".workerId").val(),
                 trainId: confObj.find(".train").val(),
                 trainName: confObj.find(".trainName").val(),
                 addType: confObj.find(".addType").val(),
@@ -1159,10 +1273,10 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 controlId: self.set_data.controllerId,
                 planId_1: self.set_data.id,
                 type: self.$(".mode_type .active").attr("name"),
-                onBoardId: confObj.find(".replace_vehicles").attr("onBoardId"),
-                selfId: confObj.find(".replace_vehicles").attr("selfId"),
-                workerId: confObj.find(".replace_driver").attr("workerId"),
-                driverName: confObj.find(".replace_driver").attr("driverName"),
+                onBoardId: confObj.find(".onBoardId").val(),
+                selfId: confObj.find(".carNum").val(),
+                workerId: confObj.find(".workerId").val(),
+                driverName: confObj.find(".driverName").val(),
                 startTime: confObj.find(".startTime").val(),
                 endTime: confObj.find(".endTime").val(),
             };
@@ -1434,85 +1548,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             });
         }
     });
-
-    function opDisPatchPlanOpEditDriver_onfocus_Autocomplete(options) {
-        // $(options.event).autocomplete('http://202.104.136.228:8888/ltyop/dspSimulationDisPatchPlan/autocompleteBusResourcByControlIdNoCarState?apikey=71029270&params={dateSearch: "'+options.dateSearch+'" ,controlId: "'+options.controlId+'" ,lineId: "'+options.lineId+'" ,carNum: "'+options.carNum+'"}', {
-        // $(options.event).autocomplete({
-        //     source: function(request, response) {
-        //         $.ajax({
-        //             url: 'http://202.104.136.228:8888/ltyop/dspSimulationDisPatchPlan/autocompleteBusResourcByControlIdNoCarState?apikey=71029270&params={dateSearch: "'+options.dateSearch+'" ,controlId: "'+options.controlId+'" ,lineId: "'+options.lineId+'" ,carNum: "'+options.carNum+'"}',
-        //             dataType: "json",
-        //             type: 'get',
-        //             success: function(ret) {
-        //                 response($.map(ret, function(item) {
-        //                     return item;
-        //                 }));
-        //             }
-        //         });
-        //     },
-        //     minChars: 1, //自动完成激活之前填入的最小字符
-        //     mustMatch: true,
-        //     matchSubset: false,
-        //     max: 180,
-        //     width: 180,
-        //     formatItem: function(row, i, max, id, term) {
-        //         return getAutocompleteCss(term, row.workerId, row.driverName, '180');
-        //     },
-        //     formatMatch: function(row, i, max) {
-        //         return row.driverName + row.driverName;
-        //     },
-        //     formatResult: function(row) {
-        //         return row.workerId;
-        //     }
-        // }).result(function(event, row, formatted) {
-        //     if (row != null) {
-        //         $("input[name='driverName']").val(row.driverName);
-        //     }
-        // });
-
-        $(options.event).autocomplete({
-            source: function(request, response) {
-                $.ajax({
-                    url: 'http://202.104.136.228:8888/ltyop/dspSimulationDisPatchPlan/autocompleteBusResourcByControlIdNoCarState?apikey=71029270&params={dateSearch: "'+options.dateSearch+'" ,controlId: "'+options.controlId+'" ,lineId: "'+options.lineId+'" ,carNum: "'+options.carNum+'"}',
-                    dataType: "json",
-                    type: 'get',
-                    success: function(ret) {
-                        response($.map(ret, function(item) {
-                            return item;
-                        }));
-                    }
-                });
-            },
-            delay: 500,//延迟500ms便于输入  
-            select : function(event, ui) {  
-                console.log('111');
-            }
-        });
-    }
-
-
-    function getAutocompleteCss(term, arg1, arg2, width) {
-        if (arg1 != undefined) {
-            var wid = 120;
-            if (width == "" || width == undefined) {
-
-            } else {
-                wid = width;
-            }
-
-            var str = "<table width='" + wid + "px'><tr><td align='left'>" +
-                arg1.replace(term, "<font style='color: red; font-style: italic'>" + term + "</font>").replace(term.toUpperCase(), "<font style='color: red; font-style: italic'>" + term.toUpperCase() + "</font>") +
-                "</td>";
-
-            if (arg2 == "" || arg2 == undefined) {} else {
-                str = str + "<td align='right'><font style='font-family: 黑体; font-style: italic'>" +
-                    arg2.replace(term, "<font style='color: red; font-style: italic'>" + term + "</font>").replace(term.toUpperCase(), "<font style='color: red; font-style: italic'>" + term.toUpperCase() + "</font>") +
-                    "</font></td>";
-            }
-            str = str + "</tr></table>";
-            return str;
-        }
-    }
 
     return plan_display;
 });
