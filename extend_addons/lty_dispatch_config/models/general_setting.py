@@ -173,7 +173,9 @@ class Company(models.Model):
 
     # 字体颜色 深红色 - 小于
     dark_red_font_color_less = fields.Integer()
-
+	
+    #计划超时隐藏时间
+    plan_hidden_time = fields.Integer()
 
 class General_setting(models.TransientModel):
     _name = 'general.config.settings'
@@ -348,6 +350,9 @@ class General_setting(models.TransientModel):
 
     # 字体颜色 深红色 - 小于
     dark_red_font_color_less = fields.Integer(related='company_id.dark_red_font_color_less')
+	
+    #计划超时隐藏时间
+    plan_hidden_time = fields.Integer(related='company_id.plan_hidden_time')
 
     @api.multi
     def execute(self):
