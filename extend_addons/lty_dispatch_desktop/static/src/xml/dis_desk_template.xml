@@ -125,15 +125,15 @@
 						</div>
 						<div class="bus_info fl">
 							<ul>
-								<li class="amountCar">配车数量：<span></span></li>
-								<li class="trailerNum">挂车数量：<span></span></li>
-								<li class="motorVehicle">机动车辆：<span></span></li>
-								<li class="mainOutage">维保停运：<span>—</span></li>
-								<li class="shareCar">共享机位：<span>—</span></li>
-								<li class="singalIn">信号在线：<span></span></li>
-								<li class="singalOut">信号掉线：<span></span></li>
-								<li class="carDriver">司机：<span></span></li>
-								<li class="carHelper">乘务：<span></span></li>
+								<li class="show_applycar_num">配车数量：<span></span></li>
+								<li class="show_trailerNum">挂车数量：<span></span></li>
+								<li class="show_active_car">机动车辆：<span></span></li>
+								<li class="show_main_outage">维保停运：<span>—</span></li>
+								<li class="show_share_active_car">共享机动：<span>—</span></li>
+								<li class="show_signal_online">信号在线：<span></span></li>
+								<li class="show_signal_online">信号掉线：<span></span></li>
+								<li class="show_car_driver">司机：<span></span></li>
+								<li class="show_car_attendant">乘务：<span></span></li>
 							</ul>
 						</div>
 						<div class="line_btn">
@@ -344,9 +344,9 @@
 	</t>
 	<t t-name="config">
 		<div class="info_config">
-			<div class="modal fade config" tabindex="-1" role="dialog">
+			<div class="modal config" tabindex="-1" role="dialog">
 			    <div class="modal-dialog" role="document">
-					<div class="modal-content">
+					<div class="modal-content conf_bg">
 					    <div class="modal-header">
 						    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 						    <h4 class="modal-title">配置</h4>
@@ -372,50 +372,64 @@
 									<dd>
 										<div>配车数量</div>
 										<div>
-											<input type="checkbox" id="bus_num_config" class="src_config"/>
+											<input type="checkbox" id="bus_num_config" class="src_config conf_applycar_num"/>
 											<label for="bus_num_config" class="green"></label>
+										</div>
+									</dd>
+									<dd>
+										<div>挂车数量</div>
+										<div>
+											<input type="checkbox" id="guabus_num" class="src_config conf_trailerNum"/>
+											<label for="guabus_num" class="green"></label>
 										</div>
 									</dd>
 									<dd>
 										<div>机动车辆</div>
 										<div>
-											<input type="checkbox" id="motor_vehicle" class="src_config"/>
+											<input type="checkbox" id="motor_vehicle" class="src_config conf_active_car"/>
 											<label for="motor_vehicle" class="green"></label>
 										</div>
 									</dd>
 									<dd>
 										<div>维保停运</div>
 										<div>
-											<input type="checkbox" id="bus_outage" class="src_config"/>
+											<input type="checkbox" id="bus_outage" class="src_config conf_main_outage"/>
 											<label for="bus_outage" class="green"></label>
 										</div>
 									</dd>
 									<dd>
 										<div>共享机动</div>
 										<div>
-											<input type="checkbox" id="share_bus" class="src_config"/>
+											<input type="checkbox" id="share_bus" class="src_config conf_share_active_car"/>
 											<label for="share_bus" class="green"></label>
 										</div>
 									</dd>
 									<dd>
 										<div>信号在线</div>
 										<div>
-											<input type="checkbox" id="signal_online" class="src_config"/>
+											<input type="checkbox" id="signal_online" class="src_config conf_signal_online"/>
 											<label for="signal_online" class="green"></label>
+										</div>
+									</dd>
+									<dd>
+										<div>信号掉线</div>
+										<div>
+											<input type="checkbox" id="signal_outline" class="src_config conf_signal_outline"/>
+											<label for="signal_outline" class="green"></label>
 										</div>
 									</dd>
 									<dd>
 										<div>司机</div>
 										<div>
-											<input type="checkbox" id="bus_driver" class="src_config"/>
+											<input type="checkbox" id="bus_driver" class="src_config conf_car_driver"/>
 											<label for="bus_driver" class="green"></label>
 										</div>
 									</dd>
 									<dd>
 										<div>乘务员</div>
 										<div>
-											<input type="checkbox" id="src_config" class="src_config"/>
-											<label for="src_config" class="green"></label>
+											<input type="checkbox" id="driver_server" class="src_config conf_car_attendant"/>
+											<label for="driver_server" class="green"></label>
 										</div>
 									</dd>
 								</dl>
@@ -423,7 +437,7 @@
 					    </div>
 					    <div class="modal-footer">
 						    <button type="button" class="btn btn-primary config_btn">确认</button>
-						    <button type="button" class="btn btn-default btn_cancel">取消</button>
+						    <button type="button" class="btn btn-default btn_cancel" data-dismiss="modal">取消</button>
 					    </div>
 					</div><!-- /.modal-content -->
 			    </div><!-- /.modal-dialog -->

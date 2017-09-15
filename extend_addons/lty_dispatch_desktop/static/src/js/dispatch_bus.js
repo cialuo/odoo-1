@@ -25,6 +25,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.model_station_platform = new Model('opertation_resources_station_platform');
             // 线路资源
             this.model_linesrc = new Model('scheduleplan.excutetable');
+            this.model_config = new Model('dispatch.control.desktop');
             //odoo提供数据
             this.dis_desk = data;
             this.rendr_index = rendr_index;
@@ -36,7 +37,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var tid = self.$el.attr('tid');
             $('*[click="yes"]').removeAttr('click');
             this.$el.attr("click", "yes");
-            function site_info(mode_line, model_station_platform, model_src) {
+            function site_info(mode_line, model_station_platform, model_src, model_config) {
                 if (self.$el.find('.line_line')[0] != undefined) {
                     // 根据tid拿到线路id
                     mode_line.query().filter([["id", "=", parseInt(tid)]]).all().then(function (data) {
@@ -44,24 +45,64 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             model_station_platform.query().filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "down"]]).all().then(function (res_down) {
                                 // 库
                                 var timeNow = new Date().toLocaleDateString().replace(/\//g, "-");
-                                model_src.query().filter([["line_id", "=", parseInt(self.line_id)], ["excutedate", "=", timeNow]]).all().then(function (src) {
-                                    if (src.length > 0) {
-                                        //配车数量
-                                        self.$el.find('.amountCar span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
-                                        //挂车数量
-                                        self.$el.find('.trailerNum span').html(src[0].workvehiclenum);
-                                        //机动车辆
-                                        self.$el.find('.motorVehicle span').html(src[0].backupvehiclenum);
-                                        // 信号在线
-                                        self.$el.find('.singalIn span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
-                                        //信号掉线
-                                        self.$el.find('.singalOut span').html(0);
-                                        //司机
-                                        self.$el.find('.carDriver span').html(src[0].drivernum);
-                                        //乘务
-                                        self.$el.find('.carHelper span').html(src[0].stewardnum);
+                                model_config.query().filter([["id", "=", parseInt(self.desktop_id)]]).all().then(function (conf) {
+                                    // 配车数量
+                                    if (conf[0].applycar_num == true) {
+                                        self.$el.find('.show_applycar_num').show();
                                     }
+                                    // 机动车辆
+                                    if (conf[0].active_car == true) {
+                                        self.$el.find('.show_active_car').show();
+                                    }
+                                    // 维保停运
+                                    if (conf[0].main_outage == true) {
+                                        self.$el.find('.show_main_outage').show();
+                                    }
+                                    // 共享机动
+                                    if (conf[0].share_active_car == true) {
+                                        self.$el.find('.show_share_active_car').show();
+                                    }
+                                    // 信号在线
+                                    if (conf[0].signal_online == true) {
+                                        self.$el.find('.show_signal_online').show();
+                                    }
+                                    // 信号在线
+                                    if (conf[0].signal_outline == true) {
+                                        self.$el.find('.show_signal_outline').show();
+                                    }
+                                    // 司机
+                                    if (conf[0].car_driver == true) {
+                                        self.$el.find('.show_car_driver').show();
+                                    }
+                                    // 乘务员
+                                    if (conf[0].car_attendant == true) {
+                                        self.$el.find('.show_car_attendant').show();
+                                    }
+                                    //挂车数量
+                                    if (conf[0].trailerNum == true) {
+                                        self.$el.find('.show_trailerNum').show();
+                                    }
+                                    self.$el.find('.bus_info>ul>li').css('color', conf[0].src_font_conf);
+                                    model_src.query().filter([["line_id", "=", parseInt(self.line_id)], ["excutedate", "=", timeNow]]).all().then(function (src) {
+                                        if (src.length > 0) {
+                                            //配车数量
+                                            self.$el.find('.show_applycar_num span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
+                                            //挂车数量
+                                            self.$el.find('.show_trailerNum span').html(src[0].workvehiclenum);
+                                            //机动车辆
+                                            self.$el.find('.show_active_car span').html(src[0].backupvehiclenum);
+                                            // 信号在线
+                                            self.$el.find('.show_signal_online span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
+                                            //信号掉线
+                                            self.$el.find('.show_singalOut span').html(0);
+                                            //司机
+                                            self.$el.find('.show_car_driver span').html(src[0].drivernum);
+                                            //乘务
+                                            self.$el.find('.show_car_attendant span').html(src[0].stewardnum);
+                                        }
+                                    });
                                 });
+                                var res_down_deal = res_down.reverse();
                                 var model_id = "line_message__" + self.line_id;
                                 if (socket_model_info[model_id]) {
                                     delete socket_model_info[model_id];
@@ -69,17 +110,18 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 var package_line_message = {
                                     type: 2000,
                                     controlId: self.desktop_id,
-                                    open_modules: ["line_message"]
+                                    open_modules: ["line_message", "line_online"]
                                 };
                                 websocket.send(JSON.stringify(package_line_message));
                                 var dataSite_top_color_cof = {};
                                 var dataSite_down_color_cof = {};
+
                                 for (var i = 0; i < res_top.length; i++) {
                                     var color = 'color' + res_top[i].id;
                                     dataSite_top_color_cof[color] = '#18d76b';
                                 }
-                                for (var i = 0; i < res_down.length; i++) {
-                                    var color = 'color' + res_down[i].id;
+                                for (var i = 0; i < res_down_deal.length; i++) {
+                                    var color = 'color' + res_down_deal[i].id;
                                     dataSite_down_color_cof[color] = '#18d76b';
                                 }
                                 var cirTop = {
@@ -98,7 +140,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     self: self.$el,
                                     // color: data.color,
                                     dataSite_color: dataSite_down_color_cof,
-                                    site_infos: res_down
+                                    site_infos: res_down_deal
                                 };
                                 cir_and_text(cirTop);
                                 cir_and_text(cirBottom);
@@ -110,7 +152,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     dataType: 'json',
                                     data: {},
                                     success: function (data) {
-
                                         for (var i = 0; i < data.respose.length; i++) {
                                             if (data.respose[i].direction == 0 && data.respose[i].inField == 1 && data.respose[i].carStateId == 1001) {
                                                 bus_park_top++;
@@ -130,7 +171,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         can_left_right(
                                             {
                                                 id: '.canvas_left',
-                                                color: '#2E3550',
+                                                color: '#252B43',
                                                 ciry: 27,
                                                 self: self.$el,
                                                 r: 4,
@@ -142,7 +183,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         can_left_right(
                                             {
                                                 id: '.canvas_right',
-                                                color: '#2E3550',
+                                                color: '#252B43',
                                                 ciry: 27,
                                                 self: self.$el,
                                                 r: 4,
@@ -153,13 +194,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         );
                                         return bus_park_top, bus_park_down;
                                     },
-                                    error: function () {
-                                        alert("请求出错");
+                                    error:function () {
+                                        layer.msg('请求出错');
                                     }
                                 });
                                 // self.color = data.color;
                                 self.site_top_infos = res_top;
-                                self.site_down_infos = res_down;
+                                self.site_down_infos = res_down_deal;
                                 // 站点颜色
                                 self.dataSite_top_color = dataSite_top_color_cof;
                                 self.dataSite_down_color = dataSite_down_color_cof;
@@ -173,7 +214,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                             line_id: self.line_id,
                                             desktop_id: self.desktop_id,
                                             site_top_infos: res_top,
-                                            site_down_infos: res_down,     //此处修改
+                                            site_down_infos: res_down_deal,     //此处修改
                                             dataSite_top_color_cof: dataSite_top_color_cof,
                                             dataSite_down_color_cof: dataSite_down_color_cof,
                                             busTopNumber: bus_park_top + '辆',
@@ -187,7 +228,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 }
             }
 
-            site_info(this.model_line, this.model_station_platform, this.model_linesrc)
+            site_info(this.model_line, this.model_station_platform, this.model_linesrc, this.model_config)
             //阻止右键引起的默认事件必须使用contextmenu
             self.$('.can_top').bind('contextmenu', function () {
                 return false;
@@ -202,28 +243,30 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var data = new Object();
             var line_c = parseInt(arg.line_id);
             //车辆在途刷新  后期socket推送
-            $.ajax({
-                url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
-                type: 'get',
-                dataType: 'json',
-                data: {},
-                success: function (data) {
-                    bus_way_top = bus_way_down = 0;
-                    for (var i = 0; i < data.respose.length; i++) {
-                        if (data.respose[i].direction == 0 && data.respose[i].inField == 0) {
-                            bus_way_top++;
+            if (data_use.moduleName = "line_park" || data_use.moduleName == "line_online") {
+                $.ajax({
+                    url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
+                    type: 'get',
+                    dataType: 'json',
+                    data: {},
+                    success: function (data) {
+                        bus_way_top = bus_way_down = 0;
+                        for (var i = 0; i < data.respose.length; i++) {
+                            if (data.respose[i].direction == 0 && data.respose[i].inField == 0) {
+                                bus_way_top++;
+                            }
+                            else if (data.respose[i].direction == 1 && data.respose[i].inField == 0) {
+                                bus_way_down++;
+                            }
                         }
-                        else if (data.respose[i].direction == 1 && data.respose[i].inField == 0) {
-                            bus_way_down++;
-                        }
+                        self.$el.find('.park_left li').html(bus_way_top);
+                        self.$el.find('.park_right li').html(bus_way_down);
+                    },
+                    error: function () {
+                        layer.msg("请求出错");
                     }
-                    self.$el.find('.park_left li').html(bus_way_top);
-                    self.$el.find('.park_right li').html(bus_way_down);
-                },
-                error: function () {
-                    alert("请求出错");
-                }
-            });
+                });
+            }
             //匹配line_id和desktop_id
             if (data_use.data.line_id == line_c && data_use.controllerId == self.desktop_id) {
                 //线路状态分段颜色   目前使用的假数据
@@ -578,7 +621,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             }
                         },
                         error: function () {
-                            alert("请求出错");
+                            layer.msg("请求出错");
                         }
                     });
                 }
