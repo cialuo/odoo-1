@@ -214,7 +214,7 @@ class PlanLine(models.Model):
                              related='procurement_id.state', string='Procurement state', readonly=True, store=True)
     procurement_id = fields.Many2one('procurement.order', string='Procurement Order',
                                       ondelete='restrict')
-    purchase_id = fields.Many2one('purchase.order', string='Purchase Order', related='procurement_id.purchase_id', ondelete='restrict')
+    purchase_id = fields.Many2one('purchase.order', string='Purchase Order', ondelete='restrict')
     plan_id = fields.Many2one('purchase.plan', string='Purchase Plan', ondelete='cascade')
     product_tmpl_id = fields.Many2one('product.template')
     seller_id = fields.Many2one('product.supplierinfo', string='Partner', domain="[('product_tmpl_id', '=', product_tmpl_id)]")
@@ -292,7 +292,7 @@ class PlanLine(models.Model):
                 line.plan_id.procurement_group_id = self.env['procurement.group'].create(vals)
             vals = line._prepare_order_line_procurement(group_id=line.plan_id.procurement_group_id.id)
             proc_order = self.env['procurement.order'].create(vals)
-            line.write({'procurement_id': proc_order.id})
+            line.write({'procurement_id': proc_order.id, 'purchase_id': proc_order.purchase_id.id})
             proc_orders += proc_order
         proc_orders.run()
         return proc_orders
