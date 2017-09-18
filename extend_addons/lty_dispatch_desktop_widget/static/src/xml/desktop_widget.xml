@@ -877,7 +877,7 @@
                                 </td>
                                 <td>
                                     司机工号&#160;
-                                    <input class="w2 workerId" t-attf-value="{{widget.set_data.workerId}}" type="number" />
+                                    <input class="w2 workerId" t-attf-value="{{widget.set_data.workerId}}" type="text" />
                                 </td>
                             </tr>
                             <tr>
@@ -981,8 +981,8 @@
                             <tr>
                                 <td>
                                     计划时间&#160;
-                                    <input class="w2 planTimeShow" t-attf-value="{{new Date(widget.set_data.planRunTime).toTimeString().slice(0, 5)}}" type="time" />
-                                    <input class="w2 planTime" t-attf-value="{{widget.set_data.planRunTime}}" type="hidden" />
+                                    <input class="w2 planTime" t-attf-value="{{new Date(widget.set_data.planRunTime).toTimeString().slice(0, 5)}}" type="time" />
+                                    <!-- <input class="w2 planTime" t-attf-value="{{widget.set_data.planRunTime}}" type="hidden" /> -->
                                 </td>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
@@ -1294,8 +1294,8 @@
                                 </td>
                                 <td>
                                     上班时间&#160;&#160;
-                                    <input class="w6 onWorkTimeShow"  t-attf-value="{{new Date(widget.set_data.onWorkTime).toTimeString().slice(0, 5)}}" type="text" />
-                                    <input class="onWorkTime"  t-attf-value="{{widget.set_data.onWorkTime}}" type="hidden" />
+                                    <input class="w6 onWorkTime"  t-attf-value="{{new Date(widget.set_data.onWorkTime).toTimeString().slice(0, 5)}}" type="text" />
+                                    <!-- <input class="onWorkTime"  t-attf-value="{{widget.set_data.onWorkTime}}" type="hidden" /> -->
                                 </td>
                             </tr>
                             <tr>
