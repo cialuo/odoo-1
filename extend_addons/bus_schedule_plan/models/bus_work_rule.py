@@ -16,7 +16,7 @@ class BusWorkRules(models.Model):
 
     _name = 'scheduleplan.schedulrule'
 
-    name = fields.Char(string="rule name")
+    name = fields.Char(string="rule name", required=True)
 
     # 线路
     line_id = fields.Many2one("route_manage.route_manage", string="related line", readonly=True)
@@ -101,25 +101,37 @@ class BusWorkRules(models.Model):
         return '130400'
         return self.env['ir.config_parameter'].get_param('city.code')
 
+    def getAPIUrl(self):
+        return "http://10.1.10.169:8081/ltyop/trafficRules/getBusTraffRule"
+        return self.env['ir.config_parameter'].get_param('bus.arrange.rule.url')
+
     @api.multi
     def fetchRuleFromBigData(self):
         """
         从大数据获取行车规则
         """
-        url = "http://10.1.10.169:8081/ltyop/trafficRules/getBusTraffRule"
+        url = self.getAPIUrl()
         datestr = self.getTargetDate()
         # data = getRuleFromBigData(url, 'sdf123', self.line_id.id, datestr, self.schedule_method)
         if self.schedule_method == 'singleway':
             schedule = 0
         else:
             schedule = 1
-        data = getRuleFromBigData(url, self.getCityCode(), 10, datestr, 0)
+        try:
+            data = getRuleFromBigData(url, self.getCityCode(), 10, datestr, 0)
+        except Exception as e:
+            raise
+            raise ValidationError("failed to connect api server")
         if data == None:
             raise ValidationError(_("fetch data failed from bigdata system"))
-        self.upplanvehiclearrange = data['vup']
-        self.uptimearrange = data['tup']
-        self.downplanvehiclearrange = data['vdown']
-        self.downtimearrange = data['tdown']
+        update = {}
+        update['upplanvehiclearrange'] = data['vup']
+        update['uptimearrange'] = data['tup']
+        if len(data['vdown']) != 0:
+            update['downplanvehiclearrange'] = data['vdown']
+        if len(data['tdown']) != 0:
+            update['downtimearrange'] = data['tdown']
+        self.write(update)
 
     @staticmethod
     def _validateVehicleNums(obj):
