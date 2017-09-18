@@ -17,6 +17,12 @@ def timesubtraction(time1, time2):
 
 TIMEFORMAT = "%Y-%m-%d %H:%M:%S"
 
+mark_map = {
+    1:'flat',
+    2:'low',
+    3:'peak'
+}
+
 def adjustDateTime2ZhCn(datatimsstr):
     """
     把基于utd的时间字符串校正到北京时间
@@ -34,12 +40,16 @@ def getRuleFromBigData(url, citycode, lineId, curDate, reverseType):
         'reverse_type':reverseType
     }
     response = requests.get(url,params=parms)
-    if response.status_code != '200':
+    if response.status_code != 200:
         return None
     try:
         data = json.loads(response.text, encoding='utf-8')
     except Exception:
         return None
+
+    if data['result'] != 0:
+        return None
+    data = data['response']
     vehicleup = []
     for item in data['planvehiclearrageup']:
         vehicleup.append((0,0,{
@@ -48,18 +58,18 @@ def getRuleFromBigData(url, citycode, lineId, curDate, reverseType):
             'backupnumber':item['backupnumber'],
         }))
     timeup = []
-    for item in data['timearrageup']:
+    for index, item in enumerate(data['timearrageup'], 1):
         timeup.append((0,0,{
             'starttime':item['starttime'],
-            'seqid':item['seqid'],
+            'seqid':index,
             'endtime':item['endtime'],
-            'interval':item['interval'],
+            'interval':item['ainterval'],
             'speed':item['speed'],
             'worktimelength':item['worktimelength'],
             'resttime':item['resttime'],
             'minvehicles':item['minvehicles'],
-            'mark':item['mark'],
-            'spanday':item['spanday']
+            'mark': mark_map[item['mark']],
+            'spanday':True if item['spanday']==1 else False
         }))
     vehicledown = []
     timedown = []
@@ -70,25 +80,27 @@ def getRuleFromBigData(url, citycode, lineId, curDate, reverseType):
                 'workingnumber': item['workingnumber'],
                 'backupnumber': item['backupnumber'],
             }))
-        for item in data['timearragedwon']:
+        for index, item in enumerate(data['timearragedwon'], 1) :
             timedown.append((0, 0, {
                 'starttime': item['starttime'],
-                'seqid': item['seqid'],
+                'seqid': index,
                 'endtime': item['endtime'],
                 'interval': item['interval'],
                 'speed': item['speed'],
                 'worktimelength': item['worktimelength'],
                 'resttime': item['resttime'],
                 'minvehicles': item['minvehicles'],
-                'mark': item['mark'],
-                'spanday': item['spanday']
+                'mark': mark_map[item['mark']],
+                'spanday': True if item['spanday']==1 else False
             }))
-    return {
-        'vup':vehicleup,
-        'tup':timeup,
-        'vdown':vehicledown,
-        'tdown':timedown
+    result = {
+        'vup': vehicleup,
+        'tup': timeup,
+        'vdown': vehicledown,
+        'tdown': timedown
     }
+    return result
+
 
 
 def check_time_format(time):

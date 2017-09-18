@@ -142,13 +142,13 @@ function absnormal_del(controllerObj, data_list) {
         //车辆掉线
         if (data_list.packageType == 1003) {
             abnoraml_desc.html(data_list.abnormal_description.bus_no + '车辆掉线');
-            dom_singal.find('.singalIn span').html(parseInt(dom_singal.find('.singalIn span').html()) - 1);
-            dom_singal.find('.singalOut span').html(parseInt(dom_singal.find('.singalOut span').html()) + 1);
+            dom_singal.find('.show_signal_online span').html(parseInt(dom_singal.find('.show_signal_online span').html()) - 1);
+            dom_singal.find('.show_signal_online span').html(parseInt(dom_singal.find('.show_signal_online span').html()) + 1);
             vehicle_drop(controllerObj, data_list);
         }
         // 出勤异常
         else if (data_list.packageType == 1004) {
-            abnoraml_desc.html('（员工）：' + data_list.abnormal_description.staff_name + '考勤异常');
+            abnoraml_desc.html('（员工）' + data_list.abnormal_description.staff_name + '：考勤异常');
         }
         // 到站准点异常
         else if (data_list.packageType == 1005) {

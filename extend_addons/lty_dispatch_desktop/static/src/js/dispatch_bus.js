@@ -83,24 +83,53 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         self.$el.find('.show_trailerNum').show();
                                     }
                                     self.$el.find('.bus_info>ul>li').css('color', conf[0].src_font_conf);
-                                    model_src.query().filter([["line_id", "=", parseInt(self.line_id)], ["excutedate", "=", timeNow]]).all().then(function (src) {
-                                        if (src.length > 0) {
+                                    $.ajax({
+                                    url: 'http://202.104.136.228:8888/ltyop/dispatchRealtimeStatus/cachelineStat?apikey=71029270&params={"gprsId":25}',
+                                    type: 'get',
+                                    async: false,
+                                    dataType: 'json',
+                                    data: {},
+                                    success: function (data) {
+                                        console.log(data)
+                                        if (data.length > 0) {
                                             //配车数量
-                                            self.$el.find('.show_applycar_num span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
+                                            self.$el.find('.show_applycar_num span').html(data[0].withBus);
                                             //挂车数量
-                                            self.$el.find('.show_trailerNum span').html(src[0].workvehiclenum);
+                                            self.$el.find('.show_trailerNum span').html(data[0].runBus);
                                             //机动车辆
-                                            self.$el.find('.show_active_car span').html(src[0].backupvehiclenum);
+                                            self.$el.find('.show_active_car span').html(data[0].motorBus);
                                             // 信号在线
-                                            self.$el.find('.show_signal_online span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
+                                            self.$el.find('.show_signal_online span').html(data[0].online);
                                             //信号掉线
-                                            self.$el.find('.show_singalOut span').html(0);
+                                            self.$el.find('.show_singalOut span').html(data[0].Offline);
                                             //司机
-                                            self.$el.find('.show_car_driver span').html(src[0].drivernum);
+                                            self.$el.find('.show_car_driver span').html(data[0].upFieldBusNum);
                                             //乘务
-                                            self.$el.find('.show_car_attendant span').html(src[0].stewardnum);
+                                            self.$el.find('.show_car_attendant span').html(data[0].downFieldBusNum);
                                         }
-                                    });
+                                    },
+                                    error:function () {
+                                        layer.msg('请求出错');
+                                    }
+                                });
+                                // model_src.query().filter([["line_id", "=", parseInt(self.line_id)], ["excutedate", "=", timeNow]]).all().then(function (src) {
+                                //     if (src.length > 0) {
+                                //         //配车数量
+                                //         self.$el.find('.show_applycar_num span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
+                                //         //挂车数量
+                                //         self.$el.find('.show_trailerNum span').html(src[0].workvehiclenum);
+                                //         //机动车辆
+                                //         self.$el.find('.show_active_car span').html(src[0].backupvehiclenum);
+                                //         // 信号在线
+                                //         self.$el.find('.show_signal_online span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
+                                //         //信号掉线
+                                //         self.$el.find('.show_singalOut span').html(0);
+                                //         //司机
+                                //         self.$el.find('.show_car_driver span').html(src[0].drivernum);
+                                //         //乘务
+                                //         self.$el.find('.show_car_attendant span').html(src[0].stewardnum);
+                                //     }
+                                // });
                                 });
                                 var res_down_deal = res_down.reverse();
                                 var model_id = "line_message__" + self.line_id;
@@ -765,7 +794,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 self.$('.edit_content .chs').html('')
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].id) {
-                        var oLi = "<li lineid=" + data[i].id + ">" + data[i].line_name + "</li>";
+                        var oLi = "<li gid="+data[i].gprs_id+" lineid=" + data[i].id + ">" + data[i].line_name + "</li>";
                         self.$('.edit_content .chs').append(oLi);
                     }
                 }
@@ -913,6 +942,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             'position_top': siteTop,
                             'position_z_index': 0,
                             'line_id': $(x).attr('lineid'),
+                            'gprs_id': $(x).attr('gid'),
                             'name': x.innerHTML
                         }]).then(function () {
                         self.model_line.call("create", [
@@ -941,6 +971,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     self.model_line.call("write", [parseInt(tid),
                         {
                             'line_id': $(x).attr("lineid"),
+                            'gprs_id': $(x).attr('gid'),
                             'position_left': siteLeft,
                             'position_top': siteTop,
                             'position_z_index': 0,
