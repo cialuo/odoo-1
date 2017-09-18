@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-18 06:46+0000\n"
-"PO-Revision-Date: 2017-08-18 06:46+0000\n"
+"POT-Creation-Date: 2017-09-18 02:42+0000\n"
+"PO-Revision-Date: 2017-09-18 02:42+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,16 @@ msgstr "异常编号"
 #: model:ir.ui.menu,name:lty_dispatch_jobs.dispatch_abnormal_logs_menu
 msgid "Abnormal logs"
 msgstr "异常处理日志"
+
+#. module: lty_dispatch_jobs
+#: model:ir.model.fields,field_description:lty_dispatch_jobs.field_dispatch_abnormal_mgt_abnormal_state
+msgid "Abnormal state"
+msgstr "异常状态"
+
+#. module: lty_dispatch_jobs
+#: selection:dispatch.abnormal.mgt,abnormal_state:0
+msgid "Active"
+msgstr "活跃"
 
 #. module: lty_dispatch_jobs
 #: model:ir.ui.menu,name:lty_dispatch_jobs.dispatch_abnormal_actived_menu
@@ -58,12 +68,12 @@ msgstr "车辆"
 #. module: lty_dispatch_jobs
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_dispatch_abnormal_mgt_categ_id
 msgid "Categ id"
-msgstr "目录"
+msgstr "分类"
 
 #. module: lty_dispatch_jobs
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_lty_dispatch_abnorma_categ_code
 msgid "Code"
-msgstr "代码"
+msgstr "编码"
 
 #. module: lty_dispatch_jobs
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_dispatch_abnormal_logs_create_uid
@@ -87,6 +97,11 @@ msgid "Date"
 msgstr "日期"
 
 #. module: lty_dispatch_jobs
+#: model:ir.model.fields,field_description:lty_dispatch_jobs.field_lty_dispatch_abnorma_categ_description
+msgid "Description"
+msgstr "说明"
+
+#. module: lty_dispatch_jobs
 #: model:ir.actions.act_window,name:lty_dispatch_jobs.dispatch_abnormal_logs_action_window
 msgid "Dispatch abnormal lgos"
 msgstr "调度异常日志"
@@ -102,7 +117,12 @@ msgstr "显示"
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_dispatch_driving_records_display_name
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_lty_dispatch_abnorma_categ_display_name
 msgid "Display Name"
-msgstr "显示名称"
+msgstr "是否显示"
+
+#. module: lty_dispatch_jobs
+#: selection:dispatch.abnormal.mgt,abnormal_state:0
+msgid "Done"
+msgstr "完成"
 
 #. module: lty_dispatch_jobs
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_dispatch_driving_records_driver_id
@@ -127,6 +147,11 @@ msgstr "GPS理程"
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_lty_dispatch_abnorma_categ_id
 msgid "ID"
 msgstr "ID"
+
+#. module: lty_dispatch_jobs
+#: selection:dispatch.abnormal.mgt,abnormal_state:0
+msgid "Ignore"
+msgstr "忽略"
 
 #. module: lty_dispatch_jobs
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_dispatch_abnormal_logs___last_update
@@ -169,7 +194,12 @@ msgstr "更多 <i class=\"fa fa-caret-down\"/>"
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_dispatch_driving_records_name
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_lty_dispatch_abnorma_categ_name
 msgid "Name"
-msgstr "名字"
+msgstr "名称"
+
+#. module: lty_dispatch_jobs
+#: model:ir.actions.act_window,help:lty_dispatch_jobs.dispatch_vehicleusage_driverecords_action
+msgid "No Drive Records.<br>"
+msgstr "无行车日志.<br>"
 
 #. module: lty_dispatch_jobs
 #: model:ir.actions.act_window,help:lty_dispatch_jobs.dispatch_driving_records_action_window
@@ -194,7 +224,7 @@ msgstr "计划结束"
 #. module: lty_dispatch_jobs
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_dispatch_driving_records_plan_mileage
 msgid "Plan mileage"
-msgstr "Plan mileage"
+msgstr "计划理程"
 
 #. module: lty_dispatch_jobs
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_dispatch_driving_records_plan_start
@@ -221,6 +251,11 @@ msgstr "趟次方向"
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_dispatch_driving_records_trip_id
 msgid "Trip id"
 msgstr "趟次"
+
+#. module: lty_dispatch_jobs
+#: model:ir.model.fields,field_description:lty_dispatch_jobs.field_lty_dispatch_abnorma_categ_type
+msgid "Type"
+msgstr "类型"
 
 #. module: lty_dispatch_jobs
 #: model:ir.model.fields,field_description:lty_dispatch_jobs.field_dispatch_abnormal_logs_user
@@ -251,4 +286,9 @@ msgstr "日志"
 #: model:ir.model,name:lty_dispatch_jobs.model_lty_dispatch_abnorma_categ
 msgid "lty.dispatch.abnorma.categ"
 msgstr "异常目录"
+
+#. module: lty_dispatch_jobs
+#: model:ir.actions.act_window,name:lty_dispatch_jobs.dispatch_vehicleusage_driverecords_action
+msgid "vehicleusage driverecords"
+msgstr "行车记录"
 

@@ -128,8 +128,8 @@
 								<li class="show_applycar_num">配车数量：<span></span></li>
 								<li class="show_trailerNum">挂车数量：<span></span></li>
 								<li class="show_active_car">机动车辆：<span></span></li>
-								<li class="show_main_outage">维保停运：<span>—</span></li>
-								<li class="show_share_active_car">共享机动：<span>—</span></li>
+								<li class="show_main_outage">维保停运：<span>-</span></li>
+								<li class="show_share_active_car">共享机动：<span>-</span></li>
 								<li class="show_signal_online">信号在线：<span></span></li>
 								<li class="show_signal_online">信号掉线：<span></span></li>
 								<li class="show_car_driver">司机：<span></span></li>
