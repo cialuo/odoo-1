@@ -97,6 +97,10 @@ class BusWorkRules(models.Model):
     def getTargetDate(self):
         return '20170913'
 
+    def getCityCode(self):
+        return '130400'
+        return self.env['ir.config_parameter'].get_param('city.code')
+
     @api.multi
     def fetchRuleFromBigData(self):
         """
@@ -109,7 +113,7 @@ class BusWorkRules(models.Model):
             schedule = 0
         else:
             schedule = 1
-        data = getRuleFromBigData(url, '130400', 10, datestr, 0)
+        data = getRuleFromBigData(url, self.getCityCode(), 10, datestr, 0)
         if data == None:
             raise ValidationError(_("fetch data failed from bigdata system"))
         self.upplanvehiclearrange = data['vup']

@@ -34,7 +34,7 @@ def getRuleFromBigData(url, citycode, lineId, curDate, reverseType):
         'reverse_type':reverseType
     }
     response = requests.get(url,params=parms)
-    if response.status_code != '200':
+    if response.status_code != 200:
         return None
     try:
         data = json.loads(response.text, encoding='utf-8')
