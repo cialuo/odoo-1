@@ -83,6 +83,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             if (line_c == data_use.data.line_id&&data_use.controllerId == this.desktop_id) {
                 self.model_abnormal.call("create", [
                     {
+                        'line_id':'data_use.line_id',
                         'name': data_use.name,
                         'suggest': data_use.data.suggest,
                         'abnormal_description': data_use.data.abnormal_description,

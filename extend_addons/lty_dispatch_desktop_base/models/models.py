@@ -59,3 +59,5 @@ class dispatch_control_desktop_component(models.Model):
     show_order = fields.Integer()
     #设备号
     on_bord_id = fields.Integer()
+    #gprsid
+    gprs_id = fields.Integer()
