@@ -215,7 +215,7 @@ class PlanItem(models.Model):
     _name = 'vehicle_usage.planitem'
 
     # 车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,domain=[('entry_state','=','audited')])
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,domain=[('entry_state','=','audited'),('vehicle_life_state','=','operation_period')])
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
