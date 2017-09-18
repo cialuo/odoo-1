@@ -820,7 +820,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         scroll: true,
                         upOffset:0,
                         formatItem : function(row, i, max,id,term) {
-                            return '<span>'+row.trainId+'</span><span style="float:right">'+row.trainName+'</span>';
+                            return '<span>'+row.trainId+'</span><span style="float:right;padding-right:15px;">'+row.trainName+'</span>';
                         },
                         formatMatch : function(row, i, max) {
                             return row.trainId;

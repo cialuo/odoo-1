@@ -398,7 +398,7 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
                 update_busTransit(active_obj, content_tb_obj, new_resource, dataObj);
             }
         }
-        $('.linePlanParkOnlineModel').  ;
+        $('.linePlanParkOnlineModel').mCustomScrollbar("update");
     }
 }
 
