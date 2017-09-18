@@ -125,7 +125,7 @@ msgstr "最后修改日"
 #: model:ir.actions.act_window,name:web_login.action_login_config_settings
 #: model:ir.ui.menu,name:web_login.menu_login_config_settings
 msgid "Login Config Settings"
-msgstr "登陆界面设置"
+msgstr "登录界面设置"
 
 #. module: web_login
 #: model:ir.ui.view,arch_db:web_login.login_layout
@@ -216,5 +216,5 @@ msgstr "启用"
 #. module: web_login
 #: model:ir.model,name:web_login.model_login_config_settings
 msgid "login_config_settings"
-msgstr "登陆界面设置"
+msgstr "登录界面设置"
 
