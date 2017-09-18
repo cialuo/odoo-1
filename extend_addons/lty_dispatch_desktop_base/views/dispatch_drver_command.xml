@@ -23,7 +23,7 @@
 	  </field>      
       
     </record>
-    <menuitem name="Config Driver Command" id="dispatch_driver_command_action_menu" parent="dispatch_monitor_menu.dispatch_monitor_setting_menu"
+    <menuitem name="司机手动命令" id="dispatch_driver_command_action_menu" parent="dispatch_monitor_menu.dispatch_monitor_setting_menu"
               action="dispatch_driver_command_action" sequence="20"/>
   </data>
 </openerp>

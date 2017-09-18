@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-18 10:45+0000\n"
-"PO-Revision-Date: 2017-08-18 10:45+0000\n"
+"POT-Creation-Date: 2017-09-18 09:44+0000\n"
+"PO-Revision-Date: 2017-09-18 09:44+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,49 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_active_car
+msgid "Active car"
+msgstr "Active car"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_applycar_num
+msgid "Applycar num"
+msgstr "Applycar num"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_car_attendant
+msgid "Car attendant"
+msgstr "Car attendant"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_car_driver
+msgid "Car driver"
+msgstr "司机"
+
+#. module: lty_dispatch_desktop_base
 #: model:ir.actions.act_window,help:lty_dispatch_desktop_base.dispatch_control_desktop_action_window
 msgid "Click to create a new desktop.<br>"
 msgstr "创建新的控制台.<br>"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.actions.act_window,help:lty_dispatch_desktop_base.dispatch_driver_command_action
+msgid "Click to create commands.<br>"
+msgstr "点击增加司机手动命令.<br>"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_type_code
+msgid "Code"
+msgstr "代码"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_color
+msgid "Color"
+msgstr "颜色"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_command_type_id
+msgid "Command type id"
+msgstr "命令类型"
 
 #. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_desktop_id
@@ -28,12 +68,16 @@ msgstr "智能调度控制台"
 #. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_create_uid
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_create_uid
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_create_uid
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_type_create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_create_date
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_create_date
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_create_date
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_type_create_date
 msgid "Created on"
 msgstr "创建时间"
 
@@ -41,6 +85,11 @@ msgstr "创建时间"
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_description
 msgid "Description"
 msgstr "说明"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.ui.view,arch_db:lty_dispatch_desktop_base.dispatch_control_desktop_form
+msgid "Desktop Config"
+msgstr "控制台配置"
 
 #. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_ids
@@ -60,12 +109,21 @@ msgstr "智能调度控制台"
 #. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_display_name
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_display_name
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_display_name
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_type_display_name
 msgid "Display Name"
 msgstr "显示名称"
 
 #. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_event_code
+msgid "Event code"
+msgstr "事件代码"
+
+#. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_id
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_id
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_id
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_type_id
 msgid "ID"
 msgstr "ID"
 
@@ -77,18 +135,24 @@ msgstr "是否默认"
 #. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop___last_update
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component___last_update
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command___last_update
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_type___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_write_uid
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_write_uid
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_type_write_uid
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_write_date
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_write_date
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_type_write_date
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
 
@@ -98,9 +162,14 @@ msgid "Line id"
 msgstr "线路"
 
 #. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_main_outage
+msgid "Main outage"
+msgstr "Main outage"
+
+#. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_model_type
 msgid "Model type"
-msgstr "Model type"
+msgstr "模块类型"
 
 #. module: lty_dispatch_desktop_base
 #: model:ir.ui.view,arch_db:lty_dispatch_desktop_base.dispatch_control_desktop_kanban
@@ -110,8 +179,10 @@ msgstr "更多 <i class=\"fa fa-caret-down\"/>"
 #. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_name
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_name
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_name
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_type_name
 msgid "Name"
-msgstr "名称"
+msgstr "名字"
 
 #. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_on_bord_id
@@ -139,9 +210,24 @@ msgid "Position z index"
 msgstr "Z位置"
 
 #. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_driver_command_proiority
+msgid "Proiority"
+msgstr "优先级"
+
+#. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_remark
 msgid "Remark"
 msgstr "备注"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.ui.view,arch_db:lty_dispatch_desktop_base.dispatch_control_desktop_kanban
+msgid "Settings"
+msgstr "设置"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_share_active_car
+msgid "Share active car"
+msgstr "Share active car"
 
 #. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_show_order
@@ -149,9 +235,29 @@ msgid "Show order"
 msgstr "显示顺序"
 
 #. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_signal_online
+msgid "Signal online"
+msgstr "信号在线"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_signal_outline
+msgid "Signal outline"
+msgstr "信号离线"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_src_font_conf
+msgid "Src font conf"
+msgstr "Src font conf"
+
+#. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_component_tem_display
 msgid "Tem display"
 msgstr "Tem display"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_trailerNum
+msgid "Trailernum"
+msgstr "Trailernum"
 
 #. module: lty_dispatch_desktop_base
 #: model:ir.model.fields,field_description:lty_dispatch_desktop_base.field_dispatch_control_desktop_user
@@ -172,4 +278,19 @@ msgstr "智能调度控制台"
 #: model:ir.model,name:lty_dispatch_desktop_base.model_dispatch_control_desktop_component
 msgid "dispatch.control.desktop.component"
 msgstr "智能调度控制台"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.model,name:lty_dispatch_desktop_base.model_dispatch_driver_command
+msgid "dispatch.driver.command"
+msgstr "司机手动命令"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.model,name:lty_dispatch_desktop_base.model_dispatch_driver_command_type
+msgid "dispatch.driver.command.type"
+msgstr "司机手动命令类型"
+
+#. module: lty_dispatch_desktop_base
+#: model:ir.actions.act_window,name:lty_dispatch_desktop_base.dispatch_driver_command_action
+msgid "dispatch_driver_command_action"
+msgstr "司机手动命令"
 

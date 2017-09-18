@@ -357,7 +357,10 @@ class BusGroupDriverVehicleShift(models.Model):
             """
             大轮换 start
             """
-            last_rotation_date = datetime.datetime.strptime(last_rotation_date, "%Y-%m-%d")
+            if last_rotation_date:
+                last_rotation_date = datetime.datetime.strptime(last_rotation_date, "%Y-%m-%d")
+            else:
+                last_rotation_date = datetime.datetime.today()
 
             if is_big_rotation and (next_use_date - last_rotation_date).days >= rotation_cycle:
                 for k, v in old_group_dict.iteritems():

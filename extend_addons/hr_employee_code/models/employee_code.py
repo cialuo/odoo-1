@@ -41,7 +41,7 @@ class Employee(models.Model):
                 if e.workpost:
                     post_code = (e.workpost.code or '')
 
-                e.display_code = post_code + department_code + e.jobnumber
+                e.display_code = post_code + department_code + (e.jobnumber or '')
 
 class Post(models.Model):
     _inherit = 'employees.post'
