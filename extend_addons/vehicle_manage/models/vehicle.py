@@ -104,7 +104,7 @@ class Vehicle(models.Model):
         for order in self:
             yesterday = today - timedelta(days=order.average_day_number)
             driverecords = order.driverecords.filtered(lambda x: x.realityarrive >= unicode(yesterday))
-            if driverecords:
+            if driverecords and order.average_day_number > 0:
                 order.daily_mileage = sum(driverecords.mapped('GPSmileage')) / order.average_day_number
 
     @api.multi
