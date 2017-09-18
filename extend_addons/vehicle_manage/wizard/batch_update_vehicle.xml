@@ -19,7 +19,7 @@
                     <notebook>
                         <page string="vehicle list">
                             <field name="vehicle_tran_ids">
-                                <tree create="false">
+                                <tree create="false" editable="top">
                                     <field name="vehicle_id"/>
                                     <!--<field name="inner_code"/>-->
                                     <field name="license_plate"/>
