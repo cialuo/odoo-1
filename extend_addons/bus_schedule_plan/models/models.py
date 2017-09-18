@@ -26,6 +26,7 @@ class RouteInBusSchedule(models.Model):
         for item in sitelist:
             sitecollection.append((0, 0, {
                 'site_id': item.station_id.id,
+                'site_seq': item.sequence
             }))
 
         # 下行大站检查
