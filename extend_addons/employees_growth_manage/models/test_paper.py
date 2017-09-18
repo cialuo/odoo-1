@@ -122,13 +122,13 @@ class test_paper_detail(models.Model):
     def onchange_score(self):
         for order in self:
             if order.score < 0:
-                raise exceptions.UserError(_(u'分数需大于零.'))
+                raise exceptions.ValidationError(_(u'分数需大于零.'))
 
     @api.constrains('question_count')
     def check_question_count(self):
         for order in self:
             if order.question_count <= 0:
-                 raise exceptions.UserError(_(u'题目数量需要大于零.'))
+                 raise exceptions.ValidationError(_(u'题目数量需要大于零.'))
 
     @api.depends('question_count','score')
     def _compute_total_score(self):
