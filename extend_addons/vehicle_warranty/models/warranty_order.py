@@ -443,12 +443,13 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
                 },
             }
 
-    @api.onchange('manhour_manage_ids')
+    @api.depends('manhour_manage_ids')
     def on_change_manhour_manage_ids(self):
-        manhour_percentage_work = 0
-        for manhour_manage in self.manhour_manage_ids:
-            manhour_percentage_work += manhour_manage.percentage_work
-        self.percentage_work = 100-manhour_percentage_work
+        #manhour_percentage_work = 0
+        #for manhour_manage in self.manhour_manage_ids:
+        #   manhour_percentage_work += manhour_manage.percentage_work
+        #self.percentage_work = 100-manhour_percentage_work
+        self.percentage_work = 100 - sum(self.manhour_manage_ids.mapped('percentage_work'))
 
     # component_ids = fields.Many2many('product.component', 'warranty_order_item_component_rel', 'project_component_id', 'component_id', 'Component',
     #     readonly=True, domain="[('product_id', '=', important_product_id),('parent_vehicle','=',vehicle_id)]")
@@ -508,7 +509,7 @@ class WarrantyOrderManhour(models.Model): # 保养单_工时管理
     _order = "sequence"
 
     _sql_constraints = [
-        ('check_percentage_work_value', 'CHECK (percentage_work > 0 and percentage_work < 100)', u'额度工时的数值在100以内！')
+        ('check_percentage_work_value', 'CHECK (percentage_work > 0 and percentage_work < 100)', u'额定工时的数值在100以内！')
     ]
 
     name = fields.Char("Manhour")
