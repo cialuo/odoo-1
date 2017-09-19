@@ -346,33 +346,33 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             });
 
             // 搜索-车辆编号
-            $("body").on("keyup", ".customModal .carNum", function(){
-                self.vehicle_search_autocomplete({evt: this, controlId: controllerId, lineId: lineId});
-            });
+            // $("body").on("keyup", ".customModal .carNum", function(){
+            //     self.vehicle_search_autocomplete({evt: this, controlId: controllerId, lineId: lineId});
+            // });
             // $("body").on("focus", ".customModal .carNum", function(){
             //     self.vehicle_search_autocomplete({evt: this, controlId: controllerId, lineId: lineId});
             // });
 
             // 搜索-司机工号
-            $("body").on("keyup", ".customModal .workerId", function(){ 
-                self.driver_search_autocomplete({evt: this, controlId: controllerId});
-            });
+            // $("body").on("keyup", ".customModal .workerId", function(){ 
+            //     self.driver_search_autocomplete({evt: this, controlId: controllerId});
+            // });
             // $("body").bind("focus", ".customModal .workerId", function(){
             //     self.driver_search_autocomplete({evt: this, controlId: controllerId});
             // });
 
             // 搜索-乘务工号
-            $("body").on("keyup", ".customModal .train", function(){
-                self.trainman_search_autocomplete({evt: this, controlId: controllerId});
-            });
+            // $("body").on("keyup", ".customModal .train", function(){
+            //     self.trainman_search_autocomplete({evt: this, controlId: controllerId});
+            // });
             // $("body").bind("focus", ".customModal .train", function(){
             //     self.trainman_search_autocomplete({evt: this, controlId: controllerId});
             // });
 
             // 搜索-线路
-            $("body").on("keyup", ".customModal .train", function(){
-                self.trainman_search_autocomplete({evt: this, controlId: controllerId});
-            });
+            // $("body").on("keyup", ".customModal .train", function(){
+            //     self.trainman_search_autocomplete({evt: this, controlId: controllerId});
+            // });
             // $("body").bind("focus", ".customModal .train", function(){
             //     self.trainman_search_autocomplete({evt: this, controlId: controllerId});
             // });
@@ -707,6 +707,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 type: 'get',
                 success: function(ret) {
                     $(options.event).autocomplete(ret, {
+                        resultsClass: 'ac_results ac_results_zdy',
                         minChars: 1, //自动完成激活之前填入的最小字符
                         mustMatch: true,
                         matchSubset: false,
@@ -716,16 +717,16 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         scroll: true,
                         upOffset:0,
                         formatItem : function(row, i, max,id,term) {
-                            return row.workerId
+                            return row.onBoardId.toString();
                         },
                         formatMatch : function(row, i, max) {
-                            return row.workerId;
+                            return row.onBoardId.toString();
                         },
                         formatResult : function(row) {
-                            return row.workerId;
+                            return row.onBoardId.toString();
                         }
                     }).result(function(event, row, formatted){
-                        
+                        console.log('123');
                     })
                 }
             });
