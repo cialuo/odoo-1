@@ -101,7 +101,7 @@ class MaintainRepairCalculate(models.Model):
         1,先判断领退料单中是否存在未完成的订单（不用管交旧领新的状态）
         2,删除已经统计过的用领清单
         2,分别获取领料和退料的picking单据
-        3,插入使用数量大于0的物料
+        3,插入使用数量大于0的物料 和　库存移动内的　price_unit
         :return:
         '''
         for picking in self.picking_ids.filtered(lambda i:i.picking_type_id.name in [u'发料', u'领料', u'退料']):
@@ -117,28 +117,42 @@ class MaintainRepairCalculate(models.Model):
         data = {}
         for i in picking_get:
             for j in i.move_lines:
+                product = {}
                 if data.has_key(j.product_id):
-                    data[j.product_id] = data[j.product_id] + j.product_uom_qty
+                    product['product_uom_qty'] = data[j.product_id]['product_uom_qty'] + j.product_uom_qty
+                    product['price_unit'] = j.price_unit
+                    data[j.product_id] = product
                 else:
-                    data[j.product_id] = j.product_uom_qty
+                    product['product_uom_qty'] = j.product_uom_qty
+                    product['price_unit'] = j.price_unit
+                    data[j.product_id] = product
+
 
         for i in picking_back:
             for j in i.move_lines:
+                product = {}
                 if data.has_key(j.product_id):
-                    data[j.product_id] = data[j.product_id] - j.product_uom_qty
+                    product['product_uom_qty'] = data[j.product_id]['product_uom_qty'] - j.product_uom_qty
+                    product['price_unit'] = j.price_unit
+                    data[j.product_id] = product#data[j.product_id] - j.product_uom_qty
                 else:
-                    data[j.product_id] = - j.product_uom_qty
+                    product['product_uom_qty'] = - j.product_uom_qty
+                    product['price_unit'] = j.price_unit
+                    data[j.product_id] = product #- j.product_uom_qty
         count = 0
         product_data = []
-        for product, usage_ct in data.items():
-            if usage_ct <= 0:
+        #for product, usage_ct in data.items():
+        for product in data.keys():
+            #if usage_ct <= 0:
+            if data[product]['product_uom_qty'] <= 0:
                 continue
             count += 1
             vals = {
                 "repair_id": self.id,
                 "sequence": count,
                 "product_id": product.id,
-                "usage_ct": usage_ct
+                "usage_ct": data[product]['product_uom_qty'],
+                "list_price": data[product]['price_unit']
             }
             product_data.append((0, 0, vals))
         self.write({'materials_product_ids': product_data})
@@ -158,7 +172,7 @@ class MaintainRepairMaterials(models.Model):
     product_code = fields.Char("Product Code", related='product_id.default_code')
     categ_id = fields.Many2one('product.category', related='product_id.categ_id',
                                string='Product Category')
-    list_price = fields.Float("Stock Price", related='product_id.list_price', store=True)
+    list_price = fields.Float("Stock Price")
 
     usage_ct = fields.Float('Usage Count')
     product_fee = fields.Float('Product Fee')
