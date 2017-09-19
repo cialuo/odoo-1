@@ -993,7 +993,7 @@
                             <tr>
                                 <td>
                                     线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
-                                    <select name="" class="w2 line" id="">
+                                    <select name="" class="w2 line" disabled="disabled" id="">
                                         <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
                                             <t t-esc="widget.set_data.lineName"></t>
                                         </option>
@@ -1007,7 +1007,7 @@
                             <tr>
                                 <td>
                                     运行线路&#160;
-                                    <select name="" class="w2 runGprs" id="">
+                                    <select name="" class="w2 runGprs" disabled="disabled" id="">
                                         <option selected="selected" t-attf-value="{{widget.set_data.runGprsId}}">
                                             <t t-esc="widget.set_data.runLineName"></t>
                                         </option>
@@ -1034,7 +1034,7 @@
                             <tr>
                                 <td>
                                     方&#160;&#160;&#160;&#160;&#160;&#160;&#160;向&#160;
-                                    <select name="" class="w2 direction" id="">
+                                    <select name="" class="w2 direction" disabled="disabled" id="">
                                         <t t-if="widget.set_data.direction==0">
                                             <option value="0" selected="selected">上行</option>
                                             <option value="1">下行</option>
@@ -1061,7 +1061,7 @@
                                 </td>
                                 <td>
                                     计划里程&#160;
-                                    <input class="w2 planKm" type="number" t-attf-value="{{widget.set_data.planKm}}" min="1" />
+                                    <input class="w2 planKm" disabled="disabled" type="number" t-attf-value="{{widget.set_data.planKm}}" min="1" />
                                 </td>
                             </tr>
                             <tr>
@@ -1117,11 +1117,11 @@
                             <tr>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
-                                    <input class="w2 carNum" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <input class="w2 carNum" disabled="disabled" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
                                 </td>
                                 <td>
                                     线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
-                                    <select name="" class="w2 line" id="">
+                                    <select name="" class="w2 line" disabled="disabled" id="">
                                         <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
                                             <t t-esc="widget.set_data.lineName"></t>
                                         </option>
@@ -1131,11 +1131,11 @@
                             <tr>
                                 <td>
                                     司&#160;&#160;&#160;&#160;&#160;&#160;&#160;机&#160;
-                                    <input class="w2 driverName" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
+                                    <input class="w2 driverName" disabled="disabled" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
                                 </td>
                                 <td>
                                     方&#160;&#160;&#160;&#160;&#160;&#160;&#160;向&#160;
-                                    <select name="" class="w2 direction" id="">
+                                    <select name="" class="w2 direction" disabled="disabled" id="">
                                         <t t-if="widget.set_data.direction==0">
                                             <option value="0" selected="selected">上行</option>
                                             <option value="1">下行</option>
@@ -1197,14 +1197,14 @@
                             <tr>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
-                                    <input class="w6 carNum" t-attf-value="{{widget.set_data.carNum}}" type="text"/>
+                                    <input class="w6 carNum" disabled="disabled" t-attf-value="{{widget.set_data.carNum}}" type="text"/>
                                     <input class="onBoardId" t-attf-value="{{widget.set_data.onBoardId}}" type="hidden" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     线&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
-                                    <select name="" class="w6 line" id="">
+                                    <select name="" class="w6 line" disabled="disabled" id="">
                                         <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
                                             <t t-esc="widget.set_data.lineName"></t>
                                         </option>
@@ -1266,7 +1266,7 @@
                             <tr>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;&#160;
-                                    <input class="w6 carNum" t-attf-value="{{widget.set_data.carNum}}" type="text" />
+                                    <input class="w6 carNum" disabled="disabled" t-attf-value="{{widget.set_data.carNum}}" type="text" />
                                     <input class="onBoardId" t-attf-value="{{widget.set_data.onBoardId}}" type="hidden" />
                                 </td>
                                 <td>
@@ -1286,7 +1286,7 @@
                             <tr>
                                 <td>
                                     线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;&#160;
-                                    <select name="" class="w6 line" id="">
+                                    <select name="" class="w6 line" disabled="disabled" id="">
                                         <option selected="selected" t-attf-value="{{widget.set_data.lineId}}">
                                             <t t-esc="widget.set_data.lineName"></t>
                                         </option>
@@ -1294,7 +1294,7 @@
                                 </td>
                                 <td>
                                     上班时间&#160;&#160;
-                                    <input class="w6 onWorkTime"  t-attf-value="{{new Date(widget.set_data.onWorkTime).toTimeString().slice(0, 5)}}" type="text" />
+                                    <input class="w6 onWorkTime"  t-attf-value="{{new Date(widget.set_data.onWorkTime).toTimeString().slice(0, 5)}}" type="time" />
                                     <!-- <input class="onWorkTime"  t-attf-value="{{widget.set_data.onWorkTime}}" type="hidden" /> -->
                                 </td>
                             </tr>

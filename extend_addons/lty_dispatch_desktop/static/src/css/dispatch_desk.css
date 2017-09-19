@@ -253,17 +253,26 @@
     height: 20px;
     position: relative;
     margin-bottom: 8px;
-
+    margin-top: 2px;
 }
 
 /*左至右车辆*/
 .dispatch_desktop .content_car_road_top .line_car {
     position: absolute;
-    width: 44px;
-    height: 20px;
-    background: url("/lty_dispatch_desktop/static/src/img/runcar.png?v=20170918") no-repeat left top;
+    width: 31px;
+    height: 16px;
+    background: url("/lty_dispatch_desktop/static/src/img/little_car.png?v=20170918") no-repeat left top;
     top: 0px;
     cursor: pointer;
+}
+
+.to_gray{
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
 }
 
 .dispatch_desktop .line_car .type_car span {
@@ -271,48 +280,20 @@
     -webkit-transform: scale(0.75);
     -moz-transform: scale(0.75);
     color: #fff;
-    margin-left: -2px;
+    margin-left: -3px;
     display: inline-block;
-    line-height: 9px;
+    line-height: 12px;
 }
 
-.dispatch_desktop .line_car .num_car {
-    width: 18px;
-    height: 7px;
-    text-align: center;
-}
-
-.dispatch_desktop .line_car .num_car span {
-    -webkit-transform: scale(0.5);
-    -moz-transform: scale(0.5);
-    color: #fff;
-    display: inline-block;
-    line-height: 9px
-}
 
 /*右至左车辆*/
 .dispatch_desktop .content_car_road_down .line_car {
     position: absolute;
-    width: 44px;
-    height: 20px;
-    background: url("/lty_dispatch_desktop/static/src/img/runcar_right.png?v=20170918") no-repeat left top;
+    width: 31px;
+    height: 16px;
+    background: url("/lty_dispatch_desktop/static/src/img/little_car_r.png?v=20170918") no-repeat left top;
     top: 0px;
     cursor: pointer;
-}
-
-.dispatch_desktop .content_car_road_top .line_car .type_car {
-    float: right;
-}
-
-.dispatch_desktop .content_car_road_down .line_car .num_car {
-    float: right;
-}
-
-.dispatch_desktop .line_car .num_car span {
-    font-size: 12px;
-    color: #fff;
-    display: inline-block;
-    line-height: 6px
 }
 
 .dispatch_desktop .line_car .type_car {

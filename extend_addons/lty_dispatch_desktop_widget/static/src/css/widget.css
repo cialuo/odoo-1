@@ -1311,20 +1311,11 @@
 
 
 /*ui-autocomplete*/
-.ac_results {
+.ac_results_zdy {
     background-color: #464f76 !important;
     border: none !important;
 }
 
-.ac_odd {
+.ac_results_zdy .ac_odd {
     background-color: #464f76 !important;
-}
-
-.ui-autocomplete {
-    background-color: #464f76;
-}
-
-.ui-autocomplete .ui-menu-item > a {
-    color: #fff;
-    padding: 3px 10px;
 }
