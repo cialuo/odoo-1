@@ -6555,7 +6555,7 @@ msgstr "你不能取消一个标记为‘完成’的库存迁移"
 #: code:addons/stock/models/stock_inventory.py:350
 #, python-format
 msgid "You cannot have two inventory adjustements in state 'in Progess' with the same product(%s), same location(%s), same package, same owner and same lot. Please first validatethe first inventory adjustement with this product before creating another one."
-msgstr "You cannot have two inventory adjustements in state 'in Progess' with the same product(%s), same location(%s), same package, same owner and same lot. Please first validatethe first inventory adjustement with this product before creating another one."
+msgstr "同一物资(%s),同一库位(%s)，同一包装，同一所有者，同一批次只能有一张状态为“处理中”的库存调整单据. 创建新单据之前，请处理完上一张库存调整单据。"
 
 #. module: stock
 #: code:addons/stock/models/stock_quant.py:180
