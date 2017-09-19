@@ -295,8 +295,10 @@ odoo.define("", function(require) {
         openBrush: function(map) {
             var self = this;
             self.switch = true;
+            var mouseTool = new AMap.MouseTool(map);
             var clickEventListener = map.on('click', function(e) {
                 if (self.switch) {
+                    mouseTool.marker({offset:new AMap.Pixel(-14,-11)});
                     var gps = [e.lnglat.getLng(), e.lnglat.getLat()];
                     self.polyline_gps_list.push(gps);
                     self.polyline.setPath(self.polyline_gps_list);

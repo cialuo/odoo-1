@@ -1157,6 +1157,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 keyboard: false
             });
 
+            self.$(".planTime input:eq(1)").focus();
+
             // 提交
             self.$('.btn-primary').on('click', function () {
                 self.submit_fn();
@@ -1244,6 +1246,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             self.$('.modal-body').on("click", ".selectType .ckIcon", function () {
                 $(this).addClass("active").siblings().removeClass('active');
             });
+
+            self.$(".planTime").focus();
 
             // 提交
             self.$('.btn-primary').on('click', function () {
@@ -1406,6 +1410,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 keyboard: false
             });
 
+            self.$(".workTime").focus();
+
             // 提交
             self.$('.btn-primary').on('click', function () {
                 self.submit_fn($(this).attr("name"));
@@ -1472,6 +1478,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 backdrop: 'static',
                 keyboard: false
             });
+
+            self.$(".onWorkTime").focus();
 
             // 提交
             self.$('.btn-primary').on('click', function(){
