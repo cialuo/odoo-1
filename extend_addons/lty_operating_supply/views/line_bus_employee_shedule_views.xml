@@ -32,6 +32,21 @@
         </tree>
       </field>
     </record>	
+    
+    <record id="line_bus_employee_shedule_search" model="ir.ui.view">
+        <field name="name">line_bus_employee_shedule_search</field>
+        <field name="model">line.bus.employee.shedule</field>
+        <field name="arch" type="xml">
+            <search string="Picking Lists">
+                <field name="line_id" string="线路" filter_domain="[('line_id','ilike', self)]"/>
+                <field name="bus_model" string="车型" filter_domain="[('bus_model','ilike', self)]"/>
+                <field name="employee_name" string="员工" filter_domain="[('employee_name','ilike', self)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="line_id" domain="[]" context="{'group_by':'line_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>    
 	
         
     <record model="ir.actions.act_window" id="line_bus_employee_shedule_bus_action">
