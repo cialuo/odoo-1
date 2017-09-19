@@ -14,6 +14,7 @@ DEFAULT_SERVER_DATETIME_FORMAT = "%s %s" % (
 class PuchasePlan(models.Model):
     _name = 'purchase.plan'
     _inherit = ['mail.thread']
+    _order = 'id desc'
 
     @api.model
     def _get_default_user(self):
