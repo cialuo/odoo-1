@@ -23,6 +23,22 @@ class MaintainRepairCalculate(models.Model):
 
     materials_product_ids = fields.One2many('maintain.manage.repair_materials', 'repair_id', string="Materials Product")
 
+    # computewarning = fields.Char(string="compute warning data", compute="_computeWarning")
+    #
+    # @api.multi
+    # @api.depends('picking_ids')
+    # def _computeWarning(self):
+    #
+    #     for item in self:
+    #         item.computewarning  = None
+    #         if getattr(item, 'sortedWt', None) == None:
+    #             item.sortedWt = sorted(item.picking_ids, key=lambda x: x.waiting_time, reverse=True)
+    #         for x in item.picking_ids:
+    #             if x.id == item.sortedWt[0].id and item.sortedWt[0].waiting_time > 0:
+    #                 x.needwarning = 'yes'
+    #             else:
+    #                 x.needwarning = 'no'
+
 
     company_id = fields.Many2one('res.company', 'Company',
         default=lambda self: self.env['res.company']._company_default_get('maintain.manage.repair'),
