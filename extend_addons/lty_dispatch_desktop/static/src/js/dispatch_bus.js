@@ -84,52 +84,51 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     }
                                     self.$el.find('.bus_info>ul>li').css('color', conf[0].src_font_conf);
                                     $.ajax({
-                                    url: 'http://202.104.136.228:8888/ltyop/dispatchRealtimeStatus/cachelineStat?apikey=71029270&params={"gprsId":25}',
-                                    type: 'get',
-                                    async: false,
-                                    dataType: 'json',
-                                    data: {},
-                                    success: function (data) {
-                                        console.log(data)
-                                        if (data.length > 0) {
-                                            //配车数量
-                                            self.$el.find('.show_applycar_num span').html(data[0].withBus);
-                                            //挂车数量
-                                            self.$el.find('.show_trailerNum span').html(data[0].runBus);
-                                            //机动车辆
-                                            self.$el.find('.show_active_car span').html(data[0].motorBus);
-                                            // 信号在线
-                                            self.$el.find('.show_signal_online span').html(data[0].online);
-                                            //信号掉线
-                                            self.$el.find('.show_singalOut span').html(data[0].Offline);
-                                            //司机
-                                            self.$el.find('.show_car_driver span').html(data[0].upFieldBusNum);
-                                            //乘务
-                                            self.$el.find('.show_car_attendant span').html(data[0].downFieldBusNum);
+                                        url: 'http://202.104.136.228:8888/ltyop/dispatchRealtimeStatus/cachelineStat?apikey=71029270&params={"gprsId":25}',
+                                        type: 'get',
+                                        async: false,
+                                        dataType: 'json',
+                                        data: {},
+                                        success: function (data) {
+                                            if (data.length > 0) {
+                                                //配车数量
+                                                self.$el.find('.show_applycar_num span').html(data[0].withBus);
+                                                //挂车数量
+                                                self.$el.find('.show_trailerNum span').html(data[0].runBus);
+                                                //机动车辆
+                                                self.$el.find('.show_active_car span').html(data[0].motorBus);
+                                                // 信号在线
+                                                self.$el.find('.show_signal_online span').html(data[0].online);
+                                                //信号掉线
+                                                self.$el.find('.show_signal_outline span').html(data[0].Offline);
+                                                //司机
+                                                self.$el.find('.show_car_driver span').html(data[0].upFieldBusNum);
+                                                //乘务
+                                                self.$el.find('.show_car_attendant span').html(data[0].downFieldBusNum);
+                                            }
+                                        },
+                                        error: function () {
+                                            layer.msg('请求出错');
                                         }
-                                    },
-                                    error:function () {
-                                        layer.msg('请求出错');
-                                    }
-                                });
-                                // model_src.query().filter([["line_id", "=", parseInt(self.line_id)], ["excutedate", "=", timeNow]]).all().then(function (src) {
-                                //     if (src.length > 0) {
-                                //         //配车数量
-                                //         self.$el.find('.show_applycar_num span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
-                                //         //挂车数量
-                                //         self.$el.find('.show_trailerNum span').html(src[0].workvehiclenum);
-                                //         //机动车辆
-                                //         self.$el.find('.show_active_car span').html(src[0].backupvehiclenum);
-                                //         // 信号在线
-                                //         self.$el.find('.show_signal_online span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
-                                //         //信号掉线
-                                //         self.$el.find('.show_singalOut span').html(0);
-                                //         //司机
-                                //         self.$el.find('.show_car_driver span').html(src[0].drivernum);
-                                //         //乘务
-                                //         self.$el.find('.show_car_attendant span').html(src[0].stewardnum);
-                                //     }
-                                // });
+                                    });
+                                    // model_src.query().filter([["line_id", "=", parseInt(self.line_id)], ["excutedate", "=", timeNow]]).all().then(function (src) {
+                                    //     if (src.length > 0) {
+                                    //         //配车数量
+                                    //         self.$el.find('.show_applycar_num span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
+                                    //         //挂车数量
+                                    //         self.$el.find('.show_trailerNum span').html(src[0].workvehiclenum);
+                                    //         //机动车辆
+                                    //         self.$el.find('.show_active_car span').html(src[0].backupvehiclenum);
+                                    //         // 信号在线
+                                    //         self.$el.find('.show_signal_online span').html(src[0].workvehiclenum + src[0].backupvehiclenum);
+                                    //         //信号掉线
+                                    //         self.$el.find('.show_singalOut span').html(0);
+                                    //         //司机
+                                    //         self.$el.find('.show_car_driver span').html(src[0].drivernum);
+                                    //         //乘务
+                                    //         self.$el.find('.show_car_attendant span').html(src[0].stewardnum);
+                                    //     }
+                                    // });
                                 });
                                 var res_down_deal = res_down.reverse();
                                 var model_id = "line_message__" + self.line_id;
@@ -223,7 +222,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         );
                                         return bus_park_top, bus_park_down;
                                     },
-                                    error:function () {
+                                    error: function () {
                                         layer.msg('请求出错');
                                     }
                                 });
@@ -369,8 +368,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if (data_use.type == "1035") {
                     //如果车辆id未出现   车辆到达最后站点出站remove未做处理
                     //删除车辆此时的位置显示，并重新渲染，防止上行穿到下行不显示
-                    $('.traffic_car .line_car[bus_no=' + data_use.data.car_id + ']').remove();
-                    $('.run_car_hide').find('.line_car').attr('bus_no', data_use.data.car_id);
+                    $('.traffic_car .line_car[bus_no=' + data_use.data.terminalNo + ']').remove();
+                    $('.run_car_hide').find('.line_car').attr('bus_no', data_use.data.terminalNo);
                     // 车辆进出站上下行 进出站  0 上行 in进站
                     if (data_use.data.direction == 0) {
                         if (data_use.data.type == "in") {
@@ -380,9 +379,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
                             var oLeft = 1190 * (parseInt(data_use.data.stationNo)) / arg.site_top_infos.length;
                         }
-                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft - 22 + 'px');
-                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.num_car span').html('无');
-                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.type_car span').html(data_use.data.terminalNo);
+                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').css('left', oLeft - 22 + 'px');
+                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').html(data_use.data.terminalNo);
                     } else if (data_use.data.direction == 1) {
                         if (data_use.data.type == "in") {
                             self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
@@ -391,9 +389,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
                             var oLeft = 1190 - 1190 * (parseInt(data_use.data.stationNo)) / arg.site_down_infos.length;
                         }
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').css('left', oLeft - 22 + 'px');
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.num_car span').html('无');
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.car_id + ']').find('.type_car span').html(data_use.data.terminalNo);
+                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').css('left', oLeft - 22 + 'px');
+                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').html(data_use.data.terminalNo);
                     }
                 }
                 data.busTopNumber = arg.busTopNumber;
@@ -794,7 +791,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 self.$('.edit_content .chs').html('')
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].id) {
-                        var oLi = "<li gid="+data[i].gprs_id+" lineid=" + data[i].id + ">" + data[i].line_name + "</li>";
+                        var oLi = "<li gid=" + data[i].gprs_id + " lineid=" + data[i].id + ">" + data[i].line_name + "</li>";
                         self.$('.edit_content .chs').append(oLi);
                     }
                 }

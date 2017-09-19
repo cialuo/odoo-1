@@ -103,29 +103,38 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             }
             //匹配line_id和desktop_id
             var line_c = parseInt(arg.line_id);
-            if (data_use.data.line_id == line_c && data_use.controllerId == arg.desktop_id) {
-                var data_time = [];
-                var dataJson_passenger_flow_real = [];
-                var dataJson_transport_capacity_plan = [];
-                var dataJson_transport_capacity_suggest = [];
-                for (var i = 0; i < data_use.data.passenger_flow_real.length; i++) {
-                    data_time.push(data_use.data.passenger_flow_real[i].datetime.split(' ')[1]);
-                }
-                push_data(data_use.data.passenger_flow_real, 'passenger_flow');
-                push_data(data_use.data.transport_capacity_plan, 'capacity');
-                push_data(data_use.data.transport_capacity_suggest, 'capacity');
-                for (var j = 0; j < data_use.data.transport_capacity_plan.length; j++) {
-                    dataJson_passenger_flow_real.push(data_use.data.passenger_flow_real[j].passenger_flow);
-                }
-                for (var j = 0; j < data_use.data.transport_capacity_plan.length; j++) {
-                    dataJson_transport_capacity_plan.push(data_use.data.transport_capacity_plan[j].capacity);
-                }
-                for (var k = 0; k < data_use.data.transport_capacity_suggest.length; k++) {
-                    dataJson_transport_capacity_suggest.push(data_use.data.transport_capacity_suggest[k].capacity);
-                }
-                chartLineBar(arg.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流'], optionLineBar, data_time, [dataJson_passenger_flow_real, dataJson_transport_capacity_plan, dataJson_transport_capacity_suggest], '',data_use.data.line_id);
-                // 轮播克隆出的的图表
-                chartLineBar(arg.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流'], optionLineBar, data_time, [dataJson_passenger_flow_real, dataJson_transport_capacity_plan, dataJson_transport_capacity_suggest], '',data_use.data.line_id);
+            if (data_use.data.lineId == line_c && data_use.controllerId == arg.desktop_id) {
+                var timer =['8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00'];
+                var forcast =[32+Math.random()*10+parseInt(data_use.data.lineId),30+Math.random()*12+parseInt(data_use.data.lineId),42+Math.random()*15+parseInt(data_use.data.lineId),45+Math.random()*8+parseInt(data_use.data.lineId),58+Math.random()*10+parseInt(data_use.data.lineId),35+Math.random()*10+parseInt(data_use.data.lineId),61+Math.random()*10+parseInt(data_use.data.lineId),46+Math.random()*10+parseInt(data_use.data.lineId),52+Math.random()*10+parseInt(data_use.data.lineId)];
+                var real =[34+Math.random()*10,28+Math.random()*10+parseInt(data_use.data.lineId),41+Math.random()*10+parseInt(data_use.data.lineId),46+Math.random()*10+parseInt(data_use.data.lineId),59+Math.random()*10+parseInt(data_use.data.lineId),32+Math.random()*10+parseInt(data_use.data.lineId),46+Math.random()*10+parseInt(data_use.data.lineId),40+Math.random()*10+parseInt(data_use.data.lineId),38+Math.random()*10+parseInt(data_use.data.lineId)];
+                var res = data_use.data.dataList;
+                // for(var i = 0;i<res.length;i++){
+                //     timer.push(res[i].datetime);
+                //     forcast.push(parseInt(res[i].Passenger_flow_forcast)+Math.random()*10);
+                //     real.push(parseInt(res[i].Passenger_flow_real)+Math.random()*10);
+                // }
+                // var data_time = [];
+                // var dataJson_passenger_flow_real = [];
+                // var dataJson_transport_capacity_plan = [];
+                // var dataJson_transport_capacity_suggest = [];
+                // for (var i = 0; i < data_use.data.passenger_flow_real.length; i++) {
+                //     data_time.push(data_use.data.passenger_flow_real[i].datetime.split(' ')[1]);
+                // }
+                // push_data(data_use.data.passenger_flow_real, 'passenger_flow');
+                // push_data(data_use.data.transport_capacity_plan, 'capacity');
+                // push_data(data_use.data.transport_capacity_suggest, 'capacity');
+                // for (var j = 0; j < data_use.data.transport_capacity_plan.length; j++) {
+                //     dataJson_passenger_flow_real.push(data_use.data.passenger_flow_real[j].passenger_flow);
+                // }
+                // for (var j = 0; j < data_use.data.transport_capacity_plan.length; j++) {
+                //     dataJson_transport_capacity_plan.push(data_use.data.transport_capacity_plan[j].capacity);
+                // }
+                // for (var k = 0; k < data_use.data.transport_capacity_suggest.length; k++) {
+                //     dataJson_transport_capacity_suggest.push(data_use.data.transport_capacity_suggest[k].capacity);
+                // }
+                chartLineBar(arg.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['预测客流', '实际客流'], optionLineBar, timer, [forcast, real], '',data_use.data.lineId);
+                // // 轮播克隆出的的图表
+                chartLineBar(arg.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['预测客流', '实际客流'], optionLineBar, timer, [forcast, real], '',data_use.data.lineId);
                 // chartLineBar(arg.lagstation_chart, 0, ["#ff4634", "#4dcfc7"], 'bar', true, ['滞站客流', '预测滞站'], optionLineBar, ['周一', '周二', '周三', '周四', '周五', '周六'], [[120, 152, 101, 134, 90, 230], [220, 182, 191, 234, 290, 330]], '');
             }
         },

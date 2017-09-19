@@ -56,7 +56,7 @@ var optionLineBar = {
         {
             axisLabel: {
                 rotate: '',
-                interval: 2,     //表示x轴长度除以n 若为2则x轴数量除以2
+                interval: 1,     //表示x轴长度除以n 若为2则x轴数量除以2
             },
             textStyle: {
                 fontSize: '',
