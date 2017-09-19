@@ -62,10 +62,6 @@ websocket.onmessage = function (event) {
         absnormal_del(controllerObj, eventData);
         use_odoo_model(event,"abnormal");
         line_car_src_on_line(controllerObj, eventObj);
-        //车辆掉线包
-        if (eventObj.type == 1003){
-            vehicle_drop(controllerObj, eventData);
-        }
     }
     // else if (modelName == "bus_real_state") {
     //     line_car_src_real_state($(".controller_" + controllerId), eventObj.data);
@@ -146,12 +142,13 @@ function absnormal_del(controllerObj, data_list) {
         //车辆掉线
         if (data_list.packageType == 1003) {
             abnoraml_desc.html(data_list.abnormal_description.bus_no + '车辆掉线');
-            dom_singal.find('.singalIn span').html(parseInt(dom_singal.find('.singalIn span').html()) - 1);
-            dom_singal.find('.singalOut span').html(parseInt(dom_singal.find('.singalOut span').html()) + 1);
+            dom_singal.find('.show_signal_online span').html(parseInt(dom_singal.find('.show_signal_online span').html()) - 1);
+            dom_singal.find('.show_signal_online span').html(parseInt(dom_singal.find('.show_signal_online span').html()) + 1);
+            vehicle_drop(controllerObj, data_list);
         }
         // 出勤异常
         else if (data_list.packageType == 1004) {
-            abnoraml_desc.html('（员工）：' + data_list.abnormal_description.staff_name + '考勤异常');
+            abnoraml_desc.html('（员工）' + data_list.abnormal_description.staff_name + '：考勤异常');
         }
         // 到站准点异常
         else if (data_list.packageType == 1005) {
@@ -250,13 +247,18 @@ function show_electronic_map(dom, data_list, session_ayer) {
     }
 }
 
-// 车辆掉线
+// 车辆掉线, 在线
 function vehicle_drop(controllerObj, dataObj){
-    var dom = controllerObj.find("linePlanParkOnlineModel");
+    console.log(dataObj);
+    var dom = controllerObj.find("linePlanParkOnlineModel_"+dataObj.line_id);
     if (dom.length>0){
         var abnormal_description = dataObj.abnormal_description;
         var vehicle = dom.find(".yard_box .content_tb tr[pid="+abnormal_description.bus_on+"]");
         if (vehicle.length>0){
+            if (dataObj.status != 0){
+                vehicle.find(".runState").removeClass("icon2_0").addClass("icon2_1");    
+                return false;
+            }
             vehicle.find(".runState").removeClass("icon2_1").addClass("icon2_0");
         }
     }

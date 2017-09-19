@@ -234,7 +234,7 @@
     position: relative;
     padding: 0 17px;
     font-size: 0;
-    background: url("/lty_dispatch_desktop/static/src/img/carlinebg.png") no-repeat 20px top;
+    background: url("/lty_dispatch_desktop/static/src/img/carlinebg.png?v=20170918") no-repeat 20px top;
 }
 
 .dispatch_desktop .traffic_car {
@@ -261,7 +261,7 @@
     position: absolute;
     width: 44px;
     height: 20px;
-    background: url("/lty_dispatch_desktop/static/src/img/runcar.png") no-repeat left top;
+    background: url("/lty_dispatch_desktop/static/src/img/runcar.png?v=20170918") no-repeat left top;
     top: 0px;
     cursor: pointer;
 }
@@ -295,7 +295,7 @@
     position: absolute;
     width: 44px;
     height: 20px;
-    background: url("/lty_dispatch_desktop/static/src/img/runcar_right.png") no-repeat left top;
+    background: url("/lty_dispatch_desktop/static/src/img/runcar_right.png?v=20170918") no-repeat left top;
     top: 0px;
     cursor: pointer;
 }
@@ -497,7 +497,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     bottom: 0;
     left: 0;
     z-index: 10000;
-    background: url("/lty_dispatch_desktop/static/src/img/dispatch_console.png") no-repeat left top;
+    background: url("/lty_dispatch_desktop/static/src/img/dispatch_console.png?v=20170918") no-repeat left top;
 }
 
 .my_console ul {
@@ -534,7 +534,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     float: right;
     width: 20px;
     height: 20px;
-    background-image: url("/lty_dispatch_desktop/static/src/img/icon_console.png");
+    background-image: url("/lty_dispatch_desktop/static/src/img/icon_console.png?v=20170918");
 }
 
 .my_console ul .new_console {

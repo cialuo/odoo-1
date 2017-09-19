@@ -134,7 +134,7 @@ odoo.define("", function(require) {
             });
             self.map_binding_fn(map);
         },
-        map_binding_fn(map) {
+        map_binding_fn:function(map) {
             var self = this;
             // 显示经纬度
             map.on('mousemove', function(e) {

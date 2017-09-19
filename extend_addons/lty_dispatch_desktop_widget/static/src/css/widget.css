@@ -1311,6 +1311,14 @@
 
 
 /*ui-autocomplete*/
+.ac_results {
+    background-color: #464f76 !important;
+    border: none !important;
+}
+
+.ac_odd {
+    background-color: #464f76 !important;
+}
 
 .ui-autocomplete {
     background-color: #464f76;

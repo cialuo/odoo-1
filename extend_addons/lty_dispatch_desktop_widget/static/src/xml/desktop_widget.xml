@@ -877,7 +877,7 @@
                                 </td>
                                 <td>
                                     司机工号&#160;
-                                    <input class="w2 workerId" t-attf-value="{{widget.set_data.workerId}}" type="number" />
+                                    <input class="w2 workerId" t-attf-value="{{widget.set_data.workerId}}" type="text" />
                                 </td>
                             </tr>
                             <tr>
@@ -891,7 +891,7 @@
                                 </td>
                                 <td>
                                     司机名称&#160;
-                                    <input class="w2 driverName" min="1" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
+                                    <input class="w2 driverName driverNameSearch" min="1" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -920,7 +920,7 @@
                                 </td>
                                 <td>
                                     乘务员姓名&#160;
-                                    <input class="w2 trainName" t-attf-value="{{widget.set_data.trainName}}" type="text"/>
+                                    <input class="w2 trainName trainNameSearch" t-attf-value="{{widget.set_data.trainName}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -981,8 +981,8 @@
                             <tr>
                                 <td>
                                     计划时间&#160;
-                                    <input class="w2 planTimeShow" t-attf-value="{{new Date(widget.set_data.planRunTime).toTimeString().slice(0, 5)}}" type="time" />
-                                    <input class="w2 planTime" t-attf-value="{{widget.set_data.planRunTime}}" type="hidden" />
+                                    <input class="w2 planTime" t-attf-value="{{new Date(widget.set_data.planRunTime).toTimeString().slice(0, 5)}}" type="time" />
+                                    <!-- <input class="w2 planTime" t-attf-value="{{widget.set_data.planRunTime}}" type="hidden" /> -->
                                 </td>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
@@ -1001,7 +1001,7 @@
                                 </td>
                                 <td>
                                     司&#160;&#160;&#160;&#160;&#160;&#160;&#160;机&#160;
-                                    <input class="w2 driverName"  t-attf-value="{{widget.set_data.driverName}}" type="text"/>
+                                    <input class="w2 driverName driverNameSearch"  t-attf-value="{{widget.set_data.driverName}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -1028,7 +1028,7 @@
                                 </td>
                                 <td>
                                     乘务员&#160;
-                                    <input class="w2 trainName" t-attf-value="{{widget.set_data.trainName}}" type="text"/>
+                                    <input class="w2 trainName trainNameSearch" t-attf-value="{{widget.set_data.trainName}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -1220,7 +1220,7 @@
                             <tr>
                                 <td>
                                     司&#160;机&#160;名&#160;称&#160;
-                                    <input class="w6 driverName" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
+                                    <input class="w6 driverName driverNameSearch" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -1232,7 +1232,7 @@
                             <tr>
                                 <td>
                                     乘务员名称&#160;
-                                    <input class="w6 trainName" t-attf-value="{{widget.set_data.trainName}}" type="text"/>
+                                    <input class="w6 trainName trainNameSearch" t-attf-value="{{widget.set_data.trainName}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -1294,8 +1294,8 @@
                                 </td>
                                 <td>
                                     上班时间&#160;&#160;
-                                    <input class="w6 onWorkTimeShow"  t-attf-value="{{new Date(widget.set_data.onWorkTime).toTimeString().slice(0, 5)}}" type="text" />
-                                    <input class="onWorkTime"  t-attf-value="{{widget.set_data.onWorkTime}}" type="hidden" />
+                                    <input class="w6 onWorkTime"  t-attf-value="{{new Date(widget.set_data.onWorkTime).toTimeString().slice(0, 5)}}" type="text" />
+                                    <!-- <input class="onWorkTime"  t-attf-value="{{widget.set_data.onWorkTime}}" type="hidden" /> -->
                                 </td>
                             </tr>
                             <tr>
