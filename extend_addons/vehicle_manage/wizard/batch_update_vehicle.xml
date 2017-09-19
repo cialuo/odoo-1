@@ -19,7 +19,7 @@
                     <notebook>
                         <page string="vehicle list">
                             <field name="vehicle_tran_ids">
-                                <tree create="false">
+                                <tree create="false" editable="top">
                                     <field name="vehicle_id"/>
                                     <!--<field name="inner_code"/>-->
                                     <field name="license_plate"/>
@@ -45,13 +45,14 @@
                 <form string="batch_update_vehicle">
                     <group col="2">
                          <div style="color:Red;">
-                            <h2> 以下列表中的数据无法更新，请检查!</h2>
+                             <h2>必填费用为空，不能投入运营。</h2>
+                            <!--<h2> 以下列表中的数据无法更新，请检查!</h2>-->
                          </div>
                     </group>
                     <notebook>
                             <page string="vehicle list">
                                 <field name="vehicle_tran_ids">
-                                    <tree create="false">
+                                    <tree create="false" editable="top">
                                         <field name="vehicle_id"/>
                                         <field name="license_plate"/>
                                         <field name='vehicle_life_state'/>

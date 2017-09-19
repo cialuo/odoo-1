@@ -24,7 +24,8 @@ class BatchUpdateVehicle(models.TransientModel):
     @api.multi
     def import_vehicle(self):
         self.vehicle_tran_ids.unlink()
-        res = self.env['fleet.vehicle'].search([('vehicle_life_state', '=', self.vehicle_life_state)])
+        res = self.env['fleet.vehicle'].search([('vehicle_life_state', '=', self.vehicle_life_state),
+                                                ('entry_state', '=', 'audited')])
         datas = []
         for j in res:
             data = {

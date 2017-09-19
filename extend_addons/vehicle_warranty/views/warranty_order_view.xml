@@ -35,7 +35,7 @@
                                 <field name="plan_start_time" />
                                 <label for="percentage_work"/>
                                 <div class="o_row">
-                                  <field name="percentage_work"/><span>%</span>
+                                  <field name="percentage_work"/>
                                 </div>
 								<!--<field name="important_product_id" invisible="1"/>-->
 							    <field name="vehicle_id" invisible="1"/>

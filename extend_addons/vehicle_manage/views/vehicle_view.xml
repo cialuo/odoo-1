@@ -131,13 +131,13 @@
                                         <field name="transmission_ext" />
                                         <field name="fuel_type_ext" />
                                         <label for="co2_ext"/>
-                                        <div class="o_row">
-                                            <field name="co2_ext"/><span>g/km</span>
+                                        <div>
+                                            <field name="co2_ext" class="oe_inline"/> g/km
                                         </div>
                                         <field name="horsepower_ext" />
                                         <label for="power_ext"/>
-                                        <div class="o_row">
-                                            <field name="power_ext"/><span>kW</span>
+                                        <div>
+                                            <field name="power_ext" class="oe_inline"/> kW
                                         </div>
                                         <field name="weight" />
                                     </group>
@@ -222,22 +222,22 @@
                             <field name="code" />
                             <field name="specifications" />
 							<label for="length"/>
-							<div class="o_row">
-                                   <field name="length"/><span>mm</span>
+							<div>
+                                   <field name="length" class="oe_inline"/> mm
 							</div>
 							<field name="transmission_ext" />
                             <field name="horsepower_ext" />
 							<label for="inner_height"/>
-							<div class="o_row">
-                                <field name="inner_height"/><span>mm</span>
+							<div>
+                                <field name="inner_height" class="oe_inline"/> mm
 							</div>
 							<label for="front_distance"/>
-							<div class="o_row">
-                                <field name="front_distance"/><span>mm</span>
+							<div>
+                                <field name="front_distance" class="oe_inline"/> mm
 							</div>
 							<label for="front_max_weight"/>
-							<div class="o_row">
-                                <field name="front_max_weight"/><span>kg</span>
+							<div>
+                                <field name="front_max_weight" class="oe_inline"/> kg
 							</div>
 							<field name="driving_wheel_count"/>
                             <field name="fuel_capacity"/>
@@ -247,25 +247,25 @@
                         	<field name="engine_no" />
 							<field name="fuel_type_ext" />
 							<label for="width"/>
-							<div class="o_row">
-                                <field name="width"/><span>mm</span>
+							<div>
+                                <field name="width" class="oe_inline"/> mm
 							</div>
 							<label for="weight"/>
-							<div class="o_row">
-                                <field name="weight"/><span>kg</span>
+							<div>
+                                <field name="weight" class="oe_inline"/> kg
 							</div>
 							<label for="rear_distance"/>
-							<div class="o_row">
-                                <field name="rear_distance"/><span>mm</span>
+							<div>
+                                <field name="rear_distance" class="oe_inline"/> mm
 							</div>
 
 							<label for="rear_max_weight"/>
-							<div class="o_row">
-                                <field name="rear_max_weight"/><span>kg</span>
+							<div>
+                                <field name="rear_max_weight" class="oe_inline"/> kg
 							</div>
 							<label for="turn_radius"/>
-							<div class="o_row">
-                                <field name="turn_radius"/><span>m</span>
+							<div>
+                                <field name="turn_radius" class="oe_inline"/> m
 							</div>
 							<field name="fuel_consumption_pre_hund"/>
                             <field name="manufacturers"/>
@@ -275,18 +275,18 @@
 							<field name="co2_ext" />
 							<field name="chassis_no" />
 							<label for="height"/>
-							<div class="o_row">
-                                <field name="height"/><span>mm</span>
+							<div>
+                                <field name="height" class="oe_inline"/> mm
 							</div>
 							<field name="doors_ext" />
 							<field name="seats_ext"/>
 							<label for="shaft_distance"/>
-							<div class="o_row">
-                                <field name="shaft_distance"/><span>mm</span>
+							<div>
+                                <field name="shaft_distance" class="oe_inline"/> mm
 							</div>
 							<label for="max_climb"/>
-							<div class="o_row">
-                                <field name="max_climb"/><span>%</span>
+							<div>
+                                <field name="max_climb" class="oe_inline"/> %
 							</div>
                             <field name="wheel_count"/>
                             <field name="ride_number"/>

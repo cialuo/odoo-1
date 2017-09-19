@@ -58,8 +58,8 @@ class purchase_order(models.Model):
     
     @api.multi
     def write(self, vals):
-        for order in self:
-            approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(order.id))])
+        for p in self:
+            approve_nodes = self.env['lty.approve.center'].search([('object_id', '=',self._name+','+str(p.id))])
             if not vals.get('approve_state'):
                 for node in approve_nodes :
                     if node.approved is False  and node.active_node is True :

@@ -138,7 +138,7 @@ class external_curriculum_schedule(models.Model):
 
     plan_state = fields.Selection(related='plan_id.state', store=True,readonly=True)
 
-    name = fields.Char(string='Name',readonly=True,default="/")
+    name = fields.Char(string='Name',readonly=True,default="/",compute='onchange_course')
 
     training_cycle = fields.Char(related='plan_id.training_cycle', store=True, readonly=True,string='Training cycle')
 
@@ -175,6 +175,15 @@ class external_curriculum_schedule(models.Model):
         course = self.env['employees_growth.course'].search([('id', '=', vals.get('course_id'))])
         name = u"%s的课程" % (course.name)
         return name
+
+    @api.multi
+    def onchange_course(self):
+        """
+            课程名字修改时编辑培训名称
+        :return:
+        """
+        for order in self:
+            order.name = u"%s的课程" % (order.course_id.name)
 
     @api.model
     def create(self, vals):
