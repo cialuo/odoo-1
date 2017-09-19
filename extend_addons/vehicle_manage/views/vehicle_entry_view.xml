@@ -117,13 +117,13 @@
                                         <field name="transmission_ext" />
                                         <field name="fuel_type_ext" />
                                         <label for="co2_ext"/>
-                                        <div class="o_row">
-                                            <field name="co2_ext"/><span>g/km</span>
+                                        <div>
+                                            <field name="co2_ext" class="oe_inline"/> g/km
                                         </div>
                                         <field name="horsepower_ext" />
                                         <label for="power_ext"/>
-                                        <div class="o_row">
-                                            <field name="power_ext"/><span>kW</span>
+                                        <div>
+                                            <field name="power_ext" class="oe_inline"/> kW
                                         </div>
                                         <field name="weight" />
                                     </group>
