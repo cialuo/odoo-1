@@ -101,7 +101,8 @@
                              </page>
 							 <page string="ProductLists" name="ProductLists">
                                 <field name="picking_ids" context="{'search_default_done': 1}">
-                                    <tree string="ProductLists" create="false" delete="false">
+                                    <tree string="ProductLists" create="false" delete="false"
+									default_order="waiting_time desc">
 										<field name="picking_type_id"/>
 										<field name="name"/>
 										<field name="location_id"/>

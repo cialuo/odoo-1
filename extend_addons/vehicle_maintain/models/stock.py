@@ -27,6 +27,14 @@ class StockPicking(models.Model):
     # 待料时长 小时计
     waiting_time = fields.Float(string="waiting time", compute='computeWaitTime')
 
+    # 是否报警
+    needwarning = fields.Char(string="need warning", compute="_genDefaultNeedWarning")
+
+    @api.multi
+    def _genDefaultNeedWarning(self):
+        for item in self:
+            item.needwarning = 'no'
+
     @api.multi
     @api.depends('create_date', 'receiving_time')
     def computeWaitTime(self):
