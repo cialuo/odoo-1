@@ -32,8 +32,8 @@ websocket.onmessage = function (event) {
     var controllerObj = $(".controller_" + controllerId);
     var eventData = eventObj.data;
     console.log(eventObj);
-    if ($.inArray(modelName, ["line_plan", "line_park", "line_online"])!=-1){
-    // if ($.inArray(modelName, ['passenger_delay', 'bus_real_state', "line_plan", "line_park", "line_online"])!=-1){
+    if ($.inArray(modelName, ["line_plan", "line_park", "line_online"]) != -1) {
+        // if ($.inArray(modelName, ['passenger_delay', 'bus_real_state', "line_plan", "line_park", "line_online"])!=-1){
         // console.log(eventObj);
     }
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
@@ -46,7 +46,7 @@ websocket.onmessage = function (event) {
         use_odoo_model(event, "passenger_flow");
     } else if (modelName == "人力资源状态") {
 
-    }else if (modelName == "bus_resource"){
+    } else if (modelName == "bus_resource") {
         line_resource(controllerObj, eventData);
     }
     else if (modelName == "bus_real_state") {
@@ -60,7 +60,7 @@ websocket.onmessage = function (event) {
         // console.log('10');
     } else if (modelName == "abnormal") {
         absnormal_del(controllerObj, eventData);
-        use_odoo_model(event,"abnormal");
+        use_odoo_model(event, "abnormal");
         line_car_src_on_line(controllerObj, eventObj);
     }
     // else if (modelName == "bus_real_state") {
@@ -141,10 +141,14 @@ function absnormal_del(controllerObj, data_list) {
         var abnoraml_desc = $('body').find('.absnormal_diaodu .absnormal_type p');
         //车辆掉线
         if (data_list.packageType == 1003) {
-            abnoraml_desc.html(data_list.abnormal_description.bus_no + '车辆掉线');
+            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '掉线');
+            dom_singal.find('.line_car[bus_no=' + data_list.abnormal_description.bus_no + ']').addClass('to_gray');
             dom_singal.find('.show_signal_online span').html(parseInt(dom_singal.find('.show_signal_online span').html()) - 1);
-            dom_singal.find('.show_signal_online span').html(parseInt(dom_singal.find('.show_signal_online span').html()) + 1);
+            dom_singal.find('.show_signal_outline span').html(parseInt(dom_singal.find('.show_signal_outline span').html()) + 1);
             vehicle_drop(controllerObj, data_list);
+        }
+        else if (data_list.packageType == 1044) {
+            dom_singal.find('.line_car[bus_no=' + data_list.abnormal_description.bus_no + ']').removeClass('to_gray');
         }
         // 出勤异常
         else if (data_list.packageType == 1004) {
@@ -196,19 +200,19 @@ function absnormal_del(controllerObj, data_list) {
         }
         // 提前或延后发车
         else if (data_list.packageType == 1016) {
-                abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '提前发车,提前' + data_list.abnormal_description.advance_time +'分钟');
+            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '提前发车,提前' + data_list.abnormal_description.advance_time + '分钟');
         }
         // 到点未发车
         else if (data_list.packageType == 1017) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '到点未发车,滞后' + data_list.abnormal_description.retention_time+'分钟');
+            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '到点未发车,滞后' + data_list.abnormal_description.retention_time + '分钟');
         }
         // 意外高峰
         else if (data_list.packageType == 1018) {
-            abnoraml_desc.html(data_list.abnormal_description.date_start.split(' ')[1] + '到' + data_list.abnormal_description.date_end.split(' ')[1] + '产生意外客流高峰');
+            abnoraml_desc.html(data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外客流高峰');
         }
         // 时段意外低峰
         else if (data_list.packageType == 1019) {
-            abnoraml_desc.html(data_list.abnormal_description.date_start.split(' ')[1] + '到' + data_list.abnormal_description.date_end.split(' ')[1] + '产生意外客流高峰');
+            abnoraml_desc.html(data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外客流高峰');
         }
         // 站点意外高峰
         else if (data_list.packageType == 1020) {
@@ -248,15 +252,15 @@ function show_electronic_map(dom, data_list, session_ayer) {
 }
 
 // 车辆掉线, 在线
-function vehicle_drop(controllerObj, dataObj){
+function vehicle_drop(controllerObj, dataObj) {
     console.log(dataObj);
-    var dom = controllerObj.find("linePlanParkOnlineModel_"+dataObj.line_id);
-    if (dom.length>0){
+    var dom = controllerObj.find("linePlanParkOnlineModel_" + dataObj.line_id);
+    if (dom.length > 0) {
         var abnormal_description = dataObj.abnormal_description;
-        var vehicle = dom.find(".yard_box .content_tb tr[pid="+abnormal_description.bus_on+"]");
-        if (vehicle.length>0){
-            if (dataObj.status != 0){
-                vehicle.find(".runState").removeClass("icon2_0").addClass("icon2_1");    
+        var vehicle = dom.find(".yard_box .content_tb tr[pid=" + abnormal_description.bus_on + "]");
+        if (vehicle.length > 0) {
+            if (dataObj.status != 0) {
+                vehicle.find(".runState").removeClass("icon2_0").addClass("icon2_1");
                 return false;
             }
             vehicle.find(".runState").removeClass("icon2_1").addClass("icon2_0");
@@ -267,7 +271,7 @@ function vehicle_drop(controllerObj, dataObj){
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
     // console.log(dataObj+"_bus")
-    var dom = controllerObj.find(".busRealStateModel_"+dataObj.line_id+"_"+dataObj.bus_no);
+    var dom = controllerObj.find(".busRealStateModel_" + dataObj.line_id + "_" + dataObj.bus_no);
     if (dom.length > 0) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
         var carReportObj = dom.find(".popupContent .carReport");
@@ -335,7 +339,7 @@ function passengerDelayModel_socket_fn(controllerObj, dataObj) {
         // layer.close(passengerDelayModel_set.layer_index);
         // dom.removeClass('hide_model');
         var trendObj = dom.find(".trend_chart_single");
-        if (dataObj.packageType == 1034){
+        if (dataObj.packageType == 1034) {
             trendObj = dom.find(".trend_chart_summary");
         }
         var trend_chart_map = trendObj.find(".trend_chart_map");
@@ -370,7 +374,7 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
         var busResource = JSON.parse(sessionStorage.getItem("busResource"));
         if (modelName == "line_plan") {
             update_linePlan(controllerObj, dataObj);
-        }else{
+        } else {
             // console.log(dataObj);
             // console.log(modelName);
             // debugger;
@@ -388,9 +392,9 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
             // 合并
             var new_resource = extend_obj_fn(active_resource, dataObj);
 
-            var typeModel = new_resource.inField == 1?"bus_yard":"bus_transit"
-            var content_tb_obj = controllerObj.find("."+typeModel+"[direction="+new_resource.direction+"] .content_tb");
-            var active_obj = content_tb_obj.find("tr[pid="+new_resource.id+"]");
+            var typeModel = new_resource.inField == 1 ? "bus_yard" : "bus_transit"
+            var content_tb_obj = controllerObj.find("." + typeModel + "[direction=" + new_resource.direction + "] .content_tb");
+            var active_obj = content_tb_obj.find("tr[pid=" + new_resource.id + "]");
 
             if (typeModel == "bus_yard") {
                 update_linePark(active_obj, content_tb_obj, new_resource, dataObj);
@@ -476,7 +480,7 @@ function update_linePlan(controllerObj, dataObj) {
         return false;
     }
 
-    if (typeof dataObj.direction!=undefined && active_tr_obj.attr('direction')!=dataObj.direction){
+    if (typeof dataObj.direction != undefined && active_tr_obj.attr('direction') != dataObj.direction) {
         var content_tb_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb");
         var obj_list = content_tb_obj.find("tr.point");
         for (var i = 0, L = obj_list.length; i < L; i++) {
@@ -548,13 +552,13 @@ function update_linePlan(controllerObj, dataObj) {
 
 // 车场更新
 function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
-    if (active_obj.length == 0){
+    if (active_obj.length == 0) {
         // 没有则为新增,需按照计划发车时间先后插入
         add_linePark(content_tb_obj, new_resource);
         return false;
     }
 
-    if (dataObj.carStateId == 2008){
+    if (dataObj.carStateId == 2008) {
         active_obj.remove();
     }
 
@@ -621,8 +625,8 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 
     // 车辆在线状态
-    if (dataObj.runState != undefined){
-        if (dataObj.runState == 1){
+    if (dataObj.runState != undefined) {
+        if (dataObj.runState == 1) {
             active_obj.find(".runState").addClass('icon2_1').removeClass("icon2_0");
         } else {
             active_obj.find(".runState").removeClass('icon2_1').addClass("icon2_0");
@@ -655,7 +659,7 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 }
 
-function add_linePark(content_tb_obj, new_resource){
+function add_linePark(content_tb_obj, new_resource) {
     var obj_str =
         '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).toTimeString() + '" planReachTime="' + new Date(new_resource.realReachTime).toTimeString() + '">' +
         '<td class="pL">' +
@@ -702,7 +706,7 @@ function add_linePark(content_tb_obj, new_resource){
     }
 }
 
-function add_busTransit(content_tb_obj, new_resource){
+function add_busTransit(content_tb_obj, new_resource) {
     var obj_str =
         '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).toTimeString() + '"  planReachTime="' + new Date(new_resource.planReachTime).toTimeString() + '">' +
         '<td class="pL">' +
@@ -749,9 +753,9 @@ function add_busTransit(content_tb_obj, new_resource){
 }
 
 // 组合
-function extend_obj_fn(a, b){
-    var c=new Object();
-    var d=new Object();
+function extend_obj_fn(a, b) {
+    var c = new Object();
+    var d = new Object();
     $.extend(c, a);
     $.extend(d, b);
     $.extend(c, d);
@@ -759,6 +763,6 @@ function extend_obj_fn(a, b){
 }
 
 // 删除
-function update_tr_delete(id){
+function update_tr_delete(id) {
     $(".plan_display").find(".content_tb tr[pid=" + id + "]").remove();
 }

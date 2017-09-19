@@ -131,7 +131,7 @@
 								<li class="show_main_outage">维保停运：<span>-</span></li>
 								<li class="show_share_active_car">共享机动：<span>-</span></li>
 								<li class="show_signal_online">信号在线：<span></span></li>
-								<li class="show_signal_online">信号掉线：<span></span></li>
+								<li class="show_signal_outline">信号掉线：<span></span></li>
 								<li class="show_car_driver">司机：<span></span></li>
 								<li class="show_car_attendant">乘务：<span></span></li>
 							</ul>
@@ -176,7 +176,6 @@
 										<canvas width="1190" height="33" class="can_bottom"></canvas>
 										<div class="run_car_hide">
 											<div class="line_car">
-												<div class="num_car"><span></span></div>
 												<div class="type_car"><span></span></div>
 											</div>
 										</div>
