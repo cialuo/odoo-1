@@ -725,7 +725,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                             return row.workerId;
                         }
                     }).result(function(event, row, formatted){
-                        console.log('123')
+                        
                     })
                 }
             });
@@ -765,7 +765,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                             return row.workerId;
                         }
                     }).result(function(event, row, formatted){
-                        $(".customModal .driverName").val(row.driverName);
+                        $(".customModal .driverNameSearch").val(row.driverName);
                     })
                 }
             });
@@ -829,7 +829,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                             return row.trainId;
                         }
                     }).result(function(event, row, formatted){
-                        $(".customModal .trainName").val(row.trainName);
+                        $(".customModal .trainNameSearch").val(row.trainName);
                     })
                 }
             });
@@ -1157,6 +1157,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 keyboard: false
             });
 
+            self.$(".planTime input:eq(1)").focus();
+
             // 提交
             self.$('.btn-primary').on('click', function () {
                 self.submit_fn();
@@ -1201,7 +1203,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         return false;
                     }
                     layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    self.$('.btn-default').click();
+                    if (ret.result == 0){
+                        self.$('.btn-default').click();
+                    }
                 }
             });
         }
@@ -1242,6 +1246,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             self.$('.modal-body').on("click", ".selectType .ckIcon", function () {
                 $(this).addClass("active").siblings().removeClass('active');
             });
+
+            self.$(".planTime").focus();
 
             // 提交
             self.$('.btn-primary').on('click', function () {
@@ -1292,7 +1298,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                         return false;
                     }
                     layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    self.$('.btn-default').click();
+                    if (ret.result == 0){
+                        self.$('.btn-default').click();
+                    }
                 }
             });
         }
@@ -1362,7 +1370,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 success: function(ret) {
                     layer.close(layer_index);
                     layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
-                    self.$('.btn-default').click();
+                    if (ret.result == 0){
+                        self.$('.btn-default').click();
+                    }
                 }
             });
         }
@@ -1400,6 +1410,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 keyboard: false
             });
 
+            self.$(".workTime").focus();
+
             // 提交
             self.$('.btn-primary').on('click', function () {
                 self.submit_fn($(this).attr("name"));
@@ -1427,7 +1439,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 success: function (ret) {
                     layer.close(layer_index);
                     layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    self.$('.btn-default').click();
+                    if (ret.result == 0){
+                        self.$('.btn-default').click();
+                    }
                 }
             });
         }
@@ -1465,6 +1479,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 keyboard: false
             });
 
+            self.$(".onWorkTime").focus();
+
             // 提交
             self.$('.btn-primary').on('click', function(){
                 self.submit_fn();
@@ -1490,7 +1506,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 success: function(ret){
                     layer.close(layer_index);
                     layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    self.$('.btn-default').click();
+                    if (ret.result == 0){
+                        self.$('.btn-default').click();
+                    }
                 }
             });
         }
@@ -1554,7 +1572,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 success: function(ret){
                     layer.close(layer_index);
                     layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    self.$('.btn-default').click();
+                    if (ret.result == 0){
+                        self.$('.btn-default').click();
+                    }
                 }
             });
         }
@@ -1616,7 +1636,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 success: function(ret){
                     layer.close(layer_index);
                     layer.msg(ret.respose.text, {time: 2000, shade: 0.3});
-                    self.$('.btn-default').click();
+                    if (ret.result == 0){
+                        self.$('.btn-default').click();
+                    }
                 }
             });
         }

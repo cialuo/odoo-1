@@ -102,7 +102,6 @@ class BusWorkRules(models.Model):
         return self.env['ir.config_parameter'].get_param('city.code')
 
     def getAPIUrl(self):
-        return "http://10.1.10.169:8081/ltyop/trafficRules/getBusTraffRule"
         return self.env['ir.config_parameter'].get_param('bus.arrange.rule.url')
 
     @api.multi

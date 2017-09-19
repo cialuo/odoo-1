@@ -9,5 +9,9 @@
             <field name="key">city.code</field>
             <field name="value">SZ</field>
         </record>
+        <record id="restful_url" model="ir.config_parameter">
+            <field name="key">bus.arrange.rule.url</field>
+            <field name="value">http://10.1.10.169:8081/ltyop/trafficRules/getBusTraffRule</field>
+        </record>
     </data>
 </odoo>

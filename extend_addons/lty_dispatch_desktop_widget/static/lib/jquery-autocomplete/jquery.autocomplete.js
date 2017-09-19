@@ -353,7 +353,6 @@ $.Autocompleter = function(input, options) {
 			stopLoading();
 			select.display(data, q);
 			autoFill(q, data[0].value);
-			debugger;
 			select.show();
 		} else {
 			hideResultsNow();
