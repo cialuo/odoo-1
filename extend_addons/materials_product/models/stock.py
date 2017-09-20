@@ -28,16 +28,17 @@ class StockMove(models.Model):
         #自动根据operation中的自动生成批次号,并写入完成数
         res = super(StockMove, self).action_confirm()
         for picking in self:
-            if picking.pack_operation_ids:
-                lot_obj = self.env['stock.pack.operation.lot']
-                for p in picking.pack_operation_ids:
-                    if p.product_id.tracking == 'lot' and p.product_id.auto_lot:
-                        vals = {
-                            'qty': p.product_qty,
-                            'operation_id': p.id,
-                        }
-                        lot_obj.create(vals)
-                        p.qty_done = p.product_qty
+            if picking.picking_type_id.code == 'incoming':
+                if picking.pack_operation_ids:
+                    lot_obj = self.env['stock.pack.operation.lot']
+                    for p in picking.pack_operation_ids:
+                        if p.product_id.tracking == 'lot' and p.product_id.auto_lot:
+                            vals = {
+                                'qty': p.product_qty,
+                                'operation_id': p.id,
+                            }
+                            lot_obj.create(vals)
+                            p.qty_done = p.product_qty
         return res
 class OperationLot(models.Model):
     _inherit = 'stock.pack.operation.lot'
