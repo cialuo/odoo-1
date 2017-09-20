@@ -35,7 +35,7 @@ class StockMove(models.Model):
                         if p.product_id.tracking == 'lot' and p.product_id.auto_lot:
                             lot_name = self.env['ir.sequence'].next_by_code('lot_name_seq') or '/'
                             vals = {
-                                'name': lot_name,
+                                'lot_name': lot_name,
                                 'qty': p.product_qty,
                                 'operation_id': p.id,
                             }
