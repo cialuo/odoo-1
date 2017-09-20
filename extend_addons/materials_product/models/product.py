@@ -45,7 +45,8 @@ class Product(models.Model):
     @api.one
     @api.depends('categ_id.property_cost_method')
     def _compute_cost_method(self):
-        selection_value = dict(self.categ_id.fields_get()['property_cost_method']['selection'])
+        #获取物资分类中成本方法的SELECTION value值，不然key值直接赋值给cost_method 无法翻译
+        selection_value = dict(self.env['product.category'].fields_get()['property_cost_method']['selection'])
         cost_method = self.categ_id.property_cost_method
         self.cost_method = selection_value[cost_method]
 
