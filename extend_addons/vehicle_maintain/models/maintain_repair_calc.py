@@ -67,7 +67,7 @@ class MaintainRepairCalculate(models.Model):
         :return:
         '''
 
-        self._refresh_picking()
+        self._new_refresh_picking()
         self._refresh_jobs_products()
 
         self.write({
@@ -83,7 +83,7 @@ class MaintainRepairCalculate(models.Model):
         :return:
         '''
 
-        self._refresh_picking()
+        self._new_refresh_picking()
         self._refresh_jobs_products()
 
     def _refresh_jobs_products(self):
@@ -110,6 +110,120 @@ class MaintainRepairCalculate(models.Model):
                 "total_product_fee": total_product_fee,
                 "total_fee": total_fee
             })
+
+
+    def _get_products(self,picking_get,picking_back):
+        '''
+            １,根据领料单和发料单进行统计
+            ２,区分物资是否启动批次，分别取其价格
+            ３,去除退料单内的物资数量
+        :param pack_operation_product:
+        :return:
+        '''
+        products = {}
+
+        for picking in picking_get:
+
+                for operation in picking.pack_operation_product_ids:
+                    if operation.pack_lot_ids:
+                        for lot in operation.pack_lot_ids:
+                            product = {}
+                            key = lot.lot_id
+                            if products.has_key(key):
+                                product['products_id'] = lot.product_id.id
+                                product['price_unit'] = lot.lot_price_unit
+                                product['product_uom_qty'] = products[key]['product_uom_qty'] + lot.qty
+                                products[key] = product
+                            else:
+                                product['products_id'] = lot.product_id.id
+                                product['price_unit'] = lot.lot_price_unit
+                                product['product_uom_qty'] = lot.qty
+                                products[key]=product
+                    else:
+                            product = {}
+                            key = operation.product_id
+                            if products.has_key(key):
+                                product['products_id'] = operation.product_id.id
+                                product['product_uom_qty'] = products[key]['product_uom_qty'] + operation.qty_done
+                                product['price_unit'] = operation.product_id.standard_price
+                                products[key] = product
+                            else:
+                                product['products_id'] = operation.product_id.id
+                                product['product_uom_qty'] = operation.qty_done
+                                product['price_unit'] = operation.product_id.standard_price
+                                products[key] = product
+
+
+        for picking in picking_back:
+
+                for operation in picking.pack_operation_product_ids:
+
+                    if operation.pack_lot_ids:
+                        for lot in operation.pack_lot_ids:
+                            product = {}
+                            key = lot.lot_id
+                            if products.has_key(key):
+                                product = products[key]
+                                product['product_uom_qty'] = product['product_uom_qty'] - lot.qty
+                                products[key]=product
+                            else:
+                                product['products_id'] = lot.product_id.id
+                                product['price_unit'] = lot.lot_price_unit
+                                product['product_uom_qty'] = - lot.qty
+                                products[key] = product
+                    else:
+                            product = {}
+                            key = operation.product_id
+                            if products.has_key(key):
+                                product =  products[key]
+                                product['product_uom_qty'] = product['product_uom_qty'] - operation.qty_done
+                                products[key] = product
+                            else:
+                                product['products_id'] = operation.product_id.id
+                                product['price_unit'] = operation.product_id.standard_price
+                                product['product_uom_qty'] = - operation.qty_done
+                                products[key] = product
+
+        return products
+
+    def _new_refresh_picking(self):
+        '''
+            1,先判断领退料单中是否存在未完成的订单（不用管交旧领新的状态）
+            2,删除已经统计过的用领清单
+            3,分别获取领料和退料的picking单据
+            4,除去物资退了分量
+            4,插入使用数量大于0的物料
+            :return:
+        '''
+        for picking in self.picking_ids.filtered(lambda i:i.picking_type_id.name in [u'发料', u'领料', u'退料']):
+            if not all(move.state in ['cancel', 'done'] for move in picking.move_lines):
+                raise exceptions.UserError(_('There is unfinished picking'))
+
+        for i in self.materials_product_ids:
+            i.unlink()
+
+        picking_get = self.picking_ids.filtered(lambda i: i.state in ['done'] and
+                                                          i.picking_type_id.name in [u'发料', u'领料'])
+        picking_back = self.picking_ids.filtered(lambda i: i.state in ['done'] and
+                                                           i.picking_type_id.name in [u'退料'])
+
+        products = self._get_products(picking_get,picking_back)
+
+        count = 0
+        product_data = []
+        for key in products.keys():
+            if products[key]['product_uom_qty'] <= 0:
+                continue
+            count += 1
+            vals = {
+                "repair_id": self.id,
+                "sequence": count,
+                "product_id": products[key]['products_id'],
+                "usage_ct": products[key]['product_uom_qty'],
+                "list_price": products[key]['price_unit']
+            }
+            product_data.append((0, 0, vals))
+        self.write({'materials_product_ids': product_data})
 
 
     def _refresh_picking(self):
