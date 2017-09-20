@@ -56,7 +56,9 @@ class BatchUpdateVehicle(models.TransientModel):
             match_list = []
             for j in self.vehicle_tran_ids:
                 if not j.vehicle_id.investment_ids:
-                    not_match_list.append(j)
+                    #2017-9-19 提出 不配置费用也可以投入运营
+                    match_list.append(j)
+                    # not_match_list.append(j)
                     continue
                 flag = False
                 for k in j.vehicle_id.investment_ids:
