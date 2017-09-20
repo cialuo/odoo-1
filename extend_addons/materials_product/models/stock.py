@@ -33,20 +33,22 @@ class StockMove(models.Model):
                     lot_obj = self.env['stock.pack.operation.lot']
                     for p in picking.pack_operation_ids:
                         if p.product_id.tracking == 'lot' and p.product_id.auto_lot:
+                            lot_name = self.env['ir.sequence'].next_by_code('lot_name_seq') or '/'
                             vals = {
+                                'name': lot_name,
                                 'qty': p.product_qty,
                                 'operation_id': p.id,
                             }
                             lot_obj.create(vals)
                             p.qty_done = p.product_qty
         return res
-class OperationLot(models.Model):
-    _inherit = 'stock.pack.operation.lot'
-
-    @api.model
-    def create(self, vals):
-        if not vals.get('lot_name'):
-            lot_name = self.env['ir.sequence'].next_by_code('lot_name_seq') or '/'
-            vals['lot_name'] = lot_name
-        res = super(OperationLot, self).create(vals)
-        return res
+# class OperationLot(models.Model):
+#     _inherit = 'stock.pack.operation.lot'
+#
+#     @api.model
+#     def create(self, vals):
+#         if not vals.get('lot_name'):
+#             lot_name = self.env['ir.sequence'].next_by_code('lot_name_seq') or '/'
+#             vals['lot_name'] = lot_name
+#         res = super(OperationLot, self).create(vals)
+#         return res
