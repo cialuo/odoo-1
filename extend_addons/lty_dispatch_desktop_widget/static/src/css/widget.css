@@ -1309,22 +1309,21 @@
     width: 12px
 }
 
-
-/*ui-autocomplete*/
-.ac_results {
-    background-color: #464f76 !important;
-    border: none !important;
-}
-
-.ac_odd {
-    background-color: #464f76 !important;
-}
-
-.ui-autocomplete {
+/*autocomplete_custom_model_class*/
+.autocomplete_custom_model_class {
+    max-height: 220px;
+    overflow: auto;
+    border: none;
     background-color: #464f76;
+    color: #4ecfc7;
 }
 
-.ui-autocomplete .ui-menu-item > a {
+.autocomplete_custom_model_class .ui-menu-item {
+    padding: 0 10px;
+    line-height: 24px;
+}
+
+.autocomplete_custom_model_class .ui-menu-item:hover {
+    background: #1E90FF;
     color: #fff;
-    padding: 3px 10px;
 }

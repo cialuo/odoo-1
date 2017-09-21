@@ -27,7 +27,7 @@ class lty_advanced_workflow_cfg(models.Model):
             ('commited', 'commited'),
             ('approved', 'approved')
         ], string='status', required=True, default='draft')
-    line_ids = fields.One2many('lty.advanced.workflow.cfg.line','cfg_id', copy=True) 
+    line_ids = fields.One2many('lty.advanced.workflow.cfg.line','cfg_id', copy=True, ondelete='cascade') 
     
     def do_confirm(self):    
         self.write({'status': 'commited'})
@@ -49,7 +49,7 @@ class lty_advanced_workflow_cfg_line(models.Model):
 
     squence = fields.Integer(default=10)
     name = fields.Char(required=True)
-    conditions = fields.Char(default='[()]', help='domain conditions')  
+    conditions = fields.Char(required=True, help='domain conditions')  
     approve_type =  fields.Selection([
             ('singel', 'singel'),
             ('mutil', 'mutil')
@@ -74,12 +74,13 @@ class lty_advanced_workflow_cfg_line(models.Model):
     @api.onchange('conditions')
     def onchange_conditions(self):
         if self.cfg_id.model.model :
-            try:
-                self.env[self.cfg_id.model.model].search(eval(self.conditions),limit=1)
-            except Exception,e:
-                self.conditions = '' 
-                raise UserError((u'domain表达式错误！'+e.message))
-                return  {'warning': (e.message)}          
+            if self.conditions  :
+                try:
+                    self.env[self.cfg_id.model.model].search(eval(self.conditions),limit=1)
+                except Exception,e:
+                    self.conditions = '' 
+                    raise UserError((u'domain表达式错误！'+e.message))
+                    return  {'warning': (e.message)}          
             
         #=======================================================================
         # if not self.product_id or self.product_qty < 0.0:
