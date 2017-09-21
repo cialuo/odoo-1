@@ -863,7 +863,7 @@
                                 </td>
                                 <td>
                                     车辆编号&#160;
-                                    <input class="w2 carNum" autocomplete="off" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <input class="w2 carNum" data-provide="typeahead" autocomplete="off" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
                                     <input class="onBoardId" type="hidden" t-attf-value="{{widget.set_data.onBoardId}}" />
                                 </td>
                             </tr>

@@ -32,7 +32,7 @@ odoo.define("", function(require) {
             location_set.map = map;
 
             // 线路
-            model_choseline = new Model('route_manage.route_manage');
+            var model_choseline = new Model('route_manage.route_manage');
             model_choseline.query().filter([
                 ["state", "=", 'inuse']
             ]).all().then(function(data) {
