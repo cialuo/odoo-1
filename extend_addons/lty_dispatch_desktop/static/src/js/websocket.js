@@ -540,7 +540,7 @@ function update_linePlan(controllerObj, dataObj) {
 
     // 司机
     if (dataObj.driverName != undefined) {
-        active_obj.find(".driverName").html(dataObj.driverName);
+        active_tr_obj.find(".driverName").html(dataObj.driverName);
     }
 
     // 待发状态
