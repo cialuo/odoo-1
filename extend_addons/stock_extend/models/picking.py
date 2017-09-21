@@ -29,7 +29,7 @@ class StockPicking(models.Model):
 class StockQuant(models.Model):
     _inherit = 'stock.quant'
 
-    cost_purchase = fields.Float(related='history_ids.price_unit', string="Cost purchase")
+    cost_purchase = fields.Float(compute='get_cost', string="Cost purchase")
     cost_average = fields.Float(compute='get_cost', string="Cost average")
 
 
