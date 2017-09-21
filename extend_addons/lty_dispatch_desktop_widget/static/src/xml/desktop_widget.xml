@@ -1047,7 +1047,7 @@
                                 </td>
                                 <td>
                                     乘务员工号&#160;
-                                    <input class="w2 trainId" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
+                                    <input class="w2 train" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -1226,7 +1226,7 @@
                             <tr>
                                 <td>
                                     乘务员工号&#160;
-                                    <input class="w6 trainId" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
+                                    <input class="w6 train" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>

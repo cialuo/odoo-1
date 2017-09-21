@@ -352,97 +352,20 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
             // });
             $("body").on("focus", ".customModal .carNum", function(){
                 self.vehicle_search_autocomplete({evt: this, controlId: controllerId, lineId: lineId});
-                // var modalBody = $(this).parents(".modal-body");
-                // var workDate = modalBody.attr("workDate");
-                // var options = {
-                //     dateSearch: workDate,
-                //     controlId: controllerId,
-                //     lineId: lineId,
-                //     carNum: $(this).val()
-                // };
-                // console.log(options);
-                // $(this).typeahead({
-                //     source: function (query, process) {
-                //         return $.ajax({
-                //             url: 'http://202.104.136.228:8888/ltyop/dspSimulationDisPatchPlan/autocompleteBusResourcByControlIdNoCarState?apikey=71029270&params={dateSearch: "'+options.dateSearch+'" ,controlId: "'+options.controlId+'" ,lineId: "'+options.lineId+'"}',
-                //             type: 'get',
-                //             success: function (rets) {
-                //                 var results = _.map(rets, function (ret) {
-                //                     return ret.onBoardId.toString();
-                //                 });         
-                //                 return process(results);
-                //             },
-                //         });
-                //     },
-                //     items: 10,
-                //     minLength: 0,
-                //     showHintOnFocus: true,
-                //     highlighter: function (item) {
-                //         return item;
-                //     },
-
-                //     updater: function (item) {
-                //         return item;
-                //     }
-                // });
             });
 
             // 搜索-司机工号
             $("body").on("focus", ".customModal .workerId", function(){ 
                 self.driver_search_autocomplete({evt: this, controlId: controllerId});
-                // var workDate = $(".customModal .modal-body").attr("workDate");
-                // var gprsid = $(".customModal .modal-body").attr("gprsid");
-                // var options = {
-                //     dateSearch: workDate,
-                //     controlId: controllerId,
-                //     gprsid: gprsid,
-                //     workerId: $(this).val()
-                // };
-                // console.log(options);
-                // var self = this;
-                // $.ajax({
-                //     url: 'http://202.104.136.228:8888/ltyop/dspSimulationDisPatchPlan/autocompleteAttendanceByGprsid?apikey=71029270&params={dateSearch: "'+options.dateSearch+'" ,controlId: "'+options.controlId+'" ,gprsid: "'+options.gprsid+'"}',
-                //     type: 'get',
-                //     success: function (rets) {
-                //         $(self).typeahead({
-                //             source: function(query, process){
-                //                 var results = _.map(rets, function (ret) {
-                //                     return ret.workerId.toString() + "";
-                //                 });         
-                //                 return process(results);
-                //             },
-                //             items: 'all',
-                //             minLength: 0,
-                //             showHintOnFocus: true,
-                //             matcher: function (item) {
-                //                 return true;
-                //             },
-                //             highlighter: function (item) {
-                //                 var product = _.find(rets, function (p) {
-                //                     return p.workerId == item;
-                //                 });
-                //                 return product.workerId + " ($" + product.driverName + ")";
-                //             },
-                //             updater: function (item) {
-                //                 var product = _.find(rets, function (p) {
-                //                     return p.workerId == item;
-                //                 });
-                //                 // self.setSelectedProduct(product);
-                //                 $(".customModal .modal-body").find(".driverNameSearch").val(product.driverName);
-                //                 return product.workerId;
-                //             }
-                //         });
-                //     },
-                // });
             });
             // $("body").bind("focus", ".customModal .workerId", function(){
             //     self.driver_search_autocomplete({evt: this, controlId: controllerId});
             // });
 
             // 搜索-乘务工号
-            // $("body").on("keyup", ".customModal .train", function(){
-            //     self.trainman_search_autocomplete({evt: this, controlId: controllerId});
-            // });
+            $("body").on("keyup", ".customModal .train", function(){
+                self.trainman_search_autocomplete({evt: this, controlId: controllerId});
+            });
             // $("body").bind("focus", ".customModal .train", function(){
             //     self.trainman_search_autocomplete({evt: this, controlId: controllerId});
             // });
@@ -861,15 +784,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     return false;
                 },
                 select: function (event, ui) {
-                    $(options.event).val(ui.item.trainId);
-                    $(".customModal .trainNameSearch").val(ui.item.trainName);
+                    $(options.event).val(ui.item.workerId);
+                    $(".customModal .trainNameSearch").val(ui.item.driverName);
                     return false;
                 }
             }).focus(function () {
                 $(this).autocomplete("search");
             }).autocomplete("instance")._renderItem = function (ul, item) {
                 return $("<li>")
-                    .append("<div>"+item.trainId+"<span style='float:right;padding-right:5px;'>"+item.trainName+"</span></div>")
+                    .append("<div>"+item.workerId+"<span style='float:right;padding-right:5px;'>"+item.driverName+"</span></div>")
                     .appendTo(ul);
             };
         },
@@ -1317,7 +1240,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 direction: confObj.find(".direction").val(),
                 driverName: confObj.find(".driverName").val(),
                 workerId: confObj.find(".workerId").val(),
-                trainId:confObj.find(".trainId").val(),
+                trainId:confObj.find(".train").val(),
                 trainName:confObj.find(".trainName").val(),
                 addType: confObj.find(".addType").val(),
                 addReasonId: confObj.find(".addReasonId").val(),
@@ -1473,7 +1396,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 onBoardId: confObj.find(".onBoardId").val(),
                 workerId: confObj.find(".workerId").val(),
                 driverName: confObj.find(".driverName").val(),
-                trainId: confObj.find(".trainId").val(),
+                trainId: confObj.find(".train").val(),
                 trainName: confObj.find(".trainName").val(),
                 workTime: confObj.find(".workTime").val(),
                 opType: name
