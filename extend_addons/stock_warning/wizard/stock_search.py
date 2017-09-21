@@ -25,8 +25,21 @@ class stock_search(models.TransientModel):
             warehouse = self.warehouse_id
         data = dict()
         data['data'] = self.get_data(warehouse)
-
-        return self.env['report'].get_action(self, 'stock_warning.warning_report', data=data)
+        warning_data = self.env['stock.warning_data']
+        warning_data.search([]).unlink()
+        for c_data in data['data']:
+            warning_data.create(c_data)
+        #return self.env['report'].get_action(self, 'stock_warning.warning_report', data=data)
+        return {
+            'name':u'库存预警',
+            'view_type': 'form',
+            'view_mode': 'tree',
+            'res_model': 'stock.warning_data',
+            'type': 'ir.actions.act_window',
+            'res_id': '',
+            'view_id': self.env.ref('stock_warning.warning_data_list').id,
+            'target': 'current'
+        }
 
     def get_data(self,warehouses):
         """
@@ -103,8 +116,8 @@ class Product(models.Model):
             else:
                 qty_available = quants_res.get(product.id, 0.0)
 
-            res['product'] = product.name
-            res['warehouse'] = warehouse.name
+            res['product'] = product.id
+            res['warehouse'] = warehouse.id
             res['qty_available'] = float_round(qty_available, precision_rounding=product.uom_id.rounding)
             res['incoming_qty'] = float_round(moves_in_res.get(product.id, 0.0),
                                                           precision_rounding=product.uom_id.rounding)

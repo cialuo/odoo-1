@@ -3,6 +3,7 @@ from odoo import models, fields, api, exceptions, _
 
 class WarrantyProject(models.Model): # 保修项目
     _name = 'warranty_project'
+    _order = 'id desc'
 
     name = fields.Char(string='Project Name', required=True) # 项目名称
     code = fields.Char(string='Project Code', required=True) # 项目编码
@@ -41,6 +42,17 @@ class WarrantyProject(models.Model): # 保修项目
     inspection_criteria = fields.Text() # 检验标准
 
     is_materials = fields.Boolean(string='Is Materials',defaul=False)
+
+    @api.constrains('manhour')
+    def check_manhour(self):
+        """
+            新增验证：
+                保存数据时，校验工时定额
+        :return:
+        """
+        for order in self:
+                if order.manhour <= 0:
+                    raise exceptions.ValidationError(_("manhour Can not be less than or equal to 0！"))
 
 class WarrantyProjectProduct(models.Model): # 维保项目_用料清单
     _name = 'warranty_project_product'

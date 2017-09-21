@@ -277,3 +277,7 @@ msgstr "询价管理"
 msgid "purchase_vendor_menu"
 msgstr "供应商管理"
 
+#. module: purchase_extend
+#: model:ir.actions.act_window,name:purchase_extend.purchase_form_action_extend
+msgid "Purchase Orders"
+msgstr "采购订单"

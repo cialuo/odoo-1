@@ -447,6 +447,9 @@ class MaintainRepair(models.Model):
             raise exceptions.UserError(_("Maintain Repair Names Required!"))
         if not self.plan_start_time:
             raise exceptions.UserError(_("Maintain Repair StartTime Required!"))
+        #派工时再判断工时比例
+        if self.percentage_work <=0 or self.percentage_work > 100:
+            raise exceptions.UserError(u'工时比例数必须大于0和小于100')
         percentage_work = sum(i.percentage_work for i in self.job_ids)
         if percentage_work + self.percentage_work > 100:
             raise exceptions.UserError(_("Dispatching the proportion of more than 100"))

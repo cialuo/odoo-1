@@ -2,7 +2,7 @@
 
 from odoo import fields, api, models, _
 from odoo.exceptions import UserError
-
+import datetime
 
 class StockQuant(models.Model):
     _inherit = "stock.quant"
@@ -20,6 +20,36 @@ class StockPicking(models.Model):
 
     repair_id = fields.Many2one('maintain.manage.repair',
                                 ondelete='cascade', string="Repair")
+
+    # 领料时间
+    receiving_time = fields.Datetime(string="receive time")
+
+    # 待料时长 小时计
+    waiting_time = fields.Float(string="waiting time", compute='computeWaitTime')
+
+    # 是否报警
+    needwarning = fields.Char(string="need warning", compute="_genDefaultNeedWarning")
+
+    @api.multi
+    def _genDefaultNeedWarning(self):
+        for item in self:
+            item.needwarning = 'no'
+
+    @api.multi
+    @api.depends('create_date', 'receiving_time')
+    def computeWaitTime(self):
+        for item in self:
+            if  item.receiving_time:
+                createtime = datetime.datetime.strptime(item.create_date,'%Y-%m-%d %H:%M:%S')
+                rectime = datetime.datetime.strptime(item.receiving_time,'%Y-%m-%d %H:%M:%S')
+                td = rectime-createtime
+                item.waiting_time = round(td.total_seconds()/3600.0,2)
+
+    @api.multi
+    def do_new_transfer(self):
+        res = super(StockPicking, self).do_new_transfer()
+        self.receiving_time = datetime.datetime.utcnow()
+        return res
 
     @api.multi
     def action_confirm(self):

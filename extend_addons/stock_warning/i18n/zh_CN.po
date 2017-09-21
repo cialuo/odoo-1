@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-21 09:12+0000\n"
-"PO-Revision-Date: 2017-07-21 17:17+0800\n"
+"POT-Creation-Date: 2017-09-15 09:48+0000\n"
+"PO-Revision-Date: 2017-09-15 17:50+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #. module: stock_warning
 #: model:ir.ui.view,arch_db:stock_warning.stock_search_wizard_form
@@ -23,67 +23,77 @@ msgid "Cancel"
 msgstr "取消"
 
 #. module: stock_warning
+#: model:ir.actions.server,name:stock_warning.stock_warning_action_server
+msgid "Create Purchase Plan"
+msgstr "生成采购计划"
+
+#. module: stock_warning
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_create_uid
+#: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_create_uid
+#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan_create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: stock_warning
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_create_date
+#: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_create_date
+#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan_create_date
 msgid "Created on"
 msgstr "创建时间"
 
 #. module: stock_warning
 #: model:ir.model.fields,field_description:stock_warning.field_report_stock_warning_warning_report_display_name
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_display_name
+#: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_display_name
+#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan_display_name
 msgid "Display Name"
 msgstr "显示名称"
 
 #. module: stock_warning
 #: model:ir.model.fields,field_description:stock_warning.field_report_stock_warning_warning_report_id
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_id
+#: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_id
+#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan_id
 msgid "ID"
 msgstr "ID"
 
 #. module: stock_warning
 #: model:ir.model.fields,field_description:stock_warning.field_report_stock_warning_warning_report___last_update
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard___last_update
+#: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data___last_update
+#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: stock_warning
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_write_uid
+#: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_write_uid
+#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: stock_warning
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_write_date
+#: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_write_date
+#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
 
 #. module: stock_warning
 #: model:ir.model,name:stock_warning.model_product_product
+#: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_product
 msgid "Product"
 msgstr "产品"
 
 #. module: stock_warning
-#: model:ir.model.fields,field_description:stock_warning.field_product_product_alert_time
-msgid "Product Alert Time"
-msgstr "产品警报时间"
+#: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_product_min_qty
+msgid "Product min qty"
+msgstr "最小数量"
 
 #. module: stock_warning
-#: model:ir.model.fields,field_description:stock_warning.field_product_product_life_time
-msgid "Product Life Time"
-msgstr "产品寿命时间"
-
-#. module: stock_warning
-#: model:ir.model.fields,field_description:stock_warning.field_product_product_removal_time
-msgid "Product Removal Time"
-msgstr "产品下架时间"
-
-#. module: stock_warning
-#: model:ir.model.fields,field_description:stock_warning.field_product_product_use_time
-msgid "Product Use Time"
-msgstr "产品启用时间"
+#: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_qty_available
+msgid "Qty available"
+msgstr "在手数量"
 
 #. module: stock_warning
 #: model:ir.ui.view,arch_db:stock_warning.stock_search_wizard_form
@@ -92,15 +102,29 @@ msgstr "搜索"
 
 #. module: stock_warning
 #: model:ir.model,name:stock_warning.model_stock_search_wizard
-#: model:ir.model,name:stock_warning.model_stock_warning_stock_search_wizard
 msgid "Stock Search"
 msgstr "库存预警"
+
+#. module: stock_warning
+#: model:ir.model,name:stock_warning.model_stock_warning_data
+msgid "Stock Warning Data"
+msgstr "库存预警信息"
 
 #. module: stock_warning
 #: model:ir.actions.act_window,name:stock_warning.stock_search_wizard_action
 #: model:ir.ui.menu,name:stock_warning.stock_warning_menu
 msgid "Stock Warning Menu"
 msgstr "库存预警"
+
+#. module: stock_warning
+#: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_virtual_available
+msgid "Virtual available"
+msgstr "预测数量"
+
+#. module: stock_warning
+#: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_warehouse
+msgid "Warehouse"
+msgstr "仓库"
 
 #. module: stock_warning
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_warehouse_id
@@ -113,24 +137,9 @@ msgid "Warning Report"
 msgstr "库存预警"
 
 #. module: stock_warning
-#: model:ir.model.fields,help:stock_warning.field_product_product_alert_time
-msgid "When a new a Serial Number is issued, this is the number of days before an alert should be notified."
-msgstr "此处表明当新序列号生成时，商品生成提醒前的天数。"
-
-#. module: stock_warning
-#: model:ir.model.fields,help:stock_warning.field_product_product_life_time
-msgid "When a new a Serial Number is issued, this is the number of days before the goods may become dangerous and must not be consumed."
-msgstr "此处表明当新序列号生成时，商品变危险以至于不能使用前的天数。When a new a Serial Number is issued, this is the number of days before the goods may become dangerous and must not be consumed."
-
-#. module: stock_warning
-#: model:ir.model.fields,help:stock_warning.field_product_product_removal_time
-msgid "When a new a Serial Number is issued, this is the number of days before the goods should be removed from the stock."
-msgstr "此处表明当新序列号生成时，商品需要提前多少天从库存移除。"
-
-#. module: stock_warning
-#: model:ir.model.fields,help:stock_warning.field_product_product_use_time
-msgid "When a new a Serial Number is issued, this is the number of days before the goods starts deteriorating, without being dangerous yet."
-msgstr "此处表明当新序列号生成时，商品变质前（未变危险）的天数。"
+#: model:ir.model,name:stock_warning.model_wizard_purchase_plan
+msgid "Wizard purchase_plan"
+msgstr "Wizard purchase_plan"
 
 #. module: stock_warning
 #: model:ir.ui.view,arch_db:stock_warning.warning_report
@@ -161,3 +170,8 @@ msgstr "预测数量"
 #: model:ir.ui.view,arch_db:stock_warning.warning_report
 msgid "warehouse"
 msgstr "仓库"
+
+#. module: stock_warning
+#: model:ir.actions.act_window,name:stock_warning.action_warning_data
+msgid "warning_data window"
+msgstr "库存预警"

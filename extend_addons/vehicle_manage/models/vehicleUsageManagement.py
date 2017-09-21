@@ -113,6 +113,15 @@ class InspectionPlan(models.Model):
 
     @api.multi
     def action_submitted(self):
+
+        """
+            新增验证：
+                在提交时验证是否存在详情
+        :return:
+        """
+        if len(self.planitem_id) == 0:
+            raise exceptions.UserError(_('Annual inspection details can not be empty.'))
+
         self.state = 'submitted'
 
     @api.multi
@@ -206,7 +215,7 @@ class PlanItem(models.Model):
     _name = 'vehicle_usage.planitem'
 
     # 车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,domain=[('entry_state','=','audited')])
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,domain=[('entry_state','=','audited'),('vehicle_life_state','=','operation_period')])
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
@@ -449,3 +458,9 @@ class DriveRecords(models.Model):
             instance = vechileinfo[0]
             instance.write({'value':instance.value+vals['GPSmileage']})
         return res
+
+
+
+
+
+

@@ -23,7 +23,7 @@ class Vehicle(models.Model):
     license_plate = fields.Char(required=True, help='车牌')
     name = fields.Char("Vehicle Number", compute="_cumpute_model_name", store=True)
     inner_code = fields.Char(string="Inner Code", help="Inner Code", required=True)
-    route_id = fields.Many2one('route_manage.route_manage', string="Route")
+    route_id = fields.Many2one('route_manage.route_manage', string="Route Name")
     company_id = fields.Many2one('hr.department', 'Company')
 
     engine_no = fields.Char("Engine No",related='model_id.engine_no')
@@ -43,6 +43,10 @@ class Vehicle(models.Model):
     reg_no = fields.Char(help='The registration number')
     reg_date = fields.Date(help='Reg Date')
     forced_destroy = fields.Char(help='Forced to destroy')
+
+    #新增需求：变更强制报废属性
+    forced_destroy_date = fields.Date(string='Forced destroy',help='Forced to destroy')
+
     annual_inspection_date = fields.Date(help='The annual inspection date', required=True)
     emissions = fields.Char(help='The vehicle emissions')
     total_odometer = fields.Float(compute='_get_total_odometer', string='Total Odometer', help='Total Odometer')
@@ -100,7 +104,7 @@ class Vehicle(models.Model):
         for order in self:
             yesterday = today - timedelta(days=order.average_day_number)
             driverecords = order.driverecords.filtered(lambda x: x.realityarrive >= unicode(yesterday))
-            if driverecords:
+            if driverecords and order.average_day_number > 0:
                 order.daily_mileage = sum(driverecords.mapped('GPSmileage')) / order.average_day_number
 
     @api.multi

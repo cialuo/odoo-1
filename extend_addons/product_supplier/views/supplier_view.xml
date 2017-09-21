@@ -78,6 +78,6 @@
             </field>
         </record>
         <act_window id="action_supplier_order" res_model="supplier.order" name="Supplier Order" view_mode="tree,form"/>
-        <menuitem id="menu_supplier_order" action="action_supplier_order" parent="materials_menu.materials_menu_purchase" sequence="27"/>
+        <menuitem id="menu_supplier_order" action="action_supplier_order" parent="materials_menu.materials_menu_purchase" sequence="12"/>
     </data>
 </odoo>

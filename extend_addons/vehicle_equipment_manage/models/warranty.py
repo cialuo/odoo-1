@@ -130,7 +130,7 @@ class WarrantyHandoverOrder(models.Model): # 交接单
 class WarrantyHandoverList(models.Model): # 交接清单
     _name = 'warranty_handover_list'
 
-    handover_order_id = fields.Many2one('warranty_handover_order', ondelete='cascade', string="Vehicle")
+    handover_order_id = fields.Many2one('warranty_handover_order', ondelete='cascade', string="warranty_handover_order")
     equipment_id = fields.Many2one('maintenance.equipment', string="Equipment")
     serial_no = fields.Char("Serial No", help="Serial No")
     name = fields.Char("Name", help="Name")

@@ -15,7 +15,11 @@
                         <button string="Approve to Process" name="action_process" type="object" states="confirm"
                                 class="oe_highlight" groups="purchase.group_purchase_manager"/>
                         <button string="Confirm Cancel" name="action_confirm_cancel" type="object" states="confirm"/>
-                        <button string="Run Procurement" type="object" name="action_run_procurement"
+                        <!--<button string="Run Procurement" type="object" name="action_run_procurement"-->
+                                <!--attrs="{'invisible': ['|', ('is_run', '=', True), ('state', '&lt;&gt;', 'process')]}"-->
+                                <!--groups="purchase.group_purchase_manager"-->
+                        <!--/>-->
+                        <button string="Run Procurement" type="object" name="shedule_purchase_order"
                                 attrs="{'invisible': ['|', ('is_run', '=', True), ('state', '&lt;&gt;', 'process')]}"
                                 groups="purchase.group_purchase_manager"
                         />
