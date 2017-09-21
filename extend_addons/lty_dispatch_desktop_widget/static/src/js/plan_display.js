@@ -707,7 +707,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                 $(this).autocomplete("search");
             }).autocomplete("instance")._renderItem = function (ul, item) {
                 return $("<li>")
-                    .append("<div>"+item.onBoardId+"</div>")
+                    .append("<div>"+item.carNum+"</div>")
                     .appendTo(ul);
             }
         },

@@ -52,11 +52,11 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             this.data = init_data;
         },
         start: function(){
-            var layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
-            var busRealStateModel_set = {
-                layer_index: layer_index
-            }
-            sessionStorage.setItem("busRealStateModel_set", JSON.stringify(busRealStateModel_set));
+            // var layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
+            // var busRealStateModel_set = {
+            //     layer_index: layer_index
+            // }
+            // sessionStorage.setItem("busRealStateModel_set", JSON.stringify(busRealStateModel_set));
 
             this.arrivalTimeFn();
 
@@ -112,9 +112,9 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             new arrival_time_more_info(this).appendTo(this.$(".carReport"));
         },
         arrivalTimeFn: function(e){
-            // if (this.$(".arrival_time_chart").length > 0){
-            //     return false;
-            // }
+            if (this.$(".arrival_time_chart").length > 0){
+                return false;
+            }
             var init_data = {
                 site_list: ['深大(8:30)','白石洲(8:37)','世界之窗(8:45)','华侨城(8:51)','车公庙(8:55)','葫芦谷(9:05)','断肠崖(9:15)', '长坂坡(9:30)'],
                 data: [
@@ -310,8 +310,8 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                     }
                 ]
             };
-            var myChart = echarts.init(this.$el[0]);
-            myChart.setOption(option);
+            // var myChart = echarts.init(this.$el[0]);
+            // myChart.setOption(option);
             $(".carReport .socket_load").remove();
             this.$el.removeClass('hide_model');
         }
@@ -345,11 +345,11 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
         },
         start: function(){
             var self = this;
-            var mapObj = new AMap.Map(self.$el[0], {zoom: 14, center: [self.data.longitude, self.data.latitude]});
-            var marker = new AMap.Marker({
-                map: mapObj,
-                position: [self.data.longitude, self.data.latitude]
-            });
+            // var mapObj = new AMap.Map(self.$el[0], {zoom: 14, center: [self.data.longitude, self.data.latitude]});
+            // var marker = new AMap.Marker({
+            //     map: mapObj,
+            //     position: [self.data.longitude, self.data.latitude]
+            // });
             self.$el.removeClass('hide_model');
             $(".carReport .socket_load").remove();
             // self.sokit(marker);
