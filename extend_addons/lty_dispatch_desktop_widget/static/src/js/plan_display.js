@@ -699,7 +699,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function (require) {
                     return false;
                 },
                 select: function (event, ui) {
-                    $(options.event).val(ui.item.onBoardId);
+                    $(options.event).val(ui.item.carNum);
+                    $(".customModal .onBoardId").val(ui.item.onBoardId);
                     return false;
                 }
             }).focus(function () {
