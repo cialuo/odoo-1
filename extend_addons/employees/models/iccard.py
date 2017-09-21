@@ -109,7 +109,7 @@ class certificate(models.Model):
     _name = 'employees.certificate'
 
     # 证件名称
-    name = fields.Char('certificate name')
+    name = fields.Char('certificate name', required=True)
     # 过期日期
     expiredate = fields.Date('certificate expire date')
 

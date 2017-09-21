@@ -23,10 +23,10 @@ from odoo import api, fields, models, exceptions
 class OrderPoint(models.Model):
     _inherit = 'stock.warehouse.orderpoint'
 
-    @api.onchange('product_min_qty', 'product_max_qty')
-    def _onchange_qty(self):
-        if self.product_min_qty > self.product_max_qty:
-            raise exceptions.UserError(u'最大数量必须大于最小数量')
+    # @api.onchange('product_min_qty', 'product_max_qty')
+    # def _onchange_qty(self):
+    #     if self.product_min_qty > self.product_max_qty:
+    #         raise exceptions.UserError(u'最大数量必须大于最小数量')
     @api.model
     def create(self, vals):
         if vals['product_min_qty'] > vals['product_max_qty']:

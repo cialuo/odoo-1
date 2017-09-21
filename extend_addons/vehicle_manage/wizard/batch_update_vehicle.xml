@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_batch_update_vehicle_status_wizard" model="ir.ui.view">
+            <field name="name">batch_update_vehicle</field>
+            <field name="model">batch_update_vehicle</field>
+            <field name="arch" type="xml">
+                <form string="batch_update_vehicle">
+                    <group col="2">
+                        <group>
+                            <field name="vehicle_life_state"/>
+                        </group>
+                    </group>
+                    <button string="import vehicle"
+                            type="object"
+                            name="import_vehicle"
+                            class="oe_highlight"
+                            />
+                    <notebook>
+                        <page string="vehicle list">
+                            <field name="vehicle_tran_ids">
+                                <tree create="false" editable="top">
+                                    <field name="vehicle_id"/>
+                                    <!--<field name="inner_code"/>-->
+                                    <field name="license_plate"/>
+                                    <field name='vehicle_life_state'/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="action_batch_update_vehicle" string="action_batch_update_vehicle" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="view_batch_update_vehicle_status_warn" model="ir.ui.view">
+            <field name="name">batch_update_vehicle_warning</field>
+            <field name="model">batch_update_vehicle</field>
+            <field name="arch" type="xml">
+                <form string="batch_update_vehicle">
+                    <group col="2">
+                         <div style="color:Red;">
+                             <h2>必填费用为空，不能投入运营。</h2>
+                            <!--<h2> 以下列表中的数据无法更新，请检查!</h2>-->
+                         </div>
+                    </group>
+                    <notebook>
+                            <page string="vehicle list">
+                                <field name="vehicle_tran_ids">
+                                    <tree create="false" editable="top">
+                                        <field name="vehicle_id"/>
+                                        <field name="license_plate"/>
+                                        <field name='vehicle_life_state'/>
+                                    </tree>
+                                </field>
+                            </page>
+                    </notebook>
+                    <footer>
+                        <!--<button name="action_batch_update_vehicle" string="action_batch_update_vehicle" type="object" class="btn-primary"/>-->
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+     <record id="action_batch_update_vehicle" model="ir.actions.act_window">
+        <field name="name">batch_update_vehicle</field>
+        <field name="res_model">batch_update_vehicle</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+     </record>
+
+    <!-- 批量更新车辆状态 -->
+    <menuitem name="batch_update_vehicle"
+              id="batch_update_vehicle"
+              parent="vehicle_manage_menu.vehicle_use_manage"
+              action="action_batch_update_vehicle"
+              sequence="30"
+              groups="materials_product.base_extend_tech_user"/>
+    </data>
+</odoo>

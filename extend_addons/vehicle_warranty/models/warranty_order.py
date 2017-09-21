@@ -8,6 +8,7 @@ import odoo.addons.decimal_precision as dp
 class WarrantyOrder(models.Model): # 保养单
     _inherit = 'mail.thread'
     _name = 'warranty_order'
+    _order = 'id desc'
     name = fields.Char(string='Warranty Order', required=True, index=True, default='/')
 
     sequence = fields.Integer('Sequence', default=1)
@@ -442,12 +443,13 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
                 },
             }
 
-    @api.onchange('manhour_manage_ids')
+    @api.depends('manhour_manage_ids')
     def on_change_manhour_manage_ids(self):
-        manhour_percentage_work = 0
-        for manhour_manage in self.manhour_manage_ids:
-            manhour_percentage_work += manhour_manage.percentage_work
-        self.percentage_work = 100-manhour_percentage_work
+        #manhour_percentage_work = 0
+        #for manhour_manage in self.manhour_manage_ids:
+        #   manhour_percentage_work += manhour_manage.percentage_work
+        #self.percentage_work = 100-manhour_percentage_work
+        self.percentage_work = 100 - sum(self.manhour_manage_ids.mapped('percentage_work'))
 
     # component_ids = fields.Many2many('product.component', 'warranty_order_item_component_rel', 'project_component_id', 'component_id', 'Component',
     #     readonly=True, domain="[('product_id', '=', important_product_id),('parent_vehicle','=',vehicle_id)]")
@@ -458,7 +460,7 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
     def dispatch(self): # 派工
         self.ensure_one()
         if not self.user_id:
-            raise exceptions.UserError("user_id Required!")
+            raise exceptions.UserError(_("user_id Required!"))
 
         manhour_percentage_work = 0
         for manhour_manage in self.manhour_manage_ids:
@@ -506,6 +508,10 @@ class WarrantyOrderManhour(models.Model): # 保养单_工时管理
     _name = 'warranty_order_manhour'
     _order = "sequence"
 
+    _sql_constraints = [
+        ('check_percentage_work_value', 'CHECK (percentage_work > 0 and percentage_work < 100)', u'额定工时的数值在100以内！')
+    ]
+
     name = fields.Char("Manhour")
 
     sequence = fields.Integer()
@@ -552,6 +558,21 @@ class WarrantyOrderManhour(models.Model): # 保养单_工时管理
             r.real_work = (end_time - start_time).seconds / 3600.0
 
     warranty_order_id = fields.Many2one('warranty_order', index=True)
+
+    @api.constrains('percentage_work')
+    def check_percentage_work(self):
+        """
+            检查额定工时的值是否超出界限
+        :return:
+        """
+        project_ids = self.mapped('project_id')
+        for project in project_ids:
+            manhours = self.env['warranty_order_manhour'].search([('project_id', '=', project.id)])
+            total = sum(manhours.mapped('percentage_work'))
+            if total < 0 or total > 100:
+                raise exceptions.ValidationError(_("Please check the allocation of deadline!"))
+
+
 
 
 class WarrantyOrderProduct(models.Model): # 保养单_可领物料

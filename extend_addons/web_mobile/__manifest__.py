@@ -13,6 +13,6 @@
     'qweb': ['static/src/xml/web_template.xml', 'static/src/xml/user_menu.xml'],
     'data': ['views/mobile_template.xml', 'views/views.xml'],
     'installable': True,
-    'auto_install': True,
+    'auto_install': False,
     'license': 'OEEL-1',
 }
