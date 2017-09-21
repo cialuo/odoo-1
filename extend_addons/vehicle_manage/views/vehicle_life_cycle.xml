@@ -152,6 +152,6 @@
                   parent="vehicle_manage_menu.vehicle_use_manage"
                   action="vehicle_life_cycle_act"
                   sequence="20"
-                  groups="materials_product.base_extend_tech_user"/>/>
+                  groups="materials_product.base_extend_tech_user"/>
     </data>
 </odoo>

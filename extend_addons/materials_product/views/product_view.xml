@@ -114,8 +114,11 @@
                                         <field name="inter_code"/>
                                         <field name="default_code" string="Materials Code"/>
                                         <field name="barcode"/>
+                                        <field name="tracking" widget="radio" attrs="{'invisible':[('type', 'in', ['service', 'digital'])]}" groups="stock.group_production_lot"/>
+                                        <field name="auto_lot" attrs="{'invisible': [('tracking', '!=', 'lot')]}"/>
                                     </group>
                                     <group name="general_top_right">
+                                        <field name="cost_method"/>
                                         <field name="list_price"/>
                                         <field name="standard_price"/>
                                         <field name="contract_price"/>

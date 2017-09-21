@@ -82,5 +82,21 @@
                   parent="materials_menu.materials_menu_stock"
                   groups="stock.group_stock_user"
         />
+        <!--盘点功能-->
+        <menuitem id="menu_stock_inverntory" name="Stock Inentory Menu" action="stock.action_inventory_form" sequence="40" parent="materials_menu.materials_menu_stock" groups="stock.group_stock_user"/>
+        <!--库存计价菜单-->
+        <!--库存计价单tree视图增加买进成本及平均成本-->
+        <record id="stock_quant_extend_view_tree" model="ir.ui.view">
+            <field name="name">stock.quant.extend.view.tree</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='in_date']" position="after">
+                    <field name="cost_purchase"/>
+                    <field name="cost_average"/>
+                </xpath>
+            </field>
+        </record>
+        <menuitem id="menu_stock_value" name="Stock Value Menu" action="stock.quantsact" sequence="50" parent="materials_menu.materials_menu_stock" groups="stock.group_stock_user"/>
     </data>
 </odoo>

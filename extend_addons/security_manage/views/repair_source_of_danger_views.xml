@@ -43,7 +43,7 @@
                         <group name="group_top">
                             <group name="group_left">
                                 <field name="area"/>
-                                <field name="name"/>
+                                <!--<field name="name"/>-->
                                 <field name="danger_desc"/>
                             </group>
 

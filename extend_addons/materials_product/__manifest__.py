@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': '物资管理',
-    'version': '1.1',
+    'version': '1.2',
     'category': 'Basic Edition',
     'summary': '物资管理',
     'author': 'Xiao',
@@ -14,6 +14,7 @@
         'security/security.xml',
         'security/ir.model.access.csv',
         'views/product_view.xml',
+        'views/multi_lot_wizard.xml',
     ],
     'depends': ['materials_menu', 'stock', 'purchase', 'fleet'],
     'application': True,

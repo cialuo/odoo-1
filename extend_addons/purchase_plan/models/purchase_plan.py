@@ -5,9 +5,16 @@ from odoo.tools.translate import _
 from datetime import datetime
 import time
 
+DEFAULT_SERVER_DATE_FORMAT = "%Y-%m-%d"
+DEFAULT_SERVER_TIME_FORMAT = "%H:%M:%S"
+DEFAULT_SERVER_DATETIME_FORMAT = "%s %s" % (
+    DEFAULT_SERVER_DATE_FORMAT,
+    DEFAULT_SERVER_TIME_FORMAT)
+
 class PuchasePlan(models.Model):
     _name = 'purchase.plan'
     _inherit = ['mail.thread']
+    _order = 'id desc'
 
     @api.model
     def _get_default_user(self):
@@ -155,6 +162,43 @@ class PuchasePlan(models.Model):
             order.is_run = True
         return True
 
+    @api.multi
+    def shedule_purchase_order(self):
+        """
+        修正安排补货按钮逻辑
+        （1）生成的采购订单应与采购计划里的信息一致，尤其注间，供应商，物料，价格，数量
+        （2）当采购计划里行项目，供应商相同时，应该生成在同一个采购订单下，包含不同供应商时生成在不同的采购订单下。
+        （3）每个采购计划生成独立的一个或多个采购订单，不需处理合并事宜。
+        (4) 如果未选择供应商，则按补货规则补货
+        :return: 
+        """
+        for order in self:
+            p_obj = self.env['purchase.order']
+            line_obj = self.env['purchase.order.line']
+            partner = {}
+            partner_lines = order.line_ids.filtered(lambda x:  x.seller_id)
+            for line in partner_lines:
+                line_purchase = None
+                if line.seller_id.name.id not in partner.keys():
+                    line_purchase = p_obj.create({'origin': order.name, 'partner_id': line.seller_id.name.id, 'state': 'draft'})
+                    partner[line.seller_id.name.id] = line_purchase
+                else:
+                    line_purchase = partner[line.seller_id.name.id]
+                vals = {
+                    'name': line.product_id.display_name,
+                    'order_id': line_purchase.id,
+                    'product_id': line.product_id.id,
+                    'product_uom': line.product_id.uom_id.id,
+                    'product_qty': line.qty,
+                    'price_unit': line.price_unit,
+                    'date_planned': datetime.today().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
+                }
+                line_obj.create(vals)
+                line.write({'purchase_id': line_purchase.id})
+             #无供应商的则根据补货规则补货
+            (order.line_ids - partner_lines)._action_run_procurement()
+            order.is_run = True
+
 
 class PlanLine(models.Model):
     _name = 'purchase.plan.line'
@@ -171,7 +215,7 @@ class PlanLine(models.Model):
                              related='procurement_id.state', string='Procurement state', readonly=True, store=True)
     procurement_id = fields.Many2one('procurement.order', string='Procurement Order',
                                       ondelete='restrict')
-    purchase_id = fields.Many2one('purchase.order', string='Purchase Order', related='procurement_id.purchase_id', ondelete='restrict')
+    purchase_id = fields.Many2one('purchase.order', string='Purchase Order', ondelete='restrict')
     plan_id = fields.Many2one('purchase.plan', string='Purchase Plan', ondelete='cascade')
     product_tmpl_id = fields.Many2one('product.template')
     seller_id = fields.Many2one('product.supplierinfo', string='Partner', domain="[('product_tmpl_id', '=', product_tmpl_id)]")
@@ -185,16 +229,21 @@ class PlanLine(models.Model):
         for line in self:
             line.sub_total = line.qty * line.price_unit
 
-    @api.onchange('product_id')
+    @api.onchange('product_id', 'qty')
     def _onchange_vendor(self):
         """
         根据选择的产品，默认填入该产品的上一次采购供应商
+        1.4 版本修改为，默认为按补货规则来选择的供应商，可修改
         :return: 
         """
+        # if self.product_id:
+        #     p_order = self.env['purchase.order.line'].search([('product_id', '=', self.product_id.id)], limit=1,order='id desc')
+        #     p_supplierinfo = self.env['product.supplierinfo'].search([('name', '=', p_order.partner_id.id)], limit=1)
+        #     self.seller_id = p_supplierinfo
+        #     self.product_tmpl_id = self.product_id.product_tmpl_id
         if self.product_id:
-            p_order = self.env['purchase.order.line'].search([('product_id', '=', self.product_id.id)], limit=1,order='id desc')
-            p_supplierinfo = self.env['product.supplierinfo'].search([('name', '=', p_order.partner_id.id)], limit=1)
-            self.seller_id = p_supplierinfo
+            seller = self.product_id._select_seller(quantity=self.qty)
+            self.seller_id = seller
             self.product_tmpl_id = self.product_id.product_tmpl_id
 
 
@@ -244,10 +293,23 @@ class PlanLine(models.Model):
                 line.plan_id.procurement_group_id = self.env['procurement.group'].create(vals)
             vals = line._prepare_order_line_procurement(group_id=line.plan_id.procurement_group_id.id)
             proc_order = self.env['procurement.order'].create(vals)
-            line.write({'procurement_id': proc_order.id})
+            line.write({'procurement_id': proc_order.id, 'purchase_id': proc_order.purchase_id.id})
             proc_orders += proc_order
         proc_orders.run()
         return proc_orders
+
+#修改供货信息的显示名称
+class Supplier(models.Model):
+    _inherit = 'product.supplierinfo'
+
+    @api.multi
+    def name_get(self):
+        #修改成供应商名称+价格
+        res = []
+        for s in self:
+            name = s.name.name + ':' + str(s.price)
+            res.append((s.id, name))
+        return res
 
 class StockMove(models.Model):
     _inherit = 'stock.move'

@@ -24,3 +24,16 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
     picking_type_id = fields.Many2one(readonly=True, states={'draft': [('readonly', False)]})
+
+#显示买进成本和平均成本
+class StockQuant(models.Model):
+    _inherit = 'stock.quant'
+
+    cost_purchase = fields.Float(related='history_ids.price_unit', string="Cost purchase")
+    cost_average = fields.Float(compute='get_cost', string="Cost average")
+
+
+    @api.multi
+    def get_cost(self):
+        for quant in self:
+            quant.cost_average = quant.product_id.standard_price

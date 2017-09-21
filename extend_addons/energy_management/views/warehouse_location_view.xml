@@ -37,7 +37,7 @@
                 </h1>
                 <label for="station_id" class="oe_edit_only" />
                 <h1>
-                    <field name="station_id" placeholder="Select Station's Name" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="station_id" placeholder="Select Station's Name" required="1" options="{'no_open': True, 'no_create': True}"/>
                 </h1>
             </div>
             <group>

@@ -42,23 +42,23 @@
                         <!--</div>-->
                         <group>
                             <group>
-                                <field name="vehicle_id" options="{'no_open':True,'no_create':True}"/>
-                                <field name="inspector" options="{'no_open':True,'no_create':True}"/>
-                                <field name="vehicle_manager" options="{'no_open':True,'no_create':True}"/>
-                                <field name="checkout_date"/>
-                                <field name="check_type"/>
+                                <field name="vehicle_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open':True,'no_create':True}"/>
+                                <field name="inspector"  attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open':True,'no_create':True}"/>
+                                <field name="vehicle_manager"  attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open':True,'no_create':True}"/>
+                                <field name="checkout_date" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="check_type" attrs="{'readonly':[('state','!=','draft')]}" />
                             </group>
                             <group>
-                                <field name="plate"/>
-                                <field name="route"/>
-                                <field name="check_result"/>
-                                <field name="remark"/>
+                                <field name="plate" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="route" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="check_result" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="remark" attrs="{'readonly':[('state','!=','draft')]}" />
                             </group>
                         </group>
 
                         <notebook>
                             <page name="vehicle_check_plan_details" string="plan_details">
-                                <field name="plan_details_id">
+                                <field name="plan_details_id" attrs="{'readonly':[('state','!=','draft')]}" >
                                     <tree string="plan_details" editable='bottom' create="false" delete="false">
                                         <field name="item_id"/>
                                         <field name="check_item_name"/>
