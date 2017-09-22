@@ -99,6 +99,22 @@
                                     </tree>
                                 </field>
                              </page>
+							 <page string="ProductLists" name="ProductLists">
+                                <field name="picking_ids" context="{'search_default_done': 1}">
+                                    <tree string="ProductLists" create="false" delete="false"
+									default_order="waiting_time desc">
+										<field name="picking_type_id"/>
+										<field name="name"/>
+										<field name="location_id"/>
+										<field name="min_date"/>
+										<field name="date_done"/>
+										<field name="origin"/>
+										<field name="state"/>
+										<field name="receiving_time"/>
+										<field name="waiting_time"/>
+                                    </tree>
+                                </field>
+							 </page>
 			            </notebook>
 					</sheet>
 					<div class="oe_chatter">

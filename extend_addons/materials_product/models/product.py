@@ -27,13 +27,28 @@ class Product(models.Model):
     shelf = fields.Char(string='Shelf')
     contract_price = fields.Float(string='Contract Price')
     tech_ids = fields.One2many('product.tech.info', 'product_id', string='Tec Info')
-    categ_id = fields.Many2one('product.category', help="Select category")
+    categ_id = fields.Many2one('product.category', help="Select category", required=True)
+    cost_method = fields.Char(compute='_compute_cost_method')
+    auto_lot = fields.Boolean(string="Auto Lot", default=False)
 
     _sql_constraints = [
         ('code_parent_category_uniq',
          'unique (inter_code,categ_id)',
          u'同分类物资编码必须唯一')
     ]
+    @api.model
+    def create(self, vals):
+        res = super(Product, self).create(vals)
+        res.product_tmpl_id.write({'categ_id': res.categ_id.id})
+        return res
+
+    @api.one
+    @api.depends('categ_id.property_cost_method')
+    def _compute_cost_method(self):
+        #获取物资分类中成本方法的SELECTION value值，不然key值直接赋值给cost_method 无法翻译
+        selection_value = dict(self.env['product.category'].fields_get()['property_cost_method']['selection'])
+        cost_method = self.categ_id.property_cost_method
+        self.cost_method = selection_value[cost_method]
 
     @api.depends('inter_code', 'categ_id.code', 'parent_id.default_code')
     def _compute_default_code(self):
@@ -61,8 +76,11 @@ class Product(models.Model):
         :param value: 
         :return: 
         """
-        products = self.env['product.product'].search([], limit=100).filtered(lambda x: value in x.default_code)
-        return [('id', 'in', products.ids)]
+        ids = []
+        self._cr.execute("""SELECT p.id FROM product_product p JOIN product_category c ON (c.id=p.categ_id) WHERE (c.code || p.inter_code) ILIKE %s """, ("%%%s%%" % value,))
+        ids.extend([row['id'] for row in self._cr.dictfetchall()])
+        # products = self.env['product.product'].search([], limit=100).filtered(lambda x: value in x.default_code)
+        return [('id', 'in', ids)]
 
 class ProductCategory(models.Model):
     _inherit = 'product.category'

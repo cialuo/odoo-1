@@ -454,7 +454,7 @@ msgstr "安全检查项目"
 #. module: security_vehicle_check
 #: model:ir.actions.act_window,name:security_vehicle_check.action_security_check_table
 msgid "security_manage_security_check_table_window"
-msgstr "安全检查项目"
+msgstr "安全检查表"
 
 #. module: security_vehicle_check
 #: model:ir.ui.view,arch_db:security_vehicle_check.security_vehicle_abarbeitung_check_form

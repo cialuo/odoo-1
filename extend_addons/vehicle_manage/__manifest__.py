@@ -31,6 +31,7 @@
         'views/vehicle_life_cycle.xml',
         'views/vehicle_config_settings_view.xml',
         'views/vehicle_entry_view.xml',
+        'wizard/batch_update_vehicle.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,

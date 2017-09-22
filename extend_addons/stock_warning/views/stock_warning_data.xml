@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<odoo>
+
+    <!--列表-->
+    <record model="ir.ui.view" id="stock_warning.warning_data_list">
+      <field name="name">warning_data list</field>
+      <field name="model">stock.warning_data</field>
+      <field name="priority">0</field>
+      <field name="arch" type="xml">
+        <tree create="false">
+          <field name="warehouse"/>
+          <field name="product"/>
+          <field name="qty_available"/>
+          <field name="virtual_available"/>
+          <field name="product_min_qty"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--动作-->
+    <record model="ir.actions.act_window" id="stock_warning.action_warning_data">
+      <field name="name">warning_data window</field>
+      <field name="res_model">stock.warning_data</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+
+    <record id="stock_warning_action_server" model="ir.actions.server">
+        <field name="name">Create Purchase Plan</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_stock_warning_data"/>
+        <field name="state">code</field>
+        <field name="code">
+            if context.get('active_model') == 'stock.warning_data' and context.get('active_ids'):
+                action = env['stock.warning_data'].browse(context['active_ids']).action_create_purchase_plan()
+        </field>
+    </record>
+
+    <record id="stock_warning_action_server_submit" model="ir.values">
+        <field name="name">Create Purchase Plan</field>
+        <field name="model_id" ref="model_stock_warning_data"/>
+        <field name="model">stock.warning_data</field>
+        <field name="key2">client_action_multi</field>
+        <field eval="'ir.actions.server,%d'%stock_warning_action_server" name="value"/>
+    </record>
+
+</odoo>

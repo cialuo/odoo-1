@@ -6,5 +6,13 @@
             <field name="description">Tech</field>
             <field name="sequence">60</field>
         </record>
+        <!--定义批次号规则：PPO+年月+序号-->
+        <record id="lot_name_seq" model="ir.sequence">
+            <field name="name">Lot Name</field>
+            <field name="code">lot_name_seq</field>
+            <field name="prefix">%(year)s%(month)s%(day)s</field>
+            <field name="padding">0</field>
+            <field eval="1" name="number_increment"/>
+        </record>
     </data>
 </odoo>

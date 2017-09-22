@@ -461,8 +461,8 @@
 								<field name="materials_control" invisible="1"/>
 								<field name="user_id"  options="{'no_open':True,'no_create':True}"/>
 								<label for="percentage_work"/>
-								<div class="o_row">
-									<field name="percentage_work"/><span>%</span>
+								<div>
+									<field name="percentage_work" class="oe_inline"/> %
 								</div>
 								<field name="state" invisible="1"/>
 	                        </group>

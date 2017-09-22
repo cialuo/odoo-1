@@ -35,7 +35,9 @@
                 <xpath expr="//div[@name='button_box']" position="inside">
                     <button name="action_picking" type="object"
                             class="oe_stat_button" icon="fa-book"
-                            groups="purchase.group_purchase_user">
+                            groups="purchase.group_purchase_user"
+                            attrs="{'invisible': [('picking_return_count', '&lt;', 1)]}"
+                    >
                         <field name="picking_return_count" widget="statinfo"/>
                     </button>
                 </xpath>

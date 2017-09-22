@@ -67,7 +67,7 @@
                                     <group>
                                         <field name="reg_no" />
                                         <field name="reg_date" />
-                                        <field name="forced_destroy" />
+                                        <field name="forced_destroy_date" />
                                         <field name="annual_inspection_date" attrs="{'readonly':[('entry_state','!=','draft')]}"/>
                                         <field name="emissions"/>
                                         <field name="vin_sn"/>
@@ -94,8 +94,8 @@
                                         <!--<field name="service_year"/>-->
                                         <field name="salvage_rate"/>
 
-                                        <field name="conductor" widget="many2many_tags" domain="[('lines','=',route_id)]"/>
-                                        <field name="driver"  widget="many2many_tags"  domain="[('lines','=',route_id)]"/>
+                                        <field name="conductor" widget="many2many_tags" options="{'no_open':True,'no_create':True}" domain="[('lines','=',route_id),('workpost.posttype','=','conductor')]"/>
+                                        <field name="driver"  widget="many2many_tags"  options="{'no_open':True,'no_create':True}" domain="[('lines','=',route_id),('workpost.posttype','=','driver')]"/>
 
                                         <field name="vehicle_label"/>
                                     </group>
@@ -117,13 +117,13 @@
                                         <field name="transmission_ext" />
                                         <field name="fuel_type_ext" />
                                         <label for="co2_ext"/>
-                                        <div class="o_row">
-                                            <field name="co2_ext"/><span>g/km</span>
+                                        <div>
+                                            <field name="co2_ext" class="oe_inline"/> g/km
                                         </div>
                                         <field name="horsepower_ext" />
                                         <label for="power_ext"/>
-                                        <div class="o_row">
-                                            <field name="power_ext"/><span>kW</span>
+                                        <div>
+                                            <field name="power_ext" class="oe_inline"/> kW
                                         </div>
                                         <field name="weight" />
                                     </group>

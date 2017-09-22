@@ -147,6 +147,9 @@ function absnormal_del(controllerObj, data_list) {
             dom_singal.find('.show_signal_outline span').html(parseInt(dom_singal.find('.show_signal_outline span').html()) + 1);
             vehicle_drop(controllerObj, data_list);
         }
+        else if (data_list.packageType == 1044) {
+            dom_singal.find('.line_car[bus_no=' + data_list.abnormal_description.bus_no + ']').removeClass('to_gray');
+        }
         // 出勤异常
         else if (data_list.packageType == 1004) {
             abnoraml_desc.html('（员工）' + data_list.abnormal_description.staff_name + '：考勤异常');
@@ -250,7 +253,7 @@ function show_electronic_map(dom, data_list, session_ayer) {
 
 // 车辆掉线, 在线
 function vehicle_drop(controllerObj, dataObj) {
-    console.log(dataObj);
+    // console.log(dataObj);
     var dom = controllerObj.find("linePlanParkOnlineModel_" + dataObj.line_id);
     if (dom.length > 0) {
         var abnormal_description = dataObj.abnormal_description;
@@ -370,6 +373,8 @@ function linePlanParkOnlineModel_display(controllerObj) {
 function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelName) {
     var dom = controllerObj.find(".linePlanParkOnlineModel_" + dataObj.line_id);
     if (dom.length > 0 && dataObj.id) {
+        // console.log(modelName)
+        // console.log(dataObj)
         var busResource = JSON.parse(sessionStorage.getItem("busResource"));
         if (modelName == "line_plan") {
             update_linePlan(controllerObj, dataObj);
