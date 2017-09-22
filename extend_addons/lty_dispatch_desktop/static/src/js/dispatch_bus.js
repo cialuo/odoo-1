@@ -125,16 +125,18 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     if (socket_model_info[model_id]) {
                                         delete socket_model_info[model_id];
                                     }
-                                    var package_line_message = {
-                                        type: 2000,
-                                        controlId: self.desktop_id,
-                                        open_modules: ["line_message", "line_online"]
-                                    };
-                                    websocket.send(JSON.stringify(package_line_message));
+                                    // var package_line_message = {
+                                    //     type: 2000,
+                                    //     controlId: self.desktop_id,
+                                    //     open_modules: ["line_message", "line_online"]
+                                    // };
+                                    // if (websocket){
+                                    //     websocket.send(JSON.stringify(package_line_message));
+                                    // }
 
 
                                     $.ajax({
-                                        url: 'http://202.104.136.228:8888/ltyop/dispatchRealtimeStatus/cachelineStat?apikey=71029270&params={"gprsId":' + self.gprs_id + '}',
+                                        url: RESTFUL_URL + '/ltyop/dispatchRealtimeStatus/cachelineStat?apikey=71029270&params={"gprsId":' + self.gprs_id + '}',
                                         type: 'get',
                                         async: false,
                                         dataType: 'json',
@@ -165,7 +167,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                 self.$el.find('.park_right li').eq(0).html(data[0].downReturnLevel4);
 
                                                 $.ajax({
-                                                    url: 'http://202.104.136.228:8888/ltyop/dispatchRealtimeStatus/cacheDrivingStat?apikey=71029270&params={"gprsId":"' + self.gprs_id + '"}',
+                                                    url: RESTFUL_URL + '/ltyop/dispatchRealtimeStatus/cacheDrivingStat?apikey=71029270&params={"gprsId":"' + self.gprs_id + '"}',
                                                     type: 'get',
                                                     async: false,
                                                     dataType: 'json',
@@ -276,7 +278,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             //车辆在途刷新  后期socket推送
             if (data_use.moduleName == "line_park" || data_use.moduleName == "line_online") {
                 $.ajax({
-                    url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
+                    url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
                     type: 'get',
                     dataType: 'json',
                     data: {},
@@ -628,7 +630,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             controllerId: self.desktop_id,
                         };
                     $.ajax({
-                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + self.line_id + '}',
+                        url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + self.line_id + '}',
                         type: 'get',
                         dataType: 'json',
                         data: {},
