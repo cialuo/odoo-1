@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<template xml:space="preserve">
+    <!--<div>1111</div>-->
+   <t t-name="dispatch_desktop_video">
+	   <div>
+		   video
+	   </div>
+	</t>
+</template>
