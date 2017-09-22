@@ -276,7 +276,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var data = new Object();
             var line_c = parseInt(arg.line_id);
             //车辆在途刷新  后期socket推送
-<<<<<<< HEAD
             if (data_use.moduleName == "line_park" || data_use.moduleName == "line_online") {
                 $.ajax({
                     url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
