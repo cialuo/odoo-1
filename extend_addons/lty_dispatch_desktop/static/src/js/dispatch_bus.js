@@ -174,7 +174,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                         console.log(res)
                                                         for (var i = 0; i < res.length; i++) {
                                                             $('.run_car_hide').find('.line_car').attr('bus_no', res[i].onboard);
-                                                            if (res[i].onlineFlag == 0) {
+                                                            if (res[i].onlineFlag == 1) {
                                                                 $('.run_car_hide').find('.line_car').addClass('to_gray');
                                                             } else {
                                                                 $('.run_car_hide').find('.line_car').removeClass('to_gray');
