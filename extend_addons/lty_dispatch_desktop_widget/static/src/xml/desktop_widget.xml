@@ -863,7 +863,7 @@
                                 </td>
                                 <td>
                                     车辆编号&#160;
-                                    <input class="w2 carNum" autocomplete="off" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <input class="w2 carNum" data-provide="typeahead" autocomplete="off" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
                                     <input class="onBoardId" type="hidden" t-attf-value="{{widget.set_data.onBoardId}}" />
                                 </td>
                             </tr>
@@ -1047,7 +1047,7 @@
                                 </td>
                                 <td>
                                     乘务员工号&#160;
-                                    <input class="w2 trainId" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
+                                    <input class="w2 train" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -1117,7 +1117,7 @@
                             <tr>
                                 <td>
                                     车&#160;&#160;&#160;&#160;&#160;&#160;&#160;辆&#160;
-                                    <input class="w2 carNum" disabled="disabled" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
+                                    <input class="w2" disabled="disabled" t-attf-value="{{widget.set_data.selfId}}" type="text"/>
                                 </td>
                                 <td>
                                     线&#160;&#160;&#160;&#160;&#160;&#160;&#160;路&#160;
@@ -1131,7 +1131,7 @@
                             <tr>
                                 <td>
                                     司&#160;&#160;&#160;&#160;&#160;&#160;&#160;机&#160;
-                                    <input class="w2 driverName" disabled="disabled" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
+                                    <input class="w2" disabled="disabled" t-attf-value="{{widget.set_data.driverName}}" type="text"/>
                                 </td>
                                 <td>
                                     方&#160;&#160;&#160;&#160;&#160;&#160;&#160;向&#160;
@@ -1170,7 +1170,7 @@
                             <tr>
                                 <td colspan="2">
                                     &#160;&#160;&#160;&#160;&#160;&#160;&#160;更换司机&#160;&#160;<input class="w2 replace_driver workerId" type="text"/>
-                                    <input class="driverName" type="hidden" />
+                                    <input class="driverName driverNameSearch" type="hidden" />
                                 </td>
                             </tr>
                         </table>
@@ -1226,7 +1226,7 @@
                             <tr>
                                 <td>
                                     乘务员工号&#160;
-                                    <input class="w6 trainId" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
+                                    <input class="w6 train" t-attf-value="{{widget.set_data.trainId}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
