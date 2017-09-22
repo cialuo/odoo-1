@@ -19,7 +19,7 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
             var package_send = {
                 type: 2000,
                 controlId: this.desktop_id,
-                open_modules: ["abnormal", "bus_real_state", "bus_resource"]
+                open_modules: ["bus_real_state"]
             };
             if (websocket){
                 websocket.send(JSON.stringify(package_send));
@@ -53,14 +53,6 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
             this.$el.find('.config_bus_source').slideDown();
         },
         closeFn: function () {
-            var package_line_message = {
-                type: 2001,
-                controlId: this.desktop_id,
-                open_modules: ["bus_resource"]
-            };
-            if (websocket){
-                websocket.send(JSON.stringify(package_line_message));
-            }
             this.destroy();
         },
         close_set: function () {

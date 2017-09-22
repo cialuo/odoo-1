@@ -101,7 +101,7 @@ function can_left_right(canvas) {
     cxt.textAlign = "center";
     cxt.fillStyle = "black";
     //文字，左距离，上距离，最大px量
-    cxt.fillText(canvas.busNumber , 13, 64, 50);
+    cxt.fillText(canvas.busNumber , 13, 62, 50);
     cxt.fill();
     cxt.closePath();
     cxt.beginPath();
