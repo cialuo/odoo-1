@@ -161,23 +161,23 @@ function absnormal_del(controllerObj, data_list) {
         }
         // 趟次回场异常包
         else if (data_list.packageType == 1007) {
-            abnoraml_desc.html('车辆：' + data_list.abnormal_description.bus_no + ',回场停车时间为：' + data_list.abnormal_description.return_time + ',回场异常');
+            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + ',回场停车时间为：' + data_list.abnormal_description.return_time + ',回场异常');
         }
         // 趟次回场严重异常
         else if (data_list.packageType == 1008) {
-            abnoraml_desc.html('车辆：' + data_list.abnormal_description.bus_no + ',回场停车时间为：' + data_list.abnormal_description.return_time + ',回场严重异常');
+            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + ',回场停车时间为：' + data_list.abnormal_description.return_time + ',回场严重异常');
         }
         // 车越界行驶
         else if (data_list.packageType == 1009) {
-            abnoraml_desc.html('车辆：' + data_list.abnormal_description.bus_no + '偏离路线');
+            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '偏离路线');
         }
         // 异常滞留
         else if (data_list.packageType == 1010) {
-            abnoraml_desc.html('车辆：' + data_list.abnormal_description.bus_no + '已在途中停车' + data_list.abnormal_description.bus_stop_time);
+            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '已在途中停车' + data_list.abnormal_description.bus_stop_time);
         }
         // 前车距离异常
         else if (data_list.packageType == 1011) {
-            abnoraml_desc.html('前车辆：' + data_list.abnormal_description.front_bus_no + '与后车' + data_list.abnormal_description.behind_bus_no + ',疑似串车/大间隔');
+            abnoraml_desc.html('前车辆' + data_list.abnormal_description.front_bus_no + '与后车' + data_list.abnormal_description.behind_bus_no + ',疑似串车/大间隔');
         }
         // 超速异常
         else if (data_list.packageType == 1012) {
@@ -213,11 +213,11 @@ function absnormal_del(controllerObj, data_list) {
         }
         // 站点意外高峰
         else if (data_list.packageType == 1020) {
-            abnoraml_desc.html('站点:' + data_list.abnormal_description.station + ',' + data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外高峰');
+            abnoraml_desc.html('站点' + data_list.abnormal_description.station + ',' + data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外高峰');
         }
         // 站点意外低峰
         else if (data_list.packageType == 1021) {
-            abnoraml_desc.html('站点:' + data_list.abnormal_description.station + ',' + data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外低峰');
+            abnoraml_desc.html('站点' + data_list.abnormal_description.station + ',' + data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外低峰');
         }
         $('body').find('.absnormal_diaodu .absnormal_sug p').html(data_list.suggest);
         dom.addClass('warn').find('.passenger_flow_list').eq(0).find('.abs_info').append($('body').find('.absnormal_diaodu').html());

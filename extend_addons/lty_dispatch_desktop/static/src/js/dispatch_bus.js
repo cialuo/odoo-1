@@ -140,7 +140,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                             r: 4,
                                             lineLen: 17,
                                             sta: 1,
-                                            busNumber: '无'
+                                            busNumber: ''
                                         }
                                     );
                                     can_left_right(
@@ -152,25 +152,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                             r: 4,
                                             lineLen: 0,
                                             sta: 1.5,
-                                            busNumber: '无'
+                                            busNumber: ''
                                         }
                                     );
-                                    socket_model_info[model_id] =
-                                        {
-                                            fn: self.site_websocket,
-                                            arg: {
-                                                self: self,
-                                                line_id: self.line_id,
-                                                desktop_id: self.desktop_id,
-                                                site_top_infos: res_top,
-                                                site_down_infos: res_down_deal,     //此处修改
-                                                dataSite_top_color_cof: dataSite_top_color_cof,
-                                                dataSite_down_color_cof: dataSite_down_color_cof,
-                                                busTopNumber: '无',
-                                                busDownNumber: '无',
-                                                hasCar: []
-                                            }
-                                        };
+
                                     $.ajax({
                                         url: 'http://202.104.136.228:8888/ltyop/dispatchRealtimeStatus/cachelineStat?apikey=71029270&params={"gprsId":' + self.gprs_id + '}',
                                         type: 'get',
@@ -239,6 +224,22 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                                 self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').html(res[i].onboard);
                                                             }
                                                         }
+                                                        socket_model_info[model_id] =
+                                                            {
+                                                                fn: self.site_websocket,
+                                                                arg: {
+                                                                    self: self,
+                                                                    line_id: self.line_id,
+                                                                    desktop_id: self.desktop_id,
+                                                                    site_top_infos: res_top,
+                                                                    site_down_infos: res_down_deal,     //此处修改
+                                                                    dataSite_top_color_cof: dataSite_top_color_cof,
+                                                                    dataSite_down_color_cof: dataSite_down_color_cof,
+                                                                    busTopNumber: data[0].upFieldBusNum + '辆',
+                                                                    busDownNumber: data[0].downFieldBusNum + '辆',
+                                                                    hasCar: []
+                                                                }
+                                                            };
                                                     },
                                                     error: function () {
                                                         layer.msg('请求出错');
