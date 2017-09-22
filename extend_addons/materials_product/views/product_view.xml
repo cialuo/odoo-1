@@ -118,7 +118,7 @@
                                         <field name="auto_lot" attrs="{'invisible': [('tracking', '!=', 'lot')]}"/>
                                     </group>
                                     <group name="general_top_right">
-                                        <field name="cost_method"/>
+                                        <field name="cost_method" groups="base.group_system"/>
                                         <field name="list_price"/>
                                         <field name="standard_price"/>
                                         <field name="contract_price"/>
