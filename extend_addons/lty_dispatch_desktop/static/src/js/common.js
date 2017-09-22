@@ -1,6 +1,14 @@
 /**
  * Created by Administrator on 2017/7/12.
  */
+// 请求接口
+SOCKET_URL = "";
+RESTFUL_URL = "";
+CONTROLLERID = "";
+var socket_model_info = {};
+var socket_model_api_obj = {};
+
+
 function traffic_distance(canvas) {
     var c = canvas.self.find(canvas.id)[0];
     var cxt = c.getContext("2d");
@@ -93,7 +101,7 @@ function can_left_right(canvas) {
     cxt.textAlign = "center";
     cxt.fillStyle = "black";
     //文字，左距离，上距离，最大px量
-    cxt.fillText(canvas.busNumber , 13, 64, 50);
+    cxt.fillText(canvas.busNumber , 13, 62, 50);
     cxt.fill();
     cxt.closePath();
     cxt.beginPath();
