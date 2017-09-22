@@ -131,30 +131,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         open_modules: ["line_message", "line_online"]
                                     };
                                     websocket.send(JSON.stringify(package_line_message));
-                                    can_left_right(
-                                        {
-                                            id: '.canvas_left',
-                                            color: '#252B43',
-                                            ciry: 27,
-                                            self: self.$el,
-                                            r: 4,
-                                            lineLen: 17,
-                                            sta: 1,
-                                            busNumber: ''
-                                        }
-                                    );
-                                    can_left_right(
-                                        {
-                                            id: '.canvas_right',
-                                            color: '#252B43',
-                                            ciry: 27,
-                                            self: self.$el,
-                                            r: 4,
-                                            lineLen: 0,
-                                            sta: 1.5,
-                                            busNumber: ''
-                                        }
-                                    );
+
 
                                     $.ajax({
                                         url: 'http://202.104.136.228:8888/ltyop/dispatchRealtimeStatus/cachelineStat?apikey=71029270&params={"gprsId":' + self.gprs_id + '}',
@@ -224,6 +201,30 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                                 self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').html(res[i].onboard);
                                                             }
                                                         }
+                                                        can_left_right(
+                                                            {
+                                                                id: '.canvas_left',
+                                                                color: '#252B43',
+                                                                ciry: 27,
+                                                                self: self.$el,
+                                                                r: 4,
+                                                                lineLen: 17,
+                                                                sta: 1,
+                                                                busNumber: data[0].upFieldBusNum
+                                                            }
+                                                        );
+                                                        can_left_right(
+                                                            {
+                                                                id: '.canvas_right',
+                                                                color: '#252B43',
+                                                                ciry: 27,
+                                                                self: self.$el,
+                                                                r: 4,
+                                                                lineLen: 0,
+                                                                sta: 1.5,
+                                                                busNumber: data[0].downFieldBusNum
+                                                            }
+                                                        );
                                                         socket_model_info[model_id] =
                                                             {
                                                                 fn: self.site_websocket,
