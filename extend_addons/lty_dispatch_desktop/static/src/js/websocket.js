@@ -8,7 +8,7 @@ var websocket = null;
 if ('WebSocket' in window) {
     // websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
     // websocket = new WebSocket("ws://202.104.136.228:8085/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
-    websocket = new WebSocket("ws://202.104.136.228:8085/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
+    websocket = new WebSocket( SOCKET_URL +"/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
 } else {
     alert('当前浏览器 Not support websocket');
 }
@@ -22,8 +22,6 @@ websocket.onopen = function () {
     console.log("WebSocket连接成功");
 }
 
-var socket_model_info = {};
-var socket_model_api_obj = {};
 //接收到消息的回调方法
 websocket.onmessage = function (event) {
     var eventObj = JSON.parse(event.data);
@@ -77,6 +75,14 @@ websocket.onclose = function () {
 window.onbeforeunload = function () {
     websocket.close();
 };
+
+//  订阅打开页面需要的模块
+var package = {
+    type: 2000,
+    controlId: CONTROLLERID,
+    open_modules: ["line_message", "line_online", "abnormal", "passenger_flow"]
+};
+websocket.send(JSON.stringify(package));
 
 function use_odoo_model(event, model_name) {
     for (socket_model in socket_model_info) {
@@ -271,8 +277,7 @@ function vehicle_drop(controllerObj, dataObj) {
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
     // console.log(dataObj);
-    // debugger;
-    var dom = controllerObj.find(".busRealStateModel_" + dataObj.line_id + "_" + dataObj.bus_no);
+    var dom = controllerObj.find(".busRealStateModel_" + dataObj.line_no + "_" + dataObj.bus_no);
     if (dom.length > 0) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
         var carReportObj = dom.find(".popupContent .carReport");
@@ -308,35 +313,157 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
             socket_load.remove();
             mapDom.removeClass("hide_model");
             busRealStateModel_map(mapDom[0], dataObj);
-        }
-        if (chartDom.length > 0) {
+        }else if (chartDom.length > 0) {
             socket_load.remove();
             chartDom.removeClass("hide_model");
+            busRealStateModel_chart(chartDom[0], dataObj);
         }
     }
 }
 
 // 车辆实时状态模块-地理位置
 function busRealStateModel_map(dom, gps) {
-    if (socket_model_api_obj.busRealStateModel.marker) {
-        socket_model_api_obj.busRealStateModel.marker.setPosition(new AMap.LngLat(gps.location_log, gps.location_lan));
+    if (!gps.location_log){
+        return false;
+    }
+
+    if (socket_model_api_obj.busRealStateModel_marker) {
+        socket_model_api_obj.busRealStateModel_marker.setPosition(new AMap.LngLat(gps.location_log, gps.location_lan));
     } else {
         var mapObj = new AMap.Map(dom, {zoom: 14, center: [gps.location_log, gps.location_lan]});
         var marker = new AMap.Marker({
             map: mapObj,
             position: [gps.location_log, gps.location_lan]
         });
-        socket_model_api_obj.busRealStateModel.marker = marker;
+        socket_model_api_obj.busRealStateModel_marker = marker;
     }
+}
+// 车辆实时状态模块-到站时刻
+function busRealStateModel_chart(dom, dataObj){
+    var site_list = [],
+        yuche_data = [],
+        shiji_data = [];
+
+    var chartData = dataObj.stationObjs;
+    for (var i=0,l=chartData.length;i<l;i++){
+        var cObj = chartData[i];
+        site_list.push(cObj.stationId);
+        yuche_data.push(cObj.planningTime);
+        shiji_data.push(cObj.realTime);
+    }
+
+    var option = {
+        tooltip: {
+            trigger: 'axis',
+        },
+        color: ['#4f8ed9', '#e1bc73', '#c98888'],
+        legend: {
+            icon: 'stack',
+            textStyle: {
+                color: "#fff"
+            },
+            data:['计划', '预测', '实际']
+        },
+        animation: false,
+        grid: {
+            left: '5%',
+            right: '10%',
+            bottom: '2%',
+            containLabel: true
+        },
+        xAxis:  {
+            type: 'category',
+            boundaryGap: false,
+            data: site_list,
+            axisLabel:{
+                textStyle: {
+                    color: "#fff"
+                }
+            },
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: ['#454c6c']
+                }
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#454c6c',
+                }
+            },
+        },
+        yAxis: {
+            type: 'value',
+            min: -15,
+            max: 15,
+            name: '提前(分钟)',
+            nameTextStyle: {
+                color: "#fff"
+            },
+            axisLabel: {
+                formatter: '{value}',
+                textStyle: {
+                    color: "#fff"
+                }
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#454c6c',
+                }
+            },
+            axisTick: {show:false},
+            splitLine: {
+                lineStyle: {
+                    color: ['#454c6c']
+                }
+            }
+        },
+        series: [
+            {
+                name:'计划',
+                type:'line',
+                symbolSize:1,
+                data:[0, 0, 0, 0, 0, 0, 0, 0],
+                lineStyle: {
+                    normal:{
+                        width: 1
+                    }
+                },
+            },
+            {
+                name: '预测',
+                type:'line',
+                symbolSize:1,
+                data: yuche_data,
+                lineStyle: {
+                    normal:{
+                        width: 1
+                    }
+                },
+            },
+            {
+                name: '实际',
+                type:'line',
+                symbolSize:1,
+                data: shiji_data,
+                lineStyle: {
+                    normal:{
+                        width: 1
+                    }
+                },
+            }
+        ]
+    };
+    var myChart = echarts.init(dom);
+    myChart.setOption(option);
 }
 
 // 站点实时状态模块
 function passengerDelayModel_socket_fn(controllerObj, dataObj) {
-    // console.log(dataObj);
+    console.log(dataObj);
     // debugger
     var dom = controllerObj.find(".passengerDelayModel");
     if (dom.length > 0) {
-
         // var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("passengerDelayModel_set"));
         // layer.close(passengerDelayModel_set.layer_index);
         // dom.removeClass('hide_model');
@@ -349,7 +476,13 @@ function passengerDelayModel_socket_fn(controllerObj, dataObj) {
         map_botton_info.find("li:eq(0) span").html(dataObj.station_lag_passengers);
         map_botton_info.find("li:eq(1) span").html(dataObj.down_passengers);
         map_botton_info.find("li:eq(2) span").html(dataObj.up_passengers);
+        // var options_s = passengerDelayModel_get_echart_option();
+        // var options_m = passengerDelayModel_get_echart_option();
     }
+}
+// 站点实时状态模块--获取站点图表的option
+function passengerDelayModel_get_echart_option(){
+
 }
 
 // 线路计划，车场，在途模块 显示

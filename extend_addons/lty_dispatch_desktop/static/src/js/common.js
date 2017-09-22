@@ -1,6 +1,14 @@
 /**
  * Created by Administrator on 2017/7/12.
  */
+// 请求接口
+SOCKET_URL = "";
+RESTFUL_URL = "";
+CONTROLLERID = "";
+var socket_model_info = {};
+var socket_model_api_obj = {};
+
+
 function traffic_distance(canvas) {
     var c = canvas.self.find(canvas.id)[0];
     var cxt = c.getContext("2d");

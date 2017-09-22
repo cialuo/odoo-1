@@ -66,7 +66,9 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 controlId: this.location_data.controllerId,
                 open_modules: ["bus_real_state"]
             };
-            websocket.send(JSON.stringify(package));
+            if (websocket){
+                websocket.send(JSON.stringify(package));
+            }
         },
         handle_exceptions_fn: function(){
             alert('这里将发起处理异常状态请求');
@@ -128,8 +130,8 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                     }
                 ]
             };
-            var busRealStateModel_set = JSON.parse(sessionStorage.getItem("busRealStateModel_set"));
-            layer.close(busRealStateModel_set.layer_index);
+            // var busRealStateModel_set = JSON.parse(sessionStorage.getItem("busRealStateModel_set"));
+            // layer.close(busRealStateModel_set.layer_index);
             this.$el.removeClass('hide_model');
             this.$(".carReport").html("<div class='socket_load'>加载中...</div>");
             new bus_real_info_arrival_time_chart(this, init_data).appendTo(this.$(".carReport"));
@@ -182,7 +184,9 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 controlId: this.location_data.controllerId,
                 open_modules: ["bus_real_state"]
             };
-            websocket.send(JSON.stringify(package));
+            if (websocket){
+                websocket.send(JSON.stringify(package));
+            }
             this.destroy();
         }
     });

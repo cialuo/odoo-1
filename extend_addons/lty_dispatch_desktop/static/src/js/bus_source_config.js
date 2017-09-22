@@ -21,7 +21,9 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
                 controlId: this.desktop_id,
                 open_modules: ["bus_real_state"]
             };
-            websocket.send(JSON.stringify(package_send));
+            if (websocket){
+                websocket.send(JSON.stringify(package_send));
+            }   
             $('.table_bus_num_tbody').mCustomScrollbar({
                 theme: 'minimal'
             });

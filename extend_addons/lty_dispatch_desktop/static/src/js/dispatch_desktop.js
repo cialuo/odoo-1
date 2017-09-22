@@ -5,6 +5,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
     var dispatch_bus = require('lty_dispaych_desktop.getWidget');
     //导入模块用户后台交互
     var Model = require('web.Model');
+    var config_parameter = new Model('ir.config_parameter');
     // 控制台配置模块
     var config = Widget.extend({
         template: "config",
@@ -129,6 +130,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         start: function () {
             $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
+            $.getScript("/lty_dispatch_desktop/static/src/js/websocket.js");
             var self = this;
             if (window.location.href.split("action=")[1].split('&')[0] != undefined) {
                 if (window.location.href.split("action=")[1].split('&')[0] == "dispatch_desktop.page") {
@@ -204,9 +206,13 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         load_fn: function () {
             var self = this;
-            setTimeout(function () {
-                new dispatch_desktop(self, self.layer).appendTo(self.$el);
-            }, 1000);
+            config_parameter.query().filter([["key", "=", "dispatch.desktop.socket"]]).all().then(function (socket) {
+                config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
+                    SOCKET_URL = socket[0].value;
+                    RESTFUL_URL = restful[0].value;
+                    new dispatch_desktop(self, self.layer).appendTo(self.$el); 
+                });
+            });
         }
     });
     core.action_registry.add('dispatch_desktop.page', dispatch_control);
