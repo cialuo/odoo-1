@@ -408,6 +408,7 @@ odoo.define("", function(require) {
                     var marker = new AMap.Marker({
                         content: content_info,
                         position: [site.longitude, site.latitude],
+                        offset : new AMap.Pixel(0,-15),
                         map: map,
                     });
                 });
