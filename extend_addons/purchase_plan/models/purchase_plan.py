@@ -53,7 +53,7 @@ class PuchasePlan(models.Model):
     is_run = fields.Boolean(string='Run Procurement?', default=False)
     procurement_group_id = fields.Many2one('procurement.group', string='Proc Group')
     line_ids = fields.One2many('purchase.plan.line', 'plan_id', string='Lines', readonly=True, states={'draft': [('readonly', False)]})
-    total = fields.Float(string='Total', compute='_compute_lines')
+    total = fields.Float(string='Total', compute='_compute_lines',store=True)
     no_suppliers = fields.Integer(string='No supplier', compute='_compute_lines')
 
     @api.depends('line_ids')
