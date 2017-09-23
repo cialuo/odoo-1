@@ -259,7 +259,6 @@ function show_electronic_map(dom, data_list, session_ayer) {
 
 // 车辆掉线, 在线
 function vehicle_drop(controllerObj, dataObj) {
-    // console.log(dataObj);
     var dom = controllerObj.find("linePlanParkOnlineModel_" + dataObj.line_id);
     if (dom.length > 0) {
         var abnormal_description = dataObj.abnormal_description;
@@ -276,7 +275,6 @@ function vehicle_drop(controllerObj, dataObj) {
 
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
-    // console.log(dataObj);
     var dom = controllerObj.find(".busRealStateModel_" + dataObj.line_no + "_" + dataObj.bus_no);
     if (dom.length > 0) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
@@ -296,15 +294,15 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
         vehicleInformationObj.find(".direction").html(dataObj.direction);
         vehicleInformationObj.find(".front_distance").html(dataObj.front_distance + 'KM');
         vehicleInformationObj.find(".back_distance").html(dataObj.back_distance + 'KM');
-        vehicleInformationObj.find(".return_time").html(dataObj.return_time);
-        vehicleInformationObj.find(".next_trip_time").html(dataObj.next_trip_time);
+        vehicleInformationObj.find(".return_time").html(new Date(dataObj.return_time).toTimeString().slice(0, 5).replace("Inval", ""));
+        vehicleInformationObj.find(".next_trip_time").html(new Date(dataObj.next_trip_time).toTimeString().slice(0, 5).replace("Inval", ""));
         vehicleInformationObj.find(".residual_clearance").html(dataObj.residual_clearance + 'KM');
         lineInfo.find(".lineRoad").html('18' + '路');
         lineInfo.find(".trip").html(dataObj.satisfaction_rate);
         lineInfo.find(".total_trip").html(dataObj.satisfaction_rate);
 
-        var busRealStateModel_set = JSON.parse(sessionStorage.getItem("busRealStateModel_set"));
-        layer.close(busRealStateModel_set.layer_index);
+        // var busRealStateModel_set = JSON.parse(sessionStorage.getItem("busRealStateModel_set"));
+        // layer.close(busRealStateModel_set.layer_index);
         dom.removeClass('hide_model');
         var socket_load = carReportObj.find(".socket_load");
         var mapDom = carReportObj.find(".arrival_time_map");
@@ -460,29 +458,241 @@ function busRealStateModel_chart(dom, dataObj){
 
 // 站点实时状态模块
 function passengerDelayModel_socket_fn(controllerObj, dataObj) {
-    console.log(dataObj);
-    // debugger
-    var dom = controllerObj.find(".passengerDelayModel");
+    var dom = controllerObj.find(".passengerDelayModel_" + dataObj.lineId + "_" + dataObj.stationId);
+    // var dom = controllerObj.find(".passengerDelayModel");
     if (dom.length > 0) {
         // var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("passengerDelayModel_set"));
         // layer.close(passengerDelayModel_set.layer_index);
         // dom.removeClass('hide_model');
         var trendObj = dom.find(".trend_chart_single");
+        var currentData = dataObj.data[1];
         if (dataObj.packageType == 1034) {
             trendObj = dom.find(".trend_chart_summary");
+            controllerObj.find(".top_title .mR10").html(currentData.allLineId);
         }
         var trend_chart_map = trendObj.find(".trend_chart_map");
         var map_botton_info = trendObj.find(".map_botton_info");
-        map_botton_info.find("li:eq(0) span").html(dataObj.station_lag_passengers);
-        map_botton_info.find("li:eq(1) span").html(dataObj.down_passengers);
-        map_botton_info.find("li:eq(2) span").html(dataObj.up_passengers);
-        // var options_s = passengerDelayModel_get_echart_option();
-        // var options_m = passengerDelayModel_get_echart_option();
+        map_botton_info.find("li:eq(0) span").html(currentData.station_lag_passengers);
+        map_botton_info.find("li:eq(1) span").html(currentData.down_passengers);
+        map_botton_info.find("li:eq(2) span").html(currentData.up_passengers);
+        var options= passengerDelayModel_get_echart_option(dataObj.data);
+        var myChart = echarts.init(trend_chart_map[0]);
+        myChart.setOption(options);
     }
 }
-// 站点实时状态模块--获取站点图表的option
-function passengerDelayModel_get_echart_option(){
 
+// 站点实时状态模块--获取站点图表的option
+function passengerDelayModel_get_echart_option(ehartData) {
+    var station_lag_passengers_list = [],
+        down_passengers_list = [],
+        up_passengers_list = [];
+
+    for (var i=0,l=ehartData.length;i<l;i++){
+        var edata = ehartData[i];
+        if (!edata.station_lag_passengers) {
+            edata.station_lag_passengers = "";
+        }
+        if (!edata.down_passengers) {
+            edata.down_passengers = "";
+        }
+        if (!edata.up_passengers) {
+            edata.up_passengers = "";
+        }
+        station_lag_passengers_list.push(edata.station_lag_passengers);
+        down_passengers_list.push(edata.down_passengers);
+        up_passengers_list.push(edata.up_passengers);
+    }
+    var option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                show: true,
+                type: 'cross',
+                lineStyle: {
+                    type: 'dashed',
+                    width: 1
+                }
+            },
+            formatter: function(params) {
+                var hoverTip = '';
+                for (var i = 0; i < params.length; i++) {
+                    var htip = params[i];
+                    if (i === 0) {
+                        if (htip.axisValue < 0) {
+                            hoverTip = '提前' + Math.abs(htip.axisValue) + '分钟<br/>';
+                        } else if (htip.axisValue === 0) {
+                            hoverTip = '当前<br/>';
+                        } else {
+                            hoverTip = htip.axisValue + '分钟后<br/>';
+                        }
+                    }
+                    var tip_totla = htip.seriesName + ": " + htip.value[1] + "<br/>";
+                    hoverTip += tip_totla
+                }
+                return hoverTip;
+            }
+        },
+        animation: false,
+        grid: {
+            left: '10%',
+            right: '10%',
+            top: '10%',
+            bottom: '0',
+            containLabel: true
+        },
+        calculable: true,
+        xAxis: [{
+            type: 'value',
+            min: -30,
+            max: 120,
+            axisLabel: {
+                formatter: function(value) {
+                    if (value == 0) {
+                        return '当前';
+                    }
+                    if (value == 60) {
+                        return '1h';
+                    }
+                    if (value == 120) {
+                        return '2h'
+                    }
+                },
+                textStyle: {
+                    color: "#fff"
+                }
+            },
+            boundaryGap: '',
+            axisTick: { inside: true },
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: ['#454c6c']
+                }
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#454c6c',
+                }
+            },
+        }],
+        yAxis: [{
+            type: 'value',
+            axisLine: {
+                lineStyle: {
+                    color: '#454c6c',
+                }
+            },
+            axisTick: { show: false },
+            axisLabel: {
+                show: false
+            },
+            splitLine: {
+                lineStyle: {
+                    color: ['#454c6c']
+                }
+            }
+        }],
+        series: [
+            {
+                name: '滞站候车',
+                type: 'line',
+                symbolSize: 1,
+                data: [
+                    [-30, station_lag_passengers_list[0]],
+                    // [-15, ""],
+                    [0, station_lag_passengers_list[1]],
+                    // [15, ""],
+                    // [30, ""],
+                    // [45, ""],
+                    [60, station_lag_passengers_list[2]],
+                    // [75, ""],
+                    // [90, ""],
+                    // [105, ""],
+                    [120, station_lag_passengers_list[3]]
+                ],
+                lineStyle: {
+                    normal: {
+                        width: 1,
+                        color: "#f89e93"
+                    }
+                },
+                markLine: {
+                    symbol: ['', 'circle'],
+                    label: {
+                        normal: {
+                            position: "start"
+                        }
+                    }, 
+                    data: [{
+                            xAxis: 0,
+                            symbol: 'circle',
+                            symbolSize: [0, 0],
+                            lineStyle: {
+                                normal: {
+                                    type: 'solid',
+                                    color: '#fff'
+                                }
+                            },
+                            label: {
+                                normal: {
+                                    show: false
+                                }
+                            }
+                        },
+                    ]
+                },
+            },
+            {
+                name: '0.5h上车',
+                type: 'line',
+                symbolSize: 1,
+                data: [
+                    [-30, up_passengers_list[0]],
+                    // [-15, ""],
+                    [0, up_passengers_list[1]],
+                    // [15, ""],
+                    // [30, ""],
+                    // [45, ""],
+                    [60, up_passengers_list[2]],
+                    // [75, ""],
+                    // [90, ""],
+                    // [105, ""],
+                    [120, up_passengers_list[3]]
+                ],
+                lineStyle: {
+                    normal: {
+                        width: 1,
+                        color: "#5093e1"
+                    }
+                }
+            },
+            {
+                name: '0.5h下车',
+                type: 'line',
+                symbolSize: 1,
+                data: [
+                    [-30, down_passengers_list[0]],
+                    // [-15, ""],
+                    [0, down_passengers_list[1]],
+                    // [15, ""],
+                    // [30, ""],
+                    // [45, ""],
+                    [60, down_passengers_list[2]],
+                    // [75, ""],
+                    // [90, ""],
+                    // [105, ""],
+                    [120, down_passengers_list[3]]
+                ],
+                lineStyle: {
+                    normal: {
+                        width: 1,
+                        color: "#ffd276"
+                    }
+                }
+            },
+        ]
+    }
+    return option;
 }
 
 // 线路计划，车场，在途模块 显示
@@ -506,15 +716,10 @@ function linePlanParkOnlineModel_display(controllerObj) {
 function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelName) {
     var dom = controllerObj.find(".linePlanParkOnlineModel_" + dataObj.line_id);
     if (dom.length > 0 && dataObj.id) {
-        // console.log(modelName)
-        // console.log(dataObj)
         var busResource = JSON.parse(sessionStorage.getItem("busResource"));
         if (modelName == "line_plan") {
             update_linePlan(controllerObj, dataObj);
         } else {
-            // console.log(dataObj);
-            // console.log(modelName);
-            // debugger;
             var active_resource = new Object();
             for (var o = 0, ol = busResource.length; o < ol; o++) {
                 var ol_resource = busResource[o];
