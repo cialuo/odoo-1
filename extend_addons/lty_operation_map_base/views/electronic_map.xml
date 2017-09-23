@@ -6,7 +6,7 @@
             <field name="name">electronic_map</field>
             <field name="tag">scheduling_parameters.electronic_map</field>
         </record>
-        <menuitem name="电子地图" id="electronic_map_menu" parent="dispatch_monitor_menu.dispatch_monitor_menu_root" action="electronic_map_action" sequence="35"/>
+        <menuitem name="电子地图" id="electronic_map_menu" parent="dispatch_monitor_menu.other_monitor_menu" action="electronic_map_action" sequence="35"/>
 
 
         <!-- 轨迹回放 -->
@@ -14,6 +14,6 @@
             <field name="name">track_playback_map</field>
             <field name="tag">scheduling_parameters.track_playback_map</field>
         </record>
-        <menuitem name="轨迹回放" id="track_playback_map" parent="dispatch_monitor_menu.dispatch_monitor_menu_root" action="track_playback_map_action" sequence="36"/>
+        <menuitem name="轨迹回放" id="track_playback_map" parent="dispatch_monitor_menu.other_monitor_menu" action="track_playback_map_action" sequence="36"/>
     </data>
 </odoo>
