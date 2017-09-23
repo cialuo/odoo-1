@@ -425,7 +425,7 @@ op_planparam = {
     #结束时间Date
     ('endTime', 'endtime'): None,
     #上行间隔1 int not found
-    ('level1', 'uptimearrage'): None,
+    ('level1', 'interval'): None,
     # #上行间隔2 int not found
     # ('level2', None): None,
     # #上行间隔3 int not found
