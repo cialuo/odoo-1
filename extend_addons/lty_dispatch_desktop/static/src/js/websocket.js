@@ -296,15 +296,15 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
         vehicleInformationObj.find(".direction").html(dataObj.direction);
         vehicleInformationObj.find(".front_distance").html(dataObj.front_distance + 'KM');
         vehicleInformationObj.find(".back_distance").html(dataObj.back_distance + 'KM');
-        vehicleInformationObj.find(".return_time").html(dataObj.return_time);
-        vehicleInformationObj.find(".next_trip_time").html(dataObj.next_trip_time);
+        vehicleInformationObj.find(".return_time").html(new Date(dataObj.return_time).toTimeString().slice(0, 5).replace("Inval", ""));
+        vehicleInformationObj.find(".next_trip_time").html(new Date(dataObj.next_trip_time).toTimeString().slice(0, 5).replace("Inval", ""));
         vehicleInformationObj.find(".residual_clearance").html(dataObj.residual_clearance + 'KM');
         lineInfo.find(".lineRoad").html('18' + '路');
         lineInfo.find(".trip").html(dataObj.satisfaction_rate);
         lineInfo.find(".total_trip").html(dataObj.satisfaction_rate);
 
-        var busRealStateModel_set = JSON.parse(sessionStorage.getItem("busRealStateModel_set"));
-        layer.close(busRealStateModel_set.layer_index);
+        // var busRealStateModel_set = JSON.parse(sessionStorage.getItem("busRealStateModel_set"));
+        // layer.close(busRealStateModel_set.layer_index);
         dom.removeClass('hide_model');
         var socket_load = carReportObj.find(".socket_load");
         var mapDom = carReportObj.find(".arrival_time_map");
@@ -460,8 +460,7 @@ function busRealStateModel_chart(dom, dataObj){
 
 // 站点实时状态模块
 function passengerDelayModel_socket_fn(controllerObj, dataObj) {
-    console.log(dataObj);
-    // debugger
+    // console.log(dataObj);
     var dom = controllerObj.find(".passengerDelayModel");
     if (dom.length > 0) {
         // var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("passengerDelayModel_set"));
