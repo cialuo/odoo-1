@@ -275,7 +275,9 @@ function vehicle_drop(controllerObj, dataObj) {
 
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
+    console.log(dataObj);
     var dom = controllerObj.find(".busRealStateModel_" + dataObj.line_no + "_" + dataObj.bus_no);
+    // var dom = controllerObj.find(".busRealStateModel");
     if (dom.length > 0) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
         var carReportObj = dom.find(".popupContent .carReport");
@@ -458,27 +460,35 @@ function busRealStateModel_chart(dom, dataObj){
 
 // 站点实时状态模块
 function passengerDelayModel_socket_fn(controllerObj, dataObj) {
-    var dom = controllerObj.find(".passengerDelayModel_" + dataObj.lineId + "_" + dataObj.stationId);
-    // var dom = controllerObj.find(".passengerDelayModel");
-    if (dom.length > 0) {
-        // var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("passengerDelayModel_set"));
-        // layer.close(passengerDelayModel_set.layer_index);
-        // dom.removeClass('hide_model');
-        var trendObj = dom.find(".trend_chart_single");
-        var currentData = dataObj.data[1];
-        if (dataObj.packageType == 1034) {
-            trendObj = dom.find(".trend_chart_summary");
-            controllerObj.find(".top_title .mR10").html(currentData.allLineId);
+    console.log(dataObj);
+    if (dataObj.packageType==1033){
+        var dom = controllerObj.find(".passengerDelayModel_" + dataObj.lineId + "_" + dataObj.stationId);
+        if (dom.length > 0){
+            var trendObj = dom.find(".trend_chart_single");
+            var echartData = dataObj.data;
+            passengerDelayModel_socket_set(trendObj, echartData);
         }
-        var trend_chart_map = trendObj.find(".trend_chart_map");
-        var map_botton_info = trendObj.find(".map_botton_info");
-        map_botton_info.find("li:eq(0) span").html(currentData.station_lag_passengers);
-        map_botton_info.find("li:eq(1) span").html(currentData.down_passengers);
-        map_botton_info.find("li:eq(2) span").html(currentData.up_passengers);
-        var options= passengerDelayModel_get_echart_option(dataObj.data);
-        var myChart = echarts.init(trend_chart_map[0]);
-        myChart.setOption(options);
+    }else{
+        var dom = controllerObj.find(".passengerDelayModel[siteId="+dataObj.stationId+"]");
+        if (dom.length > 0){
+            trendObj = dom.find(".trend_chart_summary");
+            controllerObj.find(".top_title .mR10").html(dataObj.allLineId);
+            echartData = dataObj.dataList;
+            passengerDelayModel_socket_set(trendObj, echartData);
+        }
     }
+}
+
+function passengerDelayModel_socket_set(trendObj, echartData){
+    var currentData = echartData[1];
+    var trend_chart_map = trendObj.find(".trend_chart_map");
+    var map_botton_info = trendObj.find(".map_botton_info");
+    map_botton_info.find("li:eq(0) span").html(currentData.station_lag_passengers);
+    map_botton_info.find("li:eq(1) span").html(currentData.down_passengers);
+    map_botton_info.find("li:eq(2) span").html(currentData.up_passengers);
+    var options= passengerDelayModel_get_echart_option(echartData);
+    var myChart = echarts.init(trend_chart_map[0]);
+    myChart.setOption(options);
 }
 
 // 站点实时状态模块--获取站点图表的option
