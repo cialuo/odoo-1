@@ -54,7 +54,7 @@ odoo.define("", function(require) {
         }
     });
 
-    core.action_registry.add('scheduling_parameters.electronic_map', electronic_map);
+    core.action_registry.add('lty_operation_map_base.electronic_map', electronic_map);
 
 
 
@@ -88,5 +88,5 @@ odoo.define("", function(require) {
         }
     });
 
-    core.action_registry.add('scheduling_parameters.track_playback_map', track_playback_map);
+    core.action_registry.add('lty_operation_map_base.track_playback_map', track_playback_map);
 });

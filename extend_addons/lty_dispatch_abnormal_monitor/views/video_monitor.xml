@@ -8,10 +8,9 @@
         </template>
         <record id="action_dispatch_video" model="ir.actions.client">
             <field name="name">dispatch_video</field>
-            <field name="target">fullscreen</field>
-            <field name="tag">dispatch_video.page</field>
+            <field name="tag">lty_dispatch_abnormal_monitor.video_play</field>
         </record>
-        <menuitem name="video history" string="视频直播" action="action_dispatch_video" id="lty_dispatch_video_history"
-                  parent="dispatch_monitor_menu.video_monitor_menu" sequence="20"/>
+        <menuitem name="视频直播"  action="action_dispatch_video" id="lty_dispatch_video_history"
+                  parent="dispatch_monitor_menu.other_monitor_menu" sequence="20"/>
     </data>
 </openerp>

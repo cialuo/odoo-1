@@ -45,10 +45,13 @@ class Product(models.Model):
     @api.one
     @api.depends('categ_id.property_cost_method')
     def _compute_cost_method(self):
-        #获取物资分类中成本方法的SELECTION value值，不然key值直接赋值给cost_method 无法翻译
-        selection_value = dict(self.env['product.category'].fields_get()['property_cost_method']['selection'])
-        cost_method = self.categ_id.property_cost_method
-        self.cost_method = selection_value[cost_method]
+        # #获取物资分类中成本方法的SELECTION value值，不然key值直接赋值给cost_method 无法翻译
+        # selection_value = dict(self.env['product.category'].fields_get()['property_cost_method']['selection'])
+        # cost_method = self.categ_id.property_cost_method
+        # if cost_method:
+        #     self.cost_method = selection_value[cost_method]
+        #此处的值别的地方有引用计算，不能修改为中文
+        self.cost_method = self.categ_id.property_cost_method
 
     @api.depends('inter_code', 'categ_id.code', 'parent_id.default_code')
     def _compute_default_code(self):
