@@ -4,16 +4,16 @@
         <!-- 电子地图 -->
         <record id="electronic_map_action" model="ir.actions.client">
             <field name="name">electronic_map</field>
-            <field name="tag">scheduling_parameters.electronic_map</field>
+            <field name="tag">lty_operation_map_base.electronic_map</field>
         </record>
-        <menuitem name="电子地图" id="electronic_map_menu" parent="dispatch_monitor_menu.other_monitor_menu" action="electronic_map_action" sequence="35"/>
+        <menuitem name="电子地图" id="electronic_map_menu" parent="dispatch_monitor_menu.other_monitor_menu" action="lty_operation_map_base.electronic_map_action" sequence="35"/>
 
 
         <!-- 轨迹回放 -->
         <record id="track_playback_map_action" model="ir.actions.client">
             <field name="name">track_playback_map</field>
-            <field name="tag">scheduling_parameters.track_playback_map</field>
+            <field name="tag">lty_operation_map_base.track_playback_map</field>
         </record>
-        <menuitem name="轨迹回放" id="track_playback_map" parent="dispatch_monitor_menu.other_monitor_menu" action="track_playback_map_action" sequence="36"/>
+        <menuitem name="轨迹回放" id="track_playback_map" parent="dispatch_monitor_menu.other_monitor_menu" action="lty_operation_map_base.track_playback_map_action" sequence="36"/>
     </data>
 </odoo>
