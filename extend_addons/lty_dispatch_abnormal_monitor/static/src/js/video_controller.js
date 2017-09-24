@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/9/22.
  */
-odoo.define('dispatch_video.video_play', function (require) {
+odoo.define('', function (require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var Model = require('web.Model');
