@@ -53,7 +53,7 @@ odoo.define(function (require) {
             // 
             // 公司单位切换事件                           9.22事件为1不能切换！！！
             self.$(".company").change(function () {
-                var self = this;
+                // var self = this;
                 var company = self.$(".company");
                 if (company.length == 0) {
                     return false;
