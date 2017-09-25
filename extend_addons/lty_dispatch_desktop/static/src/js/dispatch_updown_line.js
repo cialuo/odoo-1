@@ -39,18 +39,22 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 self.absnormalChart = echarts.init(self.$el.find('.absnormal_chart')[0]);
                 self.absnormalChart1 = echarts.init(self.$el.find('.absnormal_chart')[1]);
                 self.lagstation_chart = echarts.init(self.$el.find('.lagstation_chart')[0]);
-                var package_abnormal = {
-                    type: 2000,
-                    controlId: this.desktop_id,
-                    open_modules: ["abnormal"]
-                };
-                websocket.send(JSON.stringify(package_abnormal));
-                var package_passenger_flow = {
-                    type: 2000,
-                    controlId: this.desktop_id,
-                    open_modules: ["passenger_flow"]
-                };
-                websocket.send(JSON.stringify(package_passenger_flow));
+                // var package_abnormal = {
+                //     type: 2000,
+                //     controlId: this.desktop_id,
+                //     open_modules: ["abnormal"]
+                // };
+                // if (websocket){
+                //     websocket.send(JSON.stringify(package_abnormal));
+                // }
+                // var package_passenger_flow = {
+                //     type: 2000,
+                //     controlId: this.desktop_id,
+                //     open_modules: ["passenger_flow"]
+                // };
+                // if (websocket){
+                //     websocket.send(JSON.stringify(package_passenger_flow));
+                // }
                 socket_model_info[model_abnormal] = {
                     arg: {
                         self: self,
@@ -103,29 +107,19 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             }
             //匹配line_id和desktop_id
             var line_c = parseInt(arg.line_id);
-            if (data_use.data.line_id == line_c && data_use.controllerId == arg.desktop_id) {
-                var data_time = [];
-                var dataJson_passenger_flow_real = [];
-                var dataJson_transport_capacity_plan = [];
-                var dataJson_transport_capacity_suggest = [];
-                for (var i = 0; i < data_use.data.passenger_flow_real.length; i++) {
-                    data_time.push(data_use.data.passenger_flow_real[i].datetime.split(' ')[1]);
+            if (data_use.data.lineId == line_c && data_use.controllerId == arg.desktop_id) {
+                var timer =[];
+                var forcast =[];
+                var real =[];
+                var res = data_use.data.dataList;
+                for(var i = 0;i<res.length;i++){
+                    timer.push(res[i].datetime);
+                    forcast.push(parseInt(res[i].Passenger_flow_forcast));
+                    real.push(parseInt(res[i].Passenger_flow_real));
                 }
-                push_data(data_use.data.passenger_flow_real, 'passenger_flow');
-                push_data(data_use.data.transport_capacity_plan, 'capacity');
-                push_data(data_use.data.transport_capacity_suggest, 'capacity');
-                for (var j = 0; j < data_use.data.transport_capacity_plan.length; j++) {
-                    dataJson_passenger_flow_real.push(data_use.data.passenger_flow_real[j].passenger_flow);
-                }
-                for (var j = 0; j < data_use.data.transport_capacity_plan.length; j++) {
-                    dataJson_transport_capacity_plan.push(data_use.data.transport_capacity_plan[j].capacity);
-                }
-                for (var k = 0; k < data_use.data.transport_capacity_suggest.length; k++) {
-                    dataJson_transport_capacity_suggest.push(data_use.data.transport_capacity_suggest[k].capacity);
-                }
-                chartLineBar(arg.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流'], optionLineBar, data_time, [dataJson_passenger_flow_real, dataJson_transport_capacity_plan, dataJson_transport_capacity_suggest], '',data_use.data.line_id);
-                // 轮播克隆出的的图表
-                chartLineBar(arg.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['实际客流', '预测客流', '计划客流'], optionLineBar, data_time, [dataJson_passenger_flow_real, dataJson_transport_capacity_plan, dataJson_transport_capacity_suggest], '',data_use.data.line_id);
+                chartLineBar(arg.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['预测客流', '实际客流'], optionLineBar, timer, [forcast, real], '',data_use.data.lineId);
+                // // 轮播克隆出的的图表
+                chartLineBar(arg.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['预测客流', '实际客流'], optionLineBar, timer, [forcast, real], '',data_use.data.lineId);
                 // chartLineBar(arg.lagstation_chart, 0, ["#ff4634", "#4dcfc7"], 'bar', true, ['滞站客流', '预测滞站'], optionLineBar, ['周一', '周二', '周三', '周四', '周五', '周六'], [[120, 152, 101, 134, 90, 230], [220, 182, 191, 234, 290, 330]], '');
             }
         },

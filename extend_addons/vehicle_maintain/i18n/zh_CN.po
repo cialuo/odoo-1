@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-25 10:51+0000\n"
-"PO-Revision-Date: 2017-07-25 18:52+0800\n"
+"POT-Creation-Date: 2017-09-18 01:27+0000\n"
+"PO-Revision-Date: 2017-09-18 09:30+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/maintain.py:117
@@ -24,13 +24,13 @@ msgid "%s has been added to the report!"
 msgstr "%s 添加到报修单!"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/stock.py:110
+#: code:addons/vehicle_maintain/models/stock.py:132
 #, python-format
 msgid "%s more than get %s"
 msgstr "%s不能退料，退料超过个数: %s"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/stock.py:78
+#: code:addons/vehicle_maintain/models/stock.py:100
 #, python-format
 msgid "%s more than max_count %s"
 msgstr "%s 超过领用上限%s个"
@@ -269,7 +269,7 @@ msgstr "待派工故障"
 #: code:addons/vehicle_maintain/models/maintain.py:452
 #, python-format
 msgid "Dispatching the proportion of more than 100"
-msgstr "派工比例超过了100%"
+msgstr "派工比例超过了百分之百"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_appearance_display_name
@@ -928,6 +928,7 @@ msgid "Product Size"
 msgstr "规格型号"
 
 #. module: vehicle_maintain
+#: model:ir.ui.view,arch_db:vehicle_maintain.maintain_calc_view_form
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_repair_view_form
 msgid "ProductLists"
 msgstr "领退料单"
@@ -1156,8 +1157,8 @@ msgstr "返工数"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_route_id
-msgid "Route"
-msgstr "路线"
+msgid "Route Name"
+msgstr "线路"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_list_price
@@ -1168,8 +1169,8 @@ msgstr "库存单价"
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_fault_available_product_categ_id
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_available_product_categ_id
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_repair_materials_categ_id
-msgid "Select category for the current product"
-msgstr "为当前产品选择一个类别"
+msgid "Select category"
+msgstr "Select category"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/maintain.py:699
@@ -1632,8 +1633,8 @@ msgid "percentage_work"
 msgstr "工时比例"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/stock.py:64
-#: code:addons/vehicle_maintain/models/stock.py:95
+#: code:addons/vehicle_maintain/models/stock.py:86
+#: code:addons/vehicle_maintain/models/stock.py:117
 #, python-format
 msgid "product is not exist,please remove:%s"
 msgstr "添加的物资不存在，不能添加，请移除:%s"
@@ -1642,6 +1643,11 @@ msgstr "添加的物资不存在，不能添加，请移除:%s"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_category_reason_ids
 msgid "reasons"
 msgstr "故障原因"
+
+#. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_stock_picking_receiving_time
+msgid "receive time"
+msgstr "领料时间"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_repair_category
@@ -1689,6 +1695,11 @@ msgstr "随车专修"
 #: model:ir.model,name:vehicle_maintain.model_vehicle_usage_vehicleanchor
 msgid "vehicle_usage.vehicleanchor"
 msgstr "抛锚记录"
+
+#. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_stock_picking_waiting_time
+msgid "waiting time"
+msgstr "待料时间"
 
 #. module: vehicle_maintain
 #: selection:maintain.manage.repair,return_repair_state:0

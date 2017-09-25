@@ -131,7 +131,7 @@
 								<li class="show_main_outage">维保停运：<span>-</span></li>
 								<li class="show_share_active_car">共享机动：<span>-</span></li>
 								<li class="show_signal_online">信号在线：<span></span></li>
-								<li class="show_signal_online">信号掉线：<span></span></li>
+								<li class="show_signal_outline">信号掉线：<span></span></li>
 								<li class="show_car_driver">司机：<span></span></li>
 								<li class="show_car_attendant">乘务：<span></span></li>
 							</ul>
@@ -156,27 +156,28 @@
 						<div class="road_distribute">
 							<div  class="">
 								<div class="line_status ovf">
-									<ul class="fl park_left park_top_down_way">
-										<li></li>
-									</ul>
-									<ul  class="fr park_right park_top_down_way">
-										<li></li>
-									</ul>
+									<ul class="fl park_left park_top_down_way"><li></li><li></li><li></li><li></li></ul>
+									<ul  class="fr park_right park_top_down_way"><li></li><li></li><li></li><li></li></ul>
 								</div>
 								<div class="actual_traffic ovf">
 									<canvas class="canvas_left fl" width="26" height="116"></canvas>
 									<div>
-										<canvas width="1190" height="33" class="can_top"></canvas>
+										<div class="show_tip_top_p">
+											<div class="show_tip_top">11111</div>
+											<canvas width="1190" height="33" class="can_top"></canvas>
+										</div>
 										<div class="traffic_car">
 											<div class="content_car_road_top">
 											</div>
 											<div class="content_car_road_down">
 											</div>
 										</div>
-										<canvas width="1190" height="33" class="can_bottom"></canvas>
+										<div class="show_tip_down_p">
+											<div class="show_tip_down"></div>
+											<canvas width="1190" height="33" class="can_bottom"></canvas>
+										</div>
 										<div class="run_car_hide">
 											<div class="line_car">
-												<div class="num_car"><span></span></div>
 												<div class="type_car"><span></span></div>
 											</div>
 										</div>

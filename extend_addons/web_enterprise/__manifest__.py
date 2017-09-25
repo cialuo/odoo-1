@@ -13,7 +13,7 @@ Odoo Enterprise Web Client.
 This module modifies the web addon to provide Enterprise design and responsiveness.
         """,
     'depends': ['web'],
-    'auto_install': True,
+    'auto_install': False,
     'data': [
         'views/webclient_templates.xml',
     ],

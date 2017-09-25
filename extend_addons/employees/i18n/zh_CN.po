@@ -1064,6 +1064,11 @@ msgid "married"
 msgstr "已婚"
 
 #. module: employees
+#: selection:hr.employee,marital_status:0
+msgid "divorced"
+msgstr "离异"
+
+#. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_post_membercount
 msgid "member count of post"
 msgstr "成员数量"

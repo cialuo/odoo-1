@@ -73,7 +73,7 @@
 
 .dispatch_desktop .park_left, .dispatch_desktop .park_right {
     /*visibility: hidden;*/
-    background: #4ED0C6;
+
     cursor: pointer;
 }
 
@@ -176,12 +176,38 @@
     width: 100px;
     background: -webkit-linear-gradient(top, #32817E, #356691);
     background: -moz-linear-gradient(top, #32817E, #356691);
-    border-radius: 2px;
+    border-radius: 5px;
     z-index: 20;
     display: none;
     cursor: pointer;
     color: #fff;
     padding-bottom: 20px;
+}
+
+.dispatch_desktop .show_tip_top_p, .dispatch_desktop .show_tip_down_p {
+    position: relative;
+}
+
+.dispatch_desktop .show_tip_top, .dispatch_desktop .show_tip_down {
+    position: absolute;
+    display: none;
+    border-style: solid;
+    white-space: nowrap;
+    z-index: 9999999;
+    transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    background-color: rgba(50, 50, 50, 0.7);
+    border-width: 0px;
+    border-color: rgb(51, 51, 51);
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+    line-height: 21px;
+    padding: 5px;
 }
 
 .dispatch_desktop .edit_content > ul li {
@@ -212,19 +238,30 @@
 }
 
 .dispatch_desktop .line_status li {
-    width: 19px;
-    line-height: 19px;
+    width: 18px;
+    line-height: 18px;
+    height: 18px;
     text-align: center;
     float: left;
     color: #fff;
     font-size: 12px;
-    display: inline-block;
-    -webkit-transform: scale(0.833);
-    -moz-transform: scale(0.833);
+    margin-right: 4px;
 }
 
-.dispatch_desktop .line_status li:last-of-type {
-    float: right;
+.dispatch_desktop .park_left li:nth-of-type(1), .dispatch_desktop .park_right li:nth-of-type(4) {
+    background: #4ecfc7;
+}
+
+.dispatch_desktop .park_left li:nth-of-type(2), .dispatch_desktop .park_right li:nth-of-type(3) {
+    background: #ffd276;
+}
+
+.dispatch_desktop .park_left li:nth-of-type(3), .dispatch_desktop .park_right li:nth-of-type(2) {
+    background: #f89e93;
+}
+
+.dispatch_desktop .park_left li:nth-of-type(4), .dispatch_desktop .park_right li:nth-of-type(1) {
+    background: #ff4535;
 }
 
 .dispatch_desktop .road_distribute .actual_traffic {
@@ -253,17 +290,26 @@
     height: 20px;
     position: relative;
     margin-bottom: 8px;
-
+    margin-top: 2px;
 }
 
 /*左至右车辆*/
 .dispatch_desktop .content_car_road_top .line_car {
     position: absolute;
-    width: 44px;
-    height: 20px;
-    background: url("/lty_dispatch_desktop/static/src/img/runcar.png?v=20170918") no-repeat left top;
+    width: 31px;
+    height: 16px;
+    background: url("/lty_dispatch_desktop/static/src/img/little_car.png?v=20170918") no-repeat left top;
     top: 0px;
     cursor: pointer;
+}
+
+.to_gray {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
 }
 
 .dispatch_desktop .line_car .type_car span {
@@ -271,48 +317,19 @@
     -webkit-transform: scale(0.75);
     -moz-transform: scale(0.75);
     color: #fff;
-    margin-left: -2px;
+    margin-left: -3px;
     display: inline-block;
-    line-height: 9px;
-}
-
-.dispatch_desktop .line_car .num_car {
-    width: 18px;
-    height: 7px;
-    text-align: center;
-}
-
-.dispatch_desktop .line_car .num_car span {
-    -webkit-transform: scale(0.5);
-    -moz-transform: scale(0.5);
-    color: #fff;
-    display: inline-block;
-    line-height: 9px
+    line-height: 12px;
 }
 
 /*右至左车辆*/
 .dispatch_desktop .content_car_road_down .line_car {
     position: absolute;
-    width: 44px;
-    height: 20px;
-    background: url("/lty_dispatch_desktop/static/src/img/runcar_right.png?v=20170918") no-repeat left top;
+    width: 31px;
+    height: 16px;
+    background: url("/lty_dispatch_desktop/static/src/img/little_car_r.png?v=20170918") no-repeat left top;
     top: 0px;
     cursor: pointer;
-}
-
-.dispatch_desktop .content_car_road_top .line_car .type_car {
-    float: right;
-}
-
-.dispatch_desktop .content_car_road_down .line_car .num_car {
-    float: right;
-}
-
-.dispatch_desktop .line_car .num_car span {
-    font-size: 12px;
-    color: #fff;
-    display: inline-block;
-    line-height: 6px
 }
 
 .dispatch_desktop .line_car .type_car {
@@ -585,39 +602,49 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
         border-radius: 8px;
     }
 }
-.modal.config .src_font_color{
+
+.modal.config .src_font_color {
     margin-left: 180px;
 }
-.modal.config .close{
-    opacity:1;
+
+.modal.config .close {
+    opacity: 1;
     color: #fff;
 }
+
 .modal.config .modal-header {
     border: none;
 }
-.modal.config .modal-footer .btn-primary{
+
+.modal.config .modal-footer .btn-primary {
     background: none;
     border: 1px solid #4ecfc7;
     color: #4ecfc7;
 }
-.modal.config .modal-footer .btn-default{
+
+.modal.config .modal-footer .btn-default {
     background: none;
     border: 1px solid #909aa4;
     color: #909aa4;
 }
+
 .modal.config .modal-footer {
     border: none;
 }
-.modal.config modal-body{
+
+.modal.config modal-body {
     padding: 16px 16px 4px 16px;
 }
+
 .modal.config modal-body dt {
     font-size: 15px;
     margin-bottom: 20px;
 }
-.modal.config modal-body dl:first-of-type{
+
+.modal.config modal-body dl:first-of-type {
     margin-bottom: 20px;
 }
+
 .modal.config dd {
     overflow: hidden;
     margin-bottom: 5px;

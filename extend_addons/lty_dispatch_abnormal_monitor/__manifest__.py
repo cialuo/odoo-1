@@ -31,8 +31,6 @@
         'views/abnormal_monitor_time.xml',
         'views/abnormal_monitor_pf.xml',
         'views/abnormal_monitor_location.xml',
-        
-        
     ],
     # only loaded in demonstration mode
     'demo': [

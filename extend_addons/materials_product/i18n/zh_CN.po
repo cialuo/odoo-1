@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* materials_product
+#	* materials_product
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-11 01:37+0000\n"
-"PO-Revision-Date: 2017-07-11 09:37+0800\n"
+"POT-Creation-Date: 2017-09-14 09:30+0000\n"
+"PO-Revision-Date: 2017-09-14 09:30+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 2.0.1\n"
 
 #. module: materials_product
 #: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
@@ -24,12 +22,25 @@ msgstr "<span class=\"o_stat_text\">预测</span>"
 
 #. module: materials_product
 #: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
-msgid ""
-"<span class=\"o_stat_text\">Min :</span>\n"
+msgid "<span class=\"o_stat_text\">Min :</span>\n"
 "                                        <span class=\"o_stat_text\">Max:</span>"
-msgstr ""
-"<span class=\"o_stat_text\">Min :</span>\n"
+msgstr "<span class=\"o_stat_text\">Min :</span>\n"
 "                                        <span class=\"o_stat_text\">Max:</span>"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_multi_lot_wizard_all_product
+msgid "All Product"
+msgstr "所有物资"
+
+#. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_product_product_auto_lot
+msgid "Auto Lot"
+msgstr "自动生成批次号"
+
+#. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.multi_lot_wizard_form
+msgid "Cancel"
+msgstr "取消"
 
 #. module: materials_product
 #: model:ir.ui.view,arch_db:materials_product.search_mterials_manage_product_view
@@ -62,16 +73,23 @@ msgid "Compare2"
 msgstr "比较方式2"
 
 #. module: materials_product
+#: model:ir.ui.view,arch_db:materials_product.multi_lot_wizard_form
+msgid "Confirm"
+msgstr "确认"
+
+#. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_product_contract_price
 msgid "Contract Price"
 msgstr "合同单价"
 
 #. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_multi_lot_wizard_create_uid
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_multi_lot_wizard_create_date
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_create_date
 msgid "Created on"
 msgstr "创建时间"
@@ -83,6 +101,7 @@ msgid "Description"
 msgstr "说明"
 
 #. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_multi_lot_wizard_display_name
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -98,6 +117,7 @@ msgid "General Information"
 msgstr "常规属性"
 
 #. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_multi_lot_wizard_id
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_id
 msgid "ID"
 msgstr "ID"
@@ -123,16 +143,19 @@ msgid "Keeper"
 msgstr "责任仓管"
 
 #. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_multi_lot_wizard___last_update
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_multi_lot_wizard_write_uid
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_multi_lot_wizard_write_date
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
@@ -141,6 +164,16 @@ msgstr "最后更新时间"
 #: model:ir.model.fields,field_description:materials_product.field_product_product_lifetime
 msgid "Lifetime odomter"
 msgstr "退役里程"
+
+#. module: materials_product
+#: selection:multi.lot.wizard,tracking:0
+msgid "Lot"
+msgstr "批次"
+
+#. module: materials_product
+#: model:ir.model,name:materials_product.model_stock_pack_operation_lot
+msgid "Lot/Serial number for pack ops"
+msgstr "批次/序列号码为打包作业"
 
 #. module: materials_product
 #: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
@@ -159,9 +192,20 @@ msgid "Materials Type"
 msgstr "物资分类"
 
 #. module: materials_product
+#: model:ir.actions.act_window,name:materials_product.action_multi_lot_wizard
+#: model:ir.ui.menu,name:materials_product.menu_multi_lot_wizard
+msgid "Multi Product"
+msgstr "批量管理物资"
+
+#. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_name
 msgid "Name"
-msgstr "名字"
+msgstr "名称"
+
+#. module: materials_product
+#: selection:multi.lot.wizard,tracking:0
+msgid "None"
+msgstr "不跟踪"
 
 #. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_product_odometer
@@ -191,7 +235,7 @@ msgstr "补货"
 #. module: materials_product
 #: model:ir.model,name:materials_product.model_product_product
 msgid "Product"
-msgstr "产品"
+msgstr "物资"
 
 #. module: materials_product
 #: model:ir.model,name:materials_product.model_product_category
@@ -217,6 +261,11 @@ msgstr "采购"
 #: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
 msgid "Routes"
 msgstr "路线"
+
+#. module: materials_product
+#: selection:multi.lot.wizard,tracking:0
+msgid "Serial"
+msgstr "序号"
 
 #. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_product_shelf
@@ -280,15 +329,30 @@ msgid "Traceability"
 msgstr "追溯"
 
 #. module: materials_product
+#: model:ir.model.fields,field_description:materials_product.field_multi_lot_wizard_tracking
+msgid "Tracking"
+msgstr "追踪"
+
+#. module: materials_product
+#: model:ir.model,name:materials_product.model_stock_picking
+msgid "Transfer"
+msgstr "调拨"
+
+#. module: materials_product
 #: model:ir.ui.view,arch_db:materials_product.materials_manage_important_product_form
 msgid "Vendors"
 msgstr "供应商"
 
 #. module: materials_product
-#: code:addons/materials_product/models/product.py:91
+#: code:addons/materials_product/models/product.py:118
 #, python-format
 msgid "can not deleted with not in draft state"
 msgstr "非草稿状态下不能删除"
+
+#. module: materials_product
+#: model:ir.model,name:materials_product.model_multi_lot_wizard
+msgid "multi.lot.wizard"
+msgstr "批量物资管理"
 
 #. module: materials_product
 #: model:ir.model.fields,field_description:materials_product.field_product_tech_info_note
@@ -314,3 +378,4 @@ msgstr "产品技术参数"
 #: model:ir.ui.menu,name:materials_product.materials_menu_product
 msgid "product_menu"
 msgstr "物资管理"
+

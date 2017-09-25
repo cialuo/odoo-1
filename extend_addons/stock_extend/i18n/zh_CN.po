@@ -4,16 +4,26 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-16 05:41+0000\n"
-"PO-Revision-Date: 2017-06-16 05:41+0000\n"
+"POT-Creation-Date: 2017-09-16 02:28+0000\n"
+"PO-Revision-Date: 2017-09-16 02:28+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: stock_extend
+#: model:ir.model.fields,field_description:stock_extend.field_stock_quant_cost_average
+msgid "Cost average"
+msgstr "平均成本"
+
+#. module: stock_extend
+#: model:ir.model.fields,field_description:stock_extend.field_stock_quant_cost_purchase
+msgid "Cost purchase"
+msgstr "采购成本"
 
 #. module: stock_extend
 #: model:ir.ui.menu,name:stock_extend.materials_menu_location
@@ -26,9 +36,24 @@ msgid "Material Product"
 msgstr "物资"
 
 #. module: stock_extend
+#: model:ir.model,name:stock_extend.model_stock_warehouse_orderpoint
+msgid "Minimum Inventory Rule"
+msgstr "最小库存规则"
+
+#. module: stock_extend
 #: model:ir.ui.view,arch_db:stock_extend.view_move_tree_extend
 msgid "Moves"
 msgstr "出入库记录"
+
+#. module: stock_extend
+#: model:ir.model,name:stock_extend.model_stock_quant
+msgid "Quants"
+msgstr "库存计价"
+
+#. module: stock_extend
+#: model:ir.ui.menu,name:stock_extend.menu_stock_inverntory
+msgid "Stock Inentory Menu"
+msgstr "库存盘点"
 
 #. module: stock_extend
 #: model:ir.actions.act_window,name:stock_extend.materials_stock_move_action
@@ -41,9 +66,24 @@ msgid "Stock Move Menu"
 msgstr "出入库记录"
 
 #. module: stock_extend
+#: model:ir.ui.menu,name:stock_extend.menu_stock_value
+msgid "Stock Value Menu"
+msgstr "库存计价"
+
+#. module: stock_extend
 #: model:ir.ui.menu,name:stock_extend.materials_menu_sublocation
 msgid "Sub Location Menu"
 msgstr "库位"
+
+#. module: stock_extend
+#: model:ir.model.fields,help:stock_extend.field_stock_quant_cost_purchase
+msgid "Technical field used to record the product cost set by the user during a picking confirmation (when costing method used is 'average price' or 'real'). Value given in company currency and in product uom."
+msgstr "该技术字段用来记录用户在分拣确认期间设置的产品成本（在使用 '平均价格' 或'实际价格'的成本方法时）。以公司的当前货币及产品的默认计量单位赋值。"
+
+#. module: stock_extend
+#: model:ir.model,name:stock_extend.model_stock_picking
+msgid "Transfer"
+msgstr "调拨"
 
 #. module: stock_extend
 #: model:ir.ui.menu,name:stock_extend.materials_menu_warehouse

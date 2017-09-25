@@ -43,6 +43,7 @@
         .o-flex-flow(column, nowrap);
         min-height: 100%;
     }
+
     &.o_form_nosheet {
         display: block;
         .o-webclient-padding(@top: @odoo-sheet-vpadding, @bottom: @odoo-sheet-vpadding);
@@ -51,7 +52,11 @@
             margin: -@odoo-sheet-vpadding -@odoo-horizontal-padding 0 -@odoo-horizontal-padding;
         }
     }
-
+    //nelly
+    /*@media (min-width:320px)and(max-width:600px){
+        .o_form_view{
+            display: none;
+        }}*/
     // Sheet
     .o_form_sheet_bg {
         .o-flex(1, 0, auto);
@@ -194,7 +199,9 @@
 
         .o_form_field {
             @media (min-width: @screen-xs-min) {
+
                 &.o_text_overflow {
+
                     width: 1px!important; // hack to make the table layout believe it is a small element (so that the table does not grow too much) ...
                     min-width: 100%;      // ... but in fact it takes the whole table space
                 }

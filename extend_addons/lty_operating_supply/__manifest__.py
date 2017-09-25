@@ -28,6 +28,8 @@
         'views/passengerFlow_views.xml',
         'views/satisfaction_views.xml',
         'views/service_views.xml',
+        'views/line_bus_employee_shedule_views.xml',
+		
     ],
     # only loaded in demonstration mode
     'demo': [

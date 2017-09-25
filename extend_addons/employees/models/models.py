@@ -57,6 +57,7 @@ class employee(models.Model):
     marital_status = fields.Selection([
         ('married','married'),              # 已婚
         ('spinsterhood','spinsterhood'),    # 未婚
+        ('divorced', 'divorced'), #离异
     ], string='marital status')
 
     # 籍贯

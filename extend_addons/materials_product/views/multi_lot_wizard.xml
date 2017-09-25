@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="multi_lot_wizard_form" model="ir.ui.view">
+            <field name="name">multi.lot.wizard.form</field>
+            <field name="model">multi.lot.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group name="t">
+                        <group name="l">
+                            <field name="tracking"/>
+                            <field name="all_product"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Confirm" name="action_confirm" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_multi_lot_wizard" name="Multi Product" res_model="multi.lot.wizard" view_mode="form" target="new"/>
+        <menuitem id="menu_multi_lot_wizard"
+                  action="action_multi_lot_wizard"
+                  parent="materials_menu.materials_menu_stock"
+                  sequence="26"
+        />
+    </data>
+</odoo>

@@ -10,6 +10,6 @@
     bidding document
     """,
     'data': ['views/bidding_doc_view.xml', 'security/ir.model.access.csv'],
-    'depends': ['base', 'materials_menu'],
+    'depends': ['base', 'materials_menu', 'purchase'],
     'application': True,
 }

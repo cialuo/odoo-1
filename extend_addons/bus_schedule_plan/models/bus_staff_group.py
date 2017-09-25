@@ -98,7 +98,8 @@ class BusStaffGroup(models.Model):
                     "route_id": res_vehicles[0].route_id.id,
                     'vehicle_id': res_vehicles[0].bus_group_vehicle_id.vehicle_id.id,
                     'operation_state': 'flexible',
-                    'sequence': res_vehicles[0].vehicle_sequence,
+                    # 'sequence': res_vehicles[0].vehicle_sequence,
+                    'sequence': count,
                     'bus_group_id': res_vehicles[0].group_id.id,
                     'staff_line_ids': data_shift
                 }

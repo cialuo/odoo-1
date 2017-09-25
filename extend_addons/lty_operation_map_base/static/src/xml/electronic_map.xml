@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    
+	<t t-name="map_work_title_template">
+		<h2 class="title">
+			<t t-esc="widget.setInfo.title"></t>
+		</h2>
+		<div class="screen_cont">
+			<span class="mR20">路线：<input class="line" type="text"/></span>
+			<span class="mR20">车辆：<input class="onboard" type="text"/></span>
+			<t t-if="widget.setInfo.type=='electronic_map'">
+				<a class="bt bt_v1 localize_bt" href="javascript:;">定位</a>
+			</t>
+			<t t-else="">
+				<span class="mR20">开始时间：<input class="startTime timeW" type="text"/></span>
+				<span class="mR20">结束时间：<input class="endTime timeW" type="text"/></span>
+				<a class="bt bt_v1 query_bt mR20" href="javascript:;">查询</a>
+				<a class="bt stop_bt" href="javascript:;">停止</a>
+			</t>
+		</div>
+	</t>
+
+  	<t t-name="electronic_map_template">
+		<div class="map_work_trace electronic_map">
+			<div class="map_work_title"></div>
+			<div class="map_work_content"></div>
+		</div>
+    </t>
+
+
+
+    <t t-name="track_playback_map_template">
+		<div class="map_work_trace track_playback_map">
+			<div class="map_work_title"></div>
+			<div class="map_work_content"></div>
+		</div>
+    </t>
+</templates>

@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': '采购管理',
-    'version': '1.3',
+    'version': '1.4',
     'category': 'Basic Edition',
     'summary': '采购管理',
     'author': 'Xiao',
@@ -28,6 +28,8 @@
         10： 增加 供应商类型菜单 至 物资管理 – 基础资料
     1.3
         1：修正 分拣单中的退货按钮 增加 采购员 权限组
+    1.4
+        1: 询价管理 和 采购管理合并
     """,
     'data': [
         'views/purchase_menu.xml',

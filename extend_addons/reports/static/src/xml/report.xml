@@ -17,7 +17,7 @@
 
     <t t-name="RoportTest">
         <div>
-            <iframe id="report" t-attf-src="{{url}}&amp;_flowId=viewReportFlow&amp;_flowId=viewReportFlow&amp;ParentFolderUri=%2Freports%2Fodoo&amp;reportUnit=%2Freports%2Fodoo%2FCGDD&amp;standAlone=true}" width="100%" height="680"></iframe>
+            <iframe id="report" t-attf-src="{{url}}&amp;_flowId=viewReportFlow&amp;_flowId=viewReportFlow&amp;ParentFolderUri=%2Freports%2Fodoo&amp;reportUnit=%2Freports%2Fodoo%2FCGDD&amp;standAlone=true}" width="100%" height="680" scrolling="no"></iframe>
         </div>
         <!--<script type="text/javascript">
             var type = document.getElementById("type").value;
