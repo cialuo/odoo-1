@@ -287,6 +287,7 @@
                                 <field name="department" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="direct_leader"/>
                                 <field name="description"/>
+                                <field name="postlevel" options="{'no_open': True, 'no_create': True}"/>
                             </group>
                             <group>
                                 <field name="higher_level"/>

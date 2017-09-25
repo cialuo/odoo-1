@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from . import utils
 
 class employee(models.Model):
 
@@ -323,7 +324,7 @@ class post(models.Model):
         ('maintainer', 'post title maintainer'),  # 维修工
         ('driver', 'post title driver'),  # 司机
         ('conductor', 'post title conductor')  # 售票员
-    ], string='post function list', required=True)
+    ], string='post function list')
 
     # 岗位级别
     posttitle = fields.Selection([
@@ -331,6 +332,8 @@ class post(models.Model):
         ('labour', 'post title labour'),  # 员工
     ], string='post title list', required=True)
 
+    # 岗位级别
+    postlevel = fields.Many2one('employeepost.level', string="post level", required=True)
 
 
     # 岗位员工
@@ -416,6 +419,34 @@ class post(models.Model):
             employeemode = self.env['hr.employee']
             count = employeemode.search_count([('workpost', '=', item.id)])
             item.membercount = str(count)
+
+    @api.multi
+    def write(self, vals):
+        """
+        重载write方法
+        """
+        res = super(post, self).write()
+        if vals.get('postlevel', None) != None:
+            # 如果岗位级别变化 那么更新该岗位下的所有员工的基本工资
+            self.updateMembersSalary()
+        return res
+
+    def updateMembersSalary(self):
+        updatehandler = utils.UpDateConstract(self)
+        for member in self.members:
+            constract = updatehandler.getCurrentConstract(member.id)
+            if constract != None:
+                updatehandler.changeBaseSalary(self.postlevel.basesalary, constract)
+
+    @api.model
+    def create(self, vals):
+        """
+        重载创建方法
+        """
+        res = super(post, self).create()
+        # 更新该岗位下的所有员工的合同的岗位工资
+        self.updateMembersSalary()
+        return res
 
 
 class department(models.Model):
