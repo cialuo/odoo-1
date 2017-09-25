@@ -47,11 +47,9 @@ odoo.define("", function(require) {
                 }
             });
 
+            // 电子地图
             self.$(".localize_bt").click(function(){
-                var options = {
-                    gprsId: lineObj.val(),
-                    onboardId: vehiclesObj.val(),
-                }
+                var options = self.get_map_set_arg();
                 var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
                 $.ajax({
                     url: RESTFUL_URL+'/ltyop/dspGprsData/dspGpsCoordLastPos?apikey=71029270&params={"gprsId":"'+options.gprsId+'","onboardId":"'+options.onboardId+'"}',
@@ -65,8 +63,37 @@ odoo.define("", function(require) {
                         console.log(ret);
                     }
                 })
-                
             });
+
+            // 轨迹回放
+            self.$(".query_bt").click(function(){
+                var options = self.get_map_set_arg();
+                var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+                $.ajax({
+                    url: RESTFUL_URL+'/ltyop/hbaseGps/findGpsInfo?apikey=71029270&params={"gprsId":"'+options.gprsId+'", "terminalNo":"'+options.onboardId+'", "startTime":"'+options.startTime+'", "endTime":"'+options.endTime+'"}',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(ret) {
+                        layer.close(layer_index);
+                        if (ret.respose){
+                            layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                        }
+                        console.log(ret);
+                    }
+                })
+            });
+        },
+        get_map_set_arg: function(){
+            var vehiclesObj = this.$(".onboard");
+            var lineObj = this.$(".line");
+            var startTime = this.$(".startTime");
+            var endTime = this.$(".endTime");
+            return {
+                gprsId: lineObj.val(),
+                onboardId: vehiclesObj.val(),
+                startTime: startTime.val(),
+                endTime: endTime.val()
+            }
         }
     });
 
