@@ -105,12 +105,21 @@ odoo.define(function (require) {
                 company_name: this.$(".company option:selected").text(),
                 city_code: this.$(".cityCode").val()
             };
-            var layer_index = layer.msg("加载中...", { time: 0, shade: 0.3 });
+            // var layer_index = layer.msg("加载中...", { time: 0, shade: 0.3 });
             var chart_cont_obj = this.$el.parent(".operate_title").next();
             arg_options.chart_obj = chart_cont_obj;
             chart_cont_obj.html("");
             // 1.3满意度渲染
-            var time_hysteresis;
+            // var time_hysteresis;
+             var time_hysteresis = {
+                wait_satisfaction_rate:"",
+                x_data: "",
+                average_start_interval: "",
+                up_passenger: "",
+                down_passenger: "",
+                comfortable_satisfaction_rate:"",
+                passenger_satisfaction_rate_y: ""
+            };
             $.ajax({
                 type: 'get',
                 async: false,
@@ -119,7 +128,7 @@ odoo.define(function (require) {
                 data: { apikey: 222, line_id: arg_options.line_id, city_code: arg_options.city_code, date_end: arg_options.predict_passenger_flow_time, date_period: 30, step: 1 },
                 dataType: 'json',
                 error: function (res) {
-                    console.log(resultMsg)
+                    console.log(res.resultMsg);
                 },
                 success: function (res) {
                     console.log("数据成功")
@@ -160,7 +169,7 @@ odoo.define(function (require) {
                         comfortable_satisfaction_rate: comfortable_satisfaction_rate,
                         passenger_satisfaction_rate_y: passenger_satisfaction_rate_y
                     };
-                    return time_hysteresis;
+                    return time_hysteresis;   
                 }   //succes     
             });     //$.ajax
             // 暂时都数据加载相同
@@ -227,7 +236,7 @@ odoo.define(function (require) {
                 };
                 table_data.push(obj);
             }
-            layer.close(layer_index);
+            // layer.close(layer_index);
             new waiting_chart(this, passenger_flow_data, satisfaction_data, table_data).appendTo(arg_options.chart_obj);
         }
     });
