@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/9/22.
  */
-odoo.define('', function (require) {
+odoo.define('lty_dispatch_video_monitor_video_show', function (require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var Model = require('web.Model');
