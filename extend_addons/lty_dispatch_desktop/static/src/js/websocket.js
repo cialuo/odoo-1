@@ -276,8 +276,8 @@ function vehicle_drop(controllerObj, dataObj) {
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
     console.log(dataObj);
-    var dom = controllerObj.find(".busRealStateModel_" + dataObj.line_no + "_" + dataObj.bus_no);
-    // var dom = controllerObj.find(".busRealStateModel");
+    // var dom = controllerObj.find(".busRealStateModel_" + dataObj.line_no + "_" + dataObj.bus_no);
+    var dom = controllerObj.find(".busRealStateModel");
     if (dom.length > 0) {
         var vehicleInformationObj = dom.find(".popupContent .vehicleInformation");
         var carReportObj = dom.find(".popupContent .carReport");
@@ -286,20 +286,21 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
         vehicleInformationObj.find(".license_plate").html(dataObj.license_plate);
         vehicleInformationObj.find(".driver").html("司机：" + dataObj.driver);
         vehicleInformationObj.find(".crew").html("乘务：" + dataObj.conductor);
-        vehicleInformationObj.find(".passenger_number").html(dataObj.passenger_number);
+        vehicleInformationObj.find(".passenger_number").html(dataObj.full_load_rate);
+        vehicleInformationObj.find(".full_load_rate").html(dataObj.passenger_number);
         vehicleInformationObj.find(".satisfaction_rate").html(dataObj.satisfaction_rate);
         vehicleInformationObj.find(".inside_temperature").html(dataObj.inside_temperature);
         vehicleInformationObj.find(".outside_temperature").html(dataObj.outside_temperature);
         vehicleInformationObj.find(".back_door_status").html(dataObj.back_door_status);
         vehicleInformationObj.find(".front_door_status").html(dataObj.front_door_status);
-        vehicleInformationObj.find(".current_speed").html(dataObj.current_speed + 'KM/H');
+        vehicleInformationObj.find(".current_speed").html(dataObj.speed + 'KM/H');
         vehicleInformationObj.find(".direction").html(dataObj.direction);
         vehicleInformationObj.find(".front_distance").html(dataObj.front_distance + 'KM');
         vehicleInformationObj.find(".back_distance").html(dataObj.back_distance + 'KM');
-        vehicleInformationObj.find(".return_time").html(new Date(dataObj.return_time).toTimeString().slice(0, 5).replace("Inval", ""));
-        vehicleInformationObj.find(".next_trip_time").html(new Date(dataObj.next_trip_time).toTimeString().slice(0, 5).replace("Inval", ""));
+        vehicleInformationObj.find(".return_time").html(dataObj.return_time.slice(0, 5));
+        vehicleInformationObj.find(".next_trip_time").html(dataObj.next_trip_time.slice(0, 5));
         vehicleInformationObj.find(".residual_clearance").html(dataObj.residual_clearance + 'KM');
-        lineInfo.find(".lineRoad").html('18' + '路');
+        lineInfo.find(".lineRoad").html(dataObj.lineName);
         lineInfo.find(".trip").html(dataObj.satisfaction_rate);
         lineInfo.find(".total_trip").html(dataObj.satisfaction_rate);
 
@@ -323,17 +324,17 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
 
 // 车辆实时状态模块-地理位置
 function busRealStateModel_map(dom, gps) {
-    if (!gps.location_log){
+    if (!gps.latitude){
         return false;
     }
 
     if (socket_model_api_obj.busRealStateModel_marker) {
-        socket_model_api_obj.busRealStateModel_marker.setPosition(new AMap.LngLat(gps.location_log, gps.location_lan));
+        socket_model_api_obj.busRealStateModel_marker.setPosition(new AMap.LngLat(gps.latitude, gps.longitude));
     } else {
-        var mapObj = new AMap.Map(dom, {zoom: 14, center: [gps.location_log, gps.location_lan]});
+        var mapObj = new AMap.Map(dom, {zoom: 14, center: [gps.latitude, gps.longitude]});
         var marker = new AMap.Marker({
             map: mapObj,
-            position: [gps.location_log, gps.location_lan]
+            position: [gps.latitude, gps.longitude]
         });
         socket_model_api_obj.busRealStateModel_marker = marker;
     }
@@ -344,11 +345,11 @@ function busRealStateModel_chart(dom, dataObj){
         yuche_data = [],
         shiji_data = [];
 
-    var chartData = dataObj.stationObjs;
+    var chartData = dataObj.dataList;
     for (var i=0,l=chartData.length;i<l;i++){
         var cObj = chartData[i];
         site_list.push(cObj.stationId);
-        yuche_data.push(cObj.planningTime);
+        yuche_data.push(cObj.predictedTime);
         shiji_data.push(cObj.realTime);
     }
 
