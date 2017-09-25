@@ -161,7 +161,7 @@ odoo.define(function (require) {
                     data: {},
                     dataType: 'json',
                     error: function (res) {
-                        console.log("数据错误")
+                        console.log("数据错误");
                     },
                     success: function (res) {
                         var passenger_flow_x = [];            //x+时间轴
