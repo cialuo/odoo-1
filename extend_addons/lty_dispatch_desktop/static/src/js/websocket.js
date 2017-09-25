@@ -300,7 +300,7 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
         vehicleInformationObj.find(".return_time").html(dataObj.return_time.slice(0, 5));
         vehicleInformationObj.find(".next_trip_time").html(dataObj.next_trip_time.slice(0, 5));
         vehicleInformationObj.find(".residual_clearance").html(dataObj.residual_clearance + 'KM');
-        lineInfo.find(".lineRoad").html(dataObj.lineName);
+        // lineInfo.find(".lineRoad").html(dataObj.lineName);
         lineInfo.find(".trip").html(dataObj.satisfaction_rate);
         lineInfo.find(".total_trip").html(dataObj.satisfaction_rate);
 
