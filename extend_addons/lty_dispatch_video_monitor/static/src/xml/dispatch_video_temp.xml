@@ -2,8 +2,9 @@
 <template xml:space="preserve">
     <!--<div>1111</div>-->
    <t t-name="dispatch_desktop_video">
-	   <div>
-		   video
-	   </div>
+	   <div id="flashContent">
+			<!--<object width='640' height='377' id='StrobeMediaPlayback' name='StrobeMediaPlayback' type='application/x-shockwave-flash' classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000'><param name='movie' value='swfs/StrobeMediaPlayback.swf' /> <param name='quality' value='high' /> <param name='bgcolor' value='#000000' /> <param name='allowfullscreen' value='true' /> <param name='flashvars' value= '&src=rtmp://live.hkstv.hk.lxdns.com/live/hks&autoHideControlBar=true&streamType=recorded&autoPlay=true&verbose=true'/><embed src='swfs/StrobeMediaPlayback.swf' width='640' height='377' id='StrobeMediaPlayback' quality='high' bgcolor='#000000' name='StrobeMediaPlayback' allowfullscreen='true' pluginspage='http://www.adobe.com/go/getflashplayer' flashvars='&src=rtmp://live.hkstv.hk.lxdns.com/live/hks&autoHideControlBar=true&streamType=recorded&autoPlay=true&verbose=true' type='application/x-shockwave-flash'> </embed></object>-->
+			<p>To view this page ensure that Adobe Flash Player version 10.3.0 or greater is installed.</p>
+		</div>
 	</t>
 </template>
