@@ -2,6 +2,11 @@ odoo.define("", function(require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var QWeb = core.qweb;
+    var Model = require('web.Model');
+    // 线路
+    var model_choseline = new Model('route_manage.route_manage');
+    // 车辆
+    var fleet_vehicle = new Model('fleet.vehicle');
 
     //  地图头部
     var map_work_title = Widget.extend({
@@ -11,8 +16,9 @@ odoo.define("", function(require) {
             this.setInfo = setInfo;
         },
         start: function(){
+            var self = this;
             // 加载日期组件
-            this.$(".timeW").datetimepicker({
+            self.$(".timeW").datetimepicker({
                 format: 'YYYY-MM-DD HH:mm',
                 language: 'en',
                 pickDate: true,
@@ -20,6 +26,30 @@ odoo.define("", function(require) {
                 stepHour: 1,
                 stepMinute: 1,
                 inputMask: true
+            });
+
+            var vehiclesObj = self.$(".onboard");
+            var lineObj = self.$(".line");
+            lineObj.on("change", function(){
+                vehiclesObj.empty().append('<option value="">--请选择--</option>');
+                if (this.value != ""){
+                    var id = parseInt($(this).find("option:selected").attr("t_id"));
+                    fleet_vehicle.query().filter([
+                        ["route_id", "=", id]
+                    ]).all().then(function(vehicles) {
+                        _.each(vehicles, function(set){
+                            var option = '<option value="' + set.on_boardid + '" t_id="' + set.id + '">'+set.on_boardid+'</option>';
+                            vehiclesObj.append(option);
+                        });
+                    })
+                }
+            });
+
+            self.$(".localize_bt").click(function(){
+                var options = {
+                    gprsId: lineObj.val(),
+                    onboardId: vehiclesObj.val(),
+                }
             });
         }
     });
@@ -31,10 +61,15 @@ odoo.define("", function(require) {
             this._super(parent);
         },
         start: function() {
-            var options = {title: '电子地图',type: 'electronic_map'};
-            new map_work_title(this, options).appendTo(this.$('.map_work_title'));
-            //初始化地图
-            this.init_map_fn();
+            var self = this;
+            model_choseline.query().filter([
+                ["state", "=", 'inuse']
+            ]).all().then(function(lines) {
+                var options = {title: '电子地图',type: 'electronic_map', lines};
+                new map_work_title(self, options).appendTo(self.$('.map_work_title'));
+                //初始化地图
+                self.init_map_fn();
+            });
         },
         init_map_fn: function(){
             var map = new AMap.Map(this.$(".map_work_content")[0], {
@@ -65,10 +100,16 @@ odoo.define("", function(require) {
             this._super(parent);
         },
         start: function() {
-            var options = {title: '轨迹回放',type: 'track_playback_map'};
-            new map_work_title(this, options).appendTo(this.$('.map_work_title'));
-            //初始化地图
-            this.init_map_fn();
+            var self = this;
+            model_choseline.query().filter([
+                ["state", "=", 'inuse']
+            ]).all().then(function(lines) {
+                var options = {title: '轨迹回放',type: 'track_playback_map', lines:lines};
+                var options = {title: '电子地图',type: 'electronic_map', lines:lines};
+                new map_work_title(self, options).appendTo(self.$('.map_work_title'));
+                //初始化地图
+                self.init_map_fn();
+            });
         },
         init_map_fn: function(){
             var map = new AMap.Map(this.$(".map_work_content")[0], {

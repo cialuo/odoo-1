@@ -16,7 +16,7 @@ class FleetVehicle(models.Model):
 
     def _compute_warranty_order_project_count(self):
         for record in self:
-            record.warranty_order_project_count = self.env['warranty_order_project'].search_count([('vehicle_id', '=', self.id),('state', '=', 'complete')])
+            record.warranty_order_project_count = self.env['warranty_order_project'].search_count([('vehicle_id', '=', record.id),('state', '=', 'complete')])
 
     @api.multi
     def action_to_open_warranty(self):
