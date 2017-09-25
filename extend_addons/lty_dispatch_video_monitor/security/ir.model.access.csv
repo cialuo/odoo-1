@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_lty_dispatch_video_monitor_lty_dispatch_video_monitor,lty_dispatch_video_monitor.lty_dispatch_video_monitor,model_lty_dispatch_video_monitor_lty_dispatch_video_monitor,,1,0,0,0

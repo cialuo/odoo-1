@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Abnormal Monitor",
+    'name': "lty_dispatch_video_monitor",
 
     'summary': """
-        异常监控""",
+        视频监控""",
 
     'description': """
-        异常监控
+        Long description of module's purpose
     """,
 
-    'author': "lihaihe",
-    'website': "http://www.lantaiyuan.com",
+    'author': "My Company",
+    'website': "http://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
@@ -19,21 +19,19 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['lty_dispatch_jobs'],
+    'depends': ['base'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/abnormal_monitor_menu.xml',
-        'views/abnormal_monitor_safty.xml',
-        'views/abnormal_monitor_bus_condition.xml',
-        'views/abnormal_monitor_person.xml',
-        'views/abnormal_monitor_time.xml',
-        'views/abnormal_monitor_pf.xml',
-        'views/abnormal_monitor_location.xml',
+        'views/views.xml',
+        'views/templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
+    ],
+    'qweb': [
+        "static/src/xml/*.xml",
     ],
 }

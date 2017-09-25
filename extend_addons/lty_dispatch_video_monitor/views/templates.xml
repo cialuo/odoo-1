@@ -2,15 +2,15 @@
     <data>
         <template id="web.asset_backend" name="asset" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-                <script src="/lty_dispatch_abnormal_monitor/static/src/js/video_controller.js"
+                <script src="/lty_dispatch_video_monitor/static/src/js/video_controller.js"
                         type="text/javascript"></script>
             </xpath>
         </template>
         <record id="action_dispatch_video" model="ir.actions.client">
             <field name="name">dispatch_video</field>
-            <field name="tag">lty_dispatch_abnormal_monitor.video_play</field>
+            <field name="tag">lty_dispatch_video_monitor.video_play</field>
         </record>
         <menuitem name="视频直播"  action="action_dispatch_video" id="lty_dispatch_video_history"
-                  parent="dispatch_monitor_menu.other_monitor_menu" sequence="20"/>
+                  parent="dispatch_monitor_menu.video_monitor_menu" sequence="20"/>
     </data>
 </openerp>

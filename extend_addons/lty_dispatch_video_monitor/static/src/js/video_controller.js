@@ -13,5 +13,5 @@ odoo.define('', function (require) {
         start:function () {
         }
     });
-    core.action_registry.add('lty_dispatch_abnormal_monitor.video_play', video_play);
+    core.action_registry.add('lty_dispatch_video_monitor.video_play', video_play);
 });
