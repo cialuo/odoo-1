@@ -11,6 +11,6 @@
             <field name="tag">lty_dispatch_video_monitor.video_play</field>
         </record>
         <menuitem name="视频直播"  action="dispatch_video" id="lty_dispatch_video_history"
-                  parent="dispatch_monitor_menu.dispatch_monitor_menu_root" sequence="20"/>
+                  parent="dispatch_monitor_menu.other_monitor_menu" sequence="20"/>
     </data>
 </openerp>
