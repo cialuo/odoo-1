@@ -1,9 +1,12 @@
-odoo.define(function(require) {
+odoo.define(function (require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var QWeb = core.qweb;
+    var Model = require('web.Model');
     var datepicker = require('web.datepicker');
-
+    var model_choseline = new Model('route_manage.route_manage');
+    var model_city = new Model('ir.config_parameter');
+    var model_site = new Model('opertation_resources_station_platform');
 
     // 线路客流title
     var supply_title = Widget.extend({
@@ -11,12 +14,12 @@ odoo.define(function(require) {
         events: {
             "click .ok_bt": "get_filter_fn"
         },
-        init: function(parent, data) {
+        init: function (parent, data) {
             this._super(parent);
             this.supply = data;
             $(".o_loading").hide();
         },
-        start: function() {
+        start: function () {
             var self = this;
             // 加载日期组件
             self.$(".oe_datepicker_input").datetimepicker({
@@ -32,21 +35,52 @@ odoo.define(function(require) {
             });
 
             // 时间筛选方式
-            self.$(".plan_way").on("click", "li", function() {
+            self.$(".plan_way").on("click", "li", function () {
                 if ($(this).hasClass('active')) {
                     return;
                 }
                 var name = $(this).attr("name");
                 $(this).addClass("active").siblings().removeClass('active');
-                if (self.supply.title == "线路分时客流"){
+                if (self.supply.title == "线路分时客流") {
                     self.line_passenger_flow_time_switch(name);
-                }else if (self.supply.title == "站点分时客流"){
+                } else if (self.supply.title == "站点分时客流") {
                     self.site_passenger_flow_time_switch(name);
                 }
             });
+
+            //线路-方向-站台切换事件
+            self.$(".supply_line").change(function () {     //线路事件
+                self.update_site_fn();
+
+            });
+            self.$(".direction").change(function () {      //方向事件
+                self.update_site_fn();
+            });
+        },
+        update_site_fn: function () {
+            var self = this;
+            var platform = self.$('.platform');
+            if (platform.length == 0) {
+                return false;
+            }
+            var line_id = self.$(".supply_line option:selected").val();
+            var direction = self.$(".direction option:selected").val();
+            var direction_v = direction == 0 ? 'up' : 'down'
+            model_site.query().filter([["route_id", "=", parseInt(line_id)], ["direction", "=", direction_v]]).all().then(function (sites) {
+                console.log(sites);
+                var platform = self.$('.platform');
+                platform.find("option").remove();
+                var options = "";
+                for (var i = 0; i < sites.length; i++) {
+                    var item = sites[i];
+                    // options+="<option value="42">人民站台123</option>
+                    options += "<option value='" + item.id + "' >" + item.station_id[1].split('/')[0] + "</option>";
+                };
+                platform.html(options);
+            });
         },
         // 线路分时客流时间切换事件
-        line_passenger_flow_time_switch: function(name){
+        line_passenger_flow_time_switch: function (name) {
             var self = this;
             if (name == "when") {
                 self.$(".history_passenger_flow").parent().removeClass("dis_none");
@@ -55,10 +89,17 @@ odoo.define(function(require) {
                 self.$(".data_type").parent().removeClass("dis_none");
                 self.$(".direction").removeClass("dis_none");
             } else {
-                self.$(".history_passenger_flow").parent().addClass("dis_none");
-                self.$(".predict_passenger_flow_time").parent().addClass("dis_none");
-                self.$(".data_scope").removeClass("dis_none");
-                self.$(".data_type").parent().addClass("dis_none");
+                // 9.25天月周
+                self.$(".history_passenger_flow").parent().removeClass("dis_none");
+                self.$(".predict_passenger_flow_time").parent().removeClass("dis_none");
+                self.$(".data_scope").addClass("dis_none");
+                self.$(".data_type").parent().removeClass("dis_none");
+                self.$(".direction").removeClass("dis_none");
+                // 
+                // self.$(".history_passenger_flow").parent().addClass("dis_none");
+                // self.$(".predict_passenger_flow_time").parent().addClass("dis_none");
+                // self.$(".data_scope").removeClass("dis_none");
+                // self.$(".data_type").parent().addClass("dis_none");
                 if (name == "month") {
                     self.$(".direction").addClass("dis_none");
                 } else {
@@ -67,22 +108,35 @@ odoo.define(function(require) {
             }
         },
         // 站点分时客流时间切换事件
-        site_passenger_flow_time_switch: function(name){
+        site_passenger_flow_time_switch: function (name) {
+            // 9.25
             var self = this;
             if (name == "when") {
+                self.$(".history_passenger_flow").parent().removeClass("dis_none");
+                self.$(".predict_passenger_flow_time").parent().removeClass("dis_none");
+                self.$(".data_scope").addClass("dis_none");
                 self.$(".data_type").parent().removeClass("dis_none");
                 self.$(".direction").removeClass("dis_none");
             } else {
-                self.$(".data_type").parent().addClass("dis_none");
-                self.$(".direction").addClass("dis_none");
+                self.$(".history_passenger_flow").parent().removeClass("dis_none");
+                self.$(".predict_passenger_flow_time").parent().removeClass("dis_none");
+                self.$(".data_type").parent().removeClass("dis_none");
+                self.$(".data_scope").addClass("dis_none");
+                if (name == "month") {
+                    self.$(".direction").addClass("dis_none");
+                } else {
+                    self.$(".direction").removeClass("dis_none");
+                }
             }
         },
         // 获取筛选条件
-        get_filter_fn: function() {
+        get_filter_fn: function () {
+            var self = this;
             var arg_options = {
                 history_time: this.$(".history_passenger_flow").val(),
                 predict_passenger_flow_time: this.$(".predict_passenger_flow_time").val(),
                 plan_way: this.$(".plan_way li.active").attr("name"),
+                step: this.$(".plan_way li.active").attr("value"),
                 line_id: this.$(".supply_line option:selected").val(),
                 line_name: this.$(".supply_line option:selected").attr("name"),
                 direction: this.$(".direction option:selected").val(),
@@ -92,37 +146,130 @@ odoo.define(function(require) {
                 predict_start_time: this.$(".data_scope .start_time").val(),
                 predict_end_time: this.$(".data_scope .end_time").val(),
                 company: this.$(".company option:selected").val(),
-                company_name: this.$(".company option:selected").text()
+                company_name: this.$(".company option:selected").text(),
+                city_code: this.$(".cityCode").val()
             };
             var chart_cont_obj = this.$el.parent(".operate_title").next();
             arg_options.chart_obj = chart_cont_obj;
             chart_cont_obj.html("");
-            if (this.supply.title == "线路分时客流"){
-                this.line_passenger_flow_query(arg_options);
-            }else if (this.supply.title == "站点分时客流"){
+            if (this.supply.title == "线路分时客流") {
+                // 线路分时客流查询接口
+                $.ajax({
+                    type: 'get',
+                    // url: 'http://192.168.2.122:8080/ltyop/busReport/getPassengerFlow?apikey=222&line_id=197&city_code=130400&date_end=20170912&date_period=30&direction=1&step=1',
+                    url: 'http://192.168.2.122:8080/ltyop/busReport/getPassengerFlow?apikey=222&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=30&direction=' + arg_options.direction + '&step=1',
+                    data: {},
+                    dataType: 'json',
+                    error: function (res) {
+                        console.log("数据错误")
+                    },
+                    success: function (res) {
+                        var passenger_flow_x = [];            //x+时间轴
+                        var pre_passenger_flow_y = [];       //y+预测客流
+                        var history_passenger_flow_y = [];   //y+历史客流
+                        var history_capacity_y = [];        //y+历史运力
+                        var sugguset_capacity = [];         //y+建议运力
+                        var y_lose_data = [];              //y-的坐标值
+                        $.each(res.response, function (key, val) {
+                            if (key == "pre_passenger_flow") {
+                                for (var i in val) {
+                                    passenger_flow_x.unshift(val[i].x_data);
+                                    pre_passenger_flow_y.unshift(val[i].y_data);
+                                };
+                            };
+                            if (key == "history_passenger_flow") {
+                                for (var i in val) {
+                                    // passenger_flow_x.unshift(val[i].x_data);
+                                    history_passenger_flow_y.unshift(val[i].y_data)
+                                }
+                            };
+                            if (key == "history_capacity") {
+                                for (var i in val) {
+                                    // passenger_flow_x.unshift(val[i].x_data);
+                                    history_capacity_y.unshift(val[i].y_data)
+                                }
+                            };
+                            if (key == "sugguset_capacity") {
+                                for (var i in val) {
+                                    // passenger_flow_x.unshift(val[i].x_data);
+                                    sugguset_capacity.unshift(val[i].y_data)
+                                }
+                            }
+                        })
+                        var line_time_sharing_traffic = {
+                            passenger_flow_x: passenger_flow_x,
+                            pre_passenger_flow_y: pre_passenger_flow_y,
+                            history_passenger_flow_y: history_passenger_flow_y,
+                            history_capacity_y: history_capacity_y,
+                            sugguset_capacity: sugguset_capacity
+                        };
+                        self.line_passenger_flow_query(arg_options, line_time_sharing_traffic);
+                    }     //success
+                })//$.ajax  end
+                // this.line_passenger_flow_query(arg_options);
+            } else if (this.supply.title == "站点分时客流") {
                 this.site_passenger_flow_query(arg_options);
-            }else if (this.supply.title == "各公司分时客流与构成"){
+            } else if (this.supply.title == "各公司分时客流与构成") {
                 this.company_passenger_flow_query(arg_options);
-            }else if (this.supply.title == "分时准点率与滞站客流"){
-                this.time_place_passenger_flow_query(arg_options);
+            } else if (this.supply.title == "分时准点率与滞站客流") {
+                //分时准点率与滞站客流 动态渲染
+                $.ajax({
+                    type: 'get',
+                    // url: 'http://192.168.2.122:8080/ltyop/busReport/getPointRatePasFlow?apikey=211&line_id=197&city_code=130400&date_end=20170914&date_period=30&direction=1&station_id=&step=1',
+                    url: 'http://192.168.2.122:8080/ltyop/busReport/getPointRatePasFlow?apikey=211&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=30&direction=' + arg_options.direction + '&step=1',
+                    //date_end   没有结束日期
+                    data: {},
+                    dataType: 'json',
+                    error: function (res) {
+                        console.log("数据错误")
+                    },
+                    success: function (res) {
+                        console.log("数据成功")
+                        var x_data = [];
+                        var y_data = [];
+                        var y_lose_data = [];
+                        $.each(res.response, function (key, val) {
+                            if (key == "line_ontime_rate") {
+                                for (var i in val) {
+                                    x_data.unshift(val[i].x_data);
+                                    y_data.unshift(val[i].y_data);
+                                };
+                            };
+                            if (key == "line_holdup_people") {
+                                for (var i in val) {
+                                    y_lose_data.unshift(val[i].y_data);
+                                }
+                            }
+                        })
+                        var echar_data = {
+                            x_data: x_data,
+                            y_data: y_data,
+                            y_lose_data: y_lose_data,
+                        };
+                        self.time_place_passenger_flow_query(arg_options, echar_data);
+                    }     //success
+                })//$.ajax  end
             }
         },
         // 线路分时客流数据查询渲染
-        line_passenger_flow_query: function(arg_options){
-            if (arg_options.plan_way == "when"){
+        line_passenger_flow_query: function (arg_options, line_time_sharing_traffic) {
+            if (arg_options.plan_way == "when") {
                 var passenger_flow_data = {
                     yName: arg_options.line_name,
-                    xAxis_data: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'],
+                    xAxis_data: line_time_sharing_traffic.passenger_flow_x,
+                    // xAxis_data: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'],
                     yAxis_data: ['300', '600', '900', '1200', '1500'],
-                    series_data_set: {type: "line"},
-                    data_list: [{
+                    series_data_set: { type: "line" },
+                    data_list: [
+                        {
                             name: "预测客流",
                             lineStyle: {
                                 normal: {
                                     color: '#ff0000'
                                 }
                             },
-                            data: [800, 850, 930, 1200, 1300, 1250, 1000, 700, 900, 990, 1010, 1050, 920, 1000, 1000, 1000, 1000]
+                            // data: [800, 850, 930, 1200, 1300, 1250, 1000, 700, 900, 990, 1010, 1050, 920, 1000, 1000, 1000, 1000]
+                            data: line_time_sharing_traffic.pre_passenger_flow_y
                         },
                         {
                             name: "历史客流",
@@ -132,7 +279,8 @@ odoo.define(function(require) {
                                     color: '#9d3b9d'
                                 }
                             },
-                            data: [700, 750, 830, 1100, 1200, 1150, 900, 600, 800, 890, 910, 950, 820, 900, 900, 900, 900]
+                            // data: [700, 750, 830, 1100, 1200, 1150, 900, 600, 800, 890, 910, 950, 820, 900, 900, 900, 900]
+                            data: line_time_sharing_traffic.history_passenger_flow_y
                         },
                         {
                             name: "建议运力",
@@ -142,7 +290,8 @@ odoo.define(function(require) {
                                     color: '#00cc66'
                                 }
                             },
-                            data: [900, 1000, 1000, 1200, 1200, 1200, 900, 900, 900, 1100, 1100, 1200, 900, 1300, 1300, 1300, 1300]
+                            // data: [900, 1000, 1000, 1200, 1200]
+                            data: line_time_sharing_traffic.sugguset_capacity
                         },
                         {
                             name: "历史运力",
@@ -153,60 +302,64 @@ odoo.define(function(require) {
                                     color: '#898989'
                                 }
                             },
-                            data: [900, 900, 900, 1100, 1100, 1100, 800, 800, 800, 1000, 1000, 1100, 1000, 1200, 1200, 1200, 1200]
+                            // data: [900, 900, 900, 1100, 1100]
+                            data: line_time_sharing_traffic.history_capacity_y
                         }
                     ],
                 };
+                // 无接口调试
                 var satisfaction_data = {
                     yName: "满意度",
-                    xAxis_data: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'],
-                    yAxis_data: ['25', '50', '75', '100'],
+                    // xAxis_data: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'],
+                    xAxis_data: line_time_sharing_traffic.passenger_flow_x,
+                    yAxis_data: ['25', '50', '75', '100',],
                     series_data_set: {
                         stack: "one",
                         type: "bar",
-                        barWidth: '60%',
+                        // barWidth: '60%',
+                        barWidth: '29',
                         barMinHeight: 15,
                     },
                     data_list: [{
-                            name: "候车满意度",
-                            lineStyle: {
-                                normal: {
-                                    color: '#be5453'
-                                }
-                            },
-                            data: [5, 6, 8, 9, 10, 5, 6, 7, 8, 25, 6, 8, 9, 10, 5, 6, 7]
+                        name: "候车满意度",
+                        lineStyle: {
+                            normal: {
+                                color: '#be5453'
+                            }
                         },
-                        {
-                            name: "乘车舒适满意度",
-                            lineStyle: {
-                                normal: {
-                                    color: '#668ea6'
-                                }
-                            },
-                            data: [5, 6, 8, 9, 10, 5, 6, 7, 8, 25, 6, 8, 9, 10, 5, 6, 7]
+                        data: [5, 6, 8, 9, 10]
+                    },
+                    {
+                        name: "乘车舒适满意度",
+                        lineStyle: {
+                            normal: {
+                                color: '#668ea6'
+                            }
                         },
-                        {
-                            name: "企业满意度",
-                            lineStyle: {
-                                normal: {
-                                    color: '#82b6be'
-                                }
-                            },
-                            data: [5, 6, 8, 9, 10, 5, 6, 7, 8, 25, 6, 8, 9, 10, 5, 6, 7]
+                        data: [5, 6, 8, 9, 10]
+                    },
+                    {
+                        name: "企业满意度",
+                        lineStyle: {
+                            normal: {
+                                color: '#82b6be'
+                            }
                         },
-                        {
-                            name: "乘客满意度",
-                            lineStyle: {
-                                normal: {
-                                    color: '#2f4554'
-                                }
-                            },
-                            data: [5, 6, 8, 9, 10, 5, 6, 7, 8, 25, 6, 8, 9, 10, 5, 6, 7]
+                        data: [5, 6, 8, 9, 10]
+                    },
+                    {
+                        name: "乘客满意度",
+                        lineStyle: {
+                            normal: {
+                                color: '#2f4554'
+                            }
                         },
+                        data: [5, 6, 8, 9, 10]
+                    },
                     ]
                 }
                 new line_passenger_flow_hour_chart(this, passenger_flow_data, satisfaction_data).appendTo(arg_options.chart_obj);
-            }else{
+            } else {          //天  月 周部分
                 var passenger_flow_data = {
                     day: {
                         yName: arg_options.line_name,
@@ -273,7 +426,7 @@ odoo.define(function(require) {
             }
         },
         // 站点分时客流数据查询渲染
-        site_passenger_flow_query: function(arg_options){
+        site_passenger_flow_query: function (arg_options) {
             if (arg_options.plan_way == "when") {
                 if (arg_options.platform == "total") {
                     var data = [
@@ -311,9 +464,9 @@ odoo.define(function(require) {
                         ]
                     };
                     new site_passenger_flow_chart_scatter(this, chart_parameter_data).appendTo(arg_options.chart_obj);
-                }else{
+                } else {
                     var chart_parameter_data = {
-                        yName: arg_options.line_name+'/'+arg_options.platform_name,
+                        yName: arg_options.line_name + '/' + arg_options.platform_name,
                         yAxis_data: ['50', '100', '150', '200', '250'],
                         xAxis_data: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'],
                         series_data_set: {
@@ -383,10 +536,10 @@ odoo.define(function(require) {
                     }
                     new site_passenger_flow_hour_chart(this, chart_parameter_data, site_table_data).appendTo(arg_options.chart_obj);
                 }
-            }else{
+            } else {
                 var chart_parameter_data = {
                     day: {
-                        yName: arg_options.line_name+'/'+arg_options.platform_name,
+                        yName: arg_options.line_name + '/' + arg_options.platform_name,
                         yAxis_data: [3000, 6000, 9000, 12000, 15000],
                         xAxis_data: ["05-01", "05-02", "05-03", "05-04", "05-05", "05-06", "05-07", "05-08", "05-09", "05-10", "05-11", "05-12", "05-13", "05-14"],
                         series_data_set: {
@@ -449,8 +602,8 @@ odoo.define(function(require) {
                 new line_passenger_flow_chart(this, chart_parameter_data[arg_options.plan_way]).appendTo(arg_options.chart_obj);
             }
         },
-        // 各公司分时客流与构成查询渲染
-        company_passenger_flow_query: function(arg_options){
+        // 各公司分时客流与构成渲染
+        company_passenger_flow_query: function (arg_options) {
             var xAxis_data_dict = {
                 when: ['06点', '08点', '10点', '12点', '14点', '16点', '18点', '22点', '24点'],
                 day: ['5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7', '5.8', '5.9'],
@@ -467,48 +620,52 @@ odoo.define(function(require) {
                 company_name: arg_options.company_name,
                 xAxis_data: xAxis_data_dict[arg_options.plan_way],
                 yAxis_data: ['0', '3000', '6000', '9000', '12000', '15000'],
-                series_data_set: { type: 'line', symbolSize: 1,},
+                series_data_set: { type: 'line', symbolSize: 1, },
                 data_list: [{
-                        name: company_child_dict[arg_options.company_name][0],
-                        data: [8000, 8500, 9300, 12000, 13000, 12500, 10000, 7000, 9000]
-                    },
-                    {
-                        name: company_child_dict[arg_options.company_name][1],
-                        data: [7000, 7500, 8300, 11000, 12000, 11500, 9000, 6000, 8000]
-                    },
-                    {
-                        name: company_child_dict[arg_options.company_name][2],
-                        data: [9000, 10000, 10000, 12000, 12000, 12000, 9000, 5000, 6000]
-                    },
+                    name: company_child_dict[arg_options.company_name][0],
+                    data: [8000, 8500, 9300, 12000, 13000, 12500, 10000, 7000, 9000]
+                },
+                {
+                    name: company_child_dict[arg_options.company_name][1],
+                    data: [7000, 7500, 8300, 11000, 12000, 11500, 9000, 6000, 8000]
+                },
+                {
+                    name: company_child_dict[arg_options.company_name][2],
+                    data: [9000, 10000, 10000, 12000, 12000, 12000, 9000, 5000, 6000]
+                },
                 ]
             };
             new company_passenger_flow_chart(this, chart_parameter_data).appendTo(arg_options.chart_obj);
         },
-        time_place_passenger_flow_query: function(arg_options){
-            var xAxis_data_dict = {
-                when: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'],
+        //分时准点率与滞站客流渲染
+        time_place_passenger_flow_query: function (arg_options, echar_data) {
+            var xAxis_data_dict = {        //x时间轴
+                when: echar_data.x_data,
+                // when: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'],
                 day: ['5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7', '5.8', '5.9'],
                 weeks: ['2017-17周', '2017-18周', '2017-19周', '2017-20周', '2017-21周', '2017-22周', '2017-23周', '2017-24周', '2017-25周'],
                 month: ['2017-01', '2017-02', '2017-03', '2017-04', '2017-05', '2017-06', '2017-07', '2017-08', '2017-09']
             };
-            var series_data_dict_1 = {
-                when: [61, 63, 72, 88, 72, 62, 65, 60, 55, 49, 76, 88, 56, 68, 65, 61, 67],
+            var series_data_dict_1 = {     //y--准点率
+                when: echar_data.y_data,
+                // when: [61, 63, 72, 88, 72, 62, 65, 60, 55, 49, 76, 88, 56, 68, 65, 61, 67],
                 day: [88, 72, 62, 65, 60, 55, 49, 76, 88],
                 weeks: [63, 72, 88, 72, 62, 65, 60, 55, 49],
                 month: [49, 76, 88, 56, 68, 65, 61, 67, 78]
             };
-            var series_data_dict_2 = {
-                when: [31, 23, 12, 28, 42, 52, 35, 20, 45, 39, 36, 38, 26, 28, 25, 31, 37],
+            var series_data_dict_2 = {     //滞留客
+                // when: [31, 23, 12, 28, 42, 52, 35, 20, 45, 39, 36, 38, 26, 28, 25, 31, 37],
+                when: echar_data.y_lose_data,
                 day: [28, 32, 22, 15, 30, 45, 49, 26, 18],
                 weeks: [23, 32, 18, 32, 42, 25, 30, 45, 49],
                 month: [49, 26, 38, 56, 18, 25, 31, 47, 28]
             };
-            var yName = arg_options.platform!="total"?arg_options.platform_name:"线路"
+            var yName = arg_options.platform != "total" ? arg_options.platform_name : "线路"
             var passenger_flow_data = {
-                yName: yName+'平均准点率',
+                yName: yName + '平均准点率',
                 xAxis_data: xAxis_data_dict[arg_options.plan_way],
                 yAxis_data: ['50', '60', '70', '80', '100'],
-                series_data_set: {type: "line",symbolSize: 1},
+                series_data_set: { type: "line", symbolSize: 1 },
                 data_list: [
                     {
                         name: "平均准点率",
@@ -522,13 +679,13 @@ odoo.define(function(require) {
                 ],
             };
             var satisfaction_data = {
-                yName: yName+'平均滞站客流',
+                yName: yName + '平均滞站客流',
                 xAxis_data: xAxis_data_dict[arg_options.plan_way],
                 yAxis_data: ['10', '20', '30', '40'],
                 series_data_set: {
                     stack: "one",
                     type: "bar",
-                    barWidth: '60%',
+                    barWidth: '29',
                     barMinHeight: 15,
                 },
                 data_list: [
@@ -538,10 +695,10 @@ odoo.define(function(require) {
                     }
                 ]
             }
-            
+
             new time_place_passenger_flow_chart(this, passenger_flow_data, satisfaction_data).appendTo(arg_options.chart_obj);
         },
-        get_scatter_date: function(data) {
+        get_scatter_date: function (data) {
             var new_data = [];
             for (var i = 0, l = data.length; i < l; i++) {
                 var color = '#dbff71';
@@ -559,40 +716,61 @@ odoo.define(function(require) {
             return new_data;
         }
     })
+    //线路分时客流 Line odoo extend
+    var line_passenger_flow_base = Widget.extend({
+        init: function (parent) {
+            this._super(parent);
+        },
+        start: function () {
+            var self = this;
+            model_city.query().filter([["key", "=", 'city.code']]).all().then(function (citys) {
+                model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {
+                    var options = {
+                        cityCode: citys[0].value,
+                        lineInfo: lines,
+                    };
+                    new line_passenger_flow(self, options).appendTo(self.$el);
+                });
+            });
+        }
+    });
 
     // 线路分时客流 Line
     var line_passenger_flow = Widget.extend({
         template: "supply_template",
-        init: function(parent) {
+        init: function (parent, args) {
             this._super(parent);
+            this.lineDate = args.lineInfo;
+            this.cityCode = args.cityCode;
         },
-        start: function() {
+        start: function () {
             $(".o_loading").show();
-            // var layer_index = layer.msg("加载中...", {time:0, shade: 0.3});
+            var layer_index = layer.msg("加载中...", { time: 0, shade: 0.3 });
             var title = "线路分时客流";
             var history_passenger_flow = [
-                { name: "前30天", id: "a1" },
-                { name: "前60天", id: "a2" },
-                { name: "前90天", id: "a3" },
-                { name: "前365天", id: "a4" },
-                { name: "所有", id: "a5" },
+                { name: "前30天", id: "30" },
+                { name: "前60天", id: "60" },
+                { name: "前90天", id: "90" },
+                { name: "前365天", id: "365" },
+                { name: "所有", id: "all" },
             ];
             var predict_passenger_flow_time = "2017-07-31";
             var plan_way = [
-                { name: "按时", en_name: "when" },
-                { name: "按天", en_name: "day" },
-                { name: "按周", en_name: "weeks" },
-                { name: "按月", en_name: "month" },
+                { name: "按时", en_name: "when", value: 1 },
+                { name: "按天", en_name: "day", value: 2 },
+                { name: "按周", en_name: "weeks", value: 3 },
+                { name: "按月", en_name: "month", value: 4 },
             ];
-            var line_list = [
-                { name: "236路", id: "b1" },
-                { name: "M231路", id: "b2" },
-                { name: "229路", id: "b3" },
-                { name: "298路", id: "b4" },
-            ];
+            // var line_list = [
+            //     { name: "236路", id: "b1" },
+            //     { name: "M231路", id: "b2" },
+            //     { name: "229路", id: "b3" },
+            //     { name: "298路", id: "b4" },
+            // ];
+            var line_list = this.lineDate;
             var direction = [
-                { name: "上行", id: "c1" },
-                { name: "下行", id: "c2" },
+                { name: "上行", id: "0" },
+                { name: "下行", id: "1" },
             ];
             var data_type = [
                 { name: "工作日", id: "d1" },
@@ -614,22 +792,24 @@ odoo.define(function(require) {
                 direction: direction,
                 data_type: data_type,
                 data_scope: data_scope,
-                dis_set: dis_set
+                dis_set: dis_set,
+                city_code: this.cityCode
             };
+            layer.close(layer_index);//9.25 加载LODING            
             new supply_title(this, options).appendTo(this.$('.operate_title'));
         }
     });
-    core.action_registry.add('lty_operating_supply.line_passenger_flow', line_passenger_flow);
+    core.action_registry.add('lty_operating_supply.line_passenger_flow', line_passenger_flow_base);
 
     // 线路分时客流图表(按时方式) Line-hour
     var line_passenger_flow_hour_chart = Widget.extend({
         template: "line_passenger_flow_hour_chart_template",
-        init: function(parent, data1, data2) {
+        init: function (parent, data1, data2) {
             this._super(parent);
             this.chart_parameter_data = data1;
             this.chart_satisfaction_data = data2;
         },
-        start: function() {
+        start: function () {
             // 客流运力图表
             this.chart_passenger_flow();
             // 峰值图表
@@ -637,7 +817,7 @@ odoo.define(function(require) {
             // 满意度图表
             this.chart_satisfaction();
         },
-        chart_passenger_flow: function(){
+        chart_passenger_flow: function () {
             var set_option = {
                 legend: {
                     icon: 'stack',
@@ -657,7 +837,7 @@ odoo.define(function(require) {
             var mychart = echarts.init(this.$('.chart_passenger_flow')[0]);
             mychart.setOption(chart_option);
         },
-        chart_peak_canvas: function(){
+        chart_peak_canvas: function () {
             var min = 1200,
                 max = 1300;
             var oe_data = this.chart_parameter_data.data_list[2].data;
@@ -689,7 +869,7 @@ odoo.define(function(require) {
                 end_x += w;
             }
         },
-        chart_satisfaction: function(){
+        chart_satisfaction: function () {
             var set_option = {
                 legend: {
                     icon: 'stack',
@@ -727,7 +907,7 @@ odoo.define(function(require) {
             mychart.setOption(chart_option);
             this.switch_chart(mychart);
         },
-        switch_chart: function(mychart){
+        switch_chart: function (mychart) {
             var option_set_1 = {
                 legend: {
                     selected: {
@@ -749,7 +929,7 @@ odoo.define(function(require) {
                 },
             };
             var option = {};
-            this.$el.on("click", ".chart_satisfaction_bt label", function() {
+            this.$el.on("click", ".chart_satisfaction_bt label", function () {
                 if ($(this).find("input[type='radio']").hasClass("way_1")) {
                     option = option_set_1;
                 } else {
@@ -763,14 +943,14 @@ odoo.define(function(require) {
     // 线路分时客流图表(其它方式) Line-day/weeks/month
     var line_passenger_flow_chart = Widget.extend({
         template: "passenger_flow_chart_template",
-        init: function(parent, data) {
+        init: function (parent, data) {
             this._super(parent);
             this.chart_data = data;
         },
-        start: function() {
+        start: function () {
             this.chart_passenger_flow();
         },
-        chart_passenger_flow: function(){
+        chart_passenger_flow: function () {
             var set_option = {
                 grid: {
                     left: '3%',
@@ -792,31 +972,169 @@ odoo.define(function(require) {
         }
     });
 
+    var company_passenger_flow_chart = Widget.extend({
+        template: "company_passenger_flow_template",
+        init: function (parent, data) {
+            this._super(parent);
+            this.chart_data = data;
+            // alert(this.chart_data.company_name)
+        },
+        start: function () {
+            // 分时客流展示
+            this.shunt_chart();
+            // 总公司客流构成
+            this.passenger_flow_chart();
+        },
+        shunt_chart: function () {
+            var data_list = this.chart_data.data_list;
+            this.set_chart_data(data_list)
+            var set_option = {
+                legend: {
+                    icon: 'stack',
+                    orient: 'vertical',
+                    right: '10%',
+                    top: '10px',
+                },
+                xAxis: {
+                    show: true,
+                    axisLabel: {
+                        formatter: '{value}'
+                    },
+                },
+                grid: {
+                    left: '10%',
+                    bottom: '3%',
+                    right: '10%',
+                    top: '25%',
+                    containLabel: true
+                },
+            }
+            var chart_option = supply_make_chart_options.default_option_set1(this.chart_data, set_option);
+            var mychart = echarts.init(this.$('.chart_passenger_flow')[0]);
+            mychart.setOption(chart_option);
+        },
+        passenger_flow_chart: function () {
+            var chart_data = this.chart_data_set;
+            var pie_option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                series: [{
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '80%',
+                    center: ['50%', '60%'],
+                    label: {
+                        normal: {
+                            position: "inner"
+                        }
+                    },
+                    data: chart_data.pie_data
+                }]
+            };
+            var pie_chart = echarts.init(this.$('.chart2')[0]);
+            pie_chart.setOption(pie_option);
+        },
+        set_chart_data: function (data_list) {
+            var legend_data = [];
+            var pie_data = [];
+            for (var i = 0, l = data_list.length; i < l; i++) {
+                var data = data_list[i];
+                var series_obj = {
+                    name: data.name,
+                    type: 'line',
+                    symbolSize: 1,
+                    lineStyle: {
+                        normal: {
+                            color: data.color,
+                        }
+                    },
+                    data: data.data
+                };
+                var pie_obj = {
+                    name: data.name,
+                    value: eval(data.data.join("+")),
+                }
+                legend_data.push(data.name);
+                pie_data.push(pie_obj);
+            }
+            this.chart_data_set = { legend_data: legend_data, pie_data: pie_data };
+        },
+    });
+
+    // 站点分时客流 site odoo extend
+    var site_passenger_flow_base = Widget.extend({
+        init: function (parent) {
+            this._super(parent);
+        },
+        start: function () {
+            var self = this;
+            var self = this;
+            model_city.query().filter([["key", "=", 'city.code']]).all().then(function (citys) {
+                model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {
+                    model_site.query().filter([["route_id", "=", parseInt(lines[0].id)]]).all().then(function (sites) {
+                        var site_top_list = [];
+                        var site_down_list = [];
+                        _.each(sites, function (ret) {
+                            if (ret.direction == "up") {
+                                site_top_list.push(ret);
+                            } else {
+                                site_down_list.push(ret);
+                            }
+                        });
+                        var options = {
+                            cityCode: citys[0].value,
+                            lineInfo: lines,
+                            initSiteInfo: site_top_list
+                        };
+                        new site_passenger_flow(self, options).appendTo(self.$el);
+                    });
+                });
+            });
+        }
+    });
     // 站点分时客流 site
     var site_passenger_flow = Widget.extend({
         template: "supply_template",
-        init: function(parent) {
+        init: function (parent, args) {
             this._super(parent);
+            this.lineDate = args.lineInfo;
+            this.cityCode = args.cityCode;
+            this.siteDate = args.initSiteInfo;
+
         },
-        start: function() {
+        start: function () {
             $(".o_loading").show();
-            // var layer_index = layer.msg("加载中...", {time:0, shade: 0.3});
+            var layer_index = layer.msg("加载中...", { time: 0, shade: 0.3 });
             var title = "站点分时客流";
+            // 9.22跟换时间模型
+            var history_passenger_flow = [
+                { name: "前30天", id: "30" },
+                { name: "前60天", id: "60" },
+                { name: "前90天", id: "90" },
+                { name: "前365天", id: "365" },
+                { name: "所有", id: "all" },
+            ];
+            var predict_passenger_flow_time = "2017-07-31";
+            // 
             var plan_way = [
-                { name: "按时", en_name: "when" },
-                { name: "按天", en_name: "day" },
-                { name: "按周", en_name: "weeks" },
-                { name: "按月", en_name: "month" },
+                { name: "按时", en_name: "when", value: 1 },
+                { name: "按天", en_name: "day", value: 2 },
+                { name: "按周", en_name: "weeks", value: 3 },
+                { name: "按月", en_name: "month", value: 4 },
             ];
-            var line_list = [
-                { name: "236路", id: "b1" },
-                { name: "M231路", id: "b2" },
-                { name: "229路", id: "b3" },
-                { name: "298路", id: "b4" },
-            ];
+            // var line_list = [
+            //     { name: "236路", id: "b1" },
+            //     { name: "M231路", id: "b2" },
+            //     { name: "229路", id: "b3" },
+            //     { name: "298路", id: "b4" },
+            // ];
+            var line_list = this.lineDate;
+
             var direction = [
-                { name: "上行", id: "c1" },
-                { name: "下行", id: "c2" },
+                { name: "上行", id: "0" },
+                { name: "下行", id: "1" },
             ];
             var data_type = [
                 { name: "工作日", id: "d1" },
@@ -826,16 +1144,19 @@ odoo.define(function(require) {
             var data_scope = [
                 "2017-06-26", "2017-07-31"
             ];
-            var platform = [
-                { name: "世界之窗", id: "s1" },
-                { name: "白石洲", id: "s2" },
-                { name: "蛇口", id: "s3" },
-                { name: "人民公园", id: "s4" },
-                { name: "市政府", id: "s5" },
-                { name: "白菜花园", id: "s6" },
-                { name: "酷派信息港", id: "s7" }
-            ];
+            // var platform = [
+            //     { name: "世界之窗", id: "s1" },
+            //     { name: "白石洲", id: "s2" },
+            //     { name: "蛇口", id: "s3" },
+            //     { name: "人民公园", id: "s4" },
+            //     { name: "市政府", id: "s5" },
+            //     { name: "白菜花园", id: "s6" },
+            //     { name: "酷派信息港", id: "s7" }
+            // ];
+            var platform = this.siteDate;
+
             var dis_set = {
+                data_scope: true      //9.22
             };
             var options = {
                 title: title,
@@ -845,24 +1166,29 @@ odoo.define(function(require) {
                 data_type: data_type,
                 data_scope: data_scope,
                 platform: platform,
-                dis_set: dis_set
+                dis_set: dis_set,
+                city_code: this.cityCode,
+                history_passenger_flow: history_passenger_flow, //9.22
+                predict_passenger_flow_time: predict_passenger_flow_time//9.22
             };
+            layer.close(layer_index);//9.25 加载LODING            
             new supply_title(this, options).appendTo(this.$('.operate_title'));
         }
     });
-    core.action_registry.add('lty_operating_supply.site_passenger_flow', site_passenger_flow);
+    // core.action_registry.add('lty_operating_supply.site_passenger_flow', site_passenger_flow);
+    core.action_registry.add('lty_operating_supply.site_passenger_flow', site_passenger_flow_base);
 
     // 站点分时客流 site-按时-全站
     var site_passenger_flow_chart_scatter = Widget.extend({
         template: "site_chart_scatter_template",
-        init: function(parent, data) {
+        init: function (parent, data) {
             this._super(parent);
             this.chart_data = data;
         },
-        start: function() {
+        start: function () {
             this.scatter_chart();
         },
-        scatter_chart: function() {
+        scatter_chart: function () {
             var schema = [
                 { name: 'date', index: 0, text: '时间' },
                 { name: 'site', index: 1, text: '站' },
@@ -876,7 +1202,7 @@ odoo.define(function(require) {
                     backgroundColor: '#222',
                     borderColor: '#777',
                     borderWidth: 1,
-                    formatter: function(obj) {
+                    formatter: function (obj) {
                         var value = obj.value;
                         return '<div style="border-bottom: 1px solid rgba(255,255,255,.3); font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">' +
                             value[1] + ' ' + value[0] + '点：</div>' +
@@ -894,18 +1220,18 @@ odoo.define(function(require) {
     // 站点分时客流 site-按时-单站
     var site_passenger_flow_hour_chart = Widget.extend({
         template: "site_passenger_flow_hour_chart_template",
-        init: function(parent, data1, data2) {
+        init: function (parent, data1, data2) {
             this._super(parent);
             this.chart_data = data1;
             this.site_table_data = data2;
         },
-        start: function() {
+        start: function () {
             // 客流运力图表
             this.chart_parameter_fn();
             // 站点信息
             this.site_table_info();
         },
-        chart_parameter_fn: function() {
+        chart_parameter_fn: function () {
             this.chart_data.legend_number = 2;
             var set_option = {
                 grid: {
@@ -934,7 +1260,7 @@ odoo.define(function(require) {
             mychart.setOption(chart_option);
             this.switch_chart(mychart);
         },
-        switch_chart: function(mychart) {
+        switch_chart: function (mychart) {
             var selected = {
                 '客流统计': true,
                 '运力统计': true,
@@ -942,7 +1268,7 @@ odoo.define(function(require) {
                 '上周同期': false,
                 '上月同期': false
             };
-            this.$(".chart_satisfaction_bt").on("click", ".set_bt", function() {
+            this.$(".chart_satisfaction_bt").on("click", ".set_bt", function () {
                 if ($(this).hasClass('way_1')) {
                     selected = {
                         '客流统计': true,
@@ -978,7 +1304,7 @@ odoo.define(function(require) {
 
             });
         },
-        site_table_info: function() {
+        site_table_info: function () {
             $(".site_info_table").bootstrapTable({
                 data: this.site_table_data,
                 pagination: true,
@@ -995,12 +1321,22 @@ odoo.define(function(require) {
     // 各公司分时客流 company
     var company_passenger_flow = Widget.extend({
         template: "supply_template",
-        init: function(parent) {
+        init: function (parent) {
             this._super(parent);
         },
-        start: function() {
+        start: function () {
             $(".o_loading").show();
             var title = "各公司分时客流与构成";
+            // 9.22时间模块跟换
+            var history_passenger_flow = [
+                { name: "前30天", id: "30" },
+                { name: "前60天", id: "60" },
+                { name: "前90天", id: "90" },
+                { name: "前365天", id: "365" },
+                { name: "所有", id: "all" },
+            ];
+            var predict_passenger_flow_time = "2017-07-31";
+            // 
             var data_scope = [
                 "2017-06-26", "2017-07-31"
             ];
@@ -1017,8 +1353,11 @@ odoo.define(function(require) {
                 { name: "三分公司", id: "comp4" }
             ];
             var dis_set = {
+                data_scope: true          //9.22   
             };
             var options = {
+                history_passenger_flow: history_passenger_flow,              //9.22
+                predict_passenger_flow_time: predict_passenger_flow_time,    //9.22
                 title: title,
                 plan_way: plan_way,
                 data_scope: data_scope,
@@ -1033,18 +1372,18 @@ odoo.define(function(require) {
     // 各公司分时客流 chart
     var company_passenger_flow_chart = Widget.extend({
         template: "company_passenger_flow_template",
-        init: function(parent, data) {
+        init: function (parent, data) {
             this._super(parent);
             this.chart_data = data;
             // alert(this.chart_data.company_name)
         },
-        start: function() {
+        start: function () {
             // 分时客流展示
             this.shunt_chart();
             // 总公司客流构成
             this.passenger_flow_chart();
         },
-        shunt_chart: function() {
+        shunt_chart: function () {
             var data_list = this.chart_data.data_list;
             this.set_chart_data(data_list)
             var set_option = {
@@ -1072,7 +1411,7 @@ odoo.define(function(require) {
             var mychart = echarts.init(this.$('.chart_passenger_flow')[0]);
             mychart.setOption(chart_option);
         },
-        passenger_flow_chart: function() {
+        passenger_flow_chart: function () {
             var chart_data = this.chart_data_set;
             var pie_option = {
                 tooltip: {
@@ -1095,7 +1434,7 @@ odoo.define(function(require) {
             var pie_chart = echarts.init(this.$('.chart2')[0]);
             pie_chart.setOption(pie_option);
         },
-        set_chart_data: function(data_list) {
+        set_chart_data: function (data_list) {
             var legend_data = [];
             var pie_data = [];
             for (var i = 0, l = data_list.length; i < l; i++) {
@@ -1122,50 +1461,97 @@ odoo.define(function(require) {
         },
     });
 
+    // 分时准点率与滞站客流 odoo extend
+    var line_passenger_flow_base = Widget.extend({
+        init: function (parent) {
+            this._super(parent);
+        },
+        start: function () {
+            var self = this;
+            model_city.query().filter([["key", "=", 'city.code']]).all().then(function (citys) {
+                model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {
+                    model_site.query().filter([["route_id", "=", parseInt(lines[0].id)]]).all().then(function (sites) {
+                        var site_top_list = [];
+                        var site_down_list = [];
+                        _.each(sites, function (ret) {
+                            if (ret.direction == "up") {
+                                site_top_list.push(ret);
+                            } else {
+                                site_down_list.push(ret);
+                            }
+                        });
+                        var options = {
+                            cityCode: citys[0].value,
+                            lineInfo: lines,
+                            initSiteInfo: site_top_list
+                        };
+                        new time_place_passenger_flow(self, options).appendTo(self.$el);
+                    });
+                });
+            });
+        }
+    });
     // 分时准点率与滞站客流
     var time_place_passenger_flow = Widget.extend({
         template: "supply_template",
-        init: function(parent) {
+        init: function (parent, args) {
             this._super(parent);
+            this.lineDate = args.lineInfo;
+            this.cityCode = args.cityCode;
+            this.siteDate = args.initSiteInfo;
         },
-        start: function() {
+        start: function () {
             $(".o_loading").show();
             var title = "分时准点率与滞站客流";
+            // 9.25跟换时间模型
+            var history_passenger_flow = [
+                { name: "前30天", id: "30" },
+                { name: "前60天", id: "60" },
+                { name: "前90天", id: "90" },
+                { name: "前365天", id: "365" },
+                { name: "所有", id: "all" },
+            ];
+            var predict_passenger_flow_time = "2017-07-31";
+            // 
             var plan_way = [
-                { name: "按时", en_name: "when" },
-                { name: "按天", en_name: "day" },
-                { name: "按周", en_name: "weeks" },
-                { name: "按月", en_name: "month" },
+                { name: "按时", en_name: "when", value: 1 },
+                { name: "按天", en_name: "day", value: 2 },
+                { name: "按周", en_name: "weeks", value: 3 },
+                { name: "按月", en_name: "month", value: 4 },
             ];
-            var line_list = [
-                { name: "236路", id: "o1" },
-                { name: "M231路", id: "o1" },
-                { name: "229路", id: "o1" },
-                { name: "298路", id: "o1" },
-            ];
+            // var line_list = [
+            //     { name: "236路", id: "o1" },
+            //     { name: "M231路", id: "o1" },
+            //     { name: "229路", id: "o1" },
+            //     { name: "298路", id: "o1" },
+            // ];
+            var line_list = this.lineDate;
+
             var direction = [
-                { name: "上行", id: "i1" },
-                { name: "下行", id: "i2" },
+                { name: "上行", id: "0" },
+                { name: "下行", id: "1" },
             ];
             var data_scope = [
                 "2017-06-26", "2017-07-31"
             ];
             var dis_set = {
+                data_scope: true      //9.25
             };
             var data_type = [
                 { name: "工作日", id: "d1" },
                 { name: "周末", id: "d2" },
                 { name: "节假日", id: "d3" },
             ];
-            var platform = [
-                {name: '蛇口站', id: 'ss1'},
-                {name: '滨海站', id: 'ss2'},
-                {name: '世界之窗', id: 'ss3'},
-                {name: '白石洲', id: 'ss4'},
-                {name: '红树林', id: 'ss5'},
-                {name: '下沙', id: 'ss6'},
-                {name: '购物公园', id: 'ss7'}
-            ];
+            // var platform = [
+            //     { name: '蛇口站', id: 'ss1' },
+            //     { name: '滨海站', id: 'ss2' },
+            //     { name: '世界之窗', id: 'ss3' },
+            //     { name: '白石洲', id: 'ss4' },
+            //     { name: '红树林', id: 'ss5' },
+            //     { name: '下沙', id: 'ss6' },
+            //     { name: '购物公园', id: 'ss7' }
+            // ];
+            var platform = this.siteDate;
             var options = {
                 title: title,
                 plan_way: plan_way,
@@ -1174,22 +1560,27 @@ odoo.define(function(require) {
                 platform: platform,
                 dis_set: dis_set,
                 data_type: data_type,
-                data_scope: data_scope
+                data_scope: data_scope,
+                city_code: this.cityCode,
+                history_passenger_flow: history_passenger_flow, //9.25
+                predict_passenger_flow_time: predict_passenger_flow_time//9.25
             };
             new supply_title(this, options).appendTo(this.$('.operate_title'));
         },
     });
-    core.action_registry.add('lty_operating_supply.time_place_passenger_flow', time_place_passenger_flow);
+    // core.action_registry.add('lty_operating_supply.time_place_passenger_flow', time_place_passenger_flow);
+    core.action_registry.add('lty_operating_supply.time_place_passenger_flow', line_passenger_flow_base);
+
 
     // 分时准点率与滞站客流 chart
     var time_place_passenger_flow_chart = Widget.extend({
         template: "time_place_passenger_flow_template",
-        init: function(parent, data1, data2) {
+        init: function (parent, data1, data2) {
             this._super(parent);
             this.chart_parameter_data = data1;
             this.chart_satisfaction_data = data2;
         },
-        start: function() {
+        start: function () {
             // 客流运力图表
             this.chart_passenger_flow();
             // 峰值图表
@@ -1197,7 +1588,7 @@ odoo.define(function(require) {
             // 满意度图表
             this.chart_satisfaction();
         },
-        chart_passenger_flow: function(){
+        chart_passenger_flow: function () {
             var set_option = {
                 grid: {
                     left: '8%',
@@ -1216,7 +1607,7 @@ odoo.define(function(require) {
             var mychart = echarts.init(this.$('.chart_passenger_flow')[0]);
             mychart.setOption(chart_option);
         },
-        chart_satisfaction: function(){
+        chart_satisfaction: function () {
             var set_option = {
                 grid: {
                     left: "8%",

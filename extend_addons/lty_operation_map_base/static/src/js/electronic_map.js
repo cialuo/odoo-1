@@ -7,6 +7,8 @@ odoo.define("", function(require) {
     var model_choseline = new Model('route_manage.route_manage');
     // 车辆
     var fleet_vehicle = new Model('fleet.vehicle');
+    // 配置
+    var config_parameter = new Model('ir.config_parameter');
 
     //  地图头部
     var map_work_title = Widget.extend({
@@ -34,11 +36,12 @@ odoo.define("", function(require) {
                 vehiclesObj.empty().append('<option value="">--请选择--</option>');
                 if (this.value != ""){
                     var id = parseInt($(this).find("option:selected").attr("t_id"));
-                    fleet_vehicle.query().filter([
+                    fleet_vehicle.query("name","on_boardid").filter([
                         ["route_id", "=", id]
                     ]).all().then(function(vehicles) {
+                        console.log(vehicles);
                         _.each(vehicles, function(set){
-                            var option = '<option value="' + set.on_boardid + '" t_id="' + set.id + '">'+set.on_boardid+'</option>';
+                            var option = '<option value="' + set.on_boardid + '">'+set.on_boardid+'</option>';
                             vehiclesObj.append(option);
                         });
                     })
@@ -50,6 +53,20 @@ odoo.define("", function(require) {
                     gprsId: lineObj.val(),
                     onboardId: vehiclesObj.val(),
                 }
+                var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+                $.ajax({
+                    url: RESTFUL_URL+'/ltyop/dspGprsData/dspGpsCoordLastPos?apikey=71029270&params={"gprsId":"'+options.gprsId+'","onboardId":"'+options.onboardId+'"}',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(ret) {
+                        layer.close(layer_index);
+                        if (ret.respose){
+                            layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                        }
+                        console.log(ret);
+                    }
+                })
+                
             });
         }
     });
@@ -61,6 +78,16 @@ odoo.define("", function(require) {
             this._super(parent);
         },
         start: function() {
+            var self = this;
+            config_parameter.query().filter([["key", "=", "dispatch.desktop.socket"]]).all().then(function (socket) {
+                config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
+                    SOCKET_URL = socket[0].value;
+                    RESTFUL_URL = restful[0].value;
+                    self.get_line_info();
+                });
+            });
+        },
+        get_line_info: function(){
             var self = this;
             model_choseline.query().filter([
                 ["state", "=", 'inuse']
