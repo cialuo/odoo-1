@@ -594,6 +594,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     y: e.clientY + 5 - 60,
                     zIndex: zIndex,
                     line_id: line_id,
+                    line_name: this.$el.attr("line_name"),
                     car_num: car_num,
                     controllerId: this.desktop_id
                 };
