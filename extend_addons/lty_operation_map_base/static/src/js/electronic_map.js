@@ -36,10 +36,9 @@ odoo.define("", function(require) {
                 vehiclesObj.empty().append('<option value="">--请选择--</option>');
                 if (this.value != ""){
                     var id = parseInt($(this).find("option:selected").attr("t_id"));
-                    fleet_vehicle.query("name","on_boardid").filter([
+                    fleet_vehicle.query().filter([
                         ["route_id", "=", id]
                     ]).all().then(function(vehicles) {
-                        console.log(vehicles);
                         _.each(vehicles, function(set){
                             var option = '<option value="' + set.on_boardid + '">'+set.on_boardid+'</option>';
                             vehiclesObj.append(option);
