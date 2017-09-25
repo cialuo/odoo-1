@@ -127,11 +127,20 @@ odoo.define("", function(require) {
         },
         start: function() {
             var self = this;
+            config_parameter.query().filter([["key", "=", "dispatch.desktop.socket"]]).all().then(function (socket) {
+                config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
+                    SOCKET_URL = socket[0].value;
+                    RESTFUL_URL = restful[0].value;
+                    self.get_line_info();
+                });
+            });
+        },
+        get_line_info: function(){
+            var self = this;
             model_choseline.query().filter([
                 ["state", "=", 'inuse']
             ]).all().then(function(lines) {
                 var options = {title: '轨迹回放',type: 'track_playback_map', lines:lines};
-                var options = {title: '电子地图',type: 'electronic_map', lines:lines};
                 new map_work_title(self, options).appendTo(self.$('.map_work_title'));
                 //初始化地图
                 self.init_map_fn();
