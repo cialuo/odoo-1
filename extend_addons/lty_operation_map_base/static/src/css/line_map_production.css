@@ -212,6 +212,16 @@
     line-height: 30px;
     padding: 0 10px;
 }
+.map_work_trace .map_work_title select {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 176px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    background-position: right 10px center;
+}
 .map_work_trace .map_work_title .timeW {
     width: 140px;
 }
