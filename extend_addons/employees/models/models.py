@@ -313,7 +313,7 @@ class post(models.Model):
     _name = 'employees.post'
 
     # 岗位名称
-    name = fields.Char('employees post name')
+    name = fields.Char('employees post name', required=True)
     # 岗位所在部门
     department = fields.Many2one('hr.department', ondelete='restrict', string='post department', required=True)
     # 岗位信息
