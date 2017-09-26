@@ -6,7 +6,7 @@ class UpDateConstract():
         self.model = model
 
     def getCurrentConstract(self, employee_id):
-        constracts = self.model._env['hr.contract'].search([('employee_id', '=', employee_id),
+        constracts = self.model.env['hr.contract'].search([('employee_id', '=', employee_id),
                                                             ('state', '=', 'open')])
         if len(constracts) == 0:
             return None

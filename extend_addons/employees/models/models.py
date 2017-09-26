@@ -153,6 +153,16 @@ class employee(models.Model):
             if self.workpost != None:
                 # 将新用户的权限绑定
                 self._powerRebuild(user_id, self.workpost.id, 'add')
+
+        if workpost != None:
+            # 岗位调整 则调整员工对应的基础工资
+            updatehandler = utils.UpDateConstract(self)
+            constract = updatehandler.getCurrentConstract(self.id)
+            if constract != None:
+                workpostinfo  = self.env['employees.post'].search([('id', '=', workpost)])
+                basesalary = workpostinfo[0].postlevel.basesalary
+                updatehandler.changeBaseSalary(basesalary, constract)
+
         return super(employee, self).write(vals)
 
     def _powerRebuild(self, userid, postid, operator):
@@ -425,7 +435,7 @@ class post(models.Model):
         """
         重载write方法
         """
-        res = super(post, self).write()
+        res = super(post, self).write(vals)
         if vals.get('postlevel', None) != None:
             # 如果岗位级别变化 那么更新该岗位下的所有员工的基本工资
             self.updateMembersSalary()
@@ -443,7 +453,7 @@ class post(models.Model):
         """
         重载创建方法
         """
-        res = super(post, self).create()
+        res = super(post, self).create(vals)
         # 更新该岗位下的所有员工的合同的岗位工资
         self.updateMembersSalary()
         return res
