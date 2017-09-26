@@ -7,6 +7,7 @@ odoo.define(function (require) {
     var model_choseline = new Model('route_manage.route_manage');
     var model_city = new Model('ir.config_parameter');
     var model_site = new Model('opertation_resources_station_platform');
+    var config_parameter = new Model('ir.config_parameter');
 
     // 线路客流title
     var supply_title = Widget.extend({
@@ -157,7 +158,7 @@ odoo.define(function (require) {
                 $.ajax({
                     type: 'get',
                     // url: 'http://192.168.2.122:8080/ltyop/busReport/getPassengerFlow?apikey=222&line_id=197&city_code=130400&date_end=20170912&date_period=30&direction=1&step=1',
-                    url: 'http://192.168.2.122:8080/ltyop/busReport/getPassengerFlow?apikey=222&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=30&direction=' + arg_options.direction + '&step=1',
+                    url: RESTFUL_URL + '/ltyop/busReport/getPassengerFlow?apikey=222&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=30&direction=' + arg_options.direction + '&step=1',
                     data: {},
                     dataType: 'json',
                     error: function (res) {
@@ -216,7 +217,7 @@ odoo.define(function (require) {
                 $.ajax({
                     type: 'get',
                     // url: 'http://192.168.2.122:8080/ltyop/busReport/getPointRatePasFlow?apikey=211&line_id=197&city_code=130400&date_end=20170914&date_period=30&direction=1&station_id=&step=1',
-                    url: 'http://192.168.2.122:8080/ltyop/busReport/getPointRatePasFlow?apikey=211&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=30&direction=' + arg_options.direction + '&step=1',
+                    url: RESTFUL_URL + '/ltyop/busReport/getPointRatePasFlow?apikey=211&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=30&direction=' + arg_options.direction + '&step=1',
                     //date_end   没有结束日期
                     data: {},
                     dataType: 'json',
@@ -725,11 +726,14 @@ odoo.define(function (require) {
             var self = this;
             model_city.query().filter([["key", "=", 'city.code']]).all().then(function (citys) {
                 model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {
-                    var options = {
-                        cityCode: citys[0].value,
-                        lineInfo: lines,
-                    };
-                    new line_passenger_flow(self, options).appendTo(self.$el);
+                    config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
+                        RESTFUL_URL = restful[0].value;
+                        var options = {
+                            cityCode: citys[0].value,
+                            lineInfo: lines,
+                        };
+                        new line_passenger_flow(self, options).appendTo(self.$el);
+                    });
                 });
             });
         }
@@ -1074,21 +1078,24 @@ odoo.define(function (require) {
             model_city.query().filter([["key", "=", 'city.code']]).all().then(function (citys) {
                 model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {
                     model_site.query().filter([["route_id", "=", parseInt(lines[0].id)]]).all().then(function (sites) {
-                        var site_top_list = [];
-                        var site_down_list = [];
-                        _.each(sites, function (ret) {
-                            if (ret.direction == "up") {
-                                site_top_list.push(ret);
-                            } else {
-                                site_down_list.push(ret);
-                            }
+                        config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
+                            RESTFUL_URL = restful[0].value;      //url-EDN   待提供接口将RESTFUL_URL替换前缀
+                            var site_top_list = [];
+                            var site_down_list = [];
+                            _.each(sites, function (ret) {
+                                if (ret.direction == "up") {
+                                    site_top_list.push(ret);
+                                } else {
+                                    site_down_list.push(ret);
+                                }
+                            });
+                            var options = {
+                                cityCode: citys[0].value,
+                                lineInfo: lines,
+                                initSiteInfo: site_top_list
+                            };
+                            new site_passenger_flow(self, options).appendTo(self.$el);
                         });
-                        var options = {
-                            cityCode: citys[0].value,
-                            lineInfo: lines,
-                            initSiteInfo: site_top_list
-                        };
-                        new site_passenger_flow(self, options).appendTo(self.$el);
                     });
                 });
             });
@@ -1471,21 +1478,24 @@ odoo.define(function (require) {
             model_city.query().filter([["key", "=", 'city.code']]).all().then(function (citys) {
                 model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {
                     model_site.query().filter([["route_id", "=", parseInt(lines[0].id)]]).all().then(function (sites) {
-                        var site_top_list = [];
-                        var site_down_list = [];
-                        _.each(sites, function (ret) {
-                            if (ret.direction == "up") {
-                                site_top_list.push(ret);
-                            } else {
-                                site_down_list.push(ret);
-                            }
+                        config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
+                            RESTFUL_URL = restful[0].value;      //url-end
+                            var site_top_list = [];
+                            var site_down_list = [];
+                            _.each(sites, function (ret) {
+                                if (ret.direction == "up") {
+                                    site_top_list.push(ret);
+                                } else {
+                                    site_down_list.push(ret);
+                                }
+                            });
+                            var options = {
+                                cityCode: citys[0].value,
+                                lineInfo: lines,
+                                initSiteInfo: site_top_list
+                            };
+                            new time_place_passenger_flow(self, options).appendTo(self.$el);
                         });
-                        var options = {
-                            cityCode: citys[0].value,
-                            lineInfo: lines,
-                            initSiteInfo: site_top_list
-                        };
-                        new time_place_passenger_flow(self, options).appendTo(self.$el);
                     });
                 });
             });

@@ -8,6 +8,7 @@ odoo.define(function (require) {
     var model_city = new Model('ir.config_parameter');
     var model_site = new Model('opertation_resources_station_platform');
     var res_company = new Model("res.company");
+    var config_parameter = new Model('ir.config_parameter');
 
     // 乘客满意度title
     var satisfaction_title = Widget.extend({
@@ -51,7 +52,7 @@ odoo.define(function (require) {
                 }
             });
             // 
-            // 公司单位切换事件                           9.22事件为1不能切换！！！
+            // 公司单位切换事件              9.22事件为1不能切换！！！
             self.$(".company").change(function () {
                 // var self = this;
                 var company = self.$(".company");
@@ -59,18 +60,17 @@ odoo.define(function (require) {
                     return false;
                 }
                 var line_id = self.$(".company option:selected").val();
-                res_company.query().filter([["route_id", "=", parseInt(line_id)]]).all().then(function (obj) {
+                model_site.query().filter([["route_id", "=", parseInt(line_id)]]).all().then(function (obj) {
                     console.log(obj);
-                    self.$(".company").find("option").remove();
+                    self.$(".supply_line").find("option").remove();
                     var options = "";
                     for (var i = 0; i < obj.length; i++) {
                         // <option name="tjw测试线路" value="10">tjw测试线路</option>
                         var item = obj[i];
                         options += "<option name='" + item.line_name + "' value='" + item.id + "' >" + item.line_name + "</option>";
                     };
-                    self.$(".company").html(options);
+                    self.$(".supply_line").html(options);
                 })
-
             });        //self.$
         },             //start
         // 满意度分析9.25天月周切换
@@ -111,20 +111,20 @@ odoo.define(function (require) {
             chart_cont_obj.html("");
             // 1.3满意度渲染
             // var time_hysteresis;
-             var time_hysteresis = {
-                wait_satisfaction_rate:"",
+            var time_hysteresis = {
+                wait_satisfaction_rate: "",
                 x_data: "",
                 average_start_interval: "",
                 up_passenger: "",
                 down_passenger: "",
-                comfortable_satisfaction_rate:"",
+                comfortable_satisfaction_rate: "",
                 passenger_satisfaction_rate_y: ""
             };
             $.ajax({
                 type: 'get',
                 async: false,
                 // url: 'http://192.168.2.122:8080/ltyop/busReport/getCustomerDegree?apikey=222&line_id=197&city_code=130400&date_end=20170914&date_period=30&step=1',
-                url: 'http://192.168.2.122:8080/ltyop/busReport/getCustomerDegree',
+                url: RESTFUL_URL + '/ltyop/busReport/getCustomerDegree',
                 data: { apikey: 222, line_id: arg_options.line_id, city_code: arg_options.city_code, date_end: arg_options.predict_passenger_flow_time, date_period: 30, step: 1 },
                 dataType: 'json',
                 error: function (res) {
@@ -154,8 +154,8 @@ odoo.define(function (require) {
                                 comfortable_satisfaction_rate.unshift(val[i].comfortable_satisfaction_rate * 100)
                             };
                         };
-                        if(key=="passenger_satisfaction_rate"){       //乘客满意度单独取
-                            for(var i in val){
+                        if (key == "passenger_satisfaction_rate") {       //乘客满意度单独取
+                            for (var i in val) {
                                 passenger_satisfaction_rate_y.unshift(val[i].y_data);
                             }
                         }
@@ -169,7 +169,7 @@ odoo.define(function (require) {
                         comfortable_satisfaction_rate: comfortable_satisfaction_rate,
                         passenger_satisfaction_rate_y: passenger_satisfaction_rate_y
                     };
-                    return time_hysteresis;   
+                    return time_hysteresis;
                 }   //succes     
             });     //$.ajax
             // 暂时都数据加载相同
@@ -186,7 +186,7 @@ odoo.define(function (require) {
                         }
                     },
                     // data: [62, 58, 63, 49, 32]
-                    data:time_hysteresis.passenger_satisfaction_rate_y
+                    data: time_hysteresis.passenger_satisfaction_rate_y
                 },
                 {
                     name: "候车满意度",
@@ -251,13 +251,16 @@ odoo.define(function (require) {
             model_city.query().filter([["key", "=", 'city.code']]).all().then(function (citys) {//城市
                 res_company.query().filter([]).all().then(function (companys) {
                     model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {//线路
-                        var options = {
-                            cityCode: citys[0].value,
-                            lineInfo: lines,
-                            // company: companys[0].name,
-                            company: companys
-                        };
-                        new waiting_satisfaction(self, options).appendTo(self.$el);
+                        config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {    //url
+                            RESTFUL_URL = restful[0].value;              //url-end
+                            var options = {
+                                cityCode: citys[0].value,
+                                lineInfo: lines,
+                                // company: companys[0].name,
+                                company: companys
+                            };
+                            new waiting_satisfaction(self, options).appendTo(self.$el);
+                        });
                     });
                 });
             });
