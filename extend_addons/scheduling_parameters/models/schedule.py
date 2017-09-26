@@ -212,6 +212,7 @@ class route_manage(models.Model):
                                     ('double_line', 'double_line')],
                                     default='double_line', required=True)  # 线路类型
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env['res.company']._company_default_get('route_manage.route_manage'))
+    dispatch_user_ids = fields.Many2many('res.users', 'route_dispatch_user_ref', 'route_id', 'user_id', string='Dispatch Users', copy=False)
 
     
 
