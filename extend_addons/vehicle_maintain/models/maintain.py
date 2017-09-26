@@ -217,7 +217,7 @@ class MaintainRepair(models.Model):
                                           'repair': [('readonly', True)],
                                         })
     fault_method_code = fields.Char(related='fault_method_id.fault_method_code', store=True, readonly=True, copy=False)
-    work_time = fields.Float(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
+    work_time = fields.Float(compute='_get_work_time', store=True, readonly=True, copy=False)
     warranty_deadline = fields.Integer(related='fault_method_id.warranty_deadline', string="Warranty Deadline(Days)", readonly=1, required=True)
     plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
     plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time", compute='_get_end_datetime')
@@ -292,6 +292,12 @@ class MaintainRepair(models.Model):
                                        digits=dp.get_precision('Operate pram'), compute='_compute_repair_total_time')
     repair_start_time = fields.Datetime(related='report_id.preflight_date', string='Repair start time')
 
+    @api.depends('fault_method_id', 'vehicle_type')
+    def _get_work_time(self):
+        for order in self:
+            time_type = order.vehicle_type.time_type_id
+            work_time_line = order.fault_method_id.work_time_lines.filtered(lambda x: x.time_type_id == time_type)
+            order.work_time = work_time_line.work_time
     @api.depends('repair_start_time', 'end_inspect_time')
     def _compute_repair_total_time(self):
         """

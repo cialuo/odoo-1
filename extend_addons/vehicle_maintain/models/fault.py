@@ -186,6 +186,7 @@ class FaultMethod(models.Model):
     active = fields.Boolean(default=True)
     remark = fields.Text("Remark", help='Remark')
     work_time = fields.Float(string="Work Time(Minutes)")
+    work_time_lines = fields.One2many('work.time.lines', 'order_id', string="Work time lines")
     warranty_deadline = fields.Integer(string="Warranty Deadline(Days)", required=True, default=30)
     complex_level = fields.Selection([
        ('one work', "One work"),
@@ -265,3 +266,31 @@ class AvailableProduct(models.Model):
             if r.change_count > r.max_count:
                 raise exceptions.ValidationError(_("max_count must be greater than or equal to change_count"))
 
+#修正额定工时，为o2m，车型增加额定类型。
+class WorkTimeLines(models.Model):
+    _name = 'work.time.lines'
+
+    time_type_id = fields.Many2one('work.time.type', string="Work time type")
+    work_time = fields.Float(string="Work Time(hours)")
+    order_id = fields.Many2one('maintain.fault.method', string="Fault Method")
+    _sql_constraints = [
+        ('time type unique', 'UNIQUE(time_type_id, order_id)', u'同一维修方法的额定类型必须唯一')
+    ]
+
+class WorkTimeType(models.Model):
+    _name = 'work.time.type'
+
+    name = fields.Char(string="Name", required=True)
+    note = fields.Char(string="Note")
+
+
+class FleetMode(models.Model):
+    _inherit = 'fleet.vehicle.model'
+
+    time_type_id = fields.Many2one('work.time.type', string="Work time type")
+
+
+class FleetVehicle(models.Model):
+    _inherit = 'fleet.vehicle'
+
+    time_type_id = fields.Many2one('work.time.type', string="Work time type", related='model_id.time_type_id')
