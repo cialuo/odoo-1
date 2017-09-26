@@ -95,5 +95,5 @@ class fleet_vehicle(models.Model):
         """
         for record in self:
             record.vehicle_front_check_count = self.env['security.vehicle_front_check'].search_count(
-                [('vehicle_id', '=', self.id),
+                [('vehicle_id', '=', record.id),
                  ('state', 'in', ['done'])])
