@@ -509,7 +509,7 @@ class WarrantyOrderManhour(models.Model): # 保养单_工时管理
     _order = "sequence"
 
     _sql_constraints = [
-        ('check_percentage_work_value', 'CHECK (percentage_work > 0 and percentage_work < 100)', u'额定工时的数值在100以内！')
+        ('check_percentage_work_value', 'CHECK (percentage_work > 0 and percentage_work <= 100)', u'额定工时的数值在100以内！')
     ]
 
     name = fields.Char("Manhour")
