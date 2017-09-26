@@ -7,8 +7,23 @@
 			<t t-esc="widget.setInfo.title"></t>
 		</h2>
 		<div class="screen_cont">
-			<span class="mR20">路线：<input class="line" type="text"/></span>
-			<span class="mR20">车辆：<input class="onboard" type="text"/></span>
+			<span class="mR20">
+				<span>
+					路线：
+					<select name="line" class="valid line">
+						<option value="">--请选择--</option>
+						<t t-foreach="widget.setInfo.lines" t-as="item">
+                            <option t-attf-value="{{item.gprs_id}}" t-attf-t_id="{{item.id}}"><t t-esc="item.line_name"></t></option>
+                        </t>
+					</select>
+				</span>
+			</span>
+			<span class="mR20">
+				车辆：
+				<select name="onboard" class="valid onboard">
+					<option value="">--请选择--</option>
+				</select>
+			</span>
 			<t t-if="widget.setInfo.type=='electronic_map'">
 				<a class="bt bt_v1 localize_bt" href="javascript:;">定位</a>
 			</t>

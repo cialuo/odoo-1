@@ -3,7 +3,7 @@
         <!-- 运营管理 -->
         <menuitem name="operation manage"  id="operation_menu_root"  sequence="10" web_icon="operation_menu,static/description/icon.png"/>
         <!--供需平衡分析-->
-		<menuitem name="balance of supply and demand" id="balance_of_supply_and_demand_menu" parent="operation_menu_root" sequence="10"/>
+		<menuitem name="balance of supply and demand" id="balance_of_supply_and_demand_menu" parent="operation_menu_root" sequence="90"/>
         <!--行车作业编制-->
 		<menuitem name="bus schedule plan arrange menu" id="bus_working_plan_menu" parent="operation_menu_root" sequence="20"/>
 

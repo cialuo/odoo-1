@@ -211,6 +211,9 @@ class route_manage(models.Model):
                                     ('double_loop', 'double_loop'),
                                     ('double_line', 'double_line')],
                                     default='double_line', required=True)  # 线路类型
+    company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env['res.company']._company_default_get('route_manage.route_manage'))
+
+    
 
     @api.onchange('up_first_time','up_end_time','down_first_time','down_end_time')
     def _on_change_time(self):
