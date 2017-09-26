@@ -208,6 +208,7 @@ msgstr "重要部件清单"
 #: model:ir.model.fields,field_description:important_component.field_warranty_order_project_important_product_id
 #: model:ir.model.fields,field_description:important_component.field_warranty_project_important_product_id
 #: model:ir.ui.view,arch_db:important_component.fleet_vehicle_view_form_product
+#: model:ir.ui.view,arch_db:important_component.vehicle_entry_view_form_product
 msgid "Important Product"
 msgstr "重要部件"
 
