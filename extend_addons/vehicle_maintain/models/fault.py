@@ -271,25 +271,26 @@ class WorkTimeLines(models.Model):
     _name = 'work.time.lines'
 
     time_type_id = fields.Many2one('work.time.type', string="Work time type")
-    work_time = fields.Float(string="Work Time(hours)")
+    work_time = fields.Float(string="Work Time(Minutes)")
     order_id = fields.Many2one('maintain.fault.method', string="Fault Method")
     _sql_constraints = [
         ('time type unique', 'UNIQUE(time_type_id, order_id)', u'同一维修方法的额定类型必须唯一')
     ]
 
+#额定工时类型，基础数据分为 A B C 三类
 class WorkTimeType(models.Model):
     _name = 'work.time.type'
 
     name = fields.Char(string="Name", required=True)
     note = fields.Char(string="Note")
 
-
+#车型关联 额定工时类型
 class FleetMode(models.Model):
     _inherit = 'fleet.vehicle.model'
 
     time_type_id = fields.Many2one('work.time.type', string="Work time type")
 
-
+#车辆关联额定工时类型
 class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'
 

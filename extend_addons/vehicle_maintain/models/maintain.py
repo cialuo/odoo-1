@@ -294,6 +294,7 @@ class MaintainRepair(models.Model):
 
     @api.depends('fault_method_id', 'vehicle_type')
     def _get_work_time(self):
+        #维修单 额定工时计算：根据车型，维修方法计算指定 额定类型的时长
         for order in self:
             time_type = order.vehicle_type.time_type_id
             work_time_line = order.fault_method_id.work_time_lines.filtered(lambda x: x.time_type_id == time_type)
