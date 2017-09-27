@@ -1,4 +1,4 @@
-odoo.define("", function(require) {
+odoo.define("line_map_production.line_map_production", function(require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var QWeb = core.qweb;

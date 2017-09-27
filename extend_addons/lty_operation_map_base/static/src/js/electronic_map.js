@@ -1,6 +1,6 @@
 var VEHICLE_INFO_DICT = {};
 
-odoo.define("", function(require) {
+odoo.define("electronic_map.electronic_map", function(require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var QWeb = core.qweb;
