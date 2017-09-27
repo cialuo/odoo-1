@@ -336,7 +336,7 @@
         <field name="name">hr.employee.tree</field>
         <field name="model">hr.employee</field>
         <field name="arch" type="xml">
-            <tree string="Employees" decoration-bf="message_needaction==True" create="0">
+            <tree string="Employees" decoration-bf="message_needaction==True" create="0" delete="0">
                 <field name="name"/>
                 <field name="work_phone"/>
                 <field name="work_email"/>
@@ -354,7 +354,7 @@
         <field name="name">hr.employee.form</field>
         <field name="model">hr.employee</field>
         <field name="arch" type="xml">
-        <form string="Employee" duplicate="0" create="0" edit="0">
+        <form string="Employee" duplicate="0" create="0" edit="0" delete="0">
                         <sheet>
                             <div class="oe_button_box" name="button_box" groups="hr.group_hr_user">
                                 <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
