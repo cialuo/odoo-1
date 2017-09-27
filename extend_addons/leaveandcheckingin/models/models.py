@@ -78,7 +78,7 @@ class attencededucted(models.Model):
         month = vals.get('month', None)
         if month != None:
             month = self._formatTime(month)
-        vals['month'] = month
+            vals['month'] = month
         for item in self:
             if self._isDuplicate(item.employee_id.id, month) >= 1:
                 raise ValidationError(_("record duplicated"))

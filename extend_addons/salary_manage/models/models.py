@@ -5,7 +5,30 @@ from odoo.exceptions import ValidationError
 from datetime import datetime, timedelta
 import time
 import odoo
+from odoo.exceptions import UserError
 
+
+class CumpouteAbsenceData():
+
+    def __init__(self, model):
+        self.model = model
+
+    def cumputDateAndYear(self, date_from):
+        return datetime.fromtimestamp(time.mktime(time.strptime(date_from, "%Y-%m-%d"))).strftime('%Y-%m-01')
+
+    def genWriteRecord(self, employee_id, date, constract_id):
+        constrains = [
+            ('employee_id', '=', employee_id),
+            ('month', '=', date),
+        ]
+        absence = self.model.env['employee.attencededucted'].search(constrains, limit=1)
+        if absence:
+            return {
+                'name': _('absence record'),
+                'code': 'KQKK',
+                'amount': absence.deducted,
+                'contract_id': constract_id,
+            }
 
 class SalaryCompute(models.Model):
     _inherit = 'hr.payslip'
@@ -76,8 +99,9 @@ class SalaryCompute(models.Model):
         date_from = self.date_from
         date_to = self.date_to
 
-        monthAndYear = datetime.fromtimestamp(time.mktime(time.strptime(date_from, "%Y-%m-%d"))).strftime('%Y-%m-01')
-
+        absCumputer = CumpouteAbsenceData(self)
+        # monthAndYear = datetime.fromtimestamp(time.mktime(time.strptime(date_from, "%Y-%m-%d"))).strftime('%Y-%m-01')
+        monthAndYear = absCumputer.cumputDateAndYear(date_from)
         if date_from > date_to:
             raise ValidationError(_("Payslip 'Date From' must be before 'Date To'."))
 
@@ -110,7 +134,9 @@ class SalaryCompute(models.Model):
 
         input_line_ids = self.get_inputs(contractToUse, date_from, date_to)
         input_lines = self.input_line_ids.browse([])
-        absenceLines = self.getAbsenceData(monthAndYear, employee.id, self.contract_id.id)
+
+        # absenceLines = self.getAbsenceData(monthAndYear, employee.id, self.contract_id.id)
+        absenceLines = absCumputer.genWriteRecord(employee.id, monthAndYear, self.contract_id.id)
         if absenceLines != None:
             input_line_ids += [absenceLines]
         for r in input_line_ids:
@@ -132,3 +158,43 @@ class SalaryCompute(models.Model):
                 'amount': absence.deducted,
                 'contract_id': constract_id,
             }
+
+class HrPayslipEmployeesRewrite(models.TransientModel):
+    """
+    重写薪资批处理方法
+    """
+    _inherit = 'hr.payslip.employees'
+
+    @api.multi
+    def compute_sheet(self):
+        payslips = self.env['hr.payslip']
+        [data] = self.read()
+        active_id = self.env.context.get('active_id')
+        if active_id:
+            [run_data] = self.env['hr.payslip.run'].browse(active_id).read(['date_start', 'date_end', 'credit_note'])
+        from_date = run_data.get('date_start')
+        to_date = run_data.get('date_end')
+        if not data['employee_ids']:
+            raise UserError(_("You must select employee(s) to generate payslip(s)."))
+        absCumputer = CumpouteAbsenceData(self)
+        for employee in self.env['hr.employee'].browse(data['employee_ids']):
+            slip_data = self.env['hr.payslip'].onchange_employee_id(from_date, to_date, employee.id, contract_id=False)
+            res = {
+                'employee_id': employee.id,
+                'name': slip_data['value'].get('name'),
+                'struct_id': slip_data['value'].get('struct_id'),
+                'contract_id': slip_data['value'].get('contract_id'),
+                'payslip_run_id': active_id,
+                'input_line_ids': [(0, 0, x) for x in slip_data['value'].get('input_line_ids')],
+                'worked_days_line_ids': [(0, 0, x) for x in slip_data['value'].get('worked_days_line_ids')],
+                'date_from': from_date,
+                'date_to': to_date,
+                'credit_note': run_data.get('credit_note'),
+            }
+            monthAndYear = absCumputer.cumputDateAndYear(from_date)
+            absenceLines = absCumputer.genWriteRecord(employee.id, monthAndYear, slip_data['value'].get('contract_id'))
+            if absenceLines != None:
+                res['input_line_ids'].append((0,0,absenceLines))
+            payslips += self.env['hr.payslip'].create(res)
+        payslips.compute_sheet()
+        return {'type': 'ir.actions.act_window_close'}
