@@ -71,7 +71,7 @@ class lty_approve_center_group(models.Model):
 class lty_approve_center(models.Model):
     _name = 'lty.approve.center'
     _inherit = ['mail.thread','ir.needaction_mixin']
-    _order = 'object_id desc'
+    _order = 'name desc'
 
     @api.multi
     def _links_get(self):
@@ -163,8 +163,9 @@ class lty_approve_center(models.Model):
     def do_approve(self):
         if not self.active_node  :
             raise UserError((u'审批节点未被激活!. '))
-        if self.env.user.employee_post != self.approve_post.id :
-            raise UserError((u'您 没有权限进行审批!. '))        #更新下级流程节点状态
+        if self.env.user.employee_post.id != self.approve_post.id :
+            raise UserError((u'您 没有权限进行审批!. '))        
+        #更新下级流程节点状态
         next_nodes = self.sudo().search([('active', '=',False),('status', '<>','cancel'),('cfg_father_line_id', '=',self.cfg_line_id.id),('object_id', '=',self.object_id._name+','+str(self.object_id.id))])
         next_nodes.active_node
         if  next_nodes :       
@@ -189,6 +190,8 @@ class lty_approve_center(models.Model):
         self.env['lty.approve.logs'].create(val_dict)
         self.write({'status': 'approved','approve_opinions': ''})
     def do_reject(self):
+        if self.env.user.employee_post.id != self.approve_post.id :
+            raise UserError((u'您 没有权限进行审批!. '))            
         if not self.approve_opinions  :
             raise UserError((u'拒审必须输入原因. '))         
         if not self.active_node  :

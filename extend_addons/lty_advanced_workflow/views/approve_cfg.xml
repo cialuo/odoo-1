@@ -19,8 +19,8 @@
 		<field name="arch" type="xml">
 			<form string="Approve cfg">
 				<header>
-                    <button name="do_approve" string="审核" attrs="{'invisible': [('status','not in',('draft'))]}" type="object" class="oe_highlight"/>
-                    <button name="do_cancel" string="弃审" attrs="{'invisible': [('status','not in',('approved'))]}" type="object" class="oe_highlight"/>
+                    <button name="do_approve" string="审核" groups="lty_advanced_workflow.group_approve_manage"  attrs="{'invisible': [('status','not in',('draft'))]}" type="object" class="oe_highlight"/>
+                    <button name="do_cancel" string="弃审" groups="lty_advanced_workflow.group_approve_manage" attrs="{'invisible': [('status','not in',('approved'))]}" type="object" class="oe_highlight"/>
                     <field name="status" widget="statusbar" statusbar_visible="draft,approved" />
                 </header>
                 <sheet>
@@ -101,9 +101,8 @@
     <!-- menu categories -->
     <menuitem name="Approve mgt" id="lty_advanced_workflow_mgt" parent="lty_advanced_workflow.menu_root"/>
     <!-- actions -->
-    <menuitem name="设置" sequence="20" id="lty_advanced_workflow_cfg_menu" parent="lty_advanced_workflow.menu_root"
-              action="lty_advanced_workflow_cfg_action"/>    
+    <menuitem name="设置" sequence="20" id="lty_advanced_workflow_cfg_menu" parent="lty_advanced_workflow.menu_root"/>    
     <menuitem name="审批流设置" sequence="100" id="lty_advanced_workflow_node_cfg_menu" parent="lty_advanced_workflow_cfg_menu"
-              action="lty_advanced_workflow_cfg_action"/>
+              action="lty_advanced_workflow_cfg_action" groups="lty_advanced_workflow.group_approve_manage"/>
   </data>
 </openerp>
