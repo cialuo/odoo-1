@@ -130,7 +130,6 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         start: function () {
             $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
-            $.getScript("/lty_dispatch_desktop/static/src/js/websocket.js");
             var self = this;
             if (window.location.href.split("action=")[1].split('&')[0] != undefined) {
                 if (window.location.href.split("action=")[1].split('&')[0] == "dispatch_desktop.page") {
@@ -139,6 +138,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             }
             self.$el.append(QWeb.render("myConsole"));
             var desktop_id = window.location.href.split("active_id=")[1].split("&")[0];
+            CONTROLLERID = desktop_id;
             self.$el.parent().addClass("controller_" + desktop_id).attr("desktop_id", desktop_id);
             self.model_line.query(["line_id"]).filter([["desktop_id", "=", parseInt(desktop_id)]]).all().then(function (data) {
                 var s = [];
@@ -158,6 +158,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                 }
             });
             new desktop_top(this).appendTo(self.$el);
+            $.getScript("/lty_dispatch_desktop/static/src/js/websocket.js");
         },
         events: {
             'click .new_console': 'addLine_click',
