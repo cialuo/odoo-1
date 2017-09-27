@@ -4,7 +4,7 @@
         <record id="approve_center_only_post" model="ir.rule">
             <field name="name">Approve centro post</field>
             <field ref="model_lty_approve_center" name="model_id"/>
-            <field name="domain_force">[('approve_post', '=', user.employee_post.id)]</field>
+            <field name="domain_force">['|',('approve_post', '=', user.employee_post.id),('start_user','=',user.id)]</field>
             <field name="global" eval="True"/>
             <field name="perm_create" eval="False"/>
         </record>

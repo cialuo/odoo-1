@@ -12,7 +12,7 @@ class lty_approve_center_group(models.Model):
         return [(r.object, r.name) for r in link_obj.search([])]
 
     name = fields.Char()     
-    center_id = fields.One2many('lty.approve.center','center_id','center_id') 
+    center_id = fields.One2many('lty.approve.center','center_id','center_id',domain=['|',('active', '=', False),('active', '=', True)]) 
     start_user = fields.Many2one('res.users')
     object_id = fields.Reference(
         string='Reference', selection=_links_get, 
@@ -163,7 +163,8 @@ class lty_approve_center(models.Model):
     def do_approve(self):
         if not self.active_node  :
             raise UserError((u'审批节点未被激活!. '))
-        #更新下级流程节点状态
+        if self.env.user.employee_post != self.approve_post.id :
+            raise UserError((u'您 没有权限进行审批!. '))        #更新下级流程节点状态
         next_nodes = self.sudo().search([('active', '=',False),('status', '<>','cancel'),('cfg_father_line_id', '=',self.cfg_line_id.id),('object_id', '=',self.object_id._name+','+str(self.object_id.id))])
         next_nodes.active_node
         if  next_nodes :       
