@@ -34,7 +34,9 @@
         'lty_operation_plan',
         'lty_server_access',
         'lty_dispatch_robot',
-        'revenue'        
+        'web_login',
+        'lty_dispatch_video_monitor',
+        'revenue'     
     ],
 
     # always loaded

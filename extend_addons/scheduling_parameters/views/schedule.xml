@@ -328,6 +328,10 @@
 									</tree>
 								</field>
 							</page>
+							
+                            <page string="调度员权限">
+                                <field name="dispatch_user_ids"/>
+                            </page>
 
                         </notebook>
                     </sheet>
