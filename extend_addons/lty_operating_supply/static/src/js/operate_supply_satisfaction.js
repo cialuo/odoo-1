@@ -59,19 +59,21 @@ odoo.define(function (require) {
                 if (company.length == 0) {
                     return false;
                 }
-                var line_id = self.$(".company option:selected").val();
-                model_site.query().filter([["route_id", "=", parseInt(line_id)]]).all().then(function (obj) {
-                    console.log(obj);
+                var company_id = self.$(".company option:selected").val();
+                var line_id = self.$(".supply_line option:selected").val();
+                model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {//线路
+                    console.log(lines);
                     self.$(".supply_line").find("option").remove();
                     var options = "";
-                    for (var i = 0; i < obj.length; i++) {
+                    for (var i = 0; i < lines.length; i++) {
                         // <option name="tjw测试线路" value="10">tjw测试线路</option>
-                        var item = obj[i];
+                        var item = lines[i];
                         options += "<option name='" + item.line_name + "' value='" + item.id + "' >" + item.line_name + "</option>";
                     };
                     self.$(".supply_line").html(options);
                 })
             });        //self.$
+            self.$(".ok_bt").click();//加载页面自动触发click
         },             //start
         // 满意度分析9.25天月周切换
         waiting_satisfaction_switch: function (name) {
@@ -287,7 +289,7 @@ odoo.define(function (require) {
                 { name: "前365天", id: "365" },
                 { name: "所有", id: "all" },
             ];
-            var predict_passenger_flow_time = "2017-07-31";
+            var predict_passenger_flow_time = "20170731";
             // 
             var plan_way = [
                 { name: "按时", en_name: "when", value: 1 },
