@@ -292,7 +292,8 @@ odoo.define("line_map_production.line_map_production", function(require) {
         },
         delete_point_fn: function(index){
             var self = this;
-            if (typeof index=="number"){
+            if (typeof index=="number" && index>=0){
+                debugger;
                 self.ancillary_list[index].setMap(null);
                 self.ancillary_list.pop();
                 return false;

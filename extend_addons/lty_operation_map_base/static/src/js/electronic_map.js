@@ -108,16 +108,16 @@ odoo.define("electronic_map.electronic_map", function(require) {
         load_fn: function(map) {
             var self = this;
             // 定位
-            TARGET_VEHICLE = "";
-            TARGET_LINE_ID = "";
             self.$el.on("click", ".localize_bt", function() {
                 var options = self.get_map_set_arg();
                 self.init_map(map);
-                self.set_map_center = false;
                 if (!options.line_id) {
                     layer.msg("请先选择线路", { shade: 0.3, time: 2000 });
                     return false;
                 }
+                self.set_map_center = false;
+                TARGET_VEHICLE = "";
+                TARGET_LINE_ID = "";
                 self.subscribe(options.gprsId);
 
                 TARGET_LINE_ID = options.line_id;
@@ -247,9 +247,16 @@ odoo.define("electronic_map.electronic_map", function(require) {
                         map: map
                     });
                     VEHICLE_INFO_DICT[vehicle.onboardId.toString()] = marker;
-                    if (index == 0 && !self.set_map_center){
-                        self.init_map_pos = [vehicle.longitude, vehicle.latitude];
-                        self.init_map_center(map);
+                    if (TARGET_VEHICLE){
+                        if (TARGET_VEHICLE == vehicle.onboardId.toString()){
+                            self.init_map_pos = [vehicle.longitude, vehicle.latitude];
+                            self.init_map_center(map);
+                        }
+                    }else{
+                        if (index == 0 && !self.set_map_center){
+                            self.init_map_pos = [vehicle.longitude, vehicle.latitude];
+                            self.init_map_center(map);
+                        }
                     }
                 });
             }
@@ -258,9 +265,9 @@ odoo.define("electronic_map.electronic_map", function(require) {
             var div = document.createElement('div');
             div.style.display = "block";
             if (TARGET_VEHICLE == onboardId){
-                dom.style.borderStyle = "solid";
-                dom.style.borderColor = "#5acbff";
-                dom.style.borderWidth = "2px";
+                div.style.borderStyle = "solid";
+                div.style.borderColor = "#5acbff";
+                div.style.borderWidth = "2px";
             }else{
                 div.style.borderStyle = "none";
                 div.style.borderWidth ="0px";
