@@ -63,7 +63,6 @@ odoo.define("electronic_map.electronic_map", function(require) {
         },
         start: function() {
             var self = this;
-            self.set_map_center = false;
             config_parameter.query().filter([["key", "=", "dispatch.desktop.socket"]]).all().then(function (socket) {
                 config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
                     SOCKET_URL = socket[0].value;
@@ -112,13 +111,15 @@ odoo.define("electronic_map.electronic_map", function(require) {
             TARGET_VEHICLE = "";
             TARGET_LINE_ID = "";
             self.$el.on("click", ".localize_bt", function() {
-                map.clearMap();
                 var options = self.get_map_set_arg();
-                self.subscribe(options.gprsId);
+                self.init_map(map);
+                self.set_map_center = false;
                 if (!options.line_id) {
                     layer.msg("请先选择线路", { shade: 0.3, time: 2000 });
                     return false;
                 }
+                self.subscribe(options.gprsId);
+
                 TARGET_LINE_ID = options.line_id;
                 if (options.onboardId){
                     TARGET_VEHICLE = options.onboardId.toString();
@@ -300,6 +301,11 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 a.unselectable ="on";
                 a.onselectstart =function(){return false};       
             }
+        },
+        init_map: function(map){
+            map.clearMap();
+            map.setZoom(10);
+            map.setCenter([116.408075, 39.950187]);
         },
         init_map_center: function(map){
             this.set_map_center = true;
