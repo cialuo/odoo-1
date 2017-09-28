@@ -192,7 +192,7 @@ odoo.define(function (require) {
         },
         //服务保障能力分析样式
         line_sever_query: function (arg_options) {
-        // line_sever_query: function (arg_options, line_time_sharing_traffic) {
+            // line_sever_query: function (arg_options, line_time_sharing_traffic) {
             if (arg_options.plan_way == "when") {
                 var passenger_flow_data = {
                     yName: arg_options.line_name,
