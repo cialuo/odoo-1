@@ -29,10 +29,12 @@ websocket_electronic_map.onmessage = function (event) {
     console.log(eventData);
     var modelName = eventData.moduleName;
     if (modelName == "bus_site"){
-        update_vehicles_sockt(eventData);
+        if (eventData.line_id == TARGET_LINE_ID){
+            update_vehicles_sockt(eventData);
+        }
     }else if (modelName == "abnormal"){
         //车辆掉线
-        if (eventData.packageType == 1003) {
+        if (eventData.packageType == 1003 && eventData.line_id == TARGET_LINE_ID) {
             var abnormal_description = dataObj.abnormal_description;
             var vehicle_on = abnormal_description.bus_on;
             if (VEHICLE_INFO_DICT[vehicle_on.toString()]){
