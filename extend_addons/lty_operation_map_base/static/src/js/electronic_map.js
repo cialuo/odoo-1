@@ -1,4 +1,7 @@
-var VEHICLE_INFO_DICT = {};
+var CARMAP,
+    VEHICLE_INFO_DICT = {},
+    TARGET_LINE,
+    TARGET_VEHICLE;
 
 odoo.define("electronic_map.electronic_map", function(require) {
     var core = require('web.core');
@@ -33,7 +36,6 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 stepMinute: 1,
                 inputMask: true
             });
-
             var vehiclesObj = self.$(".onboard");
             var lineObj = self.$(".line");
             lineObj.on("change", function() {
@@ -62,11 +64,14 @@ odoo.define("electronic_map.electronic_map", function(require) {
         start: function() {
             var self = this;
             self.set_map_center = false;
-            config_parameter.query().filter([
-                ["key", "=", "dispatch.desktop.restful"]
-            ]).all().then(function(restful) {
-                RESTFUL_URL = restful[0].value;
-                self.get_line_info();
+            config_parameter.query().filter([["key", "=", "dispatch.desktop.socket"]]).all().then(function (socket) {
+                config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
+                    SOCKET_URL = socket[0].value;
+                    RESTFUL_URL = restful[0].value;
+                    $.getScript("/lty_operation_map_base/static/src/js/websocket_electronic_map.js", function(){
+                        self.get_line_info();
+                    });
+                });
             });
         },
         // 获取线路信息
@@ -87,6 +92,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 zoom: 10,
                 center: [116.408075, 39.950187]
             });
+            CARMAP = map;
             this.map_toolBar(map);
             this.load_fn(map);
         },
@@ -103,11 +109,19 @@ odoo.define("electronic_map.electronic_map", function(require) {
         load_fn: function(map) {
             var self = this;
             // 定位
+            TARGET_VEHICLE = "";
+            TARGET_LINE_ID = "";
             self.$el.on("click", ".localize_bt", function() {
+                map.clearMap();
                 var options = self.get_map_set_arg();
+                self.subscribe(options.gprsId);
                 if (!options.line_id) {
                     layer.msg("请先选择线路", { shade: 0.3, time: 2000 });
                     return false;
+                }
+                TARGET_LINE_ID = options.line_id;
+                if (options.onboardId){
+                    TARGET_VEHICLE = options.onboardId.toString();
                 }
                 model_map_line_info.query().filter([
                     ["line_id", "=", parseInt(options.line_id)]
@@ -127,6 +141,8 @@ odoo.define("electronic_map.electronic_map", function(require) {
                             set_dict.gps_dict[direction] = JSON.parse(set.map_data)||[];
                         });
                         self.load_his_establishment_line(map, set_dict);
+                    }else{
+                        self.vehicle_position_http(map);
                     }
                 })
             });
@@ -188,7 +204,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
             var options = self.get_map_set_arg();
             var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
             $.ajax({
-                url: RESTFUL_URL + '/ltyop/dspGprsData/dspGpsCoordLastPos?apikey=71029270&params={"gprsId":"' + options.gprsId + '","onboardId":"' + options.onboardId + '"}',
+                url: RESTFUL_URL + '/ltyop/dspGprsData/dspGpsCoordLastPos?apikey=71029270&params={"gprsId":"' + options.gprsId + '"}',
                 type: 'get',
                 dataType: 'json',
                 success: function(ret) {
@@ -197,10 +213,10 @@ odoo.define("electronic_map.electronic_map", function(require) {
                         layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
                     }else{
                         var vehicleInfo = ret[0][options.gprsId];
-                        // if (vehicleInfo.length == 0){
-                        //     layer.msg("该线路没有车辆", { shade: 0.3, time: 2000 });
-                        //     return false;
-                        // }
+                        if (vehicleInfo.length == 0){
+                            // layer.msg("该线路没有车辆", { shade: 0.3, time: 2000 });
+                            return false;
+                        }
                         self.init_vehicle_position(map, vehicleInfo);
                     }
                 }
@@ -209,24 +225,24 @@ odoo.define("electronic_map.electronic_map", function(require) {
         // 地图上展示车辆位置状态
         init_vehicle_position: function(map, vehicleInfo){
             var self = this;
-            var vehicleInfo = [{
-                onboardId: 10017,
-                latitude: 36.667814,
-                longitude: 114.642147
-            }];
+            // var vehicleInfo = [{
+            //     onboardId: 10017,
+            //     latitude: 36.667814,
+            //     longitude: 114.642147
+            // }];
             if (vehicleInfo.length > 0){
-                var icon = new AMap.Icon({
-                    image: '/lty_operation_map_base/static/src/image/vehicle.png',
-                    size: new AMap.Size(22, 24)
-                });
+                // var icon = new AMap.Icon({
+                //     image: '/lty_operation_map_base/static/src/image/vehicle_off.png',
+                //     size: new AMap.Size(32, 32)
+                // });
+                var icon = '/lty_operation_map_base/static/src/image/vehicle_off.png';
                 _.each(vehicleInfo, function(vehicle, index) {
                     var marker = new AMap.Marker({
-                        icon: icon,
+                        content: self.get_content_fn(map, icon, vehicle.onboardId.toString()),
                         position: [vehicle.longitude, vehicle.latitude],
-                        offset : new AMap.Pixel(-22,-12),
+                        offset : new AMap.Pixel(-32,-16),
                         autoRotation: true,
-                        title: vehicle.onboardId,
-                        zindex: 101,
+                        // title: vehicle.onboardId,
                         map: map
                     });
                     VEHICLE_INFO_DICT[vehicle.onboardId.toString()] = marker;
@@ -237,10 +253,58 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 });
             }
         },
+        get_content_fn: function(map, icon, onboardId){
+            var div = document.createElement('div');
+            div.style.display = "block";
+            if (TARGET_VEHICLE == onboardId){
+                dom.style.borderStyle = "solid";
+                dom.style.borderColor = "#5acbff";
+                dom.style.borderWidth = "2px";
+            }else{
+                div.style.borderStyle = "none";
+                div.style.borderWidth ="0px";
+            }
+            div.style.position = "absolute";
+            div.style.textAlign = "center";
+            div.style.width = '70px';
+            div.style.height = '32px';
+            div.style.zIndex = '1';
+            // 车辆编号
+            var span = document.createElement("span");
+            span.style.lineHeight = "16px";
+            span.style.position = "absolute";
+            span.style.top = "-16px";
+            span.style.textShadow = "-1px 0 #FFFFFF, 0 1px #FFFFFF,1px 0 #FFFFFF, 0 -1px #FFFFFF";
+            span.style.color = "#58554e";
+            var text = document.createTextNode(onboardId);
+            span.appendChild(text);
+            this.setUnselected(span);
+            div.appendChild(span);
+            // 车辆图标
+            var divImg = document.createElement("span");
+            divImg.className = "carIcon";
+            divImg.style.width = "32px";
+            divImg.style.height = "32px";
+            divImg.style.display = "inline-block";
+            divImg.style.backgroundImage= "url('"+icon+"')";
+            divImg.style.backgroundRepeat = "no-repeat";
+            div.appendChild(divImg);
+            return div;
+        },
+        setUnselected: function(a){
+            if(a.style&&a.style.MozUserSelect){
+               a.style.MozUserSelect="none";
+            }else if(a.style&&a.style.WebkitUserSelect){
+               a.style.WebkitUserSelect="none";
+            }else if(a.unselectable) {
+                a.unselectable ="on";
+                a.onselectstart =function(){return false};       
+            }
+        },
         init_map_center: function(map){
             this.set_map_center = true;
-            if (map.getZoom()<12){
-                map.setZoom(12);
+            if (map.getZoom()<14){
+                map.setZoom(14);
             }
             if (this.init_map_pos){
                 map.setCenter(this.init_map_pos);
@@ -257,6 +321,27 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 onboardId: vehiclesObj.val(),
                 startTime: startTime.val(),
                 endTime: endTime.val()
+            }
+        },
+        //订阅
+        subscribe: function(gpsId){
+            if (self.subscribe_gpsId && self.subscribe_gpsId!=gpsId){
+                var package = {
+                    type: 2001,
+                    gpsId: self.subscribe,
+                    open_modules: ["bus_site", "abnormal"]
+                };
+                websocket_electronic_map.send(JSON.stringify(package));
+            }
+
+            if (gpsId){
+                var package = {
+                    type: 2000,
+                    gpsId: gpsId,
+                    open_modules: ["bus_site", "abnormal"]
+                };
+                websocket_electronic_map.send(JSON.stringify(package));
+                self.subscribe_gpsId = gpsId;
             }
         }
     });
@@ -276,7 +361,6 @@ odoo.define("electronic_map.electronic_map", function(require) {
             config_parameter.query().filter([
                 ["key", "=", "dispatch.desktop.restful"]
             ]).all().then(function(restful) {
-                SOCKET_URL = socket[0].value;
                 RESTFUL_URL = restful[0].value;
                 self.get_line_info();
             });

@@ -75,6 +75,10 @@ websocket.onclose = function () {
 window.onbeforeunload = function () {
     websocket.close();
 };
+//监听窗口链接更改时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常
+window.onhashchange = function(){
+    websocket.close();
+}
 
 //  订阅打开页面需要的模块
 var package = {
