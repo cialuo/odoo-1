@@ -185,7 +185,7 @@ class FaultMethod(models.Model):
     state = fields.Selection([('use', "Use"),('done', "Done")], default='use', string="Method State")
     active = fields.Boolean(default=True)
     remark = fields.Text("Remark", help='Remark')
-    work_time = fields.Float(string="Work Time(Minutes)")
+    work_time = fields.Float(string="Work Time(Hours)")
     work_time_lines = fields.One2many('work.time.lines', 'order_id', string="Work time lines")
     warranty_deadline = fields.Integer(string="Warranty Deadline(Days)", required=True, default=30)
     complex_level = fields.Selection([
@@ -271,7 +271,7 @@ class WorkTimeLines(models.Model):
     _name = 'work.time.lines'
 
     time_type_id = fields.Many2one('work.time.type', string="Work time type")
-    work_time = fields.Float(string="Work Time(Minutes)")
+    work_time = fields.Float(string="Work Time(Hours)")
     order_id = fields.Many2one('maintain.fault.method', string="Fault Method")
     _sql_constraints = [
         ('time type unique', 'UNIQUE(time_type_id, order_id)', u'同一维修方法的额定类型必须唯一')

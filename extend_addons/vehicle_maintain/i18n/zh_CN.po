@@ -988,7 +988,7 @@ msgstr "实际开工时间"
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_real_work_fee
 msgid "Real Work Fee"
-msgstr "工时费小计"
+msgstr "额定工时费"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_real_work
@@ -1335,14 +1335,14 @@ msgstr "保修天数(天)"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_work_time
-msgid "Work Time(Min)"
-msgstr "工时定额(分钟)"
+msgid "Work Time(Hour)"
+msgstr "工时定额(小时)"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_method_work_time
 #: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_lines_work_time
-msgid "Work Time(Minutes)"
-msgstr "工时定额(分钟)"
+msgid "Work Time(Hours)"
+msgstr "工时定额(小时)"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_work_fee

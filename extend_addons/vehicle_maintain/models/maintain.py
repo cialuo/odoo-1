@@ -351,7 +351,7 @@ class MaintainRepair(models.Model):
             if not (r.plan_start_time and r.work_time):
                 continue
             start = fields.Datetime.from_string(r.plan_start_time)
-            r.plan_end_time = start + timedelta(seconds=r.work_time*60)
+            r.plan_end_time = start + timedelta(seconds=r.work_time*3600)
 
     @api.multi
     def write(self, vals):
@@ -647,7 +647,7 @@ class MaintainRepairJobs(models.Model):
     real_start_time = fields.Datetime("Real Start Time")
     real_end_time = fields.Datetime("Real End Time")
     percentage_work = fields.Float('Percentage Work')
-    work_time = fields.Float('Work Time(Min)', digits=(10, 2))
+    work_time = fields.Float('Work Time(Hour)', digits=(10, 2))
     my_work = fields.Float('My Work(Hour)', digits=(10, 2), compute='_get_my_work')
 
     real_work = fields.Float('Real Work(Hour)', digits=(10, 2), compute="_get_real_work")
@@ -664,7 +664,7 @@ class MaintainRepairJobs(models.Model):
     @api.depends('work_time', 'percentage_work')
     def _get_my_work(self):
         for i in self:
-            i.my_work = i.work_time/60.0 * i.percentage_work/100
+            i.my_work = i.work_time * i.percentage_work/100
 
 
 class MaintainInspect(models.Model):
