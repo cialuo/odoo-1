@@ -34,8 +34,17 @@ class Vehicle(models.Model):
     power_ext = fields.Integer(related='model_id.power_ext', store=True, readonly=True, copy=False)
 
     weight = fields.Integer(related='model_id.weight', store=True, readonly=True, copy=False)
-    doors_ext = fields.Integer(related='model_id.doors_ext', store=True, readonly=True, copy=False)
-    seats_ext = fields.Integer(related='model_id.seats_ext', store=True, readonly=True, copy=False)
+
+    # 车门数
+    doors_ext = fields.Integer(string="doors number")
+
+    # 座位数
+    seats_ext = fields.Integer(string="seats number")
+
+    @api.onchange('model_id')
+    def changeSeatDoorNumber(self):
+        self.doors_ext = self.model_id.doors_ext
+        self.seats_ext = self.model_id.seats_ext
 
     brand_name = fields.Char(compute="_compute_model_att_name", store=True)
     length_width_height = fields.Char(compute="_compute_model_att_name", help='length_width_height')
