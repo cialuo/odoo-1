@@ -276,7 +276,7 @@ msgstr "用户 ID"
 #. module: lty_advanced_workflow
 #: sql_constraint:lty.approve.logs:0
 msgid "You have approve or reject !"
-msgstr "你已经审批或拒决 !"
+msgstr "你已经审批或拒绝 !"
 
 #. module: lty_advanced_workflow
 #: selection:lty.advanced.workflow.cfg,end_status:0
@@ -356,7 +356,7 @@ msgstr "过程"
 #: selection:lty.approve.center,status:0
 #: selection:lty.approve.logs,approve_status:0
 msgid "rejected"
-msgstr "拒决"
+msgstr "拒绝"
 
 #. module: lty_advanced_workflow
 #: selection:lty.advanced.workflow.cfg.line,approve_type:0
