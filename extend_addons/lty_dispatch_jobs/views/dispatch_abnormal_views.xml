@@ -5,7 +5,7 @@
       <field name="name">dispatch_abnormal_mgt list</field>
       <field name="model">dispatch.abnormal.mgt</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree create="0" delete="0">
           <field name="name" string='名称'/>
           <field name="line_id" string='线路'/>
           <field name="categ_id" string='类别'/>
@@ -21,7 +21,7 @@
       <field name="name">dispatch_abnormal_logst list</field>
       <field name="model">dispatch.abnormal.logs</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree create="0" delete="0">
           <field name="name"/>
           <field name="user"/>
           <field name="date"/>
