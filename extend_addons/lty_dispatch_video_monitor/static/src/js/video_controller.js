@@ -6,12 +6,21 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
     var Widget = require('web.Widget');
     var Model = require('web.Model');
     var QWeb = core.qweb;
-    var video_play = Widget.extend({
-        template:'dispatch_desktop_video',
+    var ztree_show = Widget.extend({
+        template: 'ztree_show',
         init: function (parent) {
             this._super(parent);
         },
         start: function () {
+        }
+    });
+    var video_play = Widget.extend({
+        template: 'dispatch_desktop_video',
+        init: function (parent) {
+            this._super(parent);
+        },
+        start: function () {
+            new ztree_show(this).appendTo(this.$el.find('.content-left'));
             var catData = [];
             var websocket = null;
             var catDataDid = {};
@@ -44,21 +53,6 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                     }]
                 },
             ];
-            var setting = {
-                view: {
-                    showIcon: false,
-                    fontCss: setFontCss
-                },
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {
-                    onClick: zTreeOnClick
-                }
-
-            }
             var zTreeNodes = [{
                 name: "parent_2",
                 id: 111,
@@ -115,6 +109,23 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                     }
                 ]
             }];
+            var setting = {
+                view: {
+                    showIcon: false,
+                    fontCss: setFontCss
+                },
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    onClick: zTreeOnClick
+                }
+
+            };
+
+            $.fn.zTree.init(this.$el.find("#ztree"), setting, zTreeNodes);
             //心跳包检测
             var heartCheck = {
                 timeout: 10000, //10秒发送一次心跳包
@@ -175,20 +186,21 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
 
             //监听到websocket 返回信息
             function onMessage(event) {
+                console.log(event.data)
                 heartCheck.reset();
                 var dataJson = $.parseJSON(event.data);
-                console.log(dataJson)
+
                 if (dataJson.msg_type == '257') { //第一次加载过来推送的在线
                     onlineData = dataJson.result;
                     heigh_light_show_tree(dataJson.result); //设置在线的状态
-                    getVideoOnlines(onlineData, dataJson.result); //断流重连
+                    // getVideoOnlines(onlineData, dataJson.result); //断流重连
                 } else if (dataJson.msg_type == '512') { //推送在线的状态
                     //				setInterShow(dataJson.result); //设置在线的状态
-                    getVideoOnlines(catDataDid, dataJson.result); //断流重连
+                    // getVideoOnlines(catDataDid, dataJson.result); //断流重连
                 } else if (dataJson.msg_type == '259') { //服务器返回播放的地址
                     catDataDid = dataJson; //全局存储对象
                     //				showMonflasitor(dataJson); //回应的地址
-                    deal_getData(dataJson)
+                    deal_getData(dataJson);
                 }
 
             }
@@ -256,15 +268,6 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             }
 
             //展示当前播放器的播放器和渠道
-            function videoOnePlay(videoNum, videoOneList, deviceId, channelId) {
-                $("#flashContent" + videoNum).parent('.video_player').find('.show_car').text(deviceId);
-                if (channelId >= 0) {
-                    channelId = channelId + 1;
-                } else {
-                    channelId = "";
-                }
-                $("#flashContent" + videoNum).parent('.video_player').find('.show_car').text(channelId);
-            }
 
             //清空数组
             function removeobj() {
@@ -272,39 +275,45 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             }
 
             function heigh_light_show_tree(dataBusIdShow) {
-                var zTreeShow = $.fn.zTree.getZTreeObj("ztree");
-                for (var i = 0; i < dataBusIdShow.length; i++) {
-                    var node_id = zTreeShow.getNodeByParam("id", dataBusIdShow[i].id, null);
-                    if (node_id) {
-                        zTreeShow.updateNode(node_id);
-                        var node_P = node_id.getParentNode() //获取父节点
-                        dataBusIdShowStatus = dataBusIdShow[i].online;
-                        if (node_P) {
-                            //						展开父节点
-                            zTreeShow.expandNode(node_P, true, false, false, false)
-                        }
-                        //展开子节点
-                        zTreeShow.expandNode(node_id, true, false, false, false)
-                        var obj = node_id.tId + "_span";
-                        for (var j = 0; j < dataBusIdShow[i].channels.length; j++) {
-                            dataBusIdShow[i].channels[j].channel_id = dataBusIdShow[i].channels[j].channel_id;
-                            var nodeLen = node_id.children.length;
-                            for (var n = 0; n < nodeLen; n++) {
-                                if (dataBusIdShow[i].channels[j].online == 1) {
-                                    var objChild = node_id.children[n].tId + '_span';
-                                    if (dataBusIdShow[i].channels[j].channel_id == node_id.children[n].id) {
-                                        $('#' + objChild).addClass('online');
-                                        $('#' + obj).addClass('online');
-                                    } else if (dataBusIdShow[i].channels[j].online == '0') {
-                                        var objChild = node_id.children[n].tId + "_span";
-                                        $('#' + objChild).removeClass('online');
-                                        $('#' + obj).removeClass('online');
+                var time_ztreeobj = setInterval(function () {
+                    if ($('#ztree').length > 0) {
+                        var zTreeShow = $.fn.zTree.getZTreeObj("ztree");
+                        clearInterval(time_ztreeobj)
+                        for (var i = 0; i < dataBusIdShow.length; i++) {
+                            var node_id = zTreeShow.getNodeByParam("id", dataBusIdShow[i].id, null);
+                            if (node_id) {
+                                zTreeShow.updateNode(node_id);
+                                var node_P = node_id.getParentNode() //获取父节点
+                                dataBusIdShowStatus = dataBusIdShow[i].online;
+                                if (node_P) {
+                                    //						展开父节点
+                                    zTreeShow.expandNode(node_P, true, false, false, false)
+                                }
+                                //展开子节点
+                                zTreeShow.expandNode(node_id, true, false, false, false)
+                                var obj = node_id.tId + "_span";
+                                for (var j = 0; j < dataBusIdShow[i].channels.length; j++) {
+                                    dataBusIdShow[i].channels[j].channel_id = dataBusIdShow[i].channels[j].channel_id;
+                                    var nodeLen = node_id.children.length;
+                                    for (var n = 0; n < nodeLen; n++) {
+                                        if (dataBusIdShow[i].channels[j].online == 1) {
+                                            var objChild = node_id.children[n].tId + '_span';
+                                            if (dataBusIdShow[i].channels[j].channel_id == node_id.children[n].id) {
+                                                $('#' + objChild).addClass('online');
+                                                $('#' + obj).addClass('online');
+                                            } else if (dataBusIdShow[i].channels[j].online == '0') {
+                                                var objChild = node_id.children[n].tId + "_span";
+                                                $('#' + objChild).removeClass('online');
+                                                $('#' + obj).removeClass('online');
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
+                }, 300);
+
             }
 
             function getUrlParam(name) {
@@ -337,8 +346,8 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                         catData.push(deviceData);
                     }
                     cutoverTreePlay(4, dataUrl, deviceId, channelId);
-                } else {
-
+                } else if (channelId == 0) {
+                    cutoverTreePlay(1, dataUrl, deviceId, channelId);
                 }
             }
 
@@ -352,6 +361,8 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                     if (channelId == '-1') {
                         show_video(i, arrcut, deviceId, channelId); //循环创建播放器
                         //					showSreenPlay(num); //依据屏幕数量设置摆放
+                    } else if (channelId == 0) {
+                        show_video(i, arrcut, deviceId, channelId);
                     }
                 }
             }
@@ -382,19 +393,31 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 params.bgcolor = "#000000";
                 params.allowscriptaccess = "sameDomain";
                 params.allowfullscreen = "true";
+                params.scale = "showall";
                 var attributes = {};
                 attributes.id = "StrobeMediaPlayback";
                 attributes.name = "StrobeMediaPlayback";
                 attributes.align = "middle";
-                $('#flashContent' + i).parent().find('.show_car').show();
-                $('#flashContent' + i).parent().find('.now_play').html('当前车辆号：' + deviceId)
+                attributes.scale = "showall";
+                // for(var j = 0;j<$('.video_player').length;j++){
+                // 因为数据乃后台返回，无须做处理
+                    $('#flashContent' + i).parents('.video_player').find('.show_car').show();
+                    $('#flashContent' + i).parents('.video_player').find('.now_play').html('当前车辆号：' + deviceId)
+                // }
                 var qudao = i + 1;
-                $('#flashContent' + i).parent().find('.now_channel').html('当前渠道：' + qudao)
-
+                $('#flashContent' + i).parents('.video_player').find('.now_channel').html('当前渠道：' + qudao)
                 var timeShow = setInterval(function () {
-                    if ($('body').find('#flashContent').length > 0) {
-                        swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent" + i, "650", "350", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
-                        swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+                    if ($('body').find('#flashContent' + i).length > 0) {
+                        if (channelId == 0) {
+
+                            swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent" + i, "550", "350", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
+                            swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+                        } else if (channelId == -1) {
+                            $('#flashContent' + i).parents('.video_player').find('.show_car').show();
+                            $('#flashContent' + i).parents('.video_player').find('.now_play').html('当前车辆号：' + deviceId)
+                            swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent" + i, "550", "350", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
+                            swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+                        }
                         clearInterval(timeShow);
                     }
                 }, 300);
@@ -407,18 +430,41 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
 //
             function zTreeOnClick(event, treeId, treeNode) {
                 var p_name = treeNode.name;
+                var dom_chose = '#' + treeNode.tId + '_span';
                 //			webSocketVideo(channelType, deviceId, channeld)
                 //'{"msg_type":258,"params":{"bus_id":8000,"channel_id":0}}'
                 var channelType = 258;
                 var deviceId = 8000;
                 var channelId = -1;
-                $('.video_player').addClass('hide');
-                if (treeNode.isParent == true) {
-                    $('.video_player').removeClass('hide');
-                } else {
-                    $('.video_player.hide').eq(0).removeClass('hide');
+                $('.video_player.hide').removeClass('hide');
+                $('.video_player .now_play').html('');
+                $('.video_player .now_channel').html('');
+                $('.video_player .content-right').html('');
+
+                if ($(dom_chose).hasClass('online')) {
+                    var up = -1;
+                    var m;
+                    var n = []
+                    if (treeNode.isParent == true) {
+                        for (var i = 0; i < 3; i++) {
+                            //如果这条选择线路online
+                            m = parseInt(treeNode.tId.split('_')[1]) + i+1;
+                            if ($('#ztree_' + m + '_span').hasClass('online')) {
+                                up++;
+                                n.push(i)
+                                $('.content-right').append($('.video_box').html());
+                                $('.video_player .video_show_box').eq(up).find('.video_box_player').attr('id', 'flashContent' + i);
+                            }
+                        }
+                    } else {
+                        //添加播放器盒子
+                        channelId = 0;
+                        $('.content-right').append($('.video_box').html());
+                        $('.content-right .video_show_box').eq(0).find('.video_box_player').attr('id', 'flashContent0')
+                    }
+                    debugger
+                    webSocketVideo(channelType, deviceId, channelId);
                 }
-                // webSocketVideo(channelType, deviceId, channelId);
             };
 //
 //             //		websocket链接请求的视频播放
@@ -443,18 +489,13 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 websocket.send(videoParams); //发送参数
                 //			}
             }
-                //进来初始化视频列表
-                 var timeTree = setInterval(function () {
-                    if ($('body').find('#ztree').length > 0) {
-                        $.fn.zTree.init($("#ztree"), setting, zTreeNodes)
-                        clearInterval(timeTree);
-                    }
-                }, 300);
-                $.fn.zTree.init($("#ztree"), setting, zTreeNodes)
-                //websocket初始化
-                // sendVideoInit()
-                //			高亮在线视频列表
-                // heigh_light_show_tree(data)
+
+            //进来初始化视频列表
+
+            //websocket初始化
+            sendVideoInit()
+            //			高亮在线视频列表
+            heigh_light_show_tree(data)
             // send_video_msg()
         },
     });
