@@ -142,7 +142,7 @@
     <record model="ir.actions.act_window" id="lty_advanced_workflow_approve_center_done_action">
       <field name="name">我已审批的任务</field>
       <field name="res_model">lty.approve.center</field>
-      <field name="domain">[('status','=','approved')]</field>
+      <field name="domain">['|',('status','!=','rejected'),('status','!=','approved')]</field>
       <field name="view_mode">tree,form</field>
     </record>   
     <!-- 我发起的审批-->
