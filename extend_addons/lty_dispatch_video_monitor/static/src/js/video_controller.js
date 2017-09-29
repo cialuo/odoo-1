@@ -437,9 +437,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 var deviceId = 8000;
                 var channelId = -1;
                 $('.video_player.hide').removeClass('hide');
-                $('.video_player .now_play').html('');
-                $('.video_player .now_channel').html('');
-                $('.video_player .content-right').html('');
+                $('.content-right').html('');
 
                 if ($(dom_chose).hasClass('online')) {
                     var up = -1;
@@ -462,7 +460,6 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                         $('.content-right').append($('.video_box').html());
                         $('.content-right .video_show_box').eq(0).find('.video_box_player').attr('id', 'flashContent0')
                     }
-                    debugger
                     webSocketVideo(channelType, deviceId, channelId);
                 }
             };
