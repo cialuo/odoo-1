@@ -7,7 +7,7 @@ odoo.define(function (require) {
     var model_choseline = new Model('route_manage.route_manage');
     var model_city = new Model('ir.config_parameter');
     var model_site = new Model('opertation_resources_station_platform');
-
+    var config_parameter = new Model('ir.config_parameter');
     // 线路客流title
     var supply_title = Widget.extend({
         template: "supply_title_template",
@@ -56,6 +56,8 @@ odoo.define(function (require) {
             self.$(".direction").change(function () {      //方向事件
                 self.update_site_fn();
             });
+
+            self.$(".ok_bt").click();
         },
         update_site_fn: function () {
             var self = this;
@@ -157,11 +159,11 @@ odoo.define(function (require) {
                 $.ajax({
                     type: 'get',
                     // url: 'http://192.168.2.122:8080/ltyop/busReport/getPassengerFlow?apikey=222&line_id=197&city_code=130400&date_end=20170912&date_period=30&direction=1&step=1',
-                    url: 'http://192.168.2.122:8080/ltyop/busReport/getPassengerFlow?apikey=222&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=30&direction=' + arg_options.direction + '&step=1',
+                    url: RESTFUL_URL + '/ltyop/busReport/getPassengerFlow?apikey=222&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=30&direction=' + arg_options.direction + '&step=1',
                     data: {},
                     dataType: 'json',
                     error: function (res) {
-                        console.log("数据错误")
+                        console.log("数据错误");
                     },
                     success: function (res) {
                         var passenger_flow_x = [];            //x+时间轴
@@ -216,7 +218,7 @@ odoo.define(function (require) {
                 $.ajax({
                     type: 'get',
                     // url: 'http://192.168.2.122:8080/ltyop/busReport/getPointRatePasFlow?apikey=211&line_id=197&city_code=130400&date_end=20170914&date_period=30&direction=1&station_id=&step=1',
-                    url: 'http://192.168.2.122:8080/ltyop/busReport/getPointRatePasFlow?apikey=211&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=30&direction=' + arg_options.direction + '&step=1',
+                    url: RESTFUL_URL + '/ltyop/busReport/getPointRatePasFlow?apikey=211&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=30&direction=' + arg_options.direction + '&step=1',
                     //date_end   没有结束日期
                     data: {},
                     dataType: 'json',
@@ -725,11 +727,14 @@ odoo.define(function (require) {
             var self = this;
             model_city.query().filter([["key", "=", 'city.code']]).all().then(function (citys) {
                 model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {
-                    var options = {
-                        cityCode: citys[0].value,
-                        lineInfo: lines,
-                    };
-                    new line_passenger_flow(self, options).appendTo(self.$el);
+                    config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
+                        RESTFUL_URL = restful[0].value;
+                        var options = {
+                            cityCode: citys[0].value,
+                            lineInfo: lines,
+                        };
+                        new line_passenger_flow(self, options).appendTo(self.$el);
+                    });
                 });
             });
         }
@@ -754,7 +759,7 @@ odoo.define(function (require) {
                 { name: "前365天", id: "365" },
                 { name: "所有", id: "all" },
             ];
-            var predict_passenger_flow_time = "2017-07-31";
+            var predict_passenger_flow_time = "20170731";
             var plan_way = [
                 { name: "按时", en_name: "when", value: 1 },
                 { name: "按天", en_name: "day", value: 2 },
@@ -1074,21 +1079,24 @@ odoo.define(function (require) {
             model_city.query().filter([["key", "=", 'city.code']]).all().then(function (citys) {
                 model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {
                     model_site.query().filter([["route_id", "=", parseInt(lines[0].id)]]).all().then(function (sites) {
-                        var site_top_list = [];
-                        var site_down_list = [];
-                        _.each(sites, function (ret) {
-                            if (ret.direction == "up") {
-                                site_top_list.push(ret);
-                            } else {
-                                site_down_list.push(ret);
-                            }
+                        config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
+                            RESTFUL_URL = restful[0].value;      //url-EDN   待提供接口将RESTFUL_URL替换前缀
+                            var site_top_list = [];
+                            var site_down_list = [];
+                            _.each(sites, function (ret) {
+                                if (ret.direction == "up") {
+                                    site_top_list.push(ret);
+                                } else {
+                                    site_down_list.push(ret);
+                                }
+                            });
+                            var options = {
+                                cityCode: citys[0].value,
+                                lineInfo: lines,
+                                initSiteInfo: site_top_list
+                            };
+                            new site_passenger_flow(self, options).appendTo(self.$el);
                         });
-                        var options = {
-                            cityCode: citys[0].value,
-                            lineInfo: lines,
-                            initSiteInfo: site_top_list
-                        };
-                        new site_passenger_flow(self, options).appendTo(self.$el);
                     });
                 });
             });
@@ -1116,7 +1124,7 @@ odoo.define(function (require) {
                 { name: "前365天", id: "365" },
                 { name: "所有", id: "all" },
             ];
-            var predict_passenger_flow_time = "2017-07-31";
+            var predict_passenger_flow_time = "20170731";
             // 
             var plan_way = [
                 { name: "按时", en_name: "when", value: 1 },
@@ -1335,23 +1343,24 @@ odoo.define(function (require) {
                 { name: "前365天", id: "365" },
                 { name: "所有", id: "all" },
             ];
-            var predict_passenger_flow_time = "2017-07-31";
+            var predict_passenger_flow_time = "20170731";
             // 
             var data_scope = [
                 "2017-06-26", "2017-07-31"
             ];
-            var plan_way = [
-                { name: "按时", en_name: "when" },
-                { name: "按天", en_name: "day" },
-                { name: "按周", en_name: "weeks" },
-                { name: "按月", en_name: "month" }
+            var plan_way = [     //9.27
+                { name: "按时", en_name: "when", value: 1 },
+                { name: "按天", en_name: "day", value: 2 },
+                { name: "按周", en_name: "weeks", value: 3 },
+                { name: "按月", en_name: "month", value: 4 },
             ];
-            var company_list = [
-                { name: "总公司", id: "comp1" },
-                { name: "一分公司", id: "comp2" },
-                { name: "二分公司", id: "comp3" },
-                { name: "三分公司", id: "comp4" }
-            ];
+            // var company_list = [
+            //     { name: "总公司", id: "comp1" },
+            //     { name: "一分公司", id: "comp2" },
+            //     { name: "二分公司", id: "comp3" },
+            //     { name: "三分公司", id: "comp4" }
+            // ];
+            var company_list = this.company;
             var dis_set = {
                 data_scope: true          //9.22   
             };
@@ -1469,23 +1478,26 @@ odoo.define(function (require) {
         start: function () {
             var self = this;
             model_city.query().filter([["key", "=", 'city.code']]).all().then(function (citys) {
-                model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {
+                model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {//线路
                     model_site.query().filter([["route_id", "=", parseInt(lines[0].id)]]).all().then(function (sites) {
-                        var site_top_list = [];
-                        var site_down_list = [];
-                        _.each(sites, function (ret) {
-                            if (ret.direction == "up") {
-                                site_top_list.push(ret);
-                            } else {
-                                site_down_list.push(ret);
-                            }
+                        config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
+                            RESTFUL_URL = restful[0].value;      //url-end
+                            var site_top_list = [];
+                            var site_down_list = [];
+                            _.each(sites, function (ret) {
+                                if (ret.direction == "up") {
+                                    site_top_list.push(ret);
+                                } else {
+                                    site_down_list.push(ret);
+                                }
+                            });
+                            var options = {
+                                cityCode: citys[0].value,
+                                lineInfo: lines,
+                                initSiteInfo: site_top_list
+                            };
+                            new time_place_passenger_flow(self, options).appendTo(self.$el);
                         });
-                        var options = {
-                            cityCode: citys[0].value,
-                            lineInfo: lines,
-                            initSiteInfo: site_top_list
-                        };
-                        new time_place_passenger_flow(self, options).appendTo(self.$el);
                     });
                 });
             });
@@ -1511,7 +1523,7 @@ odoo.define(function (require) {
                 { name: "前365天", id: "365" },
                 { name: "所有", id: "all" },
             ];
-            var predict_passenger_flow_time = "2017-07-31";
+            var predict_passenger_flow_time = "20170731";
             // 
             var plan_way = [
                 { name: "按时", en_name: "when", value: 1 },

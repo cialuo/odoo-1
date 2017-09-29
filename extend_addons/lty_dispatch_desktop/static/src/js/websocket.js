@@ -20,6 +20,13 @@ websocket.onerror = function () {
 //连接成功建立的回调方法
 websocket.onopen = function () {
     console.log("WebSocket连接成功");
+    //  链接成功后，订阅打开页面需要的模块
+    var package = {
+        type: 2000,
+        controlId: CONTROLLERID,
+        open_modules: ["line_message", "line_online", "abnormal", "passenger_flow"]
+    };
+    websocket.send(JSON.stringify(package));
 }
 
 //接收到消息的回调方法
@@ -75,15 +82,10 @@ websocket.onclose = function () {
 window.onbeforeunload = function () {
     websocket.close();
 };
-
-//  订阅打开页面需要的模块
-var package = {
-    type: 2000,
-    controlId: CONTROLLERID,
-    open_modules: ["line_message", "line_online", "abnormal", "passenger_flow"]
-};
-websocket.send(JSON.stringify(package));
-console.log(CONTROLLERID)
+//监听窗口链接更改时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常
+window.onhashchange = function(){
+    websocket.close();
+}
 
 function use_odoo_model(event, model_name) {
     for (socket_model in socket_model_info) {
