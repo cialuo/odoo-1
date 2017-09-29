@@ -1,0 +1,43 @@
+.dispatch_desktop_video .ztree .online {
+    color: #008000;
+}
+
+.dispatch_desktop_video .ztree {
+    height: 600px;
+    overflow: auto;
+}
+
+.dispatch_desktop_video .content-left{
+    width:20%;
+    float: left;
+}
+
+
+.dispatch_desktop_video .content-right {
+    width: 80%;
+}
+
+.video_player .video_hide {
+    display: none;
+}
+
+.dispatch_desktop_video .video_player {
+    width: 650px;
+    height: 350px;
+    float: left;
+    position: relative;
+    margin-right: 2px;
+    margin-bottom: 2px;
+}
+
+.dispatch_desktop_video .show_car {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    color: #ACEFAC;
+    display: none;
+}
+
+.dispatch_desktop_video .now_play {
+    margin-right: 20px;
+}

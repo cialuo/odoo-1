@@ -83,6 +83,7 @@ var package = {
     open_modules: ["line_message", "line_online", "abnormal", "passenger_flow"]
 };
 websocket.send(JSON.stringify(package));
+console.log(CONTROLLERID)
 
 function use_odoo_model(event, model_name) {
     for (socket_model in socket_model_info) {
