@@ -1,5 +1,15 @@
 <odoo>
 	<data>
+		<record model="ir.ui.view" id="vehicle_model_work_time_form">
+			<field name="name">vehicle_model_work_time_form</field>
+			<field name="model">fleet.vehicle.model</field>
+			<field name="inherit_id" ref="vehicle_manage.vehicle_manage_model_view_form_ext"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='code']" position="after">
+					<field name="time_type_id" options="{'no_create': True}"/>
+				</xpath>
+			</field>
+		</record>
 		<!-- FaultCategory  tree -->
         <record model="ir.ui.view" id="fault_category_view_tree">
             <field name="name">FaultCategory.tree</field>
@@ -307,6 +317,14 @@
 									</tree>
 								</field>
 							</page>
+							 <page name="timeline" string="Work time line">
+								 <field name="work_time_lines">
+									 <tree editable="top">
+										 <field name="time_type_id" options="{'no_open': True, 'no_create': True}"/>
+										 <field name="work_time"/>
+									 </tree>
+								 </field>
+							 </page>
 						 </notebook>
 					</sheet>
                 </form>

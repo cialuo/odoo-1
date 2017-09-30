@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* vehicle_maintain
+#	* vehicle_maintain
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-18 01:27+0000\n"
-"PO-Revision-Date: 2017-09-18 09:30+0800\n"
+"POT-Creation-Date: 2017-09-27 07:19+0000\n"
+"PO-Revision-Date: 2017-09-27 07:19+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 2.0.3\n"
 
 #. module: vehicle_maintain
 #: code:addons/vehicle_maintain/models/maintain.py:117
@@ -24,13 +22,13 @@ msgid "%s has been added to the report!"
 msgstr "%s 添加到报修单!"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/stock.py:132
+#: code:addons/vehicle_maintain/models/stock.py:140
 #, python-format
 msgid "%s more than get %s"
 msgstr "%s不能退料，退料超过个数: %s"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/stock.py:100
+#: code:addons/vehicle_maintain/models/stock.py:108
 #, python-format
 msgid "%s more than max_count %s"
 msgstr "%s 超过领用上限%s个"
@@ -40,6 +38,12 @@ msgstr "%s 超过领用上限%s个"
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_available_product_product_size
 msgid "A precise description of the Product, used only for internal information purposes."
 msgstr "产品的精确说明，仅用于内部备注。"
+
+#. module: vehicle_maintain
+#: model:ir.actions.act_window,name:vehicle_maintain.action_work_time_type
+#: model:ir.ui.menu,name:vehicle_maintain.menu_work_time_type
+msgid "Action Work Time Type"
+msgstr "额定工时类型"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_appearance_active
@@ -83,7 +87,6 @@ msgstr "检验退回"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_fault_available_product_list_price
-#: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_repair_materials_list_price
 msgid "Base price to compute the customer price. Sometimes called the catalog price."
 msgstr "计算客户报价的基准价格。也叫目录价格"
 
@@ -205,6 +208,8 @@ msgstr "填单人单位"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_create_uid
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm_create_uid
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_lines_create_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_type_create_uid
 msgid "Created by"
 msgstr "创建人"
 
@@ -223,20 +228,20 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_create_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm_create_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_lines_create_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_type_create_date
 msgid "Created on"
 msgstr "创建时间"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_fault_available_product_onhand_qty
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_available_product_onhand_qty
-msgid ""
-"Current quantity of products.\n"
+msgid "Current quantity of products.\n"
 "In a context with a single Stock Location, this includes goods stored at this Location, or any of its children.\n"
 "In a context with a single Warehouse, this includes goods stored in the Stock Location of this Warehouse, or any of its children.\n"
 "stored in the Stock Location of the Warehouse of this Shop, or any of its children.\n"
 "Otherwise, this includes goods stored in any Stock Location with 'internal' type."
-msgstr ""
-"当前产品数量。 \n"
+msgstr "当前产品数量。 \n"
 "对位置来说，包括了此位置或其子位置的产品。 \n"
 "对仓库来说，包括了这个仓库位置或其子位置的产品。  \n"
 "另外，包括了所有'内部'类型位置的产品。"
@@ -266,7 +271,7 @@ msgid "Dispatch Count"
 msgstr "待派工故障"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:452
+#: code:addons/vehicle_maintain/models/maintain.py:462
 #, python-format
 msgid "Dispatching the proportion of more than 100"
 msgstr "派工比例超过了百分之百"
@@ -286,6 +291,8 @@ msgstr "派工比例超过了百分之百"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_display_name
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm_display_name
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_display_name
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_lines_display_name
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_type_display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -339,6 +346,7 @@ msgstr "故障分类"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_fault_method_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_fault_method_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_fault_method_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_lines_order_id
 msgid "Fault Method"
 msgstr "维修方法"
 
@@ -484,13 +492,11 @@ msgstr "可用数量"
 #. module: vehicle_maintain
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_fault_available_product_virtual_available
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_available_product_virtual_available
-msgid ""
-"Forecast quantity (computed as Quantity On Hand - Outgoing + Incoming)\n"
+msgid "Forecast quantity (computed as Quantity On Hand - Outgoing + Incoming)\n"
 "In a context with a single Stock Location, this includes goods stored in this location, or any of its children.\n"
 "In a context with a single Warehouse, this includes goods stored in the Stock Location of this Warehouse, or any of its children.\n"
 "Otherwise, this includes goods stored in any Stock Location with 'internal' type."
-msgstr ""
-"预测数量(计算为 在手数量 - 出货 + 进货) \n"
+msgstr "预测数量(计算为 在手数量 - 出货 + 进货) \n"
 "对于单一库存位置来说，这包括了存储在这个位置及其子位置的货物。\n"
 "对于单一仓库来说，这包括了存储在这个仓库的库存位置及其子位置的货物。\n"
 "否则，这包括存储在任何“内部”类型位置的货物。"
@@ -515,11 +521,13 @@ msgstr "群体作业"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm_id
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_lines_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_type_id
 msgid "ID"
 msgstr "ID"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:333
+#: code:addons/vehicle_maintain/models/maintain.py:340
 #, python-format
 msgid "In order to delete a repair order, you must set it draft first."
 msgstr "只能删除草稿状态下的维修单."
@@ -616,6 +624,8 @@ msgstr "名称"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record___last_update
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm___last_update
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor___last_update
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_lines___last_update
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_type___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
@@ -634,6 +644,8 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_write_uid
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm_write_uid
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_lines_write_uid
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_type_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
@@ -652,6 +664,8 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_return_record_write_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_maintain_inspect_confirm_write_date
 #: model:ir.model.fields,field_description:vehicle_maintain.field_vehicle_usage_vehicleanchor_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_lines_write_date
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_type_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
 
@@ -688,13 +702,13 @@ msgid "Maintain Repair Jobs"
 msgstr "工时管理"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:496
+#: code:addons/vehicle_maintain/models/maintain.py:506
 #, python-format
 msgid "Maintain Repair Jobs Required!"
 msgstr "维修工时不存在，请先派工"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:447
+#: code:addons/vehicle_maintain/models/maintain.py:454
 #, python-format
 msgid "Maintain Repair Names Required!"
 msgstr "请选择维修人员"
@@ -706,7 +720,7 @@ msgid "Maintain Repair Required!"
 msgstr "请填写维修故障"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:449
+#: code:addons/vehicle_maintain/models/maintain.py:456
 #, python-format
 msgid "Maintain Repair StartTime Required!"
 msgstr "请选择计划开始时间"
@@ -761,7 +775,7 @@ msgid "MaintainReport Tree"
 msgstr "MaintainReport Tree"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:354
+#: code:addons/vehicle_maintain/models/maintain.py:361
 #, python-format
 msgid "Maintenance exists the type is doubt, please set to yes or no"
 msgstr "维修故障中存在返修类型为可疑，请设置成是或者否"
@@ -784,7 +798,7 @@ msgstr "用料控制"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_materials_product_ids
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_calc_view_form
 msgid "Materials Product"
-msgstr "用料核算"
+msgstr "物资"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_available_product_max_count
@@ -811,6 +825,11 @@ msgid "Model"
 msgstr "型号"
 
 #. module: vehicle_maintain
+#: model:ir.model,name:vehicle_maintain.model_fleet_vehicle_model
+msgid "Model of a vehicle"
+msgstr "车辆型号"
+
+#. module: vehicle_maintain
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_repair_vehicle_type
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_report_vehicle_type
 #: model:ir.model.fields,help:vehicle_maintain.field_vehicle_usage_vehicleanchor_model_id
@@ -829,14 +848,23 @@ msgid "My Work(Hour)"
 msgstr "我的工时(小时)"
 
 #. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_type_name
+msgid "Name"
+msgstr "名字"
+
+#. module: vehicle_maintain
 #: model:ir.ui.view,arch_db:vehicle_maintain.fault_category_view_form
 msgid "No FaultAppearance"
 msgstr "无表象故障"
 
 #. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_type_note
+msgid "Note"
+msgstr "备注"
+
+#. module: vehicle_maintain
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_inspect_confirm_view
-msgid ""
-"Once inspect repair are confirmed, you will not be able\n"
+msgid "Once inspect repair are confirmed, you will not be able\n"
 "                        to modify them."
 msgstr "检验通过后将不能修改"
 
@@ -966,7 +994,7 @@ msgstr "实际开工时间"
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_real_work_fee
 msgid "Real Work Fee"
-msgstr "工时费小计"
+msgstr "额定工时费"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_real_work
@@ -987,7 +1015,7 @@ msgstr "故障原因编码已存在"
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_appearance_reason_ids
 msgid "Reasons"
-msgstr "故障原因"
+msgstr "理由"
 
 #. module: vehicle_maintain
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_calc_view_form
@@ -1173,7 +1201,7 @@ msgid "Select category"
 msgstr "Select category"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain.py:699
+#: code:addons/vehicle_maintain/models/maintain.py:709
 #, python-format
 msgid "Selected inspect(s) cannot be confirmed as they are not in 'inspect' state"
 msgstr "选择检验单中存在不是待检状态的记录"
@@ -1235,7 +1263,8 @@ msgid "Suitable Vehicle"
 msgstr "适用车型"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/maintain_repair_calc.py:109
+#: code:addons/vehicle_maintain/models/maintain_repair_calc.py:200
+#: code:addons/vehicle_maintain/models/maintain_repair_calc.py:239
 #, python-format
 msgid "There is unfinished picking"
 msgstr "领退料单中还存在未完成的单据"
@@ -1312,19 +1341,41 @@ msgstr "保修天数(天)"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_jobs_work_time
-msgid "Work Time(Min)"
-msgstr "工时定额(分钟)"
+msgid "Work Time(Hour)"
+msgstr "工时定额(小时)"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_method_work_time
-#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_work_time
-msgid "Work Time(Minutes)"
-msgstr "工时定额(分钟)"
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_lines_work_time
+msgid "Work Time(Hours)"
+msgstr "工时定额(小时)"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_work_fee
 msgid "Work fee"
 msgstr "工时费率(元/时)"
+
+#. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_work_time
+msgid "Work time"
+msgstr "实际工时"
+
+#. module: vehicle_maintain
+#: model:ir.ui.view,arch_db:vehicle_maintain.fault_method_view_form
+msgid "Work time line"
+msgstr "工时额定明细"
+
+#. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_method_work_time_lines
+msgid "Work time lines"
+msgstr "工时额定明细"
+
+#. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_fleet_vehicle_model_time_type_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_fleet_vehicle_time_type_id
+#: model:ir.model.fields,field_description:vehicle_maintain.field_work_time_lines_time_type_id
+msgid "Work time type"
+msgstr "工时定额类型"
 
 #. module: vehicle_maintain
 #: selection:maintain.manage.report,repair_category:0
@@ -1607,7 +1658,7 @@ msgid "material problem(suppliers)"
 msgstr "物料问题(供应商)"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/fault.py:266
+#: code:addons/vehicle_maintain/models/fault.py:267
 #, python-format
 msgid "max_count must be greater than or equal to change_count"
 msgstr "领用上限必须大于等于必换数量"
@@ -1616,6 +1667,11 @@ msgstr "领用上限必须大于等于必换数量"
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_reason_method_ids
 msgid "methods"
 msgstr "维修方法"
+
+#. module: vehicle_maintain
+#: model:ir.model.fields,field_description:vehicle_maintain.field_stock_picking_needwarning
+msgid "need warning"
+msgstr "是否报警"
 
 #. module: vehicle_maintain
 #: selection:maintain.manage.repair,return_repair_state:0
@@ -1633,8 +1689,8 @@ msgid "percentage_work"
 msgstr "工时比例"
 
 #. module: vehicle_maintain
-#: code:addons/vehicle_maintain/models/stock.py:86
-#: code:addons/vehicle_maintain/models/stock.py:117
+#: code:addons/vehicle_maintain/models/stock.py:94
+#: code:addons/vehicle_maintain/models/stock.py:125
 #, python-format
 msgid "product is not exist,please remove:%s"
 msgstr "添加的物资不存在，不能添加，请移除:%s"
@@ -1702,6 +1758,17 @@ msgid "waiting time"
 msgstr "待料时间"
 
 #. module: vehicle_maintain
+#: model:ir.model,name:vehicle_maintain.model_work_time_lines
+msgid "work.time.lines"
+msgstr "work.time.lines"
+
+#. module: vehicle_maintain
+#: model:ir.model,name:vehicle_maintain.model_work_time_type
+msgid "work.time.type"
+msgstr "work.time.type"
+
+#. module: vehicle_maintain
 #: selection:maintain.manage.repair,return_repair_state:0
 msgid "yes"
 msgstr "是"
+
