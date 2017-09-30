@@ -16,6 +16,11 @@ class BusWorkRules(models.Model):
 
     _name = 'scheduleplan.schedulrule'
 
+    # 同一条线路同一个日期类型下只能有一条处于激活状态下的行车规则
+    _sql_constraints = [
+        ('line_datetype_unique', 'unique (line_id, date_type, active)', 'one line one datetype in active ')
+    ]
+
     name = fields.Char(string="rule name", required=True)
 
     # 线路
@@ -690,7 +695,8 @@ class BusWorkRules(models.Model):
                                                                            force=True)
             # 生成运营方案数据
             mvtime.genOperatorPlan()
-            if self._execTableExist(tomorrow_str, item.id) == None:
+            execCheck = self._execTableExist(tomorrow_str, item.id)
+            if execCheck == None:
                 # 生成行车作业执行数据
                 BusWorkRules.genExcuteRecords(mvtime)
 
