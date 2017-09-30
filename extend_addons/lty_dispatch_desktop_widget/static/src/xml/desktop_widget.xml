@@ -1390,7 +1390,7 @@
                                 </td>
                                 <td>
                                     <input class="w2 planTime" disabled="disabled" t-attf-value="{{new Date(widget.set_data.planRunTime).toTimeString().slice(0, 5)}}" type="time" />
-                                    <input type="hidden" class="pid" t-attf-pid="{{widget.set_data.id}}" />
+                                    <input type="hidden" class="pid" t-attf-value="{{widget.set_data.id}}" />
                                 </td>
                             </tr>
                             <tr>
