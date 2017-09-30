@@ -7,7 +7,6 @@ var websocket = null;
 //判断当前浏览器是否支持WebSocket
 if ('WebSocket' in window) {
     // websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
-    ws://202.104.136.228:8883/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68
     // websocket = new WebSocket("ws://202.104.136.228:8085/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
     websocket = new WebSocket( SOCKET_URL +"/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
 } else {
@@ -21,15 +20,13 @@ websocket.onerror = function () {
 //连接成功建立的回调方法
 websocket.onopen = function () {
     console.log("WebSocket连接成功");
-
     //  链接成功后，订阅打开页面需要的模块
     var package = {
         type: 2000,
         controlId: CONTROLLERID,
-        open_modules: ["line_message", "line_online", "abnormal",'line_park' ,"passenger_flow"]
+        open_modules: ["line_message", "line_online", "line_park", "abnormal", "passenger_flow"]
     };
     websocket.send(JSON.stringify(package));
-    console.log("send_success");
 }
 
 //接收到消息的回调方法
@@ -224,7 +221,7 @@ function absnormal_del(controllerObj, data_list) {
         }
         // 时段意外低峰
         else if (data_list.packageType == 1019) {
-            abnoraml_desc.html(data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外客流低峰');
+            abnoraml_desc.html(data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外客流高峰');
         }
         // 站点意外高峰
         else if (data_list.packageType == 1020) {

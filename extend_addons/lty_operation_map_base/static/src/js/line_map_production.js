@@ -70,6 +70,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
             // 选择线路
             self.$('.mapSetLineDiv').on('change', 'select.line', function() {
                 self.line_id = $(this).val();
+                self.line_name = $(this).find("option:selected").text();
                 self.$('.mapSet').html('');
                 if (self.line_id == '') {
                     return;
@@ -127,7 +128,8 @@ odoo.define("line_map_production.line_map_production", function(require) {
                             map: map,
                             site_dict: { '0': site_top_list, '1': site_down_list },
                             his_dict: his_dict,
-                            line_id: self.line_id
+                            line_id: self.line_id,
+                            line_name: self.line_name
                         };
                         new line_map_production_set(self, options).appendTo(self.$('.mapSet'));
                     });
@@ -157,6 +159,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
         init: function(parent, options) {
             this._super(parent);
             this.options = options;
+            console.log(options);
             // 站点信息
             this.model_station = new Model('opertation_resources_station');
             this.family_list = ['宋体', '微软雅黑', '华文细黑', '黑体', 'sans-serif', 'serif'];

@@ -76,7 +76,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             var package = {
                 type: 2000,
                 controlId: this.location_data.controllerId,
-                open_modules: ["line_plan", "line_park", "line_online"]
+                open_modules: ["line_plan"]
             };
             if (websocket) {
                 websocket.send(JSON.stringify(package));
@@ -221,6 +221,16 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 self.add_plan_fn(options);
             });
 
+            // 手动发车
+            plan_display.on("click", ".plan_display_set li.manual_start_bt", function() {
+                var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+                var id = $(this).parents(".plan_display_set").attr("plan_pid");
+                var options = {
+                    id: id,
+                    layer_index: layer_index
+                };
+                self.manual_start_fn(options);
+            });
 
             // 修改计划
             plan_display.on("click", ".plan_display_set[model='bus_plan'] li.fix_bt", function() {
@@ -255,6 +265,17 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     layer_index: layer_index
                 };
                 self.batch_fix_switch_fn(options);
+            });
+
+            // 手动返回
+            plan_display.on("click", ".plan_display_set[model='bus_transit'] li.manual_return_bt", function() {
+                var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+                var id = $(this).parents(".plan_display_set").attr("plan_pid");
+                var options = {
+                    id: id,
+                    layer_index: layer_index
+                };
+                self.manual_return_fn(options);
             });
 
             // 司乘签到
@@ -342,10 +363,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             });
 
             // 搜索-车辆编号
-            // $("body").on("cursor", ".customModal .carNum", function(){
-            // alert("111");
-            // self.vehicle_search_autocomplete({evt: this, controlId: controllerId, lineId: lineId});
-            // });
             $("body").on("focus", ".customModal .carNum", function() {
                 self.vehicle_search_autocomplete({ evt: this, controlId: controllerId, lineId: lineId });
             });
@@ -354,38 +371,46 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             $("body").on("focus", ".customModal .workerId", function() {
                 self.driver_search_autocomplete({ evt: this, controlId: controllerId });
             });
-            // $("body").bind("focus", ".customModal .workerId", function(){
-            //     self.driver_search_autocomplete({evt: this, controlId: controllerId});
-            // });
 
             // 搜索-乘务工号
             $("body").on("keyup", ".customModal .train", function() {
                 self.trainman_search_autocomplete({ evt: this, controlId: controllerId });
             });
-            // $("body").bind("focus", ".customModal .train", function(){
-            //     self.trainman_search_autocomplete({evt: this, controlId: controllerId});
-            // });
 
-            // 搜索-线路
-            // $("body").on("keyup", ".customModal .train", function(){
-            //     self.trainman_search_autocomplete({evt: this, controlId: controllerId});
-            // });
-            // $("body").bind("focus", ".customModal .train", function(){
-            //     self.trainman_search_autocomplete({evt: this, controlId: controllerId});
+            // 搜索-计划
+
+            // $("body").on("keyup", ".customModal .planTimeS", function() {
+            //     self.planTime_search_autocomplete({ evt: this, controlId: controllerId });
             // });
         },
         plan_bottom_fn: function() {
             var self = this;
             var plan_display = self.$(".plan_display");
-            //上下移动计划
+            // 取消计划
+            plan_display.on("click", ".bottom_bt .cancel", function() {
+                var plan_box = $(this).parents(".plan_box");
+                var bus_plan = plan_box.find(".bus_plan");
+                // 先去掉右键浮层及active
+                self.delete_active_fn(plan_display);
+                var active_tr = bus_plan.find(".content_tb tr.active_tr");
+                if (active_tr.length == 1) {
+                    var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+                    var options = {
+                        id: active_tr.attr("pid"),
+                        layer_index: layer_index
+                    };
+                    self.cancel_plan_fn(options);
+                } else {
+                    layer.msg("请选择需要处理的计划", { time: 1000, shade: 0.3 });
+                }
+            });
+
+            // 上下移动计划
             plan_display.on("click", ".bottom_bt .move_bt", function() {
                 var plan_box = $(this).parents(".plan_box");
                 var bus_plan = plan_box.find(".bus_plan");
-                var direction = bus_plan.attr("direction");
                 // 先去掉右键浮层及active
-                var r_pid = plan_display.find(".content_tb tr.right").attr("pid");
-                plan_display.find(".plan_display_set").remove();
-                plan_display.find(".content_tb tr.right").removeClass("active_tr").removeClass("right");
+                self.delete_active_fn(plan_display);
                 var active_tr = bus_plan.find(".content_tb tr.active_tr");
                 if (active_tr.length == 1) {
                     var options = {
@@ -402,11 +427,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             plan_display.on("click", ".bottom_bt .fix", function() {
                 var plan_box = $(this).parents(".plan_box");
                 var bus_plan = plan_box.find(".bus_plan");
-                var direction = bus_plan.attr("direction");
                 // 先去掉右键浮层及active
-                var r_pid = plan_display.find(".content_tb tr.right").attr("pid");
-                plan_display.find(".plan_display_set").remove();
-                plan_display.find(".content_tb tr.right").removeClass("active_tr").removeClass("right");
+                self.delete_active_fn(plan_display);
                 var active_tr = bus_plan.find(".content_tb tr.active_tr");
                 if (active_tr.length == 1) {
                     var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
@@ -419,6 +441,30 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     layer.msg("请选择需要处理的计划", { time: 1000, shade: 0.3 });
                 }
             });
+
+            // 调换计划
+            plan_display.on("click", ".bottom_bt .adjust", function() {
+                var plan_box = $(this).parents(".plan_box");
+                var bus_plan = plan_box.find(".bus_plan");
+                // 先去掉右键浮层及active
+                self.delete_active_fn(plan_display);
+                var active_tr = bus_plan.find(".content_tb tr.active_tr");
+                if (active_tr.length == 1) {
+                    var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+                    var options = {
+                        id: active_tr.attr("pid"),
+                        layer_index: layer_index
+                    };
+                    self.adjust_plan_fn(options);
+                } else {
+                    layer.msg("请选择需要处理的计划", { time: 1000, shade: 0.3 });
+                }
+            });
+        },
+        delete_active_fn: function(plan_display){
+            var r_pid = plan_display.find(".content_tb tr.right").attr("pid");
+            plan_display.find(".plan_display_set").remove();
+            plan_display.find(".content_tb tr.right").removeClass("active_tr").removeClass("right");
         },
         send_plan_vehicles_fn: function(options) {
             $.ajax({
@@ -480,6 +526,22 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 }
             });
         },
+        manual_start_fn: function(options) {
+            var self = this;
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + ',id:' + options.id + '}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret) {
+                    layer.close(options.layer_index);
+                    var op = ret.respose[0];
+                    console.log(op);
+                    var dialog = new manual_start_w(self, op);
+                    dialog.appendTo($('body'));
+                }
+            });
+        },
         reduction_time_fn: function(options) {
             $.ajax({
                 url: RESTFUL_URL + '/ltyop/plan/restoreTime?apikey=71029270&params={id: "' + options.id + '"}',
@@ -508,6 +570,23 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     op.controllerId = self.location_data.controllerId;
                     console.log(op);
                     var dialog = new batch_fix_switch_w(self, op);
+                    dialog.appendTo($('body'));
+                }
+            });
+        },
+        manual_return_fn: function(options){
+            var self = this;
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + ',id:' + options.id + '}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret) {
+                    layer.close(options.layer_index);
+                    var op = ret.respose[0];
+                    op.controllerId = self.location_data.controllerId;
+                    console.log(op);
+                    var dialog = new manual_return_w(self, op);
                     dialog.appendTo($('body'));
                 }
             });
@@ -649,6 +728,21 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 }
             });
         },
+        cancel_plan_fn: function(options) {
+            var self = this;
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + ',id:' + options.id + '}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret) {
+                    layer.close(options.layer_index);
+                    console.log(ret.respose[0]);
+                    var dialog = new cancel_plan_w(self, ret.respose[0]);
+                    dialog.appendTo($('body'));
+                }
+            });
+        },
         fix_plan_fn: function(options) {
             var self = this;
             $.ajax({
@@ -660,6 +754,21 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     layer.close(options.layer_index);
                     console.log(ret.respose[0]);
                     var dialog = new fix_plan_w(self, ret.respose[0]);
+                    dialog.appendTo($('body'));
+                }
+            });
+        },
+        adjust_plan_fn: function(options){
+            var self = this;
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + ',id:' + options.id + '}',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret) {
+                    layer.close(options.layer_index);
+                    console.log(ret.respose[0]);
+                    var dialog = new adjust_plan_w(self, ret.respose[0]);
                     dialog.appendTo($('body'));
                 }
             });
@@ -798,7 +907,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             var package = {
                 type: 2001,
                 controlId: this.location_data.controllerId,
-                open_modules: ["line_plan", "line_park", "line_online"]
+                open_modules: ["line_plan"]
             };
             if (websocket){
                 websocket.send(JSON.stringify(package));
@@ -819,15 +928,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             // 选中计划
             self.$(".content_tb").on("click", "tr.point", function() {
                 $(this).addClass("active_tr").siblings().removeClass('active_tr');
-            });
-
-            // 取消计划
-            self.$el.find(".bottom_bt").on("click", ".cancel", function() {
-                if (self.$(".active_tr").length == 0) {
-                    layer.msg("请选择需要处理的计划", { time: 1000, shade: 0.3 });
-                    return;
-                }
-                self.$(".active_tr").removeClass("active_tr");
             });
 
             // 增加icon浮层说明
@@ -1180,6 +1280,213 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
         }
     });
 
+    // 手动发车
+    var manual_start_w = Widget.extend({
+        template: 'manual_start_template',
+        init: function(parent, data) {
+            this._super(parent);
+            this.set_data = data;
+        },
+        start: function() {
+            this.modal_fn();
+        },
+        modal_fn: function() {
+            var self = this;
+            self.$el.on('hide.bs.modal', function() {
+                self.destroy();
+            });
+            self.$el.on('show.bs.modal', function() {
+                $(this).css('display', 'block');
+                // 是弹出框居中。。。
+                var $modal_dialog = $(this).find('.modal-dialog');
+                //获取可视窗口的高度
+                var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+                //得到dialog的高度
+                var dialogHeight = $modal_dialog.height();
+                //计算出距离顶部的高度
+                var m_top = (clientHeight - dialogHeight) / 2;
+                $modal_dialog.css({ 'margin': m_top + 'px auto' });
+            });
+            self.$el.modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            self.$(".realRunTime").focus();
+
+            // 提交
+            self.$('.btn-primary').on('click', function() {
+                self.submit_fn();
+            });
+        },
+        submit_fn: function() {
+            var self = this;
+            var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+            var confObj = self.$('.modal-body table');
+            var params = {
+                id: self.set_data.id,
+                onBoardId: confObj.find(".onBoardId").val(),
+                realRunTime: confObj.find(".realRunTime").val(),
+                lineId: confObj.find(".line").val(),
+                abnormalType: confObj.find(".abnormal").val()
+            };
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/plan/autoOutPlan?apikey=71029270&params=' + JSON.stringify(params),
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret) {
+                    layer.close(layer_index);
+                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    if (ret.result == 0) {
+                        self.$('.btn-default').click();
+                    }
+                }
+            });
+        }
+    });
+
+    // 手动返回
+    var manual_return_w = Widget.extend({
+        template: 'manual_return_template',
+        init: function(parent, data) {
+            this._super(parent);
+            this.set_data = data;
+        },
+        start: function() {
+            this.modal_fn();
+        },
+        modal_fn: function() {
+            var self = this;
+            self.$el.on('hide.bs.modal', function() {
+                self.destroy();
+            });
+            self.$el.on('show.bs.modal', function() {
+                $(this).css('display', 'block');
+                // 是弹出框居中。。。
+                var $modal_dialog = $(this).find('.modal-dialog');
+                //获取可视窗口的高度
+                var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+                //得到dialog的高度
+                var dialogHeight = $modal_dialog.height();
+                //计算出距离顶部的高度
+                var m_top = (clientHeight - dialogHeight) / 2;
+                $modal_dialog.css({ 'margin': m_top + 'px auto' });
+            });
+            self.$el.modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            self.$(".realRunTime").focus();
+
+            // 提交
+            self.$('.btn-primary').on('click', function() {
+                self.submit_fn();
+            });
+        },
+        submit_fn: function() {
+            var self = this;
+            var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+            var confObj = self.$('.modal-body table');
+            var params = {
+                id: self.set_data.id,
+                onBoardId: confObj.find(".onBoardId").val(),
+                realReachTime: confObj.find(".realReachTime").val(),
+                direction: confObj.find(".retrun_direction").val(),
+                opType: confObj.find(".opType").val(),
+                type: confObj.find(".type").val()
+            };
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/resource/handBackBusResourceOp?apikey=71029270&params=' + JSON.stringify(params),
+                type: 'post',
+                dataType: 'json',
+                data: {},
+                success: function(ret) {
+                    layer.close(layer_index);
+                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    if (ret.result == 0) {
+                        self.$('.btn-default').click();
+                    }
+                }
+            });
+        }
+    });
+
+    // 取消计划
+    var cancel_plan_w = Widget.extend({
+        template: 'plan_display_cancel_plan_template',
+        init: function(parent, data) {
+            this._super(parent);
+            this.set_data = data;
+        },
+        start: function() {
+            this.modal_fn();
+        },
+        modal_fn: function() {
+            var self = this;
+            self.$el.on('hide.bs.modal', function() {
+                self.destroy();
+            });
+            self.$el.on('show.bs.modal', function() {
+                $(this).css('display', 'block');
+                // 是弹出框居中。。。
+                var $modal_dialog = $(this).find('.modal-dialog');
+                //获取可视窗口的高度
+                var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+                //得到dialog的高度
+                var dialogHeight = $modal_dialog.height();
+                //计算出距离顶部的高度
+                var m_top = (clientHeight - dialogHeight) / 2;
+                $modal_dialog.css({ 'margin': m_top + 'px auto' });
+            });
+            self.$el.modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            self.$('.modal-body').on("click", ".selectType .ckIcon", function() {
+                $(this).addClass("active").siblings().removeClass('active');
+            });
+
+            self.$(".planTime").focus();
+
+            // 提交
+            self.$('.btn-primary').on('click', function() {
+                self.submit_fn();
+            });
+        },
+        submit_fn: function() {
+            var self = this;
+            var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+            var confObj = self.$('.modal-body table');
+            var params = {
+                id: self.set_data.id,
+                cancelReasonId: confObj.find(".addReason").val(),
+                remark: confObj.find(".remark").val(),
+                averageType: confObj.find(".selectType .active").attr("typename"),
+                avgBegTime: confObj.find(".avgBegTime").val(),
+                avgModeCount: confObj.find(".avgModeCount").val(),
+                forwardModeCount: confObj.find(".forwardModeCount").val(),
+                forwardInterval: confObj.find(".forwardInterval").val()
+
+            };
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/plan/cancelPlan?apikey=71029270&params=' + JSON.stringify(params),
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function(ret) {
+                    layer.close(layer_index);
+                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    if (ret.result == 0) {
+                        self.$('.btn-default').click();
+                    }
+                }
+            });
+        }
+    });
+
     // 修改计划
     var fix_plan_w = Widget.extend({
         template: 'plan_display_fix_plan_template',
@@ -1266,6 +1573,69 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         });
                         return false;
                     }
+                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    if (ret.result == 0) {
+                        self.$('.btn-default').click();
+                    }
+                }
+            });
+        }
+    });
+
+    // 调换计划
+    var adjust_plan_w = Widget.extend({
+        template: 'adjust_plan_template',
+        init: function(parent, data) {
+            this._super(parent);
+            this.set_data = data;
+        },
+        start: function() {
+            this.modal_fn();
+        },
+        modal_fn: function() {
+            var self = this;
+            self.$el.on('hide.bs.modal', function() {
+                self.destroy();
+            });
+            self.$el.on('show.bs.modal', function() {
+                $(this).css('display', 'block');
+                // 是弹出框居中。。。
+                var $modal_dialog = $(this).find('.modal-dialog');
+                //获取可视窗口的高度
+                var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+                //得到dialog的高度
+                var dialogHeight = $modal_dialog.height();
+                //计算出距离顶部的高度
+                var m_top = (clientHeight - dialogHeight) / 2;
+                $modal_dialog.css({ 'margin': m_top + 'px auto' });
+            });
+            self.$el.modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            self.$(".planTimeS").focus();
+
+            // 提交
+            self.$('.btn-primary').on('click', function() {
+                self.submit_fn();
+            });
+        },
+        submit_fn: function() {
+            var self = this;
+            var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+            var confObj = self.$('.modal-body table');
+            var params = {
+                planId_1: self.set_data.id,
+                planId_2: confObj.find(".switched_pid").val()
+            };
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/plan/exchangePlan?apikey=71029270&params=' + JSON.stringify(params),
+                type: 'post',
+                dataType: 'json',
+                data: {},
+                success: function(ret) {
+                    layer.close(layer_index);
                     layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
