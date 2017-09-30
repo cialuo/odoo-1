@@ -1436,7 +1436,7 @@
                                 </td>
                                 <td>
                                     <input class="w2 planTime_switched planTimeS" type="text" />
-                                    <input type="hidden" class="switched_pid" type="text"/>
+                                    <input type="hidden" class="switched_pid" />
                                 </td>
                             </tr>
                             <tr>

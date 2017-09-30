@@ -1614,6 +1614,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 keyboard: false
             });
 
+            self.$(".planTimeS").focus();
+
             // 提交
             self.$('.btn-primary').on('click', function() {
                 self.submit_fn();
