@@ -109,18 +109,23 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             //匹配line_id和desktop_id
             var line_c = parseInt(arg.line_id);
             if (data_use.data.lineId == line_c && data_use.controllerId == arg.desktop_id) {
-                var timer =[];
+                var timer_real =[];
+                var timer_pre =[];
                 var forcast =[];
                 var real =[];
-                var res = data_use.data.dataList;
-                for(var i = 0;i<res.length;i++){
-                    timer.push(res[i].datetime);
-                    forcast.push(parseInt(res[i].Passenger_flow_forcast));
-                    real.push(parseInt(res[i].Passenger_flow_real));
+                var res = data_use.data;
+                for(var i = 0;i<res.realPassengerData.length;i++){
+                    timer_real.push(res.realPassengerData[i].nowtime);
+                    real.push(parseInt(res.realPassengerData[i].real_timePassengerFlow));
                 }
-                chartLineBar(arg.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['预测客流', '实际客流'], optionLineBar, timer, [forcast, real], '',data_use.data.lineId);
+                for(var j = 0;j<res.predictPassengerData.length;j++){
+                    timer_pre.push(res.predictPassengerData[j].nowtime)
+                    forcast.push(parseInt(res.predictPassengerData[j].predictPassengerFlow));
+                }
+                debugger
+                chartLineBar(arg.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['预测客流', '实际客流'], optionLineBar, timer_pre, [forcast, real], '',res.lineName);
                 // // 轮播克隆出的的图表
-                chartLineBar(arg.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['预测客流', '实际客流'], optionLineBar, timer, [forcast, real], '',data_use.data.lineId);
+                chartLineBar(arg.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['预测客流', '实际客流'], optionLineBar, timer_pre, [forcast, real], '',res.lineName);
                 // chartLineBar(arg.lagstation_chart, 0, ["#ff4634", "#4dcfc7"], 'bar', true, ['滞站客流', '预测滞站'], optionLineBar, ['周一', '周二', '周三', '周四', '周五', '周六'], [[120, 152, 101, 134, 90, 230], [220, 182, 191, 234, 290, 330]], '');
             }
         },
