@@ -257,6 +257,22 @@ class configmanager(object):
                          help="Use the unaccent function provided by the database when available.")
         group.add_option("--geoip-db", dest="geoip_database", my_default='/usr/share/GeoIP/GeoLiteCity.dat',
                          help="Absolute path to the GeoIP database file.")
+
+        # redis-session storage 相关
+        group.add_option("--s-redis-host", dest="s_redis_host", my_default="127.0.0.1",
+                         help="redis host")
+        group.add_option("--s-redis-port", dest="s_redis_port", my_default=6379,
+                         help="redis port",
+                         type="int")
+        group.add_option("--s-redis-db", dest="s_redis_db", my_default=0,
+                         help="redis db",
+                         type="int")
+        group.add_option("--s-expire-time", dest="s_expire_time", my_default=86400,
+                         help="session 在redis中的过期时间 默认为24小时",
+                         type="int")
+        group.add_option("--session-storage", dest="session_storage", my_default="file",
+                         help="session存储方案 可选项 file(文件存储) redis(redis存储)")
+
         parser.add_option_group(group)
 
         if os.name == 'posix':
