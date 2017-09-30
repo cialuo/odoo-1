@@ -1052,23 +1052,21 @@
 
 .customModalAddPlan .modal-content {
     width: 668px;
+    margin: 0 auto;
 }
 
 .driverCheckIn .modal-content {
     width: 358px;
+    margin: 0 auto;
 }
-/* GY编辑车辆  */
 .editTheVehicle .modal-content {
     width: 668px;
+    margin: 0 auto;
 }
-/* 异常状态 */
+
 .errorState .modal-content {
     width: 214px;
-    height: 427px;
-    color: #fff !important;
-    font-size: 14px;
-    font-family: "microsoft yahei";
-    margin: 0 auto;    
+    margin: 0 auto;
 }
 .errorState .modal-content .yczt-ul li {
     display: inline-block;
@@ -1206,7 +1204,6 @@
 .customModalAddPlan .w6 {
     width: 185px;
 }
-
 
 
 .modal_lty {

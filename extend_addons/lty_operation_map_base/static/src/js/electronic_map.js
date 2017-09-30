@@ -28,12 +28,13 @@ odoo.define("electronic_map.electronic_map", function(require) {
             var self = this;
             // 加载日期组件
             self.$(".timeW").datetimepicker({
-                format: 'YYYY-MM-DD HH:mm',
+                format: 'YYYY-MM-DD HH:mm:ss',
                 language: 'en',
                 pickDate: true,
                 pickTime: true,
                 stepHour: 1,
                 stepMinute: 1,
+                secondStep: 1,
                 inputMask: true
             });
             var vehiclesObj = self.$(".onboard");
@@ -52,6 +53,16 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     })
                 }
             });
+            self.get_time_fn();
+        },
+
+        get_time_fn: function(){
+            var myDate = new Date();
+            var newDate_end = myDate.getFullYear() + "-" + ("0" + (myDate.getMonth() + 1)).slice(-2) + "-" + myDate.getDate() + " 10:00:00";
+            var hisDate = new Date(new Date(newDate_end).getTime() - 86400000);
+            var newDate_start = hisDate.getFullYear() + "-" + ("0" + (hisDate.getMonth() + 1)).slice(-2) + "-" + hisDate.getDate() + " 10:00:00";
+            this.$(".startTime").val(newDate_start);
+            this.$(".endTime").val(newDate_end);
         }
     });
 
@@ -115,6 +126,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     layer.msg("请先选择线路", { shade: 0.3, time: 2000 });
                     return false;
                 }
+                self.marker_stop_move();
                 self.set_map_center = false;
                 TARGET_VEHICLE = "";
                 TARGET_LINE_ID = "";
@@ -147,6 +159,11 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     }
                 })
             });
+        },
+        marker_stop_move: function(){
+            for (var tem in VEHICLE_INFO_DICT){
+                VEHICLE_INFO_DICT[tem].stopMove();
+            }
         },
         // 显示制作的线路
         load_his_establishment_line: function(map, hisObj) {

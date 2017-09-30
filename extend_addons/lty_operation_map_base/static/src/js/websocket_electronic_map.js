@@ -25,20 +25,22 @@ websocket_electronic_map.onopen = function () {
 
 //接收到消息的回调方法
 websocket_electronic_map.onmessage = function (event) {
-    var eventData = event.data;
+    var eventData = JSON.parse(event.data);
     console.log(eventData);
     var modelName = eventData.moduleName;
+    var oData = eventData.data;
+    debugger;
     if (modelName == "bus_site"){
-        if (eventData.line_id == TARGET_LINE_ID){
-            update_vehicles_sockt(eventData);
+        if (oData.line_id == TARGET_LINE_ID){
+            update_vehicles_sockt(oData);
         }
     }else if (modelName == "abnormal"){
         //车辆掉线
-        if (eventData.packageType == 1003 && eventData.line_id == TARGET_LINE_ID) {
-            var abnormal_description = dataObj.abnormal_description;
+        if (eventData.packageType == 1003 && oData.line_id == TARGET_LINE_ID) {
+            var abnormal_description = oData.abnormal_description;
             var vehicle_on = abnormal_description.bus_on;
             if (VEHICLE_INFO_DICT[vehicle_on.toString()]){
-                update_icon(VEHICLE_INFO_DICT[vehicle_on.toString()], dataObj.status);
+                update_icon(VEHICLE_INFO_DICT[vehicle_on.toString()], oData.status);
             }
         }
     }
@@ -147,9 +149,10 @@ function update_icon(map, st) {
     }
 }
 function target_vehicle_fn(marker, longitude, latitude){
-    var dom = map.getContent().childNodes;
+    var map = marker.getMap();
+    var dom = marker.getContent();
     dom.style.borderStyle = "solid";
     dom.style.borderColor = "#5acbff";
     dom.style.borderWidth = "2px";
-    marker.getMap().setCenter([longitude, latitude]);
+    map.setCenter([longitude, latitude]);
 }

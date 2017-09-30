@@ -24,7 +24,7 @@ websocket.onopen = function () {
     var package = {
         type: 2000,
         controlId: CONTROLLERID,
-        open_modules: ["line_message", "line_online", "abnormal", "passenger_flow"]
+        open_modules: ["line_message", "line_online", "line_park", "abnormal", "passenger_flow"]
     };
     websocket.send(JSON.stringify(package));
 }
