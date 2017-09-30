@@ -173,7 +173,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                     dataType: 'json',
                                                     data: {},
                                                     success: function (res) {
-                                                        console.log("res:"+res)
+                                                        console.log(res)
                                                         for (var i = 0; i < res.length; i++) {
                                                             $('.run_car_hide').find('.line_car').attr('bus_no', res[i].onboard);
                                                             if (res[i].onlineFlag == 1) {
@@ -203,6 +203,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                                 self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').html(res[i].onboard);
                                                             }
                                                         }
+                                                        $('.run_car_hide').find('.line_car').removeClass('to_gray');
                                                         can_left_right(
                                                             {
                                                                 id: '.canvas_left',
