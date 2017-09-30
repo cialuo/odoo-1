@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2017/9/22.
  */
+var video_socket = null;
 odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
@@ -22,7 +23,6 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
         start: function () {
             new ztree_show(this).appendTo(this.$el.find('.content-left'));
             var catData = [];
-            var websocket = null;
             var catDataDid = {};
             var dataBusIdShowStatus = 0;
             var onlineData = 0; //在线车辆
@@ -141,10 +141,10 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                     var self = this;
                     this.timeoutObj = setTimeout(function () {
                         //发送心跳包
-                        websocket.send('{"msg_type":100}');
+                        video_socket.send('{"msg_type":100}');
                         self.serverTimeoutObj = setTimeout(function () {
                             //如果onclose会执行reconnect，我们执行ws.close()就行了.如果直接执行reconnect 会触发onclose导致重连两次
-                            websocket.close();
+                            video_socket.close();
                             sendVideoInit();
                         }, self.serverTimeout);
 
@@ -160,7 +160,6 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 } else {
                     css = {color: "#757575", "font-weight": "normal"};
                 }
-
                 return css;
             };
 
@@ -171,7 +170,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             //打开websocket
             function onOpen(openEvt) {
                 heartCheck.start();
-                console.log('websocket connection!')
+                console.log('websocket connection!');
             }
 
             //监听到websocket error
@@ -223,7 +222,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                                         var videoParams = '{"msg_type":' + channelType + ',"params":{"bus_id":' + busIdStr + ',"channel_id":' + channleStr + '}}';
                                     }
                                 }
-                                websocket.send(videoParams); //发送参数
+                                video_socket.send(videoParams); //发送参数
                             } else {
                                 alert('通道不在线！')
                             }
@@ -254,17 +253,17 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 //			端口变量参数
                 var webUrl = "ws://202.104.136.228:9001/lty-video-service";
                 if ('WebSocket' in window) {
-                    websocket = new ReconnectingWebSocket(webUrl + "/websocket/socketServer.ws?sessionID=" + SessionId);
-                    websocket.timeoutInterval = 12000; //websocket捂手超时时间
+                    video_socket = new ReconnectingWebSocket(webUrl + "/websocket/socketServer.ws?sessionID=" + SessionId);
+                    video_socket.timeoutInterval = 12000; //websocket捂手超时时间
                 } else if ('MozWebSocket' in window) {
-                    websocket = new MozWebSocket(webUrl + "/websocket/socketServer.ws?sessionID=" + SessionId);
+                    video_socket = new MozWebSocket(webUrl + "/websocket/socketServer.ws?sessionID=" + SessionId);
                 } else {
-                    websocket = new SockJS(webUrl + "/sockjs/socketServer.do?sessionID=" + SessionId);
+                    video_socket = new SockJS(webUrl + "/sockjs/socketServer.do?sessionID=" + SessionId);
                 }
-                websocket.onopen = onOpen;
-                websocket.onmessage = onMessage;
-                websocket.onerror = onError;
-                websocket.onclose = onClose;
+                video_socket.onopen = onOpen;
+                video_socket.onmessage = onMessage;
+                video_socket.onerror = onError;
+                video_socket.onclose = onClose;
             }
 
             //展示当前播放器的播放器和渠道
@@ -483,7 +482,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                     var videoParams = '{"msg_type":' + channelType + ',"params":{"bus_id":' + deviceId + '}}';
                 }
                 //				websocket.send('{"msg_type":258,"params":{"bus_id":8000,"channel_id":0}}');
-                websocket.send(videoParams); //发送参数
+                video_socket.send(videoParams); //发送参数
                 //			}
             }
 

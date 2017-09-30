@@ -56,7 +56,7 @@ var optionLineBar = {
         {
             axisLabel: {
                 rotate: '',
-                interval: 1,     //表示x轴长度除以n 若为2则x轴数量除以2
+                interval: 0,     //表示x轴长度除以n 若为2则x轴数量除以2
             },
             textStyle: {
                 fontSize: '',
@@ -103,7 +103,7 @@ var chartLineBar = function (dom,border_width, color, lineOrbar, boundaryGap, ti
     option.xAxis[0].data = keyJson;
     option.xAxis[0].boundaryGap = boundaryGap;
     option.legend.data = title;
-    option.title.text=+line_num+'·客流与动力';
+    option.title.text=line_num+'·客流与动力';
     option.series = function () {
         var res = [];
         for (var i = 0, size = dataJson.length; i < size; i++) {

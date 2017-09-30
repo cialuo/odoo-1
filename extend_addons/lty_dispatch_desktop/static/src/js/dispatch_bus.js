@@ -142,6 +142,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         dataType: 'json',
                                         data: {},
                                         success: function (data) {
+                                            console.log(data)
                                             if (data[0].withBus != undefined) {
                                                 //配车数量
                                                 self.$el.find('.show_applycar_num span').html(data[0].withBus);
@@ -165,7 +166,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                 self.$el.find('.park_right li').eq(2).html(data[0].downReturnLevel2);
                                                 self.$el.find('.park_right li').eq(1).html(data[0].downReturnLevel3);
                                                 self.$el.find('.park_right li').eq(0).html(data[0].downReturnLevel4);
-
                                                 $.ajax({
                                                     url: RESTFUL_URL + '/ltyop/dispatchRealtimeStatus/cacheDrivingStat?apikey=71029270&params={"gprsId":"' + self.gprs_id + '"}',
                                                     type: 'get',
@@ -177,9 +177,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                         for (var i = 0; i < res.length; i++) {
                                                             $('.run_car_hide').find('.line_car').attr('bus_no', res[i].onboard);
                                                             if (res[i].onlineFlag == 1) {
-                                                                $('.run_car_hide').find('.line_car').addClass('to_gray');
-                                                            } else {
                                                                 $('.run_car_hide').find('.line_car').removeClass('to_gray');
+                                                            } else {
+                                                                $('.run_car_hide').find('.line_car').addClass('to_gray');
                                                             }
                                                             if (res[i].direction == 0) {
                                                                 if (res[i].stationFlag == 0) {
@@ -203,6 +203,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                                 self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').html(res[i].onboard);
                                                             }
                                                         }
+                                                        $('.run_car_hide').find('.line_car').removeClass('to_gray');
                                                         can_left_right(
                                                             {
                                                                 id: '.canvas_left',

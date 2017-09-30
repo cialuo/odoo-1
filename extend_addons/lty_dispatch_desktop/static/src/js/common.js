@@ -260,6 +260,13 @@ window.onhashchange=function(){
     }else{
         $('body').find('.o_content').css('overflow','auto');
     }
+    // if($('body').find('dispatch_desktop_video').length>0){
+    //
+    // }else{
+    //     if(typeof (video_socket) != "undefined"){
+    //                 video_socket.close()
+    //     }
+    // }
 };
 function transform(obj){
     var arr = [];
