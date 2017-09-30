@@ -373,15 +373,14 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             });
 
             // 搜索-乘务工号
-            $("body").on("keyup", ".customModal .train", function() {
+            $("body").on("focus", ".customModal .train", function() {
                 self.trainman_search_autocomplete({ evt: this, controlId: controllerId });
             });
 
             // 搜索-计划
-
-            // $("body").on("keyup", ".customModal .planTimeS", function() {
-            //     self.planTime_search_autocomplete({ evt: this, controlId: controllerId });
-            // });
+            $("body").on("focus", ".customModal .planTimeS", function() {
+                self.planTime_search_autocomplete({ evt: this});
+            });
         },
         plan_bottom_fn: function() {
             var self = this;
@@ -796,7 +795,11 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         url: RESTFUL_URL + '/ltyop/dspSimulationDisPatchPlan/autocompleteBusResourcByControlIdNoCarState?apikey=71029270&params={dateSearch: "' + options.dateSearch + '" ,controlId: "' + options.controlId + '" ,lineId: "' + options.lineId + '" ,carNum: "' + carNum + '"}',
                         dataType: "json",
                         success: function(data) {
-                            response(data);
+                            if (data.result == 0){
+                                response(data);
+                            }else{
+                                response([]);
+                            }
                         }
                     });
                 },
@@ -839,7 +842,11 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         url: RESTFUL_URL + '/ltyop/dspSimulationDisPatchPlan/autocompleteAttendanceByGprsid?apikey=71029270&params={dateSearch: "' + options.dateSearch + '" ,controlId: "' + options.controlId + '" ,gprsid: "' + options.gprsid + '" ,workerId: "' + workerId + '"}',
                         dataType: "json",
                         success: function(data) {
-                            response(data);
+                            if (data.result == 0){
+                                response(data);
+                            }else{
+                                response([]);
+                            }
                         }
                     });
                 },
@@ -879,10 +886,14 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         return response([]);
                     }
                     $.ajax({
-                        url: RESTFUL_URL + '/ltyop/dspSimulationDisPatchPlan/autocompleteTrainAttendanceByGprsid?apikey=71029270&params={dateSearch: "' + options.dateSearch + '" ,controlId: "' + options.controlId + '" ,gprsid: "' + options.gprsid + '" ,gprsid: "' + options.gprsid + '" ,workerId: "' + workerId + '"}',
+                        url: RESTFUL_URL + '/ltyop/dspSimulationDisPatchPlan/autocompleteTrainAttendanceByGprsid?apikey=71029270&params={dateSearch: "' + options.dateSearch + '" ,controlId: "' + options.controlId + '" ,gprsid: "' + options.gprsid + '" ,workerId: "' + workerId + '"}',
                         dataType: "json",
                         success: function(data) {
-                            response(data);
+                            if (data.result == 0){
+                                response(data);
+                            }else{
+                                response([]);
+                            }
                         }
                     });
                 },
@@ -899,6 +910,54 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             }).autocomplete("instance")._renderItem = function(ul, item) {
                 return $("<li>")
                     .append("<div>" + item.workerId + "<span style='float:right;padding-right:5px;'>" + item.driverName + "</span></div>")
+                    .appendTo(ul);
+            };
+        },
+        planTime_search_autocomplete: function(data) {
+            var modal_body = $(".customModal .modal-body")
+            var options = {
+                event: data.evt,
+                id: modal_body.find(".pid").val(),
+            };
+            console.log(options);
+            $(options.event).autocomplete({
+                minLength: 0,
+                width: options.event.offsetWidth,
+                resultsClass: 'autocomplete_custom_model_class',
+                source: function(request, response) {
+                    var planRunTime = $(options.event).val();
+                    if (planRunTime == ""){
+                        return false;
+                    }
+                    $.ajax({
+                        url: RESTFUL_URL + '/ltyop/plan/selectPlan?apikey=71029270&params={id: "' + options.id + '" ,planRunTime: "' + planRunTime + '"}',
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.result == 0){
+                                response(data.respose);
+                            }else{
+                                response([]);
+                            }
+                        }
+                    });
+                },
+                focus: function(event, ui) {
+                    return false;
+                },
+                select: function(event, ui) {
+                    $(options.event).val(new Date(ui.item.planRunTime).toTimeString().slice(0,5).replace("Inval", ""));
+                    $(".customModal .switched_pid").val(ui.item.id);
+                    $(".customModal .carNum_switched").val(ui.item.onBoardId);
+                    $(".customModal .workerId_switched").val(ui.item.workerId);
+                    $(".customModal .train_switched").val(ui.item.trainId);
+                    return false;
+                }
+            }).focus(function() {
+                $(this).autocomplete("search");
+            }).autocomplete("instance")._renderItem = function(ul, item) {
+                console.log(item.planRunTime);
+                return $("<li>")
+                    .append("<div>" + (new Date(item.planRunTime).toTimeString().slice(0,5).replace('Inval', '')) + "</div>")
                     .appendTo(ul);
             };
         },
@@ -1631,7 +1690,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             };
             $.ajax({
                 url: RESTFUL_URL + '/ltyop/plan/exchangePlan?apikey=71029270&params=' + JSON.stringify(params),
-                type: 'post',
+                type: 'get',
                 dataType: 'json',
                 data: {},
                 success: function(ret) {

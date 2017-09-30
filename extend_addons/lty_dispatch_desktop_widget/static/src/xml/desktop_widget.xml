@@ -758,14 +758,6 @@
                                         
                                     </t>
                                 </td>
-                                <td class="pR stopTime">
-                                    <t t-if="item.stopTime">
-                                        <t t-esc="item.stopTime"></t>
-                                    </t>
-                                    <t t-else="">
-                                        0
-                                    </t>
-                                </td>
                             </tr>
                         </t>
                     </t>
@@ -1398,6 +1390,7 @@
                                 </td>
                                 <td>
                                     <input class="w2 planTime" disabled="disabled" t-attf-value="{{new Date(widget.set_data.planRunTime).toTimeString().slice(0, 5)}}" type="time" />
+                                    <input type="hidden" class="pid" t-attf-pid="{{widget.set_data.id}}" />
                                 </td>
                             </tr>
                             <tr>
