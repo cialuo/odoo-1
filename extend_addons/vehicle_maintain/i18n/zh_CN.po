@@ -40,6 +40,12 @@ msgid "A precise description of the Product, used only for internal information 
 msgstr "产品的精确说明，仅用于内部备注。"
 
 #. module: vehicle_maintain
+#: model:ir.actions.act_window,name:vehicle_maintain.action_work_time_type
+#: model:ir.ui.menu,name:vehicle_maintain.menu_work_time_type
+msgid "Action Work Time Type"
+msgstr "额定工时类型"
+
+#. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_appearance_active
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_category_active
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_method_active

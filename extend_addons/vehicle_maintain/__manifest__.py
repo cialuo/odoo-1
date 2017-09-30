@@ -48,6 +48,7 @@
         'views/vehicle_repair_record.xml',
         'views/vehicle_anchor.xml',
         'views/maintain_repair_calc.xml',
+        'views/work_time_type.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,
