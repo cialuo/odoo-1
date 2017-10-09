@@ -178,29 +178,33 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                             $('.run_car_hide').find('.line_car').attr('bus_no', res[i].onboard);
                                                             if (res[i].onlineFlag == 0) {
                                                                 $('.run_car_hide').find('.line_car').removeClass('to_gray');
-                                                            } else if(res[i].onlineFlag == 1) {
+                                                            } else if (res[i].onlineFlag == 1) {
                                                                 $('.run_car_hide').find('.line_car').addClass('to_gray');
                                                             }
                                                             if (res[i].direction == 0) {
-                                                                if (res[i].stationFlag == 0) {
-                                                                    self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
-                                                                    var oLeft = 1190 * (parseInt(res[i].stationNo) - 0.5) / res_top.length;
-                                                                } else if (res[i].stationFlag == 1) {
-                                                                    self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
-                                                                    var oLeft = 1190 * (parseInt(res[i].stationNo)) / res_top.length;
+                                                                if (res[i].stationFlag != 2) {
+                                                                    if (res[i].stationFlag == 0) {
+                                                                        self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
+                                                                        var oLeft = 1190 * (parseInt(res[i].stationNo) - 0.5) / res_top.length;
+                                                                    } else if (res[i].stationFlag == 1) {
+                                                                        self.$el.find('.content_car_road_top').append($('.run_car_hide').html());
+                                                                        var oLeft = 1190 * (parseInt(res[i].stationNo)) / res_top.length;
+                                                                    }
+                                                                    self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px');
+                                                                    self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').html(res[i].onboard);
                                                                 }
-                                                                self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px');
-                                                                self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').html(res[i].onboard);
                                                             } else if (res[i].direction == 1) {
-                                                                if (res[i].stationFlag == 0) {
-                                                                    self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
-                                                                    var oLeft = 1190 - 1190 * (parseInt(res[i].stationNo) - 0.5) / res_down_deal.length;
-                                                                } else if (res[i].stationFlag == 1) {
-                                                                    self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
-                                                                    var oLeft = 1190 - 1190 * (parseInt(res[i].stationNo)) / res_down_deal.length;
+                                                                if (res[i].stationFlag != 2) {
+                                                                    if (res[i].stationFlag == 0) {
+                                                                        self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
+                                                                        var oLeft = 1190 - 1190 * (parseInt(res[i].stationNo) - 0.5) / res_down_deal.length;
+                                                                    } else if (res[i].stationFlag == 1) {
+                                                                        self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
+                                                                        var oLeft = 1190 - 1190 * (parseInt(res[i].stationNo)) / res_down_deal.length;
+                                                                    }
+                                                                    self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px');
+                                                                    self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').html(res[i].onboard);
                                                                 }
-                                                                self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px');
-                                                                self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').html(res[i].onboard);
                                                             }
                                                         }
                                                         $('.run_car_hide').find('.line_car').removeClass('to_gray');
@@ -213,7 +217,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                                 r: 4,
                                                                 lineLen: 17,
                                                                 sta: 1,
-                                                                busNumber: data[0].upFieldBusNum+'辆'
+                                                                busNumber: data[0].upFieldBusNum + '辆'
                                                             }
                                                         );
                                                         can_left_right(
@@ -225,7 +229,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                                 r: 4,
                                                                 lineLen: 0,
                                                                 sta: 1.5,
-                                                                busNumber: data[0].downFieldBusNum+'辆'
+                                                                busNumber: data[0].downFieldBusNum + '辆'
                                                             }
                                                         );
                                                         socket_model_info[model_id] =
@@ -328,7 +332,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         }
                     });
                 }
-                if(data_use.moduleName =="bus_resource"){
+                if (data_use.moduleName == "bus_resource") {
                     debugger
                 }
                 //线路状态分段颜色   目前使用的假数据
