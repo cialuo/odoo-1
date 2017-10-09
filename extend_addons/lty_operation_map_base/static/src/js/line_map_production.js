@@ -296,7 +296,6 @@ odoo.define("line_map_production.line_map_production", function(require) {
         delete_point_fn: function(index){
             var self = this;
             if (typeof index=="number" && index>=0){
-                debugger;
                 self.ancillary_list[index].setMap(null);
                 self.ancillary_list.pop();
                 return false;
@@ -370,6 +369,10 @@ odoo.define("line_map_production.line_map_production", function(require) {
                 self.polyline = polyline;
             } else {
                 // 默认第一个点为起始站
+                if (site_list.length == 0){
+                    layer.msg('该线路没有站点', {time: 2000, shade: 0.3});
+                    return false;
+                }
                 self.model_station.query().filter([
                     ["id", "=", parseInt(site_list[0].station_id)]
                 ]).all().then(function(ret) {
