@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-24 02:37+0000\n"
-"PO-Revision-Date: 2017-07-24 10:39+0800\n"
+"POT-Creation-Date: 2017-09-26 09:34+0000\n"
+"PO-Revision-Date: 2017-09-26 17:37+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #. module: employees
 #: model:ir.model,name:employees.model_res_groups
@@ -48,15 +48,10 @@ msgid "Contract"
 msgstr "合同"
 
 #. module: employees
-#: model:ir.ui.view,arch_db:employees.employee_certificate_tree
-#: model:ir.ui.view,arch_db:employees.employee_family_infolist
-msgid "Course Tree"
-msgstr "Course Tree"
-
-#. module: employees
 #: model:ir.model.fields,field_description:employees.field_employee_rewardspunishment_create_uid
 #: model:ir.model.fields,field_description:employees.field_employee_trainexperience_create_uid
 #: model:ir.model.fields,field_description:employees.field_employee_workexperience_create_uid
+#: model:ir.model.fields,field_description:employees.field_employeepost_level_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_certificate_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_educationexperience_create_uid
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_create_uid
@@ -74,6 +69,7 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:employees.field_employee_rewardspunishment_create_date
 #: model:ir.model.fields,field_description:employees.field_employee_trainexperience_create_date
 #: model:ir.model.fields,field_description:employees.field_employee_workexperience_create_date
+#: model:ir.model.fields,field_description:employees.field_employeepost_level_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_certificate_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_educationexperience_create_date
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_create_date
@@ -99,6 +95,7 @@ msgstr "部门"
 #: model:ir.model.fields,field_description:employees.field_employee_rewardspunishment_display_name
 #: model:ir.model.fields,field_description:employees.field_employee_trainexperience_display_name
 #: model:ir.model.fields,field_description:employees.field_employee_workexperience_display_name
+#: model:ir.model.fields,field_description:employees.field_employeepost_level_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_certificate_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_educationexperience_display_name
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_display_name
@@ -208,6 +205,7 @@ msgstr "IC卡使用记录"
 #: model:ir.model.fields,field_description:employees.field_employee_rewardspunishment_id
 #: model:ir.model.fields,field_description:employees.field_employee_trainexperience_id
 #: model:ir.model.fields,field_description:employees.field_employee_workexperience_id
+#: model:ir.model.fields,field_description:employees.field_employeepost_level_id
 #: model:ir.model.fields,field_description:employees.field_employees_certificate_id
 #: model:ir.model.fields,field_description:employees.field_employees_educationexperience_id
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_id
@@ -235,6 +233,7 @@ msgstr "Inherits reversal"
 #: model:ir.model.fields,field_description:employees.field_employee_rewardspunishment___last_update
 #: model:ir.model.fields,field_description:employees.field_employee_trainexperience___last_update
 #: model:ir.model.fields,field_description:employees.field_employee_workexperience___last_update
+#: model:ir.model.fields,field_description:employees.field_employeepost_level___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_certificate___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_educationexperience___last_update
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily___last_update
@@ -252,6 +251,7 @@ msgstr "最后修改日"
 #: model:ir.model.fields,field_description:employees.field_employee_rewardspunishment_write_uid
 #: model:ir.model.fields,field_description:employees.field_employee_trainexperience_write_uid
 #: model:ir.model.fields,field_description:employees.field_employee_workexperience_write_uid
+#: model:ir.model.fields,field_description:employees.field_employeepost_level_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_certificate_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_educationexperience_write_uid
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_write_uid
@@ -269,6 +269,7 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:employees.field_employee_rewardspunishment_write_date
 #: model:ir.model.fields,field_description:employees.field_employee_trainexperience_write_date
 #: model:ir.model.fields,field_description:employees.field_employee_workexperience_write_date
+#: model:ir.model.fields,field_description:employees.field_employeepost_level_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_certificate_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_educationexperience_write_date
 #: model:ir.model.fields,field_description:employees.field_employees_employeefamily_write_date
@@ -343,7 +344,7 @@ msgid "Work Mobile"
 msgstr "办公手机"
 
 #. module: employees
-#: code:addons/employees/models/models.py:567
+#: code:addons/employees/models/models.py:608
 #, python-format
 msgid "a group that bind with a post can not be delete"
 msgstr "状态为角色的组不能被删除"
@@ -359,7 +360,7 @@ msgid "active date"
 msgstr "启用日期"
 
 #. module: employees
-#: code:addons/employees/models/models.py:107
+#: code:addons/employees/models/models.py:108
 #, python-format
 msgid "administrator can not be bind to an employee"
 msgstr "超级管理员不能绑定到员工"
@@ -382,15 +383,15 @@ msgid "broken"
 msgstr "损坏"
 
 #. module: employees
-#: code:addons/employees/models/models.py:483
+#: code:addons/employees/models/models.py:524
 #, python-format
 msgid "can't set post's group in twice"
 msgstr "一个岗位不能同时绑定到两个组"
 
 #. module: employees
-#: code:addons/employees/models/models.py:111
-#: code:addons/employees/models/models.py:121
-#: code:addons/employees/models/models.py:190
+#: code:addons/employees/models/models.py:112
+#: code:addons/employees/models/models.py:122
+#: code:addons/employees/models/models.py:201
 #, python-format
 msgid "can't set system user to employee in twice"
 msgstr "一个系统用户不能绑定到两个员工"
@@ -565,6 +566,11 @@ msgid "dispatch reasion"
 msgstr "发卡原因"
 
 #. module: employees
+#: selection:hr.employee,marital_status:0
+msgid "divorced"
+msgstr "离异"
+
+#. module: employees
 #: model:ir.ui.menu,name:employees.ltyhr_employee_document_transfer_menu
 msgid "document_transfer"
 msgstr "员工变动管理"
@@ -629,6 +635,11 @@ msgstr "工号"
 #: model:ir.ui.menu,name:employees.ltyhr_employee_document_post_menu
 msgid "employee post"
 msgstr "岗位设置"
+
+#. module: employees
+#: model:ir.ui.menu,name:employees.ltyhr_employee_post_level_menu
+msgid "employee post level"
+msgstr "岗序"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_hr_employee_salaryaccount
@@ -719,6 +730,11 @@ msgstr "工作经历"
 #: model:ir.ui.view,arch_db:employees.work_experience_form
 msgid "employee_id"
 msgstr "员工"
+
+#. module: employees
+#: model:ir.model,name:employees.model_employeepost_level
+msgid "employeepost.level"
+msgstr "employeepost.level"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_post_name
@@ -974,13 +990,12 @@ msgid "foreign transfer list"
 msgstr "对外调动"
 
 #. module: employees
-#: model:ir.ui.menu,name:employees.ltyhr_employee_foreign_transfer_menu
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_foreign_transfer_form
 msgid "foreign_transfer"
 msgstr "对外调动"
 
 #. module: employees
-#: code:addons/employees/models/models.py:572
+#: code:addons/employees/models/models.py:613
 #, python-format
 msgid "groups are inherited by other groups, can not be delete!"
 msgstr "该组目前被其他群组继承，不能被删除！"
@@ -1064,11 +1079,6 @@ msgid "married"
 msgstr "已婚"
 
 #. module: employees
-#: selection:hr.employee,marital_status:0
-msgid "divorced"
-msgstr "离异"
-
-#. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_post_membercount
 msgid "member count of post"
 msgstr "成员数量"
@@ -1128,6 +1138,11 @@ msgid "post Name"
 msgstr "岗位名称"
 
 #. module: employees
+#: model:ir.model.fields,field_description:employees.field_employeepost_level_basesalary
+msgid "post base salary"
+msgstr "岗位基础工资"
+
+#. module: employees
 #: model:ir.model.fields,field_description:employees.field_hr_department_membercount
 msgid "post count in department"
 msgstr "岗位数量"
@@ -1151,6 +1166,23 @@ msgstr "岗位设置"
 #: model:ir.model.fields,field_description:employees.field_employees_post_description
 msgid "post infomation"
 msgstr "岗位信息"
+
+#. module: employees
+#: model:ir.actions.act_window,name:employees.ltyhr_employee_post_level
+#: model:ir.model.fields,field_description:employees.field_employees_post_postlevel
+msgid "post level"
+msgstr "岗序"
+
+#. module: employees
+#: model:ir.ui.view,arch_db:employees.ltyhr_view_post_level_tree
+msgid "post level list"
+msgstr "岗序列表"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employeepost_level_name
+#: model:ir.ui.view,arch_db:employees.ltyhr_view_post_level_form
+msgid "post level name"
+msgstr "名称"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.ltyhr_view_post_tree
@@ -1214,8 +1246,14 @@ msgstr "惩罚"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_res_groups_post_id
+#: model:ir.ui.view,arch_db:employees.ltyhr_view_post_level_form
 msgid "related post"
-msgstr "岗位"
+msgstr "相关岗位"
+
+#. module: employees
+#: model:ir.model.fields,field_description:employees.field_employeepost_level_relatedpost
+msgid "related post salary"
+msgstr "相关岗位"
 
 #. module: employees
 #: model:ir.ui.view,arch_db:employees.ICCard_manage_form_view
@@ -1321,7 +1359,7 @@ msgid "transfer_record"
 msgstr "调动记录"
 
 #. module: employees
-#: code:addons/employees/models/constract.py:10
+#: code:addons/employees/models/constract.py:13
 #, python-format
 msgid "trial start date must be less than contract end date."
 msgstr "试用期开始时间必须早于结束时间"

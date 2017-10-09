@@ -24,6 +24,30 @@
                 </xpath>
             </field>
         </record>
+        <!--车辆信息录入中加入重要部件-->
+        <record id="vehicle_entry_view_form_product" model="ir.ui.view">
+            <field name="name">vehicle entry form extend</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="vehicle_manage.vehicle_entry_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="important_product" string="Important Product">
+                        <field name="component_ids"  context="{'default_location_id': location_stock_id}">
+                            <tree editable="top" delete="false">
+                                <field name="code"/>
+                                <field name="product_id" options="{'no_open': True, 'no_create': True}"
+                                       domain="[('important_type', '=', 'component'), ('is_important', '=', True)]"/>
+                                <field name="odometer" readonly="1"/>
+                                <field name="state" readonly="1"/>
+                                <field name="location_id" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                                <field name="checkout_date" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
         <!--车型管理增加要件列表及更新要件按钮-->
         <record id="fleet_vehicle_model_view_form_ext" model="ir.ui.view">
             <field name="name">Fleet model extend</field>

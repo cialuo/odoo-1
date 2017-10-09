@@ -89,17 +89,21 @@ class MaintainRepairCalculate(models.Model):
     def _refresh_jobs_products(self):
         for i in self:
             work_fee = i.company_id.work_fee
-            for j in i.job_ids:
-                if j.real_work:
-                    real_work_fee = j.real_work * work_fee
-                    j.write({'real_work_fee': real_work_fee})
+            #工时费用不按实际工时计算，按额定工时计算
+
+            # for j in i.job_ids:
+            #     if j.real_work:
+            #         real_work_fee = j.real_work * work_fee
+            #         j.write({'real_work_fee': real_work_fee})
 
             for k in i.materials_product_ids:
                 product_fee = k.list_price * k.usage_ct
                 k.write({'product_fee': product_fee})
 
             total_work_time = sum(i.job_ids.mapped('real_work'))
-            total_work_fee = sum(i.job_ids.mapped('real_work_fee'))
+            #额定工时 核算 费用
+            total_work_fee = i.work_time * work_fee
+            # total_work_fee = sum(i.job_ids.mapped('real_work_fee'))
             total_product_fee = sum(i.materials_product_ids.mapped('product_fee'))
             total_fee = total_work_fee + total_product_fee
 

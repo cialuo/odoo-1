@@ -217,7 +217,7 @@ class MaintainRepair(models.Model):
                                           'repair': [('readonly', True)],
                                         })
     fault_method_code = fields.Char(related='fault_method_id.fault_method_code', store=True, readonly=True, copy=False)
-    work_time = fields.Float(related='fault_method_id.work_time', store=True, readonly=True, copy=False)
+    work_time = fields.Float(compute='_get_work_time', store=True, readonly=True, copy=False)
     warranty_deadline = fields.Integer(related='fault_method_id.warranty_deadline', string="Warranty Deadline(Days)", readonly=1, required=True)
     plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
     plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time", compute='_get_end_datetime')
@@ -292,6 +292,13 @@ class MaintainRepair(models.Model):
                                        digits=dp.get_precision('Operate pram'), compute='_compute_repair_total_time')
     repair_start_time = fields.Datetime(related='report_id.preflight_date', string='Repair start time')
 
+    @api.depends('fault_method_id', 'vehicle_type')
+    def _get_work_time(self):
+        #维修单 额定工时计算：根据车型，维修方法计算指定 额定类型的时长
+        for order in self:
+            time_type = order.vehicle_type.time_type_id
+            work_time_line = order.fault_method_id.work_time_lines.filtered(lambda x: x.time_type_id == time_type)
+            order.work_time = work_time_line.work_time
     @api.depends('repair_start_time', 'end_inspect_time')
     def _compute_repair_total_time(self):
         """
@@ -344,7 +351,7 @@ class MaintainRepair(models.Model):
             if not (r.plan_start_time and r.work_time):
                 continue
             start = fields.Datetime.from_string(r.plan_start_time)
-            r.plan_end_time = start + timedelta(seconds=r.work_time*60)
+            r.plan_end_time = start + timedelta(seconds=r.work_time*3600)
 
     @api.multi
     def write(self, vals):
@@ -640,7 +647,7 @@ class MaintainRepairJobs(models.Model):
     real_start_time = fields.Datetime("Real Start Time")
     real_end_time = fields.Datetime("Real End Time")
     percentage_work = fields.Float('Percentage Work')
-    work_time = fields.Float('Work Time(Min)', digits=(10, 2))
+    work_time = fields.Float('Work Time(Hour)', digits=(10, 2))
     my_work = fields.Float('My Work(Hour)', digits=(10, 2), compute='_get_my_work')
 
     real_work = fields.Float('Real Work(Hour)', digits=(10, 2), compute="_get_real_work")
@@ -657,7 +664,7 @@ class MaintainRepairJobs(models.Model):
     @api.depends('work_time', 'percentage_work')
     def _get_my_work(self):
         for i in self:
-            i.my_work = i.work_time/60.0 * i.percentage_work/100
+            i.my_work = i.work_time * i.percentage_work/100
 
 
 class MaintainInspect(models.Model):

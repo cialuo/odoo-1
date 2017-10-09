@@ -17,6 +17,12 @@ class Vehicle(models.Model):
         :return:
         """
         res = super(Vehicle, self).create(vals)
+        #如果重要部件 不是 车型里规定的，可手动创建，此时自动填入库位信息,并做入库
+        if res.component_ids:
+            for c in res.component_ids:
+                self.env['fleet.vehicle.model']._vehicle_move(res, c.product_id, 1)
+            res.component_ids.write({'location_id': res.location_stock_id.id})
+        #按照车型定义的重要部件生成 车辆重要部件明细
         if res.model_id.control_import and res.model_id.product_lines:
             res.model_id._vehicle_update_component(res, update=False)
         return res
