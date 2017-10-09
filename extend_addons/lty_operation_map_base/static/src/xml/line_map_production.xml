@@ -59,17 +59,12 @@
 			<div class="mapSetLineDiv lineAttribute">
 				<h2 class="mapSetLinePropTitle">线路属性</h2>
 				<div class="mapSetLineContext">
-					<span>线条颜色：<input type="color" name="color" t-attf-value="{{widget.options.his_dict['0'].c}}" readonly="readonly" class="textInput readonly valid mapLineColor mapLineSet" /></span>
+					<span>线条颜色：<input type="color" name="color" value="#000000" readonly="readonly" class="textInput readonly valid mapLineColor mapLineSet" /></span>
 					<br/>
 					<span>线条宽度：
 						<select name="width" class="valid mapLineWidth mapLineSet">
 							<t t-foreach="[1, 2, 3, 4, 5, 6]" t-as="i">
-								<t t-if="widget.options.his_dict['0'].w==i">
-									<option t-attf-value="{{i}}" selected="selected"><t t-esc="i"></t></option>		
-								</t>
-								<t t-else="">
-									<option t-attf-value="{{i}}"><t t-esc="i"></t></option>		
-								</t>
+								<option t-attf-value="{{i}}"><t t-esc="i"></t></option>
 							</t>
 						</select>
 					</span>
@@ -86,12 +81,7 @@
 				<div class="mapSetLineContext">
 					<span>站点属性：<select name="stationNamefont" class="valid mapStationFontFamily siteType">
 						<t t-foreach="widget.family_list" t-as="family">
-							<t t-if="family==widget.options.site_dict['0'].family">
-								<option t-attf-value="{{family}}" selected="selected"><t t-esc="family"></t></option>
-							</t>
-							<t t-else="">
-								<option t-attf-value="{{family}}"><t t-esc="family"></t></option>
-							</t>
+							<option t-attf-value="{{family}}"><t t-esc="family"></t></option>
 						</t>
 						</select>
 					</span>
@@ -100,12 +90,7 @@
 					<br/>
 					<span>站点样式：<select name="stationIcon" class="valid mapStationIcon siteType">
 							<t t-foreach="widget.station_style_list" t-as="station">
-								<t t-if="station==widget.options.site_dict['0'].style">
-									<option t-attf-value="{{station}}" selected="selected"><t t-esc="station"></t></option>
-								</t>
-								<t t-else="">
-									<option t-attf-value="{{station}}"><t t-esc="station"></t></option>
-								</t>
+								<option t-attf-value="{{station}}"><t t-esc="station"></t></option>
 							</t>
 						</select>
 					</span>

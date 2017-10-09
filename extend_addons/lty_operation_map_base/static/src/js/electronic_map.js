@@ -445,7 +445,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 dataType: 'json',
                 success: function(ret) {
                     layer.close(layer_index);
-                    if (ret.respose) {
+                    if (ret.result!=0) {
                         layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
                     }
                     console.log(ret);
