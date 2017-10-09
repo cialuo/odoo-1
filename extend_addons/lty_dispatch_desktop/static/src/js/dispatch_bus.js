@@ -1074,12 +1074,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var ev = event || window.event;
             var x = ev.currentTarget;
             var self = this;
+            var zIndex = parseInt(this.$el[0].style.zIndex) + 1;
             var tid = this.$el.find('.updown_line_table').attr('tid');
             self.model_line.call("write", [parseInt(tid),
                 {
                     'tem_display': ''
                 }]).then(function () {
-                self.$el.find('.updown_line_table').show();
+                self.$el.find('.updown_line_table').show().css('z-index',zIndex);
                 $(x).hide();
                 $(x).siblings('.line_edit').show();
             });
