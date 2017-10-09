@@ -42,8 +42,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 if (self.$el.find('.line_line')[0] != undefined) {
                     // 根据tid拿到线路id
                     mode_line.query().filter([["id", "=", parseInt(tid)]]).all().then(function (data) {
-                        model_station_platform.query().filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "up"]]).all().then(function (res_top) {
-                            model_station_platform.query().filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "down"]]).all().then(function (res_down) {
+                        model_station_platform.query().order_by("sequence").filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "up"]]).all().then(function (res_top) {
+                            model_station_platform.query().order_by("sequence").filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "down"]]).all().then(function (res_down) {
                                 // 库
                                 var timeNow = new Date().toLocaleDateString().replace(/\//g, "-");
                                 model_config.query().filter([["id", "=", parseInt(self.desktop_id)]]).all().then(function (conf) {
@@ -176,9 +176,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                         console.log(res)
                                                         for (var i = 0; i < res.length; i++) {
                                                             $('.run_car_hide').find('.line_car').attr('bus_no', res[i].onboard);
-                                                            if (res[i].onlineFlag == 1) {
+                                                            if (res[i].onlineFlag == 0) {
                                                                 $('.run_car_hide').find('.line_car').removeClass('to_gray');
-                                                            } else {
+                                                            } else if(res[i].onlineFlag == 1) {
                                                                 $('.run_car_hide').find('.line_car').addClass('to_gray');
                                                             }
                                                             if (res[i].direction == 0) {
