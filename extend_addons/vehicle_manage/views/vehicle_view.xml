@@ -76,7 +76,7 @@
                                     <group>
                                         <field name="reg_no" />
                                         <field name="reg_date" />
-                                        <field name="forced_destroy_date" />
+                                        <field name="forced_destroy_date" readonly="1"/>
                                         <field name="entry_state" invisible="1"/>
                                         <field name="annual_inspection_date" attrs="{'readonly':[('entry_state','!=','draft')]}"/>
                                         <field name="emissions"/>
