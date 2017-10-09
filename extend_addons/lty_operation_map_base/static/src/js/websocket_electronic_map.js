@@ -29,7 +29,7 @@ websocket_electronic_map.onmessage = function (event) {
     console.log(eventData);
     var modelName = eventData.moduleName;
     var oData = eventData.data;
-    debugger;
+    // debugger;
     if (modelName == "bus_site"){
         if (oData.line_id == TARGET_LINE_ID){
             update_vehicles_sockt(oData);

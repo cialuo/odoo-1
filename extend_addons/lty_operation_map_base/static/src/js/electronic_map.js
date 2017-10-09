@@ -355,23 +355,28 @@ odoo.define("electronic_map.electronic_map", function(require) {
         },
         //订阅
         subscribe: function(gpsId){
-            if (self.subscribe_gpsId && self.subscribe_gpsId!=gpsId){
-                var package = {
-                    type: 2001,
-                    gpsId: self.subscribe,
-                    open_modules: ["bus_site", "abnormal"]
-                };
-                websocket_electronic_map.send(JSON.stringify(package));
-            }
+            try {
+                if (self.subscribe_gpsId && self.subscribe_gpsId!=gpsId){
+                    var package = {
+                        type: 2001,
+                        gpsId: self.subscribe,
+                        open_modules: ["bus_site", "abnormal"]
+                    };
+                    websocket_electronic_map.send(JSON.stringify(package));
+                }
 
-            if (gpsId){
-                var package = {
-                    type: 2000,
-                    gpsId: gpsId,
-                    open_modules: ["bus_site", "abnormal"]
-                };
-                websocket_electronic_map.send(JSON.stringify(package));
-                self.subscribe_gpsId = gpsId;
+                if (gpsId){
+                    var package = {
+                        type: 2000,
+                        gpsId: gpsId,
+                        open_modules: ["bus_site", "abnormal"]
+                    };
+                    websocket_electronic_map.send(JSON.stringify(package));
+                    self.subscribe_gpsId = gpsId;
+                }
+            } catch(e) {
+                // statements
+                console.log(e);
             }
         }
     });
@@ -425,11 +430,10 @@ odoo.define("electronic_map.electronic_map", function(require) {
         },
         load_fn: function(map) {
             var self = this;
-            // 轨迹回放
+            // 查询
             self.$el.on("click", ".query_bt", function() {
                 var options = self.get_map_set_arg();
                 self.get_vehicles_Info(options);
-                
             });
         },
         get_vehicles_Info: function(options){

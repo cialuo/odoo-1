@@ -152,6 +152,12 @@
     padding: 0 3px;
 }
 
+.line_map_production .mapCustomPanel select.line {
+    width: 110px;
+    padding-right: 10px;
+    overflow: hidden;
+}
+
 .line_map_production .mapCustomPanel .dataSave {
     height: 90px;
     line-height: 30px;
