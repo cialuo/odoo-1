@@ -58,11 +58,11 @@ class attencededucted(models.Model):
     @api.one
     @api.constrains('absence', 'deducted')
     def _check_description(self):
-        if self.absence < 0:
-            raise ValidationError(_("absence time must be an positive integer"))
+        if self.absence <= 0:
+            raise ValidationError(_("absence time must be biger then 0"))
 
-        if self.deducted < 0:
-            raise ValidationError(_("deducted must be an positive integer"))
+        if self.deducted <= 0:
+            raise ValidationError(_("deducted must be biger then 0"))
 
     @api.model
     def _formatTime(self, month):

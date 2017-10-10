@@ -26,6 +26,19 @@ class Constract(models.Model):
         if self.state == 'open':
             self.searchRunningConstract()
 
+    @api.onchange('employee_id')
+    def autoUpdateBaseSalary(self):
+        """
+        根据所选员工自动修改相应的员工所在岗位的基本工资
+        :return:
+        """
+        if self.employee_id.workpost == False:
+            return
+        if self.employee_id.workpost.postlevel == False:
+            return
+        self.wage = self.employee_id.workpost.postlevel.basesalary
+
+
 class PostLevel(models.Model):
 
     _name = "employeepost.level"
