@@ -140,7 +140,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                     'tem_display': 'none',
                     'position_left': self.$el[0].offsetLeft,
                     'position_top': self.$el[0].offsetTop,
-                    'position_z_index': self.$el[0].style.zIndex
+                    'position_z_index': 0
                 }]).then(function (res) {
                     self.$el.hide();
             });
