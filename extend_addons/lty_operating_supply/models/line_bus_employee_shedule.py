@@ -45,6 +45,52 @@ class line_bus_employee_shedule(models.Model):
 				left join employees_post on employees_post.id = hr_employee.workpost
 				where 
 					fleet_vehicle.route_id is not null order by fleet_vehicle.vehicle_code				
-            )""")        
+            )""")
+class line_bus_employee_shedule4bus(models.Model):
+    _name = 'line.bus.employee.shedule4bus'
+    _auto = False
+    _order = 'bus_code asc'
+    
+    id = fields.Char()
+    company_id = fields.Many2one('res.company')
+    line_id = fields.Many2one('route_manage.route_manage')
+    bus_model = fields.Many2one('fleet.vehicle.model')
+    bus_model_name = fields.Char()
+    bus_code = fields.Char()
+    entry_state = fields.Char()
+    workpost_id = fields.Many2one('employees.post')
+    jobnumber = fields.Char()
+    employee_name = fields.Char()
+    workpost_name = fields.Char()
+
+    @api.model_cr
+    def init(self):
+        drop_view_if_exists(self._cr, 'line_bus_employee_shedule4bus')
+        self._cr.execute("""
+            CREATE OR REPLACE VIEW line_bus_employee_shedule4bus AS (
+                select
+                     bus_code as id, 
+                     company_id,
+                     line_id,
+                     bus_model,
+                     bus_model_name,
+                     bus_code,
+                    (case entry_state
+                         when 'draft' then '草稿'
+                         when 'submitted' then '已提交'
+                         when 'audited' then '已审核'
+                          end) entry_state
+                
+                 from line_bus_employee_shedule
+                
+                
+                 group by 
+                     company_id,
+                     line_id,
+                     bus_model,
+                     bus_model_name,
+                     bus_code,
+                     entry_state        
+            )""")                
     
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
