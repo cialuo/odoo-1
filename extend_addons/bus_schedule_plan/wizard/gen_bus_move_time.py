@@ -2,6 +2,8 @@
 
 from odoo import api, fields, models, _
 import datetime
+from odoo.exceptions import UserError
+
 
 class GenBusMoveTime(models.TransientModel):
     _name = 'genbusmovetime'
@@ -18,7 +20,18 @@ class GenBusMoveTime(models.TransientModel):
 
     @api.multi
     def gendata(self):
-        res = self.rule_id.createMoveTimeRecord(self.use_date,self.rule_id)
+        check_type_list = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+        # 检查生成线路的日期与日期类型是否匹配
+        if self.rule_id.date_type.type in check_type_list:
+            # 计算 self.use_date 是该周的第几天
+            weekday = datetime.datetime.strptime(self.use_date, '%Y-%m-%d').weekday()
+
+            # 如果生成线路的日期对应的星期与日期类型不匹配，前端提示异常消息
+            if check_type_list[weekday] != self.rule_id.date_type.type:
+                raise UserError(('生成线路的日期与日期类型不匹配.'))
+
+        res = self.rule_id.createMoveTimeRecord(self.use_date, self.rule_id)
         res.genOperatorPlan()
         self.env['bus_staff_group'].action_gen_staff_group(res.line_id,
                                                            staff_date=datetime.datetime.strptime(
