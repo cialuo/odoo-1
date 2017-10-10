@@ -339,7 +339,7 @@ class MaintainRepair(models.Model):
             if not order.state == 'draft':
                 raise exceptions.UserError(_('In order to delete a repair order, you must set it draft first.'))
 
-        return super(MaintainReport, self).unlink()
+        return super(MaintainRepair, self).unlink()
 
     @api.depends('plan_start_time', 'work_time')
     def _get_end_datetime(self):
@@ -392,8 +392,8 @@ class MaintainRepair(models.Model):
         if self.percentage_work < 0 or self.percentage_work > 100:
             return {
                 'warning': {
-                    'title': "不正确的值",
-                    'message': "工时比例数必须大于0和小于100",
+                    'title': u"不正确的值",
+                    'message': u"工时比例数必须大于0和小于100",
                 }
             }
 
