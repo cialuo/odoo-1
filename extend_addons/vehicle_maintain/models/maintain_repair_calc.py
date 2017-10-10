@@ -91,10 +91,10 @@ class MaintainRepairCalculate(models.Model):
             work_fee = i.company_id.work_fee
             #工时费用不按实际工时计算，按额定工时计算
 
-            # for j in i.job_ids:
-            #     if j.real_work:
-            #         real_work_fee = j.real_work * work_fee
-            #         j.write({'real_work_fee': real_work_fee})
+            for j in i.job_ids:
+                #if j.real_work:
+                real_work_fee = j.work_time * work_fee
+                j.write({'real_work_fee': real_work_fee})
 
             for k in i.materials_product_ids:
                 product_fee = k.list_price * k.usage_ct
