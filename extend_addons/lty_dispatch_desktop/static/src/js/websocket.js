@@ -84,6 +84,11 @@ window.onbeforeunload = function () {
 };
 //监听窗口链接更改时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常
 window.onhashchange = function(){
+    if($('body').find('.back_style').length>0){
+        $('body').find('.o_content').css('overflow','hidden');
+    }else{
+        $('body').find('.o_content').css('overflow','auto');
+    }
     websocket.close();
 }
 
@@ -125,17 +130,16 @@ function line_resource(controllerObj, data_list) {
         //遍历车辆资源新增的数据
         var theid = data_list.id;
         var tr_num = $('.table_bus_num').find('tr[src_id=' + theid + ']');
-        if (data_list.planRunTime != '') {
-            dom.find('.line_src_next_trip_time').html(data_list.planRunTime.split(' ')[1]);
+        if (data_list.planRunTime != undefined) {
+            dom.find('tr[src_id=' + theid + ']').find('.line_src_next_trip_time').html(data_list.planRunTime.split(' ')[1]);
         }
-        // if(data_list.data.planRunTime.length>0){
-        //     tr_num.find('.line_src' + planRunTime).html(data_list.data.planRunTime);
-        // }
+        if(data_list.realReachTime != undefined){
+            dom.find('tr[src_id=' + theid + ']').find('.line_src_return_time').html(data_list.realReachTime.split(' ')[1]);
+        }
         if (tr_num.find('.line_src_sinal_status').html() == '异常') {
             tr_num.find('.line_src_sinal_status').addClass('towarn');
             tr_num.find('.line_src_onBoardId').addClass('towarn');
-        }
-        else {
+        }else {
             tr_num.find('.line_src_sinal_status').removeClass('towarn');
             tr_num.find('.line_src_onBoardId').removeClass('towarn');
         }
