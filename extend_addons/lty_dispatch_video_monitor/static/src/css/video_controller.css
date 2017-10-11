@@ -1,6 +1,13 @@
 .dispatch_desktop_video{
-    margin-top: 20px;
-    margin-left: 20px;
+    color: #000;
+}
+.dispatch_desktop_video .video_title{
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-bottom: 16px;
+}
+.dispatch_desktop_video .ovf{
+    overflow: hidden;
 }
 .dispatch_desktop_video .ztree .online {
     color: #008000;
@@ -18,8 +25,14 @@
 .dispatch_desktop_video .content-left{
     width:180px;
     float: left;
+    border:2px solid #ddd;
 }
-
+.dispatch_desktop_video .search_road{
+    width:160px;
+    margin: 8px;
+    border: 1px solid #ccc;
+    padding-left: 4px;
+}
 
 .dispatch_desktop_video .content-right {
     width: 1680px;

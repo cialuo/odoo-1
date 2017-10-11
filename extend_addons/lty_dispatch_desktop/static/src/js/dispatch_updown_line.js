@@ -84,7 +84,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             // if(data_use.line_id == parseInt(arg.line_id))
             var line_c = parseInt(arg.line_id);
             //匹配line_id和desktop_id
-            if (line_c == data_use.data.line_id&&data_use.controllerId == this.desktop_id) {
+            if (line_c == data_use.data.line_id&&data_use.controllerId == self.desktop_id) {
                 self.model_abnormal.call("create", [
                     {
                         'line_id':data_use.line_id,

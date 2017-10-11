@@ -155,9 +155,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                 //信号掉线
                                                 self.$el.find('.show_signal_outline span').html(data[0].Offline);
                                                 //司机
-                                                self.$el.find('.show_car_driver span').html(data[0].upFieldBusNum);
+                                                self.$el.find('.show_car_driver span').html(data[0].driver);
                                                 //乘务
-                                                self.$el.find('.show_car_attendant span').html(data[0].downFieldBusNum);
+                                                self.$el.find('.show_car_attendant span').html(data[0].train);
                                                 self.$el.find('.park_left li').eq(0).html(data[0].upReturnLevel1);
                                                 self.$el.find('.park_left li').eq(1).html(data[0].upReturnLevel2);
                                                 self.$el.find('.park_left li').eq(2).html(data[0].upReturnLevel3);
@@ -173,7 +173,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                     dataType: 'json',
                                                     data: {},
                                                     success: function (res) {
-                                                        console.log(res)
                                                         for (var i = 0; i < res.length; i++) {
                                                             $('.run_car_hide').find('.line_car').attr('bus_no', res[i].onboard);
                                                             if (res[i].onlineFlag == 0) {
@@ -310,7 +309,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             if (data_use.data.line_id == line_c && data_use.controllerId == self.desktop_id) {
                 if (data_use.moduleName == "line_park" || data_use.moduleName == "line_online") {
                     $.ajax({
-                        url: 'http://202.104.136.228:8888/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
+                        url: RESTFUL_URL+'/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
                         type: 'get',
                         dataType: 'json',
                         data: {},
@@ -401,11 +400,15 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     if (data_use.data.direction == 1) {
                         arg.busDownNumber = data_use.data.bus_no_of_park + '辆';
                     }
+                    $('body').find('.dispatch_desktop[line_id='+data_use.data.line_id+']').find('.line_car[bus_no='+data_use.data.bus_no+']').remove();
                 }
                 //车辆实时位置  分上下行已经进出站
                 if (data_use.data.packageType == "1044") {
                     self.$el.find('.line_car[bus_no=' + data_use.data.abnormal_description.bus_no + ']').removeClass('to_gray');
                 }
+                // if (data_use.data.packageType == "1045") {
+                //     self.$el.find('.line_car[bus_no=' + data_use.data.abnormal_description.bus_no + ']').removeClass('to_gray');
+                // }
                 if (data_use.type == "1035") {
                     //如果车辆id未出现   车辆到达最后站点出站remove未做处理
                     //删除车辆此时的位置显示，并重新渲染，防止上行穿到下行不显示
@@ -687,13 +690,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                                 return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
                             }
-
                             if (data.respose != undefined) {
                                 for (var i = 0; i < data.respose.length; i++) {
-                                    if (data.respose[i].planRunTime != null) {
+                                    if (data.respose[i].planRunTime) {
                                         data.respose[i].planRunTime = formatDate(new Date(data.respose[i].planRunTime)).split(' ')[1];
                                     }
-                                    if (data.respose[i].realReachTime != null) {
+                                    if (data.respose[i].realReachTime) {
                                         data.respose[i].realReachTime = formatDate(new Date(data.respose[i].realReachTime)).split(' ')[1];
                                     }
                                 }
@@ -703,7 +705,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     layer.msg('暂无数据');
                                 }
                             }
-
                         },
                         error: function () {
                             layer.msg("请求出错");
