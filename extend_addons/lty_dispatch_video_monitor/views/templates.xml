@@ -2,11 +2,20 @@
     <data>
         <template id="web.asset" name="asset" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/lty_dispatch_video_monitor/static/src/css/zTreeStyle.css"/>
+                <link rel="stylesheet" href="/lty_dispatch_video_monitor/static/src/css/video_controller.css"/>
+                <link rel="stylesheet" href="/lty_dispatch_video_monitor/static/src/css/broadcast_controller.css"/>
+                <script src="/lty_dispatch_video_monitor/static/src/js/jquery.ztree.core.min.js"
+                        type="text/javascript"></script>
+                <script src="/lty_dispatch_video_monitor/static/src/js/sockjs.min.js"
+                        type="text/javascript"></script>
                 <script src="/lty_dispatch_video_monitor/static/src/js/swfobject.js"
                         type="text/javascript"></script>
-                <script src="/lty_dispatch_video_monitor/static/src/js/video_socket.js"
+                <script src="/lty_dispatch_video_monitor/static/src/js/reconnecting-websocket.min.js"
                         type="text/javascript"></script>
                 <script src="/lty_dispatch_video_monitor/static/src/js/video_controller.js"
+                        type="text/javascript"></script>
+                <script src="/lty_dispatch_video_monitor/static/src/js/broadcast_controller.js"
                         type="text/javascript"></script>
             </xpath>
         </template>
@@ -14,7 +23,13 @@
             <field name="name">dispatch_video</field>
             <field name="tag">lty_dispatch_video_monitor.video_play</field>
         </record>
+        <record id="dispatch_broadcast" model="ir.actions.client">
+            <field name="name">dispatch_broadcast</field>
+            <field name="tag">lty_dispatch_broadcast_monitor.broadcast_play</field>
+        </record>
         <menuitem name="视频直播" action="dispatch_video" id="lty_dispatch_video_history"
                   parent="dispatch_monitor_menu.video_monitor_menu" sequence="20"/>
+        <menuitem name="视频点播" action="dispatch_broadcast" id="lty_dispatch_broadcast _history"
+                  parent="dispatch_monitor_menu.video_monitor_menu" sequence="30"/>
     </data>
 </openerp>

@@ -254,13 +254,7 @@ function carousel(carousel) {
     //     }, 3000);
     // });
 }
-window.onhashchange=function(){
-    if($('body').find('.back_style').length>0){
-        $('body').find('.o_content').css('overflow','hidden');
-    }else{
-        $('body').find('.o_content').css('overflow','auto');
-    }
-};
+
 function transform(obj){
     var arr = [];
     for(var item in obj){

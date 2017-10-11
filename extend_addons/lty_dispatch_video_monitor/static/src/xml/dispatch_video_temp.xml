@@ -1,10 +1,43 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <template xml:space="preserve">
     <!--<div>1111</div>-->
+
+	<t t-name="ztree_show">
+		<ul id="ztree" class="ztree"></ul>
+	</t>
    <t t-name="dispatch_desktop_video">
-	   <div id="flashContent">
-			<!--<object width='640' height='377' id='StrobeMediaPlayback' name='StrobeMediaPlayback' type='application/x-shockwave-flash' classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000'><param name='movie' value='swfs/StrobeMediaPlayback.swf' /> <param name='quality' value='high' /> <param name='bgcolor' value='#000000' /> <param name='allowfullscreen' value='true' /> <param name='flashvars' value= '&src=rtmp://live.hkstv.hk.lxdns.com/live/hks&autoHideControlBar=true&streamType=recorded&autoPlay=true&verbose=true'/><embed src='swfs/StrobeMediaPlayback.swf' width='640' height='377' id='StrobeMediaPlayback' quality='high' bgcolor='#000000' name='StrobeMediaPlayback' allowfullscreen='true' pluginspage='http://www.adobe.com/go/getflashplayer' flashvars='&src=rtmp://live.hkstv.hk.lxdns.com/live/hks&autoHideControlBar=true&streamType=recorded&autoPlay=true&verbose=true' type='application/x-shockwave-flash'> </embed></object>-->
-			<p>To view this page ensure that Adobe Flash Player version 10.3.0 or greater is installed.</p>
+
+	   <div style="overflow: hidden;" class="dispatch_desktop_video">
+		   <div class="video_title">
+			   视频直播
+		   </div>
+		   <div class="ovf">
+			   <div class="content-left">
+					<input type="text" placeholder="查询" class="search_road"/>
+			   </div>
+			   <div class="content-right">
+
+			   </div>
+				   <!--空的播放器盒子-->
+			   <div class="video_box">
+				   <div class="hide video_player">
+						<div class="show_car">
+							<span class="now_play"></span>
+							<span class="now_channel"></span>
+						</div>
+						<div class="video_show_box">
+							<div class="video_box_player">
+								<p>To view this page ensure that Adobe Flash Player version 10.3.0 or greater is installed.</p>
+								<noscript>
+									<a href="http://www.adobe.com/go/getflashplayer/" style="color:black">
+										<img src="img/ERROR_getFlashPlayer.gif" width="640" height="377" />
+									</a>
+								</noscript>
+							</div>
+						</div>
+				   </div>
+			   </div>
+		   </div>
 		</div>
 	</t>
 </template>

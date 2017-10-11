@@ -84,14 +84,15 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             // if(data_use.line_id == parseInt(arg.line_id))
             var line_c = parseInt(arg.line_id);
             //匹配line_id和desktop_id
-            if (line_c == data_use.data.line_id&&data_use.controllerId == this.desktop_id) {
+            if (line_c == data_use.data.line_id&&data_use.controllerId == self.desktop_id) {
                 self.model_abnormal.call("create", [
                     {
-                        'line_id':'data_use.line_id',
+                        'line_id':data_use.line_id,
                         'name': data_use.name,
                         'suggest': data_use.data.suggest,
                         'abnormal_description': data_use.data.abnormal_description,
-                        'solution': data_use.data.solution
+                        'solution': data_use.data.solution,
+                        'package_type':data_use.packageType
                     }]).then(function (res) {
                 });
             }
@@ -108,18 +109,23 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             //匹配line_id和desktop_id
             var line_c = parseInt(arg.line_id);
             if (data_use.data.lineId == line_c && data_use.controllerId == arg.desktop_id) {
-                var timer =[];
+                var timer_real =[];
+                var timer_pre =[];
                 var forcast =[];
                 var real =[];
-                var res = data_use.data.dataList;
-                for(var i = 0;i<res.length;i++){
-                    timer.push(res[i].datetime);
-                    forcast.push(parseInt(res[i].Passenger_flow_forcast));
-                    real.push(parseInt(res[i].Passenger_flow_real));
+                var res = data_use.data;
+                for(var i = 0;i<res.realPassengerData.length;i++){
+                    timer_real.push(res.realPassengerData[i].nowtime);
+                    real.push(parseInt(res.realPassengerData[i].real_timePassengerFlow));
                 }
-                chartLineBar(arg.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['预测客流', '实际客流'], optionLineBar, timer, [forcast, real], '',data_use.data.lineId);
+                for(var j = 0;j<res.predictPassengerData.length;j++){
+                    timer_pre.push(res.predictPassengerData[j].nowtime)
+                    forcast.push(parseInt(res.predictPassengerData[j].predictPassengerFlow));
+                }
+                debugger
+                chartLineBar(arg.absnormalChart, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['预测客流', '实际客流'], optionLineBar, timer_pre, [forcast, real], '',res.lineName);
                 // // 轮播克隆出的的图表
-                chartLineBar(arg.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['预测客流', '实际客流'], optionLineBar, timer, [forcast, real], '',data_use.data.lineId);
+                chartLineBar(arg.absnormalChart1, 1, ["#ff4634", "#4dcfc7", "#ffd275", "#cc2123"], 'line', false, ['预测客流', '实际客流'], optionLineBar, timer_pre, [forcast, real], '',res.lineName);
                 // chartLineBar(arg.lagstation_chart, 0, ["#ff4634", "#4dcfc7"], 'bar', true, ['滞站客流', '预测滞站'], optionLineBar, ['周一', '周二', '周三', '周四', '周五', '周六'], [[120, 152, 101, 134, 90, 230], [220, 182, 191, 234, 290, 330]], '');
             }
         },
@@ -134,7 +140,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                     'tem_display': 'none',
                     'position_left': self.$el[0].offsetLeft,
                     'position_top': self.$el[0].offsetTop,
-                    'position_z_index': self.$el[0].style.zIndex
+                    'position_z_index': 0
                 }]).then(function (res) {
                     self.$el.hide();
             });

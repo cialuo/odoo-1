@@ -70,6 +70,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
             // 选择线路
             self.$('.mapSetLineDiv').on('change', 'select.line', function() {
                 self.line_id = $(this).val();
+                self.line_name = $(this).find("option:selected").text();
                 self.$('.mapSet').html('');
                 if (self.line_id == '') {
                     return;
@@ -102,12 +103,24 @@ odoo.define("line_map_production.line_map_production", function(require) {
                         _.each(set_list, function(set){
                             var direction = set.direction=='up'?'0':'1'
                             his_dict[direction].gps_list = JSON.parse(set.map_data);
-                            his_dict[direction].c = set.tools_line_color;
-                            his_dict[direction].w = set.tools_line_width;
-                            his_dict[direction].family = set.tools_station_font_name;
-                            his_dict[direction].f_color = set.tools_station_font_color;
-                            his_dict[direction].style = set.tools_station_font_style;
-                            his_dict[direction].s_color = set.tools_line_font_style_color;
+                            if (set.tools_line_color){
+                                his_dict[direction].c = set.tools_line_color;
+                            }
+                            if (set.tools_line_width){
+                                his_dict[direction].w = set.tools_line_width;
+                            }
+                            if (set.tools_station_font_name){
+                                his_dict[direction].family = set.tools_station_font_name;
+                            }
+                            if (set.tools_station_font_color){
+                                his_dict[direction].f_color = set.tools_station_font_color;
+                            }
+                            if (set.tools_station_font_style){
+                                his_dict[direction].style = set.tools_station_font_style;
+                            }
+                            if (set.tools_station_font_style_color){
+                                his_dict[direction].s_color = set.tools_station_font_style_color;
+                            }
                         });
                     }
                     self.model_site.query().filter([
@@ -127,7 +140,8 @@ odoo.define("line_map_production.line_map_production", function(require) {
                             map: map,
                             site_dict: { '0': site_top_list, '1': site_down_list },
                             his_dict: his_dict,
-                            line_id: self.line_id
+                            line_id: self.line_id,
+                            line_name: self.line_name
                         };
                         new line_map_production_set(self, options).appendTo(self.$('.mapSet'));
                     });
@@ -157,6 +171,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
         init: function(parent, options) {
             this._super(parent);
             this.options = options;
+            console.log(options);
             // 站点信息
             this.model_station = new Model('opertation_resources_station');
             this.family_list = ['宋体', '微软雅黑', '华文细黑', '黑体', 'sans-serif', 'serif'];
@@ -187,11 +202,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
 
             // 辅助点显示切换
             self.$('.mapSetLineContext').on('click', '.isShowPoint', function() {
-                self.isShowPoint = false;
-                if (this.checked) {
-                    self.isShowPoint = true;
-                }
-                self.isShowPoint_fn(map);
+                self.load_isShowPoint_fn(map);
             });
 
             // 修改站点属性触发事件
@@ -266,6 +277,15 @@ odoo.define("line_map_production.line_map_production", function(require) {
             // 初始化地图事件
             self.init_map_fn(map, self.direction);
         },
+        load_isShowPoint_fn: function(map){
+            var self = this;
+            self.isShowPoint = false;
+            var isShowPoint = self.$('.mapSetLineContext .isShowPoint')[0];
+            if (isShowPoint.checked) {
+                self.isShowPoint = true;
+            }
+            self.isShowPoint_fn(map);
+        },
         isShowPoint_fn(map){
             var self = this;
             if (self.isShowPoint) {
@@ -292,7 +312,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
         },
         delete_point_fn: function(index){
             var self = this;
-            if (typeof index=="number"){
+            if (typeof index=="number" && index>=0){
                 self.ancillary_list[index].setMap(null);
                 self.ancillary_list.pop();
                 return false;
@@ -307,11 +327,22 @@ odoo.define("line_map_production.line_map_production", function(require) {
             // 地图图层清空;
             map.clearMap();
 
+            var infoCont = self.options.his_dict[direction];
+            self.$(".mapSetLineContext .mapLineColor").val(infoCont.c);
+            self.$(".mapSetLineContext .mapLineWidth").val(infoCont.w);
+            self.$(".mapSetLineContext .mapStationFontFamily").val(infoCont.family);
+            self.$(".mapSetLineContext .mapStationFontColor").val(infoCont.f_color);
+            self.$(".mapSetLineContext .mapStationIcon").val(infoCont.style);
+            self.$(".mapSetLineContext .mapStationColor").val(infoCont.s_color);
+
             // 初始化站点信息
             self.site_line(map, self.options.site_dict[direction]);
 
             // 初始化历史制定线路
             self.load_his_establishment_line(map, self.options.his_dict[direction], self.options.site_dict[direction]);
+
+            // 初始化显示辅助点
+            self.load_isShowPoint_fn(map);
         },
         // 打开
         openBrush: function(map) {
@@ -366,6 +397,10 @@ odoo.define("line_map_production.line_map_production", function(require) {
                 self.polyline = polyline;
             } else {
                 // 默认第一个点为起始站
+                if (site_list.length == 0){
+                    layer.msg('该线路没有站点', {time: 2000, shade: 0.3});
+                    return false;
+                }
                 self.model_station.query().filter([
                     ["id", "=", parseInt(site_list[0].station_id)]
                 ]).all().then(function(ret) {
