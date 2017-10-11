@@ -155,7 +155,8 @@ class InspectionPlan(models.Model):
                 [
                     ('annual_inspection_date', '>=', startdate),
                     ('annual_inspection_date', '<=', externdate),
-                    ('company_id', '=', companyid.id)
+                    ('company_id', '=', companyid.id),
+                    ('vehicle_life_state', '=', 'operation_period')
                 ]
             )
             items = []

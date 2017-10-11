@@ -44,12 +44,18 @@ class PostLevel(models.Model):
     _name = "employeepost.level"
 
     # 岗位基础薪资
-    basesalary = fields.Float(string="post base salary")
+    basesalary = fields.Float(string="post base salary", required=True)
 
     # 关联的岗位
     relatedpost = fields.One2many('employees.post', 'postlevel', string="related post salary")
 
     # 名称
-    name = fields.Char(string="post level name")
+    name = fields.Char(string="post level name", required=True)
+
+    @api.one
+    @api.constrains('basesalary')
+    def _check_basesalary(self):
+        if self.basesalary <=0 :
+            raise ValidationError(_("base salary must bigger then 0"))
 
 
