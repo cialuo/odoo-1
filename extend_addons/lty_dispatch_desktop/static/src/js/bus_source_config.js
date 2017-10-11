@@ -68,7 +68,7 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
                 yes: function (index) {
                     layer.close(index);
                     $.ajax({
-                        url: 'http://202.104.136.228:8888/ltyop/resource/addRunMethod?apikey=71029270&params={id:' + car_id + ',direction:' + car_direct + '}',
+                        url: RESTFUL_URL+'/ltyop/resource/addRunMethod?apikey=71029270&params={id:' + car_id + ',direction:' + car_direct + '}',
                         type: 'get',
                         dataType: 'json',
                         data: {},
