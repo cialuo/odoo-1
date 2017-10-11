@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* social_security
+#	* social_security
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-27 01:57+0000\n"
-"PO-Revision-Date: 2017-07-27 09:59+0800\n"
+"POT-Creation-Date: 2017-09-26 08:55+0000\n"
+"PO-Revision-Date: 2017-09-26 08:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 2.0.2\n"
 
 #. module: social_security
 #: model:ir.actions.act_window,name:social_security.retire_apply_action
@@ -34,13 +32,19 @@ msgid " work injury report "
 msgstr "工伤申报"
 
 #. module: social_security
-#: model:ir.ui.view,arch_db:social_security.housing_provident_tree
-#: model:ir.ui.view,arch_db:social_security.retire_apply_tree
-#: model:ir.ui.view,arch_db:social_security.social_security_tree
-#: model:ir.ui.view,arch_db:social_security.work_injury_checking_tree
-#: model:ir.ui.view,arch_db:social_security.work_injury_tree
-msgid "Course Tree"
-msgstr "Course Tree"
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
+msgid "Birth"
+msgstr "出生"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
+msgid "Citizenship & Other Information"
+msgstr "身份和其它信息"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
+msgid "Contact Information"
+msgstr "合同信息"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_create_uid
@@ -66,7 +70,13 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
+msgid "Employee"
+msgstr "员工"
+
+#. module: social_security
 #: model:ir.ui.view,arch_db:social_security.retire_apply_form
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
 msgid "Employee's Name"
 msgstr "员工姓名"
 
@@ -76,6 +86,16 @@ msgstr "员工姓名"
 #: model:ir.ui.view,arch_db:social_security.work_injury_report_form
 msgid "Employee_id"
 msgstr "员工"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_employees_tree
+msgid "Employees"
+msgstr "员工"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
+msgid "HR Settings"
+msgstr "HR 设置"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_id
@@ -110,9 +130,39 @@ msgid "Last Updated on"
 msgstr "最后更新时间"
 
 #. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
+msgid "Other Information ..."
+msgstr "其它信息..."
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
+msgid "Personal Information"
+msgstr "个人信息"
+
+#. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_userimage
 msgid "Photo"
 msgstr "照片"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
+msgid "Position"
+msgstr "岗位"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
+msgid "Public Information"
+msgstr "公开信息"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
+msgid "Related User"
+msgstr "相关用户"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
+msgid "Status"
+msgstr "状态"
 
 #. module: social_security
 #: code:addons/social_security/models/models.py:49
@@ -217,9 +267,15 @@ msgid "done"
 msgstr "完成"
 
 #. module: social_security
-#: selection:retire.retiremanage,state:0 selection:social.workinjury,state:0
+#: selection:retire.retiremanage,state:0
+#: selection:social.workinjury,state:0
 msgid "draft"
 msgstr "草稿"
+
+#. module: social_security
+#: model:ir.ui.view,arch_db:social_security.retire_employees_from
+msgid "e.g. Part Time"
+msgstr "例如： 部分时间"
 
 #. module: social_security
 #: model:ir.model.fields,field_description:social_security.field_retire_retiremanage_employee_id
@@ -475,3 +531,4 @@ msgstr "工伤申报"
 #: model:ir.model.fields,field_description:social_security.field_social_workinjury_state
 msgid "work injury state "
 msgstr "状态"
+
