@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<template xml:space="preserve">
+    <t t-name="ztree_show">
+		<ul id="ztree" class="ztree"></ul>
+	</t>
+   <t t-name="dispatch_desktop_broadcast">
+    <div style="overflow: hidden;" class="dispatch_desktop_broadcast">
+		   <div class="broadcast_title">
+			   视频点播
+		   </div>
+    </div>
+   </t>
+</template>

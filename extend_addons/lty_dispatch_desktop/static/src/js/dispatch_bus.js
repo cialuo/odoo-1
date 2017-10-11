@@ -142,6 +142,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         dataType: 'json',
                                         data: {},
                                         success: function (data) {
+                                            console.log(data)
                                             if (data[0].withBus != undefined) {
                                                 //配车数量
                                                 self.$el.find('.show_applycar_num span').html(data[0].withBus);
@@ -154,9 +155,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                 //信号掉线
                                                 self.$el.find('.show_signal_outline span').html(data[0].Offline);
                                                 //司机
-                                                self.$el.find('.show_car_driver span').html(data[0].upFieldBusNum);
+                                                self.$el.find('.show_car_driver span').html(data[0].driver);
                                                 //乘务
-                                                self.$el.find('.show_car_attendant span').html(data[0].downFieldBusNum);
+                                                self.$el.find('.show_car_attendant span').html(data[0].train);
                                                 self.$el.find('.park_left li').eq(0).html(data[0].upReturnLevel1);
                                                 self.$el.find('.park_left li').eq(1).html(data[0].upReturnLevel2);
                                                 self.$el.find('.park_left li').eq(2).html(data[0].upReturnLevel3);
@@ -931,7 +932,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var type = this.type;
 
             // 界面初始渲染
-            console.log(data)
             if (type == 0) {
                 // 只存在其中一种组件
                 if (data.length == 1) {
