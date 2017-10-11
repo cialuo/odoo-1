@@ -30,7 +30,6 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             var onlineData = 0; //在线车辆
             var self = this;
             this.model_route_line.query().order_by('route_id').filter([["route_id", "!=", false]]).all().then(function (res) {
-                console.log(res)
                 var arr = [];
                 for (var i = 0; i < res.length; i++) {
                     arr.push([res[i].route_id[0], [res[i].on_boardid]]);
@@ -50,54 +49,50 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                     }
 
                 }
-                var end_arr=[]
-				for(var h=0;h<newArr.length;h++){
+                var end_arr = []
+                for (var h = 0; h < newArr.length; h++) {
+                    if (h == newArr.length - 1) {
+                        end_arr.push(newArr[h]);
+                    } else {
+                        end_arr.push(newArr[h][0]);
 
-					if(h==newArr.length-1){
-						console.log(end_arr)
-					end_arr.push(newArr[h])
-					}else{
-					end_arr.push(newArr[h][0])
-
-					}
-				}
-				console.log(end_arr)
-				var arr_node = [];
+                    }
+                }
+                var arr_node = [];
                 for (var m = 0; m < end_arr.length; m++) {
                     var arr_node_child = [];
 
-                        for (var y = 0; y < end_arr[m][1].length; y++) {
-                            arr_node_child.push(
-                                {
-                                    name: end_arr[m][1][y],
-                                    id: end_arr[m][1][y],
-                                    children: [{
-                                        name: "通道1",
-                                        id: 1,
+                    for (var y = 0; y < end_arr[m][1].length; y++) {
+                        arr_node_child.push(
+                            {
+                                name: end_arr[m][1][y],
+                                id: end_arr[m][1][y],
+                                children: [{
+                                    name: "通道1",
+                                    id: 1,
+                                },
+                                    {
+                                        name: "通道2",
+                                        id: 2,
                                     },
-                                        {
-                                            name: "通道2",
-                                            id: 2,
-                                        },
-                                        {
-                                            name: "通道3",
-                                            id: 3
-                                        },
-                                        {
-                                            name: "通道4",
-                                            id: 4
-                                        }
-                                    ]
-                                }
-                            );
-                        }
-                        arr_node.push({
-                            name: end_arr[m][0],
-                            id: end_arr[m][0],
-                            children: arr_node_child
-                        });
+                                    {
+                                        name: "通道3",
+                                        id: 3
+                                    },
+                                    {
+                                        name: "通道4",
+                                        id: 4
+                                    }
+                                ]
+                            }
+                        );
+                    }
+                    arr_node.push({
+                        name: end_arr[m][0],
+                        id: end_arr[m][0],
+                        children: arr_node_child
+                    });
                 }
-                console.log(arr_node);
                 var setting = {
                     view: {
                         showIcon: false,
@@ -526,12 +521,12 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 if (searchCondition != "") {
                     var treeObj = $.fn.zTree.getZTreeObj("ztree");
                     treeObj.cancelSelectedNode()
-                    var node = treeObj.getNodeByParam('name',searchCondition );//获取id为1的点
-                    if(node!=null){
+                    var node = treeObj.getNodeByParam('name', searchCondition);//获取id为1的点
+                    if (node != null) {
                         treeObj.selectNode(node);
                         var nodes = treeObj.getSelectedNodes();
-                        treeObj.expandNode(nodes[0],true,true,true)
-                    }else{
+                        treeObj.expandNode(nodes[0], true, true, true)
+                    } else {
                         layer.msg('输入线路或车辆无效')
                     }
 

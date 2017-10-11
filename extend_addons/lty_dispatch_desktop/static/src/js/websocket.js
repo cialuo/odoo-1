@@ -84,6 +84,11 @@ window.onbeforeunload = function () {
 };
 //监听窗口链接更改时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常
 window.onhashchange = function(){
+    if($('body').find('.back_style').length>0){
+        $('body').find('.o_content').css('overflow','hidden');
+    }else{
+        $('body').find('.o_content').css('overflow','auto');
+    }
     websocket.close();
 }
 
