@@ -1,0 +1,36 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="lty_dispatch_solution_list">
+            <field name="name">lty_dispatch_solution list</field>
+            <field name="model">dispatch.solution</field>
+            <field name="arch" type="xml">
+                <tree editable='top'>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="precondition"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 视图动作 -->
+        <record model="ir.actions.act_window" id="lty_dispatch_solution_action">
+            <field name="name">解决方案</field>
+            <field name="res_model">dispatch.solution</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="view_id" ref="my_view"/>-->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a type.
+                    <br/>
+                </p>
+            </field>
+        </record>
+
+        <!-- 二级菜单 -->
+        <menuitem name="解决方案" id="lty_dispatch_solution_action_menu" parent="dispatch_monitor_menu.dispatch_robot_menu"
+                  action="lty_dispatch_solution_action" sequence="30"/>
+    </data>
+</openerp>
+

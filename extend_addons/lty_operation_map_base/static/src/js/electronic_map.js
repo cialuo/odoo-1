@@ -53,7 +53,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     })
                 }
             });
-            self.get_time_fn();
+            // self.get_time_fn();
         },
 
         get_time_fn: function(){
@@ -121,12 +121,12 @@ odoo.define("electronic_map.electronic_map", function(require) {
             // 定位
             self.$el.on("click", ".localize_bt", function() {
                 var options = self.get_map_set_arg();
+                self.marker_stop_move();
                 self.init_map(map);
                 if (!options.line_id) {
                     layer.msg("请先选择线路", { shade: 0.3, time: 2000 });
                     return false;
                 }
-                self.marker_stop_move();
                 self.set_map_center = false;
                 TARGET_VEHICLE = "";
                 TARGET_LINE_ID = "";
@@ -417,8 +417,9 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 zoom: 10,
                 center: [116.408075, 39.950187]
             });
+            this.map = map;
             this.map_toolBar(map);
-            this.load_fn();
+            this.load_fn(map);
         },
         map_toolBar: function(map) {
             map.plugin(["AMap.ToolBar"], function() {
@@ -433,8 +434,133 @@ odoo.define("electronic_map.electronic_map", function(require) {
             // 查询
             self.$el.on("click", ".query_bt", function() {
                 var options = self.get_map_set_arg();
+                self.init_map(map);
                 self.get_vehicles_Info(options);
             });
+
+            // 播放/停止
+            self.$(".video_progress").on("click", ".partIcon", function(){
+                self.play_status_fn();
+            });
+
+            // 停止
+            self.$el.on("click", ".stop_bt", function(){
+                self.$(".video_progress .partIcon").addClass("start_bt");
+                self.play_stop();
+            })
+        },
+        init_map: function(map){
+            if (this.marker){
+                this.marker.stopMove();
+                this.marker = "";
+            }
+            map.clearMap();
+            map.setZoom(10);
+            map.setCenter([116.408075, 39.950187]);
+            this.play_time = 0;
+            if (this.play_Interval){
+                window.clearInterval(this.play_Interval);
+            }
+            this.marker_point_info = [];
+            this.marker_trajectory_gprs_info = [];
+            this.polyline = "";
+        },
+        play_status_fn: function(){
+            var partIcon = this.$(".video_progress .partIcon");
+            partIcon.toggleClass("start_bt");
+            if (!partIcon.hasClass("start_bt")){
+                this.play_start();
+            }else{
+                this.play_stop();
+            }
+        },
+        // 开始播放
+        play_start: function(){
+            var self = this;
+            self.bus_trajectory_point_init();
+            self.play_Interval  = window.setInterval(function(){
+                if ((self.play_time)>=self.gprsInfo.length){
+                    self.ProgressBar.SetValue(self.play_time);
+                    window.clearInterval(self.play_Interval);
+                    self.play_time = 0;
+                    self.play_stop();
+                    return false;
+                }
+                var act = self.gprsInfo[self.play_time];
+                self.marker.moveTo(new AMap.LngLat(act.longitude, act.latitude), 500000);
+                self.add_bus_trajectory_point(act);
+                self.ProgressBar.SetValue(self.play_time);
+                self.play_time += 1;
+            }, 1000);
+        },
+        play_stop: function(){
+            if (this.play_Interval){
+                console.log(this.play_time);
+                window.clearInterval(this.play_Interval);
+                console.log(this.play_time);
+                var partIcon = this.$(".video_progress .partIcon");
+                partIcon.addClass("start_bt");
+            }
+        },
+        // 添加点标记及运行轨迹
+        add_bus_trajectory_point: function(ret){
+            var self = this;
+            self.bus_trajectory_point(ret);
+            self.polyline.setPath(self.marker_trajectory_gprs_info);
+        },
+        // 删除点标记及运行轨迹
+        del_bus_trajectory_point: function(){
+            var self = this;
+            self.marker_trajectory_gprs_info = [];
+            if (self.polyline){
+                self.polyline.setPath(self.marker_trajectory_gprs_info);
+            }
+            _.each(self.marker_point_info, function(ret) {
+                ret.setMap(null);
+            });
+        }, 
+        // 车运行gprs点标记
+        bus_trajectory_point_init: function(){
+            var self = this;
+            var gprsInfo = self.gprsInfo;
+            var play_time = self.play_time;
+            var act = gprsInfo[play_time];
+            self.marker.setPosition(new AMap.LngLat(act.longitude, act.latitude));
+            self.del_bus_trajectory_point(play_time);
+            _.each(gprsInfo, function(ret, index){
+                if (index<=play_time){
+                    self.bus_trajectory_point(ret);
+                }
+            })
+            self.bus_trajectory();
+        },
+        // 添加车运行gprs点标记
+        bus_trajectory_point: function(ret){
+            var self = this;
+            var marker = new AMap.Marker({
+                content: '<div class="markerPoint"></div>',
+                position: [ret.longitude, ret.latitude],
+                offset : new AMap.Pixel(0,-2),
+                map: self.map
+            });
+            self.marker_point_info.push(marker);
+            self.marker_trajectory_gprs_info.push([ret.longitude, ret.latitude]);
+        },
+        // 车运行轨迹
+        bus_trajectory: function(){
+            var self = this;
+            var map = self.map;
+            var marker_trajectory_gprs_info = self.marker_trajectory_gprs_info;
+            if (marker_trajectory_gprs_info.length>0){
+                var polyline = new AMap.Polyline({
+                    path: marker_trajectory_gprs_info,
+                    strokeColor: "#1aba9b",
+                    strokeWeight: "1",
+                    lineJoin: "round"
+                });
+                polyline.setMap(map);
+                self.polyline = polyline;
+            }
         },
         get_vehicles_Info: function(options){
             var self = this;
@@ -445,12 +571,182 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 dataType: 'json',
                 success: function(ret) {
                     layer.close(layer_index);
-                    if (ret.result!=0) {
+                    if (ret.result && ret.result!=0) {
                         layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                        return false;
                     }
-                    console.log(ret);
+                    if (ret.length==0){
+                        layer.msg("无轨迹数据", { time: 2000, shade: 0.3 });
+                        return false;
+                    }
+                    // 初始化车辆行驶轨迹
+                    self.play_trajectory = [];
+                    // 获取gprs总信息
+                    self.gprsInfo = ret;
+                    self.$(".map_work_content").css("bottom", "200px");
+                    self.$(".video_progress").show();
+                    self.$(".video_progress").html("");
+                    new map_progress_info(self, ret).appendTo(self.$(".video_progress"));
+                    // 初始化地图线路
+                    self.init_line_map(options.line_id);
+                    // 初始化车辆位置-车辆就绪
+                    self.init_bus_location(ret[0], options.onboardId);
+                    // 视频播放时间
+                    self.$(".video_progress .totalTime").html(self.init_play_time(ret.length));
+                    // 视频初始化
+                    self.init_video_set(ret.length);
+                    // 初始化播放进度
+                    self.ProgressBar = {
+                        maxValue: self.gprsInfo.length,
+                        value: 0,
+                        SetValue: function(aValue) {
+                            this.value=aValue;
+                            if (this.value >= this.maxValue) this.value = this.maxValue;
+                            if (this.value <= 0) this.value = 0;
+                            var mWidth=this.value/this.maxValue*self.$(".progress_bar").width()+"px";
+                            self.$(".progress_cn").css("width",mWidth);
+                            self.$(".progress_icon").css("margin-left", mWidth);
+                            self.$(".video_progress .playTime").html(self.init_play_time(this.value));
+                        }
+                    }
                 }
             })
+        },
+        // 查询制作线路信息
+        init_line_map: function(lineId){
+            var self = this;
+            model_map_line_info.query().filter([
+                ["line_id", "=", parseInt(lineId)]
+            ]).all().then(function(set_list) {
+                // 默认配置显示
+                var set_dict = {
+                    gps_dict: {'0':[],'1':[]},
+                    setArg: {
+                        c: '#5acbff', //线条颜色
+                        w: '4', //线条宽度
+                    }
+                }
+
+                if (set_list.length > 0) {
+                    _.each(set_list, function(set) {
+                        var direction = set.direction == 'up' ? '0' : '1'
+                        set_dict.gps_dict[direction] = JSON.parse(set.map_data)||[];
+                    });
+                    self.load_his_establishment_line(self.map, set_dict);
+                }
+            })
+        },
+        // 显示制作的线路
+        load_his_establishment_line: function(map, hisObj) {
+            var self = this;
+            var pos = [];
+            var up_gps_list = hisObj.gps_dict['0'],
+                down_gps_list = hisObj.gps_dict['1'],
+                setArg = hisObj.setArg;
+            var gps_list = up_gps_list.concat(down_gps_list);
+            if (gps_list.length > 0) {
+                var polyline = new AMap.Polyline({
+                    path: gps_list,
+                    strokeColor: setArg.c,
+                    strokeWeight: setArg.w,
+                    lineJoin: "round"
+                });
+                polyline.setMap(map);
+            }
+        },
+        // 车就绪-初始位置
+        init_bus_location: function(ret, onboardId){
+            var self = this;
+            var map = self.map;
+            // 初始以车为中心点
+            self.init_map_center(ret);
+
+            var icon = '/lty_operation_map_base/static/src/image/vehicle_on.png';
+            var marker = new AMap.Marker({
+                content: self.get_content_fn(map, icon, onboardId),
+                position: [ret.longitude, ret.latitude],
+                offset : new AMap.Pixel(-32,-16),
+                autoRotation: true,
+                map: map
+            });
+            self.marker = marker;
+        },
+        get_content_fn: function(map, icon, onboardId){
+            var div = document.createElement('div');
+            div.style.display = "block";
+            div.style.borderStyle = "none";
+            div.style.borderWidth ="0px";
+            div.style.position = "absolute";
+            div.style.textAlign = "center";
+            div.style.width = '70px';
+            div.style.height = '32px';
+            div.style.zIndex = '1';
+            // 车辆编号
+            var span = document.createElement("span");
+            span.style.lineHeight = "16px";
+            span.style.position = "absolute";
+            span.style.top = "-16px";
+            span.style.textShadow = "-1px 0 #FFFFFF, 0 1px #FFFFFF,1px 0 #FFFFFF, 0 -1px #FFFFFF";
+            span.style.color = "#58554e";
+            var text = document.createTextNode(onboardId);
+            span.appendChild(text);
+            this.setUnselected(span);
+            div.appendChild(span);
+            // 车辆图标
+            var divImg = document.createElement("span");
+            divImg.className = "carIcon";
+            divImg.style.width = "32px";
+            divImg.style.height = "32px";
+            divImg.style.display = "inline-block";
+            divImg.style.backgroundImage= "url('"+icon+"')";
+            divImg.style.backgroundRepeat = "no-repeat";
+            div.appendChild(divImg);
+            return div;
+        },
+        setUnselected: function(a){
+            if(a.style&&a.style.MozUserSelect){
+               a.style.MozUserSelect="none";
+            }else if(a.style&&a.style.WebkitUserSelect){
+               a.style.WebkitUserSelect="none";
+            }else if(a.unselectable) {
+                a.unselectable ="on";
+                a.onselectstart =function(){return false};       
+            }
+        },
+        // 计算播放时间 注意点：由于每秒运行一次，所以有多少数据就有多少秒
+        init_play_time: function(time){
+            this.play_time = time;
+            var hh;
+            var mm;
+            var ss;
+           //传入的时间为空或小于0
+            if(time==null||time<0){
+                return;
+            }
+            //得到小时
+            hh=time/3600|0;
+            time=parseInt(time)-hh*3600;
+            if(parseInt(hh)<10){
+                  hh="0"+hh;
+            }
+            //得到分
+            mm=time/60|0;
+            //得到秒
+            ss=parseInt(time)-mm*60;
+            if(parseInt(mm)<10){
+                 mm="0"+mm;    
+            }
+            if(ss<10){
+                ss="0"+ss;      
+            }
+            return hh+":"+mm+":"+ss;
+        },
+        init_map_center: function(gprsObj){
+            var map = this.map;
+            if (map.getZoom()<14){
+                map.setZoom(14);
+            }
+            map.setCenter([gprsObj.longitude, gprsObj.latitude]);
         },
         get_map_set_arg: function() {
             var vehiclesObj = this.$(".onboard");
@@ -464,8 +760,78 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 startTime: startTime.val(),
                 endTime: endTime.val()
             }
+        },
+        // 初始化视频
+        init_video_set: function(max){
+            var self = this;
+            var ScrollBar = {
+                value: 0,
+                maxValue: max,
+                step: 1,
+                currentX: 0,
+                $scroll_Track: self.$(".progress_cn"),
+                $scroll_Thumb: self.$(".progress_icon"),
+                $scrollBar: self.$(".progress_bar"),
+                Initialize: function() {
+                    if (this.value > this.maxValue) {
+                        return;
+                    }
+                    this.GetValue();
+                    ScrollBar.$scroll_Track.css("width", this.currentX + 2 + "px");
+                    ScrollBar.$scroll_Thumb.css("margin-left", this.currentX + "px");
+                    this.Value();
+                    self.$(".video_progress .playTime").html(self.init_play_time(ScrollBar.value));
+                },
+                Value: function() {
+                    var valite = false;
+                    var currentValue = 0;
+                    ScrollBar.$scroll_Thumb.mousedown(function() {
+                        valite = true;
+                        ScrollBar.$scroll_Thumb.mousemove(function(event) {
+                            if (valite == false) return;
+                            var changeX = event.clientX - ScrollBar.currentX;
+                            currentValue = changeX - ScrollBar.currentX - ScrollBar.$scrollBar.offset().left;
+                            ScrollBar.$scroll_Thumb.css("margin-left", currentValue + "px");
+                            ScrollBar.$scroll_Track.css("width", currentValue + "px");
+                            if ((currentValue) >= ScrollBar.$scrollBar.width()) {
+                                ScrollBar.$scroll_Thumb.css("margin-left", ScrollBar.$scrollBar.width()+ "px");
+                                ScrollBar.$scroll_Track.css("width", ScrollBar.$scrollBar.width() + "px");
+                                ScrollBar.value = ScrollBar.maxValue;
+                            } else if (currentValue <= 0) {
+                                ScrollBar.$scroll_Thumb.css("margin-left", "0px");
+                                ScrollBar.$scroll_Track.css("width", "0px");
+                            } else {
+                                ScrollBar.value = Math.round(ScrollBar.maxValue * (currentValue / ScrollBar.$scrollBar.width()));
+                            }
+                        });
+                    });
+                    ScrollBar.$scroll_Thumb.mouseup(function() {
+                        ScrollBar.value = Math.round(ScrollBar.maxValue * (currentValue / ScrollBar.$scrollBar.width()));
+                        valite = false;
+                        if (ScrollBar.value >= ScrollBar.maxValue) ScrollBar.value = ScrollBar.maxValue;
+                        if (ScrollBar.value <= 0) ScrollBar.value = 0;
+                        self.$(".video_progress .playTime").html(self.init_play_time(ScrollBar.value));
+                        self.play_stop();
+                        self.bus_trajectory_point_init();
+                    });
+                },
+                GetValue: function() {
+                    this.currentX = ScrollBar.$scrollBar.width() * (this.value / this.maxValue);
+                }
+            };
+            //初始化
+            self.ScrollBar = ScrollBar;
+            self.ScrollBar.Initialize();
         }
     });
+    // 轨迹回放车辆信息
+    var map_progress_info = Widget.extend({
+        template: "track_playback_map_progress_info_template",
+        init: function(parent, data) {
+            this._super(parent);
+            this.busInfo = data;
+        },
+    })
 
     core.action_registry.add('lty_operation_map_base.track_playback_map', track_playback_map);
 });

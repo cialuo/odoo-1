@@ -28,8 +28,8 @@
 				<a class="bt bt_v1 localize_bt" href="javascript:;">定位</a>
 			</t>
 			<t t-else="">
-				<span class="mR20">开始时间：<input class="startTime timeW" type="text"/></span>
-				<span class="mR20">结束时间：<input class="endTime timeW" type="text"/></span>
+				<span class="mR20">开始时间：<input class="startTime timeW" type="text" value="2017-09-29 00:00:00" /></span>
+				<span class="mR20">结束时间：<input class="endTime timeW" type="text" value="2017-09-29 23:59:59" /></span>
 				<a class="bt bt_v1 query_bt mR20" href="javascript:;">查询</a>
 				<a class="bt stop_bt" href="javascript:;">停止</a>
 			</t>
@@ -49,6 +49,67 @@
 		<div class="map_work_trace track_playback_map">
 			<div class="map_work_title"></div>
 			<div class="map_work_content"></div>
+			<div class="video_progress"></div>
+		</div>
+    </t>
+
+    <t t-name="track_playback_map_progress_info_template">
+    	<ul class="progress_box">
+			<li> <div class="partIcon start_bt"></div> </li>
+			<li><div class="partTime playTime">00:00:00</div></li>
+			<li>
+				<div class="partProgress">
+					<div class="progress_bar">
+						<div class="progress_cn"></div>
+						<div class="progress_icon"></div>
+					</div>	
+				</div>
+			</li>
+			<li><div class="partTime totalTime">00:00:00</div></li>
+		</ul>
+		<div class="progress_data">
+			<table class="bus_info">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>车辆</th>
+						<th>时间</th>
+						<th>经度</th>
+						<th>纬度</th>
+						<th>速度（KM/H）</th>
+						<th>方位角</th>
+						<th>状态</th>
+						<th>地址</th>
+						<th>里程</th>
+					</tr>
+				</thead>
+				<tbody class="table_bus_tbody">
+					<t t-foreach="widget.busInfo" t-as="item">
+                        <tr>
+							<td><t t-esc="item_index+1"></t></td>
+							<td><t t-esc="item.onboardId"></t></td>
+							<td><t t-esc="new Date(item.occurTime).toLocaleString()"></t></td>
+							<td><t t-esc="item.longitude"></t></td>
+							<td><t t-esc="item.latitude"></t></td>
+							<td><t t-esc="item.velocity"></t></td>
+							<td><t t-esc="item.angle"></t></td>
+							<td>
+								<t t-if="item.busState == 0">
+									正常
+								</t>
+								<t t-elif="item.busState == 1">
+									偏离线路
+								</t>
+								<t t-else="">
+									超速
+								</t>
+							</td>
+							<td><t t-esc="item.stationName"></t></td>
+							<td><t t-esc="item.runKm"></t></td>
+						</tr>
+                    </t>
+				</tbody>
+			</table>
 		</div>
     </t>
 </templates>
