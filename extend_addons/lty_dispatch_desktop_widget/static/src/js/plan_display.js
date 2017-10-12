@@ -795,7 +795,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         url: RESTFUL_URL + '/ltyop/dspSimulationDisPatchPlan/autocompleteBusResourcByControlIdNoCarState?apikey=71029270&params={dateSearch: "' + options.dateSearch + '" ,controlId: "' + options.controlId + '" ,lineId: "' + options.lineId + '" ,carNum: "' + carNum + '"}',
                         dataType: "json",
                         success: function(data) {
-                            if (data.result == 0){
+                            if (data.length > 0){
                                 response(data);
                             }else{
                                 response([]);
@@ -842,7 +842,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         url: RESTFUL_URL + '/ltyop/dspSimulationDisPatchPlan/autocompleteAttendanceByGprsid?apikey=71029270&params={dateSearch: "' + options.dateSearch + '" ,controlId: "' + options.controlId + '" ,gprsid: "' + options.gprsid + '" ,workerId: "' + workerId + '"}',
                         dataType: "json",
                         success: function(data) {
-                            if (data.result == 0){
+                            if (data.length > 0){
                                 response(data);
                             }else{
                                 response([]);
@@ -889,7 +889,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         url: RESTFUL_URL + '/ltyop/dspSimulationDisPatchPlan/autocompleteTrainAttendanceByGprsid?apikey=71029270&params={dateSearch: "' + options.dateSearch + '" ,controlId: "' + options.controlId + '" ,gprsid: "' + options.gprsid + '" ,workerId: "' + workerId + '"}',
                         dataType: "json",
                         success: function(data) {
-                            if (data.result == 0){
+                            if (data.length > 0){
                                 response(data);
                             }else{
                                 response([]);

@@ -6,30 +6,37 @@
 		<ul id="ztree" class="ztree"></ul>
 	</t>
    <t t-name="dispatch_desktop_video">
-	   <div style="overflow: hidden;" class="dispatch_desktop_video">
-			<div class="fr content-left">
-			</div>
-			<div class="content-right">
 
-			</div>
-           <!--空的播放器盒子-->
-		   <div class="video_box">
-			   <div class="hide video_player">
-					<div class="show_car">
-						<span class="now_play"></span>
-						<span class="now_channel"></span>
-					</div>
-					<div class="video_show_box">
-						<div class="video_box_player">
-							<p>To view this page ensure that Adobe Flash Player version 10.3.0 or greater is installed.</p>
-							<noscript>
-								<a href="http://www.adobe.com/go/getflashplayer/" style="color:black">
-									<img src="img/ERROR_getFlashPlayer.gif" width="640" height="377" />
-								</a>
-							</noscript>
+	   <div style="overflow: hidden;" class="dispatch_desktop_video">
+		   <div class="video_title">
+			   视频直播
+		   </div>
+		   <div class="ovf">
+			   <div class="content-left">
+					<input type="text" placeholder="查询" class="search_road"/>
+			   </div>
+			   <div class="content-right">
+
+			   </div>
+				   <!--空的播放器盒子-->
+			   <div class="video_box">
+				   <div class="hide video_player">
+						<div class="show_car">
+							<span class="now_play"></span>
+							<span class="now_channel"></span>
 						</div>
-					</div>
-				</div>
+						<div class="video_show_box">
+							<div class="video_box_player">
+								<p>To view this page ensure that Adobe Flash Player version 10.3.0 or greater is installed.</p>
+								<noscript>
+									<a href="http://www.adobe.com/go/getflashplayer/" style="color:black">
+										<img src="img/ERROR_getFlashPlayer.gif" width="640" height="377" />
+									</a>
+								</noscript>
+							</div>
+						</div>
+				   </div>
+			   </div>
 		   </div>
 		</div>
 	</t>

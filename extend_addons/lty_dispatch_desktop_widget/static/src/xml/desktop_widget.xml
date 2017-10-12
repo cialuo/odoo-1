@@ -819,29 +819,6 @@
                             </tr>
                         </t>
                     </t>
-                    <tr class="point active_tr right" direction="0" pid="1101">
-                                <td class="pL">
-                                    <span class="icon checkOut icon1_0" st="0"></span>
-                                    <span class="icon runState icon2_0" st="0"></span>
-                                </td>
-                                <td class="planRunTime">
-                                    
-                                        
-                                    
-                                </td>
-                                <td class="carNum">10015</td>
-                                <td class="lineName">118路</td>
-                                <td class="realReachTime">
-                                    
-                                        
-                                    
-                                </td>
-                                <td class="pR stopTime">
-                                    
-                                        0
-                                    
-                                </td>
-                            </tr>
                 </table>
             </div>
         </div>
