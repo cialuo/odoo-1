@@ -271,3 +271,7 @@ class VehicleResource(models.Model):
     # 车辆状态
     workstatus = fields.Selection([('operation', "operation"),('flexible', "flexible")],
                                   default='operation', required=True)
+    # 运行方向
+    direction = fields.Selection([("up", "move up"),    # 上行
+                                  ("down", "movedown"), # 下行
+                                  ], string="bus move direction")
