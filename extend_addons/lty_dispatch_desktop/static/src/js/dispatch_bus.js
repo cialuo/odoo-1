@@ -400,15 +400,21 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     if (data_use.data.direction == 1) {
                         arg.busDownNumber = data_use.data.bus_no_of_park + '辆';
                     }
-                    $('body').find('.dispatch_desktop[line_id='+data_use.data.line_id+']').find('.line_car[bus_no='+data_use.data.bus_no+']').remove();
+                    //进场之后车辆消失
+                    if(data_use.data.inField==1){
+                            $('body').find('.dispatch_desktop[line_id='+data_use.data.line_id+']').find('.line_car[bus_no='+data_use.data.bus_no+']').remove();
+                    }
                 }
                 //车辆实时位置  分上下行已经进出站
                 if (data_use.data.packageType == "1044") {
                     self.$el.find('.line_car[bus_no=' + data_use.data.abnormal_description.bus_no + ']').removeClass('to_gray');
                 }
-                // if (data_use.data.packageType == "1045") {
-                //     self.$el.find('.line_car[bus_no=' + data_use.data.abnormal_description.bus_no + ']').removeClass('to_gray');
-                // }
+                if (data_use.data.packageType == "1045") {
+                    arg.busTopNumber = data_use.data.upFieldBusNum + '辆';
+                    arg.busDownNumber = data_use.data.downFieldBusNum + '辆';
+                    self.$el.find('.show_trailerNum span').html(data_use.data.runBus);
+                    self.$el.find('.show_active_car span').html(data_use.data.motorBus);
+                }
                 if (data_use.type == "1035") {
                     //如果车辆id未出现   车辆到达最后站点出站remove未做处理
                     //删除车辆此时的位置显示，并重新渲染，防止上行穿到下行不显示

@@ -115,6 +115,7 @@
                                 <field name="worktimelength"/>
                                 <field name="arrangenumber"/>
                                 <field name="workstatus"/>
+                                <field name="direction"/>
                             </tree>
                         </field>
                     </page>

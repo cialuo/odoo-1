@@ -99,6 +99,28 @@ class BusWorkRules(models.Model):
     # 日期类型
     date_type = fields.Many2one("bus_date_type", string="bus date type", required=True)
 
+    def getLineModels(self):
+        mlist = set()
+        try:
+            lineinfo = self.env['route_manage.route_manage'].search([('id','=',self._context[u'default_line_id'])])
+            lineinfo = lineinfo[0]
+            for item in  lineinfo.vehicle_res:
+                mlist.add(item.model_id.id)
+        except Exception:
+            pass
+        return list(mlist)
+
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+        res = super(BusWorkRules, self).fields_view_get(
+            view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
+        mlist = self.getLineModels()
+        try:
+            res['fields']['upplanvehiclearrange']['views']['tree']['fields']['vehiclemode']['domain'] = [('id', 'in',mlist)]
+        except Exception:
+            pass
+        return res
+
     def getTargetDate(self):
         return '20170913'
 
@@ -411,7 +433,7 @@ class BusWorkRules(models.Model):
         values['backupvehiclenum'] = movetimeobj.backupvehicles
         staffgroupmode = movetimeobj.env['bus_staff_group']
 
-        stafftimearrange, staffarrangeid = BusWorkRules.getBusStaffGroup(staffgroupmode,
+        stafftimearrange, staffarrangeid, staffobj = BusWorkRules.getBusStaffGroup(staffgroupmode,
                                                          movetimeobj.executedate,
                                                          movetimeobj.id)
         if stafftimearrange == False:
@@ -419,7 +441,11 @@ class BusWorkRules(models.Model):
         # 关联的人车配班表记录
         values['staffarrangetable_id'] = staffarrangeid
 
+        # 运营方案数据
         movetimelist = json.loads(movetimeobj.operationplan)
+
+        vnumber_up = movetimeobj.upworkvehicle      # 上行车辆数
+        vnumber_down = movetimeobj.downworkvehicle    # 下行车辆数
 
         # 上行行车执行记录
         upexeitems = BusWorkRules.genModedetailRecords(movetimelist['up'], stafftimearrange, movetimeobj.env['scheduleplan.movetimeup'])
@@ -432,6 +458,14 @@ class BusWorkRules(models.Model):
         values['upmoveplan'] = upexeitems
         # 下行排班计划
         values['downmoveplan'] = downexeitems
+
+        upvlist = set()     # 上行车辆id
+        downvlist = set()   # 下行车辆id
+        for i in range(vnumber_up):
+            upvlist.add(upexeitems[i][2]['vehicle_id'])
+
+        for i in range(vnumber_down):
+            downvlist.add(downexeitems[i][2]['vehicle_id'])
 
         worksectiondriver, worksectionconductor = BusWorkRules.staffWorkSection(stafftimearrange)
 
@@ -511,17 +545,32 @@ class BusWorkRules(models.Model):
         for k, v in busworklist.items():
             temp = sorted(v, key=lambda x: x[0])
             temp = [temp[0], temp[-1]]
+            d = False
+            if k in upvlist:
+                d = 'up'
+            elif k in downvlist:
+                d = 'down'
             recval = {
                 'vehicle_id': k,
                 'firstmovetime': temp[0][0],
                 'lastmovetime': temp[-1][0],
                 'worktimelength': timesubtraction(temp[-1][0], temp[0][0]),
                 'arrangenumber': temp[0][2],
-                'workstatus':stafftimearrange[temp[0][2]]['operation_state']
+                'workstatus':stafftimearrange[temp[0][2]]['operation_state'],
+                'direction' : d
             }
             result.append((0,0,recval))
-        values['vehicleresource'] = result
 
+        # 将未运行的车辆加入到车辆资源
+        vworkSet = {item[2]['vehicle_id'] for item in result}
+        varrangeSet = { item.vehicle_id.id for item in staffobj.vehicle_line_ids }
+        for newitem in varrangeSet - vworkSet:
+            recval = {
+                'vehicle_id': newitem.id
+            }
+            result.append((0, 0, recval))
+
+        values['vehicleresource'] = result
         movetimeobj.env['scheduleplan.excutetable'].create(values)
 
     @classmethod
@@ -661,7 +710,7 @@ class BusWorkRules(models.Model):
                 timelist[x.bus_shift_choose_line_id] = data
             temp['employees'] = timelist
             result[item.sequence] = temp
-        return result, record.id
+        return result, record.id, staffgroup
 
     def createMoveTimeTable(self):
         """
