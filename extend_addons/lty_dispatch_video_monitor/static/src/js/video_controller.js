@@ -29,6 +29,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             var dataBusIdShowStatus = 0;
             var onlineData = 0; //在线车辆
             var self = this;
+            var channelType = 258;
             this.model_route_line.query().order_by('route_id').filter([["route_id", "!=", false]]).all().then(function (res) {
                 var arr = [];
                 for (var i = 0; i < res.length; i++) {
@@ -453,7 +454,6 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 var dom_chose = '#' + treeNode.tId + '_span';
                 //			webSocketVideo(channelType, deviceId, channeld)
                 //'{"msg_type":258,"params":{"bus_id":8000,"channel_id":0}}'
-                var channelType = 258;
                 var deviceId = 8000;
                 var channelId = -1;
                 $('.video_player.hide').removeClass('hide');

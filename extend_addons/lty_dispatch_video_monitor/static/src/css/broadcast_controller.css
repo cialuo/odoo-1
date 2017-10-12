@@ -1,11 +1,142 @@
-.dispatch_desktop_broadcast{
+.dispatch_desktop_broadcast {
     color: #000;
 }
-.dispatch_desktop_broadcast .broadcast_title{
+
+.dispatch_desktop_broadcast .broadcast_title {
     margin-top: 16px;
     margin-left: 16px;
     margin-bottom: 16px;
 }
-.dispatch_desktop_broadcast .ovf{
+
+.dispatch_desktop_broadcast .ovf {
     overflow: hidden;
+}
+
+.dispatch_desktop_broadcast .ztree .online {
+    color: #008000;
+}
+
+.dispatch_desktop_broadcast .ztree {
+    height: 600px;
+    overflow: auto;
+}
+
+.dispatch_desktop_broadcast .broadcast_box_player {
+    display: none;
+}
+
+.dispatch_desktop_broadcast .content-left {
+    width: 226px;
+    float: left;
+    border: 1px solid #ddd;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+.dispatch_desktop_broadcast .content-center {
+    width: 240px;
+    float: left;
+    height: 644px;
+    margin-left: 14px;
+    padding-top: 5px;
+}
+
+.dispatch_desktop_broadcast .datetimepicker.search_road {
+    width: 100px;
+}
+
+.dispatch_desktop_broadcast .fl {
+    float: left;
+}
+
+.dispatch_desktop_broadcast .show_broadcast_time {
+    height: 564px;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.dispatch_desktop_broadcast .search_date_btn {
+    padding: 5px 10px;
+    margin-right: 0;
+}
+
+.dispatch_desktop_broadcast .mg-lr {
+    margin: 0 6px;
+}
+
+.dispatch_desktop_broadcast .search_road {
+    width: 180px;
+    border: 1px solid #ccc;
+    padding-left: 12px;
+    height: 30px;
+    border-radius: 4px;
+}
+
+.dispatch_desktop_broadcast .chs_span {
+    height: 30px;
+    line-height: 30px;
+}
+
+.dispatch_desktop_broadcast .content-right {
+    width: 1340px;
+    float: left;
+}
+
+.broadcast_player .broadcast_hide {
+    display: none;
+}
+
+.dispatch_desktop_broadcast .chs_show_time {
+    margin-top: 10px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.dispatch_desktop_broadcast .broadcast_player {
+    width: 550px;
+    height: 350px;
+    float: left;
+    position: relative;
+    margin-right: 2px;
+    margin-bottom: 2px;
+}
+
+.dispatch_desktop_broadcast .show_car {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    color: #ACEFAC;
+    display: none;
+}
+
+.dispatch_desktop_broadcast .show_broadcast_list {
+    padding-left: 8px;
+    padding-top: 14px;
+    font-size: 14px;
+
+}
+
+.dispatch_desktop_broadcast .show_broadcast_list li {
+    margin: 6px 0;
+    cursor: pointer;
+}
+
+.dispatch_desktop_broadcast .show_broadcast_list span {
+    display: inline-block;
+    height: 30px;
+    padding: 8px;
+}
+.dispatch_desktop_broadcast .beChs{
+    color: #86d5c2;
+}
+.dispatch_desktop_broadcast .show_broadcast_list span {
+    display: inline-block;
+    height: 30px;
+    padding: 8px;
+}
+
+.dispatch_desktop_broadcast .now_play {
+    margin-right: 20px;
 }
