@@ -814,6 +814,18 @@ msgid "The conductor is more than the driver"
 msgstr "售票员比司机多，请重新分配"
 
 #. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/wizard/gen_bus_move_time.py:32
+#, python-format
+msgid "The date of the generated line does not match the date type."
+msgstr "生成线路的日期与日期类型不匹配."
+
+#. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/wizard/gen_bus_move_time.py:36
+#, python-format
+msgid "The date of the generation schedule is not within the time limit specified by the date type selected by the rule."
+msgstr "生成行车时刻表的日期,不在规则所选日期类型限定的时间区间之内."
+
+#. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/bus_shift.py:63
 #: sql_constraint:bus_shift_line:0
 #, python-format
@@ -1708,7 +1720,7 @@ msgstr "不能生成重复的行车作业执行表"
 #. module: bus_schedule_plan
 #: sql_constraint:scheduleplan.busmovetime:0
 msgid "one line one executedate one move time table"
-msgstr "不能生成重复的行车时刻表"
+msgstr "不能生成重复的行车时刻表,同一条线路同一天只有一个行车作时刻表."
 
 #. module: bus_schedule_plan
 #: selection:bus_staff_group_vehicle_line,operation_state:0
