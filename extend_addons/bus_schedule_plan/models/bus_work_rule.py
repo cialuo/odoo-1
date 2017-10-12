@@ -6,6 +6,7 @@ import datetime
 import json
 import collections
 from utils import *
+from lxml import etree
 
 timeFormatStr = "%Y-%m-%d %H:%M:%S"
 
@@ -98,6 +99,26 @@ class BusWorkRules(models.Model):
 
     # 日期类型
     date_type = fields.Many2one("bus_date_type", string="bus date type", required=True)
+
+    def getLineModels(self):
+        pass
+        mlist = set()
+        lineinfo = self.env['route_manage.route_manage'].search([('id','=',self._context[u'default_line_id'])])
+        lineinfo = lineinfo[0]
+        for item in  lineinfo.vehicle_res:
+            mlist.add(item.model_id.id)
+        return list(mlist)
+
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+        res = super(BusWorkRules, self).fields_view_get(
+            view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
+        mlist = self.getLineModels()
+        try:
+            res['fields']['upplanvehiclearrange']['views']['tree']['fields']['vehiclemode']['domain'] = [('id', 'in',mlist)]
+        except Exception:
+            pass
+        return res
 
     def getTargetDate(self):
         return '20170913'
