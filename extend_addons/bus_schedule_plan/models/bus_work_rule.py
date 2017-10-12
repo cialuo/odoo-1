@@ -676,29 +676,32 @@ class BusWorkRules(models.Model):
             ("start_date", '<=', tomorrow_str), ("end_date", '>=', tomorrow_str),
             ("type", 'in', [tomorrow_type, "Vacation", "General"])
         ]
-        result = datetypemode.search(condition, order='priority', limit=1)
-
-        if len(result) <= 0:
-            return
-        datatype = result[0]
-        rulelist = rulemode.search([("date_type", '=', datatype.id),("active", "=", True)])
-        for item in rulelist:
-            mvtime = self._timeTableExist(tomorrow_str, item.id)
-            if mvtime == None:
-                mvtime = self.createMoveTimeRecord(tomorrow_str, item)
-            # 生成人车配班数据
-            self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
-                                                                           staff_date=datetime.datetime.strptime(
-                                                                               tomorrow_str, "%Y-%m-%d"),
-                                                                           operation_ct=mvtime.vehiclenums,
-                                                                           move_time_id=mvtime,
-                                                                           force=True)
-            # 生成运营方案数据
-            mvtime.genOperatorPlan()
-            execCheck = self._execTableExist(tomorrow_str, item.id)
-            if execCheck == None:
-                # 生成行车作业执行数据
-                BusWorkRules.genExcuteRecords(mvtime)
+        
+        routemodel = self.env['route_manage.route_manage']
+        line_ids = routemodel.search([])
+        for line_id in line_ids:
+            self._cr.execute('select scheduleplan_schedulrule.line_id ,scheduleplan_schedulrule.date_type, bus_date_type.priority  from  scheduleplan_schedulrule left join bus_date_type on bus_date_type.id =scheduleplan_schedulrule.date_type where line_id =%s order by  bus_date_type.priority', (line_id.id,))
+            res_value =  self._cr.fetchall()
+            if res_value :
+                #result = datetypemode.search(condition, order='priority', limit=1)
+                rulelist = rulemode.search([("date_type", '=', res_value[0][1]),("active", "=", True),("line_id", "=", line_id.id)])
+                for item in rulelist:
+                    mvtime = self._timeTableExist(tomorrow_str, item.id)
+                    if mvtime == None:
+                        mvtime = self.createMoveTimeRecord(tomorrow_str, item)
+                    # 生成人车配班数据
+                    self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
+                                                                                   staff_date=datetime.datetime.strptime(
+                                                                                       tomorrow_str, "%Y-%m-%d"),
+                                                                                   operation_ct=mvtime.vehiclenums,
+                                                                                   move_time_id=mvtime,
+                                                                                   force=True)
+                    # 生成运营方案数据
+                    mvtime.genOperatorPlan()
+                    execCheck = self._execTableExist(tomorrow_str, item.id)
+                    if execCheck == None:
+                        # 生成行车作业执行数据
+                        BusWorkRules.genExcuteRecords(mvtime)
 
     def _timeTableExist(self, datestr, ruleid):
         res = self.env['scheduleplan.busmovetime'].search([('executedate', '=', datestr), ('rule_id', '=', ruleid)])
