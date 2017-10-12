@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 08:02+0000\n"
-"PO-Revision-Date: 2017-06-19 16:02+0800\n"
+"POT-Creation-Date: 2017-10-10 06:56+0000\n"
+"PO-Revision-Date: 2017-10-10 14:56+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #. module: leaveandcheckingin
 #: model:ir.ui.view,arch_db:leaveandcheckingin.view_holiday_apply_tree
@@ -135,8 +135,8 @@ msgstr "缺勤时长必须是个正整数"
 #. module: leaveandcheckingin
 #: code:addons/leaveandcheckingin/models/models.py:62
 #, python-format
-msgid "absence time must be an positive integer"
-msgstr "确切时间必须是正整数"
+msgid "absence time must be biger then 0"
+msgstr "缺勤时长必须大于0"
 
 #. module: leaveandcheckingin
 #: model:ir.model.fields,field_description:leaveandcheckingin.field_employee_attencededucted_absence
@@ -198,8 +198,8 @@ msgstr "扣款数必须是整数"
 #. module: leaveandcheckingin
 #: code:addons/leaveandcheckingin/models/models.py:65
 #, python-format
-msgid "deducted must be an positive integer"
-msgstr "考勤扣款必须是个正整数"
+msgid "deducted must be biger then 0"
+msgstr "扣款金额必须大于0"
 
 #. module: leaveandcheckingin
 #: code:addons/leaveandcheckingin/models/models.py:165

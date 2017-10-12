@@ -282,7 +282,7 @@
 						 
 						 <group col="2">
 	                        <group name="next">
-	                        	<field name="work_time" />
+	                        	<field name="work_time" invisible="1"/>
 								<field name="complex_level" />
 								<field name="materials_control" />
 	                        </group>

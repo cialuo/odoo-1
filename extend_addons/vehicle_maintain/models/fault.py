@@ -272,9 +272,10 @@ class WorkTimeLines(models.Model):
 
     time_type_id = fields.Many2one('work.time.type', string="Work time type")
     work_time = fields.Float(string="Work Time(Hours)")
-    order_id = fields.Many2one('maintain.fault.method', string="Fault Method")
+    order_id = fields.Many2one('maintain.fault.method', string="Fault Method", ondelete='cascade')
     _sql_constraints = [
-        ('time type unique', 'UNIQUE(time_type_id, order_id)', u'同一维修方法的额定类型必须唯一')
+        ('time type unique', 'UNIQUE(time_type_id, order_id)', u'同一维修方法的额定类型必须唯一'),
+        ('time gt 0', 'CHECK(work_time>0.0)', u'额定工时必须大于0')
     ]
 
 #额定工时类型，基础数据分为 A B C 三类

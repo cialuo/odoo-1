@@ -10,7 +10,7 @@ class Vehicle(models.Model):
     车辆档案
     """
     _inherit = "fleet.vehicle"
-    _sql_constraints = [('code_uniq', 'unique (inner_code)', _("inner code already exists")),
+    _sql_constraints = [('code_uniq', 'unique (inner_code)', u"内部编号已经存在!"),
                         ('license_plate_uniq', 'unique(license_plate)', _('The license_plate must be unique !')),]
 
     state = fields.Selection([('warrantly', "warrantly"),
@@ -24,7 +24,10 @@ class Vehicle(models.Model):
     name = fields.Char("Vehicle Number", compute="_cumpute_model_name", store=True)
     inner_code = fields.Char(string="Inner Code", help="Inner Code", required=True)
     route_id = fields.Many2one('route_manage.route_manage', string="Route Name")
-    company_id = fields.Many2one('hr.department', 'Company')
+
+    # 所属部门
+    department_id = fields.Many2one('hr.department', 'related department')
+
 
     engine_no = fields.Char("Engine No",related='model_id.engine_no')
     transmission_ext = fields.Char(related='model_id.transmission_ext', store=True, readonly=True, copy=False)

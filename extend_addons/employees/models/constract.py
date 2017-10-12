@@ -26,17 +26,36 @@ class Constract(models.Model):
         if self.state == 'open':
             self.searchRunningConstract()
 
+    @api.onchange('employee_id')
+    def autoUpdateBaseSalary(self):
+        """
+        根据所选员工自动修改相应的员工所在岗位的基本工资
+        :return:
+        """
+        if self.employee_id.workpost == False:
+            return
+        if self.employee_id.workpost.postlevel == False:
+            return
+        self.wage = self.employee_id.workpost.postlevel.basesalary
+
+
 class PostLevel(models.Model):
 
     _name = "employeepost.level"
 
     # 岗位基础薪资
-    basesalary = fields.Float(string="post base salary")
+    basesalary = fields.Float(string="post base salary", required=True)
 
     # 关联的岗位
     relatedpost = fields.One2many('employees.post', 'postlevel', string="related post salary")
 
     # 名称
-    name = fields.Char(string="post level name")
+    name = fields.Char(string="post level name", required=True)
+
+    @api.one
+    @api.constrains('basesalary')
+    def _check_basesalary(self):
+        if self.basesalary <=0 :
+            raise ValidationError(_("base salary must bigger then 0"))
 
 

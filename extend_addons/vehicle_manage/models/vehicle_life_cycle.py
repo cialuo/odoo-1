@@ -33,6 +33,7 @@ class vehicle_life(models.Model):
         ('scrap_period', 'Scrap period')
     ]
 
+    # 生命周期状态
     vehicle_life_state = fields.Selection(WORKFLOW_STATE_SELECTION,
                                           default='invest_period',
                                           string='Vehicle life cycle state',
