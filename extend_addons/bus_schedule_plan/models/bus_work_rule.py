@@ -441,7 +441,11 @@ class BusWorkRules(models.Model):
         # 关联的人车配班表记录
         values['staffarrangetable_id'] = staffarrangeid
 
+        # 运营方案数据
         movetimelist = json.loads(movetimeobj.operationplan)
+
+        vnumber_up = movetimeobj.upworkvehicle      # 上行车辆数
+        vnumber_down = movetimeobj.downworkvehicle    # 下行车辆数
 
         # 上行行车执行记录
         upexeitems = BusWorkRules.genModedetailRecords(movetimelist['up'], stafftimearrange, movetimeobj.env['scheduleplan.movetimeup'])
@@ -454,6 +458,14 @@ class BusWorkRules(models.Model):
         values['upmoveplan'] = upexeitems
         # 下行排班计划
         values['downmoveplan'] = downexeitems
+
+        upvlist = set()     # 上行车辆id
+        downvlist = set()   # 下行车辆id
+        for i in range(vnumber_up):
+            upvlist.add(upexeitems[i][2]['vehicle_id'])
+
+        for i in range(vnumber_down):
+            downvlist.add(downexeitems[i][2]['vehicle_id'])
 
         worksectiondriver, worksectionconductor = BusWorkRules.staffWorkSection(stafftimearrange)
 
@@ -527,12 +539,17 @@ class BusWorkRules(models.Model):
         # 生成车辆资源数据
         result = []
         for item in upexeitems:
-            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime'], item[2]['taici'], 'up'])
+            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime'], item[2]['taici']])
         for item in downexeitems:
-            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime'], item[2]['taici'], 'down'])
+            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime'], item[2]['taici']])
         for k, v in busworklist.items():
             temp = sorted(v, key=lambda x: x[0])
             temp = [temp[0], temp[-1]]
+            d = False
+            if k in upvlist:
+                d = 'up'
+            elif k in downvlist:
+                d = 'down'
             recval = {
                 'vehicle_id': k,
                 'firstmovetime': temp[0][0],
@@ -540,16 +557,16 @@ class BusWorkRules(models.Model):
                 'worktimelength': timesubtraction(temp[-1][0], temp[0][0]),
                 'arrangenumber': temp[0][2],
                 'workstatus':stafftimearrange[temp[0][2]]['operation_state'],
-                'direction' : temp[0][3]
+                'direction' : d
             }
             result.append((0,0,recval))
 
         # 将未运行的车辆加入到车辆资源
-        vworkSet = {item['vehicle_id'] for item in result}
-        varrangeSet = { item.vehicle_id for item in staffobj.vehicle_line_ids }
+        vworkSet = {item[2]['vehicle_id'] for item in result}
+        varrangeSet = { item.vehicle_id.id for item in staffobj.vehicle_line_ids }
         for newitem in varrangeSet - vworkSet:
             recval = {
-                'vehicle_id': newitem
+                'vehicle_id': newitem.id
             }
             result.append((0, 0, recval))
 
