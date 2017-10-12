@@ -1708,7 +1708,7 @@ msgstr "不能生成重复的行车作业执行表"
 #. module: bus_schedule_plan
 #: sql_constraint:scheduleplan.busmovetime:0
 msgid "one line one executedate one move time table"
-msgstr "不能生成重复的行车时刻表"
+msgstr "不能生成重复的行车时刻表,同一条线路同一天只有一个行车作时刻表."
 
 #. module: bus_schedule_plan
 #: selection:bus_staff_group_vehicle_line,operation_state:0
