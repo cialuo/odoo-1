@@ -676,14 +676,28 @@ class BusWorkRules(models.Model):
             ("start_date", '<=', tomorrow_str), ("end_date", '>=', tomorrow_str),
             ("type", 'in', [tomorrow_type, "Vacation", "General"])
         ]
-        
+        #所生成日期允许的日期类型
+        today_allow_date_type = (tomorrow_type, 'Vacation', 'General')
         routemodel = self.env['route_manage.route_manage']
+        #查询所有的线路
         line_ids = routemodel.search([])
         for line_id in line_ids:
-            self._cr.execute('select scheduleplan_schedulrule.line_id ,scheduleplan_schedulrule.date_type, bus_date_type.priority  from  scheduleplan_schedulrule left join bus_date_type on bus_date_type.id =scheduleplan_schedulrule.date_type where line_id =%s order by  bus_date_type.priority', (line_id.id,))
-            res_value =  self._cr.fetchall()
+            self._cr.execute("""
+                select 
+                    scheduleplan_schedulrule.line_id ,
+                    scheduleplan_schedulrule.date_type,
+                    bus_date_type.priority  
+                from  
+                    scheduleplan_schedulrule 
+                left join bus_date_type on bus_date_type.id =scheduleplan_schedulrule.date_type 
+                where 
+                    scheduleplan_schedulrule.line_id =%s and bus_date_type.start_date<=%s and  bus_date_type.end_date>=%s and type in %s
+                order by  bus_date_type.priority
+                """, (line_id.id,tomorrow_str,tomorrow_str,today_allow_date_type))
+            #查询线路行车规则并按优先级排序
+            res_value = self._cr.fetchall()            
             if res_value :
-                #result = datetypemode.search(condition, order='priority', limit=1)
+                #todo以下可以优化，为了不改变原有逻辑，在这里重新做了个search
                 rulelist = rulemode.search([("date_type", '=', res_value[0][1]),("active", "=", True),("line_id", "=", line_id.id)])
                 for item in rulelist:
                     mvtime = self._timeTableExist(tomorrow_str, item.id)
