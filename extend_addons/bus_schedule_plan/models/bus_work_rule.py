@@ -99,6 +99,28 @@ class BusWorkRules(models.Model):
     # 日期类型
     date_type = fields.Many2one("bus_date_type", string="bus date type", required=True)
 
+    def getLineModels(self):
+        mlist = set()
+        try:
+            lineinfo = self.env['route_manage.route_manage'].search([('id','=',self._context[u'default_line_id'])])
+            lineinfo = lineinfo[0]
+            for item in  lineinfo.vehicle_res:
+                mlist.add(item.model_id.id)
+        except Exception:
+            pass
+        return list(mlist)
+
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+        res = super(BusWorkRules, self).fields_view_get(
+            view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
+        mlist = self.getLineModels()
+        try:
+            res['fields']['upplanvehiclearrange']['views']['tree']['fields']['vehiclemode']['domain'] = [('id', 'in',mlist)]
+        except Exception:
+            pass
+        return res
+
     def getTargetDate(self):
         return '20170913'
 
@@ -411,7 +433,7 @@ class BusWorkRules(models.Model):
         values['backupvehiclenum'] = movetimeobj.backupvehicles
         staffgroupmode = movetimeobj.env['bus_staff_group']
 
-        stafftimearrange, staffarrangeid = BusWorkRules.getBusStaffGroup(staffgroupmode,
+        stafftimearrange, staffarrangeid, staffobj = BusWorkRules.getBusStaffGroup(staffgroupmode,
                                                          movetimeobj.executedate,
                                                          movetimeobj.id)
         if stafftimearrange == False:
@@ -505,9 +527,9 @@ class BusWorkRules(models.Model):
         # 生成车辆资源数据
         result = []
         for item in upexeitems:
-            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime'], item[2]['taici']])
+            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime'], item[2]['taici'], 'up'])
         for item in downexeitems:
-            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime'], item[2]['taici']])
+            busworklist[item[2]['vehicle_id']].append([item[2]['starttime'], item[2]['arrivetime'], item[2]['taici'], 'down'])
         for k, v in busworklist.items():
             temp = sorted(v, key=lambda x: x[0])
             temp = [temp[0], temp[-1]]
@@ -517,11 +539,21 @@ class BusWorkRules(models.Model):
                 'lastmovetime': temp[-1][0],
                 'worktimelength': timesubtraction(temp[-1][0], temp[0][0]),
                 'arrangenumber': temp[0][2],
-                'workstatus':stafftimearrange[temp[0][2]]['operation_state']
+                'workstatus':stafftimearrange[temp[0][2]]['operation_state'],
+                'direction' : temp[0][3]
             }
             result.append((0,0,recval))
-        values['vehicleresource'] = result
 
+        # 将未运行的车辆加入到车辆资源
+        vworkSet = {item['vehicle_id'] for item in result}
+        varrangeSet = { item.vehicle_id for item in staffobj.vehicle_line_ids }
+        for newitem in varrangeSet - vworkSet:
+            recval = {
+                'vehicle_id': newitem
+            }
+            result.append((0, 0, recval))
+
+        values['vehicleresource'] = result
         movetimeobj.env['scheduleplan.excutetable'].create(values)
 
     @classmethod
@@ -661,7 +693,7 @@ class BusWorkRules(models.Model):
                 timelist[x.bus_shift_choose_line_id] = data
             temp['employees'] = timelist
             result[item.sequence] = temp
-        return result, record.id
+        return result, record.id, staffgroup
 
     def createMoveTimeTable(self):
         """
