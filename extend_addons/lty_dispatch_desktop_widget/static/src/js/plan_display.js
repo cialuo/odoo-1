@@ -368,12 +368,14 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             });
 
             // 搜索-司机工号
-            $("body").on("focus", ".customModal .workerId", function() {
+            // 应用功能: 添加计划、调整计划、批量更改车辆或司机、司乘签到
+            $("body").on("focus", ".customModal .workerIdSearch, .customModal .driverNameSearch", function() {
                 self.driver_search_autocomplete({ evt: this, controlId: controllerId });
             });
 
             // 搜索-乘务工号
-            $("body").on("focus", ".customModal .train", function() {
+            // 应用: 添加计划、调整计划、司乘签到
+            $("body").on("focus", ".customModal .trainSearch, .customModal .trainNameSearch", function() {
                 self.trainman_search_autocomplete({ evt: this, controlId: controllerId });
             });
 
@@ -833,6 +835,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 minLength: 0,
                 width: options.event.offsetWidth,
                 resultsClass: 'autocomplete_custom_model_class',
+                autoFocus: true,
                 source: function(request, response) {
                     var workerId = $(options.event).val();
                     if (workerId == "") {
@@ -854,10 +857,11 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     return false;
                 },
                 select: function(event, ui) {
-                    $(options.event).val(ui.item.workerId);
+                    // $(options.event).val(ui.item.workerId);
+                    $(".customModal .workerIdSearch").val(ui.item.workerId);
                     $(".customModal .driverNameSearch").val(ui.item.driverName);
                     return false;
-                }
+                },
             }).focus(function() {
                 $(this).autocomplete("search");
             }).autocomplete("instance")._renderItem = function(ul, item) {
@@ -901,7 +905,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     return false;
                 },
                 select: function(event, ui) {
-                    $(options.event).val(ui.item.workerId);
+                    // $(options.event).val(ui.item.workerId);
+                    $(".customModal .trainSearch").val(ui.item.workerId);
                     $(".customModal .trainNameSearch").val(ui.item.driverName);
                     return false;
                 }
