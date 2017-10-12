@@ -524,6 +524,8 @@ odoo.define("electronic_map.electronic_map", function(require) {
             var self = this;
             var gprsInfo = self.gprsInfo;
             var play_time = self.play_time;
+            var act = gprsInfo[play_time];
+            self.marker.setPosition(new AMap.LngLat(act.longitude, act.latitude));
             self.del_bus_trajectory_point(play_time);
             _.each(gprsInfo, function(ret, index){
                 if (index<=play_time){

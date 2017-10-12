@@ -8,9 +8,12 @@
         <tree  create="false" edit="false" delete="false">
           <field name="company_id" string="公司"/>
           <field name="line_id" string="线路"/>
+          <field name="bus_group_id" string="班组"/>
           <field name="bus_model" string="车型"/>
-          <field name="bus_code" string="车辆编码"/>
+          <field name="bus_code" string="车号"/>
           <field name="entry_state" string="状态"/>
+          <field name="driver_ct" string="司机数量"/>
+          <field name="conductor_ct" string="乘务员数量"/>
         </tree>
       </field>
     </record>
@@ -22,8 +25,8 @@
         <tree  create="false" edit="false" delete="false" >
           <field name="company_id"/>
           <field name="line_id"/>
+          <field name="bus_group_id" string="班组"/>
           <field name="workpost_name"/>
-		  
           <field name="jobnumber"/>
           <field name="employee_name"/>
           <field name="bus_code"/>

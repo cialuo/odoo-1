@@ -29,7 +29,11 @@ class GenBusMoveTime(models.TransientModel):
 
             # 如果生成线路的日期对应的星期与日期类型不匹配，前端提示异常消息
             if check_type_list[weekday] != self.rule_id.date_type.type:
-                raise UserError(('生成线路的日期与日期类型不匹配.'))
+                raise UserError(_('The date of the generated line does not match the date type.'))
+
+        # 检查生成线路的日期，是否在选择日期类型设置的时间区间
+        if self.use_date < self.rule_id.date_type.start_date or self.use_date > self.rule_id.date_type.end_date:
+            raise UserError(_('The date of the generation schedule is not within the time limit specified by the date type selected by the rule.'))
 
         res = self.rule_id.createMoveTimeRecord(self.use_date, self.rule_id)
         res.genOperatorPlan()
