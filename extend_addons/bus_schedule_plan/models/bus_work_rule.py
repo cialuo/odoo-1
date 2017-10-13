@@ -567,8 +567,8 @@ class BusWorkRules(models.Model):
         vinfomap = { item.vehicle_id.id : item.operation_state for item in staffobj.vehicle_line_ids }
         for newitem in varrangeSet - vworkSet:
             recval = {
-                'vehicle_id': newitem.id,
-                'workstatus': vinfomap[newitem.id]
+                'vehicle_id': newitem,
+                'workstatus': vinfomap[newitem]
             }
             result.append((0, 0, recval))
 
