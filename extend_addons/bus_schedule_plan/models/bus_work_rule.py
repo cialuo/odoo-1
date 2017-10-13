@@ -564,9 +564,11 @@ class BusWorkRules(models.Model):
         # 将未运行的车辆加入到车辆资源
         vworkSet = {item[2]['vehicle_id'] for item in result}
         varrangeSet = { item.vehicle_id.id for item in staffobj.vehicle_line_ids }
+        vinfomap = { item.vehicle_id.id : item.operation_state for item in staffobj.vehicle_line_ids }
         for newitem in varrangeSet - vworkSet:
             recval = {
-                'vehicle_id': newitem.id
+                'vehicle_id': newitem.id,
+                'workstatus': vinfomap[newitem.id]
             }
             result.append((0, 0, recval))
 
