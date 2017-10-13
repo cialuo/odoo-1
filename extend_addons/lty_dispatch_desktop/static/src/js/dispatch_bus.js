@@ -153,7 +153,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                 // 信号在线
                                                 self.$el.find('.show_signal_online span').html(data[0].online);
                                                 //信号掉线
-                                                self.$el.find('.show_signal_outline span').html(data[0].Offline);
+                                                self.$el.find('.show_signal_outline span').html(data[0].offline);
                                                 //司机
                                                 self.$el.find('.show_car_driver span').html(data[0].driver);
                                                 //乘务
