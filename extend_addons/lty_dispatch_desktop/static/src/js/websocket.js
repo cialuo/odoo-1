@@ -36,11 +36,7 @@ websocket.onmessage = function (event) {
     var controllerId = eventObj.controllerId;
     var controllerObj = $(".controller_" + controllerId);
     var eventData = eventObj.data;
-    // console.log(eventObj);
-    if ($.inArray(modelName, ["line_message"]) != -1 && $.inArray(eventObj.type, [1003, 1044])!=-1) {
-        // if ($.inArray(modelName, ['passenger_delay', 'bus_real_state', "line_plan", "line_park", "line_online"])!=-1){
-        console.log(eventObj);
-    }
+    console.log(eventObj);
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
     // linePlanParkOnlineModel_display(controllerObj);
 
