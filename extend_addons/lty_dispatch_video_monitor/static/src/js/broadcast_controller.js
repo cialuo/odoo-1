@@ -392,7 +392,7 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                 }
             }
 
-            //		i,播放地址列表,bus_id,channel_id
+            //播放地址列表,bus_id,channel_id
             function show_video(i, arrcut, deviceId, channelId) {
                 var swfVersionStr = "10.3.0";
                 var xiSwfUrlStr = "swfs/playerProductInstall.swf";

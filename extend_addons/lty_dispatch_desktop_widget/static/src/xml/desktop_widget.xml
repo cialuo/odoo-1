@@ -758,6 +758,14 @@
                                         
                                     </t>
                                 </td>
+                                <td class="pR stopTime">
+                                    <t t-if="item.stopTime">
+                                        <t t-esc="item.stopTime"></t>
+                                    </t>
+                                    <t t-else="">
+                                        0
+                                    </t>
+                                </td>
                             </tr>
                         </t>
                     </t>

@@ -179,14 +179,14 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
         },
         closeFn: function(){
             // 取消订阅车辆实时状态
-            var package = {
-                type: 2001,
-                controlId: this.location_data.controllerId,
-                open_modules: ["bus_real_state"]
-            };
-            if (websocket){
-                websocket.send(JSON.stringify(package));
-            }
+            // var package = {
+            //     type: 2001,
+            //     controlId: this.location_data.controllerId,
+            //     open_modules: ["bus_real_state"]
+            // };
+            // if (websocket){
+            //     websocket.send(JSON.stringify(package));
+            // }
             this.destroy();
         }
     });
