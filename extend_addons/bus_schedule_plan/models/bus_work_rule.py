@@ -751,7 +751,7 @@ class BusWorkRules(models.Model):
                 #todo以下可以优化，为了不改变原有逻辑，在这里重新做了个search
                 rulelist = rulemode.search([("date_type", '=', res_value[0][1]),("active", "=", True),("line_id", "=", line_id.id)])
                 for item in rulelist:
-                    mvtime = self._timeTableExist(tomorrow_str, item.id)
+                    mvtime = self._timeTableExist(tomorrow_str, item.line_id.id)
                     if mvtime == None:
                         mvtime = self.createMoveTimeRecord(tomorrow_str, item)
                     # 生成人车配班数据
@@ -763,25 +763,24 @@ class BusWorkRules(models.Model):
                                                                                    force=True)
                     # 生成运营方案数据
                     mvtime.genOperatorPlan()
-                    execCheck = self._execTableExist(tomorrow_str, item.id)
+                    execCheck = self._execTableExist(tomorrow_str, item.line_id.id)
                     if execCheck == None:
                         # 生成行车作业执行数据
                         BusWorkRules.genExcuteRecords(mvtime)
 
-    def _timeTableExist(self, datestr, ruleid):
-        res = self.env['scheduleplan.busmovetime'].search([('executedate', '=', datestr), ('rule_id', '=', ruleid)])
+    def _timeTableExist(self, datestr, lineid):
+        res = self.env['scheduleplan.busmovetime'].search([('executedate', '=', datestr), ('line_id', '=', lineid)])
         if len(res) == 0:
             return None
         else:
             return res
 
-    def _execTableExist(self, datestr, ruleid):
-        res = self.env['scheduleplan.excutetable'].search([('excutedate', '=', datestr), ('rule_id', '=', ruleid)])
+    def _execTableExist(self, datestr, lineid):
+        res = self.env['scheduleplan.excutetable'].search([('excutedate', '=', datestr), ('line_id', '=', lineid)])
         if len(res) == 0:
             return None
         else:
-            return res[0]
-
+            return res[0]  
 
 class RuleBusArrangeUp(models.Model):
 
