@@ -13,6 +13,8 @@ class BusMoveTimeTable(models.Model):
 
     _name = "scheduleplan.busmovetime"
 
+    _order = "id desc"
+
     # 同一条线路同一天只有一个行车作时刻表
     _sql_constraints = [
         ('line_date_unique', 'unique (line_id, executedate)', 'one line one executedate one move time table')
