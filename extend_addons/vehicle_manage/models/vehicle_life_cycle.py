@@ -58,6 +58,7 @@ class vehicle_life(models.Model):
                     raise exceptions.except_orm(_('Error'), ('%s %s' % ((item.cost_type) , _('The cost must be greater than zero'))))
 
         self.vehicle_life_state = 'operation_period'
+        self.state = 'normal'
         # self.operation_date = datetime.date.today()
         return True
 

@@ -24,8 +24,12 @@ class BatchUpdateVehicle(models.TransientModel):
     @api.multi
     def import_vehicle(self):
         self.vehicle_tran_ids.unlink()
-        res = self.env['fleet.vehicle'].search([('vehicle_life_state', '=', self.vehicle_life_state),
-                                                ('entry_state', '=', 'audited')])
+
+        domain = [('vehicle_life_state', '=', self.vehicle_life_state),
+                  ('entry_state', '=', 'audited'),
+                  ('state', '=', 'stop')] #投入运营和报废 必须是审核通过并且是报停状态
+
+        res = self.env['fleet.vehicle'].search(domain)
         datas = []
         for j in res:
             data = {
