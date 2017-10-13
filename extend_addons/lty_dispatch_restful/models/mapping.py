@@ -543,7 +543,7 @@ op_busresource = {
     #车辆状态 add
     ('carStateId', 'workstatus'): {'operation': 1001, 'flexible': 2008},
     #方向 add
-    ('direction', 'direction'): None,
+    ('direction', 'direction'): {'up': 0, 'down': 1},
     #工作日期date 后台获取，
     ('workDate', 'work_date'): None,
 }

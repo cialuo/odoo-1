@@ -273,5 +273,5 @@ class VehicleResource(models.Model):
                                   default='operation', required=True)
     # 运行方向
     direction = fields.Selection([("up", "move up"),    # 上行
-                                  ("down", "movedown"), # 下行
+                                  ("down", "move down"), # 下行
                                   ], string="bus move direction")
