@@ -788,6 +788,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 minLength: 0,
                 width: options.event.offsetWidth,
                 resultsClass: 'autocomplete_custom_model_class',
+                autoFocus: true,
                 source: function(request, response) {
                     var carNum = $(options.event).val();
                     if (carNum == "") {
@@ -884,6 +885,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 minLength: 0,
                 width: options.event.offsetWidth,
                 resultsClass: 'autocomplete_custom_model_class',
+                autoFocus: true,
                 source: function(request, response) {
                     var workerId = $(options.event).val();
                     if (workerId == "") {
@@ -929,6 +931,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 minLength: 0,
                 width: options.event.offsetWidth,
                 resultsClass: 'autocomplete_custom_model_class',
+                autoFocus: true,
                 source: function(request, response) {
                     var planRunTime = $(options.event).val();
                     if (planRunTime == ""){
