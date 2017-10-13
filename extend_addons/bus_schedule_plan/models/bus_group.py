@@ -362,7 +362,9 @@ class BusGroupDriverVehicleShift(models.Model):
             else:
                 last_rotation_date = datetime.date.today()
 
-            if is_big_rotation:
+
+            group_dict = {}
+            if is_big_rotation :
                 # 满足大轮换 或者 最后一次大轮换时间大于等于指定时间
                 if (next_use_date - last_rotation_date).days >= rotation_cycle or str(last_rotation_date) >= use_date:
                     for k, v in old_group_dict.iteritems():
