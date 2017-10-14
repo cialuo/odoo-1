@@ -746,7 +746,11 @@ class BusWorkRules(models.Model):
                 order by  bus_date_type.priority
                 """, (line_id.id,tomorrow_str,tomorrow_str,today_allow_date_type))
             #查询线路行车规则并按优先级排序
-            res_value = self._cr.fetchall()            
+            res_value = self._cr.fetchall()
+            if res_value :
+                bus_group = self._busGroupExist(res_value[0][0])
+            else :
+                bus_group = None            
             if res_value :
                 #todo以下可以优化，为了不改变原有逻辑，在这里重新做了个search
                 rulelist = rulemode.search([("date_type", '=', res_value[0][1]),("active", "=", True),("line_id", "=", line_id.id)])
@@ -780,7 +784,13 @@ class BusWorkRules(models.Model):
         if len(res) == 0:
             return None
         else:
-            return res[0]  
+            return res[0] 
+    def _busGroupExist(self, lineid):
+        res = self.env['bus_group'].search([('route_id', '=', lineid)])
+        if len(res) == 0:
+            return None
+        else:
+            return res[0]          
 
 class RuleBusArrangeUp(models.Model):
 
