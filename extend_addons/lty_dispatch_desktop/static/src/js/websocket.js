@@ -8,7 +8,7 @@ var websocket = null;
 if ('WebSocket' in window) {
     // websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
     // websocket = new WebSocket("ws://202.104.136.228:8085/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
-    websocket = new WebSocket( SOCKET_URL +"/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
+    websocket = new WebSocket(SOCKET_URL + "/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
 } else {
     alert('当前浏览器 Not support websocket');
 }
@@ -37,15 +37,14 @@ websocket.onmessage = function (event) {
     var controllerObj = $(".controller_" + controllerId);
     var eventData = eventObj.data;
     console.log(eventObj);
-    if ($.inArray(modelName, ["line_plan", "line_park", "line_online"]) != -1) {
-        // if ($.inArray(modelName, ['passenger_delay', 'bus_real_state', "line_plan", "line_park", "line_online"])!=-1){
-        // console.log(eventObj);
-    }
     //由于车辆上下行计划，车场，在途数据来源于restful，这里只会收到update的推送，由于要做些简单处理，所以在这里直接触发展示
     // linePlanParkOnlineModel_display(controllerObj);
 
     if (modelName == "line_message") {
         use_odoo_model(event, "line_message");
+        if (eventData.type == "1044"){
+            vehicle_drop(controllerObj, eventData);
+        }
     } else if (modelName == "passenger_flow") {
         //客流与运力组件
         use_odoo_model(event, "passenger_flow");
@@ -56,6 +55,7 @@ websocket.onmessage = function (event) {
     }
     else if (modelName == "bus_real_state") {
         busRealStateModel_socket_fn(controllerObj, eventData);
+        line_car_src_real_state($(".controller_" + controllerId), eventObj.data);
     }
     else if (modelName == "passenger_delay") {
         passengerDelayModel_socket_fn(controllerObj, eventData);
@@ -83,11 +83,11 @@ window.onbeforeunload = function () {
     websocket.close();
 };
 //监听窗口链接更改时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常
-window.onhashchange = function(){
-    if($('body').find('.back_style').length>0){
-        $('body').find('.o_content').css('overflow','hidden');
-    }else{
-        $('body').find('.o_content').css('overflow','auto');
+window.onhashchange = function () {
+    if ($('body').find('.back_style').length > 0) {
+        $('body').find('.o_content').css('overflow', 'hidden');
+    } else {
+        $('body').find('.o_content').css('overflow', 'auto');
     }
     websocket.close();
 }
@@ -117,9 +117,11 @@ function line_car_src_real_state(controllerObj, data_list) {
     if (dom.length > 0) {
         dom.find('tr[src_id=' + bus_no + ']').find('.line_src_site .position_site').html('(' + data_list.location_lan + ',' + data_list.location_log + ')');
         dom.find('tr[src_id=' + bus_no + ']').find('.line_src_Passanger_number').html(data_list.passenger_number);
-        dom.find('tr[src_id=' + bus_no + ']').find('.line_src_Passanger_number').html(data_list.full_load_rate + '%');
+        dom.find('tr[src_id=' + bus_no + ']').find('.line_src_full_load_rate').html(data_list.full_load_rate + '%');
+        // 时速
         dom.find('tr[src_id=' + bus_no + ']').find('.line_src_speed').html(data_list.speed);
-        dom.find('tr[src_id=' + bus_no + ']').find('.line_src_speed').html(data_list.residual_clearance);
+        // 能源剩余里程
+        // dom.find('tr[src_id=' + bus_no + ']').find('.line_src_residual_clearance').html(data_list.residual_clearance);
     }
 }
 
@@ -133,13 +135,13 @@ function line_resource(controllerObj, data_list) {
         if (data_list.planRunTime != undefined) {
             dom.find('tr[src_id=' + theid + ']').find('.line_src_next_trip_time').html(data_list.planRunTime.split(' ')[1]);
         }
-        if(data_list.realReachTime != undefined){
+        if (data_list.realReachTime != undefined) {
             dom.find('tr[src_id=' + theid + ']').find('.line_src_return_time').html(data_list.realReachTime.split(' ')[1]);
         }
         if (tr_num.find('.line_src_sinal_status').html() == '异常') {
             tr_num.find('.line_src_sinal_status').addClass('towarn');
             tr_num.find('.line_src_onBoardId').addClass('towarn');
-        }else {
+        } else {
             tr_num.find('.line_src_sinal_status').removeClass('towarn');
             tr_num.find('.line_src_onBoardId').removeClass('towarn');
         }
@@ -217,7 +219,11 @@ function absnormal_del(controllerObj, data_list) {
         }
         // 到点未发车
         else if (data_list.packageType == 1017) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '到点未发车,滞后' + data_list.abnormal_description.retention_time + '分钟');
+            if (data_list.abnormal_description.retention_time < 0) {
+                abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '到点未发车,滞后' + (-1*data_list.abnormal_description.retention_time) + '分钟');
+            } else if (data_list.abnormal_description.retention_time > 0) {
+                abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '到点未发车,滞后' + data_list.abnormal_description.retention_time + '分钟');
+            }
         }
         // 意外高峰
         else if (data_list.packageType == 1018) {
@@ -321,7 +327,7 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
             socket_load.remove();
             mapDom.removeClass("hide_model");
             busRealStateModel_map(mapDom[0], dataObj);
-        }else if (chartDom.length > 0) {
+        } else if (chartDom.length > 0) {
             socket_load.remove();
             chartDom.removeClass("hide_model");
             busRealStateModel_chart(chartDom[0], dataObj);
@@ -331,7 +337,7 @@ function busRealStateModel_socket_fn(controllerObj, dataObj) {
 
 // 车辆实时状态模块-地理位置
 function busRealStateModel_map(dom, gps) {
-    if (!gps.latitude){
+    if (!gps.latitude) {
         return false;
     }
 
@@ -347,13 +353,13 @@ function busRealStateModel_map(dom, gps) {
     }
 }
 // 车辆实时状态模块-到站时刻
-function busRealStateModel_chart(dom, dataObj){
+function busRealStateModel_chart(dom, dataObj) {
     var site_list = [],
         yuche_data = [],
         shiji_data = [];
 
     var chartData = dataObj.dataList;
-    for (var i=0,l=chartData.length;i<l;i++){
+    for (var i = 0, l = chartData.length; i < l; i++) {
         var cObj = chartData[i];
         site_list.push(cObj.stationId);
         yuche_data.push(cObj.predictedTime);
@@ -370,7 +376,7 @@ function busRealStateModel_chart(dom, dataObj){
             textStyle: {
                 color: "#fff"
             },
-            data:['计划', '预测', '实际']
+            data: ['计划', '预测', '实际']
         },
         animation: false,
         grid: {
@@ -379,11 +385,11 @@ function busRealStateModel_chart(dom, dataObj){
             bottom: '2%',
             containLabel: true
         },
-        xAxis:  {
+        xAxis: {
             type: 'category',
             boundaryGap: false,
             data: site_list,
-            axisLabel:{
+            axisLabel: {
                 textStyle: {
                     color: "#fff"
                 }
@@ -419,7 +425,7 @@ function busRealStateModel_chart(dom, dataObj){
                     color: '#454c6c',
                 }
             },
-            axisTick: {show:false},
+            axisTick: {show: false},
             splitLine: {
                 lineStyle: {
                     color: ['#454c6c']
@@ -428,34 +434,34 @@ function busRealStateModel_chart(dom, dataObj){
         },
         series: [
             {
-                name:'计划',
-                type:'line',
-                symbolSize:1,
-                data:[0, 0, 0, 0, 0, 0, 0, 0],
+                name: '计划',
+                type: 'line',
+                symbolSize: 1,
+                data: [0, 0, 0, 0, 0, 0, 0, 0],
                 lineStyle: {
-                    normal:{
+                    normal: {
                         width: 1
                     }
                 },
             },
             {
                 name: '预测',
-                type:'line',
-                symbolSize:1,
+                type: 'line',
+                symbolSize: 1,
                 data: yuche_data,
                 lineStyle: {
-                    normal:{
+                    normal: {
                         width: 1
                     }
                 },
             },
             {
                 name: '实际',
-                type:'line',
-                symbolSize:1,
+                type: 'line',
+                symbolSize: 1,
                 data: shiji_data,
                 lineStyle: {
-                    normal:{
+                    normal: {
                         width: 1
                     }
                 },
@@ -469,16 +475,16 @@ function busRealStateModel_chart(dom, dataObj){
 // 站点实时状态模块
 function passengerDelayModel_socket_fn(controllerObj, dataObj) {
     console.log(dataObj);
-    if (dataObj.packageType==1033){
+    if (dataObj.packageType == 1033) {
         var dom = controllerObj.find(".passengerDelayModel_" + dataObj.lineId + "_" + dataObj.stationId);
-        if (dom.length > 0){
+        if (dom.length > 0) {
             var trendObj = dom.find(".trend_chart_single");
             var echartData = dataObj.data;
             passengerDelayModel_socket_set(trendObj, echartData);
         }
-    }else{
-        var dom = controllerObj.find(".passengerDelayModel[siteId="+dataObj.stationId+"]");
-        if (dom.length > 0){
+    } else {
+        var dom = controllerObj.find(".passengerDelayModel[siteId=" + dataObj.stationId + "]");
+        if (dom.length > 0) {
             trendObj = dom.find(".trend_chart_summary");
             controllerObj.find(".top_title .mR10").html(dataObj.allLineId);
             echartData = dataObj.dataList;
@@ -487,14 +493,14 @@ function passengerDelayModel_socket_fn(controllerObj, dataObj) {
     }
 }
 
-function passengerDelayModel_socket_set(trendObj, echartData){
+function passengerDelayModel_socket_set(trendObj, echartData) {
     var currentData = echartData[1];
     var trend_chart_map = trendObj.find(".trend_chart_map");
     var map_botton_info = trendObj.find(".map_botton_info");
     map_botton_info.find("li:eq(0) span").html(currentData.station_lag_passengers);
     map_botton_info.find("li:eq(1) span").html(currentData.down_passengers);
     map_botton_info.find("li:eq(2) span").html(currentData.up_passengers);
-    var options= passengerDelayModel_get_echart_option(echartData);
+    var options = passengerDelayModel_get_echart_option(echartData);
     var myChart = echarts.init(trend_chart_map[0]);
     myChart.setOption(options);
 }
@@ -505,7 +511,7 @@ function passengerDelayModel_get_echart_option(ehartData) {
         down_passengers_list = [],
         up_passengers_list = [];
 
-    for (var i=0,l=ehartData.length;i<l;i++){
+    for (var i = 0, l = ehartData.length; i < l; i++) {
         var edata = ehartData[i];
         if (!edata.station_lag_passengers) {
             edata.station_lag_passengers = "";
@@ -531,7 +537,7 @@ function passengerDelayModel_get_echart_option(ehartData) {
                     width: 1
                 }
             },
-            formatter: function(params) {
+            formatter: function (params) {
                 var hoverTip = '';
                 for (var i = 0; i < params.length; i++) {
                     var htip = params[i];
@@ -564,7 +570,7 @@ function passengerDelayModel_get_echart_option(ehartData) {
             min: -30,
             max: 120,
             axisLabel: {
-                formatter: function(value) {
+                formatter: function (value) {
                     if (value == 0) {
                         return '当前';
                     }
@@ -580,7 +586,7 @@ function passengerDelayModel_get_echart_option(ehartData) {
                 }
             },
             boundaryGap: '',
-            axisTick: { inside: true },
+            axisTick: {inside: true},
             splitLine: {
                 show: true,
                 lineStyle: {
@@ -600,7 +606,7 @@ function passengerDelayModel_get_echart_option(ehartData) {
                     color: '#454c6c',
                 }
             },
-            axisTick: { show: false },
+            axisTick: {show: false},
             axisLabel: {
                 show: false
             },
@@ -640,23 +646,23 @@ function passengerDelayModel_get_echart_option(ehartData) {
                         normal: {
                             position: "start"
                         }
-                    }, 
+                    },
                     data: [{
-                            xAxis: 0,
-                            symbol: 'circle',
-                            symbolSize: [0, 0],
-                            lineStyle: {
-                                normal: {
-                                    type: 'solid',
-                                    color: '#fff'
-                                }
-                            },
-                            label: {
-                                normal: {
-                                    show: false
-                                }
+                        xAxis: 0,
+                        symbol: 'circle',
+                        symbolSize: [0, 0],
+                        lineStyle: {
+                            normal: {
+                                type: 'solid',
+                                color: '#fff'
                             }
                         },
+                        label: {
+                            normal: {
+                                show: false
+                            }
+                        }
+                    },
                     ]
                 },
             },
@@ -863,9 +869,9 @@ function update_linePlan(controllerObj, dataObj) {
     if (dataObj.sendToScreen != undefined) {
         if (dataObj.sendToScreen == 1) {
             active_tr_obj.find(".sendToScreen").attr('st', 1).addClass('icon_1').removeClass('icon_0').removeClass('icon_2');
-        }else if (dataObj.sendToScreen == 2){
+        } else if (dataObj.sendToScreen == 2) {
             active_tr_obj.find(".sendToScreen").attr('st', 2).addClass('icon_2').removeClass('icon_0').removeClass('icon_1');
-        }else {
+        } else {
             active_tr_obj.find(".sendToScreen").attr('st', 0).addClass('icon_0').removeClass('icon_1').removeClass('icon_2');
         }
     }
@@ -874,9 +880,9 @@ function update_linePlan(controllerObj, dataObj) {
     if (dataObj.sendToBus != undefined) {
         if (dataObj.sendToBus == 1) {
             active_tr_obj.find(".sendToBus").attr('st', 1).addClass('icon_1').removeClass('icon_0').removeClass('icon_2');
-        }else if (dataObj.sendToBus == 2){
+        } else if (dataObj.sendToBus == 2) {
             active_tr_obj.find(".sendToBus").attr('st', 2).addClass('icon_2').removeClass('icon_0').removeClass('icon_1');
-        }else {
+        } else {
             active_tr_obj.find(".sendToBus").attr('st', 0).addClass('icon_0').removeClass('icon_1').removeClass('icon_2');
         }
     }
@@ -1029,15 +1035,15 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
     update_linePlanParkOnlineModel_load_fn();
 }
 
-function update_linePlanParkOnlineModel_load_fn(){
+function update_linePlanParkOnlineModel_load_fn() {
     $(".linePlanParkOnlineModel .bus_plan").find(".content_tb .icon").hover(function () {
         var st = $(this).attr("st");
         var txt = "";
-        if (st == 0){
-            txt  = "未发送";
-        }else if (st == 1){
+        if (st == 0) {
+            txt = "未发送";
+        } else if (st == 1) {
             txt = "已发送未处理";
-        }else{
+        } else {
             txt = "已发送已处理";
         }
         self.layer_f_index = layer.tips(txt, this);

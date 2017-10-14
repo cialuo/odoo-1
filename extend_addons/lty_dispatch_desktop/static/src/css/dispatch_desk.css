@@ -602,7 +602,12 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
         border-radius: 8px;
     }
 }
-
+.modal.config dd span,.modal.config dd div:first-of-type{
+    margin-left: 20px;
+}
+.modal.config dt{
+    margin-bottom: 8px;
+}
 .modal.config .src_font_color {
     margin-left: 180px;
 }

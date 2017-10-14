@@ -71,42 +71,54 @@ odoo.define('operate_plan_conf', function (require) {
     }
 
     // window.onhashchange = function () {
-    var recid = $('#the_rec_id .o_form_field').text();
-    model.call("reoppaln2web", [recid]).then(function (data) {
-        $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
-        render_plan(data);
-    })
-    $('.time_start_arrive_stop').on('dblclick', 'tbody td:not(.not_click)', function () {
-        // 不是空的
-        // 点击的index
-        var this_index = $(this).attr("index");
-        //点击的direction
-        var direction = $(this).attr('direction');
-        // direction缓存对象
-        var directionObj = JSON.parse(sessionStorage.getItem('direction'));
-        sessionStorage.removeItem('direction');
-        // 点击有计划的为0,否则为1
-        var click_td = 0;
-        if ($(this).hasClass('sort_out')) {
-            click_td = 1;
-        } else {
-            click_td = 0;
-        }
-        model.call("changeOpplan", [recid, this_index, direction, directionObj, click_td]).then(function (res) {
-            $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
-            render_plan(res);
-        });
-    });
-    $('.save_plan.btn').click(function () {
-        var directionObj = JSON.parse(sessionStorage.getItem('direction'));
-        model.call("saveOpPlan", [recid, directionObj]).then(function (res) {
-        });
-    });
-    $('.giveup_plan').click(function () {
-        model.call("reoppaln2web", [recid]).then(function (data) {
-            $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
-            render_plan(data);
-        });
-    });
+
+
+    window.onhashchange = function () {
+        var set_time = setInterval(function () {
+            if ($('body').find('.plan_operate_config').length > 0) {
+                clearInterval(set_time)
+                var recid = $('#the_rec_id .o_form_field').text();
+                console.log(recid)
+                model.call("reoppaln2web", [recid]).then(function (data) {
+                    $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
+                    render_plan(data);
+                });
+                $('.time_start_arrive_stop').on('dblclick', 'tbody td:not(.not_click)', function () {
+                    // 不是空的
+                    // 点击的index
+                    var this_index = $(this).attr("index");
+                    //点击的direction
+                    var direction = $(this).attr('direction');
+                    // direction缓存对象
+                    var directionObj = JSON.parse(sessionStorage.getItem('direction'));
+                    sessionStorage.removeItem('direction');
+                    // 点击有计划的为0,否则为1
+                    var click_td = 0;
+                    if ($(this).hasClass('sort_out')) {
+                        click_td = 1;
+                    } else {
+                        click_td = 0;
+                    }
+                    model.call("changeOpplan", [recid, this_index, direction, directionObj, click_td]).then(function (res) {
+                        $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
+                        render_plan(res);
+                    });
+                });
+                $('.save_plan.btn').click(function () {
+                    var directionObj = JSON.parse(sessionStorage.getItem('direction'));
+                    model.call("saveOpPlan", [recid, directionObj]).then(function (res) {
+                    });
+                });
+                $('.giveup_plan').click(function () {
+                    model.call("reoppaln2web", [recid]).then(function (data) {
+                        $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
+                        render_plan(data);
+                    });
+                });
+            }
+        }, 300)
+
+    }
+
     // };
 });

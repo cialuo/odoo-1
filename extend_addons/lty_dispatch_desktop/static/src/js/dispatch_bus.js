@@ -153,7 +153,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                 // 信号在线
                                                 self.$el.find('.show_signal_online span').html(data[0].online);
                                                 //信号掉线
-                                                self.$el.find('.show_signal_outline span').html(data[0].Offline);
+                                                self.$el.find('.show_signal_outline span').html(data[0].offline);
                                                 //司机
                                                 self.$el.find('.show_car_driver span').html(data[0].driver);
                                                 //乘务
@@ -402,7 +402,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     }
                     //进场之后车辆消失
                     if(data_use.data.inField==1){
-                            $('body').find('.dispatch_desktop[line_id='+data_use.data.line_id+']').find('.line_car[bus_no='+data_use.data.bus_no+']').remove();
+                            $('body').find('.dispatch_desktop[line_id='+data_use.data.line_id+']').find('.traffic_car .line_car[bus_no='+data_use.data.bus_no+']').remove();
                     }
                 }
                 //车辆实时位置  分上下行已经进出站
