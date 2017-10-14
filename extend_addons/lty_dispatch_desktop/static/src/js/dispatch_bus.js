@@ -402,7 +402,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     }
                     //进场之后车辆消失
                     if(data_use.data.inField==1){
-                            $('body').find('.dispatch_desktop[line_id='+data_use.data.line_id+']').find('.line_car[bus_no='+data_use.data.bus_no+']').remove();
+                            $('body').find('.dispatch_desktop[line_id='+data_use.data.line_id+']').find('.traffic_car .line_car[bus_no='+data_use.data.bus_no+']').remove();
                     }
                 }
                 //车辆实时位置  分上下行已经进出站
