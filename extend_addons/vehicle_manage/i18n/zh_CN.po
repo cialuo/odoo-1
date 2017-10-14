@@ -485,7 +485,7 @@ msgstr "投入期费用"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_investment_ids
 msgid "Investments"
-msgstr "Investments"
+msgstr "费用"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_is_required
