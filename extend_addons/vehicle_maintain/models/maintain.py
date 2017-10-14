@@ -40,7 +40,7 @@ class MaintainReport(models.Model):
     is_fault_vehicle = fields.Boolean("Is Fault Vehicle", default=True)
 
     state = fields.Selection([
-                            # ('back', "Back"),
+                            ('discard', "discard"),
                             ('draft', "Draft"),
                             ('precheck', "Precheck"),
                             ('dispatch', "Dispatch"),
@@ -129,18 +129,18 @@ class MaintainReport(models.Model):
             raise exceptions.UserError(_("Maintain Repair Required!"))
         else:
             self.state = 'precheck'
-            for i in self.repair_ids:
-                if i.state == 'draft':
-                    i.state = 'precheck'
+            # for i in self.repair_ids:
+            #     if i.state == 'draft':
+            #         i.state = 'precheck'
 
     @api.multi
-    def action_precheck_to_draft(self):
+    def action_precheck_to_discard(self):
         """
         预检单:
             功能：检验退回
-            状态：预检->草稿
+            状态：预检->作废
         """
-        self.write({"state": 'draft'})
+        self.write({"state": 'discard'})
 
     @api.multi
     def action_repair_to_precheck(self):
@@ -168,8 +168,9 @@ class MaintainReport(models.Model):
         #2017年7月25日 记录预检通过时间
         self.preflight_date = fields.Datetime.now()
         for i in self.repair_ids:
-            if i.state in ('precheck','draft'):
-                i.state = 'dispatch'
+            if i.state in ('draft'):
+                i.state = 'wait_dispatch'
+
 
 class MaintainRepair(models.Model):
     """
@@ -228,8 +229,7 @@ class MaintainRepair(models.Model):
     repair_names = fields.Char(string='Repair Names', help="Repair Names", compute='_get_repair_names')
     state = fields.Selection([
         ('draft', "Draft"),
-        ('precheck', "Precheck"),
-        ('dispatch', "Dispatch"),
+        ('wait_dispatch', "Wait Dispatch"),
         ('wait_repair', "Wait Repair"),
         ('repair', "Repair"),
         ('inspect', "Inspect"),
@@ -299,6 +299,7 @@ class MaintainRepair(models.Model):
             time_type = order.vehicle_type.time_type_id
             work_time_line = order.fault_method_id.work_time_lines.filtered(lambda x: x.time_type_id == time_type)
             order.work_time = work_time_line.work_time
+
     @api.depends('repair_start_time', 'end_inspect_time')
     def _compute_repair_total_time(self):
         """
@@ -315,7 +316,6 @@ class MaintainRepair(models.Model):
                     hours = days * 24 + seconds // 3600
                     order.repair_total_time = hours
 
-
     @api.onchange('return_repair_ids')
     def _get_return_repair_names(self):
         """
@@ -327,7 +327,6 @@ class MaintainRepair(models.Model):
             for j in i.return_repair_ids:
                 repair_names_list.append(j.repair_names)
             i.return_repair_names = ':'.join(list(set(repair_names_list)))
-
 
     @api.multi
     def unlink(self):
@@ -460,7 +459,7 @@ class MaintainRepair(models.Model):
         percentage_work = sum(i.percentage_work for i in self.job_ids)
         if percentage_work + self.percentage_work > 100:
             raise exceptions.UserError(_("Dispatching the proportion of more than 100"))
-        self.state = 'wait_repair'
+        # self.state = 'wait_repair'
         vals = {
             "fault_category_id": self.fault_category_id.id,
             "fault_appearance_id": self.fault_appearance_id.id or None,
@@ -477,9 +476,23 @@ class MaintainRepair(models.Model):
             'percentage_work': 100 - percentage_work - self.percentage_work,
             "user_id": False,
             # 'plan_start_time': False,
-            'state': 'wait_repair',
+            # 'state': 'wait_repair',
             'job_ids': [(0, 0, vals)]
         })
+
+        form_view_ref = self.env.ref('vehicle_maintain.maintain_repair_view_form_action', False)
+
+        return {
+            'name': _('action_dispatch'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'maintain.manage.repair',
+            'res_id': self.id,
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'view_id': False,
+            'views': [(form_view_ref and form_view_ref.id, 'form')],
+        }
 
     @api.depends("job_ids")
     def _get_repair_names(self):
@@ -599,6 +612,25 @@ class MaintainRepair(models.Model):
             'type': 'ir.actions.act_window',
             'res_id': '',
             'context': context
+        }
+
+    def comfirm_dispatch(self):
+        return False
+
+    def action_init_dispatch(self):
+
+        form_view_ref = self.env.ref('vehicle_maintain.maintain_repair_view_form_action', False)
+
+        return {
+            'name': _('action_dispatch'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'maintain.manage.repair',
+            'res_id': self.id,
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'view_id': False,
+            'views': [(form_view_ref and form_view_ref.id, 'form')],
         }
 
 

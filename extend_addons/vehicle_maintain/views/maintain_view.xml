@@ -98,6 +98,20 @@
 								class="oe_highlight"
 								groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_depot"
 								/> <!-- 提交检验-->
+
+						<button name="action_precheck_to_repair"
+								type="object"
+                                string="Precheck Success"
+                                states="precheck"
+								groups="vehicle_group.vehicle_inspect"
+								class="oe_highlight"/>  <!-- 预检通过并创建交接单-->
+
+						<button name="action_precheck_to_discard"
+								type="object"
+                                string="Reset to discard"
+								groups="vehicle_group.vehicle_inspect"
+								states="precheck"/>     <!-- 检验退回-->
+
                     	<field name="state" widget="statusbar" statusbar_visible="draft,precheck,repair,completed"/>
                 	</header>
 					<sheet>
@@ -267,6 +281,12 @@
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
                 	<header>
+						<button string="Dispatch"
+								name="action_init_dispatch"
+								type="object"
+								states="wait_dispatch"
+								class="btn-primary"/>
+
 						<button name="action_start_repair" type="object"
                                 string="Start Repair"
 								states="wait_repair"
@@ -279,7 +299,7 @@
 								groups="vehicle_group.vehicle_repair"
                                 class="oe_highlight"/> <!-- 报检-->
 
-                    	<field name="state"  widget="statusbar" statusbar_visible="wait_repair,repair,inspect,completed" />
+                    	<field name="state"  widget="statusbar" statusbar_visible="wait_dispatch,wait_repair,repair,inspect,completed" />
                 	</header>
 					<sheet>
 						<div class="oe_title">
@@ -471,10 +491,15 @@
 						 <button name="dispatch"
 								 type="object"
 								 string="Dispatch"
-								 states="dispatch,wait_repair"
+								 states="wait_dispatch,wait_repair"
 								 groups="vehicle_group.vehicle_dispatch"
-								 class="oe_edit_only oe_highlight oe_right"/>
+								 class="oe_highlight oe_right"/>
 					</sheet>
+
+					<footer>
+                        <button string="Confirm" name="comfirm_dispatch" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
                 </form>
             </field>
         </record>
@@ -568,7 +593,7 @@
 			<field name="name">maintain_repair_action</field>
 			<field name="res_model">maintain.manage.repair</field>
 			<field name="view_mode">tree,form</field>
-			<field name="domain">[('state', 'in', ['dispatch','wait_repair','repair','inspect','completed'])]</field>
+			<field name="domain">[('state', 'in', ['wait_dispatch','wait_repair','repair','inspect','completed'])]</field>
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('maintain_repair_view_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('maintain_repair_view_form')})]"/>
