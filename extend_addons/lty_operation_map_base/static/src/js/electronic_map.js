@@ -47,13 +47,13 @@ odoo.define("electronic_map.electronic_map", function(require) {
                         ["route_id", "=", id]
                     ]).all().then(function(vehicles) {
                         _.each(vehicles, function(set) {
-                            var option = '<option value="' + set.on_boardid + '">' + set.on_boardid + '</option>';
+                            var option = '<option value="' + set.inner_code + '">' + set.inner_code + '</option>';
                             vehiclesObj.append(option);
                         });
                     })
                 }
             });
-            // self.get_time_fn();
+            self.get_time_fn();
         },
 
         get_time_fn: function(){
