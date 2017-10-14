@@ -32,6 +32,12 @@ websocket_electronic_map.onmessage = function (event) {
     // debugger;
     if (modelName == "bus_site"){
         if (oData.line_id == TARGET_LINE_ID){
+            if (TARGET_VEHICLE){
+                if (oData.car_id == TARGET_VEHICLE){
+                    update_vehicles_sockt(oData);
+                }
+                return false;
+            }
             update_vehicles_sockt(oData);
         }
     }else if (modelName == "abnormal"){
