@@ -136,12 +136,6 @@ class route_manage(models.Model):
     # 显示名称
     _rec_name = 'line_name'
 
-    # sql约束
-    _sql_constraints = [
-        # ('coding_unique', 'unique(gprs_id)', _('The route code must be unique!')),
-        ('route_unique', 'unique(line_name)', _('The route name must be unique!')),
-    ]
-
     line_name = fields.Char('Line Name', required=True) # 线路名称
     gprs_id = fields.Integer('gprsid', required=True) # 线路编码
     oil_wear_coefficient = fields.Float(digits=(10, 2), string='Oil wear coefficient') # 油耗系数
@@ -214,7 +208,12 @@ class route_manage(models.Model):
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env['res.company']._company_default_get('route_manage.route_manage'))
     dispatch_user_ids = fields.Many2many('res.users', 'route_dispatch_user_ref', 'route_id', 'user_id', string='Dispatch Users', copy=False)
 
-    
+
+    # sql约束
+    _sql_constraints = [
+        ('coding_unique', 'unique(gprs_id)', _('The route code must be unique!')),
+        ('route_unique', 'unique(line_name)', _('The route name must be unique!')),
+    ]    
 
     @api.onchange('up_first_time','up_end_time','down_first_time','down_end_time')
     def _on_change_time(self):

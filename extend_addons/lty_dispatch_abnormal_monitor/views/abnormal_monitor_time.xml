@@ -34,9 +34,9 @@
               action="abnormal_monitor_time_diaodianweifa_action" sequence="10"/>   
     <menuitem name="到站准点" id="abnormal_monitor_time_daozhanzhundian_menu" parent="lty_dispatch_abnormal_monitor_time"
               action="abnormal_monitor_time_daozhanzhundian_action" sequence="10"/>                 
-    <menuitem name="超次回场" id="abnormal_monitor_time_tangcihuichang_menu" parent="lty_dispatch_abnormal_monitor_time"
+    <menuitem name="赶次回场" id="abnormal_monitor_time_tangcihuichang_menu" parent="lty_dispatch_abnormal_monitor_time"
               action="abnormal_monitor_time_tangcihuichang_action" sequence="10"/>                  
-    <menuitem name="超次回场严重异常" id="abnormal_monitor_time_tangcihuichangyanzhong_menu" parent="lty_dispatch_abnormal_monitor_time"
+    <menuitem name="趟次回场严重异常" id="abnormal_monitor_time_tangcihuichangyanzhong_menu" parent="lty_dispatch_abnormal_monitor_time"
               action="abnormal_monitor_time_tangcihuichangyanzhong_action" sequence="10"/>                 
               
               

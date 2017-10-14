@@ -10,6 +10,7 @@ class dispatch_solution(models.Model):
 
     # 解决方案名称
     name = fields.Char('Dispatch solution', required=True)
+    soulution_id = fields.Many2one('pre.arranged.planning', ondelete='set null')
 
     # 方案描述
     description = fields.Char('Solution describe')

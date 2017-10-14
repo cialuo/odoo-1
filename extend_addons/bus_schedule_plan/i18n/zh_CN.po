@@ -1975,7 +1975,7 @@ msgstr "起始站点"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_starttime
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_starttime
 msgid "start time"
-msgstr "开始"
+msgstr "开始时间"
 
 #. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/bus_shift.py:117
@@ -2178,7 +2178,7 @@ msgstr "车速"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_down_rulebusarrange_workingnumber
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_up_rulebusarrange_workingnumber
 msgid "vehicle working number"
-msgstr "运营数量"
+msgstr "运营车辆数量"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_exec_table_form

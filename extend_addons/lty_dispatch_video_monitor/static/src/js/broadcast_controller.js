@@ -25,7 +25,9 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
             new ztree_show_dian(this).appendTo(this.$el.find('.content-left'));
             var self = this;
             //后期修改
-            var channelType = 258;
+            var channelType = 16;
+            var deviceId = 9990;
+            var ztreeClick = {};
             this.$el.find('#datetimepicker').datetimepicker({
                 format: 'YYYY-MM-DD',
                 locale: moment.locale('zh-cn')
@@ -69,19 +71,19 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                                 name: end_arr[m][1][y],
                                 id: end_arr[m][1][y],
                                 children: [{
-                                    name: "通道1",
+                                    name: "渠道1",
                                     id: 1,
                                 },
                                     {
-                                        name: "通道2",
+                                        name: "渠道2",
                                         id: 2,
                                     },
                                     {
-                                        name: "通道3",
+                                        name: "渠道3",
                                         id: 3
                                     },
                                     {
-                                        name: "通道4",
+                                        name: "渠道4",
                                         id: 4
                                     }
                                 ]
@@ -115,20 +117,40 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                 //websocket初始化
                 sendVideoInit()
                 //			高亮在线视频列表
-                heigh_light_show_tree(data_tree);
+                // heigh_light_show_tree(data_tree);
             });
-            this.$el.find('.show_broadcast_list').on('click','li',function (event) {
+            this.$el.find('.show_broadcast_list').on('click', 'li', function (event) {
                 $('.broadcast_player.hide').removeClass('hide');
                 $('.content-right').html('');
                 var x = event.currentTarget;
                 var index = $(x).attr('index');
                 $(x).addClass('beChs').siblings().removeClass('beChs');
-                var deviceId = 8000;
-                var channelId = 0;
+                var channelId = ztreeClick.treeChanelid;
                 $('.content-right').append($('.broadcast_box').html());
                 $('.content-right .broadcast_show_box').eq(0).find('.broadcast_box_player').attr('id', 'flashContent0')
-                webSocketVideo(channelType, deviceId, channelId);
+                var videoParams = '{"msg_type":17,"params":{"bus_id":' + deviceId + ',"channel_id":' + channelId + ',"index":' + index + ',"minutes":6}}';
+                video_socket.send(videoParams); //发送参数
             })
+            this.$el.find('.search_date_btn').click(function () {
+                if (ztreeClick.treeChanelid != undefined) {
+                    var search_date_val = self.$el.find('.datetimepicker').val();
+                    if (search_date_val != '') {
+                        var date_zz = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+                        if (date_zz.test(search_date_val)) {
+                            var date_num = search_date_val.split('-');
+                            var videoParams = '{"msg_type":' + channelType + ',"params":{"bus_id":' + deviceId + ',"channel_id":' + ztreeClick.treeChanelid + ',"begin":"' + date_num.join('') + '000000","end":"' + date_num.join('') + '235959"}}';
+                            video_socket.send(videoParams); //发送参数
+                            console.log(videoParams);
+                        } else {
+                            layer.msg("日期格式不正确");
+                        }
+                    } else {
+                        layer.msg('请输入查询日期');
+                    }
+                } else {
+                    layer.msg('请选择车辆渠道');
+                }
+            });
             var data_tree = [{
                 'id': 9999,
                 "channels": [{
@@ -225,18 +247,33 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                     onlineData = dataJson.result;
                     // heigh_light_show_tree(dataJson.result); //设置在线的状态
                     // getVideoOnlines(onlineData, dataJson.result); //断流重连
-                } else if (dataJson.msg_type == '512') { //推送在线的状态
-                    //				setInterShow(dataJson.result); //设置在线的状态
-                    // getVideoOnlines(catDataDid, dataJson.result); //断流重连
-                } else if (dataJson.msg_type == '259') { //服务器返回播放的地址
-                    catDataDid = dataJson; //全局存储对象
-                    //				showMonflasitor(dataJson); //回应的地址
+                } else if (dataJson.msg_type == 33) { //服务器视频播放的地址
+                    console.log(dataJson);
+                    var url = dataJson.result.url_wan
                     deal_getData(dataJson);
-                }
+                    // getVideoOnlines(catDataDid, dataJson.result); //断流重连
+                } else if (dataJson.msg_type == 32) { //服务器列表的地址
+                    catDataDid = dataJson; //全局存储对象
+                    var data_date = dataJson.result;
+                    var dom = '';
+                    var substart = '';
+                    var subend = '';
+                    if (data_date.length > 0) {
+                        self.$el.find('.show_broadcast_list').html('');
+                        for (var i = 0; i < data_date.length; i++) {
+                            substart = data_date[i].begin.substring(8, 10) + ':' + data_date[i].begin.substring(10, 12) + ':' + data_date[i].begin.substring(12, 14);
+                            subend = data_date[i].end.substring(8, 10) + ':' + data_date[i].end.substring(10, 12) + ':' + data_date[i].end.substring(12, 14);
+                            dom += "<li index='" + data_date[i].index + "'><span>" + substart + "</span><span>------</span><span>" + subend + "</span></li>"
+                        }
+                        self.$el.find('.show_broadcast_list').append(dom);
+                    }else{
+                        layer.msg('输入日期内暂无视频');
+                    }
 
+                }
             }
 
-            //设备通道断流重新去请求
+            //设备渠道断流重新去请求
             function getVideoOnlines(dataJsonVideo, dataChangeVideo) {
                 var busIdStr = dataChangeVideo[0].bus_id;
                 if (dataJsonVideo && dataJsonVideo.params && dataJsonVideo.params.bus_id && dataJsonVideo.params.bus_id == busIdStr) {
@@ -247,16 +284,17 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                             if (dataChangeVideo[0].channels[m].online == '1') {
                                 var channleStr = dataChangeVideo[0].channels[m].channel_id;
                                 channleStr = parseInt(channleStr.substr(channleStr.length - 1, 1));
+                                var videoParams = '';
                                 if (dataJsonVideo.params.channel_id == '-1') { //判断是存在channeld
-                                    var videoParams = '{"msg_type":' + channelType + ',"params":{"bus_id":' + busIdStr + ',"channel_id":' + dataJsonVideo.params.channel_id + '}}';
+                                    videoParams = '{"msg_type":' + channelType + ',"params":{"bus_id":' + busIdStr + ',"channel_id":' + dataJsonVideo.params.channel_id + '}}';
                                 } else {
                                     if (dataJsonVideo.params.channel_id == channleStr) {
-                                        var videoParams = '{"msg_type":' + channelType + ',"params":{"bus_id":' + busIdStr + ',"channel_id":' + channleStr + '}}';
+                                        videoParams = '{"msg_type":' + channelType + ',"params":{"bus_id":' + busIdStr + ',"channel_id":' + channleStr + '}}';
                                     }
                                 }
                                 video_socket.send(videoParams); //发送参数
                             } else {
-                                alert('通道不在线！')
+                                alert('渠道不在线！');
                             }
                         }
                     } else if (dataChangeVideo.online == '0') {
@@ -358,49 +396,22 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
             }
 
             function deal_getData(dataJson) {
-                var dataUrl = dataJson.result;
                 var deviceId = dataJson.params.bus_id;
                 var channelId = dataJson.params.channel_id;
-                //			即获取的所有通道
-                if (channelId == '-1') {
-                    //				removeobj(); //清空数组
-                    removeobj(); //清空播放数组
-                    //				removeJwplayer(); //清空播放器
-                    for (var i = 0; i < dataUrl.length; i++) { //点击设备把所有的url存入对象
-                        var deviceData = {"deviceId": deviceId, "channelId": i, "videoUrl": dataUrl[i]};
-                        catData.push(deviceData);
-                    }
-                    cutoverTreePlay(4, dataUrl, deviceId, channelId);
-                } else if (channelId == 0) {
-                    cutoverTreePlay(1, dataUrl, deviceId, channelId);
-                }
-            }
-
-            //循环创建展示播放器
-            function cutoverTreePlay(num, arrlist, deviceId, channelId) {
-                var arrcut = [];
-                if (arrlist) { //判断是否存在url，不存在创建空的播放器
-                    arrcut = arrlist;
-                }
-                for (var i = 0; i < num; i++) {
-                    if (channelId == '-1') {
-                        show_video(i, arrcut, deviceId, channelId); //循环创建播放器
-                        //					showSreenPlay(num); //依据屏幕数量设置摆放
-                    } else if (channelId == 0) {
-                        show_video(i, arrcut, deviceId, channelId);
-                    }
-                }
+                var arrcut = dataJson.result.url_wan;
+                //			即获取的所有渠道
+                show_video(arrcut, deviceId, channelId);
             }
 
             //播放地址列表,bus_id,channel_id
-            function show_video(i, arrcut, deviceId, channelId) {
+            function show_video(arrcut, deviceId, channelId) {
                 var swfVersionStr = "10.3.0";
                 var xiSwfUrlStr = "swfs/playerProductInstall.swf";
                 var queryParameters = new Array();
                 queryParameters['source'] = getUrlParam('source');
                 queryParameters['type'] = getUrlParam('type');
                 if (queryParameters['source'] == "")
-                    queryParameters['source'] = arrcut[0];
+                    queryParameters['source'] = arrcut;
                 if (queryParameters['type'] == "")
                     queryParameters['type'] = "recorded";
                 if (queryParameters['idx'] == "")
@@ -426,23 +437,20 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                 attributes.scale = "showall";
                 // for(var j = 0;j<$('.video_player').length;j++){
                 // 因为数据乃后台返回，无须做处理
-                $('#flashContent' + i).parents('.broadcast_player').find('.show_car').show();
-                $('#flashContent' + i).parents('.broadcast_player').find('.now_play').html('当前车辆号：' + deviceId)
+                $('#flashContent0').parents('.broadcast_player').find('.show_car').show();
+                $('#flashContent0').parents('.broadcast_player').find('.now_play').html('当前车辆号：' + deviceId)
                 // }
-                var qudao = i + 1;
-                $('#flashContent' + i).parents('.broadcast_player').find('.now_channel').html('当前渠道：' + qudao)
+                $('#flashContent0').parents('.broadcast_player').find('.now_channel').html('当前渠道：' + channelId)
                 var timeShow = setInterval(function () {
-                    if ($('body').find('#flashContent' + i).length > 0) {
-                        if (channelId == 0) {
-
-                            swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent" + i, "550", "350", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
-                            swfobject.createCSS("#flashContent", "display:block;text-align:left;");
-                        } else if (channelId == -1) {
-                            $('#flashContent' + i).parents('.broadcast_player').find('.show_car').show();
-                            $('#flashContent' + i).parents('.broadcast_player').find('.now_play').html('当前车辆号：' + deviceId)
-                            swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent" + i, "550", "350", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
-                            swfobject.createCSS("#flashContent", "display:block;text-align:left;");
-                        }
+                    if ($('body').find('#flashContent0').length > 0) {
+                        swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent0", "550", "350", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
+                        swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+                        // else if (channelId == -1) {
+                        //     $('#flashContent' + i).parents('.broadcast_player').find('.show_car').show();
+                        //     $('#flashContent' + i).parents('.broadcast_player').find('.now_play').html('当前车辆号：' + deviceId)
+                        //     swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent" + i, "550", "350", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
+                        //     swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+                        // }
                         clearInterval(timeShow);
                     }
                 }, 300);
@@ -452,75 +460,29 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
             function showIconForTree(treeId, treeNode) {
                 return !treeNode.isParent;
             };
-//
             function zTreeOnClick(event, treeId, treeNode) {
-                var p_name = treeNode.name;
-                var dom_chose = '#' + treeNode.tId + '_span';
-                //			webSocketVideo(channelType, deviceId, channeld)
+                ztreeClick = {};
                 //'{"msg_type":258,"params":{"bus_id":8000,"channel_id":0}}'
                 $('.broadcast_player.hide').removeClass('hide');
                 $('.content-right').html('');
-                if ($(dom_chose).hasClass('online')) {
-                    var up = -1;
-                    var m;
-                    var n = []
-                    if (treeNode.isParent == true) {
-                        for (var i = 0; i < 3; i++) {
-                            //如果这条选择线路online
-                            m = parseInt(treeNode.tId.split('_')[1]) + i + 1;
-                            if ($('#ztree_' + m + '_span').hasClass('online')) {
-                                up++;
-                                n.push(i)
-                                $('.content-right').append($('.broadcast_box').html());
-                                $('.broadcast_player .broadcast_show_box').eq(up).find('.broadcast_box_player').attr('id', 'flashContent' + i);
-                            }
-                        }
-                    } else {
-                        //添加播放器盒子
-                        channelId = 0;
-                        $('.content-right').append($('.broadcast_box').html());
-                        $('.content-right .broadcast_show_box').eq(0).find('.broadcast_box_player').attr('id', 'flashContent0')
-                    }
-                    // webSocketVideo(channelType, deviceId, channelId);
+                // if ($(dom_chose).hasClass('online')) {
+                if (treeNode.isParent != true) {
+                    //添加播放器盒子
+                    ztreeClick.treeBusid = treeNode.getParentNode().id;
+                    ztreeClick.treeChanelid = treeNode.id;
+                    console.log(ztreeClick)
                 }
             };
-//
 //             //		websocket链接请求的视频播放
-            function webSocketVideo(channelType, deviceId, channeld) {
-                var webzTreeShow = $.fn.zTree.getZTreeObj("ztree");
-                var deviceIdscoket = deviceId;
 
-
-                ///--------- y有数据之后使用 -------------
-                // var nodesocket = webzTreeShow.getNodeByParam("id", 8, null);
-                // var objsocket = nodesocket.tId + "_span";
-                //			如果是有online的才发送请求
-                //			if($('#' + objsocket).hasClass('online')) {
-                if (channelType == '258') { //点击树请求参数
-                    if (!(channeld === '')) { //判断是存在channeld
-                        var videoParams = '{"msg_type":' + channelType + ',"params":{"bus_id":' + deviceId + ',"channel_id":' + channeld + '}}';
-                    } else {
-                        channeld = -1;
-                        var videoParams = '{"msg_type":' + channelType + ',"params":{"bus_id":' + deviceId + ',"channel_id":' + channeld + '}}';
-                    }
-                } else if (channelType == '264') { //通知设备上传日志
-                    var videoParams = '{"msg_type":' + channelType + ',"params":{"bus_id":' + deviceId + '}}';
-                }
-                //				websocket.send('{"msg_type":258,"params":{"bus_id":8000,"channel_id":0}}');
-                video_socket.send(videoParams); //发送参数
-                //			}
-            }
         },
         events: {
-            'keypress .search_road': 'show_video_tree',
-            'click .search_date_btn': 'search_video_list',
-            // 'click .show_broadcast_list li': 'search_broadcast'
+            'keypress .datetimepicker': 'show_video_tree',
         },
         show_video_tree: function (event) {
             var searchCondition = this.$el.find('.search_road').val();
             if (event.keyCode == 13) {
                 //<2>.得到模糊匹配搜索条件的节点数组集合
-                var highlightNodes = new Array();
                 if (searchCondition != "") {
                     var treeObj = $.fn.zTree.getZTreeObj("ztree");
                     treeObj.cancelSelectedNode()
@@ -535,66 +497,6 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                 }
             }
         },
-        search_video_list: function () {
-            var search_date_val = this.$el.find('.datetimepicker').val();
-            if (search_date_val != '') {
-                var date_zz = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
-                if (date_zz.test(search_date_val)) {
-                    var data_list = {
-                        "status": 1,
-                        "message": "ok",
-                        "msg_type": 20,
-                        "params": {
-                            "bus_id": 12345,
-                            "channel_id": 0,
-                            "begin": "20171010000000",
-                            "end": "20171010235959"
-                        },
-                        "result": [{"index": 0, "begin": "20171009234137", "end": "20171010000249"}, {
-                            "index": 1,
-                            "begin": "20171010000249",
-                            "end": "20171010002400"
-                        }, {"index": 2, "begin": "20171010002400", "end": "20171010004457"}, {
-                            "index": 3,
-                            "begin": "20171010004457",
-                            "end": "20171010010555"
-                        }, {"index": 4, "begin": "20171010010555", "end": "20171010012715"}, {
-                            "index": 5,
-                            "begin": "20171010012715",
-                            "end": "20171010014828"
-                        }, {"index": 6, "begin": "20171010014828", "end": "20171010020940"}, {
-                            "index": 7,
-                            "begin": "20171010020940",
-                            "end": "20171010023038"
-                        }, {"index": 8, "begin": "20171010023038", "end": "20171010025126"}, {
-                            "index": 9,
-                            "begin": "20171010025126",
-                            "end": "20171010030005"
-                        }]
-                    };
-                    var data_date = data_list.result;
-                    var dom = '';
-                    var substart = '';
-                    var subend = '';
-                    for (var i = 0; i < data_date.length; i++) {
-                        substart = data_date[i].begin.substring(8, 10) + ':' + data_date[i].begin.substring(10, 12) + ':' + data_date[i].begin.substring(12, 14);
-                        subend = data_date[i].end.substring(8, 10) + ':' + data_date[i].end.substring(10, 12) + ':' + data_date[i].end.substring(12, 14);
-                        dom += "<li index='" + data_date[i].index + "'><span>" + substart + "</span><span>------</span><span>" + subend + "</span></li>"
-                    }
-                    this.$el.find('.show_broadcast_list').append(dom)
-                } else {
-                    layer.msg("日期格式不正确");
-                }
-            }
-        },
-        search_broadcast: function (event) {
-            var x = event.currentTarget;
-            var index = $(x).attr('index');
-            $(x).addClass('beChs').siblings().removeClass('beChs');
-            var deviceId = 8000;
-            var channelId = -1;
-            webSocketVideo(channelType, deviceId, channelId);
-        }
     });
     core.action_registry.add('lty_dispatch_broadcast_monitor.broadcast_play', broadcast_play);
 });
