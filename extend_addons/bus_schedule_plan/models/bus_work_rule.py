@@ -751,7 +751,7 @@ class BusWorkRules(models.Model):
                 bus_group = self._busGroupExist(res_value[0][0])
             else :
                 bus_group = None            
-            if res_value :
+            if res_value and bus_group :
                 #todo以下可以优化，为了不改变原有逻辑，在这里重新做了个search
                 rulelist = rulemode.search([("date_type", '=', res_value[0][1]),("active", "=", True),("line_id", "=", line_id.id)])
                 for item in rulelist:

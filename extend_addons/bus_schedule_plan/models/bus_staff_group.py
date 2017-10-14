@@ -51,8 +51,7 @@ class BusStaffGroup(models.Model):
         #判断该线路的班组的车辆是否小于计划需要的运营车辆数
         bus_group_vehicle_ct = len(self.env['bus_group'].search([('route_id', '=', route_id.id),('state', '=', 'use')]).mapped('vehicle_ids'))
         if bus_group_vehicle_ct < operation_ct:
-            raise exceptions.UserError(_('bus_group_vehicle less than operating vehicles.'))
-
+            raise exceptions.UserError(_('bus_group_vehicle less than operating vehicles.(route id %s)')% route_id)
         use_date = datetime.datetime.strftime(staff_date-timedelta(days=1), "%Y-%m-%d")
         staff_date_str = datetime.datetime.strftime(staff_date, "%Y-%m-%d")
 
