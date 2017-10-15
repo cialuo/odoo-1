@@ -168,7 +168,6 @@
     </t>
     <t t-name="time_place_passenger_flow_template">
         <div class="line_chart">
-            <div class="please_deal_with dis_none">暂无数据...</div>
             <div style="width: 1040px;height: 380px;" class="chart_passenger_flow"></div>
             <div class="chart_peak">
                 <canvas class="chart_peak_canvas" width="750" height="8"></canvas>
@@ -189,7 +188,7 @@
     </t>
     <t t-name="site_passenger_flow_hour_chart_template">
         <div class="line_chart">
-            <div style="width: 1040px;height: 380px;" class="chart_passenger_flow"></div>
+            <div style="width: 1040px;height: 380px;line-height:380px;text-align: center" class="chart_passenger_flow">暂无数据 ...</div>
             <div class="chart_satisfaction_bt">
                 <label>
                     <input class="set_bt way_1" type="radio" name="way" />前一日
@@ -222,7 +221,6 @@
     </t>
     <t t-name="company_passenger_flow_template">
         <div class="line_chart">
-            <div class="please_deal_with dis_none">暂无数据...</div>
             <table class="chart_passenger_flow_table">
                 <tr>
                     <td>

@@ -62,7 +62,7 @@ odoo.define(function (require) {
                 self.update_site_fn();
             });
 
-            self.$(".ok_bt").click();
+            // self.$(".ok_bt").click();
         },
         update_site_fn: function () {
             var self = this;
@@ -90,7 +90,6 @@ odoo.define(function (require) {
         line_passenger_flow_time_switch: function (name) {
             var self = this;
             if (name == "when") {
-                // self.$(".ok_bt").click();//加载页面自动触发click
                 self.$(".history_passenger_flow").parent().removeClass("dis_none");
                 self.$(".predict_passenger_flow_time").parent().removeClass("dis_none");
                 self.$(".data_scope").addClass("dis_none");
@@ -121,7 +120,6 @@ odoo.define(function (require) {
             // 9.25
             var self = this;
             if (name == "when") {
-                self.$(".ok_bt").click();//加载页面自动触发click                
                 self.$(".history_passenger_flow").parent().removeClass("dis_none");
                 self.$(".predict_passenger_flow_time").parent().removeClass("dis_none");
                 self.$(".data_scope").addClass("dis_none");
@@ -155,7 +153,7 @@ odoo.define(function (require) {
         //各公司分时客流
         companies_are_time_sharing: function (name) {
             var self = this;
-            self.$(".ok_bt").click();//加载页面自动触发click                
+            // self.$(".ok_bt").click();//加载页面自动触发click     
             self.$(".history_passenger_flow").parent().removeClass("dis_none");
             self.$(".predict_passenger_flow_time").parent().removeClass("dis_none");
             self.$(".company").parent().removeClass("dis_none");
@@ -331,9 +329,8 @@ odoo.define(function (require) {
                             console.log(res.resultMsg);
                             layer.close(self.layer_index);// 结束LODING 
                             //异常处理
-
                             if (res.result !== 0) {
-                                var layer_index = layer.msg("数据异常 ！...", { time: 1200, shade: 0.3 });
+                                var layer_index = layer.msg(self.layer_index, { time: 1200, shade: 0.3 });
                                 return false;
                             } else {
                                 var data = [];                   //total --花图
@@ -390,7 +387,7 @@ odoo.define(function (require) {
                             layer.close(self.layer_index);// 结束LODING 
                             //异常处理
                             if (res.result !== 0) {
-                                var layer_index = layer.msg("数据异常 ！...", { time: 1200, shade: 0.3 });
+                                var layer_index = layer.msg(res.resultMsg, { time: 1200, shade: 0.3 });
                                 return false;
                             } else {
                                 var x_data = [];                 //x+时间轴
@@ -420,19 +417,16 @@ odoo.define(function (require) {
                 //各公司分时客流与构成 动态渲染
                 $.ajax({
                     type: 'get',
-                    // http://192.168.2.121:8080/ltyop/busReport/companyPassengerFlow?apikey=123&line_id=34&city_code=130400&date_end=20170926&date_period=30&company_id=2&step=2
-                    // http://192.168.2.121:8080/ltyop/busReport/companyPassengerFlow?apikey=123&line_id=34&city_code=130400&date_end=20170926&date_period=30&company_id=-1&step=2
-
-                    // url: 'http://127.0.0.1:8080/ltyop/busReport/companyPassengerFlow?apikey=123&company_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&step=' + arg_options.step + '',
-                    url: RESTFUL_URL + '/ltyop/busReport/companyPassengerFlow?apikey=123&company_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&step=' + arg_options.step + '',
+                    url: 'http://192.168.2.121:8080/ltyop/busReport/companyPassengerFlow?apikey=123&line_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&company_id=' + arg_options.company + '&step=' + arg_options.step + '',
+                    // url: RESTFUL_URL + '/ltyop/busReport/companyPassengerFlow?apikey=123&company_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&step=' + arg_options.step + '',
                     data: {},
                     dataType: 'json',
                     error: function (res) {
-                        console.log("数据错误")
+                        console.log(res.resultMsg)
                     },
                     success: function (res) {
                         layer.close(self.layer_index);// 结束LODING 
-                        console.log("数据成功")
+                        console.log(res.resultMsg)
                         //异常处理
                         if (res.result !== 0) {
                             var layer_index = layer.msg(res.resultMsg, { time: 1000, shade: 0.3 });
@@ -477,13 +471,15 @@ odoo.define(function (require) {
                     data: {},
                     dataType: 'json',
                     error: function (res) {
-                        console.log("数据错误")
+                        console.log(res.resultMsg)
                     },
                     success: function (res) {
-                        console.log("数据成功")
+                        console.log(res.resultMsg)
                         layer.close(self.layer_index);// 结束LODING 
                         //异常处理
                         if (res.result !== 0) {
+                            var layer_index = layer.msg(res.resultMsg, { time: 1000, shade: 0.3 });
+                            return false;
                         } else {
                             var x_data = [];     //坐标轴
                             var y_data = [];     //准点率
@@ -591,11 +587,7 @@ odoo.define(function (require) {
                 };
                 // };
                 // };
-
                 // y-满意度
-                // if (Satisfaction_query.wait_pleased.length == 0 && Satisfaction_query.comfortable_pleased.length == 0 && Satisfaction_query.enterprise_pleased.length == 0 && Satisfaction_query.passenger_pleased.length == 0) {
-                //     return false;
-                // } else {
                 var satisfaction_data = {
                     yName: "满意度",
                     // xAxis_data: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'],
@@ -962,7 +954,7 @@ odoo.define(function (require) {
         },
         //分时准点率与滞站客流渲染
         time_place_passenger_flow_query: function (arg_options, echar_data) {
-            var xAxis_data_dict = {        //x时间轴
+            var xAxis_data_dict = {//x时间轴
                 when: echar_data.x_data,
                 day: echar_data.x_data,
                 weeks: echar_data.x_data,
@@ -972,7 +964,7 @@ odoo.define(function (require) {
                 // weeks: ['2017-17周', '2017-18周', '2017-19周', '2017-20周', '2017-21周', '2017-22周', '2017-23周', '2017-24周', '2017-25周'],
                 // month: ['2017-01', '2017-02', '2017-03', '2017-04', '2017-05', '2017-06', '2017-07', '2017-08', '2017-09']
             };
-            var series_data_dict_1 = {     //y--准点率
+            var series_data_dict_1 = {//y--准点率
                 when: echar_data.y_data,
                 day: echar_data.y_data,
                 weeks: echar_data.y_data,
@@ -982,7 +974,7 @@ odoo.define(function (require) {
                 // weeks: [63, 72, 88, 72, 62, 65, 60, 55, 49],
                 // month: [49, 76, 88, 56, 68, 65, 61, 67, 78]
             };
-            var series_data_dict_2 = {     //滞留客
+            var series_data_dict_2 = {//滞留客
                 // when: [31, 23, 12, 28, 42, 52, 35, 20, 45, 39, 36, 38, 26, 28, 25, 31, 37],
                 when: echar_data.y_lose_data,
                 day: echar_data.y_lose_data,
