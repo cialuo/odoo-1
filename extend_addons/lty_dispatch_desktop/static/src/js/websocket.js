@@ -42,7 +42,7 @@ websocket.onmessage = function (event) {
 
     if (modelName == "line_message") {
         use_odoo_model(event, "line_message");
-        if (eventData.type == "1044"){
+        if (eventObj.type == "1044"){
             vehicle_drop(controllerObj, eventData);
         }
     } else if (modelName == "passenger_flow") {
@@ -272,13 +272,13 @@ function show_electronic_map(dom, data_list, session_ayer) {
 
 // 车辆掉线, 在线
 function vehicle_drop(controllerObj, dataObj) {
-    debugger;
-    var dom = controllerObj.find("linePlanParkOnlineModel_" + dataObj.line_id);
+    var dom = controllerObj.find(".linePlanParkOnlineModel_" + dataObj.line_id);
     if (dom.length > 0) {
         var abnormal_description = dataObj.abnormal_description;
-        var vehicle = dom.find(".yard_box .content_tb tr[pid=" + abnormal_description.bus_on + "]");
+        var vehicle = dom.find(".yard_box .content_tb tr[pid=" + abnormal_description.car_id + "]");
         if (vehicle.length > 0) {
-            if (dataObj.status != 0) {
+            // if (dataObj.status != 0) {
+            if (dataObj.packageType ==1044){ 
                 vehicle.find(".runState").attr('st', dataObj.status).removeClass("icon2_0").addClass("icon2_1");
                 return false;
             }
