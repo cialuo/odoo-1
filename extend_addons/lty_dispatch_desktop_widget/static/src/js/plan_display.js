@@ -78,8 +78,10 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 controlId: this.location_data.controllerId,
                 open_modules: ["line_plan"]
             };
-            if (websocket) {
+            try {
                 websocket.send(JSON.stringify(package));
+            } catch(e) {
+                console.log(e);
             }
 
             this.load_plan();
@@ -108,6 +110,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         dataType: 'json',
                         data: {},
                         success: function(data) {
+                            console.log(data);
                             sessionStorage.setItem("busResource", JSON.stringify(data.respose));
                             self.uplink_yard = {
                                 inField: 1,
@@ -1064,10 +1067,44 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             var self = this;
             // 增加icon浮层说明
             self.$(".content_tb .icon").hover(function() {
+                var txt = "";
+                var st = $(this).attr("st");
                 if ($(this).hasClass("checkOut")) {
-                    var txt = ($(this).attr("st") == 1) ? '已签到' : '未签到'
-                } else {
-                    var txt = ($(this).attr("st") == 1) ? '在线' : '未在线'
+                    txt = (st == 1) ? '已签到' : '未签到'
+                }else if ($(this).hasClass("runState")) {
+                    txt = (st == 1) ? '在线' : '未在线'
+                }else if ($(this).hasClass("carStateIdIcon")){
+                    if (st == 1001){
+                        txt = "正常";
+                    }else if (st == 2003){
+                        txt = "休息";
+                    }else if (st == 1002){
+                        txt = "故障";
+                    }else if (st == 2006){
+                        txt = "保养";
+                    }else if (st == 2010){
+                        txt = "空放";
+                    }else if (st == 2005){
+                        txt = "加油";
+                    }else{
+                        txt = "其它";
+                    }
+                }else if ($(this).hasClass("taskIcon")){
+                    if (st == 1001){
+                        txt = "进场包车开始";
+                    }else if (st == 1002){
+                        txt = "进场包车结束";
+                    }else if (st == 1003){
+                        txt = "进场加油开始";
+                    }else if (st == 1004){
+                        txt = "进场加油结束";
+                    }else if (st == 1005){
+                        txt = "进场修车开始";
+                    }else if (st == 1006){
+                        txt = "进场修车结束";
+                    }else if (st == 1012){
+                        txt = "进场下班，变机动";
+                    }
                 }
                 self.layer_f_index = layer.tips(txt, this);
             }, function() {
@@ -1125,10 +1162,44 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             var self = this;
             // 增加icon浮层说明
             self.$(".content_tb .icon").hover(function() {
+                var txt = "";
+                var st = $(this).attr("st");
                 if ($(this).hasClass("checkOut")) {
-                    var txt = ($(this).attr("st") == 1) ? '已签到' : '未签到'
-                } else {
-                    var txt = ($(this).attr("st") == 1) ? '在线' : '未在线'
+                    txt = (st == 1) ? '已签到' : '未签到'
+                }else if ($(this).hasClass("runState")) {
+                    txt = (st == 1) ? '在线' : '未在线'
+                }else if ($(this).hasClass("carStateIdIcon")){
+                    if (st == 1001){
+                        txt = "正常";
+                    }else if (st == 2003){
+                        txt = "休息";
+                    }else if (st == 1002){
+                        txt = "故障";
+                    }else if (st == 2006){
+                        txt = "保养";
+                    }else if (st == 2010){
+                        txt = "空放";
+                    }else if (st == 2005){
+                        txt = "加油";
+                    }else{
+                        txt = "其它";
+                    }
+                }else if ($(this).hasClass("taskIcon")){
+                    if (st == 1001){
+                        txt = "进场包车开始";
+                    }else if (st == 1002){
+                        txt = "进场包车结束";
+                    }else if (st == 1003){
+                        txt = "进场加油开始";
+                    }else if (st == 1004){
+                        txt = "进场加油结束";
+                    }else if (st == 1005){
+                        txt = "进场修车开始";
+                    }else if (st == 1006){
+                        txt = "进场修车结束";
+                    }else if (st == 1012){
+                        txt = "进场下班，变机动";
+                    }
                 }
                 self.layer_f_index = layer.tips(txt, this);
             }, function() {
