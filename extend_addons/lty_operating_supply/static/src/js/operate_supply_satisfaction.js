@@ -24,8 +24,8 @@ odoo.define(function (require) {
         start: function () {
             var self = this;
             // 加载日期组件
-            self.$(".oe_datepicker_input").datetimepicker({
-                format: 'YYYY-MM-DD',
+            self.$(".supply_datepicker_input").datetimepicker({
+                format: 'YYYYMMDD',
                 autoclose: true,
                 pickTime: false,
                 // startViewMode: 1,
@@ -62,7 +62,6 @@ odoo.define(function (require) {
                 var company_id = self.$(".company option:selected").val();
                 var line_id = self.$(".supply_line option:selected").val();
                 model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {//线路
-                    console.log(lines);
                     self.$(".supply_line").find("option").remove();
                     var options = "";
                     for (var i = 0; i < lines.length; i++) {
@@ -85,6 +84,7 @@ odoo.define(function (require) {
                 self.$(".data_type").parent().removeClass("dis_none");
                 self.$(".direction").removeClass("dis_none");
             } else {
+                // self.$(".ok_bt").click();//加载页面自动触发click        
                 // 9.25天月周
                 self.$(".history_passenger_flow").parent().removeClass("dis_none");
                 self.$(".predict_passenger_flow_time").parent().removeClass("dis_none");
@@ -99,20 +99,20 @@ odoo.define(function (require) {
                 history_time: this.$(".history_passenger_flow").val(),//9.25
                 predict_passenger_flow_time: this.$(".predict_passenger_flow_time").val(),//9.25
                 plan_way: this.$(".plan_way li.active").attr("name"),
+                step: this.$(".plan_way li.active").attr("value"),
                 line_id: this.$(".supply_line option:selected").val(),
                 line_name: this.$(".supply_line option:selected").attr("name"),
                 predict_start_time: this.$(".data_scope .start_time").val(),
                 predict_end_time: this.$(".data_scope .end_time").val(),
-                company: this.$(".company option:selected").val(),                       //公交单位
+                company: this.$(".company option:selected").val(),  //公交.单位
                 company_name: this.$(".company option:selected").text(),
                 city_code: this.$(".cityCode").val()
             };
-            // var layer_index = layer.msg("加载中...", { time: 0, shade: 0.3 });
+            self.layer_index = layer.msg("加载中...", { time: 0, shade: 0.3 });
             var chart_cont_obj = this.$el.parent(".operate_title").next();
             arg_options.chart_obj = chart_cont_obj;
             chart_cont_obj.html("");
             // 1.3满意度渲染
-            // var time_hysteresis;
             var time_hysteresis = {
                 wait_satisfaction_rate: "",
                 x_data: "",
@@ -120,63 +120,78 @@ odoo.define(function (require) {
                 up_passenger: "",
                 down_passenger: "",
                 comfortable_satisfaction_rate: "",
-                passenger_satisfaction_rate_y: ""
+                passenger_satisfaction_rate_y: "",
+                enterprise_satisfaction_rate: "",
+                capacity: "",
             };
             $.ajax({
                 type: 'get',
                 async: false,
-                // url: 'http://192.168.2.122:8080/ltyop/busReport/getCustomerDegree?apikey=222&line_id=197&city_code=130400&date_end=20170914&date_period=30&step=1',
-                url: RESTFUL_URL + '/ltyop/busReport/getCustomerDegree',
-                data: { apikey: 222, line_id: arg_options.line_id, city_code: arg_options.city_code, date_end: arg_options.predict_passenger_flow_time, date_period: 30, step: 1 },
+                url: 'http://192.168.2.121:8080/ltyop/busReport/getCustomerDegree?apikey=222&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&step=' + arg_options.step + '',
+                // url: RESTFUL_URL + '/ltyop/busReport/getCustomerDegree',
+                // data: {
+                //     apikey: 222, line_id: arg_options.line_id, city_code: arg_options.city_code, date_end: arg_options.predict_passenger_flow_time, date_period: arg_options.history_time, step: arg_options.step
+                // },
                 dataType: 'json',
                 error: function (res) {
                     console.log(res.resultMsg);
                 },
                 success: function (res) {
-                    console.log("数据成功")
-                    var x_data = [];                          //x轴坐标时间
-                    var y_data = [];                          //y+满意度
-                    var y_lose_data = [];                     //y-时间间隔错差
-                    var wait_satisfaction_rate = [];          //y+侯车满意度
-                    var comfortable_satisfaction_rate = [];    //舒适满意度
-                    var enterprise_satisfaction_rate = [];     //公司收益满意度
-                    var average_start_interval = [];           //平均发车间隔
-                    var up_passenger = [];                     //上车人数
-                    var down_passenger = [];                  //下车人数
-                    var capacity = [];                          //运力
-                    var passenger_satisfaction_rate_y = [];   //数据目前没有乘客满意度？                 
-                    $.each(res.response, function (key, val) {       //table详情
-                        if (key == "satisfaction_details") {
-                            for (var i in val) {
-                                x_data.unshift(val[i].time);
-                                wait_satisfaction_rate.unshift(val[i].wait_satisfaction_rate * 100);
-                                average_start_interval.unshift(val[i].average_start_interval);
-                                up_passenger.unshift(val[i].up_passenger);
-                                down_passenger.unshift(val[i].down_passenger);
-                                comfortable_satisfaction_rate.unshift(val[i].comfortable_satisfaction_rate * 100)
+                    console.log(res.resultMsg);
+                    layer.close(self.layer_index);
+                    if (res.result != 0) {
+                        var layer_index = layer.msg(res.resultMsg, { time: 1000, shade: 0.3 });
+                        return false;
+                    } else {
+                        var x_data = [];                          //x轴坐标时间
+                        var y_data = [];                          //y+满意度
+                        var y_lose_data = [];                     //y-时间间隔错差
+                        var wait_satisfaction_rate = [];          //y+侯车满意度
+                        var comfortable_satisfaction_rate = [];    //舒适满意度
+                        var enterprise_satisfaction_rate = [];     //公司收益满意度
+                        var average_start_interval = [];           //平均发车间隔
+                        var up_passenger = [];                     //上车人数
+                        var down_passenger = [];                  //下车人数
+                        var capacity = [];                         //运力
+                        var passenger_satisfaction_rate_y = [];   //乘客满意度             
+                        $.each(res.response, function (key, val) {       //table详情
+                            if (key == "satisfaction_details") {
+                                for (var i in val) {
+                                    x_data.unshift(val[i].x_data);
+                                    wait_satisfaction_rate.unshift(val[i].wait_satisfaction_rate * 100);
+                                    average_start_interval.unshift(val[i].average_start_interval);
+                                    up_passenger.unshift(val[i].up_passenger);
+                                    down_passenger.unshift(val[i].down_passenger);
+                                    comfortable_satisfaction_rate.unshift(val[i].comfortable_satisfaction_rate * 100);
+                                    capacity.unshift(val[i].capacity * 100);
+                                    enterprise_satisfaction_rate.unshift(val[i].enterprise_satisfaction_rate * 100);
+                                    passenger_satisfaction_rate_y.unshift(val[i].passenger_satisfaction_rate * 100)
+                                };
                             };
-                        };
-                        if (key == "passenger_satisfaction_rate") {       //乘客满意度单独取
-                            for (var i in val) {
-                                passenger_satisfaction_rate_y.unshift(val[i].y_data);
-                            }
-                        }
-                    });    //$.each
-                    time_hysteresis = {
-                        wait_satisfaction_rate: wait_satisfaction_rate,
-                        x_data: x_data,
-                        average_start_interval: average_start_interval,
-                        up_passenger: up_passenger,
-                        down_passenger: down_passenger,
-                        comfortable_satisfaction_rate: comfortable_satisfaction_rate,
-                        passenger_satisfaction_rate_y: passenger_satisfaction_rate_y
-                    };
-                    return time_hysteresis;
-                }   //succes     
-            });     //$.ajax
+                        });    //$.each
+                        // 异常处理
+                        if (res.response.satisfaction_details.length == 0 || !res.response.satisfaction_details) {
+                            var layer_index = layer.msg("暂无数据 ！...", { time: 1200, shade: 0.3 });
+                            return false;
+                        } else {
+                            time_hysteresis = {
+                                wait_satisfaction_rate: wait_satisfaction_rate,
+                                x_data: x_data,
+                                average_start_interval: average_start_interval,
+                                up_passenger: up_passenger,
+                                down_passenger: down_passenger,
+                                comfortable_satisfaction_rate: comfortable_satisfaction_rate,
+                                passenger_satisfaction_rate_y: passenger_satisfaction_rate_y,
+                                capacity: capacity,
+                                enterprise_satisfaction_rate: enterprise_satisfaction_rate
+                            };
+                            return time_hysteresis;
+                        };//else
+                    }
+                }//succes     
+            });//$.ajax
             // 暂时都数据加载相同
             var passenger_flow_data = {
-                // xAxis_data: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'],
                 xAxis_data: time_hysteresis.x_data,     //x轴坐标时间
                 yAxis_data: ['20', '40', '60', '80', '100'],
                 series_data_set: { type: "line", symbolSize: 1 },
@@ -199,12 +214,21 @@ odoo.define(function (require) {
                     },
                     // data: [42, 45, 57, 59, 43, 50, 38, 52, 66, 68, 57, 48, 56, 40, 66, 68, 72]
                     data: time_hysteresis.wait_satisfaction_rate
+                },
+                {
+                    name: "舒适满意度",
+                    lineStyle: {
+                        normal: {
+                            color: '#ccff99'
+                        }
+                    },
+                    // data: [42, 45, 57, 59, 43, 50, 38, 52, 66, 68, 57, 48, 56, 40, 66, 68, 72]
+                    data: time_hysteresis.enterprise_satisfaction_rate
                 }
                 ],
             };
             var satisfaction_data = {
                 yName: "发车间隔",
-                // xAxis_data: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'],
                 xAxis_data: time_hysteresis.x_data,     //x轴坐标时间
                 yAxis_data: ['0', '5', '10', '15', '20'],
                 series_data_set: { type: "line", symbolSize: 1 },
@@ -227,14 +251,14 @@ odoo.define(function (require) {
                 var obj = {
                     "line": arg_options.line_name,
                     "site": arg_options.platform_name,
-                    "time": time_hysteresis.date + '-' + time_hysteresis.x_data[i] + ':' + '00' + '--' + time_hysteresis.x_data[i] + ':' + '59',
+                    "time": time_hysteresis.x_data[i] + ':' + '00' + '--' + time_hysteresis.x_data[i] + ':' + '59',
                     "on_number": time_hysteresis.up_passenger[i],
-                    "capacity": "50",
+                    "capacity": time_hysteresis.capacity[i],
                     "out_number": time_hysteresis.down_passenger[i],
                     "departure_interval": time_hysteresis.average_start_interval[i],
-                    "waiting": time_hysteresis.wait_satisfaction_rate[i],
-                    "comfort": time_hysteresis.comfortable_satisfaction_rate[i],
-                    "earnings": "1.2"
+                    "waiting": time_hysteresis.wait_satisfaction_rate[i] + '%',
+                    "comfort": Math.floor(time_hysteresis.comfortable_satisfaction_rate[i] * 100) / 100 + '%',
+                    "earnings": time_hysteresis.enterprise_satisfaction_rate[i] + '%',
                 };
                 table_data.push(obj);
             }
@@ -254,7 +278,7 @@ odoo.define(function (require) {
                 res_company.query().filter([]).all().then(function (companys) {
                     model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {//线路
                         config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {    //url
-                            RESTFUL_URL = restful[0].value;              //url-end
+                            RESTFUL_URL = restful[0].value; //url-end
                             var options = {
                                 cityCode: citys[0].value,
                                 lineInfo: lines,
@@ -289,7 +313,7 @@ odoo.define(function (require) {
                 { name: "前365天", id: "365" },
                 { name: "所有", id: "all" },
             ];
-            var predict_passenger_flow_time = "20170731";
+            var predict_passenger_flow_time = "20170920";
             // 
             var plan_way = [
                 { name: "按时", en_name: "when", value: 1 },
@@ -331,8 +355,7 @@ odoo.define(function (require) {
         }
     });
     // core.action_registry.add('lty_operating_supply.waiting_satisfaction', waiting_satisfaction);
-    core.action_registry.add('lty_operating_supply.waiting_satisfaction', waiting_satisfaction_base);    //odoo
-
+    core.action_registry.add('lty_operating_supply.waiting_satisfaction', waiting_satisfaction_base);//odoo
 
     var waiting_chart = Widget.extend({
         template: "waiting_chart_template",
@@ -374,41 +397,46 @@ odoo.define(function (require) {
                     },
                 }
             }
-            var chart_option = supply_make_chart_options.default_option_set1(this.chart_parameter_data, set_option);
-            var mychart = echarts.init(this.$('.chart_passenger_flow')[0]);
-            mychart.setOption(chart_option);
+            if (this.chart_parameter_data && this.chart_parameter_data.data_list[1].data.length != 0) {
+                var chart_option = supply_make_chart_options.default_option_set1(this.chart_parameter_data, set_option);
+                var mychart = echarts.init(this.$('.chart_passenger_flow')[0]);
+                mychart.setOption(chart_option);
+            }
         },
         chart_peak_canvas: function () {
             var min = 65,
                 max = 78;
-            var oe_data = this.chart_parameter_data.data_list[0].data;
-            var canvas = this.$('.chart_peak_canvas')[0];
-            var context = canvas.getContext('2d');
-            context.lineWidth = 10;
-            var tw = canvas.width;
-            var w = tw / 16
-            var star_x = 0;
-            var star_y = 0;
-            var end_x = w;
-            for (var i = 0, l = 16; i < l; i++) {
-                var c = "#99ff00";
-                context.beginPath();
-                if (oe_data.length > i) {
-                    var ov = oe_data[i];
-                    if (ov >= max) {
-                        c = "#ff0000";
-                    } else if (ov >= min) {
-                        c = "#fedc52";
+            if (this.chart_parameter_data && this.chart_parameter_data.data_list[1].data.length != 0) {//10.13异常判断
+                var oe_data = this.chart_parameter_data.data_list[1].data;
+                var canvas = this.$('.chart_peak_canvas')[0];
+                var context = canvas.getContext('2d');
+                context.lineWidth = 10;
+                var tw = canvas.width;
+                var w = tw / 16
+                var star_x = 0;
+                var star_y = 0;
+                var end_x = w;
+                for (var i = 0, l = 16; i < l; i++) {
+                    var c = "#99ff00";
+                    context.beginPath();
+                    if (oe_data.length > i) {
+                        var ov = oe_data[i];
+                        if (ov >= max) {
+                            c = "#ff0000";
+                        } else if (ov >= min) {
+                            c = "#fedc52";
+                        }
                     }
+                    context.strokeStyle = c;
+                    context.moveTo(star_x, star_y);
+                    context.lineTo(end_x, star_y);
+                    context.lineCap = "butt";
+                    context.stroke();
+                    star_x = end_x;
+                    end_x += w;
                 }
-                context.strokeStyle = c;
-                context.moveTo(star_x, star_y);
-                context.lineTo(end_x, star_y);
-                context.lineCap = "butt";
-                context.stroke();
-                star_x = end_x;
-                end_x += w;
-            }
+            };
+            debugger;
         },
         chart_satisfaction: function () {
             var set_option = {
@@ -429,10 +457,14 @@ odoo.define(function (require) {
                         formatter: '{value}分钟',
                     },
                 }
-            }
-            var chart_option = supply_make_chart_options.default_option_set1(this.chart_satisfaction_data, set_option);
-            var mychart = echarts.init(this.$('.chart_satisfaction')[0]);
-            mychart.setOption(chart_option);
+            };
+            if (this.chart_satisfaction_data) {
+                var chart_option = supply_make_chart_options.default_option_set1(this.chart_satisfaction_data, set_option);
+                var mychart = echarts.init(this.$('.chart_satisfaction')[0]);
+                mychart.setOption(chart_option);
+            } else {
+                this.$(".chart_peak").hide();
+            };
         },
         table_info: function () {
             $(".site_info_table").bootstrapTable({
