@@ -58,9 +58,10 @@ odoo.define("electronic_map.electronic_map", function(require) {
 
         get_time_fn: function(){
             var myDate = new Date();
-            var newDate_end = myDate.getFullYear() + "-" + ("0" + (myDate.getMonth() + 1)).slice(-2) + "-" + myDate.getDate() + " 10:00:00";
-            var hisDate = new Date(new Date(newDate_end).getTime() - 86400000);
-            var newDate_start = hisDate.getFullYear() + "-" + ("0" + (hisDate.getMonth() + 1)).slice(-2) + "-" + hisDate.getDate() + " 10:00:00";
+            var newDate = myDate.getFullYear() + "-" + ("0" + (myDate.getMonth() + 1)).slice(-2) + "-" + myDate.getDate() + " 00:00:00";
+            var hisDate = new Date(new Date(newDate).getTime() - 86400000);
+            var newDate_start = hisDate.getFullYear() + "-" + ("0" + (hisDate.getMonth() + 1)).slice(-2) + "-" + hisDate.getDate() + " 00:00:00";
+            var newDate_end = hisDate.getFullYear() + "-" + ("0" + (hisDate.getMonth() + 1)).slice(-2) + "-" + hisDate.getDate() + " 23:59:59";
             this.$(".startTime").val(newDate_start);
             this.$(".endTime").val(newDate_end);
         }
