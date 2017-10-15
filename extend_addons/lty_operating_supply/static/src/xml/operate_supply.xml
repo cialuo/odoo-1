@@ -36,7 +36,7 @@
                     公司
                                                                                                                                                                                                                                                                                                                                                                         
                     <select class="company" name="" id="">
-                        <option value=''>请选择</option>
+                        <option value='-1'>总公司</option>
                         <t t-foreach="widget.supply.company_list" t-as="item">
                             <option t-attf-value="{{item.id}}">
                                 <t t-esc="item.name"></t>

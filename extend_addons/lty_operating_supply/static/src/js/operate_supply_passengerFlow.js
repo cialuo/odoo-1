@@ -438,23 +438,37 @@ odoo.define(function (require) {
                             var x_data = [];           //时间轴
                             var passenger_flow = [];      //对应线路或者公司的分时客流
                             $.each(res.response, function (key, val) {
-                                if (key == "line_data") {
+                                if (key == "companypieData") {
+                                    total_passenger_flow.push(val.total_passenger_flow);
+                                    son_name.push(val.son_name);
+                                };
+                                if (key == "companylineData") {
+                                    for (var i in res.response.companylineData) {
+                                        y_data_passenger_flow.push(val[i].y_data_passenger_flow);
+                                        x_data.push(val[i].x_data)
+                                    }
+                                };
+                                if (key == "linePassengerData") {
+                                    y_data_passenger_flow.push(val.y_data_passenger_flow);
+                                    son_name.push(val.son_name);
+                                    x_data.push(val.x_data);
+                                };
+                                if (key == "piePassengerData") {
                                     son_name.push(val.son_name);
                                     passenger_flow.push(val.passenger_flow);
-                                    x_data.push(val.passenger_flow[key].x_data);
-                                    y_data_passenger_flow.push(val.passenger_flow[key].y_data_passenger_flow);
-                                    total_passenger_flow.push(val.total_passenger_flow)
-                                };
+                                }
                             });
                             //异常处理
-                            if (res.response.line_data.length == 0) {
+                            if (res.response.linePassengerData.length == 0 && res.response.companypieData.length == 0) {
                                 var layer_index = layer.msg("暂无数据 ....", { time: 0, shade: 0.3 });
                             } else {
                                 var company_passenge_echar_data = {
                                     son_name: son_name,
                                     x_data: x_data,
                                     y_data_passenger_flow: y_data_passenger_flow,
-                                    passenger_flow: passenger_flow
+                                    passenger_flow: passenger_flow,
+                                    total_passenger_flow: total_passenger_flow,
+
                                 };
                                 self.company_passenger_flow_query(arg_options, company_passenge_echar_data);
                             };
@@ -922,8 +936,14 @@ odoo.define(function (require) {
                 // month: ['2017-01', '2017-02', '2017-03', '2017-04', '2017-05', '2017-06', '2017-07', '2017-08', '2017-09']
                 month: company_passenge_echar_data.x_data,
             };
+            // var company_child_dict = {
+            //     "总公司": ["一分公司", "二分公司", "三分公司"],
+            //     "一分公司": ["48路", "78路", "18路"],
+            //     "二分公司": ["58路", "100路", "123路"],
+            //     "三分公司": ["68路", "168路", "25路"]
+            // };
             var company_child_dict = {
-                "总公司": ["一分公司", "二分公司", "三分公司"],
+                "全部": company_passenge_echar_data.son_name,
                 "一分公司": ["48路", "78路", "18路"],
                 "二分公司": ["58路", "100路", "123路"],
                 "三分公司": ["68路", "168路", "25路"]
@@ -933,22 +953,26 @@ odoo.define(function (require) {
                 xAxis_data: xAxis_data_dict[arg_options.plan_way],
                 yAxis_data: ['0', '3000', '6000', '9000', '12000', '15000'],
                 series_data_set: { type: 'line', symbolSize: 1, },
-                data_list: [{
-                    name: company_child_dict[arg_options.company_name][0],
-                    // data: [8000, 8500, 9300, 12000, 13000, 12500, 10000, 7000, 9000]
-                    data: company_passenge_echar_data.passenger_flow
-                },
-                {
-                    name: company_child_dict[arg_options.company_name][1],
-                    // data: [7000, 7500, 8300, 11000, 12000, 11500, 9000, 6000, 8000]
-                    data: company_passenge_echar_data.passenger_flow
-                },
-                {
-                    name: company_child_dict[arg_options.company_name][2],
-                    // data: [9000, 10000, 10000, 12000, 12000, 12000, 9000, 5000, 6000]
-                    data: company_passenge_echar_data.passenger_flow
-                },
-                ]
+                // data_list: [{
+                //     name: company_child_dict[arg_options.company_name][0],
+                //     // data: [8000, 8500, 9300, 12000, 13000, 12500, 10000, 7000, 9000]
+                //     data: company_passenge_echar_data.passenger_flow
+                // },
+                // {
+                //     name: company_child_dict[arg_options.company_name][1],
+                //     // data: [7000, 7500, 8300, 11000, 12000, 11500, 9000, 6000, 8000]
+                //     data: company_passenge_echar_data.passenger_flow
+                // },
+                // {
+                //     name: company_child_dict[arg_options.company_name][2],
+                //     // data: [9000, 10000, 10000, 12000, 12000, 12000, 9000, 5000, 6000]
+                //     data: company_passenge_echar_data.passenger_flow
+                // },
+                // ]
+                data_list:[{
+                    name:company_passenge_echar_data.son_name,
+                    data: company_passenge_echar_data.y_data_passenger_flow
+                }]
             };
             new company_passenger_flow_chart(this, chart_parameter_data).appendTo(arg_options.chart_obj);
         },
