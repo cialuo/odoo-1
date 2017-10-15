@@ -106,7 +106,7 @@ class BusStaffGroup(models.Model):
                     vals.update({'operation_state': 'operation'})
                 datas.append((0, 0, vals))
         if not datas:
-            raise exceptions.UserError(_('bus_group_driver_vehicle_shift is not exists,please check bus_group.(route: %s)')%route_id)
+            raise exceptions.UserError(_('bus_group_driver_vehicle_shift is not exists,please check bus_group.(route: %s)')%route_id.name)
         return self.env['bus_staff_group'].create({'vehicle_line_ids': datas,
                                                    'route_id': route_id.id,
                                                    'move_time_id':move_time_id.id or None,
