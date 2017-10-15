@@ -24,8 +24,8 @@ odoo.define(function (require) {
         start: function () {
             var self = this;
             // 加载日期组件
-            self.$(".oe_datepicker_input").datetimepicker({
-                format: 'YYYY-MM-DD',
+            self.$(".supply_datepicker_input").datetimepicker({
+                format: 'YYYYMMDD',
                 autoclose: true,
                 pickTime: false,
                 // startViewMode: 1,
