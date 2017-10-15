@@ -532,11 +532,29 @@ odoo.define(function (require) {
             if (arg_options.plan_way == "when") {
                 var line_time_sharing_traffic_data = "";
                 var Satisfaction_query_data = "";
-                if (line_time_sharing_traffic != "" || line_time_sharing_traffic != "undefined") {
-                    line_time_sharing_traffic_data = line_time_sharing_traffic;
+                // var Satisfaction_query = {
+                //     passenger_flow: passenger_flow,
+                //     wait_pleased: wait_pleased,
+                //     comfortable_pleased: comfortable_pleased,
+                //     enterprise_pleased: enterprise_pleased,
+                //     passenger_pleased: passenger_pleased
+                // };
+                // var line_time_sharing_traffic = {
+                //     passenger_flow_x: passenger_flow_x,
+                //     pre_passenger_flow_y: pre_passenger_flow_y,
+                //     history_passenger_flow_y: history_passenger_flow_y,
+                //     history_capacity_y: history_capacity_y,
+                //     sugguset_capacity: sugguset_capacity
+                // };
+                if (line_time_sharing_traffic) {
+                    if (line_time_sharing_traffic.pre_passenger_flow_y.length !=0 || line_time_sharing_traffic.history_passenger_flow_y.length!=0 || line_time_sharing_traffic.history_capacity_y.length!=0 || line_time_sharing_traffic.sugguset_capacity.length!=0){
+                        line_time_sharing_traffic_data = line_time_sharing_traffic;
+                    }
                 };
-                if (Satisfaction_query != "" || Satisfaction_query != "undefined") {
-                    Satisfaction_query_data = Satisfaction_query
+                if (Satisfaction_query) {
+                    if (Satisfaction_query.wait_pleased.length !=0 || Satisfaction_query.comfortable_pleased.length !=0 || Satisfaction_query.enterprise_pleased.length !=0 || Satisfaction_query.passenger_pleased.length !=0){
+                        Satisfaction_query_data = Satisfaction_query
+                    }
                 };
                 if (!line_time_sharing_traffic_data && !Satisfaction_query_data) {
                     var layer_index = layer.msg("暂无数据...", { time: 2000, shade: 0.3 });
