@@ -730,15 +730,27 @@
                         <th>计划</th>
                         <th>车辆</th>
                         <th>线路</th>
-                        <th>回场</th>
-                        <th class="pR">停车</th>
+                        <th class="pR">回场</th>
+                        <!-- <th class="pR">停车</th> -->
                     </tr>
                     <t t-foreach="widget.yard_data.data_list" t-as="item">
-                        <t t-if="item.inField==widget.yard_data.inField &amp;&amp; item.direction==widget.yard_data.direction &amp;&amp; item.carStateId==1001">
+                        <t t-if="item.inField==widget.yard_data.inField &amp;&amp; item.direction==widget.yard_data.direction &amp;&amp; item.carStateId!=2008">
                             <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}" t-attf-planReachTime="{{item.realReachTime}}">
                                 <td class="pL">
                                     <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                     <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>
+                                    <t t-if="item.carStateId != 0">
+                                        <span t-attf-st="{{item.carStateId}}" t-attf-class="icon carStateIdIcon carStateIdIcon_{{item.carStateId}}"></span>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-attf-st="{{item.carStateId}}" t-attf-class="icon disNoneIcon carStateIdIcon carStateIdIcon_{{item.carStateId}}"></span>
+                                    </t>
+                                    <t t-if="['1001', '1002', '1003', '1004', '1005', '1006', '1012'].indexOf(item.task)!=-1">
+                                        <span t-attf-st="{{item.task}}" t-attf-class="icon taskIcon"></span>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-attf-st="{{item.task}}" t-attf-class="icon taskIcon disNoneIcon"></span>
+                                    </t>
                                 </td>
                                 <td class="planRunTime">
                                     <t t-if="item.planRunTime">
@@ -758,14 +770,14 @@
                                         
                                     </t>
                                 </td>
-                                <td class="pR stopTime">
+                                <!-- <td class="pR stopTime">
                                     <t t-if="item.stopTime">
                                         <t t-esc="item.stopTime"></t>
                                     </t>
                                     <t t-else="">
                                         0
                                     </t>
-                                </td>
+                                </td> -->
                             </tr>
                         </t>
                     </t>
@@ -792,11 +804,23 @@
                         <th class="pR">停车</th>
                     </tr>
                     <t t-foreach="widget.transit_data.data_list" t-as="item">
-                        <t t-if="item.inField==widget.transit_data.inField &amp;&amp; item.direction==widget.transit_data.direction">
+                        <t t-if="item.inField==widget.transit_data.inField &amp;&amp; item.direction==widget.transit_data.direction &amp;&amp; item.carStateId!=2008">
                             <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}" t-attf-planReachTime="{{item.planReachTime}}">
                                 <td class="pL">
                                     <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                     <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>
+                                    <t t-if="item.carStateId != 0">
+                                        <span t-attf-st="{{item.carStateId}}" t-attf-class="icon carStateIdIcon carStateIdIcon_{{item.carStateId}}"></span>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-attf-st="{{item.carStateId}}" t-attf-class="icon disNoneIcon carStateIdIcon carStateIdIcon_{{item.carStateId}}"></span>
+                                    </t>
+                                    <t t-if="['1001', '1002', '1003', '1004', '1005', '1006', '1012'].indexOf(item.task)!=-1">
+                                        <span t-attf-st="{{item.task}}" t-attf-class="icon taskIcon"></span>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-attf-st="{{item.task}}" t-attf-class="icon taskIcon disNoneIcon"></span>
+                                    </t>
                                 </td>
                                 <td class="planRunTime">
                                     <t t-if="item.planRunTime">
@@ -816,7 +840,7 @@
                                         
                                     </t>
                                 </td>
-                                <td class="pR stopTime">
+                                <td class="stopTime">
                                     <t t-if="item.stopTime">
                                         <t t-esc="item.stopTime"></t>
                                     </t>

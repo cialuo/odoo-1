@@ -42,7 +42,7 @@ websocket.onmessage = function (event) {
 
     if (modelName == "line_message") {
         use_odoo_model(event, "line_message");
-        if (eventData.type == "1044"){
+        if (eventObj.type == "1044"){
             vehicle_drop(controllerObj, eventData);
         }
     } else if (modelName == "passenger_flow") {
@@ -272,12 +272,13 @@ function show_electronic_map(dom, data_list, session_ayer) {
 
 // 车辆掉线, 在线
 function vehicle_drop(controllerObj, dataObj) {
-    var dom = controllerObj.find("linePlanParkOnlineModel_" + dataObj.line_id);
+    var dom = controllerObj.find(".linePlanParkOnlineModel_" + dataObj.line_id);
     if (dom.length > 0) {
         var abnormal_description = dataObj.abnormal_description;
-        var vehicle = dom.find(".yard_box .content_tb tr[pid=" + abnormal_description.bus_on + "]");
+        var vehicle = dom.find(".yard_box .content_tb tr[pid=" + abnormal_description.car_id + "]");
         if (vehicle.length > 0) {
-            if (dataObj.status != 0) {
+            // if (dataObj.status != 0) {
+            if (dataObj.packageType ==1044){ 
                 vehicle.find(".runState").attr('st', dataObj.status).removeClass("icon2_0").addClass("icon2_1");
                 return false;
             }
@@ -952,6 +953,24 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
         }
     }
 
+    // 异常状态更新
+    if (dataObj.carStateId){
+        var class_name = "icon carStateIdIcon carStateIdIcon_"+dataObj.carStateId;
+        if (dataObj.carStateId == 0){
+            class_name += " disNoneIcon";
+        }
+        active_obj.find(".carStateIdIcon").attr("st", dataObj.carStateId).removeClass().addClass(class_name);
+    }
+
+    // 进场任务更新
+    if (dataObj.task){
+        var class_name = "icon taskIcon";
+        if ($.inArray(dataObj.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012'])==-1){
+            class_name += " disNoneIcon";
+        }
+        active_obj.find(".taskIcon").attr("st", dataObj.task).removeClass().addClass(class_name);
+    }
+
     // 计划到达时间
     if (dataObj.planRunTime) {
         active_obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0, 5));
@@ -973,10 +992,10 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
         active_obj.find(".realReachTime").html(new Date(dataObj.realReachTime).toTimeString().slice(0, 5));
     }
 
-    // 停车
-    if (dataObj.stopTime) {
-        active_obj.find(".stopTime").html(dataObj.stopTime);
-    }
+    // // 停车
+    // if (dataObj.stopTime) {
+    //     active_obj.find(".stopTime").html(dataObj.stopTime);
+    // }
 
     update_linePlanParkOnlineModel_load_fn();
 }
@@ -1005,6 +1024,24 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
         } else {
             active_obj.find(".runState").attr('st', dataObj.runState).addClass("icon2_0").removeClass('icon2_1');
         }
+    }
+
+    // 异常状态更新
+    if (dataObj.carStateId){
+        var class_name = "icon carStateIdIcon carStateIdIcon_"+dataObj.carStateId;
+        if (dataObj.carStateId == 0){
+            class_name += " disNoneIcon";
+        }
+        active_obj.find(".carStateIdIcon").attr("st", dataObj.carStateId).removeClass().addClass(class_name);
+    }
+
+    // 进场任务更新
+    if (dataObj.task){
+        var class_name = "icon taskIcon";
+        if ($.inArray(dataObj.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012'])==-1){
+            class_name += " disNoneIcon";
+        }
+        active_obj.find(".taskIcon").attr("st", dataObj.task).removeClass().addClass(class_name);
     }
 
     // 计划到达时间
@@ -1053,10 +1090,44 @@ function update_linePlanParkOnlineModel_load_fn() {
 
 
     $(".linePlanParkOnlineModel .bus_yard").find(".content_tb .icon").hover(function () {
+        var txt = "";
+        var st = $(this).attr("st");
         if ($(this).hasClass("checkOut")) {
-            var txt = ($(this).attr("st") == 1) ? '已签到' : '未签到'
-        } else {
-            var txt = ($(this).attr("st") == 1) ? '在线' : '未在线'
+            txt = (st == 1) ? '已签到' : '未签到'
+        }else if ($(this).hasClass("runState")) {
+            txt = (st == 1) ? '在线' : '未在线'
+        }else if ($(this).hasClass("carStateIdIcon")){
+            if (st == 1001){
+                txt = "正常";
+            }else if (st == 2003){
+                txt = "休息";
+            }else if (st == 1002){
+                txt = "故障";
+            }else if (st == 2006){
+                txt = "保养";
+            }else if (st == 2010){
+                txt = "空放";
+            }else if (st == 2005){
+                txt = "加油";
+            }else{
+                txt = "其它";
+            }
+        }else if ($(this).hasClass("taskIcon")){
+            if (st == 1001){
+                txt = "进场包车开始";
+            }else if (st == 1002){
+                txt = "进场包车结束";
+            }else if (st == 1003){
+                txt = "进场加油开始";
+            }else if (st == 1004){
+                txt = "进场加油结束";
+            }else if (st == 1005){
+                txt = "进场修车开始";
+            }else if (st == 1006){
+                txt = "进场修车结束";
+            }else if (st == 1012){
+                txt = "进场下班，变机动";
+            }
         }
         self.layer_f_index = layer.tips(txt, this);
     }, function () {
@@ -1065,11 +1136,23 @@ function update_linePlanParkOnlineModel_load_fn() {
 }
 
 function add_linePark(content_tb_obj, new_resource) {
+    var carState_class = "disNoneIcon",
+        task_class = "disNoneIcon";
+    if (new_resource.carStateId != 0){
+        carState_class = "";
+    }
+
+    if ($.inArray(new_resource.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012'])!=-1){
+        task_class = "";
+    }
+
     var obj_str =
         '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).toTimeString() + '" planReachTime="' + new Date(new_resource.realReachTime).toTimeString() + '">' +
         '<td class="pL">' +
         '<span st="' + new_resource.checkOut + '" class="icon sendToScreen icon1_' + new_resource.checkOut + '"></span>' +
         '<span st="' + new_resource.runState + '" class="icon sendToBus icon2_' + new_resource.runState + '"></span>' +
+        '<span st="' + new_resource.carStateId + '" class="icon carStateIdIcon '+ carState_class +' carStateIdIcon_' + new_resource.carStateId + '"></span>' +
+        '<span st="' + new_resource.task + '" class="icon '+task_class+' taskIcon"></span>' +
         '</td>' +
         '<td class="planRunTime">' +
         new Date(new_resource.planRunTime).toTimeString().slice(0, 5).replace("Inval", "") +
@@ -1083,9 +1166,9 @@ function add_linePark(content_tb_obj, new_resource) {
         '<td class="realReachTime">' +
         new Date(new_resource.realReachTime).toTimeString().slice(0, 5).replace("Inval", "") +
         '</td>' +
-        '<td class="pR stopTime">' +
-        new_resource.stopTime +
-        '</td>' +
+        // '<td class="pR stopTime">' +
+        // new_resource.stopTime +
+        // '</td>' +
         '</tr>';
 
     var obj_list = content_tb_obj.find("tr.point");
@@ -1112,11 +1195,22 @@ function add_linePark(content_tb_obj, new_resource) {
 }
 
 function add_busTransit(content_tb_obj, new_resource) {
+    var carState_class = "disNoneIcon",
+        task_class = "disNoneIcon";
+    if (new_resource.carStateId != 0){
+        carState_class = "";
+    }
+
+    if ($.inArray(new_resource.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012'])!=-1){
+        task_class = "";
+    }
     var obj_str =
         '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).toTimeString() + '"  planReachTime="' + new Date(new_resource.planReachTime).toTimeString() + '">' +
         '<td class="pL">' +
         '<span st="' + new_resource.checkOut + '" class="icon sendToScreen icon1_' + new_resource.checkOut + '"></span>' +
         '<span st="' + new_resource.runState + '" class="icon sendToBus icon2_' + new_resource.runState + '"></span>' +
+        '<span st="' + new_resource.carStateId + '" class="icon carStateIdIcon '+ carState_class +' carStateIdIcon_' + new_resource.carStateId + '"></span>' +
+        '<span st="' + new_resource.task + '" class="icon '+task_class+' taskIcon"></span>' +
         '</td>' +
         '<td class="planRunTime">' +
         new Date(new_resource.planRunTime).toTimeString().slice(0, 5).replace("Inval", "") +
@@ -1130,7 +1224,7 @@ function add_busTransit(content_tb_obj, new_resource) {
         '<td class="planReachTime">' +
         new Date(new_resource.planReachTime).toTimeString().slice(0, 5).replace("Inval", "") +
         '</td>' +
-        '<td class="pR stopTime">' +
+        '<td class="stopTime">' +
         new_resource.stopTime +
         '</td>' +
         '</tr>';

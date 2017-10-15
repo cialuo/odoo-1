@@ -47,20 +47,21 @@ odoo.define("electronic_map.electronic_map", function(require) {
                         ["route_id", "=", id]
                     ]).all().then(function(vehicles) {
                         _.each(vehicles, function(set) {
-                            var option = '<option value="' + set.on_boardid + '">' + set.on_boardid + '</option>';
+                            var option = '<option value="' + set.inner_code + '">' + set.inner_code + '</option>';
                             vehiclesObj.append(option);
                         });
                     })
                 }
             });
-            // self.get_time_fn();
+            self.get_time_fn();
         },
 
         get_time_fn: function(){
             var myDate = new Date();
-            var newDate_end = myDate.getFullYear() + "-" + ("0" + (myDate.getMonth() + 1)).slice(-2) + "-" + myDate.getDate() + " 10:00:00";
-            var hisDate = new Date(new Date(newDate_end).getTime() - 86400000);
-            var newDate_start = hisDate.getFullYear() + "-" + ("0" + (hisDate.getMonth() + 1)).slice(-2) + "-" + hisDate.getDate() + " 10:00:00";
+            var newDate = myDate.getFullYear() + "-" + ("0" + (myDate.getMonth() + 1)).slice(-2) + "-" + myDate.getDate() + " 00:00:00";
+            var hisDate = new Date(new Date(newDate).getTime() - 86400000);
+            var newDate_start = hisDate.getFullYear() + "-" + ("0" + (hisDate.getMonth() + 1)).slice(-2) + "-" + hisDate.getDate() + " 00:00:00";
+            var newDate_end = hisDate.getFullYear() + "-" + ("0" + (hisDate.getMonth() + 1)).slice(-2) + "-" + hisDate.getDate() + " 23:59:59";
             this.$(".startTime").val(newDate_start);
             this.$(".endTime").val(newDate_end);
         }
@@ -112,7 +113,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 map.addControl(new AMap.ToolBar({ locate: false }));
             });
             if (location.href.indexOf('&guide=1') !== -1) {
-                map.setStatus({ scrollWheel: false })
+                map.setStatus({ scrollWheel: false });
             }
         },
         // 加载事件
@@ -232,7 +233,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     }else{
                         var vehicleInfo = ret[0][options.gprsId];
                         if (vehicleInfo.length == 0){
-                            // layer.msg("该线路没有车辆", { shade: 0.3, time: 2000 });
+                            layer.msg("没有查到车辆初始位置信息", { shade: 0.3, time: 2000 });
                             return false;
                         }
                         self.init_vehicle_position(map, vehicleInfo);
@@ -255,22 +256,32 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 // });
                 var icon = '/lty_operation_map_base/static/src/image/vehicle_off.png';
                 _.each(vehicleInfo, function(vehicle, index) {
-                    var marker = new AMap.Marker({
-                        content: self.get_content_fn(map, icon, vehicle.onboardId.toString()),
-                        position: [vehicle.longitude, vehicle.latitude],
-                        offset : new AMap.Pixel(-32,-16),
-                        autoRotation: true,
-                        // title: vehicle.onboardId,
-                        map: map
-                    });
-                    VEHICLE_INFO_DICT[vehicle.onboardId.toString()] = marker;
                     if (TARGET_VEHICLE){
                         if (TARGET_VEHICLE == vehicle.onboardId.toString()){
+                            var marker = new AMap.Marker({
+                                content: self.get_content_fn(map, icon, vehicle.onboardId.toString()),
+                                position: [vehicle.longitude, vehicle.latitude],
+                                offset : new AMap.Pixel(-32,-16),
+                                autoRotation: true,
+                                // title: vehicle.onboardId,
+                                map: map
+                            });
+                            VEHICLE_INFO_DICT[vehicle.onboardId.toString()] = marker;
                             self.init_map_pos = [vehicle.longitude, vehicle.latitude];
                             self.init_map_center(map);
+                            return false;
                         }
                     }else{
                         if (index == 0 && !self.set_map_center){
+                            var marker = new AMap.Marker({
+                                content: self.get_content_fn(map, icon, vehicle.onboardId.toString()),
+                                position: [vehicle.longitude, vehicle.latitude],
+                                offset : new AMap.Pixel(-32,-16),
+                                autoRotation: true,
+                                // title: vehicle.onboardId,
+                                map: map
+                            });
+                            VEHICLE_INFO_DICT[vehicle.onboardId.toString()] = marker;
                             self.init_map_pos = [vehicle.longitude, vehicle.latitude];
                             self.init_map_center(map);
                         }
