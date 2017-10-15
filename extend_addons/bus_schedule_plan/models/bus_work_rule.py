@@ -786,7 +786,7 @@ class BusWorkRules(models.Model):
         else:
             return res[0] 
     def _busGroupExist(self, lineid):
-        res = self.env['bus_group'].search([('route_id', '=', lineid)])
+        res = self.env['bus_group'].search([('route_id', '=', lineid), ('state', '=', 'use')])
         if len(res) == 0:
             return None
         else:
