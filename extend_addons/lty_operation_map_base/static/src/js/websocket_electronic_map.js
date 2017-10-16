@@ -155,10 +155,9 @@ function update_icon(map, st) {
     }
 }
 function target_vehicle_fn(marker, longitude, latitude){
-    var map = marker.getMap();
     var dom = marker.getContent();
     dom.style.borderStyle = "solid";
     dom.style.borderColor = "#5acbff";
     dom.style.borderWidth = "2px";
-    map.setCenter([longitude, latitude]);
+    CARMAP.setCenter([longitude, latitude]);
 }
