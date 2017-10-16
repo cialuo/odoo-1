@@ -232,12 +232,11 @@
                 </tr>
                 <tr>
                     <td>
-                        <h2>分时客流</h2>
+                        <h2 style="text-align:center;">折线图</h2>
                     </td>
                     <td>
-                        <h2>
-                            <t t-esc="widget.chart_data.company_name"></t>客流构成
-                                                                                                                                                                                                                                                                                                                                                                                                                        
+                        <h2 style="text-align:center;">
+                            圆饼图
                         </h2>
                     </td>
                 </tr>
