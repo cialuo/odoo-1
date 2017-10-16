@@ -124,7 +124,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             var data_tree = [{
                 'id': 9990,
                 "channels": [{
-                    "online": 0,
+                    "online": 1,
                     "channel_id": 1
                 }, {
                     "online": 1,
