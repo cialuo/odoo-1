@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-
+import datetime
 
 class vehicle_front_check(models.Model):
 
@@ -32,7 +32,7 @@ class vehicle_front_check(models.Model):
     # 线路
     route = fields.Many2one('route_manage.route_manage', related='vehicle_id.route_id', store=False, readonly=True)
     # 检验日期
-    checkout_date = fields.Date(string="vehicle_check_checkout_date")
+    checkout_date = fields.Date(string="vehicle_check_checkout_date", default=datetime.datetime.today())
     # 检查人员
     inspector = fields.Many2one("hr.employee", string="vehicle_check_inspector")
     # 车辆管理员
