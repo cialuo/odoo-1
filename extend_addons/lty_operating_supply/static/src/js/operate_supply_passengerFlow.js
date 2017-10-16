@@ -199,7 +199,7 @@ odoo.define(function (require) {
                         //异常处理
                         if (res.result !== 0) {
                             layer.close(self.layer_index);// 结束LODING
-                            var layer_index = layer.msg(res.resultMsg, { time: 1200, shade: 0.3 });
+                            var layer_index = layer.msg(res.resultMsg, { time: 2000, shade: 0.3 });
                             return false;
                         } else {
                             var passenger_flow_x = [];           //x+时间轴
@@ -330,7 +330,7 @@ odoo.define(function (require) {
                             layer.close(self.layer_index);// 结束LODING 
                             //异常处理
                             if (res.result !== 0) {
-                                var layer_index = layer.msg(self.layer_index, { time: 1200, shade: 0.3 });
+                                var layer_index = layer.msg(res.resultMsg, { time: 2000, shade: 0.3 });
                                 return false;
                             } else {
                                 var data = [];                   //total --花图
@@ -387,7 +387,7 @@ odoo.define(function (require) {
                             layer.close(self.layer_index);// 结束LODING 
                             //异常处理
                             if (res.result !== 0) {
-                                var layer_index = layer.msg(res.resultMsg, { time: 1200, shade: 0.3 });
+                                var layer_index = layer.msg(res.resultMsg, { time: 2000, shade: 0.3 });
                                 return false;
                             } else {
                                 var x_data = [];                 //x+时间轴
@@ -400,7 +400,7 @@ odoo.define(function (require) {
                                 });
                                 //异常处理
                                 if (res.response.graph_data.length == 0) {
-                                    var layer_index = layer.msg("暂无数据...", { time: 1200, shade: 0.3 });
+                                    var layer_index = layer.msg("暂无数据...", { time: 2000, shade: 0.3 });
                                 } else {
                                     var line_day_mouth = {
                                         x_data: x_data,
@@ -429,7 +429,7 @@ odoo.define(function (require) {
                         console.log(res.resultMsg)
                         //异常处理
                         if (res.result !== 0) {
-                            var layer_index = layer.msg(res.resultMsg, { time: 1000, shade: 0.3 });
+                            var layer_index = layer.msg(res.resultMsg, { time: 2000, shade: 0.3 });
                             return false;
                         } else {
                             //
@@ -513,7 +513,7 @@ odoo.define(function (require) {
                         layer.close(self.layer_index);// 结束LODING 
                         //异常处理
                         if (res.result !== 0) {
-                            var layer_index = layer.msg(res.resultMsg, { time: 1000, shade: 0.3 });
+                            var layer_index = layer.msg(res.resultMsg, { time: 2000, shade: 0.3 });
                             return false;
                         } else {
                             var x_data = [];     //坐标轴
@@ -534,7 +534,7 @@ odoo.define(function (require) {
                             });
                             //异常处理
                             if (res.response.line_ontime_rate.length == 0 && res.response.line_holdup_people.length == 0) {
-                                var layer_index = layer.msg("暂无数据 ...", { time: 1500, shade: 0.3 });
+                                var layer_index = layer.msg("暂无数据 ...", { time: 2000, shade: 0.3 });
                             } else {
                                 var echar_data = {
                                     x_data: x_data,
@@ -553,14 +553,32 @@ odoo.define(function (require) {
             if (arg_options.plan_way == "when") {
                 var line_time_sharing_traffic_data = "";
                 var Satisfaction_query_data = "";
-                if (line_time_sharing_traffic != "" || line_time_sharing_traffic != "undefined") {
-                    line_time_sharing_traffic_data = line_time_sharing_traffic;
+                // var Satisfaction_query = {
+                //     passenger_flow: passenger_flow,
+                //     wait_pleased: wait_pleased,
+                //     comfortable_pleased: comfortable_pleased,
+                //     enterprise_pleased: enterprise_pleased,
+                //     passenger_pleased: passenger_pleased
+                // };
+                // var line_time_sharing_traffic = {
+                //     passenger_flow_x: passenger_flow_x,
+                //     pre_passenger_flow_y: pre_passenger_flow_y,
+                //     history_passenger_flow_y: history_passenger_flow_y,
+                //     history_capacity_y: history_capacity_y,
+                //     sugguset_capacity: sugguset_capacity
+                // };
+                if (line_time_sharing_traffic) {
+                    if (line_time_sharing_traffic.pre_passenger_flow_y.length !=0 || line_time_sharing_traffic.history_passenger_flow_y.length!=0 || line_time_sharing_traffic.history_capacity_y.length!=0 || line_time_sharing_traffic.sugguset_capacity.length!=0){
+                        line_time_sharing_traffic_data = line_time_sharing_traffic;
+                    }
                 };
-                if (Satisfaction_query != "" || Satisfaction_query != "undefined") {
-                    Satisfaction_query_data = Satisfaction_query
+                if (Satisfaction_query) {
+                    if (Satisfaction_query.wait_pleased.length !=0 || Satisfaction_query.comfortable_pleased.length !=0 || Satisfaction_query.enterprise_pleased.length !=0 || Satisfaction_query.passenger_pleased.length !=0){
+                        Satisfaction_query_data = Satisfaction_query
+                    }
                 };
                 if (!line_time_sharing_traffic_data && !Satisfaction_query_data) {
-                    var layer_index = layer.msg("暂无数据...", { time: 1200, shade: 0.3 });
+                    var layer_index = layer.msg("暂无数据...", { time: 2000, shade: 0.3 });
                     return false;
                 };
                 //线图
@@ -681,7 +699,7 @@ odoo.define(function (require) {
                 new line_passenger_flow_hour_chart(this, passenger_flow_data, satisfaction_data).appendTo(arg_options.chart_obj);
             } else {//天  月 周部分
                 if (line_time_sharing_traffic.pre_passenger_flow_y.length == 0 && line_time_sharing_traffic.history_passenger_flow_y.length == 0 && line_time_sharing_traffic.history_capacity_y.length == 0 && line_time_sharing_traffic.sugguset_capacity.length == 0) {
-                    var layer_index = layer.msg("暂无数据...", { time: 1200, shade: 0.3 });
+                    var layer_index = layer.msg("暂无数据...", { time: 2000, shade: 0.3 });
                 } else {
                     var passenger_flow_data = {
                         day: {
@@ -1116,7 +1134,7 @@ odoo.define(function (require) {
         },
         start: function () {
             $(".o_loading").show();
-            var layer_index = layer.msg("加载中...", { time: 0, shade: 0.3 });
+            // var layer_index = layer.msg("加载中...", { time: 0, shade: 0.3 });
             var title = "线路分时客流";
             var history_passenger_flow = [
                 { name: "前30天", id: "30" },
@@ -1166,7 +1184,7 @@ odoo.define(function (require) {
                 dis_set: dis_set,
                 city_code: this.cityCode
             };
-            layer.close(layer_index);//9.25 加载LODING            
+            // layer.close(layer_index);//9.25 加载LODING            
             new supply_title(this, options).appendTo(this.$('.operate_title'));
         }
     });
@@ -1489,7 +1507,7 @@ odoo.define(function (require) {
         },
         start: function () {
             $(".o_loading").show();
-            var layer_index = layer.msg("加载中...", { time: 0, shade: 0.3 });
+            // var layer_index = layer.msg("加载中...", { time: 0, shade: 0.3 });
             var title = "站点分时客流";
             // 9.22跟换时间模型
             var history_passenger_flow = [

@@ -35,13 +35,13 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
             this.model_route_line.query().order_by('route_id').filter([["route_id", "!=", false]]).all().then(function (res) {
                 var arr = [];
                 for (var i = 0; i < res.length; i++) {
-                    arr.push([res[i].route_id[0], [res[i].on_boardid]]);
+                    arr.push([res[i].route_id, [res[i].on_boardid]]);
                 }
                 var n = 0;
                 var newArr = [];
                 for (var j = 0; j < arr.length; j++) {
                     if (arr[j + 1] != undefined) {
-                        if (arr[j][0] != arr[j + 1][0]) {
+                        if (arr[j][0][0] != arr[j + 1][0][0]) {
                             newArr.push(arr.slice(n, j + 1));
                             n = j + 1;
                         } else {
@@ -91,8 +91,8 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                         );
                     }
                     arr_node.push({
-                        name: end_arr[m][0],
-                        id: end_arr[m][0],
+                        name: end_arr[m][0][1],
+                        id: end_arr[m][0][1],
                         children: arr_node_child
                     });
                 }
@@ -266,7 +266,7 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                             dom += "<li index='" + data_date[i].index + "'><span>" + substart + "</span><span>------</span><span>" + subend + "</span></li>"
                         }
                         self.$el.find('.show_broadcast_list').append(dom);
-                    }else{
+                    } else {
                         layer.msg('输入日期内暂无视频');
                     }
 
@@ -477,11 +477,11 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
 
         },
         events: {
-            'keypress .datetimepicker': 'show_video_tree',
+            'keypress .search_road': 'show_video_tree',
         },
         show_video_tree: function (event) {
-            var searchCondition = this.$el.find('.search_road').val();
             if (event.keyCode == 13) {
+                var searchCondition = this.$el.find('.search_road').val();
                 //<2>.得到模糊匹配搜索条件的节点数组集合
                 if (searchCondition != "") {
                     var treeObj = $.fn.zTree.getZTreeObj("ztree");
@@ -492,7 +492,7 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                         var nodes = treeObj.getSelectedNodes();
                         treeObj.expandNode(nodes[0], true, true, true)
                     } else {
-                        layer.msg('输入线路或车辆无效')
+                        layer.msg('输入线路或车辆无效');
                     }
                 }
             }

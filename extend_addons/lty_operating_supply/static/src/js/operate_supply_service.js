@@ -96,7 +96,7 @@ odoo.define(function (require) {
         service_switch: function (name) {
             var self = this;
             if (name == "when") {
-                self.$(".ok_bt").click();//加载页面自动触发click                
+                // self.$(".ok_bt").click();//加载页面自动触发click                
                 self.$(".history_passenger_flow").parent().removeClass("dis_none");
                 self.$(".predict_passenger_flow_time").parent().removeClass("dis_none");
                 self.$(".data_scope").addClass("dis_none");
@@ -191,7 +191,7 @@ odoo.define(function (require) {
                     console.log(res.resultMsg);
                     layer.close(self.layer_index);// 结束LODING 
                     if (res.result !== 0) {
-                        var layer_index = layer.msg(res.resultMsg, { time: 1200, shade: 0.3 });
+                        var layer_index = layer.msg(res.resultMsg, { time: 2000, shade: 0.3 });
                         return false;
                     } else {
                         var x_data = [];            //x+时间轴
@@ -223,7 +223,7 @@ odoo.define(function (require) {
                         });
                         //异常处理
                         if (res.response.graph_data.length == 0 && res.response.pivot_data.length == 0) {
-                            var layer_index = layer.msg("暂无数据 ！...", { time: 1200, shade: 0.3 });
+                            var layer_index = layer.msg("暂无数据 ！...", { time: 2000, shade: 0.3 });
                         } else {
                             var fuwu_baozhang = {
                                 x_data: x_data,

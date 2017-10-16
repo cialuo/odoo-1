@@ -92,7 +92,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                         'suggest': data_use.data.suggest,
                         'abnormal_description': data_use.data.abnormal_description,
                         'solution': data_use.data.solution,
-                        'package_type':data_use.packageType
+                        'package_type':data_use.data.packageType
                     }]).then(function (res) {
                 });
             }
