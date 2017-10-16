@@ -23,6 +23,7 @@
         'views/important_classification_views.xml',
         'views/important_detailed_views.xml',
         'views/repair_record_view.xml',
+        'views/stock_inventory_view.xml',
 
     ],
     'depends': ['vehicle_maintain', 'vehicle_manage', 'vehicle_warranty', 'energy_management'],

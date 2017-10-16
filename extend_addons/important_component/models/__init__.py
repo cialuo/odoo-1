@@ -6,3 +6,4 @@ import warranty_order
 import warranty_project
 import dismantle_component
 import repair_record
+import stock_inventory
