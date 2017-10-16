@@ -1131,7 +1131,7 @@ msgstr ""
 #. module: hr_holidays
 #: sql_constraint:hr.holidays:0
 msgid "The employee or employee category of this request is missing. Please make sure that your user login is linked to an employee."
-msgstr ""
+msgstr "此请求的员工或员工类别丢失。 请确保您的用户登录已被链接到员工。"
 
 #. module: hr_holidays
 #: code:addons/hr_holidays/models/hr.py:117
