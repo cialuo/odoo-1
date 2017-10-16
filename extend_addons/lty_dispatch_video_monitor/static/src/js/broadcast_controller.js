@@ -152,7 +152,7 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                 }
             });
             var data_tree = [{
-                'id': 9999,
+                'id': 9990,
                 "channels": [{
                     "online": 0,
                     "channel_id": 1

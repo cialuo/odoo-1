@@ -122,7 +122,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             });
 
             var data_tree = [{
-                'id': 9999,
+                'id': 9990,
                 "channels": [{
                     "online": 0,
                     "channel_id": 1
@@ -397,7 +397,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 queryParameters['source'] = getUrlParam('source');
                 queryParameters['type'] = getUrlParam('type');
                 if (queryParameters['source'] == "")
-                    queryParameters['source'] = arrcut[0];
+                    queryParameters['source'] = arrcut[i];
                 if (queryParameters['type'] == "")
                     queryParameters['type'] = "recorded";
                 if (queryParameters['idx'] == "")
@@ -455,7 +455,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 var dom_chose = '#' + treeNode.tId + '_span';
                 //			webSocketVideo(channelType, deviceId, channeld)
                 //'{"msg_type":258,"params":{"bus_id":8000,"channel_id":0}}'
-                var deviceId = 9990;
+                var deviceId = treeNode.id;
                 var channelId = -1;
                 $('.video_player.hide').removeClass('hide');
                 $('.content-right').html('');
