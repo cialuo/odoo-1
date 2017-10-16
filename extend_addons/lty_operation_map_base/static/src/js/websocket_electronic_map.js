@@ -29,11 +29,10 @@ websocket_electronic_map.onmessage = function (event) {
     console.log(eventData);
     var modelName = eventData.moduleName;
     var oData = eventData.data;
-    // debugger;
     if (modelName == "bus_site"){
-        if (oData.line_id == TARGET_LINE_ID){
+        if (oData.gprsId == TARGET_LINE_ID){
             if (TARGET_VEHICLE){
-                if (oData.car_id == TARGET_VEHICLE){
+                if (oData.terminalNo == TARGET_VEHICLE){
                     update_vehicles_sockt(oData);
                 }
                 return false;
@@ -42,11 +41,11 @@ websocket_electronic_map.onmessage = function (event) {
         }
     }else if (modelName == "abnormal"){
         //车辆掉线
-        if (eventData.packageType == 1003 && oData.line_id == TARGET_LINE_ID) {
+        if (eventData.packageType == 1003 && oData.gprsId == TARGET_LINE_ID) {
             var abnormal_description = oData.abnormal_description;
             var vehicle_on = abnormal_description.bus_on;
             if (VEHICLE_INFO_DICT[vehicle_on.toString()]){
-                update_icon(VEHICLE_INFO_DICT[vehicle_on.toString()], oData.status);
+                update_icon(VEHICLE_INFO_DICT[vehicle_on.toString()], 0);
             }
         }
     }
@@ -68,25 +67,25 @@ websocket_electronic_map.onhashchange = function(){
 
 
 function update_vehicles_sockt(eventData){
-    if (VEHICLE_INFO_DICT[eventData.car_id.toString()]){
-        var carMap = VEHICLE_INFO_DICT[eventData.car_id.toString()];
+    if (VEHICLE_INFO_DICT[eventData.terminalNo.toString()]){
+        var carMap = VEHICLE_INFO_DICT[eventData.terminalNo.toString()];
         carMap.moveTo(new AMap.LngLat(eventData.longitude, eventData.latitude), 5000);
         update_icon(carMap, 1);
-        if (eventData.car_id == TARGET_VEHICLE){
+        if (eventData.terminalNo == TARGET_VEHICLE){
             target_vehicle_fn(carMap, eventData.longitude, eventData.latitude);
         }
     }else{
         if (CARMAP){
             var icon = get_icon();
             var marker = new AMap.Marker({
-                content: get_content_fn(icon, eventData.car_id),
+                content: get_content_fn(icon, eventData.terminalNo),
                 position: [eventData.longitude, eventData.latitude],
                 offset : new AMap.Pixel(-32,-16),
                 autoRotation: true,
                 map: CARMAP
             });
-            VEHICLE_INFO_DICT[eventData.car_id.toString()] = marker;
-            if (eventData.car_id.toString() == TARGET_VEHICLE){
+            VEHICLE_INFO_DICT[eventData.terminalNo.toString()] = marker;
+            if (eventData.terminalNo.toString() == TARGET_VEHICLE){
                 target_vehicle_fn(marker, eventData.longitude, eventData.latitude);
             }
         }
@@ -126,6 +125,7 @@ function get_content_fn(icon, onboardId){
     // 车辆图标
     var divImg = document.createElement("span");
     divImg.className = "carIcon";
+    divImg.style.width = "32px";
     divImg.style.height = "32px";
     divImg.style.display = "inline-block";
     divImg.style.backgroundImage= "url('"+icon+"')";

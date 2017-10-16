@@ -1,6 +1,6 @@
 var CARMAP,
     VEHICLE_INFO_DICT = {},
-    TARGET_LINE,
+    TARGET_LINE_ID,
     TARGET_VEHICLE;
 
 odoo.define("electronic_map.electronic_map", function(require) {
@@ -124,16 +124,16 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 var options = self.get_map_set_arg();
                 self.marker_stop_move();
                 self.init_map(map);
+                TARGET_VEHICLE = "";
+                TARGET_LINE_ID = "";
                 if (!options.line_id) {
                     layer.msg("请先选择线路", { shade: 0.3, time: 2000 });
                     return false;
                 }
                 self.set_map_center = false;
-                TARGET_VEHICLE = "";
-                TARGET_LINE_ID = "";
                 self.subscribe(options.gprsId);
 
-                TARGET_LINE_ID = options.line_id;
+                TARGET_LINE_ID = options.gprsId;
                 if (options.onboardId){
                     TARGET_VEHICLE = options.onboardId.toString();
                 }
