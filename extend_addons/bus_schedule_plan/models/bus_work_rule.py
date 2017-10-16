@@ -119,6 +119,11 @@ class BusWorkRules(models.Model):
             res['fields']['upplanvehiclearrange']['views']['tree']['fields']['vehiclemode']['domain'] = [('id', 'in',mlist)]
         except Exception:
             pass
+        try:
+            res['fields']['downplanvehiclearrange']['views']['tree']['fields']['vehiclemode']['domain'] = [('id', 'in',mlist)]
+        except Exception:
+            pass
+
         return res
 
     def getTargetDate(self):

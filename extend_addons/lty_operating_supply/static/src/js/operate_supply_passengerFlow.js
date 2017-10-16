@@ -417,8 +417,8 @@ odoo.define(function (require) {
                 //各公司分时客流与构成 动态渲染
                 $.ajax({
                     type: 'get',
-                    url: 'http://192.168.2.121:8080/ltyop/busReport/companyPassengerFlow?apikey=123&line_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&company_id=' + arg_options.company + '&step=' + arg_options.step + '',
-                    // url: RESTFUL_URL + '/ltyop/busReport/companyPassengerFlow?apikey=123&company_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&step=' + arg_options.step + '',
+                    // url: 'http://192.168.2.121:8080/ltyop/busReport/companyPassengerFlow?apikey=123&line_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&company_id=' + arg_options.company + '&step=' + arg_options.step + '',
+                    url: RESTFUL_URL + '/ltyop/busReport/companyPassengerFlow?apikey=123&company_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&step=' + arg_options.step + '',
                     data: {},
                     dataType: 'json',
                     error: function (res) {
@@ -437,9 +437,9 @@ odoo.define(function (require) {
                                 line_data = [],          //折线图数据
                                 pie_chart_data = [];     //圆饼图数据
 
-                            if (res.response.company_id == "-1"){
-                                if (res.response.companypieData && res.response.companypieData.length>0){
-                                    _.each(res.response.companypieData, function(ui){
+                            if (res.response.company_id == "-1") {
+                                if (res.response.companypieData && res.response.companypieData.length > 0) {
+                                    _.each(res.response.companypieData, function (ui) {
                                         var pie_dict_o = {
                                             name: ui.son_name,
                                             value: ui.total_passenger_flow
@@ -449,7 +449,7 @@ odoo.define(function (require) {
                                         var companylineData = res.response.companylineData;
                                         var line_data_list = companylineData[ui.son_name];
                                         var data_o_list = [];
-                                        _.each(line_data_list, function(ut){
+                                        _.each(line_data_list, function (ut) {
                                             line_x_data.push(ut.x_data);
                                             data_o_list.push(ut.y_data_passenger_flow);
                                         })
@@ -458,11 +458,11 @@ odoo.define(function (require) {
                                             data: data_o_list
                                         };
                                         line_data.push(line_data_o);
-                                   })
+                                    })
                                 }
-                            }else{
-                                if (res.response.piePassengerData && res.response.piePassengerData.length0){
-                                    _.each(res.response.piePassengerData, function(ui){
+                            } else {
+                                if (res.response.piePassengerData && res.response.piePassengerData.length0) {
+                                    _.each(res.response.piePassengerData, function (ui) {
                                         var pie_dict_o = {
                                             name: ui.son_name,
                                             value: ui.passenger_flow
@@ -472,7 +472,7 @@ odoo.define(function (require) {
                                         var companylineData = res.response.linePassengerData;
                                         var line_data_list = companylineData[ui.son_name];
                                         var data_o_list = [];
-                                        _.each(line_data_list, function(ut){
+                                        _.each(line_data_list, function (ut) {
                                             line_x_data.push(ut.x_data);
                                             data_o_list.push(ut.y_data_passenger_flow);
                                         })
@@ -486,7 +486,7 @@ odoo.define(function (require) {
                             }
 
 
-                            if (line_data.length == 0 && pie_chart_data.length == 0){
+                            if (line_data.length == 0 && pie_chart_data.length == 0) {
                                 var layer_index = layer.msg("暂无数据....", { time: 2000, shade: 0.3 });
                                 return false;
                             }
@@ -572,12 +572,12 @@ odoo.define(function (require) {
                 //     sugguset_capacity: sugguset_capacity
                 // };
                 if (line_time_sharing_traffic) {
-                    if (line_time_sharing_traffic.pre_passenger_flow_y.length !=0 || line_time_sharing_traffic.history_passenger_flow_y.length!=0 || line_time_sharing_traffic.history_capacity_y.length!=0 || line_time_sharing_traffic.sugguset_capacity.length!=0){
+                    if (line_time_sharing_traffic.pre_passenger_flow_y.length != 0 || line_time_sharing_traffic.history_passenger_flow_y.length != 0 || line_time_sharing_traffic.history_capacity_y.length != 0 || line_time_sharing_traffic.sugguset_capacity.length != 0) {
                         line_time_sharing_traffic_data = line_time_sharing_traffic;
                     }
                 };
                 if (Satisfaction_query) {
-                    if (Satisfaction_query.wait_pleased.length !=0 || Satisfaction_query.comfortable_pleased.length !=0 || Satisfaction_query.enterprise_pleased.length !=0 || Satisfaction_query.passenger_pleased.length !=0){
+                    if (Satisfaction_query.wait_pleased.length != 0 || Satisfaction_query.comfortable_pleased.length != 0 || Satisfaction_query.enterprise_pleased.length != 0 || Satisfaction_query.passenger_pleased.length != 0) {
                         Satisfaction_query_data = Satisfaction_query
                     }
                 };
@@ -1742,16 +1742,16 @@ odoo.define(function (require) {
             model_city.query().filter([["key", "=", 'city.code']]).all().then(function (citys) {//城市
                 res_company.query().filter([]).all().then(function (companys) {
                     // model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {//线路
-                        config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {    //url
-                            RESTFUL_URL = restful[0].value;              //url-end
-                            var options = {
-                                cityCode: citys[0].value,
-                                // lineInfo: lines,
-                                // company: companys[0].name,
-                                company: companys
-                            };
-                            new company_passenger_flow(self, options).appendTo(self.$el);
-                        });
+                    config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {    //url
+                        RESTFUL_URL = restful[0].value;              //url-end
+                        var options = {
+                            cityCode: citys[0].value,
+                            // lineInfo: lines,
+                            // company: companys[0].name,
+                            company: companys
+                        };
+                        new company_passenger_flow(self, options).appendTo(self.$el);
+                    });
                     // });
                 });
             });
