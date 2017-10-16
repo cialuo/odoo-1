@@ -69,6 +69,8 @@ class BusMoveExcuteTable(models.Model):
     """
     _name = "scheduleplan.excutetable"
 
+    _order = "id desc"
+
     # 同一条线路同一天只有一个行车作业执行表
     _sql_constraints = [
         ('line_date_unique', 'unique (line_id, excutedate)', 'one line one date one execute table')

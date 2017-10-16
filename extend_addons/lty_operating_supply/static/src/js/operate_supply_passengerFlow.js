@@ -417,8 +417,8 @@ odoo.define(function (require) {
                 //各公司分时客流与构成 动态渲染
                 $.ajax({
                     type: 'get',
-                    url: 'http://192.168.2.121:8080/ltyop/busReport/companyPassengerFlow?apikey=123&line_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&company_id=' + arg_options.company + '&step=' + arg_options.step + '',
-                    // url: RESTFUL_URL + '/ltyop/busReport/companyPassengerFlow?apikey=123&company_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&step=' + arg_options.step + '',
+                    // url: 'http://192.168.2.121:8080/ltyop/busReport/companyPassengerFlow?apikey=123&line_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&company_id=' + arg_options.company + '&step=' + arg_options.step + '',
+                    url: RESTFUL_URL + '/ltyop/busReport/companyPassengerFlow?apikey=123&company_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&step=' + arg_options.step + '',
                     data: {},
                     dataType: 'json',
                     error: function (res) {
@@ -426,77 +426,81 @@ odoo.define(function (require) {
                     },
                     success: function (res) {
                         layer.close(self.layer_index);// 结束LODING 
-                        console.log(res.resultMsg)
                         //异常处理
                         if (res.result !== 0) {
                             var layer_index = layer.msg(res.resultMsg, { time: 2000, shade: 0.3 });
                             return false;
                         } else {
-                            //
-                            var list ={};
-                            var data_list = [];
-                            var son_name = [];        //线路名称或者公司名称
-                            var total_passenger_flow = [];//对应线路或者公司的总客流
-                            var y_data_passenger_flow = [];   //时点客流
-                            var x_data = [];           //时间轴
-                            var passenger_flow = [];      //对应线路或者公司的分时客流
-                            $.each(res.response, function (key, val) {
-                                if (res.response.company_id == "-1") {
-                                    if (key == "companypieData") {
-                                        for (var i = 0; i < res.response.companypieData.length; i++) {
-                                            if (!res.response.companypieData[i].son_name) {
-                                                continue;
-                                            }
-                                            total_passenger_flow.push(val[i].total_passenger_flow);
-                                            son_name.push(val[i].son_name);
-                                            list.push(val[i].son_name);
-                                        }
-                                    };
-                                    debugger;
-                                    if (key == "companylineData") {
-                                        for (var i = 0; i < res.response.companylineData.length; i++) {
-                                            if (!res.response.companylineData[i].x_data) {
-                                                continue;
-                                            }
-                                            y_data_passenger_flow.push(val[i].y_data_passenger_flow);
-                                            x_data.push(val[i].x_data);
-                                            list.push(val[i].y_data_passenger_flow);
-                                        }
-                                    };
-                                    data_list.push(list);
-                                } else {
-                                    if (key == "linePassengerData") {
-                                        for (var i in linePassengerData) {
-                                            y_data_passenger_flow.push(val[i].y_data_passenger_flow);
-                                            x_data.push(val[i].x_data);
-                                        }
-                                    };
-                                    if (key == "piePassengerData") {
-                                        son_name.push(val.son_name);
-                                        passenger_flow.push(val.passenger_flow);
-                                    };
-                                };
+                            var line_x_data = [],        //x坐标
+                                // line_y_data = [],        //y坐标
+                                data_name_list = [],     //数据对应名称
+                                line_data = [],          //折线图数据
+                                pie_chart_data = [];     //圆饼图数据
 
-                            });
-                            //异常处理
-                            if (!res.response.linePassengerData || res.response.companypieData.length == 0) {
-                                var layer_index = layer.msg("暂无数据 ....", { time: 0, shade: 0.3 });
+                            if (res.response.company_id == "-1") {
+                                if (res.response.companypieData && res.response.companypieData.length > 0) {
+                                    _.each(res.response.companypieData, function (ui) {
+                                        var pie_dict_o = {
+                                            name: ui.son_name,
+                                            value: ui.total_passenger_flow
+                                        };
+                                        pie_chart_data.push(pie_dict_o);
+                                        data_name_list.push(ui.son_name);
+                                        var companylineData = res.response.companylineData;
+                                        var line_data_list = companylineData[ui.son_name];
+                                        var data_o_list = [];
+                                        _.each(line_data_list, function (ut) {
+                                            line_x_data.push(ut.x_data);
+                                            data_o_list.push(ut.y_data_passenger_flow);
+                                        })
+                                        var line_data_o = {
+                                            name: ui.son_name,
+                                            data: data_o_list
+                                        };
+                                        line_data.push(line_data_o);
+                                    })
+                                }
                             } else {
-                                var company_passenge_echar_data = {
-                                    son_name: son_name,
-                                    x_data: x_data,
-                                    y_data_passenger_flow: y_data_passenger_flow,
-                                    passenger_flow: passenger_flow,
-                                    total_passenger_flow: total_passenger_flow,
-                                    data_list: data_list
+                                if (res.response.piePassengerData && res.response.piePassengerData.length0) {
+                                    _.each(res.response.piePassengerData, function (ui) {
+                                        var pie_dict_o = {
+                                            name: ui.son_name,
+                                            value: ui.passenger_flow
+                                        };
+                                        pie_chart_data.push(pie_dict_o);
+                                        data_name_list.push(ui.son_name);
+                                        var companylineData = res.response.linePassengerData;
+                                        var line_data_list = companylineData[ui.son_name];
+                                        var data_o_list = [];
+                                        _.each(line_data_list, function (ut) {
+                                            line_x_data.push(ut.x_data);
+                                            data_o_list.push(ut.y_data_passenger_flow);
+                                        })
+                                        var line_data_o = {
+                                            name: ut.son_name,
+                                            data: data_o_list
+                                        };
+                                        line_data.push(line_data_o);
+                                    })
+                                }
+                            }
 
-                                };
-                                self.company_passenger_flow_query(arg_options, company_passenge_echar_data);
+
+                            if (line_data.length == 0 && pie_chart_data.length == 0) {
+                                var layer_index = layer.msg("暂无数据....", { time: 2000, shade: 0.3 });
+                                return false;
+                            }
+                            var company_passenge_echar_data = {
+                                x_data: line_x_data,
+                                data_list: line_data,
+                                pie_chart_data: pie_chart_data,
+                                data_name_list: data_name_list
                             };
-                        };//if-else
+                            self.company_passenger_flow_query(arg_options, company_passenge_echar_data);
+                        }
+
                     }//success
                 })//$.ajax  end
-                // this.company_passenger_flow_query(arg_options);
             } else if (this.supply.title == "分时准点率与滞站客流") {
                 //分时准点率与滞站客流 动态渲染
                 $.ajax({
@@ -568,12 +572,12 @@ odoo.define(function (require) {
                 //     sugguset_capacity: sugguset_capacity
                 // };
                 if (line_time_sharing_traffic) {
-                    if (line_time_sharing_traffic.pre_passenger_flow_y.length !=0 || line_time_sharing_traffic.history_passenger_flow_y.length!=0 || line_time_sharing_traffic.history_capacity_y.length!=0 || line_time_sharing_traffic.sugguset_capacity.length!=0){
+                    if (line_time_sharing_traffic.pre_passenger_flow_y.length != 0 || line_time_sharing_traffic.history_passenger_flow_y.length != 0 || line_time_sharing_traffic.history_capacity_y.length != 0 || line_time_sharing_traffic.sugguset_capacity.length != 0) {
                         line_time_sharing_traffic_data = line_time_sharing_traffic;
                     }
                 };
                 if (Satisfaction_query) {
-                    if (Satisfaction_query.wait_pleased.length !=0 || Satisfaction_query.comfortable_pleased.length !=0 || Satisfaction_query.enterprise_pleased.length !=0 || Satisfaction_query.passenger_pleased.length !=0){
+                    if (Satisfaction_query.wait_pleased.length != 0 || Satisfaction_query.comfortable_pleased.length != 0 || Satisfaction_query.enterprise_pleased.length != 0 || Satisfaction_query.passenger_pleased.length != 0) {
                         Satisfaction_query_data = Satisfaction_query
                     }
                 };
@@ -965,53 +969,63 @@ odoo.define(function (require) {
         },
         // 各公司分时客流与构成渲染
         company_passenger_flow_query: function (arg_options, company_passenge_echar_data) {
-            var xAxis_data_dict = {
-                // when: ['06点', '08点', '10点', '12点', '14点', '16点', '18点', '22点', '24点'],
-                when: company_passenge_echar_data.x_data,
-                // day: ['5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7', '5.8', '5.9'],
-                day: company_passenge_echar_data.x_data,
-                // weeks: ['2017-17周', '2017-18周', '2017-19周', '2017-20周', '2017-21周', '2017-22周', '2017-23周', '2017-24周', '2017-25周'],
-                weeks: company_passenge_echar_data.x_data,
-                // month: ['2017-01', '2017-02', '2017-03', '2017-04', '2017-05', '2017-06', '2017-07', '2017-08', '2017-09']
-                month: company_passenge_echar_data.x_data,
-            };
+            // var xAxis_data_dict = {
+            //     // when: ['06点', '08点', '10点', '12点', '14点', '16点', '18点', '22点', '24点'],
+            //     when: company_passenge_echar_data.x_data,
+            //     // day: ['5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7', '5.8', '5.9'],
+            //     day: company_passenge_echar_data.x_data,
+            //     // weeks: ['2017-17周', '2017-18周', '2017-19周', '2017-20周', '2017-21周', '2017-22周', '2017-23周', '2017-24周', '2017-25周'],
+            //     weeks: company_passenge_echar_data.x_data,
+            //     // month: ['2017-01', '2017-02', '2017-03', '2017-04', '2017-05', '2017-06', '2017-07', '2017-08', '2017-09']
+            //     month: company_passenge_echar_data.x_data,
+            // };
             // var company_child_dict = {
             //     "总公司": ["一分公司", "二分公司", "三分公司"],
             //     "一分公司": ["48路", "78路", "18路"],
             //     "二分公司": ["58路", "100路", "123路"],
             //     "三分公司": ["68路", "168路", "25路"]
             // };
-            var company_child_dict = {
-                "总公司": company_passenge_echar_data.son_name,
-                // "一分公司": ["48路", "78路", "18路"],
-                // "二分公司": ["58路", "100路", "123路"],
-                // "三分公司": ["68路", "168路", "25路"]
-            };
-            var chart_parameter_data = {
+            // var company_child_dict = {
+            //     "总公司": company_passenge_echar_data.son_name,
+            //     // "一分公司": ["48路", "78路", "18路"],
+            //     // "二分公司": ["58路", "100路", "123路"],
+            //     // "三分公司": ["68路", "168路", "25路"]
+            // };
+            // var chart_parameter_data = {
+            //     company_name: arg_options.company_name,
+            //     // xAxis_data: xAxis_data_dict[arg_options.plan_way],
+            //     xAxis_data: company_passenge_echar_data.x_data,
+            //     yAxis_data: ['0', '3000', '6000', '9000', '12000', '15000'],
+            //     series_data_set: { type: 'line', symbolSize: 1, },
+            //     // data_list: [{
+            //     //     name: company_child_dict[arg_options.company_name][0],
+            //     //     // data: [8000, 8500, 9300, 12000, 13000, 12500, 10000, 7000, 9000]
+            //     //     data: company_passenge_echar_data.passenger_flow
+            //     // },
+            //     // {
+            //     //     name: company_child_dict[arg_options.company_name][1],
+            //     //     // data: [7000, 7500, 8300, 11000, 12000, 11500, 9000, 6000, 8000]
+            //     //     data: company_passenge_echar_data.passenger_flow
+            //     // },
+            //     // {
+            //     //     name: company_child_dict[arg_options.company_name][2],
+            //     //     // data: [9000, 10000, 10000, 12000, 12000, 12000, 9000, 5000, 6000]
+            //     //     data: company_passenge_echar_data.passenger_flow
+            //     // },
+            //     // ]
+            //     data_list: company_passenge_echar_data.data_list
+            // };
+
+            var chart_parameter_data_new = {
                 company_name: arg_options.company_name,
-                // xAxis_data: xAxis_data_dict[arg_options.plan_way],
                 xAxis_data: company_passenge_echar_data.x_data,
                 yAxis_data: ['0', '3000', '6000', '9000', '12000', '15000'],
                 series_data_set: { type: 'line', symbolSize: 1, },
-                // data_list: [{
-                //     name: company_child_dict[arg_options.company_name][0],
-                //     // data: [8000, 8500, 9300, 12000, 13000, 12500, 10000, 7000, 9000]
-                //     data: company_passenge_echar_data.passenger_flow
-                // },
-                // {
-                //     name: company_child_dict[arg_options.company_name][1],
-                //     // data: [7000, 7500, 8300, 11000, 12000, 11500, 9000, 6000, 8000]
-                //     data: company_passenge_echar_data.passenger_flow
-                // },
-                // {
-                //     name: company_child_dict[arg_options.company_name][2],
-                //     // data: [9000, 10000, 10000, 12000, 12000, 12000, 9000, 5000, 6000]
-                //     data: company_passenge_echar_data.passenger_flow
-                // },
-                // ]
-                data_list: company_passenge_echar_data.data_list
+                data_list: company_passenge_echar_data.data_list,
+                pie_chart_data: company_passenge_echar_data.pie_chart_data,
+                data_name_list: company_passenge_echar_data.data_name_list
             };
-            new company_passenger_flow_chart(this, chart_parameter_data).appendTo(arg_options.chart_obj);
+            new company_passenger_flow_chart(this, chart_parameter_data_new).appendTo(arg_options.chart_obj);
         },
         //分时准点率与滞站客流渲染
         time_place_passenger_flow_query: function (arg_options, echar_data) {
@@ -1727,18 +1741,18 @@ odoo.define(function (require) {
             var self = this;
             model_city.query().filter([["key", "=", 'city.code']]).all().then(function (citys) {//城市
                 res_company.query().filter([]).all().then(function (companys) {
-                    model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {//线路
-                        config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {    //url
-                            RESTFUL_URL = restful[0].value;              //url-end
-                            var options = {
-                                cityCode: citys[0].value,
-                                // lineInfo: lines,
-                                // company: companys[0].name,
-                                company: companys
-                            };
-                            new company_passenger_flow(self, options).appendTo(self.$el);
-                        });
+                    // model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (lines) {//线路
+                    config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {    //url
+                        RESTFUL_URL = restful[0].value;              //url-end
+                        var options = {
+                            cityCode: citys[0].value,
+                            // lineInfo: lines,
+                            // company: companys[0].name,
+                            company: companys
+                        };
+                        new company_passenger_flow(self, options).appendTo(self.$el);
                     });
+                    // });
                 });
             });
         }
@@ -1813,8 +1827,9 @@ odoo.define(function (require) {
             this.passenger_flow_chart();
         },
         shunt_chart: function () {
-            var data_list = this.chart_data.data_list;
-            this.set_chart_data(data_list)
+            var chart_data = {
+
+            };
             var set_option = {
                 legend: {
                     icon: 'stack',
@@ -1841,7 +1856,7 @@ odoo.define(function (require) {
             mychart.setOption(chart_option);
         },
         passenger_flow_chart: function () {
-            var chart_data = this.chart_data_set;
+            var pie_chart_data = this.chart_data.pie_chart_data;
             var pie_option = {
                 tooltip: {
                     trigger: 'item',
@@ -1850,14 +1865,14 @@ odoo.define(function (require) {
                 series: [{
                     name: '访问来源',
                     type: 'pie',
-                    radius: '80%',
+                    radius: '70%',
                     center: ['50%', '60%'],
                     label: {
                         normal: {
                             position: "inner"
                         }
                     },
-                    data: chart_data.pie_data
+                    data: pie_chart_data
                 }]
             };
             var pie_chart = echarts.init(this.$('.chart2')[0]);

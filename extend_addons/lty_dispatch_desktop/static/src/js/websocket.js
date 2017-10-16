@@ -936,7 +936,7 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 
     // 司机签到状态
-    if (dataObj.checkOut) {
+    if (typeof dataObj.checkOut != "undefined") {
         if (dataObj.checkOut == 1) {
             active_obj.find(".checkOut").attr('st', dataObj.checkOut).addClass('icon1_1').removeClass("icon1_0");
         } else {
@@ -945,7 +945,7 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 
     // 车辆在线状态
-    if (dataObj.runState) {
+    if (typeof dataObj.runState != "undefined") {
         if (dataObj.runState == 1) {
             active_obj.find(".runState").attr('st', dataObj.runState).addClass('icon2_1').removeClass("icon2_0");
         } else {
@@ -954,7 +954,7 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 
     // 异常状态更新
-    if (dataObj.carStateId){
+    if (typeof dataObj.carStateId != "undefined"){
         var class_name = "icon carStateIdIcon carStateIdIcon_"+dataObj.carStateId;
         if (dataObj.carStateId == 0){
             class_name += " disNoneIcon";
@@ -963,7 +963,7 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 
     // 进场任务更新
-    if (dataObj.task){
+    if (typeof dataObj.task != "undefined"){
         var class_name = "icon taskIcon";
         if ($.inArray(dataObj.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012'])==-1){
             class_name += " disNoneIcon";
@@ -1009,7 +1009,7 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 
     // 司机签到状态
-    if (dataObj.checkOut) {
+    if (typeof dataObj.checkOut != "undefined") {
         if (dataObj.checkOut == 1) {
             active_obj.find(".checkOut").attr('st', dataObj.checkOut).addClass('icon1_1').removeClass("icon1_0");
         } else {
@@ -1018,7 +1018,7 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 
     // 车辆在线状态
-    if (dataObj.runState) {
+    if (typeof dataObj.runState != "undefined") {
         if (dataObj.runState == 1) {
             active_obj.find(".runState").attr('st', dataObj.runState).addClass('icon2_1').removeClass("icon2_0");
         } else {
@@ -1027,7 +1027,7 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 
     // 异常状态更新
-    if (dataObj.carStateId){
+    if (typeof dataObj.carStateId != "undefined"){
         var class_name = "icon carStateIdIcon carStateIdIcon_"+dataObj.carStateId;
         if (dataObj.carStateId == 0){
             class_name += " disNoneIcon";
@@ -1036,7 +1036,7 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 
     // 进场任务更新
-    if (dataObj.task){
+    if (typeof dataObj.task != "undefined"){
         var class_name = "icon taskIcon";
         if ($.inArray(dataObj.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012'])==-1){
             class_name += " disNoneIcon";

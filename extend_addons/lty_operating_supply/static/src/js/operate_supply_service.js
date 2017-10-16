@@ -179,9 +179,9 @@ odoo.define(function (require) {
             // 服务保障能力分析
             $.ajax({
                 type: 'get',
-                url: 'http://192.168.2.121:8080/ltyop/busReport/ServiceSupportCapability?apikey=123&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&company_id=' + arg_options.company + '&direction=' + arg_options.direction + '&step=' + arg_options.step + '',
+                // url: 'http://192.168.2.121:8080/ltyop/busReport/ServiceSupportCapability?apikey=123&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&company_id=' + arg_options.company + '&direction=' + arg_options.direction + '&step=' + arg_options.step + '',
 
-                // url: RESTFUL_URL + '/ltyop/busReport/ServiceSupportCapability?apikey=123&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&company_id=' + arg_options.company + '&direction=' + arg_options.direction + '&step=' + arg_options.step + '',
+                url: RESTFUL_URL + '/ltyop/busReport/ServiceSupportCapability?apikey=123&line_id=' + arg_options.line_id + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&company_id=' + arg_options.company + '&direction=' + arg_options.direction + '&step=' + arg_options.step + '',
                 // data: {},
                 dataType: 'json',
                 error: function (res) {
