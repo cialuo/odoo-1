@@ -4,9 +4,19 @@
         <record id="approve_center_only_post" model="ir.rule">
             <field name="name">Approve centro post</field>
             <field ref="model_lty_approve_center" name="model_id"/>
-            <field name="domain_force">[('approve_post', '=', user.employee_post.id)]</field>
+            <field name="domain_force">['|',('approve_post', '=', user.employee_post.id),('start_user','=',user.id)]</field>
             <field name="global" eval="True"/>
             <field name="perm_create" eval="False"/>
         </record>
+		<record id="group_approve_user" model="res.groups">
+			<field name="name">Approve User</field>
+			<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+			<field name="comment">approve user.</field>
+		</record>		
+		<record id="group_approve_manage" model="res.groups">
+			<field name="name">Approve Manager</field>
+			<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+			<field name="comment">approve Manager.</field>
+		</record>			
     </data>
 </odoo>

@@ -342,17 +342,20 @@ function busRealStateModel_map(dom, gps) {
         return false;
     }
 
+    var new_gps = CONVERSIONS_GPS.gcj_encrypt(gps.latitude, gps.longitude);
+
     if (socket_model_api_obj.busRealStateModel_marker) {
         socket_model_api_obj.busRealStateModel_marker.setPosition(new AMap.LngLat(gps.latitude, gps.longitude));
     } else {
-        var mapObj = new AMap.Map(dom, {zoom: 14, center: [gps.latitude, gps.longitude]});
+        var mapObj = new AMap.Map(dom, {zoom: 14, center: [new_gps.lon, new_gps.lat]});
         var marker = new AMap.Marker({
             map: mapObj,
-            position: [gps.latitude, gps.longitude]
+            position: [new_gps.lon, new_gps.lat]
         });
         socket_model_api_obj.busRealStateModel_marker = marker;
     }
 }
+
 // 车辆实时状态模块-到站时刻
 function busRealStateModel_chart(dom, dataObj) {
     var site_list = [],
@@ -805,10 +808,10 @@ function update_linePlan(controllerObj, dataObj) {
         // 没有且计划状态非完成则为新增,需按照计划发车时间先后插入
         var content_tb_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb");
         var obj_str =
-            '<tr class="point" pid="' + set_op.id + '" direction="' + set_op.direction + '" planRunTime="' + set_op.planRunTime + '">' +
+            '<tr class="point" pid="' + set_op.id + '" direction="' + dataObj.direction + '" planRunTime="' + new Date(set_op.planRunTime).getTime() + '">' +
             '<td class="pL">' +
-            '<span st="' + set_op.sendToScreen + '" class="icon sendToScreen icon_' + set_op.sendToScreen + '"></span>' +
-            '<span st="' + set_op.sendToBus + '" class="icon sendToBus icon_' + set_op.sendToBus + '"></span>' +
+            '<span st="' + dataObj.sendToScreen + '" class="icon sendToScreen icon_' + dataObj.sendToScreen + '"></span>' +
+            '<span st="' + dataObj.sendToBus + '" class="icon sendToBus icon_' + dataObj.sendToBus + '"></span>' +
             '</td>' +
             '<td class="planRunTime">' +
             new Date(set_op.planRunTime).toTimeString().slice(0, 5).replace('Inval', '') +
@@ -1147,7 +1150,7 @@ function add_linePark(content_tb_obj, new_resource) {
     }
 
     var obj_str =
-        '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).toTimeString() + '" planReachTime="' + new Date(new_resource.realReachTime).toTimeString() + '">' +
+        '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).getTime()+ '" planReachTime="' + new Date(new_resource.realReachTime).getTime() + '">' +
         '<td class="pL">' +
         '<span st="' + new_resource.checkOut + '" class="icon sendToScreen icon1_' + new_resource.checkOut + '"></span>' +
         '<span st="' + new_resource.runState + '" class="icon sendToBus icon2_' + new_resource.runState + '"></span>' +
@@ -1205,7 +1208,7 @@ function add_busTransit(content_tb_obj, new_resource) {
         task_class = "";
     }
     var obj_str =
-        '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).toTimeString() + '"  planReachTime="' + new Date(new_resource.planReachTime).toTimeString() + '">' +
+        '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).getTime() + '"  planReachTime="' + new Date(new_resource.planReachTime).getTime() + '">' +
         '<td class="pL">' +
         '<span st="' + new_resource.checkOut + '" class="icon sendToScreen icon1_' + new_resource.checkOut + '"></span>' +
         '<span st="' + new_resource.runState + '" class="icon sendToBus icon2_' + new_resource.runState + '"></span>' +

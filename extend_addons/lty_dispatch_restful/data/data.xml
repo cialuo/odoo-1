@@ -20,6 +20,10 @@
         <record id="dispatch_desktop_restful" model="ir.config_parameter">
             <field name="key">dispatch.desktop.restful</field>
             <field name="value">http://127.0.0.1</field>
-        </record>			
+        </record>
+        <record id="dispatch_video_service" model="ir.config_parameter">
+            <field name="key">dispatch.video.service</field>
+            <field name="value"ws://220.231.189.27:9001</field>
+        </record>	
     </data>
 </odoo>
