@@ -461,7 +461,7 @@ odoo.define(function (require) {
                                     })
                                 }
                             } else {
-                                if (res.response.piePassengerData && res.response.piePassengerData.length0) {
+                                if (res.response.piePassengerData && res.response.piePassengerData.length > 0) {
                                     _.each(res.response.piePassengerData, function (ui) {
                                         var pie_dict_o = {
                                             name: ui.son_name,
@@ -469,8 +469,8 @@ odoo.define(function (require) {
                                         };
                                         pie_chart_data.push(pie_dict_o);
                                         data_name_list.push(ui.son_name);
-                                        var companylineData = res.response.linePassengerData;
-                                        var line_data_list = companylineData[ui.son_name];
+                                        var linePassengerData = res.response.linePassengerData;
+                                        var line_data_list = linePassengerData[ui.son_name];
                                         var data_o_list = [];
                                         _.each(line_data_list, function (ut) {
                                             line_x_data.push(ut.x_data);
