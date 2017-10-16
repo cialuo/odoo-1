@@ -47,7 +47,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                         ["route_id", "=", id]
                     ]).all().then(function(vehicles) {
                         _.each(vehicles, function(set) {
-                            var option = '<option value="' + set.inner_code + '">' + set.inner_code + '</option>';
+                            var option = '<option value="' + set.on_boardid + '">' + set.on_boardid + '</option>';
                             vehiclesObj.append(option);
                         });
                     })
