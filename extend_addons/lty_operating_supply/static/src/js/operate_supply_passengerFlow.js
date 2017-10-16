@@ -461,7 +461,7 @@ odoo.define(function (require) {
                                     })
                                 }
                             } else {
-                                if (res.response.piePassengerData && res.response.piePassengerData.length0) {
+                                if (res.response.piePassengerData && res.response.piePassengerData.length > 0) {
                                     _.each(res.response.piePassengerData, function (ui) {
                                         var pie_dict_o = {
                                             name: ui.son_name,
