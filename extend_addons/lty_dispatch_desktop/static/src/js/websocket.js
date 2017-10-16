@@ -342,17 +342,20 @@ function busRealStateModel_map(dom, gps) {
         return false;
     }
 
+    var new_gps = CONVERSIONS_GPS.gcj_encrypt(gps.latitude, gps.longitude);
+
     if (socket_model_api_obj.busRealStateModel_marker) {
         socket_model_api_obj.busRealStateModel_marker.setPosition(new AMap.LngLat(gps.latitude, gps.longitude));
     } else {
-        var mapObj = new AMap.Map(dom, {zoom: 14, center: [gps.latitude, gps.longitude]});
+        var mapObj = new AMap.Map(dom, {zoom: 14, center: [new_gps.lon, new_gps.lat]});
         var marker = new AMap.Marker({
             map: mapObj,
-            position: [gps.latitude, gps.longitude]
+            position: [new_gps.lon, new_gps.lat]
         });
         socket_model_api_obj.busRealStateModel_marker = marker;
     }
 }
+
 // 车辆实时状态模块-到站时刻
 function busRealStateModel_chart(dom, dataObj) {
     var site_list = [],
@@ -800,7 +803,7 @@ function update_linePlan(controllerObj, dataObj) {
         alert("数据有异常")
         return false;
     }
-    
+
     if (active_tr_obj.length == 0) {
         // 没有且计划状态非完成则为新增,需按照计划发车时间先后插入
         var content_tb_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb");

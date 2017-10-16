@@ -256,18 +256,19 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 // });
                 var icon = '/lty_operation_map_base/static/src/image/vehicle_off.png';
                 _.each(vehicleInfo, function(vehicle, index) {
+                    var new_gps = CONVERSIONS_GPS.gcj_encrypt(vehicle.latitude, vehicle.longitude);
                     if (TARGET_VEHICLE){
                         if (TARGET_VEHICLE == vehicle.onboardId.toString()){
                             var marker = new AMap.Marker({
                                 content: self.get_content_fn(map, icon, vehicle.onboardId.toString()),
-                                position: [vehicle.longitude, vehicle.latitude],
+                                position: [new_gps.lon, new_gps.lat],
                                 offset : new AMap.Pixel(-32,-16),
                                 autoRotation: true,
                                 // title: vehicle.onboardId,
                                 map: map
                             });
                             VEHICLE_INFO_DICT[vehicle.onboardId.toString()] = marker;
-                            self.init_map_pos = [vehicle.longitude, vehicle.latitude];
+                            self.init_map_pos = [new_gps.lon, new_gps.lat];
                             self.init_map_center(map);
                             return false;
                         }
@@ -275,14 +276,14 @@ odoo.define("electronic_map.electronic_map", function(require) {
                         if (index == 0 && !self.set_map_center){
                             var marker = new AMap.Marker({
                                 content: self.get_content_fn(map, icon, vehicle.onboardId.toString()),
-                                position: [vehicle.longitude, vehicle.latitude],
+                                position: [new_gps.lon, new_gps.lat],
                                 offset : new AMap.Pixel(-32,-16),
                                 autoRotation: true,
                                 // title: vehicle.onboardId,
                                 map: map
                             });
                             VEHICLE_INFO_DICT[vehicle.onboardId.toString()] = marker;
-                            self.init_map_pos = [vehicle.longitude, vehicle.latitude];
+                            self.init_map_pos = [new_gps.lon, new_gps.lat];
                             self.init_map_center(map);
                         }
                     }
@@ -498,7 +499,8 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     return false;
                 }
                 var act = self.gprsInfo[self.play_time];
-                self.marker.moveTo(new AMap.LngLat(act.longitude, act.latitude), 500000);
+                var new_gps = CONVERSIONS_GPS.gcj_encrypt(act.latitude, act.longitude);
+                self.marker.moveTo(new AMap.LngLat(new_gps.lon, new_gps.lat), 500000);
                 self.add_bus_trajectory_point(act);
                 self.ProgressBar.SetValue(self.play_time);
                 self.play_time += 1;
@@ -536,7 +538,8 @@ odoo.define("electronic_map.electronic_map", function(require) {
             var gprsInfo = self.gprsInfo;
             var play_time = self.play_time;
             var act = gprsInfo[play_time];
-            self.marker.setPosition(new AMap.LngLat(act.longitude, act.latitude));
+            var new_gps = CONVERSIONS_GPS.gcj_encrypt(act.latitude, act.longitude);
+            self.marker.setPosition(new AMap.LngLat(new_gps.lon, new_gps.lat));
             self.del_bus_trajectory_point(play_time);
             _.each(gprsInfo, function(ret, index){
                 if (index<=play_time){
@@ -548,14 +551,15 @@ odoo.define("electronic_map.electronic_map", function(require) {
         // 添加车运行gprs点标记
         bus_trajectory_point: function(ret){
             var self = this;
+            var new_gps = CONVERSIONS_GPS.gcj_encrypt(ret.latitude, ret.longitude);
             var marker = new AMap.Marker({
                 content: '<div class="markerPoint"></div>',
-                position: [ret.longitude, ret.latitude],
+                position: [new_gps.lon, new_gps.lat],
                 offset : new AMap.Pixel(0,-2),
                 map: self.map
             });
             self.marker_point_info.push(marker);
-            self.marker_trajectory_gprs_info.push([ret.longitude, ret.latitude]);
+            self.marker_trajectory_gprs_info.push([new_gps.lon, new_gps.lat]);
         },
         // 车运行轨迹
         bus_trajectory: function(){
@@ -669,13 +673,14 @@ odoo.define("electronic_map.electronic_map", function(require) {
         init_bus_location: function(ret, onboardId){
             var self = this;
             var map = self.map;
+            var new_gps = CONVERSIONS_GPS.gcj_encrypt(ret.latitude, ret.longitude);
             // 初始以车为中心点
-            self.init_map_center(ret);
+            self.init_map_center(new_gps);
 
             var icon = '/lty_operation_map_base/static/src/image/vehicle_on.png';
             var marker = new AMap.Marker({
                 content: self.get_content_fn(map, icon, onboardId),
-                position: [ret.longitude, ret.latitude],
+                position: [new_gps.lon, new_gps.lat],
                 offset : new AMap.Pixel(-32,-16),
                 autoRotation: true,
                 map: map
@@ -757,7 +762,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
             if (map.getZoom()<14){
                 map.setZoom(14);
             }
-            map.setCenter([gprsObj.longitude, gprsObj.latitude]);
+            map.setCenter([gprsObj.lon, gprsObj.lat]);
         },
         get_map_set_arg: function() {
             var vehiclesObj = this.$(".onboard");

@@ -67,26 +67,27 @@ websocket_electronic_map.onhashchange = function(){
 
 
 function update_vehicles_sockt(eventData){
+    var new_gps = CONVERSIONS_GPS.gcj_encrypt(eventData.latitude, eventData.longitude);
     if (VEHICLE_INFO_DICT[eventData.terminalNo.toString()]){
         var carMap = VEHICLE_INFO_DICT[eventData.terminalNo.toString()];
-        carMap.moveTo(new AMap.LngLat(eventData.longitude, eventData.latitude), 5000);
+        carMap.moveTo(new AMap.LngLat(new_gps.lon, new_gps.lat), 5000);
         update_icon(carMap, 1);
         if (eventData.terminalNo == TARGET_VEHICLE){
-            target_vehicle_fn(carMap, eventData.longitude, eventData.latitude);
+            target_vehicle_fn(carMap, new_gps.lon, new_gps.lat);
         }
     }else{
         if (CARMAP){
             var icon = get_icon();
             var marker = new AMap.Marker({
                 content: get_content_fn(icon, eventData.terminalNo),
-                position: [eventData.longitude, eventData.latitude],
+                position: [new_gps.lon, new_gps.lat],
                 offset : new AMap.Pixel(-32,-16),
                 autoRotation: true,
                 map: CARMAP
             });
             VEHICLE_INFO_DICT[eventData.terminalNo.toString()] = marker;
             if (eventData.terminalNo.toString() == TARGET_VEHICLE){
-                target_vehicle_fn(marker, eventData.longitude, eventData.latitude);
+                target_vehicle_fn(marker, new_gps.lon, new_gps.lat);
             }
         }
     }

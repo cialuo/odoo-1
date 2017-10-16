@@ -451,9 +451,11 @@ odoo.define("line_map_production.line_map_production", function(require) {
                     ["id", "=", parseInt(site_i.station_id)]
                 ]).all().then(function(site_l) {
                     var site = site_l[0];
+                    var new_gps = CONVERSIONS_GPS.gcj_encrypt(site.latitude, site.longitude);
                     if (map_i == 0) {
                         map.setZoom(15);
-                        map.setCenter([site.longitude, site.latitude]);
+                        map.setCenter([new_gps.lon, new_gps.lat]);
+                        // map.setCenter([site.longitude, site.latitude]);
                     }
                     map_i++;
                     var cont_W = site.name.length * 14 - 12;
@@ -469,7 +471,8 @@ odoo.define("line_map_production.line_map_production", function(require) {
 
                     var marker = new AMap.Marker({
                         content: content_info,
-                        position: [site.longitude, site.latitude],
+                        position: [new_gps.lon, new_gps.lat],
+                        // position: [site.longitude, site.latitude],
                         offset : new AMap.Pixel(0,-15),
                         map: map,
                     });
