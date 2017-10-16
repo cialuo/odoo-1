@@ -101,7 +101,7 @@
                                         <h2>行车规则输出</h2>
                                     </div>
                                 </div>
-                                <field name="upplanvehiclearrange">
+                                <field name="upplanvehiclearrange" >
                                     <tree editable="bottom">
                                         <field name="vehiclemode" options="{'no_open': True, 'no_create': True}"/>
                                         <field name="workingnumber" sum="working_amount"/>

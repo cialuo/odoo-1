@@ -360,17 +360,22 @@ class BusGroupDriverVehicleShift(models.Model):
             if last_rotation_date:
                 last_rotation_date = datetime.datetime.strptime(last_rotation_date, "%Y-%m-%d")
             else:
-                last_rotation_date = datetime.datetime.today()
+                last_rotation_date = datetime.date.today()
 
-            if is_big_rotation and (next_use_date - last_rotation_date).days >= rotation_cycle:
-                for k, v in old_group_dict.iteritems():
-                    tmp = []
-                    for m in v:
-                        tmp.append(new_t_sequence_list[old_t_sequence_list.index(m)])
-                    new_group_dict[k] = tmp
-                group_dict = new_group_dict
-                res_groups[0].route_id.last_rotation_date = use_date
-                _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 大轮换后 新顺序%s" % (str(next_use_date), route_id, group_dict))
+
+            group_dict = {}
+            if is_big_rotation :
+                # 满足大轮换 或者 最后一次大轮换时间大于等于指定时间
+                if (next_use_date - last_rotation_date).days >= rotation_cycle or str(last_rotation_date) >= use_date:
+                    for k, v in old_group_dict.iteritems():
+                        tmp = []
+                        for m in v:
+                            tmp.append(new_t_sequence_list[old_t_sequence_list.index(m)])
+                        new_group_dict[k] = tmp
+                    group_dict = new_group_dict
+                    if str(last_rotation_date) < use_date:
+                        res_groups[0].route_id.last_rotation_date = use_date
+                    _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 大轮换后 新顺序%s" % (str(next_use_date), route_id, group_dict))
             else:
                 group_dict = copy.deepcopy(old_group_dict)
                 _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 没有进行大论换" % (str(next_use_date), route_id, ))
@@ -381,9 +386,10 @@ class BusGroupDriverVehicleShift(models.Model):
                 bus_group_res = self.env['bus_group'].search([('id', '=', k)])
                 cycle = bus_group_res[0].bus_algorithm_id.cycle
                 direction = bus_group_res[0].bus_algorithm_id.direction
-                bus_algorithm_date = datetime.datetime.strptime(bus_group_res[0].bus_algorithm_date, "%Y-%m-%d")
+                last_bus_algorithm_date = datetime.datetime.strptime(bus_group_res[0].bus_algorithm_date, "%Y-%m-%d")
                 if cycle > 0:
-                    if (next_use_date - bus_algorithm_date).days >= cycle:
+                    # 满足车辆轮趟 或者 最后一次车辆轮趟时间大于等于指定时间
+                    if (next_use_date - last_bus_algorithm_date).days >= cycle or str(last_bus_algorithm_date) >= use_date:
                         def leftMove2(list, step):
                             l = list[:step]
                             for m in range(step, len(list)):
@@ -396,7 +402,8 @@ class BusGroupDriverVehicleShift(models.Model):
                             v.insert(0, b)
                         else:                     #向后移
                             v = leftMove2(v, 1)
-                        bus_group_res.write({'bus_algorithm_date': use_date})
+                        if str(last_bus_algorithm_date) < use_date:
+                            bus_group_res.write({'bus_algorithm_date': use_date})
                 new_group_dict_vehicle[k] = v
             _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 车辆顺序 车辆轮趟算法 新顺序%s" % (str(next_use_date), route_id, new_group_dict_vehicle))
 
@@ -405,7 +412,7 @@ class BusGroupDriverVehicleShift(models.Model):
                 bus_group_res = self.env['bus_group'].search([('id', '=', k)])
                 driver_cycle = bus_group_res[0].bus_driver_algorithm_id.cycle
                 driver_direction = bus_group_res[0].bus_driver_algorithm_id.direction
-                bus_driver_algorithm_date = datetime.datetime.strptime(bus_group_res[0].bus_driver_algorithm_date, "%Y-%m-%d")
+                last_bus_driver_algorithm_date = datetime.datetime.strptime(bus_group_res[0].bus_driver_algorithm_date, "%Y-%m-%d")
 
                 res_group_shift = self.env['bus_group_driver_vehicle_shift'].search(
                     [('route_id', '=', route_id),
@@ -421,7 +428,7 @@ class BusGroupDriverVehicleShift(models.Model):
                 shift_list = res_group_shift.mapped('choose_sequence')
                 old_shift_list = shift_list[:]
                 if driver_cycle > 0:
-                    if (next_use_date - bus_driver_algorithm_date).days >= driver_cycle:
+                    if (next_use_date - last_bus_driver_algorithm_date).days >= driver_cycle or str(last_bus_driver_algorithm_date) >= use_date:
                         def leftMove2(list, step):
                             l = list[:step]
                             for m in range(step, len(list)):
@@ -434,7 +441,8 @@ class BusGroupDriverVehicleShift(models.Model):
                             shift_list.insert(0, b)
                         else:
                             shift_list = leftMove2(shift_list, 1)
-                        bus_group_res.write({'bus_driver_algorithm_date': use_date})
+                        if str(last_bus_driver_algorithm_date) < use_date:
+                            bus_group_res.write({'bus_driver_algorithm_date': use_date})
 
                 _logger.info(u"同步时间:%s,线路id:%s,组:%s 车辆顺序 司机轮班算法 班次顺序%s" % (str(next_use_date), route_id, k, old_shift_list))
                 _logger.info(u"同步时间:%s,线路id:%s,组:%s 车辆顺序 司机轮班算法 新班次顺序%s" % (str(next_use_date), route_id, k, shift_list))
