@@ -331,6 +331,13 @@
     top: 0px;
     cursor: pointer;
 }
+.dispatch_desktop .car_div{
+    float: right;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+    display: inline-block;
+}
 
 .dispatch_desktop .line_car .type_car {
     width: 30px;
@@ -587,6 +594,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
 
 }
 
+
 .modal.config modal-body {
     height: 540px;
 }
@@ -619,6 +627,19 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
 
 .modal.config .modal-header {
     border: none;
+}
+.same_car_show{
+    position: absolute;
+    width: 50px;
+    height: 15px;
+    color: white;
+    font-size: 12px !important;
+    cursor: pointer;
+    text-align: right;
+}
+.same_car_show>div {
+    position: absolute;
+    right: 0;
 }
 
 .modal.config .modal-footer .btn-primary {
