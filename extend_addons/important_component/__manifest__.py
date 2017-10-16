@@ -2,12 +2,14 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': '重要部件',
-    'version': '1.1',
+    'version': '1.2',
     'category': 'Optional Edition',
     'summary': '重要部件管理',
     'author': 'Xiao',
     'description': """
     重要部件管理
+    1.2:
+        增加重要部件盘点功能
     """,
     'data': [
         'data/component_data.xml',
