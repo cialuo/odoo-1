@@ -16,6 +16,7 @@
             report_type="qweb-pdf"
             name="hr_payroll.report_payslip" 
             file="hr_payroll.report_payslip"
+            groups="account.group_account_user"
         />
         <report
             id="payslip_details_report"
@@ -24,5 +25,6 @@
             report_type="qweb-pdf"
             name="hr_payroll.report_payslipdetails" 
             file="hr_payroll.report_payslipdetails"
+            groups="account.group_account_user"
         />
 </odoo>

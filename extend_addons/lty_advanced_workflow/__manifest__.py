@@ -23,10 +23,10 @@
 
     # always loaded
     'data': [
+        'security/security.xml',
         'views/approve_cfg.xml',
         'views/approve_center.xml',
         'security/ir.model.access.csv',
-        'security/security.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
