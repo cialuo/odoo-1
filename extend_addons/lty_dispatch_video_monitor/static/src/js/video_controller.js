@@ -455,7 +455,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 var dom_chose = '#' + treeNode.tId + '_span';
                 //			webSocketVideo(channelType, deviceId, channeld)
                 //'{"msg_type":258,"params":{"bus_id":8000,"channel_id":0}}'
-                var deviceId = 8000;
+                var deviceId = 9990;
                 var channelId = -1;
                 $('.video_player.hide').removeClass('hide');
                 $('.content-right').html('');
