@@ -417,8 +417,8 @@ odoo.define(function (require) {
                 //各公司分时客流与构成 动态渲染
                 $.ajax({
                     type: 'get',
-                    // url: 'http://192.168.2.121:8080/ltyop/busReport/companyPassengerFlow?apikey=123&line_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&company_id=' + arg_options.company + '&step=' + arg_options.step + '',
-                    url: RESTFUL_URL + '/ltyop/busReport/companyPassengerFlow?apikey=123&company_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&step=' + arg_options.step + '',
+                    url: 'http://192.168.2.121:8080/ltyop/busReport/companyPassengerFlow?apikey=123&line_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&company_id=' + arg_options.company + '&step=' + arg_options.step + '',
+                    // url: RESTFUL_URL + '/ltyop/busReport/companyPassengerFlow?apikey=123&company_id=' + arg_options.company + '&city_code=' + arg_options.city_code + '&date_end=' + arg_options.predict_passenger_flow_time + '&date_period=' + arg_options.history_time + '&step=' + arg_options.step + '',
                     data: {},
                     dataType: 'json',
                     error: function (res) {
@@ -469,8 +469,8 @@ odoo.define(function (require) {
                                         };
                                         pie_chart_data.push(pie_dict_o);
                                         data_name_list.push(ui.son_name);
-                                        var companylineData = res.response.linePassengerData;
-                                        var line_data_list = companylineData[ui.son_name];
+                                        var linePassengerData = res.response.linePassengerData;
+                                        var line_data_list = linePassengerData[ui.son_name];
                                         var data_o_list = [];
                                         _.each(line_data_list, function (ut) {
                                             line_x_data.push(ut.x_data);
