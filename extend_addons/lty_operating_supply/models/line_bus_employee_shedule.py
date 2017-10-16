@@ -122,6 +122,8 @@ class line_bus_employee_shedule(models.Model):
                       order by  hr_employee.name_related)
                     
                     ) driver_conductor
+                    
+                    where  bus_code is not null and jobnumber is not null and  bus_group_id is not null
                     group by company_id,bus_group_id,line_id,bus_model,bus_model_name,bus_code,entry_state,workpsot_id,jobnumber,employee_name,workpost_name
                     
                     order by employee_name
