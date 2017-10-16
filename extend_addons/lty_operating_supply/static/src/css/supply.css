@@ -72,6 +72,9 @@
     width: 120px;
     vertical-align: middle;
     margin-left: 8px;
+    height: 26px;
+    line-height: 26px;
+    padding: 0 4px;
 }
 
 .operate_title .screening select.direction {
