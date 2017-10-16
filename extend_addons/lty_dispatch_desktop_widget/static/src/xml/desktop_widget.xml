@@ -677,7 +677,7 @@
                     </tr>
                     <t t-foreach="widget.plan_data.data_list" t-as="item">
                         <t t-if="item.direction==widget.plan_data.direction">
-                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}">
+                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{new Date(item.planRunTime).getTime()}}">
                                 <td class="pL">
                                     <span t-attf-st="{{item.sendToScreen}}" t-attf-class="icon sendToScreen icon_{{item.sendToScreen}}"></span>
                                     <span t-attf-st="{{item.sendToBus}}" t-attf-class="icon sendToBus icon_{{item.sendToBus}}"></span>
@@ -735,7 +735,7 @@
                     </tr>
                     <t t-foreach="widget.yard_data.data_list" t-as="item">
                         <t t-if="item.inField==widget.yard_data.inField &amp;&amp; item.direction==widget.yard_data.direction &amp;&amp; item.carStateId!=2008">
-                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}" t-attf-planReachTime="{{item.realReachTime}}">
+                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{new Date(item.planRunTime).getTime()}}" t-attf-planReachTime="{{new Date(item.realReachTime).getTime()}}" >
                                 <td class="pL">
                                     <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                     <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>
@@ -805,7 +805,7 @@
                     </tr>
                     <t t-foreach="widget.transit_data.data_list" t-as="item">
                         <t t-if="item.inField==widget.transit_data.inField &amp;&amp; item.direction==widget.transit_data.direction &amp;&amp; item.carStateId!=2008">
-                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{item.planRunTime}}" t-attf-planReachTime="{{item.planReachTime}}">
+                            <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{new Date(item.planRunTime).getTime()}}" t-attf-planReachTime="{{new Date(item.planReachTime).getTime()}}">
                                 <td class="pL">
                                     <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                     <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>
