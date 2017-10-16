@@ -55,6 +55,7 @@
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
+    overflow: auto;
 }
 
 .dispatch_desktop_broadcast .search_date_btn {

@@ -26,7 +26,7 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
             var self = this;
             //后期修改
             var channelType = 16;
-            var deviceId = 9990;
+            var deviceId = '';
             var ztreeClick = {};
             this.$el.find('#datetimepicker').datetimepicker({
                 format: 'YYYY-MM-DD',
@@ -128,10 +128,12 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                 var channelId = ztreeClick.treeChanelid;
                 $('.content-right').append($('.broadcast_box').html());
                 $('.content-right .broadcast_show_box').eq(0).find('.broadcast_box_player').attr('id', 'flashContent0')
+                console.log("bus_id:" + deviceId)
                 var videoParams = '{"msg_type":17,"params":{"bus_id":' + deviceId + ',"channel_id":' + channelId + ',"index":' + index + ',"minutes":6}}';
                 video_socket.send(videoParams); //发送参数
             })
             this.$el.find('.search_date_btn').click(function () {
+                console.log(deviceId)
                 if (ztreeClick.treeChanelid != undefined) {
                     var search_date_val = self.$el.find('.datetimepicker').val();
                     if (search_date_val != '') {
@@ -152,7 +154,7 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                 }
             });
             var data_tree = [{
-                'id': 9999,
+                'id': 9990,
                 "channels": [{
                     "online": 0,
                     "channel_id": 1
@@ -470,6 +472,7 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                     //添加播放器盒子
                     ztreeClick.treeBusid = treeNode.getParentNode().id;
                     ztreeClick.treeChanelid = treeNode.id;
+                    deviceId=treeNode.getParentNode().id;
                     console.log(ztreeClick)
                 }
             };

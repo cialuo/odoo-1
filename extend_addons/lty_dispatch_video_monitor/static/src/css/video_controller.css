@@ -37,6 +37,7 @@
 .dispatch_desktop_video .content-right {
     width: 1680px;
     float: left;
+    padding-left: 20px;
 }
 
 .video_player .video_hide {
