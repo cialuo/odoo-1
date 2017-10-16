@@ -96,6 +96,17 @@
     width: 100%;
 }
 
+.please_deal_with{
+    position: absolute;
+    margin-top: 80px;
+    margin-left: 300px;
+    color:#317400;
+    font:28px/16px Georgia, "Times New Roman", Times, serif;
+    animation:'ani-name' 10s ease-in-out 2s 10 alternate;
+}
+.dis_none{
+    display: none;
+}
 .operate_cont .line_chart {
     width: 1080px;
     margin: 0 auto;
@@ -168,3 +179,11 @@
     font-size: 16px;
     margin-bottom: 20px;
 }
+/* .skin_yourclass{
+    background-color: #B9C7F1;
+    width: 400px;
+    height: 200px;
+    font-size: 28px;
+    line-height: 200px;
+    text-align: center;
+    } */

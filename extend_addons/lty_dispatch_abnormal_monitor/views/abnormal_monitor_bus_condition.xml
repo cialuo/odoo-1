@@ -1,37 +1,42 @@
 <openerp>
-  <data>
-    <record model="ir.actions.act_window" id="abnormal_monitor_bus_conditiony_paomao_yujing_action">
-      <field name="name">抛锚预警</field>
-      <field name="res_model">dispatch.abnormal.mgt</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-    <record model="ir.actions.act_window" id="abnormal_monitor_bus_condition_paomao_confirm_action">
-      <field name="name">抛锚确认</field>
-      <field name="res_model">dispatch.abnormal.mgt</field>
-      <field name="view_mode">tree,form</field>
-    </record> 
-    <record model="ir.actions.act_window" id="abnormal_monitor_bus_condition_weibao_guoqi_action">
-      <field name="name">维保过期认</field>
-      <field name="res_model">dispatch.abnormal.mgt</field>
-      <field name="view_mode">tree,form</field>
-    </record>  
-     <record model="ir.actions.act_window" id="abnormal_monitor_bus_condition_yaojian_guoqi_action">
-      <field name="name">要件期认</field>
-      <field name="res_model">dispatch.abnormal.mgt</field>
-      <field name="view_mode">tree,form</field>
-    </record>     
-      
-    
+    <data>
+        <record model="ir.actions.act_window" id="abnormal_monitor_bus_conditiony_paomao_yujing_action">
+            <field name="name">抛锚预警</field>
+            <field name="res_model">dispatch.abnormal.mgt</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('package_type', '=', '1015')]</field>
+        </record>
+        <record model="ir.actions.act_window" id="abnormal_monitor_bus_condition_paomao_confirm_action">
+            <field name="name">抛锚确认</field>
+            <field name="res_model">dispatch.abnormal.mgt</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('package_type', '=', '1015')]</field>
+        </record>
+        <record model="ir.actions.act_window" id="abnormal_monitor_bus_condition_weibao_guoqi_action">
+            <field name="name">维保过期</field>
+            <field name="res_model">dispatch.abnormal.mgt</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('package_type', '=', '*')]</field>
+        </record>
+        <record model="ir.actions.act_window" id="abnormal_monitor_bus_condition_yaojian_guoqi_action">
+            <field name="name">要件期认</field>
+            <field name="res_model">dispatch.abnormal.mgt</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('package_type', '=', '*')]</field>
+        </record>
 
-    <menuitem name="抛锚预警" id="abnormal_monitor_safty_paomao_yujing_menu" parent="lty_dispatch_abnormal_monitor_bus_condition"
-              action="abnormal_monitor_bus_conditiony_paomao_yujing_action" sequence="10"/>   
-    <menuitem name="抛锚确认" id="abnormal_monitor_safty_paomao_confirm_menu" parent="lty_dispatch_abnormal_monitor_bus_condition"
-              action="abnormal_monitor_bus_condition_paomao_confirm_action" sequence="10"/>      
-    <menuitem name="维保过期" id="abnormal_monitor_safty_weibao_guoqi_menu" parent="lty_dispatch_abnormal_monitor_bus_condition"
-              action="abnormal_monitor_bus_condition_weibao_guoqi_action" sequence="10"/>      
-    <menuitem name="要件过期" id="abnormal_monitor_safty_yaojian_guoqi_menu" parent="lty_dispatch_abnormal_monitor_bus_condition"
-              action="abnormal_monitor_bus_condition_yaojian_guoqi_action" sequence="10"/>                 
-                             
-    
-  </data>
+
+        <menuitem name="抛锚预警" id="abnormal_monitor_safty_paomao_yujing_menu"
+                  parent="lty_dispatch_abnormal_monitor_bus_condition"
+                  action="abnormal_monitor_bus_conditiony_paomao_yujing_action" sequence="10"/>
+        <menuitem name="抛锚确认" id="abnormal_monitor_safty_paomao_confirm_menu"
+                  parent="lty_dispatch_abnormal_monitor_bus_condition"
+                  action="abnormal_monitor_bus_condition_paomao_confirm_action" sequence="10"/>
+        <menuitem name="维保过期" id="abnormal_monitor_safty_weibao_guoqi_menu"
+                  parent="lty_dispatch_abnormal_monitor_bus_condition"
+                  action="abnormal_monitor_bus_condition_weibao_guoqi_action" sequence="10"/>
+        <menuitem name="要件过期" id="abnormal_monitor_safty_yaojian_guoqi_menu"
+                  parent="lty_dispatch_abnormal_monitor_bus_condition"
+                  action="abnormal_monitor_bus_condition_yaojian_guoqi_action" sequence="10"/>
+    </data>
 </openerp>

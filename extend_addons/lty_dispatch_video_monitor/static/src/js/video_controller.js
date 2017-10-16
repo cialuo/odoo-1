@@ -31,15 +31,16 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             var self = this;
             var channelType = 258;
             this.model_route_line.query().order_by('route_id').filter([["route_id", "!=", false]]).all().then(function (res) {
+                console.log(res)
                 var arr = [];
                 for (var i = 0; i < res.length; i++) {
-                    arr.push([res[i].route_id[0], [res[i].on_boardid]]);
+                    arr.push([res[i].route_id, [res[i].on_boardid]]);
                 }
                 var n = 0;
                 var newArr = [];
                 for (var j = 0; j < arr.length; j++) {
                     if (arr[j + 1] != undefined) {
-                        if (arr[j][0] != arr[j + 1][0]) {
+                        if (arr[j][0][0] != arr[j + 1][0][0]) {
                             newArr.push(arr.slice(n, j + 1));
                             n = j + 1;
                         } else {
@@ -89,8 +90,8 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                         );
                     }
                     arr_node.push({
-                        name: end_arr[m][0],
-                        id: end_arr[m][0],
+                        name: end_arr[m][0][1],
+                        id: end_arr[m][0][1],
                         children: arr_node_child
                     });
                 }
@@ -454,7 +455,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 var dom_chose = '#' + treeNode.tId + '_span';
                 //			webSocketVideo(channelType, deviceId, channeld)
                 //'{"msg_type":258,"params":{"bus_id":8000,"channel_id":0}}'
-                var deviceId = 8000;
+                var deviceId = 9990;
                 var channelId = -1;
                 $('.video_player.hide').removeClass('hide');
                 $('.content-right').html('');
