@@ -138,7 +138,7 @@
 										<field name="name"/>
 										<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
 										<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}" domain="[('category_id', '=', fault_category_id)]"/>
-										<field name="state"/>
+										<field name="state" readonly="1"/>
                                     </tree>
                                 </field>
                              </page>
@@ -282,16 +282,24 @@
                 <form string="MaintainRepair Form">
                 	<header>
 						<button string="Dispatch"
-								name="action_init_dispatch"
+								name="action_dispatch"
 								type="object"
 								states="wait_dispatch"
-								class="btn-primary"/>
+								context="{'is_change_method':0}"
+								class="btn-primary"/> <!--派工-->
 
 						<button name="action_start_repair" type="object"
                                 string="Start Repair"
 								states="wait_repair"
 								groups="vehicle_group.vehicle_repair"
                                 class="oe_highlight"/> <!-- 开工-->
+
+						<button string="Change Method"
+								name="action_dispatch"
+								type="object"
+								states="repair"
+								context="{'is_change_method':1}"
+								class="btn-primary"/> <!--更改维修方法-->
 
 						<button name="action_start_inspect" type="object"
                                 string="Start Inspect"
@@ -357,6 +365,24 @@
                                     </tree>
                                 </field>
                              </page>
+
+							 <page string="ChangeMethods" name="ChangeMethods">
+								 <field name="change_method_ids" readonly="1">
+									 <tree string="ChangeMethods" create="false" delete="false" open="false">
+
+										<field name="old_category_id"/>
+										<field name="old_appearance_id"/>
+										<field name="old_reason_id"/>
+										 <field name="old_method_id"/>
+										<field name="new_category_id"/>
+										<field name="new_appearance_id"/>
+										<field name="new_reason_id"/>
+										 <field name="new_method_id"/>
+										 <field name="user_id"/>
+										 <field name="create_date"/>
+                                    </tree>
+								 </field>
+							 </page>
 
 							 <page string="ProductLists" name="ProductLists">
                                 <field name="picking_ids">
@@ -425,7 +451,7 @@
             <field name="arch" type="xml">
                 <form string="MaintainRepair Form">
 					<sheet>
-						<notebook groups="vehicle_group.vehicle_dispatch">
+						<notebook groups="vehicle_group.vehicle_dispatch" invisible="context.get('is_change_method')">
 							<page string="MaintainRepair Jobs" >
                                 <field name="job_ids">
                                     <tree string="MaintainRepair Jobs" create="false" editable="bottom" open="false">
@@ -447,34 +473,48 @@
 
 						 <group col="2">
 	                        <group>
-								<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>
-								<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>
-								<field name="fault_reason_id" required="1" options="{'no_open':True,'no_create':True}" domain="['|',('appearance_id', '=', fault_appearance_id),('appearance_id', '=', False)]"/>
-								<field name="fault_method_id" required="1" options="{'no_open':True,'no_create':True}" domain="[('reason_id', '=', fault_reason_id)]"/>
+								<field name="fault_category_id" options="{'no_open':True,'no_create':True}"
+										readonly="context.get('is_change_method_readonly')"/>
+								<field name="fault_appearance_id"
+									   options="{'no_open':True,'no_create':True}"
+										readonly="context.get('is_change_method_readonly')"/>
+								<field name="fault_reason_id" required="1"
+									   options="{'no_open':True,'no_create':True}"
+									   domain="['|',('appearance_id', '=', fault_appearance_id),('appearance_id', '=', False)]"
+										readonly="context.get('is_change_method_readonly')"/>
+								<field name="fault_method_id" required="1"
+									   options="{'no_open':True,'no_create':True}"
+									   domain="[('reason_id', '=', fault_reason_id)]"
+									   readonly="context.get('is_change_method_readonly')"/>
 								<field name="work_time" groups="vehicle_group.vehicle_dispatch"/>
 								<field name="operation_manual" invisible="1"/>
 								<field name="inspect_standard" invisible="1"/>
+								<field name="vehicle_type" invisible="1"/>
 								<field name="vehicle_id" invisible="1"/>
 
 								<field name="warranty_deadline" attrs="{'invisible': [('return_repair_state', '=', 'no')]}"/>
-								<field name="return_repair_state" attrs="{'invisible': [('return_repair_state', '=', 'no')],
-																		  'required': [('return_repair_state','!=','no')]}"/>
+								<field name="return_repair_state"
+									   attrs="{'invisible': [('return_repair_state', '=', 'no')],'required': [('return_repair_state','!=','no')]}"
+									   readonly="context.get('is_change_method_readonly')"/>
 								<field name="return_repair_ids" options="{'no_open':True,'no_create':True}" widget="many2many_tags"
 									   			attrs="{'invisible': [('return_repair_state', '=', 'no')],'required': [('return_repair_state','=','yes')]}"
 												domain = "[('vehicle_id', '=', vehicle_id),
 													 ('state', '=', 'completed'),
 													 ('fault_method_id', '=', fault_method_id),
 													 ('end_inspect_time', '&gt;=',  (context_today() - datetime.timedelta(days=warranty_deadline)).strftime('%%Y-%%m-%%d'))
-													 ]"/>
+													 ]"
+												readonly="context.get('is_change_method_readonly')"/>
 
 								<field name="return_repair_names" readonly="1" attrs="{'invisible': [('return_repair_state', '=', 'no')]}"/>
 
-								<field name="return_repair_type" attrs="{'invisible': [('return_repair_state', '!=', 'yes')],
-																		'required': [('return_repair_state','=','yes')]}"/>
+								<field name="return_repair_type"
+									   attrs="{'invisible': [('return_repair_state', '!=', 'yes')],
+											 'required': [('return_repair_state','=','yes')]}"
+									   readonly="context.get('is_change_method_readonly')"/>
 
 
 	                        </group>
-	                        <group class="oe_edit_only" groups="vehicle_group.vehicle_dispatch">
+	                        <group class="oe_edit_only" groups="vehicle_group.vehicle_dispatch" invisible="context.get('is_change_method')">
 								<field name="plan_start_time"/>
 								<field name="plan_end_time"/>
 								<field name="fault_method_code" invisible="1"/>
@@ -497,12 +537,20 @@
 					</sheet>
 
 					<footer>
-                        <button string="Confirm" name="comfirm_dispatch" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Confirm"
+								name="comfirm_dispatch"
+								type="object"
+								context="{'is_change_method':context.get('is_change_method')}"
+								default_focus="1"
+								class="btn-primary"/>
                         <button string="Cancel" class="btn-default" special="cancel"/>
                     </footer>
                 </form>
             </field>
         </record>
+
+
+
 
 		<!-- MaintainInspect form view -->
         <record model="ir.ui.view" id="maintain_inspect_view_form">
@@ -593,7 +641,7 @@
 			<field name="name">maintain_repair_action</field>
 			<field name="res_model">maintain.manage.repair</field>
 			<field name="view_mode">tree,form</field>
-			<field name="domain">[('state', 'in', ['wait_dispatch','wait_repair','repair','inspect','completed'])]</field>
+			<!--<field name="domain">[('state', 'in', ['wait_dispatch','wait_repair','repair','inspect','completed'])]</field>-->
 			<field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('maintain_repair_view_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('maintain_repair_view_form')})]"/>
