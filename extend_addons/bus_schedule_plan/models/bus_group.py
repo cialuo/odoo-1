@@ -315,7 +315,8 @@ class BusGroupDriverVehicleShift(models.Model):
 
         _logger.info(u"班组管理人车配班同步时间:%s" % (str(next_use_date)))
 
-        res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '<', str(datetime.date.today()-timedelta(days=3)))])
+        res = self.env['bus_group_driver_vehicle_shift'].search(['|',('use_date', '<', str(datetime.date.today()-timedelta(days=2)))
+                                                                 ,('driver_id','=',False)])
 
         if res:
             res.write({'active': False})
