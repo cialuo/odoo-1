@@ -52,10 +52,10 @@
                                     <ul class="dropdown-menu operationNav set1" role="menu">
                                         <li><a class="back_to_the_field" href="javascript:;">手动回场</a></li>
                                         <li><a class="sign" href="javascript:;">签到</a></li>
-                                        <li><a class="start" href="javascript:;">发车</a></li>
+                                        <!-- <li><a class="start" href="javascript:;">发车</a></li> -->
                                         <li><a class="handle_exceptions" href="javascript:;">处理异常状态</a></li>
                                         <li><a class="schedule_a_return" href="javascript:;">安排回场任务</a></li>
-                                        <li><a class="can_line" href="javascript:;">CAN总线</a></li>
+                                        <!-- <li><a class="can_line" href="javascript:;">CAN总线</a></li> -->
                                     </ul>
                                 </div>
                                 <div class="scene scene1">

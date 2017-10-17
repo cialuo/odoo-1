@@ -11,7 +11,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
     var bus_site_info = require('lty_dispatch_desktop.bus_site_info');
     var bus_real_info = require('lty_dispatch_desktop_widget.bus_real_info');
     var passenger_flow = require('lty_dispatch_desktop_widget.passenger_flow');
-    var plan_display = require('lty_dispatch_desktop_widget.plan_display');
+    var plan_display = require('lty_dispatch_desktop_widget.plan_display').plan_display;
     //最原始车辆组件
     var dispatch_canvas = Widget.extend({
         template: 'dispatch_desktop',
@@ -190,7 +190,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                                         var oLeft = 1190 * (parseInt(res[i].stationNo)) / res_top.length;
                                                                     }
                                                                     self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px');
-                                                                    self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').html(res[i].onboard);
+                                                                    self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').attr("car_id", res[i].car_id).html(res[i].onboard);
                                                                 }
                                                             } else if (res[i].direction == 1) {
                                                                 if (res[i].stationFlag != 2) {
@@ -202,7 +202,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                                         var oLeft = 1190 - 1190 * (parseInt(res[i].stationNo)) / res_down_deal.length;
                                                                     }
                                                                     self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px');
-                                                                    self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').html(res[i].onboard);
+                                                                    self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').attr("car_id", res[i].car_id).html(res[i].onboard);
                                                                 }
                                                             }
                                                         }
@@ -430,7 +430,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             var oLeft = 1190 * (parseInt(data_use.data.stationNo)) / arg.site_top_infos.length;
                         }
                         self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').css('left', oLeft - 15 + 'px');
-                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').html(data_use.data.terminalNo);
+                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.terminalNo);
                     } else if (data_use.data.direction == 1) {
                         if (data_use.data.type == "in") {
                             self.$el.find('.content_car_road_down').append($('.run_car_hide').html());
@@ -440,7 +440,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             var oLeft = 1190 - 1190 * (parseInt(data_use.data.stationNo)) / arg.site_down_infos.length;
                         }
                         self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').css('left', oLeft - 15 + 'px');
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').html(data_use.data.terminalNo);
+                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.terminalNo);
                     }
                 }
                 data.busTopNumber = arg.busTopNumber;
@@ -600,6 +600,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         bus_info: function (e) {
             var car_num = e.currentTarget.getElementsByClassName("type_car")[0].children[0].textContent;
+            var car_id = e.currentTarget.getElementsByClassName("type_car")[0].children[0].getAttribute("car_id");
             var line_id = e.delegateTarget.getAttribute("line_id");
             var zIndex = parseInt(this.$el[0].style.zIndex) + 1;
             var options =
@@ -610,6 +611,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     line_id: line_id,
                     line_name: this.$el.attr("line_name"),
                     car_num: car_num,
+                    car_id: car_id,
                     controllerId: this.desktop_id
                 };
             // if (line_id != 1 || car_num != 1) {
