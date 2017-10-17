@@ -62,7 +62,7 @@ class Dashboard(models.Model):
         """
         for setting in self:
             action = setting.menu_id.action
-            if action and action['res_model'] == 'board.board' and action['views'][0][1] == 'form' and setting.view_ids:
+            if action and action['res_model'] == 'board.board' and action['views'][0][1] == 'form' and setting.view_ids and len(setting.view_ids) > 0:
                 view_id = action['views'][0][0]
                 board = self.env['board.board'].fields_view_get(view_id, 'form')
                 if board and 'arch' in board:
