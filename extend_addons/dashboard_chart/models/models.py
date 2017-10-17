@@ -48,7 +48,7 @@ class Dashboard(models.Model):
 
     name = fields.Char(required=True)
 
-    menu_id = fields.Many2one('ir.ui.menu',domain=[('sequence','=',-1),('name','ilike','Dashboard')],required=True)
+    menu_id = fields.Many2one('ir.ui.menu',domain=['&',('sequence','=',-1),('name','ilike',u'看板')],required=True)
 
     view_ids = fields.Many2many('dashboard.chart_views')
 
