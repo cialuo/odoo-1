@@ -21,7 +21,6 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'data/dashboard_setting_data.xml',
         'views/dashboard_views.xml',
         'views/dashboard_setting.xml',
         'views/employees_dashboard.xml',
@@ -29,6 +28,7 @@
         'views/security_dashboard.xml',
         'views/vehicle_dashboard.xml',
         'views/dashboard_menus.xml',
+        'data/dashboard_setting_data.xml',
     ],
     'installable': True,
     'application': True,

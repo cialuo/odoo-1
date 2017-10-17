@@ -38,3 +38,16 @@ class Dashboard(models.Model):
 
     view_id = fields.Many2many('dashboard.chart_views')
 
+    @api.multi
+    def using_board(self):
+        """
+
+            应用看板模板
+
+        :return:
+        """
+
+        print len(self)
+
+
+
