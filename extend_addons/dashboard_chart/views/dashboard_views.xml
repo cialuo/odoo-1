@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record model="ir.ui.view" id="chart_views_list">
+          <field name="name">Chart Views</field>
+          <field name="model">dashboard.chart_views</field>
+          <field name="arch" type="xml">
+            <tree create="0">
+              <field name="name"/>
+              <field name="str"/>
+              <field name="view_mode"/>
+              <field name="context"/>
+              <field name="domain"/>
+            </tree>
+          </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_chart_views">
+            <field name="name">Chart Views</field>
+            <field name="res_model">dashboard.chart_views</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+
+    </data>
+
+</odoo>
