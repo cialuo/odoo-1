@@ -8,7 +8,6 @@
           <field name="model">dashboard.chart_views</field>
           <field name="arch" type="xml">
             <tree create="0">
-              <field name="name"/>
               <field name="str"/>
               <field name="view_mode"/>
               <field name="context"/>

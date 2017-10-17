@@ -7,7 +7,7 @@
             <field name="model">board.board</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Session Dashboard">
+                <form string="board_view">
                     <board style="1-1">
                         <column>
                         </column>
@@ -27,13 +27,6 @@
               <div class="oe_empty_custom_dashboard">
                   <p>
                     <b>Your personal dashboard is empty.</b>
-                  </p><p>
-                    To add your first report into this dashboard, go to any
-                    menu, switch to list or graph view, and click <i>'Add to
-                    Dashboard'</i> in the extended search options.
-                  </p><p>
-                    You can filter and group data before inserting into the
-                    dashboard using the search options.
                   </p>
               </div>
           </field>

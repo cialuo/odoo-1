@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <data noupdate="0">
+    <data noupdate="1">
 
         <!--人力资源看板-->
         <record id="employees_board_setting_data" model="dashboard.board_setting">
             <field name="name">人力资源看板</field>
+            <field name="menu_id" ref="menu_ltyhr_board"/>
         </record>
 
         <!--车辆看板-->
         <record id="vehicle_board_setting_data" model="dashboard.board_setting">
             <field name="name">车辆管理看板</field>
+            <field name="menu_id" ref="menu_vehicle_manage_board"/>
         </record>
 
         <!--物资看板-->
         <record id="materials_board_setting_data" model="dashboard.board_setting">
             <field name="name">物资管理看板</field>
+            <field name="menu_id" ref="menu_materials_board"/>
         </record>
 
         <!--安全看板-->
         <record id="security_board_setting_data" model="dashboard.board_setting">
             <field name="name">安全管理看板</field>
+            <field name="menu_id" ref="menu_security_manage_board"/>
         </record>
 
 
