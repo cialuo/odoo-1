@@ -730,10 +730,6 @@ class BusWorkRules(models.Model):
         tomorrow = BusWorkRules.targetDate(0)+datetime.timedelta(hours=8)
         tomorrow_type = BusWorkRules.mapWeekDayStr(tomorrow.weekday())
         tomorrow_str = BusWorkRules.formatDateStr(tomorrow)
-        print u'规则服务器时间：'
-        print tomorrow
-        print u'时差：'
-        print self.local_utc()
         condition = [
             ("start_date", '<=', tomorrow_str), ("end_date", '>=', tomorrow_str),
             ("type", 'in', [tomorrow_type, "Vacation", "General"])
@@ -801,7 +797,8 @@ class BusWorkRules(models.Model):
         if len(res) == 0:
             return None
         else:
-            return res[0]   
+            return res[0]
+    #此方法在odoo下不起作用，写死8小时   
     def local_utc(self):
         #UTC时间转本地时间（+8:00）
         now_stamp = time.time()
