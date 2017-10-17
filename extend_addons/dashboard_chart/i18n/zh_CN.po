@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-17 07:19+0000\n"
-"PO-Revision-Date: 2017-10-17 15:23+0800\n"
+"POT-Creation-Date: 2017-10-17 08:27+0000\n"
+"PO-Revision-Date: 2017-10-17 16:28+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,12 @@ msgstr ""
 "Plural-Forms: \n"
 "Language: zh_CN\n"
 "X-Generator: Poedit 2.0.3\n"
+
+#. module: dashboard_chart
+#: code:addons/dashboard_chart/models/models.py:32
+#, python-format
+msgid "%sCited, deleted failed"
+msgstr "%s被引用,删除失败!"
 
 #. module: dashboard_chart
 #: model:ir.actions.act_window,help:dashboard_chart.open_board_employees
@@ -70,7 +76,7 @@ msgstr "看板名字"
 #: model:ir.model.fields,field_description:dashboard_chart.field_dashboard_board_setting_display_name
 #: model:ir.model.fields,field_description:dashboard_chart.field_dashboard_chart_views_display_name
 msgid "Display Name"
-msgstr "显示名字"
+msgstr "显示名称"
 
 #. module: dashboard_chart
 #: model:ir.model.fields,field_description:dashboard_chart.field_dashboard_chart_views_domain
@@ -116,7 +122,7 @@ msgstr "物资管理看板"
 #. module: dashboard_chart
 #: model:ir.model.fields,field_description:dashboard_chart.field_dashboard_board_setting_menu_id
 msgid "Menu id"
-msgstr "Menu id"
+msgstr "菜单"
 
 #. module: dashboard_chart
 #: model:ir.model.fields,field_description:dashboard_chart.field_dashboard_board_setting_name
@@ -131,31 +137,9 @@ msgid "Security Dashboard"
 msgstr "安全管理看板"
 
 #. module: dashboard_chart
-#: model:ir.ui.view,arch_db:dashboard_chart.board_employees_form
-#: model:ir.ui.view,arch_db:dashboard_chart.board_materials_form
-#: model:ir.ui.view,arch_db:dashboard_chart.board_security_form
-#: model:ir.ui.view,arch_db:dashboard_chart.board_vehicle_form
-msgid "Session Dashboard"
-msgstr "Session Dashboard"
-
-#. module: dashboard_chart
 #: model:ir.model.fields,field_description:dashboard_chart.field_dashboard_chart_views_str
 msgid "Str"
 msgstr "名字"
-
-#. module: dashboard_chart
-#: model:ir.actions.act_window,help:dashboard_chart.open_board_employees
-#: model:ir.actions.act_window,help:dashboard_chart.open_board_materials
-#: model:ir.actions.act_window,help:dashboard_chart.open_board_security
-#: model:ir.actions.act_window,help:dashboard_chart.open_board_vehicle
-msgid ""
-"To add your first report into this dashboard, go to any\n"
-"                    menu, switch to list or graph view, and click <i>'Add to\n"
-"                    Dashboard'</i> in the extended search options."
-msgstr ""
-"要添加第一个报表到这个仪表板，去任意\n"
-"菜单，切换到列表或图表视图，然后单击<I>“添加到\n"
-"仪表板“</I>在扩展的搜索选项。"
 
 #. module: dashboard_chart
 #: model:ir.actions.server,name:dashboard_chart.board_setting_action_server
@@ -179,16 +163,12 @@ msgid "View mode"
 msgstr "视图模式"
 
 #. module: dashboard_chart
-#: model:ir.actions.act_window,help:dashboard_chart.open_board_employees
-#: model:ir.actions.act_window,help:dashboard_chart.open_board_materials
-#: model:ir.actions.act_window,help:dashboard_chart.open_board_security
-#: model:ir.actions.act_window,help:dashboard_chart.open_board_vehicle
-msgid ""
-"You can filter and group data before inserting into the\n"
-"                    dashboard using the search options."
-msgstr ""
-"您可以使用搜索选项过滤或分组数据在添加到\n"
-"仪表板之前。"
+#: model:ir.ui.view,arch_db:dashboard_chart.board_employees_form
+#: model:ir.ui.view,arch_db:dashboard_chart.board_materials_form
+#: model:ir.ui.view,arch_db:dashboard_chart.board_security_form
+#: model:ir.ui.view,arch_db:dashboard_chart.board_vehicle_form
+msgid "board_view"
+msgstr "看板视图"
 
 #. module: dashboard_chart
 #: model:ir.ui.view,arch_db:dashboard_chart.dashboard_setting_form

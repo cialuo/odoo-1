@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from xml.etree import ElementTree
-from odoo import models,api,fields
+from odoo import models,api,fields,exceptions,_
 
 class ChartViews(models.Model):
 
@@ -21,6 +21,19 @@ class ChartViews(models.Model):
     context = fields.Char()
 
     domain = fields.Char()
+
+    @api.multi
+    def unlink(self):
+        boards = self.env['dashboard.board_setting'].search([])
+        # 重载删除方法
+        for item in self:
+                for board in boards:
+                    if board.view_ids.filtered(lambda r:r.id == item.id):
+                        raise exceptions.UserError(u'%s被引用,删除失败!' % (item.str))
+
+        return super(ChartViews, self).unlink()
+
+
 
 
 class Dashboard(models.Model):
