@@ -729,7 +729,10 @@ class BusWorkRules(models.Model):
         tomorrow = BusWorkRules.targetDate(1)+self.local_utc()
         tomorrow_type = BusWorkRules.mapWeekDayStr(tomorrow.weekday())
         tomorrow_str = BusWorkRules.formatDateStr(tomorrow)
+        print u'规则服务器时间：'
         print tomorrow
+        print u'时差：'
+        print self.local_utc()
         condition = [
             ("start_date", '<=', tomorrow_str), ("end_date", '>=', tomorrow_str),
             ("type", 'in', [tomorrow_type, "Vacation", "General"])
