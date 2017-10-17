@@ -475,6 +475,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                             }
                         }
                     } else {
+                        deviceId=treeNode.getParentNode().id;
                         //添加播放器盒子
                         channelId = 0;
                         $('.content-right').append($('.video_box').html());

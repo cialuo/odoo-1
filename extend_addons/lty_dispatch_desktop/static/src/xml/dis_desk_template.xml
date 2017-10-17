@@ -459,12 +459,12 @@
 						<div class="src_line_number"><t t-esc="widget.line_src.respose[0].lineName"></t></div>
 						<div>资源配备</div>
 					</div>
-					<div class="line_src">
-						<ul>
-							<li class="active">车辆资源</li>
-							<li>人力资源</li>
-						</ul>
-					</div>
+					<!--<div class="line_src">-->
+						<!--<ul>-->
+							<!--&lt;!&ndash;<li class="active">车辆资源</li>&ndash;&gt;-->
+							<!--&lt;!&ndash;<li>人力资源</li>&ndash;&gt;-->
+						<!--</ul>-->
+					<!--</div>-->
 					<div></div>
 				</div>
 			</div>

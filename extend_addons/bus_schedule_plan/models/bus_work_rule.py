@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, exceptions, _
 from odoo.exceptions import ValidationError
 import datetime
+import time
 import json
 import collections
 from utils import *
@@ -725,7 +726,8 @@ class BusWorkRules(models.Model):
         """
         rulemode = self.env['scheduleplan.schedulrule']
         datetypemode = self.env['bus_date_type']
-        tomorrow = BusWorkRules.targetDate(1)
+        #tomorrow = BusWorkRules.targetDate(1)+self.local_utc()
+        tomorrow = BusWorkRules.targetDate(0)+datetime.timedelta(hours=8)
         tomorrow_type = BusWorkRules.mapWeekDayStr(tomorrow.weekday())
         tomorrow_str = BusWorkRules.formatDateStr(tomorrow)
         condition = [
@@ -795,7 +797,15 @@ class BusWorkRules(models.Model):
         if len(res) == 0:
             return None
         else:
-            return res[0]          
+            return res[0]
+    #此方法在odoo下不起作用，写死8小时   
+    def local_utc(self):
+        #UTC时间转本地时间（+8:00）
+        now_stamp = time.time()
+        local_time = datetime.datetime.fromtimestamp(now_stamp)
+        utc_time = datetime.datetime.utcfromtimestamp(now_stamp)
+        offset = local_time - utc_time
+        return offset               
 
 class RuleBusArrangeUp(models.Model):
 
