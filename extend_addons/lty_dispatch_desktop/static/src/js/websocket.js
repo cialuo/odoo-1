@@ -42,7 +42,7 @@ websocket.onmessage = function (event) {
 
     if (modelName == "line_message") {
         use_odoo_model(event, "line_message");
-        if (eventObj.type == "1044"){
+        if (eventObj.type == "1044") {
             vehicle_drop(controllerObj, eventData);
         }
     } else if (modelName == "passenger_flow") {
@@ -152,97 +152,9 @@ function absnormal_del(controllerObj, data_list) {
     var dom = controllerObj.find('.updown_line_table[line_id=' + data_list.line_id + ']');
     var dom_singal = controllerObj.find('.dispatch_desktop[line_id=' + data_list.line_id + ']');
     if (dom.length > 0) {
-        dom.find('.no_absnormal').eq(0).show().siblings().hide();
-        var abnoraml_desc = $('body').find('.absnormal_diaodu .absnormal_type p');
-        //车辆掉线
         if (data_list.packageType == 1003) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '掉线');
-            dom_singal.find('.line_car[bus_no=' + data_list.abnormal_description.bus_no + ']').addClass('to_gray');
-            dom_singal.find('.show_signal_online span').html(parseInt(dom_singal.find('.show_signal_online span').html()) - 1);
-            dom_singal.find('.show_signal_outline span').html(parseInt(dom_singal.find('.show_signal_outline span').html()) + 1);
             vehicle_drop(controllerObj, data_list);
         }
-        else if (data_list.packageType == 1044) {
-            dom_singal.find('.line_car[bus_no=' + data_list.abnormal_description.bus_no + ']').removeClass('to_gray');
-        }
-        // 出勤异常
-        else if (data_list.packageType == 1004) {
-            abnoraml_desc.html('（员工）' + data_list.abnormal_description.staff_name + '：考勤异常');
-        }
-        // 到站准点异常
-        else if (data_list.packageType == 1005) {
-            abnoraml_desc.html(data_list.abnormal_description.bus_no + '到达站点：' + data_list.abnormal_description.station_name + '与' + data_list.abnormal_description.actual_time + '相差' + data_list.abnormal_description.diff_time);
-        }
-        // 到站预测准点异常
-        else if (data_list.packageType == 1006) {
-            abnoraml_desc.html(data_list.abnormal_description.bus_no + '到达站点：' + data_list.abnormal_description.station_name + '与' + data_list.abnormal_description.actual_time + '相差' + data_list.abnormal_description.diff_time);
-        }
-        // 趟次回场异常包
-        else if (data_list.packageType == 1007) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + ',回场停车时间为：' + data_list.abnormal_description.return_time + ',回场异常');
-        }
-        // 趟次回场严重异常
-        else if (data_list.packageType == 1008) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + ',回场停车时间为：' + data_list.abnormal_description.return_time + ',回场严重异常');
-        }
-        // 车越界行驶
-        else if (data_list.packageType == 1009) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '偏离路线');
-        }
-        // 异常滞留
-        else if (data_list.packageType == 1010) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '已在途中停车' + data_list.abnormal_description.bus_stop_time);
-        }
-        // 前车距离异常
-        else if (data_list.packageType == 1011) {
-            abnoraml_desc.html('前车辆' + data_list.abnormal_description.front_bus_no + '与后车' + data_list.abnormal_description.behind_bus_no + ',疑似串车/大间隔');
-        }
-        // 超速异常
-        else if (data_list.packageType == 1012) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '超速,最高时速为' + data_list.abnormal_description.highest_speed);
-        }
-        // 事故异常
-        else if (data_list.packageType == 1013) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '疑似发生事故');
-        }
-        // 扣车异常
-        else if (data_list.packageType == 1014) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_no + '疑似扣车');
-        }
-        // 抛锚预警
-        else if (data_list.packageType == 1015) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_no + '疑似抛锚');
-        }
-        // 提前或延后发车
-        else if (data_list.packageType == 1016) {
-            abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '提前发车,提前' + data_list.abnormal_description.advance_time + '分钟');
-        }
-        // 到点未发车
-        else if (data_list.packageType == 1017) {
-            if (data_list.abnormal_description.retention_time < 0) {
-                abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '到点未发车,滞后' + (-1*data_list.abnormal_description.retention_time) + '分钟');
-            } else if (data_list.abnormal_description.retention_time > 0) {
-                abnoraml_desc.html('车辆' + data_list.abnormal_description.bus_no + '员工' + data_list.abnormal_description.employee_name + '到点未发车,滞后' + data_list.abnormal_description.retention_time + '分钟');
-            }
-        }
-        // 意外高峰
-        else if (data_list.packageType == 1018) {
-            abnoraml_desc.html(data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外客流高峰');
-        }
-        // 时段意外低峰
-        else if (data_list.packageType == 1019) {
-            abnoraml_desc.html(data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外客流高峰');
-        }
-        // 站点意外高峰
-        else if (data_list.packageType == 1020) {
-            abnoraml_desc.html('站点' + data_list.abnormal_description.station + ',' + data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外高峰');
-        }
-        // 站点意外低峰
-        else if (data_list.packageType == 1021) {
-            abnoraml_desc.html('站点' + data_list.abnormal_description.station + ',' + data_list.abnormal_description.date_start + '到' + data_list.abnormal_description.date_end + '产生意外低峰');
-        }
-        $('body').find('.absnormal_diaodu .absnormal_sug p').html(data_list.suggest);
-        dom.addClass('warn').find('.passenger_flow_list').eq(0).find('.abs_info').append($('body').find('.absnormal_diaodu').html());
         var timer_carousel = sessionStorage.getItem('timer' + data_list.line_id);
         clearInterval(timer_carousel);
         dom.find('.carousel_content').addClass('abnormal_active');
@@ -278,7 +190,7 @@ function vehicle_drop(controllerObj, dataObj) {
         var vehicle = dom.find(".yard_box .content_tb tr[pid=" + abnormal_description.car_id + "]");
         if (vehicle.length > 0) {
             // if (dataObj.status != 0) {
-            if (dataObj.packageType ==1044){ 
+            if (dataObj.packageType == 1044) {
                 vehicle.find(".runState").attr('st', dataObj.status).removeClass("icon2_0").addClass("icon2_1");
                 return false;
             }
@@ -957,18 +869,18 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 
     // 异常状态更新
-    if (typeof dataObj.carStateId != "undefined"){
-        var class_name = "icon carStateIdIcon carStateIdIcon_"+dataObj.carStateId;
-        if (dataObj.carStateId == 0){
+    if (typeof dataObj.carStateId != "undefined") {
+        var class_name = "icon carStateIdIcon carStateIdIcon_" + dataObj.carStateId;
+        if (dataObj.carStateId == 0) {
             class_name += " disNoneIcon";
         }
         active_obj.find(".carStateIdIcon").attr("st", dataObj.carStateId).removeClass().addClass(class_name);
     }
 
     // 进场任务更新
-    if (typeof dataObj.task != "undefined"){
+    if (typeof dataObj.task != "undefined") {
         var class_name = "icon taskIcon";
-        if ($.inArray(dataObj.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012'])==-1){
+        if ($.inArray(dataObj.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012']) == -1) {
             class_name += " disNoneIcon";
         }
         active_obj.find(".taskIcon").attr("st", dataObj.task).removeClass().addClass(class_name);
@@ -1030,18 +942,18 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 
     // 异常状态更新
-    if (typeof dataObj.carStateId != "undefined"){
-        var class_name = "icon carStateIdIcon carStateIdIcon_"+dataObj.carStateId;
-        if (dataObj.carStateId == 0){
+    if (typeof dataObj.carStateId != "undefined") {
+        var class_name = "icon carStateIdIcon carStateIdIcon_" + dataObj.carStateId;
+        if (dataObj.carStateId == 0) {
             class_name += " disNoneIcon";
         }
         active_obj.find(".carStateIdIcon").attr("st", dataObj.carStateId).removeClass().addClass(class_name);
     }
 
     // 进场任务更新
-    if (typeof dataObj.task != "undefined"){
+    if (typeof dataObj.task != "undefined") {
         var class_name = "icon taskIcon";
-        if ($.inArray(dataObj.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012'])==-1){
+        if ($.inArray(dataObj.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012']) == -1) {
             class_name += " disNoneIcon";
         }
         active_obj.find(".taskIcon").attr("st", dataObj.task).removeClass().addClass(class_name);
@@ -1097,38 +1009,38 @@ function update_linePlanParkOnlineModel_load_fn() {
         var st = $(this).attr("st");
         if ($(this).hasClass("checkOut")) {
             txt = (st == 1) ? '已签到' : '未签到'
-        }else if ($(this).hasClass("runState")) {
+        } else if ($(this).hasClass("runState")) {
             txt = (st == 1) ? '在线' : '未在线'
-        }else if ($(this).hasClass("carStateIdIcon")){
-            if (st == 1001){
+        } else if ($(this).hasClass("carStateIdIcon")) {
+            if (st == 1001) {
                 txt = "正常";
-            }else if (st == 2003){
+            } else if (st == 2003) {
                 txt = "休息";
-            }else if (st == 1002){
+            } else if (st == 1002) {
                 txt = "故障";
-            }else if (st == 2006){
+            } else if (st == 2006) {
                 txt = "保养";
-            }else if (st == 2010){
+            } else if (st == 2010) {
                 txt = "空放";
-            }else if (st == 2005){
+            } else if (st == 2005) {
                 txt = "加油";
-            }else{
+            } else {
                 txt = "其它";
             }
-        }else if ($(this).hasClass("taskIcon")){
-            if (st == 1001){
+        } else if ($(this).hasClass("taskIcon")) {
+            if (st == 1001) {
                 txt = "进场包车开始";
-            }else if (st == 1002){
+            } else if (st == 1002) {
                 txt = "进场包车结束";
-            }else if (st == 1003){
+            } else if (st == 1003) {
                 txt = "进场加油开始";
-            }else if (st == 1004){
+            } else if (st == 1004) {
                 txt = "进场加油结束";
-            }else if (st == 1005){
+            } else if (st == 1005) {
                 txt = "进场修车开始";
-            }else if (st == 1006){
+            } else if (st == 1006) {
                 txt = "进场修车结束";
-            }else if (st == 1012){
+            } else if (st == 1012) {
                 txt = "进场下班，变机动";
             }
         }
@@ -1141,21 +1053,21 @@ function update_linePlanParkOnlineModel_load_fn() {
 function add_linePark(content_tb_obj, new_resource) {
     var carState_class = "disNoneIcon",
         task_class = "disNoneIcon";
-    if (new_resource.carStateId != 0){
+    if (new_resource.carStateId != 0) {
         carState_class = "";
     }
 
-    if ($.inArray(new_resource.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012'])!=-1){
+    if ($.inArray(new_resource.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012']) != -1) {
         task_class = "";
     }
 
     var obj_str =
-        '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).getTime()+ '" planReachTime="' + new Date(new_resource.realReachTime).getTime() + '">' +
+        '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).getTime() + '" planReachTime="' + new Date(new_resource.realReachTime).getTime() + '">' +
         '<td class="pL">' +
         '<span st="' + new_resource.checkOut + '" class="icon sendToScreen icon1_' + new_resource.checkOut + '"></span>' +
         '<span st="' + new_resource.runState + '" class="icon sendToBus icon2_' + new_resource.runState + '"></span>' +
-        '<span st="' + new_resource.carStateId + '" class="icon carStateIdIcon '+ carState_class +' carStateIdIcon_' + new_resource.carStateId + '"></span>' +
-        '<span st="' + new_resource.task + '" class="icon '+task_class+' taskIcon"></span>' +
+        '<span st="' + new_resource.carStateId + '" class="icon carStateIdIcon ' + carState_class + ' carStateIdIcon_' + new_resource.carStateId + '"></span>' +
+        '<span st="' + new_resource.task + '" class="icon ' + task_class + ' taskIcon"></span>' +
         '</td>' +
         '<td class="planRunTime">' +
         new Date(new_resource.planRunTime).toTimeString().slice(0, 5).replace("Inval", "") +
@@ -1200,11 +1112,11 @@ function add_linePark(content_tb_obj, new_resource) {
 function add_busTransit(content_tb_obj, new_resource) {
     var carState_class = "disNoneIcon",
         task_class = "disNoneIcon";
-    if (new_resource.carStateId != 0){
+    if (new_resource.carStateId != 0) {
         carState_class = "";
     }
 
-    if ($.inArray(new_resource.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012'])!=-1){
+    if ($.inArray(new_resource.task, ['1001', '1002', '1003', '1004', '1005', '1006', '1012']) != -1) {
         task_class = "";
     }
     var obj_str =
@@ -1212,8 +1124,8 @@ function add_busTransit(content_tb_obj, new_resource) {
         '<td class="pL">' +
         '<span st="' + new_resource.checkOut + '" class="icon sendToScreen icon1_' + new_resource.checkOut + '"></span>' +
         '<span st="' + new_resource.runState + '" class="icon sendToBus icon2_' + new_resource.runState + '"></span>' +
-        '<span st="' + new_resource.carStateId + '" class="icon carStateIdIcon '+ carState_class +' carStateIdIcon_' + new_resource.carStateId + '"></span>' +
-        '<span st="' + new_resource.task + '" class="icon '+task_class+' taskIcon"></span>' +
+        '<span st="' + new_resource.carStateId + '" class="icon carStateIdIcon ' + carState_class + ' carStateIdIcon_' + new_resource.carStateId + '"></span>' +
+        '<span st="' + new_resource.task + '" class="icon ' + task_class + ' taskIcon"></span>' +
         '</td>' +
         '<td class="planRunTime">' +
         new Date(new_resource.planRunTime).toTimeString().slice(0, 5).replace("Inval", "") +
