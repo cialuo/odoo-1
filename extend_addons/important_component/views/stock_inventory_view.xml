@@ -27,8 +27,11 @@
                     <group>
                         <field name="component_ids" nolabel="1" attrs="{'readonly': [('state', '=', 'done')]}">
                             <tree editable="top">
-                                <field name="code"/>
-                                <field name="location_id"/>
+                                <field name="code" attrs="{'readonly': [('type', '=', 'in_loc')]}"/>
+                                <field name="type" attrs="{'readonly': [('type', '=', 'in_loc')]}"/>
+                                <field name="qty" readonly="1"/>
+                                <field name="component_id" attrs="{'required': [('type', '=', 'in_loc')], 'readonly': [('type', '=', 'income')]}"
+                                       options="{'no_open': True, 'no_create': True}"/>
                             </tree>
                         </field>
                     </group>
