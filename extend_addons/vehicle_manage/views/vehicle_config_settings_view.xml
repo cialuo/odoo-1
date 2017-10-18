@@ -14,6 +14,7 @@
                         <field name="company_id" invisible="1"/>
                         <field name="work_fee"/>
                         <field name="average_day_number"/>
+                        <field name="mantain_ahead_day"/>
                     </group>
                     <group string="Maintenance settings" name="Maintenance settings">
                         <field name="maintenance_settings" widget="radio"/>

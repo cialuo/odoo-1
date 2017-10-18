@@ -45,12 +45,16 @@
                                 <field name="code"/>
                                 <field name="manhour"/>
                                 <field name="maintenance_time"/>
+                                <field name="quota_workhour"/>
+
                                 <field name="remark"/>
                             </group>
                             <group>
                                 <field name="create_uid" readonly="1"/>
                                 <field name="create_date" readonly="1"/>
                                 <field name="is_top_level" readonly="1"/>
+                                <field name="quota_cost"/>
+                                <field name="active_mileage"/>
                                 <field name="warranty_type" widget="radio" />
                                 <field name="warranty_level" attrs="{'invisible':[('warranty_type','=','warranty')] }" options="{'no_create': True, 'no_open': True}"/>
 
@@ -79,6 +83,7 @@
                                         <field name="name"/>
                                         <field name="code"/>
                                         <field name="manhour"/>
+                                        <field name="active_mileage"/>
                                     </tree>
                                 </field>
                                 <div class="oe_right">
