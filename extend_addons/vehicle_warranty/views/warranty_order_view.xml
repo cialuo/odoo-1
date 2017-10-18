@@ -92,9 +92,8 @@
             <field name="name">warranty.order.graph</field>
             <field name="model">warranty_order</field>
             <field name="arch" type="xml">
-                <graph string="Purchase Order">
+                <graph>
                     <field name="vehicle_id"/>
-                    <!--<field name="amount_total" type="measure"/>-->
                 </graph>
             </field>
         </record>
