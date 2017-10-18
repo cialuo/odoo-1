@@ -9,6 +9,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
     var Widget = require('web.Widget');
     var QWeb = core.qweb;
     var Model = require('web.Model');
+    var bus_real_info = require('lty_dispatch_desktop_widget.bus_real_info');
     // 线路
     var model_choseline = new Model('route_manage.route_manage');
     // 车辆
@@ -164,6 +165,33 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     }
                 })
             });
+            
+
+            // 查看车详情
+            // line_id: lineObj.find("option:selected").attr("t_id"),
+            // gprsId: lineObj.val(),
+            // onboardId: vehiclesObj.val(),
+            // inner_code: vehiclesObj.find("option:selected").attr("inner_code"),
+            // startTime: startTime.val(),
+            // endTime: endTime.val()
+            self.$(".map_work_content").on("click", ".vehicleMapMarker", function(e){
+                var inner_code = $(this).find(".carText").text();
+                var onBoardId = $(this).attr("onboardId");
+                var args = self.get_map_set_arg();
+                var options = {
+                    x: e.clientX + 5,
+                    y: e.clientY + 5 - 60,
+                    zIndex: 2,
+                    line_id: args.line_id,
+                    line_name: args.line_name,
+                    car_num: inner_code,
+                    onBoardId: onBoardId,
+                    controllerId: ""
+                };
+                $(".busRealStateModel").remove();
+                var dialog = new bus_real_info(self, options);
+                dialog.appendTo($("body"));
+            });
         },
         marker_stop_move: function(){
             for (var tem in VEHICLE_INFO_DICT){
@@ -267,7 +295,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     if (TARGET_VEHICLE){
                         if (TARGET_VEHICLE == vehicle.onboardId){
                             var marker = new AMap.Marker({
-                                content: self.get_content_fn(map, icon, ONBOARDID_INNERCODE_DICT[vehicle.onboardId.toString()]),
+                                content: self.get_content_fn(map, icon, vehicle.onboardId.toString()),
                                 position: [new_gps.lon, new_gps.lat],
                                 offset : new AMap.Pixel(-32,-16),
                                 autoRotation: true,
@@ -283,7 +311,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     }else{
                         if (index == 0 && !self.set_map_center){
                             var marker = new AMap.Marker({
-                                content: self.get_content_fn(map, icon, ONBOARDID_INNERCODE_DICT[vehicle.onboardId.toString()]),
+                                content: self.get_content_fn(map, icon, vehicle.onboardId.toString()),
                                 position: [new_gps.lon, new_gps.lat],
                                 offset : new AMap.Pixel(-32,-16),
                                 autoRotation: true,
@@ -317,11 +345,12 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 i++;
             },200)
         },
-        get_content_fn: function(map, icon, inner_code){
+        get_content_fn: function(map, icon, onboardId){
             var div = document.createElement('div');
             div.style.display = "block";
             div.className = "vehicleMapMarker";
-            if (ONBOARDID_INNERCODE_DICT[TARGET_VEHICLE] == inner_code){
+            div.setAttribute("onboardId", onboardId);
+            if (ONBOARDID_INNERCODE_DICT[onboardId] == TARGET_VEHICLE){
                 div.style.borderStyle = "solid";
                 div.style.borderColor = "#5acbff";
                 div.style.borderWidth = "2px";
@@ -336,12 +365,13 @@ odoo.define("electronic_map.electronic_map", function(require) {
             div.style.zIndex = '1';
             // 车辆编号
             var span = document.createElement("span");
+            span.className = "carText";
             span.style.lineHeight = "16px";
             span.style.position = "absolute";
             span.style.top = "-16px";
             span.style.textShadow = "-1px 0 #FFFFFF, 0 1px #FFFFFF,1px 0 #FFFFFF, 0 -1px #FFFFFF";
             span.style.color = "#58554e";
-            var text = document.createTextNode(inner_code);
+            var text = document.createTextNode(ONBOARDID_INNERCODE_DICT[onboardId]);
             span.appendChild(text);
             this.setUnselected(span);
             div.appendChild(span);
@@ -388,6 +418,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
             var endTime = this.$(".endTime");
             return {
                 line_id: lineObj.find("option:selected").attr("t_id"),
+                line_name: lineObj.find("option:selected").html(),
                 gprsId: lineObj.val(),
                 onboardId: vehiclesObj.val(),
                 inner_code: vehiclesObj.find("option:selected").attr("inner_code"),
