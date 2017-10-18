@@ -15,7 +15,7 @@ class WarrantyPlanOrder(models.Model): # 计划单
     license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True, readonly=True) # 车牌
 
     #fleet = fields.Char()  # 车队
-    fleet = fields.Many2one("hr.department", related='vehicle_id.company_id', store=True, readonly=True) # 车队
+    fleet = fields.Many2one("res.company", related='vehicle_id.company_id', store=True, readonly=True) # 车队
 
     operating_mileage = fields.Float(digits=(6, 1), string="Operating Mileage") # 运营里程
 
