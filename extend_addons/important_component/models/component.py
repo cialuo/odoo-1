@@ -123,7 +123,8 @@ class Component(models.Model):
             else:
                 component.odometer_progress = 0.0
 
-    _sql_constraints = [('code_uniq', 'unique (code)', u"部件编码已存在!")]
+
+    _sql_constraints = [('code_uniq', 'unique (code)', u"部件编码已存在，请重新生成")]
 
     @api.model
     def create(self, vals):
