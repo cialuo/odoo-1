@@ -305,7 +305,6 @@ odoo.define("electronic_map.electronic_map", function(require) {
             var w = marker_dom.style.borderWidth;
             var i = 0;
             var twinkleLineTimer = window.setInterval(function(){
-                debugger;
                 if (i>=8){
                     window.clearInterval(twinkleLineTimer);
                 }
@@ -321,6 +320,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
         get_content_fn: function(map, icon, inner_code){
             var div = document.createElement('div');
             div.style.display = "block";
+            div.className = "vehicleMapMarker";
             if (ONBOARDID_INNERCODE_DICT[TARGET_VEHICLE] == inner_code){
                 div.style.borderStyle = "solid";
                 div.style.borderColor = "#5acbff";
