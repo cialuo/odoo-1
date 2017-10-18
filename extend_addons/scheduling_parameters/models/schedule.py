@@ -345,7 +345,7 @@ class Platform(models.Model):
     """
 
     _sql_constraints = [
-        ('sequence_unique', 'unique(sequence, route_id, direction)', _('The sequence and route must be unique!'))
+        ('sequence_unique', 'unique(sequence, route_id, direction)', _(u'站序必须唯一!'))
     ] #站序，线路，方向必须唯一
 
     direction = fields.Selection([('up', 'up'),

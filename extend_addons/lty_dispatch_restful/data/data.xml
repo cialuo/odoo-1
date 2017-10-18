@@ -23,7 +23,7 @@
         </record>
         <record id="dispatch_video_service" model="ir.config_parameter">
             <field name="key">dispatch.video.service</field>
-            <field name="value"ws://220.231.189.27:9001</field>
+            <field name="value">ws://220.231.189.27:9001</field>
         </record>	
     </data>
 </odoo>

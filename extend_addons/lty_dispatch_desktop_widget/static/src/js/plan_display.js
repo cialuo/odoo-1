@@ -2121,5 +2121,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
         }
     });
 
-    return plan_display;
+    // return plan_display;
+    var exports = {
+        plan_display: plan_display,
+        manual_return_w: manual_return_w,
+        driver_check_in_w: driver_check_in_w,
+        error_state_w: error_state_w,
+        in_the_task_w: in_the_task_w,
+        send_short_msg_msg: send_short_msg_msg
+    }
+
+    return exports;
 });
