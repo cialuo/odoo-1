@@ -55,8 +55,32 @@ class Inventory(models.Model):
         """
         move = self.env['stock.move']
         component_obj = self.env['product.component']
+
+        def prepare_move(component_lines, loss=False):
+            move = self.env['stock.move']
+            for c in component_lines:
+                move_vals = {
+                    'product_id': c.product_id.id,
+                    'product_uom': c.product_id.product_uom_id,
+                    'location_dest_id': c.line_id.location_id.id,
+                    'name': c.code,
+                    'origin': c.line_id.inventory_id.name,
+                    'product_uom_qty': 1,
+                    'inventory_id': c.line_id.inventory_id.id,
+                }
+                if not loss:
+                    move_vals['location_id'] = self.env.ref('stock.location_inventory').id
+                    move_vals['location_dest_id'] = c.line_id.location_id.id
+                else:
+                    move_vals['location_dest_id'] = self.env.ref('stock.location_inventory').id
+                    move_vals['location_id'] = c.line_id.location_id.id
+                move_component = move.create(move_vals)
+
+
         # res = super(Inventory, self).action_done()
         for order in self:
+            # first remove the existing stock moves linked to this inventory
+            order.mapped('move_ids').unlink()
             components_line = order.line_ids.filtered(
                 lambda x: x.product_id.is_important and x.product_id.important_type == 'component')
             if any([i.product_qty != len(i.component_ids.filtered(lambda x: x.type != 'loss')) for i in components_line if i.product_qty > 0]):
@@ -64,22 +88,49 @@ class Inventory(models.Model):
             else:
 
                 for line in components_line:
-                    #需新增库存移动的部件清单
-                    new_to_move = line.component_ids.filtered(lambda x: not x.type=='income')
+                    #需新增库存移动的盘盈部件清单
+                    new_to_move = line.component_ids.filtered(lambda x: x.type=='income')
+                    #需要增加库存移动的盘亏部件清单
+                    loss_to_move = line.component_ids.filtered(lambda x: x.type=='loss')
+                    for component in loss_to_move:
+                        move_loss_vals = {
+                            'product_id': line.product_id.id,
+                            'product_uom': line.product_id.uom_id.id,
+                            'location_dest_id': self.env.ref('stock.location_inventory').id,
+                            'location_id': line.location_id.id,
+                            'name': component.code,
+                            'origin': order.name,
+                            'product_uom_qty': 1,
+                            'inventory_id': order.id,
+                        }
+                        move_component_loss = move.create(move_loss_vals)
+                        component.component_id.write({
+                            'active': False,
+                            'location_id': self.env.ref('stock.location_inventory').id,
+                            'state': None,
+                        })
+
                     #新增库存移动，重要部件
                     for component in new_to_move:
-
+                        move_vals = {
+                            'product_id': line.product_id.id,
+                            'product_uom': line.product_id.uom_id.id,
+                            'location_id': self.env.ref('stock.location_inventory').id,
+                            'location_dest_id': line.location_id.id,
+                            'name': component.code,
+                            'origin': order.name,
+                            'product_uom_qty': 1,
+                            'inventory_id': order.id,
+                        }
+                        move_component = move.create(move_vals)
                         component_vals = {
                             'product_id': line.product_id.id,
                             'code': component.code,
                             'location_id': line.location_id.id,
                             'state': 'avaliable',
-                            'move_id': move.id,
+                            'move_id': move_component.id,
                         }
                         new_component = component_obj.create(component_vals)
-                        move.write({'origin': new_component.code})
-            # first remove the existing stock moves linked to this inventory
-            order.mapped('move_ids').unlink()
             for normal_line in (order.line_ids - components_line):
                 # compare the checked quantities on inventory lines to the theorical one
                 stock_move = normal_line._generate_moves()
@@ -131,7 +182,7 @@ class InventoryLine(models.Model):
         :return: 
         """
         self.ensure_one()
-        self.write({'product_qty': len(self.component_ids)})
+        self.write({'product_qty': len(self.component_ids.filtered(lambda x: x.type != 'loss'))})
         return {'type': 'ir.actions.act_window_close'}
     @api.multi
     def action_line_component(self):

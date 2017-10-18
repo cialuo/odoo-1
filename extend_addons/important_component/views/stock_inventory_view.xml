@@ -26,12 +26,12 @@
                     </group>
                     <group>
                         <field name="component_ids" nolabel="1" attrs="{'readonly': [('state', '=', 'done')]}">
-                            <tree editable="top">
-                                <field name="code" attrs="{'readonly': [('type', '=', 'in_loc')]}"/>
-                                <field name="type" attrs="{'readonly': [('type', '=', 'in_loc')]}"/>
+                            <tree editable="bottom" delete="false">
+                                <field name="code" attrs="{'readonly': [('type', '!=', 'income')]}"/>
+                                <field name="type"/>
                                 <field name="qty" readonly="1"/>
-                                <field name="component_id" attrs="{'required': [('type', '=', 'in_loc')], 'readonly': [('type', '=', 'income')]}"
-                                       options="{'no_open': True, 'no_create': True}"/>
+                                <field name="component_id" attrs="{'required': [('type', '=', 'in_loc')]}"
+                                       options="{'no_open': True, 'no_create': True}" readonly="1"/>
                             </tree>
                         </field>
                     </group>
