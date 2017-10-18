@@ -460,6 +460,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 //车辆实时位置  分上下行已经进出站
                 if (data_use.data.packageType == "1044") {
                     self.$el.find('.line_car[bus_no=' + data_use.data.abnormal_description.bus_no + ']').removeClass('to_gray');
+                    self.$el.find('.show_signal_online span').html(parseInt(self.$el.find('.show_signal_online span').html()) + 1);
+                    self.$el.find('.show_signal_outline span').html(parseInt(self.$el.find('.show_signal_outline span').html()) - 1);
                 }
                 if (data_use.data.packageType == "1045") {
                     arg.busTopNumber = data_use.data.upFieldBusNum + '辆';
@@ -522,7 +524,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 var carObj = self.$('.content_car_road_down .car_line_down' + num).find('.line_car .type_car span').eq(i);
                                 html_c += '<div car_id='+carObj.attr("car_id")+'>' + carObj.html() + '</div>';
                             }
-                            self.$('.content_car_road_down .car_line_down' + num).append('<div class="same_car_show" style="left: ' + (parseFloat(self.$('.content_car_road_down .car_line_down' + num).find('.line_car').css('left')) - 50) + 'px">...</div><span style="display: none" class="data_same"></span>')
+                            self.$('.content_car_road_down .car_line_down' + num).append('<div class="same_car_show" style="left: ' + (parseFloat(self.$('.content_car_road_down .car_line_down' + num).find('.line_car').css('left')) + 15) + 'px">...</div><span style="display: none" class="data_same"></span>')
                             self.$('.content_car_road_down .car_line_down' + num).find('.data_same').html(html_c);
                         }
                     }
