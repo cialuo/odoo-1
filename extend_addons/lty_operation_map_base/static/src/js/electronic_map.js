@@ -634,7 +634,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     // 初始化地图线路
                     self.init_line_map(options.line_id);
                     // 初始化车辆位置-车辆就绪
-                    self.init_bus_location(ret[0], options.onboardId);
+                    self.init_bus_location(ret[0], options.inner_code);
                     // 视频播放时间
                     self.$(".video_progress .totalTime").html(self.init_play_time(ret.length));
                     // 视频初始化
@@ -802,6 +802,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 line_id: lineObj.find("option:selected").attr("t_id"),
                 gprsId: lineObj.val(),
                 onboardId: vehiclesObj.val(),
+                inner_code: vehiclesObj.find("option:selected").attr("inner_code"),
                 startTime: startTime.val(),
                 endTime: endTime.val()
             }
