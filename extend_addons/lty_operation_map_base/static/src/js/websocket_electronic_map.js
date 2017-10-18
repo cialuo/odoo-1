@@ -70,7 +70,7 @@ function update_vehicles_sockt(eventData){
     var new_gps = CONVERSIONS_GPS.gcj_encrypt(eventData.latitude, eventData.longitude);
     if (VEHICLE_INFO_DICT[eventData.terminalNo.toString()]){
         var carMap = VEHICLE_INFO_DICT[eventData.terminalNo.toString()];
-        carMap.moveTo(new AMap.LngLat(new_gps.lon, new_gps.lat), 5000);
+        carMap.moveTo(new AMap.LngLat(new_gps.lon, new_gps.lat), 300);
         update_icon(carMap, 1);
         if (eventData.terminalNo == TARGET_VEHICLE){
             target_vehicle_fn(carMap, new_gps.lon, new_gps.lat);
@@ -79,7 +79,7 @@ function update_vehicles_sockt(eventData){
         if (CARMAP){
             var icon = get_icon();
             var marker = new AMap.Marker({
-                content: get_content_fn(icon, eventData.terminalNo),
+                content: get_content_fn(icon, ONBOARDID_INNERCODE_DICT[eventData.terminalNo.toString()]),
                 position: [new_gps.lon, new_gps.lat],
                 offset : new AMap.Pixel(-32,-16),
                 autoRotation: true,
@@ -87,7 +87,7 @@ function update_vehicles_sockt(eventData){
             });
             VEHICLE_INFO_DICT[eventData.terminalNo.toString()] = marker;
             if (eventData.terminalNo.toString() == TARGET_VEHICLE){
-                target_vehicle_fn(marker, new_gps.lon, new_gps.lat);
+                target_vehicle_fn(marker, new_gps.lon, new_gps.lat, true);
             }
         }
     }
@@ -102,7 +102,7 @@ function get_icon(st){
     return icon;
 }
 
-function get_content_fn(icon, onboardId){
+function get_content_fn(icon, inner_code){
     var div = document.createElement('div');
     div.style.display = "block";
     div.style.borderStyle = "none";
@@ -119,7 +119,7 @@ function get_content_fn(icon, onboardId){
     span.style.top = "-16px";
     span.style.textShadow = "-1px 0 #FFFFFF, 0 1px #FFFFFF,1px 0 #FFFFFF, 0 -1px #FFFFFF";
     span.style.color = "#58554e";
-    var text = document.createTextNode(onboardId);
+    var text = document.createTextNode(inner_code);
     span.appendChild(text);
     setUnselected(span);
     div.appendChild(span);
@@ -155,10 +155,32 @@ function update_icon(map, st) {
         }
     }
 }
-function target_vehicle_fn(marker, longitude, latitude){
+function target_vehicle_fn(marker, longitude, latitude, is_flash){
     var dom = marker.getContent();
     dom.style.borderStyle = "solid";
     dom.style.borderColor = "#5acbff";
     dom.style.borderWidth = "2px";
     CARMAP.setCenter([longitude, latitude]);
+    if (is_flash){
+        map_vehicle_flash(marker)
+    }
+}
+
+// 目标车闪烁
+function map_vehicle_flash(marker){
+    var marker_dom = marker.getContent();
+    var w = marker_dom.style.borderWidth;
+    var i = 0;
+    var twinkleLineTimer = window.setInterval(function(){
+        if (i>=8){
+            window.clearInterval(twinkleLineTimer);
+        }
+        if (i%2){
+            w = "4px";
+        }else{
+            w = "2px";
+        }
+        marker_dom.style.borderWidth = w;
+        i++;
+    },200)
 }
