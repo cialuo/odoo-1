@@ -17,7 +17,7 @@ class Area(models.Model):
 
     name = fields.Char('Area name', required=True)  # 区域名称
     code = fields.Char('Area code', required=True) # 区域编码
-    road_ids = fields.One2many('opertation_resources_road', 'area_id', ondelete='cascade', string="Road lists") # 所辖道路
+    road_ids = fields.One2many('opertation_resources_road', 'area_id', ondelete='restrict', string="Road lists") # 所辖道路
 
     state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
                              default='inuse', string='area_state', readonly=True)  # 状态
@@ -48,8 +48,8 @@ class Road(models.Model):
     ]
     name = fields.Char('Road name', required=True)  # 道路名称
     code = fields.Char('Road code', required=True) # 道路编码
-    area_id = fields.Many2one('opertation_resources_area', ondelete='cascade', string='Area', required=True) # 区域
-    station_ids = fields.One2many("opertation_resources_station", 'road_id', string="Station lists")
+    area_id = fields.Many2one('opertation_resources_area', ondelete='restrict', string='Area', required=True) # 区域
+    station_ids = fields.One2many("opertation_resources_station", 'road_id', ondelete='cascade', string="Station lists")
     state = fields.Selection([('inuse', 'In-use'),('archive', 'Archive')],
                              default='inuse', string='road_state', readonly=True)  # 状态
     active = fields.Boolean(default=True)
@@ -80,7 +80,7 @@ class Station(models.Model):
     """
     name = fields.Char('Station Name', required=True) # 站台名称
     code = fields.Char('Station Code', required=True) # 站台编号
-    road_id = fields.Many2one('opertation_resources_road', ondelete='cascade', string='Road Choose', required=True)
+    road_id = fields.Many2one('opertation_resources_road', ondelete='restrict', string='Road Choose', required=True)
 
     longitude = fields.Float(digits=(10, 6), string="longitude")  # 经度
     latitude = fields.Float(digits=(10, 6), string="latitude") # 纬度
@@ -100,7 +100,7 @@ class Station(models.Model):
     active = fields.Boolean(default=True)
 
     route_ids = fields.Many2many('route_manage.route_manage', 'opertation_resources_station_rel',
-                                 'station_id', 'route_station_id', 'Station Routes')
+                                 'station_id', 'route_station_id', 'Station Routes', ondelete='restrict')
 
     address = fields.Char() #地址
     nearby = fields.Char() #附近
@@ -173,23 +173,23 @@ class route_manage(models.Model):
     # station_down_ids = fields.One2many('opertation_resources_station_down', 'route_id', string='StationDowns')
 
     station_up_ids = fields.One2many('opertation_resources_station_platform', 'route_id', string='StationUps',
-                                     domain=[('direction', '=', 'up')])
+                                     domain=[('direction', '=', 'up')] , ondelete='restrict')
     station_down_ids = fields.One2many('opertation_resources_station_platform', 'route_id', string='StationDowns',
-                                     domain=[('direction', '=', 'down')])
+                                     domain=[('direction', '=', 'down')], ondelete='restrict')
 
     up_first_time = fields.Char('up_first_time', required=True, default='06:00') # 上行首班时间
     up_end_time = fields.Char('up_end_time', required=True, default='22:00')  # 上行首班时间
     down_first_time = fields.Char('down_first_time', required=True, default='06:30')  # 下行首班时间
     down_end_time = fields.Char('down_end_time', required=True, default='22:30')  # 下行首班时间
-    up_station = fields.Many2one('opertation_resources_station', ondelete='cascade',
+    up_station = fields.Many2one('opertation_resources_station', ondelete='restrict',
                                  compute='_get_station_up_first')  # 上行车场
-    down_station = fields.Many2one('opertation_resources_station', ondelete='cascade',
+    down_station = fields.Many2one('opertation_resources_station', ondelete='restrict',
                                    compute='_get_station_down_first')  # 下行车场
     mileage = fields.Float(digits=(10, 2), required=True)  #里程
     speed = fields.Float("Speed(km/h)", digits=(10, 2))  #速度
 
     station_route_ids = fields.Many2many('opertation_resources_station', 'opertation_resources_station_rel',
-                                        'route_station_id', 'station_id', 'Stations')
+                                        'route_station_id', 'station_id', 'Stations', ondelete='restrict')
 
     child_route_ids = fields.One2many('route_manage.route_manage', 'main_line_id', string='ChildRoutes')
 
@@ -352,9 +352,9 @@ class Platform(models.Model):
                                  ('down', 'down')], default='up')
 
     sequence = fields.Integer("Station Sequence", default=2, required=True)
-    route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
+    route_id = fields.Many2one('route_manage.route_manage', ondelete='restrict', string='Route Choose', required=True)
     gprs_id = fields.Integer('code', related='route_id.gprs_id', required=True)  # 线路编码
-    station_id = fields.Many2one('opertation_resources_station', ondelete='cascade', string='Station Choose',
+    station_id = fields.Many2one('opertation_resources_station', ondelete='restrict', string='Station Choose',
                                  required=True)
     entrance_azimuth = fields.Integer('Entrance azimuth', related='station_id.entrance_azimuth', readonly=True) # 进站方位角
     entrance_longitude = fields.Float(digits=(10, 6), string='Entrance longitude',
