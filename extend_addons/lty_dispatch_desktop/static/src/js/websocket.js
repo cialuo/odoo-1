@@ -234,7 +234,7 @@ function busRealStateModel_map(dom, gps) {
     var new_gps = CONVERSIONS_GPS.gcj_encrypt(gps.latitude, gps.longitude);
 
     if (socket_model_api_obj.busRealStateModel_marker) {
-        socket_model_api_obj.busRealStateModel_marker.setPosition(new AMap.LngLat(gps.latitude, gps.longitude));
+        socket_model_api_obj.busRealStateModel_marker.setPosition(new AMap.LngLat(new_gps.lon, new_gps.lat));
     } else {
         var mapObj = new AMap.Map(dom, {zoom: 14, center: [new_gps.lon, new_gps.lat]});
         var marker = new AMap.Marker({
