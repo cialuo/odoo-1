@@ -277,7 +277,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                             VEHICLE_INFO_DICT[vehicle.onboardId.toString()] = marker;
                             self.init_map_pos = [new_gps.lon, new_gps.lat];
                             self.init_map_center(map);
-                            self.map_vehicle_flash(map, marker);
+                            self.map_vehicle_flash(marker);
                             return false;
                         }
                     }else{
@@ -305,6 +305,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
             var w = marker_dom.style.borderWidth;
             var i = 0;
             var twinkleLineTimer = window.setInterval(function(){
+                debugger;
                 if (i>=8){
                     window.clearInterval(twinkleLineTimer);
                 }
@@ -320,7 +321,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
         get_content_fn: function(map, icon, inner_code){
             var div = document.createElement('div');
             div.style.display = "block";
-            if (TARGET_VEHICLE == inner_code){
+            if (ONBOARDID_INNERCODE_DICT[TARGET_VEHICLE] == inner_code){
                 div.style.borderStyle = "solid";
                 div.style.borderColor = "#5acbff";
                 div.style.borderWidth = "2px";
