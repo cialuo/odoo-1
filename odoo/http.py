@@ -1349,7 +1349,8 @@ class Root(object):
 
     def setup_session(self, httprequest):
         # recover or create session
-        session_gc(self.session_store)
+        if self.session_store.path != None:
+            session_gc(self.session_store)
 
         sid = httprequest.args.get('session_id')
         explicit_session = True

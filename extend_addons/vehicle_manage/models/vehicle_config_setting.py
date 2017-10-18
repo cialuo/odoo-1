@@ -12,6 +12,8 @@ class Company(models.Model):
 
     maintenance_settings = fields.Selection([('control','Control Number'),('uncontrol','UNControl Number')],default='uncontrol',string='maintenance_settings_field')
 
+    mantain_ahead_day = fields.Integer(string="mantain ahead day")
+
 class VehicleSettings(models.TransientModel):
     _name = 'vehicle.config.settings'
     _inherit = 'res.config.settings'
@@ -20,6 +22,8 @@ class VehicleSettings(models.TransientModel):
     work_fee = fields.Float(related='company_id.work_fee', default=50)
     average_day_number = fields.Integer(related='company_id.average_day_number', default=30,string='Average Day Number')
     maintenance_settings = fields.Selection(related='company_id.maintenance_settings', default='uncontrol',string='maintenance_settings_field')
+    # 提前生成维保天数
+    mantain_ahead_day = fields.Integer(related='company_id.mantain_ahead_day', default=7)
 
     @api.multi
     def execute(self):
