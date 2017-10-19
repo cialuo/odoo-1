@@ -60,7 +60,155 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
         events: {
             'click .manual': 'manual_process',
             'click .finishBtn .is_check': 'process_chchk',
-            'click .min': 'closeFn'
+            'click .min': 'closeFn',
+            'click .abnormal_ignore': 'abnormal_ignore',
+            'click .abnormal_agree': 'abnormal_agree',
+            'click .abnormal_refuse': 'abnormal_refuse',
+            'click .is_ignore': 'is_ignore',
+            'click .is_agree': 'is_agree',
+            'click .is_refuse': 'is_refuse',
+            'click .not_ignore': 'not_ignore',
+            'click .not_agree': 'not_agree',
+            'click .not_refuse': 'not_refuse',
+
+        },
+        is_refuse: function (event) {
+            stopPropagation(event);
+            var send_id = parseInt(this.$el.find('.abs_info .absnormal_height .man_deal').eq(0).attr('id'));
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/exchange/processCommand?apikey=71029270&params={warningId:' + send_id + ',agreeTypeId:2}',
+                type: 'put',
+                dataType: 'json',
+                data: {},
+                success: function (res) {
+                    layer.msg(res.respose.text);
+                }
+            });
+            this.$el.find('.abs_info .absnormal_height').eq(0).remove();
+            if (this.$el.find('.abs_info .absnormal_height').length < 1) {
+                $(x_comp).parent().hide().siblings('.handleBtn').show();
+                this.$el.removeClass('warn');
+                this.$el.find('.normal').show().siblings().hide();
+                var content = '.' + this.$el.find('.carousel_content')[0].className;
+                carousel({
+                    content: content,
+                    self: this
+                });
+            }
+            else {
+                this.$el.find('.carousel_content').addClass('abnormal_active');
+                $(x_comp).parent().hide().siblings('.handleBtn').show();
+                if (this.$el.find('.abs_info .absnormal_height p').eq(0).hasClass('man_deal')) {
+                    $(x_comp).parent().siblings('.handleBtn').find('button').removeAttr('disabled');
+                } else {
+                    $(x_comp).parent().siblings('.handleBtn').find('button').attr('disabled', 'disabled');
+                }
+            }
+        },
+        is_agree: function (event) {
+            stopPropagation(event);
+            var x_comp = event.currentTarget;
+            var send_id = parseInt(this.$el.find('.abs_info .absnormal_height .man_deal').eq(0).attr('id'));
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/exchange/processCommand?apikey=71029270&params={warningId:' + send_id + ',agreeTypeId:3}',
+                type: 'put',
+                dataType: 'json',
+                data: {},
+                success: function (res) {
+                    layer.msg(res.respose.text);
+                }
+            });
+            this.$el.find('.abs_info .absnormal_height').eq(0).remove();
+            if (this.$el.find('.abs_info .absnormal_height').length < 1) {
+                $(x_comp).parent().hide().siblings('.handleBtn').show();
+                this.$el.removeClass('warn');
+                this.$el.find('.normal').show().siblings().hide();
+                var content = '.' + this.$el.find('.carousel_content')[0].className;
+                carousel({
+                    content: content,
+                    self: this
+                });
+            }
+            else {
+                this.$el.find('.carousel_content').addClass('abnormal_active');
+                $(x_comp).parent().hide().siblings('.handleBtn').show();
+                if (this.$el.find('.abs_info .absnormal_height p').eq(0).hasClass('man_deal')) {
+                    $(x_comp).parent().siblings('.handleBtn').find('button').removeAttr('disabled');
+                } else {
+                    $(x_comp).parent().siblings('.handleBtn').find('button').attr('disabled', 'disabled');
+                }
+            }
+        },
+        not_ignore: function (event) {
+            stopPropagation(event);
+            var x_deal = event.currentTarget;
+            $(x_deal).parent().siblings('.abs_info').find('.absnormal_sug h4').eq(0).removeClass('toRed').html('建议');
+            $(x_deal).parent().hide().siblings('.handleBtn').show();
+        },
+        not_agree: function (event) {
+            stopPropagation(event);
+            var x_deal = event.currentTarget;
+            $(x_deal).parent().siblings('.abs_info').find('.absnormal_sug h4').eq(0).removeClass('toRed').html('建议');
+            $(x_deal).parent().hide().siblings('.handleBtn').show();
+        },
+        not_refuse: function (event) {
+            stopPropagation(event);
+            var x_deal = event.currentTarget;
+            $(x_deal).parent().siblings('.abs_info').find('.absnormal_sug h4').eq(0).removeClass('toRed').html('建议');
+            $(x_deal).parent().hide().siblings('.handleBtn').show();
+        },
+        is_ignore: function (event) {
+            stopPropagation(event);
+            var x_comp = event.currentTarget;
+            this.$el.find('.carousel_content.abnormal_active').removeClass('abnormal_active');
+            var send_id = parseInt(this.$el.find('.abs_info .absnormal_height .man_deal').eq(0).attr('id'));
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/exchange/processCommand?apikey=71029270&params={warningId:' + send_id + ',agreeTypeId:1}',
+                type: 'put',
+                dataType: 'json',
+                data: {},
+                success: function (res) {
+                    layer.msg(res.respose.text);
+                }
+            });
+            this.$el.find('.abs_info .absnormal_height').eq(0).remove();
+            if (this.$el.find('.abs_info .absnormal_height').length < 1) {
+                $(x_comp).parent().hide().siblings('.handleBtn').show();
+                this.$el.removeClass('warn');
+                this.$el.find('.normal').show().siblings().hide();
+                var content = '.' + this.$el.find('.carousel_content')[0].className;
+                carousel({
+                    content: content,
+                    self: this
+                });
+            }
+            else {
+                this.$el.find('.carousel_content').addClass('abnormal_active');
+                $(x_comp).parent().hide().siblings('.handleBtn').show();
+                if (this.$el.find('.abs_info .absnormal_height p').eq(0).hasClass('man_deal')) {
+                    $(x_comp).parent().siblings('.handleBtn').find('button').removeAttr('disabled');
+                } else {
+                    $(x_comp).parent().siblings('.handleBtn').find('button').attr('disabled', 'disabled');
+                }
+            }
+        },
+        abnormal_ignore: function (event) {
+            stopPropagation(event);
+            var x_deal = event.currentTarget;
+            $(x_deal).parent().siblings('.abs_info').find('.absnormal_sug h4').eq(0).addClass('toRed').html('确定要忽略这个异常？');
+            $(x_deal).parent().hide().siblings('.ignore_btn').show();
+        },
+        abnormal_agree: function (event) {
+            stopPropagation(event);
+            var x_deal = event.currentTarget;
+            $(x_deal).parent().siblings('.abs_info').find('.absnormal_sug h4').eq(0).addClass('toRed').html('确定要同意这个异常吗？');
+            $(x_deal).parent().hide().siblings('.agree_btn').show();
+        },
+        abnormal_refuse: function (event) {
+            stopPropagation(event);
+            var x_deal = event.currentTarget;
+            $(x_deal).parent().siblings('.abs_info').find('.absnormal_sug h4').eq(0).addClass('toRed').html('确定要同意这个异常吗？');
+            $(x_deal).parent().hide().siblings('.refuse_btn').show();
         },
         abnormal_save: function (datalist, arg) {
             var self = arg.self;
@@ -74,7 +222,9 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 var dom_singal = $('body').find('.dispatch_desktop[line_id=' + data_use.line_id + ']');
                 dom.find('.no_absnormal').eq(0).show().siblings().hide();
                 var abnoraml_desc = $('body').find('.absnormal_diaodu .absnormal_type p');
+                abnoraml_desc.removeClass('man_deal');
                 //车辆掉线
+                self.$el.find('.handleBtn').find('button').attr('disabled', 'disabled');
                 if (data_use.data.packageType == 1003) {
                     abnoraml_desc.html('车辆' + data_use.data.abnormal_description.bus_no + '掉线');
                     dom_singal.find('.line_car[bus_no=' + data_use.data.abnormal_description.bus_no + ']').addClass('to_gray');
@@ -119,7 +269,12 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 }
                 // 事故异常
                 else if (data_use.data.packageType == 1013) {
-                    abnoraml_desc.html('车辆' + data_use.data.abnormal_description.bus_no + '员工' + data_use.data.abnormal_description.employee_name + '疑似发生事故');
+                    abnoraml_desc.html('车辆' + data_use.data.abnormal_description.bus_no + '员工' + data_use.data.abnormal_description.employee_name + data_use.data.abnormal_description.log_text).addClass('man_deal').attr('id', data_use.data.abnormal_description.id);
+                    if (self.$el.find('.passenger_flow_list .abs_info .absnormal_height').eq(0).length > 0) {
+                        self.$el.find('.handleBtn').find('button').attr('disabled', 'disabled');
+                    } else {
+                        self.$el.find('.handleBtn').find('button').removeAttr('disabled');
+                    }
                 }
                 // 扣车异常
                 else if (data_use.data.packageType == 1014) {
@@ -245,6 +400,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 $(x_comp).parent().hide().siblings('.handleBtn').show();
                 this.$el.removeClass('warn');
                 this.$el.find('.normal').show().siblings().hide();
+                $(x_comp).parent().siblings('.handleBtn').find('button').attr('disabled', 'disabled');
                 var content = '.' + this.$el.find('.carousel_content')[0].className;
                 carousel({
                     content: content,
@@ -253,7 +409,15 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
             }
             else {
                 this.$el.find('.carousel_content').addClass('abnormal_active');
-                $(x_comp).parent().hide().siblings().show();
+                $(x_comp).parent().hide().siblings('.handleBtn').show();
+                if (this.$el.find('.abs_info .absnormal_height p').eq(0).hasClass('man_deal')) {
+                    $(x_comp).parent().siblings('.handleBtn').find('button').removeAttr('disabled');
+                } else {
+                    $(x_comp).parent().siblings('.handleBtn').find('button').attr('disabled', 'disabled');
+                }
+                // if(){
+                //
+                // }
             }
         }
     });

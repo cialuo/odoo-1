@@ -331,7 +331,8 @@
     top: 0px;
     cursor: pointer;
 }
-.dispatch_desktop .car_div{
+
+.dispatch_desktop .car_div {
     float: right;
     text-align: center;
     cursor: pointer;
@@ -383,7 +384,7 @@
 }
 
 .updown_line_table .absnormal_operate {
-    width: 210px;
+    width: 240px;
 }
 
 .updown_line_table .absnormal_operate p {
@@ -401,6 +402,22 @@
     display: none;
 }
 
+.no_absnormal .ignore_btn {
+    display: none;
+}
+
+.no_absnormal .agree_btn {
+    display: none;
+}
+
+.no_absnormal .refuse_btn {
+    display: none;
+}
+
+.toRed {
+    color: #cb413c;
+}
+
 .updown_line_table .no_absnormal {
     display: none;
 }
@@ -409,11 +426,11 @@
     color: #4ecfc7;
 }
 
-.updown_line_table .handleBtn a, .updown_line_table .finishBtn a {
+.updown_line_table .handleBtn a, .updown_line_table .finishBtn a, .ignore_btn a, .agree_btn a, .refuse_btn a{
     display: block;
     float: left;
     color: #cb413c;
-    width: 64px;
+    width: 54px;
     height: 24px;
     border: 1px solid #cb413c;
     border-radius: 4px;
@@ -422,6 +439,24 @@
     font-size: 14px;
     margin-right: 6px;
     cursor: pointer;
+}
+
+.handleBtn button {
+    background: none;
+    border: 1px solid;
+    border-radius: 4px;
+}
+
+.handleBtn button[disabled='disabled'] {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #ccc;
+}
+
+.handleBtn button {
+    color: #cb413c;
+    border-color: #cb413c;
 }
 
 .updown_line_table .real_time_process {
@@ -594,7 +629,6 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
 
 }
 
-
 .modal.config modal-body {
     height: 540px;
 }
@@ -610,12 +644,15 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
         border-radius: 8px;
     }
 }
-.modal.config dd span,.modal.config dd div:first-of-type{
+
+.modal.config dd span, .modal.config dd div:first-of-type {
     margin-left: 20px;
 }
-.modal.config dt{
+
+.modal.config dt {
     margin-bottom: 8px;
 }
+
 .modal.config .src_font_color {
     margin-left: 180px;
 }
@@ -628,7 +665,8 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
 .modal.config .modal-header {
     border: none;
 }
-.same_car_show{
+
+.same_car_show {
     position: absolute;
     width: 50px;
     height: 15px;
@@ -637,9 +675,18 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     cursor: pointer;
     text-align: right;
 }
-.same_car_show>div {
+
+.content_car_road_down .same_car_show {
+    text-align: left;
+}
+
+.same_car_show > div {
     position: absolute;
     right: 0;
+}
+
+.content_car_road_down .same_car_show > div {
+    left: 0;
 }
 
 .modal.config .modal-footer .btn-primary {
