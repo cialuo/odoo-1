@@ -171,8 +171,8 @@ class BusWorkRules(models.Model):
             update['downtimearrange'] = data['tdown']
         self.write(update)
 
-    @staticmethod
-    def _validateVehicleNums(obj):
+    @api.multi
+    def _validateVehicleNums(self, obj):
         vcount = 0
         for item in obj.upplanvehiclearrange:
             vcount += item.allvehicles
@@ -183,6 +183,20 @@ class BusWorkRules(models.Model):
 
         if vcount > obj.bus_number:
             raise ValidationError(_("vechile count large then vehicle number"))
+
+        # odoo-138 车型对应的辆数是否匹配
+        for up_item in obj.upplanvehiclearrange:
+            count = up_item.allvehicles
+            if obj.schedule_method == 'dubleway':
+                for down_item in obj.downplanvehiclearrange:
+                    if up_item.vehiclemode.id == down_item.vehiclemode.id:
+                        count += down_item.allvehicles
+
+            usable_count = self.env['fleet.vehicle'].search_count(
+                    [('route_id', '=', self.line_id.id), ('model_id', '=', up_item.vehiclemode.id)])
+            if count > usable_count:
+                raise ValidationError(_(u'"%s"车型的配置数量(%s辆),超过可用车数(%s辆).' % (up_item.vehiclemode.name_get()[0][1], count, usable_count)))
+
 
     def getBusMoveTimeInSpecialday(self, ruleid, datestr):
         """
@@ -250,7 +264,6 @@ class BusWorkRules(models.Model):
         elif obj.schedule_method == "dubleway":
             BusWorkRules._validate(obj.uptimearrange, obj.upfirsttime, obj.uplasttime, "dubleway")
             BusWorkRules._validate(obj.downtimearrange, obj.downfirsttime, obj.downlasttime, "dubleway")
-
 
     @api.model
     def create(self, vals):
