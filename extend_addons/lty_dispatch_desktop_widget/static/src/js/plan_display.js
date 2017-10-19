@@ -1700,7 +1700,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 trainName: confObj.find(".trainName").val(),
                 addType: confObj.find(".addType").val(),
                 addReasonId: confObj.find(".addReasonId").val(),
-                isBatchChangePlan: confObj.find(".selectType .active").attr("name"),
+                isBatchChangePlan: confObj.find(".selectType .active").attr("typename"),
                 changePlanCount: confObj.find(".changePlanCount").val(),
                 changeInterval: confObj.find(".changeInterval").val(),
                 startTime: confObj.find(".startTime").val(),
