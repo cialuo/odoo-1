@@ -12,6 +12,9 @@
                     <button name="action_line_component" string="Components" type="object" icon="fa-list"
                                             attrs="{'invisible': [('component_visible', '=', False)]}"/>
                 </xpath>
+                <xpath expr="//field[@name='line_ids']/tree//field[@name='product_qty']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('')]}</attribute>
+                </xpath>
             </field>
         </record>
         <record id="view_component_inventory_line" model="ir.ui.view">
