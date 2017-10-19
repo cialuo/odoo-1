@@ -107,9 +107,6 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             if (carInfo.onBoardId){
                 busInfoId_str = 'onBoardId:' + carInfo.onBoardId;
             }
-            if (carInfo.controllerId){
-                busInfoId_str = busInfoId_str + "," + carInfo.controllerId;
-            }
             $.ajax({
                 url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",lineId:' + carInfo.line_id + ','+busInfoId_str+'}',
                 type: 'get',
@@ -119,7 +116,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                     layer.close(layer_index);
                     var op = ret.respose[0];
                     console.log(op);
-                    var dialog = new plan_exports.error_state_w(self, op);
+                    var dialog = new plan_exports.error_state_w(self, op, carInfo.fix_style);
                     dialog.appendTo($('body'));
                 }
             });
@@ -133,9 +130,6 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             if (carInfo.onBoardId){
                 busInfoId_str = 'onBoardId:' + carInfo.onBoardId;
             }
-            if (carInfo.controllerId){
-                busInfoId_str = busInfoId_str + "," + carInfo.controllerId;
-            }
             $.ajax({
                 url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",lineId:' + carInfo.line_id + ','+busInfoId_str+'}',
                 type: 'get',
@@ -145,7 +139,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                     layer.close(layer_index);
                     var op = ret.respose[0];
                     console.log(op);
-                    var dialog = new plan_exports.in_the_task_w(self, op);
+                    var dialog = new plan_exports.in_the_task_w(self, op, carInfo.fix_style);
                     dialog.appendTo($('body'));
                 }
             });
@@ -162,9 +156,6 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             if (carInfo.onBoardId){
                 busInfoId_str = 'onBoardId:' + carInfo.onBoardId;
             }
-            if (carInfo.controllerId){
-                busInfoId_str = busInfoId_str + "," + carInfo.controllerId;
-            }
             $.ajax({
                 url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",lineId:' + carInfo.line_id + ','+busInfoId_str+'}',
                 type: 'get',
@@ -174,7 +165,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                     layer.close(layer_index);
                     var op = ret.respose[0];
                     console.log(op);
-                    var dialog = new plan_exports.manual_return_w(self, op);
+                    var dialog = new plan_exports.manual_return_w(self, op, carInfo.fix_style);
                     dialog.appendTo($('body'));
                 }
             });
@@ -188,9 +179,6 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             if (carInfo.onBoardId){
                 busInfoId_str = 'onBoardId:' + carInfo.onBoardId;
             }
-            if (carInfo.controllerId){
-                busInfoId_str = busInfoId_str + "," + carInfo.controllerId;
-            }
             $.ajax({
                 url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",lineId:' + carInfo.line_id + ','+busInfoId_str+'}',
                 type: 'get',
@@ -200,7 +188,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                     layer.close(layer_index);
                     var op = ret.respose[0];
                     console.log(op);
-                    var dialog = new plan_exports.driver_check_in_w(self, op);
+                    var dialog = new plan_exports.driver_check_in_w(self, op, carInfo.fix_style);
                     dialog.appendTo($('body'));
                 }
             });
@@ -214,9 +202,6 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             if (carInfo.onBoardId){
                 busInfoId_str = 'onBoardId:' + carInfo.onBoardId;
             }
-            if (carInfo.controllerId){
-                busInfoId_str = busInfoId_str + "," + carInfo.controllerId;
-            }
             $.ajax({
                 url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename: "op_busresource",lineId:' + carInfo.line_id + ','+busInfoId_str+'}',
                 type: 'get',
@@ -229,7 +214,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                         retData.selfId = retData.carNum;
                     }
                     console.log(retData);
-                    new plan_exports.send_short_msg_msg(self, retData).appendTo($('body'));
+                    new plan_exports.send_short_msg_msg(self, retData, carInfo.fix_style).appendTo($('body'));
                 }
             });
             // var dialog = new communication(this);
