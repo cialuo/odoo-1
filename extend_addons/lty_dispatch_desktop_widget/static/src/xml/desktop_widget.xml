@@ -3,7 +3,7 @@
 <templates xml:space="preserve">
     <t t-name="bus_real_info_template">
         <div t-attf-class="busRealStateModel line_{{widget.location_data.line_id}} busRealStateModel_{{widget.location_data.line_id}}_{{widget.location_data.car_num}} hide_model">
-            <div class="bus_real_info dragContent" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
+            <div t-attf-class="bus_real_info dragContent {{widget.location_data.fix_style}}" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
                 <div class="closeBox dragArea">
                     <a class="close_bt" href="javascript:;"></a>
                 </div>

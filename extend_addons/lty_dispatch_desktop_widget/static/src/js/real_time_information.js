@@ -57,13 +57,12 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 car_num: "",
                 car_id: "",
                 onBoardId: "",
-                controllerId: ""
+                controllerId: "",
+                fix_style: ""
             };
-            this.location_data = options;
             $.extend(options, data);
+            this.location_data = options;
             this.data = init_data;
-            console.log(data);
-            console.log(options);
         },
         start: function(){
             var self = this;

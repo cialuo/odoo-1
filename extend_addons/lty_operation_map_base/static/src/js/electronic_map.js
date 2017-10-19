@@ -180,13 +180,14 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 var args = self.get_map_set_arg();
                 var options = {
                     x: e.clientX + 5,
-                    y: e.clientY + 5 - 60,
+                    y: e.clientY + 5,
                     zIndex: 2,
                     line_id: args.line_id,
                     line_name: args.line_name,
                     car_num: inner_code,
                     onBoardId: onBoardId,
-                    controllerId: ""
+                    controllerId: "",
+                    fix_style: "bus_real_info_electronicMap"
                 };
                 $(".busRealStateModel").remove();
                 var dialog = new bus_real_info(self, options);
