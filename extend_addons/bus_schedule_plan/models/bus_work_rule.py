@@ -82,6 +82,9 @@ class BusWorkRules(models.Model):
 
     # 上行发车方案
     uptimearrange = fields.One2many("scheduleplan.toup", "rule_id", string="up time arrange")
+    
+    # 上行发车方案
+    uptimearrange_bigdata = fields.One2many("scheduleplan.todup.bigdata", "rule_id", string="up time arrange bigdata")
 
     # 下行配车方案
     downplanvehiclearrange = fields.One2many("scheduleplan.down.rulebusarrange", "rule_id",
@@ -89,7 +92,10 @@ class BusWorkRules(models.Model):
 
     # 下行发车方案
     downtimearrange = fields.One2many("scheduleplan.todown", "rule_id", string="up time arrange")
-
+    
+    # 下行发车方案
+    downtimearrange_bigdata = fields.One2many("scheduleplan.todown.bigdata", "rule_id", string="up time arrange bigdata")
+    
     # 大站设置 上行
     bigsite_up = fields.One2many("scheduleplan.bigsitesetup", "rule_id", string="big site up")
 
@@ -908,6 +914,22 @@ class ToDown(models.Model):
     下行发车安排
     """
     _name = "scheduleplan.todown"
+
+    _inherit = "scheduleplan.toup"
+    
+class BigDataToUp(models.Model):
+    """
+    下行发车安排
+    """
+    _name = "scheduleplan.todup.bigdata"
+
+    _inherit = "scheduleplan.toup"
+        
+class BigDataToDown(models.Model):
+    """
+    下行发车安排
+    """
+    _name = "scheduleplan.todown.bigdata"
 
     _inherit = "scheduleplan.toup"
 
