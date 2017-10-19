@@ -526,7 +526,7 @@
 						</thead>
 						<tbody class="table_bus_num_tbody">
 							<t t-foreach="widget.line_src.respose" t-as="item">
-								<tr t-attf-src_id="{{item.id}}">
+								<tr t-attf-src_id="{{item.id}}" t-attf-bus_no="{{item.onBoardId}}">
 									<!--线路-->
 									<td class="line_src_lineName td_small">
 										<t t-esc="item.lineName"></t>
