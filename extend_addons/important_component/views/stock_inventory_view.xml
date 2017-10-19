@@ -13,7 +13,7 @@
                                             attrs="{'invisible': [('component_visible', '=', False)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='line_ids']/tree//field[@name='product_qty']" position="attributes">
-                    <attribute name="attrs">{'readonly': [('')]}</attribute>
+                    <attribute name="attrs">{'readonly': [('component_visible', '=', True)]}</attribute>
                 </xpath>
             </field>
         </record>
