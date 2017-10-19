@@ -1061,7 +1061,7 @@
     </t>
 
     <t t-name="manual_return_template">
-        <div class="modal customModal customModalAddPlan driverCheckIn" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
+        <div t-attf-class="modal customModal customModalAddPlan driverCheckIn styleModel_{{widget.styleModel}}" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1557,7 +1557,7 @@
     </t>
 
     <t t-name="driver_check_in_template">
-        <div class="modal customModal customModalAddPlan driverCheckIn" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
+        <div t-attf-class="modal customModal customModalAddPlan driverCheckIn styleModel_{{widget.styleModel}}" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1700,7 +1700,7 @@
     </t>
 
     <t t-name="error_state_template">
-        <div class="modal customModal customModalAddPlan errorState" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
+        <div t-attf-class="modal customModal customModalAddPlan errorState styleModel_{{widget.styleModel}}" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1742,7 +1742,7 @@
     </t>
 
     <t t-name="in_the_task_template">
-        <div class="modal customModal customModalAddPlan InTheTask" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
+        <div t-attf-class="modal customModal customModalAddPlan InTheTask styleModel_{{widget.styleModel}}" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="identifier">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1789,7 +1789,7 @@
 
     <t t-name="send_short_msg_msg">
         <div class="send_short_msg_msg">
-            <div class="modal modal_lty" tabindex="-1" role="dialog">
+            <div t-attf-class="modal modal_lty styleModel_{{widget.styleModel}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" style="width:720px" role="document">
                     <div class="modal-content model_change_content">
                         <div class="modal-header">

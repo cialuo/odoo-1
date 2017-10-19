@@ -1257,9 +1257,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
     // 发送消息
     var send_short_msg_msg = Widget.extend({
         template: "send_short_msg_msg",
-        init: function(parent, data) {
+        init: function(parent, data, styleArgs) {
             this._super(parent);
             this.location_data = data;
+            var styleModel = "";
+            if (styleArgs){
+                var styleArgs_list = styleArgs.split("_");
+                styleModel = styleArgs_list[styleArgs_list.length-1];
+            }
+            this.styleModel = styleModel;
         },
         start: function() {
             this.load_fn();
@@ -1487,9 +1493,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
     // 手动返回
     var manual_return_w = Widget.extend({
         template: 'manual_return_template',
-        init: function(parent, data) {
+        init: function(parent, data, styleArgs) {
             this._super(parent);
             this.set_data = data;
+            var styleModel = "";
+            if (styleArgs){
+                var styleArgs_list = styleArgs.split("_");
+                styleModel = styleArgs_list[styleArgs_list.length-1];
+            }
+            this.styleModel = styleModel;
         },
         start: function() {
             this.modal_fn();
@@ -1858,9 +1870,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
     // 司乘签到
     var driver_check_in_w = Widget.extend({
         template: 'driver_check_in_template',
-        init: function(parent, data) {
-            this._super(parent);
+        init: function(parent, data, styleArgs) {
+            this._super(parent, styleArgs);
             this.set_data = data;
+            var styleModel = "";
+            if (styleArgs){
+                var styleArgs_list = styleArgs.split("_");
+                styleModel = styleArgs_list[styleArgs_list.length-1];
+            }
+            this.styleModel = styleModel;
         },
         start: function() {
             this.modal_fn();
@@ -1994,9 +2012,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
     //异常状态
     var error_state_w = Widget.extend({
         template: 'error_state_template',
-        init: function(parent, data) {
-            this._super(parent);
+        init: function(parent, data, styleArgs) {
+            this._super(parent, styleArgs);
             this.set_data = data;
+            var styleModel = "";
+            if (styleArgs){
+                var styleArgs_list = styleArgs.split("_");
+                styleModel = styleArgs_list[styleArgs_list.length-1];
+            }
+            this.styleModel = styleModel;
         },
         start: function() {
             this.modal_fn();
@@ -2060,9 +2084,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
     //进场任务
     var in_the_task_w = Widget.extend({
         template: 'in_the_task_template',
-        init: function(parent, data) {
+        init: function(parent, data, styleArgs) {
             this._super(parent);
             this.set_data = data;
+            var styleModel = "";
+            if (styleArgs){
+                var styleArgs_list = styleArgs.split("_");
+                styleModel = styleArgs_list[styleArgs_list.length-1];
+            }
+            this.styleModel = styleModel;
         },
         start: function() {
             this.modal_fn();

@@ -1,5 +1,6 @@
 var CARMAP,
     VEHICLE_INFO_DICT = {},
+    INIT_ONBOARDID_INNERCODE_DICT = {},
     ONBOARDID_INNERCODE_DICT = {},
     TARGET_LINE_ID,
     TARGET_VEHICLE;
@@ -42,7 +43,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
             var vehiclesObj = self.$(".onboard");
             var lineObj = self.$(".line");
             lineObj.on("change", function() {
-                ONBOARDID_INNERCODE_DICT = {};
+                INIT_ONBOARDID_INNERCODE_DICT = {};
                 vehiclesObj.empty().append('<option value="">--请选择--</option>');
                 if (this.value != "") {
                     var id = parseInt($(this).find("option:selected").attr("t_id"));
@@ -51,7 +52,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     ]).all().then(function(vehicles) {
                         _.each(vehicles, function(set) {
                             if (set.on_boardid){
-                                ONBOARDID_INNERCODE_DICT[set.on_boardid] = set.inner_code;
+                                INIT_ONBOARDID_INNERCODE_DICT[set.on_boardid] = set.inner_code;
                                 var option = '<option value="'+set.on_boardid+'" inner_code="' + set.inner_code + '">' + set.inner_code + '</option>';
                                 vehiclesObj.append(option);
                             }
@@ -129,12 +130,15 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 var options = self.get_map_set_arg();
                 self.marker_stop_move();
                 self.init_map(map);
+                self.$(".busRealStateModel").remove();
                 TARGET_VEHICLE = "";
                 TARGET_LINE_ID = "";
+                CARMAP = "";
                 if (!options.line_id) {
                     layer.msg("请先选择线路", { shade: 0.3, time: 2000 });
                     return false;
                 }
+                ONBOARDID_INNERCODE_DICT = INIT_ONBOARDID_INNERCODE_DICT;
                 self.set_map_center = false;
                 self.subscribe(options.gprsId);
 
@@ -168,19 +172,13 @@ odoo.define("electronic_map.electronic_map", function(require) {
             
 
             // 查看车详情
-            // line_id: lineObj.find("option:selected").attr("t_id"),
-            // gprsId: lineObj.val(),
-            // onboardId: vehiclesObj.val(),
-            // inner_code: vehiclesObj.find("option:selected").attr("inner_code"),
-            // startTime: startTime.val(),
-            // endTime: endTime.val()
             self.$(".map_work_content").on("click", ".vehicleMapMarker", function(e){
                 var inner_code = $(this).find(".carText").text();
                 var onBoardId = $(this).attr("onboardId");
                 var args = self.get_map_set_arg();
                 var options = {
                     x: e.clientX + 5,
-                    y: e.clientY + 5,
+                    y: e.clientY + 5-60,
                     zIndex: 2,
                     line_id: args.line_id,
                     line_name: args.line_name,
@@ -191,7 +189,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 };
                 $(".busRealStateModel").remove();
                 var dialog = new bus_real_info(self, options);
-                dialog.appendTo($("body"));
+                dialog.appendTo(self.$el);
             });
         },
         marker_stop_move: function(){
@@ -267,6 +265,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     if (ret.respose) {
                         layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
                     }else{
+                        CARMAP = map;
                         var vehicleInfo = ret[0][options.gprsId];
                         if (vehicleInfo.length == 0){
                             layer.msg("没有查到车辆初始位置信息", { shade: 0.3, time: 2000 });
@@ -401,7 +400,6 @@ odoo.define("electronic_map.electronic_map", function(require) {
             map.clearMap();
             map.setZoom(10);
             map.setCenter([116.408075, 39.950187]);
-            CARMAP = map;
         },
         init_map_center: function(map){
             this.set_map_center = true;
@@ -434,7 +432,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     var package = {
                         type: 2001,
                         gpsId: self.subscribe,
-                        open_modules: ["bus_site", "abnormal"]
+                        open_modules: ["bus_site", "abnormal", "bus_real_state"]
                     };
                     websocket_electronic_map.send(JSON.stringify(package));
                 }
@@ -443,7 +441,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     var package = {
                         type: 2000,
                         gpsId: gpsId,
-                        open_modules: ["bus_site", "abnormal"]
+                        open_modules: ["bus_site", "abnormal", "bus_real_state"]
                     };
                     websocket_electronic_map.send(JSON.stringify(package));
                     self.subscribe_gpsId = gpsId;
