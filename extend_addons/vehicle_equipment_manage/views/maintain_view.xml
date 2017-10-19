@@ -20,9 +20,9 @@
         <record model="ir.ui.view" id="maintain_precheck_view_form_ext">
             <field name="name">MaintainPrecheck.form</field>
             <field name="model">maintain.manage.report</field>
-            <field name="inherit_id" ref="vehicle_maintain.maintain_precheck_view_form"/>
+            <field name="inherit_id" ref="vehicle_maintain.maintain_report_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='action_precheck_to_draft']" position="after">
+                <xpath expr="//button[@name='action_precheck_to_discard']" position="after">
                    <button type="object"
                             name="delivery_manage"
                             string="Delivery Manage"
@@ -107,10 +107,10 @@
                             </page>
 						</notebook>
 					</sheet>
-					<div class="oe_chatter">
-                        <field name="message_follower_ids" widget="mail_followers"/>
-                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
-                    </div>
+					<!--<div class="oe_chatter">-->
+                        <!--<field name="message_follower_ids" widget="mail_followers"/>-->
+                        <!--<field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>-->
+                    <!--</div>-->
                 </form>
             </field>
         </record>
@@ -121,6 +121,7 @@
 			<field name="name">maintain_delivery_action</field>
 			<field name="res_model">vehicle_equipment.delivery</field>
 			<field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
 		</record>
 
         <!--抢修交接单-->

@@ -21,7 +21,7 @@ class VehicleAnchor(models.Model):
 
     # 关联的车辆信息
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", required=True,
-                                 domain="[('vehicle_life_state', '=', 'operation_period')]")
+                                 domain="[('vehicle_life_state', '=', 'operation_period'),('state', '=', 'normal')]")
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
     # 车牌号

@@ -11,7 +11,8 @@ class MaintainRepairCalculate(models.Model):
 
     _inherit = 'maintain.manage.repair'
 
-    calculate_state = fields.Selection([('calculating', 'calculating'), ('calculated', 'calculated')],
+    calculate_state = fields.Selection([('calculating', 'calculating'),
+                                        ('calculated', 'calculated')],
                                         string="Calculate State", default='calculating')
     # 结算时间
     calculate_time = fields.Datetime("Calculate Time")
@@ -23,30 +24,14 @@ class MaintainRepairCalculate(models.Model):
 
     materials_product_ids = fields.One2many('maintain.manage.repair_materials', 'repair_id', string="Materials Product")
 
-    # computewarning = fields.Char(string="compute warning data", compute="_computeWarning")
-    #
-    # @api.multi
-    # @api.depends('picking_ids')
-    # def _computeWarning(self):
-    #
-    #     for item in self:
-    #         item.computewarning  = None
-    #         if getattr(item, 'sortedWt', None) == None:
-    #             item.sortedWt = sorted(item.picking_ids, key=lambda x: x.waiting_time, reverse=True)
-    #         for x in item.picking_ids:
-    #             if x.id == item.sortedWt[0].id and item.sortedWt[0].waiting_time > 0:
-    #                 x.needwarning = 'yes'
-    #             else:
-    #                 x.needwarning = 'no'
-
-
     company_id = fields.Many2one('res.company', 'Company',
-        default=lambda self: self.env['res.company']._company_default_get('maintain.manage.repair'),
-        index=True, required=True)
+                                default=lambda self: self.env['res.company']._company_default_get('maintain.manage.repair'),
+                                index=True, required=True)
 
     work_fee = fields.Float(related='company_id.work_fee', default=50)
 
-
+    end_job_ids = fields.One2many("maintain.manage.repair_end_jobs", 'repair_id', string='Maintain Repair Jobs'
+                              )
 
     @api.multi
     def action_back(self):
@@ -54,10 +39,7 @@ class MaintainRepairCalculate(models.Model):
         刷新
         :return:
         '''
-        self.write({
-            'calculate_state': 'calculating'
-        })
-
+        self.write({'calculate_state': 'calculating'})
 
     @api.multi
     def action_calcuate(self):
@@ -68,7 +50,7 @@ class MaintainRepairCalculate(models.Model):
         '''
 
         self._new_refresh_picking()
-        self._refresh_jobs_products()
+        self._refresh_fee()
 
         self.write({
             'calculate_time': datetime.datetime.now(),
@@ -78,23 +60,68 @@ class MaintainRepairCalculate(models.Model):
     @api.multi
     def action_refresh(self):
         '''
-        1,先统计领退料单
-        2，计算工时和物料费用
+        1,统计领退料单
+        2,统计工时管理
+        3，计算工时和物料费用
         :return:
         '''
 
         self._new_refresh_picking()
-        self._refresh_jobs_products()
+        # self._refresh_jobs()
+        self._refresh_fee()
 
-    def _refresh_jobs_products(self):
+    def _refresh_jobs(self):
+        for i in self:
+            end_job_datas = []
+            sequence = 0
+            i.end_job_ids.unlink()
+
+            def _gen_dict(k, i, sequence):
+                vals = {
+                    'sequence': sequence,
+                    "fault_category_id": k.fault_category_id.id,
+                    "fault_appearance_id": k.fault_appearance_id.id or None,
+                    "fault_reason_id": k.fault_reason_id.id,
+                    "fault_method_id": k.fault_method_id.id,
+                    "plan_start_time": k.plan_start_time,
+                    "plan_end_time": k.plan_end_time,
+                    'real_start_time': k.real_start_time,
+                    'real_end_time': k.real_end_time,
+                    "work_time": k.work_time,
+                    "percentage_work": k.percentage_work,
+                    "user_id": k.user_id.id,
+                    'my_work': k.my_work,
+                    'real_work': k.real_work,
+                    'work_time_fee': k.work_time * i.company_id.work_fee * k.percentage_work / 100.0,
+                }
+                return vals
+
+            for k in i.job_ids:
+                sequence += 1
+                vals = _gen_dict(k, i, sequence)
+                vals.update({'is_need_calc': True,
+                             "is_last_method": True
+                             })
+                end_job_datas.append((0, 0, vals))
+
+            bak_repairs = i.search([('origin_repair_id', '=', i.id),
+                                    ('state', '=', 'repair'),
+                                    ('active', '=', False)])
+            for m in bak_repairs:
+                for k in m.job_ids:
+                    sequence += 1
+                    vals = _gen_dict(k, i, sequence)
+                    end_job_datas.append((0, 0, vals))
+            i.write({'end_job_ids': end_job_datas})
+
+    def _refresh_fee(self):
         for i in self:
             work_fee = i.company_id.work_fee
             #工时费用不按实际工时计算，按额定工时计算
 
-            for j in i.job_ids:
-                #if j.real_work:
-                real_work_fee = j.work_time * work_fee
-                j.write({'real_work_fee': real_work_fee})
+            for j in i.end_job_ids.filtered(lambda r: r.is_need_calc == True):
+                work_time_fee = j.work_time * work_fee
+                j.write({'work_time_fee': work_time_fee})
 
             for k in i.materials_product_ids:
                 product_fee = k.list_price * k.usage_ct
@@ -103,7 +130,7 @@ class MaintainRepairCalculate(models.Model):
             total_work_time = sum(i.job_ids.mapped('real_work'))
             #额定工时 核算 费用
             total_work_fee = i.work_time * work_fee
-            # total_work_fee = sum(i.job_ids.mapped('real_work_fee'))
+            total_work_fee = sum(i.end_job_ids.filtered(lambda r: r.is_need_calc == True).mapped('work_time_fee'))
             total_product_fee = sum(i.materials_product_ids.mapped('product_fee'))
             total_fee = total_work_fee + total_product_fee
 
@@ -116,7 +143,7 @@ class MaintainRepairCalculate(models.Model):
             })
 
 
-    def _get_products(self,picking_get,picking_back):
+    def _get_products(self, picking_get, picking_back):
         '''
             １,根据领料单和发料单进行统计
             ２,区分物资是否启动批次，分别取其价格
@@ -127,66 +154,62 @@ class MaintainRepairCalculate(models.Model):
         products = {}
 
         for picking in picking_get:
-
-                for operation in picking.pack_operation_product_ids:
-                    if operation.pack_lot_ids:
-                        for lot in operation.pack_lot_ids:
-                            product = {}
-                            key = lot.lot_id
-                            if products.has_key(key):
-                                product['products_id'] = lot.product_id.id
-                                product['price_unit'] = lot.lot_price_unit
-                                product['product_uom_qty'] = products[key]['product_uom_qty'] + lot.qty
-                                products[key] = product
-                            else:
-                                product['products_id'] = lot.product_id.id
-                                product['price_unit'] = lot.lot_price_unit
-                                product['product_uom_qty'] = lot.qty
-                                products[key]=product
+            for operation in picking.pack_operation_product_ids:
+                if operation.pack_lot_ids:
+                    for lot in operation.pack_lot_ids:
+                        product = {}
+                        key = lot.lot_id
+                        if products.has_key(key):
+                            product['products_id'] = lot.product_id.id
+                            product['price_unit'] = lot.lot_price_unit
+                            product['product_uom_qty'] = products[key]['product_uom_qty'] + lot.qty
+                            products[key] = product
+                        else:
+                            product['products_id'] = lot.product_id.id
+                            product['price_unit'] = lot.lot_price_unit
+                            product['product_uom_qty'] = lot.qty
+                            products[key]=product
+                else:
+                    product = {}
+                    key = operation.product_id
+                    if products.has_key(key):
+                        product['products_id'] = operation.product_id.id
+                        product['product_uom_qty'] = products[key]['product_uom_qty'] + operation.qty_done
+                        product['price_unit'] = operation.product_id.standard_price
+                        products[key] = product
                     else:
-                            product = {}
-                            key = operation.product_id
-                            if products.has_key(key):
-                                product['products_id'] = operation.product_id.id
-                                product['product_uom_qty'] = products[key]['product_uom_qty'] + operation.qty_done
-                                product['price_unit'] = operation.product_id.standard_price
-                                products[key] = product
-                            else:
-                                product['products_id'] = operation.product_id.id
-                                product['product_uom_qty'] = operation.qty_done
-                                product['price_unit'] = operation.product_id.standard_price
-                                products[key] = product
-
+                        product['products_id'] = operation.product_id.id
+                        product['product_uom_qty'] = operation.qty_done
+                        product['price_unit'] = operation.product_id.standard_price
+                        products[key] = product
 
         for picking in picking_back:
-
-                for operation in picking.pack_operation_product_ids:
-
-                    if operation.pack_lot_ids:
-                        for lot in operation.pack_lot_ids:
-                            product = {}
-                            key = lot.lot_id
-                            if products.has_key(key):
-                                product = products[key]
-                                product['product_uom_qty'] = product['product_uom_qty'] - lot.qty
-                                products[key]=product
-                            else:
-                                product['products_id'] = lot.product_id.id
-                                product['price_unit'] = lot.lot_price_unit
-                                product['product_uom_qty'] = - lot.qty
-                                products[key] = product
+            for operation in picking.pack_operation_product_ids:
+                if operation.pack_lot_ids:
+                    for lot in operation.pack_lot_ids:
+                        product = {}
+                        key = lot.lot_id
+                        if products.has_key(key):
+                            product = products[key]
+                            product['product_uom_qty'] = product['product_uom_qty'] - lot.qty
+                            products[key]=product
+                        else:
+                            product['products_id'] = lot.product_id.id
+                            product['price_unit'] = lot.lot_price_unit
+                            product['product_uom_qty'] = - lot.qty
+                            products[key] = product
+                else:
+                    product = {}
+                    key = operation.product_id
+                    if products.has_key(key):
+                        product =  products[key]
+                        product['product_uom_qty'] = product['product_uom_qty'] - operation.qty_done
+                        products[key] = product
                     else:
-                            product = {}
-                            key = operation.product_id
-                            if products.has_key(key):
-                                product =  products[key]
-                                product['product_uom_qty'] = product['product_uom_qty'] - operation.qty_done
-                                products[key] = product
-                            else:
-                                product['products_id'] = operation.product_id.id
-                                product['price_unit'] = operation.product_id.standard_price
-                                product['product_uom_qty'] = - operation.qty_done
-                                products[key] = product
+                        product['products_id'] = operation.product_id.id
+                        product['price_unit'] = operation.product_id.standard_price
+                        product['product_uom_qty'] = - operation.qty_done
+                        products[key] = product
 
         return products
 
@@ -203,8 +226,7 @@ class MaintainRepairCalculate(models.Model):
             if not all(move.state in ['cancel', 'done'] for move in picking.move_lines):
                 raise exceptions.UserError(_('There is unfinished picking'))
 
-        for i in self.materials_product_ids:
-            i.unlink()
+        self.materials_product_ids.unlink()
 
         picking_get = self.picking_ids.filtered(lambda i: i.state in ['done'] and
                                                           i.picking_type_id.name in [u'发料', u'领料'])
@@ -311,4 +333,45 @@ class MaintainRepairMaterials(models.Model):
     usage_ct = fields.Float('Usage Count')
     product_fee = fields.Float('Product Fee')
 
+
+class MaintainRepairEndJobs(models.Model):
+    """
+    车辆维修管理：维修单 所有的工时管理(包括修改维修方法的工时)
+    """
+    _name = 'maintain.manage.repair_end_jobs'
+    name = fields.Char("Job Name", help="Job Name")
+    sequence = fields.Integer("Sequence", help="Sequence")
+    repair_id = fields.Many2one("maintain.manage.repair", ondelete='cascade',
+                                string="Maintain Repair")
+    fault_category_id = fields.Many2one("maintain.fault.category", ondelete='set null',
+                                        string="Fault Category")
+    fault_appearance_id = fields.Many2one("maintain.fault.appearance", ondelete='set null',
+                                          string="Fault Appearance")
+    fault_reason_id = fields.Many2one("maintain.fault.reason", ondelete='set null', string="Fault Reason")
+    fault_method_id = fields.Many2one("maintain.fault.method", ondelete='set null', string="Fault Method")
+    user_id = fields.Many2one('hr.employee', string="Repair Name", required=True)
+    plan_start_time = fields.Datetime("Plan Start Time")
+    plan_end_time = fields.Datetime("Plan End Time")
+    real_start_time = fields.Datetime("Real Start Time")
+    real_end_time = fields.Datetime("Real End Time")
+    percentage_work = fields.Float('Percentage Work')
+    work_time = fields.Float('Work Time(Hour)', digits=(10, 2))
+
+    work_time_fee = fields.Float('Work Time Fee', digits=(10, 2))
+    my_work = fields.Float('My Work(Hour)', digits=(10, 2), store=True)
+
+    real_work = fields.Float('Real Work(Hour)', digits=(10, 2), store=True)
+    real_work_fee = fields.Float('Real Work Fee', digits=(10, 2))
+    is_need_calc = fields.Boolean("Is Need Calc", default=False)
+    is_last_method = fields.Boolean("Is Last Method", default=False)
+
+    calculate_state = fields.Selection(related='repair_id.calculate_state',string="Calculate State")
+
+    @api.multi
+    def job_not_calc(self):
+        self.write({'is_need_calc':False})
+
+    @api.multi
+    def job_calc(self):
+        self.write({'is_need_calc':True})
 
