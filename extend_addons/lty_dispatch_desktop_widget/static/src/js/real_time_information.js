@@ -48,7 +48,20 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                 trip: '',
                 total_trip: ''
             };
-            this.location_data = data;
+            var options = {
+                x: "",
+                y: "",
+                zIndex: 2,
+                line_id: "",
+                line_name: "",
+                car_num: "",
+                car_id: "",
+                onBoardId: "",
+                controllerId: "",
+                fix_style: ""
+            };
+            $.extend(options, data);
+            this.location_data = options;
             this.data = init_data;
         },
         start: function(){
@@ -76,21 +89,26 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             self.arrivalTimeFn();
 
             // 订阅车辆实时状态
-            var package = {
-                type: 2000,
-                controlId: CONTROLLERID,
-                open_modules: ["bus_real_state"]
-            };
-            if (websocket){
-                websocket.send(JSON.stringify(package));
-            }
+            // var package = {
+            //     type: 2000,
+            //     controlId: CONTROLLERID,
+            //     open_modules: ["bus_real_state"]
+            // };
+            // if (websocket){
+            //     websocket.send(JSON.stringify(package));
+            // }
         },
+        // 处理异常状态
         handle_exceptions_fn: function(){
             var self = this;
             var carInfo = self.location_data;
             var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+            var busInfoId_str = 'id:' + carInfo.car_id;
+            if (carInfo.onBoardId){
+                busInfoId_str = 'onBoardId:' + carInfo.onBoardId;
+            }
             $.ajax({
-                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + carInfo.controllerId + ',lineId:' + carInfo.line_id + ',id:' + carInfo.car_id + '}',
+                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",lineId:' + carInfo.line_id + ','+busInfoId_str+'}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -98,17 +116,22 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                     layer.close(layer_index);
                     var op = ret.respose[0];
                     console.log(op);
-                    var dialog = new plan_exports.error_state_w(self, op);
+                    var dialog = new plan_exports.error_state_w(self, op, carInfo.fix_style);
                     dialog.appendTo($('body'));
                 }
             });
         },
+        // 安排回场任务
         schedule_a_return_fn: function(){
             var self = this;
             var carInfo = self.location_data;
             var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+            var busInfoId_str = 'id:' + carInfo.car_id;
+            if (carInfo.onBoardId){
+                busInfoId_str = 'onBoardId:' + carInfo.onBoardId;
+            }
             $.ajax({
-                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + carInfo.controllerId + ',lineId:' + carInfo.line_id + ',id:' + carInfo.car_id + '}',
+                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",lineId:' + carInfo.line_id + ','+busInfoId_str+'}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -116,7 +139,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                     layer.close(layer_index);
                     var op = ret.respose[0];
                     console.log(op);
-                    var dialog = new plan_exports.in_the_task_w(self, op);
+                    var dialog = new plan_exports.in_the_task_w(self, op, carInfo.fix_style);
                     dialog.appendTo($('body'));
                 }
             });
@@ -124,12 +147,17 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
         can_line_fn: function(){
             alert('这里将发起CAN总线请求');
         },
+        // 手动回场
         back_to_the_field_fn: function(){
             var self = this;
             var carInfo = self.location_data;
             var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+            var busInfoId_str = 'id:' + carInfo.car_id;
+            if (carInfo.onBoardId){
+                busInfoId_str = 'onBoardId:' + carInfo.onBoardId;
+            }
             $.ajax({
-                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + carInfo.controllerId + ',lineId:' + carInfo.line_id + ',id:' + carInfo.car_id + '}',
+                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",lineId:' + carInfo.line_id + ','+busInfoId_str+'}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -137,17 +165,22 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                     layer.close(layer_index);
                     var op = ret.respose[0];
                     console.log(op);
-                    var dialog = new plan_exports.manual_return_w(self, op);
+                    var dialog = new plan_exports.manual_return_w(self, op, carInfo.fix_style);
                     dialog.appendTo($('body'));
                 }
             });
         },
+        // 手动签点
         sign_fn: function(){
             var self = this;
             var carInfo = self.location_data;
             var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+            var busInfoId_str = 'id:' + carInfo.car_id;
+            if (carInfo.onBoardId){
+                busInfoId_str = 'onBoardId:' + carInfo.onBoardId;
+            }
             $.ajax({
-                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + carInfo.controllerId + ',lineId:' + carInfo.line_id + ',id:' + carInfo.car_id + '}',
+                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",lineId:' + carInfo.line_id + ','+busInfoId_str+'}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -155,17 +188,22 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                     layer.close(layer_index);
                     var op = ret.respose[0];
                     console.log(op);
-                    var dialog = new plan_exports.driver_check_in_w(self, op);
+                    var dialog = new plan_exports.driver_check_in_w(self, op, carInfo.fix_style);
                     dialog.appendTo($('body'));
                 }
             });
         },
+        // 消息
         news_fn: function(){
             var self = this;
             var carInfo = self.location_data;
             var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+            var busInfoId_str = 'id:' + carInfo.car_id;
+            if (carInfo.onBoardId){
+                busInfoId_str = 'onBoardId:' + carInfo.onBoardId;
+            }
             $.ajax({
-                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename: "op_busresource",controlsId:' + carInfo.controllerId + ',lineId:' + carInfo.line_id + ',id:' + carInfo.car_id + '}',
+                url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename: "op_busresource",lineId:' + carInfo.line_id + ','+busInfoId_str+'}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
@@ -176,7 +214,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
                         retData.selfId = retData.carNum;
                     }
                     console.log(retData);
-                    new plan_exports.send_short_msg_msg(self, retData).appendTo($('body'));
+                    new plan_exports.send_short_msg_msg(self, retData, carInfo.fix_style).appendTo($('body'));
                 }
             });
             // var dialog = new communication(this);

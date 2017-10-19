@@ -56,16 +56,16 @@ class BusWorkRules(models.Model):
     bus_number = fields.Integer(string="bus number", readonly=True)
 
     # 上行首班时间
-    upfirsttime = fields.Char(string="up first time", readonly=True)
+    upfirsttime = fields.Char(string="up first time")
 
     # 上行末班时间
-    uplasttime = fields.Char(string="up last time", readonly=True)
+    uplasttime = fields.Char(string="up last time")
 
     # 下行首班时间
-    downfirsttime = fields.Char(string="down first time", readonly=True)
+    downfirsttime = fields.Char(string="down first time")
 
     # 下行末班时间
-    downlasttime = fields.Char(string="down last time", readonly=True)
+    downlasttime = fields.Char(string="down last time")
 
     # 上行车场
     upstation = fields.Many2one("opertation_resources_station", string="up station", readonly=True)

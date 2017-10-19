@@ -376,4 +376,66 @@
     right: 70px !important;
     left: auto !important;
     display: none !important;
-}  
+}
+
+
+
+/*bus_real_info */
+
+.bus_real_info_electronicMap {
+    background: #fff;
+}
+
+.bus_real_info_electronicMap .closeBox {
+    background: #fff;
+}
+
+.bus_real_info_electronicMap .closeBox .close_bt {
+    background: #3a4263;
+}
+
+.bus_real_info_electronicMap .popupContent .popupC {
+    color: #000;
+}
+
+.bus_real_info_electronicMap .infoR .scene .sceneTitle {
+    background: #fff;
+}
+
+.bus_real_info_electronicMap .infoR .scene .operationNav {
+    background: #fff;
+}
+
+.bus_real_info_electronicMap .infoR .scene .operationNav li a {
+    color: #000;
+}
+
+.bus_real_info_electronicMap .infoR .scene .operationNav li a:hover {
+    background: #ccc;
+    color: #4ecfc7;
+}
+
+
+.styleModel_electronicMap .modal-dialog .modal-content{
+    background: #fff;
+    color: #000;
+}
+
+.styleModel_electronicMap .modal-dialog .modal-content .modal-header .close {
+    color: #ccc !important;
+}
+
+.styleModel_electronicMap .modal-dialog .modal-content input {
+    background: #fff;
+    color: #21b799;
+}
+
+.styleModel_electronicMap .modal-dialog .modal-content select {
+    background: #fff;
+    color: #21b799;
+}
+
+.styleModel_electronicMap .msg_send_info option {
+    background: #fff;
+    color: #21b799;
+}

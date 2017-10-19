@@ -24,7 +24,7 @@ websocket.onopen = function () {
     var package = {
         type: 2000,
         controlId: CONTROLLERID,
-        open_modules: ["line_message", "line_online", "line_park", "abnormal", "passenger_flow"]
+        open_modules: ["line_message", "line_online", "line_park", "abnormal", "passenger_flow", "bus_real_state"]
     };
     websocket.send(JSON.stringify(package));
 }
@@ -68,10 +68,6 @@ websocket.onmessage = function (event) {
         use_odoo_model(event, "abnormal");
         line_car_src_on_line(controllerObj, eventObj);
     }
-    // else if (modelName == "bus_real_state") {
-    //     line_car_src_real_state($(".controller_" + controllerId), eventObj.data);
-    //     show_electronic_map($(".controller_" + controllerId).find('#digital_map'), eventObj.data, 'elec_map_layer')
-    // }
 };
 
 //连接关闭的回调方法
@@ -163,25 +159,6 @@ function absnormal_del(controllerObj, data_list) {
     }
 }
 
-// 电子地图模块
-function show_electronic_map(dom, data_list, session_ayer) {
-    if (dom.length > 0) {
-        var layer_map_close = JSON.parse(sessionStorage.getItem(session_ayer));
-        layer.close(layer_map_close.layer_map);
-        if (socket_model_api_obj.electronicMapModel.marker) {
-            socket_model_api_obj.electronicMapModel.marker.setPosition(new AMap.LngLat(data_list.location_log, data_list.location_lan));
-        } else {
-            var mapObj = new AMap.Map(dom[0], {zoom: 14, center: [data_list.location_log, data_list.location_lan]});
-            var marker = new AMap.Marker({
-                map: mapObj,
-                position: [data_list.location_log, data_list.location_lan]
-            });
-            socket_model_api_obj.electronicMapModel.marker = marker;
-
-        }
-    }
-}
-
 // 车辆掉线, 在线
 function vehicle_drop(controllerObj, dataObj) {
     var dom = controllerObj.find(".linePlanParkOnlineModel_" + dataObj.line_id);
@@ -257,7 +234,7 @@ function busRealStateModel_map(dom, gps) {
     var new_gps = CONVERSIONS_GPS.gcj_encrypt(gps.latitude, gps.longitude);
 
     if (socket_model_api_obj.busRealStateModel_marker) {
-        socket_model_api_obj.busRealStateModel_marker.setPosition(new AMap.LngLat(gps.latitude, gps.longitude));
+        socket_model_api_obj.busRealStateModel_marker.setPosition(new AMap.LngLat(new_gps.lon, new_gps.lat));
     } else {
         var mapObj = new AMap.Map(dom, {zoom: 14, center: [new_gps.lon, new_gps.lat]});
         var marker = new AMap.Marker({

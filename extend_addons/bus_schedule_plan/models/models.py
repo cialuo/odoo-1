@@ -3,6 +3,8 @@
 from odoo import models, fields, api, _
 from itertools import izip_longest
 import math
+import time
+import datetime
 from utils import *
 
 timeFormatStr = "%Y-%m-%d %H:%M:%S"
@@ -170,10 +172,16 @@ class ExecUpPlanItem(models.Model):
 
     # 发车时间
     starttime = fields.Datetime(string="start move time", readonly=True)
-
+    
+    # 发车时间h:s
+    starttime_hs = fields.Char(string="start move time", compute='_compute_time_hs', readonly=True)
+    
     # 到达时间
     arrivetime = fields.Datetime(string="arrive time", readonly=True)
-
+    
+    # 到达时间h:s
+    arrivetime_hs = fields.Char(string="arrive time", compute='_compute_time_hs', readonly=True)
+    
     # 时长 分钟记
     timelenght = fields.Integer(string="time length (min)", readonly=True)
 
@@ -181,6 +189,15 @@ class ExecUpPlanItem(models.Model):
     mileage = fields.Integer(string="mileage number", readonly=True)
 
     rule_lineid = fields.Integer(compute="_getRuleLineId")
+    
+    
+    @api.one
+    @api.depends('starttime', 'arrivetime')
+    def _compute_time_hs(self):
+        if self.starttime:
+            self.starttime_hs = (datetime.datetime.strptime(self.starttime, '%Y-%m-%d %H:%M:%S')+datetime.timedelta(hours=8)).strftime('%H:%M')
+        if self.arrivetime:
+            self.arrivetime_hs = (datetime.datetime.strptime(self.arrivetime, '%Y-%m-%d %H:%M:%S')+datetime.timedelta(hours=8)).strftime('%H:%M')            
 
     @api.multi
     def _getRuleLineId(self):

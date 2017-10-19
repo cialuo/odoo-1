@@ -64,8 +64,8 @@
                                 <field name="vehicle_id"/>
                                 <field name="driver"/>
                                 <field name="steward"/>
-                                <field name="starttime"/>
-                                <field name="arrivetime"/>
+                                <field name="starttime_hs" string='发车时间'/>
+                                <field name="arrivetime_hs" string='到达时间'/>
                                 <field name="timelenght"/>
                                 <field name="rule_lineid" invisible="1"/>
                                 <field name="mileage"/>
@@ -80,8 +80,9 @@
                                 <field name="vehicle_id"/>
                                 <field name="driver"/>
                                 <field name="steward"/>
-                                <field name="starttime"/>
-                                <field name="arrivetime"/>
+                                <field name="steward"/>
+                                <field name="starttime_hs" string='发车时间'/>
+                                <field name="arrivetime_hs" string='到达时间'/>
                                 <field name="timelenght"/>
                                 <field name="mileage"/>
                                 <field name="rule_lineid" invisible="1"/>
