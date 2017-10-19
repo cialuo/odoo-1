@@ -51,15 +51,15 @@
 						<button name="action_submit"
 								type="object"
 								string="Submit check"
-								states="draft"
 								class="oe_highlight"
+                                attrs="{'invisible': ['|','|',('driver_vehicle_shift_ids', '=', []),('state', '!=', 'draft'),('is_not_match', '=', True)]}"
                                 groups="schedule_dispatch_group.schedule_user"
 								/> <!-- 提交审核-->
 
                         <button name="action_check_success"
 								type="object"
 								string="check success"
-								states="wait_check"
+                                attrs="{'invisible': ['|',('state', '!=', 'wait_check'),('is_not_match', '=', True)]}"
 								class="oe_highlight"
                                 groups="schedule_dispatch_group.schedule_manager"
 								/> <!-- 审核通过-->
