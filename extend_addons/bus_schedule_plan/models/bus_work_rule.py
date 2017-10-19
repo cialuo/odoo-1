@@ -746,7 +746,7 @@ class BusWorkRules(models.Model):
         rulemode = self.env['scheduleplan.schedulrule']
         datetypemode = self.env['bus_date_type']
         #tomorrow = BusWorkRules.targetDate(1)+self.local_utc()
-        tomorrow = BusWorkRules.targetDate(0)+datetime.timedelta(hours=8)
+        tomorrow = BusWorkRules.targetDate(1)+datetime.timedelta(hours=8)
         tomorrow_type = BusWorkRules.mapWeekDayStr(tomorrow.weekday())
         tomorrow_str = BusWorkRules.formatDateStr(tomorrow)
         condition = [
