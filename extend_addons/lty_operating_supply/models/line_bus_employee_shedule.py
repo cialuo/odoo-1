@@ -105,7 +105,7 @@ class line_bus_employee_shedule(models.Model):
                          hr_employee on bus_group_driver.driver_id = hr_employee.id
                      left join employees_post on employees_post.id = hr_employee.workpost
                      where   
-                        bus_group_driver_vehicle_shift.conductor_id is not null and bus_group_driver_vehicle_shift.active = true
+                        bus_group_driver_vehicle_shift.driver_id is not null and bus_group_driver_vehicle_shift.active = true
                      group by 
                          bus_group.route_id,
                          hr_employee.workpost,

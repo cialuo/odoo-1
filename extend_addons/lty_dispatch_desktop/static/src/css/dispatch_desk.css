@@ -312,6 +312,17 @@
     filter: gray;
 }
 
+.to_red {
+    -ms-filter: hue-rotate(140deg) saturate(300%); /* 0度则不变，维持原色，可以是任何度数，但每360度完成一次完整变化 */
+    -webkit-filter: hue-rotate(140deg) saturate(300%);
+    filter: hue-rotate(140deg) saturate(300%);
+}
+.to_yellow {
+    -ms-filter: hue-rotate(170deg); /* 0度则不变，维持原色，可以是任何度数，但每360度完成一次完整变化 */
+    -webkit-filter: hue-rotate(170deg);
+    filter: hue-rotate(170deg);
+}
+
 .dispatch_desktop .line_car .type_car span {
     font-size: 12px;
     -webkit-transform: scale(0.75);
@@ -426,7 +437,7 @@
     color: #4ecfc7;
 }
 
-.updown_line_table .handleBtn a, .updown_line_table .finishBtn a, .ignore_btn a, .agree_btn a, .refuse_btn a{
+.updown_line_table .handleBtn a, .updown_line_table .finishBtn a, .ignore_btn a, .agree_btn a, .refuse_btn a {
     display: block;
     float: left;
     color: #cb413c;

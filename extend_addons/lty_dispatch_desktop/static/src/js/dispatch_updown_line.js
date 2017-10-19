@@ -227,7 +227,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 self.$el.find('.handleBtn').find('button').attr('disabled', 'disabled');
                 if (data_use.data.packageType == 1003) {
                     abnoraml_desc.html('车辆' + data_use.data.abnormal_description.bus_no + '掉线');
-                    dom_singal.find('.line_car[bus_no=' + data_use.data.abnormal_description.bus_no + ']').addClass('to_gray');
+                    dom_singal.find('.line_car[bus_no=' + data_use.data.abnormal_description.bus_no + ']').addClass('to_gray').removeClass('.to_red').removeClass('.to_yellow');
                     dom_singal.find('.show_signal_online span').html(parseInt(dom_singal.find('.show_signal_online span').html()) - 1);
                     dom_singal.find('.show_signal_outline span').html(parseInt(dom_singal.find('.show_signal_outline span').html()) + 1);
                 }

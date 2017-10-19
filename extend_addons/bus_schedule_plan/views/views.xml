@@ -120,11 +120,8 @@
                                 </field>
                             </div>
                             <div>
-                                <div>
-                                    <div>
-                                        <h2>上行</h2>
-                                    </div>
-                                </div>
+                            <notebook>
+                             <page string='上行峰段规则'>
                                 <field name="uptimearrange">
                                     <tree default_order="seqid" editable="bottom">
                                         <field name="seqid"/>
@@ -158,6 +155,44 @@
                                         </group>
                                     </form>
                                 </field>
+                                </page>
+                                <page string='大数据建议'>                               
+								<field name="uptimearrange_bigdata">
+                                    <tree default_order="seqid" editable="bottom">
+                                        <field name="seqid" string='序号'/>
+                                        <field name="starttime" string='开始时间'/>
+                                        <field name="endtime" string='结束时间'/>
+                                        <field name="interval" string='发车间隔'/>
+                                        <field name="speed" string='车速'/>
+                                        <field name="worktimelength" string='运营时长'/>
+                                        <field name="resttime" string='停车时间'/>
+                                        <field name="minvehicles" string='最小配车数'/>
+                                        <field name="rateoffullload" string='满载率'/>
+                                        <field name="mark" string='标志'/>
+                                        <field name="spanday" string='是否跨天'/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="starttime"/>
+                                                <field name="endtime"/>
+                                                <field name="interval"/>
+                                                <field name="speed"/>
+                                                <field name="worktimelength"/>
+                                            </group>
+                                            <group>
+                                                <field name="resttime"/>
+                                                <field name="minvehicles"/>
+                                                <field name="rateoffullload"/>
+                                                <field name="mark"/>
+                                                <field name="spanday"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>                                
+                                </page>
+                             </notebook>
+                                
                             </div>
                         </page>
                         <page string="down work plan" attrs="{'invisible': [('schedule_method', '=', 'singleway')]}">
@@ -187,11 +222,8 @@
                                 </field>
                             </div>
                             <div>
-                                <div>
-                                    <div>
-                                        <h2>下行</h2>
-                                    </div>
-                                </div>
+                            <notebook>
+                             <page string='下行峰段规则'>
                                 <field name="downtimearrange">
                                     <tree default_order="seqid" editable="bottom">
                                         <field name="seqid"/>
@@ -225,6 +257,43 @@
                                         </group>
                                     </form>
                                 </field>
+                                </page>
+                                <page string='大数据建议'>                              
+								<field name="downtimearrange_bigdata">
+                                    <tree default_order="seqid" editable="bottom">
+                                        <field name="seqid" string='序号'/>
+                                        <field name="starttime" string='开始时间'/>
+                                        <field name="endtime" string='结束时间'/>
+                                        <field name="interval" string='发车间隔'/>
+                                        <field name="speed" string='车速'/>
+                                        <field name="worktimelength" string='运营时长'/>
+                                        <field name="resttime" string='停车时间'/>
+                                        <field name="minvehicles" string='最小配车数'/>
+                                        <field name="rateoffullload" string='满载率'/>
+                                        <field name="mark" string='标志'/>
+                                        <field name="spanday" string='是否跨天'/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="starttime"/>
+                                                <field name="endtime"/>
+                                                <field name="interval"/>
+                                                <field name="speed"/>
+                                                <field name="worktimelength"/>
+                                            </group>
+                                            <group>
+                                                <field name="resttime"/>
+                                                <field name="minvehicles"/>
+                                                <field name="rateoffullload"/>
+                                                <field name="mark"/>
+                                                <field name="spanday"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>                                     
+                                </page>
+                              </notebook>
                             </div>
                         </page>
                         <page string="big site setting up">
@@ -303,7 +372,7 @@
             <field name="model">scheduleplan.schedulrule</field>
             <field name="priority">0</field>
             <field name="arch" type="xml">
-                <tree string="Course Tree" create="0">
+                <tree string="Course Tree">
                     <field name="name"/>
                     <field name="line_id"/>
                     <field name="bustype"/>

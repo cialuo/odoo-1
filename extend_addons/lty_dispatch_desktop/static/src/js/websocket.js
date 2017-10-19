@@ -24,7 +24,7 @@ websocket.onopen = function () {
     var package = {
         type: 2000,
         controlId: CONTROLLERID,
-        open_modules: ["line_message", "line_online", "line_park", "abnormal", "passenger_flow", "bus_real_state"]
+        open_modules: ["line_message", "line_online", "line_park", "abnormal", "passenger_flow", "bus_real_state", "bus_site"]
     };
     websocket.send(JSON.stringify(package));
 }
@@ -45,7 +45,10 @@ websocket.onmessage = function (event) {
         if (eventObj.type == "1044") {
             vehicle_drop(controllerObj, eventData);
         }
-    } else if (modelName == "passenger_flow") {
+    } else if (modelName == "bus_site") {
+        bus_color(controllerObj, eventData);
+    }
+    else if (modelName == "passenger_flow") {
         //客流与运力组件
         use_odoo_model(event, "passenger_flow");
     } else if (modelName == "人力资源状态") {
@@ -87,7 +90,27 @@ window.onhashchange = function () {
     }
     websocket.close();
 }
+function bus_color(controllerObj, data_list) {
+    var dom = controllerObj.find('.dispatch_desktop[gprs_id=' + data_list.gprsId + '] .line_car[bus_no=' + data_list.terminalNo + ']');
+    var a = '';
+    if ((data_list.busStatus & 16) > 0) {
+        a = 'lx';
+    }
+    if ((data_list.busStatus & 64) > 0) {
+        a = 'cs';
+    }
+    // 如果超速,给红色删除其他颜色
+    if (a == 'cs') {
+        dom.addClass('to_red').removeClass('to_yellow');
+        // 如果超速,给黄色删除其他颜色
+    } else if (a == 'lx') {
+        dom.addClass('to_yellow').removeClass('to_red');
+        // 如果没超速也没减速,不给黄也不给红
+    } else {
+        dom.removeClass('to_yellow').removeClass('to_red');
+    }
 
+}
 function use_odoo_model(event, model_name) {
     for (socket_model in socket_model_info) {
         var socket_model_obj = socket_model_info[socket_model];
