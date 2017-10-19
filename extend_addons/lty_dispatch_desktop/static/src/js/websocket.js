@@ -49,10 +49,9 @@ websocket.onmessage = function (event) {
             var session_d = sessionStorage.getItem('bus_site_down' + eventObj.data.line_id).split(",");
             if ($('body').find('.bus_src_config').length > 0) {
                 if (eventObj.data.direction == 0) {
-                    debugger
-                    $('body').find('.bus_src_config tr[bus_no=' + eventObj.data.terminalNo + '] .position_site').html(session_t[eventObj.data.stationNo]);
+                    $('body').find('.bus_src_config tr[bus_no=' + eventObj.data.terminalNo + '] .line_src_site').html(session_t[eventObj.data.stationNo]);
                 } else {
-                    $('body').find('.bus_src_config tr[bus_no=' + eventObj.data.terminalNo + '] .position_site').html(session_d[session_d.length-eventObj.data.stationNo]);
+                    $('body').find('.bus_src_config tr[bus_no=' + eventObj.data.terminalNo + '] .line_src_site').html(session_d[session_d.length-eventObj.data.stationNo]);
                 }
             }
         }

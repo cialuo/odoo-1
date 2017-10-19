@@ -477,12 +477,12 @@
 						<div class="src_line_number"><t t-esc="widget.line_src.respose[0].lineName"></t></div>
 						<div>资源配备</div>
 					</div>
-					<!--<div class="line_src">-->
-						<!--<ul>-->
-							<!--&lt;!&ndash;<li class="active">车辆资源</li>&ndash;&gt;-->
-							<!--&lt;!&ndash;<li>人力资源</li>&ndash;&gt;-->
-						<!--</ul>-->
-					<!--</div>-->
+                    <!--<div class="line_src">-->
+                    <!--<ul>-->
+                    <!--&lt;!&ndash;<li class="active">车辆资源</li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<li>人力资源</li>&ndash;&gt;-->
+                    <!--</ul>-->
+                    <!--</div>-->
 					<div></div>
 				</div>
 			</div>
@@ -549,9 +549,6 @@
 									</td>
                                     <!--位置-->
 									<td class="line_src_site td_small">
-										<a href="#" class="position_site">
-											<!--<t t-esc="item.location_gps"></t>-->
-										</a>
 									</td>
 									<td class="line_src_status td_small">
 										<p t-if="item.carStateId==2008">机动</p>
