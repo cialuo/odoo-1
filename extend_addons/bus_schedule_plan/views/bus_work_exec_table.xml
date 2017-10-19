@@ -20,7 +20,7 @@
                 <field name="staffarrangetable_id"/>
                 <field name="firstruntime"/>
                 <field name="lastruntime"/>
-                <field name="status"/>
+                <field name="use_status" string="状态"/>
             </tree>
         </field>
     </record>
@@ -48,7 +48,7 @@
                         <field name="stewardnum"/>
                     </group>
                     <group>
-                        <field name="status"/>
+                        <field name="use_status" string="状态"/>
                         <field name="upmovenum"/>
                         <field name="downmovenum"/>
                         <field name="totalmovenum"/>

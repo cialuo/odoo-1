@@ -91,6 +91,12 @@ class BusMoveExcuteTable(models.Model):
                                 ("wait4use", "wait for use"),   # 待使用
                                 ("done", "done"),               # 完成
                               ], default="wait4use",  string="status")
+    
+    # 状态
+    use_status = fields.Selection([("wait4use", u"待用"),              # 草稿
+                                ("useing", u"使用中"),   # 待使用
+                                ("used", u"已使用"),               # 完成
+                              ], compute='_compute_use_status',  string="use status")    
 
     # 行车时刻表
     movetimetable_id = fields.Many2one("scheduleplan.busmovetime", string="move time tale")
@@ -124,6 +130,22 @@ class BusMoveExcuteTable(models.Model):
 
     # 下行趟次
     downmovenum =  fields.Integer(string="down move number")
+    
+    @api.one
+    @api.depends('excutedate')
+    def _compute_use_status(self):
+        
+        if self.excutedate:
+            excutedatetime = datetime.datetime.strptime(self.excutedate, '%Y-%m-%d')
+            now_datetime = (datetime.datetime.now()+datetime.timedelta(hours=8)).strftime("%Y-%m-%d")
+            exetuedatetime_from = datetime.datetime.strptime(now_datetime, '%Y-%m-%d')
+            exetuedatetime_end = datetime.datetime.strptime(now_datetime, '%Y-%m-%d')+datetime.timedelta(hours=24)
+            if excutedatetime < exetuedatetime_from :
+                self.use_status = 'used' 
+            if excutedatetime >= exetuedatetime_end :
+                self.use_status = 'wait4use'
+            if excutedatetime >= exetuedatetime_from and excutedatetime < exetuedatetime_end :
+                self.use_status = 'useing'       
 
     @api.multi
     def _getTotalMoveNumber(self):
