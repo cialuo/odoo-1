@@ -87,13 +87,25 @@
         </field>
     </record>
 
+    <!-- 部件清单 Graphs -->
+    <record model="ir.ui.view" id="product_component_graph">
+        <field name="name">mproduct.component.graph</field>
+        <field name="model">product.component</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="parent_vehicle"/>
+            </graph>
+        </field>
+    </record>
+
+
     <!--部件清单-->
     <record id="act_fleet_important_detailed" model="ir.actions.act_window">
             <field name="name">Important Detailed</field>
             <field name="res_model">product.component</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
     </record>
 
     <!--菜单-->

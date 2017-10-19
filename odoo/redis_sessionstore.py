@@ -7,6 +7,7 @@ class RedisSessionStore(SessionStore):
 
     def __init__(self, redisHost, expireTime, redisPort, redisDB, session_class=None):
         SessionStore.__init__(self, session_class)
+        self.path = None
         self._redisHost = redisHost
         self._redisPort = redisPort
         self._redisDb = redisDB

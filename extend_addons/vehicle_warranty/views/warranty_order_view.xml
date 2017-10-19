@@ -87,6 +87,17 @@
             </field>
         </record>
 
+        <!-- 保养单 Graphs -->
+        <record model="ir.ui.view" id="warranty_order_graph">
+            <field name="name">warranty.order.graph</field>
+            <field name="model">warranty_order</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="vehicle_id"/>
+                </graph>
+            </field>
+        </record>
+
         <!-- 保养单 form -->
         <record model="ir.ui.view" id="warranty_order_form">
             <field name="name">Warranty Order</field>
@@ -250,7 +261,7 @@
         <record model="ir.actions.act_window" id="warranty_order_action">
             <field name="name">Warranty Order</field>
             <field name="res_model">warranty_order</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
 			<field name="view_ids" eval="[(5, 0, 0),
 				(0, 0, {'view_mode': 'tree', 'view_id': ref('warranty_order_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('warranty_order_form')})]"/>

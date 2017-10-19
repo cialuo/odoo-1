@@ -41,6 +41,15 @@ class WarrantyCategory(models.Model): # 维保类别
 
     manhour = fields.Float(digits=(6, 1), default=0 , compute='_compute_manhour') # 工时定额
 
+    # 额定工时
+    quota_workhour = fields.Float(string="work hour quota")
+
+    # 额定费用
+    quota_cost = fields.Float(string="quota cost")
+
+    # 活动里程
+    active_mileage = fields.Integer(string="active mileage")
+
     remark = fields.Char()  # 备注
 
     parent_id = fields.Many2one('warranty_category', index=True, domain=[('state','=','use')],readonly="true") # 父分类

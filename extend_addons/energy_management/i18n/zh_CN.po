@@ -794,7 +794,7 @@ msgstr "能源使用记录"
 #. module: energy_management
 #: model:ir.model.fields,field_description:energy_management.field_fleet_vehicle_energy_usage_record_ids
 msgid "energy_usage_record_ids"
-msgstr "能源是用记录"
+msgstr "能源使用记录"
 
 #. module: energy_management
 #: model:ir.ui.view,arch_db:energy_management.energy_pile_form
