@@ -28,7 +28,7 @@
             <field name="name">coin_revenue tree view</field>
             <field name="model">total_revenue</field>
             <field name="arch" type="xml">
-                <tree create="false" edit="false" delete="false">
+                <tree delete="false">
                     <field name="c_date"/>
                     <field name="route_id"/>
                     <field name="vehicle_id"/>
@@ -45,7 +45,7 @@
             <field name="name">ic_revenue tree view</field>
             <field name="model">total_revenue</field>
             <field name="arch" type="xml">
-                <tree create="false" edit="false" delete="false">
+                <tree delete="false">
                     <field name="c_date"/>
                     <field name="route_id"/>
                     <field name="vehicle_id"/>
@@ -62,7 +62,7 @@
             <field name="name">chartered_revenue tree view</field>
             <field name="model">total_revenue</field>
             <field name="arch" type="xml">
-                <tree create="false" edit="false" delete="false">
+                <tree delete="false">
                     <field name="c_date"/>
                     <field name="route_id"/>
                     <field name="vehicle_id"/>
