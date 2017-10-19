@@ -110,7 +110,7 @@
             <field name="model">purchase.plan</field>
             <field name="arch" type="xml">
                 <graph stacked="False">
-                    <field name="month"/>
+                    <!--<field name="month"/>-->
                     <field name="state"/>
                 </graph>
             </field>
