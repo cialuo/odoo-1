@@ -79,7 +79,7 @@ function update_vehicles_sockt(eventData){
         if (CARMAP){
             var icon = get_icon();
             var marker = new AMap.Marker({
-                content: get_content_fn(icon, ONBOARDID_INNERCODE_DICT[eventData.terminalNo.toString()]),
+                content: get_content_fn(icon, eventData.terminalNo.toString()),
                 position: [new_gps.lon, new_gps.lat],
                 offset : new AMap.Pixel(-32,-16),
                 autoRotation: true,
@@ -102,8 +102,10 @@ function get_icon(st){
     return icon;
 }
 
-function get_content_fn(icon, inner_code){
+function get_content_fn(icon, onboardId){
     var div = document.createElement('div');
+    div.className = "vehicleMapMarker";
+    div.setAttribute("onboardId", onboardId);
     div.style.display = "block";
     div.style.borderStyle = "none";
     div.style.borderWidth = "0px";
@@ -114,12 +116,13 @@ function get_content_fn(icon, inner_code){
     div.style.zIndex = '1';
     // 车辆编号
     var span = document.createElement("span");
+    span.className = "carText";
     span.style.lineHeight = "16px";
     span.style.position = "absolute";
     span.style.top = "-16px";
     span.style.textShadow = "-1px 0 #FFFFFF, 0 1px #FFFFFF,1px 0 #FFFFFF, 0 -1px #FFFFFF";
     span.style.color = "#58554e";
-    var text = document.createTextNode(inner_code);
+    var text = document.createTextNode(ONBOARDID_INNERCODE_DICT[onboardId]);
     span.appendChild(text);
     setUnselected(span);
     div.appendChild(span);
