@@ -196,7 +196,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
                 } else if ($(this).hasClass('del_bt')) {
                     self.delLsatLine();
                 } else {
-                    self.emptyLine();
+                    self.emptyLine(map);
                 }
             });
 
@@ -381,15 +381,25 @@ odoo.define("line_map_production.line_map_production", function(require) {
             self.polyline_gps_list = polyline_gps_list;
         },
         // 清空重画-默认第一个点为起始站
-        emptyLine: function() {
+        emptyLine: function(map) {
             var self = this;
+            var direction = self.direction;
             var polyline_gps_list = self.polyline_gps_list;
-            if (polyline_gps_list.length > 1) {
-                polyline_gps_list = [polyline_gps_list[0]];
-                self.polyline.setPath(polyline_gps_list);
-                self.delete_point_fn();
+            if (polyline_gps_list.length > 0) {
+                self.layer_emptyLine_index = layer.msg("数据正在销毁中，请稍后...", { shade: 0.3, time: 0 });
+                var hisObj = self.options.his_dict[direction];
+                var site_list = self.options.site_dict[direction];
+                self.model_station.query().filter([
+                    ["id", "=", parseInt(site_list[0].station_id)]
+                ]).all().then(function(ret) {
+                    var new_gps = CONVERSIONS_GPS.gcj_encrypt(ret[0].latitude, ret[0].longitude);
+                    polyline_gps_list = [[new_gps.lon, new_gps.lat]];
+                    self.polyline.setPath(polyline_gps_list);
+                    self.delete_point_fn();
+                    self.polyline_gps_list = polyline_gps_list;
+                    layer.close(self.layer_emptyLine_index);
+                });
             }
-            self.polyline_gps_list = polyline_gps_list;
         },
         load_his_establishment_line: function(map, hisObj, site_list) {
             var self = this;
@@ -412,8 +422,9 @@ odoo.define("line_map_production.line_map_production", function(require) {
                 self.model_station.query().filter([
                     ["id", "=", parseInt(site_list[0].station_id)]
                 ]).all().then(function(ret) {
+                    var new_gps = CONVERSIONS_GPS.gcj_encrypt(ret[0].latitude, ret[0].longitude);
                     self.polyline_gps_list = [
-                        [ret[0].longitude, ret[0].latitude]
+                        [new_gps.lon, new_gps.lat]
                     ];
                     var polyline = new AMap.Polyline({
                         path: self.polyline_gps_list,
