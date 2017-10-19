@@ -45,6 +45,110 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         ('done', 'done'), # 完成
     ], readonly=True, default='draft', string="MyState")
 
+    def planitemExist(self, vehicleid, mantaintype):
+        # 检查某辆车的一条维保项目是否已经做过计划
+        constrains = [
+            ('vehicle_id', '=', vehicleid),
+            ('approval_warranty_category', '=', mantaintype),
+            ('state', '!=', 'done')
+        ]
+        result = self.env['warranty_plan_order'].search(constrains, limit=1)
+        if len(result)>0:
+            return True
+        else:
+            return False
+
+    def planItemLastCheck(self, vehicleid, mantaintype):
+        # 获取车辆维保项的最近一次维保记录
+        constrains = [
+            ('vehicle_id', '=', vehicleid),
+            ('approval_warranty_category', '=', mantaintype),
+            ('state', '=', 'done')
+        ]
+        result = self.env['warranty_plan_order'].search(constrains, order='planned_date desc', limit=1)
+        if len(result) > 0:
+            return result[0].planned_date
+        else:
+            return None
+
+    def constructPlanItemData(self,vehicleid, mantaintype, mileage, plandate, averagemile, lastmantain):
+        # 构造计划详情数据
+        data = {
+            'vehicle_id':vehicleid,                 # 车辆id
+            'warranty_category':mantaintype,        # 保养类型
+            'operating_mileage':mileage,            # 增加里程
+            'planned_date':plandate,                # 计划日期
+            'average_daily_kilometer':averagemile,  # 日平均公里数
+        }
+        if lastmantain != None:
+            data['warranty_location'] = lastmantain.warranty_location
+        return data
+
+    def sumVehicleDriveMileage(self, vehicleid, startDate, endDate):
+        # 计算在某个时间区间内 车辆的行驶里程
+        constrains = [
+            ('vehicle_id', '>', vehicleid)
+        ]
+        if startDate != None:
+            constrains.append(('relateddate', '>', startDate))
+        if endDate != None:
+            constrains.append(('relateddate', '<', endDate))
+        result = self.env['vehicleusage.driverecords'].search(constrains)
+        total = 0
+        for item in result:
+            total += item.planmileage
+        return total
+
+    @api.multi
+    def generateDetail(self):
+        # 只取运营期车辆
+        vehicles = self.env['fleet.vehicle'].search([('vehicle_life_state','=', 'operation_period')])
+        # 可提前天数
+        predays = 7
+        # 缓存车型数据
+        vmodel_cache = {}
+        itemsToAdd = []
+        for item in vehicles:
+            mantainitems = vmodel_cache.get(item.model_id.id, None)
+            if mantainitems == None:
+                # 缓存车型的保养项目列表
+                mantainitems = [i for i in item.model_id.warranty_interval_ids]
+                vmodel_cache[item.model_id.id] = mantainitems
+            for mitem in mantainitems:
+                if self.planitemExist(item.id, mitem.id):
+                    # 该任务已做计划 跳过
+                    continue
+                lastmantaindate = self.planItemLastCheck(item.id, mitem.id)
+                # 计算从上一次维保后又行驶了多少公里
+                mileageOffset = self.sumVehicleDriveMileage(item.id,
+                                                            None,
+                                                            datetime.datetime.today())
+                if lastmantaindate == None:
+                    # 之前从未做过维保则添加到计划 无需其他条件检查
+                    itemsToAdd.append(self.constructPlanItemData(item.id,
+                                                                 mitem.id,
+                                                                 mileageOffset,
+                                                                 datetime.datetime.today(),
+                                                                 item.daily_mileage,
+                                                                 lastmantaindate))
+                else:
+                    bigestmileage = mileageOffset + predays*item.daily_mileage
+                    if (bigestmileage) > (mitem.interval_mileage - mitem.warranty_category_id.active_mileage):
+                        # 如果加上提前天数满足维保里程阈值则添加到维保记录
+                        dayoffset = int((bigestmileage-mitem.interval_mileage)/item.daily_mileage)
+                        plandate = datetime.datetime.today()+datetime.timedelta(days=dayoffset)
+                        itemsToAdd.append(self.constructPlanItemData(item.id,
+                                                                     mitem.id,
+                                                                     mileageOffset,
+                                                                     plandate,
+                                                                     item.daily_mileage,
+                                                                     lastmantaindate))
+                    else:
+                        continue
+        sqldata = [(0, _, item) for item in itemsToAdd]
+        self.write({'plan_order_ids':sqldata})
+        return self
+
     @api.multi
     def action_draft(self):
         self.state = 'draft'
@@ -117,56 +221,3 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         for line in self.plan_order_ids:
             line.copy({'parent_id': res.id, 'maintain_sheet_id': '', 'state': 'draft'}) #
         return res
-
-
-class WizardWarrantyPlan(models.TransientModel): # 自动生成保养计划
-    _name = "wizard_warranty_plan"
-
-    def _default_employee(self):
-        emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
-        return emp_ids and emp_ids[0] or False
-
-    @api.multi
-    def create_warranty_plan(self):
-        tmp_plan_month = datetime.datetime.strftime(datetime.datetime.utcnow(), '%Y-%m')
-        warranty_plan_count=self.env['warranty_plan'].search_count([('month', '=', tmp_plan_month)])
-        warranty_plan_count+=1
-        company_id=''
-        if self._default_employee():
-            company_id=self._default_employee().department_id
-
-        warranty_plan_val = {
-            'name': 'BYJH'+'-'+tmp_plan_month+'-'+str(warranty_plan_count),  # plan.name + '_' + str(maintain_sheets_count + 1),  # +''+str(maintain_sheets_count)
-            'month': tmp_plan_month,
-            'company_id': company_id,
-            'made_company_id': company_id,
-            'state': 'draft'
-        }
-        warranty_plan = self.env['warranty_plan'].create(warranty_plan_val)
-
-        warranty_plan_order_list = []
-        vehicles = self.env['fleet.vehicle'].search([])
-        for vehicle in vehicles:
-            if vehicle.model_id:
-                odometer_count = vehicle.total_odometer
-                interval_mileage = 0
-                warranty_category_id = 0
-                if vehicle.model_id.warranty_interval_ids:
-                    for warranty_interval_id in vehicle.model_id.warranty_interval_ids:
-                        if odometer_count>warranty_interval_id.interval_mileage:
-                            interval_mileage=warranty_interval_id.interval_mileage
-                            warranty_category_id = warranty_interval_id.warranty_category_id.id
-                    if odometer_count>0 and interval_mileage>0 and warranty_category_id>0:
-                        warranty_plan_order_val = {
-                            'name': '/',
-                            'parent_id': warranty_plan.id,
-                            'vehicle_id': vehicle.id,
-                            'warranty_category': warranty_category_id,
-                            'state': 'draft'
-                        }
-                        warranty_plan_order_list.append((0, 0, warranty_plan_order_val))
-
-        if len(warranty_plan_order_list) > 0:
-            warranty_plan.write({'plan_order_ids': warranty_plan_order_list})
-
-        return False

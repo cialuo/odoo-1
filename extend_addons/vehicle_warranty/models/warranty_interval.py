@@ -39,7 +39,7 @@ class WarrantyInterval(models.Model): # 维保间隔
                 raise exceptions.ValidationError(_("interval_mileage must be greater than or equal to zero"))
 
     _sql_constraints = [
-        ('category_interval_mileage_unique', 'unique(vehicle_model_id, warranty_category_id, interval_mileage)', _('The category and mileage must be unique!'))
+        ('model_category_unique', 'unique(vehicle_model_id, warranty_category_id)', _('The category and vehicle model must be unique!'))
     ]
 
 

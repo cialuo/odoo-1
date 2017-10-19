@@ -133,7 +133,6 @@
                                 <group col="2">
 									<group>
 										<field name="repair_department" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
-										<!--<field name="fleet" attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
 										<field name="create_name" readonly="1" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True,'no_create':True}"/>
 										<field name="remark" />
 									</group>
@@ -162,11 +161,6 @@
             <field name="arch" type="xml">
                 <form string="MaintainPrecheck Form" create="false">
                 	<header>
-						<!--<button name="action_submit_precheck"-->
-								<!--type="object"-->
-                                <!--string="Precheck"-->
-								<!--states="draft"-->
-                                <!--class="oe_highlight"/> &lt;!&ndash; 提交检验&ndash;&gt;-->
 
 						<button name="action_precheck_to_repair"
 								type="object"
@@ -180,12 +174,6 @@
                                 string="Reset to draft"
 								groups="vehicle_group.vehicle_inspect"
 								states="precheck"/>     <!-- 检验退回-->
-
-
-						<!--<button name="action_repair_to_precheck"-->
-								<!--type="object"-->
-                                <!--string="Dispatch to Precheck"-->
-                                <!--states="repair"/> 		&lt;!&ndash; 退回检验&ndash;&gt;-->
 
                     	<field name="state"  widget="statusbar"  statusbar_visible="draft,precheck,repair,completed"/>
                 	</header>
@@ -238,7 +226,6 @@
                                 <group col="2">
 									<group>
 										<field name="repair_department" readonly="1"/>
-										<!--<field name="fleet" readonly="1"/>-->
 										<field name="create_name" />
 										<field name="remark"/>
 									</group>
@@ -316,9 +303,6 @@
 										<field name="percentage_work"/>
 										<field name="my_work"/>
 										<field name="real_work"/>
-										 <!--<field name="complex_level"/>-->
-										 <!--<field name="warranty_deadline"/>-->
-										 <!--<field name="remark"/>-->
                                     </tree>
                                 </field>
                              </page>
@@ -586,27 +570,7 @@
                 (0, 0, {'view_mode': 'form', 'view_id': ref('maintain_inspect_view_form')})]"/>
 		</record>
 
-
-		<!--<record id="maintain_inspect_action_server" model="ir.actions.server">-->
-            <!--<field name="name">Comfirm Inspect</field>-->
-            <!--<field name="type">ir.actions.server</field>-->
-            <!--<field name="model_id" ref="model_maintain_manage_repair"/>-->
-            <!--<field name="state">code</field>-->
-            <!--<field name="code">-->
-                <!--if context.get('active_model') == 'maintain.manage.repair' and context.get('active_ids'):-->
-                    <!--action = env['maintain.manage.repair'].browse(context['active_ids']).action_completed()-->
-            <!--</field>-->
-        <!--</record>-->
-
-        <!--<record id="maintain_inspect_action_server_submit" model="ir.values">-->
-            <!--<field name="name">Comfirm Inspect</field>-->
-            <!--<field name="model_id" ref="model_maintain_manage_repair"/>-->
-            <!--<field name="model">maintain.manage.repair</field>-->
-            <!--<field name="key2">client_action_multi</field>-->
-            <!--<field eval="'ir.actions.server,%d'%maintain_inspect_action_server" name="value"/>-->
-        <!--</record>-->
-
-		<!--抢修管理-->
+		<!--保养计划管理-->
 		<menuitem name="maintain_manage" id="maintain_manage"
 				  parent="vehicle_manage_menu.warranty_maintain_manage"  sequence="20"/>
 
