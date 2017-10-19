@@ -65,7 +65,10 @@ return Widget.extend({
         for (var i = 0; i < raw_data.length; i++) {
             data_pt = raw_data[i].attributes;
             values = [];
-            if (this.groupbys.length === 1) data_pt.value = [data_pt.value];
+            console.log(data_pt);
+            // state can not translation
+            // if (this.groupbys.length === 1) data_pt.value = [data_pt.value];
+            if (this.groupbys.length === 1) data_pt.value = [this.sanitize_value(data_pt.value, data_pt.grouped_on)];
             for (j = 0; j < data_pt.value.length; j++) {
                 values[j] = this.sanitize_value(data_pt.value[j], data_pt.grouped_on[j]);
             }
@@ -76,6 +79,7 @@ return Widget.extend({
             });
         }
     },
+
     sanitize_value: function (value, field) {
         if (value === false) return _t("Undefined");
         if (value instanceof Array) return value[1];
@@ -210,6 +214,7 @@ return Widget.extend({
         }
         if (this.groupbys.length) {
             data = this.data.map(function (datapt) {
+                console.log(datapt)
                 return {x:datapt.labels.join("/"), y: datapt.value};
             });
         }
