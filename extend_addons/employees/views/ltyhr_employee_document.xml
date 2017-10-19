@@ -202,6 +202,17 @@
             </field>
         </record>
 
+        <!-- 员工Graphs-->
+        <record model="ir.ui.view" id="hr_employee_graph">
+            <field name="name">hr.employee.graph</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="jobnumber"/>
+                </graph>
+            </field>
+        </record>
+
         <!-- 组织架构列表 -->
         <record id="ltyhr_view_department_tree" model="ir.ui.view">
             <field name="name">ltyhr.department.tree</field>
@@ -326,7 +337,7 @@
         <record model="ir.actions.act_window" id="ltyhr_employee_information">
             <field name="name">employee view</field>
             <field name="res_model">hr.employee</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
         </record>
 
         <record model="ir.actions.act_window" id="ltyhr_employee_department">

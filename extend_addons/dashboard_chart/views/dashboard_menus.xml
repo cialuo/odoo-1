@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <!--
+
+                在车辆,物资,人员,安全模块新增顶层菜单
+
+        -->
+
+        <!--人员-->
+        <menuitem name="Employees Dashboard" parent="employees_menu.ltyhr_top_menu" action="open_board_employees" sequence="-1"
+            id="menu_ltyhr_board" icon="terp-graph"/>
+
+        <!--物资-->
+        <menuitem name="Materials Dashboard" parent="materials_menu.materials_menu_root" action="open_board_materials" sequence="-1"
+            id="menu_materials_board" icon="terp-graph"/>
+
+        <!--车辆-->
+        <menuitem name="Vehicle Dashboard" parent="vehicle_manage_menu.vehicle_manage_menu_root" action="open_board_vehicle" sequence="-1"
+            id="menu_vehicle_manage_board" icon="terp-graph"/>
+
+        <!--安全-->
+        <menuitem name="Security Dashboard" parent="security_manage_menu.security_manage_menu_root" action="open_board_security" sequence="-1"
+            id="menu_security_manage_board" icon="terp-graph"/>
+
+
+         <!--看板配置-->
+        <menuitem name="Dashboard Setting Root" parent="employees_menu.ltyhr_top_menu" sequence="1000"
+            id="menu_dashboard_setting_root"/>
+
+        <menuitem name="Dashboard Setting" parent="menu_dashboard_setting_root" action="act_dashboard_setting" sequence="10"
+            id="menu_dashboard_setting"/>
+
+        <menuitem name="Chart Views" parent="menu_dashboard_setting_root" action="act_chart_views" sequence="20"
+            id="menu_chart_views"/>
+
+    </data>
+
+</odoo>

@@ -20,6 +20,17 @@
             </field>
         </record>
 
+		<!-- 抢修单 Graphs -->
+        <record model="ir.ui.view" id="maintain_report_graph">
+            <field name="name">maintain.report.graph</field>
+            <field name="model">maintain.manage.report</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="vehicle_id"/>
+                </graph>
+            </field>
+        </record>
+
 		<!-- MaintainPrecheck  tree -->
         <record model="ir.ui.view" id="maintain_precheck_view_tree">
             <field name="name">MaintainPrecheck.tree</field>
@@ -545,7 +556,7 @@
 		<record model="ir.actions.act_window" id="maintain_report_action">
 			<field name="name">maintain_report_action</field>
 			<field name="res_model">maintain.manage.report</field>
-			<field name="view_mode">tree,form</field>
+			<field name="view_mode">tree,form,graph</field>
 			<field name="view_ids" eval="[(5, 0, 0),
 				(0, 0, {'view_mode': 'tree', 'view_id': ref('maintain_report_view_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('maintain_report_view_form')})]"/>

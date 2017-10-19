@@ -16,6 +16,17 @@
       </field>
     </record>
 
+    <!-- 培训计划Graphs-->
+    <record model="ir.ui.view" id="training_plan_graph">
+        <field name="name">training.plan.graph</field>
+        <field name="model">employees_growth.training_plan</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="name"/>
+            </graph>
+        </field>
+    </record>
+
     <!--表单-->
     <record model="ir.ui.view" id="employees_growth_manage.training_plan_form">
       <field name="name">training_plan form</field>
@@ -72,7 +83,7 @@
     <record model="ir.actions.act_window" id="employees_growth_manage.action_training_plan">
       <field name="name">training_plan window</field>
       <field name="res_model">employees_growth.training_plan</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,graph</field>
     </record>
 
 
