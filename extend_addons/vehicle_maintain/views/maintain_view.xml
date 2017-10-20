@@ -21,24 +21,6 @@
         </record>
 
 
-		<!--&lt;!&ndash; MaintainPrecheck  tree &ndash;&gt;-->
-        <!--<record model="ir.ui.view" id="maintain_precheck_view_tree">-->
-            <!--<field name="name">MaintainPrecheck.tree</field>-->
-            <!--<field name="model">maintain.manage.report</field>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<tree string="MaintainPrecheck Tree" create="false">-->
-					<!--<field name="name"/>-->
-					<!--<field name="vehicle_id"/>-->
-					<!--<field name="vehicle_type"/>-->
-					<!--<field name="report_user_id"/>-->
-					<!--<field name="report_date"/>-->
-					<!--<field name="repair_category"/>-->
-					<!--<field name="repair_level"/>-->
-					<!--<field name="is_fault_vehicle"/>-->
-					<!--<field name="state"/>-->
-                <!--</tree>-->
-            <!--</field>-->
-        <!--</record>-->
 
 		<!-- 抢修单 Graphs -->
         <record model="ir.ui.view" id="maintain_report_graph">
@@ -206,110 +188,6 @@
             </field>
         </record>
 
-
-		<!--&lt;!&ndash; MaintainPrecheck form view &ndash;&gt;-->
-        <!--<record model="ir.ui.view" id="maintain_precheck_view_form">-->
-            <!--<field name="name">MaintainPrecheck.form</field>-->
-            <!--<field name="model">maintain.manage.report</field>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<form string="MaintainPrecheck Form" create="false">-->
-                	<!--<header>-->
-						<!--&lt;!&ndash;<button name="action_submit_precheck"&ndash;&gt;-->
-								<!--&lt;!&ndash;type="object"&ndash;&gt;-->
-                                <!--&lt;!&ndash;string="Precheck"&ndash;&gt;-->
-								<!--&lt;!&ndash;states="draft"&ndash;&gt;-->
-                                <!--&lt;!&ndash;class="oe_highlight"/> &lt;!&ndash; 提交检验&ndash;&gt;&ndash;&gt;-->
-
-						<!--<button name="action_precheck_to_repair"-->
-								<!--type="object"-->
-                                <!--string="Precheck Success"-->
-                                <!--states="precheck"-->
-								<!--groups="vehicle_group.vehicle_inspect"-->
-								<!--class="oe_highlight"/>  &lt;!&ndash; 预检通过并创建交接单&ndash;&gt;-->
-
-						<!--<button name="action_precheck_to_draft"-->
-								<!--type="object"-->
-                                <!--string="Reset to draft"-->
-								<!--groups="vehicle_group.vehicle_inspect"-->
-								<!--states="precheck"/>     &lt;!&ndash; 检验退回&ndash;&gt;-->
-
-
-						<!--&lt;!&ndash;<button name="action_repair_to_precheck"&ndash;&gt;-->
-								<!--&lt;!&ndash;type="object"&ndash;&gt;-->
-                                <!--&lt;!&ndash;string="Dispatch to Precheck"&ndash;&gt;-->
-                                <!--&lt;!&ndash;states="repair"/> 		&lt;!&ndash; 退回检验&ndash;&gt;&ndash;&gt;-->
-
-                    	<!--<field name="state"  widget="statusbar"  statusbar_visible="draft,precheck,repair,completed"/>-->
-                	<!--</header>-->
-					<!--<sheet>-->
-						<!--<div class="oe_button_box" name="button_box" attrs="{'invisible': [('state', '!=', 'repair')]}">-->
-							<!--<button name="action_to_open"-->
-									<!--type="object"-->
-									<!--class="oe_stat_button"-->
-									<!--icon="fa-pencil-square-o"-->
-									<!--context="{'xml_id':'maintain_repair_action'}"-->
-									<!--attrs="{'invisible': [('dispatch_count', '=', 0)]}"-->
-									<!--help="For dispatching fault">-->
-								<!--<field name="dispatch_count" widget="statinfo" string="Dispatch"/>-->
-							<!--</button>-->
-                   	 	<!--</div>-->
-
-						<!--<div class="oe_title">-->
-	                        <!--<label for="name"/>-->
-							<!--<h1><field name="name" readonly="1"/></h1>-->
-	                    <!--</div>-->
-						 <!--<group col="2">-->
-	                        <!--<group>-->
-	                        	<!--<field name="vehicle_id" readonly="1"/>-->
-								<!--<field name="report_user_id" readonly="1"/>-->
-								<!--<field name="repair_category" readonly="1"/>-->
-	                        <!--</group>-->
-	                        <!--<group>-->
-	                            <!--<field name="vehicle_type" readonly="1"/>-->
-								<!--<field name="report_date" readonly="1"/>-->
-								<!--<field name="is_fault_vehicle" readonly="1"/>-->
-	                        <!--</group>-->
-                   		 <!--</group>-->
-  						 <!--<notebook>-->
-							 <!--<page string="Maintain Repair">-->
-								<!--<field name="repair_ids" context="{'form_view_ref': 'vehicle_maintain.maintain_repair_view_form_action'}">-->
-									<!--<tree string="Maintain Repair">-->
-										<!--<field name="name"/>-->
-										<!--<field name="fault_category_id" options="{'no_open':True,'no_create':True}"/>-->
-										<!--<field name="fault_appearance_id" options="{'no_open':True,'no_create':True}"/>-->
-										<!--<field name="fault_reason_id" options="{'no_open':True,'no_create':True}"/>-->
-										<!--<field name="fault_method_id" options="{'no_open':True,'no_create':True}"/>-->
-										<!--<field name="fault_method_code"/>-->
-										<!--<field name="return_repair_state"/>-->
-										<!--<field name="repair_names"/>-->
-										<!--<field name="state"/>-->
-									<!--</tree>-->
-								<!--</field>-->
-							 <!--</page>-->
-							 <!--<page string="More Information">-->
-                                <!--<group col="2">-->
-									<!--<group>-->
-										<!--<field name="repair_department" readonly="1"/>-->
-										<!--&lt;!&ndash;<field name="fleet" readonly="1"/>&ndash;&gt;-->
-										<!--<field name="create_name" />-->
-										<!--<field name="remark"/>-->
-									<!--</group>-->
-									<!--<group>-->
-										<!--<field name="repair_plant" readonly="1"/>-->
-										<!--<field name="repair_level" readonly="1"/>-->
-										<!--<field name="create_name_department"/>-->
-									<!--</group>-->
-								 <!--</group>-->
-                            <!--</page>-->
-			            <!--</notebook>-->
-					<!--</sheet>-->
-					<!--<div class="oe_chatter">-->
-                        <!--<field name="message_follower_ids" widget="mail_followers"/>-->
-                        <!--<field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>-->
-                    <!--</div>-->
-                <!--</form>-->
-            <!--</field>-->
-        <!--</record>-->
 
 		<!-- MaintainRepair form view -->
         <record model="ir.ui.view" id="maintain_repair_view_form">
@@ -665,16 +543,6 @@
 
 		</record>
 
-		<!--&lt;!&ndash; MaintainPrecheck Action&ndash;&gt;-->
-		<!--<record model="ir.actions.act_window" id="maintain_precheck_action">-->
-			<!--<field name="name">maintain_precheck_action</field>-->
-			<!--<field name="res_model">maintain.manage.report</field>-->
-			<!--<field name="view_mode">tree,form</field>-->
-			<!--<field name="domain">[('state', 'not in', ['back','draft'])]</field>-->
-			<!--<field name="view_ids" eval="[(5, 0, 0),-->
-				<!--(0, 0, {'view_mode': 'tree', 'view_id': ref('maintain_precheck_view_tree')}),-->
-                <!--(0, 0, {'view_mode': 'form', 'view_id': ref('maintain_precheck_view_form')})]"/>-->
-		<!--</record>-->
 
 		<!-- MaintainRepair Action-->
 		<record model="ir.actions.act_window" id="maintain_repair_action">
@@ -700,25 +568,6 @@
 		</record>
 
 
-		<!--<record id="maintain_inspect_action_server" model="ir.actions.server">-->
-            <!--<field name="name">Comfirm Inspect</field>-->
-            <!--<field name="type">ir.actions.server</field>-->
-            <!--<field name="model_id" ref="model_maintain_manage_repair"/>-->
-            <!--<field name="state">code</field>-->
-            <!--<field name="code">-->
-                <!--if context.get('active_model') == 'maintain.manage.repair' and context.get('active_ids'):-->
-                    <!--action = env['maintain.manage.repair'].browse(context['active_ids']).action_completed()-->
-            <!--</field>-->
-        <!--</record>-->
-
-        <!--<record id="maintain_inspect_action_server_submit" model="ir.values">-->
-            <!--<field name="name">Comfirm Inspect</field>-->
-            <!--<field name="model_id" ref="model_maintain_manage_repair"/>-->
-            <!--<field name="model">maintain.manage.repair</field>-->
-            <!--<field name="key2">client_action_multi</field>-->
-            <!--<field eval="'ir.actions.server,%d'%maintain_inspect_action_server" name="value"/>-->
-        <!--</record>-->
-
 		<!--抢修管理-->
 		<menuitem name="maintain_manage" id="maintain_manage"
 				  parent="vehicle_manage_menu.warranty_maintain_manage"  sequence="20"/>
@@ -727,11 +576,6 @@
         <menuitem name="maintain_report_order" id="maintain_report_order" parent="maintain_manage"
 				  action="maintain_report_action" sequence="10"
 				  groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_inspect" />
-
-		<!--&lt;!&ndash;预检单&ndash;&gt;-->
-		<!--<menuitem name="maintain_precheck_order" id="maintain_precheck_order" parent="maintain_manage"-->
-				  <!--action="maintain_precheck_action" sequence="20"-->
-				  <!--groups="vehicle_group.vehicle_repair,vehicle_group.vehicle_inspect" />-->
 
 		<!--抢修单-->
         <menuitem name="maintain_repair_order" id="maintain_repair_order" parent="maintain_manage"
