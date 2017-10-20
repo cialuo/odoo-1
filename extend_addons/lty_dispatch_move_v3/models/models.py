@@ -10,9 +10,9 @@ class operation_records_move2v3(models.Model):
     #公司
     company_id = fields.Many2one('res.company')
     #开始时间
-    start_date = fields.Datetime()
+    start_date = fields.Date()
     #结束时间
-    end_date = fields.Datetime()    
+    end_date = fields.Date()    
     #线路
     line_id = fields.Many2one('route_manage.route_manage')
     #运营理程
