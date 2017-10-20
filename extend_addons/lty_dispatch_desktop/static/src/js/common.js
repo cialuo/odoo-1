@@ -55,8 +55,17 @@ function cir_and_text(canvas) {
             myColor = transform(canvas.dataSite_color)[i];
         }
         //无法获得站点实际位置，先用平均距离展示
-        var everyLen = 1190*(i+0.5)/canvas.site_infos.length;
-        cxt.fillText(mySite, everyLen, canvas.testy);
+        var everyLen = 1190 * (i + 0.5) / canvas.site_infos.length;
+        if (i == 0) {
+            cxt.fillText(mySite, 12 * mySite.length/2, canvas.testy);
+            // cxt.fillText(mySite, everyLen, canvas.testy);
+
+        } else if (i == (canvas.site_infos.length-1)) {
+            cxt.fillText(mySite, 1190-(12 * mySite.length/2), canvas.testy);
+            // cxt.fillText(mySite, everyLen, canvas.testy);
+        } else {
+            cxt.fillText(mySite, everyLen, canvas.testy);
+        }
         cxt.closePath();
         //渲染圆环
         var obj_list = [
@@ -101,7 +110,7 @@ function can_left_right(canvas) {
     cxt.textAlign = "center";
     cxt.fillStyle = "black";
     //文字，左距离，上距离，最大px量
-    cxt.fillText(canvas.busNumber , 13, 62, 50);
+    cxt.fillText(canvas.busNumber, 13, 62, 50);
     cxt.fill();
     cxt.closePath();
     cxt.beginPath();
@@ -222,10 +231,10 @@ function carousel(carousel) {
     var self = carousel.self;
     var content = carousel.content;
     var i = 0;
-    if(self.$(content + '>li').length ==2){
+    if (self.$(content + '>li').length == 2) {
         var firstcarousel_content = self.$(content + '>li').first().clone(); //复制第一张图片
-    }else{
-      var firstcarousel_content = self.$(content + '>li').eq(2); //复制第一张图片
+    } else {
+        var firstcarousel_content = self.$(content + '>li').eq(2); //复制第一张图片
     }
     //将第一张图片放到最后一张图片后，设置ul的宽度为图片张数*图片宽度
     self.$(content).append(firstcarousel_content).width(self.$(content + '>li').length * 600);
@@ -235,11 +244,12 @@ function carousel(carousel) {
         if (i == self.$(content + '>li').length) {
             i = 1;
             self.$(content).css({left: 0});
-        };
+        }
+        ;
         self.$(content).stop().animate({left: -i * 600}, 500);
     }, 3000);
     var carousel_line_id = self.$el.attr('line_id');
-    sessionStorage.setItem('timer'+carousel_line_id,timer);
+    sessionStorage.setItem('timer' + carousel_line_id, timer);
     // 鼠标移入，暂停自动播放，移出，开始自动播放
     // self.$('.carousel').hover(function () {
     //     clearInterval(timer);
@@ -255,9 +265,9 @@ function carousel(carousel) {
     // });
 }
 
-function transform(obj){
+function transform(obj) {
     var arr = [];
-    for(var item in obj){
+    for (var item in obj) {
         arr.push(obj[item]);
     }
     return arr;

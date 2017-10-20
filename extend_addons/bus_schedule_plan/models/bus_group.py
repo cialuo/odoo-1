@@ -395,6 +395,9 @@ class BusGroupDriverVehicleShift(models.Model):
                     if str(last_rotation_date) < use_date:
                         res_groups[0].route_id.last_rotation_date = use_date
                     _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 大轮换后 新顺序%s" % (str(next_use_date), route_id, group_dict))
+                else:
+                    group_dict = copy.deepcopy(old_group_dict)
+                    _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 大论换 周期没到" % (str(next_use_date), route_id,))
             else:
                 group_dict = copy.deepcopy(old_group_dict)
                 _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 没有进行大论换" % (str(next_use_date), route_id, ))
