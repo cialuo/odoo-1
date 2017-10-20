@@ -2,6 +2,36 @@
 
 from odoo import models, fields, api
 
+class operation_records_move2v3(models.Model):
+    _name = 'operation.records.move2v3'
+    
+    #迁移单编号
+    name = fields.Char()
+    #公司
+    company_id = fields.Many2one('res.company')
+    #开始时间
+    start_date = fields.Date()
+    #结束时间
+    end_date = fields.Date()    
+    #线路
+    line_id = fields.Many2one('route_manage.route_manage')
+    #运营理程
+    operation_vehicleusage_ids = fields.One2many('vehicleusage.driverecords','record_move_id')
+    #非运营理程
+    nooperation_vehicleusage_ids = fields.One2many('vehicleusage.driverecords','record_move_id')
+    #签到记录
+    attence_record_ids = fields.One2many('employee.attencerecords','record_move_id')
+    @api.multi
+    #通过访问后台提供的restful接口获取到运营理程信息，非运营理程信息和司乘考勤信息    
+    def get_data(self):
+        company_id = self.company_id.id
+        start_date = self.start_date
+        #driver_recodes_obj = self.env['vehicleusage.driverecords']
+        #attence_obj = self.env['employee.attencerecords']
+        #values = driver_recodes_obj.restful()
+        #driver_recodes_obj.create(values)
+        
+        
 
 class DriveRecords(models.Model):
     """
@@ -47,7 +77,9 @@ class DriveRecords(models.Model):
     is_add = fields.Boolean()
     # 备注
     note = fields.Char()
-
+    #移转单ID
+    record_move_id = fields.Many2one('operation.records.move2v3')
+    
 
 class attence(models.Model):
     """
@@ -65,6 +97,10 @@ class attence(models.Model):
     vehicle_id = fields.Many2one('fleet.vehicle')
     # 日期
     date = fields.Date()
+    #移转单ID
+    record_move_id = fields.Many2one('operation.records.move2v3')
+    
     # 签到时间 checkingin
 
     # 签退时间 checkinginout
+

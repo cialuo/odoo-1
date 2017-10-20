@@ -57,11 +57,20 @@ function cir_and_text(canvas) {
         //无法获得站点实际位置，先用平均距离展示
         var everyLen = 1190 * (i + 0.5) / canvas.site_infos.length;
         if (i == 0) {
-            cxt.fillText(mySite, 12 * mySite.length/2, canvas.testy);
+            if ((12 * mySite.length / 2) > (1190 * 0.5 / canvas.site_infos.length)) {
+                cxt.fillText(mySite, 12 * mySite.length / 2, canvas.testy);
+            } else {
+                cxt.fillText(mySite, everyLen, canvas.testy);
+            }
             // cxt.fillText(mySite, everyLen, canvas.testy);
 
-        } else if (i == (canvas.site_infos.length-1)) {
-            cxt.fillText(mySite, 1190-(12 * mySite.length/2), canvas.testy);
+        } else if (i == (canvas.site_infos.length - 1)) {
+            if ((12 * mySite.length / 2) > (1190 * 0.5 / canvas.site_infos.length)) {
+                cxt.fillText(mySite, 1190 - (12 * mySite.length / 2), canvas.testy);
+            } else {
+                cxt.fillText(mySite, everyLen, canvas.testy);
+
+            }
             // cxt.fillText(mySite, everyLen, canvas.testy);
         } else {
             cxt.fillText(mySite, everyLen, canvas.testy);
