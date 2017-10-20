@@ -12,58 +12,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
         init: function(parent, data) {
             this._super(parent);
             this.location_data = data;
-            var uplink_plan = {
-                direction: 0,
-                data_list: [{
-                    id: "plan_1",
-                    sendToScreen: 0,
-                    sendToBus: 1,
-                    planRunTime: new Date().getTime(),
-                    planReachTime: new Date().getTime(),
-                    selfId: "655",
-                    driverName: "刘德华",
-                    planState: "0",
-                    direction: 0
-                }]
-            };
-            var uplink_yard = {
-                direction: 0,
-                inField: 1,
-                data_list: [{
-                    id: "yard_1",
-                    checkOut: 0,
-                    runState: 1,
-                    planRunTime: new Date().getTime(),
-                    carNum: "264",
-                    line: 16,
-                    realReachTime: new Date().getTime(),
-                    stopTime: "5",
-                    direction: 0,
-                    inField: 1
-                }]
-            };
-            var uplink_transit = {
-                direction: 0,
-                inField: 0,
-                data_list: [{
-                    id: "transit_1",
-                    checkOut: 0,
-                    runState: 1,
-                    planRunTime: new Date().getTime(),
-                    carNum: "264",
-                    line: 16,
-                    planReachTime: new Date().getTime(),
-                    stopTime: "5",
-                    direction: 0,
-                    inField: 0
-                }]
-            }
-            this.uplink_plan = uplink_plan;
-            this.uplink_yard = uplink_yard;
-            this.uplink_transit = uplink_transit;
-            this.down_plan = uplink_plan;
-            this.down_yard = uplink_yard;
-            this.down_transit = uplink_transit;
         },
         start: function() {
             var layer_index = layer.msg("加载中...", { time: 0, shade: 0.3 });
@@ -71,6 +19,10 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 layer_index: layer_index
             }
             sessionStorage.setItem("linePlanParkOnlineModel_set", JSON.stringify(linePlanParkOnlineModel_set));
+
+            // 加载调度详情
+            this.load_plan();
+
 
             // 订阅线路计划、车场、状态
             var package = {
@@ -83,55 +35,72 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             } catch(e) {
                 console.log(e);
             }
-
-            this.load_plan();
         },
         load_plan: function() {
             var self = this;
-            console.log(self.location_data.controllerId + '_' + self.location_data.line_id);
             $.ajax({
                 url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + '}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
-                success: function(ret) {
-                    console.log(ret.respose);
-                    self.uplink_plan = {
-                        direction: 0,
-                        data_list: ret.respose
-                    };
-                    self.down_plan = {
-                        direction: 1,
-                        data_list: ret.respose
-                    };
+                success: function(retPlan) {
+                    console.log(retPlan.respose);
+                    var busResourcePlan = {},
+                        uplink_plan = [],  // 上行计划
+                        down_plan = [];    // 下行计划
+
+                    _.each(retPlan.respose, function(planBus){
+                        busResourcePlan[planBus.id] = planBus;
+                        planBus.fixPlanClass = "";
+                        if (new Date(planBus.oldRunTime).getTime() != new Date(planBus.planRunTime).getTime()){
+                            planBus.fixPlanClass = "bus_plan_fix";
+                        }
+
+
+                        if (planBus.direction == 0){
+                            uplink_plan.push(planBus);
+                        }else{
+                            down_plan.push(planBus);
+                        }
+                    });
+                    self.uplink_plan = uplink_plan;
+                    self.down_plan = down_plan;
+                    sessionStorage.setItem("busResourcePlan", JSON.stringify(busResourcePlan));
                     $.ajax({
                         url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + '}',
                         type: 'get',
                         dataType: 'json',
                         data: {},
-                        success: function(data) {
-                            console.log(data);
-                            sessionStorage.setItem("busResource", JSON.stringify(data.respose));
-                            self.uplink_yard = {
-                                inField: 1,
-                                direction: 0,
-                                data_list: data.respose
-                            };
-                            self.down_yard = {
-                                inField: 1,
-                                direction: 1,
-                                data_list: data.respose
-                            };
-                            self.uplink_transit = {
-                                inField: 0,
-                                direction: 0,
-                                data_list: data.respose
-                            };
-                            self.down_transit = {
-                                inField: 0,
-                                direction: 1,
-                                data_list: data.respose
-                            };
+                        success: function(resBus) {
+                            console.log(resBus);
+                            sessionStorage.setItem("busResource", JSON.stringify(resBus.respose));
+                            var uplink_yard = [],     //上行车场
+                                down_yard = [],       //下行车场
+                                uplink_transit = [],  //上行在途
+                                down_transit = [];    //下行在途
+
+                            _.each(resBus.respose, function(runBus){
+                                if (runBus.carStateId != 2008){
+                                    if (runBus.inField == 1){
+                                        if(runBus.direction == 0){
+                                            uplink_yard.push(runBus);
+                                        }else{
+                                            down_yard.push(runBus);
+                                        }
+                                    }else{
+                                        if(runBus.direction == 0){
+                                            uplink_transit.push(runBus);
+                                        }else{
+                                            down_transit.push(runBus);
+                                        }
+                                    }
+                                }
+                            })
+
+                            self.uplink_yard = uplink_yard;
+                            self.down_yard = down_yard;
+                            self.uplink_transit = uplink_transit;
+                            self.down_transit = down_transit;
                             self.cont_info();
                         }
                     });
@@ -139,12 +108,12 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             });
         },
         cont_info: function() {
-            new bus_plan(this, this.uplink_plan).appendTo(this.$(".plan_group"));
-            new bus_yard(this, this.uplink_yard).appendTo(this.$(".plan_group"));
-            new bus_transit(this, this.uplink_transit).appendTo(this.$(".plan_group"));
-            new bus_plan(this, this.down_plan).appendTo(this.$(".plan_group"));
-            new bus_yard(this, this.down_yard).appendTo(this.$(".plan_group"));
-            new bus_transit(this, this.down_transit).appendTo(this.$(".plan_group"));
+            new bus_plan(this, this.uplink_plan, 0).appendTo(this.$(".plan_group"));         // 上行计划
+            new bus_yard(this, this.uplink_yard, 0, 1).appendTo(this.$(".plan_group"));      // 上行车场
+            new bus_transit(this, this.uplink_transit, 0, 0).appendTo(this.$(".plan_group"));// 上行在途
+            new bus_plan(this, this.down_plan, 1).appendTo(this.$(".plan_group"));           // 下行计划
+            new bus_yard(this, this.down_yard, 1, 1).appendTo(this.$(".plan_group"));        // 下行车场
+            new bus_transit(this, this.down_transit, 1, 0).appendTo(this.$(".plan_group"));  // 下行在途
             this.load_fn();
         },
         load_fn: function() {
@@ -1009,9 +978,12 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
 
     var bus_plan = Widget.extend({
         template: "vehicles_plan_template",
-        init: function(parent, data) {
+        init: function(parent, data, direction) {
             this._super(parent);
-            this.plan_data = data;
+            this.plan_data = {
+                data_list: data,
+                direction: direction
+            };
         },
         start: function() {
             var self = this;
@@ -1080,9 +1052,13 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
 
     var bus_yard = Widget.extend({
         template: "vehicles_yard_template",
-        init: function(parent, data) {
+        init: function(parent, data, direction, inField) {
             this._super(parent);
-            this.yard_data = data;
+            this.yard_data = {
+                data_list: data,
+                direction: direction,
+                inField: inField
+            };
         },
         start: function() {
             var self = this;
@@ -1175,9 +1151,13 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
 
     var bus_transit = Widget.extend({
         template: "vehicles_transit_template",
-        init: function(parent, data) {
+        init: function(parent, data, direction, inField) {
             this._super(parent);
-            this.transit_data = data;
+            this.transit_data = {
+                data_list: data,
+                direction: direction,
+                inField: inField
+            };
         },
         start: function() {
             var self = this;

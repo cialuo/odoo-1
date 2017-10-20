@@ -726,11 +726,27 @@ function update_linePlan(controllerObj, dataObj) {
         return false;
     }
 
+    var busResourcePlan = JSON.parse(sessionStorage.getItem("busResourcePlan"));
+    var his_busResourcePlan = busResourcePlan[dataObj.id] || "";
+    var fixPlanClass = "";
+    if (his_busResourcePlan){
+        set_op = extend_obj_fn(his_busResourcePlan, dataObj);
+        busResourcePlan[dataObj.id] = set_op;
+        if (new Date(his_busResourcePlan.oldRunTime).getTime() != new Date(his_busResourcePlan.planRunTime).getTime()){
+            fixPlanClass = "bus_plan_fix";
+        }
+        
+    }else{
+        busResourcePlan[dataObj.id] = dataObj;
+    }
+
+    sessionStorage.setItem("busResourcePlan", JSON.stringify(busResourcePlan));
+
     if (active_tr_obj.length == 0) {
         // 没有且计划状态非完成则为新增,需按照计划发车时间先后插入
         var content_tb_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb");
         var obj_str =
-            '<tr class="point" pid="' + set_op.id + '" direction="' + dataObj.direction + '" planRunTime="' + new Date(set_op.planRunTime).getTime() + '">' +
+            '<tr class="point '+fixPlanClass+'" pid="' + set_op.id + '" direction="' + dataObj.direction + '" planRunTime="' + new Date(set_op.planRunTime).getTime() + '">' +
             '<td class="pL">' +
             '<span st="' + dataObj.sendToScreen + '" class="icon sendToScreen icon_' + dataObj.sendToScreen + '"></span>' +
             '<span st="' + dataObj.sendToBus + '" class="icon sendToBus icon_' + dataObj.sendToBus + '"></span>' +
@@ -781,7 +797,7 @@ function update_linePlan(controllerObj, dataObj) {
             var b_pid = tr_obj.getAttribute("pid");
             //  由于车辆计划行驶表都有计划时间则直接按计划时间升序排列
             if (planRunTime > active_tr_obj.attr("planRunTime")) {
-                content_tb_obj.find("tr[pid=" + b_pid + "]").before(obj_str);
+                content_tb_obj.find("tr[pid=" + b_pid + "]").before(active_tr_obj);
                 break;
             }
         }
@@ -789,6 +805,15 @@ function update_linePlan(controllerObj, dataObj) {
             content_tb_obj.append(active_tr_obj);
         }
         return false;
+    }
+
+    // 判断计划是否修改
+    if (fixPlanClass) {
+        active_tr_obj.addClass("fixPlanClass");
+    }
+
+    if (!fixPlanClass){
+        active_tr_obj.removeClass("fixPlanClass");
     }
 
     // 发送计划到调度屏状态
