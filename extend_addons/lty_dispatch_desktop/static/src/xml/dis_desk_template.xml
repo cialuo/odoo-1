@@ -559,22 +559,22 @@
 										<!--<t t-esc="item.Current_task"></t>-->
                                         <!--当前任务-->
 										<p t-if="item.task==1000">正常</p>
-										<p t-elif="item.carStateId==1001">进场包车开始</p>
-										<p t-elif="item.carStateId==1002">进场包车结束</p>
-										<p t-elif="item.carStateId==1003">进场加气开始</p>
-										<p t-elif="item.carStateId==1004">进场加气结束</p>
-										<p t-elif="item.carStateId==1005">进场报修开始</p>
-										<p t-elif="item.carStateId==1006">进场报修结束</p>
-										<p t-elif="item.carStateId==0">进场后小休息</p>
-										<p t-elif="item.carStateId==1007">进场保养开始</p>
-										<p t-elif="item.carStateId==1008">进场保养结束</p>
-										<p t-elif="item.carStateId==1009">进场空放开始</p>
-										<p t-elif="item.carStateId==1010">进场空放结束</p>
-										<p t-elif="item.carStateId==1011">进场不操作</p>
-										<p t-elif="item.carStateId==1012">进场下班，变机动</p>
-										<p t-elif="item.carStateId==2011">什么也不做</p>
-										<p t-elif="item.carStateId==2015">进场医疗开始</p>
-										<p t-elif="item.carStateId==2016">进场医疗结束</p>
+										<p t-elif="item.task==1001">进场包车开始</p>
+										<p t-elif="item.task==1002">进场包车结束</p>
+										<p t-elif="item.task==1003">进场加气开始</p>
+										<p t-elif="item.task==1004">进场加气结束</p>
+										<p t-elif="item.task==1005">进场报修开始</p>
+										<p t-elif="item.task==1006">进场报修结束</p>
+										<p t-elif="item.task==0">进场后小休息</p>
+										<p t-elif="item.task==1007">进场保养开始</p>
+										<p t-elif="item.task==1008">进场保养结束</p>
+										<p t-elif="item.task==1009">进场空放开始</p>
+										<p t-elif="item.task==1010">进场空放结束</p>
+										<p t-elif="item.task==1011">进场不操作</p>
+										<p t-elif="item.task==1012">进场下班，变机动</p>
+										<p t-elif="item.task==2011">什么也不做</p>
+										<p t-elif="item.task==2015">进场医疗开始</p>
+										<p t-elif="item.task==2016">进场医疗结束</p>
 									</td>
                                     <!--乘客数量-->
 									<td class="line_src_Passanger_number td_small">
