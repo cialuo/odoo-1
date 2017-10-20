@@ -2,24 +2,24 @@
 <templates xml:space="preserve">
     <t t-name="supply_template">
         <div>
-            <div class="operate_title">
-                
-            </div>
-            <div class="operate_cont">
-                
-            </div>
+            <div class="operate_title"></div>
+            <div class="operate_cont"></div>
         </div>
     </t>
-
     <t t-name="supply_title_template">
-        <div class="title"><t t-esc="widget.supply.title"></t></div>
+        <div class="title">
+            <t t-esc="widget.supply.title"></t>
+        </div>
         <div class="screening">
             <t t-if="widget.supply.history_passenger_flow">
                 <p class="part_block">
                     历史客流日期范围
+                    
                     <select class="history_passenger_flow" name="history_time" id="">
                         <t t-foreach="widget.supply.history_passenger_flow" t-as="item">
-                            <option t-attf-value="{{item.id}}"><t t-esc="item.name"></t></option>
+                            <option t-attf-value="{{item.id}}">
+                                <t t-esc="item.name"></t>
+                            </option>
                         </t>
                     </select>
                 </p>
@@ -27,15 +27,19 @@
             <t t-if="widget.supply.predict_passenger_flow_time">
                 <p class="part_block">
                     预测客流日期选择
+                    
                     <input class="supply_datepicker_input predict_passenger_flow_time" type="text" t-attf-value="{{widget.supply.predict_passenger_flow_time}}" />
                 </p>
             </t>
             <t t-if="widget.supply.company_list">
                 <p class="part_block">
                     公司
+                    
                     <select class="company" name="" id="">
                         <t t-foreach="widget.supply.company_list" t-as="item">
-                            <option t-attf-value="{{item.id}}"><t t-esc="item.name"></t></option>
+                            <option t-attf-value="{{item.id}}">
+                                <t t-esc="item.name"></t>
+                            </option>
                         </t>
                     </select>
                 </p>
@@ -44,6 +48,7 @@
                 <t t-if="widget.supply.dis_set.data_scope">
                     <p class="part_block data_scope dis_none">
                         日期范围
+                        
                         <input class="start_time oe_datepicker_input" type="text" t-attf-value="{{widget.supply.data_scope[0]}}" />
                         <input class="end_time oe_datepicker_input" type="text" t-attf-value="{{widget.supply.data_scope[1]}}" />
                     </p>
@@ -51,6 +56,7 @@
                 <t t-else="">
                     <p class="part_block data_scope">
                         日期范围
+                        
                         <input class="start_time oe_datepicker_input" type="text" t-attf-value="{{widget.supply.data_scope[0]}}" />
                         <input class="end_time oe_datepicker_input" type="text" t-attf-value="{{widget.supply.data_scope[1]}}" />
                     </p>
@@ -59,27 +65,37 @@
             <ul class="swt_box plan_way">
                 <t t-foreach="widget.supply.plan_way" t-as="item">
                     <t t-if="item_index==0">
-                        <li class="active" t-attf-name="{{item.en_name}}"><t t-esc="item.name"></t></li>    
+                        <li class="active" t-attf-name="{{item.en_name}}">
+                            <t t-esc="item.name"></t>
+                        </li>
                     </t>
                     <t t-else="">
-                        <li t-attf-name="{{item.en_name}}"><t t-esc="item.name"></t></li>
+                        <li t-attf-name="{{item.en_name}}">
+                            <t t-esc="item.name"></t>
+                        </li>
                     </t>
                 </t>
             </ul>
+            <input class="cityCode" t-attf-value="{{widget.supply.city_code}}" type="hidden"/>
         </div>
         <div class="screening">
             <t t-if="widget.supply.line_list">
                 <p class="part_block">
                     线路
+                    
                     <select class="supply_line" name="line" id="">
                         <t t-foreach="widget.supply.line_list" t-as="item">
-                            <option t-attf-value="{{item.id}}" t-attf-name="{{item.name}}"><t t-esc="item.name"></t></option>
+                            <option t-attf-value="{{item.id}}" t-attf-name="{{item.line_name}}">
+                                <t t-esc="item.line_name"></t>
+                            </option>
                         </t>
                     </select>
                     <t t-if="widget.supply.direction">
                         <select class="direction" name="direction" id="">
                             <t t-foreach="widget.supply.direction" t-as="item">
-                                <option t-attf-value="{{item.id}}"><t t-esc="item.name"></t></option>
+                                <option t-attf-value="{{item.id}}">
+                                    <t t-esc="item.name"></t>
+                                </option>
                             </t>
                         </select>
                     </t>
@@ -88,20 +104,26 @@
             <t t-if="widget.supply.data_type">
                 <p class="part_block">
                     日期类型
+                    
                     <select class="data_type" name="" id="">
                         <t t-foreach="widget.supply.data_type" t-as="item">
-                            <option t-attf-value="{{item.id}}"><t t-esc="item.name"></t></option>
+                            <option t-attf-value="{{item.id}}">
+                                <t t-esc="item.name"></t>
+                            </option>
                         </t>
                     </select>
                 </p>
             </t>
             <t t-if="widget.supply.platform">
-                <p class="part_block">
+                <p class="part_block dis_none">
                     站台
+                    
                     <select class="platform" name="" id="">
                         <option value="total">全部</option>
                         <t t-foreach="widget.supply.platform" t-as="item">
-                            <option t-attf-value="{{item.id}}"><t t-esc="item.name"></t></option>
+                            <option t-attf-value="{{item.id}}">
+                                <t t-esc="item.station_id[1].split('/')[0]"></t>
+                            </option>
                         </t>
                     </select>
                 </p>
@@ -109,7 +131,6 @@
             <a class="ok_bt" href="javascript:;">确定</a>
         </div>
     </t>
-
     <t t-name="line_passenger_flow_hour_chart_template">
         <div class="line_chart">
             <div style="width: 1040px;height: 380px;" class="chart_passenger_flow"></div>
@@ -117,12 +138,15 @@
                 <canvas class="chart_peak_canvas" width="750" height="8"></canvas>
                 <ul class="chart_peak_canvas_title">
                     <li>高峰
+                        
                         <div class="gf st"></div>
                     </li>
                     <li>平峰
+                        
                         <div class="pf st"></div>
                     </li>
                     <li>低峰
+                        
                         <div class="df st"></div>
                     </li>
                 </ul>
@@ -130,13 +154,14 @@
             <div style="width:1040px;height:280px;" class="chart_satisfaction"></div>
             <div class="chart_satisfaction_bt">
                 <label>
-                    <input class="set_bt way_1" type="radio" name="way" checked="checked" />候车时长与乘车舒适度</label>
+                    <input class="set_bt way_1" type="radio" name="way" checked="checked" />候车时长与乘车舒适度
+                </label>
                 <label>
-                    <input class="set_bt way_2" type="radio" name="way" />乘客满意度</label>
+                    <input class="set_bt way_2" type="radio" name="way" />乘客满意度
+                </label>
             </div>
         </div>
     </t>
-
     <t t-name="time_place_passenger_flow_template">
         <div class="line_chart">
             <div style="width: 1040px;height: 380px;" class="chart_passenger_flow"></div>
@@ -147,86 +172,124 @@
             <div style="width:1040px;height:280px;" class="chart_satisfaction"></div>
         </div>
     </t>
-
     <t t-name="passenger_flow_chart_template">
         <div class="passenger_flow_chart line_chart">
             <div style="width: 1040px;height: 380px;" class="chart_passenger_flow"></div>
         </div>
     </t>
-
     <t t-name="site_chart_scatter_template">
         <div class="site_chart line_chart">
             <div style="width: 1040px;height: 648px;" class="chart_passenger_flow"></div>
         </div>
     </t>
-
     <t t-name="site_passenger_flow_hour_chart_template">
         <div class="line_chart">
             <div style="width: 1040px;height: 380px;" class="chart_passenger_flow"></div>
             <div class="chart_satisfaction_bt">
-                <label><input class="set_bt way_1" type="radio" name="way" />前一日</label>
-                <label><input class="set_bt way_2" type="radio" name="way" />上周同期</label>
-                <label><input class="set_bt way_3" type="radio" name="way" />上月同期</label>
+                <label>
+                    <input class="set_bt way_1" type="radio" name="way" />前一日
+                </label>
+                <label>
+                    <input class="set_bt way_2" type="radio" name="way" />上周同期
+                </label>
+                <label>
+                    <input class="set_bt way_3" type="radio" name="way" />上月同期
+                </label>
             </div>
         </div>
         <div class="site_info_cont">
             <table class="site_info_table">
                 <thead>
-                <tr>
-                    <th data-field="line">线路</th>
-                    <th data-field="site">站台</th>
-                    <th data-field="time">时间</th>
-                    <th data-field="on_number">上车人数</th>
-                    <th data-field="capacity">运力</th>
-                    <th data-field="out_number">下车人数</th>
-                </tr>
+                    <tr>
+                        <th data-field="line">线路</th>
+                        <th data-field="site">站台</th>
+                        <th data-field="time">时间</th>
+                        <th data-field="on_number">上车人数</th>
+                        <th data-field="capacity">运力</th>
+                        <th data-field="out_number">下车人数</th>
+                    </tr>
                 </thead>
             </table>
         </div>
     </t>
-
     <t t-name="company_passenger_flow_template">
         <div class="line_chart">
             <table class="chart_passenger_flow_table">
                 <tr>
-                    <td><div style="width: 520px;height: 380px;" class="chart_passenger_flow chart1"></div></td>
-                    <td><div style="width: 518px;height: 380px;" class="chart_passenger_flow chart2"></div></td>
+                    <td>
+                        <div style="width: 520px;height: 380px;" class="chart_passenger_flow chart1"></div>
+                    </td>
+                    <td>
+                        <div style="width: 518px;height: 380px;" class="chart_passenger_flow chart2"></div>
+                    </td>
                 </tr>
                 <tr>
-                    <td><h2>分时客流</h2></td>
-                    <td><h2><t t-esc="widget.chart_data.company_name"></t>客流构成</h2></td>
+                    <td>
+                        <h2>分时客流</h2>
+                    </td>
+                    <td>
+                        <h2>
+                            <t t-esc="widget.chart_data.company_name"></t>客流构成
+                        </h2>
+                    </td>
                 </tr>
             </table>
         </div>
     </t>
-
     <t t-name="satisfaction_title_template">
-        <div class="title"><t t-esc="widget.supply.title"></t></div>
+        <div class="title">
+            <t t-esc="widget.supply.title"></t>
+        </div>
         <div class="screening">
             <t t-if="widget.supply.company_list">
                 <p class="part_block">
                     单位
+                    
                     <select class="company" name="" id="">
                         <t t-foreach="widget.supply.company_list" t-as="item">
-                            <option t-attf-value="{{item.id}}"><t t-esc="item.name"></t></option>
+                            <option t-attf-value="{{item.id}}" t-attf-name="{{item.name}}">
+                                <t t-esc="item.name"></t>
+                            </option>
                         </t>
                     </select>
                 </p>
             </t>
-            <t t-if="widget.supply.data_scope">
-                <p class="part_block data_scope">
-                    日期范围
-                    <input class="start_time oe_datepicker_input" type="text" t-attf-value="{{widget.supply.data_scope[0]}}" />
-                    <input class="end_time oe_datepicker_input" type="text" t-attf-value="{{widget.supply.data_scope[1]}}" />
+            <!-- 9.25gy满意度分析模板更换 -->
+            <t t-if="widget.supply.history_passenger_flow">
+                <p class="part_block">
+                    历史客流日期范围
+                    
+                    <select class="history_passenger_flow" name="history_time" id="">
+                        <t t-foreach="widget.supply.history_passenger_flow" t-as="item">
+                            <option t-attf-value="{{item.id}}">
+                                <t t-esc="item.name"></t>
+                            </option>
+                        </t>
+                    </select>
                 </p>
             </t>
+            <t t-if="widget.supply.predict_passenger_flow_time">
+                <p class="part_block">
+                    预测客流日期选择
+                    
+                    <input class="supply_datepicker_input predict_passenger_flow_time" type="text" t-attf-value="{{widget.supply.predict_passenger_flow_time}}" />
+                </p>
+            </t>
+            <!--  -->
+            <!-- <t t-if="widget.supply.data_scope"><p class="part_block data_scope">
+                    日期范围
+                    <input class="start_time oe_datepicker_input" type="text" t-attf-value="{{widget.supply.data_scope[0]}}" /><input class="end_time oe_datepicker_input" type="text" t-attf-value="{{widget.supply.data_scope[1]}}" /></p></t> -->
             <ul class="swt_box plan_way">
                 <t t-foreach="widget.supply.plan_way" t-as="item">
                     <t t-if="item_index==0">
-                        <li class="active" t-attf-name="{{item.en_name}}"><t t-esc="item.name"></t></li>    
+                        <li class="active" t-attf-name="{{item.en_name}}" t-attf-value="{{item.value}}">
+                            <t t-esc="item.name"></t>
+                        </li>
                     </t>
                     <t t-else="">
-                        <li t-attf-name="{{item.en_name}}"><t t-esc="item.name"></t></li>
+                        <li t-attf-name="{{item.en_name}}">
+                            <t t-esc="item.name"></t>
+                        </li>
                     </t>
                 </t>
             </ul>
@@ -235,24 +298,31 @@
             <t t-if="widget.supply.line_list">
                 <p class="part_block">
                     线路
+                    
+                    <!-- 候车满意度分析线路显示 -->
                     <select class="supply_line" name="line" id="">
                         <t t-foreach="widget.supply.line_list" t-as="item">
-                            <option t-attf-value="{{item.id}}" t-attf-name="{{item.name}}"><t t-esc="item.name"></t></option>
+                            <option t-attf-value="{{item.id}}" t-attf-name="{{item.line_name}}">
+                                <t t-esc="item.line_name"></t>
+                            </option>
                         </t>
                     </select>
                     <t t-if="widget.supply.direction">
                         <select class="direction" name="direction" id="">
                             <t t-foreach="widget.supply.direction" t-as="item">
-                                <option t-attf-value="{{item.id}}"><t t-esc="item.name"></t></option>
+                                <option t-attf-value="{{item.id}}">
+                                    <t t-esc="item.name"></t>
+                                </option>
                             </t>
                         </select>
                     </t>
                 </p>
             </t>
             <a class="ok_bt" href="javascript:;">确定</a>
+            <!-- 默认城市ID -->
+            <input class="cityCode" t-attf-value="{{widget.supply.city_code}}" type="hidden"/>
         </div>
     </t>
-
     <t t-name="waiting_chart_template">
         <div class="line_chart">
             <div style="width: 1040px;height: 380px;" class="chart_passenger_flow"></div>
@@ -260,12 +330,15 @@
                 <canvas class="chart_peak_canvas" width="750" height="8"></canvas>
                 <ul class="chart_peak_canvas_title">
                     <li>高峰
+                        
                         <div class="gf st"></div>
                     </li>
                     <li>平峰
+                        
                         <div class="pf st"></div>
                     </li>
                     <li>低峰
+                        
                         <div class="df st"></div>
                     </li>
                 </ul>
@@ -276,25 +349,41 @@
             <div class="site_info_title">满意度详情</div>
             <table class="site_info_table">
                 <thead>
-                <tr>
-                    <th data-field="line">线路</th>
-                    <th data-field="time">时间</th>
-                    <th data-field="on_number">上车人数</th>
-                    <th data-field="capacity">运力</th>
-                    <th data-field="out_number">下车人数</th>
-                    <th data-field="departure_interval">平均发车间隔</th>
-                    <th data-field="waiting">候车满意度</th>
-                    <th data-field="comfort">舒适满意度</th>
-                    <th data-field="earnings">公司收益满意度</th>
-                </tr>
+                    <tr>
+                        <th data-field="line">线路</th>
+                        <th data-field="time">时间</th>
+                        <th data-field="on_number">上车人数</th>
+                        <th data-field="capacity">运力</th>
+                        <th data-field="out_number">下车人数</th>
+                        <th data-field="departure_interval">平均发车间隔</th>
+                        <th data-field="waiting">候车满意度</th>
+                        <th data-field="comfort">舒适满意度</th>
+                        <th data-field="earnings">公司收益满意度</th>
+                    </tr>
                 </thead>
             </table>
         </div>
     </t>
-
     <t t-name="service_chart_template">
         <div class="line_chart">
-            感觉原型图有问题，暂不作处理
+            <div style="width: 1200px;height: 380px;" class="chart_passenger_flow"></div>
+            <div class="chart_peak">
+                <canvas class="chart_peak_canvas" width="938" height="8"></canvas>
+            </div>
+            <!-- table -->
+            <div class="site_info_cont">
+                <div class="site_info_title">运力所需资源</div>
+                <table class="site_info_table">
+                    <thead>
+                        <tr>
+                            <th data-field="motorcycle">车型</th>
+                            <th data-field="number">数量</th>
+                            <th data-field="driver_number">司机数量</th>
+                            <th data-field="Flight">乘务员数量</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </t>
 </templates>

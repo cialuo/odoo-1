@@ -11,71 +11,84 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
             'click .close_bt': 'closeFn',
         },
         init: function(parent, data){
-            var init_data = [
-                {   
-                    name: data.site,
-                    line_car: [16],
-                    data: [
-                        {
-                            name: "运力",
-                            value: "11",
-                        },
-                        {
-                            name: "滞站候车",
-                            value: [11, 12, 10, 12, 13, 11, 11, 9, 13, 12, 11]
-                        },
-                        {
-                            name: "0.5h上车",
-                            value: [10, 9, 9, 8, 10, 10]
-                        },
-                        {
-                            name: "0.5h下车",
-                            value: [5, 6, 7, 6, 5, 8]
-                        },
-                    ]
-                },
-                {   
-                    name: "",
-                    line_car: [16, 23, 45, 38, 54],
-                    data: [
-                        {
-                            name: "运力",
-                            value: "11",
-                        },
-                        {
-                            name: "滞站候车",
-                            value: [11, 12, 10, 12, 13, 11, 11, 9, 13, 12, 11]
-                        },
-                        {
-                            name: "0.5h上车",
-                            value: [10, 9, 9, 8, 10, 10]
-                        },
-                        {
-                            name: "0.5h下车",
-                            value: [5, 6, 7, 6, 5, 8]
-                        },
-                    ]
-                },
-            ];
             this._super(parent);
             this.location_data = data;
-            this.passenger_data = init_data;
+            // var init_data = [
+            //     {   
+            //         name: data.site,
+            //         line_car: [this.location_data.line_name],
+            //         data: [
+            //             {
+            //                 name: "运力",
+            //                 value: "11",
+            //             },
+            //             {
+            //                 name: "滞站候车",
+            //                 value: [11, 12, 10, 12, 13, 11, 11, 9, 13, 12, 11]
+            //             },
+            //             {
+            //                 name: "0.5h上车",
+            //                 value: [10, 9, 9, 8, 10, 10]
+            //             },
+            //             {
+            //                 name: "0.5h下车",
+            //                 value: [5, 6, 7, 6, 5, 8]
+            //             },
+            //         ]
+            //     },
+            //     {   
+            //         name: "",
+            //         line_car: [16, 23, 45, 38, 54],
+            //         data: [
+            //             {
+            //                 name: "运力",
+            //                 value: "11",
+            //             },
+            //             {
+            //                 name: "滞站候车",
+            //                 value: [11, 12, 10, 12, 13, 11, 11, 9, 13, 12, 11]
+            //             },
+            //             {
+            //                 name: "0.5h上车",
+            //                 value: [10, 9, 9, 8, 10, 10]
+            //             },
+            //             {
+            //                 name: "0.5h下车",
+            //                 value: [5, 6, 7, 6, 5, 8]
+            //             },
+            //         ]
+            //     },
+            // ];
+            // this.passenger_data = init_data;
+            this.passenger_data = [
+                {   
+                    name: data.site,
+                    line_car: [this.location_data.line_name],
+                    data: []
+                },
+                {   
+                    line_car: [],
+                    data: []
+                },
+            ];
         },
         start: function(){
+            var layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
+            var passengerDelayModel_set = {
+                layer_index: layer_index
+            }
+            sessionStorage.setItem("passengerDelayModel_set", JSON.stringify(passengerDelayModel_set));
             this.trend_chart_fn();
-            // var layer_index = layer.msg("加载中...", {time: 0, shade: 0.3});
-            // var passengerDelayModel_set = {
-            //     layer_index: layer_index
-            // }
-            // sessionStorage.setItem("passengerDelayModel_set", JSON.stringify(passengerDelayModel_set));
 
             // 订阅滞客信息
             var package = {
-                type: 1000,
-                open_modules: ["dispatch-passenger_delay-"+this.location_data.controllerId],
-                msgId: Date.parse(new Date())
+                type: 2000,
+                controlId: this.location_data.controllerId,
+                open_modules: ["passenger_delay"]
             };
-            websocket.send(JSON.stringify(package));
+            if (websocket){
+                websocket.send(JSON.stringify(package));
+            }
         },
         send_express_info: function(){
             var passenger_flow_cont = this.$(".trend_chart_single .passenger_flow_cont");
@@ -117,7 +130,7 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
             return data;
         },
         trend_chart_fn:  function(){
-            var passenger_data = this.passenger_data
+            var passenger_data = this.passenger_data;
             for (var i=0,len=passenger_data.length; i<len; i++){
                 var trend_chart_obj = passenger_data[i];
                 if (trend_chart_obj.name){
@@ -126,15 +139,20 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                     new trend_chart(this, trend_chart_obj.data).appendTo(this.$(".trend_chart_summary .passenger_flow_cont")); 
                 }
             }
+            var passengerDelayModel_set = JSON.parse(sessionStorage.getItem("passengerDelayModel_set"));
+            layer.close(passengerDelayModel_set.layer_index);
+            this.$el.removeClass('hide_model');
         },
         closeFn: function(){
             // 取消订阅滞客信息
             var package = {
-                type: 1001,
-                open_modules: ["dispatch-passenger_delay-"+this.location_data.controllerId],
-                msgId: Date.parse(new Date())
+                type: 2001,
+                controlId: this.location_data.controllerId,
+                open_modules: ["passenger_delay"]
             };
-            websocket.send(JSON.stringify(package));
+            if (websocket){
+                websocket.send(JSON.stringify(package));
+            }
             this.destroy();
         }
     });
@@ -152,305 +170,305 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
         },
         passengerMapFn: function(){
             var dataArray = this.passenger_data;
-            var option = {
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer:{
-                        show: true,
-                        type : 'cross',
-                        lineStyle: {
-                            type : 'dashed',
-                            width : 1
-                        }
-                    },
-                    formatter:function(params){
-                        var hoverTip = '';
-                        for (var i=0;i<params.length;i++){
-                            var htip = params[i];
-                            if (i===0){
-                                if (htip.axisValue<0){
-                                    hoverTip = '提前'+Math.abs(htip.axisValue)+'分钟<br/>';
-                                }else if(htip.axisValue===0){
-                                    hoverTip = '当前<br/>';
-                                }else{
-                                    hoverTip = htip.axisValue+'分钟后<br/>';
-                                }
-                            }
-                            var tip_totla = htip.seriesName+": "+htip.value[1] + "<br/>";
-                            hoverTip += tip_totla
-                        }
-                        return hoverTip;
-                    }
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: '5',
-                    top: '66',
-                    textStyle: {
-                        color: "#4ecfc7"
-                    },
-                    data:[
-                        {
-                            icon: "none",
-                            name: "运力",
-                        }
-                    ]
-                },
-                animation: false,
-                grid: {
-                    left: '10%',
-                    right: '10%',
-                    top: '10%',
-                    bottom: '0',
-                    containLabel: true
-                },
-                calculable : true,
-                xAxis : [
-                    {
-                        type: 'value',
-                        min: -30,
-                        max: 120,
-                        axisLabel:{
-                            formatter: function(value){
-                                if (value == 0){
-                                    return '当前';
-                                }
-                                if (value == 60){
-                                    return '1h';
-                                }
-                                if (value == 120){
-                                    return '2h'
-                                }
-                            },
-                            textStyle: {
-                                color: "#fff"
-                            }
-                        },
-                        boundaryGap: '',
-                        axisTick: {inside:true},
-                        splitLine: {
-                            show: true,
-                            lineStyle: {
-                                color: ['#454c6c']
-                            }
-                        },
-                        axisLine: {
-                            lineStyle: {
-                                color: '#454c6c',
-                            }
-                        },
-                    }
-                ],
-                yAxis : [
-                    {
-                        type: 'value',
-                        axisLine: {
-                            lineStyle: {
-                                color: '#454c6c',
-                            }
-                        },
-                        axisTick: {show:false},
-                        axisLabel: {
-                            show: false
-                        },
-                        splitLine: {
-                            lineStyle: {
-                                color: ['#454c6c']
-                            }
-                        }
-                    }
-                ],
-                series: [{
-                    name: '运力',
-                    symbolSize: 1,
-                    type: 'line',
-                    data: [
-                            [-30, dataArray[0].value],[-15, dataArray[0].value],[0, dataArray[0].value],[15, dataArray[0].value],[30, dataArray[0].value],[45, dataArray[0].value],[60, dataArray[0].value],[75, dataArray[0].value],[90, dataArray[0].value],[105, dataArray[0].value],[120, dataArray[0].value]
-                        ],
-                    lineStyle: {
-                        normal: {
-                            width: 3,
-                            color: "#4ecfc7"
-                        }
-                    },
-                    markLine: {
-                        symbol: ['', 'circle'],
-                        label: {
-                            normal: {
-                                position: "start"
-                            }
-                        }, 
-                        data: [{
-                                xAxis: 0,
-                                symbol: 'circle',
-                                symbolSize: [0, 0],
-                                lineStyle: {
-                                    normal: {
-                                        type: 'solid',
-                                        color: '#fff'
-                                    }
-                                },
-                                label: {
-                                    normal: {
-                                        show: false
-                                    }
-                                }
-                            },
-                            // {
-                            //     yAxis: 10,
-                            //     lineStyle: {
-                            //         normal: {
-                            //             type: 'solid',
-                            //             color: '#fff'
-                            //         }
-                            //     }
-                            // }
+            // var option = {
+            //     tooltip : {
+            //         trigger: 'axis',
+            //         axisPointer:{
+            //             show: true,
+            //             type : 'cross',
+            //             lineStyle: {
+            //                 type : 'dashed',
+            //                 width : 1
+            //             }
+            //         },
+            //         formatter:function(params){
+            //             var hoverTip = '';
+            //             for (var i=0;i<params.length;i++){
+            //                 var htip = params[i];
+            //                 if (i===0){
+            //                     if (htip.axisValue<0){
+            //                         hoverTip = '提前'+Math.abs(htip.axisValue)+'分钟<br/>';
+            //                     }else if(htip.axisValue===0){
+            //                         hoverTip = '当前<br/>';
+            //                     }else{
+            //                         hoverTip = htip.axisValue+'分钟后<br/>';
+            //                     }
+            //                 }
+            //                 var tip_totla = htip.seriesName+": "+htip.value[1] + "<br/>";
+            //                 hoverTip += tip_totla
+            //             }
+            //             return hoverTip;
+            //         }
+            //     },
+            //     legend: {
+            //         orient: 'vertical',
+            //         left: '5',
+            //         top: '66',
+            //         textStyle: {
+            //             color: "#4ecfc7"
+            //         },
+            //         data:[
+            //             {
+            //                 icon: "none",
+            //                 name: "运力",
+            //             }
+            //         ]
+            //     },
+            //     animation: false,
+            //     grid: {
+            //         left: '10%',
+            //         right: '10%',
+            //         top: '10%',
+            //         bottom: '0',
+            //         containLabel: true
+            //     },
+            //     calculable : true,
+            //     xAxis : [
+            //         {
+            //             type: 'value',
+            //             min: -30,
+            //             max: 120,
+            //             axisLabel:{
+            //                 formatter: function(value){
+            //                     if (value == 0){
+            //                         return '当前';
+            //                     }
+            //                     if (value == 60){
+            //                         return '1h';
+            //                     }
+            //                     if (value == 120){
+            //                         return '2h'
+            //                     }
+            //                 },
+            //                 textStyle: {
+            //                     color: "#fff"
+            //                 }
+            //             },
+            //             boundaryGap: '',
+            //             axisTick: {inside:true},
+            //             splitLine: {
+            //                 show: true,
+            //                 lineStyle: {
+            //                     color: ['#454c6c']
+            //                 }
+            //             },
+            //             axisLine: {
+            //                 lineStyle: {
+            //                     color: '#454c6c',
+            //                 }
+            //             },
+            //         }
+            //     ],
+            //     yAxis : [
+            //         {
+            //             type: 'value',
+            //             axisLine: {
+            //                 lineStyle: {
+            //                     color: '#454c6c',
+            //                 }
+            //             },
+            //             axisTick: {show:false},
+            //             axisLabel: {
+            //                 show: false
+            //             },
+            //             splitLine: {
+            //                 lineStyle: {
+            //                     color: ['#454c6c']
+            //                 }
+            //             }
+            //         }
+            //     ],
+            //     series: [{
+            //         name: '运力',
+            //         symbolSize: 1,
+            //         type: 'line',
+            //         data: [
+            //                 [-30, dataArray[0].value],[-15, dataArray[0].value],[0, dataArray[0].value],[15, dataArray[0].value],[30, dataArray[0].value],[45, dataArray[0].value],[60, dataArray[0].value],[75, dataArray[0].value],[90, dataArray[0].value],[105, dataArray[0].value],[120, dataArray[0].value]
+            //             ],
+            //         lineStyle: {
+            //             normal: {
+            //                 width: 3,
+            //                 color: "#4ecfc7"
+            //             }
+            //         },
+            //         markLine: {
+            //             symbol: ['', 'circle'],
+            //             label: {
+            //                 normal: {
+            //                     position: "start"
+            //                 }
+            //             }, 
+            //             data: [{
+            //                     xAxis: 0,
+            //                     symbol: 'circle',
+            //                     symbolSize: [0, 0],
+            //                     lineStyle: {
+            //                         normal: {
+            //                             type: 'solid',
+            //                             color: '#fff'
+            //                         }
+            //                     },
+            //                     label: {
+            //                         normal: {
+            //                             show: false
+            //                         }
+            //                     }
+            //                 },
+            //                 // {
+            //                 //     yAxis: 10,
+            //                 //     lineStyle: {
+            //                 //         normal: {
+            //                 //             type: 'solid',
+            //                 //             color: '#fff'
+            //                 //         }
+            //                 //     }
+            //                 // }
 
-                        ]
-                    }
-                },
-                {
-                    name: '滞站候车',
-                    type: 'line',
-                    symbolSize: 1,
-                    data:[
-                            [-30, dataArray[1].value[0]], [-15, dataArray[1].value[1]], [0, dataArray[1].value[2]], [15, dataArray[1].value[3]], [30, dataArray[1].value[4]], [45, dataArray[1].value[5]], [60, dataArray[1].value[6]], [75, dataArray[1].value[7]], [90, dataArray[1].value[8]], [105, dataArray[1].value[9]], [120, dataArray[1].value[10]]
-                        ],
-                    lineStyle: {
-                        normal: {
-                            width: 1,
-                            color: "#f89e93"
-                        }
-                    }
-                },
-                {
-                    name: '0.5h上车',
-                    type: 'line',
-                    symbolSize: 1,
-                    data:[
-                            [-30, dataArray[2].value[0]], [0, dataArray[2].value[1]],  [30, dataArray[2].value[2]], [60, dataArray[2].value[3]], [90, dataArray[2].value[4]], [120, dataArray[2].value[5]]
-                        ],
-                    lineStyle: {
-                        normal: {
-                            width: 1,
-                            color: "#5093e1"
-                        }
-                    }
-                },
-                {
-                    name: '0.5h下车',
-                    type: 'line',
-                    symbolSize: 1,
-                    data:[
-                            [-30, dataArray[3].value[0]], [0, dataArray[3].value[1]],  [30, dataArray[3].value[2]], [60, dataArray[3].value[3]], [90, dataArray[3].value[4]], [120, dataArray[3].value[5]]
-                        ],
-                    lineStyle: {
-                        normal: {
-                            width: 1,
-                            color: "#ffd276"
-                        }
-                    }
+            //             ]
+            //         }
+            //     },
+            //     {
+            //         name: '滞站候车',
+            //         type: 'line',
+            //         symbolSize: 1,
+            //         data:[
+            //                 [-30, dataArray[1].value[0]], [-15, dataArray[1].value[1]], [0, dataArray[1].value[2]], [15, dataArray[1].value[3]], [30, dataArray[1].value[4]], [45, dataArray[1].value[5]], [60, dataArray[1].value[6]], [75, dataArray[1].value[7]], [90, dataArray[1].value[8]], [105, dataArray[1].value[9]], [120, dataArray[1].value[10]]
+            //             ],
+            //         lineStyle: {
+            //             normal: {
+            //                 width: 1,
+            //                 color: "#f89e93"
+            //             }
+            //         }
+            //     },
+            //     {
+            //         name: '0.5h上车',
+            //         type: 'line',
+            //         symbolSize: 1,
+            //         data:[
+            //                 [-30, dataArray[2].value[0]], [0, dataArray[2].value[1]],  [30, dataArray[2].value[2]], [60, dataArray[2].value[3]], [90, dataArray[2].value[4]], [120, dataArray[2].value[5]]
+            //             ],
+            //         lineStyle: {
+            //             normal: {
+            //                 width: 1,
+            //                 color: "#5093e1"
+            //             }
+            //         }
+            //     },
+            //     {
+            //         name: '0.5h下车',
+            //         type: 'line',
+            //         symbolSize: 1,
+            //         data:[
+            //                 [-30, dataArray[3].value[0]], [0, dataArray[3].value[1]],  [30, dataArray[3].value[2]], [60, dataArray[3].value[3]], [90, dataArray[3].value[4]], [120, dataArray[3].value[5]]
+            //             ],
+            //         lineStyle: {
+            //             normal: {
+            //                 width: 1,
+            //                 color: "#ffd276"
+            //             }
+            //         }
 
-                },
-            ]
-                // series : [
-                //     {
-                //         name: '运力',
-                //         type: 'line',
-                //         symbolSize: 1,
-                //         data: [
-                //             [-30, dataArray[0].value],[-15, dataArray[0].value],[0, dataArray[0].value],[15, dataArray[0].value],[30, dataArray[0].value],[45, dataArray[0].value],[60, dataArray[0].value],[75, dataArray[0].value],[90, dataArray[0].value],[105, dataArray[0].value],[120, dataArray[0].value]
-                //         ],
-                //         lineStyle: {
-                //             normal:{
-                //                 width: 5,
-                //                 color: "#00dd00"
-                //             }
-                //         },
-                //         markLine : {
-                //             data : [
-                //                 {
-                //                     xAxis: 0, 
-                //                     symbol: 'circle',
-                //                     symbolSize: [0, 0],
-                //                     lineStyle: {
-                //                         normal: {
-                //                             type: 'solid',
-                //                             color: '#000'
-                //                         }
-                //                     },
-                //                     label: {
-                //                         normal: {
-                //                             show: false
-                //                         }
-                //                     }
-                //                 },
-                //                 {
-                //                     yAxis: 0, 
-                //                     symbol: 'triangle',
-                //                     lineStyle: {
-                //                         normal: {
-                //                             type: 'solid',
-                //                             color: '#000'
-                //                         }
-                //                     },
-                //                     label: {
-                //                         normal: {
-                //                             show: false
-                //                         }
-                //                     }
-                //                 }
+            //     },
+            // ]
+            //     // series : [
+            //     //     {
+            //     //         name: '运力',
+            //     //         type: 'line',
+            //     //         symbolSize: 1,
+            //     //         data: [
+            //     //             [-30, dataArray[0].value],[-15, dataArray[0].value],[0, dataArray[0].value],[15, dataArray[0].value],[30, dataArray[0].value],[45, dataArray[0].value],[60, dataArray[0].value],[75, dataArray[0].value],[90, dataArray[0].value],[105, dataArray[0].value],[120, dataArray[0].value]
+            //     //         ],
+            //     //         lineStyle: {
+            //     //             normal:{
+            //     //                 width: 5,
+            //     //                 color: "#00dd00"
+            //     //             }
+            //     //         },
+            //     //         markLine : {
+            //     //             data : [
+            //     //                 {
+            //     //                     xAxis: 0, 
+            //     //                     symbol: 'circle',
+            //     //                     symbolSize: [0, 0],
+            //     //                     lineStyle: {
+            //     //                         normal: {
+            //     //                             type: 'solid',
+            //     //                             color: '#000'
+            //     //                         }
+            //     //                     },
+            //     //                     label: {
+            //     //                         normal: {
+            //     //                             show: false
+            //     //                         }
+            //     //                     }
+            //     //                 },
+            //     //                 {
+            //     //                     yAxis: 0, 
+            //     //                     symbol: 'triangle',
+            //     //                     lineStyle: {
+            //     //                         normal: {
+            //     //                             type: 'solid',
+            //     //                             color: '#000'
+            //     //                         }
+            //     //                     },
+            //     //                     label: {
+            //     //                         normal: {
+            //     //                             show: false
+            //     //                         }
+            //     //                     }
+            //     //                 }
                                 
-                //             ]
-                //         }
-                //     },
-                //     {
-                //         name:'滞站候车',
-                //         type:'line',
-                //         symbolSize:1,
-                //         data:[
-                //             [-30, dataArray[1].value[0]], [-15, dataArray[1].value[1]], [0, dataArray[1].value[2]], [15, dataArray[1].value[3]], [30, dataArray[1].value[4]], [45, dataArray[1].value[5]], [60, dataArray[1].value[6]], [75, dataArray[1].value[7]], [90, dataArray[1].value[8]], [105, dataArray[1].value[9]], [120, dataArray[1].value[10]]
-                //         ],
-                //         lineStyle: {
-                //             normal:{
-                //                 width: 1,
-                //                 color: "red"
-                //             }
-                //         }
-                //     },
-                //     {
-                //         name:'0.5h上车',
-                //         type:'line',
-                //         symbolSize:1,
-                //         data:[
-                //             [-30, dataArray[2].value[0]], [0, dataArray[2].value[1]],  [30, dataArray[2].value[2]], [60, dataArray[2].value[3]], [90, dataArray[2].value[4]], [120, dataArray[2].value[5]]
-                //         ],
-                //         lineStyle: {
-                //             normal:{
-                //                 width: 1,
-                //                 color: "blue"
-                //             }
-                //         }
-                //     },
-                //     {
-                //         name:'0.5h下车',
-                //         type:'line',
-                //         symbolSize:1,
-                //         data:[
-                //             [-30, dataArray[3].value[0]], [0, dataArray[3].value[1]],  [30, dataArray[3].value[2]], [60, dataArray[3].value[3]], [90, dataArray[3].value[4]], [120, dataArray[3].value[5]]
-                //         ],
-                //         lineStyle: {
-                //             normal:{
-                //                 width: 1,
-                //                 color: "gray"
-                //             }
-                //         }
+            //     //             ]
+            //     //         }
+            //     //     },
+            //     //     {
+            //     //         name:'滞站候车',
+            //     //         type:'line',
+            //     //         symbolSize:1,
+            //     //         data:[
+            //     //             [-30, dataArray[1].value[0]], [-15, dataArray[1].value[1]], [0, dataArray[1].value[2]], [15, dataArray[1].value[3]], [30, dataArray[1].value[4]], [45, dataArray[1].value[5]], [60, dataArray[1].value[6]], [75, dataArray[1].value[7]], [90, dataArray[1].value[8]], [105, dataArray[1].value[9]], [120, dataArray[1].value[10]]
+            //     //         ],
+            //     //         lineStyle: {
+            //     //             normal:{
+            //     //                 width: 1,
+            //     //                 color: "red"
+            //     //             }
+            //     //         }
+            //     //     },
+            //     //     {
+            //     //         name:'0.5h上车',
+            //     //         type:'line',
+            //     //         symbolSize:1,
+            //     //         data:[
+            //     //             [-30, dataArray[2].value[0]], [0, dataArray[2].value[1]],  [30, dataArray[2].value[2]], [60, dataArray[2].value[3]], [90, dataArray[2].value[4]], [120, dataArray[2].value[5]]
+            //     //         ],
+            //     //         lineStyle: {
+            //     //             normal:{
+            //     //                 width: 1,
+            //     //                 color: "blue"
+            //     //             }
+            //     //         }
+            //     //     },
+            //     //     {
+            //     //         name:'0.5h下车',
+            //     //         type:'line',
+            //     //         symbolSize:1,
+            //     //         data:[
+            //     //             [-30, dataArray[3].value[0]], [0, dataArray[3].value[1]],  [30, dataArray[3].value[2]], [60, dataArray[3].value[3]], [90, dataArray[3].value[4]], [120, dataArray[3].value[5]]
+            //     //         ],
+            //     //         lineStyle: {
+            //     //             normal:{
+            //     //                 width: 1,
+            //     //                 color: "gray"
+            //     //             }
+            //     //         }
                 
-                //     },
-                // ]
-            };
-            var myChart = echarts.init(this.$el.find('.trend_chart_map')[0]);
-            myChart.setOption(option);
+            //     //     },
+            //     // ]
+            // };
+            // var myChart = echarts.init(this.$el.find('.trend_chart_map')[0]);
+            // myChart.setOption(option);
         },
     });
 

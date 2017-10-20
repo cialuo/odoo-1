@@ -12,7 +12,7 @@
     line-height: 48px;
     font-size: 18px;
     padding: 0 22px;
-    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 .line_map_production .mapPage {
@@ -28,7 +28,7 @@
 }
 
 .line_map_production .mapPage .cont .siteName {
-    background: #fff;
+    /*background: #fff;*/
 }
 
 .line_map_production .mapPage .ancillary {
@@ -176,4 +176,73 @@
 
 .line_map_production .mapCustomPanel .mapSetLineContext .btBox .mr_2 {
     margin-right: 12px;
+}
+
+
+
+/*map_work_trace*/
+.map_work_trace {
+    height: 100%;
+    width: 100%;
+}
+
+.map_work_trace .mR20 {
+    margin-right: 20px;
+}
+
+.map_work_trace .map_work_title {
+    border-bottom: 1px solid #ccc;
+    height: 93px;
+}
+
+.map_work_trace .map_work_title .title {
+    padding: 10px 40px;
+}
+
+.map_work_trace .map_work_title .screen_cont {
+    padding: 10px 40px;
+    line-height: 30px;
+}
+.map_work_trace .map_work_title input {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 130px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+}
+.map_work_trace .map_work_title select {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 176px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    background-position: right 10px center;
+}
+.map_work_trace .map_work_title .timeW {
+    width: 160px;
+}
+.map_work_trace .map_work_title .bt {
+    display: inline-block;
+    border: 1px solid #1abc9c;
+    border-radius: 4px;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 10px;
+}
+
+.map_work_trace .map_work_title .bt_v1 {
+    background: #1abc9c;
+    color: #fff;
+}
+
+.map_work_trace .map_work_content {
+    position: absolute;
+    top: 93px;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
 }

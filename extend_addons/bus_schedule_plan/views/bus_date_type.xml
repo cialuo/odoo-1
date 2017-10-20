@@ -62,6 +62,7 @@
         <menuitem id="bus_date_type_menu" name="bus_date_type_menu"
                   parent="operation_menu.bus_working_plan_basic_info"
                   action="bus_date_type_action"
+                  groups="schedule_dispatch_group.schedule_user"
                   sequence="20"/>
 
     </data>

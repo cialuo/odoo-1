@@ -64,7 +64,9 @@ odoo.define('lty_dispatch_desktop.bus_site_info', function (require) {
                 open_modules: ["dispatch-bus_real_state-1"],
                 msgId: Date.parse(new Date())
             };
-            websocket.send(JSON.stringify(package_elmap));
+            if (websocket){
+                websocket.send(JSON.stringify(package_elmap));
+            }
         },
         events: {
             'click .close_bt': 'closeFn'

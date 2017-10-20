@@ -258,6 +258,7 @@
                                     <field name="record_createdate" readonly="1"/>
                                 </group>
                                 <group>
+                                    <field name="company_id" options="{'no_open': True, 'no_create': True}"/>
                                     <field name="parent_id" options="{'no_open': True, 'no_create': True}"/>
                                     <field name="departmenttype"/>
                                 </group>

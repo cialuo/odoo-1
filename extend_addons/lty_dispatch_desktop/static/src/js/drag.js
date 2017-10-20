@@ -16,22 +16,21 @@ var get = {
         return (obj || document).getElementsByTagName(elem);
     }
 };
-var dragMinWidth = 250;
-var dragMinHeight = 124;
 /*-------------------------- +
  拖拽函数
  +-------------------------- */
 function drag(oDrag, handle, maxL, maxT) {
-    var disX = dixY = 0;
+    var disX  = 0;
+    var disY = 0;
     handle = handle || oDrag;
     handle.style.cursor = "move";
-    handle.onmousedown = function (event) {
-        var event = event || window.event;
+    handle.onmousedown = function (e) {
+        var event = e || window.event;
         disX = event.clientX - oDrag.offsetLeft;
         disY = event.clientY - oDrag.offsetTop;
 
-        document.onmousemove = function (event) {
-            var event = event || window.event;
+        document.onmousemove = function (e) {
+            var event = e || window.event;
             var iL = event.clientX - disX;
             var iT = event.clientY - disY;
             if (maxL) {

@@ -13,6 +13,11 @@ class BusMoveTimeTable(models.Model):
 
     _name = "scheduleplan.busmovetime"
 
+    # 同一条线路同一天只有一个行车作时刻表
+    _sql_constraints = [
+        ('line_date_unique', 'unique (line_id, executedate)', 'one line one executedate one move time table')
+    ]
+
     name = fields.Char(string="record name")
 
     # 关联线路
@@ -56,10 +61,10 @@ class BusMoveTimeTable(models.Model):
     # 上行运营车辆数
     upworkvehicle = fields.Integer(string="up work vehicle")
 
-    # 下行机动车辆数
+    # 上行机动车辆数
     upbackupvehicle = fields.Integer(string="up backup vehicle")
 
-    # 下行车辆数
+    # 下行运营车辆数
     downworkvehicle = fields.Integer(string="down work vehicle")
 
     # 下行机动车辆数
@@ -173,13 +178,16 @@ class BusMoveTimeTable(models.Model):
         return result
 
     @classmethod
-    def genWebRetunData(cls, data4direction, dataforbus, upstation, downstation, direction):
+    def genWebRetunData(cls, data4direction, dataforbus, upstation,
+                        downstation, direction, upvehicle, downvehicle):
         data = {
             'direction':data4direction,
             'bus':dataforbus,
             'upstation':upstation,
             'downstation':downstation,
-            'directiontype':direction
+            'directiontype':direction,
+            'upvehicle':upvehicle,
+            'downvehicle':downvehicle
         }
         return data
 
@@ -230,10 +238,10 @@ class BusMoveTimeTable(models.Model):
         station2 = row.line_id.down_station.name
 
         # 双头调 保证所有有列表长度一致 None补齐长度不够的列表
-        if row.schedule_method == 'dubleway':
-            self.resizeData(arg2)
+        self.resizeData(arg2)
 
-        return self.genWebRetunData(arg1, arg2, station1, station2, row.schedule_method)
+        return self.genWebRetunData(arg1, arg2, station1, station2, row.schedule_method,
+                                    row.upworkvehicle, row.downworkvehicle)
 
     @classmethod
     def rebuildOpPlanAdd(cls, data, index, seq):
@@ -295,7 +303,7 @@ class BusMoveTimeTable(models.Model):
             data['down'] = result
 
         busMoveTable = None
-        if self.schedule_method == 'dubleway':
+        if row.schedule_method == 'dubleway':
             # 双头调
             busMoveTable = self.genBusMoveSeqDouble(copy.deepcopy(data['up']), copy.deepcopy(data['down']), upVechicleSeq, downVehicleSeq)
         else:
@@ -305,9 +313,9 @@ class BusMoveTimeTable(models.Model):
         station1 = row.line_id.up_station.name
         station2 = row.line_id.down_station.name
         self.preprocess2WebData(busMoveTable)
-        if row.schedule_method == 'dubleway':
-            self.resizeData(busMoveTable)
-        return self.genWebRetunData(data, busMoveTable, station1, station2, self.schedule_method)
+        self.resizeData(busMoveTable)
+        return self.genWebRetunData(data, busMoveTable, station1, station2, self.schedule_method,
+                                    row.upworkvehicle, row.downworkvehicle)
 
     @api.model
     def saveOpPlan(self, recid, data):
@@ -318,11 +326,11 @@ class BusMoveTimeTable(models.Model):
         row = row[0]
         upVechicleSeq, downVehicleSeq = self.genVehicleSeq(row.upworkvehicle, row.downworkvehicle)
         busMoveTable = None
-        if data['down'] != None:
+        if row.schedule_method == "dubleway":
             # 双头调
             busMoveTable = self.genBusMoveSeqDouble(copy.deepcopy(data['up']), copy.deepcopy(data['down']),
                                                     upVechicleSeq, downVehicleSeq)
-        elif self.schedule_method == 'singleway':
+        elif row.schedule_method == 'singleway':
             # 单头调
             busMoveTable = self.genBusMoveSeqsingle(copy.deepcopy(data['up']), upVechicleSeq)
 
@@ -394,28 +402,36 @@ class MoveTimeUP(models.Model):
     movetimetable_id = fields.Many2one("scheduleplan.busmovetime", ondelete="cascade")
 
     # 序号
-    seqid = fields.Integer(string="sequence id")
+    seqid = fields.Integer(string="sequence id", readonly=True)
 
     # 发车时间
-    startmovetime = fields.Datetime(string="start move time")
+    startmovetime = fields.Datetime(string="start move time", readonly=True)
 
     # 到达时间
-    arrive_time = fields.Datetime(string="arrive time")
+    arrive_time = fields.Datetime(string="arrive time", readonly=True)
 
     # 时长
-    timelength = fields.Integer(string="move time length")
+    timelength = fields.Integer(string="move time length", readonly=True)
 
     # 里程
-    mileage = fields.Integer(string="move mile age")
+    mileage = fields.Integer(string="move mile age", readonly=True)
+
+    rule_lineid = fields.Integer(compute="_getRuleLineId")
+
+    @api.multi
+    def _getRuleLineId(self):
+        for item in self:
+            item.rule_lineid = item.movetimetable_id.line_id
 
     # 线路
-    line_id = fields.Many2one("route_manage.route_manage", string="related line")
+    line_id = fields.Many2one("route_manage.route_manage", string="related line",
+                              domain="['|',('id','=',rule_lineid),('main_line_id','=',rule_lineid)]")
 
     # 起始站点
-    start_site = fields.Many2one("opertation_resources_station", string="start site")
+    start_site = fields.Many2one("opertation_resources_station", string="start site", readonly=True)
 
     # 结束站点
-    end_site = fields.Many2one("opertation_resources_station", string="end site")
+    end_site = fields.Many2one("opertation_resources_station", string="end site", readonly=True)
 
 
 class MoveTimeDown(models.Model):

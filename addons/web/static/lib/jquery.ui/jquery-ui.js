@@ -6437,7 +6437,8 @@ $.widget( "ui.autocomplete", {
 		open: null,
 		response: null,
 		search: null,
-		select: null
+		select: null,
+		resultsClass: ""
 	},
 
 	requestIndex: 0,
@@ -6591,7 +6592,7 @@ $.widget( "ui.autocomplete", {
 
 		this._initSource();
 		this.menu = $( "<ul>" )
-			.addClass( "ui-autocomplete ui-front" )
+			.addClass( "ui-autocomplete ui-front "+this.options.resultsClass )
 			.appendTo( this._appendTo() )
 			.menu({
 				// disable ARIA support, the live region takes care of that

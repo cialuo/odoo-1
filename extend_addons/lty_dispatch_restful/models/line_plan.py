@@ -120,7 +120,7 @@ class LinePlan(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         # vals = {"ids": self.ids}
-        res = super(LinePlan, self).unlink()
+
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
@@ -132,4 +132,9 @@ class LinePlan(models.Model):
                 rp = Client().http_post(url, data=params)
             except Exception,e:
                 _logger.info('%s', e.message)
+            r.bigsite_up.unlink()
+            r.bigsite_down.unlink()
+            r.uptimearrange.unlink()
+            r.downtimearrange.unlink()
+        res = super(LinePlan, self).unlink()
         return res

@@ -6,7 +6,7 @@
 		</div>
 	</t>
 	<t t-name="desktop_top">
-			<ul class="desktop_head">
+		<ul class="desktop_head">
 			<li>
 				<img src="/lty_dispatch_desktop/static/src/img/lty_logo.png" />
 				<div>蓝泰源智能公交调度系统</div>
@@ -19,7 +19,7 @@
 				</div>
 				<div>
 					<img src="/lty_dispatch_desktop/static/src/img/icon_user.png"/>
-					<div class="desktop_head_deal">调度员：admin</div>
+					<div class="desktop_head_deal dd_person">调度员：</div>
 				</div>
 			</li>
 		</ul>
@@ -27,7 +27,7 @@
 	<t t-name="bus_site_info">
 		<div class="bus_site_info" t-attf-style="left:#{widget.location_data.x}px;top:#{widget.location_data.y}px;z-index:#{widget.location_data.zIndex}">
 			<div class="ovf">
-				<a class="del" href="javascript:;" title="最小化">-</a>
+				<a class="del" href="javascript:;" title="删除">-</a>
 			</div>
 			<ul class="bus_site_content">
 				<li class="get_digital_map">电子地图</li>
@@ -48,7 +48,7 @@
 			<div class="src_title">
 				<div class="closeBox dragArea">
 					<div class="line_btn">
-						<a class="min" href="javascript:;">x</a>
+						<a class="min" href="javascript:;">×</a>
 					</div>
 				</div>
 				<div class="line_list">
@@ -113,7 +113,7 @@
 	</t>
     <t t-name="dispatch_desktop">
 		<t t-if="widget.dis_desk">
-				<div class="dispatch_desktop dragContent tidClass" t-attf-line_name="#{widget.dis_desk.line_id[1]}" t-attf-line_id="#{widget.dis_desk.line_id[0]}" t-attf-tid="#{widget.dis_desk.id}" t-attf-style="left:#{widget.dis_desk.position_left}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index}">
+				<div class="dispatch_desktop dragContent tidClass" t-attf-line_name="#{widget.dis_desk.line_id[1]}"  t-attf-gprs_id="#{widget.dis_desk.gprs_id}" t-attf-line_id="#{widget.dis_desk.line_id[0]}" t-attf-tid="#{widget.dis_desk.id}" t-attf-style="left:#{widget.dis_desk.position_left}px;top:#{widget.dis_desk.position_top}px;z-index:#{widget.dis_desk.position_z_index}">
 					<div class="content">
 					<!--线路信息展示-->
 					<div class="line_info dragAreaDesk">
@@ -125,32 +125,28 @@
 						</div>
 						<div class="bus_info fl">
 							<ul>
-								<li class="amountCar">配车数量：<span></span></li>
-								<li class="trailerNum">挂车数量：<span></span></li>
-								<li class="motorVehicle">机动车辆：<span></span></li>
-								<li class="mainOutage">维保停运：<span>—</span></li>
-								<li class="shareCar">共享机位：<span>—</span></li>
-								<li class="singalIn">信号在线：<span></span></li>
-								<li class="singalOut">信号掉线：<span></span></li>
-								<li class="carDriver">司机：<span></span></li>
-								<li class="carHelper">乘务：<span></span></li>
+								<li class="show_applycar_num">配车数量：<span></span></li>
+								<li class="show_trailerNum">挂车数量：<span></span></li>
+								<li class="show_active_car">机动车辆：<span></span></li>
+								<li class="show_main_outage">维保停运：<span>-</span></li>
+								<li class="show_share_active_car">共享机动：<span>-</span></li>
+								<li class="show_signal_online">信号在线：<span></span></li>
+								<li class="show_signal_outline">信号掉线：<span></span></li>
+								<li class="show_car_driver">司机：<span></span></li>
+								<li class="show_car_attendant">乘务：<span></span></li>
 							</ul>
 						</div>
 						<div class="line_btn">
 							<div class="line_btn_content posR">
-								<a class="min" href="javascript:;" title="最小化">-</a>
+								<a class="min" href="javascript:;" title="删除">-</a>
 								<a href="javascript:;" title="客流展示" class="show_right">></a>
-								<a class="line_edit" href="javascript:;" title="设置">+</a>
+								<a class="line_edit" href="javascript:;" title="选择路线">+</a>
 							</div>
 							<div class="edit_content">
 								<div class="ovf">
-									<a class="del" href="javascript:;" title="最小化">-</a>
+									<a class="del" href="javascript:;" title="删除">-</a>
 								</div>
-								<ul>
-									<li>
-										<ul class="chs">
-										</ul>
-									</li>
+								<ul class="chs">
 								</ul>
 							</div>
 						</div>
@@ -160,36 +156,29 @@
 						<div class="road_distribute">
 							<div  class="">
 								<div class="line_status ovf">
-									<ul class="fl park_left">
-										<li>8</li>
-										<li>12</li>
-									</ul>
-									<ul  class="fr park_right">
-										<li>24</li>
-										<li>12</li>
-										<li>8</li>
-										<li>65</li>
-									</ul>
+									<ul class="fl park_left park_top_down_way"><li></li><li></li><li></li><li></li></ul>
+									<ul  class="fr park_right park_top_down_way"><li></li><li></li><li></li><li></li></ul>
 								</div>
 								<div class="actual_traffic ovf">
 									<canvas class="canvas_left fl" width="26" height="116"></canvas>
 									<div>
-										<canvas width="1190" height="33" class="can_top"></canvas>
+										<div class="show_tip_top_p">
+											<div class="show_tip_top">11111</div>
+											<canvas width="1190" height="33" class="can_top"></canvas>
+										</div>
 										<div class="traffic_car">
 											<div class="content_car_road_top">
 											</div>
 											<div class="content_car_road_down">
 											</div>
 										</div>
-										<canvas width="1190" height="33" class="can_bottom"></canvas>
+										<div class="show_tip_down_p">
+											<div class="show_tip_down"></div>
+											<canvas width="1190" height="33" class="can_bottom"></canvas>
+										</div>
 										<div class="run_car_hide">
 											<div class="line_car">
-												<div class="num_car">
-													<span></span>
-												</div>
-												<div class="type_car">
-													<span></span>
-												</div>
+												<div class="type_car"><span></span></div>
 											</div>
 										</div>
 									</div>
@@ -205,7 +194,7 @@
 		</t>
 		<t t-else="">
 			<div>
-				<div class="dispatch_desktop dragContent tidClass" tid="">
+				<div class="dispatch_desktop dragContent tidClass" t-attf-style="z-index:#{widget.rendr_index}" tid="">
 					<div class="content">
 					<!--线路信息展示-->
 						<div class="line_info dragAreaDesk">
@@ -217,11 +206,7 @@
 										<div class="ovf">
 											<a class="del" href="javascript:;" title="最小化">-</a>
 										</div>
-										<ul>
-											<li>
-												<ul class="chs">
-												</ul>
-											</li>
+										<ul class="chs">
 										</ul>
 									</div>
 								</div>
@@ -271,7 +256,7 @@
 					<div class="updown_title dragAreaDesk">
 						<div class="line_btn">
 							<div class="line_btn_content posR">
-								<a class="min" href="javascript:;" title="删除">×</a>
+								<a class="min" href="javascript:;" title="最小化">×</a>
 							</div>
 						</div>
 					</div>
@@ -321,20 +306,20 @@
 									<div class="lagstation_chart fl">
 									</div>
 									<ul class="absnormal_operate fl">
-										<li>
-											<div class="absnormal_type">
-												<h4>异常</h4>
-												<p>实际客流大于运力供给30%</p>
+										<li class="no_absnormal">
+											<div class="abs_info"></div>
+											<div class="handleBtn ovf">
+												<a class="manual" href="javascript:;">人工</a>
+												<a class="process_check" href="javascript:;">校准</a>
+												<a>忽略</a>
 											</div>
-											<div class="absnormal_sug">
-												<h4>建议<t t-esc="widget.dis_desk.name"></t></h4>
-												<p>2趟/分钟/20分钟,需补充2台机动车</p>
+											<div class="finishBtn">
+												<a href="javascript:;" class="is_check">完成</a>
 											</div>
 										</li>
-										<li class="handleBtn ovf">
-											<a>人工</a>
-											<a>校准</a>
-											<a>忽略</a>
+										<li class="normal">
+											<h4>异常</h4>
+											<p>无</p>
 										</li>
 									</ul>
 								</div>
@@ -345,12 +330,12 @@
 			</div>
 		</t>
 		<t t-else="">
-			<div class="updown_line_table posA dragContent tidClass" tid="">
+			<div class="updown_line_table posA dragContent tidClass" tid=""  t-attf-style="z-index:#{widget.rendr_index}">
 				<div class="updown_drag">
 					<div class="updown_title dragAreaDesk">
 						<div class="line_btn">
 							<div class="line_btn_content posR">
-								<a class="min" href="javascript:;" title="删除">x</a>
+								<a class="min" href="javascript:;" title="删除">×</a>
 							</div>
 						</div>
 					</div>
@@ -359,90 +344,101 @@
 		</t>
 	</t>
 	<t t-name="config">
-		<div>
-			<div class="modal fade config" tabindex="-1" role="dialog">
+		<div class="info_config">
+			<div class="modal config" tabindex="-1" role="dialog">
 			    <div class="modal-dialog" role="document">
-					<div class="modal-content">
+					<div class="modal-content conf_bg">
 					    <div class="modal-header">
 						    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 						    <h4 class="modal-title">配置</h4>
 					    </div>
-					  <div class="modal-body">
-						<div>
-							<dl>
-								<dt>背景设置</dt>
-                                <!--<dd>-->
-                                <!--<span>-->
-                                <!--背景色-->
-                                <!--</span>-->
-                                <!--<input type="color"/>-->
-                                <!--</dd>-->
-								<dd>
-									<span>资源字体颜色设置</span>
-									<input type="color" class="src_font_color"/>
-								</dd>
-                                <!--<dd>资源字体大小设置</dd>-->
-							</dl>
-							<dl>
-								<dt>资源设置</dt>
-								<dd>
-									<div>配车数量</div>
-									<div>
-										<input type="checkbox" id="bus_num_config" class="src_config"/>
-										<label for="bus_num_config" class="green"></label>
-									</div>
-								</dd>
-								<dd>
-									<div>机动车辆</div>
-									<div>
-										<input type="checkbox" id="motor_vehicle" class="src_config"/>
-										<label for="motor_vehicle" class="green"></label>
-									</div>
-								</dd>
-								<dd>
-									<div>维保停运</div>
-									<div>
-										<input type="checkbox" id="bus_outage" class="src_config"/>
-										<label for="bus_outage" class="green"></label>
-									</div>
-								</dd>
-								<dd>
-									<div>共享机动</div>
-									<div>
-										<input type="checkbox" id="share_bus" class="src_config"/>
-										<label for="share_bus" class="green"></label>
-									</div>
-								</dd>
-								<dd>
-									<div>信号在线</div>
-									<div>
-										<input type="checkbox" id="signal_online" class="src_config"/>
-										<label for="signal_online" class="green"></label>
-									</div>
-								</dd>
-								<dd>
-									<div>司机</div>
-									<div>
-										<input type="checkbox" id="bus_driver" class="src_config"/>
-										<label for="bus_driver" class="green"></label>
-									</div>
-								</dd>
-								<dd>
-									<div>乘务员</div>
-									<div>
-										<input type="checkbox" id="src_config" class="src_config"/>
-										<label for="src_config" class="green"></label>
-									</div>
-								</dd>
-							</dl>
+					    <div class="modal-body">
 							<div>
-
-						</div>
-						</div>
-					  </div>
-					  <div class="modal-footer">
-						<button type="button" class="btn btn-primary config_btn">确认</button>
-						<button type="button" class="btn btn-default btn_cancel">取消</button>
+								<dl>
+									<dt>背景设置</dt>
+                                    <!--<dd>-->
+                                    <!--<span>-->
+                                    <!--背景色-->
+                                    <!--</span>-->
+                                    <!--<input type="color"/>-->
+                                    <!--</dd>-->
+									<dd>
+										<span>资源字体颜色设置</span>
+										<input type="color" class="src_font_color"/>
+									</dd>
+                                    <!--<dd>资源字体大小设置</dd>-->
+								</dl>
+								<dl>
+									<dt>资源设置</dt>
+									<dd>
+										<div>配车数量</div>
+										<div>
+											<input type="checkbox" id="bus_num_config" class="src_config conf_applycar_num"/>
+											<label for="bus_num_config" class="green"></label>
+										</div>
+									</dd>
+									<dd>
+										<div>挂车数量</div>
+										<div>
+											<input type="checkbox" id="guabus_num" class="src_config conf_trailerNum"/>
+											<label for="guabus_num" class="green"></label>
+										</div>
+									</dd>
+									<dd>
+										<div>机动车辆</div>
+										<div>
+											<input type="checkbox" id="motor_vehicle" class="src_config conf_active_car"/>
+											<label for="motor_vehicle" class="green"></label>
+										</div>
+									</dd>
+									<dd>
+										<div>维保停运</div>
+										<div>
+											<input type="checkbox" id="bus_outage" class="src_config conf_main_outage"/>
+											<label for="bus_outage" class="green"></label>
+										</div>
+									</dd>
+									<dd>
+										<div>共享机动</div>
+										<div>
+											<input type="checkbox" id="share_bus" class="src_config conf_share_active_car"/>
+											<label for="share_bus" class="green"></label>
+										</div>
+									</dd>
+									<dd>
+										<div>信号在线</div>
+										<div>
+											<input type="checkbox" id="signal_online" class="src_config conf_signal_online"/>
+											<label for="signal_online" class="green"></label>
+										</div>
+									</dd>
+									<dd>
+										<div>信号掉线</div>
+										<div>
+											<input type="checkbox" id="signal_outline" class="src_config conf_signal_outline"/>
+											<label for="signal_outline" class="green"></label>
+										</div>
+									</dd>
+									<dd>
+										<div>司机</div>
+										<div>
+											<input type="checkbox" id="bus_driver" class="src_config conf_car_driver"/>
+											<label for="bus_driver" class="green"></label>
+										</div>
+									</dd>
+									<dd>
+										<div>乘务员</div>
+										<div>
+											<input type="checkbox" id="driver_server" class="src_config conf_car_attendant"/>
+											<label for="driver_server" class="green"></label>
+										</div>
+									</dd>
+								</dl>
+							</div>
+					    </div>
+					    <div class="modal-footer">
+						    <button type="button" class="btn btn-primary config_btn">确认</button>
+						    <button type="button" class="btn btn-default btn_cancel" data-dismiss="modal">取消</button>
 					    </div>
 					</div><!-- /.modal-content -->
 			    </div><!-- /.modal-dialog -->
@@ -455,7 +451,7 @@
 			<div class="src_title">
 				<div class="closeBox dragArea">
 					<div class="line_btn">
-						<a class="min" href="javascript:;">x</a>
+						<a class="min" href="javascript:;">×</a>
 					</div>
 				</div>
 				<div class="line_list">
@@ -476,135 +472,137 @@
 				<div class="table_bus_num">
 					<table>
 						<thead>
-						<tr>
-							<th class="td_small">线路</th>
-							<th class="td_small">车号</th>
-							<th class="td_small">车牌</th>
-							<th class="td_small">司机</th>
-							<th>位置</th>
-							<th class="td_small">状态</th>
-							<th>当前任务</th>
-							<th class="td_small">乘客数量</th>
-							<th class="td_small">满载率</th>
-							<th>信号状态</th>
-							<th class="td_small">车速</th>
-							<th>下趟发车</th>
-							<th>回场时间</th>
-							<th class="control_btn th_end">
-								<p>
-									能源剩余里程
-								</p>
-								<p class="add_btn">
-									+
-								</p>
-								<div class="config_bus_source">
-									<ul>
-										<li><a>字段选择</a></li>
-										<li><a>样式修订</a></li>
-										<li><a>面板重置</a></li>
-									</ul>
-									<div><a>关闭面板</a></div>
-								</div>
-							</th>
-						</tr>
-					</thead>
+							<tr>
+								<th class="td_small">线路</th>
+								<th class="td_small">车号</th>
+								<th class="td_small">车牌</th>
+								<th class="td_small">司机</th>
+								<th class="td_small">方向</th>
+								<th class="td_small">位置</th>
+								<th class="td_small">状态</th>
+								<th class="td_small">当前任务</th>
+								<th class="td_small">乘客数量</th>
+								<th class="td_small">满载率</th>
+								<th class="td_small">信号状态</th>
+								<th class="td_small">车速</th>
+								<th class="td_small">下趟发车</th>
+								<th class="td_small">回场时间</th>
+								<th>能源剩余里程</th>
+								<th class="control_btn th_end">
+									<p>
+										操作
+									</p>
+									<p class="add_btn">
+										+
+									</p>
+									<div class="config_bus_source">
+										<ul>
+											<li><a>字段选择</a></li>
+											<li><a>样式修订</a></li>
+											<li><a>面板重置</a></li>
+										</ul>
+										<div><a>关闭面板</a></div>
+									</div>
+								</th>
+							</tr>
+						</thead>
 						<tbody class="table_bus_num_tbody">
 							<t t-foreach="widget.line_src.respose" t-as="item">
-							<tr t-attf-src_id="{{item.id}}">
-								<!--线路-->
-								<td class="line_src_lineName td_small">
-									<t t-esc="item.lineName"></t>
-								</td>
-                                <!--车号-->
-								<td class="line_src_carNum td_small">
-									<t t-esc="item.carNum"></t>
-								</td>
-                                <!--车牌-->
-								<td class="line_src_onBoardId td_small">
-									<t t-esc="item.onBoardId"></t>
-								</td>
-                                <!--司机名字-->
-								<td class="line_src_driverName td_small">
-									<t t-esc="item.driverName"></t>
-								</td>
-                                <!--位置-->
-								<td class="line_src_site">
-									<a href="#" class="position_site">
-										<!--<t t-esc="item.location_gps"></t>-->
-									</a>
-								</td>
-								<td class="line_src_status td_small">
-									<p t-if="item.carStateId==1001">正常</p>
-									<p t-elif="item.carStateId==2003">休息</p>
-									<p t-elif="item.carStateId==2008">机动</p>
-									<p t-elif="item.carStateId==2004">包车</p>
-									<p t-elif="item.carStateId==2009">取消</p>
-									<p t-elif="item.carStateId==2010">调车</p>
-									<p t-elif="item.carStateId==255">不做</p>
-									<p t-elif="item.carStateId==2011">什么也不做</p>
-									<p t-elif="item.carStateId==2013">被锁</p>
-									<p t-elif="item.carStateId==2005">加油</p>
-									<p t-elif="item.carStateId==1002">报修</p>
-									<p t-elif="item.carStateId==2006">在保</p>
-									<p t-elif="item.carStateId==2007">保养</p>
-									<p t-else="">其他</p>
-								</td>
-                                <!--当前任务-->
-								<td class="line_src_current_task">
-									<!--<t t-esc="item.Current_task"></t>-->
+								<tr t-attf-src_id="{{item.id}}">
+									<!--线路-->
+									<td class="line_src_lineName td_small">
+										<t t-esc="item.lineName"></t>
+									</td>
+                                    <!--车号-->
+									<td class="line_src_carNum td_small">
+										<t t-esc="item.carNum"></t>
+									</td>
+                                    <!--车牌-->
+									<td class="line_src_onBoardId td_small">
+										<t t-esc="item.onBoardId"></t>
+									</td>
+                                    <!--司机名字-->
+									<td class="line_src_driverName td_small">
+										<t t-esc="item.driverName"></t>
+									</td>
+									<td class="td_small bus_direct" t-attf-direct="{{item.direction}}">
+										<t t-if="item.direction==0">上行</t>
+										<t t-elif="item.direction==1">下行</t>
+									</td>
+                                    <!--位置-->
+									<td class="line_src_site td_small">
+										<a href="#" class="position_site">
+											<!--<t t-esc="item.location_gps"></t>-->
+										</a>
+									</td>
+									<td class="line_src_status td_small">
+										<p t-if="item.carStateId==2008">机动</p>
+										<p t-else="">运营</p>
+									</td>
                                     <!--当前任务-->
-									<p t-if="item.task==1000">正常</p>
-									<p t-elif="item.carStateId==1001">进场包车开始</p>
-									<p t-elif="item.carStateId==1002">进场包车结束</p>
-									<p t-elif="item.carStateId==1003">进场加气开始</p>
-									<p t-elif="item.carStateId==1004">进场加气结束</p>
-									<p t-elif="item.carStateId==1005">进场报修开始</p>
-									<p t-elif="item.carStateId==1006">进场报修结束</p>
-									<p t-elif="item.carStateId==0">进场后小休息</p>
-									<p t-elif="item.carStateId==1007">进场保养开始</p>
-									<p t-elif="item.carStateId==1008">进场保养结束</p>
-									<p t-elif="item.carStateId==1009">进场空放开始</p>
-									<p t-elif="item.carStateId==1010">进场空放结束</p>
-									<p t-elif="item.carStateId==1011">进场不操作</p>
-									<p t-elif="item.carStateId==1012">进场下班，变机动</p>
-									<p t-elif="item.carStateId==2011">什么也不做</p>
-									<p t-elif="item.carStateId==2015">进场医疗开始</p>
-									<p t-elif="item.carStateId==2016">进场医疗结束</p>
-								</td>
-                                <!--乘客数量-->
-								<td class="line_src_Passanger_number td_small">
-									<!--<t t-esc="Passenger_number"></t>-->
+									<td class="line_src_current_task td_small">
+										<!--<t t-esc="item.Current_task"></t>-->
+                                        <!--当前任务-->
+										<p t-if="item.task==1000">正常</p>
+										<p t-elif="item.carStateId==1001">进场包车开始</p>
+										<p t-elif="item.carStateId==1002">进场包车结束</p>
+										<p t-elif="item.carStateId==1003">进场加气开始</p>
+										<p t-elif="item.carStateId==1004">进场加气结束</p>
+										<p t-elif="item.carStateId==1005">进场报修开始</p>
+										<p t-elif="item.carStateId==1006">进场报修结束</p>
+										<p t-elif="item.carStateId==0">进场后小休息</p>
+										<p t-elif="item.carStateId==1007">进场保养开始</p>
+										<p t-elif="item.carStateId==1008">进场保养结束</p>
+										<p t-elif="item.carStateId==1009">进场空放开始</p>
+										<p t-elif="item.carStateId==1010">进场空放结束</p>
+										<p t-elif="item.carStateId==1011">进场不操作</p>
+										<p t-elif="item.carStateId==1012">进场下班，变机动</p>
+										<p t-elif="item.carStateId==2011">什么也不做</p>
+										<p t-elif="item.carStateId==2015">进场医疗开始</p>
+										<p t-elif="item.carStateId==2016">进场医疗结束</p>
+									</td>
+                                    <!--乘客数量-->
+									<td class="line_src_Passanger_number td_small">
+										<!--<t t-esc="Passenger_number"></t>-->
 
-								</td>
-                                <!--满载率-->
-								<td class="line_src_full_load_rate td_small">
-									<!--<t t-esc=""></t>-->
+									</td>
                                     <!--满载率-->
-								</td>
-                                <!--信号状态-->
-								<td class="line_src_sinal_status">
-									<!--<t t-esc="item.sinal_status"></t>-->
+									<td class="line_src_full_load_rate td_small">
+										<!--<t t-esc=""></t>-->
+                                        <!--满载率-->
+									</td>
                                     <!--信号状态-->
-								</td>
-                                <!--车速-->
-								<td class="line_src_speed td_small">
-									<!--车速-->
-								</td>
-								<td class="line_src_next_trip_time">
-									<!--下趟发车-->
-									<t t-esc="item.planRunTime"></t>
-								</td>
-								<td class="line_src_return_time">
-									<!--回场时间-->
-									<t t-esc="item.realReachTime"></t>
-								</td>
-								<td class="line_src_residual_clearance">
-									<!--能源剩余里程-->
-								</td>
-							</tr>
-						</t>
-					</tbody>
-				</table>
+									<td class="line_src_sinal_status td_small">
+										<!--<t t-esc="item.sinal_status"></t>-->
+                                        <!--信号状态-->
+									</td>
+                                    <!--车速-->
+									<td class="line_src_speed td_small">
+										<!--车速-->
+									</td>
+									<td class="line_src_next_trip_time td_small">
+										<!--下趟发车-->
+										<t t-esc="item.planRunTime"></t>
+									</td>
+									<td class="line_src_return_time td_small">
+										<!--回场时间-->
+										<t t-esc="item.realReachTime"></t>
+									</td>
+									<td class="line_src_residual_clearance">
+										<!--能源剩余里程-->
+									</td>
+									<td>
+										<t t-if="item.carStateId==2008">
+											<button class="add_operate">+加入运营</button>
+										</t>
+										<t t-else="">
+											<button class="add_operate add_success">+加入运营</button>
+										</t>
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
 				</div>
 				<div class="table_source">
 					<table>
@@ -619,69 +617,21 @@
 							<th>违章记录</th>
 							<th>联系方式</th>
 							<th class="control_btn">
-							<p>
-								当前位置
-							</p>
-							<p class="add_btn">
-								+
-							</p>
-							<div class="config_bus_source">
-								<ul>
-									<li><a>字段选择</a></li>
-									<li><a>样式修订</a></li>
-									<li><a>面板重置</a></li>
-								</ul>
-								<div><a>关闭面板</a></div>
-							</div>
-						</th>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+								<p>
+									当前位置
+								</p>
+								<p class="add_btn">
+									+
+								</p>
+								<div class="config_bus_source">
+									<ul>
+										<li><a>字段选择</a></li>
+										<li><a>样式修订</a></li>
+										<li><a>面板重置</a></li>
+									</ul>
+									<div><a>关闭面板</a></div>
+								</div>
+							</th>
 						</tr>
 						<tr>
 							<td></td>

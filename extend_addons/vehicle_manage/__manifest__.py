@@ -22,7 +22,7 @@
         # 'data/fleet_data.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
-        'views/vehicle_view.xml',
+
         'views/stock_location.xml',
         'views/fleetusagemanagement.xml',
         # 费用类型设置
@@ -32,6 +32,7 @@
         'views/vehicle_config_settings_view.xml',
         'views/vehicle_entry_view.xml',
         'wizard/batch_update_vehicle.xml',
+        'views/vehicle_view.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,

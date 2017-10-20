@@ -22,9 +22,7 @@
     'version': '0.1.0',
 
     # any module necessary for this one to work correctly
-
     'depends': ['operation_menu', 'employees', 'schedule_dispatch_group'],
-
 
     # always loaded
     'data': [

@@ -1,0 +1,52 @@
+.dispatch_desktop_video{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.dispatch_desktop_video .ztree .online {
+    color: #008000;
+}
+
+.dispatch_desktop_video .ztree {
+    height: 600px;
+    overflow: auto;
+}
+
+.dispatch_desktop_video .video_box_player{
+    display: none;
+}
+
+.dispatch_desktop_video .content-left{
+    width:180px;
+    float: left;
+}
+
+
+.dispatch_desktop_video .content-right {
+    width: 1680px;
+    float: left;
+}
+
+.video_player .video_hide {
+    display: none;
+}
+
+.dispatch_desktop_video .video_player {
+    width: 550px;
+    height: 350px;
+    float: left;
+    position: relative;
+    margin-right: 2px;
+    margin-bottom: 2px;
+}
+
+.dispatch_desktop_video .show_car {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    color: #ACEFAC;
+    display: none;
+}
+
+.dispatch_desktop_video .now_play {
+    margin-right: 20px;
+}

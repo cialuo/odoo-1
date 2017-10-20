@@ -82,14 +82,16 @@ class Desktop(models.Model):
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(self._name, vals)
-                    vals.update({
-                        'controlsId': r.desktop_id.id,
+                    if vals:
+                        vals.update({
+                            # 'controlsId': r.desktop_id.id,
+                            'id': r.id,
 
-                    })
-                    if vals.get('line_id'):
-                        vals.update({'lineName': r.line_id.line_name})
-                    params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-                    rp = Client().http_post(url, data=params)
+                        })
+                        if vals.get('line_id'):
+                            vals.update({'lineName': r.line_id.line_name})
+                        params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                        rp = Client().http_post(url, data=params)
 
                     # clientThread(url,params,res).start()
                 except Exception,e:
@@ -111,7 +113,8 @@ class Desktop(models.Model):
         for r in self:
             try:
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                vals = {'controlsId': r.desktop_id.id}
+                # vals = {'controlsId': r.desktop_id.id, 'lineId': r.line_id.id}
+                vals = {'id': r.id}
                 _logger.info('Start unlink data: %s', self._name)
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
                 rp = Client().http_post(url, data=params)

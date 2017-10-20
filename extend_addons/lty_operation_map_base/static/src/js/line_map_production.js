@@ -1,4 +1,4 @@
-odoo.define("", function(require) {
+odoo.define("line_map_production.line_map_production", function(require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
     var QWeb = core.qweb;
@@ -32,7 +32,7 @@ odoo.define("", function(require) {
             location_set.map = map;
 
             // 线路
-            model_choseline = new Model('route_manage.route_manage');
+            var model_choseline = new Model('route_manage.route_manage');
             model_choseline.query().filter([
                 ["state", "=", 'inuse']
             ]).all().then(function(data) {
@@ -70,6 +70,7 @@ odoo.define("", function(require) {
             // 选择线路
             self.$('.mapSetLineDiv').on('change', 'select.line', function() {
                 self.line_id = $(this).val();
+                self.line_name = $(this).find("option:selected").text();
                 self.$('.mapSet').html('');
                 if (self.line_id == '') {
                     return;
@@ -116,6 +117,7 @@ odoo.define("", function(require) {
                         var site_top_list = [];
                         var site_down_list = [];
                         _.each(site_info, function(ret) {
+                            console.log(ret);
                             if (ret.direction == "up") {
                                 site_top_list.push(ret);
                             } else {
@@ -126,7 +128,8 @@ odoo.define("", function(require) {
                             map: map,
                             site_dict: { '0': site_top_list, '1': site_down_list },
                             his_dict: his_dict,
-                            line_id: self.line_id
+                            line_id: self.line_id,
+                            line_name: self.line_name
                         };
                         new line_map_production_set(self, options).appendTo(self.$('.mapSet'));
                     });
@@ -134,7 +137,7 @@ odoo.define("", function(require) {
             });
             self.map_binding_fn(map);
         },
-        map_binding_fn(map) {
+        map_binding_fn:function(map) {
             var self = this;
             // 显示经纬度
             map.on('mousemove', function(e) {
@@ -156,6 +159,7 @@ odoo.define("", function(require) {
         init: function(parent, options) {
             this._super(parent);
             this.options = options;
+            console.log(options);
             // 站点信息
             this.model_station = new Model('opertation_resources_station');
             this.family_list = ['宋体', '微软雅黑', '华文细黑', '黑体', 'sans-serif', 'serif'];
@@ -164,6 +168,7 @@ odoo.define("", function(require) {
         start: function() {
             var self = this;
             self.ancillary_list = [];
+            self.isShowPoint = false;
             var map = self.options.map;
             var line_id = self.options.line_id;
             self.direction = self.$("input[name='direction']").val();
@@ -185,27 +190,11 @@ odoo.define("", function(require) {
 
             // 辅助点显示切换
             self.$('.mapSetLineContext').on('click', '.isShowPoint', function() {
-                console.log(self.polyline_gps_list);
+                self.isShowPoint = false;
                 if (this.checked) {
-                    _.each(self.polyline_gps_list, function(ret, index) {
-                        var pos = [];
-                        if (ret.lng) {
-                            pos = [ret.lng, ret.lat];
-                        } else {
-                            pos = [ret[0], ret[1]];
-                        }
-                        var marker = new AMap.Marker({
-                            content: '<div class="ancillary">•</div>',
-                            position: pos,
-                            map: map
-                        });
-                        self.ancillary_list[index] = marker;
-                    });
-                } else {
-                    _.each(self.ancillary_list, function(ret) {
-                        ret.setMap(null);
-                    });
+                    self.isShowPoint = true;
                 }
+                self.isShowPoint_fn(map);
             });
 
             // 修改站点属性触发事件
@@ -274,11 +263,48 @@ odoo.define("", function(require) {
 
             // 取消
             self.$('.dataSave').on('click', '.back_bt', function(){
-                alert("w");
+                // alert("w");
             });
 
             // 初始化地图事件
             self.init_map_fn(map, self.direction);
+        },
+        isShowPoint_fn(map){
+            var self = this;
+            if (self.isShowPoint) {
+                _.each(self.polyline_gps_list, function(ret, index) {
+                    var pos = [];
+                    if (ret.lng) {
+                        pos = [ret.lng, ret.lat];
+                    } else {
+                        pos = [ret[0], ret[1]];
+                    }
+                    self.add_point_fn(map, pos);
+                });
+            } else {
+                self.delete_point_fn();
+            }
+        },
+        add_point_fn: function(map, pos){
+            var marker = new AMap.Marker({
+                content: '<div class="ancillary">•</div>',
+                position: pos,
+                map: map
+            });
+            this.ancillary_list.push(marker);
+        },
+        delete_point_fn: function(index){
+            var self = this;
+            if (typeof index=="number" && index>=0){
+                debugger;
+                self.ancillary_list[index].setMap(null);
+                self.ancillary_list.pop();
+                return false;
+            }
+            _.each(self.ancillary_list, function(ret) {
+                ret.setMap(null);
+            });
+            self.ancillary_list = [];
         },
         init_map_fn: function(map, direction){
             var self = this;
@@ -295,11 +321,16 @@ odoo.define("", function(require) {
         openBrush: function(map) {
             var self = this;
             self.switch = true;
+            // var mouseTool = new AMap.MouseTool(map);
             var clickEventListener = map.on('click', function(e) {
                 if (self.switch) {
+                    // mouseTool.marker({offset:new AMap.Pixel(-14,-11)});
                     var gps = [e.lnglat.getLng(), e.lnglat.getLat()];
                     self.polyline_gps_list.push(gps);
                     self.polyline.setPath(self.polyline_gps_list);
+                    if (self.isShowPoint){
+                        self.add_point_fn(map, gps);
+                    }
                 }
             });
         },
@@ -313,6 +344,7 @@ odoo.define("", function(require) {
             if (self.polyline_gps_list.length > 1) {
                 self.polyline_gps_list.pop();
                 self.polyline.setPath(self.polyline_gps_list);
+                self.delete_point_fn(self.ancillary_list.length-1);
             }
         },
         // 清空重画-默认第一个点为起始站
@@ -321,6 +353,7 @@ odoo.define("", function(require) {
             if (self.polyline_gps_list.length > 1) {
                 self.polyline_gps_list = [self.polyline_gps_list[0]];
                 self.polyline.setPath(self.polyline_gps_list);
+                self.delete_point_fn();
             }
         },
         load_his_establishment_line: function(map, hisObj, site_list) {
@@ -406,6 +439,7 @@ odoo.define("", function(require) {
                     var marker = new AMap.Marker({
                         content: content_info,
                         position: [site.longitude, site.latitude],
+                        offset : new AMap.Pixel(0,-15),
                         map: map,
                     });
                 });

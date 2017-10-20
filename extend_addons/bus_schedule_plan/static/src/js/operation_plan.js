@@ -1,8 +1,7 @@
-odoo.define('abc', function (require) {
+odoo.define('operate_plan_conf', function (require) {
     "use strict";
     var Model = require('web.Model');
     var model = new Model("scheduleplan.busmovetime");
-    var recid = $('#the_rec_id .o_form_field').text();
 
     function checkTime(i) {
         if (i < 10) {
@@ -12,6 +11,14 @@ odoo.define('abc', function (require) {
     }
 
     function render_plan(data) {
+        $('.up_carNum').html(data.upvehicle);
+        $('.up_station_info').html(data.upstation + "-" + data.downstation)
+        if (data.directiontype != 'singleway') {
+            $('.down_carNum').html(data.downvehicle);
+            $('.down_station_info').html(data.downstation + "-" + data.upstation);
+        } else {
+            $('.dbl_state').hide();
+        }
         var bus_num = Object.keys(data.bus).length;
         //渲染table
         if (data.direction.down.length != 0 && data.direction.up.length != 0) {
@@ -24,10 +31,9 @@ odoo.define('abc', function (require) {
             }
         } else {
             for (var ts = 0; ts < data.bus[1].length; ts++) {
-                $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.downstation.substr(0, 1) + '</div></th>');
+                $('.time_start_arrive_stop thead tr').append('<th><div>' + ts + '</div><div>' + data.upstation.substr(0, 1) + '-' + data.upstation.substr(0, 1) + '</div></th>');
             }
         }
-
         for (var bn = 1; bn < (bus_num + 1); bn++) {
             $('.time_start_arrive_stop tbody').append('<tr><td>' + bn + '</td></tr>');
             for (var bTdo = 0; bTdo < $('.time_start_arrive_stop thead tr th').length - 1; bTdo++) {
@@ -52,9 +58,8 @@ odoo.define('abc', function (require) {
                         $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).attr('direction', data.bus[bn][bTd][2]).attr('index', data.bus[bn][bTd][0]).addClass('sort_out').html($('.start_over_stop_time').html());
                     }
                 } else {
-                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).css({
-                        'pointer-events': 'none',
-                        'background': '#d7d9e0'
+                    $('.time_start_arrive_stop').find('tr').eq(bn).find('td').eq(bTd + 1).addClass("not_click").css({
+                        'cursor': 'not-allowed'
                     });
                 }
             }
@@ -65,11 +70,13 @@ odoo.define('abc', function (require) {
         sessionStorage.setItem('direction', JSON.stringify(data.direction));
     }
 
+    // window.onhashchange = function () {
+    var recid = $('#the_rec_id .o_form_field').text();
     model.call("reoppaln2web", [recid]).then(function (data) {
-        console.log(data)
+        $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
         render_plan(data);
     })
-    $('.time_start_arrive_stop').on('dblclick', 'tbody td', function () {
+    $('.time_start_arrive_stop').on('dblclick', 'tbody td:not(.not_click)', function () {
         // 不是空的
         // 点击的index
         var this_index = $(this).attr("index");
@@ -87,6 +94,7 @@ odoo.define('abc', function (require) {
         }
         model.call("changeOpplan", [recid, this_index, direction, directionObj, click_td]).then(function (res) {
             $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
+            render_plan(res);
         });
     });
     $('.save_plan.btn').click(function () {
@@ -97,6 +105,8 @@ odoo.define('abc', function (require) {
     $('.giveup_plan').click(function () {
         model.call("reoppaln2web", [recid]).then(function (data) {
             $('.time_start_arrive_stop').html('<thead><tr><th>班次</th></tr></thead><tbody></tbody>');
+            render_plan(data);
         });
     });
+    // };
 });

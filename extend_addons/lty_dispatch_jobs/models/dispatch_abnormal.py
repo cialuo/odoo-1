@@ -25,6 +25,8 @@ class dispatch_abnormal_mgt(models.Model):
     suggest = fields.Text()
     #方案
     solution = fields.Text()
+    #异常类型
+    package_type = fields.Text()
     #异常目录
     categ_id = fields.Many2one('lty.dispatch.abnorma.categ')
     #异常日志

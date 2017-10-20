@@ -3,13 +3,13 @@
 .layui-layer-page {
     border-radius: 8px;
 }
+
 .layui-layer-page .layui-layer-title {
     background: #454f76 !important;
     color: #fff !important;
     border-bottom: 1px solid #6D7487 !important;
-    padding: 0 30px !important; 
+    padding: 0 30px !important;
 }
-
 
 /*---------站点客流---------*/
 .passenger_flow_trend_chart {
@@ -293,7 +293,6 @@
 .bus_real_info .infoR {
     width: 100%;
     z-index: 2;
-    float: left;
     position: relative;
 }
 
@@ -501,7 +500,6 @@
     float: left;
     border: 1px solid #aaa;
     width: 334px;
-    height:
 }
 
 .bus_real_info .carPassenge .carPassenger .top {
@@ -884,11 +882,11 @@
     vertical-align: middle;
 }
 
-.plan_display .plan_group .bus_plan .icon_0 {
+.plan_display .plan_group .bus_plan .icon_0, .plan_display .plan_group .bus_plan .icon_1 {
     background-position: -77px 0;
 }
 
-.plan_display .plan_group .bus_plan .icon_1 {
+.plan_display .plan_group .bus_plan .icon_2 {
     background-position: -97px 0;  
 }
 
@@ -906,76 +904,6 @@
 
 .plan_display .plan_group .section_plan_cont .icon2_1 {
     background-position: -19px 0;
-}
-
-
-
-/*------调整计划----------*/
-.adjust_box .adjust_info {
-    padding: 20px 30px;
-    background: #454f76;
-    color: #fff;
-}
-
-.adjust_box .adjust_content {
-    width: 100%;
-    height: auto;
-}
-
-.adjust_box .adjust_content td {
-    height: 32px;
-    line-height: 32px;
-    width: 25%;
-}
-
-.adjust_box .adjust_content tr td.pdL {
-    padding-left: 20px;
-}
-
-.adjust_box .adjust_content .plan_num {
-    border: 0;
-    border-bottom: 1px solid #6D7487;
-    background: #454f76;
-    color: #fff;
-    border-radius: 4px;
-    margin: 0 5px;
-    display: inline-block;
-    text-align: center;
-}
-
-.adjust_box .adjust_content td input[type="number"] {
-    width: 40px;
-}
-
-.adjust_box .adjust_content td input[type="time"] {
-    width: 68px;
-}
-
-.adjust_box .adjust_bt_box {
-    position: relative;
-    background: #454f76;
-    height: 48px;
-    border-top: 1px solid #6D7487;
-    padding: 10px 30px;
-}
-
-.adjust_box .adjust_bt_box .adjust_bt {
-    display: inline-block;
-    height: 26px;
-    line-height: 26px;
-    text-align: center;
-    width: 56px;
-    color:  #4ecfc7;
-    border: 1px solid #4ecfc7;
-    border-radius: 4px;
-}
-
-.adjust_box .adjust_bt_box .ok_bt, .adjust_box .adjust_bt_box .close_bt {
-    float: right;
-}
-
-.adjust_box .adjust_bt_box .ok_bt {
-    margin-right: 20px;
 }
 
 
@@ -1009,4 +937,390 @@
 .plan_display .plan_display_set .setBox .nav li:hover {
     background: #3a4263;
     color: #4ecfc7;
+}
+
+
+/*customModal*/
+.customModal .modal-dialog , .modal_lty .modal-dialog {
+    height: auto !important;
+    padding: 0 !important;
+    color: #fff !important;
+}
+
+.customModal .modal-dialog .modal-content {
+    border-radius: 8px;
+    background: #384060;
+}
+
+.customModal .modal-dialog .modal-content .modal-header {
+    border-bottom: none;
+    padding: 28px 28px 18px;
+}
+
+.customModal .modal-dialog .modal-content .modal-body {
+    padding: 10px 28px;
+}
+
+.customModal .modal-dialog .modal-content .modal-footer {
+    border-top: none;
+    padding: 28px;
+}
+
+.customModal .modal-dialog .modal-content .modal-header .close {
+    color: #fff;
+    font-weight: normal;
+    font-size: 22px;
+    opacity: 1;
+}
+
+.customModal .modal-dialog .modal-content .modal-header .modal-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.customModal .modal-dialog .modal-content table {
+    width: 100%;
+}
+
+.customModal .modal-dialog .modal-content input {
+    border: 1px solid #6d7487;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 10px;
+    display: inline-block;
+    border-radius: 4px;
+    background: #384060;
+    color: #fff;
+}
+
+.customModal .modal-dialog .modal-content select, .modal_lty .modal-dialog .modal-content select {
+    border: 1px solid #6d7487;
+    height: 26px;
+    line-height: 26px;
+    padding: 0 10px;
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #384060;
+    background-position: right 10px center;
+    color: #fff;
+}
+
+.customModal .modal-dialog .modal-content textarea {
+    border-radius: 4px;
+    background: #384060;
+    border: 1px solid #6d7487;
+    padding: 0 10px;
+    resize: none;
+}
+
+.customModal .btn {
+    background: none;
+    padding: 2px 12px;
+}
+
+.customModal .btn-default {
+    border: 1px solid #6d7487;
+    color: #6d7487;
+}
+
+.customModal .btn-primary {
+    border: 1px solid #21b799;
+    color: #21b799;
+}
+
+.customModal .modal-dialog .modal-content a {
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+}
+
+.customModalAddPlan .modal-content span.ckIcon {
+    cursor: pointer;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-right: 5px;
+    background: url("/lty_dispatch_desktop_widget/static/src/image/checkIcon.png") no-repeat center center;
+    background-position: 0 -14px;
+}
+
+.customModalAddPlan .modal-content span.active {
+    background-position: 0 0;
+}
+
+.customModalAddPlan .modal-content {
+    width: 668px;
+    margin: 0 auto;
+}
+
+.driverCheckIn .modal-content {
+    width: 358px;
+    margin: 0 auto;
+}
+.editTheVehicle .modal-content {
+    width: 668px;
+    margin: 0 auto;
+}
+
+.errorState .modal-content {
+    width: 214px;
+    margin: 0 auto;
+}
+.errorState .modal-content .yczt-ul li {
+    display: inline-block;
+    line-height:32px;
+    position: relative;    
+}
+.errorState .modal-content .yczt-ul li span {
+    display: inline-block;
+    padding-right: 25px;
+}
+.errorState .modal-content .yczt-ul li i{
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    /* background-color: red; */
+    top:7px;
+    left:20px;
+    /* background: url("../image/icon_tc.png") no-repeat -74px -26px; */
+}
+.errorState .modal-content .yczt-ul li:nth-child(1) i{
+    background: url("../image/icon_tc.png") no-repeat -74px -26px;
+}
+.errorState .modal-content .yczt-ul li:nth-child(2) i{
+    background: url("../image/icon_tc.png") no-repeat -98px -26px;
+}
+.errorState .modal-content .yczt-ul li:nth-child(3) i{
+    background: url("../image/icon_tc.png") no-repeat -122px -26px;
+}
+.errorState .modal-content .yczt-ul li:nth-child(4) i{
+    background: url("../image/icon_tc.png") no-repeat -146px -26px;
+}
+.errorState .modal-content .yczt-ul li:nth-child(5) i{
+    background: url("../image/icon_tc.png") no-repeat -170px -26px;
+}
+.errorState .modal-content .yczt-ul li:nth-child(6) i{
+    background: url("../image/icon_tc.png") no-repeat -194px -26px;
+}
+.errorState .modal-content .yczt-ul li:nth-child(7) i{
+    background: url("../image/icon_tc.png") no-repeat -218px -26px;
+}
+
+/* 进场任务*/
+.InTheTask .modal-dialog .modal-content .modal-header{
+    padding-bottom: 0px;
+}
+.InTheTask .modal-content .selectType span.ckIcon {
+    margin-left: 8px;
+}
+.InTheTask .modal-content {
+    width: 264px;
+    height: 370px;
+    margin: 0 auto;    
+    
+}
+
+/* end */
+.customModalAddPlan table tr td {
+    line-height: 28px;
+    width: 50%;
+    padding-top: 12px;
+}
+
+.customModalAddPlan .mode .mode_type {
+    position: relative;
+    border-bottom: 2px solid #6d7487;
+    height: 30px;
+    margin: 20px 0;
+}
+
+.customModalAddPlan .mode .mode_type a {    
+    width: 68px;
+    height: 30px;
+    line-height: 30px;
+    background: #384060;
+}
+
+.customModalAddPlan .mode .mode_type .replace_bt {
+    position: absolute;
+    left: 20px;
+    bottom: 0;
+    z-index: 1
+}
+.customModalAddPlan .mode .mode_type .switch_bt {
+    position: absolute;
+    left: 88px;
+    bottom: 0;
+    z-index: 1
+}
+
+.customModalAddPlan .mode .mode_type a.active {
+    border-left: 2px solid #6d7487;
+    border-top: 2px solid #6d7487;
+    border-right: 2px solid #6d7487;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    bottom: -2px;
+    height: 32px;
+}
+
+.customModalAddPlan .tmp .fgx {
+    margin: 26px 0;
+    height: 1px;
+    border-bottom: 1px solid #6d7487;
+}
+
+.customModalAddPlan table tr td:last-child {
+    text-align: right;
+}
+
+.customModalAddPlan table tr td:first-child {
+    text-align: left;
+    width: 54%;
+}
+
+.customModalAddPlan .w1 {
+    width: 94px;
+}
+
+.customModalAddPlan .w2 {
+    width: 200px;
+}
+
+.customModalAddPlan .w3 {
+    width: 156px;
+}
+
+.customModalAddPlan .w4 {
+    width: 168px;
+}
+
+.customModalAddPlan .w5 {
+    width: 90px;
+}
+
+.customModalAddPlan .w6 {
+    width: 185px;
+}
+
+
+.modal_lty {
+    color: #fff;
+}
+
+.modal_lty .modal-title {
+    font-weight: bold;
+}
+
+.modal_lty .model_change_content {
+    border-radius: 6px;
+    background: #384060;
+}
+
+.modal_lty .modal-header, .modal.modal_lty .modal-footer {
+    border: none;
+}
+
+.modal_lty .btn_confirm_lty {
+    color: #4ecfc7;
+    border-color: #4ecfc7;
+    background: none;
+}
+
+.modal_lty .short_msg_content {
+    height: 100px;
+    width: 100%;
+    border: 1px solid #6d738a;
+    border-radius: 4px;
+    padding: 20px;
+}
+.modal_lty input.short_msg_text {
+    background: none;
+    width:100%;
+    word-break: break-all;
+    height: 100px;
+    padding-left: 20px;
+    border: 1px solid #6d7487;
+    border-radius: 4px;
+}
+.modal_lty .checkbox label {
+    padding-left: 0;
+}
+
+.modal_lty .msg_content_config {
+    margin: 20px 0;
+}
+
+.modal_lty .fl {
+    float: left;
+}
+
+.modal_lty .msg_send_info {
+    color: white;
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    margin-top: 3px;
+    line-height: 1.42857143;
+    border: 1px solid #6d738a;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+.modal_lty .msg_send_info option{
+    color: white;
+    background: #384060;
+}
+
+.modal_lty .col-sm-9.pd0 {
+    padding: 0;
+}
+
+.modal_lty .input-checkbox {
+    display: none
+}
+
+.modal_lty .demo--checkbox {
+    border: 1px solid #4ecfc7;
+    border-radius: 4px;
+    display: inline-block;
+    height: 18px;
+    margin-right: 8px;
+    margin-top: -2px;
+    vertical-align: middle;
+    width: 18px;
+    line-height: 1;
+    margin-left: 2px;
+}
+
+.modal_lty .input-checkbox:checked + .demo--checkbox:after {
+    background: url("/lty_dispatch_desktop_widget/static/src/image/check.png") no-repeat 1px 2px;
+    border-radius: 4px;
+    content: "";
+    display: inline-block;
+    height: 12px;
+    margin: 2px;
+    width: 12px
+}
+
+/*autocomplete_custom_model_class*/
+.autocomplete_custom_model_class {
+    max-height: 220px;
+    overflow: auto;
+    border: none;
+    background-color: #464f76;
+    color: #4ecfc7;
+}
+
+.autocomplete_custom_model_class .ui-menu-item {
+    padding: 0 10px;
+    line-height: 24px;
+}
+
+.autocomplete_custom_model_class .ui-menu-item:hover {
+    background: #1E90FF;
+    color: #fff;
 }

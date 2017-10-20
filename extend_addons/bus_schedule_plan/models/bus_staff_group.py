@@ -14,6 +14,8 @@ class BusStaffGroup(models.Model):
     #     ('record_unique', 'unique(name)', _('The staff name must be unique!'))
     # ]
     _name = 'bus_staff_group'
+    _order = "id desc"
+
     name = fields.Char("Staff Group Name", default="/")
     route_id = fields.Many2one('route_manage.route_manage', required=True)
     line_name = fields.Char(related="route_id.line_name")
@@ -45,6 +47,12 @@ class BusStaffGroup(models.Model):
         :param force: 是否强制更新班组信息
         :return:
         """
+
+        #判断该线路的班组的车辆是否小于计划需要的运营车辆数
+        bus_group_vehicle_ct = len(self.env['bus_group'].search([('route_id', '=', route_id.id),('state', '=', 'use')]).mapped('vehicle_ids'))
+        if bus_group_vehicle_ct < operation_ct:
+            raise exceptions.UserError(_('bus_group_vehicle less than operating vehicles.'))
+
         use_date = datetime.datetime.strftime(staff_date-timedelta(days=1), "%Y-%m-%d")
         staff_date_str = datetime.datetime.strftime(staff_date, "%Y-%m-%d")
 
@@ -72,7 +80,6 @@ class BusStaffGroup(models.Model):
         for j in res_group_shift:
             res_vehicles = self.env['bus_group_driver_vehicle_shift'].search(j['__domain'])
             sequence = 0
-            count += 1
             data_shift = []
             for m in res_vehicles:
                 sequence += 1
@@ -85,24 +92,28 @@ class BusStaffGroup(models.Model):
                     "sequence": sequence
                 }
                 data_shift.append((0, 0, vals_shift))
-
-            vals = {
-                "route_id": res_vehicles[0].route_id.id,
-                'vehicle_id': res_vehicles[0].bus_group_vehicle_id.vehicle_id.id,
-                'operation_state': 'flexible',
-                'sequence': res_vehicles[0].vehicle_sequence,
-                'bus_group_id': res_vehicles[0].group_id.id,
-                'staff_line_ids': data_shift
-            }
-            if count <= operation_ct:
-                vals.update({'operation_state': 'operation'})
-            datas.append((0, 0, vals))
+            if data_shift:
+                count += 1
+                vals = {
+                    "route_id": res_vehicles[0].route_id.id,
+                    'vehicle_id': res_vehicles[0].bus_group_vehicle_id.vehicle_id.id,
+                    'operation_state': 'flexible',
+                    # 'sequence': res_vehicles[0].vehicle_sequence,
+                    'sequence': count,
+                    'bus_group_id': res_vehicles[0].group_id.id,
+                    'staff_line_ids': data_shift
+                }
+                if count <= operation_ct:
+                    vals.update({'operation_state': 'operation'})
+                datas.append((0, 0, vals))
+        if not datas:
+            raise exceptions.UserError(_('bus_group_driver_vehicle_shift is not exists,please check bus_group.'))
         return self.env['bus_staff_group'].create({'vehicle_line_ids': datas,
-                                            'route_id': route_id.id,
-                                            'move_time_id':move_time_id.id or None,
-                                            'name': route_id.line_name + '/' + staff_date_str,
-                                            'staff_date': staff_date
-                                            })
+                                                   'route_id': route_id.id,
+                                                   'move_time_id':move_time_id.id or None,
+                                                   'name': route_id.line_name + '/' + staff_date_str,
+                                                   'staff_date': staff_date
+                                                  })
 
 
 
@@ -152,24 +163,26 @@ class BusStaffGroupVehicleLine(models.Model):
 
     staff_line_ids = fields.One2many('bus_staff_group_vehicle_staff_line', 'vehicle_line_id')
 
-    staff_names = fields.Char(string='Staff Names', compute='_get_staff_names')
+    staff_driver_names = fields.Char(string='Staff Driver Names', compute='_get_staff_names')
+
+    staff_conductor_names = fields.Char(string='Staff Conductor Names', compute='_get_staff_names')
 
     @api.depends("staff_line_ids")
     def _get_staff_names(self):
         """
-        司机:
-            功能：获取司机名字
+            功能：获取司机和售票员名字
         """
         for i in self:
-            staff_names = set()
+            staff_driver_names = set()
+            staff_conductor_names = set()
             for j in i.staff_line_ids:
-                staff_names.add(j.driver_id.name)
-            if staff_names:
-                staff_names = list(staff_names)
-            else:
-                staff_names = []
-            i.staff_names = ",".join(staff_names)
+                if j.driver_id:
+                    staff_driver_names.add(j.driver_id.name)
+                if j.conductor_id:
+                    staff_conductor_names.add(j.conductor_id.name)
 
+            i.staff_driver_names = ",".join(list(staff_driver_names))
+            i.staff_conductor_names = ",".join(list(staff_conductor_names))
 
     @api.multi
     def dispatch_staff_line(self):

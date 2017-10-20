@@ -22,7 +22,7 @@ class FaultCategory(models.Model):
        'maintain.fault.appearance', 'category_id', string="appearances")
     
     reason_ids = fields.One2many(
-       'maintain.fault.reason', 'category_id', string="reasons", domain=[('appearance_id','=',None)])
+       'maintain.fault.reason', 'category_id', string="Fault Reasons", domain=[('appearance_id','=',None)])
 
 
 

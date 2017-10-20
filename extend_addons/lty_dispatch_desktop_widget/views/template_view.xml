@@ -16,6 +16,7 @@
               <script src="/lty_dispatch_desktop_widget/static/lib/js/echarts.min.js" type="text/javascript"></script>
               <script src="/lty_dispatch_desktop_widget/static/lib/layer/layer.js" type="text/javascript"></script>
               <script src="/lty_dispatch_desktop_widget/static/lib/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js" type="text/javascript"></script>
+
           </xpath>
       </template>
 
