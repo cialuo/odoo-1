@@ -406,7 +406,7 @@ class Picking(models.Model):
         # TDE FIXME: clean that brol
         defaults = self.default_get(['name', 'picking_type_id'])
         if vals.get('name', '/') == '/' and defaults.get('name', '/') == '/' and vals.get('picking_type_id', defaults.get('picking_type_id')):
-            vals['name'] = self.env['stock.picking.type'].sudo().browse(vals.get('picking_type_id', defaults.get('picking_type_id'))).sequence_id.next_by_id()
+            vals['name'] = self.env['stock.picking.type'].browse(vals.get('picking_type_id', defaults.get('picking_type_id'))).sequence_id.next_by_id()
 
         # TDE FIXME: what ?
         # As the on_change in one2many list is WIP, we will overwrite the locations on the stock moves here
