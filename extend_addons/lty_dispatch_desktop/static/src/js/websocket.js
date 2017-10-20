@@ -44,6 +44,16 @@ websocket.onmessage = function (event) {
         use_odoo_model(event, "line_message");
         if (eventObj.type == "1044") {
             vehicle_drop(controllerObj, eventData);
+        } else if (eventObj.type == "1035") {
+            var session_t = sessionStorage.getItem('bus_site_top' + eventObj.data.line_id).split(",");
+            var session_d = sessionStorage.getItem('bus_site_down' + eventObj.data.line_id).split(",");
+            if ($('body').find('.bus_src_config').length > 0) {
+                if (eventObj.data.direction == 0) {
+                    $('body').find('.bus_src_config tr[bus_no=' + eventObj.data.terminalNo + '] .line_src_site').html(session_t[eventObj.data.stationNo]);
+                } else {
+                    $('body').find('.bus_src_config tr[bus_no=' + eventObj.data.terminalNo + '] .line_src_site').html(session_d[session_d.length-eventObj.data.stationNo]);
+                }
+            }
         }
     } else if (modelName == "bus_site") {
         bus_color(controllerObj, eventData);

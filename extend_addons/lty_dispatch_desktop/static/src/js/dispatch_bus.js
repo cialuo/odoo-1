@@ -39,9 +39,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.gprs_id = self.$el.attr('gprs_id');
             $('*[click="yes"]').removeAttr('click');
             this.$el.attr("click", "yes");
-            self.$('.same_car_show').on('mouseout', '.nzindex', function () {
-                alert(1);
-            })
+
             self.$('.traffic_car').on('click', '.same_car_show', function (event) {
                 var x = event.currentTarget;
                 var zIndex = parseInt(self.$el[0].style.zIndex) + 1;
@@ -90,6 +88,15 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         model_station_platform.query().order_by("sequence").filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "up"]]).all().then(function (res_top) {
                             model_station_platform.query().order_by("sequence").filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "down"]]).all().then(function (res_down) {
                                 // 库
+                                console.log(res_top)
+                                console.log(res_down)
+                                var site_t = [];
+
+                                for(var st = 0;st<res_top.length;st++){
+                                    site_t.push(res_top[st].station_id[1].split('/')[0]);
+                                }
+
+                                sessionStorage.setItem("bus_site_top"+self.line_id, site_t);
                                 var timeNow = new Date().toLocaleDateString().replace(/\//g, "-");
                                 for (var it = 0; it < res_top.length * 2; it++) {
                                     self.$el.find('.content_car_road_top').append('<div class="car_line_tb car_line_top' + it + '"></div>');
@@ -139,6 +146,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     var dataSite_top_color_cof = {};
                                     var dataSite_down_color_cof = {};
                                     var res_down_deal = res_down.reverse();
+                                    var site_d=[];
+                                    for(var sd = 0;sd<res_down_deal.length;sd++){
+                                        site_d.push(res_down_deal[sd].station_id[1].split('/')[0]);
+                                    }
+                                    sessionStorage.setItem("bus_site_down"+self.line_id, site_d);
                                     self.$el.find('.bus_info>ul>li').css('color', conf[0].src_font_conf);
                                     for (var i = 0; i < res_top.length; i++) {
                                         var color = 'color' + res_top[i].id;

@@ -1157,7 +1157,15 @@ odoo.define(function (require) {
                 { name: "前365天", id: "365" },
                 { name: "所有", id: "all" },
             ];
-            var predict_passenger_flow_time = "20170731";
+            // 时间戳
+            var getdate = function () {
+                var now = new Date(),
+                    y = now.getFullYear(),
+                    m = now.getMonth() + 1,
+                    d = now.getDate();
+                return y + "" + (m < 10 ? "0" + m : m) + "" + (d < 10 ? "0" + d : d);
+            }
+            var predict_passenger_flow_time = getdate();
             var plan_way = [
                 { name: "按时", en_name: "when", value: 1 },
                 { name: "按天", en_name: "day", value: 2 },
@@ -1531,7 +1539,15 @@ odoo.define(function (require) {
                 { name: "前365天", id: "365" },
                 { name: "所有", id: "all" },
             ];
-            var predict_passenger_flow_time = "20170731";
+            // 时间戳
+            var getdate = function () {
+                var now = new Date(),
+                    y = now.getFullYear(),
+                    m = now.getMonth() + 1,
+                    d = now.getDate();
+                return y + "" + (m < 10 ? "0" + m : m) + "" + (d < 10 ? "0" + d : d);
+            }
+            var predict_passenger_flow_time = getdate();
             // 
             var plan_way = [
                 { name: "按时", en_name: "when", value: 1 },
@@ -1777,7 +1793,15 @@ odoo.define(function (require) {
                 { name: "前365天", id: "365" },
                 { name: "所有", id: "all" },
             ];
-            var predict_passenger_flow_time = "20170926";
+            // 时间戳
+            var getdate = function () {
+                var now = new Date(),
+                    y = now.getFullYear(),
+                    m = now.getMonth() + 1,
+                    d = now.getDate();
+                return y + "" + (m < 10 ? "0" + m : m) + "" + (d < 10 ? "0" + d : d);
+            }
+            var predict_passenger_flow_time = getdate();
             // 
             var data_scope = [
                 "2017-06-26", "2017-07-31"
@@ -1958,7 +1982,15 @@ odoo.define(function (require) {
                 { name: "前365天", id: "365" },
                 { name: "所有", id: "all" },
             ];
-            var predict_passenger_flow_time = "20170731";
+            // 时间戳
+            var getdate = function () {
+                var now = new Date(),
+                    y = now.getFullYear(),
+                    m = now.getMonth() + 1,
+                    d = now.getDate();
+                return y + "" + (m < 10 ? "0" + m : m) + "" + (d < 10 ? "0" + d : d);
+            }
+            var predict_passenger_flow_time = getdate();
             // 
             var plan_way = [
                 { name: "按时", en_name: "when", value: 1 },
