@@ -126,7 +126,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
                 if lastmantaindate == None:
                     # 之前从未做过维保则添加到计划 无需其他条件检查
                     itemsToAdd.append(self.constructPlanItemData(item.id,
-                                                                 mitem.id,
+                                                                 mitem.warranty_category_id.id,
                                                                  mileageOffset,
                                                                  datetime.datetime.today(),
                                                                  item.daily_mileage,
@@ -138,14 +138,14 @@ class WarrantyPlan(models.Model): # 车辆保养计划
                         dayoffset = int((bigestmileage-mitem.interval_mileage)/item.daily_mileage)
                         plandate = datetime.datetime.today()+datetime.timedelta(days=dayoffset)
                         itemsToAdd.append(self.constructPlanItemData(item.id,
-                                                                     mitem.id,
+                                                                     mitem.warranty_category_id.id,
                                                                      mileageOffset,
                                                                      plandate,
                                                                      item.daily_mileage,
                                                                      lastmantaindate))
                     else:
                         continue
-        sqldata = [(0, _, item) for item in itemsToAdd]
+        sqldata = [(0, 0, item) for item in itemsToAdd]
         self.write({'plan_order_ids':sqldata})
         return self
 
