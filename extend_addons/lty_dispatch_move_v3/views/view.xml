@@ -1,0 +1,181 @@
+﻿<openerp>
+  <data>
+	<!--运营记录-->
+	<menuitem name="运营记录" id="operation_records_menus" parent="operation_menu.operation_menu_root" sequence="110"/>  
+  
+  
+    <!-- 运营理程视图 -->
+    <record model="ir.ui.view" id="operation_vehicleusage_driverecords_list">
+      <field name="name">vehicleusage driverecords list</field>
+      <field name="model">vehicleusage.driverecords</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="direction"/>
+          <field name="GPSmileage"/>
+          <field name="plandepart"/>
+          <field name="realitydepart"/>
+          <field name="driver_id"/>
+          <field name="planarrive"/>
+		  <field name="realityarrive"/>
+          <field name="dirvetimes"/>
+		  <field name="planmileage"/>
+        </tree>
+      </field>
+    </record>
+    <!-- 考勤视图 list -->
+    <record model="ir.ui.view" id="employee_attencerecords_v3_list">
+      <field name="name">employee.attencerecords</field>
+      <field name="model">employee.attencerecords</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="company_id"/>
+          <field name="line_id"/>
+          <field name="vehicle_id"/>
+          <field name="date"/>
+          <field name="checkingin"/>
+          <field name="checkinginout"/>
+        </tree>
+      </field>
+    </record>	
+	
+	
+    <!-- 数据迁移  list -->
+    <record model="ir.ui.view" id="operation_records_move2v3_list">
+      <field name="name">operation_records_move2v3_list</field>
+      <field name="model">operation.records.move2v3</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" string="迁移编号"/>
+          <field name="company_id" string="公司"/>
+          <field name="line_id" string="线路"/>
+          <field name="start_date" string="开始时间"/>
+          <field name="end_date" string="结束时间"/>
+		  
+        </tree>
+      </field>
+    </record>
+	
+    <!-- 数据迁移  form -->
+	<record id="operation_records_move2v3_form" model="ir.ui.view">
+		<field name="name">operation_records_move2v3 form</field>
+		<field name="model">operation.records.move2v3</field>
+		<field name="arch" type="xml">
+			<form string="数据迁移">
+				<header>
+                    <button name="get_data" string="获取数据" type="object" class="oe_highlight"/>
+                    <button name="do_move2V3" string="迁移数据到V3"  type="object" class="oe_highlight"/>
+                    <!--<field name="status" widget="statusbar" statusbar_visible="rejected,commited,approved" />-->
+                </header>
+                <sheet>
+					<group>
+						<group>
+                            <field name="name" string="转移编号"/>
+							<field name="company_id" string="公司"/>
+							<field name="line_id" string="线路"/>
+						</group>
+						<group>
+                            <field name="start_date" string="开始时间"/>
+                            <field name="end_date"   string="结束时间"/>
+						</group>
+					</group>
+					<notebook>
+						<page string = '运营理程'>
+                            <field name="operation_vehicleusage_ids">
+								<tree editable='bottom'>
+									<field name="company_id"/>
+								</tree>
+							</field>
+						</page>
+						<page string = '非运营理程'>
+                            <field name="operation_vehicleusage_ids">
+								<tree editable='bottom'>
+									<field name="company_id"/>
+								</tree>
+							</field>
+						</page>
+						<page string = '司乘考勤信息'>
+                            <field name="nooperation_vehicleusage_ids">
+								<tree editable='bottom'>
+									<field name="company_id"/>
+								</tree>
+							</field>
+						</page>	
+					</notebook>
+                </sheet>			
+			</form>
+		</field>
+	</record>		
+
+
+	
+	
+    <!-- 运营理程动作 -->  
+    <record model="ir.actions.act_window" id="operation_vehicleusage_driverecords_action">
+      <field name="name">运营理程</field>
+      <field name="res_model">vehicleusage.driverecords</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('drivetype','=','working')]</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          暂无运营理程记录.<br/>
+	      </p>
+	  </field>           
+    </record>
+    <!-- 非运营理程动作 -->  
+    <record model="ir.actions.act_window" id="operation_no_vehicleusage_driverecords_action">
+      <field name="name">非运营理程</field>
+      <field name="res_model">vehicleusage.driverecords</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('drivetype','!=','working')]</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          暂无非运营理程记录.<br/>
+	      </p>
+	  </field>           
+    </record>	
+	
+    <!-- 数据迁移动作 -->  
+    <record model="ir.actions.act_window" id="operation_records_move2v3_action">
+      <field name="name">数据迁移</field>
+      <field name="res_model">operation.records.move2v3</field>
+      <field name="view_mode">tree,form</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          暂无迁移批次记录.<br/>
+	      </p>
+	  </field>           
+    </record>
+    <!-- 司乘考勤信息动作 -->  
+    <record model="ir.actions.act_window" id="employee_attencerecords_v3_action">
+      <field name="name">司乘考勤信息</field>
+      <field name="res_model">employee.attencerecords</field>
+      <field name="view_mode">tree,form</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          暂无司乘考勤信息.<br/>
+	      </p>
+	  </field>           
+    </record>		
+	
+	
+	
+    <!-- 行驶记录菜单 -->  
+    <menuitem name="数据迁移" id="operation_records_move2v3_menu" parent="operation_records_menus"
+              action="operation_records_move2v3_action" sequence="20"/> 
+			  
+    <menuitem name="运营理程" id="operation_vehicleusage_driverecords_menu" parent="operation_records_menus"
+              action="operation_vehicleusage_driverecords_action" sequence="30"/>
+
+    <menuitem name="非运营理程" id="operation_no_vehicleusage_driverecords_menu" parent="operation_records_menus"
+              action="operation_no_vehicleusage_driverecords_action" sequence="40"/>
+			  
+    <menuitem name="司乘考勤信息" id="employee_attencerecords_v3_menu" parent="operation_records_menus"
+              action="employee_attencerecords_v3_action" sequence="50"/>
+	
+
+
+			  
+
+			  
+  </data>
+</openerp>

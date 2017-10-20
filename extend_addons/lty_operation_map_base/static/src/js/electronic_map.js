@@ -135,7 +135,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 TARGET_LINE_ID = "";
                 CARMAP = "";
                 if (!options.line_id) {
-                    layer.msg("请先选择线路", { shade: 0.3, time: 2000 });
+                    layer.msg("请先选择线路", { shade: 0.3, time: 1000 });
                     return false;
                 }
                 ONBOARDID_INNERCODE_DICT = INIT_ONBOARDID_INNERCODE_DICT;
@@ -263,12 +263,12 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 success: function(ret) {
                     layer.close(layer_index);
                     if (ret.respose) {
-                        layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                        layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     }else{
                         CARMAP = map;
                         var vehicleInfo = ret[0][options.gprsId];
                         if (vehicleInfo.length == 0){
-                            layer.msg("没有查到车辆初始位置信息", { shade: 0.3, time: 2000 });
+                            layer.msg("没有查到车辆初始位置信息", { shade: 0.3, time: 1000 });
                             return false;
                         }
                         self.init_vehicle_position(map, vehicleInfo);
@@ -647,11 +647,11 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 success: function(ret) {
                     layer.close(layer_index);
                     if (ret.result && ret.result!=0) {
-                        layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                        layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                         return false;
                     }
                     if (ret.length==0){
-                        layer.msg("无轨迹数据", { time: 2000, shade: 0.3 });
+                        layer.msg("无轨迹数据", { time: 1000, shade: 0.3 });
                         return false;
                     }
                     // 初始化车辆行驶轨迹

@@ -246,7 +246,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
                             'tools_station_font_style_color': site_info.lab_color,
                         }]).then(function (res) {
                             layer.close(layer_index);
-                            layer.msg('保存成功', {time: 2000, shade: 0.3});
+                            layer.msg('保存成功', {time: 1000, shade: 0.3});
                         });
                     }else{
                         var layer_index = layer.msg('保存中...', {time: 0, shade: 0.3});
@@ -263,7 +263,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
                                 'tools_station_font_style_color': site_info.lab_color,
                             }]).then(function () {
                             layer.close(layer_index);
-                            layer.msg('保存成功', {time: 2000, shade: 0.3});
+                            layer.msg('保存成功', {time: 1000, shade: 0.3});
                         });
                     }
                 })
@@ -416,7 +416,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
             } else {
                 // 默认第一个点为起始站
                 if (site_list.length == 0){
-                    layer.msg('该线路没有站点', {time: 2000, shade: 0.3});
+                    layer.msg('该线路没有站点', {time: 1000, shade: 0.3});
                     return false;
                 }
                 self.model_station.query().filter([

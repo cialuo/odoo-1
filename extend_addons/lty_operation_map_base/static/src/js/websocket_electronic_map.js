@@ -16,7 +16,7 @@ if ('WebSocket' in window) {
 //连接发生错误的回调方法
 websocket_electronic_map.onerror = function () {
     console.log("WebSocket连接发生错误");
-    layer.msg('WebSocket连接已经断开', {time: 2000, shade: 0.3});
+    layer.msg('WebSocket连接已经断开', {time: 1000, shade: 0.3});
 };
 //连接成功建立的回调方法
 websocket_electronic_map.onopen = function () {
