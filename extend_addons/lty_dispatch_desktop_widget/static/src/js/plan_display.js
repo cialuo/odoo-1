@@ -172,6 +172,14 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 }
             });
 
+            // 回车键触发事件
+            document.onkeydown=function(event){
+                var e = event || window.event;       
+                 if(e && e.keyCode==13){
+                     $('.btn-primary').click();
+                }
+            };
+
             // 计划，在场，在途手动操作交互事件
             self.linePlanParktransit_bt_fn();
         },
@@ -222,6 +230,18 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     model: obj.attr("model")
                 };
                 self.add_plan_fn(options);
+            });
+
+            // 取消计划
+            plan_display.on("click", ".plan_display_set li.cancel_plan_bt", function() {
+                var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+                var obj = $(this).parents(".plan_display_set");
+                var options = {
+                    id: obj.attr("plan_pid"),
+                    layer_index: layer_index,
+                    model: obj.attr("model")
+                };
+                self.cancel_plan_fn(options);
             });
 
             // 手动发车
@@ -481,7 +501,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     if (ret.result == 0) {
                         //这里特别说明一下，由于请求成功后，后台会立即触发一次推送websoket，页面状态更新这里将不在做处理
                     }
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                 }
             });
         },
@@ -557,7 +577,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     if (ret.result == 0) {
                         //这里特别说明一下，由于请求成功后，后台会立即触发一次推送websoket，页面状态更新这里将不在做处理
                     }
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                 }
             });
         },
@@ -671,7 +691,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(options.layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                 }
             });
         },
@@ -683,7 +703,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(options.layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                 }
             });
         },
@@ -695,7 +715,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(options.layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                 }
             });
         },
@@ -721,7 +741,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         if (type == 1) {
                             prev_tr.before(active_tr);
@@ -1043,8 +1063,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                             { name: "发送消息", en_name: "send_message_bt" },
                             { name: "添加计划", en_name: "add_plan_bt" },
                             { name: "手动发车", en_name: "manual_start_bt" },
-                            { name: "修改", en_name: "fix_bt" },
+                            { name: "修改计划", en_name: "fix_bt" },
                             { name: "批量更改车辆司机", en_name: "batch_change_drivers_bt" },
+                            { name: "取消计划", en_name: "cancel_plan_bt" },
                             { name: "还原时间", en_name: "reduction_time_bt" },
                             { name: "电子地图", en_name: "electronic_map_bt" }
                         ]
@@ -1251,7 +1272,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
         init: function(parent, data) {
             this._super(parent);
             this.location_data = data;
-        },
+        }
     });
 
     // 发送消息
@@ -1415,7 +1436,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         });
                         return false;
                     }
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1481,7 +1502,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1554,7 +1575,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1628,7 +1649,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1723,7 +1744,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         });
                         return false;
                     }
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1786,7 +1807,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1858,7 +1879,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1933,7 +1954,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -2000,7 +2021,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -2072,7 +2093,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -2142,7 +2163,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }

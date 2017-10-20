@@ -25,35 +25,33 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.model_station_platform = new Model('opertation_resources_station_platform');
             // 线路资源
             this.model_linesrc = new Model('scheduleplan.excutetable');
+            //控制台
             this.model_config = new Model('dispatch.control.desktop');
             //odoo提供数据
             this.dis_desk = data;
+            //传进来的index层级的值
             this.rendr_index = rendr_index;
         },
         start: function () {
             var self = this;
+
             this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
             this.line_id = self.$el.attr('line_id');
             var tid = self.$el.attr('tid');
-            this.arr_same = [];
             this.gprs_id = self.$el.attr('gprs_id');
             $('*[click="yes"]').removeAttr('click');
             this.$el.attr("click", "yes");
-
             self.$('.traffic_car').on('click', '.same_car_show', function (event) {
                 var x = event.currentTarget;
                 var zIndex = parseInt(self.$el[0].style.zIndex) + 1;
                 if (!$(x).hasClass('beChose')) {
-                    $(x).addClass('beChose');
-                    $(x).html('<div class="nzindex">' + $(x).siblings('.data_same').html() + '</div>');
+                    $(x).addClass('beChose').html('<div class="nzindex">' + $(x).siblings('.data_same').html() + '</div>');
                     $(x).find('.nzindex').css('zIndex', zIndex);
                     setTimeout(function () {
-                        $(x).removeClass('beChose');
-                        $(x).html('...');
+                        $(x).removeClass('beChose').html('...');
                     }, 5000);
                 } else {
-                    $(x).removeClass('beChose');
-                    $(x).html('...');
+                    $(x).removeClass('beChose').html('...');
                 }
             });
             self.$('.traffic_car').on('click', '.same_car_show>div>div', function (event) {
@@ -92,11 +90,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 console.log(res_down)
                                 var site_t = [];
 
-                                for(var st = 0;st<res_top.length;st++){
+                                for (var st = 0; st < res_top.length; st++) {
                                     site_t.push(res_top[st].station_id[1].split('/')[0]);
                                 }
 
-                                sessionStorage.setItem("bus_site_top"+self.line_id, site_t);
+                                sessionStorage.setItem("bus_site_top" + self.line_id, site_t);
                                 var timeNow = new Date().toLocaleDateString().replace(/\//g, "-");
                                 for (var it = 0; it < res_top.length * 2; it++) {
                                     self.$el.find('.content_car_road_top').append('<div class="car_line_tb car_line_top' + it + '"></div>');
@@ -146,11 +144,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     var dataSite_top_color_cof = {};
                                     var dataSite_down_color_cof = {};
                                     var res_down_deal = res_down.reverse();
-                                    var site_d=[];
-                                    for(var sd = 0;sd<res_down_deal.length;sd++){
+                                    var site_d = [];
+                                    for (var sd = 0; sd < res_down_deal.length; sd++) {
                                         site_d.push(res_down_deal[sd].station_id[1].split('/')[0]);
                                     }
-                                    sessionStorage.setItem("bus_site_down"+self.line_id, site_d);
+                                    sessionStorage.setItem("bus_site_down" + self.line_id, site_d);
                                     self.$el.find('.bus_info>ul>li').css('color', conf[0].src_font_conf);
                                     for (var i = 0; i < res_top.length; i++) {
                                         var color = 'color' + res_top[i].id;

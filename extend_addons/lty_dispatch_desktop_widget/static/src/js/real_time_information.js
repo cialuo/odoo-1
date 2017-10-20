@@ -221,7 +221,7 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             // dialog.appendTo($("body"));
         },
         conversation_fn: function(){
-            var layer_index = layer.msg("后续将会开放该功能，敬请关注。", { shade: 0.3, time: 2000 });
+            var layer_index = layer.msg("后续将会开放该功能，敬请关注。", { shade: 0.3, time: 1000 });
         },
         geographicalPosition_fn: function(){
             // if (this.$(".arrival_time_map").length > 0){
@@ -262,12 +262,12 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             new bus_real_info_arrival_time_chart(this, init_data).appendTo(this.$(".carReport"));
         },
         videoFn: function(e){
-            var layer_index = layer.msg("后续将会开放该功能，敬请关注。", { shade: 0.3, time: 2000 });
+            var layer_index = layer.msg("后续将会开放该功能，敬请关注。", { shade: 0.3, time: 1000 });
             // this.$(".carReport").html("");
             // new arrival_time_video(this).appendTo(this.$(".carReport"));
         },
         policeFn: function(e){
-            var layer_index = layer.msg("后续将会开放该功能，敬请关注。", { shade: 0.3, time: 2000 });
+            var layer_index = layer.msg("后续将会开放该功能，敬请关注。", { shade: 0.3, time: 1000 });
             // this.$(".carReport").html("");
             // new arrival_time_police(this).appendTo(this.$(".carReport"));
         },

@@ -1049,6 +1049,10 @@
     resize: none;
 }
 
+.customModal .modal-dialog .modal-content .required_field, .modal_lty .modal-dialog .modal-content .required_field {
+    border: 1px solid #d27c28;
+}
+
 .customModal .btn {
     background: none;
     padding: 2px 12px;
