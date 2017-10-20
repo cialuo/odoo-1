@@ -65,7 +65,6 @@ return Widget.extend({
         for (var i = 0; i < raw_data.length; i++) {
             data_pt = raw_data[i].attributes;
             values = [];
-            
             // state can not translation
             // if (this.groupbys.length === 1) data_pt.value = [data_pt.value];
             if (this.groupbys.length === 1) data_pt.value = [this.sanitize_value(data_pt.value, data_pt.grouped_on)];
