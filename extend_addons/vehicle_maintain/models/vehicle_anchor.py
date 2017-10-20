@@ -27,7 +27,7 @@ class VehicleAnchor(models.Model):
     # 车牌号
     license_plate = fields.Char(related='vehicle_id.license_plate', readonly=True)
     # 车型
-    model_id = fields.Many2one(related='vehicle_id.model_id', readonly=True)
+    model_id = fields.Many2one(related='vehicle_id.model_id', readonly=True, string="Vehicle Model")
     # 隶属公司
     company_id = fields.Many2one(related='vehicle_id.company_id', readonly=True)
     # 线路

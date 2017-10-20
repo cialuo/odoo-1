@@ -690,7 +690,7 @@ class MaintainRepair(models.Model):
 
                 form_view_ref = self.env.ref('vehicle_maintain.maintain_repair_view_form_action', False)
                 return {
-                    'name': _('action_dispatch'),
+                    'name': _('Change Method'),
                     'view_type': 'form',
                     'view_mode': 'form',
                     'res_model': 'maintain.manage.repair',
