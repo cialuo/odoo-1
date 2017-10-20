@@ -213,7 +213,6 @@ return Widget.extend({
         }
         if (this.groupbys.length) {
             data = this.data.map(function (datapt) {
-                console.log(datapt)
                 return {x:datapt.labels.join("/"), y: datapt.value};
             });
         }
