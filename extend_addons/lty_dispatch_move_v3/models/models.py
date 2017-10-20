@@ -21,8 +21,17 @@ class operation_records_move2v3(models.Model):
     nooperation_vehicleusage_ids = fields.One2many('vehicleusage.driverecords','record_move_id')
     #签到记录
     attence_record_ids = fields.One2many('employee.attencerecords','record_move_id')
-    
-
+    @api.multi
+    #通过访问后台提供的restful接口获取到运营理程信息，非运营理程信息和司乘考勤信息    
+    def get_data(self):
+        company_id = self.company_id.id
+        start_date = self.start_date
+        #driver_recodes_obj = self.env['vehicleusage.driverecords']
+        #attence_obj = self.env['employee.attencerecords']
+        #values = driver_recodes_obj.restful()
+        #driver_recodes_obj.create(values)
+        
+        
 
 class DriveRecords(models.Model):
     """
