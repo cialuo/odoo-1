@@ -517,6 +517,7 @@ class PurchaseOrderLine(models.Model):
 
     @api.depends('invoice_lines.invoice_id.state')
     def _compute_qty_invoiced(self):
+        #屏蔽原有方法，增加计算退款的数量
         for line in self:
             qty = 0.0
             for inv_line in line.invoice_lines:

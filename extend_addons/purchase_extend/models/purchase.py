@@ -23,31 +23,31 @@ from odoo import api, fields, models
 class Purchase_line(models.Model):
     _inherit = 'purchase.order.line'
 
-    qty_received = fields.Float(compute='compute_qty_received')
-
-    @api.depends('order_id.state', 'move_ids')
-    def compute_qty_received(self):
-        for line in self:
-            if line.order_id.state not in ['purchase', 'done']:
-                line.qty_received = 0.0
-                continue
-            if line.product_id.type not in ['consu', 'product']:
-                line.qty_received = line.product_qty
-                continue
-            total = 0.0
-            for move in line.move_ids:
-                if move.state == 'done':
-                    if not move.picking_id.is_return:
-                        if move.product_uom != line.product_uom:
-                            total += move.product_uom._compute_quantity(move.product_uom_qty, line.product_uom)
-                        else:
-                            total += move.product_uom_qty
-                    else:
-                        if move.product_uom != line.product_uom:
-                            total -= move.product_uom._compute_quantity(move.product_uom_qty, line.product_uom)
-                        else:
-                            total -= move.product_uom_qty
-            line.qty_received = total
+    # qty_received = fields.Float(compute='compute_qty_received')
+    #
+    # @api.depends('order_id.state', 'move_ids')
+    # def compute_qty_received(self):
+    #     for line in self:
+    #         if line.order_id.state not in ['purchase', 'done']:
+    #             line.qty_received = 0.0
+    #             continue
+    #         if line.product_id.type not in ['consu', 'product']:
+    #             line.qty_received = line.product_qty
+    #             continue
+    #         total = 0.0
+    #         for move in line.move_ids:
+    #             if move.state == 'done':
+    #                 if not move.picking_id.is_return:
+    #                     if move.product_uom != line.product_uom:
+    #                         total += move.product_uom._compute_quantity(move.product_uom_qty, line.product_uom)
+    #                     else:
+    #                         total += move.product_uom_qty
+    #                 else:
+    #                     if move.product_uom != line.product_uom:
+    #                         total -= move.product_uom._compute_quantity(move.product_uom_qty, line.product_uom)
+    #                     else:
+    #                         total -= move.product_uom_qty
+    #         line.qty_received = total
 
     date_planned = fields.Datetime(required=False)
 class PurchaseOrder(models.Model):
