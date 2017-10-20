@@ -92,7 +92,7 @@
                                 <!--<field name="is_conductor"/>-->
                             </group>
                             <group>
-                                <field name="is_not_match" invisible="0"/>
+                                <field name="is_not_match" invisible="0" string='异常'/>
                                 <field name="not_match_reason" attrs="{'invisible':[('is_not_match','=',False)]}"/>
                             </group>
                         </group>
