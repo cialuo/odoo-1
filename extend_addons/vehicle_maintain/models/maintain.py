@@ -508,6 +508,11 @@ class MaintainRepair(models.Model):
             raise exceptions.UserError(_("Maintain Repair Names Required!"))
         if not self.plan_start_time:
             raise exceptions.UserError(_("Maintain Repair StartTime Required!"))
+        if self.job_ids:
+            method_list = self.job_ids.mapped('fault_method_id')
+            if len(method_list) !=1 or self.fault_method_id.id != method_list[0].id:
+                raise exceptions.UserError(u'工时管理的维修方法必须一致')
+
         #派工时再判断工时比例
         if self.percentage_work <=0 or self.percentage_work > 100:
             raise exceptions.UserError(u'工时比例数必须大于0和小于100')
