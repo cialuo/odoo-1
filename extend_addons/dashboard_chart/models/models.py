@@ -40,7 +40,7 @@ class Dashboard(models.Model):
 
     _name = 'dashboard.board_setting'
     _description = 'Dashboard Setting'
-    _sql_constraints = [('menu_id_unique', 'unique (menu_id)', u'菜单已经存在看看板!')]
+    _sql_constraints = [('menu_id_unique', 'unique (menu_id)', u'菜单已经存在看板!')]
     """
         看板数据:
             用于保存界面创建的看板数据
