@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <t t-extend="GraphView.buttons" t-name="GraphView.buttons.extend">
+    <t t-extend="GraphView.buttons">
         <t t-jquery="button[data-mode='pie']" t-operation="after">
-            <button class="btn btn-default fa fa-pie-chart o_graph_button" title="Pie Chart" data-mode="pie1"/>
+            <button class="btn btn-default fa fa-dot-circle-o  o_graph_button" title="Pie Chart" data-mode="pie1"/>
         </t>
     </t>
 </templates>

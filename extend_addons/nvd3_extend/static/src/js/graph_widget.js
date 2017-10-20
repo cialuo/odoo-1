@@ -1,6 +1,10 @@
 odoo.define('nvd3_extend.GraphWidget', function (require) {
     "use strict";
-
+    var config = require('web.config');
+    var core = require('web.core');
+    var Model = require('web.DataModel');
+    var formats = require('web.formats');
+    var Widget = require('web.Widget');
     var GraphWidget = require('web.GraphWidget');
 
     GraphWidget.include({
