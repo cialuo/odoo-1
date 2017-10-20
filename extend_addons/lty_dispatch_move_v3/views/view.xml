@@ -82,14 +82,52 @@
 						<page string = '运营理程'>
                             <field name="operation_vehicleusage_ids">
 								<tree editable='bottom'>
-									<field name="company_id"/>
+									<field name="company_id" string="公司"/>
+									<field name="route_id" string="线路"/>
+									<field name="direction" string="方向"/>
+									<field name="date" string="日期"/>
+									<field name="date_plan" string="计划时间"/>
+									<field name="realitydepart" string="实际发车时间"/>
+									<field name="state_plan" string="计划状态"/>
+									<field name="inner_code" string="车辆编号"/>
+									<field name="driver_id" string="司机工号"/>
+									<field name="driver_name" string="司机姓名"/>
+									<field name="planarrive" string="计划到达时间"/>
+									<field name="realityarrive" string="实际到达时间"/>
+									<field name="time_operation" string="运营时长"/>
+									<field name="planmileage" string="计划公理数"/>
+									<field name="GPSmileage" string="GPS公理数"/>
+									<field name="operation_att" string="运营属性"/>
+									<field name="abnormal" string="异常"/>
+									<field name="gen_date" string="生成日期"/>
+									<field name="is_add" string="是否补录"/>
+									<field name="note" string="备注"/>
 								</tree>
 							</field>
 						</page>
 						<page string = '非运营理程'>
                             <field name="operation_vehicleusage_ids">
 								<tree editable='bottom'>
-									<field name="company_id"/>
+									<field name="company_id" string="公司"/>
+									<field name="route_id" string="线路"/>
+									<field name="direction" string="方向"/>
+									<field name="date" string="日期"/>
+									<field name="date_plan" string="计划时间"/>
+									<field name="realitydepart" string="实际发车时间"/>
+									<field name="state_plan" string="计划状态"/>
+									<field name="inner_code" string="车辆编号"/>
+									<field name="driver_id" string="司机工号"/>
+									<field name="driver_name" string="司机姓名"/>
+									<field name="planarrive" string="计划到达时间"/>
+									<field name="realityarrive" string="实际到达时间"/>
+									<field name="time_operation" string="运营时长"/>
+									<field name="planmileage" string="计划公理数"/>
+									<field name="GPSmileage" string="GPS公理数"/>
+									<field name="operation_att" string="运营属性"/>
+									<field name="abnormal" string="异常"/>
+									<field name="gen_date" string="生成日期"/>
+									<field name="is_add" string="是否补录"/>
+									<field name="note" string="备注"/>
 								</tree>
 							</field>
 						</page>
