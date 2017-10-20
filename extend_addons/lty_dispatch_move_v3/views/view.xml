@@ -1,0 +1,60 @@
+<openerp>
+  <data>
+	<!--运营记录-->
+	<menuitem name="运营记录" id="operation_records_menus" parent="operation_menu.operation_menu_root" sequence="110"/>  
+  
+  
+    <!-- 运营理程视图 -->
+    <record model="ir.ui.view" id="operation_vehicleusage_driverecords_list">
+      <field name="name">vehicleusage driverecords list</field>
+      <field name="model">vehicleusage.driverecords</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="direction"/>
+          <field name="GPSmileage"/>
+          <field name="plandepart"/>
+          <field name="realitydepart"/>
+          <field name="driver_id"/>
+          <field name="planarrive"/>
+		  <field name="realityarrive"/>
+          <field name="dirvetimes"/>
+		  <field name="planmileage"/>
+        </tree>
+      </field>
+    </record>
+    <!-- 运营理程动作 -->  
+    <record model="ir.actions.act_window" id="operation_vehicleusage_driverecords_action">
+      <field name="name">运营理程</field>
+      <field name="res_model">vehicleusage.driverecords</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('drivetype','=','working')]</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          暂无运营理程记录.<br/>
+	      </p>
+	  </field>           
+    </record>
+    <!-- 非运营理程动作 -->  
+    <record model="ir.actions.act_window" id="operation_no_vehicleusage_driverecords_action">
+      <field name="name">非运营理程</field>
+      <field name="res_model">vehicleusage.driverecords</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('drivetype','!=','working')]</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          暂无非运营理程记录.<br/>
+	      </p>
+	  </field>           
+    </record>	
+	
+	
+	
+	
+    <!-- 行驶记录菜单 -->  
+    <menuitem name="运营理程" id="operation_vehicleusage_driverecords_menu" parent="operation_records_menus"
+              action="operation_vehicleusage_driverecords_action" sequence="30"/>
+
+    <menuitem name="非运营理程" id="operation_no_vehicleusage_driverecords_menu" parent="operation_records_menus"
+              action="operation_no_vehicleusage_driverecords_action" sequence="40"/>      			  
+  </data>
+</openerp>
