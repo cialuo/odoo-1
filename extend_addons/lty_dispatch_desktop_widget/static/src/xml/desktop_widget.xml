@@ -1833,6 +1833,13 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="checkbox fl">
+                                    <label class="">
+                                        发送给本线路所有车
+                                        <input class="input-checkbox lineTypeCk" t-attf-line_id="{{widget.location_data.lineId}}" type="checkbox" name="demo-checkbox2" />
+                                        <span class="demo--checkbox"></span>
+                                    </label>
+                                </div>
                             </div>
                             <input class="short_msg_text required_field" placeholder="请输入短信内容" />
                         </div>

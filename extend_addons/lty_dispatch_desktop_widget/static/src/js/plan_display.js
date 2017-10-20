@@ -1320,7 +1320,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
         },
         ready_msg: function() {
             var val_select = this.$el.find('.ready_info');
-            console.log(this.select_title)
             if (val_select.val() != this.select_title) {
                 this.$el.find('.short_msg_text').val(val_select.val());
             } else {
@@ -1328,14 +1327,17 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             }
         },
         send_msg: function() {
-            var input_msg = this.$el.find('.short_msg_text').val();
-            var laba_msg = this.$el.find('.laba').val();
+            var self = this;
+            var input_msg = self.$el.find('.short_msg_text').val();
+            var laba_msg = self.$el.find('.laba').val();
             var is_check = 0;
-            if (this.$el.find('.input-checkbox').is(':checked')) {
+            if (self.$el.find('.input-checkbox').is(':checked')) {
                 is_check = 1;
             };
-            var self = this;
-            var nodeIdArr = this.location_data.selfId;
+            var nodeIdArr = self.location_data.selfId;
+            if (self.$el.find('.lineTypeCk').is(':checked')) {
+                nodeIdArr = self.$el.find('.lineTypeCk').attr("line_id");
+            };
             var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
             if (input_msg != '') {
                 $.ajax({
