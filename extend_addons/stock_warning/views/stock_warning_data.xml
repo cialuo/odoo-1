@@ -17,6 +17,17 @@
       </field>
     </record>
 
+    <!-- 员工Graphs-->
+    <record model="ir.ui.view" id="warning_data_graph">
+        <field name="name">warning.data.graph</field>
+        <field name="model">stock.warning_data</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="warehouse"/>
+            </graph>
+        </field>
+    </record>
+
     <!--动作-->
     <record model="ir.actions.act_window" id="stock_warning.action_warning_data">
       <field name="name">warning_data window</field>
