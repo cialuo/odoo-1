@@ -172,6 +172,14 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 }
             });
 
+            // 回车键触发事件
+            document.onkeydown=function(event){
+                var e = event || window.event;       
+                 if(e && e.keyCode==13){
+                     $('.btn-primary').click();
+                }
+            };
+
             // 计划，在场，在途手动操作交互事件
             self.linePlanParktransit_bt_fn();
         },
@@ -1251,7 +1259,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
         init: function(parent, data) {
             this._super(parent);
             this.location_data = data;
-        },
+        }
     });
 
     // 发送消息

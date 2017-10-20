@@ -133,6 +133,7 @@ class BusGroup(models.Model):
         :return:
         """
         for i in self:
+            
             vehicle_ct = len(i.vehicle_ids)
             driver_ct = len(i.driver_ids)
             if i.bus_shift_id:
@@ -140,10 +141,27 @@ class BusGroup(models.Model):
                 if shift_ct == 0:
                     i.is_not_match = True
                     i.not_match_reason = u'所选班制的班次不存在，请选择正确的班制'
+                    if self.state != 'draft':
+                        self.write({'state': 'draft'})                       
                 if vehicle_ct and shift_ct and driver_ct:
                     if vehicle_ct * shift_ct > driver_ct:
                         i.is_not_match = True
                         i.not_match_reason = u'所选的班制，车辆数，司机数配置不合理，建议重新选择'
+                        if self.state != 'draft':
+                            self.write({'state': 'draft'})                       
+            if i.driver_vehicle_shift_ids:
+                for line in  i.driver_vehicle_shift_ids :
+                    if (line.vehicle_sequence > 0)  and (len(line.driver_id) == 0):
+                        i.is_not_match = True
+                        i.not_match_reason = u'运营车辆或班组为空，请检查！'
+                        if self.state != 'draft':
+                            self.write({'state': 'draft'})                       
+                    if (line.vehicle_sequence > 0) and (len(line.bus_group_vehicle_id) == 0) :
+                        i.is_not_match = True
+                        i.not_match_reason = u'运营车辆或班组为空，请检查！'
+                        if self.state != 'draft':
+                            self.write({'state': 'draft'})                       
+                        
 
     @api.depends('vehicle_ids')
     def get_vehicle_ct(self):
@@ -377,6 +395,9 @@ class BusGroupDriverVehicleShift(models.Model):
                     if str(last_rotation_date) < use_date:
                         res_groups[0].route_id.last_rotation_date = use_date
                     _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 大轮换后 新顺序%s" % (str(next_use_date), route_id, group_dict))
+                else:
+                    group_dict = copy.deepcopy(old_group_dict)
+                    _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 大论换 周期没到" % (str(next_use_date), route_id,))
             else:
                 group_dict = copy.deepcopy(old_group_dict)
                 _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 没有进行大论换" % (str(next_use_date), route_id, ))

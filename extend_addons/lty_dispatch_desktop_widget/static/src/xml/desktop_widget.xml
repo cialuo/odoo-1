@@ -1204,8 +1204,8 @@
                                 <td>
                                     取消原因&#160;
                                     <select name="" class="w2 addReason" id="">
-                                        <option value="2082">Breakdown reason 1</option>
-                                        <option value="2083">Breakdown reason2</option>
+                                        <!-- <option value="2082">Breakdown reason 1</option> -->
+                                        <!-- <option value="2083">Breakdown reason2</option> -->
                                         <option value="2084">轮胎</option>
                                         <option value="2085">发动机异常</option>
                                         <option value="2086">故障</option>
