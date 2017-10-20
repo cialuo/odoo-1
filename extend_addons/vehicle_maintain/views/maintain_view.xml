@@ -154,14 +154,13 @@
 											   readonly="1"
 											   options="{'no_open':True,'no_create':True}"/>
 										<field name="repair_company_id"
-											   attrs="{'readonly': [('state', '!=', 'draft')]}"
+											   attrs="{'readonly': [('state', '=', 'completed')]}"
 											   required="1"
 											   options="{'no_open':True,'no_create':True}"/>
 
 										<field name="repair_plant_id"
-											   attrs="{'readonly': [('state', '!=', 'draft')]}"
+											   attrs="{'readonly': [('state', '=', 'completed')]}"
 											   options="{'no_open':True,'no_create':True}"
-											   required="1"
 											   domain = "[('department_id.company_id','=',repair_company_id)]"
 										/>
 
@@ -435,7 +434,10 @@
 								<field name="fault_method_code" invisible="1"/>
 								<field name="materials_control" invisible="1"/>
 								<field name="depa_id" invisible="1"/>
+								<field name="repair_company_id" invisible="1"/>
+
 								<field name="user_id"  options="{'no_open':True,'no_create':True}"
+									   domain="[('workpost.posttype', '=', 'maintainer'),('department_id.company_id','=',repair_company_id),('department_id','child_of', depa_id)]"
 										/>
 								<label for="percentage_work"/>
 								<div>
