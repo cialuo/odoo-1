@@ -219,7 +219,7 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
 
             if (data_use.data.line_id == line_c && data_use.controllerId == self.desktop_id) {
                 var dom = self.$el;
-                var dom_singal = $('body').find('.dispatch_desktop[line_id=' + data_use.line_id + ']');
+                var dom_singal = $('body').find('.dispatch_desktop[line_id=' + data_use.data.line_id + ']');
                 dom.find('.no_absnormal').eq(0).show().siblings().hide();
                 var abnoraml_desc = $('body').find('.absnormal_diaodu .absnormal_type p');
                 abnoraml_desc.removeClass('man_deal');
