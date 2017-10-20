@@ -92,7 +92,7 @@ class MaintainRepairCalculate(models.Model):
                     "user_id": k.user_id.id,
                     'my_work': k.my_work,
                     'real_work': k.real_work,
-                    'work_time_fee': k.work_time * i.company_id.work_fee * k.percentage_work / 100.0,
+                    'work_time_fee': k.work_time * i.work_fee * k.percentage_work / 100.0,
                 }
                 return vals
 

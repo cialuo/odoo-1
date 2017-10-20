@@ -324,6 +324,7 @@
 								type="object"
 								states="wait_dispatch"
 								context="{'is_change_method':0}"
+								groups="vehicle_group.vehicle_dispatch"
 								class="btn-primary"/> <!--派工-->
 
 						<button name="action_start_repair" type="object"
@@ -342,6 +343,7 @@
 								name="action_dispatch"
 								type="object"
 								states="repair"
+								groups="vehicle_group.vehicle_dispatch"
 								context="{'is_change_method':1}"
 								/> <!--更改维修方法-->
 
@@ -556,7 +558,7 @@
 								<field name="materials_control" invisible="1"/>
 								<field name="depa_id" invisible="1"/>
 								<field name="user_id"  options="{'no_open':True,'no_create':True}"
-										domain="[('department_id','child_of',depa_id)]"/>
+										/>
 								<label for="percentage_work"/>
 								<div>
 									<field name="percentage_work" class="oe_inline"/> %
@@ -579,6 +581,7 @@
 								type="object"
 								context="{'is_change_method':context.get('is_change_method')}"
 								default_focus="1"
+								groups="vehicle_group.vehicle_dispatch"
 								class="btn-primary"/>
                         <button string="Cancel" class="btn-default" special="cancel"/>
                     </footer>
@@ -723,7 +726,7 @@
 		<!--报修单-->
         <menuitem name="maintain_report_order" id="maintain_report_order" parent="maintain_manage"
 				  action="maintain_report_action" sequence="10"
-				  groups="vehicle_group.vehicle_driver" />
+				  groups="vehicle_group.vehicle_driver,vehicle_group.vehicle_inspect" />
 
 		<!--&lt;!&ndash;预检单&ndash;&gt;-->
 		<!--<menuitem name="maintain_precheck_order" id="maintain_precheck_order" parent="maintain_manage"-->

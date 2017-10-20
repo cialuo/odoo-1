@@ -236,7 +236,7 @@ class MaintainRepair(models.Model):
     plan_end_time = fields.Datetime("Plan End Time", help="Plan End Time", compute='_get_end_datetime')
     real_start_time = fields.Datetime("Real Start Time", help="Real Start Time")
     real_end_time = fields.Datetime("Real End Time", help="Real End Time")
-    user_id = fields.Many2one('hr.employee', string="Repair Name")
+    user_id = fields.Many2one('hr.employee', string="Repair Name",domain="[('workpost.posttype', '=', 'maintainer'),('department_id','child_of',depa_id)]")
 
     repair_names = fields.Char(string='Repair Names', help="Repair Names", compute='_get_repair_names')
     state = fields.Selection([

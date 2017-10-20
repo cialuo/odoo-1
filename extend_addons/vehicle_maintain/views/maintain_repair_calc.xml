@@ -102,6 +102,7 @@
                                         <button type="object"
                                                 string="Calc"
                                                 name="job_calc"
+												groups="vehicle_group.vehicle_dispatch"
                                                 attrs="{'invisible':['|','|',('is_need_calc','=', True),
                                                                          ('is_last_method','=', True),
                                                                          ('calculate_state', '=', 'calculated')]}"
@@ -109,6 +110,7 @@
                                         <button type="object"
                                                 string="Not Calc"
                                                 name="job_not_calc"
+												groups="vehicle_group.vehicle_dispatch"
                                                 attrs="{'invisible':['|','|',('is_need_calc','!=', True),
                                                                          ('is_last_method','=', True),
                                                                          ('calculate_state', '=', 'calculated')]}"
