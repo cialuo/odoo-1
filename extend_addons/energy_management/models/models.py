@@ -102,6 +102,24 @@ class energy_station(models.Model):
 
      active = fields.Boolean(string="MyActive", default=True)
 
+     #每日能源统计消耗
+     daily_consumption = fields.Float(store=True, string='Daily Consumption',readonly=True,compute='_compute_daily_consumption')
+
+
+     @api.depends('usage_record_ids')
+     def _compute_daily_consumption(self):
+         """
+            计算能源站的每日使用量
+         :return:
+         """
+         for order in self:
+             if order.usage_record_ids:
+                 begin_date = datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')
+                 end_date = datetime.datetime.now().strftime('%Y-%m-%d 59:59:59')
+                 order.daily_consumption =  sum(order.usage_record_ids.filtered(lambda r: r.record_date >= begin_date and r.record_date<=end_date).mapped('fuel_capacity'))
+
+
+
      @api.model
      def create(self, vals):
          tools.image_resize_images(vals)
