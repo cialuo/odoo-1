@@ -118,11 +118,12 @@ class StockPicking(models.Model):
             res_back = res_back.filtered(lambda x: x.state not in ['cancel'])
 
             for i in order.move_lines:
-                if order.repair_id.materials_control:
-                    ret = self.env['maintain.manage.available_product'].search([('product_id', '=', i.product_id.id),
-                                                                                ('repair_id', '=', order.repair_id.id)])
-                    if not ret:
-                        raise UserError(_('product is not exist,please remove:%s') % (i.name,))
+                if not order.repair_id.is_method_change: #判断是否是更换领维修方法的抢修单
+                    if order.repair_id.materials_control:
+                        ret = self.env['maintain.manage.available_product'].search([('product_id', '=', i.product_id.id),
+                                                                                    ('repair_id', '=', order.repair_id.id)])
+                        if not ret:
+                            raise UserError(_('product is not exist,please remove:%s') % (i.name,))
                 get_ct = back_ct = 0
                 for j in res_get:
                     products = j.move_lines.filtered(

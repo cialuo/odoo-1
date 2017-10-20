@@ -21,20 +21,22 @@ class RouteInBusSchedule(models.Model):
 
         # 上行大站检查
         mode = self.env['opertation_resources_station_platform']
-        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'up')])
+        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'up')], order="sequence")
         sitecollection = []
         for item in sitelist:
             sitecollection.append((0, 0, {
                 'site_id': item.station_id.id,
+                'site_seq': item.sequence
             }))
 
         # 下行大站检查
         mode = self.env['opertation_resources_station_platform']
-        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'up')])
+        sitelist = mode.search([('route_id', '=', self.id), ('direction', '=', 'down')], order="sequence")
         sitecollection_down = []
         for item in sitelist:
             sitecollection_down.append((0, 0, {
                 'site_id': item.station_id.id,
+                'site_seq': item.sequence
             }))
 
         context = dict(self.env.context,
@@ -66,6 +68,11 @@ class BusMoveExcuteTable(models.Model):
     行车作业执行表
     """
     _name = "scheduleplan.excutetable"
+
+    # 同一条线路同一天只有一个行车作业执行表
+    _sql_constraints = [
+        ('line_date_unique', 'unique (line_id, excutedate)', 'one line one date one execute table')
+    ]
 
     name = fields.Char(string="excute table name")
 
@@ -149,30 +156,38 @@ class ExecUpPlanItem(models.Model):
     execplan_id = fields.Many2one("scheduleplan.excutetable", ondelete="cascade")
 
     # 序号
-    seq_id = fields.Integer(string="sequence id")
+    seq_id = fields.Integer(string="sequence id", readonly=True)
 
-    vehicle_id = fields.Many2one("fleet.vehicle")
+    vehicle_id = fields.Many2one("fleet.vehicle", readonly=True)
 
     # 司机
-    driver = fields.Many2one("hr.employee", string="dirver")
+    driver = fields.Many2one("hr.employee", string="dirver", readonly=True)
 
     # 乘务员
-    steward = fields.Many2one("hr.employee", string="steward")
+    steward = fields.Many2one("hr.employee", string="steward", readonly=True)
 
     # 发车时间
-    starttime = fields.Datetime(string="start move time")
+    starttime = fields.Datetime(string="start move time", readonly=True)
 
     # 到达时间
-    arrivetime = fields.Datetime(string="arrive time")
+    arrivetime = fields.Datetime(string="arrive time", readonly=True)
 
     # 时长 分钟记
-    timelenght = fields.Integer(string="time length (min)")
+    timelenght = fields.Integer(string="time length (min)", readonly=True)
 
     # 里程
-    mileage = fields.Integer(string="mileage number")
+    mileage = fields.Integer(string="mileage number", readonly=True)
+
+    rule_lineid = fields.Integer(compute="_getRuleLineId")
+
+    @api.multi
+    def _getRuleLineId(self):
+        for item in self:
+            item.rule_lineid = item.execplan_id.line_id
 
     # 线路
-    line_id = fields.Many2one("route_manage.route_manage", string="related line")
+    line_id = fields.Many2one("route_manage.route_manage", string="related line",
+                              domain="['|',('id','=',rule_lineid),('main_line_id','=',rule_lineid)]")
 
 
 class ExecDownPlanItem(models.Model):
@@ -252,3 +267,7 @@ class VehicleResource(models.Model):
 
     # 车辆台次
     arrangenumber = fields.Integer(string="arrange number")
+
+    # 车辆状态
+    workstatus = fields.Selection([('operation', "operation"),('flexible', "flexible")],
+                                  default='operation', required=True)

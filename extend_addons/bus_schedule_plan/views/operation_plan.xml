@@ -7,6 +7,19 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='operation_plan_page']" position="replace">
                 <page string="运营计划" name="operation_plan_page">
+                    <div>方案参数</div>
+                    <ul class="plan_operate_config">
+                        <li class="poc_intro">上行首发台次</li>
+                        <li class="up_carNum"></li>
+                        <li class="poc_intro">上行方向</li>
+                        <li class="up_station_info"></li>
+                    </ul>
+                    <ul class="plan_operate_config dbl_state">
+                        <li class="poc_intro">下行首发台次</li>
+                        <li class="down_carNum"></li>
+                        <li class="poc_intro">下行方向</li>
+                        <li class="down_station_info"></li>
+                    </ul>
                     <table class="time_start_arrive_stop o_list_view table table-condensed table-striped">
                         <thead>
                             <tr>
@@ -16,7 +29,7 @@
                         <tbody>
                         </tbody>
                     </table>
-                    <div>
+                    <div class="mgt10">
                         <div class="btn btn-primary save_plan">保存</div>
                         <div class="btn btn-default giveup_plan">取消</div>
                     </div>
@@ -28,7 +41,7 @@
                         <div class="stop_time">
                         </div>
                     </div>
-                    <link rel="stylesheet" href="/bus_schedule_plan/static/src/css/operation_plan.css"/>
+                    <link rel="stylesheet" href="/bus_schedule_plan/static/src/css/operation_plan.css?20170907"/>
                     <script src="/bus_schedule_plan/static/src/js/operation_plan.js"
                             type="text/javascript">
                     </script>

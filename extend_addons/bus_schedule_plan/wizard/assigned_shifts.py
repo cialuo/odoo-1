@@ -4,12 +4,13 @@ from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from itertools import izip_longest
 import datetime
+from datetime import timedelta
 
 
 class AssignedShifts(models.TransientModel):
     _name = 'assigned_shifts'
 
-    group_id = fields.Many2one('bus_group', 'Group', required=True)
+    group_id = fields.Many2one('bus_group', 'Group', ondelete='cascade', required=True)
     route_id = fields.Many2one('route_manage.route_manage', related='group_id.route_id', required=True)
 
     driver_vehicle_shift_ids = fields.One2many('bus_group_driver_vehicle_shift_tran', 'assign_id')
@@ -37,12 +38,13 @@ class AssignedShifts(models.TransientModel):
     @api.multi
     def import_driver(self):
         use_date = datetime.datetime.strptime(str(self.use_date), '%Y-%m-%d')
-        now = datetime.datetime.now()
-        now = datetime.datetime.strftime(now, '%Y-%m-%d')
-        now = datetime.datetime.strptime(now, '%Y-%m-%d')
 
-        if use_date < now:
-            raise UserError(_("use_date is more than today"))
+        yesterday = datetime.datetime.strptime(str(datetime.date.today()-timedelta(days=1)), '%Y-%m-%d')
+        if len(self.bus_shift_id.shift_line_ids.ids)<1:
+            raise UserError(_("The shift line is not exists， please choose the right shifts"))
+
+        if use_date < yesterday:
+            raise UserError(_("use_date is more than yesterday"))
 
         for i in self.driver_vehicle_shift_ids:
             i.unlink()
@@ -102,15 +104,25 @@ class AssignedShifts(models.TransientModel):
             'context': {'default_active_id': self._context.get('active_id')}
         }
 
-
     @api.multi
     def assigned_shifts(self):
-        print self.group_id
         for wizard in self:
-            res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '=', self.use_date),
-                                                               ('group_id', '=', self.group_id.id)])
-            for i in res:
-                i.unlink()
+            flag = False
+            driver_ids = []
+            conductor_ids = []
+            for j in wizard.driver_vehicle_shift_ids:
+                if j.driver_id:
+                    driver_ids.append(j.driver_id.id)
+                if j.conductor_id:
+                    conductor_ids.append(j.conductor_id.id)
+            if len(driver_ids) > len(list(set(driver_ids))):#判断司机是否有重复
+                raise UserError(_("There are duplicate driver"))
+            if len(conductor_ids)>len(list(set(conductor_ids))):#判断售票员是否有重复
+                raise UserError(_("There are duplicate conductor"))
+
+            #删除之前的初始化数据
+            self.env['bus_group_driver_vehicle_shift'].search([('use_date', '=', self.use_date),
+                                                               ('group_id', '=', self.group_id.id)]).unlink()
 
             for j in wizard.driver_vehicle_shift_ids:
                 data = {
@@ -125,6 +137,9 @@ class AssignedShifts(models.TransientModel):
                     'bus_group_vehicle_id': j.bus_group_vehicle_id.id
                 }
                 self.env['bus_group_driver_vehicle_shift'].create(data)
+                flag = True
+            if flag and self.group_id.state == 'use':
+                self.group_id.write({'state': 'wait_check'})
         return False
 
 
@@ -135,7 +150,7 @@ class BusGroupDriverVehicleShiftTran(models.TransientModel):
 
     sequence = fields.Integer("Shift Line Sequence", default=1, readonly=True)
 
-    group_id = fields.Many2one('bus_group', 'Group', required=True)
+    group_id = fields.Many2one('bus_group', 'Group', ondelete='cascade', required=True)
     route_id = fields.Many2one('route_manage.route_manage', related='group_id.route_id', required=True)
     bus_shift_id = fields.Many2one('bus_shift', readonly=True)
     bus_shift_choose_line_id = fields.Many2one('bus_shift_choose_line', domain="[('shift_id','=',bus_shift_id)]")

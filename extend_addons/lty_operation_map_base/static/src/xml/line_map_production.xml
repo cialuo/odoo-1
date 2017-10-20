@@ -40,7 +40,7 @@
     		<div class="mapSetLineDiv">
 				<h2 class="mapSetLinePropTitle">线路信息</h2>
 				<div class="mapSetLineContext">
-					正在绘制线路 "24路"的线路轨迹图。建议自16级别以上进行绘制。
+					正在绘制线路 "<t t-esc="widget.options.line_name"></t>"的线路轨迹图。建议自16级别以上进行绘制。
 				</div>
 			</div>
 			

@@ -33,7 +33,10 @@
         'lty_operation_map_base',
         'lty_operation_plan',
         'lty_server_access',
-        'revenue'        
+        'lty_dispatch_robot',
+        'web_login',
+        'lty_dispatch_video_monitor',
+        'revenue'     
     ],
 
     # always loaded

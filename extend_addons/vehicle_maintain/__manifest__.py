@@ -31,7 +31,7 @@
     # any module necessary for this one to work correctly
     'depends': ['vehicle_manage', 'materials_product',
                 'stock_picking_types','vehicle_group',
-                'web_tree_no_open',],
+                'web_tree_no_open', 'vehicle_plant_manage'],
 
     # always loaded
     'data': [

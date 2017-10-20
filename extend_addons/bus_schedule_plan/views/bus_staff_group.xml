@@ -60,7 +60,8 @@
                                         <field name="operation_state"/>
                                         <field name="state"/>
                                         <field name="bus_group_id"/>
-                                        <field name="staff_names"/>
+                                        <field name="staff_driver_names"/>
+                                        <field name="staff_conductor_names"/>
                                         <field name="bus_shift_id" invisible="1" options="{'no_open':True,'no_create':True}"/>
                                     </tree>
                                 </field>
@@ -141,6 +142,7 @@
         <menuitem id="bus_staff_group_menu" name="bus_staff_group_menu"
                   parent="operation_menu.bus_working_plan_menu"
                   action="bus_staff_group_action"
+                  groups="schedule_dispatch_group.schedule_user"
                   sequence="40"/>
 
     </data>

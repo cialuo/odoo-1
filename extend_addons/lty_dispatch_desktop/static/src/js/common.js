@@ -1,6 +1,14 @@
 /**
  * Created by Administrator on 2017/7/12.
  */
+// 请求接口
+SOCKET_URL = "";
+RESTFUL_URL = "";
+CONTROLLERID = "";
+var socket_model_info = {};
+var socket_model_api_obj = {};
+
+
 function traffic_distance(canvas) {
     var c = canvas.self.find(canvas.id)[0];
     var cxt = c.getContext("2d");
@@ -63,8 +71,8 @@ function cir_and_text(canvas) {
             {
                 cir: 4,
                 color: myColor
-            },
-        ]
+            }
+        ];
         for (var j = 0; j < obj_list.length; j++) {
             var obj = obj_list[j];
             cxt.beginPath();
@@ -93,7 +101,7 @@ function can_left_right(canvas) {
     cxt.textAlign = "center";
     cxt.fillStyle = "black";
     //文字，左距离，上距离，最大px量
-    cxt.fillText(canvas.busNumber , 13, 64, 50);
+    cxt.fillText(canvas.busNumber , 13, 62, 50);
     cxt.fill();
     cxt.closePath();
     cxt.beginPath();
@@ -143,7 +151,7 @@ function qrend_desktop_canvas(data, dom_site, domB, domL, domR, selfDom) {
         y: 26,
         self: selfDom,
         subsection: data.subsection,
-        color: data.color,
+        color: data.color
     };
     var traffic_bottom = {
         id: domB,
@@ -215,7 +223,7 @@ function carousel(carousel) {
     var content = carousel.content;
     var i = 0;
     if(self.$(content + '>li').length ==2){
-            var firstcarousel_content = self.$(content + '>li').first().clone(); //复制第一张图片
+        var firstcarousel_content = self.$(content + '>li').first().clone(); //复制第一张图片
     }else{
       var firstcarousel_content = self.$(content + '>li').eq(2); //复制第一张图片
     }
@@ -232,7 +240,7 @@ function carousel(carousel) {
     }, 3000);
     var carousel_line_id = self.$el.attr('line_id');
     sessionStorage.setItem('timer'+carousel_line_id,timer);
-    //鼠标移入，暂停自动播放，移出，开始自动播放
+    // 鼠标移入，暂停自动播放，移出，开始自动播放
     // self.$('.carousel').hover(function () {
     //     clearInterval(timer);
     // }, function () {
@@ -245,19 +253,20 @@ function carousel(carousel) {
     //         self.$(content).stop().animate({left: -i * 600}, 500);
     //     }, 3000);
     // });
-    // var text_change = setInterval(function () {
-    //     if (self.$(content + '>li').find('.no_absnormal').css('display') != 'none') {
-    //         self.$(content).css({left: 0});
-    //         clearInterval(timer);
-    //     }
-    // }, 100);
-};
+}
 window.onhashchange=function(){
     if($('body').find('.back_style').length>0){
         $('body').find('.o_content').css('overflow','hidden');
     }else{
         $('body').find('.o_content').css('overflow','auto');
     }
+    // if($('body').find('dispatch_desktop_video').length>0){
+    //
+    // }else{
+    //     if(typeof (video_socket) != "undefined"){
+    //                 video_socket.close()
+    //     }
+    // }
 };
 function transform(obj){
     var arr = [];

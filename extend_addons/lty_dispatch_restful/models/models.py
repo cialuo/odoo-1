@@ -48,9 +48,9 @@ class op_line(models.Model):
                 'isShowPoint': 0,
                 'isShowStationName': 0,
             })
-            if not res.start_date:
+            if not res.start_date and vals.get('startDate'):
                 del vals['startDate']
-            if not res.end_date:
+            if not res.end_date and  vals.get('endDate'):
                 del vals['endDate']
             params = Params(type=1, cityCode=cityCode,tableName=LINE_TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)

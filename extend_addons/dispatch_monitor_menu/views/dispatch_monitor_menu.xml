@@ -15,12 +15,11 @@
         <!--其他监控-->
         <menuitem name="other_monitor_menu" id="other_monitor_menu" parent="dispatch_monitor_menu_root" sequence="40"/>
 
-
+        <!--视频监控-->
+        <menuitem name="视频监控" id="video_monitor_menu" parent="dispatch_monitor_menu_root" sequence="50"/>
 
         <!--设置-->
         <menuitem name="dispatch_monitor_setting" id="dispatch_monitor_setting_menu" parent="dispatch_monitor_menu_root"
                   sequence="70"/>
-
-
     </data>
 </odoo>

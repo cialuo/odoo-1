@@ -41,7 +41,20 @@
             <field name="arch" type="xml">
                 <form string="Vehicle" create="false" delete="false" edit="false">
                     <header>
+
+                        <button name="action_stop" type="object"
+                                string="Comfirm Stop"
+								states="normal"
+                                class="oe_highlight"/> <!-- 报停-->
+
+                        <button name="action_cancel_stop" type="object"
+                                string="Comfirm Cancel Stop"
+								attrs="{'invisible':['|',('vehicle_life_state', '!=', 'operation_period')
+								                    ,('state','!=','stop')]}"
+                                class="oe_highlight"/> <!-- 撤销报停-->
+
                         <field name="state"  widget="statusbar"/>
+                        <field name="vehicle_life_state" invisible="1"/>
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
@@ -76,7 +89,7 @@
                                     <group>
                                         <field name="reg_no" />
                                         <field name="reg_date" />
-                                        <field name="forced_destroy_date" />
+                                        <field name="forced_destroy_date" readonly="1"/>
                                         <field name="entry_state" invisible="1"/>
                                         <field name="annual_inspection_date" attrs="{'readonly':[('entry_state','!=','draft')]}"/>
                                         <field name="emissions"/>
@@ -164,49 +177,6 @@
                 </form>
             </field>
         </record>
-
-
-        <!--<record id='fleet_vehicle_view_kanban_extend' model='ir.ui.view'>
-            <field name="name">fleet.vehicle.kanban</field>
-            <field name="model">fleet.vehicle</field>
-            <field name="priority">0</field>
-            <field name="arch" type="xml">
-                <kanban create="false" delete="false">
-                    <field name="license_plate" />
-                    <field name="model_id" />
-                    <field name="inner_code" />
-                    <field name="image" />
-                    <field name="route_id" />
-                    <field name="tag_ids" />
-
-                    <templates>
-                        <t t-name="kanban-box">
-                            <div class="oe_kanban_global_click">
-                                <div class="o_kanban_tags_section">
-                                    <field name="tag_ids"/>
-                                </div>
-                                <div class="o_kanban_image">
-                                    <img t-att-src="kanban_image('fleet.vehicle', 'image_small', record.id.value)"/>
-                                </div>
-                                <div class="oe_kanban_details">
-                                    <strong>
-                                        <field name="inner_code"/> : <field name="license_plate"/>
-                                    </strong>
-                                    <ul>
-                                        <li>
-                                            <t t-if="record.route_id.raw_value"><field name="route_id"/></t>
-                                        </li>
-                                        <li>
-                                            <t t-if="record.model_id.raw_value"><field name="model_id"/></t>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record>-->
 
 
         <!-- VehicleModel Form-->

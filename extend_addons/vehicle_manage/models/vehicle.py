@@ -13,12 +13,10 @@ class Vehicle(models.Model):
     _sql_constraints = [('code_uniq', 'unique (inner_code)', u"内部编号已经存在!"),
                         ('license_plate_uniq', 'unique(license_plate)', _('The license_plate must be unique !')),]
 
-    state = fields.Selection([('warrantly', "warrantly"),
+    state = fields.Selection([('stop', "stop"),
                               ('normal', "normal"),
-                              ('rush', "rush"),
-                              ('repair', "repair"),
-                              ('stop', "stop"),], default='normal',string="Vehicle State",
-                               help='Current state of the vehicle', ondelete="set null")
+                              ('warrantly', "warrantly"),
+                              ('repair', "repair")], default='stop', string="Vehicle State")
 
     license_plate = fields.Char(required=True, help='车牌')
     name = fields.Char("Vehicle Number", compute="_cumpute_model_name", store=True)
@@ -27,7 +25,6 @@ class Vehicle(models.Model):
 
     # 所属部门
     department_id = fields.Many2one('hr.department', 'related department')
-
 
     engine_no = fields.Char("Engine No",related='model_id.engine_no')
     transmission_ext = fields.Char(related='model_id.transmission_ext', store=True, readonly=True, copy=False)
@@ -104,6 +101,19 @@ class Vehicle(models.Model):
 
     average_day_number = fields.Integer(related='company_id_s.average_day_number')
 
+    @api.multi
+    def action_stop(self):
+        """报停"""
+        self.state = 'stop'
+        return True
+
+    @api.multi
+    def action_cancel_stop(self):
+        """撤销报停"""
+        self.state = 'normal'
+        return True
+
+
     @api.depends('driverecords')
     def _compute_daily_mileage(self):
         """
@@ -126,6 +136,7 @@ class Vehicle(models.Model):
         :return:
         """
         return False
+
     def get_vehicle_code(self,vals):
         """
             生成车辆编码：

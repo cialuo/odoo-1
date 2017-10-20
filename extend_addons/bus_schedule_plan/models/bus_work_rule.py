@@ -14,14 +14,14 @@ class BusWorkRules(models.Model):
     行车规则
     """
 
-    # 同一条线路下只有一个日期类型的行车规则
-    _sql_constraints = [
-        ('line_datetype_unique', 'unique (line_id, date_type)', 'one line one datetype ')
-    ]
-
     _name = 'scheduleplan.schedulrule'
 
-    name = fields.Char(string="rule name")
+    # 同一条线路同一个日期类型下只能有一条处于激活状态下的行车规则
+    _sql_constraints = [
+        ('line_datetype_unique', 'unique (line_id, date_type, active)', 'one line one datetype in active ')
+    ]
+
+    name = fields.Char(string="rule name", required=True)
 
     # 线路
     line_id = fields.Many2one("route_manage.route_manage", string="related line", readonly=True)
@@ -32,6 +32,11 @@ class BusWorkRules(models.Model):
             return 'normal'
         elif type == 'custem':
             return 'custem'
+
+    active = fields.Boolean('Active', default=True)
+
+    def toggle_active(self):
+        return super(BusWorkRules, self).toggle_active()
 
     # 公交类型
     bustype = fields.Selection([("normal", "normal bus"),           # 普通公交
@@ -94,12 +99,43 @@ class BusWorkRules(models.Model):
     # 日期类型
     date_type = fields.Many2one("bus_date_type", string="bus date type", required=True)
 
+    def getTargetDate(self):
+        return '20170913'
+
+    def getCityCode(self):
+        return '130400'
+        return self.env['ir.config_parameter'].get_param('city.code')
+
+    def getAPIUrl(self):
+        return self.env['ir.config_parameter'].get_param('bus.arrange.rule.url')
+
+    @api.multi
     def fetchRuleFromBigData(self):
         """
         从大数据获取行车规则
         """
-        url = "http://10.1.10.169:8082/ltyop/trafficRules/getBusTraffRule"
-        getRuleFromBigData(url, 'sdf123', self.line_id, )
+        url = self.getAPIUrl()
+        datestr = self.getTargetDate()
+        # data = getRuleFromBigData(url, 'sdf123', self.line_id.id, datestr, self.schedule_method)
+        if self.schedule_method == 'singleway':
+            schedule = 0
+        else:
+            schedule = 1
+        try:
+            data = getRuleFromBigData(url, self.getCityCode(), 10, datestr, 0)
+        except Exception as e:
+            raise
+            raise ValidationError("failed to connect api server")
+        if data == None:
+            raise ValidationError(_("fetch data failed from bigdata system"))
+        update = {}
+        update['upplanvehiclearrange'] = data['vup']
+        update['uptimearrange'] = data['tup']
+        if len(data['vdown']) != 0:
+            update['downplanvehiclearrange'] = data['vdown']
+        if len(data['tdown']) != 0:
+            update['downtimearrange'] = data['tdown']
+        self.write(update)
 
     @staticmethod
     def _validateVehicleNums(obj):
@@ -107,8 +143,9 @@ class BusWorkRules(models.Model):
         for item in obj.upplanvehiclearrange:
             vcount += item.allvehicles
 
-        for item in obj.downplanvehiclearrange:
-            vcount += item.allvehicles
+        if obj.schedule_method == 'dubleway':
+            for item in obj.downplanvehiclearrange:
+                vcount += item.allvehicles
 
         if vcount > obj.bus_number:
             raise ValidationError(_("vechile count large then vehicle number"))
@@ -124,13 +161,6 @@ class BusWorkRules(models.Model):
             return None
         else:
             return result[0]
-
-    @api.multi
-    def genBusMovetime(self):
-        """
-        生成行车时刻表按钮动作
-        """
-        return
 
     @staticmethod
     def _validate_sqenum(datalist):
@@ -165,7 +195,9 @@ class BusWorkRules(models.Model):
     @staticmethod
     def _validate(dataList, startTime, endTime, type):
         if len(dataList) <= 0:
-            raise ValidationError(_("time arrange must not empty"))
+            return
+        # if len(dataList) <= 0:
+        #     raise ValidationError(_("time arrange must not empty"))
         newlist = sorted(dataList, key=lambda k: k.seqid)
         # 验证序列号
         BusWorkRules._validate_sqenum(newlist)
@@ -257,7 +289,7 @@ class BusWorkRules(models.Model):
             markpoints.append((item.interval, datetime.datetime.strptime(datestr + ' ' + item.endtime + ":00", timeFormatStr)))
         seqcounter = 0
         for index, item in enumerate(sortedRuleList):
-            while startTime <= markpoints[index][1]:
+            while startTime < markpoints[index][1]:
                 seqcounter += 1
                 data = {
                     'seqid' : seqcounter,
@@ -271,11 +303,11 @@ class BusWorkRules(models.Model):
                 }
                 recordslist.append((0, 0, data))
                 startTime = startTime + datetime.timedelta(minutes=item.interval)
-        if startTime != markpoints[-1][1]:
+        if startTime >= markpoints[-1][1]:
             # 如果最后一趟超出了计划时间的最后时间 则调整为计划最后发车时间
             startTime = markpoints[-1][1]
             data = {
-                'seqid': seqcounter,
+                'seqid': seqcounter+1,
                 'startmovetime': startTime - datetime.timedelta(hours=8),
                 'arrive_time': startTime + datetime.timedelta(minutes=sortedRuleList[-1].worktimelength) - datetime.timedelta(
                     hours=8),
@@ -345,7 +377,7 @@ class BusWorkRules(models.Model):
     @classmethod
     def genExcuteRecords(cls, movetimeobj):
         """
-        生成行车记录执行表
+        生成行车作业执行表数据
         """
         values = {
             'name' : movetimeobj.name,
@@ -389,12 +421,14 @@ class BusWorkRules(models.Model):
 
         movetimelist = json.loads(movetimeobj.operationplan)
 
+        # 上行行车执行记录
         upexeitems = BusWorkRules.genModedetailRecords(movetimelist['up'], stafftimearrange, movetimeobj.env['scheduleplan.movetimeup'])
-        if movetimelist['down'] != None:
+        # 下行行车执行记录
+        if movetimeobj.schedule_method == 'dubleway':
             downexeitems = BusWorkRules.genModedetailRecords(movetimelist['down'], stafftimearrange, movetimeobj.env['scheduleplan.movetimedown'])
         else:
             downexeitems = []
-            # 上行排班计划
+        # 上行排班计划
         values['upmoveplan'] = upexeitems
         # 下行排班计划
         values['downmoveplan'] = downexeitems
@@ -482,7 +516,8 @@ class BusWorkRules(models.Model):
                 'firstmovetime': temp[0][0],
                 'lastmovetime': temp[-1][0],
                 'worktimelength': timesubtraction(temp[-1][0], temp[0][0]),
-                'arrangenumber': temp[0][2]
+                'arrangenumber': temp[0][2],
+                'workstatus':stafftimearrange[temp[0][2]]['operation_state']
             }
             result.append((0,0,recval))
         values['vehicleresource'] = result
@@ -549,7 +584,6 @@ class BusWorkRules(models.Model):
 
             timerec = cls.getTimeRecordDetail(timerecmode, item[1]['id'])
             if timerec == None:
-                # a = 99885
                 continue
             if item[0] not in stafflist:
                 continue
@@ -608,6 +642,7 @@ class BusWorkRules(models.Model):
         for item in record.vehicle_line_ids:
             temp = {}
             temp['vehicle_id'] = item.vehicle_id
+            temp['operation_state'] = item.operation_state
             timelist = {}
             for x in item.staff_line_ids:
                 data = {'driver': x.driver_id.id,
@@ -618,7 +653,7 @@ class BusWorkRules(models.Model):
                     # 修正到utc时间
                     timestart = str2datetime(datestr+ " "+ y.start_time + ':00')
                     timestart = timestart - datetime.timedelta(hours=8)
-                    # 跨天bug待处理
+                    # ！！！ *** 跨天bug待处理 ***** ！
                     timeend = str2datetime(datestr+ " "+ y.end_time + ':00')
                     timeend = timeend - datetime.timedelta(hours=8)
                     data['timelist'].append((timestart.strftime(timeFormatStr), timeend.strftime(timeFormatStr)))
@@ -639,18 +674,20 @@ class BusWorkRules(models.Model):
         tomorrow_str = BusWorkRules.formatDateStr(tomorrow)
         condition = [
             ("start_date", '<=', tomorrow_str), ("end_date", '>=', tomorrow_str),
-            '|', ("type", '=', tomorrow_type), ("type", '=', "Vacation")
+            ("type", 'in', [tomorrow_type, "Vacation", "General"])
         ]
-        result = datetypemode.search(condition, order='priority desc', limit=1)
+        result = datetypemode.search(condition, order='priority', limit=1)
 
         if len(result) <= 0:
             return
         datatype = result[0]
-        rulelist = rulemode.search([("date_type", '=', datatype.id)])
+        rulelist = rulemode.search([("date_type", '=', datatype.id),("active", "=", True)])
         for item in rulelist:
-            mvtime = self.createMoveTimeRecord(tomorrow_str, item)
+            mvtime = self._timeTableExist(tomorrow_str, item.id)
+            if mvtime == None:
+                mvtime = self.createMoveTimeRecord(tomorrow_str, item)
             # 生成人车配班数据
-            staffdata = self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
+            self.env['bus_staff_group'].action_gen_staff_group(item.line_id,
                                                                            staff_date=datetime.datetime.strptime(
                                                                                tomorrow_str, "%Y-%m-%d"),
                                                                            operation_ct=mvtime.vehiclenums,
@@ -658,8 +695,24 @@ class BusWorkRules(models.Model):
                                                                            force=True)
             # 生成运营方案数据
             mvtime.genOperatorPlan()
-            # 生成行车执行数据
-            BusWorkRules.genExcuteRecords(mvtime)
+            execCheck = self._execTableExist(tomorrow_str, item.id)
+            if execCheck == None:
+                # 生成行车作业执行数据
+                BusWorkRules.genExcuteRecords(mvtime)
+
+    def _timeTableExist(self, datestr, ruleid):
+        res = self.env['scheduleplan.busmovetime'].search([('executedate', '=', datestr), ('rule_id', '=', ruleid)])
+        if len(res) == 0:
+            return None
+        else:
+            return res
+
+    def _execTableExist(self, datestr, ruleid):
+        res = self.env['scheduleplan.excutetable'].search([('excutedate', '=', datestr), ('rule_id', '=', ruleid)])
+        if len(res) == 0:
+            return None
+        else:
+            return res[0]
 
 
 class RuleBusArrangeUp(models.Model):
@@ -674,13 +727,13 @@ class RuleBusArrangeUp(models.Model):
     rule_id = fields.Many2one("scheduleplan.schedulrule", string="related rule", ondelete="cascade")
 
     # 车型
-    vehiclemode = fields.Many2one("fleet.vehicle.model", string="vehicle mode")
+    vehiclemode = fields.Many2one("fleet.vehicle.model", string="vehicle mode", required=True)
 
     # 运营数量
-    workingnumber = fields.Integer(string="vehicle working number")
+    workingnumber = fields.Integer(string="vehicle working number", required=True)
 
     # 机动车数量
-    backupnumber = fields.Integer(string="vehicle backup number")
+    backupnumber = fields.Integer(string="vehicle backup number", required=True)
 
     # 核载人数
     passengernumber = fields.Integer(related="vehiclemode.ride_number", string="passenger number")
@@ -690,7 +743,8 @@ class RuleBusArrangeUp(models.Model):
 
     @api.depends('workingnumber', 'backupnumber')
     def _sumvehicles(self):
-        self.allvehicles = self.workingnumber + self.backupnumber
+        for item in self:
+            item.allvehicles = item.workingnumber + item.backupnumber
 
 
 class ToUp(models.Model):
@@ -774,19 +828,22 @@ class BigSiteSettingsUp(models.Model):
 
     site_id = fields.Many2one("opertation_resources_station")
 
+    # 站序
+    site_seq = fields.Integer(string="site sequence")
+
     # 是否签点
     needsign = fields.Boolean(string="need sign")
 
     # 是否大站考核
     needchecking = fields.Boolean(string="need checking")
 
-    # 距上一站时间(低峰)
+    # 距首站时间(低峰)
     tolastsit_low = fields.Integer(string="to last site time (low)")
 
-    # 距上一站时间(平峰)
+    # 距首站时间(平峰)
     tolastsit_flat = fields.Integer(string="to last site time (flat)")
 
-    # 距上一站时间(高峰)
+    # 距首站时间(高峰)
     tolastsit_peak = fields.Integer(string="to last site time (high)")
 
     # 允许快几分钟

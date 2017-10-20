@@ -19,11 +19,11 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['dispatch_monitor_menu','scheduling_parameters','vehicle_manage'],
+    'depends': ['dispatch_monitor_menu','scheduling_parameters','vehicle_manage','schedule_dispatch_group'],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/dispatch_abnormal_views.xml',
         'views/driver_records_view.xml',
         'data/abnormal_categ_data.xml',

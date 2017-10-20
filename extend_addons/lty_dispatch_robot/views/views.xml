@@ -25,7 +25,7 @@
 	  </field>      
       
     </record>
-    <menuitem name="Dispatch Abnormal Type" id="lty_dispatch_abnorma_categ_action_menu" parent="dispatch_monitor_menu.dispatch_robot_menu"
+    <menuitem name="异常管理" id="lty_dispatch_abnorma_categ_action_menu" parent="dispatch_monitor_menu.dispatch_robot_menu"
               action="lty_dispatch_abnorma_categ_action" sequence="10"/>
     <menuitem name="机动车辆资源池" id="lty_dispatch_robot_jd_action_menu" parent="dispatch_monitor_menu.dispatch_robot_menu"
               action="fleet.fleet_vehicle_action" sequence="40"/>	

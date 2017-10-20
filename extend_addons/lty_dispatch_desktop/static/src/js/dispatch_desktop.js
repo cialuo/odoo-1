@@ -5,15 +5,29 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
     var dispatch_bus = require('lty_dispaych_desktop.getWidget');
     //导入模块用户后台交互
     var Model = require('web.Model');
+    var config_parameter = new Model('ir.config_parameter');
     // 控制台配置模块
     var config = Widget.extend({
         template: "config",
         init: function (parent, context) {
             this._super(parent, context);
+            this.model_config = new Model('dispatch.control.desktop');
         },
         start: function () {
             var self = this;
-            // self.$el.append(QWeb.render("config"));
+            this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
+            this.model_config.query().filter([["id", "=", parseInt(this.desktop_id)]]).all().then(function (conf) {
+                for (var i = 0, chkLen = $('.src_config').length; i < chkLen; i++) {
+                    var chg_name = $('.src_config').eq(i).attr('class').split('conf_')[1];
+                    if (conf[0][chg_name] == true) {
+                        $('.src_config').eq(i).prop("checked", true);
+                    }
+                }
+                self.$el.find('.src_font_color').val(conf[0].src_font_conf);
+            });
+            this.$el.on('hide.bs.modal', function () {
+                self.destroy();
+            });
         },
         events: {
             'click .btn_cancel': 'close_dialog',
@@ -21,16 +35,43 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         close_dialog: function () {
             var self = this;
-            self.$el.find('.modal').modal('hide');
-            $(".modal-backdrop").remove();
-            self.$el.remove();
         },
+        // 配置修改颜色
         change_style: function () {
             var self = this;
-            var font_color = self.$el.find('.src_font_color').val();
-            $('body').find('.bus_info li').eq(2).hide();
+            var chg_sty = {};
+            for (var i = 0, chkLen = $('.src_config').length; i < chkLen; i++) {
+                var chg_name = $('.src_config').eq(i).attr('class').split('conf_')[1];
+                if ($('.src_config').eq(i).is(":checked")) {
+                    chg_sty[chg_name] = true;
+                } else {
+                    chg_sty[chg_name] = false;
+                }
+            }
+            var now_clr_sty = self.$el.find('.src_font_color').val();
+            this.model_config.call("write", [parseInt(self.desktop_id),
+                {
+                    'applycar_num': chg_sty['applycar_num'],
+                    'active_car': chg_sty['active_car'],
+                    'main_outage': chg_sty['main_outage'],
+                    'share_active_car': chg_sty['share_active_car'],
+                    'signal_online': chg_sty['signal_online'],
+                    'car_driver': chg_sty['car_driver'],
+                    'car_attendant': chg_sty['car_attendant'],
+                    'trailerNum': chg_sty['trailerNum'],
+                    'src_font_conf': now_clr_sty
+                }]).then(function (res) {
+                self.$el.find('.btn-default').click();
+                for (var m = 0, cg_ln = Object.keys(chg_sty); m < cg_ln.length; m++) {
+                    if (chg_sty[cg_ln[m]] == true) {
+                        $('body').find('.bus_info .show_' + cg_ln[m]).show();
+                    } else {
+                        $('body').find('.bus_info .show_' + cg_ln[m]).hide();
+                    }
+                }
+                $('body').find('.bus_info>ul>li').css('color', now_clr_sty);
+            });
         }
-
     });
     // 控制台顶部
     var desktop_top = Widget.extend({
@@ -40,12 +81,10 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             this.data = {
                 component_ids: 13
             };
-
         },
         start: function () {
-            // 动态加载高德地图api
             var self = this;
-
+            $('.desktop_head_deal.dd_person').html("调度员:" + odoo.session_info.name);
             function startTime() {
                 var today = new Date();//定义日期对象
                 var yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年
@@ -86,17 +125,22 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         template: 'dispatch_desktop_component',
         init: function (parent, context) {
             this._super(parent, context);
-            this.model2 = new Model('dispatch.control.desktop.component');
+            this.model_line = new Model('dispatch.control.desktop.component');
             layer.close(context);
-      },
+        },
         start: function () {
             $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
             var self = this;
-            // self.$el.addClass('controller_kz123 back_style');
+            if (window.location.href.split("action=")[1].split('&')[0] != undefined) {
+                if (window.location.href.split("action=")[1].split('&')[0] == "dispatch_desktop.page") {
+                    $('body').find('.o_content').css('overflow', 'hidden');
+                }
+            }
             self.$el.append(QWeb.render("myConsole"));
             var desktop_id = window.location.href.split("active_id=")[1].split("&")[0];
-            self.$el.parent().addClass("controller_"+desktop_id).attr("desktop_id", desktop_id);
-            self.model2.query(["line_id"]).filter([["desktop_id", "=", parseInt(desktop_id)]]).all().then(function (data) {
+            CONTROLLERID = desktop_id;
+            self.$el.parent().addClass("controller_" + desktop_id).attr("desktop_id", desktop_id);
+            self.model_line.query(["line_id"]).filter([["desktop_id", "=", parseInt(desktop_id)]]).all().then(function (data) {
                 var s = [];
                 if (data.length > 0) {
                     // 去重
@@ -107,13 +151,14 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                     }
                     // 遍历
                     for (var j = 0; j < s.length; j++) {
-                        self.model2.query().filter([["line_id", "=", parseInt(s[j])]]).all().then(function (res) {
+                        self.model_line.query().filter([["desktop_id", "=", parseInt(desktop_id)], ["line_id", "=", parseInt(s[j])]]).all().then(function (res) {
                             new dispatch_bus(this, res, 0).appendTo(self.$el);
                         });
                     }
                 }
             });
             new desktop_top(this).appendTo(self.$el);
+            $.getScript("/lty_dispatch_desktop/static/src/js/websocket.js");
         },
         events: {
             'click .new_console': 'addLine_click',
@@ -126,9 +171,9 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         },
         config_click: function () {
             var self = this;
-            var a = new config(this);
-            a.appendTo(self.$el);
-            self.$el.find('.modal').modal({backdrop: 'static', keyboard: false});
+            var config_act = new config(this);
+            config_act.appendTo(self.$el);
+            self.$el.find('.info_config .modal').modal({backdrop: 'static', keyboard: false});
         },
         save_click: function () {
             var self = this;
@@ -139,14 +184,13 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                     var id = tidNum[i].getAttribute('tid');
                     var left = tidNum[i].style.left.split('px')[0];
                     var top = tidNum[i].style.top.split('px')[0];
-                    var zIndex = parseInt(tidNum[i].style.zIndex);
-                    self.model2.call("write", [parseInt(id),
+                    self.model_line.call("write", [parseInt(id),
                         {
                             'position_left': left,
                             'position_top': top,
-                            'position_z_index': 0,
+                            'position_z_index': 0
                         }]).then(function (data) {
-
+                        layer.msg('保存成功');
                     });
                 }
             }
@@ -156,19 +200,21 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
         template: 'dispatch_control',
         init: function (parent, context) {
             this._super(parent, context);
-            this.model2 = new Model('dispatch.control.desktop.component');
-            this.layer = layer.msg("加载中...",{time:0, shade: 0.3});
-      },
+            this.layer = layer.msg("加载中...", {time: 0, shade: 0.3});
+        },
         start: function () {
             this.load_fn();
         },
         load_fn: function () {
             var self = this;
-            setTimeout(function () {
-                new dispatch_desktop(self, self.layer).appendTo(self.$el);
-            },1000);
+            config_parameter.query().filter([["key", "=", "dispatch.desktop.socket"]]).all().then(function (socket) {
+                config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
+                    SOCKET_URL = socket[0].value;
+                    RESTFUL_URL = restful[0].value;
+                    new dispatch_desktop(self, self.layer).appendTo(self.$el); 
+                });
+            });
         }
     });
     core.action_registry.add('dispatch_desktop.page', dispatch_control);
-})
-;
+});

@@ -21,4 +21,5 @@ class dispatch_driver_command_type(models.Model):
 
     #类型名称
     name = fields.Char()
+    #类型编码
     code = fields.Char()

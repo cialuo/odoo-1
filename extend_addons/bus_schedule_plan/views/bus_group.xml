@@ -41,10 +41,11 @@
                             <!--/>-->
 
                         <button string="assigned_shifts"
-                            type="action"
-                            name="%(act_assigned_shifts)d"
-                            class="oe_highlight"
-                            attrs="{'invisible': [('is_not_match', '=', True)]}"
+                                type="action"
+                                name="%(act_assigned_shifts)d"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('is_not_match', '=', True)]}"
+                                groups="schedule_dispatch_group.schedule_user"
                             />
 
 						<button name="action_submit"
@@ -52,6 +53,7 @@
 								string="Submit check"
 								states="draft"
 								class="oe_highlight"
+                                groups="schedule_dispatch_group.schedule_user"
 								/> <!-- 提交审核-->
 
                         <button name="action_check_success"
@@ -59,11 +61,13 @@
 								string="check success"
 								states="wait_check"
 								class="oe_highlight"
+                                groups="schedule_dispatch_group.schedule_manager"
 								/> <!-- 审核通过-->
                         <button name="action_check_fail"
 								type="object"
 								string="check fail"
 								states="wait_check"
+                                groups="schedule_dispatch_group.schedule_manager"
 								/> <!-- 审核不通过-->
                     	<field name="state" widget="statusbar"/>
                     </header>
@@ -144,8 +148,6 @@
                                     </tree>
                                 </field>
                             </page>
-
-
                         </notebook>
                     </sheet>
                 </form>
@@ -163,6 +165,7 @@
         <menuitem id="bus_group_menu" name="bus_group_menu"
                   parent="operation_menu.bus_working_plan_basic_info"
                   action="bus_group_action"
+                  groups="schedule_dispatch_group.schedule_user"
                   sequence="10"/>
 
     </data>

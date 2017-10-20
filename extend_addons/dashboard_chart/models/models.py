@@ -40,7 +40,7 @@ class Dashboard(models.Model):
 
     _name = 'dashboard.board_setting'
     _description = 'Dashboard Setting'
-    _sql_constraints = [('menu_id_unique', 'unique (menu_id)', u'菜单已经存在看看板!')]
+    _sql_constraints = [('menu_id_unique', 'unique (menu_id)', u'菜单已经存在看板!')]
     """
         看板数据:
             用于保存界面创建的看板数据
@@ -62,7 +62,7 @@ class Dashboard(models.Model):
         """
         for setting in self:
             action = setting.menu_id.action
-            if action and action['res_model'] == 'board.board' and action['views'][0][1] == 'form' and setting.view_ids and len(setting.view_ids) > 0:
+            if action and action['res_model'] == 'board.board' and action['views'][0][1] == 'form':
                 view_id = action['views'][0][0]
                 board = self.env['board.board'].fields_view_get(view_id, 'form')
                 if board and 'arch' in board:
@@ -71,6 +71,7 @@ class Dashboard(models.Model):
                     if column is not None :
                         #删除原本的值
                         column.clear()
+                        self._arch_preprocessing(xml,view_id)
                         #新增视图
                         for view in setting.view_ids:
                             new_action = ElementTree.Element('action', {
@@ -81,11 +82,25 @@ class Dashboard(models.Model):
                                 'domain': view.domain
                             })
                             column.insert(0, new_action)
-                            arch = ElementTree.tostring(xml, 'utf-8')
-                            self.env['ir.ui.view.custom'].create({
-                                'user_id': self.env.uid,
-                                'ref_id': view_id,
-                                'arch': arch
-                            })
+                            self._arch_preprocessing(xml,view_id)
+                            #arch = ElementTree.tostring(xml, 'utf-8')
+                            #self.env['ir.ui.view.custom'].create({
+                            #    'user_id': self.env.uid,
+                            #    'ref_id': view_id,
+                            #    'arch': arch
+                            #})
 
 
+
+
+    def _arch_preprocessing(self,xml,view_id):
+        """
+            保存xml
+        :return:
+        """
+        arch = ElementTree.tostring(xml, 'utf-8')
+        self.env['ir.ui.view.custom'].create({
+            'user_id': self.env.uid,
+            'ref_id': view_id,
+            'arch': arch
+        })

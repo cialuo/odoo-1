@@ -9,5 +9,17 @@
             <field name="key">city.code</field>
             <field name="value">SZ</field>
         </record>
+        <record id="bus_arrange_rule_url" model="ir.config_parameter">
+            <field name="key">bus.arrange.rule.url</field>
+            <field name="value">http://10.1.10.169:8081/ltyop/trafficRules/getBusTraffRule</field>
+        </record>
+        <record id="dispatch_desktop_socket" model="ir.config_parameter">
+            <field name="key">dispatch.desktop.socket</field>
+            <field name="value">http://127.0.0.1</field>
+        </record>
+        <record id="dispatch_desktop_restful" model="ir.config_parameter">
+            <field name="key">dispatch.desktop.restful</field>
+            <field name="value">http://127.0.0.1</field>
+        </record>			
     </data>
 </odoo>
