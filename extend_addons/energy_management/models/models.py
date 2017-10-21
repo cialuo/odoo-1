@@ -3,8 +3,8 @@
 from odoo import models, fields, api,tools
 from odoo.tools.translate import _
 from odoo.modules.module import get_module_resource
-import datetime
-
+import datetime,logging
+_logger = logging.getLogger(__name__)
 class energy_station(models.Model):
 
      _name = 'energy.station'
@@ -135,7 +135,17 @@ class energy_station(models.Model):
                  end_date = datetime.datetime.now().strftime('%Y-%m-%d 59:59:59')
                  order.daily_consumption =  sum(order.usage_record_ids.filtered(lambda r: r.record_date >= begin_date and r.record_date<=end_date).mapped('fuel_capacity'))
 
-
+     @api.model
+     def run_scheduler(self):
+         """
+            运行定时任务：
+                每日把daily_consumption字段清0
+         :return:
+         """
+         _logger.info(u'Start run_scheduler')
+         for station in self.env['energy.station'].search([]):
+             station.write({'daily_consumption':0})
+         _logger.info(u'End run_scheduler')
 
      @api.model
      def create(self, vals):

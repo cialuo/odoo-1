@@ -21,6 +21,7 @@
     'data': [
         'security/energe_security.xml',
         'security/ir.model.access.csv',
+        'data/cron_data.xml',
         'data/data.xml',
         'views/energy_station_view.xml',
         'views/security_check_view.xml',
