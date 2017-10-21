@@ -59,6 +59,7 @@ class DriveRecords(models.Model):
             vals.update({
                 'id': res.id,
             })
+            vals['onboardId'] = res.vehicle_id.name
             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
         except Exception,e:
@@ -120,6 +121,7 @@ class DriveRecords(models.Model):
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                 _logger.info('Start unlink data: %s', self._name)
                 vals = {'id': r.id}
+                
                 res = super(DriveRecords, r).unlink()
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
                 rp = Client().http_post(url, data=params)

@@ -664,7 +664,7 @@ op_dispatchplan = {
 	#司机ID 运营+非运营
     ('workerId', 'driver_id'): None,
 	#车辆设备号 运营+非运营
-    ('onboardId', None): None,
+    ('onboardId', 'inner_code'): None,
 	#方向
     ('direction', 'direction'): None,
 	#gps理程

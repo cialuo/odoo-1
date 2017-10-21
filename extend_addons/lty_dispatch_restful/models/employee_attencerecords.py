@@ -56,6 +56,15 @@ class attence(models.Model):
             vals.update({
                 'id': res.id,
             })
+            vals['onboardId'] = res.vehicle_id.name
+            vals['selfId'] = res.vehicle_id.inner_code
+            vals['selfId'] = res.vehicle_id.inner_code
+            vals['gprsId'] = res.line_id.gprs_id
+            vals['line'] = res.line_id.line_name
+            vals['workerId'] = res.line_id.line_name
+            vals['workerId'] = res.employee_id.jobnumber
+            vals['driver'] = res.employee_id.name      
+                  
             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
         except Exception,e:
