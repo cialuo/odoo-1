@@ -16,9 +16,9 @@ class operation_records_move2v3(models.Model):
     #线路
     line_id = fields.Many2one('route_manage.route_manage')
     #运营理程
-    operation_vehicleusage_ids = fields.One2many('vehicleusage.driverecords','record_move_id')
+    operation_vehicleusage_ids = fields.One2many('vehicleusage.driverecords','record_move_id', domain=[('drivetype','=','working')])
     #非运营理程
-    nooperation_vehicleusage_ids = fields.One2many('vehicleusage.driverecords','record_move_id')
+    nooperation_vehicleusage_ids = fields.One2many('vehicleusage.driverecords','record_move_id', domain=[('drivetype','!=','working')])
     #签到记录
     attence_record_ids = fields.One2many('employee.attencerecords','record_move_id')
     
