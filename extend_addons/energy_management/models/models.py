@@ -105,6 +105,23 @@ class energy_station(models.Model):
      #每日能源统计消耗
      daily_consumption = fields.Float(store=True, string='Daily Consumption',readonly=True,compute='_compute_daily_consumption')
 
+     #统计能源站的剩余能源
+     overage_energy = fields.Float(store=True, string='Overage Energy',readonly=True,compute='_compute_overage_energy')
+
+
+     @api.depends('location_ids')
+     def _compute_overage_energy(self):
+         """
+            计算能源站的剩余能量
+         :return:
+         """
+         for order in self:
+             if order.location_ids:
+                 overage_energy = 0
+                 for location in order.location_ids:
+                    quant = self.env['stock.quant'].search([('location_id', '=', location.id),('product_id','=',location.energy_type.id)])
+                    overage_energy+= quant.qty
+                 order.overage_energy = overage_energy
 
      @api.depends('usage_record_ids')
      def _compute_daily_consumption(self):

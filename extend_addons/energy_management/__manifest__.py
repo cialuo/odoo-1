@@ -15,7 +15,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['materials_product','security_vehicle_check','vehicle_manage','vehicle_group'],
+    'depends': ['materials_product','security_vehicle_check','vehicle_manage','vehicle_group','stock_warning'],
 
     # always loaded
     'data': [
