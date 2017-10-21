@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-18 05:54+0000\n"
-"PO-Revision-Date: 2017-10-18 05:54+0000\n"
+"POT-Creation-Date: 2017-10-21 06:17+0000\n"
+"PO-Revision-Date: 2017-10-21 06:17+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,12 @@ msgstr ""
 #: model:ir.model.fields,help:important_component.field_vehicle_model_product_description
 msgid "A precise description of the Product, used only for internal information purposes."
 msgstr "产品的精确说明，仅用于内部备注。"
+
+#. module: important_component
+#: model:ir.actions.act_window,name:important_component.action_inventory_move
+#: model:ir.ui.menu,name:important_component.menu_inventory_move
+msgid "Action inventory move"
+msgstr "盘点异常"
 
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_product_component_active
@@ -198,6 +204,12 @@ msgid "ID"
 msgstr "ID"
 
 #. module: important_component
+#: code:addons/important_component/models/stock_inventory.py:206
+#, python-format
+msgid "INV:"
+msgstr "盘点:"
+
+#. module: important_component
 #: model:ir.model.fields,help:important_component.field_product_component_product_img
 msgid "Image of the product variant (Medium-sized image of product template if false)."
 msgstr "产品变型的图像(如果为Flase,采用产品模板的中尺寸图像)"
@@ -279,9 +291,19 @@ msgid "Inventory"
 msgstr "库存"
 
 #. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_stock_move_is_income
+msgid "Inventory Income"
+msgstr "盘盈"
+
+#. module: important_component
 #: model:ir.model,name:important_component.model_stock_inventory_line
 msgid "Inventory Line"
 msgstr "盘点明细"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_stock_move_is_loss
+msgid "Inventory loss"
+msgstr "盘亏"
 
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_maintain_fault_method_is_important_product
@@ -336,6 +358,7 @@ msgstr "物理位置"
 
 #. module: important_component
 #: selection:inventory.line.component,type:0
+#: selection:stock.move,inv_type:0
 msgid "Loss"
 msgstr "盘亏"
 
@@ -369,7 +392,7 @@ msgstr "在库数量"
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_product_component_odometer
 msgid "Odometer"
-msgstr "服役里程数"
+msgstr "里程表"
 
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_dismantle_component_operate_days
@@ -483,7 +506,7 @@ msgid "Stock Move"
 msgstr "库存移动"
 
 #. module: important_component
-#: code:addons/important_component/models/stock.py:137
+#: code:addons/important_component/models/stock.py:140
 #, python-format
 msgid "There are important & not important components,please remove: %s "
 msgstr "重要部件和非重要部件不能同时申领,请移除非重要部件: %s "
@@ -508,6 +531,11 @@ msgstr "调拨"
 #: model:ir.model.fields,field_description:important_component.field_inventory_line_component_type
 msgid "Type"
 msgstr "类型"
+
+#. module: important_component
+#: model:ir.model.fields,field_description:important_component.field_stock_move_inv_type
+msgid "Type inv"
+msgstr "盘点类型"
 
 #. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_vehicle_model_product_uom_id
@@ -630,6 +658,11 @@ msgid "general_info"
 msgstr "常规信息"
 
 #. module: important_component
+#: selection:stock.move,inv_type:0
+msgid "income"
+msgstr "盘盈"
+
+#. module: important_component
 #: model:ir.model.fields,field_description:important_component.field_inventory_line_component_line_id
 msgid "inventory line"
 msgstr "盘点明细"
@@ -713,7 +746,7 @@ msgstr "车型要件列表"
 #. module: important_component
 #: model:ir.model,name:important_component.model_warranty_order
 msgid "warranty_order"
-msgstr "保养单"
+msgstr "保养作业指导书"
 
 #. module: important_component
 #: model:ir.model,name:important_component.model_warranty_order_project
