@@ -9,6 +9,9 @@ class StockMove(models.Model):
 
     component_ids = fields.Many2many('product.component', 'component_move_rec', id1='move_id', id2='component_id',
                                      domain="[('product_id', '=', product_id), ('state', '=', 'avaliable')])")
+    inv_type = fields.Selection([('loss', 'Loss'), ('income', 'income')], string="Type inv")
+    # is_loss = fields.Boolean(string="Inventory loss", default=False)
+    # is_income = fields.Boolean(string="Inventory Income", default=False)
     # @api.multi
     # @api.constrains('product_uom_qty', 'component_ids')
     # def _check_component_qty(self):

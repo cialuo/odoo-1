@@ -18,10 +18,30 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/lgpl.html>.
 #
 ##############################################################################
-from odoo import models, fields, api, exceptions
+from odoo import models, fields, api, exceptions, _
+from odoo.tools import float_utils
 
 class Inventory(models.Model):
     _inherit = 'stock.inventory'
+
+    # loss_total = fields.Float(compute='_compute_total_adj', string="Loss total", store=True)
+    # income_total = fields.Float(compute='_compute_total_adj', string="Income total", store=True)
+
+    # @api.depends('line_ids', 'state')
+    # def _compute_total_adj(self):
+    #     for order in self:
+    #         if order.state == 'done':
+    #             loss_total = 0
+    #             income_total = 0
+    #             components = order.line_ids.filtered(lambda x: x.product_id.is_important and x.product_id.important_type == 'component')
+    #             for c in components:
+    #                 loss_total += sum([i.qty for i in c.component_ids if i.type == 'loss'])
+    #                 income_total += sum([i.qty for i in c.component_ids if i.type == 'income'])
+    #             for line in (order.line_ids - components):
+    #                 loss_total += sum([l.theoretical_qty - l.product_qty for l in line if (l.theoretical_qty > l.product_qty)])
+    #                 income_total += sum([l.product_qty - l.theoretical_qty for l in line if (l.theoretical_qty < l.product_qty)])
+    #             order.loss_total = loss_total
+    #             order.income_total = income_total
 
     @api.multi
     def prepare_inventory(self):
@@ -71,9 +91,11 @@ class Inventory(models.Model):
                 if not loss:
                     move_vals['location_id'] = self.env.ref('stock.location_inventory').id
                     move_vals['location_dest_id'] = c.line_id.location_id.id
+                    move_vals['inv_type'] = 'income'
                 else:
                     move_vals['location_dest_id'] = self.env.ref('stock.location_inventory').id
                     move_vals['location_id'] = c.line_id.location_id.id
+                    move_vals['inv_type'] = 'loss'
                 move_component = move.create(move_vals)
 
 
@@ -102,6 +124,7 @@ class Inventory(models.Model):
                             'origin': order.name,
                             'product_uom_qty': 1,
                             'inventory_id': order.id,
+                            'inv_type': 'loss',
                         }
                         move_component_loss = move.create(move_loss_vals)
                         component.component_id.write({
@@ -121,6 +144,7 @@ class Inventory(models.Model):
                             'origin': order.name,
                             'product_uom_qty': 1,
                             'inventory_id': order.id,
+                            'inv_type': 'income'
                         }
                         move_component = move.create(move_vals)
                         component_vals = {
@@ -168,6 +192,53 @@ class InventoryLine(models.Model):
     """
     component_ids = fields.One2many('inventory.line.component', 'line_id', string="Component")
     component_visible = fields.Boolean(compute='_compute_component_visible')
+
+
+
+    def _generate_moves(self):
+        moves = self.env['stock.move']
+        Quant = self.env['stock.quant']
+        for line in self:
+            if float_utils.float_compare(line.theoretical_qty, line.product_qty, precision_rounding=line.product_id.uom_id.rounding) == 0:
+                continue
+            diff = line.theoretical_qty - line.product_qty
+            vals = {
+                'name': _('INV:') + (line.inventory_id.name or ''),
+                'product_id': line.product_id.id,
+                'product_uom': line.product_uom_id.id,
+                'date': line.inventory_id.date,
+                'company_id': line.inventory_id.company_id.id,
+                'inventory_id': line.inventory_id.id,
+                'state': 'confirmed',
+                'restrict_lot_id': line.prod_lot_id.id,
+                'restrict_partner_id': line.partner_id.id}
+            if diff < 0:  # found more than expected
+                vals['location_id'] = line.product_id.property_stock_inventory.id
+                vals['location_dest_id'] = line.location_id.id
+                vals['product_uom_qty'] = abs(diff)
+                vals['inv_type'] = 'loss'
+            else:
+                vals['location_id'] = line.location_id.id
+                vals['location_dest_id'] = line.product_id.property_stock_inventory.id
+                vals['product_uom_qty'] = diff
+                vals['inv_type'] = 'income'
+            move = moves.create(vals)
+
+            if diff > 0:
+                domain = [('qty', '>', 0.0), ('package_id', '=', line.package_id.id), ('lot_id', '=', line.prod_lot_id.id), ('location_id', '=', line.location_id.id)]
+                preferred_domain_list = [[('reservation_id', '=', False)], [('reservation_id.inventory_id', '!=', line.inventory_id.id)]]
+                quants = Quant.quants_get_preferred_domain(move.product_qty, move, domain=domain, preferred_domain_list=preferred_domain_list)
+                Quant.quants_reserve(quants, move)
+            elif line.package_id:
+                move.action_done()
+                move.quant_ids.write({'package_id': line.package_id.id})
+                quants = Quant.search([('qty', '<', 0.0), ('product_id', '=', move.product_id.id),
+                                       ('location_id', '=', move.location_dest_id.id), ('package_id', '!=', False)], limit=1)
+                if quants:
+                    for quant in move.quant_ids:
+                        if quant.location_id.id == move.location_dest_id.id:  #To avoid we take a quant that was reconcile already
+                            quant._quant_reconcile_negative(move)
+        return moves
 
     @api.multi
     def _compute_component_visible(self):
