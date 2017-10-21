@@ -654,6 +654,60 @@ sys_user = {
     ('UserPwd', 'password'): None,
     ('delState', 'active'): {True:0,False:1}
 }
+#运营理程 非运营理程表
+#op_dispatchplan -- vehicleusage.driverecords
+op_dispatchplan = {
+	#数据库id
+    ('id', 'id'): None,
+	#线路id  运营+非运营
+    ('lineId', 'route_id'): None,
+	#司机ID 运营+非运营
+    ('workerId', 'driver_id'): None,
+	#车辆设备号 运营+非运营
+    ('onboardId', None): None,
+	#方向
+    ('direction', 'direction'): None,
+	#gps理程
+    ('gpsKm', 'GPSmileage'): None,
+	#是否异常
+    ('isExcept', None): None,
+	#车型
+    ('busType', None): None,
+	#增加原因
+    ('addReasonId', None): None,
+	#计划类型ID
+    ('planTypeId', None): None,
+	#工作日期
+    ('workDate', 'date'): None,
+	#Remark ???
+    ('remark', None): None,
+	#异常时间
+    ('exceptTime', None): None,
+	#异常站点
+    ('exceptStation', None): None,
+	#异常原因ID
+    ('exceptReasonId', None): None,
+	#实际发车时间
+    ('exceptReasonId', 'realitydepart'): None,
+	#实际到达时间
+    ('realReachTime', 'realityarrive'): None,
+	#司机姓名
+    ('driverName', 'driver_name'): None,
+	#planCount？？？
+    ('planCount？？？', None): None,
+	#invalidCount ??
+    ('invalidCount', None): None,
+	#planStateId ??
+    ('planStateId', None): None,	
+}
+#考勤信息表表
+#op_attendance -- employee.attencerecords
+op_attendance = {
+	#数据库id
+    ('id', 'id'): None,
+}
+
+
 origin_data = {
     #线路基础数据
     'route_manage.route_manage': op_line,
@@ -701,6 +755,10 @@ origin_data = {
     'scheduleplan.motorcyclists.steward': op_trainattendance,
     #用户表
     'res.users': sys_user,
+    #运营里程
+    'vehicleusage.driverecords': op_dispatchplan,	
+    #考勤信息表表
+    'employee.attencerecords': op_attendance,		
 }
 
 def dict_transfer(table, data):

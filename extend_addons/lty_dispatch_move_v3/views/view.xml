@@ -10,6 +10,7 @@
       <field name="model">vehicleusage.driverecords</field>
       <field name="arch" type="xml">
 		<tree editable='bottom'>
+			<field name="drivetype" string="类型"/>
 			<field name="company_id" string="公司"/>
 			<field name="route_id" string="线路"/>
 			<field name="direction" string="方向"/>
@@ -17,7 +18,7 @@
 			<field name="date_plan" string="计划时间"/>
 			<field name="realitydepart" string="实际发车时间"/>
 			<field name="state_plan" string="计划状态"/>
-			<field name="inner_code" string="车辆编号"/>
+			<field name="vehicle_id" string="车辆编号"/>
 			<field name="driver_id" string="司机工号"/>
 			<field name="driver_name" string="司机姓名"/>
 			<field name="planarrive" string="计划到达时间"/>
@@ -39,9 +40,10 @@
       <field name="model">vehicleusage.driverecords</field>
       <field name="arch" type="xml">
 		<tree editable='bottom'>
+			<field name="drivetype" string="类型"/>
 			<field name="company_id" string="公司"/>
 			<field name="route_id" string="线路"/>
-			<field name="inner_code" string="车辆编号"/>
+			<field name="vehicle_id" string="车辆编号"/>
 			<field name="driver_id" string="司机工号"/>
 			<field name="driver_name" string="司机姓名"/>
 			<field name="date" string="日期"/>
@@ -60,7 +62,7 @@
       <field name="name">employee.attencerecords</field>
       <field name="model">employee.attencerecords</field>
       <field name="arch" type="xml">
-        <tree>
+		<tree editable='bottom'>
           <field name="company_id" string="公司"/>
           <field name="line_id" string="线路"/>
           <field name="vehicle_id" string="车辆编号"/>
@@ -111,40 +113,15 @@
 				</group>
 				<notebook>
 					<page string = '运营里程'>
-                        <field name="operation_vehicleusage_ids" domain="[('drivetype','=','working')]">
-							<tree editable='bottom'>
-								<field name="company_id" string="公司"/>
-								<field name="route_id" string="线路"/>
-								<field name="direction" string="方向"/>
-								<field name="date" string="日期"/>
-								<field name="date_plan" string="计划时间"/>
-								<field name="realitydepart" string="实际发车时间"/>
-								<field name="state_plan" string="计划状态"/>
-								<field name="inner_code" string="车辆编号"/>
-								<field name="driver_id" string="司机工号"/>
-								<field name="driver_name" string="司机姓名"/>
-								<field name="planarrive" string="计划到达时间"/>
-								<field name="realityarrive" string="实际到达时间"/>
-								<field name="time_operation" string="运营时长"/>
-								<field name="planmileage" string="计划公理数"/>
-								<field name="GPSmileage" string="GPS公理数"/>
-								<field name="operation_att" string="运营属性"/>
-								<field name="abnormal" string="异常"/>
-								<field name="gen_date" string="生成日期"/>
-								<field name="is_add" string="是否补录"/>
-								<field name="note" string="备注"/>
-							</tree>                        
+                        <field name="operation_vehicleusage_ids" domain="[('drivetype','=','working')]" context="{'tree_view_ref':'lty_dispatch_move_v3.operation_vehicleusage_driverecords_list','default_drivetype': 'working'}">                       
                         </field>
 					</page>
 					<page string = '非运营理程'>
-                        <field name="nooperation_vehicleusage_ids" domain="[('drivetype','!=','working')]"  context="{'tree_view_ref':'nooperation_vehicleusage_driverecords_list'}">
-                        
-                        
-                        
+                        <field name="nooperation_vehicleusage_ids" domain="[('drivetype','!=','working')]"  context="{'tree_view_ref':'lty_dispatch_move_v3.nooperation_vehicleusage_driverecords_list','default_drivetype': 'empty'}">
                         </field>
 					</page>
 					<page string = '司乘考勤信息'>
-                        <field name="attence_record_ids" context="{'tree_view_ref':'employee_attencerecords_v3_list'}"/>
+                        <field name="attence_record_ids" context="{'tree_view_ref':'lty_dispatch_move_v3.employee_attencerecords_v3_list'}"/>
 					</page>	
 				</notebook>
 			</form>
@@ -205,14 +182,16 @@
     <!-- 行驶记录菜单 -->  
     <menuitem name="数据迁移" id="operation_records_move2v3_menu" parent="operation_records_menus"
               action="operation_records_move2v3_action" sequence="20"/> 
+    <menuitem name="历史迁移记录" id="operation_records_move2v3_history_menu" parent="operation_records_menus"
+              sequence="30"/>               
 			  
-    <menuitem name="运营里程" id="operation_vehicleusage_driverecords_menu" parent="operation_records_menus"
+    <menuitem name="运营里程" id="operation_vehicleusage_driverecords_menu" parent="operation_records_move2v3_history_menu"
               action="operation_vehicleusage_driverecords_action" sequence="30"/>
 
-    <menuitem name="非运营里程" id="operation_no_vehicleusage_driverecords_menu" parent="operation_records_menus"
+    <menuitem name="非运营里程" id="operation_no_vehicleusage_driverecords_menu" parent="operation_records_move2v3_history_menu"
               action="operation_no_vehicleusage_driverecords_action" sequence="40"/>
 			  
-    <menuitem name="司乘考勤信息" id="employee_attencerecords_v3_menu" parent="operation_records_menus"
+    <menuitem name="司乘考勤信息" id="employee_attencerecords_v3_menu" parent="operation_records_move2v3_history_menu"
               action="employee_attencerecords_v3_action" sequence="50"/>
 	
 
