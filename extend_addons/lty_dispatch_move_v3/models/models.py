@@ -5,6 +5,7 @@ import requests
 from odoo.exceptions import UserError
 from odoo import models, fields, api
 
+
 class operation_records_move2v3(models.Model):
     _name = 'operation.records.move2v3'
     
@@ -56,18 +57,18 @@ class operation_records_move2v3(models.Model):
         attence_obj = self.env['employee.attencerecords']
 
         # company_id = self.company_id.id
-        start_date = datetime.datetime.strptime(str(self.name),'%Y-%m-%d')
+        start_date = self.name
         end_data = start_date
         para_dict = {'lineId':self.line_id.id, 'startDate':start_date, 'endDate':end_data}
 
         # 非运营
         r = driver_recodes_obj.restful_get_data('op_exceptkm', para_dict)
 
-        # 运营
-        r = driver_recodes_obj.restful_get_data('op_dispatchplan', para_dict)
-
-        # 考勤
-        r = attence_obj.restful_get_data(para_dict)
+        # # 运营
+        # r = driver_recodes_obj.restful_get_data('op_dispatchplan', para_dict)
+        #
+        # # 考勤
+        # r = attence_obj.restful_get_data(para_dict)
 
 
         # values = driver_recodes_obj.restful()
@@ -136,7 +137,7 @@ class DriveRecords(models.Model):
 
 
     @api.multi
-    def restful_get_data(self, type, **search_para):
+    def restful_get_data(self, type, search_para):
         url_config = self.env['ir.config_parameter'].get_param('dispatch.desktop.restful')
 
         params = {
@@ -148,10 +149,10 @@ class DriveRecords(models.Model):
         url = '%s/ltyop/planData/queryListByPage?apikey=71029270&params=%s' % (url_config, json.dumps(dict(params, **search_para)))
         r = requests.get(url)
         if r.status_code != 200:
-            raise UserError(_("查询失败."))
+            raise UserError(_(u"查询失败."))
 
         if r.json().get('result') != 0:
-            raise UserError(_("服务器返回查询失败."))
+            raise UserError(_(u"服务器返回查询失败."))
 
         if type == 'op_exceptkm':      # 非运营
             for item in r.json()['respose']['list']:
