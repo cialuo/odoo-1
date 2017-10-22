@@ -5,6 +5,12 @@ import requests
 from odoo.exceptions import UserError
 from odoo import models, fields, api
 
+def utc2local(str):
+    local_time = datetime.datetime.strptime(str, '%Y-%m-%d %H:%M:%S') +datetime.timedelta(hours=8)
+    return datetime.datetime.strftime(local_time,"%Y-%m-%d %H:%M:%S")
+def local2utc(str):
+    local_time = datetime.datetime.strptime(str, '%Y-%m-%d %H:%M:%S') +datetime.timedelta(hours=-8)
+    return datetime.datetime.strftime(local_time,"%Y-%m-%d %H:%M:%S")
 
 class operation_records_move2v3(models.Model):
     _name = 'operation.records.move2v3'
@@ -98,8 +104,8 @@ class DriveRecords(models.Model):
     # 实际发车时间 realitydepart
 
     # 计划状态
-    state_plan = fields.Char()
-    # 车辆编号
+    state_plan = fields.Selection(
+        [('0', u'待发车0'), ('1', u'待发车1'), ('2', u'已执行')])
     inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
     # 司机工号 driver_id
 
@@ -212,10 +218,82 @@ class DriveRecords(models.Model):
 
                 data_list.append(new_data)
             return data_list
-
+        #运营里程
         elif type == 'op_dispatchplan':
             for item in r.json()['respose']['list']:
-                pass
+                if self.env['fleet.vehicle'].search([('on_boardid', '=', item.get('onBoardId'))]) :
+                    vehicle_id = self.env['fleet.vehicle'].search([('on_boardid', '=', item.get('onBoardId'))])[0].id
+                else:
+                    raise UserError((u"车辆不存在."))
+                if self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))]):
+                    driver_id = self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))])[0].id
+                else:
+                    raise UserError((u"员工不存在."))
+
+                new_data = {
+                    'restful_key_id': item.get('id'),
+					#公司
+                    'company_id': int(item.get('companyId')),  # 公司
+					#线路
+                    'route_id': item.get('lineId'),     # 线路
+                    #方向
+                    'direction': item.get('direction'),     # 线路
+					#日期
+                    'date': item.get('createTime', '').split(' ')[0] or None,   # todo
+					#计划时间：
+                    'date_plan': item.get('planRunTime'),     # 线路
+					#实际发车时间
+                    'realitydepart': item.get('realRunTime') or None, 
+					#计划状态
+                    'state_plan': item.get('planState'),   # 状态
+					#车辆编号
+                    'vehicle_id': vehicle_id, 
+					#司机ID  ???
+                    'driver_id': driver_id, 
+					#计划到达时间？？？
+                    'planarrive': planReachTime,
+					#实际到达时间
+                    'realityarrive': item.get('endTime') or None,      # 结束时间
+					#运营时长
+					
+					#计划公里数
+                    #'planmileage': item.get('planKm'),         # 计划里程数
+					#GPS公里数
+                    #'GPSmileage': item.get('realKm'),          # GPS里程数
+					#运营属性
+					#异常
+                    #'abnormal': str(item.get('kmTypeId')),          # 异常类型
+					#生成日期
+                    #'gen_date': item.get('createTime') or None,        # 生成时间
+					#备注
+                    #'note': item.get('remark'),  # String    备注
+					#是否手动增加
+                    'is_add': False,
+					#同步成功后的状态
+                    'state': 'draft',
+					# 类型
+                    'drivetype': 'working',	
+
+
+					
+                    # 'driver_id': int(item.get('driverName')),  # 司机
+                    # 司机姓名
+                    # 'finish_state': item.get('finishState'),   # 状态
+                    # item.get('addReason')  # int    添加原因id
+                    # item.get('companyName')  # Int    公司名称
+                    # item.get('gprsId')  # Int    线路编码
+                    #
+                    # item.get('isManual')  # Int    是否手动处理（0：否，1：是）
+                    # item.get('kmTypeName')  # String    异常名称
+                    #
+                    # item.get('endKm'),  # tring    结束公里
+                    # item.get('startKm')  # Double    开始里程
+                }
+
+                data_list.append(new_data)
+            return data_list
+        
+        
 
 class attence(models.Model):
     """
