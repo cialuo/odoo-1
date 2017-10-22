@@ -81,12 +81,11 @@
       <field name="model">operation.records.move2v3</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="name" string="日期"/>
+          <field name="name" string="迁移日期"/>
           <field name="company_id" string="公司"/>
           <field name="line_id" string="线路"/>
-          <field name="start_date" string="开始时间"/>
-          <field name="end_date" string="结束时间"/>
-		  
+          <field name="create_uid" string="创建人"/>
+          <field name="create_date" string="创建日期"/>
         </tree>
       </field>
     </record>
@@ -155,8 +154,19 @@
     </record>	
 	
     <!-- 数据迁移动作 -->  
-    <record model="ir.actions.act_window" id="operation_records_move2v3_action">
-      <field name="name">数据迁移</field>
+    <record model="ir.actions.act_window" id="operation_records_move2v3_create_action">
+      <field name="name">新建数据迁移单</field>
+      <field name="res_model">operation.records.move2v3</field>
+      <field name="view_mode">form</field>
+	  <field name="help" type="html">
+	      <p class="oe_view_nocontent_create">
+	          暂无迁移批次记录.<br/>
+	      </p>
+	  </field>           
+    </record>
+    <!-- 数据迁移动作 -->  
+    <record model="ir.actions.act_window" id="operation_records_move2v3_search_action">
+      <field name="name">新建数据迁移单</field>
       <field name="res_model">operation.records.move2v3</field>
       <field name="view_mode">tree,form</field>
 	  <field name="help" type="html">
@@ -164,7 +174,8 @@
 	          暂无迁移批次记录.<br/>
 	      </p>
 	  </field>           
-    </record>
+    </record>    
+    
     <!-- 司乘考勤信息动作 -->  
     <record model="ir.actions.act_window" id="employee_attencerecords_v3_action">
       <field name="name">司乘考勤信息</field>
@@ -180,10 +191,14 @@
 	
 	
     <!-- 行驶记录菜单 -->  
-    <menuitem name="数据迁移" id="operation_records_move2v3_menu" parent="operation_records_menus"
-              action="operation_records_move2v3_action" sequence="20"/> 
+    <menuitem name="新建数据迁移单" id="operation_records_move2v3_create_menu" parent="operation_records_menus"
+              action="operation_records_move2v3_create_action" sequence="20"/> 
+    <menuitem name="查询数据迁移单" id="operation_records_move2v3_search_menu" parent="operation_records_menus"
+              action="operation_records_move2v3_search_action" sequence="30"/>               
+              
+              
     <menuitem name="历史迁移记录" id="operation_records_move2v3_history_menu" parent="operation_records_menus"
-              sequence="30"/>               
+              sequence="40"/>               
 			  
     <menuitem name="运营里程" id="operation_vehicleusage_driverecords_menu" parent="operation_records_move2v3_history_menu"
               action="operation_vehicleusage_driverecords_action" sequence="30"/>
