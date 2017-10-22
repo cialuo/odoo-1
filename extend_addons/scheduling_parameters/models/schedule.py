@@ -135,7 +135,7 @@ class route_manage(models.Model):
 
     # 显示名称
     _rec_name = 'line_name'
-
+	
     line_name = fields.Char('Line Name', required=True) # 线路名称
     gprs_id = fields.Integer('gprsid', required=True) # 线路编码
     oil_wear_coefficient = fields.Float(digits=(10, 2), string='Oil wear coefficient') # 油耗系数
