@@ -57,12 +57,15 @@ class operation_records_move2v3(models.Model):
         attence_obj = self.env['employee.attencerecords']
 
         # company_id = self.company_id.id
-        start_date = self.name
-        end_data = start_date
-        para_dict = {'lineId':str(self.line_id.id), 'startDate':start_date, 'endDate':end_data}
+        start_date = '%s 00:00:00' % (self.name)
+        end_data = '%s 23:59:59' % (self.name)
+        para_dict = {'lineId': str(self.line_id.id), 'startDate': start_date, 'endDate': end_data}
 
         # 非运营
-        r = driver_recodes_obj.restful_get_data('op_exceptkm', para_dict)
+        data_list = driver_recodes_obj.restful_get_data('op_exceptkm', para_dict)
+        for data_line in data_list :
+            data_line.update({'record_move_id':self.id})
+            line_id = self.env['vehicleusage.driverecords'].create(data_line)
 
         # # 运营
         # r = driver_recodes_obj.restful_get_data('op_dispatchplan', para_dict)
@@ -135,6 +138,10 @@ class DriveRecords(models.Model):
 
     finish_state = fields.Selection([('1', u'运行中'),('2', u'已完成')])
 
+    _sql_constraints = [
+        ('restful_key_id_record_move_id', 'unique (record_move_id,restful_key_id)', u'不能重复迁移同一日期的数据!')
+    ]
+
 
     @api.multi
     def restful_get_data(self, type, search_para):
@@ -154,33 +161,40 @@ class DriveRecords(models.Model):
         if r.json().get('result') != 0:
             raise UserError((u"服务器返回查询失败."))
 
+
         if type == 'op_exceptkm':      # 非运营
+            data_list = []
             for item in r.json()['respose']['list']:
+                if self.env['fleet.vehicle'].search([('on_boardid', '=', item.get('onBoardId'))]) :
+                    on_boardid = self.env['fleet.vehicle'].search([('on_boardid', '=', item.get('onBoardId'))])[0].id
+                else:
+                    raise UserError((u"车辆不存在."))
 
                 new_data = {
                     'restful_key_id': item.get('id'),
 
-                    'company_id': item.get('companyId'),  # 公司
+                    'company_id': int(item.get('companyId')),  # 公司
                     'route_id': item.get('lineName'),     # 线路
-                    'vehicle_id': self.env['fleet.vehicle'].search([('on_board_id', '=', item.get('onBoardId'))])[0].id,  # 车辆
-                    'driver_id': item.get('driverName'),  # 司机
+                    'vehicle_id': on_boardid,  # 车辆
+                    # 'driver_id': int(item.get('driverName')),  # 司机
                     # 司机姓名
 
-                    'date': item.get('createTime'),  # todo
-                    'realitydepart': item.get('startTime'),    # 开始时间
-                    'realityarrive': item.get('endTime'),      # 结束时间
+                    'date': item.get('createTime', '').split(' ')[0] or None,   # todo
+                    'realitydepart': item.get('startTime') or None,     # 开始时间
+                    'realityarrive': item.get('endTime') or None,      # 结束时间
 
-                    'abnormal': item.get('kmTypeId'),          # 异常类型
+                    'abnormal': str(item.get('kmTypeId')),          # 异常类型
 
                     'planmileage': item.get('planKm'),         # 计划里程数
                     'GPSmileage': item.get('realKm'),          # GPS里程数
-                    'gen_date': item.get('createTime'),        # 生成时间
-                    'finish_state': item.get('finishState'),   # 状态
+                    'gen_date': item.get('createTime') or None,        # 生成时间
+                    # 'finish_state': item.get('finishState'),   # 状态
 
                     'note': item.get('remark'),  # String	备注
 
                     'is_add': False,
                     'state': 'draft',
+                    'drivetype': 'empty',
                     # item.get('addReason')  # int	添加原因id
                     # item.get('companyName')  # Int	公司名称
                     # item.get('gprsId')  # Int	线路编码
@@ -192,8 +206,8 @@ class DriveRecords(models.Model):
                     # item.get('startKm')  # Double	开始里程
                 }
 
-                res = self.create(new_data)
-                print(new_data)
+                data_list.append(new_data)
+            return data_list
 
         elif type == 'op_dispatchplan':
             for item in r.json()['respose']['list']:
