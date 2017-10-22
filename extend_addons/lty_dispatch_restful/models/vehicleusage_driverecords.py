@@ -53,17 +53,18 @@ class DriveRecords(models.Model):
             TABLE = TABLE_others
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
-            vals.update({
-                'id': res.id,
-            })
-            vals['onboardId'] = res.vehicle_id.name
-            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+        if  vals.get('is_add') :
+            try:
+                _logger.info('Start create data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)
+                vals.update({
+                    'id': res.id,
+                })
+                vals['onboardId'] = res.vehicle_id.name
+                params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res
 
     @api.multi

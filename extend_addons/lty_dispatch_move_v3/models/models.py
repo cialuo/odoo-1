@@ -21,12 +21,31 @@ class operation_records_move2v3(models.Model):
     nooperation_vehicleusage_ids = fields.One2many('vehicleusage.driverecords','record_move_id', domain=[('drivetype','!=','working')])
     #签到记录
     attence_record_ids = fields.One2many('employee.attencerecords','record_move_id')
+    # 类型
+    state = fields.Selection([
+        ('draft',u'草稿'), 
+        ('syned',u'同步'), 
+        ('approved','审核'), 
+        ('moved','迁移') 
+    ],default="draft", readonly=True)       
+    
     
     _sql_constraints = [
         ('name_uniq', 'unique (name,line_id)', u'不能重复迁移同一日期，同一线路的数据!')
     ]
     
-    
+    @api.multi
+    #审核迁移单    
+    def do_approve(self):
+        for r in self :
+            for operation_vehicleusage_id in r.operation_vehicleusage_ids :
+                operation_vehicleusage_id.write({"state":'approved'})
+            for nooperation_vehicleusage_id in r.nooperation_vehicleusage_ids :
+                nooperation_vehicleusage_id.write({"state":'approved'}) 
+            for attence_record_id in r.attence_record_ids :
+                attence_record_id.write({"state":'approved'})
+        r.write({"state":'approved'})                 
+  
     @api.multi
     #通过访问后台提供的restful接口获取到运营理程信息，非运营理程信息和司乘考勤信息    
     def get_data(self):
@@ -80,11 +99,17 @@ class DriveRecords(models.Model):
     # 生成日期
     gen_date = fields.Datetime()
     # 是否补录
-    is_add = fields.Boolean()
+    is_add = fields.Boolean(default=True, readonly=True)
     # 备注
     note = fields.Char()
     #移转单ID
     record_move_id = fields.Many2one('operation.records.move2v3')
+    # 类型
+    state = fields.Selection([
+        ('draft',u'草稿'), 
+        ('approved','审核'), 
+        ('moved','迁移') 
+    ],default="draft", readonly=True)    
     
 
 class attence(models.Model):
@@ -109,4 +134,12 @@ class attence(models.Model):
     # 签到时间 checkingin
 
     # 签退时间 checkinginout
+    #是否客户端补录
+    is_add = fields.Boolean(default=True, readonly=True)
+    # 类型
+    state = fields.Selection([
+        ('draft',u'草稿'), 
+        ('approved','审核'), 
+        ('moved','迁移') 
+    ],default="draft", readonly=True)       
 
