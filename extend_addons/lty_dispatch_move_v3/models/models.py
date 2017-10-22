@@ -88,6 +88,25 @@ class operation_records_move2v3(models.Model):
 
         # values = driver_recodes_obj.restful()
         # driver_recodes_obj.create(values)
+        
+    @api.multi
+    def do_move2V3(self):
+        url_config = self.env['ir.config_parameter'].get_param('dispatch.desktop.restful')
+        params = {
+            'lineId': str(self.line_id.id),
+            'type': '0',
+            'workDate': self.name
+        }
+
+        url = '%s/ltyop/transfer/transferExceptKmOdoo?apikey=71029270&params=%s' % (url_config, json.dumps(dict(params)))
+        r = requests.get(url)
+        if r.status_code != 200:
+            raise UserError((u"连接失败."))
+
+        if r.json().get('result') != 0:
+            raise UserError((u"服务器返回查询失败."))
+        return r.json()['respose']
+        
 
 class DriveRecords(models.Model):
     """
