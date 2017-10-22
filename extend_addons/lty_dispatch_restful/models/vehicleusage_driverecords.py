@@ -59,6 +59,12 @@ class DriveRecords(models.Model):
                 vals = mapping.dict_transfer(self._name, vals)
                 vals.update({
                     'id': res.id,
+                    'line':res.line_id.line_name,
+                    'selfId':res.vehicle_id.inner_code,
+                    'onBoardId':res.vehicle_id.on_boardid,
+                    'gprsId':res.line_id.gprs_id,
+                    'workerId':res.employee_id.jobnumber,
+                    'driver':res.employee_id.name,
                 })
                 vals['onboardId'] = res.vehicle_id.name
                 params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()

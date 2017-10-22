@@ -670,7 +670,7 @@ op_dispatchplan = {
 	#gps理程
     ('gpsKm', 'GPSmileage'): None,
 	#是否异常
-    ('isExcept', None): None,
+    ('isExcept', 'abnormal'): None,
 	#车型
     ('busType', None): None,
 	#增加原因
@@ -694,7 +694,7 @@ op_dispatchplan = {
 	#司机姓名
     ('driverName', 'driver_name'): None,
 	#planCount？？？
-    ('planCount？？？', None): None,
+    ('planCount', None): None,
 	#invalidCount ??
     ('invalidCount', None): None,
 	#planStateId ??
@@ -707,31 +707,31 @@ op_attendance = {
     ('id', 'id'): None,
 	#   * "线路ID"
     ('lineId', 'line_id'): None,
-	#   * "线路名称"
+	#   * "线路名称"  添加到代码里
     ('line', None): None,
 	#   * "调度计划ID"
     ('dispatchPlanId', None): None,
-	#   * "车辆编号"
+	#   * "车辆编号"  添加到代码里
     ('selfId', None): None,
-	#   * "设备编号"
+	#   * "设备编号"  添加到代码里
     ('onBoardId', None): None,
-	#   * "线路编码"
+	#   * "线路编码"  添加到代码里
     ('gprsId', None): None,
 	#   "台次"
     ('orderNo', None): None,
 	#   * "计划签到时间"
     ('onWorkTime', None): None,
 	#   * "实际签到时间"
-    ('conWorkTime', None): None,
+    ('conWorkTime', 'checkingin'): None,
 	#   "实际签到车辆"
     ('onWorkBus', None): None,
 	#   "实际签退时间"
-    ('coffWorkTime', None): None,
+    ('coffWorkTime', 'checkinginout'): None,
 	#   "实际签退车辆"
     ('offWorkBus', None): None,
-	#   "工号"
+	#   "工号"  添加到代码里
     ('workerId', None): None,
-	#   "姓名"
+	#   "姓名"  添加到代码里
     ('driver', None): None,
 	#   "执行日期"
     ('workDate', None): None,
@@ -739,7 +739,7 @@ op_attendance = {
     ('remark', None): None,
 	#   "计划发车时间"
     ('planRunTime', None): None,
-	#   "时间发车时间"
+	#   "实际发车时间"
     ('planReachTime', None): None,
 	#   "上班时间"
     ('workTime', None): None,

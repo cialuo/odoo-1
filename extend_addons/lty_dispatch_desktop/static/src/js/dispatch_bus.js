@@ -1105,18 +1105,18 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.location_data=option;
         },
         start: function () {
-            $.ajax({
-                    url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
-                    type: 'get',
-                    dataType: 'json',
-                    data: {},
-                    success: function (data) {
-
-                    },
-                    error: function () {
-                        layer.msg('请求出错', {time: 1000, shade: 0.3});
-                    }
-                });
+            // $.ajax({
+            //         url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
+            //         type: 'get',
+            //         dataType: 'json',
+            //         data: {},
+            //         success: function (data) {
+            //
+            //         },
+            //         error: function () {
+            //             layer.msg('请求出错', {time: 1000, shade: 0.3});
+            //         }
+            //     });
         },
         events:{
             'click .mutal_srh_btn':'mutual_search'
