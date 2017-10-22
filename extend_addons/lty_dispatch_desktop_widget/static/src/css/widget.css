@@ -816,6 +816,10 @@
     white-space:nowrap;
 }
 
+.plan_display .plan_group .section_plan_cont .bus_plan_fix td {
+    color: #e3bc6e;
+}
+
 .plan_display .plan_group .plan_box {
     background: #3a4263;
 }
