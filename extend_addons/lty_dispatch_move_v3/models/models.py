@@ -67,12 +67,16 @@ class operation_records_move2v3(models.Model):
             data_line.update({'record_move_id':self.id})
             line_id = self.env['vehicleusage.driverecords'].create(data_line)
 
-        # # 运营
+        # 运营
         # r = driver_recodes_obj.restful_get_data('op_dispatchplan', para_dict)
-        #
-        # # 考勤
-        # r = attence_obj.restful_get_data(para_dict)
 
+        # 考勤
+        attendance_list = attence_obj.restful_get_data(para_dict)
+        # print(attendance_list)
+        for data_line in attendance_list:
+            print(data_line)
+            data_line.update({'record_move_id':self.id})
+            line_id = self.env['employee.attencerecords'].create(data_line)
 
         # values = driver_recodes_obj.restful()
         # driver_recodes_obj.create(values)
@@ -242,5 +246,67 @@ class attence(models.Model):
         ('draft',u'草稿'), 
         ('approved','审核'), 
         ('moved','迁移') 
-    ],default="draft", readonly=True)       
+    ],default="draft", readonly=True)
+
+    @api.multi
+    def restful_get_data(self, search_para):
+        url_config = self.env['ir.config_parameter'].get_param('dispatch.desktop.restful')
+
+        params = {
+            'tablename': 'op_attendance',
+            'pageNum': '1',
+            'pageSize': '1000000'
+        }
+
+        url = '%s/ltyop/planData/queryListByPage?apikey=71029270&params=%s' % (url_config, json.dumps(dict(params, **search_para)))
+        r = requests.get(url)
+        if r.status_code != 200:
+            raise UserError((u"查询失败."))
+
+        if r.json().get('result') != 0:
+            raise UserError((u"服务器返回查询失败."))
+
+        data_list = []
+        for item in r.json()['respose']['list']:
+            if self.env['fleet.vehicle'].search([('on_boardid', '=', item.get('onBoardId'))]):
+                on_boardid = self.env['fleet.vehicle'].search([('on_boardid', '=', item.get('onBoardId'))])[0].id
+            else:
+                raise UserError((u"车辆不存在."))
+
+            if self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))]):
+                employee_id = self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))])[0].id
+            else:
+                raise UserError((u"员工不存在."))
+
+            new_data = {
+                'company_id': '',
+                'line_id': item.get('lineId'),          # 线路ID 27,
+                'vehicle_id': on_boardid,
+                'employee_id': employee_id,             # workerId "15373",
+                'date': item.get('workDate').split(' ')[0] or None,           # 工作日期 "2017-10-19 00:00:00",
+                'checkingin': item.get('conWorkTime') or None,  #  "签到时间",
+                'checkinginout': item.get('coffWorkTime') or None,  # "签退时间",
+
+
+                # : item.get('dispatchPlanId'],		#  -1,
+                # : item.get('driverName'],			#  "司机姓名 15373",
+                # : item.get('gprsId'],				#  线路编码 251,
+                # : item.get('id'],				    #  2428,
+                #
+                # : item.get('offWorkBus'],			#  "",
+                # : item.get('onBoardId'],			#   15378,
+                # : item.get('onWorkBus'],			#  "上班车辆",
+                # :
+                # : item.get('orderNo'],				#  0,
+                # : item.get('planReachTime'],		#  "",
+                # : item.get('planRunTime'],			#  "",
+                # : item.get('planTime'],			    #  "",
+                # : item.get('remark'],				#  "",
+                # : item.get('selfId'],				#  "",
+                # : item.get('workTime'],			    #  "",
+                # : item.get('workerType'],			#  workerType 1019
+            }
+
+            data_list.append(new_data)
+        return data_list
 
