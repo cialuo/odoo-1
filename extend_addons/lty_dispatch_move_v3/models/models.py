@@ -83,6 +83,8 @@ class operation_records_move2v3(models.Model):
             print(data_line)
             data_line.update({'record_move_id':self.id})
             line_id = self.env['employee.attencerecords'].create(data_line)
+        
+        self.write({'state':'syned'})
 
         # values = driver_recodes_obj.restful()
         # driver_recodes_obj.create(values)
