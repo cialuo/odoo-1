@@ -59,6 +59,8 @@ op_line = {
     ('isShowPoint', None): None,
     #是否显示站点名，无对应字段（0：不显示；1：显示）,默认传值：0
     ('isShowStationName', None): None,
+	#公司
+    ('companyId', 'company_id'): None,
     #以下三个字段文档未描述
     # 'lineStart': '',
     # 'lineEnd': '',
