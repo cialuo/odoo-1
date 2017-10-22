@@ -59,7 +59,7 @@ class operation_records_move2v3(models.Model):
         # company_id = self.company_id.id
         start_date = self.name
         end_data = start_date
-        para_dict = {'lineId':self.line_id.id, 'startDate':start_date, 'endDate':end_data}
+        para_dict = {'lineId':str(self.line_id.id), 'startDate':start_date, 'endDate':end_data}
 
         # 非运营
         r = driver_recodes_obj.restful_get_data('op_exceptkm', para_dict)
@@ -149,10 +149,10 @@ class DriveRecords(models.Model):
         url = '%s/ltyop/planData/queryListByPage?apikey=71029270&params=%s' % (url_config, json.dumps(dict(params, **search_para)))
         r = requests.get(url)
         if r.status_code != 200:
-            raise UserError(_(u"查询失败."))
+            raise UserError((u"查询失败."))
 
         if r.json().get('result') != 0:
-            raise UserError(_(u"服务器返回查询失败."))
+            raise UserError((u"服务器返回查询失败."))
 
         if type == 'op_exceptkm':      # 非运营
             for item in r.json()['respose']['list']:
@@ -193,6 +193,7 @@ class DriveRecords(models.Model):
                 }
 
                 res = self.create(new_data)
+                print(new_data)
 
         elif type == 'op_dispatchplan':
             for item in r.json()['respose']['list']:
