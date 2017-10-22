@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-
+import json
+import datetime
+import requests
+from odoo.exceptions import UserError
 from odoo import models, fields, api
 
 class operation_records_move2v3(models.Model):
@@ -49,14 +52,26 @@ class operation_records_move2v3(models.Model):
     @api.multi
     #通过访问后台提供的restful接口获取到运营理程信息，非运营理程信息和司乘考勤信息    
     def get_data(self):
-        company_id = self.company_id.id
-        start_date = self.start_date
-        #driver_recodes_obj = self.env['vehicleusage.driverecords']
-        #attence_obj = self.env['employee.attencerecords']
-        #values = driver_recodes_obj.restful()
-        #driver_recodes_obj.create(values)
-        
-        
+        driver_recodes_obj = self.env['vehicleusage.driverecords']
+        attence_obj = self.env['employee.attencerecords']
+
+        # company_id = self.company_id.id
+        start_date = datetime.datetime.strptime(str(self.name),'%Y-%m-%d')
+        end_data = start_date
+        para_dict = {'lineId':self.line_id.id, 'startDate':start_date, 'endDate':end_data}
+
+        # 非运营
+        r = driver_recodes_obj.restful_get_data('op_exceptkm', para_dict)
+
+        # 运营
+        r = driver_recodes_obj.restful_get_data('op_dispatchplan', para_dict)
+
+        # 考勤
+        r = attence_obj.restful_get_data(para_dict)
+
+
+        # values = driver_recodes_obj.restful()
+        # driver_recodes_obj.create(values)
 
 class DriveRecords(models.Model):
     """
@@ -95,7 +110,9 @@ class DriveRecords(models.Model):
     # 运营属性
     operation_att = fields.Char()
     # 异常
-    abnormal = fields.Char()
+    abnormal = fields.Selection(
+        [('2003', u'进出场'), ('2002', u'加油加气'), ('2005', u'故障'), ('2006', u'保养'), ('2004', u'空放'), ('2001', u'其他')])
+
     # 生成日期
     gen_date = fields.Datetime()
     # 是否补录
@@ -109,8 +126,76 @@ class DriveRecords(models.Model):
         ('draft',u'草稿'), 
         ('approved','审核'), 
         ('moved','迁移') 
-    ],default="draft", readonly=True)    
-    
+    ],default="draft", readonly=True)
+
+
+    # restful_key_id
+    restful_key_id = fields.Char()
+
+    finish_state = fields.Selection([('1', u'运行中'),('2', u'已完成')])
+
+
+    @api.multi
+    def restful_get_data(self, type, **search_para):
+        url_config = self.env['ir.config_parameter'].get_param('dispatch.desktop.restful')
+
+        params = {
+            'tablename': type,
+            'pageNum': '1',
+            'pageSize': '1000000'
+        }
+
+        url = '%s/ltyop/planData/queryListByPage?apikey=71029270&params=%s' % (url_config, json.dumps(dict(params, **search_para)))
+        r = requests.get(url)
+        if r.status_code != 200:
+            raise UserError(_("查询失败."))
+
+        if r.json().get('result') != 0:
+            raise UserError(_("服务器返回查询失败."))
+
+        if type == 'op_exceptkm':      # 非运营
+            for item in r.json()['respose']['list']:
+
+                new_data = {
+                    'restful_key_id': item.get('id'),
+
+                    'company_id': item.get('companyId'),  # 公司
+                    'route_id': item.get('lineName'),     # 线路
+                    'vehicle_id': self.env['fleet.vehicle'].search([('on_board_id', '=', item.get('onBoardId'))])[0].id,  # 车辆
+                    'driver_id': item.get('driverName'),  # 司机
+                    # 司机姓名
+
+                    'date': item.get('createTime'),  # todo
+                    'realitydepart': item.get('startTime'),    # 开始时间
+                    'realityarrive': item.get('endTime'),      # 结束时间
+
+                    'abnormal': item.get('kmTypeId'),          # 异常类型
+
+                    'planmileage': item.get('planKm'),         # 计划里程数
+                    'GPSmileage': item.get('realKm'),          # GPS里程数
+                    'gen_date': item.get('createTime'),        # 生成时间
+                    'finish_state': item.get('finishState'),   # 状态
+
+                    'note': item.get('remark'),  # String	备注
+
+                    'is_add': False,
+                    'state': 'draft',
+                    # item.get('addReason')  # int	添加原因id
+                    # item.get('companyName')  # Int	公司名称
+                    # item.get('gprsId')  # Int	线路编码
+                    #
+                    # item.get('isManual')  # Int	是否手动处理（0：否，1：是）
+                    # item.get('kmTypeName')  # String	异常名称
+                    #
+                    # item.get('endKm'),  # tring	结束公里
+                    # item.get('startKm')  # Double	开始里程
+                }
+
+                res = self.create(new_data)
+
+        elif type == 'op_dispatchplan':
+            for item in r.json()['respose']['list']:
+                pass
 
 class attence(models.Model):
     """
