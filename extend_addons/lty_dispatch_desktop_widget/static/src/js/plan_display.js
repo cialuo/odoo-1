@@ -1356,7 +1356,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     }
                 });
             } else {
-                layer.msg('请输入短信内容或选择预设短信');
+                layer.msg('请输入短信内容或选择预设短信', { time: 0, shade: 0.3 });
             }
         }
     });
