@@ -59,6 +59,8 @@ op_line = {
     ('isShowPoint', None): None,
     #是否显示站点名，无对应字段（0：不显示；1：显示）,默认传值：0
     ('isShowStationName', None): None,
+	#公司
+    ('companyId', 'company_id'): None,
     #以下三个字段文档未描述
     # 'lineStart': '',
     # 'lineEnd': '',
@@ -654,6 +656,102 @@ sys_user = {
     ('UserPwd', 'password'): None,
     ('delState', 'active'): {True:0,False:1}
 }
+#运营理程 非运营理程表
+#op_dispatchplan -- vehicleusage.driverecords
+op_dispatchplan = {
+	#数据库id
+    ('id', 'id'): None,
+	#线路id  运营+非运营
+    ('lineId', 'route_id'): None,
+	#司机ID 运营+非运营
+    ('workerId', 'driver_id'): None,
+	#车辆设备号 运营+非运营
+    ('onboardId', 'inner_code'): None,
+	#方向
+    ('direction', 'direction'): None,
+	#gps理程
+    ('gpsKm', 'GPSmileage'): None,
+	#是否异常
+    ('isExcept', 'abnormal'): None,
+	#车型
+    ('busType', None): None,
+	#增加原因
+    ('addReasonId', None): None,
+	#计划类型ID
+    ('planTypeId', None): None,
+	#工作日期
+    ('workDate', 'date'): None,
+	#Remark ???
+    ('remark', None): None,
+	#异常时间
+    ('exceptTime', None): None,
+	#异常站点
+    ('exceptStation', None): None,
+	#异常原因ID
+    ('exceptReasonId', None): None,
+	#实际发车时间
+    ('exceptReasonId', 'realitydepart'): None,
+	#实际到达时间
+    ('realReachTime', 'realityarrive'): None,
+	#司机姓名
+    ('driverName', 'driver_name'): None,
+	#planCount？？？
+    ('planCount', None): None,
+	#invalidCount ??
+    ('invalidCount', None): None,
+	#planStateId ??
+    ('planStateId', None): None,	
+}
+#考勤信息表表
+#op_attendance -- employee.attencerecords
+op_attendance = {
+	#   * 主键id
+    ('id', 'id'): None,
+	#   * "线路ID"
+    ('lineId', 'line_id'): None,
+	#   * "线路名称"  添加到代码里
+    ('line', None): None,
+	#   * "调度计划ID"
+    ('dispatchPlanId', None): None,
+	#   * "车辆编号"  添加到代码里
+    ('selfId', None): None,
+	#   * "设备编号"  添加到代码里
+    ('onBoardId', None): None,
+	#   * "线路编码"  添加到代码里
+    ('gprsId', None): None,
+	#   "台次"
+    ('orderNo', None): None,
+	#   * "计划签到时间"
+    ('onWorkTime', None): None,
+	#   * "实际签到时间"
+    ('conWorkTime', 'checkingin'): None,
+	#   "实际签到车辆"
+    ('onWorkBus', None): None,
+	#   "实际签退时间"
+    ('coffWorkTime', 'checkinginout'): None,
+	#   "实际签退车辆"
+    ('offWorkBus', None): None,
+	#   "工号"  添加到代码里
+    ('workerId', None): None,
+	#   "姓名"  添加到代码里
+    ('driver', None): None,
+	#   "执行日期"
+    ('workDate', None): None,
+	#   "备注"
+    ('remark', None): None,
+	#   "计划发车时间"
+    ('planRunTime', None): None,
+	#   "实际发车时间"
+    ('planReachTime', None): None,
+	#   "上班时间"
+    ('workTime', None): None,
+	#   "计划时间"
+    ('planTime', None): None,
+	#员工类型//1019 司机  1020 售票员
+    ('workerType', None): None,
+}
+
+
 origin_data = {
     #线路基础数据
     'route_manage.route_manage': op_line,
@@ -701,6 +799,10 @@ origin_data = {
     'scheduleplan.motorcyclists.steward': op_trainattendance,
     #用户表
     'res.users': sys_user,
+    #运营里程
+    'vehicleusage.driverecords': op_dispatchplan,	
+    #考勤信息表表
+    'employee.attencerecords': op_attendance,		
 }
 
 def dict_transfer(table, data):

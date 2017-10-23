@@ -215,7 +215,8 @@
     height: 20px;
     width: 100px;
     font-size: 14px;
-    text-align: center;
+    text-align: left;
+    padding-left: 15px;
     cursor: pointer;
     overflow: hidden;
 }
@@ -317,6 +318,7 @@
     -webkit-filter: hue-rotate(140deg) saturate(300%);
     filter: hue-rotate(140deg) saturate(300%);
 }
+
 .to_yellow {
     -ms-filter: hue-rotate(170deg); /* 0度则不变，维持原色，可以是任何度数，但每360度完成一次完整变化 */
     -webkit-filter: hue-rotate(170deg);
@@ -331,6 +333,50 @@
     margin-left: -3px;
     display: inline-block;
     line-height: 12px;
+}
+
+.mutual_information {
+    width: 750px;
+    height: 540px;
+    border-radius: 8px;
+    background: #37405F;
+    color: #fff;
+}
+
+.show_mutual_information {
+    color: #ddd;
+    line-height: 30px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.mutual_information .mutual_title {
+    position: absolute;
+    left: 20px;
+    right: 10px;
+}
+
+.dispatch_desktop .src_title {
+    height: 50px;
+}
+
+.mutual_content {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.mutual_content table {
+    width: 720px;
+    margin: 0 auto;
+    color: #838697;
+}
+
+.mutual_table th, .mutual_table td {
+    text-align: center;
+    max-height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #6D7487;
+    width: 110px;
 }
 
 /*右至左车辆*/
@@ -531,7 +577,38 @@
     right: 10px;
 }
 
-.updown_line_table a.min, .bus_src_config .min, .main_controll_interface .min {
+.mutual_information .min {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.mutual_information .mutual_input li {
+    float: left;
+    /*width: 25%;*/
+    padding-left: 5px;
+}
+
+.mutual_input {
+    margin: 10px 5px;
+    overflow: hidden;
+}
+
+.mutual_input .form-control {
+    border-radius: 4px !important;
+    background: none;
+    border: 1px solid #ccc;
+    color: #ddd;
+    -webkit-appearance: menulist-button;
+    -moz-appearance: menulist-button;
+}
+
+.mutual_input .mutal_srh_btn {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.updown_line_table a.min, .bus_src_config .min, .main_controll_interface .min, .mutual_information .min {
     width: 16px;
     height: 16px;
     line-height: 12px;
@@ -833,6 +910,13 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
 .bus_src_config .closeBox, .main_controll_interface .closeBox {
     height: 30px;
     position: relative;
+}
+
+.mutual_information .closeBox {
+    height: 40px;
+    position: relative;
+    line-height: 40px;
+    border-bottom: 1px solid #bbb;
 }
 
 .bus_src_config .dis_close_bt, .main_controll_interface .dis_close_bt, .digital_map .dis_close_bt {

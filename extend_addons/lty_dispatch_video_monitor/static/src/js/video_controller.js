@@ -529,7 +529,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                         var nodes = treeObj.getSelectedNodes();
                         treeObj.expandNode(nodes[0], true, true, true)
                     } else {
-                        layer.msg('输入线路或车辆无效')
+                        layer.msg('输入线路或车辆无效', { time: 0, shade: 0.3 })
                     }
 
                 }
