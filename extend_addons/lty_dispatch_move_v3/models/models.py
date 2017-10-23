@@ -24,13 +24,13 @@ class operation_records_move2v3(models.Model):
     #迁移单编号
     name = fields.Date(required=True)
     #公司
-    company_id = fields.Many2one('res.company')
+    company_id = fields.Many2one(related='line_id.company_id', readonly=True)
     #开始时间
     start_date = fields.Datetime()
     #结束时间
     end_date = fields.Datetime()    
     #线路
-    line_id = fields.Many2one('route_manage.route_manage')
+    line_id = fields.Many2one('route_manage.route_manage',required='1')
     #运营理程
     operation_vehicleusage_ids = fields.One2many('vehicleusage.driverecords','record_move_id', domain=[('drivetype','=','working')])
     #非运营理程
@@ -127,11 +127,17 @@ class DriveRecords(models.Model):
     _inherit = 'vehicleusage.driverecords'
 
     # 公司
-    company_id = fields.Many2one('res.company')
+    #company_id = fields.Many2one('res.company')
+    company_id = fields.Many2one(related='record_move_id.company_id', readonly=True)
     # 线路 route_id
+    route_id = fields.Many2one(related='record_move_id.line_id', store=True)
     # 方向 direction
+    direction = fields.Selection(
+        [('0', u'上行'), ('1', u'下行')])    
     # 日期
-    date = fields.Date()
+    #date = fields.Date()
+    date = fields.Date(related='record_move_id.name', readonly=True)
+    
     # 计划时间
     date_plan = fields.Datetime()
     # 实际发车时间 realitydepart
@@ -324,9 +330,10 @@ class attence(models.Model):
     _inherit = 'employee.attencerecords'
 
     # 公司
-    company_id = fields.Many2one('res.company')
-    # 线路
-    line_id = fields.Many2one('route_manage.route_manage')
+    #company_id = fields.Many2one('res.company')
+    company_id = fields.Many2one(related='record_move_id.company_id', readonly=True)
+    # 线路 route_id
+    line_id = fields.Many2one(related='record_move_id.line_id', store=True)
     # 员工 employee_id
 
     # 车辆
