@@ -5,14 +5,18 @@ import requests
 from odoo.exceptions import UserError
 from odoo import models, fields, api
 
+
 def utc2local(str):
-    if str :
+    if str:
         local_time = datetime.datetime.strptime(str, '%Y-%m-%d %H:%M:%S') +datetime.timedelta(hours=8)
         return datetime.datetime.strftime(local_time,"%Y-%m-%d %H:%M:%S")
+
+
 def local2utc(str):
-    if str :
+    if str:
         local_time = datetime.datetime.strptime(str, '%Y-%m-%d %H:%M:%S') +datetime.timedelta(hours=-8)
         return datetime.datetime.strftime(local_time,"%Y-%m-%d %H:%M:%S")
+
 
 class operation_records_move2v3(models.Model):
     _name = 'operation.records.move2v3'
@@ -71,13 +75,16 @@ class operation_records_move2v3(models.Model):
         para_dict = {'lineId': str(self.line_id.id), 'startDate': start_date, 'endDate': end_data}
 
         # 非运营
-        data_list = driver_recodes_obj.restful_get_data('op_exceptkm', para_dict)
-        for data_line in data_list :
-            data_line.update({'record_move_id':self.id})
+        exceptkm_list = driver_recodes_obj.restful_get_data('op_exceptkm', para_dict)
+        for data_line in exceptkm_list:
+            data_line.update({'record_move_id': self.id})
             line_id = self.env['vehicleusage.driverecords'].create(data_line)
 
         # 运营
-        # r = driver_recodes_obj.restful_get_data('op_dispatchplan', para_dict)
+        dispatchplan_list = driver_recodes_obj.restful_get_data('op_dispatchplan', para_dict)
+        for data_line in dispatchplan_list:
+            data_line.update({'record_move_id': self.id})
+            line_id = self.env['vehicleusage.driverecords'].create(data_line)
 
         # 考勤
         attendance_list = attence_obj.restful_get_data(para_dict)
@@ -246,62 +253,52 @@ class DriveRecords(models.Model):
             return data_list
         #运营里程
         elif type == 'op_dispatchplan':
+            data_list = []
             for item in r.json()['respose']['list']:
-                if self.env['fleet.vehicle'].search([('on_boardid', '=', item.get('onBoardId'))]) :
+                if self.env['fleet.vehicle'].search([('on_boardid', '=', item.get('onBoardId'))]):
                     vehicle_id = self.env['fleet.vehicle'].search([('on_boardid', '=', item.get('onBoardId'))])[0].id
                 else:
                     raise UserError((u"车辆不存在."))
-                if self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))]):
-                    driver_id = self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))])[0].id
-                else:
-                    raise UserError((u"员工不存在."))
+
+                # if self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))]):
+                #     driver_id = self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))])[0].id
+                # else:
+                #     raise UserError((u"员工不存在."))
 
                 new_data = {
                     'restful_key_id': item.get('id'),
-					#公司
-                    'company_id': int(item.get('companyId')),  # 公司
-					#线路
-                    'route_id': item.get('lineId'),     # 线路
-                    #方向
-                    'direction': item.get('direction'),     # 线路
-					#日期
-                    'date': local2utc(item.get('createTime', '')).split(' ')[0] or None,   # todo
-					#计划时间：
-                    'date_plan': local2utc(item.get('planRunTime')),     # 线路
-					#实际发车时间
-                    'realitydepart': local2utc(item.get('realRunTime')) or None, 
-					#计划状态
-                    'state_plan': item.get('planState'),   # 状态
-					#车辆编号
-                    'vehicle_id': vehicle_id, 
-					#司机ID  ???
-                    'driver_id': driver_id, 
-					#计划到达时间？？？
-                    'planarrive':  local2utc(item.get('planReachTime')),
-					#实际到达时间
-                    'realityarrive': item.get('endTime') or None,      # 结束时间
-					#运营时长
-					
-					#计划公里数
-                    #'planmileage': item.get('planKm'),         # 计划里程数
-					#GPS公里数
-                    #'GPSmileage': item.get('realKm'),          # GPS里程数
-					#运营属性
-					#异常
-                    #'abnormal': str(item.get('kmTypeId')),          # 异常类型
-					#生成日期
-                    #'gen_date': item.get('createTime') or None,        # 生成时间
-					#备注
-                    #'note': item.get('remark'),  # String    备注
-					#是否手动增加
+                    # 'company_id': int(item.get('companyId')) or None,  # 公司
+                    'route_id': item.get('lineId'),  # 线路
+                    'direction': item.get('direction'),  # 方向
+
+                    # 'date': local2utc(item.get('createTime', '')).split(' ')[0] or None,  # 日期
+                    'date_plan': local2utc(item.get('planRunTime')),  # 计划时间：
+                    'realitydepart': local2utc(item.get('realRunTime')) or None,   # 实际发车时间
+                    # 'state_plan': item.get('planState'),  # 计划状态
+                    'vehicle_id': vehicle_id,  # 车辆编号
+
+                    # 'driver_id': driver_id,    # 司机ID
+                    'planarrive': local2utc(item.get('planReachTime')),   # 计划到达时间？？？
+                    'realityarrive': item.get('endTime') or None,  # 实际到达时间
+
+                    # 计划公里数
+                    # 'planmileage': item.get('planKm'),         # 计划里程数
+                    # GPS公里数
+                    # 'GPSmileage': item.get('realKm'),          # GPS里程数
+                    # 运营属性
+                    # 异常
+                    # 'abnormal': str(item.get('kmTypeId')),          # 异常类型
+                    # 生成日期
+                    # 'gen_date': item.get('createTime') or None,        # 生成时间
+                    # 备注
+                    # 'note': item.get('remark'),  # String    备注
+                    # 是否手动增加
                     'is_add': False,
-					#同步成功后的状态
+                    # 同步成功后的状态
                     'state': 'draft',
-					# 类型
-                    'drivetype': 'working',	
+                    # 类型
+                    'drivetype': 'working',
 
-
-					
                     # 'driver_id': int(item.get('driverName')),  # 司机
                     # 司机姓名
                     # 'finish_state': item.get('finishState'),   # 状态
@@ -318,8 +315,7 @@ class DriveRecords(models.Model):
 
                 data_list.append(new_data)
             return data_list
-        
-        
+
 
 class attence(models.Model):
     """
