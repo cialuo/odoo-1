@@ -24,13 +24,13 @@ class operation_records_move2v3(models.Model):
     #迁移单编号
     name = fields.Date(required=True)
     #公司
-    company_id = fields.Many2one('res.company')
+    company_id = fields.Many2one(related='line_id.company_id', readonly=True)
     #开始时间
     start_date = fields.Datetime()
     #结束时间
     end_date = fields.Datetime()    
     #线路
-    line_id = fields.Many2one('route_manage.route_manage')
+    line_id = fields.Many2one('route_manage.route_manage',required='1')
     #运营理程
     operation_vehicleusage_ids = fields.One2many('vehicleusage.driverecords','record_move_id', domain=[('drivetype','=','working')])
     #非运营理程
@@ -88,9 +88,7 @@ class operation_records_move2v3(models.Model):
 
         # 考勤
         attendance_list = attence_obj.restful_get_data(para_dict)
-        # print(attendance_list)
         for data_line in attendance_list:
-            print(data_line)
             data_line.update({'record_move_id':self.id})
             line_id = self.env['employee.attencerecords'].create(data_line)
         
@@ -127,18 +125,24 @@ class DriveRecords(models.Model):
     _inherit = 'vehicleusage.driverecords'
 
     # 公司
-    company_id = fields.Many2one('res.company')
+    #company_id = fields.Many2one('res.company')
+    company_id = fields.Many2one(related='record_move_id.company_id', readonly=True)
     # 线路 route_id
+    route_id = fields.Many2one(related='record_move_id.line_id', store=True)
     # 方向 direction
+    direction = fields.Selection(
+        [('0', u'上行'), ('1', u'下行')])    
     # 日期
-    date = fields.Date()
+    #date = fields.Date()
+    date = fields.Date(related='record_move_id.name', readonly=True)
+    
     # 计划时间
     date_plan = fields.Datetime()
     # 实际发车时间 realitydepart
 
     # 计划状态
     state_plan = fields.Selection(
-        [('0', u'待发车0'), ('1', u'待发车1'), ('2', u'已执行')])
+        [(0, u'待发车0'), (1, u'待发车1'), (2, u'已执行'), (3, u'取消')])
     inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
     # 司机工号 driver_id
 
@@ -155,10 +159,11 @@ class DriveRecords(models.Model):
     # GPS公理数 GPSmileage
 
     # 运营属性
-    operation_att = fields.Char()
+    operation_att = fields.Selection([('0', u'正常'), ('1', u'包车')])
+
     # 异常
     abnormal = fields.Selection(
-        [('2003', u'进出场'), ('2002', u'加油加气'), ('2005', u'故障'), ('2006', u'保养'), ('2004', u'空放'), ('2001', u'其他')])
+        [('2003', u'进出场'), ('2002', u'加油加气'), ('2005', u'故障'), ('2006', u'保养'), ('2004', u'空放'), ('2001', u'其他'), ('0', u'否'), ('1', u'是')])
 
     # 生成日期
     gen_date = fields.Datetime()
@@ -217,7 +222,7 @@ class DriveRecords(models.Model):
                     'restful_key_id': item.get('id'),
 
                     'company_id': int(item.get('companyId')),  # 公司
-                    'route_id': item.get('lineName'),     # 线路
+                    'route_id': item.get('lineId'),     # 线路
                     'vehicle_id': on_boardid,  # 车辆
                     # 'driver_id': int(item.get('driverName')),  # 司机
                     # 司机姓名
@@ -226,7 +231,7 @@ class DriveRecords(models.Model):
                     'realitydepart': local2utc(item.get('startTime')) or None,     # 开始时间
                     'realityarrive': local2utc(item.get('endTime')) or None,      # 结束时间
 
-                    'abnormal': str(item.get('kmTypeId')),          # 异常类型
+                    'abnormal': str(item.get('kmTypeId')),
 
                     'planmileage': item.get('planKm'),         # 计划里程数
                     'GPSmileage': item.get('realKm'),          # GPS里程数
@@ -251,7 +256,7 @@ class DriveRecords(models.Model):
 
                 data_list.append(new_data)
             return data_list
-        #运营里程
+        # 运营里程
         elif type == 'op_dispatchplan':
             data_list = []
             for item in r.json()['respose']['list']:
@@ -260,36 +265,39 @@ class DriveRecords(models.Model):
                 else:
                     raise UserError((u"车辆不存在."))
 
-                # if self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))]):
-                #     driver_id = self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))])[0].id
-                # else:
-                #     raise UserError((u"员工不存在."))
+                if self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))]):
+                    driver_id = self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))])[0].id
+                else:
+                    driver_id = None
 
                 new_data = {
                     'restful_key_id': item.get('id'),
                     # 'company_id': int(item.get('companyId')) or None,  # 公司
                     'route_id': item.get('lineId'),  # 线路
-                    'direction': item.get('direction'),  # 方向
+                    'direction': str(item.get('direction')),  # 方向
 
                     # 'date': local2utc(item.get('createTime', '')).split(' ')[0] or None,  # 日期
                     'date_plan': local2utc(item.get('planRunTime')),  # 计划时间：
                     'realitydepart': local2utc(item.get('realRunTime')) or None,   # 实际发车时间
-                    # 'state_plan': item.get('planState'),  # 计划状态
+                    'state_plan': item.get('planState'),  # 计划状态
                     'vehicle_id': vehicle_id,  # 车辆编号
 
-                    # 'driver_id': driver_id,    # 司机ID
-                    'planarrive': local2utc(item.get('planReachTime')),   # 计划到达时间？？？
-                    'realityarrive': item.get('endTime') or None,  # 实际到达时间
+                    'driver_id': driver_id,    # 司机ID
+                    'planarrive': local2utc(item.get('planReachTime')),   # 计划到达时间
+                    'realityarrive': item.get('realReachTime') or None,  # 实际到达时间
 
                     # 计划公里数
-                    # 'planmileage': item.get('planKm'),         # 计划里程数
+                    'planmileage': item.get('planKm'),         # 计划里程数
                     # GPS公里数
                     # 'GPSmileage': item.get('realKm'),          # GPS里程数
-                    # 运营属性
+
+                    'operation_att': str(item.get('addType')),  # 运营属性
                     # 异常
-                    # 'abnormal': str(item.get('kmTypeId')),          # 异常类型
+                    'abnormal': str(item.get('isExcept')),        # 异常
+
                     # 生成日期
-                    # 'gen_date': item.get('createTime') or None,        # 生成时间
+                    'gen_date': local2utc(item.get('createTime')) or None,        # 生成时间
+
                     # 备注
                     # 'note': item.get('remark'),  # String    备注
                     # 是否手动增加
@@ -324,9 +332,10 @@ class attence(models.Model):
     _inherit = 'employee.attencerecords'
 
     # 公司
-    company_id = fields.Many2one('res.company')
-    # 线路
-    line_id = fields.Many2one('route_manage.route_manage')
+    #company_id = fields.Many2one('res.company')
+    company_id = fields.Many2one(related='record_move_id.company_id', readonly=True)
+    # 线路 route_id
+    line_id = fields.Many2one(related='record_move_id.line_id', store=True)
     # 员工 employee_id
 
     # 车辆
@@ -337,7 +346,11 @@ class attence(models.Model):
     record_move_id = fields.Many2one('operation.records.move2v3')
     
     # 签到时间 checkingin
-
+    #员工类型
+    work_type_id = fields.Selection([
+        ('1019',u'司机'),
+        ('1020','售票员')
+    ])
     # 签退时间 checkinginout
     #是否客户端补录
     is_add = fields.Boolean(default=True, readonly=True)

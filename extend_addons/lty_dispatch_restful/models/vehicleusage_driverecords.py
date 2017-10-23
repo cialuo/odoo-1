@@ -25,9 +25,10 @@ import datetime
 import logging
 
 #对接系统  用户表管理
-
-TABLE_work = 'op_dispatchplan'
-TABLE_others = 'op_exceptkm'
+#运营表
+TABLE_work = 'operate'
+#非运营表
+TABLE_others = 'nonOperate'
 
 _logger = logging.getLogger(__name__)
 class DriveRecords(models.Model):
@@ -47,6 +48,7 @@ class DriveRecords(models.Model):
         '''
 
         res = super(DriveRecords, self).create(vals)
+        vals_odoo = vals
         if vals.get('drivetype') == 'working' :
             TABLE = TABLE_work
         else :
@@ -58,20 +60,21 @@ class DriveRecords(models.Model):
                 _logger.info('Start create data: %s', self._name)
                 vals = mapping.dict_transfer(self._name, vals)
                 vals.update({
-                    'id': res.id,
-                    'line':res.line_id.line_name,
+                    'line':res.route_id.line_name,
                     'selfId':res.vehicle_id.inner_code,
-                    'onBoardId':res.vehicle_id.on_boardid,
-                    'gprsId':res.line_id.gprs_id,
-                    'workerId':res.employee_id.jobnumber,
-                    'driver':res.employee_id.name,
+                    'onBoardId':int(res.vehicle_id.on_boardid),
+                    'gprsId':res.route_id.gprs_id,
+                    'workerId':res.driver_id.jobnumber,
+                    'driver':res.driver_id.name,
                 })
-                vals['onboardId'] = res.vehicle_id.name
                 params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                 rp = Client().http_post(url, data=params)
+                restful_key_id = rp.json().get('respose').get('id')
+                if restful_key_id :
+                    res.write({'restful_key_id': restful_key_id})
             except Exception,e:
                 _logger.info('%s', e.message)
-        return res
+        return  res
 
     @api.multi
     def write(self, vals):
@@ -98,7 +101,7 @@ class DriveRecords(models.Model):
                         vals = mapping.dict_transfer(self._name, vals)
                         if vals:
                             vals.update({
-                                'id': r.id,
+                                'id': r.restful_key_id,
                             })
                             params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                             rp = Client().http_post(url, data=params)
@@ -127,7 +130,7 @@ class DriveRecords(models.Model):
             try:
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                 _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': r.id}
+                vals = {'id': r.restful_key_id}
                 
                 res = super(DriveRecords, r).unlink()
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()

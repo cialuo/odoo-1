@@ -690,7 +690,7 @@ op_dispatchplan = {
 	#异常原因ID
     ('exceptReasonId', None): None,
 	#实际发车时间
-    ('exceptReasonId', 'realitydepart'): None,
+    #('exceptReasonId', 'realitydepart'): None,
 	#实际到达时间
     ('realReachTime', 'realityarrive'): None,
 	#司机姓名
@@ -800,6 +800,7 @@ origin_data = {
     #用户表
     'res.users': sys_user,
     #运营里程
+    
     'vehicleusage.driverecords': op_dispatchplan,	
     #考勤信息表表
     'employee.attencerecords': op_attendance,		
