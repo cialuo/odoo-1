@@ -204,7 +204,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         data: {},
                                         success: function (data) {
                                             if (data) {
-                                                console.log(data)
                                                 //配车数量
                                                 self.$el.find('.show_applycar_num span').html(data[0].withBus);
                                                 //挂车数量
@@ -234,7 +233,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                     dataType: 'json',
                                                     data: {},
                                                     success: function (res) {
-                                                        console.log(res)
                                                         for (var i = 0; i < res.length; i++) {
                                                             $('.run_car_hide').find('.line_car').attr('bus_no', res[i].onboard);
                                                             if (res[i].onlineFlag == 0) {
@@ -615,16 +613,23 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             'mouseup .show_mutual_information': 'show_mutual_information'
         },
         show_mutual_information: function (ev) {
+            var self = this;
             var zIndex = parseInt(this.$el[0].style.zIndex) + 1;
-            var option =
-                {
-                    x: ev.clientX + 5,
-                    y: ev.clientY + 5,
-                    zIndex: zIndex,
-                    line_id: this.line_id,
-                    controllerId: this.desktop_id,
-                };
-            new mutual_information(this,option).appendTo($(".controller_" + option.controllerId));
+            self.layer_index = layer.msg('加载中...', {time: 0, shade: 0.3});
+            this.model_choseline.query().filter([["state", "=", 'inuse']]).all().then(function (data) {
+                var option =
+                    {
+                        x: ev.clientX + 5,
+                        y: ev.clientY + 5,
+                        zIndex: zIndex,
+                        line_id: self.line_id,
+                        controllerId: self.desktop_id,
+                        data: data
+                    };
+                layer.close(self.layer_index)
+                new mutual_information(self, option).appendTo($(".controller_" + option.controllerId));
+            })
+
             // $.ajax({
             //     url: RESTFUL_URL + '/exchange/list?apikey=71029270&params={lineId:'+this.line_id+',controlId:'+this.desktop_id+',arg:'',arg1:1,pageNum:1,pageSize1}',
             //     type: 'get',
@@ -1100,29 +1105,108 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
     });
     var mutual_information = Widget.extend({
         template: 'mutual_information',
-        init: function (parent,option) {
+        init: function (parent, option) {
             this._super(parent);
-            this.location_data=option;
+            this.location_data = option;
+            this.model_route_bus = new Model('fleet.vehicle');
         },
         start: function () {
-            // $.ajax({
-            //         url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
-            //         type: 'get',
-            //         dataType: 'json',
-            //         data: {},
-            //         success: function (data) {
-            //
-            //         },
-            //         error: function () {
-            //             layer.msg('请求出错', {time: 1000, shade: 0.3});
-            //         }
-            //     });
+            this.desktop_id = this.$el.parents(".back_style").attr("desktop_id");
         },
-        events:{
-            'click .mutal_srh_btn':'mutual_search'
+        events: {
+            'click .mutal_srh_btn': 'mutual_search',
+            'click  .min': 'close_this',
+            'change .line_way_chs': 'bus_chs'
         },
-        mutual_search:function () {
+        bus_chs: function () {
+            var self = this;
+            var val = parseInt($(".line_way_chs option:selected").attr("oid"));
+            if (val) {
+                self.layer_index = layer.msg('加载中...', {time: 0, shade: 0.3});
+                this.model_route_bus.query().filter([["route_id", "=", val]]).all().then(function (data) {
+                    layer.close(self.layer_index);
+                    self.$el.find('.bus_way_chs').html("<option>车辆</option>");
+                    var str = "";
+                    $.each(data, function (index, value) {   // 解析出data对应的Object数组s
+                        str += "<option bid=" + value.on_boardid + ">" + value.on_boardid + "</option>";
+                    });
+                    self.$el.find('.bus_way_chs').append(str)
+                })
+            } else {
+                self.$el.find('.bus_way_chs').html("<option>车辆</option>")
+            }
+        },
+        mutual_search: function () {
+            var line_val = this.$el.find('.line_way_chs option:selected').attr("oid");
+            var bus_val = this.$el.find('.bus_way_chs option:selected').attr("bid");
+            var make_deal = this.$el.find('.type_chs option:selected').attr("mid");
+            var self = this;
+            if (bus_val) {
+                var td_txt = '';
+                $.ajax({
+                    url: RESTFUL_URL + '/ltyop/exchange/list?apikey=71029270&params={lineId:' + line_val + ',controlId:' + self.desktop_id + ',arg:' + bus_val + ',arg1:\'' + make_deal + '\'}',
+                    type: 'get',
+                    dataType: 'json',
+                    data: {},
+                    success: function (data) {
+                        var totalPage = data.respose.vo.totalCount % 10 == 0 ? data.respose.vo.totalCount / 10 : Math.ceil(data.respose.vo.totalCount / 10);
+                        console.log(totalPage)
+                        $('.pagination_tbl').bootstrapPaginator({
+                            currentPage: 1,//当前的请求页面。
+                            totalPages: totalPage,//一共多少页。
+                            size: "normal",//应该是页眉的大小。
+                            bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                            alignment: "right",
+                            numberOfPages: 10,//一页列出多少数据。
+                            itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                                switch (type) {
+                                    case "first":
+                                        return "首页";
+                                    case "prev":
+                                        return "上一页";
+                                    case "next":
+                                        return "下一页";
+                                    case "last":
+                                        return "末页";
+                                    case "page":
+                                        return page;
+                                }
+                            }
+                        })
+                        ;
+                        self.$el.find('.mutual_content tbody').html('');
+                        if (data.respose.opWarningList.length > 0) {
+                            $.each(data.respose.opWarningList, function (index, value) {   // 解析出data对应的Object数组
+                                td_txt += "<tr>"
+                                    + "<td>" + index + "</td>"
+                                    + "<td>" + value.occurTime + "</td>"
+                                    + "<td>" + value.lineName + "</td>"
+                                    + "<td>" + value.onBoardId + "</td>"
+                                    + "<td>" + value.logText + "</td>"
+                                    + "<td>" + value.remark + "</td>"
+                                if (value.result == 0) {
+                                    td_txt += "<td><a>同意</a>|<a>拒绝</a></td>"
+                                        + "<td>待操作</td>"
+                                } else if (value.result == 1) {
+                                    td_txt += "<td></td>"
+                                        + "<td>已操作</td>"
+                                }
+                                td_txt += "</tr>";
+                            });
 
+                            self.$el.find('.mutual_content tbody').append(td_txt);
+                        }
+                    },
+                    error: function () {
+                        layer.msg('请求出错', {time: 1000, shade: 0.3});
+                    }
+                });
+            } else {
+                layer.msg('请输入车辆号', {time: 1000, shade: 0.3});
+            }
+        },
+        close_this: function () {
+            this.destroy()
         }
     })
     var dispatch_line_control = Widget.extend({
@@ -1174,7 +1258,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         },
         events: {
             'click .chs li': 'chose_line',
-            
+
         },
         chose_line: function (event) {
             var x = event.currentTarget;

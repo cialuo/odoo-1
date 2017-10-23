@@ -233,29 +233,29 @@
 				<ul class="mutual_input">
 					<li>
 						<div class="input-group">
-							<select class="form-control" >
+							<select class="form-control line_way_chs" >
 								<option selected="selected">线路</option>
-								<option selected="selected">线路</option>
-								<option selected="selected">线111路</option>
-								<option selected="selected">线212路</option>
-								<option selected="selected">线路</option>
+								<t t-foreach="widget.location_data.data" t-as="item">
+									<option t-attf-oid="{{item.id}}">
+										<t t-esc="item.line_name"></t>
+									</option>
+								</t>
 							</select>
 						</div>
 					</li>
 					<li>
 						<div class="input-group">
-							<select class="form-control">
+							<select class="form-control bus_way_chs">
 								<option selected="selected">车辆</option>
 							</select>
 						</div>
 					</li>
 					<li>
 						<div class="input-group">
-							<select class="form-control">
-						  		<option selected="selected">状态</option>
-						  		<option selected="selected">全部</option>
-						  		<option selected="selected">已处理</option>
-						  		<option selected="selected">待处理</option>
+							<select class="form-control type_chs">
+						  		<option selected="selected" mid="">全部状态</option>
+						  		<option mid="1">已处理</option>
+						  		<option mid="0">待处理</option>
 							</select>
 						</div>
 					</li>
@@ -267,7 +267,8 @@
 				</ul>
 			</div>
 			<div class="mutual_content">
-				<table classs="mutual_table">
+				<table class="mutual_table">
+					<tbody>
 					<thead>
 						<tr>
 							<th>序号</th>
@@ -280,19 +281,10 @@
 							<th>操作</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>2</td>
-							<td>3</td>
-							<td>4</td>
-							<td>56</td>
-							<td>6</td>
-							<td>7</td>
-							<td>7</td>
-						</tr>
+
 					</tbody>
 				</table>
+				<ul class="pagination_tbl"></ul>
 			</div>
 		</div>
 	</t>

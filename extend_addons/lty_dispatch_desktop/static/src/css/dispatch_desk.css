@@ -371,12 +371,20 @@
     color: #838697;
 }
 
-.mutual_table th, .mutual_table td {
-    text-align: center;
-    max-height: 40px;
-    line-height: 40px;
+.mutual_content th, .mutual_content td {
+    text-align: left;
+    max-height: 30px;
+    line-height: 30px;
     border-bottom: 1px solid #6D7487;
-    width: 110px;
+}
+.mutual_content td a{
+    display: inline-block;
+    color: #838697;
+    cursor: pointer;
+}
+.line_way_chs option,.bus_way_chs option,.type_chs option{
+    color: #fff;
+    background: #37405f;
 }
 
 /*右至左车辆*/
