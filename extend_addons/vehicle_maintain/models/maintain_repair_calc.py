@@ -61,16 +61,18 @@ class MaintainRepairCalculate(models.Model):
     def action_refresh(self):
         '''
         1,统计领退料单
-        2,统计工时管理
-        3，计算工时和物料费用
+        2，计算工时和物料费用
         :return:
         '''
 
         self._new_refresh_picking()
-        # self._refresh_jobs()
         self._refresh_fee()
 
     def _refresh_jobs(self):
+        '''
+        检验通过后统计所有的工时管理
+        :return:
+        '''
         for i in self:
             end_job_datas = []
             sequence = 0
@@ -119,18 +121,17 @@ class MaintainRepairCalculate(models.Model):
             work_fee = i.company_id.work_fee
             #工时费用不按实际工时计算，按额定工时计算
 
-            for j in i.end_job_ids.filtered(lambda r: r.is_need_calc == True):
-                work_time_fee = j.work_time * work_fee
+            for j in i.end_job_ids.filtered(lambda r: r.is_need_calc==True):
+                work_time_fee = j.work_time * work_fee * j.percentage_work / 100.0
                 j.write({'work_time_fee': work_time_fee})
 
             for k in i.materials_product_ids:
                 product_fee = k.list_price * k.usage_ct
                 k.write({'product_fee': product_fee})
 
-            total_work_time = sum(i.job_ids.mapped('real_work'))
+            total_work_time = sum(i.end_job_ids.filtered(lambda r: r.is_need_calc==True).mapped('real_work'))
             #额定工时 核算 费用
-            total_work_fee = i.work_time * work_fee
-            total_work_fee = sum(i.end_job_ids.filtered(lambda r: r.is_need_calc == True).mapped('work_time_fee'))
+            total_work_fee = sum(i.end_job_ids.filtered(lambda r: r.is_need_calc==True).mapped('work_time_fee'))
             total_product_fee = sum(i.materials_product_ids.mapped('product_fee'))
             total_fee = total_work_fee + total_product_fee
 
@@ -356,8 +357,8 @@ class MaintainRepairEndJobs(models.Model):
     real_end_time = fields.Datetime("Real End Time")
     percentage_work = fields.Float('Percentage Work')
     work_time = fields.Float('Work Time(Hour)', digits=(10, 2))
-
     work_time_fee = fields.Float('Work Time Fee', digits=(10, 2))
+
     my_work = fields.Float('My Work(Hour)', digits=(10, 2), store=True)
 
     real_work = fields.Float('Real Work(Hour)', digits=(10, 2), store=True)

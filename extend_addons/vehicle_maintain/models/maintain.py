@@ -232,7 +232,7 @@ class MaintainRepair(models.Model):
                                         })
     fault_method_code = fields.Char(related='fault_method_id.fault_method_code', store=True, readonly=True)
 
-    work_time = fields.Float(compute='_get_work_time', store=True, readonly=True, copy=True)
+    work_time = fields.Float(compute='_get_work_time', store=True, readonly=True, copy=True, string="Work Time(Hours)")
     warranty_deadline = fields.Integer(related='fault_method_id.warranty_deadline', string="Warranty Deadline(Days)",
                                        readonly=1, required=True) #保修天数 与返修逻辑有关
     plan_start_time = fields.Datetime("Plan Start Time", help="Plan Start Time")
@@ -416,12 +416,12 @@ class MaintainRepair(models.Model):
                 data_methods = []
                 data_method = {
                     "old_category_id": old_rec.fault_category_id.id,
-                    "old_appearance_id":old_rec.fault_appearance_id.id,
+                    "old_appearance_id":old_rec.fault_appearance_id.id or None,
                     "old_reason_id": old_rec.fault_reason_id.id,
                     "old_method_id":  old_rec.fault_method_id.id,
 
                     "new_category_id": vals.get('fault_category_id') or old_rec.fault_category_id.id,
-                    "new_appearance_id": vals.get('fault_reason_id') or old_rec.fault_appearance_id.id,
+                    "new_appearance_id": vals.get('fault_appearance_id') or old_rec.fault_appearance_id.id or None,
                     "new_reason_id": vals.get('fault_reason_id') or old_rec.fault_reason_id.id,
                     "new_method_id": vals.get('fault_method_id'),
                     "user_id":self._default_employee().id if self._default_employee() else ''

@@ -194,7 +194,7 @@
             <field name="model">maintain.manage.repair</field>
 			<field name="priority">0</field>
             <field name="arch" type="xml">
-                <form string="MaintainRepair Form" duplicate="0">
+                <form string="MaintainRepair Form" duplicate="0" create="false">
                 	<header>
 						<button string="Dispatch"
 								name="action_dispatch"
@@ -363,7 +363,7 @@
             <field name="model">maintain.manage.repair</field>
 			<field name="priority">1</field>
             <field name="arch" type="xml">
-                <form string="MaintainRepair Form" duplicate="0">
+                <form string="MaintainRepair Form" duplicate="0" create="false">
 					<sheet>
 						<notebook groups="vehicle_group.vehicle_dispatch" invisible="context.get('is_change_method')">
 							<page string="MaintainRepair Jobs" >
@@ -478,7 +478,7 @@
             <field name="model">maintain.manage.repair</field>
 			<field name="priority">1</field>
             <field name="arch" type="xml">
-                <form string="MaintainInspect Form" duplicate="0">
+                <form string="MaintainInspect Form" duplicate="0" create="false">
                 	<header>
 
 						<button name="action_completed" type="object"
