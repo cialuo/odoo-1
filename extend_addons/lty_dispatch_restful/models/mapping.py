@@ -747,7 +747,7 @@ op_attendance = {
 	#   "计划时间"
     ('planTime', None): None,
 	#员工类型//1019 司机  1020 售票员
-    ('workerType', None): None,
+    ('workerType', 'work_type_id'): None,
 }
 
 
