@@ -1309,7 +1309,7 @@ msgstr "未婚"
 #: model:ir.model.fields,field_description:employees.field_employee_workexperience_starttime
 #: model:ir.model.fields,field_description:employees.field_employees_educationexperience_starttime
 msgid "start time"
-msgstr "开始"
+msgstr "开始时间"
 
 #. module: employees
 #: model:ir.model.fields,field_description:employees.field_employees_iccards_status

@@ -3,8 +3,8 @@
 from odoo import models, fields, api,tools
 from odoo.tools.translate import _
 from odoo.modules.module import get_module_resource
-import datetime
-
+import datetime,logging
+_logger = logging.getLogger(__name__)
 class energy_station(models.Model):
 
      _name = 'energy.station'
@@ -105,6 +105,23 @@ class energy_station(models.Model):
      #每日能源统计消耗
      daily_consumption = fields.Float(store=True, string='Daily Consumption',readonly=True,compute='_compute_daily_consumption')
 
+     #统计能源站的剩余能源
+     overage_energy = fields.Float(store=True, string='Overage Energy',readonly=True,compute='_compute_overage_energy')
+
+
+     @api.depends('location_ids')
+     def _compute_overage_energy(self):
+         """
+            计算能源站的剩余能量
+         :return:
+         """
+         for order in self:
+             if order.location_ids:
+                 overage_energy = 0
+                 for location in order.location_ids:
+                    quant = self.env['stock.quant'].search([('location_id', '=', location.id),('product_id','=',location.energy_type.id)])
+                    overage_energy+= quant.qty
+                 order.overage_energy = overage_energy
 
      @api.depends('usage_record_ids')
      def _compute_daily_consumption(self):
@@ -118,7 +135,17 @@ class energy_station(models.Model):
                  end_date = datetime.datetime.now().strftime('%Y-%m-%d 59:59:59')
                  order.daily_consumption =  sum(order.usage_record_ids.filtered(lambda r: r.record_date >= begin_date and r.record_date<=end_date).mapped('fuel_capacity'))
 
-
+     @api.model
+     def run_scheduler(self):
+         """
+            运行定时任务：
+                每日把daily_consumption字段清0
+         :return:
+         """
+         _logger.info(u'Start run_scheduler')
+         for station in self.env['energy.station'].search([]):
+             station.write({'daily_consumption':0})
+         _logger.info(u'End run_scheduler')
 
      @api.model
      def create(self, vals):

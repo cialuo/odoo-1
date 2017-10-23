@@ -85,6 +85,7 @@ class usage_record(models.Model):
 
     active = fields.Boolean(string="MyActive", default=True)
 
+
     @api.onchange('pile_id')
     def _onchange_pile_id(self):
         """
