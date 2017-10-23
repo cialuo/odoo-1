@@ -52,8 +52,10 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     _.each(retPlan.respose, function(planBus){
                         busResourcePlan[planBus.id] = planBus;
                         planBus.fixPlanClass = "";
-                        if (new Date(planBus.oldRunTime).getTime() != new Date(planBus.planRunTime).getTime()){
-                            planBus.fixPlanClass = "bus_plan_fix";
+                        if (planBus.oldRunTime){
+                            if (new Date(planBus.oldRunTime).getTime() != new Date(planBus.planRunTime).getTime()){
+                                planBus.fixPlanClass = "bus_plan_fix";
+                            }
                         }
 
 
