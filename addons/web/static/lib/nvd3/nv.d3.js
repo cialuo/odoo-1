@@ -5569,6 +5569,7 @@ nv.models.pie = function() {
         , valueFormat = d3.format(',.2f')
         , showLabels = true
         , labelsOutside = false
+        , showPolyline = false
         , labelType = "key"
         , labelThreshold = .02 //if slice percentage is under this, don't show label
         , donut = false
@@ -5632,10 +5633,12 @@ nv.models.pie = function() {
             var g = wrap.select('g');
             var g_pie = gEnter.append('g').attr('class', 'nv-pie');
             gEnter.append('g').attr('class', 'nv-pieLabels');
+            gEnter.append('g').attr('class', 'nv-pieLines');
 
             wrap.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
             g.select('.nv-pie').attr('transform', 'translate(' + availableWidth / 2 + ',' + availableHeight / 2 + ')');
             g.select('.nv-pieLabels').attr('transform', 'translate(' + availableWidth / 2 + ',' + availableHeight / 2 + ')');
+            g.select('.nv-pieLines').attr('transform', 'translate(' + availableWidth / 2 + ',' + availableHeight / 2 + ')');
 
             //
             container.on('click', function(d,i) {
@@ -5704,9 +5707,11 @@ nv.models.pie = function() {
 
             var slices = wrap.select('.nv-pie').selectAll('.nv-slice').data(pie);
             var pieLabels = wrap.select('.nv-pieLabels').selectAll('.nv-label').data(pie);
+            var polyline = wrap.select(".nv-pieLines").selectAll(".nv-polyline").data(pie);
 
             slices.exit().remove();
             pieLabels.exit().remove();
+            polyline.exit().remove();
 
             var ae = slices.enter().append('g');
             ae.attr('class', 'nv-slice');
@@ -5891,6 +5896,62 @@ nv.models.pie = function() {
                 ;
             }
 
+            if (showPolyline) {
+                var arc = d3.svg.arc()
+                        .outerRadius(radius * 0.8)
+                        .innerRadius(radius * 0.8);
+
+                var outerArc = d3.svg.arc()
+                        .innerRadius(radius * 0.85)
+                        .outerRadius(radius * 0.85);
+
+
+                pieLabels.enter().append("text").classed("nv-label",true).attr("dy", ".35rem")
+                .text(function(d) {
+                    // console.log(d);
+                    return d.data.x;
+                });
+
+
+
+
+                pieLabels.transition().duration(1000)
+                        .attrTween("transform", function(d) {
+                            this._current = this._current || d;
+                            var interpolate = d3.interpolate(this._current, d);
+                            this._current = interpolate(0);
+                            return function(t) {
+                                var d2 = interpolate(t);
+                                var pos = outerArc.centroid(d2);
+                                pos[0] = radius * 0.9*((d2.startAngle + (d2.endAngle - d2.startAngle)/2 )< Math.PI ? 1 : -1);
+                                return "translate("+ pos +")";
+                            };
+                        })
+                        .styleTween("text-anchor", function(d){
+                            this._current = this._current || d;
+                            var interpolate = d3.interpolate(this._current, d);
+                            this._current = interpolate(0);
+                            return function(t) {
+                                var d2 = interpolate(t);
+                                return (d2.startAngle + (d2.endAngle - d2.startAngle)/2 ) < Math.PI ? "start":"end";
+                            };
+                        });
+
+                polyline.enter().append("polyline").classed("nv-polyline",true);
+                    polyline.transition().duration(1000).attrTween("points", function(d,i){
+                    this._current = this._current || d;
+                    var interpolate = d3.interpolate(this._current, d);
+                    this._current = interpolate(0);
+                    return function(t) {
+                        var d2 = interpolate(t);
+                        var pos = outerArc.centroid(d2);
+                        pos[0] = radius * 0.85 * ((d2.startAngle + (d2.endAngle - d2.startAngle)/2) < Math.PI ? 1 : -1);
+                        return [arc.centroid(d2), outerArc.centroid(d2), pos];
+                    };
+                });
+
+            }
+
 
             // Computes the angle of an arc, converting from radians to degrees.
             function angle(d) {
@@ -5927,6 +5988,7 @@ nv.models.pie = function() {
         width:      {get: function(){return width;}, set: function(_){width=_;}},
         height:     {get: function(){return height;}, set: function(_){height=_;}},
         showLabels: {get: function(){return showLabels;}, set: function(_){showLabels=_;}},
+        showPolyline: {get: function(){return showPolyline;}, set: function(_){showPolyline=_;}},
         title:      {get: function(){return title;}, set: function(_){title=_;}},
         titleOffset:    {get: function(){return titleOffset;}, set: function(_){titleOffset=_;}},
         labelThreshold: {get: function(){return labelThreshold;}, set: function(_){labelThreshold=_;}},
