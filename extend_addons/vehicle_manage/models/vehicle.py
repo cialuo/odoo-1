@@ -24,7 +24,7 @@ class Vehicle(models.Model):
     route_id = fields.Many2one('route_manage.route_manage', string="Route Name")
 
     # 所属部门
-    department_id = fields.Many2one('hr.department', 'related department')
+    department_id = fields.Many2one('hr.department', 'related department', domain="[('company_id','=',company_id)]")
 
     engine_no = fields.Char("Engine No",related='model_id.engine_no')
     transmission_ext = fields.Char(related='model_id.transmission_ext', store=True, readonly=True, copy=False)

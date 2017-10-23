@@ -439,7 +439,7 @@ msgstr "剩余可调休时间"
 #. module: leaveandcheckingin
 #: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_start
 msgid "start time"
-msgstr "开始"
+msgstr "开始时间"
 
 #. module: leaveandcheckingin
 #: code:addons/leaveandcheckingin/models/models.py:307
