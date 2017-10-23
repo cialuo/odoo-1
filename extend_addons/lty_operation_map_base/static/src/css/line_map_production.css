@@ -415,7 +415,12 @@
     color: #4ecfc7;
 }
 
+.bus_real_info_electronicMap .lineInfo {
+    color: #000;
+}
 
+
+/*车辆调度弹窗*/
 .styleModel_electronicMap .modal-dialog .modal-content{
     background: #fff;
     color: #000;
