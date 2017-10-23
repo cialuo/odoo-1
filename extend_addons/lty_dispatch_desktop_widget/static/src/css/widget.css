@@ -779,7 +779,7 @@
 }
 
 .plan_display .plan_group .section_plan_cont table .pL {
-    padding-left: 12px;
+    padding-left: 6px;
 }
 
 .plan_display .plan_group .section_plan_cont table td.pL {
@@ -787,7 +787,39 @@
 }
 
 .plan_display .plan_group .section_plan_cont table .pR {
-    padding-right: 12px;
+    padding-right: 6px;
+}
+
+.plan_display .plan_group .bus_yard .td_w1 {
+    width: 68px;
+}
+
+.plan_display .plan_group .bus_transit .td_w1 {
+    width: 56px;
+}
+
+.plan_display .plan_group .bus_yard .lineName {
+    max-width: 60px;
+    overflow: hidden;
+}
+
+.plan_display .plan_group .bus_transit .lineName {
+    max-width: 40px;
+    overflow: hidden;
+}
+
+.plan_display .plan_group .bus_yard .planRunTime, .plan_display .plan_group .bus_yard .realReachTime {
+    width: 38px;
+}
+
+ 
+.plan_display .plan_group .bus_yard .realReachTime {
+    padding-left: 6px;
+}
+
+.plan_display .plan_group .bus_transit .td_w3, .plan_display .plan_group .bus_transit .planReachTime {
+    padding: 0 6px;
+    width: 44px;
 }
 
 .plan_display .plan_group .section_plan_cont tr {

@@ -733,7 +733,7 @@
                     </tr>
                     <t t-foreach="widget.yard_data.data_list" t-as="item">
                         <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{new Date(item.planRunTime).getTime()}}" t-attf-planReachTime="{{new Date(item.realReachTime).getTime()}}" >
-                            <td class="pL">
+                            <td class="pL td_w1">
                                 <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                 <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>
                                 <t t-if="item.carStateId != 0">
@@ -758,8 +758,8 @@
                                 </t>
                             </td>
                             <td class="carNum"><t t-esc="item.carNum"></t></td>
-                            <td class="lineName"><t t-esc="item.lineName"></t></td>
-                            <td class="realReachTime">
+                            <td class="lineName" t-attf-title="{{item.lineName}}"><t t-esc="item.lineName"></t></td>
+                            <td class="realReachTime pR">
                                 <t t-if="item.realReachTime">
                                     <t t-esc="new Date(item.realReachTime).toTimeString().slice(0,5).replace('Inval','')"></t>
                                 </t>
@@ -796,7 +796,7 @@
                         <th><t t-if="widget.transit_data.direction==0">下行</t><t t-else="">上行</t>计划</th>
                         <th>车辆</th>
                         <th>线路</th>
-                        <th>回场</th>
+                        <th class="td_w3">回场</th>
                         <th class="pR">停车</th>
                     </tr>
                     <t t-foreach="widget.transit_data.data_list" t-as="item">
@@ -826,8 +826,8 @@
                                 </t>
                             </td>
                             <td class="carNum"><t t-esc="item.carNum"></t></td>
-                            <td class="lineName"><t t-esc="item.lineName"></t></td>
-                            <td class="planReachTime">
+                            <td class="lineName" t-attf-title="{{item.lineName}}"><t t-esc="item.lineName"></t></td>
+                            <td class="planReachTime td_w3">
                                 <t t-if="item.planReachTime">
                                     <t t-esc="new Date(item.planReachTime).toTimeString().slice(0,5).replace('Inval','')"></t>
                                 </t>

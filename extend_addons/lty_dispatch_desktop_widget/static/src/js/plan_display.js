@@ -44,7 +44,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 dataType: 'json',
                 data: {},
                 success: function(retPlan) {
-                    console.log(retPlan.respose);
                     var busResourcePlan = {},
                         uplink_plan = [],  // 上行计划
                         down_plan = [];    // 下行计划
@@ -74,7 +73,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         dataType: 'json',
                         data: {},
                         success: function(resBus) {
-                            console.log(resBus);
                             sessionStorage.setItem("busResource", JSON.stringify(resBus.respose));
                             var uplink_yard = [],     //上行车场
                                 down_yard = [],       //下行车场
@@ -98,7 +96,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                                     }
                                 }
                             })
-
                             self.uplink_yard = uplink_yard;
                             self.down_yard = down_yard;
                             self.uplink_transit = uplink_transit;
