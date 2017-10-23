@@ -240,6 +240,7 @@
 
                         <group col="2">
                             <group name="first_group">
+                                <field name="company_id" options="{'no_create':True}" string = '公司'/>
                                 <field name="gprs_id"/>
                                 <field name="line_type_name"/>
                                 <field name="main_line_id" options="{'no_create':True}"

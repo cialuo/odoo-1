@@ -59,6 +59,8 @@ op_line = {
     ('isShowPoint', None): None,
     #是否显示站点名，无对应字段（0：不显示；1：显示）,默认传值：0
     ('isShowStationName', None): None,
+	#公司
+    ('companyId', 'company_id'): None,
     #以下三个字段文档未描述
     # 'lineStart': '',
     # 'lineEnd': '',
@@ -688,7 +690,7 @@ op_dispatchplan = {
 	#异常原因ID
     ('exceptReasonId', None): None,
 	#实际发车时间
-    ('exceptReasonId', 'realitydepart'): None,
+    #('exceptReasonId', 'realitydepart'): None,
 	#实际到达时间
     ('realReachTime', 'realityarrive'): None,
 	#司机姓名
@@ -703,8 +705,7 @@ op_dispatchplan = {
 #考勤信息表表
 #op_attendance -- employee.attencerecords
 op_attendance = {
-	#   * 主键id
-    ('id', 'id'): None,
+	#   员工类型    
 	#   * "线路ID"
     ('lineId', 'line_id'): None,
 	#   * "线路名称"  添加到代码里
@@ -746,7 +747,7 @@ op_attendance = {
 	#   "计划时间"
     ('planTime', None): None,
 	#员工类型//1019 司机  1020 售票员
-    ('workerType', None): None,
+    ('workerType', 'work_type_id'): None,
 }
 
 
@@ -798,6 +799,7 @@ origin_data = {
     #用户表
     'res.users': sys_user,
     #运营里程
+    
     'vehicleusage.driverecords': op_dispatchplan,	
     #考勤信息表表
     'employee.attencerecords': op_attendance,		

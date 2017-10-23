@@ -20,12 +20,13 @@
 ##############################################################################
 from odoo import api, fields, models
 from extend_addons.lty_dispatch_restful.core.restful_client import *
+from odoo.exceptions import RedirectWarning, UserError, ValidationError
 import mapping
 import logging
 
 #对接系统  考勤信息表
 
-TABLE = 'op_attendance'
+TABLE = 'attend'
 
 _logger = logging.getLogger(__name__)
 class attence(models.Model):
@@ -50,25 +51,28 @@ class attence(models.Model):
         res = super(attence, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
+        if vals.get('is_add'):
+            #try:
             _logger.info('Start create data: %s', self._name)
             vals = mapping.dict_transfer(self._name, vals)
             vals.update({
-                'id': res.id,
+                'onboardId': int(res.vehicle_id.on_boardid),
+                'selfId': res.vehicle_id.inner_code,
+                'gprsId': res.line_id.gprs_id,
+                'workerId': res.employee_id.jobnumber,
+                'driver': res.employee_id.name,
+                'WorkerType': int(res.work_type_id),                    
             })
-            vals['onboardId'] = res.vehicle_id.name
-            vals['selfId'] = res.vehicle_id.inner_code
-            vals['selfId'] = res.vehicle_id.inner_code
-            vals['gprsId'] = res.line_id.gprs_id
-            vals['line'] = res.line_id.line_name
-            vals['workerId'] = res.line_id.line_name
-            vals['workerId'] = res.employee_id.jobnumber
-            vals['driver'] = res.employee_id.name      
-                  
-            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+            params = Params(type=1, cityCode=cityCode, tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+            restful_key_id = rp.json().get('respose').get('id')
+            rp.json().get('result')
+            if   rp.json().get('result') == 0 :
+                res.write({'restful_key_id': int(restful_key_id)})
+            else :
+                raise UserError((u'插入错误.%s')%rp.json().get('respose').get('text'))            
+            #except Exception, e:
+             #   _logger.info('%s', e.message)
         return res
 
     @api.multi
@@ -78,28 +82,33 @@ class attence(models.Model):
         :param vals:
         :return:
         '''
-
-        res = super(attence, self).write(vals)
+        odoo_value = vals
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
+        res = False
         for r in self:
             if r.id != 1:
                 seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
                 if seconds.seconds > 5:
-                    try:
+                    #try:
                         # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                        _logger.info('Start write data: %s', self._name)
-                        vals = mapping.dict_transfer(self._name, vals)
-                        if vals:
-                            vals.update({
-                                'id': r.id,
-                            })
-                            params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-                            rp = Client().http_post(url, data=params)
+                    _logger.info('Start write data: %s', self._name)
+                    vals = mapping.dict_transfer(self._name, vals)
+                    if vals:
+                        vals.update({
+                            'id': int(r.restful_key_id),
+                            'WorkerType': r.work_type_id,                    
+                        })
+                        params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                        rp = Client().http_post(url, data=params)
+                        if   rp.json().get('result') == 0 :
+                            res = super(attence, r).write(odoo_value)
+                        else :
+                            raise UserError((u'更新错误.%s')%rp.json().get('respose').get('text'))   
 
                         # clientThread(url,params,res).start()
-                    except Exception,e:
-                        _logger.info('%s', e.message)
+                    #except Exception,e:
+                    #    _logger.info('%s', e.message)
         return res
 
     @api.multi
@@ -111,16 +120,18 @@ class attence(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         # vals = {"ids": self.ids}
-        res = super(attence, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
+            r.work_type_id
             try:
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                 _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': r.id}
+                vals = {'id': int(r.restful_key_id),'WorkerType': r.work_type_id}
+                res = super(attence, r).unlink()
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
                 rp = Client().http_post(url, data=params)
+                rp.text
             except Exception,e:
                 _logger.info('%s', e.message)
         return res

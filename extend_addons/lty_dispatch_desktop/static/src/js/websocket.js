@@ -1098,7 +1098,7 @@ function add_linePark(content_tb_obj, new_resource) {
 
     var obj_str =
         '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).getTime() + '" planReachTime="' + new Date(new_resource.realReachTime).getTime() + '">' +
-        '<td class="pL">' +
+        '<td class="pL td_w1">' +
         '<span st="' + new_resource.checkOut + '" class="icon sendToScreen icon1_' + new_resource.checkOut + '"></span>' +
         '<span st="' + new_resource.runState + '" class="icon sendToBus icon2_' + new_resource.runState + '"></span>' +
         '<span st="' + new_resource.carStateId + '" class="icon carStateIdIcon ' + carState_class + ' carStateIdIcon_' + new_resource.carStateId + '"></span>' +
@@ -1156,7 +1156,7 @@ function add_busTransit(content_tb_obj, new_resource) {
     }
     var obj_str =
         '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).getTime() + '"  planReachTime="' + new Date(new_resource.planReachTime).getTime() + '">' +
-        '<td class="pL">' +
+        '<td class="pL td_w1">' +
         '<span st="' + new_resource.checkOut + '" class="icon sendToScreen icon1_' + new_resource.checkOut + '"></span>' +
         '<span st="' + new_resource.runState + '" class="icon sendToBus icon2_' + new_resource.runState + '"></span>' +
         '<span st="' + new_resource.carStateId + '" class="icon carStateIdIcon ' + carState_class + ' carStateIdIcon_' + new_resource.carStateId + '"></span>' +
