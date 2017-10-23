@@ -380,13 +380,13 @@ class attence(models.Model):
 
             new_data = {
                 'company_id': '',
-                'line_id': item.get('lineId'),          # 线路ID 27,
+                'line_id': item.get('lineId'),                                  # 线路ID 27,
                 'vehicle_id': on_boardid,
-                'employee_id': employee_id,             # workerId "15373",
-                'date': item.get('workDate').split(' ')[0] or None,           # 工作日期 "2017-10-19 00:00:00",
-                'checkingin': local2utc(item.get('conWorkTime')) or None,  #  "签到时间",
-                'checkinginout': local2utc(item.get('coffWorkTime')) or None,  # "签退时间",
-
+                'employee_id': employee_id,                                     # workerId "15373",
+                'date': item.get('workDate').split(' ')[0] or None,             # 工作日期 "2017-10-19 00:00:00",
+                'checkingin': local2utc(item.get('conWorkTime')) or None,       #  "签到时间",
+                'checkinginout': local2utc(item.get('coffWorkTime')) or None,   # "签退时间",
+                'is_add': False,
 
                 # : item.get('dispatchPlanId'],		#  -1,
                 # : item.get('driverName'],			#  "司机姓名 15373",
