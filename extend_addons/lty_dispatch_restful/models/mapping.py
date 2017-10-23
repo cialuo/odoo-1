@@ -657,10 +657,10 @@ sys_user = {
     ('delState', 'active'): {True:0,False:1}
 }
 #运营理程 非运营理程表
-#op_dispatchplan -- vehicleusage.driverecords
-op_dispatchplan = {
+#operate+nonOperate -- vehicleusage.driverecords
+operate_nonOperate = {
 	#数据库id
-    ('id', 'id'): None,
+    ('id', 'restful_key_id'): None,
 	#线路id  运营+非运营
     ('lineId', 'route_id'): None,
 	#司机ID 运营+非运营
@@ -703,9 +703,10 @@ op_dispatchplan = {
     ('planStateId', None): None,	
 }
 #考勤信息表表
-#op_attendance -- employee.attencerecords
-op_attendance = {
-	#   员工类型    
+#attend -- employee.attencerecords
+attend = {
+	#   数据库ID
+    ('id', 'restful_key_id'): None,
 	#   * "线路ID"
     ('lineId', 'line_id'): None,
 	#   * "线路名称"  添加到代码里
@@ -800,9 +801,9 @@ origin_data = {
     'res.users': sys_user,
     #运营里程
     
-    'vehicleusage.driverecords': op_dispatchplan,	
+    'vehicleusage.driverecords': operate_nonOperate,	
     #考勤信息表表
-    'employee.attencerecords': op_attendance,		
+    'employee.attencerecords': attend,		
 }
 
 def dict_transfer(table, data):

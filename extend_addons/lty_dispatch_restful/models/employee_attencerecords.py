@@ -65,14 +65,16 @@ class attence(models.Model):
             })
             params = Params(type=1, cityCode=cityCode, tableName=TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
-            restful_key_id = rp.json().get('respose').get('id')
-            rp.json().get('result')
-            if   rp.json().get('result') == 0 :
-                res.write({'restful_key_id': int(restful_key_id)})
+            if rp :
+                restful_key_id = rp.json().get('respose').get('id')
+                if   rp.json().get('result') == 0 :
+                    res.write({'restful_key_id': int(restful_key_id)})
+                else :
+                    raise UserError((u'插入错误.%s')%rp.json().get('respose').get('text'))            
+                #except Exception, e:
+                #   _logger.info('%s', e.message)
             else :
-                raise UserError((u'插入错误.%s')%rp.json().get('respose').get('text'))            
-            #except Exception, e:
-             #   _logger.info('%s', e.message)
+                raise UserError((u'接口连接失败错误'))            
         return res
 
     @api.multi
@@ -87,28 +89,34 @@ class attence(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         res = False
         for r in self:
-            if r.id != 1:
-                seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-                if seconds.seconds > 5:
-                    #try:
-                        # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                    _logger.info('Start write data: %s', self._name)
-                    vals = mapping.dict_transfer(self._name, vals)
-                    if vals:
-                        vals.update({
-                            'id': int(r.restful_key_id),
-                            'WorkerType': r.work_type_id,                    
-                        })
-                        params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-                        rp = Client().http_post(url, data=params)
-                        if   rp.json().get('result') == 0 :
-                            res = super(attence, r).write(odoo_value)
-                        else :
-                            raise UserError((u'更新错误.%s')%rp.json().get('respose').get('text'))   
-
-                        # clientThread(url,params,res).start()
-                    #except Exception,e:
-                    #    _logger.info('%s', e.message)
+            seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
+            if seconds.seconds > 5:
+                #try:
+                    # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                _logger.info('Start write data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)
+                vals.update({
+                    'id': int(r.restful_key_id),
+                    'WorkerType': r.work_type_id, 
+                    'onboardId': int(r.vehicle_id.on_boardid),
+                    'selfId': r.vehicle_id.inner_code,
+                    'gprsId': r.line_id.gprs_id,
+                    'workerId': r.employee_id.jobnumber,
+                    'driver': r.employee_id.name,
+                })
+                if vals:
+                    params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                    rp = Client().http_post(url, data=params)
+                    if   rp.json().get('result') == 0 :
+                        res = super(attence, r).write(odoo_value)
+                    else :
+                        raise UserError((u'更新错误.%s')%rp.json().get('respose').get('text'))
+            else :
+                res = super(attence, r).write(odoo_value)
+   
+                    # clientThread(url,params,res).start()
+                #except Exception,e:
+                #    _logger.info('%s', e.message)
         return res
 
     @api.multi
@@ -123,15 +131,13 @@ class attence(models.Model):
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
-            r.work_type_id
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': int(r.restful_key_id),'WorkerType': r.work_type_id}
-                res = super(attence, r).unlink()
-                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-                rp = Client().http_post(url, data=params)
-                rp.text
-            except Exception,e:
-                _logger.info('%s', e.message)
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            _logger.info('Start unlink data: %s', self._name)
+            vals = {'id': int(r.restful_key_id),'WorkerType': r.work_type_id}
+            res = super(attence, r).unlink()
+            params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+            rp = Client().http_post(url, data=params)
+            rp.text
+            if  rp.json().get('result') != 0 :
+                raise UserError((u'删除错误.%s')%rp.json().get('respose').get('text'))                
         return res
