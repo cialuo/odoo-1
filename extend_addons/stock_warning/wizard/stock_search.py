@@ -33,11 +33,11 @@ class stock_search(models.TransientModel):
         return {
             'name':u'库存预警',
             'view_type': 'form',
-            'view_mode': 'tree',
+            'view_mode': 'tree,graph',
             'res_model': 'stock.warning_data',
             'type': 'ir.actions.act_window',
             'res_id': '',
-            'view_id': self.env.ref('stock_warning.warning_data_list').id,
+            #'view_id': self.env.ref('stock_warning.warning_data_list').id,
             'target': 'current'
         }
 
