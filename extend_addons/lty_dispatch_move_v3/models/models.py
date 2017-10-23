@@ -6,11 +6,13 @@ from odoo.exceptions import UserError
 from odoo import models, fields, api
 
 def utc2local(str):
-    local_time = datetime.datetime.strptime(str, '%Y-%m-%d %H:%M:%S') +datetime.timedelta(hours=8)
-    return datetime.datetime.strftime(local_time,"%Y-%m-%d %H:%M:%S")
+    if str :
+        local_time = datetime.datetime.strptime(str, '%Y-%m-%d %H:%M:%S') +datetime.timedelta(hours=8)
+        return datetime.datetime.strftime(local_time,"%Y-%m-%d %H:%M:%S")
 def local2utc(str):
-    local_time = datetime.datetime.strptime(str, '%Y-%m-%d %H:%M:%S') +datetime.timedelta(hours=-8)
-    return datetime.datetime.strftime(local_time,"%Y-%m-%d %H:%M:%S")
+    if str :
+        local_time = datetime.datetime.strptime(str, '%Y-%m-%d %H:%M:%S') +datetime.timedelta(hours=-8)
+        return datetime.datetime.strftime(local_time,"%Y-%m-%d %H:%M:%S")
 
 class operation_records_move2v3(models.Model):
     _name = 'operation.records.move2v3'
@@ -210,15 +212,15 @@ class DriveRecords(models.Model):
                     # 'driver_id': int(item.get('driverName')),  # 司机
                     # 司机姓名
 
-                    'date': item.get('createTime', '').split(' ')[0] or None,   # todo
-                    'realitydepart': item.get('startTime') or None,     # 开始时间
-                    'realityarrive': item.get('endTime') or None,      # 结束时间
+                    'date': local2utc(item.get('createTime', '')).split(' ')[0] or None,   # todo
+                    'realitydepart': local2utc(item.get('startTime')) or None,     # 开始时间
+                    'realityarrive': local2utc(item.get('endTime')) or None,      # 结束时间
 
                     'abnormal': str(item.get('kmTypeId')),          # 异常类型
 
                     'planmileage': item.get('planKm'),         # 计划里程数
                     'GPSmileage': item.get('realKm'),          # GPS里程数
-                    'gen_date': item.get('createTime') or None,        # 生成时间
+                    'gen_date': local2utc(item.get('createTime')) or None,        # 生成时间
                     # 'finish_state': item.get('finishState'),   # 状态
 
                     'note': item.get('remark'),  # String	备注
@@ -260,11 +262,11 @@ class DriveRecords(models.Model):
                     #方向
                     'direction': item.get('direction'),     # 线路
 					#日期
-                    'date': item.get('createTime', '').split(' ')[0] or None,   # todo
+                    'date': local2utc(item.get('createTime', '')).split(' ')[0] or None,   # todo
 					#计划时间：
-                    'date_plan': item.get('planRunTime'),     # 线路
+                    'date_plan': local2utc(item.get('planRunTime')),     # 线路
 					#实际发车时间
-                    'realitydepart': item.get('realRunTime') or None, 
+                    'realitydepart': local2utc(item.get('realRunTime')) or None, 
 					#计划状态
                     'state_plan': item.get('planState'),   # 状态
 					#车辆编号
@@ -272,7 +274,7 @@ class DriveRecords(models.Model):
 					#司机ID  ???
                     'driver_id': driver_id, 
 					#计划到达时间？？？
-                    'planarrive': planReachTime,
+                    'planarrive':  local2utc(item.get('planReachTime')),
 					#实际到达时间
                     'realityarrive': item.get('endTime') or None,      # 结束时间
 					#运营时长
@@ -383,8 +385,8 @@ class attence(models.Model):
                 'vehicle_id': on_boardid,
                 'employee_id': employee_id,             # workerId "15373",
                 'date': item.get('workDate').split(' ')[0] or None,           # 工作日期 "2017-10-19 00:00:00",
-                'checkingin': item.get('conWorkTime') or None,  #  "签到时间",
-                'checkinginout': item.get('coffWorkTime') or None,  # "签退时间",
+                'checkingin': local2utc(item.get('conWorkTime')) or None,  #  "签到时间",
+                'checkinginout': local2utc(item.get('coffWorkTime')) or None,  # "签退时间",
 
 
                 # : item.get('dispatchPlanId'],		#  -1,
