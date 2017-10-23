@@ -100,7 +100,7 @@ class DriveRecords(models.Model):
                 TABLE = TABLE_others                    
             
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds < 5 or odoo_value.get('state')=='approved':
+            if seconds.seconds < 5 or (odoo_value.get('state') in ('approved','moved')):
                 res = super(DriveRecords, r).write(odoo_value)
             else :
                 _logger.info('Start write data: %s', self._name)
