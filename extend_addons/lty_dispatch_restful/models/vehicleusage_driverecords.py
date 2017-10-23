@@ -48,6 +48,7 @@ class DriveRecords(models.Model):
         '''
 
         res = super(DriveRecords, self).create(vals)
+        vals_odoo = vals
         if vals.get('drivetype') == 'working' :
             TABLE = TABLE_work
         else :
@@ -68,9 +69,12 @@ class DriveRecords(models.Model):
                 })
                 params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                 rp = Client().http_post(url, data=params)
+                restful_key_id = rp.json().get('respose').get('id')
+                if restful_key_id :
+                    res.write({'restful_key_id': restful_key_id})
             except Exception,e:
                 _logger.info('%s', e.message)
-        return res
+        return  res
 
     @api.multi
     def write(self, vals):
@@ -97,7 +101,7 @@ class DriveRecords(models.Model):
                         vals = mapping.dict_transfer(self._name, vals)
                         if vals:
                             vals.update({
-                                'id': r.id,
+                                'id': r.restful_key_id,
                             })
                             params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                             rp = Client().http_post(url, data=params)
@@ -126,7 +130,7 @@ class DriveRecords(models.Model):
             try:
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                 _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': r.id}
+                vals = {'id': r.restful_key_id}
                 
                 res = super(DriveRecords, r).unlink()
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()

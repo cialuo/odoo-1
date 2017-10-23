@@ -690,7 +690,7 @@ op_dispatchplan = {
 	#异常原因ID
     ('exceptReasonId', None): None,
 	#实际发车时间
-    ('exceptReasonId', 'realitydepart'): None,
+    #('exceptReasonId', 'realitydepart'): None,
 	#实际到达时间
     ('realReachTime', 'realityarrive'): None,
 	#司机姓名
