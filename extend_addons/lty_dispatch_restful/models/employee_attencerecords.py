@@ -50,21 +50,21 @@ class attence(models.Model):
         res = super(attence, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        if  vals.get('is_add') :
-			try:
-				_logger.info('Start create data: %s', self._name)
-				vals = mapping.dict_transfer(self._name, vals)
-				vals.update({
+        if vals.get('is_add'):
+            try:
+                _logger.info('Start create data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)
+                vals.update({
                     'onboardId': res.vehicle_id.name,
                     'selfId': res.vehicle_id.inner_code,
                     'gprsId': res.line_id.gprs_id,
                     'workerId': res.employee_id.jobnumber,
                     'driver': res.employee_id.name,
-				})
-				params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-				rp = Client().http_post(url, data=params)
-			except Exception,e:
-				_logger.info('%s', e.message)
+                })
+                params = Params(type=1, cityCode=cityCode, tableName=TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+            except Exception, e:
+                _logger.info('%s', e.message)
         return res
 
     @api.multi

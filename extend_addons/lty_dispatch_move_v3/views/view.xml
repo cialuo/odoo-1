@@ -71,6 +71,7 @@
 			  <field name="line_id" string="线路" readonly='1'/>
 			  <field name="vehicle_id" string="车辆编号" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			  <field name="employee_id" string="职工" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
+			  <field name="work_type_id" string="员工类型" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			  <field name="date" string="日期" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			  <field name="checkingin" string="签到时间" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			  <field name="checkinginout" string="签退时间" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>

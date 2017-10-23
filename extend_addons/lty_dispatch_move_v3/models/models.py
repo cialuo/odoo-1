@@ -346,7 +346,11 @@ class attence(models.Model):
     record_move_id = fields.Many2one('operation.records.move2v3')
     
     # 签到时间 checkingin
-
+    #员工类型
+    work_type_id = fields.Selection([
+        ('1019',u'司机'),
+        ('1020','售票员')
+    ])
     # 签退时间 checkinginout
     #是否客户端补录
     is_add = fields.Boolean(default=True, readonly=True)
