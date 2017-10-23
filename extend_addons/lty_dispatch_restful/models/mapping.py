@@ -664,7 +664,7 @@ operate_nonOperate = {
 	#线路id  运营+非运营
     ('lineId', 'route_id'): None,
 	#司机ID 运营+非运营
-    ('workerId', 'driver_id'): None,
+    ('workerId', None): None,
 	#车辆设备号 运营+非运营
     ('onboardId', 'inner_code'): None,
 	#方向
@@ -736,7 +736,7 @@ attend = {
 	#   "姓名"  添加到代码里
     ('driver', None): None,
 	#   "执行日期"
-    ('workDate', None): None,
+    ('workDate', 'date'): None,
 	#   "备注"
     ('remark', None): None,
 	#   "计划发车时间"
