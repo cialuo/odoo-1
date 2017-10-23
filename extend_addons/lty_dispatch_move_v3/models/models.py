@@ -354,6 +354,8 @@ class attence(models.Model):
     # 签退时间 checkinginout
     #是否客户端补录
     is_add = fields.Boolean(default=True, readonly=True)
+    #后台主键ID
+    restful_key_id = fields.Char()
     # 类型
     state = fields.Selection([
         ('draft',u'草稿'), 
@@ -400,6 +402,9 @@ class attence(models.Model):
                 'checkingin': local2utc(item.get('conWorkTime')) or None,       #  "签到时间",
                 'checkinginout': local2utc(item.get('coffWorkTime')) or None,   # "签退时间",
                 'is_add': False,
+                'restful_key_id':item.get('id'), 
+                'work_type_id':str(item.get('workerType')), 
+                
 
                 # : item.get('dispatchPlanId'],		#  -1,
                 # : item.get('driverName'],			#  "司机姓名 15373",

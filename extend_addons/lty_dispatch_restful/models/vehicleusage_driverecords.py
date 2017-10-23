@@ -101,7 +101,7 @@ class DriveRecords(models.Model):
                         vals = mapping.dict_transfer(self._name, vals)
                         if vals:
                             vals.update({
-                                'id': r.restful_key_id,
+                                'id': int(r.restful_key_id),
                             })
                             params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                             rp = Client().http_post(url, data=params)
@@ -130,7 +130,7 @@ class DriveRecords(models.Model):
             try:
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                 _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': r.restful_key_id}
+                vals = {'id': int(r.restful_key_id)}
                 
                 res = super(DriveRecords, r).unlink()
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()

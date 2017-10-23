@@ -20,6 +20,7 @@
 ##############################################################################
 from odoo import api, fields, models
 from extend_addons.lty_dispatch_restful.core.restful_client import *
+from odoo.exceptions import RedirectWarning, UserError, ValidationError
 import mapping
 import logging
 
@@ -55,14 +56,21 @@ class attence(models.Model):
                 _logger.info('Start create data: %s', self._name)
                 vals = mapping.dict_transfer(self._name, vals)
                 vals.update({
-                    'onboardId': res.vehicle_id.name,
+                    'onboardId': int(res.vehicle_id.on_boardid),
                     'selfId': res.vehicle_id.inner_code,
                     'gprsId': res.line_id.gprs_id,
                     'workerId': res.employee_id.jobnumber,
                     'driver': res.employee_id.name,
+                    'WorkerType': int(res.work_type_id),                    
                 })
                 params = Params(type=1, cityCode=cityCode, tableName=TABLE, data=vals).to_dict()
                 rp = Client().http_post(url, data=params)
+                restful_key_id = rp.json().get('respose').get('id')
+                rp.text
+                if restful_key_id :
+                    res.write({'restful_key_id': int(restful_key_id)})
+                else :
+                    raise UserError((u'插入错误.'))            
             except Exception, e:
                 _logger.info('%s', e.message)
         return res
@@ -88,10 +96,12 @@ class attence(models.Model):
                         vals = mapping.dict_transfer(self._name, vals)
                         if vals:
                             vals.update({
-                                'id': r.id,
+                                'id': int(r.restful_key_id),
+                                'WorkerType': r.work_type_id,                    
                             })
                             params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                             rp = Client().http_post(url, data=params)
+                            rp.text
 
                         # clientThread(url,params,res).start()
                     except Exception,e:
@@ -107,16 +117,18 @@ class attence(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         # vals = {"ids": self.ids}
-        res = super(attence, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
+            r.work_type_id
             try:
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                 _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': r.id}
+                vals = {'id': int(r.restful_key_id),'WorkerType': r.work_type_id}
+                res = super(attence, r).unlink()
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
                 rp = Client().http_post(url, data=params)
+                rp.text
             except Exception,e:
                 _logger.info('%s', e.message)
         return res

@@ -705,8 +705,7 @@ op_dispatchplan = {
 #考勤信息表表
 #op_attendance -- employee.attencerecords
 op_attendance = {
-	#   * 主键id
-    ('id', 'id'): None,
+	#   员工类型    
 	#   * "线路ID"
     ('lineId', 'line_id'): None,
 	#   * "线路名称"  添加到代码里
