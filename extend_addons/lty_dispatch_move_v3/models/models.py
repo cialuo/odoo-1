@@ -39,7 +39,8 @@ class operation_records_move2v3(models.Model):
         ('syned',u'同步'), 
         ('approved','审核'), 
         ('moved','迁移') 
-    ],default="draft", readonly=True)       
+    ],default="draft", readonly=True)
+    move_result = fields.Text()       
     
     
     _sql_constraints = [
@@ -101,13 +102,15 @@ class operation_records_move2v3(models.Model):
         }
 
         url = '%s/ltyop/transfer/transferExceptKmOdoo?apikey=71029270&params=%s' % (url_config, json.dumps(dict(params)))
-        r = requests.get(url)
+        r = requests.put(url)
         if r.status_code != 200:
             raise UserError((u"连接失败."))
 
         if r.json().get('result') != 0:
             raise UserError((u"服务器返回查询失败."))
-        return r.json()['respose']
+        result =  r.json()['respose']
+        self.write({'state':'moved','move_result':result})
+        
         
 
 class DriveRecords(models.Model):
