@@ -25,9 +25,10 @@ import datetime
 import logging
 
 #对接系统  用户表管理
-
-TABLE_work = 'op_dispatchplan'
-TABLE_others = 'op_exceptkm'
+#运营表
+TABLE_work = 'operate'
+#非运营表
+TABLE_others = 'nonOperate'
 
 _logger = logging.getLogger(__name__)
 class DriveRecords(models.Model):
@@ -58,15 +59,13 @@ class DriveRecords(models.Model):
                 _logger.info('Start create data: %s', self._name)
                 vals = mapping.dict_transfer(self._name, vals)
                 vals.update({
-                    'id': res.id,
-                    'line':res.line_id.line_name,
+                    'line':res.route_id.line_name,
                     'selfId':res.vehicle_id.inner_code,
-                    'onBoardId':res.vehicle_id.on_boardid,
-                    'gprsId':res.line_id.gprs_id,
-                    'workerId':res.employee_id.jobnumber,
-                    'driver':res.employee_id.name,
+                    'onBoardId':int(res.vehicle_id.on_boardid),
+                    'gprsId':res.route_id.gprs_id,
+                    'workerId':res.driver_id.jobnumber,
+                    'driver':res.driver_id.name,
                 })
-                vals['onboardId'] = res.vehicle_id.name
                 params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                 rp = Client().http_post(url, data=params)
             except Exception,e:

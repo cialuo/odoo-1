@@ -25,7 +25,7 @@ import logging
 
 #对接系统  考勤信息表
 
-TABLE = 'op_attendance'
+TABLE = 'attend'
 
 _logger = logging.getLogger(__name__)
 class attence(models.Model):
@@ -55,17 +55,12 @@ class attence(models.Model):
 				_logger.info('Start create data: %s', self._name)
 				vals = mapping.dict_transfer(self._name, vals)
 				vals.update({
-					'id': res.id,
+                    'onboardId': res.vehicle_id.name,
+                    'selfId': res.vehicle_id.inner_code,
+                    'gprsId': res.line_id.gprs_id,
+                    'workerId': res.employee_id.jobnumber,
+                    'driver': res.employee_id.name,
 				})
-				vals['onboardId'] = res.vehicle_id.name
-				vals['selfId'] = res.vehicle_id.inner_code
-				vals['selfId'] = res.vehicle_id.inner_code
-				vals['gprsId'] = res.line_id.gprs_id
-				vals['line'] = res.line_id.line_name
-				vals['workerId'] = res.line_id.line_name
-				vals['workerId'] = res.employee_id.jobnumber
-				vals['driver'] = res.employee_id.name      
-					  
 				params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
 				rp = Client().http_post(url, data=params)
 			except Exception,e:
