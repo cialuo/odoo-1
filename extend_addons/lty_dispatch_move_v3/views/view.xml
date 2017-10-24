@@ -4,7 +4,7 @@
 	<menuitem name="运营记录" id="operation_records_menus" parent="operation_menu.operation_menu_root" sequence="110"/>  
   
   
-    <!-- 运营理程视图 -->
+    <!-- 运营里程视图 -->
     <record model="ir.ui.view" id="operation_vehicleusage_driverecords_list">
       <field name="name">vehicleusage driverecords list</field>
       <field name="model">vehicleusage.driverecords</field>
@@ -35,7 +35,7 @@
 		</tree>
       </field>
     </record>
-    <!-- 非运营理程视图 -->
+    <!-- 非运营里程视图 -->
     <record model="ir.ui.view" id="nooperation_vehicleusage_driverecords_list">
       <field name="name">vehicleusage driverecords list</field>
       <field name="model">vehicleusage.driverecords</field>
@@ -124,7 +124,7 @@
                         <field name="operation_vehicleusage_ids" attrs="{'readonly': [('state','in',('approved','moved'))]}" domain="[('drivetype','=','working')]" context="{'tree_view_ref':'lty_dispatch_move_v3.operation_vehicleusage_driverecords_list','default_drivetype': 'working'}">                       
                         </field>
 					</page>
-					<page string = '非运营理程'>
+					<page string = '非运营里程'>
                         <field name="nooperation_vehicleusage_ids" attrs="{'readonly': [('state','in',('approved','moved'))]}" domain="[('drivetype','!=','working')]"  context="{'tree_view_ref':'lty_dispatch_move_v3.nooperation_vehicleusage_driverecords_list','default_drivetype': 'empty'}">
                         </field>
 					</page>
@@ -135,29 +135,29 @@
 			</form>
 		</field>
 	</record>		
-    <!-- 运营理程动作 -->  
+    <!-- 运营里程动作 -->  
     <record model="ir.actions.act_window" id="operation_vehicleusage_driverecords_action">
-      <field name="name">运营理程</field>
+      <field name="name">运营里程</field>
       <field name="res_model">vehicleusage.driverecords</field>
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="operation_vehicleusage_driverecords_list"/>
       <field name="domain">[('drivetype','=','working'),('record_move_id.name','>','1900-01-01')]</field>
 	  <field name="help" type="html">
 	      <p class="oe_view_nocontent_create">
-	          暂无运营理程记录.<br/>
+	          暂无运营里程记录.<br/>
 	      </p>
 	  </field>           
     </record>
-    <!-- 非运营理程动作 -->  
+    <!-- 非运营里程动作 -->  
     <record model="ir.actions.act_window" id="operation_no_vehicleusage_driverecords_action">
-      <field name="name">非运营理程</field>
+      <field name="name">非运营里程</field>
       <field name="res_model">vehicleusage.driverecords</field>
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="nooperation_vehicleusage_driverecords_list"/>
       <field name="domain">[('drivetype','!=','working'),('record_move_id.name','>','1900-01-01')]</field>
 	  <field name="help" type="html">
 	      <p class="oe_view_nocontent_create">
-	          暂无非运营理程记录.<br/>
+	          暂无非运营里程记录.<br/>
 	      </p>
 	  </field>           
     </record>	
