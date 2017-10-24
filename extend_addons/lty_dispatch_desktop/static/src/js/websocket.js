@@ -838,12 +838,13 @@ function update_linePlan(controllerObj, dataObj) {
         }
     }
 
-    // 计划到达时间
+    // 计划时间
     if (dataObj.planRunTime != undefined) {
         active_tr_obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0, 5));
+        update_bus_info_sort(active_tr_obj, new Date(dataObj.planRunTime).getTime());
     }
 
-    // 计划到达时间
+    // 到达时间
     if (dataObj.planReachTime != undefined) {
         active_tr_obj.find(".planReachTime").html(new Date(dataObj.planReachTime).toTimeString().slice(0, 5));
     }
@@ -872,6 +873,7 @@ function update_linePlan(controllerObj, dataObj) {
 
     update_linePlanParkOnlineModel_load_fn();
 }
+
 
 // 车场更新
 function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
@@ -1022,6 +1024,23 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
     update_linePlanParkOnlineModel_load_fn();
 }
 
+// 排序
+function update_bus_info_sort(activeTr, planTime){
+    var tr_list = activeTr.parents(".content_tb").find("tr.point").not(activeTr);
+    if (tr_list.length == 0){
+        return false;
+    }
+    for (var i=0,oe_l=tr_list.length;i<oe_l;i++){
+        var oe_tr = tr_list[i];
+        var oe_plan_time = oe_tr.getAttribute("planRunTime");
+        if (oe_plan_time > planTime){
+            oe_tr.before(activeTr);
+            break;
+        }
+    }
+}
+
+// 加载事件
 function update_linePlanParkOnlineModel_load_fn() {
     $(".linePlanParkOnlineModel .bus_plan").find(".content_tb .icon").hover(function () {
         var st = $(this).attr("st");
