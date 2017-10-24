@@ -213,7 +213,12 @@ class route_manage(models.Model):
     _sql_constraints = [
         ('coding_unique', 'unique(gprs_id)', _('The route code must be unique!')),
         ('route_unique', 'unique(line_name)', _('The route name must be unique!')),
-    ]    
+    ]
+
+    @api.onchange('line_type_name')
+    def _on_change_main_line_id(self):
+        if self.line_type_name == 'main_line':
+            self.main_line_id = None
 
     @api.onchange('up_first_time','up_end_time','down_first_time','down_end_time')
     def _on_change_time(self):
