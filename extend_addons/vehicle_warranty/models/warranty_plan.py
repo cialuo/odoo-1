@@ -185,6 +185,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
             if plan_order.state == 'commit':
                 plan_order.state = 'wait'
 
+
     @api.multi
     def action_done(self):
         self.state = 'done'

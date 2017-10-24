@@ -585,7 +585,7 @@ class WarrantyInspectOrder(models.Model): # 检验单
             i.state = 'complete'
             i.inspect_result = 'qualified'
             i.end_inspect_time = datetime.datetime.utcnow() # fields.Datetime.now()
-
+            i.vehicle_id.state = 'normal'
             if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
                 i.warranty_order_id.state = 'done'
                 i.warranty_order_id.plan_order_ids.state = 'done'
@@ -813,7 +813,7 @@ class WizardProjectBatchCheckPass(models.TransientModel):  # 保养项目_批量
             i.state = 'complete'
             i.inspect_result = 'qualified'
             i.end_inspect_time = datetime.datetime.utcnow() # fields.Datetime.now()
-
+            i.vehicle_id.state = 'normal'
             if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
                 i.warranty_order_id.state = 'done'
                 i.warranty_order_id.plan_order_ids.state = 'done'
