@@ -81,7 +81,9 @@ class BatchUpdateVehicle(models.TransientModel):
                             }
 
                     vehicle_code = i.vehicle_id.vehicle_code + datetime.date.today().strftime('%Y')[-2:]
-                    vals.update({"vehicle_code":vehicle_code})
+                    vals.update({"vehicle_code": vehicle_code,
+                                 'state': 'normal'
+                                 })
                     i.vehicle_id.write(vals)
             if not_match_list:
                 datas = []

@@ -48,8 +48,10 @@ odoo.define('nvd3_extend.GraphWidget', function (require) {
             var chart = nv.models.pieChart();
             chart.options({
               delay: 250,
-              pieLabelsOutside:true,
+              // pieLabelsOutside:true,
               donut: true,
+              showLabels: false,
+              showPolyline: true,
               showLegend: legend_right || _.size(data) <= MAX_LEGEND_LENGTH,
               legendPosition: legend_right ? 'right' : 'top',
               transition: 100,

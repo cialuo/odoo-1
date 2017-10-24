@@ -7,6 +7,10 @@
             <field name="model">stock.inventory</field>
             <field name="inherit_id" ref="stock.view_inventory_form"/>
             <field name="arch" type="xml">
+                <!--<xpath expr="//field[@name='date']" position="after">-->
+                    <!--<field name="loss_total"/>-->
+                    <!--<field name="income_total"/>-->
+                <!--</xpath>-->
                 <xpath expr="//field[@name='line_ids']/tree//field[@name='theoretical_qty']" position="before">
                     <field name="component_visible" invisible="1"/>
                     <button name="action_line_component" string="Components" type="object" icon="fa-list"
@@ -17,6 +21,17 @@
                 </xpath>
             </field>
         </record>
+        <!--<record model="ir.ui.view" id="view_stock_inventory_graph">-->
+            <!--<field name="name">view.stock.inventory.graph</field>-->
+            <!--<field name="model">stock.inventory.line</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<graph stacked="False">-->
+                    <!--&lt;!&ndash;<field name="date"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<field name="loss_total" type="measure"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<field name="income_total" type="measure"/>&ndash;&gt;-->
+                <!--</graph>-->
+            <!--</field>-->
+        <!--</record>-->
         <record id="view_component_inventory_line" model="ir.ui.view">
             <field name="name">view.component.inventory.line</field>
             <field name="model">stock.inventory.line</field>
@@ -45,5 +60,27 @@
                 </form>
             </field>
         </record>
+        <!--为了盘点图表，增加盘点明细的库存移动-->
+        <record id="inventory_move_graph" model="ir.ui.view">
+            <field name="name">inventory.move.graph</field>
+            <field name="model">stock.move</field>
+            <field name="arch" type="xml">
+                <graph stacked="False">
+                    <field name="product_id"/>
+                    <field name="inv_type"/>
+                    <field name="product_uom_qty" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        <!--添加视图动作-->
+        <record id="action_inventory_move" model="ir.actions.act_window">
+            <field name="name">Action inventory move</field>
+            <field name="res_model">stock.move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="domain">[('inv_type', 'in', ['loss', 'income'])]</field>
+        </record>
+        <menuitem id="menu_inventory_move" action="action_inventory_move" sequence="45" parent="materials_menu.materials_menu_stock" groups="stock.group_stock_user"/>
     </data>
 </odoo>

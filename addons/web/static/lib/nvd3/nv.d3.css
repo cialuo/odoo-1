@@ -425,3 +425,9 @@ svg.nvd3-svg {
     fill-opacity: 0;
     stroke-opacity: 0;
 }
+.nvd3.nv-pie .nv-polyline{
+        opacity: .3;
+        stroke: blue;
+        stroke-width: 1px;
+        fill: none;
+    }
