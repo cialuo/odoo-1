@@ -38,12 +38,12 @@ class employee(models.Model):
     # 驾驶证领证日期
     drivelicensedata = fields.Date(string='emplyee drivelicense date')
     # 社保账户
-    socialsecurityaccount = fields.Char(string='employee socialsecurity account')
+    socialsecurityaccount = fields.Char(string='employee socialsecurity account', required=True)
     # 工资账户
     salaryaccount = fields.Char(string='employee salary account')
 
     # 公积金账户
-    housingprovidentaccount = fields.Char(string='housing provident account')
+    housingprovidentaccount = fields.Char(string='housing provident account', required=True)
 
     # 员工家属信息
     families = fields.One2many('employees.employeefamily', 'employee_id',  string="employees's families")

@@ -124,19 +124,21 @@ class WarrantyPlan(models.Model): # 车辆保养计划
                                                             None,
                                                             datetime.datetime.today())
                 if lastmantaindate == None:
-                    # 之前从未做过维保则添加到计划 无需其他条件检查
-                    itemsToAdd.append(self.constructPlanItemData(item.id,
-                                                                 mitem.warranty_category_id.id,
-                                                                 mileageOffset,
-                                                                 datetime.datetime.today(),
-                                                                 item.daily_mileage,
-                                                                 lastmantaindate))
+                    # 之前从未做过维保则添加到计划则不加入
+                    continue
+                    #
+                    # itemsToAdd.append(self.constructPlanItemData(item.id,
+                    #                                              mitem.warranty_category_id.id,
+                    #                                              mileageOffset,
+                    #                                              datetime.datetime.today(),
+                    #                                              item.daily_mileage,
+                    #                                              lastmantaindate))
                 else:
                     bigestmileage = mileageOffset + predays*item.daily_mileage
                     if (bigestmileage) > (mitem.interval_mileage - mitem.warranty_category_id.active_mileage):
                         # 如果加上提前天数满足维保里程阈值则添加到维保记录
                         dayoffset = int((bigestmileage-mitem.interval_mileage)/item.daily_mileage)
-                        plandate = datetime.datetime.today()+datetime.timedelta(days=dayoffset)
+                        plandate = datetime.datetime.today()+datetime.timedelta(days=abs(predays-dayoffset))
                         itemsToAdd.append(self.constructPlanItemData(item.id,
                                                                      mitem.warranty_category_id.id,
                                                                      mileageOffset,
