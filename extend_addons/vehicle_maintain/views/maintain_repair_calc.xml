@@ -26,7 +26,7 @@
             <field name="name">Maintain Calc Form</field>
             <field name="model">maintain.manage.repair</field>
             <field name="arch" type="xml">
-                <form string="MaintainRepair Form">
+                <form string="MaintainRepair Form" create="false">
                 	<header>
 						<button name="action_calcuate" type="object"
                                 string="Confirm Calcuate"
@@ -41,10 +41,10 @@
 								groups="vehicle_group.vehicle_dispatch"
                                 /> <!-- 刷新-->
 
-						<button name="action_back" type="object"
-                                string="action_back"
-								attrs="{'invisible': [('calculate_state', '!=', 'calculated')]}"
-                               /> <!-- 退回-->
+						<!--<button name="action_back" type="object"-->
+                                <!--string="action_back"-->
+								<!--attrs="{'invisible': [('calculate_state', '!=', 'calculated')]}"-->
+                               <!--/> &lt;!&ndash; 退回&ndash;&gt;-->
 
                     	<field name="calculate_state"  widget="statusbar" statusbar_visible="calculated,calculating" />
                 	</header>
@@ -92,12 +92,12 @@
 										<field name="user_id" readonly="1"/>
 										<field name="real_start_time" readonly="1"/>
 										<field name="real_end_time" readonly="1"/>
+										<field name="real_work" readonly="1"/>
 										<field name="work_time" readonly="1"/>
 										<field name="percentage_work" readonly="1"/>
-										<field name="real_work" readonly="1"/>
 										<field name="work_time_fee" sum="total" widget="monetary" readonly="1"/>
                                         <field name="is_last_method" invisible="1"/>
-										<field name="is_need_calc"  attrs="{'readonly':[('is_last_method','=', True)]}"/>
+										<field name="is_need_calc" attrs="{'readonly':[('is_last_method','=', True)]}"/>
                                         <field name="calculate_state" invisible="1"/>
                                         <button type="object"
                                                 string="Calc"
@@ -105,18 +105,14 @@
 												groups="vehicle_group.vehicle_dispatch"
                                                 attrs="{'invisible':['|','|',('is_need_calc','=', True),
                                                                          ('is_last_method','=', True),
-                                                                         ('calculate_state', '=', 'calculated')]}"
-                                        />
+                                                                         ('calculate_state', '=', 'calculated')]}"/>
                                         <button type="object"
                                                 string="Not Calc"
                                                 name="job_not_calc"
 												groups="vehicle_group.vehicle_dispatch"
                                                 attrs="{'invisible':['|','|',('is_need_calc','!=', True),
                                                                          ('is_last_method','=', True),
-                                                                         ('calculate_state', '=', 'calculated')]}"
-                                        />
-
-
+                                                                         ('calculate_state', '=', 'calculated')]}"/>
                                     </tree>
                                 </field>
                              </page>

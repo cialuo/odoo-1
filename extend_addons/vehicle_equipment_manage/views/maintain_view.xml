@@ -76,8 +76,8 @@
                         </group>
 						<notebook>
 							<page string="Deliverys">
-                                <field name="equipment_ids" editable="top" attrs="{'readonly':[('state','!=','draft')]}">
-                                    <tree string="Deliverys">
+                                <field name="equipment_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree string="Deliverys" editable="top">
 										<field name="equipment_id" options="{'no_open': True, 'no_create': True}"/>
 										<field name="serial_no"/>
 										<field name="fixed_asset_number"/>

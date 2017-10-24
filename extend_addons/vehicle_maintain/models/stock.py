@@ -93,7 +93,8 @@ class StockPicking(models.Model):
                     if not ret:
                         raise UserError(_('product is not exist,please remove:%s') % (i.name,))
 
-                    get_ct = back_ct = count = 0
+                    get_ct = 0
+                    back_ct = 0
                     for j in res_get:
                         products = j.move_lines.filtered(
                             lambda x: x.product_id == i.product_id and x.state not in ['draft', 'cancel'])
@@ -124,7 +125,8 @@ class StockPicking(models.Model):
                                                                                     ('repair_id', '=', order.repair_id.id)])
                         if not ret:
                             raise UserError(_('product is not exist,please remove:%s') % (i.name,))
-                get_ct = back_ct = 0
+                get_ct = 0
+                back_ct = 0
                 for j in res_get:
                     products = j.move_lines.filtered(
                         lambda x: x.product_id == i.product_id and x.state in ['done'])

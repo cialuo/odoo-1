@@ -148,6 +148,7 @@ class InspectionPlan(models.Model):
             startdate = item.startdate
             enddate = item.enddate
             companyid = item.branchcompany
+            # 三个月内年检到期的车均可做计划
             externdate = time.strftime("%Y-%m-%d",
                                        time.localtime(time.mktime(time.strptime(enddate, "%Y-%m-%d")) + 7776000))
 
@@ -306,7 +307,7 @@ class InspectionRecords(models.Model):
             #更新车辆年检计划
             planItem = self.getPlanItem(self.vehicle_id.id)
             if planItem:
-                planItem.write({'state': 'done', 'actualdate': self.inspectionexpire})
+                planItem.write({'state': 'done', 'actualdate': self.inspectiondate})
                 inspectionplan = planItem.inspectionplan_id
                 if inspectionplan.planitem_id.mapped('state').count('done') == len(inspectionplan.planitem_id):
                     inspectionplan.state = 'done'
