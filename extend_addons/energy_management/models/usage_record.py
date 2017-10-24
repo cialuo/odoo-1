@@ -44,7 +44,7 @@ class usage_record(models.Model):
     user_use = fields.Many2many('hr.employee',string='User Use')
 
     #能源型号
-    energy_type = fields.Many2one('product.product',string='Energy Type',required=True,domain="[('important_type', '=', 'energy')]")
+    energy_type = fields.Many2one('product.product',string='Energy Type',required=True,domain="[('vehicle_life_state', '=', 'operation_period'),('state', '=', 'normal')]")
 
     #能源桩类型
     pile_type = fields.Selection(string='Pile Type', related='pile_id.pile_type', store=True,)
