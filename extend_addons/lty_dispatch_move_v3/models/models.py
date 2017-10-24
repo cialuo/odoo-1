@@ -31,9 +31,9 @@ class operation_records_move2v3(models.Model):
     end_date = fields.Datetime()    
     #线路
     line_id = fields.Many2one('route_manage.route_manage',required='1')
-    #运营理程
+    #运营里程
     operation_vehicleusage_ids = fields.One2many('vehicleusage.driverecords','record_move_id', domain=[('drivetype','=','working')])
-    #非运营理程
+    #非运营里程
     nooperation_vehicleusage_ids = fields.One2many('vehicleusage.driverecords','record_move_id', domain=[('drivetype','!=','working')])
     #签到记录
     attence_record_ids = fields.One2many('employee.attencerecords','record_move_id')
@@ -64,7 +64,7 @@ class operation_records_move2v3(models.Model):
         r.write({"state":'approved'})                 
   
     @api.multi
-    #通过访问后台提供的restful接口获取到运营理程信息，非运营理程信息和司乘考勤信息    
+    #通过访问后台提供的restful接口获取到运营里程信息，非运营里程信息和司乘考勤信息    
     def get_data(self):
         driver_recodes_obj = self.env['vehicleusage.driverecords']
         attence_obj = self.env['employee.attencerecords']
