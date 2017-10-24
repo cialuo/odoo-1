@@ -22,7 +22,7 @@ class usage_record(models.Model):
     pile_id = fields.Many2one('energy.pile',string='Pile Id',domain="[('station_id', '=', station_id)]")
 
     #车辆
-    vehicle_id = fields.Many2one('fleet.vehicle',string='Vehicle Id',required=True,domain="[('vehicle_life_state', '=', 'operation_period')]")
+    vehicle_id = fields.Many2one('fleet.vehicle',string='Vehicle Id',required=True,domain="[('vehicle_life_state', '=', 'operation_period'),('state', '=', 'normal')]")
 
     #状态
     state = fields.Selection([('normal', 'Normal'), ('stop', 'Stop')],default='normal')
@@ -44,7 +44,7 @@ class usage_record(models.Model):
     user_use = fields.Many2many('hr.employee',string='User Use')
 
     #能源型号
-    energy_type = fields.Many2one('product.product',string='Energy Type',required=True,domain="[('vehicle_life_state', '=', 'operation_period'),('state', '=', 'normal')]")
+    energy_type = fields.Many2one('product.product',string='Energy Type',required=True,domain="[('important_type', '=', 'energy')]")
 
     #能源桩类型
     pile_type = fields.Selection(string='Pile Type', related='pile_id.pile_type', store=True,)
