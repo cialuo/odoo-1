@@ -121,15 +121,15 @@
 				</group>
 				<notebook>
 					<page string = '运营里程'>
-                        <field name="operation_vehicleusage_ids" domain="[('drivetype','=','working')]" context="{'tree_view_ref':'lty_dispatch_move_v3.operation_vehicleusage_driverecords_list','default_drivetype': 'working'}">                       
+                        <field name="operation_vehicleusage_ids" attrs="{'readonly': [('state','in',('approved','moved'))]}" domain="[('drivetype','=','working')]" context="{'tree_view_ref':'lty_dispatch_move_v3.operation_vehicleusage_driverecords_list','default_drivetype': 'working'}">                       
                         </field>
 					</page>
 					<page string = '非运营理程'>
-                        <field name="nooperation_vehicleusage_ids" domain="[('drivetype','!=','working')]"  context="{'tree_view_ref':'lty_dispatch_move_v3.nooperation_vehicleusage_driverecords_list','default_drivetype': 'empty'}">
+                        <field name="nooperation_vehicleusage_ids" attrs="{'readonly': [('state','in',('approved','moved'))]}" domain="[('drivetype','!=','working')]"  context="{'tree_view_ref':'lty_dispatch_move_v3.nooperation_vehicleusage_driverecords_list','default_drivetype': 'empty'}">
                         </field>
 					</page>
 					<page string = '司乘考勤信息'>
-                        <field name="attence_record_ids" context="{'tree_view_ref':'lty_dispatch_move_v3.employee_attencerecords_v3_list'}"/>
+                        <field name="attence_record_ids" attrs="{'readonly': [('state','in',('approved','moved'))]}" context="{'tree_view_ref':'lty_dispatch_move_v3.employee_attencerecords_v3_list'}"/>
 					</page>	
 				</notebook>
 			</form>
