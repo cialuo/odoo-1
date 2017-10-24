@@ -23,7 +23,7 @@ class vehicle_special_check(models.Model):
 
     # 车辆编号
     vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle_check_number", required=True,
-                                 domain="[('vehicle_life_state', '=', 'operation_period')]")
+                                 domain="[('vehicle_life_state', '=', 'operation_period'),('state', '=', 'normal')]")
     # 车牌号
     plate = fields.Char(string="vehicle_check_plate", related='vehicle_id.license_plate', store=False, readonly=True)
     # 线路

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="nvd3_widget_assets" name="nvd3 assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript"
+                        src="/nvd3_extend/static/src/js/graph_widget.js"
+                        charset="utf-8"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

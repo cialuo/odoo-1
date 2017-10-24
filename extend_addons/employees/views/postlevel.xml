@@ -1,0 +1,57 @@
+<odoo>
+
+    <!--岗位级别设置编辑表单-->
+    <record id="ltyhr_view_post_level_form" model="ir.ui.view">
+        <field name="name">ltyhr post level form</field>
+        <field name="model">employeepost.level</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="post level name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="basesalary" />
+                    </group>
+                    <notebook>
+                        <page name="relatedpost" string="related post">
+                            <field name="relatedpost">
+                                <tree create="0" open="0">
+                                    <field name="name"/>
+                                    <field name="department"/>
+                                    <field name="posttype"/>
+                                    <field name="direct_leader"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--岗位级别列表 -->
+    <record id="ltyhr_view_post_level_tree" model="ir.ui.view">
+        <field name="name">ltyhr post level tree</field>
+        <field name="model">employeepost.level</field>
+        <field name="arch" type="xml">
+            <tree string="post level list">
+                <field name="name"/>
+                <field name="basesalary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ltyhr_employee_post_level">
+        <field name="name">post level</field>
+        <field name="res_model">employeepost.level</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!--岗位设置-->
+    <menuitem id="ltyhr_employee_post_level_menu" name="employee post level"
+              parent="employees_menu.ltyhr_employee_document_menu" action="ltyhr_employee_post_level"
+              groups="hr.group_hr_user" sequence="21"/>
+</odoo>

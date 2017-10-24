@@ -68,7 +68,7 @@ class MaintainDelivery(models.Model):
     """
     车辆维修管理：交接单
     """
-    _inherit = 'mail.thread'
+    # _inherit = 'mail.thread'
     _name = 'vehicle_equipment.delivery'
 
     name = fields.Char(string="Delivery Order", help='Delivery Order', required=True, index=True,

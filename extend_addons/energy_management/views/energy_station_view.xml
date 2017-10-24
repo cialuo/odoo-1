@@ -160,12 +160,22 @@
         </form>
       </field>
     </record>
+    <!-- 能源站Graphs-->
+    <record model="ir.ui.view" id="energy_station_graph">
+        <field name="name">energy.station.graph</field>
+        <field name="model">energy.station</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="name"/>
+            </graph>
+        </field>
+    </record>
 
     <!--动作-->
     <record model="ir.actions.act_window" id="energy_management.aw_energy_station">
         <field name="name">energy_station window</field>
         <field name="res_model">energy.station</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,tree,form,graph</field>
     </record>
 
   </data>

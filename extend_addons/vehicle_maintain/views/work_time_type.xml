@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--额定公司类型定义视图-->
+        <record id="work_time_type_form" model="ir.ui.view">
+            <field name="name">work_time_type_form</field>
+            <field name="model">work.time.type</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+        <act_window id="action_work_time_type" name="Action Work Time Type" res_model="work.time.type" view_mode="tree"/>
+        <menuitem id="menu_work_time_type"
+                  action="action_work_time_type"
+                  parent="vehicle_manage_menu.quota_manage"
+                  sequence="50"
+                  groups="materials_product.base_extend_tech_user"/>
+    </data>
+</odoo>

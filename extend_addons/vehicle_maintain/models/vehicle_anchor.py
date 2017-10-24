@@ -21,13 +21,13 @@ class VehicleAnchor(models.Model):
 
     # 关联的车辆信息
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", required=True,
-                                 domain="[('vehicle_life_state', '=', 'operation_period')]")
+                                 domain="[('vehicle_life_state', '=', 'operation_period'),('state', '=', 'normal')]")
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
     # 车牌号
     license_plate = fields.Char(related='vehicle_id.license_plate', readonly=True)
     # 车型
-    model_id = fields.Many2one(related='vehicle_id.model_id', readonly=True)
+    model_id = fields.Many2one(related='vehicle_id.model_id', readonly=True, string="Vehicle Model")
     # 隶属公司
     company_id = fields.Many2one(related='vehicle_id.company_id', readonly=True)
     # 线路

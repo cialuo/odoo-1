@@ -26,19 +26,22 @@
                 <form create="false" delete="false">
                     <header>
                         <button name="action_operation"
-                                vehicle_life_state="invest_period"
                                 string="Invest operation"
+                                vehicle_life_state="invest_period"
                                 type="object"
                                 class="oe_highlight"
-                                attrs="{'invisible':[('vehicle_life_state', '!=', 'invest_period')]}"
-                                />
+                                attrs="{'invisible':['|',('vehicle_life_state', '!=', 'invest_period'),
+                                        ('state','!=','stop')]}"
+                                /> <!-- 投入运营 -->
                         <button name="action_scrap"
                                 vehicle_life_state="operation_period"
                                 string="Scrap" type="object"
                                 class="oe_highlight"
-                                attrs="{'invisible':[('vehicle_life_state', '!=', 'operation_period')]}"
-                                />
+                                attrs="{'invisible':['|',('vehicle_life_state', '!=', 'operation_period'),
+                                        ('state','!=','stop')]}"
+                                /> <!-- 报废 -->
                         <field name="vehicle_life_state" widget="statusbar"/>
+                        <field name="state" invisible="1"/>
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record model="ir.ui.view" id="dashboard_setting_list">
+          <field name="name">Dashboard Setting</field>
+          <field name="model">dashboard.board_setting</field>
+          <field name="arch" type="xml">
+            <tree >
+              <field name="name"/>
+              <field name="menu_id"/>
+            </tree>
+          </field>
+        </record>
+
+        <record model="ir.ui.view" id="dashboard_setting_form">
+            <field name="name">Dashboard Setting</field>
+            <field name="model">dashboard.board_setting</field>
+            <field name="arch" type="xml">
+                <form>
+                    <head>
+                        <button name="using_board" class="oe_highlight" type="object" string="using_board"/>
+                    </head>
+                    <sheet>
+                         <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Dashboard's Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="menu_id" options="{'no_open': True, 'no_create': True}"/>
+                            </group>
+                            <group>
+                                <field name="view_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_dashboard_setting">
+            <field name="name">Dashboard Setting</field>
+            <field name="res_model">dashboard.board_setting</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="board_setting_action_server" model="ir.actions.server">
+            <field name="name">Using Board</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_dashboard_board_setting"/>
+            <field name="state">code</field>
+            <field name="code">
+                if context.get('active_model') == 'dashboard.board_setting' and context.get('active_ids'):
+                    action = env['dashboard.board_setting'].browse(context['active_ids']).using_board()
+            </field>
+        </record>
+
+        <record id="board_setting_action_server_submit" model="ir.values">
+            <field name="name">Using Board</field>
+            <field name="model_id" ref="model_dashboard_board_setting"/>
+            <field name="model">dashboard.board_setting</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%board_setting_action_server" name="value"/>
+        </record>
+
+    </data>
+
+</odoo>

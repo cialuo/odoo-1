@@ -155,7 +155,8 @@ class InspectionPlan(models.Model):
                 [
                     ('annual_inspection_date', '>=', startdate),
                     ('annual_inspection_date', '<=', externdate),
-                    ('company_id', '=', companyid.id)
+                    ('company_id', '=', companyid.id),
+                    ('vehicle_life_state', '=', 'operation_period')
                 ]
             )
             items = []
@@ -403,12 +404,36 @@ class InspectionRecords(models.Model):
         #vals['vehicle_id'] = vehicleinfo['id']
         #vals['annual_inspection_date'] = vehicleinfo.annual_inspection_date
         #vehicleinfo.write({'annual_inspection_date':vals['inspectionexpire']})
-
+        self.change_status(vals)
         res = super(InspectionRecords, self).create(vals)
         #planItem = self.getPlanItem(vehicleinfo['id'])
         #if planItem!=False:
             #planItem.write({'state':'done','actualdate':vals['inspectiondate']})
         return res
+
+    def change_status(self,vals):
+        """
+            根据参数变更年检计划和计划详情的状态
+            vehicle_id 车辆主键
+            inspectionexpire 到期时间
+            state 状态
+        :param vals:
+        :return:
+        """
+        if vals.has_key('vehicle_id') and vals.has_key('inspectionexpire') and vals.has_key('state'):
+            if  vals.get('state') == 'passed':
+                inspectionexpire = vals.get('inspectionexpire')
+                vehicle = self.env['fleet.vehicle'].search([('id','=',vals.get('vehicle_id'))])
+                vehicle.write({'annual_inspection_date':inspectionexpire})
+                # 更新车辆年检计划
+                planItem = self.getPlanItem(vals.get('vehicle_id'))
+                if planItem:
+                    planItem.write({'state': 'done', 'actualdate': inspectionexpire})
+                    inspectionplan = planItem.inspectionplan_id
+                    if inspectionplan.planitem_id.mapped('state').count('done') == len(inspectionplan.planitem_id):
+                        inspectionplan.state = 'done'
+
+
 
 
 class DriveRecords(models.Model):
@@ -416,6 +441,9 @@ class DriveRecords(models.Model):
     行车记录
     """
     _name = 'vehicleusage.driverecords'
+
+    # 所属日期
+    relateddate = fields.Date(string="mileage data")
 
     # 关联的车辆信息
     vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True)

@@ -23,6 +23,17 @@
             </field>
         </record>
 
+        <!-- 车辆安全公里Graphs-->
+        <record model="ir.ui.view" id="safe_kilometer_graph">
+            <field name="name">safe.kilometer.graph</field>
+            <field name="model">safe_kilometer</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="accumulated_safe_kilometer"/>
+                </graph>
+            </field>
+        </record>
+
         <!-- 安全公里 form -->
         <record model="ir.ui.view" id="safe_kilometer_form">
             <field name="name">Safe Kilometer</field>
@@ -53,7 +64,7 @@
         <record model="ir.actions.act_window" id="safe_kilometer_action">
             <field name="name">Safe Kilometer</field>
             <field name="res_model">safe_kilometer</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
         </record>
 
         <!-- 安全公里 menu -->
