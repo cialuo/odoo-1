@@ -263,7 +263,8 @@ class WorkOvertime(models.Model):
     state = fields.Selection([
         ('draft', 'draft'),  # 草稿
         ('submitted', 'submitted'),  # 已提交
-        ('confirmed', 'confirmed')  #
+        ('confirmed', 'confirmed'),  # 已审核
+        ('executed', 'executed')     # 已执行
     ], string="status", default='draft')
 
     # 加班类型
@@ -326,7 +327,7 @@ class WorkOvertime(models.Model):
             return -1
 
     @api.multi
-    def action_confirmed(self):
+    def action_executed(self):
         for item in self:
             expiretime = item._calculateExpireTime()
             if self.type == 'offset':
@@ -337,6 +338,11 @@ class WorkOvertime(models.Model):
                     self.expiretime = date.today() + timedelta(days=expiretime)
             item.residue = self.length
             item.countersign_person = self._uid
+            item.state = 'executed'
+
+    @api.multi
+    def action_confirmed(self):
+        for item in self:
             item.state = 'confirmed'
 
 class offsetDays(models.Model):
@@ -352,6 +358,7 @@ class offsetDays(models.Model):
             ('type', '=', 'offset'),
             ('useup', '=', True),
             ('expiretime', '>', timestr),
+            ('state', '=', 'executed'),
             ('employee_id', '=', employee_id)
         ])
         total = 0
