@@ -8,7 +8,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
     _order = 'id desc'
     name = fields.Char(string='Warranty Plan', required=True, index=True)
 
-    plan_month = fields.Date(default=datetime.datetime.utcnow())
+    plan_month = fields.Date(default=fields.date.today())
 
     @api.depends('plan_month')
     def _compute_month(self):
