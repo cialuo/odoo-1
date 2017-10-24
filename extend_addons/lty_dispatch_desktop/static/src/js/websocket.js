@@ -694,7 +694,7 @@ function update_linePlanParkOnlineModel_socket_fn(controllerObj, dataObj, modelN
                 update_busTransit(active_obj, content_tb_obj, new_resource, dataObj);
             }
         }
-        $('.linePlanParkOnlineModel').mCustomScrollbar("update");
+        $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar("update");
     }
 }
 
@@ -841,7 +841,7 @@ function update_linePlan(controllerObj, dataObj) {
     // 计划时间
     if (dataObj.planRunTime != undefined) {
         active_tr_obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0, 5));
-        update_bus_info_sort(active_tr_obj, new Date(dataObj.planRunTime).getTime());
+        update_bus_plan_sort(active_tr_obj, new Date(dataObj.planRunTime).getTime());
     }
 
     // 到达时间
@@ -873,7 +873,6 @@ function update_linePlan(controllerObj, dataObj) {
 
     update_linePlanParkOnlineModel_load_fn();
 }
-
 
 // 车场更新
 function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
@@ -942,6 +941,11 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
     // 回场时间
     if (dataObj.realReachTime) {
         active_obj.find(".realReachTime").html(new Date(dataObj.realReachTime).toTimeString().slice(0, 5));
+    }
+
+    // 如果时间有更新，排序相应更新
+    if (dataObj.planRunTime || (!dataObj.planRunTime && dataObj.realReachTime)){
+        update_bus_info_sort(content_tb_obj);
     }
 
     // // 停车
@@ -1021,23 +1025,12 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
         active_obj.find(".stopTime").html(dataObj.stopTime);
     }
 
-    update_linePlanParkOnlineModel_load_fn();
-}
+    // 如果时间有更新，排序相应更新
+    if (dataObj.planRunTime || (!dataObj.planRunTime && dataObj.planReachTime)){
+        update_bus_info_sort(content_tb_obj);
+    }
 
-// 排序
-function update_bus_info_sort(activeTr, planTime){
-    var tr_list = activeTr.parents(".content_tb").find("tr.point").not(activeTr);
-    if (tr_list.length == 0){
-        return false;
-    }
-    for (var i=0,oe_l=tr_list.length;i<oe_l;i++){
-        var oe_tr = tr_list[i];
-        var oe_plan_time = oe_tr.getAttribute("planRunTime");
-        if (oe_plan_time > planTime){
-            oe_tr.before(activeTr);
-            break;
-        }
-    }
+    update_linePlanParkOnlineModel_load_fn();
 }
 
 // 加载事件
@@ -1146,21 +1139,23 @@ function add_linePark(content_tb_obj, new_resource) {
         content_tb_obj.append(obj_str);
         return;
     }
-    for (var i = 0, L = obj_list.length; i < L; i++) {
-        var tr_obj = obj_list[i];
-        var planRunTime = tr_obj.getAttribute("planRunTime");
-        var b_pid = tr_obj.getAttribute("pid");
-        if (planRunTime > (new Date(new_resource.planRunTime).getTime())) {
-            update_tr_delete(new_resource.id);
-            content_tb_obj.find("tr[pid=" + b_pid + "]").before(obj_str);
-            break;
-        }
-    }
+    // for (var i = 0, L = obj_list.length; i < L; i++) {
+    //     var tr_obj = obj_list[i];
+    //     var planRunTime = tr_obj.getAttribute("planRunTime");
+    //     var b_pid = tr_obj.getAttribute("pid");
+    //     if (planRunTime > (new Date(new_resource.planRunTime).getTime())) {
+    //         update_tr_delete(new_resource.id);
+    //         content_tb_obj.find("tr[pid=" + b_pid + "]").before(obj_str);
+    //         break;
+    //     }
+    // }
 
     if (content_tb_obj.find("tr[pid=" + new_resource.id + "]").length == 0) {
         update_tr_delete(new_resource.id);
         content_tb_obj.append(obj_str);
     }
+    // 排序
+    update_bus_info_sort(content_tb_obj);
 }
 
 function add_busTransit(content_tb_obj, new_resource) {
@@ -1204,20 +1199,66 @@ function add_busTransit(content_tb_obj, new_resource) {
         content_tb_obj.append(obj_str);
         return;
     }
-    for (var i = 0, L = obj_list.length; i < L; i++) {
-        var tr_obj = obj_list[i];
-        var planRunTime = tr_obj.getAttribute("planRunTime");
-        var b_pid = tr_obj.getAttribute("pid");
-        if (planRunTime > (new Date(new_resource.planRunTime).getTime())) {
-            update_tr_delete(new_resource.id);
-            content_tb_obj.find("tr[pid=" + b_pid + "]").before(obj_str);
-            break;
-        }
-    }
+    // for (var i = 0, L = obj_list.length; i < L; i++) {
+    //     var tr_obj = obj_list[i];
+    //     var planRunTime = tr_obj.getAttribute("planRunTime");
+    //     var b_pid = tr_obj.getAttribute("pid");
+    //     if (planRunTime > (new Date(new_resource.planRunTime).getTime())) {
+    //         update_tr_delete(new_resource.id);
+    //         content_tb_obj.find("tr[pid=" + b_pid + "]").before(obj_str);
+    //         break;
+    //     }
+    // }
     if (content_tb_obj.find("tr[pid=" + new_resource.id + "]").length == 0) {
         update_tr_delete(new_resource.id);
         content_tb_obj.append(obj_str);
     }
+    // 排序
+    update_bus_info_sort(content_tb_obj);
+}
+
+
+// 排序规则：有计划时间的情况下优先计划时间，没有计划时间的情况下按回场时间，都没有的情况下按车辆编号；
+// 注意：所有排序规则均升序排列
+// 车辆计划排序
+function update_bus_plan_sort(activeTr, planTime){
+    var tr_list = activeTr.parents(".content_tb").find("tr.point").not(activeTr);
+    if (tr_list.length == 0){
+        return false;
+    }
+    for (var i=0,oe_l=tr_list.length;i<oe_l;i++){
+        var oe_tr = tr_list[i];
+        var oe_plan_time = oe_tr.getAttribute("planRunTime");
+        if (oe_plan_time > planTime){
+            oe_tr.before(activeTr);
+            break;
+        }
+    }
+}
+
+// 车辆车场、在途排序
+function update_bus_info_sort(tableObj){
+    var planruntime_tr = [],
+        planreachtime_tr = [],
+        other_tr = [];
+    var tr_point_list = tableObj.find("tr.point");
+    _.each(tr_point_list, function(o_tr){
+        if (!o_tr.getAttribute("planruntime")){
+            planruntime_tr.push(o_tr);
+        }else if (!o_tr.getAttribute("planreachtime")){
+            planreachtime_tr.push(o_tr);
+        }else{
+           other_tr.push(o_tr); 
+        }
+    })
+
+    planruntime_tr.sort(function(a, b){return a.getAttribute("planruntime")-b.getAttribute("planruntime")});
+    planreachtime_tr.sort(function(a, b){return a.getAttribute("planreachtime")-b.getAttribute("planreachtime")});
+
+    tableObj.find("tr.point").remove();
+    tableObj.append(planruntime_tr).append(planreachtime_tr).append(other_tr);
+    // 更新滑块
+    $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar("update");
 }
 
 // 组合
