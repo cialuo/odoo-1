@@ -224,7 +224,6 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 var abnoraml_desc = $('body').find('.absnormal_diaodu .absnormal_type p');
                 abnoraml_desc.removeClass('man_deal');
                 //车辆掉线
-                self.$el.find('.handleBtn').find('button').attr('disabled', 'disabled');
                 if (data_use.data.packageType == 1003) {
                     abnoraml_desc.html('车辆' + data_use.data.abnormal_description.bus_no + '掉线');
                     dom_singal.find('.line_car[bus_no=' + data_use.data.abnormal_description.bus_no + ']').addClass('to_gray').removeClass('.to_red').removeClass('.to_yellow');
@@ -269,11 +268,32 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 }
                 // 事故异常
                 else if (data_use.data.packageType == 1013) {
-                    abnoraml_desc.html('车辆' + data_use.data.abnormal_description.bus_no + '员工' + data_use.data.abnormal_description.employee_name + data_use.data.abnormal_description.log_text).addClass('man_deal').attr('id', data_use.data.abnormal_description.id);
-                    if (self.$el.find('.passenger_flow_list .abs_info .absnormal_height').eq(0).length > 0) {
-                        self.$el.find('.handleBtn').find('button').attr('disabled', 'disabled');
+                    if (data_use.data.abnormal_description.operateFlag == 0) {
+                        abnoraml_desc.html('车辆' + data_use.data.abnormal_description.bus_no + '员工' + data_use.data.abnormal_description.employee_name + data_use.data.abnormal_description.log_text).addClass('man_deal').attr('id', data_use.data.abnormal_description.id);
+                        if (self.$el.find('.passenger_flow_list .abs_info .absnormal_height').length == 0) {
+                            self.$el.find('.handleBtn').find('button').removeAttr('disabled');
+                        }
                     } else {
-                        self.$el.find('.handleBtn').find('button').removeAttr('disabled');
+                        self.$el.find('.passenger_flow_list .abs_info .absnormal_height p.man_deal[id=' + data_use.data.abnormal_description.id + ']').parents('.absnormal_height').remove();
+                        // 如果不存在异常了
+                        if (self.$el.find('.passenger_flow_list .abs_info .absnormal_height').length == 0) {
+                            // self.$el.find('.handleBtn').find('button').removeAttr('disabled');
+                            self.$el.find('.handleBtn').show();
+                            self.$el.removeClass('warn');
+                            self.$el.find('.normal').show().siblings().hide();
+                            var content = '.' + self.$el.find('.carousel_content')[0].className;
+                            carousel({
+                                content: content,
+                                self: self
+                            });
+                            // 如果还有异常
+                        } else if (self.$el.find('.passenger_flow_list .abs_info .absnormal_height').length > 0) {
+                            // 如果这个异常不是手动的
+                            if (!self.$el.find('.passenger_flow_list .abs_info .absnormal_height p').eq(0).hasClass('.man_deal')) {
+                                self.$el.find('.handleBtn').find('button').attr('disabled', 'disabled');
+                            }
+                        }
+                        return
                     }
                 }
                 // 扣车异常
