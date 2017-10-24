@@ -90,8 +90,7 @@ class InspectionPlan(models.Model):
     # 备注
     remark = fields.Char(string="remark")
     # 计划详情
-    planitem_id = fields.One2many('vehicle_usage.planitem', 'inspectionplan_id',
-                                  string="plan detail")
+    planitem_id = fields.One2many('vehicle_usage.planitem', 'inspectionplan_id', string="plan detail")
     # 年检计划
     subject = fields.Char(string="plan subject")
 
@@ -217,7 +216,10 @@ class PlanItem(models.Model):
     _name = 'vehicle_usage.planitem'
 
     # 车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,domain=[('entry_state','=','audited'),('vehicle_life_state','=','operation_period')])
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,
+                                 domain=[('entry_state', '=', 'audited'),
+                                         ('vehicle_life_state', '=', 'operation_period'),
+                                         ('state', '!=', 'stop')])
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
@@ -265,7 +267,10 @@ class InspectionRecords(models.Model):
     inspectionremark = fields.Char(string="inspection remark")
 
     # 车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,domain=[('entry_state','=','audited')])
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,
+                                 domain=[('entry_state','=','audited'),
+                                         ('vehicle_life_state', '=', 'operation_period'),
+                                         ('state','!=','stop')])
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code')

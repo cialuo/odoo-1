@@ -10,7 +10,7 @@ class WarrantyPlanOrder(models.Model): # 计划单
 
     sequence = fields.Integer('Sequence', default=1)
 
-    vehicle_id = fields.Many2one('fleet.vehicle',string="Vehicle No", required=True,domain=[('entry_state','=','audited')]) # 车号
+    vehicle_id = fields.Many2one('fleet.vehicle',string="Vehicle No", required=True,domain=[('state','!=','stop')]) # 车号
     vehicle_type = fields.Many2one("fleet.vehicle.model",related='vehicle_id.model_id', store=True, readonly=True) # 车型
     license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True, readonly=True) # 车牌
 
@@ -106,9 +106,16 @@ class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生�
         active_ids = self._context.get('active_ids')
         plan_sheets = self.env['warranty_plan_order'].browse(active_ids)
         for plan_sheet in plan_sheets:
+
+            #新增状态判断:只有车辆正常状态才能生成保养单
+            if plan_sheet.vehicle_id.state != 'normal':
+                raise exceptions.UserError(_("Vehicle %s State Not equal to normal!") % (plan_sheet.license_plate))
+
             if not plan_sheet.report_repair_user:
                 raise exceptions.UserError(_("report_repair_user Required!"))
+
             if not plan_sheet.maintain_sheet_id:
+                plan_sheet.vehicle_id.state = 'warrantly'
                 plan = plan_sheet.parent_id
                 maintain_sheets = self.env['warranty_order'].search([('plan_id', '=', plan.id)])
                 maintain_sheets_count = len(maintain_sheets)

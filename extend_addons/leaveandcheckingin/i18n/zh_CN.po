@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-10 06:56+0000\n"
-"PO-Revision-Date: 2017-10-10 14:56+0800\n"
+"POT-Creation-Date: 2017-10-24 08:00+0000\n"
+"PO-Revision-Date: 2017-10-24 16:00+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -105,7 +105,7 @@ msgid "Leave Type"
 msgstr "休假类型"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:389
+#: code:addons/leaveandcheckingin/models/models.py:396
 #, python-format
 msgid "No more offset "
 msgstr "没有可调休假"
@@ -270,6 +270,12 @@ msgid "end time"
 msgstr "结束时间"
 
 #. module: leaveandcheckingin
+#: model:ir.ui.view,arch_db:leaveandcheckingin.work_overtime_form
+#: selection:leave.workovertime,state:0
+msgid "executed"
+msgstr "已执行"
+
+#. module: leaveandcheckingin
 #: model:ir.model.fields,field_description:leaveandcheckingin.field_leave_workovertime_expiretime
 msgid "expire time"
 msgstr "转调休过期时间"
@@ -307,13 +313,13 @@ msgid "leave length"
 msgstr "休假时长(小时)"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:417
+#: code:addons/leaveandcheckingin/models/models.py:424
 #, python-format
 msgid "leave request form"
 msgstr "休假单"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:383
+#: code:addons/leaveandcheckingin/models/models.py:390
 #, python-format
 msgid "leave time must more then one hour"
 msgstr "休假时长至少1小时"
@@ -408,7 +414,7 @@ msgid "offset hours(hour)"
 msgstr "调休时长(小时)"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:300
+#: code:addons/leaveandcheckingin/models/models.py:301
 #, python-format
 msgid "only delete in state draft"
 msgstr "草稿状态下才能被删除"
@@ -442,7 +448,7 @@ msgid "start time"
 msgstr "开始时间"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:307
+#: code:addons/leaveandcheckingin/models/models.py:308
 #, python-format
 msgid "start time must earlier then end time"
 msgstr "开始时间必须早于结束时间"
@@ -505,7 +511,7 @@ msgid "work overtime view"
 msgstr "加班申请"
 
 #. module: leaveandcheckingin
-#: code:addons/leaveandcheckingin/models/models.py:309
+#: code:addons/leaveandcheckingin/models/models.py:310
 #, python-format
 msgid "worker overtime must more then one hour"
 msgstr "加班时长必须大于等于1小时"

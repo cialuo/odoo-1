@@ -47,6 +47,7 @@
                                         <field name="work_email" widget="email"/>
                                         <field name="marital_status"/>
                                         <field name="birthday"/>
+                                        <field name="age"/>
                                         <field name="native_place"/>
                                         <field name="specialty"/>
                                         <field name="nation"/>
@@ -334,6 +335,8 @@
                 </tree>
             </field>
         </record>
+
+        <!--默认分组-->
 
         <record model="ir.actions.act_window" id="ltyhr_employee_information">
             <field name="name">employee view</field>

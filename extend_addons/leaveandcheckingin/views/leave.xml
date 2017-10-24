@@ -76,6 +76,10 @@
                             string="confirmed" states="submitted"
                             class="oe_highlight"
                             groups="hr.group_hr_manager"/>
+                    <button name="action_executed" type="object"
+                            string="executed" states="confirmed"
+                            class="oe_highlight"
+                            groups="hr.group_hr_manager"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <group>
