@@ -3,6 +3,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from . import utils
+import datetime
 
 class employee(models.Model):
 
@@ -59,6 +60,7 @@ class employee(models.Model):
         ('married','married'),              # 已婚
         ('spinsterhood','spinsterhood'),    # 未婚
         ('divorced', 'divorced'), #离异
+        ('widowed', 'widowed'),#丧偶
     ], string='marital status')
 
     # 籍贯
@@ -72,7 +74,20 @@ class employee(models.Model):
     # 学历
     education = fields.Char('education')
     # 政治面貌
-    political_status = fields.Char('political status')
+    political_status = fields.Selection([('ZGDY','ZGDY'),#中共党员
+                                         ('ZGYBDY','ZGYBDY'),#中共预备党员
+                                         ('GQTY','GQTY'),#共青团员
+                                         ('QZ','QZ'),#群众
+                                         ('MGDY','MGDY'),#民革党员
+                                         ('MMMY','MMMY'),#民盟盟员
+                                         ('MJIANHY','MJIANHY'),#民建会员
+                                         ('MJINHY','MJINHY'),#民进会员
+                                         ('NGDDY','NGDDY'),#农工党党员
+                                         ('ZGDDY','ZGDDY'),#致公党党员
+                                         ('JSXS','JSXS'),#九三学社社员
+                                         ('TMMY','TMMY'),#台盟盟员
+                                         ('WDP','WDP')#无党派人士
+                                         ],string='political status',default='QZ')
     # 住址
     live_address = fields.Char('live address')
     # 性别
@@ -94,6 +109,55 @@ class employee(models.Model):
     # 培训经历
     triansexperience = fields.One2many('employee.trainexperience', 'employee_id', string='trians experience')
 
+    #２０１７－１０－２４　新增需求：公司字段,年龄字段,年龄分类字段
+    company_id = fields.Many2one('res.company', help='Company', default=lambda self: self.env['res.company']._company_default_get())
+    age = fields.Integer(string='Age',compute='_compute_age')
+    age_group = fields.Selection([('group_a','group_a'),#16-20
+                                  ('group_b','group_b'),#21-30
+                                  ('group_c','group_c'),#31-40
+                                  ('group_d','group_d'),#41-50
+                                  ('group_e','group_e'),#51-60
+                                  ('group_f', 'group_f')#60以上
+                                  ],compute="_compute_age_group",string='age group',store=True)
+
+    @api.depends('age')
+    def _compute_age_group(self):
+        """
+            根据年龄计算年龄分组所在:
+
+        :return:
+        """
+        for r in self:
+            if r.age:
+                age = r.age
+                if age>= 16 and age<=20:
+                    r.age_group = 'group_a'
+                if age>=21 and age <=30:
+                    r.age_group = 'group_b'
+                if age>=31 and age <=40:
+                    r.age_group = 'group_c'
+                if age >= 41 and age <= 50:
+                    r.age_group = 'group_d'
+                if age >= 51 and age <= 60:
+                     r.age_group = 'group_e'
+                if age > 60:
+                    r.age_group = 'group_f'
+
+    @api.depends('birthday')
+    def _compute_age(self):
+
+        """
+            根据出生日期计算年龄
+        :return:
+        """
+        for r in self:
+            if r.birthday:
+                today = datetime.datetime.now()
+                birthday = datetime.datetime.strptime(r.birthday, "%Y-%m-%d")
+                if birthday > today:
+                    r.age = today.year - birthday.year - 1
+                else:
+                    r.age = today.year - birthday.year
 
 
     @api.constrains('user_id')
