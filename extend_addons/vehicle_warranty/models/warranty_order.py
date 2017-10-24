@@ -39,7 +39,7 @@ class WarrantyOrder(models.Model): # 保养单
 
     repair_unit = fields.Char()  # 承修单位
 
-    fleet = fields.Many2one("hr.department")  # 车队
+    fleet = fields.Many2one("res.company")  # 车队
 
     maintenance_level = fields.Char()  # 维修等级
 
