@@ -203,6 +203,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         dataType: 'json',
                                         data: {},
                                         success: function (data) {
+                                            console.log(data)
                                             if (data) {
                                                 //配车数量
                                                 self.$el.find('.show_applycar_num span').html(data[0].withBus);
@@ -627,9 +628,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         data: data
                     };
                 layer.close(self.layer_index)
-                new mutual_information(self, option).appendTo($(".controller_" + option.controllerId));
+                if ($(".mutual_information_" + option.line_id).length > 0) {
+                    return;
+                } else {
+                    $(".mutual_information").remove();
+                    new mutual_information(self, option).appendTo($(".controller_" + option.controllerId));
+                }
             })
-
             // $.ajax({
             //     url: RESTFUL_URL + '/exchange/list?apikey=71029270&params={lineId:'+this.line_id+',controlId:'+this.desktop_id+',arg:'',arg1:1,pageNum:1,pageSize1}',
             //     type: 'get',
@@ -1125,7 +1130,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 self.layer_index = layer.msg('加载中...', {time: 0, shade: 0.3});
                 this.model_route_bus.query().filter([["route_id", "=", val]]).all().then(function (data) {
                     layer.close(self.layer_index);
-                    self.$el.find('.bus_way_chs').html("<option>车辆</option>");
+                    self.$el.find('.bus_way_chs').html("<option selected='selected'>车辆</option>");
                     var str = "";
                     $.each(data, function (index, value) {   // 解析出data对应的Object数组s
                         str += "<option bid=" + value.on_boardid + ">" + value.on_boardid + "</option>";
@@ -1133,7 +1138,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     self.$el.find('.bus_way_chs').append(str)
                 })
             } else {
-                self.$el.find('.bus_way_chs').html("<option>车辆</option>")
+                self.$el.find('.bus_way_chs').html("<option>全部车辆</option>")
             }
         },
         mutual_search: function () {
@@ -1141,39 +1146,18 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var bus_val = this.$el.find('.bus_way_chs option:selected').attr("bid");
             var make_deal = this.$el.find('.type_chs option:selected').attr("mid");
             var self = this;
-            if (bus_val) {
-                var td_txt = '';
-                $.ajax({
-                    url: RESTFUL_URL + '/ltyop/exchange/list?apikey=71029270&params={lineId:' + line_val + ',controlId:' + self.desktop_id + ',arg:' + bus_val + ',arg1:\'' + make_deal + '\'}',
+            if (bus_val == undefined) {
+                bus_val = '';
+            }
+            var td_txt = '';
+            $.ajax({
+                    url: RESTFUL_URL + '/ltyop/exchange/list?apikey=71029270&params={lineId:' + line_val + ',controlId:' + self.desktop_id + ',arg:\'' + bus_val + '\',arg1:\'' + make_deal + '\',pageSize:10}',
                     type: 'get',
                     dataType: 'json',
                     data: {},
                     success: function (data) {
+                        console.log(data)
                         var totalPage = data.respose.vo.totalCount % 10 == 0 ? data.respose.vo.totalCount / 10 : Math.ceil(data.respose.vo.totalCount / 10);
-                        console.log(totalPage)
-                        $('.pagination_tbl').bootstrapPaginator({
-                            currentPage: 1,//当前的请求页面。
-                            totalPages: totalPage,//一共多少页。
-                            size: "normal",//应该是页眉的大小。
-                            bootstrapMajorVersion: 3,//bootstrap的版本要求。
-                            alignment: "right",
-                            numberOfPages: 10,//一页列出多少数据。
-                            itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
-                                switch (type) {
-                                    case "first":
-                                        return "首页";
-                                    case "prev":
-                                        return "上一页";
-                                    case "next":
-                                        return "下一页";
-                                    case "last":
-                                        return "末页";
-                                    case "page":
-                                        return page;
-                                }
-                            }
-                        })
-                        ;
                         self.$el.find('.mutual_content tbody').html('');
                         if (data.respose.opWarningList.length > 0) {
                             $.each(data.respose.opWarningList, function (index, value) {   // 解析出data对应的Object数组
@@ -1193,17 +1177,70 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                                 td_txt += "</tr>";
                             });
+                            self.$el.find('.mutual_content tbody').html(td_txt);
+                        }
+                        if (data.respose.opWarningList.length > 0) {
+                            $('.pagination_tbl').bootstrapPaginator({
+                                currentPage: 1,//当前的请求页面。
+                                totalPages: totalPage,//一共多少页。
+                                size: "normal",//应该是页眉的大小。
+                                bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                                alignment: "right",
+                                numberOfPages: 10,
+                                itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                                    switch (type) {
+                                        case "first":
+                                            return "首页";
+                                        case "prev":
+                                            return "上一页";
+                                        case "next":
+                                            return "下一页";
+                                        case "last":
+                                            return "末页";
+                                        case "page":
+                                            return page;
+                                    }
+                                },
+                                onPageClicked: function (event, originalEvent, type, page) {
+                                    $.ajax({
+                                        url: RESTFUL_URL + '/ltyop/exchange/list?apikey=71029270&params={lineId:' + line_val + ',controlId:' + self.desktop_id + ',arg:\'' + bus_val + '\',arg1:\'' + make_deal + '\',pageNum:' + page + ',pageSize:10}',
+                                        type: "get",
+                                        dataType: "json",
+                                        data: '',
+                                        success: function (data1) {
+                                            self.$el.find('.mutual_content tbody').html('');
+                                            td_txt = '';
+                                            $.each(data1.respose.opWarningList, function (index, value) {   // 解析出data对应的Object数组
+                                                var index_num = parseInt((page - 1) * 10) + index;
+                                                td_txt += "<tr>"
+                                                    + "<td>" + index_num + "</td>"
+                                                    + "<td>" + value.occurTime + "</td>"
+                                                    + "<td>" + value.lineName + "</td>"
+                                                    + "<td>" + value.onBoardId + "</td>"
+                                                    + "<td>" + value.logText + "</td>"
+                                                    + "<td>" + value.remark + "</td>"
+                                                if (value.result == 0) {
+                                                    td_txt += "<td><a>同意</a>|<a>拒绝</a></td>"
+                                                        + "<td>待操作</td>"
+                                                } else if (value.result == 1) {
+                                                    td_txt += "<td></td>"
+                                                        + "<td>已操作</td>"
+                                                }
+                                                td_txt += "</tr>";
+                                            });
+                                            self.$el.find('.mutual_content tbody').html(td_txt);
+                                        }
+                                    })
+                                }
+                            })
 
-                            self.$el.find('.mutual_content tbody').append(td_txt);
                         }
                     },
                     error: function () {
                         layer.msg('请求出错', {time: 1000, shade: 0.3});
                     }
-                });
-            } else {
-                layer.msg('请输入车辆号', {time: 1000, shade: 0.3});
-            }
+                }
+            );
         },
         close_this: function () {
             this.destroy()

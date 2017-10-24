@@ -369,8 +369,21 @@
     width: 720px;
     margin: 0 auto;
     color: #838697;
+    max-height:342px;
 }
-
+.mutual_content .pagination{
+    margin-right: 20px;
+    float: right;
+}
+.mutual_content .pagination>li>a{
+    background: none;
+    border-color: #fff;
+    color: #fff;
+}
+.mutual_content .pagination>li.active>a{
+    border-color: #fff;
+    background: #875A7B;
+}
 .mutual_content th, .mutual_content td {
     text-align: left;
     max-height: 30px;

@@ -220,7 +220,7 @@
 		</t>
 	</t>
 	<t t-name="mutual_information">
-		<div class="dragContent mutual_information" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}};">
+		<div class="dragContent mutual_information mutual_information_{{widget.location_data.line_id}}" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}};">
 			<div class="src_title">
 				<div class="closeBox dragArea">
 					<div class="mutual_title">交互信息</div>
@@ -246,7 +246,7 @@
 					<li>
 						<div class="input-group">
 							<select class="form-control bus_way_chs">
-								<option selected="selected">车辆</option>
+								<option selected="selected">全部车辆</option>
 							</select>
 						</div>
 					</li>
