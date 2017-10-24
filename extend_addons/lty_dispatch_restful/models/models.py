@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 from extend_addons.lty_dispatch_restful.core.restful_client import *
+from odoo.exceptions import RedirectWarning, UserError, ValidationError
 import mapping
 import logging
 import time
@@ -35,7 +36,8 @@ class op_line(models.Model):
         res = super(op_line, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
+        
+        if not self._context.get('dryrun'):
             # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
             _logger.info('Start create data: %s', self._name)
             vals = mapping.dict_transfer(self._name, vals)
@@ -54,10 +56,14 @@ class op_line(models.Model):
                 del vals['endDate']
             params = Params(type=1, cityCode=cityCode,tableName=LINE_TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
-
             #clientThread(url,params,res).start()
-        except Exception,e:
-            _logger.info('%s', e.message)
+            if rp :
+                if   rp.json().get('result') != 0 :
+                    raise UserError((u'后台增加数据错误.%s')%rp.json().get('respose').get('text'))            
+            else :
+                raise UserError((u'Restful接口连接失败错误'))              
+            
+            
         return res
 
     @api.multi
@@ -76,7 +82,7 @@ class op_line(models.Model):
             # time_create = int(time.mktime(create_time))
             # time_now = time.time()
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
+            if seconds.seconds > 5 and (not self._context.get('dryrun')):
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -134,16 +140,17 @@ class Station(models.Model):
         res = super(Station, self).create(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
-            vals.update({
-                'id': res.id,
-            })
-            params = Params(type=1, cityCode=cityCode,tableName=STATION_TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+        if not self._context.get('dryrun'):
+            try:
+                _logger.info('Start create data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)
+                vals.update({
+                    'id': res.id,
+                })
+                params = Params(type=1, cityCode=cityCode,tableName=STATION_TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res
 
     @api.multi
@@ -159,7 +166,7 @@ class Station(models.Model):
         for r in self:
             #时间戳 避免 create方法进入 write方法
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
+            if seconds.seconds > 5 and (not self._context.get('dryrun')):
                 try:
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(self._name, vals)
