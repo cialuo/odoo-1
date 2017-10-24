@@ -1121,7 +1121,47 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
         events: {
             'click .mutal_srh_btn': 'mutual_search',
             'click  .min': 'close_this',
-            'change .line_way_chs': 'bus_chs'
+            'change .line_way_chs': 'bus_chs',
+            'click .mutual_content .agree_abnormal': 'agree_abnormal',
+            'click .mutual_content .refuse_abnormal': 'refuse_abnormal'
+        },
+        refuse_abnormal: function (e) {
+            layer.confirm('是否拒绝该计划', {
+                btn: ['拒绝', '取消'],
+                title: '消息'
+            }, function () {
+                var x = e.currentTarget;
+                var send_id = $(x).parent().parent().find('td[obd]').attr('obd')
+                $.ajax({
+                    url: RESTFUL_URL + '/ltyop/exchange/processCommand?apikey=71029270&params={warningId:' + send_id + ',agreeTypeId:2}',
+                    type: 'put',
+                    dataType: 'json',
+                    data: {},
+                    success: function (res) {
+                        layer.msg(res.respose.text, {time: 1000, shade: 0.3});
+                        $(x).parent().html('').parent().find('td.deal_or_not').html('已操作');
+                    }
+                });
+            });
+        },
+        agree_abnormal: function (e) {
+            layer.confirm('是否同意该计划', {
+                btn: ['同意', '取消'],
+                title: '消息'
+            }, function () {
+                var x = e.currentTarget;
+                var send_id = $(x).parent().parent().find('td[obd]').attr('obd')
+                $.ajax({
+                    url: RESTFUL_URL + '/ltyop/exchange/processCommand?apikey=71029270&params={warningId:' + send_id + ',agreeTypeId:3}',
+                    type: 'put',
+                    dataType: 'json',
+                    data: {},
+                    success: function (res) {
+                        layer.msg(res.respose.text, {time: 1000, shade: 0.3});
+                        $(x).parent().html('').parent().find('td.deal_or_not').html('已操作');
+                    }
+                });
+            });
         },
         bus_chs: function () {
             var self = this;
@@ -1150,7 +1190,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 bus_val = '';
             }
             var td_txt = '';
-            $.ajax({
+            if (line_val) {
+                $.ajax({
                     url: RESTFUL_URL + '/ltyop/exchange/list?apikey=71029270&params={lineId:' + line_val + ',controlId:' + self.desktop_id + ',arg:\'' + bus_val + '\',arg1:\'' + make_deal + '\',pageSize:10}',
                     type: 'get',
                     dataType: 'json',
@@ -1165,15 +1206,15 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     + "<td>" + index + "</td>"
                                     + "<td>" + value.occurTime + "</td>"
                                     + "<td>" + value.lineName + "</td>"
-                                    + "<td>" + value.onBoardId + "</td>"
+                                    + "<td obd=" + value.onBoardId + ">" + value.onBoardId + "</td>"
                                     + "<td>" + value.logText + "</td>"
                                     + "<td>" + value.remark + "</td>"
                                 if (value.result == 0) {
-                                    td_txt += "<td><a>同意</a>|<a>拒绝</a></td>"
-                                        + "<td>待操作</td>"
+                                    td_txt += "<td><a class='agree_abnormal'>同意</a>|<a class='refuse_abnormal'>拒绝</a></td>"
+                                        + "<td class='deal_or_not'>待操作</td>"
                                 } else if (value.result == 1) {
                                     td_txt += "<td></td>"
-                                        + "<td>已操作</td>"
+                                        + "<td class='deal_or_not'>已操作</td>"
                                 }
                                 td_txt += "</tr>";
                             });
@@ -1220,11 +1261,11 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                     + "<td>" + value.logText + "</td>"
                                                     + "<td>" + value.remark + "</td>"
                                                 if (value.result == 0) {
-                                                    td_txt += "<td><a>同意</a>|<a>拒绝</a></td>"
-                                                        + "<td>待操作</td>"
+                                                    td_txt += "<td><a class='agree_abnormal'>同意</a>|<a class='refuse_abnormal'>拒绝</a></td>"
+                                                        + "<td class='deal_or_not'>待操作</td>"
                                                 } else if (value.result == 1) {
                                                     td_txt += "<td></td>"
-                                                        + "<td>已操作</td>"
+                                                        + "<td class='deal_or_not'>已操作</td>"
                                                 }
                                                 td_txt += "</tr>";
                                             });
@@ -1239,8 +1280,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     error: function () {
                         layer.msg('请求出错', {time: 1000, shade: 0.3});
                     }
-                }
-            );
+                });
+            }
+
         },
         close_this: function () {
             this.destroy()
