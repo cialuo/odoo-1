@@ -141,7 +141,7 @@
       <field name="res_model">vehicleusage.driverecords</field>
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="operation_vehicleusage_driverecords_list"/>
-      <field name="domain">[('drivetype','=','working')]</field>
+      <field name="domain">[('drivetype','=','working'),('record_move_id.name','>','1900-01-01')]</field>
 	  <field name="help" type="html">
 	      <p class="oe_view_nocontent_create">
 	          暂无运营理程记录.<br/>
@@ -154,7 +154,7 @@
       <field name="res_model">vehicleusage.driverecords</field>
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="nooperation_vehicleusage_driverecords_list"/>
-      <field name="domain">[('drivetype','!=','working')]</field>
+      <field name="domain">[('drivetype','!=','working'),('record_move_id.name','>','1900-01-01')]</field>
 	  <field name="help" type="html">
 	      <p class="oe_view_nocontent_create">
 	          暂无非运营理程记录.<br/>
@@ -189,6 +189,7 @@
     <record model="ir.actions.act_window" id="employee_attencerecords_v3_action">
       <field name="name">司乘考勤信息</field>
       <field name="res_model">employee.attencerecords</field>
+      <field name="domain">[('record_move_id.name','>','1900-01-01')]</field>
       <field name="view_mode">tree,form</field>
 	  <field name="help" type="html">
 	      <p class="oe_view_nocontent_create">
