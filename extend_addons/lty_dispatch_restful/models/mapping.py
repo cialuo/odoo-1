@@ -657,14 +657,14 @@ sys_user = {
     ('delState', 'active'): {True:0,False:1}
 }
 #运营理程 非运营理程表
-#op_dispatchplan -- vehicleusage.driverecords
-op_dispatchplan = {
+#operate+nonOperate -- vehicleusage.driverecords
+operate_nonOperate = {
 	#数据库id
-    ('id', 'id'): None,
+    ('id', 'restful_key_id'): None,
 	#线路id  运营+非运营
     ('lineId', 'route_id'): None,
 	#司机ID 运营+非运营
-    ('workerId', 'driver_id'): None,
+    ('workerId', None): None,
 	#车辆设备号 运营+非运营
     ('onboardId', 'inner_code'): None,
 	#方向
@@ -703,10 +703,10 @@ op_dispatchplan = {
     ('planStateId', None): None,	
 }
 #考勤信息表表
-#op_attendance -- employee.attencerecords
-op_attendance = {
-	#   * 主键id
-    ('id', 'id'): None,
+#attend -- employee.attencerecords
+attend = {
+	#   数据库ID
+    ('id', 'restful_key_id'): None,
 	#   * "线路ID"
     ('lineId', 'line_id'): None,
 	#   * "线路名称"  添加到代码里
@@ -736,7 +736,7 @@ op_attendance = {
 	#   "姓名"  添加到代码里
     ('driver', None): None,
 	#   "执行日期"
-    ('workDate', None): None,
+    ('workDate', 'date'): None,
 	#   "备注"
     ('remark', None): None,
 	#   "计划发车时间"
@@ -748,7 +748,7 @@ op_attendance = {
 	#   "计划时间"
     ('planTime', None): None,
 	#员工类型//1019 司机  1020 售票员
-    ('workerType', None): None,
+    ('workerType', 'work_type_id'): None,
 }
 
 
@@ -801,9 +801,9 @@ origin_data = {
     'res.users': sys_user,
     #运营里程
     
-    'vehicleusage.driverecords': op_dispatchplan,	
+    'vehicleusage.driverecords': operate_nonOperate,	
     #考勤信息表表
-    'employee.attencerecords': op_attendance,		
+    'employee.attencerecords': attend,		
 }
 
 def dict_transfer(table, data):
