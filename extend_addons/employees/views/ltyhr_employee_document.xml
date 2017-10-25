@@ -50,7 +50,7 @@
                                         <field name="age"/>
                                         <field name="native_place"/>
                                         <field name="specialty"/>
-                                        <field name="nation"/>
+                                        <!--<field name="nation"/>-->
                                     </group>
                                     <group>
                                         <field name="mobile_phone"/>
