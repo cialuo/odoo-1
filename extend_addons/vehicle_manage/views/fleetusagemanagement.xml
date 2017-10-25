@@ -26,19 +26,19 @@
 
     <!--默认查询-->
     <record id="fleet_vehicle_search" model="ir.ui.view">
-            <field name="name">fleet.vehicle.search</field>
-            <field name="model">fleet.vehicle</field>
-            <field name="arch" type="xml">
-                <search string="All vehicles">
-                    <filter name="month" string="This Month" domain="['&amp;',('annual_inspection_date', '>=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')),
-                                ('annual_inspection_date', '&lt;=', (context_today() + relativedelta(months=1, day=1, days=-1)).strftime('%Y-%m-%d')),]"/>
-                    <group expand="1" string="Group By">
-                        <filter name="groupby_status" context="{'group_by' : 'state_id'}" string="Status"/>
-                        <filter name="groupby_model" context="{'group_by' : 'model_id'}" string="Model"/>
-                    </group>
-               </search>
-            </field>
-        </record>
+        <field name="name">fleet.vehicle.search</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="arch" type="xml">
+            <search string="All vehicles">
+                <filter name="month" string="This Month" domain="['&amp;',('annual_inspection_date', '>=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')),
+                               ('annual_inspection_date', '&lt;=', (context_today() + relativedelta(months=1, day=1, days=-1)).strftime('%Y-%m-%d')),]"/>
+                <group expand="1" string="Group By">
+                    <filter name="groupby_status" context="{'group_by' : 'state_id'}" string="Status"/>
+                    <filter name="groupby_model" context="{'group_by' : 'model_id'}" string="Model"/>
+                </group>
+            </search>
+        </field>
+    </record>
 
     <!-- 年检查询action -->
     <record id='vehicle_inspection_list_action' model='ir.actions.act_window'>
