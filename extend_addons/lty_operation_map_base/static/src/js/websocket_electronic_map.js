@@ -8,19 +8,27 @@ var websocket_electronic_map = null;
 if ('WebSocket' in window) {
     // websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
     // websocket = new WebSocket("ws://202.104.136.228:8085/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
-    websocket_electronic_map = new WebSocket( SOCKET_URL +"/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
+    websocket_electronic_map = new ReconnectingWebSocket( SOCKET_URL +"/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
 } else {
     alert('当前浏览器 Not support websocket');
 }
 
 //连接发生错误的回调方法
 websocket_electronic_map.onerror = function () {
-    console.log("WebSocket连接发生错误");
-    layer.msg('WebSocket连接已经断开', {time: 1000, shade: 0.3});
+    console.log("WebSocket error!");
+    // layer.msg('WebSocket连接已经断开', {time: 1000, shade: 0.3});
 };
 //连接成功建立的回调方法
 websocket_electronic_map.onopen = function () {
-    console.log("WebSocket连接成功");
+    console.log("WebSocket ok");
+    if (TARGET_GPRSID){
+        var package = {
+            type: 2000,
+            gpsId: TARGET_GPRSID,
+            open_modules: ["bus_site", "abnormal", "bus_real_state"]
+        };
+        websocket_electronic_map.send(JSON.stringify(package));
+    }
 }
 
 //接收到消息的回调方法
@@ -30,7 +38,7 @@ websocket_electronic_map.onmessage = function (event) {
     var modelName = eventData.moduleName;
     var oData = eventData.data;
     if (modelName == "bus_site"){
-        if (oData.gprsId == TARGET_LINE_ID){
+        if (oData.gprsId == TARGET_GPRSID){
             if (TARGET_VEHICLE){
                 if (oData.terminalNo == TARGET_VEHICLE){
                     electronicMap_update_vehicles_sockt(oData);
@@ -41,7 +49,7 @@ websocket_electronic_map.onmessage = function (event) {
         }
     }else if (modelName == "abnormal"){
         //车辆掉线
-        if (eventData.packageType == 1003 && oData.gprsId == TARGET_LINE_ID) {
+        if (eventData.packageType == 1003 && oData.gprsId == TARGET_GPRSID) {
             var abnormal_description = oData.abnormal_description;
             var vehicle_on = abnormal_description.bus_on;
             if (VEHICLE_INFO_DICT[vehicle_on.toString()]){
@@ -56,7 +64,7 @@ websocket_electronic_map.onmessage = function (event) {
 
 //连接关闭的回调方法
 websocket_electronic_map.onclose = function () {
-    console.log("WebSocket连接关闭");
+    console.log("WebSocket error!");
 };
 //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
 websocket_electronic_map.onbeforeunload = function () {

@@ -8,23 +8,46 @@ var websocket = null;
 if ('WebSocket' in window) {
     // websocket = new SockJS("http://127.0.0.1:8769/wstest?userId=45454");
     // websocket = new WebSocket("ws://202.104.136.228:8085/dispatch-websocket/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
-    websocket = new WebSocket(SOCKET_URL + "/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
+    websocket = new ReconnectingWebSocket(SOCKET_URL + "/Dsp_SocketService/websocket?userId=2222&token=55e1da6f0fe34f3a98a1faac5b939b68");
 } else {
     alert('当前浏览器 Not support websocket');
 }
 
 //连接发生错误的回调方法
 websocket.onerror = function () {
-    console.log("WebSocket连接发生错误");
+    console.log("WebSocket error!");
 };
 //连接成功建立的回调方法
 websocket.onopen = function () {
-    console.log("WebSocket连接成功");
+    console.log("WebSocket ok");
+    //  链接成功后，订阅基本模块
+    var modules_list = ["line_message", "line_online", "line_park", "abnormal", "passenger_flow", "bus_site", "passenger_late"];
+
     //  链接成功后，订阅打开页面需要的模块
+    //  a滞客信息模块
+    if ($(".passengerDelayModel").length > 0){
+        modules_list.push("passenger_delay");
+    }
+
+    // b线路计划模块
+    if ($(".linePlanParkOnlineModel").length > 0){
+        modules_list.push("line_plan");    
+    }
+
+    // c车辆资源状态模块
+    if ($(".bus_src_config").length > 0){
+        modules_list.push("bus_resource");
+    }
+
+    // d车辆实时状态模块
+    if ($(".bus_src_config").length >0 || $(".busRealStateModel").length > 0){
+        modules_list.push("bus_real_state");
+    }
+
     var package = {
         type: 2000,
         controlId: CONTROLLERID,
-        open_modules: ["line_message", "line_online", "line_park", "abnormal", "passenger_flow", "bus_real_state", "bus_site"]
+        open_modules: modules_list
     };
     websocket.send(JSON.stringify(package));
 }
@@ -75,7 +98,6 @@ websocket.onmessage = function (event) {
     } else if ($.inArray(modelName, ["line_plan", "line_park", "line_online"]) != -1) {
         update_linePlanParkOnlineModel_socket_fn(controllerObj, eventData, modelName);
     } else if (modelName == "消息") {
-        // console.log('10');
     } else if (modelName == "abnormal") {
         absnormal_del(controllerObj, eventData);
         use_odoo_model(event, "abnormal");
@@ -85,7 +107,7 @@ websocket.onmessage = function (event) {
 
 //连接关闭的回调方法
 websocket.onclose = function () {
-    console.log("WebSocket连接关闭");
+    console.log("WebSocket error!");
 };
 //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
 window.onbeforeunload = function () {
@@ -211,7 +233,6 @@ function vehicle_drop(controllerObj, dataObj) {
 
 // 车辆实时状态模块
 function busRealStateModel_socket_fn(controllerObj, dataObj) {
-    console.log(dataObj);
     // var dom = controllerObj.find(".busRealStateModel_" + dataObj.line_no + "_" + dataObj.bus_no);
     var dom = controllerObj.find(".busRealStateModel");
     if (dom.length > 0) {
@@ -400,7 +421,6 @@ function busRealStateModel_chart(dom, dataObj) {
 
 // 站点实时状态模块
 function passengerDelayModel_socket_fn(controllerObj, dataObj) {
-    console.log(dataObj);
     if (dataObj.packageType == 1033) {
         var dom = controllerObj.find(".passengerDelayModel_" + dataObj.lineId + "_" + dataObj.stationId);
         if (dom.length > 0) {

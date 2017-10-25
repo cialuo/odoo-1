@@ -89,14 +89,16 @@ odoo.define("lty_dispatch_desktop_widget.bus_real_info", function (require) {
             self.arrivalTimeFn();
 
             // 订阅车辆实时状态
-            // var package = {
-            //     type: 2000,
-            //     controlId: CONTROLLERID,
-            //     open_modules: ["bus_real_state"]
-            // };
-            // if (websocket){
-            //     websocket.send(JSON.stringify(package));
-            // }
+            var package = {
+                type: 2000,
+                controlId: CONTROLLERID,
+                open_modules: ["bus_real_state"]
+            };
+            try {
+                websocket.send(JSON.stringify(package));
+            } catch(e) {
+                console.log(e);
+            }
         },
         // 处理异常状态
         handle_exceptions_fn: function(){
