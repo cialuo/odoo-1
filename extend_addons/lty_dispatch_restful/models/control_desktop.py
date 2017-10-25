@@ -125,8 +125,9 @@ class Desktop(models.Model):
                 vals = {'id': r.id}
                 _logger.info('Start unlink data: %s', self._name)
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+                res = super(Desktop, r).unlink()
                 rp = Client().http_post(url, data=params)
             except Exception,e:
                 _logger.info('%s', e.message)
-        res = super(Desktop, self).unlink()
+
         return res

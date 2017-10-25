@@ -122,11 +122,12 @@ class op_line(models.Model):
                 _logger.info('Start unlink data: %s', self._name)
                 vals = {'id': r.id}
                 params = Params(type=2, cityCode=cityCode, tableName=LINE_TABLE, data=vals).to_dict()
+                res = super(op_line, r).unlink()
                 rp = Client().http_post(url, data=params)
                 # clientThread(url,params,res).start()
             except Exception,e:
                 _logger.info('%s', e.message)
-        res = super(op_line, self).unlink()
+
         return res
 
 class Station(models.Model):
@@ -196,7 +197,7 @@ class Station(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         # vals = {"ids": self.ids}
-        res = super(Station, self).unlink()
+
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
@@ -204,6 +205,7 @@ class Station(models.Model):
                 vals = {'id': r.id}
                 _logger.info('Start unlink data: %s', self._name)
                 params = Params(type=2, cityCode=cityCode,tableName=STATION_TABLE, data=vals).to_dict()
+                res = super(Station, r).unlink()
                 rp = Client().http_post(url, data=params)
             except Exception,e:
                 _logger.info('%s', e.message)

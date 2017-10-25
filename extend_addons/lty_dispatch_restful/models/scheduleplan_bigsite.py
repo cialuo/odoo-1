@@ -137,7 +137,7 @@ class Bigsitesetup(models.Model):
         if self._name == 'scheduleplan.bigsitesetdown':
             origin_ids += map(lambda x: str(x) + 'down', self.ids)
         # vals = {"ids": origin_ids}
-        res = super(Bigsitesetup, self).unlink()
+
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for id in origin_ids:
@@ -146,6 +146,7 @@ class Bigsitesetup(models.Model):
                 _logger.info('Start unlink data: %s', self._name)
                 vals = {'id': id}
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+                res = super(Bigsitesetup, r).unlink()
                 rp = Client().http_post(url, data=params)
             except Exception,e:
                 _logger.info('%s', e.message)

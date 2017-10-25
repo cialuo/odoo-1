@@ -137,6 +137,7 @@ class LinePlan(models.Model):
                 vals = {'id': r.id}
                 _logger.info('Start unlink data: %s', self._name)
                 params = Params(type = 2, cityCode = cityCode,tableName = LINEPLAN_TABLE, data = vals).to_dict()
+                res = super(LinePlan, r).unlink()
                 rp = Client().http_post(url, data=params)
             except Exception,e:
                 _logger.info('%s', e.message)
@@ -144,5 +145,5 @@ class LinePlan(models.Model):
             r.bigsite_down.unlink()
             r.uptimearrange.unlink()
             r.downtimearrange.unlink()
-        res = super(LinePlan, self).unlink()
+
         return res

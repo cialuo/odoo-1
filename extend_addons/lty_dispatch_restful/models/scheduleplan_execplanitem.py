@@ -187,10 +187,11 @@ class Excutetable(models.Model):
                 _logger.info('Start unlink data: %s', self._name)
                 vals = {'lineId': s.line_id.id, 'workDate': s.excutedate}
                 params = Params(type = 2, cityCode = cityCode,tableName='op_dispatchplan', data = vals).to_dict()
+                res = super(Excutetable, r).unlink()
                 rp = Client().http_post(url, data=params)
             except Exception,e:
                 _logger.info('%s', e.message)
-        res = super(Excutetable, self).unlink()
+
         return res
 
 # class downplanitem(models.Model):
