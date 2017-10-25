@@ -444,7 +444,7 @@ odoo.define(function (require) {
                 { name: "前60天", id: "60" },
                 { name: "前90天", id: "90" },
                 { name: "前365天", id: "365" },
-                { name: "所有", id: "all" },
+                { name: "所有", id: "-1" },
             ];
             // 时间戳
             var getdate = function () {
