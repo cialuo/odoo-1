@@ -111,16 +111,14 @@ class User(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         # vals = {"ids": self.ids}
-        res = super(User, self).unlink()
+
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': r.id}
-                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-                rp = Client().http_post(url, data=params)
-            except Exception,e:
-                _logger.info('%s', e.message)
-        return res
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            _logger.info('Start unlink data: %s', self._name)
+            vals = {'id': r.id}
+            params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+            res = super(User, r).unlink()
+            rp = Client().http_post(url, data=params)
+        return

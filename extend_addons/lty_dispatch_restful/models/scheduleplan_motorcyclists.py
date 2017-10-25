@@ -143,19 +143,18 @@ class attendance(models.Model):
         res = super(attendance, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            #出勤司机
-            if drivervals:
-                for driver in drivervals:
-                    params = Params(type = 2, cityCode = cityCode,tableName = 'op_attendance', data = {'id': driver}).to_dict()
-                    rp = Client().http_post(url, data=params)
-            #出勤乘务员
-            if stewardvals:
-                for steward in stewardvals:
-                    params = Params(type = 2, cityCode = cityCode,tableName = 'op_trainattendance', data = {'id': steward}).to_dict()
-                    rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
-        return res
+
+        # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+        _logger.info('Start unlink data: %s', self._name)
+        #出勤司机
+        if drivervals:
+            for driver in drivervals:
+                params = Params(type = 2, cityCode = cityCode,tableName = 'op_attendance', data = {'id': driver}).to_dict()
+                rp = Client().http_post(url, data=params)
+        #出勤乘务员
+        if stewardvals:
+            for steward in stewardvals:
+                params = Params(type = 2, cityCode = cityCode,tableName = 'op_trainattendance', data = {'id': steward}).to_dict()
+                rp = Client().http_post(url, data=params)
+
+        return

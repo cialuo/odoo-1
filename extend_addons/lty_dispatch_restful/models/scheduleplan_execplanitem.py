@@ -182,16 +182,13 @@ class Excutetable(models.Model):
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for s in self:
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                _logger.info('Start unlink data: %s', self._name)
-                vals = {'lineId': s.line_id.id, 'workDate': s.excutedate}
-                params = Params(type = 2, cityCode = cityCode,tableName='op_dispatchplan', data = vals).to_dict()
-                rp = Client().http_post(url, data=params)
-            except Exception,e:
-                _logger.info('%s', e.message)
-        res = super(Excutetable, self).unlink()
-        return res
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            _logger.info('Start unlink data: %s', self._name)
+            vals = {'lineId': s.line_id.id, 'workDate': s.excutedate}
+            params = Params(type = 2, cityCode = cityCode,tableName='op_dispatchplan', data = vals).to_dict()
+            res = super(Excutetable, r).unlink()
+            rp = Client().http_post(url, data=params)
+        return
 
 # class downplanitem(models.Model):
 #
