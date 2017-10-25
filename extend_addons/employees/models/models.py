@@ -9,7 +9,7 @@ class employee(models.Model):
 
     _inherit = 'hr.employee'
 
-    _sql_constraints = [('jobnumber unique', 'unique (jobnumber)', '工号不能重复')]
+    _sql_constraints = [('jobnumber unique', 'unique (jobnumber)', u'工号不能重复')]
 
     # 工号
     jobnumber = fields.Char(string='employee work number', required=True)
@@ -111,37 +111,24 @@ class employee(models.Model):
 
     #２０１７－１０－２４　新增需求：公司字段,年龄字段,年龄分类字段
     company_id = fields.Many2one('res.company', help='Company', default=lambda self: self.env['res.company']._company_default_get())
-    age = fields.Integer(string='Age',compute='_compute_age')
+    age = fields.Integer(string='Age',compute='_compute_age',store=True)
     age_group = fields.Selection([('group_a','group_a'),#16-20
                                   ('group_b','group_b'),#21-30
                                   ('group_c','group_c'),#31-40
                                   ('group_d','group_d'),#41-50
                                   ('group_e','group_e'),#51-60
                                   ('group_f', 'group_f')#60以上
-                                  ],compute="_compute_age_group",string='age group',store=True)
+                                  ],compute='_compute_age',string='age group',store=True)
 
-    @api.depends('age')
-    def _compute_age_group(self):
+    @api.constrains('age')
+    def _constrains_age(self):
         """
-            根据年龄计算年龄分组所在:
-
+            验证年龄不能为负数
         :return:
         """
         for r in self:
-            if r.age:
-                age = r.age
-                if age>= 16 and age<=20:
-                    r.age_group = 'group_a'
-                if age>=21 and age <=30:
-                    r.age_group = 'group_b'
-                if age>=31 and age <=40:
-                    r.age_group = 'group_c'
-                if age >= 41 and age <= 50:
-                    r.age_group = 'group_d'
-                if age >= 51 and age <= 60:
-                     r.age_group = 'group_e'
-                if age > 60:
-                    r.age_group = 'group_f'
+            if r.age < 0:
+                raise ValidationError(u"输入的出生日期有误,年龄为负数了!")
 
     @api.depends('birthday')
     def _compute_age(self):
@@ -158,6 +145,21 @@ class employee(models.Model):
                     r.age = today.year - birthday.year - 1
                 else:
                     r.age = today.year - birthday.year
+
+                if r.age:
+                    age = r.age
+                    if age > 60:
+                        r.age_group = 'group_f'
+                    if age >= 51 and age <= 60:
+                        r.age_group = 'group_e'
+                    if age >= 41 and age <= 50:
+                        r.age_group = 'group_d'
+                    if age >= 31 and age <= 40:
+                        r.age_group = 'group_c'
+                    if age >= 21 and age <= 30:
+                        r.age_group = 'group_b'
+                    if age >= 16 and age <= 20:
+                        r.age_group = 'group_a'
 
 
     @api.constrains('user_id')
