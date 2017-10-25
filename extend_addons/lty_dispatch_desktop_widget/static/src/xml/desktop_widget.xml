@@ -801,7 +801,7 @@
                     </tr>
                     <t t-foreach="widget.transit_data.data_list" t-as="item">
                         <tr class="point" t-attf-pid="{{item.id}}" t-attf-direction="{{item.direction}}" t-attf-planRunTime="{{new Date(item.planRunTime).getTime()}}" t-attf-planReachTime="{{new Date(item.planReachTime).getTime()}}">
-                            <td class="pL">
+                            <td class="pL td_w1">
                                 <span t-attf-st="{{item.checkOut}}" t-attf-class="icon checkOut icon1_{{item.checkOut}}"></span>
                                 <span t-attf-st="{{item.runState}}" t-attf-class="icon runState icon2_{{item.runState}}"></span>
                                 <t t-if="item.carStateId != 0">
@@ -1203,6 +1203,12 @@
                                         <option value="2084">轮胎</option>
                                         <option value="2085">发动机异常</option>
                                         <option value="2086">故障</option>
+                                        <option value="100">司机请假</option>
+                                        <option value="101">路堵</option>
+                                        <!-- <option value="102">车辆故障</option> -->
+                                        <option value="103">被扣车</option>
+                                        <option value="104">交通事故</option>
+                                        <option value="105">其他</option>
                                     </select>
                                 </td>
                             </tr>

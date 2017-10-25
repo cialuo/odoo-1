@@ -790,12 +790,8 @@
     padding-right: 6px;
 }
 
-.plan_display .plan_group .bus_yard .td_w1 {
+.plan_display .plan_group .section_plan_cont .td_w1 {
     width: 68px;
-}
-
-.plan_display .plan_group .bus_transit .td_w1 {
-    width: 56px;
 }
 
 .plan_display .plan_group .bus_yard .lineName {

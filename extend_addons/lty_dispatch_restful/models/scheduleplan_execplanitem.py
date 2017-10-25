@@ -48,39 +48,41 @@ class upplanitem(models.Model):
         '''
 
         res = super(upplanitem, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
-            vals.update({
-                'lineName': res.execplan_id.line_id.line_name,
-                'gprsId': res.execplan_id.line_id.gprs_id,
-                'selfId': res.vehicle_id.inner_code,
-                'onBoardId': res.vehicle_id.on_boardid,
-                'workerId': res.driver.jobnumber,
-                'driverName': res.driver.name,
-                'trainName': res.steward.name,
-                'trainId': res.steward.jobnumber,
-                'workDate': res.execplan_id.excutedate,
-                'lineId': res.execplan_id.line_id.id,
-                'runGprsId': res.line_id.gprs_id,
-                'linePlanId': res.execplan_id.rule_id.id,
-            })
-            if self._name == 'scheduleplan.execupplanitem':
+        if not self._context.get('dryrun'):
+            url = self.env['ir.config_parameter'].get_param('restful.url')
+            cityCode = self.env['ir.config_parameter'].get_param('city.code')
+            try:
+                _logger.info('Start create data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)
                 vals.update({
-                    'id': int(str(res.id) + '0'),
-                    'direction': 0,
+                    'lineName': res.execplan_id.line_id.line_name,
+                    'gprsId': res.execplan_id.line_id.gprs_id,
+                    'selfId': res.vehicle_id.inner_code,
+                    'onBoardId': res.vehicle_id.on_boardid,
+                    'workerId': res.driver.jobnumber,
+                    'driverName': res.driver.name,
+                    'trainName': res.steward.name,
+                    'trainId': res.steward.jobnumber,
+                    'workDate': res.execplan_id.excutedate,
+                    'lineId': res.execplan_id.line_id.id,
+                    'runGprsId': res.line_id.gprs_id,
+                    'linePlanId': res.execplan_id.rule_id.id,
                 })
-            if self._name == 'scheduleplan.execdownplanitem':
-                vals.update({
-                    'id': int(str(res.id) + '1'),
-                    'direction': 1,
-                })
-            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+                if self._name == 'scheduleplan.execupplanitem':
+                    vals.update({
+                        'id': int(str(res.id) + '0'),
+                        'direction': 0,
+                    })
+                if self._name == 'scheduleplan.execdownplanitem':
+                    vals.update({
+                        'id': int(str(res.id) + '1'),
+                        'direction': 1,
+                    })
+                params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+                response_check(rp)
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res
 
     @api.multi
@@ -96,7 +98,7 @@ class upplanitem(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
+            if seconds.seconds > 5 and (not self._context.get('dryrun')):
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -130,7 +132,7 @@ class upplanitem(models.Model):
                         })
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
-
+                    response_check(rp)
                     # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
