@@ -372,7 +372,7 @@
             <field name="model">scheduleplan.schedulrule</field>
             <field name="priority">0</field>
             <field name="arch" type="xml">
-                <tree string="Course Tree">
+                <tree string="Course Tree" create='0'>
                     <field name="name"/>
                     <field name="line_id"/>
                     <field name="bustype"/>

@@ -53,6 +53,8 @@ class Employee(models.Model):
         if not self._context.get('dryrun'):
             url = self.env['ir.config_parameter'].get_param('restful.url')
             cityCode = self.env['ir.config_parameter'].get_param('city.code')
+
+            rp = True
             try:
                 _logger.info('Start create data: %s', self._name)
                 vals = mapping.dict_transfer(self._name, vals)
@@ -66,9 +68,11 @@ class Employee(models.Model):
                     vals['sysPostId'] = '1020'
                 params = Params(type=1, cityCode=cityCode,tableName=HR_TABLE, data=vals).to_dict()
                 rp = Client().http_post(url, data=params)
-                response_check(rp)
+
             except Exception,e:
                 _logger.info('%s', e.message)
+
+            response_check(rp)
         return res
 
     @api.multi
@@ -86,6 +90,7 @@ class Employee(models.Model):
             #时间戳 避免 create方法进入 write方法
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
             if seconds.seconds > 5 and (not self._context.get('dryrun')):
+                rp = True
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -100,10 +105,12 @@ class Employee(models.Model):
                         vals['sysPostId'] = '1020'
                     params = Params(type=3, cityCode=cityCode,tableName=HR_TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
-                    response_check(rp)
+
                     # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
+
+                response_check(rp)
         return res
 
     @api.multi
