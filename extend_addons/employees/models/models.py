@@ -9,7 +9,7 @@ class employee(models.Model):
 
     _inherit = 'hr.employee'
 
-    _sql_constraints = [('jobnumber unique', 'unique (jobnumber)', '工号不能重复')]
+    _sql_constraints = [('jobnumber unique', 'unique (jobnumber)', u'工号不能重复')]
 
     # 工号
     jobnumber = fields.Char(string='employee work number', required=True)
@@ -120,6 +120,15 @@ class employee(models.Model):
                                   ('group_f', 'group_f')#60以上
                                   ],compute='_compute_age',string='age group',store=True)
 
+    @api.constrains('age')
+    def _constrains_age(self):
+        """
+            验证年龄不能为负数
+        :return:
+        """
+        for r in self:
+            if r.age < 0:
+                raise ValidationError(u"输入的出生日期有误,年龄为负数了!")
 
     @api.depends('birthday')
     def _compute_age(self):
