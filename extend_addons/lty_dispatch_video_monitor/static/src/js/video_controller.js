@@ -194,7 +194,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
 
             //打开websocket
             function onOpen(openEvt) {
-                heartCheck.start();
+                // heartCheck.start();
                 console.log('websocket connection!');
             }
 
@@ -211,7 +211,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
 //             //监听到websocket 返回信息
             function onMessage(event) {
                 console.log(event.data)
-                heartCheck.reset();
+                // heartCheck.reset();
                 var dataJson = $.parseJSON(event.data);
                 if (dataJson.msg_type == '257') { //第一次加载过来推送的在线
                     onlineData = dataJson.result;
@@ -431,13 +431,12 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 var timeShow = setInterval(function () {
                     if ($('body').find('#flashContent' + i).length > 0) {
                         if (channelId == 0) {
-
-                            swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent" + i, "550", "350", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
+                            swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent" + i, "640", "375", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
                             swfobject.createCSS("#flashContent", "display:block;text-align:left;");
                         } else if (channelId == -1) {
                             $('#flashContent' + i).parents('.video_player').find('.show_car').show();
                             $('#flashContent' + i).parents('.video_player').find('.now_play').html('当前车辆号：' + deviceId)
-                            swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent" + i, "550", "350", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
+                            swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent" + i, "640", "375", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
                             swfobject.createCSS("#flashContent", "display:block;text-align:left;");
                         }
                         clearInterval(timeShow);

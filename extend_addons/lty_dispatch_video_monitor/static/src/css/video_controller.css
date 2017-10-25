@@ -23,7 +23,7 @@
 }
 
 .dispatch_desktop_video .content-left{
-    width:180px;
+    width:15%;
     float: left;
     border:2px solid #ddd;
 }
@@ -35,7 +35,7 @@
 }
 
 .dispatch_desktop_video .content-right {
-    width: 1680px;
+    width: 82%;
     float: left;
     padding-left: 20px;
 }
@@ -45,17 +45,19 @@
 }
 
 .dispatch_desktop_video .video_player {
-    width: 550px;
-    height: 350px;
+    width: 48%;
+    height: 375px;
     float: left;
     position: relative;
     margin-right: 2px;
-    margin-bottom: 2px;
+    margin-bottom: 10px;
 }
-
+.video_show_box object{
+    margin-left: calc(50% - 320px);
+}
 .dispatch_desktop_video .show_car {
     position: absolute;
-    left: 20px;
+    left: calc(50% - 300px);
     top: 20px;
     color: #ACEFAC;
     display: none;
