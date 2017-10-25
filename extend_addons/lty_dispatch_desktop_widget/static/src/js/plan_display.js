@@ -967,8 +967,10 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 controlId: this.location_data.controllerId,
                 open_modules: ["line_plan"]
             };
-            if (websocket){
+            try {
                 websocket.send(JSON.stringify(package));
+            } catch(e) {
+                console.log(e);
             }
             this.destroy();
         },

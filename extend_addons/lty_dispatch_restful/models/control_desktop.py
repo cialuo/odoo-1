@@ -49,19 +49,25 @@ class Desktop(models.Model):
         '''
 
         res = super(Desktop, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
-            vals.update({
-                'id': res.id,
-                'lineName': res.line_id.line_name,
-            })
-            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+
+        if not self._context.get('dryrun'):
+            rp = True
+            url = self.env['ir.config_parameter'].get_param('restful.url')
+            cityCode = self.env['ir.config_parameter'].get_param('city.code')
+            try:
+                _logger.info('Start create data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)
+                vals.update({
+                    'id': res.id,
+                    'lineName': res.line_id.line_name,
+                })
+                params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+
+            except Exception,e:
+                _logger.info('%s', e.message)
+
+            response_check(rp)
         return res
 
     @api.multi
@@ -77,7 +83,8 @@ class Desktop(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
+            if seconds.seconds > 5 and (not self._context.get('dryrun')):
+                rp = True
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -92,10 +99,11 @@ class Desktop(models.Model):
                             vals.update({'lineName': r.line_id.line_name})
                         params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                         rp = Client().http_post(url, data=params)
-
                     # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
+
+                response_check(rp)
         return res
 
     @api.multi

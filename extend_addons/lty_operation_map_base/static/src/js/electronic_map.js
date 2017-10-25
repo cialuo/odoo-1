@@ -2,7 +2,7 @@ var CARMAP,
     VEHICLE_INFO_DICT = {},
     INIT_ONBOARDID_INNERCODE_DICT = {},
     ONBOARDID_INNERCODE_DICT = {},
-    TARGET_LINE_ID,
+    TARGET_GPRSID,
     TARGET_VEHICLE;
 
 odoo.define("electronic_map.electronic_map", function(require) {
@@ -132,7 +132,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 self.init_map(map);
                 self.$(".busRealStateModel").remove();
                 TARGET_VEHICLE = "";
-                TARGET_LINE_ID = "";
+                TARGET_GPRSID = "";
                 CARMAP = "";
                 if (!options.line_id) {
                     layer.msg("请先选择线路", { shade: 0.3, time: 1000 });
@@ -142,7 +142,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 self.set_map_center = false;
                 self.subscribe(options.gprsId);
 
-                TARGET_LINE_ID = options.gprsId;
+                TARGET_GPRSID = options.gprsId;
                 if (options.onboardId){
                     TARGET_VEHICLE = options.onboardId;
                 }

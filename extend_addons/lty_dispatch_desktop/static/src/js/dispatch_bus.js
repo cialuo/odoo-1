@@ -1201,12 +1201,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         var totalPage = data.respose.vo.totalCount % 10 == 0 ? data.respose.vo.totalCount / 10 : Math.ceil(data.respose.vo.totalCount / 10);
                         self.$el.find('.mutual_content tbody').html('');
                         if (data.respose.opWarningList.length > 0) {
+
                             $.each(data.respose.opWarningList, function (index, value) {   // 解析出data对应的Object数组
                                 td_txt += "<tr>"
                                     + "<td>" + index + "</td>"
                                     + "<td>" + value.occurTime + "</td>"
                                     + "<td>" + value.lineName + "</td>"
-                                    + "<td obd=" + value.onBoardId + ">" + value.onBoardId + "</td>"
+                                    + "<td obd=" + value.id + ">" + value.onBoardId + "</td>"
                                     + "<td>" + value.logText + "</td>"
                                     + "<td>" + value.remark + "</td>"
                                 if (value.result == 0) {
@@ -1219,8 +1220,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 td_txt += "</tr>";
                             });
                             self.$el.find('.mutual_content tbody').html(td_txt);
-                        }
-                        if (data.respose.opWarningList.length > 0) {
+                            // 分页的初始渲染
                             $('.pagination_tbl').bootstrapPaginator({
                                 currentPage: 1,//当前的请求页面。
                                 totalPages: totalPage,//一共多少页。
@@ -1242,6 +1242,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                             return page;
                                     }
                                 },
+                                // 分页的点击页面
                                 onPageClicked: function (event, originalEvent, type, page) {
                                     $.ajax({
                                         url: RESTFUL_URL + '/ltyop/exchange/list?apikey=71029270&params={lineId:' + line_val + ',controlId:' + self.desktop_id + ',arg:\'' + bus_val + '\',arg1:\'' + make_deal + '\',pageNum:' + page + ',pageSize:10}',
@@ -1257,7 +1258,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                     + "<td>" + index_num + "</td>"
                                                     + "<td>" + value.occurTime + "</td>"
                                                     + "<td>" + value.lineName + "</td>"
-                                                    + "<td>" + value.onBoardId + "</td>"
+                                                    + "<td obd=" + value.id + ">" + value.onBoardId + "</td>"
                                                     + "<td>" + value.logText + "</td>"
                                                     + "<td>" + value.remark + "</td>"
                                                 if (value.result == 0) {
@@ -1274,13 +1275,16 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     })
                                 }
                             })
-
+                        }else{
+                            layer.msg('暂无数据', {time: 1000, shade: 0.3});
                         }
                     },
                     error: function () {
                         layer.msg('请求出错', {time: 1000, shade: 0.3});
                     }
                 });
+            } else {
+                layer.msg('请选择路线！', {time: 1000, shade: 0.3});
             }
 
         },

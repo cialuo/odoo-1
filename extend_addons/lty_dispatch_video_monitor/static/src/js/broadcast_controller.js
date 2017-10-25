@@ -226,7 +226,7 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
 
             //打开websocket
             function onOpen(openEvt) {
-                heartCheck.start();
+                // heartCheck.start();
                 console.log('websocket connection!');
             }
 
@@ -243,7 +243,7 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
 //             //监听到websocket 返回信息
             function onMessage(event) {
                 console.log(event.data)
-                heartCheck.reset();
+                // heartCheck.reset();
                 var dataJson = $.parseJSON(event.data);
                 if (dataJson.msg_type == '257') { //第一次加载过来推送的在线
                     onlineData = dataJson.result;
@@ -445,7 +445,7 @@ odoo.define('lty_dispatch_broadcast_monitor.broadcast_show', function (require) 
                 $('#flashContent0').parents('.broadcast_player').find('.now_channel').html('当前渠道：' + channelId)
                 var timeShow = setInterval(function () {
                     if ($('body').find('#flashContent0').length > 0) {
-                        swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent0", "550", "350", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
+                        swfobject.embedSWF("/lty_dispatch_video_monitor/static/src/swfs/StrobeMediaPlayback.swf", "flashContent0", "640", "375", swfVersionStr, xiSwfUrlStr, soFlashVars, params, attributes);
                         swfobject.createCSS("#flashContent", "display:block;text-align:left;");
                         // else if (channelId == -1) {
                         //     $('#flashContent' + i).parents('.broadcast_player').find('.show_car').show();

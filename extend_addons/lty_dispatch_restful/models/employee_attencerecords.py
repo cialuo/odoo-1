@@ -49,31 +49,33 @@ class attence(models.Model):
         '''
 
         res = super(attence, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        #当本地添加时，调用api同步数据到后台
-        if vals.get('is_add'):
-            _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
-            vals.update({
-                'onboardId': int(res.vehicle_id.on_boardid),
-                'selfId': res.vehicle_id.inner_code,
-                'gprsId': res.line_id.gprs_id,
-                'workerId': res.employee_id.jobnumber,
-                'driver': res.employee_id.name,
-                'WorkerType': int(res.work_type_id),                    
-            })
-            params = Params(type=1, cityCode=cityCode, tableName=TABLE, data=vals).to_dict()
-            #调用restful
-            rp = Client().http_post(url, data=params)
-            if rp :
-                restful_key_id = rp.json().get('respose').get('id')
-                if   rp.json().get('result') == 0 :
-                    res.write({'restful_key_id': int(restful_key_id)})
+
+        if not self._context.get('dryrun'):
+            url = self.env['ir.config_parameter'].get_param('restful.url')
+            cityCode = self.env['ir.config_parameter'].get_param('city.code')
+            #当本地添加时，调用api同步数据到后台
+            if vals.get('is_add'):
+                _logger.info('Start create data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)
+                vals.update({
+                    'onboardId': int(res.vehicle_id.on_boardid),
+                    'selfId': res.vehicle_id.inner_code,
+                    'gprsId': res.line_id.gprs_id,
+                    'workerId': res.employee_id.jobnumber,
+                    'driver': res.employee_id.name,
+                    'WorkerType': int(res.work_type_id),
+                })
+                params = Params(type=1, cityCode=cityCode, tableName=TABLE, data=vals).to_dict()
+                #调用restful
+                rp = Client().http_post(url, data=params)
+                if rp :
+                    restful_key_id = rp.json().get('respose').get('id')
+                    if   rp.json().get('result') == 0 :
+                        res.write({'restful_key_id': int(restful_key_id)})
+                    else :
+                        raise UserError((u'后台增加数据错误.%s')%rp.json().get('respose').get('text'))
                 else :
-                    raise UserError((u'后台增加数据错误.%s')%rp.json().get('respose').get('text'))            
-            else :
-                raise UserError((u'Restful接口连接失败错误'))            
+                    raise UserError((u'Restful接口连接失败错误'))
         return res
 
     @api.multi

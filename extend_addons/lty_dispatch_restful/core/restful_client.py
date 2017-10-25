@@ -6,6 +6,8 @@ import json
 from requests import ConnectionError
 import threading
 import logging
+from odoo import _
+from odoo.exceptions import UserError
 
 logger = logging.getLogger('restful api')
 
@@ -141,4 +143,11 @@ class clientThread(threading.Thread):
         #print "%s被销毁了！" % (self.thread_name);res.write({'station_route_ids': [(6, 0, res_ids.ids)]})
 
 
+# 对 http_post函数的返回进行判断，如果出错，前端页面弹出对应的错误提示
+def response_check(rp):
+    if rp:
+        if rp.json().get('result') != 0:
+            raise UserError(_('Adding data errors in the background,%s') % rp.json().get('respose').get('text'))
+    else:
+        raise UserError(_('Restful interface access exception, please check.'))
 

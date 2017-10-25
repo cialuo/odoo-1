@@ -48,29 +48,36 @@ class Bigsitesetup(models.Model):
         '''
 
         res = super(Bigsitesetup, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            if self._name == 'scheduleplan.bigsitesetup':
-                vals.update({
-                    'id': str(res.id) + 'up',
-                    'station_name': res.site_id.name,
-                    'direction': 'up',
-                    'line_id': res.rule_id.line_id.id,
-                })
-            if self._name == 'scheduleplan.bigsitesetdown':
-                vals.update({
-                    'id': str(res.id) + 'down',
-                    'station_name': res.site_id.name,
-                    'direction': 'down',
-                    'line_id': res.rule_id.line_id.id,
-                })
-            vals = mapping.dict_transfer(self._name, vals)
-            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+
+        if not self._context.get('dryrun'):
+            url = self.env['ir.config_parameter'].get_param('restful.url')
+            cityCode = self.env['ir.config_parameter'].get_param('city.code')
+
+            rp = True
+            try:
+                _logger.info('Start create data: %s', self._name)
+                if self._name == 'scheduleplan.bigsitesetup':
+                    vals.update({
+                        'id': str(res.id) + 'up',
+                        'station_name': res.site_id.name,
+                        'direction': 'up',
+                        'line_id': res.rule_id.line_id.id,
+                    })
+                if self._name == 'scheduleplan.bigsitesetdown':
+                    vals.update({
+                        'id': str(res.id) + 'down',
+                        'station_name': res.site_id.name,
+                        'direction': 'down',
+                        'line_id': res.rule_id.line_id.id,
+                    })
+                vals = mapping.dict_transfer(self._name, vals)
+                params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+
+            except Exception,e:
+                _logger.info('%s', e.message)
+
+            response_check(rp)
         return res
 
     @api.multi
@@ -86,7 +93,8 @@ class Bigsitesetup(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
+            if seconds.seconds > 5 and (not self._context.get('dryrun')):
+                rp = True
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -111,6 +119,8 @@ class Bigsitesetup(models.Model):
                     # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
+
+                response_check(rp)
         return res
 
     @api.multi

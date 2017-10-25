@@ -1204,7 +1204,8 @@
                                         <option value="2085">发动机异常</option>
                                         <option value="2086">故障</option>
                                         <option value="100">司机请假</option>
-                                        <option value="102">车辆故障</option>
+                                        <option value="101">路堵</option>
+                                        <!-- <option value="102">车辆故障</option> -->
                                         <option value="103">被扣车</option>
                                         <option value="104">交通事故</option>
                                         <option value="105">其他</option>
