@@ -11,58 +11,124 @@ odoo.define('nvd3_extend.GraphWidget', function (require) {
 
     GraphWidget.include({
         display_pie1: function () {
-            var data = [],
-                all_negative = true,
-                some_negative = false,
-                all_zero = true;
+            var number=(new Date()).valueOf();
+            var myId="myCharts"+number;
+          $(this.$el[0]).append('<div id="'+myId+'" class="myCharts"></div>');
+        var myChart = echarts.init(document.getElementById(myId));
+        var data = genData(this.data);
+        console.log(this.data)
+        var option = {
+            tooltip : {
+                trigger: 'item',
+                formatter: "{b} : {c} ({d}%)"
+            },
+            legend: {
+                type: 'scroll',
+                orient: 'vertical',
+                right: 10,
+                top: 20,
+                bottom: 20,
+                data:data.legendData
+            },
+            series : [
+                {
+                    type: 'pie',
+                    radius : ['25%','55%'],
+                    center: ['40%', '50%'],
+                    data: data.seriesData,
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        myChart.setOption(option);
 
-            this.data.forEach(function (datapt) {
-                all_negative = all_negative && (datapt.value < 0);
-                some_negative = some_negative || (datapt.value < 0);
-                all_zero = all_zero && (datapt.value === 0);
+        function genData(data) {
+            var legendData = [];
+            var seriesData = [];
+            $.each(data,function (idx,val) {
+                if(val.labels.length==1){
+                    var subval=val.labels[0];
+                }else{
+                    var subval=val.labels[0]+'/'+val.labels[1];
+                }
+                legendData.push(subval);
+                    seriesData.push({
+                        name: subval,
+                        value: val.value
+                    });
             });
-            if (some_negative && !all_negative) {
-                return this.$el.append(QWeb.render('GraphView.error', {
-                    title: _t("Invalid data"),
-                    description: _t("Pie chart cannot mix positive and negative numbers. " +
-                        "Try to change your domain to only display positive results"),
-                }));
-            }
-            if (all_zero) {
-                return this.$el.append(QWeb.render('GraphView.error', {
-                    title: _t("Invalid data"),
-                    description: _t("Pie chart cannot display all zero numbers.. " +
-                        "Try to change your domain to display positive results"),
-                }));
-            }
-            if (this.groupbys.length) {
-                data = this.data.map(function (datapt) {
-                    return {x:datapt.labels.join("/"), y: datapt.value};
-                });
-            }
-            var svg = d3.select(this.$el[0]).append('svg');
-            svg.datum(data);
 
-            svg.transition().duration(100);
+            return {
+                legendData: legendData,
+                seriesData: seriesData
+            };
+        }
+        },
+        display_pie: function () {
+            var number=(new Date()).valueOf();
+            var myId="myCharts"+number;
+          $(this.$el[0]).append('<div id="'+myId+'" class="myCharts"></div>');
+        var myChart = echarts.init(document.getElementById(myId));
+        var data = genData(this.data);
+        console.log(this.data)
+        var option = {
+            tooltip : {
+                trigger: 'item',
+                formatter: "{b} : {c} ({d}%)"
+            },
+            legend: {
+                type: 'scroll',
+                orient: 'vertical',
+                right: 10,
+                top: 20,
+                bottom: 20,
+                data:data.legendData
+            },
+            series : [
+                {
+                    type: 'pie',
+                    radius : '55%',
+                    center: ['40%', '50%'],
+                    data: data.seriesData,
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        myChart.setOption(option);
 
-            var legend_right = config.device.size_class > config.device.SIZES.XS;
-
-            var chart = nv.models.pieChart();
-            chart.options({
-              delay: 250,
-              // pieLabelsOutside:true,
-              donut: true,
-              showLabels: false,
-              showPolyline: true,
-              showLegend: legend_right || _.size(data) <= MAX_LEGEND_LENGTH,
-              legendPosition: legend_right ? 'right' : 'top',
-              transition: 100,
-              color: d3.scale.category10().range(),
+        function genData(data) {
+            var legendData = [];
+            var seriesData = [];
+            $.each(data,function (idx,val) {
+                if(val.labels.length==1){
+                    var subval=val.labels[0];
+                }else{
+                    var subval=val.labels[0]+'/'+val.labels[1];
+                }
+                legendData.push(subval);
+                    seriesData.push({
+                        name: subval,
+                        value: val.value
+                    });
             });
 
-            chart(svg);
-            this.to_remove = chart.update;
-            nv.utils.onWindowResize(chart.update);
+            return {
+                legendData: legendData,
+                seriesData: seriesData
+            };
+        }
         },
     })
 });
