@@ -117,18 +117,14 @@ class op_line(models.Model):
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': r.id}
-                params = Params(type=2, cityCode=cityCode, tableName=LINE_TABLE, data=vals).to_dict()
-                res = super(op_line, r).unlink()
-                rp = Client().http_post(url, data=params)
-                # clientThread(url,params,res).start()
-            except Exception,e:
-                _logger.info('%s', e.message)
-
-        return res
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            _logger.info('Start unlink data: %s', self._name)
+            vals = {'id': r.id}
+            res = super(op_line, r).unlink()
+            params = Params(type=2, cityCode=cityCode, tableName=LINE_TABLE, data=vals).to_dict()
+            rp = Client().http_post(url, data=params)
+            # clientThread(url,params,res).start()
+        return
 
 class Station(models.Model):
     _inherit = 'opertation_resources_station'
@@ -201,12 +197,10 @@ class Station(models.Model):
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
-            try:
-                vals = {'id': r.id}
-                _logger.info('Start unlink data: %s', self._name)
-                params = Params(type=2, cityCode=cityCode,tableName=STATION_TABLE, data=vals).to_dict()
-                res = super(Station, r).unlink()
-                rp = Client().http_post(url, data=params)
-            except Exception,e:
-                _logger.info('%s', e.message)
-        return res
+            vals = {'id': r.id}
+            _logger.info('Start unlink data: %s', self._name)
+            params = Params(type=2, cityCode=cityCode,tableName=STATION_TABLE, data=vals).to_dict()
+            res = super(Station, r).unlink()
+            rp = Client().http_post(url, data=params)
+
+        return

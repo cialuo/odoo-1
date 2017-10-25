@@ -132,18 +132,16 @@ class LinePlan(models.Model):
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                vals = {'id': r.id}
-                _logger.info('Start unlink data: %s', self._name)
-                params = Params(type = 2, cityCode = cityCode,tableName = LINEPLAN_TABLE, data = vals).to_dict()
-                res = super(LinePlan, r).unlink()
-                rp = Client().http_post(url, data=params)
-            except Exception,e:
-                _logger.info('%s', e.message)
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            vals = {'id': r.id}
+            _logger.info('Start unlink data: %s', self._name)
+            params = Params(type = 2, cityCode = cityCode,tableName = LINEPLAN_TABLE, data = vals).to_dict()
+            res = super(LinePlan, r).unlink()
+            rp = Client().http_post(url, data=params)
+
             r.bigsite_up.unlink()
             r.bigsite_down.unlink()
             r.uptimearrange.unlink()
             r.downtimearrange.unlink()
 
-        return res
+        return

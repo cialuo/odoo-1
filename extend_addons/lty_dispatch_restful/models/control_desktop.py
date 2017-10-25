@@ -119,15 +119,12 @@ class Desktop(models.Model):
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                # vals = {'controlsId': r.desktop_id.id, 'lineId': r.line_id.id}
-                vals = {'id': r.id}
-                _logger.info('Start unlink data: %s', self._name)
-                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-                res = super(Desktop, r).unlink()
-                rp = Client().http_post(url, data=params)
-            except Exception,e:
-                _logger.info('%s', e.message)
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            # vals = {'controlsId': r.desktop_id.id, 'lineId': r.line_id.id}
+            vals = {'id': r.id}
+            _logger.info('Start unlink data: %s', self._name)
+            params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+            res = super(Desktop, r).unlink()
+            rp = Client().http_post(url, data=params)
 
-        return res
+        return
