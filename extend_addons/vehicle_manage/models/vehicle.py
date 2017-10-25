@@ -100,6 +100,8 @@ class Vehicle(models.Model):
                                  index=True, required=True)
 
     average_day_number = fields.Integer(related='company_id_s.average_day_number')
+    #修改公司字段为必填，默认值为当前登录用户的公司
+    company_id = fields.Many2one(required=True, default=lambda self: self.env.user.company_id)
 
     @api.multi
     def action_stop(self):
@@ -194,26 +196,48 @@ class Vehicle(models.Model):
     def create(self, vals):
         """
         创建车辆时，同时为车辆创建两个库位-- 虚拟库位/（车牌号）， 库存/（车牌号）
+        10月25日
+        修改车辆生成库位逻辑，适应多公司
         :param vals:
         :return:
         """
         vals['vehicle_code'] = self.get_vehicle_code(vals)
-        res = super(Vehicle, self).create(vals)
-        name = res.license_plate
-        virtual_parent = self.env.ref('stock.stock_location_locations_virtual', raise_if_not_found=False)
-        stock_vals = self.env['stock.location'].create({
+        name = vals['license_plate']
+        stock_vals = {
             'location_id': self.env.ref('stock.stock_location_stock').id,
             'name': name,
             'usage': 'internal',
             'is_vehicle': True,
-        })
+        }
+        company_warehouse = self.env['stock.warehouse'].search([('company_id', '=', vals['company_id'])], limit=1)
+        if company_warehouse and company_warehouse.lot_stock_id:
+            stock_vals['location_id'] = company_warehouse.lot_stock_id.id
+        stock_lot = self.env['stock.location'].create(stock_vals)
+        vals['location_stock_id'] = stock_lot.id
+        virtual_parent = self.env.ref('stock.stock_location_locations_virtual', raise_if_not_found=False)
         virtual_vals = self.env['stock.location'].create({
             'location_id': virtual_parent.id,
             'name': name,
             'usage': 'inventory',
             'is_vehicle': True,
         })
-        res.write({'location_id': virtual_vals.id, 'location_stock_id': stock_vals.id})
+        vals['location_id'] = virtual_vals.id
+        res = super(Vehicle, self).create(vals)
+        # name = res.license_plate
+        # virtual_parent = self.env.ref('stock.stock_location_locations_virtual', raise_if_not_found=False)
+        # stock_vals = self.env['stock.location'].create({
+        #     'location_id': self.env.ref('stock.stock_location_stock').id,
+        #     'name': name,
+        #     'usage': 'internal',
+        #     'is_vehicle': True,
+        # })
+        # virtual_vals = self.env['stock.location'].create({
+        #     'location_id': virtual_parent.id,
+        #     'name': name,
+        #     'usage': 'inventory',
+        #     'is_vehicle': True,
+        # })
+        # res.write({'location_id': virtual_vals.id, 'location_stock_id': stock_vals.id})
         return res
 
 
