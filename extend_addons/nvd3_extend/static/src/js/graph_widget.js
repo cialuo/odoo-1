@@ -6,6 +6,8 @@ odoo.define('nvd3_extend.GraphWidget', function (require) {
     var formats = require('web.formats');
     var Widget = require('web.Widget');
     var GraphWidget = require('web.GraphWidget');
+    var QWeb = core.qweb;
+    var _t = core._t;
 
     GraphWidget.include({
         display_pie1: function () {
