@@ -6,6 +6,7 @@ import json
 from requests import ConnectionError
 import threading
 import logging
+from odoo import _
 from odoo.exceptions import UserError
 
 logger = logging.getLogger('restful api')
@@ -146,7 +147,7 @@ class clientThread(threading.Thread):
 def response_check(rp):
     if rp:
         if rp.json().get('result') != 0:
-            raise UserError((u'后台增加数据错误.%s') % rp.json().get('respose').get('text'))
+            raise UserError(_('Adding data errors in the background,%s') % rp.json().get('respose').get('text'))
     else:
-        raise UserError((u'Restful接口连接失败错误'))
+        raise UserError(_('Restful interface access exception, please check.'))
 

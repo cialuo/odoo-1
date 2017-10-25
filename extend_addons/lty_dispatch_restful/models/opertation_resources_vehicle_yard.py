@@ -52,6 +52,8 @@ class Yard(models.Model):
         if not self._context.get('dryrun'):
             url = self.env['ir.config_parameter'].get_param('restful.url')
             cityCode = self.env['ir.config_parameter'].get_param('city.code')
+
+            rp = True
             try:
                 _logger.info('Start create data: %s', self._name)
                 vals = mapping.dict_transfer(self._name, vals)
@@ -67,9 +69,11 @@ class Yard(models.Model):
                         vals.update({'screen2': res.dispatch_screen_ids[1].screen_code})
                 params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                 rp = Client().http_post(url, data=params)
-                response_check(rp)
+
             except Exception,e:
                 _logger.info('%s', e.message)
+
+            response_check(rp)
         return res
 
     @api.multi
@@ -86,6 +90,7 @@ class Yard(models.Model):
         for r in self:
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
             if seconds.seconds > 5 and (not self._context.get('dryrun')):
+                rp = True
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -102,10 +107,12 @@ class Yard(models.Model):
                             vals.update({'screen2': r.dispatch_screen_ids[1].screen_code})
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
-                    response_check(rp)
+
                     # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
+
+                response_check(rp)
         return res
 
     @api.multi
