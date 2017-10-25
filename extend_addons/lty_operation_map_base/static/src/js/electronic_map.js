@@ -98,7 +98,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
             model_choseline.query().filter([
                 ["state", "=", 'inuse']
             ]).all().then(function(lines) {
-                var options = { title: '电子地图', type: 'electronic_map', lines };
+                var options = { title: '电子地图', type: 'electronic_map', lines:lines };
                 new map_work_title(self, options).appendTo(self.$('.map_work_title'));
                 self.init_map_fn();
             });
@@ -169,7 +169,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                     }
                 })
             });
-            
+
 
             // 查看车详情
             self.$(".map_work_content").on("click", ".vehicleMapMarker", function(e){
@@ -393,7 +393,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                a.style.WebkitUserSelect="none";
             }else if(a.unselectable) {
                 a.unselectable ="on";
-                a.onselectstart =function(){return false};       
+                a.onselectstart =function(){return false};
             }
         },
         init_map: function(map){
@@ -591,7 +591,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
             _.each(self.marker_point_info, function(ret) {
                 ret.setMap(null);
             });
-        }, 
+        },
         // 车运行gprs点标记
         bus_trajectory_point_init: function(){
             var self = this;
@@ -786,7 +786,7 @@ odoo.define("electronic_map.electronic_map", function(require) {
                a.style.WebkitUserSelect="none";
             }else if(a.unselectable) {
                 a.unselectable ="on";
-                a.onselectstart =function(){return false};       
+                a.onselectstart =function(){return false};
             }
         },
         // 计算播放时间 注意点：由于每秒运行一次，所以有多少数据就有多少秒
@@ -810,10 +810,10 @@ odoo.define("electronic_map.electronic_map", function(require) {
             //得到秒
             ss=parseInt(time)-mm*60;
             if(parseInt(mm)<10){
-                 mm="0"+mm;    
+                 mm="0"+mm;
             }
             if(ss<10){
-                ss="0"+ss;      
+                ss="0"+ss;
             }
             return hh+":"+mm+":"+ss;
         },
