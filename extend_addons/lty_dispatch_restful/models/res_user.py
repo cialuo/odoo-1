@@ -48,18 +48,20 @@ class User(models.Model):
         '''
 
         res = super(User, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
-            vals.update({
-                'id': res.id,
-            })
-            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+        if not self._context.get('dryrun'):
+            url = self.env['ir.config_parameter'].get_param('restful.url')
+            cityCode = self.env['ir.config_parameter'].get_param('city.code')
+            try:
+                _logger.info('Start create data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)
+                vals.update({
+                    'id': res.id,
+                })
+                params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+                response_check(rp)
+            except Exception,e:
+                _logger.info('%s', e.message)
         return res
 
     @api.multi
@@ -76,7 +78,7 @@ class User(models.Model):
         for r in self:
             if r.id != 1:
                 seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-                if seconds.seconds > 5:
+                if seconds.seconds > 5 and (not self._context.get('dryrun')):
                     try:
                         # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                         _logger.info('Start write data: %s', self._name)
@@ -87,7 +89,7 @@ class User(models.Model):
                             })
                             params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                             rp = Client().http_post(url, data=params)
-
+                            response_check(rp)
                         # clientThread(url,params,res).start()
                     except Exception,e:
                         _logger.info('%s', e.message)

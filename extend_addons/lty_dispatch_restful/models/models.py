@@ -57,8 +57,8 @@ class op_line(models.Model):
             params = Params(type=1, cityCode=cityCode,tableName=LINE_TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
             #clientThread(url,params,res).start()
-            if rp :
-                if   rp.json().get('result') != 0 :
+            if rp:
+                if rp.json().get('result') != 0 :
                     raise UserError((u'后台增加数据错误.%s')%rp.json().get('respose').get('text'))            
             else :
                 raise UserError((u'Restful接口连接失败错误'))              

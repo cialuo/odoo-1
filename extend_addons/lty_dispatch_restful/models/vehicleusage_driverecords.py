@@ -102,7 +102,7 @@ class DriveRecords(models.Model):
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
             if seconds.seconds < 5 or (odoo_value.get('state') in ('approved','moved')):
                 res = super(DriveRecords, r).write(odoo_value)
-            else :
+            else:
                 _logger.info('Start write data: %s', self._name)
                 vals = mapping.dict_transfer(self._name, vals)
                 vals.update({
@@ -159,11 +159,6 @@ class DriveRecords(models.Model):
                 if  rp.json().get('result') != 0 :
                     raise UserError((u'删除错误.%s')%rp.json().get('respose').get('text'))   
             else :
-                raise UserError((u'接口连接失败错误'))    
-            
-            
-            
-            
-            
+                raise UserError((u'接口连接失败错误'))
             
         return res
