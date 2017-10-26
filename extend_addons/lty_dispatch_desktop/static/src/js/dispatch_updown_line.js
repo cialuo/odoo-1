@@ -224,6 +224,9 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                 var abnoraml_desc = $('body').find('.absnormal_diaodu .absnormal_type p');
                 abnoraml_desc.removeClass('man_deal');
                 //车辆掉线
+                if(self.$el.find('.passenger_flow_list .abs_info .absnormal_height').length == 0){
+                    self.$el.find('.handleBtn').find('button').attr('disabled', 'disabled');
+                }
                 if (data_use.data.packageType == 1003) {
                     abnoraml_desc.html('车辆' + data_use.data.abnormal_description.bus_no + '掉线');
                     dom_singal.find('.line_car[bus_no=' + data_use.data.abnormal_description.bus_no + ']').addClass('to_gray').removeClass('.to_red').removeClass('.to_yellow');

@@ -27,6 +27,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.model_linesrc = new Model('scheduleplan.excutetable');
             //控制台
             this.model_config = new Model('dispatch.control.desktop');
+            //车辆
+            this.model_bus_num = new Model('fleet.vehicle');
             //odoo提供数据
             this.dis_desk = data;
             //传进来的index层级的值
@@ -84,7 +86,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 }
             });
 
-            function site_info(mode_line, model_station_platform, model_src, model_config) {
+            function site_info(mode_line, model_station_platform, model_bus_num, model_config) {
                 if (self.$el.find('.line_line')[0] != undefined) {
                     // 根据tid拿到线路id
                     mode_line.query().filter([["id", "=", parseInt(tid)]]).all().then(function (data) {
@@ -203,7 +205,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         dataType: 'json',
                                         data: {},
                                         success: function (data) {
-                                            console.log(data)
                                             if (data) {
                                                 //配车数量
                                                 self.$el.find('.show_applycar_num span').html(data[0].withBus);
@@ -234,6 +235,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                     dataType: 'json',
                                                     data: {},
                                                     success: function (res) {
+                                                        console.log(res)
                                                         for (var i = 0; i < res.length; i++) {
                                                             $('.run_car_hide').find('.line_car').attr('bus_no', res[i].onboard);
                                                             if (res[i].onlineFlag == 0) {
@@ -245,6 +247,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                             if (res[i].direction == 0) {
                                                                 //是否在车场
                                                                 if (res[i].stationFlag != 2) {
+                                                                    // 进站0 出站1
                                                                     if (res[i].stationFlag == 0) {
                                                                         self.$el.find('.content_car_road_top .car_line_top' + (parseInt(res[i].stationNo) * 2 - 2)).append($('.run_car_hide').html());
                                                                         var oLeft = 1190 * (parseInt(res[i].stationNo) - 0.5) / res_top.length;
@@ -253,7 +256,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                                         var oLeft = 1190 * (parseInt(res[i].stationNo)) / res_top.length;
                                                                     }
                                                                     self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px');
-                                                                    self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').attr("car_id", res[i].car_id).html(res[i].onboard);
+                                                                    self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').attr("car_id", res[i].car_id).html(res[i].carNum);
                                                                 }
                                                             } else if (res[i].direction == 1) {
                                                                 if (res[i].stationFlag != 2) {
@@ -267,7 +270,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                                     }
 
                                                                     self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px');
-                                                                    self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').attr("car_id", res[i].car_id).html(res[i].onboard);
+                                                                    self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').attr("car_id", res[i].car_id).html(res[i].carNum);
                                                                 }
                                                             }
                                                         }
@@ -360,7 +363,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 }
             }
 
-            site_info(this.model_line, this.model_station_platform, this.model_linesrc, this.model_config);
+            site_info(this.model_line, this.model_station_platform, this.model_bus_num, this.model_config);
             //阻止右键引起的默认事件必须使用contextmenu,暂时功能弃用
             // self.$('.can_top').bind('contextmenu', function () {
             //     return false;
@@ -527,7 +530,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             var oLeft = 1190 * (parseInt(data_use.data.stationNo)) / arg.site_top_infos.length;
                         }
                         self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').css('left', oLeft - 15 + 'px');
-                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.terminalNo);
+                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.carNum);
                         //遍历每个小格子
                     } else if (data_use.data.direction == 1) {
                         if (data_use.data.type == "in") {
@@ -538,7 +541,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             var oLeft = 1190 - 1190 * (parseInt(data_use.data.stationNo)) / arg.site_down_infos.length;
                         }
                         self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').css('left', oLeft - 15 + 'px');
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.terminalNo);
+                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.carNum);
 
                     }
                     for (var nu = 0; nu < self.$('.content_car_road_top .car_line_tb').length; nu++) {
@@ -1139,7 +1142,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     data: {},
                     success: function (res) {
                         layer.msg(res.respose.text, {time: 1000, shade: 0.3});
-                        $(x).parent().html('').parent().find('td.deal_or_not').html('已操作');
+                        $(x).parent().html('').parent().find('td.deal_or_not').html('已拒绝');
                     }
                 });
             });
@@ -1158,7 +1161,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     data: {},
                     success: function (res) {
                         layer.msg(res.respose.text, {time: 1000, shade: 0.3});
-                        $(x).parent().html('').parent().find('td.deal_or_not').html('已操作');
+                        $(x).parent().html('').parent().find('td.deal_or_not').html('已同意');
                     }
                 });
             });
@@ -1197,7 +1200,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     dataType: 'json',
                     data: {},
                     success: function (data) {
-                        console.log(data)
                         var totalPage = data.respose.vo.totalCount % 10 == 0 ? data.respose.vo.totalCount / 10 : Math.ceil(data.respose.vo.totalCount / 10);
                         self.$el.find('.mutual_content tbody').html('');
                         if (data.respose.opWarningList.length > 0) {
@@ -1215,7 +1217,19 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         + "<td class='deal_or_not'>待操作</td>"
                                 } else if (value.result == 1) {
                                     td_txt += "<td></td>"
-                                        + "<td class='deal_or_not'>已操作</td>"
+                                        + "<td class='deal_or_not'>已忽略</td>"
+                                } else if (value.result == 2) {
+                                    td_txt += "<td></td>"
+                                        + "<td class='deal_or_not'>已拒绝</td>"
+                                } else if (value.result == 3) {
+                                    td_txt += "<td></td>"
+                                        + "<td class='deal_or_not'>已同意</td>"
+                                } else if (value.result == 4) {
+                                    td_txt += "<td></td>"
+                                        + "<td class='deal_or_not'>进场执行</td>"
+                                } else if (value.result == 5) {
+                                    td_txt += "<td></td>"
+                                        + "<td class='deal_or_not'>已自动处理</td>"
                                 }
                                 td_txt += "</tr>";
                             });
@@ -1267,6 +1281,18 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                 } else if (value.result == 1) {
                                                     td_txt += "<td></td>"
                                                         + "<td class='deal_or_not'>已操作</td>"
+                                                } else if (value.result == 2) {
+                                                    td_txt += "<td></td>"
+                                                        + "<td class='deal_or_not'>已拒绝</td>"
+                                                } else if (value.result == 3) {
+                                                    td_txt += "<td></td>"
+                                                        + "<td class='deal_or_not'>已同意</td>"
+                                                } else if (value.result == 4) {
+                                                    td_txt += "<td></td>"
+                                                        + "<td class='deal_or_not'>进场执行</td>"
+                                                } else if (value.result == 5) {
+                                                    td_txt += "<td></td>"
+                                                        + "<td class='deal_or_not'>已自动处理</td>"
                                                 }
                                                 td_txt += "</tr>";
                                             });
@@ -1275,7 +1301,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     })
                                 }
                             })
-                        }else{
+                        } else {
                             layer.msg('暂无数据', {time: 1000, shade: 0.3});
                         }
                     },
