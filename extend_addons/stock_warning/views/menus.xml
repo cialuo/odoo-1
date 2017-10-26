@@ -3,6 +3,6 @@
 
         <!--仓库预警-->
         <menuitem id="stock_warning.stock_warning_menu" name="Stock Warning Menu" parent="materials_menu.materials_menu_stock" action="stock_search_wizard_action"/>
-        
+
 	</data>
 </odoo>
