@@ -21,7 +21,7 @@ websocket.onerror = function () {
 websocket.onopen = function () {
     console.log("WebSocket ok");
     //  链接成功后，订阅基本模块
-    var modules_list = ["line_message", "line_online", "line_park", "abnormal", "passenger_flow", "bus_site", "passenger_late"];
+    var modules_list = ["line_message", "line_online", "line_park", "bus_real_state", "abnormal", "passenger_flow", "bus_site", "passenger_late"];
 
     //  链接成功后，订阅打开页面需要的模块
     //  a滞客信息模块
@@ -39,10 +39,10 @@ websocket.onopen = function () {
         modules_list.push("bus_resource");
     }
 
-    // d车辆实时状态模块
-    if ($(".bus_src_config").length >0 || $(".busRealStateModel").length > 0){
-        modules_list.push("bus_real_state");
-    }
+    // d车辆实时状态模块(由于这个模块组件电子地图也有引用，内部订阅影响，将取消内部订阅，直接进行订阅)
+    // if ($(".bus_src_config").length >0 || $(".busRealStateModel").length > 0){
+    //     modules_list.push("bus_real_state");
+    // }
 
     var package = {
         type: 2000,
@@ -944,6 +944,7 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
 
     // 计划到达时间
     if (dataObj.planRunTime) {
+        active_obj.attr("planruntime", new Date(dataObj.planRunTime).getTime());
         active_obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0, 5));
     }
 
@@ -960,6 +961,7 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
 
     // 回场时间
     if (dataObj.realReachTime) {
+        active_obj.attr("planreachtime", new Date(dataObj.realReachTime).getTime());
         active_obj.find(".realReachTime").html(new Date(dataObj.realReachTime).toTimeString().slice(0, 5));
     }
 
@@ -1022,6 +1024,7 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
 
     // 计划到达时间
     if (dataObj.planRunTime) {
+        active_obj.attr("planruntime", new Date(dataObj.planRunTime).getTime());
         active_obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0, 5));
     }
 
@@ -1037,6 +1040,7 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
 
     // 回场时间
     if (dataObj.planReachTime) {
+        active_obj.attr("planreachtime", new Date(dataObj.planReachTime).getTime());
         active_obj.find(".planReachTime").html(new Date(dataObj.planReachTime).toTimeString().slice(0, 5));
     }
 
@@ -1263,9 +1267,9 @@ function update_bus_info_sort(tableObj){
         other_tr = [];
     var tr_point_list = tableObj.find("tr.point");
     _.each(tr_point_list, function(o_tr){
-        if (!o_tr.getAttribute("planruntime")){
+        if (!isNaN(o_tr.getAttribute("planruntime"))){
             planruntime_tr.push(o_tr);
-        }else if (!o_tr.getAttribute("planreachtime")){
+        }else if (!isNaN(o_tr.getAttribute("planreachtime"))){
             planreachtime_tr.push(o_tr);
         }else{
            other_tr.push(o_tr); 
