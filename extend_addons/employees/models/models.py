@@ -110,7 +110,7 @@ class employee(models.Model):
     triansexperience = fields.One2many('employee.trainexperience', 'employee_id', string='trians experience')
 
     #２０１７－１０－２４　新增需求：公司字段,年龄字段,年龄分类字段
-    company_id = fields.Many2one('res.company', help='Company', default=lambda self: self.env['res.company']._company_default_get())
+    company_id = fields.Many2one('res.company', help='Company', related='department_id.company_id')
     age = fields.Integer(string='Age',compute='_compute_age',store=True)
     age_group = fields.Selection([('group_a','group_a'),#16-20
                                   ('group_b','group_b'),#21-30

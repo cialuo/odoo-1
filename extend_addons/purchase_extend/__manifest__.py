@@ -37,6 +37,7 @@
         'views/purchase_order_view.xml',
         'views/partner_view.xml',
         'views/picking_view.xml',
+        'views/move_view.xml',
         'security/ir.model.access.csv',
     ],
     'depends': ['materials_menu', 'purchase', 'stock_picking_types'],
