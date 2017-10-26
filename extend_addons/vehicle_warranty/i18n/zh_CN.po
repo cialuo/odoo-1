@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-24 02:18+0000\n"
-"PO-Revision-Date: 2017-10-24 10:24+0800\n"
+"POT-Creation-Date: 2017-10-25 06:12+0000\n"
+"PO-Revision-Date: 2017-10-25 14:13+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "\"percentage_work\" may not be Incorrect"
 msgstr "工时比例错误"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_plan.py:220
+#: code:addons/vehicle_warranty/models/warranty_plan.py:222
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (副本)"
@@ -36,7 +36,7 @@ msgid "%s has been added to the Warranty Order!"
 msgstr "新增保养单%s"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_plan.py:214
+#: code:addons/vehicle_warranty/models/warranty_plan.py:216
 #, python-format
 msgid "%s has been added to the plan!"
 msgstr "新增计划单%s"
@@ -353,7 +353,7 @@ msgstr "所有库存作业的默认计量单位"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_project_depa_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_batch_dispatch_department_id
 msgid "Department id"
-msgstr "部门"
+msgstr "所属单位"
 
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_item_dispatch_action
@@ -429,7 +429,7 @@ msgstr "车队"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_virtual_available
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_project_product_virtual_available
 msgid "Forecast Quantity"
-msgstr "可用数量"
+msgstr "预测数量"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,help:vehicle_warranty.field_warranty_order_product_virtual_available
@@ -668,7 +668,7 @@ msgstr "车牌"
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_line
 msgid "Line"
-msgstr "线路"
+msgstr "行"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_made_company_id
@@ -761,7 +761,7 @@ msgstr "物料编码"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_materials_product_ids
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_account_view_form
 msgid "Materials Product"
-msgstr "物资"
+msgstr "用料核算"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_max_count
@@ -772,7 +772,7 @@ msgstr "领用上限"
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_project_mode
 msgid "Mode"
-msgstr "保修方式"
+msgstr "模式"
 
 #. module: vehicle_warranty
 #: sql_constraint:warranty_mode:0
@@ -883,7 +883,7 @@ msgstr "其他信息"
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_parent_id
 msgid "Parent id"
-msgstr "父类名称"
+msgstr "父级ID"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_manhour_percentage_work
@@ -932,7 +932,7 @@ msgstr "月度"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_planned_date
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_order_planned_date
 msgid "Planned Date"
-msgstr "计划日期"
+msgstr "计划的日期"
 
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_order_form
@@ -968,7 +968,7 @@ msgstr "产品类别"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_product_code
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_project_product_product_code
 msgid "Product Code"
-msgstr "物资代码"
+msgstr "产品代码"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_account_material_product_fee
@@ -978,7 +978,7 @@ msgstr "合计金额"
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_account_material_product_id
 msgid "Product Name"
-msgstr "物资名称"
+msgstr "产品名称"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_product_size
@@ -992,7 +992,7 @@ msgid "Products"
 msgstr "产品"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_plan.py:165
+#: code:addons/vehicle_warranty/models/warranty_plan.py:167
 #, python-format
 msgid "Program details can not be empty."
 msgstr "计划详情不能为空!"
@@ -1049,7 +1049,7 @@ msgstr "实际开工时间"
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_manhour_real_work_fee
 msgid "Real Work Fee"
-msgstr "额定工时费"
+msgstr "工时费小计"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_manhour_real_work
@@ -1121,7 +1121,7 @@ msgstr "承修车间"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_report_repair_user
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_order_report_repair_user
 msgid "Report Name"
-msgstr "报修人"
+msgstr "报告名称"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_require_trans
@@ -1165,19 +1165,19 @@ msgstr "返工数"
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_order_line
 msgid "Route Name"
-msgstr "线路"
+msgstr "路线名称"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_project_product_list_price
 msgid "Sale Price"
-msgstr "库存单价"
+msgstr "标价"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,help:vehicle_warranty.field_warranty_account_material_categ_id
 #: model:ir.model.fields,help:vehicle_warranty.field_warranty_order_product_categ_id
 #: model:ir.model.fields,help:vehicle_warranty.field_warranty_project_product_categ_id
 msgid "Select category"
-msgstr "选择分类"
+msgstr "Select category"
 
 #. module: vehicle_warranty
 #: code:addons/vehicle_warranty/models/warranty_order.py:812
@@ -1296,7 +1296,6 @@ msgstr "技术机务主管"
 
 #. module: vehicle_warranty
 #: code:addons/vehicle_warranty/models/warranty_interval.py:42
-#: sql_constraint:warranty_interval:0
 #, python-format
 msgid "The category and vehicle model must be unique!"
 msgstr "不能添加重复的维保类型!"
@@ -1397,7 +1396,7 @@ msgid "VIN"
 msgstr "车架号"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_plan_order.py:112
+#: code:addons/vehicle_warranty/models/warranty_plan_order.py:119
 #, python-format
 msgid "Vehicle %s State Not equal to normal!"
 msgstr "车辆 %s 的状态不是正常状态!"
@@ -1666,7 +1665,7 @@ msgstr "保养地点"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_project_warranty_order_id
 #: model:ir.model.fields,field_description:vehicle_warranty.field_wizard_batch_dispatch_warranty_order_id
 msgid "Warranty order id"
-msgstr "保养单"
+msgstr "保养作业指导书"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_fleet_vehicle_warranty_order_project_ids
@@ -1899,7 +1898,7 @@ msgid "quota cost"
 msgstr "额定费用"
 
 #. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_plan_order.py:115
+#: code:addons/vehicle_warranty/models/warranty_plan_order.py:122
 #, python-format
 msgid "report_repair_user Required!"
 msgstr "送保人必填"
@@ -1918,7 +1917,7 @@ msgstr "工时比例不正确"
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_account_view_form
 msgid "total"
-msgstr "总"
+msgstr "总计"
 
 #. module: vehicle_warranty
 #: model:ir.ui.view,arch_db:vehicle_warranty.warranty_category_form
@@ -1941,16 +1940,16 @@ msgid "wait"
 msgstr "等待执行"
 
 #. module: vehicle_warranty
+#: code:addons/vehicle_warranty/models/warranty_plan_order.py:96
+#, python-format
+msgid "warranty in executing or have done, can not be deleted!"
+msgstr "维保已完成或执行中，不能被删除！"
+
+#. module: vehicle_warranty
 #: code:addons/vehicle_warranty/models/warranty_order.py:281
 #, python-format
 msgid "warranty order not in draft state can not delete"
 msgstr "保养单只有在草稿状态下才能删除"
-
-#. module: vehicle_warranty
-#: code:addons/vehicle_warranty/models/warranty_plan_order.py:89
-#, python-format
-msgid "warranty plan order not in wait state can not delete"
-msgstr "计划单只有在等待执行状态下才能删除"
 
 #. module: vehicle_warranty
 #: model:ir.model,name:vehicle_warranty.model_warranty_account_material
@@ -2067,6 +2066,11 @@ msgstr "批量报检"
 #: model:ir.model,name:vehicle_warranty.model_wizard_project_batch_to_check
 msgid "wizard_project_batch_to_check"
 msgstr "批量检验通过"
+
+#. module: vehicle_warranty
+#: model:ir.model,name:vehicle_warranty.model_wizard_warranty_plan
+msgid "wizard_warranty_plan"
+msgstr "保养计划"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_category_quota_workhour
