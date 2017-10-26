@@ -194,7 +194,9 @@ class route_manage(models.Model):
     child_route_ids = fields.One2many('route_manage.route_manage', 'main_line_id', string='ChildRoutes')
 
     yard_ids = fields.One2many('opertation_resources_vehicle_yard', 'route_id', string='VehicleYards')
-
+    #车场many2many
+    #bus_yard_ids = fields.One2many('opertation_yard_lines','opertation_resources_vehicle_yard_ref', 'route_id','yard_id', string='VehicleYards')
+    yard2_ids = fields.One2many('opertation_yard_lines','name', string='VehicleYards')
     start_date = fields.Datetime(string="Open date") #线路开始日期
     end_date = fields.Datetime(string="Stop date")  #线路停运日期
     is_artificial_ticket = fields.Boolean(default=True) #是否人工售票
@@ -404,6 +406,9 @@ class VehicleYard(models.Model):
     is_yard = fields.Boolean(default=True)
 
     dispatch_screen_ids = fields.One2many('opertation_resources_dispatch_screen', 'yard_id')
+    lin_ids = fields.One2many('opertation_yard_lines' ,'yard_id') #经过线路
+    
+
 
 
 class DispatchScreen(models.Model):
@@ -420,3 +425,25 @@ class DispatchScreen(models.Model):
     yard_id = fields.Many2one('opertation_resources_vehicle_yard', ondelete='cascade')
     screen_code = fields.Integer('Screen Code', required=True)
     screen_ip = fields.Char('Screen IP')
+    
+class opertation_yard_lines(models.Model):
+    _name = 'opertation_yard_lines'
+
+    """
+    调度屏
+    """
+    _sql_constraints = [
+        ('line_yard_unique', 'unique(name，yard_id)', (u'线路重复'))
+    ]
+
+    name = fields.Many2one('route_manage.route_manage', ondelete='cascade')
+    yard_id = fields.Many2one('opertation_resources_vehicle_yard', ondelete='cascade')
+    code = fields.Integer('code', related='yard_id.code', readonly=True)
+    #yard_name = fields.Integer('name', related='yard_id.name', readonly=True)
+    direction = fields.Selection([('up', 'up'),('down', 'down'), ('one_way', 'one_way')], related='yard_id.direction', readonly=True)
+    
+    
+    
+    
+    
+    

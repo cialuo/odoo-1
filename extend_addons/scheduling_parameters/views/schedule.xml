@@ -308,16 +308,10 @@
                                 </field>
                             </page>
                             <page string="VehicleYards">
-                                <field name="yard_ids" readonly="1">
-                                    <tree>
-                                        <field name="code"/>
-										<field name="name"/>
-                                        <field name="direction"/>
-                                        <field name="is_yard"/>
-									</tree>
-                                </field>
-                            </page>
+                                <field name="yard2_ids" readonly="1">
 
+                                </field>
+                            </page>                         
                             <page string="human resource" name="hr_page">
                                 <field name="human_resource"/>
                             </page>
@@ -333,6 +327,7 @@
                             <page string="调度员权限">
                                 <field name="dispatch_user_ids"/>
                             </page>
+                            
 
                         </notebook>
                     </sheet>
@@ -355,8 +350,20 @@
                 </tree>
             </field>
         </record>
-
-
+        <!-- 车场线路管理 tree-->
+        <record model="ir.ui.view" id="opertation_yard_lines_tree_view">
+            <field name="name">opertation_yard_lines_tree_view</field>
+            <field name="model">opertation_yard_lines</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <tree editable='top'>
+                    <field name="code" string ='编码'/>
+                    <field name="name" string = '线路'/>
+                    <field name="yard_id" string = '车场'/>
+                    <field name="direction" string ='方向'/>
+                </tree>
+            </field>
+        </record>
         <!-- 车场管理 form-->
         <record model="ir.ui.view" id="opertation_resources_vehicle_yard_form_view">
             <field name="name">opertation_resources_vehicle_yard_form_view</field>
@@ -391,6 +398,11 @@
 									</tree>
                                 </field>
                             </page>
+                            <page string="过场线路">
+                                <field name="lin_ids" >
+                                </field>
+                            </page>                            
+                            
                         </notebook>
                     </sheet>
                 </form>
