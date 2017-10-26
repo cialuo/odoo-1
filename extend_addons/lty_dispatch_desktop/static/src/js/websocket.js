@@ -21,28 +21,28 @@ websocket.onerror = function () {
 websocket.onopen = function () {
     console.log("WebSocket ok");
     //  链接成功后，订阅基本模块
-    var modules_list = ["line_message", "line_online", "line_park", "abnormal", "passenger_flow", "bus_site", "passenger_late"];
+    var modules_list = ["line_message", "line_online", "line_park", "bus_real_state", "abnormal", "passenger_flow", "bus_site", "passenger_late"];
 
     //  链接成功后，订阅打开页面需要的模块
     //  a滞客信息模块
-    if ($(".passengerDelayModel").length > 0){
+    if ($(".passengerDelayModel").length > 0) {
         modules_list.push("passenger_delay");
     }
 
     // b线路计划模块
-    if ($(".linePlanParkOnlineModel").length > 0){
-        modules_list.push("line_plan");    
+    if ($(".linePlanParkOnlineModel").length > 0) {
+        modules_list.push("line_plan");
     }
 
     // c车辆资源状态模块
-    if ($(".bus_src_config").length > 0){
+    if ($(".bus_src_config").length > 0) {
         modules_list.push("bus_resource");
     }
 
-    // d车辆实时状态模块
-    if ($(".bus_src_config").length >0 || $(".busRealStateModel").length > 0){
-        modules_list.push("bus_real_state");
-    }
+    // d车辆实时状态模块(由于这个模块组件电子地图也有引用，内部订阅影响，将取消内部订阅，直接进行订阅)
+    // if ($(".bus_src_config").length >0 || $(".busRealStateModel").length > 0){
+    //     modules_list.push("bus_real_state");
+    // }
 
     var package = {
         type: 2000,
@@ -68,13 +68,13 @@ websocket.onmessage = function (event) {
         if (eventObj.type == "1044") {
             vehicle_drop(controllerObj, eventData);
         } else if (eventObj.type == "1035") {
-            var session_t = sessionStorage.getItem('bus_site_top' + eventObj.data.line_id).split(",");
-            var session_d = sessionStorage.getItem('bus_site_down' + eventObj.data.line_id).split(",");
             if ($('body').find('.bus_src_config').length > 0) {
+                var session_t = sessionStorage.getItem('bus_site_top' + eventObj.data.line_id).split(",");
+                var session_d = sessionStorage.getItem('bus_site_down' + eventObj.data.line_id).split(",");
                 if (eventObj.data.direction == 0) {
                     $('body').find('.bus_src_config tr[bus_no=' + eventObj.data.terminalNo + '] .line_src_site').html(session_t[eventObj.data.stationNo]);
                 } else {
-                    $('body').find('.bus_src_config tr[bus_no=' + eventObj.data.terminalNo + '] .line_src_site').html(session_d[session_d.length-eventObj.data.stationNo]);
+                    $('body').find('.bus_src_config tr[bus_no=' + eventObj.data.terminalNo + '] .line_src_site').html(session_d[session_d.length - eventObj.data.stationNo]);
                 }
             }
         }
@@ -749,14 +749,14 @@ function update_linePlan(controllerObj, dataObj) {
     var busResourcePlan = JSON.parse(sessionStorage.getItem("busResourcePlan"));
     var his_busResourcePlan = busResourcePlan[dataObj.id] || "";
     var fixPlanClass = "";
-    if (his_busResourcePlan){
+    if (his_busResourcePlan) {
         set_op = extend_obj_fn(his_busResourcePlan, dataObj);
         busResourcePlan[dataObj.id] = set_op;
-        if (new Date(his_busResourcePlan.oldRunTime).getTime() != new Date(his_busResourcePlan.planRunTime).getTime()){
+        if (new Date(his_busResourcePlan.oldRunTime).getTime() != new Date(his_busResourcePlan.planRunTime).getTime()) {
             fixPlanClass = "bus_plan_fix";
         }
-        
-    }else{
+
+    } else {
         busResourcePlan[dataObj.id] = dataObj;
     }
 
@@ -766,7 +766,7 @@ function update_linePlan(controllerObj, dataObj) {
         // 没有且计划状态非完成则为新增,需按照计划发车时间先后插入
         var content_tb_obj = controllerObj.find(".bus_plan[direction=" + dataObj.direction + "] .content_tb");
         var obj_str =
-            '<tr class="point '+fixPlanClass+'" pid="' + set_op.id + '" direction="' + dataObj.direction + '" planRunTime="' + new Date(set_op.planRunTime).getTime() + '">' +
+            '<tr class="point ' + fixPlanClass + '" pid="' + set_op.id + '" direction="' + dataObj.direction + '" planRunTime="' + new Date(set_op.planRunTime).getTime() + '">' +
             '<td class="pL">' +
             '<span st="' + dataObj.sendToScreen + '" class="icon sendToScreen icon_' + dataObj.sendToScreen + '"></span>' +
             '<span st="' + dataObj.sendToBus + '" class="icon sendToBus icon_' + dataObj.sendToBus + '"></span>' +
@@ -832,7 +832,7 @@ function update_linePlan(controllerObj, dataObj) {
         active_tr_obj.addClass("fixPlanClass");
     }
 
-    if (!fixPlanClass){
+    if (!fixPlanClass) {
         active_tr_obj.removeClass("fixPlanClass");
     }
 
@@ -944,6 +944,7 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
 
     // 计划到达时间
     if (dataObj.planRunTime) {
+        active_obj.attr("planruntime", new Date(dataObj.planRunTime).getTime());
         active_obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0, 5));
     }
 
@@ -960,11 +961,12 @@ function update_linePark(active_obj, content_tb_obj, new_resource, dataObj) {
 
     // 回场时间
     if (dataObj.realReachTime) {
+        active_obj.attr("planreachtime", new Date(dataObj.realReachTime).getTime());
         active_obj.find(".realReachTime").html(new Date(dataObj.realReachTime).toTimeString().slice(0, 5));
     }
 
     // 如果时间有更新，排序相应更新
-    if (dataObj.planRunTime || (!dataObj.planRunTime && dataObj.realReachTime)){
+    if (dataObj.planRunTime || (!dataObj.planRunTime && dataObj.realReachTime)) {
         update_bus_info_sort(content_tb_obj);
     }
 
@@ -1022,6 +1024,7 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
 
     // 计划到达时间
     if (dataObj.planRunTime) {
+        active_obj.attr("planruntime", new Date(dataObj.planRunTime).getTime());
         active_obj.find(".planRunTime").html(new Date(dataObj.planRunTime).toTimeString().slice(0, 5));
     }
 
@@ -1037,6 +1040,7 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
 
     // 回场时间
     if (dataObj.planReachTime) {
+        active_obj.attr("planreachtime", new Date(dataObj.planReachTime).getTime());
         active_obj.find(".planReachTime").html(new Date(dataObj.planReachTime).toTimeString().slice(0, 5));
     }
 
@@ -1046,7 +1050,7 @@ function update_busTransit(active_obj, content_tb_obj, new_resource, dataObj) {
     }
 
     // 如果时间有更新，排序相应更新
-    if (dataObj.planRunTime || (!dataObj.planRunTime && dataObj.planReachTime)){
+    if (dataObj.planRunTime || (!dataObj.planRunTime && dataObj.planReachTime)) {
         update_bus_info_sort(content_tb_obj);
     }
 
@@ -1241,15 +1245,15 @@ function add_busTransit(content_tb_obj, new_resource) {
 // 排序规则：有计划时间的情况下优先计划时间，没有计划时间的情况下按回场时间，都没有的情况下按车辆编号；
 // 注意：所有排序规则均升序排列
 // 车辆计划排序
-function update_bus_plan_sort(activeTr, planTime){
+function update_bus_plan_sort(activeTr, planTime) {
     var tr_list = activeTr.parents(".content_tb").find("tr.point").not(activeTr);
-    if (tr_list.length == 0){
+    if (tr_list.length == 0) {
         return false;
     }
-    for (var i=0,oe_l=tr_list.length;i<oe_l;i++){
+    for (var i = 0, oe_l = tr_list.length; i < oe_l; i++) {
         var oe_tr = tr_list[i];
         var oe_plan_time = oe_tr.getAttribute("planRunTime");
-        if (oe_plan_time > planTime){
+        if (oe_plan_time > planTime) {
             oe_tr.before(activeTr);
             break;
         }
@@ -1257,23 +1261,27 @@ function update_bus_plan_sort(activeTr, planTime){
 }
 
 // 车辆车场、在途排序
-function update_bus_info_sort(tableObj){
+function update_bus_info_sort(tableObj) {
     var planruntime_tr = [],
         planreachtime_tr = [],
         other_tr = [];
     var tr_point_list = tableObj.find("tr.point");
-    _.each(tr_point_list, function(o_tr){
-        if (!o_tr.getAttribute("planruntime")){
+    _.each(tr_point_list, function (o_tr) {
+        if (!isNaN(o_tr.getAttribute("planruntime"))) {
             planruntime_tr.push(o_tr);
-        }else if (!o_tr.getAttribute("planreachtime")){
+        } else if (!isNaN(o_tr.getAttribute("planreachtime"))) {
             planreachtime_tr.push(o_tr);
-        }else{
-           other_tr.push(o_tr); 
+        } else {
+            other_tr.push(o_tr);
         }
     })
 
-    planruntime_tr.sort(function(a, b){return a.getAttribute("planruntime")-b.getAttribute("planruntime")});
-    planreachtime_tr.sort(function(a, b){return a.getAttribute("planreachtime")-b.getAttribute("planreachtime")});
+    planruntime_tr.sort(function (a, b) {
+        return a.getAttribute("planruntime") - b.getAttribute("planruntime")
+    });
+    planreachtime_tr.sort(function (a, b) {
+        return a.getAttribute("planreachtime") - b.getAttribute("planreachtime")
+    });
 
     tableObj.find("tr.point").remove();
     tableObj.append(planruntime_tr).append(planreachtime_tr).append(other_tr);

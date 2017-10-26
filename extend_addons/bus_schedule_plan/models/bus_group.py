@@ -269,7 +269,7 @@ class BusGroupDriver(models.Model):
     bus_group_id = fields.Many2one('bus_group', ondelete='cascade')
 
     driver_id = fields.Many2one('hr.employee', string="driver", required=True,
-                                domain="[('workpost.posttype', '=', 'driver')]")
+                                domain="[('workpost.posttype', '=', 'driver'), ('lines', '=', route_id)]")
     jobnumber = fields.Char(string='employee work number', related='driver_id.jobnumber', readonly=True)
 
 
@@ -287,7 +287,7 @@ class BusGroupConductor(models.Model):
     bus_group_id = fields.Many2one('bus_group', ondelete='cascade')
     route_id = fields.Many2one('route_manage.route_manage')
     conductor_id = fields.Many2one('hr.employee', string="conductor", required=True,
-                                   domain="[('workpost.posttype', '=', 'conductor')]")
+                                   domain="[('workpost.posttype', '=', 'conductor'), ('lines', '=', route_id)]")
     jobnumber = fields.Char(string='employee work number', related='conductor_id.jobnumber', readonly=True)
 
 
