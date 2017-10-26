@@ -29,18 +29,8 @@ class stock_search(models.TransientModel):
         warning_data.search([]).unlink()
         for c_data in data['data']:
             warning_data.create(c_data)
-        #return self.env['report'].get_action(self, 'stock_warning.warning_report', data=data)
-        return {
-            'name':u'库存预警',
-            'view_type': 'form',
-            'view_mode': 'tree,graph',
-            'res_model': 'stock.warning_data',
-            'type': 'ir.actions.act_window',
-            'res_id': '',
-            #'view_id': self.env.ref('stock_warning.warning_data_list').id,
-            'target': 'current'
-        }
-
+        action = self.env.ref('stock_warning.open_to_warning_data',False).read()[0]
+        return action
     def get_data(self,warehouses):
         """
             计算预警信息
