@@ -48,6 +48,9 @@
 					<field name="license_plate"/>
 					<field name="repair_category"/>
 					<field name="fault_method_code"/>
+					<field name="fault_category_id"/>
+					<field name="fault_appearance_id"/>
+					<field name="fault_reason_id"/>
 					<field name="fault_method_id"/>
 					<field name="plan_start_time"/>
 					<field name="plan_end_time"/>

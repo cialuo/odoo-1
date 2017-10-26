@@ -11,5 +11,13 @@
             <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_manager'))]"/>
         </record>
 
+        <!--公司规则-->
+        <record model="ir.rule" id="maintain_repair_visibility_repair_report_company">
+            <field name="name">公司只能看到该公司的车辆</field>
+            <field name="model_id" ref="model_fleet_vehicle"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
     </data>
 </odoo>

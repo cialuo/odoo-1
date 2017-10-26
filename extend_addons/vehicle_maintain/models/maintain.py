@@ -194,8 +194,10 @@ class MaintainRepair(models.Model):
     report_id = fields.Many2one("maintain.manage.report", ondelete='cascade',
                                 string="Report Order", required=True, readonly=True)
 
+    report_company_id = fields.Many2one('res.company', related='report_id.report_company_id', string="Report Company",
+                                        required=True)         #报修公司
     repair_company_id = fields.Many2one('res.company', related='report_id.repair_company_id', store=True,
-                                        string="Repair Company")  # 承修公司
+                                        string="Repair Company")#承修公司
 
     # 修理厂所属部门
     depa_id = fields.Many2one('hr.department', related='report_id.depa_id',
