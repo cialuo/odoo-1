@@ -270,3 +270,10 @@ class RetireManage(models.Model):
         self.employee_id.active = False
         self.employee_id.employeestate = 'retired'
         self.state = 'checked'
+
+    @api.multi
+    def unlink(self):
+        for item in self:
+            if item.state == 'checked':
+                raise exceptions.ValidationError(_("can not delete passed order"))
+        return super(RetireManage, self).unlink()

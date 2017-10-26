@@ -290,3 +290,7 @@ class TransferRecord(models.Model):
 
     # 审批/会签人员
     countersign_person = fields.Many2one('res.users', string="employees_countersign_person", readonly=True)
+
+    @api.multi
+    def unlink(self):
+        raise exceptions.UserError(_('transfer record can not be delete'))
