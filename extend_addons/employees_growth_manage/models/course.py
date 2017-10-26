@@ -34,4 +34,4 @@ class course(models.Model):
 
      course_enclosure = fields.Many2many('ir.attachment',string='Course enclosure')
 
-     #average_number = fields.Float(string='Average Number',compute='',store=True)
+

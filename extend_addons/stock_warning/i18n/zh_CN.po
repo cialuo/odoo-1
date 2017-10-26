@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-15 09:48+0000\n"
-"PO-Revision-Date: 2017-09-15 17:50+0800\n"
+"POT-Creation-Date: 2017-10-26 09:03+0000\n"
+"PO-Revision-Date: 2017-10-26 17:04+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,14 +30,12 @@ msgstr "生成采购计划"
 #. module: stock_warning
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_create_uid
 #: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_create_uid
-#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan_create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: stock_warning
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_create_date
 #: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_create_date
-#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan_create_date
 msgid "Created on"
 msgstr "创建时间"
 
@@ -45,7 +43,6 @@ msgstr "创建时间"
 #: model:ir.model.fields,field_description:stock_warning.field_report_stock_warning_warning_report_display_name
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_display_name
 #: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_display_name
-#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan_display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -53,7 +50,6 @@ msgstr "显示名称"
 #: model:ir.model.fields,field_description:stock_warning.field_report_stock_warning_warning_report_id
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_id
 #: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_id
-#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan_id
 msgid "ID"
 msgstr "ID"
 
@@ -61,21 +57,18 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:stock_warning.field_report_stock_warning_warning_report___last_update
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard___last_update
 #: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data___last_update
-#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan___last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: stock_warning
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_write_uid
 #: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_write_uid
-#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: stock_warning
 #: model:ir.model.fields,field_description:stock_warning.field_stock_search_wizard_write_date
 #: model:ir.model.fields,field_description:stock_warning.field_stock_warning_data_write_date
-#: model:ir.model.fields,field_description:stock_warning.field_wizard_purchase_plan_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
 
@@ -137,9 +130,9 @@ msgid "Warning Report"
 msgstr "库存预警"
 
 #. module: stock_warning
-#: model:ir.model,name:stock_warning.model_wizard_purchase_plan
-msgid "Wizard purchase_plan"
-msgstr "Wizard purchase_plan"
+#: model:ir.actions.act_window,name:stock_warning.open_to_warning_data
+msgid "open_to_warning_data"
+msgstr "库存预警"
 
 #. module: stock_warning
 #: model:ir.ui.view,arch_db:stock_warning.warning_report
