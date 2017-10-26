@@ -52,7 +52,7 @@ class attence(models.Model):
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         #当本地添加时，调用api同步数据到后台
-        if vals.get('is_add'):
+        if vals.get('is_add') and vals.get('record_move_id') > 0 :
             _logger.info('Start create data: %s', self._name)
             vals = mapping.dict_transfer(self._name, vals)
             vals.update({
@@ -90,7 +90,7 @@ class attence(models.Model):
         
         for r in self:
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds < 5 or (odoo_value.get('state') in ('approved','moved')):
+            if seconds.seconds < 5 or (odoo_value.get('state') in ('approved','moved')) or  (not r.record_move_id):
                 res = super(attence, r).write(odoo_value)
             else:
                 #try:
@@ -128,17 +128,20 @@ class attence(models.Model):
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         #批量删除
-        for r in self:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            vals = {'id': int(r.restful_key_id),'WorkerType': r.work_type_id}
-            res = super(attence, r).unlink()
-            params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-            #调用restful
-            rp = Client().http_post(url, data=params)
-            if rp :
-                if  rp.json().get('result') != 0 :
-                    raise UserError((u'删除错误.%s')%rp.json().get('respose').get('text'))   
-            else :
-                raise UserError((u'接口连接失败错误'))            
+        if not self.record_move_id :
+            res = super(attence, self).unlink()
+        else :
+            for r in self:
+                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+                _logger.info('Start unlink data: %s', self._name)
+                vals = {'id': int(r.restful_key_id),'WorkerType': r.work_type_id}
+                res = super(attence, r).unlink()
+                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+                #调用restful
+                rp = Client().http_post(url, data=params)
+                if rp :
+                    if  rp.json().get('result') != 0 :
+                        raise UserError((u'删除错误.%s')%rp.json().get('respose').get('text'))   
+                else :
+                    raise UserError((u'接口连接失败错误'))            
         return res
