@@ -212,7 +212,7 @@
                     <field name="line_name"/>
                     <field name="gprs_id"/>
                     <field name="line_type_name"/>
-                    <field name="class_system_name"/>
+                    <field name="class_system_name" />
                     <field name="schedule_type"/>
                     <field name="people_number"/>
                     <field name="department_id"/>
@@ -249,7 +249,7 @@
                                 <field name="loop_type"/>
                                 <field name="oil_wear_coefficient"/>
                                 <field name="department_id" options="{'no_create':True}"/>
-                                <field name="class_system_name"/>
+                                <field name="class_system_name" invisible="1"/>
                                 <field name="run_type_name"/>
                                 <field name="schedule_type"/>
                             </group>

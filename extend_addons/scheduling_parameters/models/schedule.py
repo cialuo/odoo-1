@@ -142,7 +142,7 @@ class route_manage(models.Model):
     class_system_name = fields.Selection([('one_shift', 'one_shift'),
                                         ('two_shift', 'two_shift'),
                                         ('three_shift', 'three_shift')],
-                                        default='one_shift', required=True) # 班制
+                                        default='one_shift', required=False) # 班制
     run_type_name = fields.Selection([('single_shunt', 'single_shunt'),
                                    ('double_shunt', 'double_shunt')],
                                    default='double_shunt', required=True) # 调车方式
