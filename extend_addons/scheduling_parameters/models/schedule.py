@@ -399,7 +399,7 @@ class VehicleYard(models.Model):
     ]
     name = fields.Char('Yard Name', required=True)
     code = fields.Integer("Yard Code", required=True)
-    route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
+    route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose')
     direction = fields.Selection([('up', 'up'),
                                  ('down', 'down'),
                                 ('one_way', 'one_way')], default='up')
@@ -432,16 +432,16 @@ class opertation_yard_lines(models.Model):
     """
     调度屏
     """
-    _sql_constraints = [
-        ('line_yard_unique', 'unique(name，yard_id)', (u'线路重复'))
-    ]
 
-    name = fields.Many2one('route_manage.route_manage', ondelete='cascade')
-    yard_id = fields.Many2one('opertation_resources_vehicle_yard', ondelete='cascade')
+    name = fields.Many2one('route_manage.route_manage')
+    yard_id = fields.Many2one('opertation_resources_vehicle_yard')
     code = fields.Integer('code', related='yard_id.code', readonly=True)
     #yard_name = fields.Integer('name', related='yard_id.name', readonly=True)
     direction = fields.Selection([('up', 'up'),('down', 'down'), ('one_way', 'one_way')], related='yard_id.direction', readonly=True)
     
+    _sql_constraints = [
+        ('line_yard_unique', 'unique(name，yard_id)', (u'线路重复'))
+    ]    
     
     
     

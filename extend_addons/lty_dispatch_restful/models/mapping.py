@@ -265,7 +265,7 @@ op_planstationbigmain = {
 op_dspLine = {
     ('id', 'id'): None,
     #名称 int
-    ('lineId', 'route_id'): None,
+    ('lineId', 'name'): None,
     # #调度服务Id int not found 不传
     # ('dspId', None): None,
     #线路名称 string,后台获取 route_id.name
@@ -275,7 +275,7 @@ op_dspLine = {
     #车场编码long 必填;
     ('fieldNo', 'code'): None,
     #车场名称String
-    ('fieldName', 'name'): None,
+    ('fieldName', 'yard_name'): None,
     #屏幕1 int 后台获取编码
     ('screen1', 'screen1'): None,
     #屏幕2 int  后台获取编码
@@ -770,7 +770,7 @@ origin_data = {
     'scheduleplan.bigsitesetup': op_planstationbigmain,
     #调度线路基础数据 无对应的数据库表
     # op_DspLine opertation_resources_vehicle_yard
-    'opertation_resources_vehicle_yard': op_dspLine,
+    'opertation_yard_lines': op_dspLine,
     #调度参数基础数据
     'dispatch.config.settings': op_param,
     'general.config.settings': op_param,

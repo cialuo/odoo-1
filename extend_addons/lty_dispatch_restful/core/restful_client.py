@@ -153,10 +153,10 @@ def response_check(rp):
         try:
             rst = rp.json().get('result')
         except Exception, e:
-            raise UserError(_('Restful interface access exception, please check.'))
+            raise UserError((u'Restful 接口返回异常, 请检查.'))
 
         if rst != 0:
-            raise UserError(_('Adding data errors in the background,%s') % rp.json().get('respose').get('text'))
+            raise UserError((u'后台操作数据错误,%s') % rp.json().get('respose').get('text'))
     else:
-        raise UserError(_('Restful interface access exception, please check.'))
+        raise UserError((u'Restful 接口返回异常，请检查.'))
 

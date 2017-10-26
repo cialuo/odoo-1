@@ -308,8 +308,12 @@
                                 </field>
                             </page>
                             <page string="VehicleYards">
-                                <field name="yard2_ids" readonly="1">
-
+                                <field name="yard2_ids" readonly="0">
+					                <tree editable='top'>
+					                    <field name="code" string ='编码'/>
+					                    <field name="yard_id" string = '车场'/>
+					                    <field name="direction" string ='方向'/>
+					                </tree>
                                 </field>
                             </page>                         
                             <page string="human resource" name="hr_page">
@@ -344,7 +348,6 @@
                 <tree>
                     <field name="code"/>
                     <field name="name"/>
-                    <field name="route_id"/>
                     <field name="direction"/>
                     <field name="is_yard"/>
                 </tree>
@@ -380,7 +383,6 @@
                         </div>
                         <group col="2">
                             <group>
-                                <field name="route_id" options="{'no_create':True}"/>
                                 <field name="direction" required="1"/>
                             </group>
                             <group>
@@ -399,7 +401,10 @@
                                 </field>
                             </page>
                             <page string="过场线路">
-                                <field name="lin_ids" >
+                                <field name="lin_ids"  readonly="1">
+					                <tree editable='top'>
+					                    <field name="name" string = '线路' required ='1'/>
+					                </tree>                                
                                 </field>
                             </page>                            
                             
