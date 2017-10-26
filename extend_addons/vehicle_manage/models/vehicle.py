@@ -137,6 +137,14 @@ class Vehicle(models.Model):
         """
         return False
 
+    @api.multi
+    def return_action_to_total_odometer(self):
+        """
+            刷新
+        :return:
+        """
+        return False
+
     def get_vehicle_code(self,vals):
         """
             生成车辆编码：
@@ -228,14 +236,14 @@ class Vehicle(models.Model):
             record.brand_name = record.model_id.brand_id.name
             record.length_width_height = str(record.model_id.length)+'*'+str(record.model_id.width)+'*'+str(record.model_id.height)
 
+    @api.depends('driverecords')
     def _get_total_odometer(self):
         """
         获取车辆累计的行程公里数
         """
         for record in self:
-            vehicle_odometer = self.env['fleet.vehicle.odometer'].search([('vehicle_id', '=', record.id)])
-            if vehicle_odometer:
-                record.total_odometer = sum(i.value for i in vehicle_odometer)
+            if record.driverecords:
+                record.total_odometer = sum(record.driverecords.mapped('GPSmileage'))
             else:
                 record.total_odometer = 0
 

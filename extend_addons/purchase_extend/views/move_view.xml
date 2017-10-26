@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--继承move的搜索视图-->
+         <record model="ir.ui.view" id="stock_move_view_search">
+            <field name="name">stock_move search</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_search"/>
+            <field name="arch" type="xml">
+
+                <!--退货-->
+                <xpath expr="//filter[@name='done']" position="after">
+                    <filter string="Return" name="is_return" doamin="[('is_return', '=', True)]"/>
+                </xpath>
+
+                <!--当月-->
+                <xpath expr="//field[@name='product_id']" position="before">
+                    <filter name="month" string="This Month" domain="['&amp;',('date', '>=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')),
+                               ('date', '&lt;=', (context_today() + relativedelta(months=1, day=1, days=-1)).strftime('%Y-%m-%d')),]"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
