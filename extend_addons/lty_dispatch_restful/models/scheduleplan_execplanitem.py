@@ -181,14 +181,14 @@ class Excutetable(models.Model):
     def unlink(self):
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        for s in self:
+        for r in self:
             # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
             _logger.info('Start unlink data: %s', self._name)
             vals = {'lineId': s.line_id.id, 'workDate': s.excutedate}
             params = Params(type = 2, cityCode = cityCode,tableName='op_dispatchplan', data = vals).to_dict()
             res = super(Excutetable, r).unlink()
             rp = Client().http_post(url, data=params)
-        return
+        return res
 
 # class downplanitem(models.Model):
 #
