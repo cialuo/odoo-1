@@ -123,6 +123,7 @@ class op_line(models.Model):
             res = super(op_line, r).unlink()
             params = Params(type=2, cityCode=cityCode, tableName=LINE_TABLE, data=vals).to_dict()
             rp = Client().http_post(url, data=params)
+            response_check(rp)
             # clientThread(url,params,res).start()
         return
 
@@ -202,5 +203,6 @@ class Station(models.Model):
             params = Params(type=2, cityCode=cityCode,tableName=STATION_TABLE, data=vals).to_dict()
             res = super(Station, r).unlink()
             rp = Client().http_post(url, data=params)
+            response_check(rp)
 
         return

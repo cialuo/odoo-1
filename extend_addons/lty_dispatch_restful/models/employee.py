@@ -141,4 +141,5 @@ class Employee(models.Model):
             params = Params(type = 2, cityCode = cityCode,tableName = HR_TABLE, data = vals).to_dict()
             res = super(Employee, r).unlink()
             rp = Client().http_post(url, data=params)
+            response_check(rp)
         return

@@ -126,5 +126,6 @@ class Desktop(models.Model):
             params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
             res = super(Desktop, r).unlink()
             rp = Client().http_post(url, data=params)
+            response_check(rp)
 
         return
