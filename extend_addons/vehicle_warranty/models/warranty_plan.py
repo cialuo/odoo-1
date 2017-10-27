@@ -62,10 +62,10 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         # 获取车辆维保项的最近一次维保记录
         constrains = [
             ('vehicle_id', '=', vehicleid),
-            ('approval_warranty_category', '=', mantaintype),
-            ('state', '=', 'done')
+            ('warranty_category', '=', mantaintype),
+            ('calculate_state', '=', 'calculated')
         ]
-        result = self.env['warranty_plan_order'].search(constrains, order='planned_date desc', limit=1)
+        result = self.env['warranty_order'].search(constrains, order='id desc', limit=1)
         if len(result) > 0:
             return result[0].planned_date
         else:
@@ -90,9 +90,9 @@ class WarrantyPlan(models.Model): # 车辆保养计划
             ('vehicle_id', '>', vehicleid)
         ]
         if startDate != None:
-            constrains.append(('relateddate', '>', startDate))
+            constrains.append(('relateddate', '>=', startDate))
         if endDate != None:
-            constrains.append(('relateddate', '<', endDate))
+            constrains.append(('relateddate', '<=', endDate))
         result = self.env['vehicleusage.driverecords'].search(constrains)
         total = 0
         for item in result:
@@ -119,9 +119,12 @@ class WarrantyPlan(models.Model): # 车辆保养计划
                     # 该任务已做计划 跳过
                     continue
                 lastmantaindate = self.planItemLastCheck(item.id, mitem.id)
+                startdate = None
+                if lastmantaindate != None:
+                    startdate = lastmantaindate.calculate_time
                 # 计算从上一次维保后又行驶了多少公里
                 mileageOffset = self.sumVehicleDriveMileage(item.id,
-                                                            None,
+                                                            startdate,
                                                             datetime.datetime.today())
                 if lastmantaindate == None:
                     # 之前从未做过维保则添加到计划则不加入

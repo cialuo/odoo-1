@@ -449,7 +449,7 @@ class DriveRecords(models.Model):
     _name = 'vehicleusage.driverecords'
 
     # 所属日期
-    relateddate = fields.Date(string="mileage data")
+    relateddate = fields.Date(string="mileage data", default=fields.date.today())
 
     # 关联的车辆信息
     vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True)

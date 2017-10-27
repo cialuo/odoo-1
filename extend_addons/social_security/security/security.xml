@@ -70,5 +70,28 @@
             <field name="domain_force">[(1, '=', 1)]</field>
         </record>
 
+        <!--工伤申请-->
+        <record id="user_rule_workinjury" model="ir.rule">
+            <field name="name">group user</field>
+            <field name="model_id" ref="model_social_workinjury"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="domain_force">[('state', '=', 'draft')]</field>
+        </record>
+
+        <record id="workinjury_officer_rule" model="ir.rule">
+            <field name="name"> hr officer </field>
+            <field name="model_id" ref="model_social_workinjury"/>
+            <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
     </data>
 </odoo>

@@ -380,6 +380,8 @@ class Holidays(models.Model):
 
     _inherit = 'hr.holidays'
 
+    _rec_name = 'name'
+
     # 请假时长 小时单位
     length = fields.Integer(string='leave length', readonly=True,
                             states={'draft': [('readonly', False)]})
@@ -422,5 +424,5 @@ class Holidays(models.Model):
     def name_get(self):
         res = []
         for leave in self:
-            res.append((leave.id, _("leave request form")))
+            res.append((leave.id, leave.name))
         return res
