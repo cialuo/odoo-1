@@ -14,8 +14,9 @@ class dispatch_driver_command(models.Model):
     #命令类型
     command_type_id = fields.Many2one('dispatch.driver.command.type')
     
-
-           
+    _sql_constraints = [
+        ('event_code_uniq', 'unique (event_code)', u'事件代码不能重复!')
+    ]           
 class dispatch_driver_command_type(models.Model):
     _name = 'dispatch.driver.command.type'
 
@@ -23,3 +24,7 @@ class dispatch_driver_command_type(models.Model):
     name = fields.Char()
     #类型编码
     code = fields.Char()
+    
+    _sql_constraints = [
+        ('code_uniq', 'unique (code)', u'类型代码不能重复!')
+    ]
