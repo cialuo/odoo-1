@@ -18,7 +18,7 @@
             <field name="name">security_manage list</field>
             <field name="model">security_manage.check_table</field>
             <field name="arch" type="xml">
-                <form string="Idea form">
+                <form string="Idea form" duplicate="0">
                     <header>
                         <button name="action_to_draft" type="object"
                                 string="Reset to draft"
