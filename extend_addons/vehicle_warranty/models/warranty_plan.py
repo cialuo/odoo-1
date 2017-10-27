@@ -67,7 +67,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         ]
         result = self.env['warranty_order'].search(constrains, order='id desc', limit=1)
         if len(result) > 0:
-            return result[0].planned_date
+            return result[0]
         else:
             return None
 
@@ -118,24 +118,17 @@ class WarrantyPlan(models.Model): # 车辆保养计划
                 if self.planitemExist(item.id, mitem.id):
                     # 该任务已做计划 跳过
                     continue
-                lastmantaindate = self.planItemLastCheck(item.id, mitem.id)
-                startdate = None
-                if lastmantaindate != None:
-                    startdate = lastmantaindate.calculate_time
+                lastmantain = self.planItemLastCheck(item.id, mitem.warranty_category_id.id)
+                lastmdate = None
+                if lastmantain != None:
+                    lastmdate = lastmantain.calculate_time
                 # 计算从上一次维保后又行驶了多少公里
                 mileageOffset = self.sumVehicleDriveMileage(item.id,
-                                                            startdate,
+                                                            lastmdate,
                                                             datetime.datetime.today())
-                if lastmantaindate == None:
+                if lastmantain == None:
                     # 之前从未做过维保则添加到计划则不加入
                     continue
-                    #
-                    # itemsToAdd.append(self.constructPlanItemData(item.id,
-                    #                                              mitem.warranty_category_id.id,
-                    #                                              mileageOffset,
-                    #                                              datetime.datetime.today(),
-                    #                                              item.daily_mileage,
-                    #                                              lastmantaindate))
                 else:
                     bigestmileage = mileageOffset + predays*item.daily_mileage
                     if (bigestmileage) > (mitem.interval_mileage - mitem.warranty_category_id.active_mileage):
@@ -147,7 +140,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
                                                                      mileageOffset,
                                                                      plandate,
                                                                      item.daily_mileage,
-                                                                     lastmantaindate))
+                                                                     lastmdate))
                     else:
                         continue
         sqldata = [(0, 0, item) for item in itemsToAdd]
