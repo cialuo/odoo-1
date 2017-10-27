@@ -35,25 +35,25 @@
                 <div class="oe_title">
                     <label for="name" class="oe_edit_only"/>
                     <h1>
-                        <field name="name" placeholder="Curriculum Schedule's Name" />
+                        <field name="name" placeholder="Curriculum Schedule's Name" attrs="{'readonly': [('state', '!=', 'start')]}"/>
                     </h1>
                 </div>
                 <group>
                     <group>
-                        <field name="curriculum_no"/>
-                        <field name="course_id" options="{'no_open': True, 'no_create': True}"/>
-                        <field name="train_date" />
+                        <field name="curriculum_no" attrs="{'readonly': [('state', '!=', 'start')]}"/>
+                        <field name="course_id" options="{'no_open': True, 'no_create': True}" attrs="{'readonly': [('state', '!=', 'start')]}"/>
+                        <field name="train_date" attrs="{'readonly': [('state', '!=', 'start')]}"/>
                     </group>
                     <group>
                         <field name="train_type" readonly="True"/>
-                        <field name="course_type"/>
-                        <field name="teacher_id" options="{'no_open': True, 'no_create': True}"/>
-                        <field name="address"/>
+                        <field name="course_type" attrs="{'readonly': [('state', '!=', 'start')]}"/>
+                        <field name="teacher_id" options="{'no_open': True, 'no_create': True}" attrs="{'readonly': [('state', '!=', 'start')]}"/>
+                        <field name="address" attrs="{'readonly': [('state', '!=', 'start')]}"/>
                     </group>
                 </group>
                 <notebook>
                     <page name="class_arrangement" string="Class arrangement">
-                         <field name="time_arrangements" >
+                         <field name="time_arrangements" attrs="{'readonly': [('state', '!=', 'start')]}">
                             <tree editable="top">
                                 <field name="teacher_id" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="start_time"/>
@@ -64,7 +64,7 @@
                         </field>
                     </page>
                     <page names="page_trainers" string="Trainers page">
-                        <field name="students" >
+                        <field name="students" attrs="{'readonly': [('state', '!=', 'start')]}">
                             <tree editable="top">
                                 <field name="student_id" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="jobnumber"/>
