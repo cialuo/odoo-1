@@ -34,23 +34,23 @@
                 <div class="oe_title">
                     <label for="name" class="oe_edit_only"/>
                     <h1>
-                        <field name="name" placeholder="Training Plan's Name" />
+                        <field name="name" placeholder="Training Plan's Name" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                     </h1>
                 </div>
                 <group>
                     <group>
-                        <field name="training_cycle"/>
+                        <field name="training_cycle" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         <field name="create_uid" readonly='1' options="{'no_open': True, 'no_create': True}"/>
                         <field name="create_date" readonly='1'/>
                     </group>
                     <group>
                         <field name="auditor" options="{'no_open': True, 'no_create': True}" readonly="True"/>
-                        <field name="return_remarks"/>
+                        <field name="return_remarks" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                     </group>
                 </group>
                 <notebook>
                     <page name="course_arrangement" string="Course arrangement">
-                         <field name="curriculum_schedules" >
+                         <field name="curriculum_schedules" attrs="{'readonly': [('state', '!=', 'draft')]}">
                             <tree editable="top">
                                 <field name="course_id" />
                                 <field name="course_type"/>

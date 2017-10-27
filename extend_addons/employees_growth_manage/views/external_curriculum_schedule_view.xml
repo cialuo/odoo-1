@@ -35,27 +35,27 @@
                 <div class="oe_title">
                     <label for="name" class="oe_edit_only"/>
                     <h1>
-                        <field name="name" placeholder="Curriculum Schedule's Name" />
+                        <field name="name" placeholder="Curriculum Schedule's Name"/>
                     </h1>
                 </div>
                 <group>
                     <group>
-                        <field name="training_cycle"/>
+                        <field name="training_cycle" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         <field name="create_uid" readonly='1' options="{'no_open': True, 'no_create': True}"/>
                         <field name="create_date" readonly='1'/>
                     </group>
                     <group>
-                        <field name="course_type" />
-                        <field name="course_id" />
-                        <field name="training_institutions"/>
-                        <field name="teacher_id" options="{'no_open': True, 'no_create': True}"/>
-                        <field name="train_date"/>
-                        <field name="address"/>
+                        <field name="course_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="course_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="training_institutions" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="teacher_id" options="{'no_open': True, 'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="train_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="address" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                     </group>
                 </group>
                 <notebook>
                     <page names="page_trainers" string="Trainers page">
-                        <field name="students">
+                        <field name="students" attrs="{'readonly': [('state', '!=', 'draft')]}">
                             <tree editable="top">
                                 <field name="student_id"/>
                                 <field name="jobnumber"/>

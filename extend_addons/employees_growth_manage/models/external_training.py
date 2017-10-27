@@ -192,6 +192,18 @@ class external_curriculum_schedule(models.Model):
         return res
 
     @api.multi
+    def unlink(self):
+        """
+        控制单据的删除，只能删除草稿状态的单据
+        :return:
+        """
+        for order in self:
+            if not order.state == 'draft':
+                raise exceptions.UserError(_('Only the plan to delete the draft status.'))
+
+        return super(external_curriculum_schedule, self).unlink()
+
+    @api.multi
     def start_to_sign(self):
         self.state = 'pendingExecution'
 
