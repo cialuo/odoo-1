@@ -99,6 +99,15 @@ class Employee(models.Model):
                         'id': r.id,
                         'sysPostId': '1021',
                     })
+                    if r.user_id :
+                        vals.update({
+                            'userId': r.user_id.id,
+                            'trueName': r.name or '',
+                            'serils': r.jobnumber or '',
+                            'ICCardNoId': r.iccard.cardsn or '',
+                            'sfz': r.id_card or '',   
+                            'sysDepartmentId': r.department_id.id,                        
+                            })                       
                     if r.workpost.posttype == "driver":
                         vals['sysPostId'] = '1019'
                     if r.workpost.posttype == "conductor":
