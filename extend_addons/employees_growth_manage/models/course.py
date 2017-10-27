@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-
-
+import datetime,time
+from dateutil.relativedelta import relativedelta
 class course(models.Model):
 
      _name = 'employees_growth.course'
@@ -34,6 +34,23 @@ class course(models.Model):
 
      course_enclosure = fields.Many2many('ir.attachment',string='Course enclosure')
 
-     average_score = fields.Float(string='Average Score')
+     average_score = fields.Float(string='Average Score',store=True,compute='_compute_average_score')
 
+     student_ids = fields.One2many('employees_growth.students','course_id',string='studentids')
+
+     def _compute_average_score(self):
+          """
+               计算当月平均分
+          :return:
+          """
+
+          for order in self:
+               if order.student_ids:
+                    today = datetime.datetime.now()
+                    begin_month = today.strftime('%Y-%m-01 00:00:00')
+                    end_month = (today + relativedelta(months=1, day=1, days=-1)).strftime('%Y-%m-%d 23:59:59')
+                    order.average_score = sum(order.student_ids.filtered(
+                         lambda r: r.examination_datetime >= begin_month and r.examination_datetime <= end_month).mapped('total_score'))
+               else:
+                    order.average_score = 0.0
 

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-25 07:58+0000\n"
-"PO-Revision-Date: 2017-10-25 16:00+0800\n"
+"POT-Creation-Date: 2017-10-27 11:37+0000\n"
+"PO-Revision-Date: 2017-10-27 19:39+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -62,6 +62,11 @@ msgstr "审核时间"
 #: selection:employees_growth.students,ways_of_registration:0
 msgid "Autonomous Ways"
 msgstr "自主报名"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_average_score
+msgid "Average Score"
+msgstr "月平均分"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.examination_form
@@ -365,7 +370,7 @@ msgstr "员工成长管理"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_end_time
 msgid "End time"
-msgstr "下课时间"
+msgstr "结束时间"
 
 #. module: employees_growth_manage
 #: selection:employees_growth.students,state:0
@@ -765,6 +770,7 @@ msgstr "名字"
 
 #. module: employees_growth_manage
 #: code:addons/employees_growth_manage/models/external_training.py:45
+#: code:addons/employees_growth_manage/models/external_training.py:202
 #: code:addons/employees_growth_manage/models/training_plan.py:44
 #, python-format
 msgid "Only the plan to delete the draft status."
@@ -1080,7 +1086,7 @@ msgstr "开始时间不能大于结束时间!"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_start_time
 msgid "Start time"
-msgstr "上课时间"
+msgstr "开始时间"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_plan_state
@@ -1580,6 +1586,11 @@ msgstr "可以考试"
 #: model:ir.ui.view,arch_db:employees_growth_manage.external_curriculum_schedule_form
 msgid "sign_to_execution"
 msgstr "准备执行"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_student_ids
+msgid "studentids"
+msgstr "学生"
 
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.employees_action_students

@@ -43,6 +43,11 @@
                     </group>
                 </group>
                 <notebook>
+                    <page name="page_course_introduce1" string="Course introduce">
+                        <group>
+                            <field name="student_ids"/>
+                        </group>
+                    </page>
                     <page name="page_course_introduce" string="Course introduce">
                         <group>
                             <field name="course_introduce"/>
@@ -63,11 +68,22 @@
       </field>
     </record>
 
+    <!-- 考试成绩Graphs-->
+    <record model="ir.ui.view" id="course_graph">
+        <field name="name">course.graph</field>
+        <field name="model">employees_growth.course</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="average_score" type='measure'/>
+            </graph>
+        </field>
+    </record>
+
     <!-- 动作 -->
     <record model="ir.actions.act_window" id="employees_growth_manage.action_course">
       <field name="name">course window</field>
       <field name="res_model">employees_growth.course</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,graph</field>
     </record>
 
 
