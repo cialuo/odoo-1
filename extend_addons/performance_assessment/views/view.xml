@@ -251,7 +251,7 @@
         <field name="name">performance invite checking form</field>
         <field name="model">perf.checkingresult</field>
         <field name="arch" type="xml">
-            <form duplicate="0">
+            <form duplicate="0" create="0" edit="0" delete="0">
                 <header>
                     <button name="action_done" type="object"
                             string="done checking" states="checking"
@@ -308,12 +308,12 @@
         </field>
     </record>
 
-    <!-- 邀请考核tree视图 -->
+    <!-- 考核结果tree视图 -->
     <record model="ir.ui.view" id="invite_checking_tree">
         <field name="name">invite checking tree</field>
         <field name="model">perf.checkingresult</field>
-        <field name="arch" type="xml">
-            <tree create="0" edit="0">
+        <field name="arch" type="xml" >
+            <tree create="0" edit="0" delete="0">
                 <field name="employee_id"/>
                 <field name="cycletype"/>
                 <field name="checkingcycle"/>
