@@ -75,7 +75,7 @@ class BusMoveExcuteTable(models.Model):
 
     # 同一条线路同一天只有一个行车作业执行表
     _sql_constraints = [
-        ('line_date_unique', 'unique (line_id, excutedate)', 'one line one date one execute table')
+        ('line_date_unique', 'unique (line_id, excutedate)', u'每条线路同一天只允许生成一张行转时刻表！')
     ]
 
     name = fields.Char(string="excute table name")
