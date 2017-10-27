@@ -15,7 +15,7 @@ class Constract(models.Model):
     def searchRunningConstract(self):
         opendlist = self.search([('employee_id', '=', self.employee_id.id),('state', '=', 'open')])
         if len(opendlist) > 1:
-            raise ValidationError('to many running state constrcat')
+            raise ValidationError('一个员工只能有一份执行状态的合同')
 
     @api.one
     @api.constrains('state')

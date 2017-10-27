@@ -500,7 +500,7 @@ msgstr "消防设施分布图"
 #. module: security_manage
 #: model:ir.actions.act_window,name:security_manage.act_fire_emergency_plan
 msgid "fire_emergency_plan menu"
-msgstr "消防设施管理"
+msgstr "消防应急预案"
 
 #. module: security_manage
 #: model:ir.model.fields,field_description:security_manage.field_sfs_fire_danger_src_risk_evaluate

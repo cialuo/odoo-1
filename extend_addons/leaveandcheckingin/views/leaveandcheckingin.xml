@@ -49,7 +49,7 @@
         <field name="name">employees attencededucted record form</field>
         <field name="model">employee.attencededucted</field>
         <field name="arch" type="xml">
-            <form>
+            <form duplicate="0">
                 <group>
                     <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
                     <field name="month"/>

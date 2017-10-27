@@ -47,7 +47,7 @@
         </record>
 
         <!--all-->
-        <record id="student_recording_rule" model="ir.rule">
+        <record id="student_recording_rule_all" model="ir.rule">
             <field name="name">All recording</field>
             <field name="model_id" ref="model_employees_growth_punch_recording_details"/>
             <field name="groups" eval="[(4, ref('training_teacher')),(4, ref('training_manager'))]"/>
@@ -55,7 +55,7 @@
         </record>
 
         <!--all-->
-        <record id="student_examination_rule" model="ir.rule">
+        <record id="student_examination_rule_all" model="ir.rule">
             <field name="name">All examination</field>
             <field name="model_id" ref="model_employees_growth_students"/>
             <field name="groups" eval="[(4, ref('training_teacher')),(4, ref('training_manager'))]"/>
