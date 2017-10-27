@@ -29,7 +29,7 @@
             <field name="model">safe_kilometer</field>
             <field name="arch" type="xml">
                 <graph>
-                    <field name="accumulated_safe_kilometer"/>
+                    <field name="accumulated_safe_kilometer" type='measure'/>
                 </graph>
             </field>
         </record>
