@@ -21,7 +21,7 @@
                 <form>
                     <header>
                         <button name="using_board" class="oe_highlight" type="object" string="using_board" />
-                        
+
                     </header>
                     <sheet>
                          <div class="oe_title">
