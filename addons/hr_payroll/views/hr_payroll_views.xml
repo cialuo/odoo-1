@@ -208,7 +208,7 @@
             <field name="model">hr.payslip</field>
             <field name="arch" type="xml">
                 <form string="Payslip">
-                <header>
+                <header groups="hr.group_hr_user">
                     <button string="Confirm" name="action_payslip_done" type="object" states="draft" class="oe_highlight"/>
                     <button string="Refund" name="refund_sheet" states="confirm,done" type='object' />
                     <button string="Set to Draft" name="action_payslip_draft" type="object" states="cancel"/>

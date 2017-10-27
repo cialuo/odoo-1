@@ -36,6 +36,11 @@ class CheckingIndicator(models.Model):
     # 评分标准
     standardofgrading = fields.Text(string="standard of grading")
 
+    @api.one
+    @api.constrains('highestscore', 'lowest_score')
+    def _check_score(self):
+        if self.highestscore <= self.lowest_score:
+            raise ValidationError("最高分不能小于等于最低分")
 
 
 class IndicatorForTable(models.Model):
