@@ -37,7 +37,7 @@
                 <xpath expr="//notebook/page[1]" position="before">
                     <page string="Correct List" name="correct_list">
                         <field name="correct_ids">
-                            <tree editable="bottom" delete="false">
+                            <tree editable="bottom" delete="false" create="false">
                                 <field name="year"/>
                                 <field name="correct_value"/>
                                 <field name="user_id" options="{'no_open': True, 'no_create': True}"/>
