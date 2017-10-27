@@ -388,8 +388,8 @@ class attence(models.Model):
             if self.env['fleet.vehicle'].search([('on_boardid', '=', item.get('onBoardId'))]):
                 vehicle_id = self.env['fleet.vehicle'].search([('on_boardid', '=', item.get('onBoardId'))])[0].id
             else:
-               # raise UserError((u"车辆不存在."))
-               vehicle_id = None
+                # raise UserError((u"车辆不存在."))
+                vehicle_id = None
 
             if self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))]):
                 employee_id = self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))])[0].id

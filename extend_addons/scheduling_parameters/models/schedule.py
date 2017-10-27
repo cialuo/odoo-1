@@ -440,7 +440,7 @@ class opertation_yard_lines(models.Model):
     direction = fields.Selection([('up', 'up'),('down', 'down'), ('one_way', 'one_way')], related='yard_id.direction', readonly=True)
     
     _sql_constraints = [
-        ('line_yard_unique', 'unique(name，yard_id)', (u'线路重复'))
+        ('line_yard_unique', 'unique(name，yard_id', (u'线路重复'))
     ]    
     
     
