@@ -10,21 +10,21 @@ class Vehicle(models.Model):
     车辆档案
     """
     _inherit = "fleet.vehicle"
-    _sql_constraints = [('code_uniq', 'unique (inner_code)', _("inner code already exists")),
+    _sql_constraints = [('code_uniq', 'unique (inner_code)', u"内部编号已经存在!"),
                         ('license_plate_uniq', 'unique(license_plate)', _('The license_plate must be unique !')),]
 
-    state = fields.Selection([('warrantly', "warrantly"),
+    state = fields.Selection([('stop', "stop"),
                               ('normal', "normal"),
-                              ('rush', "rush"),
-                              ('repair', "repair"),
-                              ('stop', "stop"),], default='normal',string="Vehicle State",
-                               help='Current state of the vehicle', ondelete="set null")
+                              ('warrantly', "warrantly"),
+                              ('repair', "repair")], default='stop', string="Vehicle State")
 
     license_plate = fields.Char(required=True, help='车牌')
     name = fields.Char("Vehicle Number", compute="_cumpute_model_name", store=True)
     inner_code = fields.Char(string="Inner Code", help="Inner Code", required=True)
     route_id = fields.Many2one('route_manage.route_manage', string="Route Name")
-    company_id = fields.Many2one('hr.department', 'Company')
+
+    # 所属部门
+    department_id = fields.Many2one('hr.department', 'related department', domain="[('company_id','=',company_id)]")
 
     engine_no = fields.Char("Engine No",related='model_id.engine_no')
     transmission_ext = fields.Char(related='model_id.transmission_ext', store=True, readonly=True, copy=False)
@@ -34,8 +34,17 @@ class Vehicle(models.Model):
     power_ext = fields.Integer(related='model_id.power_ext', store=True, readonly=True, copy=False)
 
     weight = fields.Integer(related='model_id.weight', store=True, readonly=True, copy=False)
-    doors_ext = fields.Integer(related='model_id.doors_ext', store=True, readonly=True, copy=False)
-    seats_ext = fields.Integer(related='model_id.seats_ext', store=True, readonly=True, copy=False)
+
+    # 车门数
+    doors_ext = fields.Integer(string="doors number")
+
+    # 座位数
+    seats_ext = fields.Integer(string="seats number")
+
+    @api.onchange('model_id')
+    def changeSeatDoorNumber(self):
+        self.doors_ext = self.model_id.doors_ext
+        self.seats_ext = self.model_id.seats_ext
 
     brand_name = fields.Char(compute="_compute_model_att_name", store=True)
     length_width_height = fields.Char(compute="_compute_model_att_name", help='length_width_height')
@@ -92,6 +101,19 @@ class Vehicle(models.Model):
 
     average_day_number = fields.Integer(related='company_id_s.average_day_number')
 
+    @api.multi
+    def action_stop(self):
+        """报停"""
+        self.state = 'stop'
+        return True
+
+    @api.multi
+    def action_cancel_stop(self):
+        """撤销报停"""
+        self.state = 'normal'
+        return True
+
+
     @api.depends('driverecords')
     def _compute_daily_mileage(self):
         """
@@ -114,6 +136,7 @@ class Vehicle(models.Model):
         :return:
         """
         return False
+
     def get_vehicle_code(self,vals):
         """
             生成车辆编码：

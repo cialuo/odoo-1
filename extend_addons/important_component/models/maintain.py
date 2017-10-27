@@ -16,7 +16,7 @@ class MaintainRepare(models.Model):
                                      states={
                                          'done': [('readonly', True)],
                                          'inspect': [('readonly', True)],
-                                         'repair': [('readonly', True)],
+                                         # 'repair': [('readonly', True)],
                                      })
 
     @api.onchange('fault_method_id')

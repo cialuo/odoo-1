@@ -15,12 +15,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['materials_product','security_vehicle_check','vehicle_manage','vehicle_group'],
+    'depends': ['materials_product','security_vehicle_check','vehicle_manage','vehicle_group','stock_warning'],
 
     # always loaded
     'data': [
         'security/energe_security.xml',
         'security/ir.model.access.csv',
+        'data/cron_data.xml',
         'data/data.xml',
         'views/energy_station_view.xml',
         'views/security_check_view.xml',

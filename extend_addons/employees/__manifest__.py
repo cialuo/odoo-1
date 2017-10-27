@@ -34,6 +34,7 @@
         'views/experiencemanagement.xml',
         'views/assets.xml',
         'views/transfer.xml',
+        'views/postlevel.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

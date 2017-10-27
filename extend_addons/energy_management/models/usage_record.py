@@ -22,7 +22,7 @@ class usage_record(models.Model):
     pile_id = fields.Many2one('energy.pile',string='Pile Id',domain="[('station_id', '=', station_id)]")
 
     #车辆
-    vehicle_id = fields.Many2one('fleet.vehicle',string='Vehicle Id',required=True,domain="[('vehicle_life_state', '=', 'operation_period')]")
+    vehicle_id = fields.Many2one('fleet.vehicle',string='Vehicle Id',required=True,domain="[('vehicle_life_state', '=', 'operation_period'),('state', '=', 'normal')]")
 
     #状态
     state = fields.Selection([('normal', 'Normal'), ('stop', 'Stop')],default='normal')
@@ -84,6 +84,7 @@ class usage_record(models.Model):
     total_price = fields.Float(string='Total Price',digits=(12,2),readonly=True,compute='_compute_total_price')
 
     active = fields.Boolean(string="MyActive", default=True)
+
 
     @api.onchange('pile_id')
     def _onchange_pile_id(self):

@@ -24,8 +24,12 @@ class BatchUpdateVehicle(models.TransientModel):
     @api.multi
     def import_vehicle(self):
         self.vehicle_tran_ids.unlink()
-        res = self.env['fleet.vehicle'].search([('vehicle_life_state', '=', self.vehicle_life_state),
-                                                ('entry_state', '=', 'audited')])
+
+        domain = [('vehicle_life_state', '=', self.vehicle_life_state),
+                  ('entry_state', '=', 'audited'),
+                  ('state', '=', 'stop')] #投入运营和报废 必须是审核通过并且是报停状态
+
+        res = self.env['fleet.vehicle'].search(domain)
         datas = []
         for j in res:
             data = {
@@ -49,7 +53,7 @@ class BatchUpdateVehicle(models.TransientModel):
         if self.vehicle_life_state == 'operation_period':
             for i in self.vehicle_tran_ids:
                 i.vehicle_id.vehicle_life_state = 'scrap_period'
-                i.vehicle_id.scrap_date = datetime.datetime.now()
+                i.vehicle_id.forced_destroy_date = datetime.date.today()
             return False
         else:
             not_match_list = []
@@ -73,12 +77,13 @@ class BatchUpdateVehicle(models.TransientModel):
             if match_list:
                 for i in match_list:
                     vals = {"vehicle_life_state": 'operation_period',
-                            "start_service_date": datetime.date.today(),
-                            "operation_date": datetime.datetime.now()
+                            "start_service_date": datetime.date.today()
                             }
 
                     vehicle_code = i.vehicle_id.vehicle_code + datetime.date.today().strftime('%Y')[-2:]
-                    vals.update({"vehicle_code":vehicle_code})
+                    vals.update({"vehicle_code": vehicle_code,
+                                 'state': 'normal'
+                                 })
                     i.vehicle_id.write(vals)
             if not_match_list:
                 datas = []

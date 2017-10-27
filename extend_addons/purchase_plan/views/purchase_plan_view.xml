@@ -105,12 +105,22 @@
                 </tree>
             </field>
         </record>
+        <record id="purchase_plan_graph" model="ir.ui.view">
+            <field name="name">purchase.plan.graph</field>
+            <field name="model">purchase.plan</field>
+            <field name="arch" type="xml">
+                <graph stacked="False">
+                    <!--<field name="month"/>-->
+                    <field name="state"/>
+                </graph>
+            </field>
+        </record>
         <!--添加视图动作-->
         <record id="action_purchase_plan" model="ir.actions.act_window">
             <field name="name">Purchase Plan</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">purchase.plan</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="view_type">form</field>
         </record>
         <!--添加菜单-->

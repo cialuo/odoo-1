@@ -90,8 +90,7 @@ class InspectionPlan(models.Model):
     # 备注
     remark = fields.Char(string="remark")
     # 计划详情
-    planitem_id = fields.One2many('vehicle_usage.planitem', 'inspectionplan_id',
-                                  string="plan detail")
+    planitem_id = fields.One2many('vehicle_usage.planitem', 'inspectionplan_id', string="plan detail")
     # 年检计划
     subject = fields.Char(string="plan subject")
 
@@ -148,6 +147,7 @@ class InspectionPlan(models.Model):
             startdate = item.startdate
             enddate = item.enddate
             companyid = item.branchcompany
+            # 三个月内年检到期的车均可做计划
             externdate = time.strftime("%Y-%m-%d",
                                        time.localtime(time.mktime(time.strptime(enddate, "%Y-%m-%d")) + 7776000))
 
@@ -155,7 +155,8 @@ class InspectionPlan(models.Model):
                 [
                     ('annual_inspection_date', '>=', startdate),
                     ('annual_inspection_date', '<=', externdate),
-                    ('company_id', '=', companyid.id)
+                    ('company_id', '=', companyid.id),
+                    ('vehicle_life_state', '=', 'operation_period')
                 ]
             )
             items = []
@@ -215,7 +216,10 @@ class PlanItem(models.Model):
     _name = 'vehicle_usage.planitem'
 
     # 车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,domain=[('entry_state','=','audited'),('vehicle_life_state','=','operation_period')])
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,
+                                 domain=[('entry_state', '=', 'audited'),
+                                         ('vehicle_life_state', '=', 'operation_period'),
+                                         ('state', '!=', 'stop')])
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code', readonly=True)
@@ -263,7 +267,10 @@ class InspectionRecords(models.Model):
     inspectionremark = fields.Char(string="inspection remark")
 
     # 车辆信息
-    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,domain=[('entry_state','=','audited')])
+    vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,
+                                 domain=[('entry_state','=','audited'),
+                                         ('vehicle_life_state', '=', 'operation_period'),
+                                         ('state','!=','stop')])
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code')
@@ -305,7 +312,7 @@ class InspectionRecords(models.Model):
             #更新车辆年检计划
             planItem = self.getPlanItem(self.vehicle_id.id)
             if planItem:
-                planItem.write({'state': 'done', 'actualdate': self.inspectionexpire})
+                planItem.write({'state': 'done', 'actualdate': self.inspectiondate})
                 inspectionplan = planItem.inspectionplan_id
                 if inspectionplan.planitem_id.mapped('state').count('done') == len(inspectionplan.planitem_id):
                     inspectionplan.state = 'done'
@@ -403,12 +410,36 @@ class InspectionRecords(models.Model):
         #vals['vehicle_id'] = vehicleinfo['id']
         #vals['annual_inspection_date'] = vehicleinfo.annual_inspection_date
         #vehicleinfo.write({'annual_inspection_date':vals['inspectionexpire']})
-
+        self.change_status(vals)
         res = super(InspectionRecords, self).create(vals)
         #planItem = self.getPlanItem(vehicleinfo['id'])
         #if planItem!=False:
             #planItem.write({'state':'done','actualdate':vals['inspectiondate']})
         return res
+
+    def change_status(self,vals):
+        """
+            根据参数变更年检计划和计划详情的状态
+            vehicle_id 车辆主键
+            inspectionexpire 到期时间
+            state 状态
+        :param vals:
+        :return:
+        """
+        if vals.has_key('vehicle_id') and vals.has_key('inspectionexpire') and vals.has_key('state'):
+            if  vals.get('state') == 'passed':
+                inspectionexpire = vals.get('inspectionexpire')
+                vehicle = self.env['fleet.vehicle'].search([('id','=',vals.get('vehicle_id'))])
+                vehicle.write({'annual_inspection_date':inspectionexpire})
+                # 更新车辆年检计划
+                planItem = self.getPlanItem(vals.get('vehicle_id'))
+                if planItem:
+                    planItem.write({'state': 'done', 'actualdate': inspectionexpire})
+                    inspectionplan = planItem.inspectionplan_id
+                    if inspectionplan.planitem_id.mapped('state').count('done') == len(inspectionplan.planitem_id):
+                        inspectionplan.state = 'done'
+
+
 
 
 class DriveRecords(models.Model):
@@ -416,6 +447,9 @@ class DriveRecords(models.Model):
     行车记录
     """
     _name = 'vehicleusage.driverecords'
+
+    # 所属日期
+    relateddate = fields.Date(string="mileage data")
 
     # 关联的车辆信息
     vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True)

@@ -19,6 +19,18 @@
       </field>
     </record>
 
+    <!-- 能源使用记录Graphs-->
+    <record model="ir.ui.view" id="usage_record_graph">
+        <field name="name">usage.record.graph</field>
+        <field name="model">energy.usage_record</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="fuel_capacity"/>
+            </graph>
+        </field>
+    </record>
+
+
     <!--表单视图-->
     <record model="ir.ui.view" id="energy_management.usage_record_form">
       <field name="name">usage_record form</field>
@@ -73,7 +85,7 @@
     <record model="ir.actions.act_window" id="energy_management.aw_energy_usage_record">
         <field name="name">energy_usage_record window</field>
         <field name="res_model">energy.usage_record</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
     </record>
 
   </data>

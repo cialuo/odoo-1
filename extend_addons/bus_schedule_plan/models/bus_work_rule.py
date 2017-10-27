@@ -193,7 +193,7 @@ class BusWorkRules(models.Model):
                         count += down_item.allvehicles
 
             usable_count = self.env['fleet.vehicle'].search_count(
-                    [('route_id', '=', self.line_id.id), ('model_id', '=', up_item.vehiclemode.id)])
+                    [('route_id', '=', obj.line_id.id), ('model_id', '=', up_item.vehiclemode.id)])
             if count > usable_count:
                 raise ValidationError(_(u'"%s"车型的配置数量(%s辆),超过可用车数(%s辆).' % (up_item.vehiclemode.name_get()[0][1], count, usable_count)))
 

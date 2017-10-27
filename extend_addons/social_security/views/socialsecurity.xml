@@ -468,6 +468,6 @@
 
     <!--退休工管理-->
     <menuitem id="retire_employee_list" name="retire employees menu"
-              parent="employees_menu.social_security" action="retire_employees_action"/>
+              parent="employees_menu.social_security" action="retire_employees_action" groups="hr.group_hr_user"/>
 
 </odoo>

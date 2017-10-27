@@ -20,7 +20,7 @@
         <record model="ir.actions.act_window" id="vehicle_everyday_check_action">
             <field name="name">vehicle_everyday_check</field>
             <field name="res_model">security.vehicle_everyday_check</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
         </record>
 
         <record model="ir.actions.act_window" id="vehicle_special_check_action">

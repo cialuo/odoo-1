@@ -112,7 +112,7 @@ class Component(models.Model):
     product_inter_code = fields.Char('product inter code', related='product_id.default_code', store=False,
                                      readonly=True)
 
-    odometer_progress = fields.Float(string='odometer progress', compute='_get_odometer_progress')
+    odometer_progress = fields.Float(string='odometer progress', compute='_get_odometer_progress',store=True)
 
     @api.depends('odometer', 'product_id.lifetime')
     def _get_odometer_progress(self):
@@ -123,7 +123,8 @@ class Component(models.Model):
             else:
                 component.odometer_progress = 0.0
 
-    _sql_constraints = [('code_uniq', 'unique (code)', "Code already exists")]
+
+    _sql_constraints = [('code_uniq', 'unique (code)', u"部件编码已存在，请重新生成")]
 
     @api.model
     def create(self, vals):

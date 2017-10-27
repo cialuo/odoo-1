@@ -10,12 +10,12 @@ class WarrantyPlanOrder(models.Model): # 计划单
 
     sequence = fields.Integer('Sequence', default=1)
 
-    vehicle_id = fields.Many2one('fleet.vehicle',string="Vehicle No", required=True,domain=[('entry_state','=','audited')]) # 车号
+    vehicle_id = fields.Many2one('fleet.vehicle',string="Vehicle No", required=True,domain=[('state','!=','stop')]) # 车号
     vehicle_type = fields.Many2one("fleet.vehicle.model",related='vehicle_id.model_id', store=True, readonly=True) # 车型
     license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True, readonly=True) # 车牌
 
     #fleet = fields.Char()  # 车队
-    fleet = fields.Many2one("hr.department", related='vehicle_id.company_id', store=True, readonly=True) # 车队
+    fleet = fields.Many2one("res.company", related='vehicle_id.company_id', store=True, readonly=True) # 车队
 
     operating_mileage = fields.Float(digits=(6, 1), string="Operating Mileage") # 运营里程
 
@@ -32,12 +32,10 @@ class WarrantyPlanOrder(models.Model): # 计划单
 
     planned_date = fields.Date('Planned Date', default=fields.Date.context_today) # 计划日期
 
-    # vin = fields.Char() # 车架号
     vin = fields.Char(related='vehicle_id.vin_sn', store=True, readonly=True) # 车架号
 
     average_daily_kilometer = fields.Float(digits=(6, 1), string="Average Daily Kilometer") # 平均日公里
 
-    # line = fields.Char() # 线路
     line = fields.Many2one("route_manage.route_manage", related='vehicle_id.route_id', store=True, readonly=True) # 线路
 
     #保养地点
@@ -108,9 +106,16 @@ class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生�
         active_ids = self._context.get('active_ids')
         plan_sheets = self.env['warranty_plan_order'].browse(active_ids)
         for plan_sheet in plan_sheets:
+
+            #新增状态判断:只有车辆正常状态才能生成保养单
+            if plan_sheet.vehicle_id.state != 'normal':
+                raise exceptions.UserError(_("Vehicle %s State Not equal to normal!") % (plan_sheet.license_plate))
+
             if not plan_sheet.report_repair_user:
                 raise exceptions.UserError(_("report_repair_user Required!"))
+
             if not plan_sheet.maintain_sheet_id:
+                plan_sheet.vehicle_id.state = 'warrantly'
                 plan = plan_sheet.parent_id
                 maintain_sheets = self.env['warranty_order'].search([('plan_id', '=', plan.id)])
                 maintain_sheets_count = len(maintain_sheets)
@@ -160,7 +165,6 @@ class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生�
                             'sequence': len(sheet_items) + 1,
                             'work_time': project.manhour,
                             'percentage_work': 100,
-                            # 'component_ids':[(6,0,plan_sheet.vehicle_id.mapped('component_ids').filtered(lambda x: x.product_id in project.important_product_id).ids)]
                         }
 
                         sheet_items.append((0, 0, order_project))
@@ -170,7 +174,6 @@ class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生�
                             'category_id': category.id,
                             'project_id': project.id,
                             'sequence': len(sheet_instructions) + 1
-                            # 'operational_manual': project.operational_manual
                         }
                         sheet_instructions.append((0, 0, sheet_instruction))
 
