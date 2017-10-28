@@ -348,7 +348,7 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
     depa_id = fields.Many2one('hr.department', related='warranty_order_id.warranty_location.department_id',
                                     store=True, readonly=True)
     user_id = fields.Many2one('hr.employee', string="Repair Name", ondelete='set null')
-    plan_start_time = fields.Datetime("Plan Start Time", default=fields.datetime.now)
+    plan_start_time = fields.Datetime("Plan Start Time", default=fields.Datetime.now)
     plan_end_time = fields.Datetime("Plan End Time", compute='_get_end_datetime') # ,compute='_get_end_datetime'
 
     @api.depends('plan_start_time')
