@@ -263,6 +263,13 @@
             <field name="model">warranty_order</field>
             <field name="arch" type="xml">
                 <search string="All vehicles">
+                    <field name="name"/>
+                    <field name="vehicle_id"/>
+                    <field name="license_plate"/>
+                    <field name="warranty_location"/>
+                    <field name="depa_id"/>
+                    <field name="company_id"/>
+                    <separator/>
                     <filter name="today" string="Today" domain="[('planned_date','&gt;=',time.strftime('%%Y-%%m-%%d'))]"/>
 
                     <filter name="yesterday" string="Yesterday" domain="['&amp;',('planned_date', '>=', (context_today() + relativedelta(days=-1)).strftime('%Y-%m-%d')),
