@@ -75,7 +75,7 @@ class CardDispatchRecords(models.Model):
     # 领卡用户
     user = fields.Many2one('hr.employee', string='ic Card User',domain=[('iccard','=',False)])
     # 发卡时间
-    dispatchtime = fields.Date('dispatch date', default=fields.date.today())
+    dispatchtime = fields.Date('dispatch date', default=fields.date.today)
     # 发卡原因
     reason = fields.Char('dispatch reasion',)
     # 操作员
