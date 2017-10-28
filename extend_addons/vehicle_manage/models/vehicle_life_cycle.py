@@ -33,13 +33,14 @@ class vehicle_life(models.Model):
         ('scrap_period', 'Scrap period')
     ]
 
+    # 生命周期状态
     vehicle_life_state = fields.Selection(WORKFLOW_STATE_SELECTION,
                                           default='invest_period',
                                           string='Vehicle life cycle state',
                                           readonly=True)
 
-    operation_date = fields.Datetime(string='operation date')
-    scrap_date = fields.Datetime(string='scrap date')
+    # operation_date = fields.Datetime(string='operation date')
+    # scrap_date = fields.Datetime(string='scrap date')
 
     @api.multi
     def action_operation(self):
@@ -57,7 +58,8 @@ class vehicle_life(models.Model):
                     raise exceptions.except_orm(_('Error'), ('%s %s' % ((item.cost_type) , _('The cost must be greater than zero'))))
 
         self.vehicle_life_state = 'operation_period'
-        self.operation_date = datetime.datetime.now()
+        self.state = 'normal'
+        # self.operation_date = datetime.date.today()
         return True
 
     def update_vehicle_code(self):
@@ -73,7 +75,7 @@ class vehicle_life(models.Model):
     @api.multi
     def action_scrap(self):
         self.vehicle_life_state = 'scrap_period'
-        self.scrap_date = datetime.datetime.now()
+        self.forced_destroy_date = datetime.date.today()
         return True
 
 # 投入期费用

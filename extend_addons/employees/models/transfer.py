@@ -30,7 +30,7 @@ class UnitTransfer(models.Model):
     jobnumber = fields.Char(related='employee_id.jobnumber', string='employee jobnumber', readonly=True)
 
     # 创建时间
-    create_date = fields.Datetime(string='create time', default=lambda self: datetime.now(), readonly=True,
+    create_date = fields.Datetime(string='create time', default=fields.date.today(), readonly=True,
                                   states={'draft': [('readonly', False)]})
 
     # 制表人
@@ -180,7 +180,7 @@ class ForeignTransfer(models.Model):
                                   states={'draft': [('readonly', False)]})
 
     # 创建时间
-    create_date = fields.Datetime(string='create time', default=lambda self: datetime.now(), readonly=True,
+    create_date = fields.Datetime(string='create time', default=fields.date.today(), readonly=True,
                                   states={'draft': [('readonly', False)]})
 
     # 原岗位

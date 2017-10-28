@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
         <!-- Sequences for maintain.manage.report -->
@@ -17,6 +18,18 @@
             <field name="padding">6</field>
             <field name="company_id" eval="False"/>
         </record>
-
+        <!--预设额定类型-->
+        <record id="work_time_type_a" model="work.time.type">
+            <field name="name">A类</field>
+            <field name="note">小于9米</field>
+        </record>
+        <record id="work_time_type_b" model="work.time.type">
+            <field name="name">B类</field>
+            <field name="note">9-12米</field>
+        </record>
+        <record id="work_time_type_c" model="work.time.type">
+            <field name="name">C类</field>
+            <field name="note">大于12米</field>
+        </record>
     </data>
 </odoo>

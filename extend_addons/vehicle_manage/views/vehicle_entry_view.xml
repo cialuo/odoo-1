@@ -67,7 +67,7 @@
                                     <group>
                                         <field name="reg_no" />
                                         <field name="reg_date" />
-                                        <field name="forced_destroy_date" />
+                                        <field name="forced_destroy_date" readonly="1"/>
                                         <field name="annual_inspection_date" attrs="{'readonly':[('entry_state','!=','draft')]}"/>
                                         <field name="emissions"/>
                                         <field name="vin_sn"/>
@@ -80,6 +80,7 @@
                                 <group col="2">
                                     <group>
                                         <field name="company_id" options="{'no_open':True,'no_create':True}"/>
+                                        <field name="department_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="route_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="length_width_height"/>
                                         <field name="emission_standard"/>

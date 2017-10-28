@@ -39,7 +39,7 @@ class WarrantyOrder(models.Model): # 保养单
 
     repair_unit = fields.Char()  # 承修单位
 
-    fleet = fields.Many2one("hr.department")  # 车队
+    fleet = fields.Many2one("res.company")  # 车队
 
     maintenance_level = fields.Char()  # 维修等级
 
@@ -78,27 +78,6 @@ class WarrantyOrder(models.Model): # 保养单
         self.ensure_one()
 
         self.state = 'dispatch'
-
-        # device_lines =[]
-        # for i in self.vehicle_id.vehicle_device_ids:
-        #     vals = {
-        #         'device_id': i.device_id.id,
-        #         'serial_no': i.serial_no,
-        #         'name': i.name,
-        #         'fixed_asset_number': i.fixed_asset_number,
-        #         'create_date_ext': i.create_date_ext,
-        #     }
-        #     device_lines.append([0, 0, vals])
-        #
-        # vals = {
-        #     "name": "JJD_"+self.name,
-        #     "maintain_sheet": self.id,
-        #     "vehicle_id": self.vehicle_id.id,
-        #     'device_ids':device_lines
-        # }
-        # handover_sheet = self.env['fleet_warranty_handover_sheet'].search([("maintain_sheet", '=', self.id)])
-        # if not handover_sheet:
-        #     self.env['fleet_warranty_handover_sheet'].create(vals)
 
 
     picking_ids = fields.One2many("stock.picking", 'warranty_order_id', string='Stock Pickings')
@@ -185,39 +164,7 @@ class WarrantyOrder(models.Model): # 保养单
             if picking:
                 picking.action_confirm()
 
-        # import_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0 and x.product_id.is_important)
-        # no_import_products = self.mapped('available_product_ids').filtered(lambda x: x.change_count > 0 and not x.product_id.is_important)
-        # picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
-        #
-        # location_id = self.env.ref('stock.stock_location_stock').id # 库存
-        # location_dest_id = self.env.ref('stock_picking_types.stock_location_ullage').id # 维修(生产)虚位
-        # if import_products:
-        #     location_dest_id = self.vehicle_id.location_stock_id.id # 随车实位
-        #
-        # for products in [import_products, no_import_products]:
-        #     if not products:
-        #         continue
-        #     move_lines = []
-        #     picking = []
-        #     for i in products:
-        #         vals = {
-        #             'name': 'stock_move_repair',
-        #             'product_id': i.product_id.id,
-        #             'product_uom': i.product_id.uom_id.id,
-        #             'product_uom_qty': i.change_count,
-        #         }
-        #         move_lines.append((0, 0, vals))
-        #     if move_lines:
-        #         picking = self.env['stock.picking'].create({
-        #             'origin': self.name,
-        #             'location_id': location_id,
-        #             'location_dest_id': location_dest_id,
-        #             'picking_type_id': picking_type.id,
-        #             'warranty_order_id': self.id,
-        #             'move_lines': move_lines
-        #         })
-        #     if picking:
-        #         picking.action_confirm()
+
 
     @api.multi
     def action_into_inspect(self):  # 保养单_全部报检
@@ -231,14 +178,6 @@ class WarrantyOrder(models.Model): # 保养单
         for project in self.project_ids:
             project.state = 'check'
 
-    # @api.multi
-    # def action_manage_handover_sheet(self):  # 管理交接单
-    #     self.ensure_one()
-    #     maintain_sheet = self.env['fleet_warranty_handover_sheet'].search([("maintain_sheet", '=', self.id)])
-    #     action = self.env.ref('vehicle_warranty.fleet_warranty_handover_sheet_action').read()[0]
-    #     action['res_id'] = maintain_sheet.id  # [('id', '=', deliverys.id)]
-    #     action['views'] = [(self.env.ref('vehicle_warranty.fleet_warranty_handover_sheet_view_form').id, 'form')]
-    #     return action
 
     plan_id = fields.Many2one('warranty_plan', 'Plan Id', required=True, ondelete='cascade')  # 车辆保养计划ID
 
@@ -315,18 +254,10 @@ class WarrantyOrder(models.Model): # 保养单
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
             'res_model': 'wizard_batch_dispatch', # 'res_model': 'hr.expense.sheet',
-            # 'id':'batch_dispatch_view_form',
             'context': {
-                # 'default_sheetId': self.id
-                # 'default_name': self.id
-                # 'default_expense_line_ids': [line.id for line in self],
-                # 'default_employee_id': self[0].employee_id.id,
-                # 'default_name': 'mingger' # self[0].name if len(self.ids) == 1 else ''
             },
             'view_id': self.env.ref('vehicle_warranty.wizard_batch_dispatch_form').id,
-            # 'target': 'current',
             'target': 'new'
-            # 'res_id': self.id, # self.env.context.get('cashbox_id')
         }
 
     @api.multi
@@ -336,7 +267,6 @@ class WarrantyOrder(models.Model): # 保养单
         if xml_id:
             res = self.env['ir.actions.act_window'].for_xml_id('vehicle_warranty', xml_id)
             res.update(
-                # context=dict(self.env.context, default_id=self.maintain_sheet.id),
                 domain=[('warranty_order_id', '=', self.id)]
             )
             return res
@@ -372,8 +302,6 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
     category_id = fields.Many2one('warranty_category') # 保养类别
 
     project_id = fields.Many2one('warranty_project', 'Warranty Project', required=True) # 保养项目
-
-    # important_product_id = fields.Many2one('product.product', related='project_id.important_product_id',string="Important Product")
 
     warranty_mode = fields.Many2one('warranty_mode', 'Warranty Mode', related='project_id.mode')  # 保修方式
 
@@ -420,7 +348,7 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
     depa_id = fields.Many2one('hr.department', related='warranty_order_id.warranty_location.department_id',
                                     store=True, readonly=True)
     user_id = fields.Many2one('hr.employee', string="Repair Name", ondelete='set null')
-    plan_start_time = fields.Datetime("Plan Start Time", default=datetime.datetime.utcnow())
+    plan_start_time = fields.Datetime("Plan Start Time", default=datetime.datetime.utcnow)
     plan_end_time = fields.Datetime("Plan End Time", compute='_get_end_datetime') # ,compute='_get_end_datetime'
 
     @api.depends('plan_start_time')
@@ -445,14 +373,9 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
 
     @api.depends('manhour_manage_ids')
     def on_change_manhour_manage_ids(self):
-        #manhour_percentage_work = 0
-        #for manhour_manage in self.manhour_manage_ids:
-        #   manhour_percentage_work += manhour_manage.percentage_work
-        #self.percentage_work = 100-manhour_percentage_work
+
         self.percentage_work = 100 - sum(self.manhour_manage_ids.mapped('percentage_work'))
 
-    # component_ids = fields.Many2many('product.component', 'warranty_order_item_component_rel', 'project_component_id', 'component_id', 'Component',
-    #     readonly=True, domain="[('product_id', '=', important_product_id),('parent_vehicle','=',vehicle_id)]")
 
     manhour_manage_ids = fields.One2many("warranty_order_manhour", 'project_id', string='Manhour Manage')
 
@@ -488,10 +411,6 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
 
         self.write({'manhour_manage_ids': [(0, 0, vals)]})
 
-        # total_manhour = sum([manhour.percentage_work for manhour in self.warranty_order_id.manhour_manage_ids])
-        # sum_manhour = len(self.warranty_order_id.project_ids)*100
-        # if total_manhour == sum_manhour:
-        #     print 'send!'
 
     @api.multi
     def name_get(self):
@@ -657,31 +576,6 @@ class WarrantyInspectOrder(models.Model): # 检验单
 
     item_name = fields.Char(related='project_id.name')  # 项目名称
 
-    # @api.multi
-    # def action_into_check(self):  # 报检
-    #     for project in self:
-    #         if project.state != 'maintain':
-    #             raise exceptions.UserError(_("Selected project cannot be check as they are not in 'maintain' state"))
-    #         project.state = 'check'
-    #         project.start_inspect_time = fields.Datetime.now()
-    #         for manhour_manage in project.manhour_manage_ids:
-    #             manhour_manage.real_end_time = fields.Datetime.now()
-
-    # @api.multi
-    # def action_batch_check_pass(self):  # 批量检验通过
-    #     for i in self:
-    #         if i.state != 'check':
-    #             raise exceptions.UserError(_("Selected project cannot be complete as they are not in 'check' state"))
-    #         i.state = 'complete'
-    #         i.inspect_result = 'qualified'
-    #         i.end_inspect_time = fields.Datetime.now()
-    #
-    #         if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
-    #             i.warranty_order_id.state = 'done'
-    #             i.warranty_order_id.plan_order_ids.state = 'done'
-    #             plan = i.warranty_order_id.plan_order_ids.parent_id
-    #             if all(plan_sheet.state == 'done' for plan_sheet in plan.plan_order_ids):
-    #                 plan.state = 'done'
 
     @api.multi
     def action_check_pass(self):
@@ -691,7 +585,7 @@ class WarrantyInspectOrder(models.Model): # 检验单
             i.state = 'complete'
             i.inspect_result = 'qualified'
             i.end_inspect_time = datetime.datetime.utcnow() # fields.Datetime.now()
-
+            i.vehicle_id.state = 'normal'
             if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
                 i.warranty_order_id.state = 'done'
                 i.warranty_order_id.plan_order_ids.state = 'done'
@@ -759,17 +653,9 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
 
     department_id = fields.Many2one('hr.department',related='warranty_order_id.warranty_location.department_id', store=True, readonly=True)
 
-    # def _default_item(self):
-    #     active_id=self._context.get('active_id')
-    #     maintain_sheet = self.env['warranty_order'].search([('id', '=', active_id)])
-    #     project_ids=maintain_sheet.project_ids.search([('warranty_order_id', '=', active_id), ('state', '=', 'nodispatch')])
-    #     return project_ids
 
     project_id = fields.Many2many('warranty_order_project', string='WarrantyProject', required=True) # , default=_default_item
 
-    # def _default_user(self):
-    #     employees = self.env['hr.employee'].browse([16, 5, 1])
-    #     return employees
 
     user_id = fields.Many2many('hr.employee', string="User", required=True) # , default=_default_user
 
@@ -794,18 +680,11 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
             'res_model': 'wizard_batch_dispatch',  # 'res_model': 'hr.expense.sheet',
-            # 'id':'batch_dispatch_view_form',
             'context': {
                 'default_sheetId': self.sheetId
-                # 'default_name': self.id
-                # 'default_expense_line_ids': [line.id for line in self],
-                # 'default_employee_id': self[0].employee_id.id,
-                # 'default_name': 'mingger' # self[0].name if len(self.ids) == 1 else ''
             },
             'view_id': self.env.ref('vehicle_warranty.wizard_batch_dispatch_form').id,
-            # 'target': 'current',
             'target': 'new'
-            # 'res_id': self.id, # self.env.context.get('cashbox_id')
         }
 
 
@@ -850,7 +729,6 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
                     'plan_end_time': plan_end_time,
                     'work_time': project.work_time,
                     'percentage_work': val_manhour_percentage_work,
-                    # 'self_work': self_work,
                     'warranty_order_id': sheetId
                 }
                 manhours.append((0, 0, manhour))
@@ -935,7 +813,7 @@ class WizardProjectBatchCheckPass(models.TransientModel):  # 保养项目_批量
             i.state = 'complete'
             i.inspect_result = 'qualified'
             i.end_inspect_time = datetime.datetime.utcnow() # fields.Datetime.now()
-
+            i.vehicle_id.state = 'normal'
             if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
                 i.warranty_order_id.state = 'done'
                 i.warranty_order_id.plan_order_ids.state = 'done'

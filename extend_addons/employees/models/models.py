@@ -2,6 +2,8 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from . import utils
+import datetime
 
 class employee(models.Model):
 
@@ -37,12 +39,12 @@ class employee(models.Model):
     # 驾驶证领证日期
     drivelicensedata = fields.Date(string='emplyee drivelicense date')
     # 社保账户
-    socialsecurityaccount = fields.Char(string='employee socialsecurity account')
+    socialsecurityaccount = fields.Char(string='employee socialsecurity account', required=True)
     # 工资账户
     salaryaccount = fields.Char(string='employee salary account')
 
     # 公积金账户
-    housingprovidentaccount = fields.Char(string='housing provident account')
+    housingprovidentaccount = fields.Char(string='housing provident account', required=True)
 
     # 员工家属信息
     families = fields.One2many('employees.employeefamily', 'employee_id',  string="employees's families")
@@ -58,6 +60,7 @@ class employee(models.Model):
         ('married','married'),              # 已婚
         ('spinsterhood','spinsterhood'),    # 未婚
         ('divorced', 'divorced'), #离异
+        ('widowed', 'widowed'),#丧偶
     ], string='marital status')
 
     # 籍贯
@@ -71,7 +74,20 @@ class employee(models.Model):
     # 学历
     education = fields.Char('education')
     # 政治面貌
-    political_status = fields.Char('political status')
+    political_status = fields.Selection([('ZGDY','ZGDY'),#中共党员
+                                         ('ZGYBDY','ZGYBDY'),#中共预备党员
+                                         ('GQTY','GQTY'),#共青团员
+                                         ('QZ','QZ'),#群众
+                                         ('MGDY','MGDY'),#民革党员
+                                         ('MMMY','MMMY'),#民盟盟员
+                                         ('MJIANHY','MJIANHY'),#民建会员
+                                         ('MJINHY','MJINHY'),#民进会员
+                                         ('NGDDY','NGDDY'),#农工党党员
+                                         ('ZGDDY','ZGDDY'),#致公党党员
+                                         ('JSXS','JSXS'),#九三学社社员
+                                         ('TMMY','TMMY'),#台盟盟员
+                                         ('WDP','WDP')#无党派人士
+                                         ],string='political status',default='QZ')
     # 住址
     live_address = fields.Char('live address')
     # 性别
@@ -93,6 +109,55 @@ class employee(models.Model):
     # 培训经历
     triansexperience = fields.One2many('employee.trainexperience', 'employee_id', string='trians experience')
 
+    #２０１７－１０－２４　新增需求：公司字段,年龄字段,年龄分类字段
+    company_id = fields.Many2one('res.company', help='Company', default=lambda self: self.env['res.company']._company_default_get())
+    age = fields.Integer(string='Age',compute='_compute_age')
+    age_group = fields.Selection([('group_a','group_a'),#16-20
+                                  ('group_b','group_b'),#21-30
+                                  ('group_c','group_c'),#31-40
+                                  ('group_d','group_d'),#41-50
+                                  ('group_e','group_e'),#51-60
+                                  ('group_f', 'group_f')#60以上
+                                  ],compute="_compute_age_group",string='age group',store=True)
+
+    @api.depends('age')
+    def _compute_age_group(self):
+        """
+            根据年龄计算年龄分组所在:
+
+        :return:
+        """
+        for r in self:
+            if r.age:
+                age = r.age
+                if age>= 16 and age<=20:
+                    r.age_group = 'group_a'
+                if age>=21 and age <=30:
+                    r.age_group = 'group_b'
+                if age>=31 and age <=40:
+                    r.age_group = 'group_c'
+                if age >= 41 and age <= 50:
+                    r.age_group = 'group_d'
+                if age >= 51 and age <= 60:
+                     r.age_group = 'group_e'
+                if age > 60:
+                    r.age_group = 'group_f'
+
+    @api.depends('birthday')
+    def _compute_age(self):
+
+        """
+            根据出生日期计算年龄
+        :return:
+        """
+        for r in self:
+            if r.birthday:
+                today = datetime.datetime.now()
+                birthday = datetime.datetime.strptime(r.birthday, "%Y-%m-%d")
+                if birthday > today:
+                    r.age = today.year - birthday.year - 1
+                else:
+                    r.age = today.year - birthday.year
 
 
     @api.constrains('user_id')
@@ -152,6 +217,16 @@ class employee(models.Model):
             if self.workpost != None:
                 # 将新用户的权限绑定
                 self._powerRebuild(user_id, self.workpost.id, 'add')
+
+        if workpost != None:
+            # 岗位调整 则调整员工对应的基础工资
+            updatehandler = utils.UpDateConstract(self)
+            constract = updatehandler.getCurrentConstract(self.id)
+            if constract != None:
+                workpostinfo  = self.env['employees.post'].search([('id', '=', workpost)])
+                basesalary = workpostinfo[0].postlevel.basesalary
+                updatehandler.changeBaseSalary(basesalary, constract)
+
         return super(employee, self).write(vals)
 
     def _powerRebuild(self, userid, postid, operator):
@@ -323,7 +398,7 @@ class post(models.Model):
         ('maintainer', 'post title maintainer'),  # 维修工
         ('driver', 'post title driver'),  # 司机
         ('conductor', 'post title conductor')  # 售票员
-    ], string='post function list', required=True)
+    ], string='post function list')
 
     # 岗位级别
     posttitle = fields.Selection([
@@ -331,6 +406,8 @@ class post(models.Model):
         ('labour', 'post title labour'),  # 员工
     ], string='post title list', required=True)
 
+    # 岗位级别
+    postlevel = fields.Many2one('employeepost.level', string="post level", required=True)
 
 
     # 岗位员工
@@ -416,6 +493,34 @@ class post(models.Model):
             employeemode = self.env['hr.employee']
             count = employeemode.search_count([('workpost', '=', item.id)])
             item.membercount = str(count)
+
+    @api.multi
+    def write(self, vals):
+        """
+        重载write方法
+        """
+        res = super(post, self).write(vals)
+        if vals.get('postlevel', None) != None:
+            # 如果岗位级别变化 那么更新该岗位下的所有员工的基本工资
+            self.updateMembersSalary()
+        return res
+
+    def updateMembersSalary(self):
+        updatehandler = utils.UpDateConstract(self)
+        for member in self.members:
+            constract = updatehandler.getCurrentConstract(member.id)
+            if constract != None:
+                updatehandler.changeBaseSalary(self.postlevel.basesalary, constract)
+
+    @api.model
+    def create(self, vals):
+        """
+        重载创建方法
+        """
+        res = super(post, self).create(vals)
+        # 更新该岗位下的所有员工的合同的岗位工资
+        self.updateMembersSalary()
+        return res
 
 
 class department(models.Model):

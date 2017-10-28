@@ -87,6 +87,17 @@
             </field>
         </record>
 
+        <!-- 保养单 Graphs -->
+        <record model="ir.ui.view" id="warranty_order_graph">
+            <field name="name">warranty.order.graph</field>
+            <field name="model">warranty_order</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="vehicle_id"/>
+                </graph>
+            </field>
+        </record>
+
         <!-- 保养单 form -->
         <record model="ir.ui.view" id="warranty_order_form">
             <field name="name">Warranty Order</field>
@@ -246,11 +257,32 @@
             </field>
         </record>
 
+        <!--默认查询-->
+        <record id="warranty_order_search" model="ir.ui.view">
+            <field name="name">warranty.order.search</field>
+            <field name="model">warranty_order</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <filter name="today" string="Today" domain="[('planned_date','&gt;=',time.strftime('%%Y-%%m-%%d'))]"/>
+
+                    <filter name="yesterday" string="Yesterday" domain="['&amp;',('planned_date', '>=', (context_today() + relativedelta(days=-1)).strftime('%Y-%m-%d')),
+                                ('planned_date', '&lt;=', (context_today() + relativedelta(days=-1)).strftime('%Y-%m-%d')),]"/>
+
+                    <filter name="week" string="This Week" domain="['&amp;',('planned_date', '>=', (context_today() + relativedelta(weeks=-1,days=1,weekday=0)).strftime('%Y-%m-%d')),
+                                ('planned_date', '&lt;=', (context_today() + relativedelta(weekday=6)).strftime('%Y-%m-%d')),]"/>
+
+                    <filter name="month" string="This Month 30" domain="['&amp;',('planned_date', '>=', (context_today() + relativedelta(day=-30)).strftime('%Y-%m-%d')),
+                                   ('planned_date', '&lt;=', (context_today()).strftime('%Y-%m-%d')),]"/>
+                </search>
+            </field>
+        </record>
+
         <!-- 保养单 action -->
         <record model="ir.actions.act_window" id="warranty_order_action">
             <field name="name">Warranty Order</field>
             <field name="res_model">warranty_order</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="search_view_id" ref="warranty_order_search"/>
 			<field name="view_ids" eval="[(5, 0, 0),
 				(0, 0, {'view_mode': 'tree', 'view_id': ref('warranty_order_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('warranty_order_form')})]"/>
