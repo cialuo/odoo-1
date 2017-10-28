@@ -8,6 +8,7 @@ class ChartViews(models.Model):
     _description = 'Chart Views'
     _rec_name = 'str'
 
+    _sql_constraints = [('check_dashboard_view_mode_unique', 'unique (str,view_mode)', u"存在相同的看板视图!")]
     """
         看板的视图集合,用于保存收藏的仪表盘
     """
