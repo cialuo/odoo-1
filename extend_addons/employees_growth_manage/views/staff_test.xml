@@ -2,7 +2,7 @@
   <data>
 
     <!--声明：加载QWEB界面-->
-    <template id="web.asset_backend" name="asset" inherit_id="web.assets_backend">
+    <template id="web.asset1_backend" name="asset" inherit_id="web.assets_backend">
       <xpath expr="." position="inside">
         <link rel="stylesheet" href="/employees_growth_manage/static/src/css/examination.css" />
         <script src="/employees_growth_manage/static/src/js/examination.js" type="text/javascript"></script>
