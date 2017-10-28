@@ -358,7 +358,7 @@ class Platform(models.Model):
     direction = fields.Selection([('up', 'up'),
                                  ('down', 'down')], default='up')
 
-    sequence = fields.Integer("Station Sequence", default=2, required=True)
+    sequence = fields.Integer("Station Sequence", required=True)
     route_id = fields.Many2one('route_manage.route_manage', ondelete='cascade', string='Route Choose', required=True)
     gprs_id = fields.Integer('code', related='route_id.gprs_id', required=True)  # 线路编码
     station_id = fields.Many2one('opertation_resources_station', ondelete='restrict', string='Station Choose',

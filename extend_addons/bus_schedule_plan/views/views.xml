@@ -124,7 +124,7 @@
                              <page string='上行峰段规则'>
                                 <field name="uptimearrange">
                                     <tree default_order="seqid" editable="bottom">
-                                        <field name="seqid"/>
+                                        <field name="seqid" widget="sequence"/>
                                         <field name="starttime"/>
                                         <field name="endtime"/>
                                         <field name="interval"/>
@@ -159,7 +159,7 @@
                                 <page string='大数据建议'>                               
 								<field name="uptimearrange_bigdata">
                                     <tree default_order="seqid" editable="bottom">
-                                        <field name="seqid" string='序号'/>
+                                        <field name="seqid" string='序号' widget="sequence"/>
                                         <field name="starttime" string='开始时间'/>
                                         <field name="endtime" string='结束时间'/>
                                         <field name="interval" string='发车间隔'/>
