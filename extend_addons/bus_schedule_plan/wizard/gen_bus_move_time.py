@@ -20,6 +20,10 @@ class GenBusMoveTime(models.TransientModel):
 
     @api.multi
     def gendata(self):
+        
+        #start_date = datetime.datetime.strptime(self.rule_id.line_id.company_id.begin_general_date, "%Y-%m-%d %H:%M:%S")+datetime.timedelta(hours=8)
+        #end_date =  datetime.datetime.strptime(self.rule_id.line_id.company_id.end_general_date, "%Y-%m-%d %H:%M:%S")+datetime.timedelta(hours=8)        
+        #use_date = datetime.datetime.strptime(self.use_date + ' 00:00:00', "%Y-%m-%d %H:%M:%S")
         check_type_list = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
         # 检查生成线路的日期与日期类型是否匹配

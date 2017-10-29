@@ -108,6 +108,7 @@ class Company(models.Model):
     is_general = fields.Boolean(default=False)
     begin_general_date = fields.Datetime()
     end_general_date = fields.Datetime()
+    dispatch_ir_cron = fields.Many2one('ir.cron')
 
 class Operation_setting(models.TransientModel):
     _name = 'operation.config.settings'
@@ -217,6 +218,7 @@ class Operation_setting(models.TransientModel):
     is_general = fields.Boolean(related='company_id.is_general')
     begin_general_date = fields.Datetime(related='company_id.begin_general_date')
     end_general_date = fields.Datetime(related='company_id.end_general_date')
+    dispatch_ir_cron = fields.Many2one('ir.cron', related='company_id.dispatch_ir_cron')    
 
     @api.multi
     def execute(self):

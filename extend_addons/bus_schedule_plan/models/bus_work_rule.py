@@ -759,6 +759,12 @@ class BusWorkRules(models.Model):
         #查询所有的线路
         line_ids = routemodel.search([])
         for line_id in line_ids:
+            #start_date = datetime.datetime.strptime(line_id.company_id.begin_general_date, "%Y-%m-%d %H:%M:%S")+datetime.timedelta(hours=8)
+            #end_date =  datetime.datetime.strptime(line_id.company_id.end_general_date, "%Y-%m-%d %H:%M:%S")+datetime.timedelta(hours=8)
+            #if line_id.company_id.is_general is True and  tomorrow > start_date and tomorrow <  end_date:
+            #    today_allow_date_type = ('General',)
+            #else :
+            #    today_allow_date_type = (tomorrow_type, 'Vacation')             
             self._cr.execute("""
                 select 
                     scheduleplan_schedulrule.line_id ,
