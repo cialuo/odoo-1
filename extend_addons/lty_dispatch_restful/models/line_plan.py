@@ -145,4 +145,4 @@ class LinePlan(models.Model):
             r.uptimearrange.unlink()
             r.downtimearrange.unlink()
 
-        return
+        return res
