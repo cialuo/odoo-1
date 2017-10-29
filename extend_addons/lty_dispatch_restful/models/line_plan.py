@@ -139,10 +139,4 @@ class LinePlan(models.Model):
             res = super(LinePlan, r).unlink()
             rp = Client().http_post(url, data=params)
             response_check(rp)
-
-            r.bigsite_up.unlink()
-            r.bigsite_down.unlink()
-            r.uptimearrange.unlink()
-            r.downtimearrange.unlink()
-
         return res

@@ -81,7 +81,7 @@ class BusWorkRules(models.Model):
                                            string="up plan vehicle arrange")
 
     # 上行发车方案
-    uptimearrange = fields.One2many("scheduleplan.toup", "rule_id", string="up time arrange" ondelete="cascade")
+    uptimearrange = fields.One2many("scheduleplan.toup", "rule_id", string="up time arrange", ondelete="cascade")
     
     # 上行发车方案
     uptimearrange_bigdata = fields.One2many("scheduleplan.todup.bigdata", "rule_id", string="up time arrange bigdata" )
@@ -91,17 +91,17 @@ class BusWorkRules(models.Model):
                                              string="up plan vehicle arrange")
 
     # 下行发车方案
-    downtimearrange = fields.One2many("scheduleplan.todown", "rule_id", string="up time arrange" ondelete="cascade")
+    downtimearrange = fields.One2many("scheduleplan.todown", "rule_id", string="up time arrange", ondelete="cascade")
     
     # 下行发车方案
     downtimearrange_bigdata = fields.One2many("scheduleplan.todown.bigdata", "rule_id", string="up time arrange bigdata")
     
     # 大站设置 上行
-    bigsite_up = fields.One2many("scheduleplan.bigsitesetup", "rule_id", string="big site up" ondelete="cascade")
+    bigsite_up = fields.One2many("scheduleplan.bigsitesetup", "rule_id", string="big site up", ondelete="cascade")
 
 
     # 大站设置 下行
-    bigsite_down = fields.One2many("scheduleplan.bigsitesetdown", "rule_id",string="big site down" ondelete="cascade")
+    bigsite_down = fields.One2many("scheduleplan.bigsitesetdown", "rule_id",string="big site down", ondelete="cascade")
 
     # 日期类型
     date_type = fields.Many2one("bus_date_type", string="bus date type", required=True)
