@@ -240,8 +240,8 @@
 
                     </group>
                     <group string="Driving plan setting" name="Driving plan setting">
-
-                        <field name="generate_time" class="oe_inline"/>
+                        <field name="dispatch_ir_cron" class="oe_inline" string='定时任务设置'/>
+                        <!--<field name="generate_time" class="oe_inline"/>
 
                         <field name="is_advance" class="oe_inline"/>
 
@@ -250,7 +250,7 @@
                             <field name="begin_advance_date" class="oe_inline" />
                             -
                             <field name="end_advance_date" class="oe_inline"/>
-                        </div>
+                        </div>-->
 
                         <field name="is_general" class="oe_inline"/>
 
