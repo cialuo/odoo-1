@@ -437,8 +437,8 @@
                     <field name="line_id"/>
                     <field name="rule_id"/>
                     <field name="schedule_method"/>
-                    <field name="plan_totaltimes"/>
-                    <field name="real_times"/>
+                    <field name="plan_trips"/>
+                    <field name="real_trips"/>
                 </tree>
             </field>
         </record>
