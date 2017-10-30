@@ -12,13 +12,13 @@ class security_check_item(models.Model):
 
     check_info = fields.Char(default="检查信息")
 
-    check_item_name = fields.Char(string='check_item_name')
+    check_item_name = fields.Char(string='check_item_name',required=True)
 
     check_content = fields.Char(string='check_content')
 
     check_standards = fields.Char(string='check_standards')
 
-    create_time = fields.Date(string='create_time', required=True, default=fields.Date.today())
+    create_time = fields.Date(string='create_time', required=True, default=fields.Date.today)
 
     state = fields.Selection([('use', 'Use'),('archive', "Archive"),], default='use', string='security_check_item_state')
 

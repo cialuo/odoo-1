@@ -17,17 +17,26 @@
       <field name="context">{'student_ids': [active_id]}</field>
     </record>
 
-    <!-- 考试成绩Graphs-->
-    <record model="ir.ui.view" id="students_graph">
-        <field name="name">students.graph</field>
+
+    <!--默认查询-->
+    <record id="students_search" model="ir.ui.view">
+        <field name="name">students.search</field>
         <field name="model">employees_growth.students</field>
         <field name="arch" type="xml">
-            <graph>
-                <field name="curriculum_schedule_id"/>
-            </graph>
+            <search string="All vehicles">
+                <!--<filter name="today" string="Today" domain="[('planned_date','&gt;=',time.strftime('%%Y-%%m-%%d'))]"/>
+
+                <filter name="yesterday" string="Yesterday" domain="['&amp;',('planned_date', '>=', (context_today() + relativedelta(days=-1)).strftime('%Y-%m-%d')),
+                                ('planned_date', '&lt;=', (context_today() + relativedelta(days=-1)).strftime('%Y-%m-%d')),]"/>
+
+                <filter name="week" string="This Week" domain="['&amp;',('planned_date', '>=', (context_today() + relativedelta(weeks=-1,days=1,weekday=0)).strftime('%Y-%m-%d')),
+                                ('planned_date', '&lt;=', (context_today() + relativedelta(weekday=6)).strftime('%Y-%m-%d')),]"/>-->
+
+                <filter name="month" string="This Month" domain="['&amp;',('examination_datetime', '>=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')),
+                               ('examination_datetime', '&lt;=', (context_today() + relativedelta(months=1, day=1, days=-1)).strftime('%Y-%m-%d')),]"/>
+            </search>
         </field>
     </record>
-
     <!-- 列表 -->
     <record model="ir.ui.view" id="employees_growth_manage.students_list">
       <field name="name">students list</field>
@@ -105,7 +114,8 @@
     <record model="ir.actions.act_window" id="employees_action_students">
       <field name="name">students window</field>
       <field name="res_model">employees_growth.students</field>
-      <field name="view_mode">tree,form,graph</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="students_search"/>
       <field name="domain">['|',('curriculum_state','=','examination'),('curriculum_state','=','complete')]</field>
     </record>
 

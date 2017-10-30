@@ -19,6 +19,7 @@
 #
 ##############################################################################
 from odoo import api, fields, models
+import time
 
 class Entry(models.Model):
     _name = 'hr.entry'
@@ -34,6 +35,11 @@ class Entry(models.Model):
     reason = fields.Text(string='Reason', states={'draft': [('readonly', False)]}, readonly=True)
     type = fields.Selection([('entry', 'Entry'), ('exit', 'Exit')], string='Order Type')
     active = fields.Boolean(default=True)
+
+    @api.onchange('birthday')
+    def _onchange_age(self):
+        if self.birthday:
+            self.age = time.localtime().tm_year - time.strptime(self.birthday, "%Y-%m-%d").tm_year
 
     @api.onchange('employee_id')
     def _onchange_jobnumber(self):
@@ -86,6 +92,7 @@ class Entry(models.Model):
         for order in self:
             if not order.state == 'draft':
                 raise models.UserError(u'无法删除非草稿状态的单据')
+            order.employee_id.unlink()
         return super(Entry, self).unlink()
 
 class Hr(models.Model):

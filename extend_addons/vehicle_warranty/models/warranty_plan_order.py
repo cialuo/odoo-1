@@ -10,12 +10,19 @@ class WarrantyPlanOrder(models.Model): # 计划单
 
     sequence = fields.Integer('Sequence', default=1)
 
-    vehicle_id = fields.Many2one('fleet.vehicle',string="Vehicle No", required=True,domain=[('state','!=','stop')]) # 车号
-    vehicle_type = fields.Many2one("fleet.vehicle.model",related='vehicle_id.model_id', store=True, readonly=True) # 车型
-    license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True, readonly=True) # 车牌
+    # 车号
+    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", required=True,
+                                 domain=[('entry_state', '=', 'audited'),
+                                         ('vehicle_life_state', '=', 'operation_period'),
+                                         ('state', '!=', 'stop')])
+    # 车型
+    vehicle_type = fields.Many2one("fleet.vehicle.model",related='vehicle_id.model_id', store=True, readonly=True)
+
+    # 车牌
+    license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True, readonly=True)
 
     #fleet = fields.Char()  # 车队
-    fleet = fields.Many2one("res.company", related='vehicle_id.company_id', store=True, readonly=True) # 车队
+    fleet = fields.Many2one("res.company", related='vehicle_id.company_id', store=True, readonly=True)
 
     operating_mileage = fields.Float(digits=(6, 1), string="Operating Mileage") # 运营里程
 
@@ -85,8 +92,8 @@ class WarrantyPlanOrder(models.Model): # 计划单
     @api.multi
     def unlink(self):
         for order in self:
-            if not order.state == 'wait':
-                raise exceptions.UserError(_('warranty plan order not in wait state can not delete'))
+            if order.state not in ['wait', 'draft', 'commit']:
+                raise exceptions.UserError(_('warranty in executing or have done, can not be deleted!'))
 
         return super(WarrantyPlanOrder, self).unlink()
 

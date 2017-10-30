@@ -3,6 +3,10 @@
     <data>
         <template id="nvd3_widget_assets" name="nvd3 assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/nvd3_extend/static/src/less/echarts.less"/>
+                <script type="text/javascript"
+                        src="/nvd3_extend/static/src/lib/echart/echarts.min.js"
+                        charset="utf-8"></script>
                 <script type="text/javascript"
                         src="/nvd3_extend/static/src/js/graph_widget.js"
                         charset="utf-8"></script>

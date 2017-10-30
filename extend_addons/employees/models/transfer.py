@@ -30,7 +30,7 @@ class UnitTransfer(models.Model):
     jobnumber = fields.Char(related='employee_id.jobnumber', string='employee jobnumber', readonly=True)
 
     # 创建时间
-    create_date = fields.Datetime(string='create time', default=fields.date.today(), readonly=True,
+    create_date = fields.Datetime(string='create time', default=fields.Date.today, readonly=True,
                                   states={'draft': [('readonly', False)]})
 
     # 制表人
@@ -180,7 +180,7 @@ class ForeignTransfer(models.Model):
                                   states={'draft': [('readonly', False)]})
 
     # 创建时间
-    create_date = fields.Datetime(string='create time', default=fields.date.today(), readonly=True,
+    create_date = fields.Datetime(string='create time', default=fields.Date.today, readonly=True,
                                   states={'draft': [('readonly', False)]})
 
     # 原岗位
@@ -290,3 +290,7 @@ class TransferRecord(models.Model):
 
     # 审批/会签人员
     countersign_person = fields.Many2one('res.users', string="employees_countersign_person", readonly=True)
+
+    @api.multi
+    def unlink(self):
+        raise exceptions.UserError(_('transfer record can not be delete'))

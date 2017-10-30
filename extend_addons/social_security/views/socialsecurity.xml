@@ -460,7 +460,7 @@
 
     <!-- 工伤认定 -->
     <menuitem id="employee_work_injury_checking" name="work injury checking"
-              parent="employee_work_injury_manage" action="work_injury_checking_action"/>
+              parent="employee_work_injury_manage" action="work_injury_checking_action" groups="hr.group_hr_user"/>
 
     <!--退休申请-->
     <menuitem id="employee_retire_apply" name="retire apply menu"

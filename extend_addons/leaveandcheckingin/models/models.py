@@ -199,7 +199,7 @@ class LeaveType(models.Model):
     _inherit = 'hr.holidays.status'
     _rec_name = 'namestr'
 
-    _sql_constraints = [('leave type unique', 'unique (name)', 'leave type code Can not duplication')]
+    _sql_constraints = [('leave type unique', 'unique (name)', '假期类型代码必须唯一')]
 
     # 类型名称
     namestr = fields.Char(string='type name')
@@ -380,8 +380,11 @@ class Holidays(models.Model):
 
     _inherit = 'hr.holidays'
 
+    _rec_name = 'name'
+
     # 请假时长 小时单位
-    length = fields.Integer(string='leave length')
+    length = fields.Integer(string='leave length', readonly=True,
+                            states={'draft': [('readonly', False)]})
 
     @api.one
     @api.constrains('length')
@@ -421,5 +424,5 @@ class Holidays(models.Model):
     def name_get(self):
         res = []
         for leave in self:
-            res.append((leave.id, _("leave request form")))
+            res.append((leave.id, leave.name))
         return res
