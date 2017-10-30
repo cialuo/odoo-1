@@ -415,7 +415,7 @@
                 <field name="assign_date" groups="base.group_no_one"/>
                 <field name="serial_no"/>
                 <field name="technician_user_id"/>
-                <field name="category_id"/>
+                <field name="category_id" string="设备分类"/>
                 <field name="partner_id" invisible="1"/>
             </tree>
         </field>

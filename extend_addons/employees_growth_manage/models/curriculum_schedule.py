@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api,_
+from odoo import models, fields, api,_,exceptions
 import random
 import datetime
 
@@ -45,6 +45,17 @@ class curriculum_schedule(models.Model):
 
      students = fields.One2many('employees_growth.students','curriculum_schedule_id',string='Students',copy=True)
 
+     @api.multi
+     def unlink(self):
+          """
+          控制单据的删除，只能删除草稿状态的单据
+          :return:
+          """
+          for order in self:
+               if not order.state == 'start':
+                    raise exceptions.UserError(_(u'只有准备开课的单据才能删除!'))
+
+          return super(curriculum_schedule, self).unlink()
 
      def get_curriculum_no(self,vals):
           """

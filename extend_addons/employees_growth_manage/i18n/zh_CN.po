@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-19 03:23+0000\n"
-"PO-Revision-Date: 2017-07-19 11:24+0800\n"
+"POT-Creation-Date: 2017-10-27 11:37+0000\n"
+"PO-Revision-Date: 2017-10-27 19:39+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_total_score
@@ -23,6 +23,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_test_paper_aggregate_score
 msgid "Aggregate score"
 msgstr "总分"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.students_search
+#: model:ir.ui.view,arch_db:employees_growth_manage.training_plan_search
+msgid "All vehicles"
+msgstr "所有"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_judge_question_answer
@@ -56,6 +62,11 @@ msgstr "审核时间"
 #: selection:employees_growth.students,ways_of_registration:0
 msgid "Autonomous Ways"
 msgstr "自主报名"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_average_score
+msgid "Average Score"
+msgstr "月平均分"
 
 #. module: employees_growth_manage
 #: model:ir.ui.view,arch_db:employees_growth_manage.examination_form
@@ -283,7 +294,7 @@ msgid "Curriculum schedule"
 msgstr "课程表"
 
 #. module: employees_growth_manage
-#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_curriculum_schedule_id
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_external_curriculum_schedule_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_students_curriculum_schedule_id
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_curriculum_schedule_id
 msgid "Curriculum schedule id"
@@ -359,7 +370,7 @@ msgstr "员工成长管理"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_end_time
 msgid "End time"
-msgstr "下课时间"
+msgstr "结束时间"
 
 #. module: employees_growth_manage
 #: selection:employees_growth.students,state:0
@@ -759,6 +770,7 @@ msgstr "名字"
 
 #. module: employees_growth_manage
 #: code:addons/employees_growth_manage/models/external_training.py:45
+#: code:addons/employees_growth_manage/models/external_training.py:202
 #: code:addons/employees_growth_manage/models/training_plan.py:44
 #, python-format
 msgid "Only the plan to delete the draft status."
@@ -869,6 +881,13 @@ msgstr "计划退回记录"
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_training_plan_plan_return_record_ids
 msgid "Plan return record ids"
 msgstr "计划退回记录"
+
+#. module: employees_growth_manage
+#: code:addons/employees_growth_manage/models/external_training.py:68
+#: code:addons/employees_growth_manage/models/training_plan.py:67
+#, python-format
+msgid "Please relation user to employee first!"
+msgstr "请先与员工联系!"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_external_students_post_id
@@ -1067,7 +1086,7 @@ msgstr "开始时间不能大于结束时间!"
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_time_arrangement_start_time
 msgid "Start time"
-msgstr "上课时间"
+msgstr "开始时间"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_curriculum_schedule_plan_state
@@ -1261,6 +1280,12 @@ msgstr "选择的单据状态不正确."
 #: model:ir.ui.view,arch_db:employees_growth_manage.training_plan_form
 msgid "Theme"
 msgstr "主题"
+
+#. module: employees_growth_manage
+#: model:ir.ui.view,arch_db:employees_growth_manage.students_search
+#: model:ir.ui.view,arch_db:employees_growth_manage.training_plan_search
+msgid "This Month"
+msgstr "当月"
 
 #. module: employees_growth_manage
 #: model:ir.model.fields,help:employees_growth_manage.field_employees_growth_training_teacher_image
@@ -1561,6 +1586,11 @@ msgstr "可以考试"
 #: model:ir.ui.view,arch_db:employees_growth_manage.external_curriculum_schedule_form
 msgid "sign_to_execution"
 msgstr "准备执行"
+
+#. module: employees_growth_manage
+#: model:ir.model.fields,field_description:employees_growth_manage.field_employees_growth_course_student_ids
+msgid "studentids"
+msgstr "学生"
 
 #. module: employees_growth_manage
 #: model:ir.actions.act_window,name:employees_growth_manage.employees_action_students

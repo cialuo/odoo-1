@@ -75,7 +75,7 @@ class BusMoveExcuteTable(models.Model):
 
     # 同一条线路同一天只有一个行车作业执行表
     _sql_constraints = [
-        ('line_date_unique', 'unique (line_id, excutedate)', 'one line one date one execute table')
+        ('line_date_unique', 'unique (line_id, excutedate)', u'每条线路同一天只允许生成一张行转时刻表！')
     ]
 
     name = fields.Char(string="excute table name")
@@ -313,6 +313,6 @@ class VehicleResource(models.Model):
     workstatus = fields.Selection([('operation', "operation"),('flexible', "flexible")],
                                   default='operation', required=True)
     # 运行方向
-    direction = fields.Selection([("up", "move up"),    # 上行
-                                  ("down", "move down"), # 下行
-                                  ], string="bus move direction")
+    direction = fields.Selection([("up", u"上行"),    # 上行
+                                  ("down", u"下行"), # 下行
+                                  ])

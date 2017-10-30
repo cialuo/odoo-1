@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* purchase_extend
+# 	* purchase_extend
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-01 02:22+0000\n"
-"PO-Revision-Date: 2017-08-01 02:22+0000\n"
+"POT-Creation-Date: 2017-10-26 06:34+0000\n"
+"PO-Revision-Date: 2017-10-26 14:35+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #. module: purchase_extend
 #: model:ir.ui.view,arch_db:purchase_extend.partner_type_view_form
@@ -48,7 +50,7 @@ msgstr "取消"
 #. module: purchase_extend
 #: model:ir.model.fields,field_description:purchase_extend.field_partner_type_code
 msgid "Code"
-msgstr "类别编号"
+msgstr "代码"
 
 #. module: purchase_extend
 #: model:ir.ui.view,arch_db:purchase_extend.multi_product_form
@@ -100,6 +102,7 @@ msgid "Inuse"
 msgstr "在用"
 
 #. module: purchase_extend
+#: model:ir.model.fields,field_description:purchase_extend.field_stock_move_is_return
 #: model:ir.model.fields,field_description:purchase_extend.field_stock_picking_is_return
 msgid "Is return"
 msgstr "退货单"
@@ -141,7 +144,7 @@ msgstr "批量增加物资"
 #. module: purchase_extend
 #: model:ir.model.fields,field_description:purchase_extend.field_partner_type_name
 msgid "Name"
-msgstr "类别名称"
+msgstr "名字"
 
 #. module: purchase_extend
 #: model:ir.model.fields,field_description:purchase_extend.field_partner_type_note
@@ -201,6 +204,16 @@ msgid "Purchase Order Line"
 msgstr "采购订单行"
 
 #. module: purchase_extend
+#: model:ir.actions.act_window,name:purchase_extend.purchase_form_action_extend
+msgid "Purchase Orders"
+msgstr "采购订单"
+
+#. module: purchase_extend
+#: model:ir.ui.view,arch_db:purchase_extend.stock_move_view_search
+msgid "Return"
+msgstr "退货"
+
+#. module: purchase_extend
 #: model:ir.model,name:purchase_extend.model_stock_return_picking
 msgid "Return Picking"
 msgstr "退货分拣"
@@ -222,6 +235,11 @@ msgid "State"
 msgstr "状态"
 
 #. module: purchase_extend
+#: model:ir.model,name:purchase_extend.model_stock_move
+msgid "Stock Move"
+msgstr "库存移动"
+
+#. module: purchase_extend
 #: model:ir.ui.view,arch_db:purchase_extend.partner_purchase_extend_form
 msgid "Supplier Info"
 msgstr "产品信息"
@@ -230,6 +248,11 @@ msgstr "产品信息"
 #: model:ir.ui.view,arch_db:purchase_extend.partner_purchase_extend_form
 msgid "Survey File"
 msgstr "调查文件"
+
+#. module: purchase_extend
+#: model:ir.ui.view,arch_db:purchase_extend.stock_move_view_search
+msgid "This Month"
+msgstr "当月"
 
 #. module: purchase_extend
 #: model:ir.model,name:purchase_extend.model_stock_picking
@@ -268,16 +291,6 @@ msgid "purchase_pick_menu"
 msgstr "采购入库"
 
 #. module: purchase_extend
-#: model:ir.ui.menu,name:purchase_extend.materials_menu_purchase_rfq
-msgid "purchase_rfq_menu"
-msgstr "询价管理"
-
-#. module: purchase_extend
 #: model:ir.ui.menu,name:purchase_extend.materials_menu_purchase_vendor
 msgid "purchase_vendor_menu"
 msgstr "供应商管理"
-
-#. module: purchase_extend
-#: model:ir.actions.act_window,name:purchase_extend.purchase_form_action_extend
-msgid "Purchase Orders"
-msgstr "采购订单"

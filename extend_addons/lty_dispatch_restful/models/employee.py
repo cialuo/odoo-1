@@ -99,6 +99,15 @@ class Employee(models.Model):
                         'id': r.id,
                         'sysPostId': '1021',
                     })
+                    if r.user_id :
+                        vals.update({
+                            'userId': r.user_id.id,
+                            'trueName': r.name or '',
+                            'serils': r.jobnumber or '',
+                            'ICCardNoId': r.iccard.cardsn or '',
+                            'sfz': r.id_card or '',   
+                            'sysDepartmentId': r.department_id.id,                        
+                            })                       
                     if r.workpost.posttype == "driver":
                         vals['sysPostId'] = '1019'
                     if r.workpost.posttype == "conductor":
@@ -132,4 +141,5 @@ class Employee(models.Model):
             params = Params(type = 2, cityCode = cityCode,tableName = HR_TABLE, data = vals).to_dict()
             res = super(Employee, r).unlink()
             rp = Client().http_post(url, data=params)
+            response_check(rp)
         return

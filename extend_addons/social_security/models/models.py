@@ -123,7 +123,8 @@ class WorkInjury(models.Model):
         else:
             return None
 
-    employee_id = fields.Many2one('hr.employee', string='employee', default=_applyUser, required=True)
+    employee_id = fields.Many2one('hr.employee', string='employee', default=_applyUser, required=True, readonly=True,
+                                  states={'draft': [('readonly', False)]})
 
     # 性别
     sex = fields.Selection(related='employee_id.sex', string='employee sex', readonly=True)
@@ -154,25 +155,32 @@ class WorkInjury(models.Model):
 
 
     # 事故时间
-    accidenttime = fields.Date(string="accidetn time", required=True)
+    accidenttime = fields.Date(string="accidetn time", required=True, readonly=True,
+                               states={'draft': [('readonly', False)]})
 
     # 诊断时间
-    checkingtime = fields.Date(string="checking time", required=True)
+    checkingtime = fields.Date(string="checking time", required=True, readonly=True,
+                               states={'draft': [('readonly', False)]})
 
     # 受伤部位
-    position = fields.Char(string="hurt position", required=True)
+    position = fields.Char(string="hurt position", required=True, readonly=True,
+                           states={'draft': [('readonly', False)]})
 
     # 职业病名称
-    diseasename = fields.Char(string="disease's name")
+    diseasename = fields.Char(string="disease's name", readonly=True,
+                              states={'draft': [('readonly', False)]})
 
     # 接触职业病危害岗位
-    hurtpost = fields.Char(string="hurt post")
+    hurtpost = fields.Char(string="hurt post", readonly=True,
+                           states={'draft': [('readonly', False)]})
 
     # 接触职业病危害时间
-    hurttime = fields.Date(string="hurt time")
+    hurttime = fields.Date(string="hurt time", readonly=True,
+                           states={'draft': [('readonly', False)]})
 
     # 受伤害经过简述
-    description = fields.Text(string="disease description")
+    description = fields.Text(string="disease description", readonly=True,
+                              states={'draft': [('readonly', False)]})
 
     # 公司认定附件
     attachments = fields.Binary(string="checking attachments")
@@ -270,3 +278,10 @@ class RetireManage(models.Model):
         self.employee_id.active = False
         self.employee_id.employeestate = 'retired'
         self.state = 'checked'
+
+    @api.multi
+    def unlink(self):
+        for item in self:
+            if item.state == 'checked':
+                raise exceptions.ValidationError(_("can not delete passed order"))
+        return super(RetireManage, self).unlink()

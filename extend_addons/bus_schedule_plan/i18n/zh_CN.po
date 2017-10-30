@@ -1756,6 +1756,11 @@ msgid "plan total times"
 msgstr "计划趟次"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_plan_trips
+msgid "plan trips"
+msgstr "计划趟次"
+
+#. module: bus_schedule_plan
 #: selection:bus_algorithm,direction:0
 #: selection:bus_driver_algorithm,direction:0
 msgid "positive"
@@ -1770,6 +1775,11 @@ msgstr "满载率"
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_real_times
 msgid "real total times"
+msgstr "实际趟次"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_real_trips
+msgid "real trips"
 msgstr "实际趟次"
 
 #. module: bus_schedule_plan

@@ -151,10 +151,12 @@ class attendance(models.Model):
             for driver in drivervals:
                 params = Params(type = 2, cityCode = cityCode,tableName = 'op_attendance', data = {'id': driver}).to_dict()
                 rp = Client().http_post(url, data=params)
+                response_check(rp)
         #出勤乘务员
         if stewardvals:
             for steward in stewardvals:
                 params = Params(type = 2, cityCode = cityCode,tableName = 'op_trainattendance', data = {'id': steward}).to_dict()
                 rp = Client().http_post(url, data=params)
+                response_check(rp)
 
         return

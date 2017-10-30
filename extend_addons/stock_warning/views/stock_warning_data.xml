@@ -55,4 +55,10 @@
         <field eval="'ir.actions.server,%d'%stock_warning_action_server" name="value"/>
     </record>
 
+    <record id="open_to_warning_data" model="ir.actions.act_window">
+        <field name="name">open_to_warning_data</field>
+        <field name="res_model">stock.warning_data</field>
+        <field name="view_mode">tree,graph</field>
+    </record>
+
 </odoo>

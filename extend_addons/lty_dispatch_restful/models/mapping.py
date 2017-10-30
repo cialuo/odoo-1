@@ -271,7 +271,7 @@ op_dspLine = {
     #线路名称 string,后台获取 route_id.name
     ('lineName', 'route_name'): None,
     #方向int  必填;0：上行；1：下行
-    ('direction', 'direction'): {'up': 0,'down': 1},
+    ('direction', 'direction'): {'up': 0,'down': 1, 'one_way': 0},
     #车场编码long 必填;
     ('fieldNo', 'code'): None,
     #车场名称String

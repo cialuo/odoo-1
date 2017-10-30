@@ -281,7 +281,7 @@
                                     <field name="daily_mileage" widget="statinfo" string="Daily Mileage"/>
                             </button>
 
-                            <button name="return_action_to_open"
+                            <button name="return_action_to_total_odometer"
                                     type="object"
                                     class="oe_stat_button"
                                     icon="fa-tachometer"
