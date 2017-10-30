@@ -76,7 +76,8 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('fuel_consumption_manage_tree')})]"/>
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('fuel_consumption_manage_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('vehicle_manage.vehicle_entry_view_form')})]"/>
         </record>
 
 
@@ -86,7 +87,8 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('fuel_consumption_manage_tree')})]"/>
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('fuel_consumption_manage_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('vehicle_manage.vehicle_entry_view_form')})]"/>
         </record>
 
         <!--油耗定额管理-->

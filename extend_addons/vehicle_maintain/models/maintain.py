@@ -593,8 +593,11 @@ class MaintainRepair(models.Model):
             self._generate_picking(avail_products, location_dest_id)
 
     def _generate_picking(self, products, location):
-            picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
-            location_id = self.env.ref('stock.stock_location_stock').id     # 库存
+            picking_type = self.env['stock.picking.type'].search([('name','=',u'发料'),('warehouse_id.company_id','child_of',self.env.user.company_id.id)])
+            #picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
+            # location_id = self.env.ref('stock.stock_location_stock').id     # 库存
+
+            location_id = picking_type.default_location_src_id.id or picking_type.warehouse_id.lot_stock_id.id
 
             for products in [products]:
                 if not products:
@@ -644,10 +647,12 @@ class MaintainRepair(models.Model):
         创建领料单
         """
         self.ensure_one()
+        picking_type = self.env['stock.picking.type'].search(
+            [('name', '=', u'领料'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
         context = dict(self.env.context,
                        default_repair_id=self.id,
                        default_origin=self.name,
-                       default_picking_type_id=self.env.ref('stock_picking_types.picking_type_picking_material').id,
+                       default_picking_type_id=picking_type.id,
                        )
         return {
             'view_type': 'form',
@@ -664,10 +669,13 @@ class MaintainRepair(models.Model):
         创建退料单
         """
         self.ensure_one()
+        picking_type = self.env['stock.picking.type'].search(
+            [('name', '=', u'退料'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
         context = dict(self.env.context,
                        default_repair_id=self.id,
                        default_origin=self.name,
-                       default_picking_type_id=self.env.ref('stock_picking_types.picking_type_return_material').id,
+                       default_picking_type_id=picking_type.id,
+                       # default_picking_type_id=self.env.ref('stock_picking_types.picking_type_return_material').id,
                        )
         return {
             'view_type': 'form',

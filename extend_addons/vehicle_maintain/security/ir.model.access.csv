@@ -41,7 +41,7 @@ access_hr_employee_inspect,hr_employee,hr.model_hr_employee,vehicle_group.vehicl
 access_res_company_group_user_inspect,res_company group_user,base.model_res_company,vehicle_group.vehicle_inspect,1,1,0,0
 access_maintain_manage_repair_change_method_inspect,maintain_manage_repair_change_method,model_maintain_manage_repair_change_method,vehicle_group.vehicle_inspect,1,0,0,0
 access_maintain_manage_repair_end_jobs_inspect,maintain_manage_repair_end_jobs,model_maintain_manage_repair_end_jobs,vehicle_group.vehicle_inspect,1,1,1,1
-
+access_fleet_vehicle_inspect,fleet_vehicle,vehicle_manage.model_fleet_vehicle,vehicle_group.vehicle_inspect,1,1,0,0
 
 access_fault_category_dispatch,fault_category,model_maintain_fault_category,vehicle_group.vehicle_dispatch,1,0,0,0
 access_fault_appearance_dispatch,fault_appearance,model_maintain_fault_appearance,vehicle_group.vehicle_dispatch,1,0,0,0
@@ -59,7 +59,7 @@ access_work_time_lines_dispatch,work_time_lines,model_work_time_lines,vehicle_gr
 access_maintain_manage_repair_dispatch,maintain_manage_repair,model_maintain_manage_repair,vehicle_group.vehicle_dispatch,1,1,1,1
 access_maintain_manage_repair_end_jobs_dispatch,maintain_manage_repair_end_jobs,model_maintain_manage_repair_end_jobs,vehicle_group.vehicle_dispatch,1,1,0,0
 
-
+access_stock_production_lot_vehicle_dispatch,stock.production.lot,stock.model_stock_production_lot,vehicle_group.vehicle_dispatch,1,0,0,0
 
 
 access_maintain_manage_repair_repair,maintain_manage_repair,model_maintain_manage_repair,vehicle_group.vehicle_repair,1,1,0,0
@@ -76,8 +76,10 @@ access_work_time_type_repair,work_time_type,model_work_time_type,vehicle_group.v
 access_work_time_lines_repair,work_time_lines,model_work_time_lines,vehicle_group.vehicle_repair,1,0,0,0
 access_maintain_manage_repair_end_jobs_repair,maintain_manage_repair_end_jobs,model_maintain_manage_repair_end_jobs,vehicle_group.vehicle_repair,1,0,0,0
 
+access_stock_location_repair,stock location,stock.model_stock_location,vehicle_group.vehicle_repair,1,0,0,0
 
 
+access_maintain_manage_repair_stock_user,maintain_manage_repair,model_maintain_manage_repair,stock.group_stock_user,1,0,0,0
 
 
 
