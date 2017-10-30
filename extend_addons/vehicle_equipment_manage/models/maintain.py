@@ -147,7 +147,7 @@ class VehicleEquipmentMaintain(models.Model):
 
     delivery_id = fields.Many2one('vehicle_equipment.delivery', ondelete='cascade', string="Delivery")
 
-    equipment_id = fields.Many2one('maintenance.equipment', string="Equipment")
+    equipment_id = fields.Many2one('maintenance.equipment', string="Equipment",required=True)
     serial_no = fields.Char("Serial No")
     name = fields.Char("Name")
     fixed_asset_number = fields.Char("Fixed Asset Number")
@@ -161,7 +161,7 @@ class VehicleEquipmentMaintainReturn(models.Model):
     _name = 'maintain.delivery_return_equipment'
 
     delivery_id = fields.Many2one('vehicle_equipment.delivery', ondelete='cascade', string="Delivery")
-    equipment_id = fields.Many2one('maintenance.equipment', string="Equipment")
+    equipment_id = fields.Many2one('maintenance.equipment', string="Equipment",required=True)
     serial_no = fields.Char("Serial No")
     name = fields.Char("Name")
     fixed_asset_number = fields.Char("Fixed Asset Number")
