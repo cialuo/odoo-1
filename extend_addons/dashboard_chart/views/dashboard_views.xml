@@ -10,8 +10,7 @@
             <tree create="0">
               <field name="str"/>
               <field name="view_mode"/>
-              <field name="context"/>
-              <field name="domain"/>
+              <field name="create_uid"/>
             </tree>
           </field>
         </record>

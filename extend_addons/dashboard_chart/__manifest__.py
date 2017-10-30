@@ -17,11 +17,12 @@
     'website': "http://www.lantaiyuan.com/",
     'category': 'Basic Edition',
     'version': '1.0',
-    'depends': ['base','employees_menu','materials_menu','security_manage_menu','vehicle_manage_menu','board'],
+    'depends': ['base','employees','employees_menu','materials_menu','security_manage_menu','vehicle_manage_menu','board'],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
+        'security/rule_data.xml',
         'views/dashboard_views.xml',
         'views/dashboard_setting.xml',
         'views/employees_dashboard.xml',

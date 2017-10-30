@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dashboard_chart_views,dashboard.chart_views,model_dashboard_chart_views,base.group_user,1,1,1,1
+access_dashboard_board_setting,dashboard.board_setting,model_dashboard_board_setting,base.group_user,1,1,1,1
