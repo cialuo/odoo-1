@@ -19,7 +19,7 @@ class security_check_table(models.Model):
     responser = fields.Many2one('hr.employee', string='check_responser')
 
     # TODO many2one
-    parent_company = fields.Many2one('hr.department', related="responser.department_id", string='check_parent_company',readonly=True)
+    department_id = fields.Many2one('hr.department', related="responser.department_id", string='department id',readonly=True)
 
     plan_detail = fields.One2many('security_manage.check_item_detail', 'check_table_item_id', copy=True)
 
@@ -60,7 +60,7 @@ class security_check_table_item(models.Model):
 
     check_table_item_id = fields.Many2one('security_manage.check_table', ondelete='cascade',required=True)
 
-    item_id = fields.Many2one('security_manage.check_item', ondelete='cascade')
+    item_id = fields.Many2one('security_manage.check_item', ondelete='cascade',required=True)
 
     check_item_name = fields.Char(related='item_id.check_item_name', readonly=1)
 

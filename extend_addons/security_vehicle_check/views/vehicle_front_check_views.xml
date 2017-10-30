@@ -81,7 +81,6 @@
                                         <field name="check_standards"/>
                                         <field name="check_result"/>
                                         <field name="remark"/>
-                                        <field name="image"/>
                                     </tree>
                                     <form>
                                         <sheet>
@@ -92,8 +91,13 @@
                                                 <field name="check_standards" readonly="1"/>
                                                 <field name="check_result"/>
                                                 <field name="remark"/>
-                                                <field name="image" widget='image'/>
                                             </group>
+                                            <label for="image_ids"/>
+                                            <div>
+                                                <field name="image_ids" widget="many2many_binary"
+                                                       string="upload_pic"
+                                                       class="oe_inline"/>
+                                            </div>
                                         </sheet>
                                     </form>
                                 </field>

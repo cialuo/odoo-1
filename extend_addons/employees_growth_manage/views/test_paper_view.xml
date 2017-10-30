@@ -33,8 +33,8 @@
                 <group>
                     <group>
                         <field name="test_paper_no"/>
-                        <field name="create_uid" options="{'no_open': True, 'no_create': True}"/>
-                        <field name="create_date" />
+                        <field name="create_uid" readonly='1' options="{'no_open': True, 'no_create': True}"/>
+                        <field name="create_date" readonly='1'/>
                     </group>
                     <group>
                         <field name="questions_id" options="{'no_open': True, 'no_create': True}"/>

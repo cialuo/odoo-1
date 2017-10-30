@@ -14,6 +14,7 @@
     """,
     'data': [
         'views/stock_menu.xml',
+        'views/stock_picking.xml',
     ],
     'depends': ['materials_menu', 'stock', 'stock_picking_types'],
     'application': True,
