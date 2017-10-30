@@ -408,7 +408,7 @@ msgstr "维修方法"
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_fault_method_fault_method_code
 #: model:ir.model.fields,help:vehicle_maintain.field_maintain_manage_repair_fault_method_code
 msgid "Fault Method Code"
-msgstr "故障编码"
+msgstr "维修方法编码"
 
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_fault_reason_method_ct

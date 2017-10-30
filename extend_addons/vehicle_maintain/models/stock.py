@@ -66,7 +66,13 @@ class StockPicking(models.Model):
                 if order.move_lines:
                     products = order.move_lines.filtered(lambda x: x.product_id.require_trans == True)
                     location_id = self.env.ref('stock_picking_types.stock_location_ullage').id  # 维修(生产)虚位
-                    location_dest_id = self.env.ref('stock_picking_types.stock_location_old_to_new').id  # 存货/旧料
+
+                    picking_type = self.env['stock.picking.type'].search(
+                        [('name', '=', u'交旧领新'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
+
+                    location_dest_id = picking_type.default_location_dest_id.id or picking_type.warehouse_id.lot_stock_id.id
+
+                    # location_dest_id = self.env.ref('stock_picking_types.stock_location_old_to_new').id  # 存货/旧料
                     self._gen_old_new_picking_repair(order, products, location_id, location_dest_id)
 
         return super(StockPicking, self).action_confirm()
@@ -140,11 +146,12 @@ class StockPicking(models.Model):
 
                 count = i.product_uom_qty + back_ct - get_ct
                 if count > 0:
-                    raise UserError(_('%s more than get %s') % (i.name, count))
+                    raise UserError(_('%s 不能退料，退料超过个数: %s') % (i.name, count))
 
     def _gen_old_new_picking_repair(self,order, products, location_id, location_dest_id):
-        picking_type = self.env.ref('stock_picking_types.picking_old_to_new_material')  # 交旧领新分拣类型
-
+        # picking_type = self.env.ref('stock_picking_types.picking_old_to_new_material')  # 交旧领新分拣类型
+        picking_type = self.env['stock.picking.type'].search(
+            [('name', '=', u'交旧领新'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
         move_lines = []
         picking = []
         for i in products:

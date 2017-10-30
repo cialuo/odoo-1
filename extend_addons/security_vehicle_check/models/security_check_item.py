@@ -18,7 +18,7 @@ class security_check_item(models.Model):
 
     check_standards = fields.Char(string='check_standards')
 
-    create_time = fields.Date(string='create_time', required=True, default=fields.Date.today())
+    create_time = fields.Date(string='create_time', required=True, default=fields.Date.today)
 
     state = fields.Selection([('use', 'Use'),('archive', "Archive"),], default='use', string='security_check_item_state')
 
