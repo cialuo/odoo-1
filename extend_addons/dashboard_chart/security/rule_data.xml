@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="dashboard_chart_views_rule" model="ir.rule">
+            <field name="name">Dashboard can only see his/her examination</field>
+            <field name="model_id" ref="model_dashboard_chart_views"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="domain_force">[('create_uid','=',user.id)]</field>
+        </record>
+
+    </data>
+</odoo>

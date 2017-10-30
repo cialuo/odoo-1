@@ -82,7 +82,7 @@
             <field name="name">FaultCategory.form</field>
             <field name="model">maintain.fault.category</field>
             <field name="arch" type="xml">
-                <form string="FaultCategory Form">
+                <form string="FaultCategory Form" duplicate="0">
                 	<header>
                         <button name="action_use" type="object"
                                 string="Reset"
@@ -141,7 +141,7 @@
             <field name="name">FaultAppearance.form</field>
             <field name="model">maintain.fault.appearance</field>
             <field name="arch" type="xml">
-                <form string="FaultAppearance Form">
+                <form string="FaultAppearance Form" duplicate="0">
 					<header>
                         <button name="action_use" type="object"
                                 string="Reset"
@@ -194,7 +194,7 @@
             <field name="name">FaultReason.form</field>
             <field name="model">maintain.fault.reason</field>
             <field name="arch" type="xml">
-                <form string="FaultReason Form">
+                <form string="FaultReason Form" duplicate="0">
 					<header>
                         <button name="action_use" type="object"
                                 string="Reset"
@@ -247,7 +247,7 @@
             <field name="name">FaultMethod.form</field>
             <field name="model">maintain.fault.method</field>
             <field name="arch" type="xml">
-                <form string="FaultMethod Form">
+                <form string="FaultMethod Form" duplicate="0">
                 	<header>
                         <button name="action_use" type="object"
                                 string="Reset"

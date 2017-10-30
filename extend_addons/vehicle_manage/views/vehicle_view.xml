@@ -274,7 +274,7 @@
             <field name="name">EmissionStandard.form</field>
             <field name="model">vehicle_manage.emission_standard</field>
             <field name="arch" type="xml">
-                <form string="EmissionStandard Form">
+                <form string="EmissionStandard Form" duplicate="0">
                     <sheet>
                         <group col="2">
                             <group>
