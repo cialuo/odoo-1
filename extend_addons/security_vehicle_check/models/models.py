@@ -22,4 +22,5 @@ class vehicle_plan_details(models.Model):
     vehicle_abarbeitung_check_id = fields.Many2one('security.vehicle_abarbeitung_check', ondelete='set null')
     vehicle_detection_check_id = fields.Many2one('security.vehicle_detection_check', ondelete='set null')
     # 图片
-    image = fields.Binary('checking image')
+    image_ids = fields.Many2many('ir.attachment', 'front_check_attachment', id1='check_pic',
+                             id2='attach_id', string='checking image')

@@ -141,5 +141,6 @@ class opertation_yard_lines(models.Model):
             params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
             res = super(opertation_yard_lines, r).unlink()
             rp = Client().http_post(url, data=params)
+            response_check(rp)
 
         return

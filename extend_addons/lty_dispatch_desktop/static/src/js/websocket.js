@@ -223,10 +223,10 @@ function vehicle_drop(controllerObj, dataObj) {
         if (vehicle.length > 0) {
             // if (dataObj.status != 0) {
             if (dataObj.packageType == 1044) {
-                vehicle.find(".runState").attr('st', dataObj.status).removeClass("icon2_0").addClass("icon2_1");
+                vehicle.find(".runState").attr('st', 1).removeClass("icon2_0").addClass("icon2_1");
                 return false;
             }
-            vehicle.find(".runState").attr('st', dataObj.status).removeClass("icon2_1").addClass("icon2_0");
+            vehicle.find(".runState").attr('st', 0).removeClass("icon2_1").addClass("icon2_0");
         }
     }
 }
@@ -752,7 +752,7 @@ function update_linePlan(controllerObj, dataObj) {
     if (his_busResourcePlan) {
         set_op = extend_obj_fn(his_busResourcePlan, dataObj);
         busResourcePlan[dataObj.id] = set_op;
-        if (new Date(his_busResourcePlan.oldRunTime).getTime() != new Date(his_busResourcePlan.planRunTime).getTime()) {
+        if (new Date(set_op.oldRunTime).getTime() != new Date(set_op.planRunTime).getTime()) {
             fixPlanClass = "bus_plan_fix";
         }
 
@@ -829,11 +829,11 @@ function update_linePlan(controllerObj, dataObj) {
 
     // 判断计划是否修改
     if (fixPlanClass) {
-        active_tr_obj.addClass("fixPlanClass");
+        active_tr_obj.addClass("bus_plan_fix");
     }
 
     if (!fixPlanClass) {
-        active_tr_obj.removeClass("fixPlanClass");
+        active_tr_obj.removeClass("bus_plan_fix");
     }
 
     // 发送计划到调度屏状态
@@ -1075,7 +1075,7 @@ function update_linePlanParkOnlineModel_load_fn() {
     });
 
 
-    $(".linePlanParkOnlineModel .bus_yard").find(".content_tb .icon").hover(function () {
+    $(".linePlanParkOnlineModel .bus_yard, .linePlanParkOnlineModel .bus_transit").find(".content_tb .icon").hover(function () {
         var txt = "";
         var st = $(this).attr("st");
         if ($(this).hasClass("checkOut")) {
@@ -1136,7 +1136,7 @@ function add_linePark(content_tb_obj, new_resource) {
         '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).getTime() + '" planReachTime="' + new Date(new_resource.realReachTime).getTime() + '">' +
         '<td class="pL td_w1">' +
         '<span st="' + new_resource.checkOut + '" class="icon sendToScreen icon1_' + new_resource.checkOut + '"></span>' +
-        '<span st="' + new_resource.runState + '" class="icon sendToBus icon2_' + new_resource.runState + '"></span>' +
+        '<span st="' + new_resource.runState + '" class="icon runState icon2_' + new_resource.runState + '"></span>' +
         '<span st="' + new_resource.carStateId + '" class="icon carStateIdIcon ' + carState_class + ' carStateIdIcon_' + new_resource.carStateId + '"></span>' +
         '<span st="' + new_resource.task + '" class="icon ' + task_class + ' taskIcon"></span>' +
         '</td>' +
@@ -1196,7 +1196,7 @@ function add_busTransit(content_tb_obj, new_resource) {
         '<tr class="point" pid="' + new_resource.id + '" direction="' + new_resource.direction + '" planRunTime="' + new Date(new_resource.planRunTime).getTime() + '"  planReachTime="' + new Date(new_resource.planReachTime).getTime() + '">' +
         '<td class="pL td_w1">' +
         '<span st="' + new_resource.checkOut + '" class="icon sendToScreen icon1_' + new_resource.checkOut + '"></span>' +
-        '<span st="' + new_resource.runState + '" class="icon sendToBus icon2_' + new_resource.runState + '"></span>' +
+        '<span st="' + new_resource.runState + '" class="icon runState icon2_' + new_resource.runState + '"></span>' +
         '<span st="' + new_resource.carStateId + '" class="icon carStateIdIcon ' + carState_class + ' carStateIdIcon_' + new_resource.carStateId + '"></span>' +
         '<span st="' + new_resource.task + '" class="icon ' + task_class + ' taskIcon"></span>' +
         '</td>' +
@@ -1254,10 +1254,12 @@ function update_bus_plan_sort(activeTr, planTime) {
         var oe_tr = tr_list[i];
         var oe_plan_time = oe_tr.getAttribute("planRunTime");
         if (oe_plan_time > planTime) {
-            oe_tr.before(activeTr);
+            oe_tr.before(activeTr[0]);
             break;
         }
     }
+
+    update_linePlanParkOnlineModel_load_fn();
 }
 
 // 车辆车场、在途排序
@@ -1287,6 +1289,8 @@ function update_bus_info_sort(tableObj) {
     tableObj.append(planruntime_tr).append(planreachtime_tr).append(other_tr);
     // 更新滑块
     $('.linePlanParkOnlineModel .section_plan_cont').mCustomScrollbar("update");
+
+    update_linePlanParkOnlineModel_load_fn();
 }
 
 // 组合

@@ -44,9 +44,11 @@ class BusMoveTimeTable(models.Model):
 
     # 计划趟次
     plan_totaltimes = fields.Integer(string="plan total times")
+    plan_trips = fields.Integer(string="plan trips", compute='_compute_plan_trips')
 
     # 实际趟次
     real_times = fields.Integer(string="real total times")
+    real_trips = fields.Integer(string="real trips",  compute='_compute_real_trips')
 
     # 上行发车时间安排
     uptimeslist = fields.One2many("scheduleplan.movetimeup", "movetimetable_id", string="up times arrange")
@@ -71,6 +73,19 @@ class BusMoveTimeTable(models.Model):
 
     # 下行机动车辆数
     downbackupvehicle = fields.Integer(string="down backup vehicle")
+
+    @api.multi
+    def _compute_real_trips(self):
+        for item in self:
+            item.real_trips = self.env['vehicleusage.driverecords'].search_count([('date', '=', item.executedate),
+                                                                                  ('route_id', '=', item.line_id.id)])
+
+    @api.multi
+    @api.depends('uptimeslist', 'downtimeslist')
+    def _compute_plan_trips(self):
+        for item in self:
+            item.plan_trips = len(item.uptimeslist) + len(item.downtimeslist)
+
 
     @api.multi
     def genStaffArrange(self):

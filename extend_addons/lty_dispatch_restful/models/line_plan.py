@@ -138,10 +138,5 @@ class LinePlan(models.Model):
             params = Params(type = 2, cityCode = cityCode,tableName = LINEPLAN_TABLE, data = vals).to_dict()
             res = super(LinePlan, r).unlink()
             rp = Client().http_post(url, data=params)
-
-            r.bigsite_up.unlink()
-            r.bigsite_down.unlink()
-            r.uptimearrange.unlink()
-            r.downtimearrange.unlink()
-
-        return
+            response_check(rp)
+        return res

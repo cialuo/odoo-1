@@ -121,4 +121,5 @@ class User(models.Model):
             params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
             res = super(User, r).unlink()
             rp = Client().http_post(url, data=params)
-        return
+            response_check(rp)
+        return res

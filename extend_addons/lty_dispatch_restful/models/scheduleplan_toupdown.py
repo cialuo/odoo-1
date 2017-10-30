@@ -145,6 +145,7 @@ class Toup(models.Model):
             vals = {'id': up_id}
             params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
             rp = Client().http_post(url, data=params)
+            response_check(rp)
 
         return
 # class Todown(models.Model):

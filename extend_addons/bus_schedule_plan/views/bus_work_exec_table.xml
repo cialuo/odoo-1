@@ -116,7 +116,7 @@
                                 <field name="worktimelength"/>
                                 <field name="arrangenumber"/>
                                 <field name="workstatus"/>
-                                <field name="direction"/>
+                                <field name="direction" string='方向'/>
                             </tree>
                         </field>
                     </page>

@@ -42,6 +42,7 @@ class Dispatch(models.TransientModel):
         vals.update({'id': 1})
         params = Params(type=3, cityCode=cityCode, tableName=PARAM_TABLE, data=vals).to_dict()
         rp = Client().http_post(url, data=params)
+        response_check(rp)
         res = self.env['ir.actions.act_window'].for_xml_id('lty_dispatch_config', 'action_dispatch_config_settings')
         return res
 
@@ -58,6 +59,7 @@ class general(models.TransientModel):
         vals.update({'id': 1})
         params = Params(type=3, cityCode=cityCode, tableName=PARAM_TABLE, data=vals).to_dict()
         rp = Client().http_post(url, data=params)
+        response_check(rp)
         res = self.env['ir.actions.act_window'].for_xml_id('lty_dispatch_config', 'action_general_config_settings')
         return res
 

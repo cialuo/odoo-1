@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+
+        <record id="stock_picking_internal_search" model="ir.ui.view">
+            <field name="name">stock.picking.internal.search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+
+                    <xpath expr="//filter[@name='backorder']" position="after">
+                        <filter string="Today" domain="[('min_date','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59))), ('min_date','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]"
+                        />
+                    </xpath>
+
+            </field>
+        </record>
+
+        <record id="stock_picking_list" model="ir.ui.view">
+            <field name="name">stock.picking.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <tree create='false' decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-danger="state not in ('cancel', 'done') and min_date &lt; current_date" string="Picking list">
+                    <field name="name"/>
+                    <field name="location_dest_id"/>
+                    <field name="partner_id"/>
+                    <field name="date" invisible="1"/>
+                    <field name="min_date"/>
+                    <field name="origin"/>
+                    <field name="group_id" invisible="1"/>
+                    <field name="backorder_id"/>
+                    <field name="state"/>
+                    <field name="priority" invisible="1"/>
+                    <field name="picking_type_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 所有调拨Graphs-->
+        <record model="ir.ui.view" id="stock_picking_graph">
+            <field name="name">stock.picking.graph</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="location_dest_id"/>
+                </graph>
+            </field>
+        </record>
+
+        <act_window id="materials_stock_picking_action" view_type="form" res_model="stock.picking" view_mode="tree,graph" name="Stock Picking Action"/>
+
+        <record model="ir.actions.act_window.view" id="tree_materials_stock_picking_action">
+            <field name="view_mode">tree</field>
+            <field name="sequence">0</field>
+            <field name="view_id" ref="stock_picking_list"/>
+            <field name="act_window_id" ref="materials_stock_picking_action"/>
+        </record>
+
+        <!--所有调拨-->
+        <menuitem id="materials_stock_picking_menu"
+                  name="materials_stock_picking_menu"
+                  sequence="110"
+                  parent="materials_menu.materials_menu_stock"
+                  action="materials_stock_picking_action"
+                  groups="stock.group_stock_user"/>
+
+    </data>
+</odoo>

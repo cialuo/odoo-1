@@ -171,6 +171,7 @@ class upplanitem(models.Model):
                 rp = Client().http_post(url, data=params)
             except Exception,e:
                 _logger.info('%s', e.message)
+            response_check(rp)
         return res
 
 #整条执行表删除,删除对应的司成，车辆资源。调度计划
@@ -186,9 +187,10 @@ class Excutetable(models.Model):
             _logger.info('Start unlink data: %s', self._name)
             vals = {'lineId': s.line_id.id, 'workDate': s.excutedate}
             params = Params(type = 2, cityCode = cityCode,tableName='op_dispatchplan', data = vals).to_dict()
-            res = super(Excutetable, r).unlink()
+            res = super(Excutetable, s).unlink()
             rp = Client().http_post(url, data=params)
-        return
+            response_check(rp)
+        return res
 
 # class downplanitem(models.Model):
 #

@@ -91,7 +91,7 @@ class Component(models.Model):
     重要部件清单信息
     """
 
-    product_id = fields.Many2one('product.product', string='Product')
+    product_id = fields.Many2one('product.product', string='Product', required=True)
     code = fields.Char(string='Component Code', default='/')
     odometer = fields.Float(string='Odometer')
     location_id =fields.Many2one('stock.location', string='Location')

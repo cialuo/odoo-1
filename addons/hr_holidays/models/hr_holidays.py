@@ -256,7 +256,7 @@ class Holidays(models.Model):
     _sql_constraints = [
         ('type_value', "CHECK( (holiday_type='employee' AND employee_id IS NOT NULL) or (holiday_type='category' AND category_id IS NOT NULL))",
          u"此请求的员工或员工类别丢失。 请确保您的用户登录已被链接到员工。"),
-        ('date_check2', "CHECK ( (type='add') OR (date_from <= date_to))", "The start date must be anterior to the end date."),
+        ('date_check2', "CHECK ( (type='add') OR (date_from <= date_to))", "开始时间必须早于结束时间"),
         ('date_check', "CHECK ( number_of_days_temp >= 0 )", "The number of days must be greater than 0."),
     ]
 

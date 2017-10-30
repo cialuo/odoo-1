@@ -115,12 +115,34 @@
                 </graph>
             </field>
         </record>
+
+        <!--添加搜索视图-->
+        <record id="purchase_plan_search" model="ir.ui.view">
+            <field name="name">purchase.plan.search</field>
+            <field name="model">purchase.plan</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <filter name="today" string="Today" domain="[('create_date','&gt;=',time.strftime('%%Y-%%m-%%d'))]"/>
+
+                    <filter name="yesterday" string="Yesterday" domain="['&amp;',('create_date', '>=', (context_today() + relativedelta(days=-1)).strftime('%Y-%m-%d')),
+                                ('create_date', '&lt;=', (context_today() + relativedelta(days=-1)).strftime('%Y-%m-%d')),]"/>
+
+                    <filter name="week" string="This Week" domain="['&amp;',('create_date', '>=', (context_today() + relativedelta(weeks=-1,days=1,weekday=0)).strftime('%Y-%m-%d')),
+                                ('create_date', '&lt;=', (context_today() + relativedelta(weekday=6)).strftime('%Y-%m-%d')),]"/>
+
+                    <filter name="month" string="This Month 30" domain="['&amp;',('create_date', '>=', (context_today() + relativedelta(day=-30)).strftime('%Y-%m-%d')),
+                                   ('create_date', '&lt;=', (context_today()).strftime('%Y-%m-%d')),]"/>
+                </search>
+            </field>
+        </record>
+
         <!--添加视图动作-->
         <record id="action_purchase_plan" model="ir.actions.act_window">
             <field name="name">Purchase Plan</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">purchase.plan</field>
             <field name="view_mode">tree,form,graph</field>
+            <field name="search_view_id" ref="purchase_plan_search"/>
             <field name="view_type">form</field>
         </record>
         <!--添加菜单-->
