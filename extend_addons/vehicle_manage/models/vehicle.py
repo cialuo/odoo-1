@@ -11,7 +11,7 @@ class Vehicle(models.Model):
     """
     _inherit = "fleet.vehicle"
     _sql_constraints = [('code_uniq', 'unique (inner_code)', u"内部编号已经存在!"),
-                        ('license_plate_uniq', 'unique(license_plate)', _('The license_plate must be unique !')),]
+                        ('license_plate_uniq', 'unique(license_plate)', _(u'车牌号已经存在!')),]
 
     state = fields.Selection([('stop', "stop"),
                               ('normal', "normal"),
@@ -299,7 +299,7 @@ class VehicleEmissionStandard(models.Model):
     排放标准
     """
     _name = 'vehicle_manage.emission_standard'
-    _sql_constraints = [('stand_code_unique', 'unique(level_code)', _('Standard code already exists'))]
+    _sql_constraints = [('stand_code_unique', 'unique(level_code)', _(u'等级代码已经存在!'))]
 
     name = fields.Char("Emission Level", help="Emission Level", required=True)
     remark = fields.Text("Remark", help="Remark")
