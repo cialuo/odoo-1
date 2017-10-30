@@ -253,7 +253,7 @@ class WarrantyPlanOrder(models.Model): # 计划详情单
 
     # 承修公司
     repaircompany = fields.Many2one('res.company', string="repair comany")
-    # 保修公司
+    # 报单公司
     report_company = fields.Many2one('res.company', related='parent_id.companyid')
 
 
