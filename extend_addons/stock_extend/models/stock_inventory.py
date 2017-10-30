@@ -18,6 +18,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/lgpl.html>.
 #
 ##############################################################################
-import orderpoint
-import picking
-import stock_inventory
+from odoo import api, fields, models
+
+class Inventory(models.Model):
+    _inherit = 'stock.inventory'
+
+    #多公司無法使用默認值
+    location_id = fields.Many2one(default=None)
