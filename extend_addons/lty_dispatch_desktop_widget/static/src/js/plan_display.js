@@ -1070,7 +1070,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 if ($(this).hasClass("checkOut")) {
                     txt = (st == 1) ? '已签到' : '未签到'
                 }else if ($(this).hasClass("runState")) {
-                    txt = (st == 1) ? '在线' : '未在线'
+                    txt = (st == 0) ? '在线' : '未在线'
                 }else if ($(this).hasClass("carStateIdIcon")){
                     if (st == 1001){
                         txt = "正常";
@@ -1169,7 +1169,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 if ($(this).hasClass("checkOut")) {
                     txt = (st == 1) ? '已签到' : '未签到'
                 }else if ($(this).hasClass("runState")) {
-                    txt = (st == 1) ? '在线' : '未在线'
+                    txt = (st == 0) ? '在线' : '未在线'
                 }else if ($(this).hasClass("carStateIdIcon")){
                     if (st == 1001){
                         txt = "正常";
