@@ -54,15 +54,15 @@ class WarrantyOrder(models.Model): # 保养单
     # 修理厂所属部门
     depa_id = fields.Many2one('hr.department', related='warranty_location.department_id',
                               store=True, readonly=True)
+
     repair_workshop = fields.Many2one('hr.department')  # 承修车间
 
     state = fields.Selection([ # 状态
-        ('draft', "draft"),
         ('dispatch', "dispatch"),
         ('maintain', "maintain"),
         ('inspect', "inspect"),
         ('done', "done"),
-    ], default='draft', string="MyState")
+    ], default='dispatch', string="MyState")
 
     plan_order_ids = fields.One2many('warranty_plan_order', 'maintain_sheet_id', 'Plan Order')  # 保养计划单
 
@@ -72,12 +72,6 @@ class WarrantyOrder(models.Model): # 保养单
                                    index=True, required=True)
     #是否验证数据
     maintenance_settings = fields.Selection(related='company_id_stting.maintenance_settings')
-
-    @api.multi
-    def action_confirm_effective(self): # 确认生效 生成保养单
-        self.ensure_one()
-
-        self.state = 'dispatch'
 
 
     picking_ids = fields.One2many("stock.picking", 'warranty_order_id', string='Stock Pickings')

@@ -24,7 +24,9 @@ class WarrantyPlan(models.Model): # 车辆保养计划
 
     create_name = fields.Many2one('hr.employee', string="Create Name", default=_default_employee, readonly=True) # required=True,
 
-    company_id = fields.Many2one('hr.department', string='Company', related='create_name.department_id')
+    # 报单公司
+    companyid = fields.Many2one('res.company', string="report company", default=lambda self: self.env.user.company_id,
+                                readonly=True)
 
     made_company_id = fields.Many2one('hr.department', string='Made Company', related='create_name.department_id')
 
@@ -182,6 +184,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         for plan_order in self.plan_order_ids:
             if plan_order.state == 'commit':
                 plan_order.state = 'wait'
+            plan_order.vehicle_id.state = 'warrantly'
 
 
     @api.multi
@@ -220,3 +223,209 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         for line in self.plan_order_ids:
             line.copy({'parent_id': res.id, 'maintain_sheet_id': '', 'state': 'draft'}) #
         return res
+
+
+
+class WarrantyPlanOrder(models.Model): # 计划详情单
+    _name = 'warranty_plan_order'
+    _order = 'id desc'
+    name = fields.Char(string="Warranty Plan Order", required=True, index=True, default='/')
+
+    # 车辆保养计划ID
+    parent_id = fields.Many2one('warranty_plan', 'Warranty Plan', required=True, ondelete='cascade')
+
+    sequence = fields.Integer('Sequence', default=1)
+
+    # 车号
+    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle No", required=True,
+                                 domain=[('entry_state', '=', 'audited'),
+                                         ('vehicle_life_state', '=', 'operation_period'),
+                                         ('state', '!=', 'stop')])
+    # 车型
+    vehicle_type = fields.Many2one("fleet.vehicle.model",related='vehicle_id.model_id', store=True, readonly=True)
+
+    # 车牌
+    license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True, readonly=True)
+
+    #fleet = fields.Char()  # 车队
+    fleet = fields.Many2one("res.company", related='vehicle_id.company_id', store=True, readonly=True)
+
+    # 承修公司
+    repaircompany = fields.Many2one('res.company', string="repair comany")
+    # 保修公司
+    report_company = fields.Many2one('res.company', related='parent_id.companyid')
+
+    # 运营里程
+    operating_mileage = fields.Float(digits=(6, 1), string="Operating Mileage")
+
+    warranty_category = fields.Many2one('warranty_category', 'Warranty Category',required=True, domain=[('level', '=', '1')]) # 生成保养类别
+
+    @api.one
+    @api.depends('warranty_category')
+    def _compute_approval_warranty_category(self):
+        self.approval_warranty_category = self.warranty_category
+
+    approval_warranty_category = fields.Many2one(
+        'warranty_category', 'Approval Warranty Category',
+        domain=[('level', '=', '1')], compute='_compute_approval_warranty_category') # 核准保养类别
+
+    planned_date = fields.Date('Planned Date', default=fields.Date.context_today) # 计划日期
+
+    vin = fields.Char(related='vehicle_id.vin_sn', store=True, readonly=True) # 车架号
+
+    average_daily_kilometer = fields.Float(digits=(6, 1), string="Average Daily Kilometer") # 平均日公里
+
+    line = fields.Many2one("route_manage.route_manage", related='vehicle_id.route_id', store=True, readonly=True) # 线路
+
+    #保养地点
+    warranty_location = fields.Many2one('vehicle.plant')
+
+    maintain_sheet_id = fields.Many2one('warranty_order', string="Warranty Maintain Sheet")  # 保养单号 , required=True,
+
+    report_repair_user = fields.Many2one('hr.employee', string="Report Name")  # 报修人 , required=True
+
+    state = fields.Selection([ # 状态
+        ('draft', "draft"), # 草稿
+        ('commit', 'commit'), # 已提交
+        ('wait', "wait"), # 等待执行
+        ('executing', "executing"), # 正在执行
+        ('done', "done"), # 执行完毕
+    ], default='draft', string="MyState")
+
+    @api.onchange('warranty_category','vehicle_id')
+    def _onchange_warranty_category(self):
+        """
+            保养类型变更时：
+                查询当前车辆的最后一次保养的维修厂
+        :return:
+        """
+        if self.warranty_category and self.vehicle_id:
+            domain = [('vehicle_id','=',self.vehicle_id.id),
+                      ('warranty_category','=',self.warranty_category.id),('state','=','done')]
+            warranty_order = self.env['warranty_order'].search(domain,limit=1,order="warranty_end_time desc")
+
+            if warranty_order:
+                self.warranty_location = warranty_order.warranty_location
+
+
+
+    @api.multi
+    def action_draft(self):
+        self.state = 'draft'
+
+    @api.multi
+    def action_confirm(self):
+        self.state = 'confirmed'
+
+    @api.multi
+    def action_done(self):
+        self.state = 'done'
+
+    @api.multi
+    def unlink(self):
+        for order in self:
+            if order.state not in ['wait', 'draft', 'commit']:
+                raise exceptions.UserError(_('warranty in executing or have done, can not be deleted!'))
+
+        return super(WarrantyPlanOrder, self).unlink()
+
+
+class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生成关联司机的保养单
+    _name = 'wizard_create_warranty_order_by_driver'
+
+    def _default_plan_order(self):
+        active_ids=self._context.get('active_ids')
+        plan_order_ids = self.env['warranty_plan_order'].browse(active_ids)
+        return plan_order_ids
+
+    plan_order_ids = fields.Many2many('warranty_plan_order', string='Warranty Plan Order', required=True, default=_default_plan_order)
+
+    @api.multi
+    def create_warranty_order_by_driver(self):
+        active_ids = self._context.get('active_ids')
+        plan_sheets = self.env['warranty_plan_order'].browse(active_ids)
+        for plan_sheet in plan_sheets:
+
+            if not plan_sheet.maintain_sheet_id:
+                plan = plan_sheet.parent_id
+                maintain_sheets = self.env['warranty_order'].search([('plan_id', '=', plan.id)])
+                maintain_sheets_count = len(maintain_sheets)
+                maintain_sheet_val = {
+                    'name': plan.name + '_' + str(maintain_sheets_count + 1),  # +''+str(maintain_sheets_count)
+                    'vehicle_id': plan_sheet.vehicle_id.id,
+                    'vehicle_type': plan_sheet.vehicle_type.id,
+                    'license_plate': plan_sheet.license_plate,
+                    'fleet': plan_sheet.fleet.id,
+                    'operating_mileage': plan_sheet.operating_mileage,
+                    'warranty_category': plan_sheet.approval_warranty_category.id,
+                    'planned_date': plan_sheet.planned_date,
+                    'vin': plan_sheet.vin,
+                    'average_daily_kilometer': plan_sheet.average_daily_kilometer,
+                    'line': plan_sheet.line.id,
+                    'warranty_location': plan_sheet.warranty_location.id,
+                    'plan_id': plan.id,
+                    # 'report_repair_user':plan_sheet.report_repair_user.id
+                }
+                maintain_sheet = self.env['warranty_order'].create(maintain_sheet_val)
+
+                category_id = maintain_sheet.warranty_category.id
+
+                condition = '%/' + str(category_id) + '/%'
+
+                sql_query = """
+                                select id,idpath from warranty_category
+                                where idpath like %s
+                                order by idpath asc
+                            """
+
+                self.env.cr.execute(sql_query, (condition,))
+
+                results = self.env.cr.dictfetchall()
+
+                sheet_items = []
+                available_products = []
+                sheet_instructions = []
+                for line in results:
+                    category = self.env['warranty_category'].search([('id', '=', line.get('id'))])
+                    project_ids = category.project_ids
+                    for project in project_ids:
+                        order_project = {
+                            'warranty_order_id': maintain_sheet.id,
+                            'category_id': category.id,
+                            'project_id': project.id,
+                            'sequence': len(sheet_items) + 1,
+                            'work_time': project.manhour,
+                            'percentage_work': 100,
+                        }
+
+                        sheet_items.append((0, 0, order_project))
+
+                        sheet_instruction = {
+                            'warranty_order_id': maintain_sheet.id,
+                            'category_id': category.id,
+                            'project_id': project.id,
+                            'sequence': len(sheet_instructions) + 1
+                        }
+                        sheet_instructions.append((0, 0, sheet_instruction))
+
+                        warranty_project = self.env['warranty_project'].search([('id', '=', project.id)])
+                        boms = warranty_project.avail_ids
+                        for bom in boms:
+                            available_product = {
+                                'sequence': len(available_products) + 1,
+                                'warranty_order_id': maintain_sheet.id,
+                                'category_id': category.id,
+                                'project_id': project.id,
+                                'product_id': bom.product_id.id,
+                                'change_count': bom.change_count,
+                                'max_count': bom.max_count,
+                                'require_trans': bom.require_trans,
+                                'list_price': bom.list_price
+                            }
+                            available_products.append((0, 0, available_product))
+
+                maintain_sheet.write({'project_ids': sheet_items, 'available_product_ids': available_products,
+                                      'instruction_ids': sheet_instructions})
+                plan_sheet.update({'maintain_sheet_id': maintain_sheet.id,
+                                   'state': 'executing'})
+

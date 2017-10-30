@@ -105,14 +105,17 @@
             <field name="arch" type="xml">
                 <form create="false">
                     <header>
-                        <button name="action_confirm_effective" states="draft" string="Confirm Effective" type="object" class="oe_highlight o_expense_submit"/> <!-- 确认生效 -->
+
                         <button name="action_batch_dispatch" states="dispatch" string="Batch Dispatch" type="object" class="oe_highlight o_expense_submit"
                             groups="vehicle_group.vehicle_dispatch"/> <!-- 批量派工 -->
                         <button name="action_into_maintain" states="dispatch" string="Into Maintain" type="object" class="oe_highlight o_expense_submit"
-                            groups="vehicle_group.vehicle_dispatch"/> <!-- 进入保养状态 -->
-                        <button name="action_inspect_order" states="maintain,inspect,done" type="object" class="oe_highlight" string="Query Inspect Bill" context="{'xml_id':'warranty_order_item_action'}"/> <!--查看检验单 -->
-                        <button name="action_into_inspect" states="maintain" string="Into Inspect" type="object" class="oe_highlight o_expense_submit"
-                            groups="vehicle_warranty.vehicle_repair_leader"/> <!-- 全部报检 -->
+                            groups="vehicle_group.vehicle_repair"/> <!-- 进入保养状态 -->
+                        <button name="action_inspect_order" states="maintain,inspect,done" type="object"
+                                class="oe_highlight" string="Query Inspect Bill"
+                                context="{'xml_id':'warranty_order_item_action'}"/> <!--查看检验单 -->
+                        <button name="action_into_inspect" states="maintain" string="Into Inspect" type="object"
+                                class="oe_highlight o_expense_submit"
+                                groups="vehicle_warranty.vehicle_repair_leader"/> <!-- 全部报检 -->
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
