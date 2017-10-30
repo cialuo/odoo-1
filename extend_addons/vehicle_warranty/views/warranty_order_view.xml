@@ -348,7 +348,9 @@
                     </notebook>
                     <notebook>
                         <page string="Warranty User" >
-                                <field name='user_id' options="{'no_create': True, 'no_open': True}" domain="[('department_id','child_of',department_id)]"/>
+                                <field name='user_id' options="{'no_create': True, 'no_open': True}"
+                                       domain="[('workpost.posttype', '=', 'maintainer'),('department_id','child_of', department_id)]"
+                                />
                         </page>
                     </notebook>
                     <footer>

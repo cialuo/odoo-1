@@ -78,11 +78,13 @@ class WarrantyOrder(models.Model): # 保养单
 
     @api.multi
     def create_get_picking(self): # 创建领料单
+        picking_type = self.env['stock.picking.type'].search(
+            [('name', '=', u'领料'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
         self.ensure_one()
         context = dict(self.env.context,
             default_warranty_order_id=self.id,
             default_origin=self.name,
-            default_picking_type_id=self.env.ref('stock_picking_types.picking_type_picking_material').id,
+            default_picking_type_id=picking_type.id,
         )
         return {
             'view_type': 'form',
@@ -96,10 +98,12 @@ class WarrantyOrder(models.Model): # 保养单
     @api.multi
     def create_back_picking(self): # 创建退料单
         self.ensure_one()
+        picking_type = self.env['stock.picking.type'].search(
+            [('name', '=', u'退料'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
         context = dict(self.env.context,
             default_warranty_order_id=self.id,
             default_origin=self.name,
-            default_picking_type_id=self.env.ref('stock_picking_types.picking_type_return_material').id,
+            default_picking_type_id=picking_type.id,
         )
         return {
             'view_type': 'form',
@@ -129,8 +133,10 @@ class WarrantyOrder(models.Model): # 保养单
         self._generate_picking(avail_products, location_dest_id)
 
     def _generate_picking(self, products, location):
-        picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
-        location_id = self.env.ref('stock.stock_location_stock').id  # 库存
+        picking_type = self.env['stock.picking.type'].search(
+            [('name', '=', u'发料'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
+
+        location_id = picking_type.default_location_src_id.id or picking_type.warehouse_id.lot_stock_id.id
 
         for products in [products]:
             if not products:
@@ -651,7 +657,7 @@ class WizardBatchDispatch(models.TransientModel): # 保养单_批量派工
     project_id = fields.Many2many('warranty_order_project', string='WarrantyProject', required=True) # , default=_default_item
 
 
-    user_id = fields.Many2many('hr.employee', string="User", required=True) # , default=_default_user
+    user_id = fields.Many2many('hr.employee', string="User", required=True)
 
     @api.multi
     def batch_dispatch(self):

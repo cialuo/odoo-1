@@ -39,6 +39,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
 
     remark = fields.Char()
 
+
     state = fields.Selection([
         ('draft', 'draft'), # 草稿
         ('commit', 'commit'), # 已提交
@@ -255,6 +256,8 @@ class WarrantyPlanOrder(models.Model): # 计划详情单
     # 保修公司
     report_company = fields.Many2one('res.company', related='parent_id.companyid')
 
+
+
     # 运营里程
     operating_mileage = fields.Float(digits=(6, 1), string="Operating Mileage")
 
@@ -279,10 +282,13 @@ class WarrantyPlanOrder(models.Model): # 计划详情单
 
     #保养地点
     warranty_location = fields.Many2one('vehicle.plant')
+    # 修理厂所属部门
+    depa_id = fields.Many2one('hr.department', related='warranty_location.department_id',
+                              store=True, readonly=True)
 
     maintain_sheet_id = fields.Many2one('warranty_order', string="Warranty Maintain Sheet")  # 保养单号 , required=True,
 
-    report_repair_user = fields.Many2one('hr.employee', string="Report Name")  # 报修人 , required=True
+    report_repair_user = fields.Many2one('hr.employee', string="Report Name")  # 报修人
 
     state = fields.Selection([ # 状态
         ('draft', "draft"), # 草稿
@@ -364,7 +370,7 @@ class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生�
                     'line': plan_sheet.line.id,
                     'warranty_location': plan_sheet.warranty_location.id,
                     'plan_id': plan.id,
-                    # 'report_repair_user':plan_sheet.report_repair_user.id
+                    'report_repair_user':plan_sheet.report_repair_user.id
                 }
                 maintain_sheet = self.env['warranty_order'].create(maintain_sheet_val)
 
