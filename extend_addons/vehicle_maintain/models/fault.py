@@ -7,7 +7,7 @@ class FaultCategory(models.Model):
     故障分类
     """
     _name = 'maintain.fault.category'
-    _sql_constraints = [('code_uniq', 'unique (fault_category_code)', _("Category code already exists"))]
+    _sql_constraints = [('code_uniq', 'unique (fault_category_code)', _(u"故障分类编号已经存在!"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -43,7 +43,7 @@ class FaultAppearance(models.Model):
     故障现象
     """
     _name = 'maintain.fault.appearance'
-    _sql_constraints = [('code_uniq', 'unique (category_id, inner_code)', _("Appearance code already exists"))]
+    _sql_constraints = [('code_uniq', 'unique (category_id, inner_code)', _(u"故障现象编码已经存在!"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -102,7 +102,7 @@ class FaultReason(models.Model):
     故障原因
     """
     _name = 'maintain.fault.reason'
-    _sql_constraints = [('code_uniq', 'unique (category_id, appearance_id, inner_code)', _("Reason code already exists"))]
+    _sql_constraints = [('code_uniq', 'unique (category_id, appearance_id, inner_code)', _(u"故障原因编号已经存在!"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])
@@ -172,7 +172,7 @@ class FaultMethod(models.Model):
     维修办法
     """
     _name = 'maintain.fault.method'
-    _sql_constraints = [('code_uniq', 'unique (reason_id, inner_code)', _("Method code already exists"))]
+    _sql_constraints = [('code_uniq', 'unique (reason_id, inner_code)', _(u"维修编号已经存在!"))]
 
     def _default_employee(self):
         emp_ids = self.env['hr.employee'].search([('user_id', '=', self.env.uid)])

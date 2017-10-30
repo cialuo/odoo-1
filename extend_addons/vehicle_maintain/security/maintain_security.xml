@@ -40,7 +40,7 @@
 
         <!--司机只能看到自己的抛锚记录-->
         <record id="maintain_anchor_visibility_driver" model="ir.rule">
-            <field name="name">司机只能看到他自己的抛锚记录</field>
+            <field name="name">司机只能看到他自己的抛锚单</field>
             <field name="model_id" ref="model_vehicle_usage_vehicleanchor"/>
             <field name="groups" eval="[(4, ref('vehicle_group.vehicle_driver'))]"/>
             <field name="perm_create" eval="0"/>
@@ -57,7 +57,7 @@
 
         <!--站务能看到所有的抛锚记录-->
         <record id="maintain_anchor_visibility_depot" model="ir.rule">
-            <field name="name">站务可以看到所有的抛锚记录</field>
+            <field name="name">站务可以看到所有的抛锚单</field>
             <field name="model_id" ref="model_vehicle_usage_vehicleanchor"/>
             <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(4, ref('vehicle_group.vehicle_depot'))]"/>
@@ -65,20 +65,28 @@
 
         <!--站务能看到所有的抢修记录-->
         <record id="maintain_repair_visibility_depot" model="ir.rule">
-            <field name="name">站务可以看到所有的抢修记录</field>
+            <field name="name">站务可以看到所有的抢修单</field>
             <field name="model_id" ref="model_maintain_manage_repair"/>
             <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(4, ref('vehicle_group.vehicle_depot'))]"/>
         </record>
 
 
-        <record model="ir.rule" id="maintain_repair_visibility_report_company">
-            <field name="name">报修公司能看到该公司报修的单据</field>
+        <record model="ir.rule" id="maintain_report_visibility_report_company">
+            <field name="name">报修公司、承修公司能看到该公司的报修单</field>
             <field name="model_id" ref="model_maintain_manage_report"/>
             <field name="global" eval="True"/>
-            <field name="domain_force">['|',('report_company_id','=',False),('report_company_id','child_of',[user.company_id.id])]</field>
+            <field name="domain_force">['|','|','|',('report_company_id','=',False),('report_company_id','child_of',[user.company_id.id]),('repair_company_id','=',False),('repair_company_id','child_of',[user.company_id.id])]</field>
         </record>
 
+
+
+        <record model="ir.rule" id="maintain_repair_visibility_repair_report_company">
+            <field name="name">报修公司、承修公司能看到该公司的抢修单</field>
+            <field name="model_id" ref="model_maintain_manage_repair"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|','|','|',('report_company_id','=',False),('report_company_id','child_of',[user.company_id.id]),('repair_company_id','=',False),('repair_company_id','child_of',[user.company_id.id])]</field>
+        </record>
 
     </data>
 </odoo>

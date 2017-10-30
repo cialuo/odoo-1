@@ -2,7 +2,7 @@
   <data>
 
     <!--声明：加载QWEB界面-->
-    <template id="web.asset_backend" name="asset" inherit_id="web.assets_backend">
+    <template id="asset_backend" name="asset" inherit_id="web.assets_backend">
       <xpath expr="." position="inside">
         <link rel="stylesheet" href="/employees_growth_manage/static/src/css/examination.css" />
         <script src="/employees_growth_manage/static/src/js/examination.js" type="text/javascript"></script>
@@ -24,14 +24,10 @@
         <field name="model">employees_growth.students</field>
         <field name="arch" type="xml">
             <search string="All vehicles">
-                <!--<filter name="today" string="Today" domain="[('planned_date','&gt;=',time.strftime('%%Y-%%m-%%d'))]"/>
-
-                <filter name="yesterday" string="Yesterday" domain="['&amp;',('planned_date', '>=', (context_today() + relativedelta(days=-1)).strftime('%Y-%m-%d')),
-                                ('planned_date', '&lt;=', (context_today() + relativedelta(days=-1)).strftime('%Y-%m-%d')),]"/>
-
-                <filter name="week" string="This Week" domain="['&amp;',('planned_date', '>=', (context_today() + relativedelta(weeks=-1,days=1,weekday=0)).strftime('%Y-%m-%d')),
-                                ('planned_date', '&lt;=', (context_today() + relativedelta(weekday=6)).strftime('%Y-%m-%d')),]"/>-->
-
+                <field name="student_id"/>
+                <field name="display_name"/>
+                <field name="course_id"/>
+                <separator/>
                 <filter name="month" string="This Month" domain="['&amp;',('examination_datetime', '>=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')),
                                ('examination_datetime', '&lt;=', (context_today() + relativedelta(months=1, day=1, days=-1)).strftime('%Y-%m-%d')),]"/>
             </search>

@@ -8,7 +8,7 @@ class MaintainRepare(models.Model):
 
     is_important_product = fields.Boolean("Is Important Product")
     important_product_id = fields.Many2one('product.product', related='fault_method_id.important_product_id',
-                                           string="Important Product")
+                                           string="Important Product", readonly=True)
     component_ids = fields.Many2many('product.component', 'fleet_manage_maintain_repair_component_rel',
                                      'repair_component_id', 'component_id', 'Component',
                                      copy=False,

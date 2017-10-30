@@ -266,7 +266,7 @@ class PackOperationLot(models.Model):
 
     _sql_constraints = [
         ('qty', 'CHECK(qty >= 0.0)', 'Quantity must be greater than or equal to 0.0!'),
-        ('uniq_lot_id', 'unique(operation_id, lot_id)', 'You have already mentioned this lot in another line'),
+        ('uniq_lot_id', 'unique(operation_id, lot_id)', u'你应该已经注意到在别的行中这个批次'),
         ('uniq_lot_name', 'unique(operation_id, lot_name)', 'You have already mentioned this lot name in another line')]
 
     @api.one

@@ -37,7 +37,7 @@
                 <xpath expr="//notebook/page[1]" position="before">
                     <page string="Correct List" name="correct_list">
                         <field name="correct_ids">
-                            <tree editable="bottom" delete="false">
+                            <tree editable="bottom" delete="false" create="false">
                                 <field name="year"/>
                                 <field name="correct_value"/>
                                 <field name="user_id" options="{'no_open': True, 'no_create': True}"/>
@@ -76,7 +76,8 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('fuel_consumption_manage_tree')})]"/>
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('fuel_consumption_manage_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('vehicle_manage.vehicle_entry_view_form')})]"/>
         </record>
 
 
@@ -86,7 +87,8 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('fuel_consumption_manage_tree')})]"/>
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('fuel_consumption_manage_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('vehicle_manage.vehicle_entry_view_form')})]"/>
         </record>
 
         <!--油耗定额管理-->

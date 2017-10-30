@@ -32,6 +32,7 @@ class MaintainRepairCalculate(models.Model):
 
     end_job_ids = fields.One2many("maintain.manage.repair_end_jobs", 'repair_id', string='Maintain Repair Jobs'
                               )
+    calculate_user_id = fields.Many2one('hr.employee', string="Calculate Name")
 
     @api.multi
     def action_back(self):
@@ -53,6 +54,7 @@ class MaintainRepairCalculate(models.Model):
         self._refresh_fee()
 
         self.write({
+            'calculate_user_id': self._default_employee().id,
             'calculate_time': datetime.datetime.now(),
             'calculate_state': 'calculated'
         })

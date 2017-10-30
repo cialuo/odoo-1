@@ -9,13 +9,6 @@
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
         </record>
 
-        <!--车间接车-->
-        <record id="vehicle_receiver" model="res.groups">
-            <field name="name">Receiver</field>
-            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
-            <field name="category_id" ref="vehicle_group.module_vehicle_group"/>
-            <field name="users" eval="[(4, ref('base.user_root'))]"/>
-        </record>
 
         <!-- 车间维修组长 -->
         <record id="vehicle_repair_leader" model="res.groups">
@@ -33,46 +26,26 @@
         </record>
 
         <!--车间调度库生成保养单-->
-        <record id="rule_vehicle_dispatch" model="ir.rule">
-            <field name="name">vehicle dispatch all</field>
+        <record id="rule_vehicle_repair" model="ir.rule">
+            <field name="name">vehicle repair all</field>
             <field name="model_id" ref="model_warranty_order"/>
-            <field name="groups" eval="[(4, ref('vehicle_group.vehicle_dispatch'))]"/>
+            <field name="groups" eval="[(4, ref('vehicle_group.vehicle_repair'))]"/>
             <field name="domain_force">[(1,'=',1)]</field>
         </record>
 
-        <!--<record id="rule_vehicle_warranty.vehicle_receiver" model="ir.rule">-->
-            <!--<field name="name">rule vehicle receiver</field>-->
-            <!--<field name="model_id" ref="model_hr_employee"/>-->
-            <!--<field name="groups" eval="[(4, ref('vehicle_warranty.vehicle_receiver'))]"/>-->
-            <!--<field name="domain_force">[(1, '=', 1)]</field>-->
-        <!--</record>-->
+        <record model="ir.rule" id="warrnty_report_visibility_report_company">
+            <field name="name">报单公司能看到该公司的维保计划单</field>
+            <field name="model_id" ref="model_warranty_plan"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('companyid','=',False),('companyid','child_of',[user.company_id.id])]</field>
+        </record>
 
-
-        <!--&lt;!&ndash;车间维修只能看到自己的维保项目&ndash;&gt;-->
-        <!--<record id="rule_warranty_order_project_vehicle_repair" model="ir.rule">-->
-            <!--<field name="name">Vehicle Repair can only see his/her Warranty Order Project</field>-->
-            <!--<field name="model_id" ref="model_warranty_order_project"/>-->
-            <!--<field name="domain_force">[('user_id','=',user.id)]</field>-->
-            <!--<field name="groups" eval="[(4, ref('vehicle_group.vehicle_repair'))]"/>-->
-        <!--</record>-->
-
-
-        <!--&lt;!&ndash;车间调度能看到所有的维保项目&ndash;&gt;-->
-        <!--<record id="rule_warranty_order_project_vehicle_dispatch" model="ir.rule">-->
-            <!--<field name="name">Vehicle Dispatch has all rights on warranty_order_project</field>-->
-            <!--<field name="model_id" ref="model_warranty_order_project"/>-->
-            <!--<field name="domain_force">[(1,'=',1)]</field>-->
-            <!--<field name="groups" eval="[(4, ref('vehicle_group.vehicle_dispatch'))]"/>-->
-        <!--</record>-->
-
-
-        <!--&lt;!&ndash;技术机务员只能看到自己的保养计划&ndash;&gt;-->
-        <!--<record id="rule_warranty_plan_tech_user" model="ir.rule">-->
-            <!--<field name="name">Tech User can only see his/her Warranty Plan</field>-->
-            <!--<field name="model_id" ref="model_warranty_plan"/>-->
-            <!--<field name="domain_force">[('create_uid','=',user.id)]</field>-->
-            <!--<field name="groups" eval="[(4, ref('materials_product.base_extend_tech_user'))]"/>-->
-        <!--</record>-->
+        <record model="ir.rule" id="warranty_plan_order_visibility_report_company">
+            <field name="name">报修公司、承修公司能看到该公司的计划详情单</field>
+            <field name="model_id" ref="model_warranty_plan_order"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|','|','|',('repaircompany','=',False),('repaircompany','child_of',[user.company_id.id]),('report_company','=',False),('report_company','child_of',[user.company_id.id])]</field>
+        </record>
 
 
     </data>

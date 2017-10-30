@@ -23,7 +23,7 @@
             <field name="name">Plant.form</field>
             <field name="model">vehicle.plant</field>
             <field name="arch" type="xml">
-               <form string="Plant Form">
+               <form string="Plant Form" duplicate="0">
                 	<header>
                         <button name="action_use" type="object"
                                 string="Reset"
