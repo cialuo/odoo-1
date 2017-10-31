@@ -40,7 +40,8 @@
                 </div>
                 <group>
                     <group>
-                        <field name="training_cycle" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="plan_id" invisible="1"/>
+                        <field name="training_cycle" attrs="{'invisible': [('plan_id', '=', False)]}"/>
                         <field name="create_uid" readonly='1' options="{'no_open': True, 'no_create': True}"/>
                         <field name="create_date" readonly='1'/>
                     </group>
