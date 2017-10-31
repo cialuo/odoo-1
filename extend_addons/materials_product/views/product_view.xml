@@ -116,6 +116,8 @@
                                         <field name="barcode"/>
                                         <field name="tracking" widget="radio" attrs="{'invisible':[('type', 'in', ['service', 'digital'])]}" groups="stock.group_production_lot"/>
                                         <field name="auto_lot" attrs="{'invisible': [('tracking', '!=', 'lot')]}"/>
+                                        <field name="company_id" groups="base.group_multi_company"
+                                        options="{'no_create': True}"/>
                                     </group>
                                     <group name="general_top_right">
                                         <field name="cost_method" groups="base.group_system"/>

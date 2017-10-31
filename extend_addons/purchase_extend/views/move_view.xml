@@ -11,7 +11,7 @@
 
                 <!--退货-->
                 <xpath expr="//filter[@name='done']" position="after">
-                    <filter string="Return" name="is_return" doamin="[('is_return', '=', True)]"/>
+                    <filter string="Return" name="is_return" domain="[('is_return', '=', True)]"/>
                 </xpath>
 
                 <!--当月-->
