@@ -43,11 +43,6 @@
                     </group>
                 </group>
                 <notebook>
-                    <page name="page_course_introduce1" string="Course introduce">
-                        <group>
-                            <field name="student_ids"/>
-                        </group>
-                    </page>
                     <page name="page_course_introduce" string="Course introduce">
                         <group>
                             <field name="course_introduce"/>
