@@ -2,6 +2,7 @@
     <data>
 
 
+
         <!--车辆出车前检查列表-->
         <record id="security_vehicle_front_check_tree" model="ir.ui.view">
             <field name="name">security.vehicle_front_check.tree</field>
@@ -74,36 +75,54 @@
                         <notebook>
                             <page name="vehicle_check_plan_details" string="plan_details">
                                 <field name="plan_details_id" attrs="{'readonly':[('state','!=','draft')]}">
-                                    <tree string="plan_details" create="false" delete="false">
+                                    <tree string="plan_details" create="false" open="0" edit="0" delete="false">
                                         <field name="item_id"/>
                                         <field name="check_item_name"/>
                                         <field name="check_content"/>
                                         <field name="check_standards"/>
                                         <field name="check_result"/>
                                         <field name="remark"/>
+                                        <button string="eidt" name="openeditform" type="object" default_focus="1"
+                                                    class="btn-primary"/>
                                     </tree>
-                                    <form>
-                                        <sheet>
-                                            <group>
-                                                <field name="item_id" readonly="1"/>
-                                                <field name="check_item_name" readonly="1"/>
-                                                <field name="check_content" readonly="1"/>
-                                                <field name="check_standards" readonly="1"/>
-                                                <field name="check_result"/>
-                                                <field name="remark"/>
-                                            </group>
-                                            <label for="image_ids"/>
-                                            <div>
-                                                <field name="image_ids" widget="many2many_binary"
-                                                       string="upload_pic"
-                                                       class="oe_inline"/>
-                                            </div>
-                                        </sheet>
-                                    </form>
                                 </field>
                             </page>
                         </notebook>
                     </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--车辆出车前检查编辑表单-->
+        <record id="security_vehicle_front_check_form_action" model="ir.ui.view">
+            <field name="name">security.vehicle_plan_details</field>
+            <field name="model">security.vehicle_plan_details</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="item_id" readonly="1"/>
+                            <field name="check_item_name" readonly="1"/>
+                            <field name="check_content" readonly="1"/>
+                            <field name="check_standards" readonly="1"/>
+                            <field name="check_result"/>
+                            <field name="remark"/>
+                        </group>
+                        <group>
+                            <label for="image_ids"/>
+                            <div>
+                                <field name="image_ids" widget="many2many_binary"
+                                       string="upload_pic"
+                                       class="oe_inline"/>
+                            </div>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="save" name="save_change" type="object" default_focus="1"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+
                 </form>
             </field>
         </record>

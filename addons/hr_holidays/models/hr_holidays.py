@@ -162,13 +162,8 @@ class Holidays(models.Model):
         ('refuse', 'Refused'),
         ('validate1', 'Second Approval'),
         ('validate', 'Approved')
-        ], string='Status', readonly=True, track_visibility='onchange', copy=False, default='confirm',
-            help="The status is set to 'To Submit', when a holiday request is created." +
-            "\nThe status is 'To Approve', when holiday request is confirmed by user." +
-            "\nThe status is 'Refused', when holiday request is refused by manager." +
-            "\nThe status is 'Approved', when holiday request is approved by manager.")
-    payslip_status = fields.Boolean('Reported in last payslips',
-        help='Green this button when the leave has been taken into account in the payslip.')
+        ], string='Status', readonly=True, track_visibility='onchange', copy=False, default='draft')
+    payslip_status = fields.Boolean('Reported in last payslips')
     report_note = fields.Text('HR Comments')
     user_id = fields.Many2one('res.users', string='User', related='employee_id.user_id', related_sudo=True, store=True, default=lambda self: self.env.uid, readonly=True)
     date_from = fields.Datetime('Start Date', readonly=True, index=True, copy=False,

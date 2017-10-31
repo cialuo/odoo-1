@@ -260,17 +260,20 @@ class InspectionRecords(models.Model):
     _rec_name = 'inner_code'
 
     # 年检执行日期
-    inspectiondate = fields.Date(string="inspection date", required=True)
+    inspectiondate = fields.Date(string="inspection date", required=True, readonly=True,
+                                 states={'draft': [('readonly', False)]})
     # 年检过期日期
-    inspectionexpire = fields.Date(string="inspection expire", required=True)
+    inspectionexpire = fields.Date(string="inspection expire", required=True, readonly=True,
+                                 states={'draft': [('readonly', False)]})
     # 备注
     inspectionremark = fields.Char(string="inspection remark")
 
     # 车辆信息
     vehicle_id = fields.Many2one('fleet.vehicle', string="vehicle info", required=True,
-                                 domain=[('entry_state','=','audited'),
+                                 domain=[('entry_state', '=', 'audited'),
                                          ('vehicle_life_state', '=', 'operation_period'),
-                                         ('state','!=','stop')])
+                                         ('state', '!=', 'stop')], readonly=True,
+                                 states={'draft': [('readonly', False)]})
 
     # 内部编号
     inner_code = fields.Char(related='vehicle_id.inner_code')

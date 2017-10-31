@@ -156,7 +156,7 @@
         <field name="name">employees.transfer.record.tree</field>
         <field name="model">employees.transfer.record</field>
         <field name="arch" type="xml">
-            <tree edit="0" create="0">
+            <tree edit="0" create="0" delete="0">
                 <field name="name"/>
                 <field name="employee_id" string="Employee_id"/>
                 <field name="create_date"/>

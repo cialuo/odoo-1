@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-28 07:14+0000\n"
-"PO-Revision-Date: 2017-10-28 15:15+0800\n"
+"POT-Creation-Date: 2017-10-31 10:27+0000\n"
+"PO-Revision-Date: 2017-10-31 18:28+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,11 @@ msgid "Browser"
 msgstr "浏览"
 
 #. module: security_vehicle_check
+#: model:ir.ui.view,arch_db:security_vehicle_check.security_vehicle_front_check_form_action
+msgid "Cancel"
+msgstr "取消"
+
+#. module: security_vehicle_check
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_check_info
 msgid "Check info"
 msgstr "检查信息"
@@ -57,22 +62,26 @@ msgstr "确认"
 
 #. module: security_vehicle_check
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_create_uid
+#: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_detail_create_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_table_create_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_abarbeitung_check_create_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_detection_check_create_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_everyday_check_create_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_front_check_create_uid
+#: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_plan_details_create_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_special_check_create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: security_vehicle_check
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_create_date
+#: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_detail_create_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_table_create_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_abarbeitung_check_create_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_detection_check_create_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_everyday_check_create_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_front_check_create_date
+#: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_plan_details_create_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_special_check_create_date
 msgid "Created on"
 msgstr "创建时间"
@@ -106,12 +115,14 @@ msgid "Execute_check_table"
 msgstr "执行中"
 
 #. module: security_vehicle_check
+#: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_detail_id
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_id
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_table_id
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_abarbeitung_check_id
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_detection_check_id
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_everyday_check_id
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_front_check_id
+#: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_plan_details_id
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_special_check_id
 msgid "ID"
 msgstr "ID"
@@ -120,7 +131,7 @@ msgstr "ID"
 #: model:ir.ui.view,arch_db:security_vehicle_check.security_check_item_form
 #: model:ir.ui.view,arch_db:security_vehicle_check.security_check_table_form
 msgid "Idea form"
-msgstr "表单"
+msgstr "Idea form"
 
 #. module: security_vehicle_check
 #: model:ir.model,name:security_vehicle_check.model_fleet_vehicle
@@ -146,23 +157,27 @@ msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: security_vehicle_check
+#: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_detail_write_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_write_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_table_write_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_abarbeitung_check_write_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_detection_check_write_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_everyday_check_write_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_front_check_write_uid
+#: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_plan_details_write_uid
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_special_check_write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: security_vehicle_check
+#: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_detail_write_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_item_write_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_table_write_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_abarbeitung_check_write_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_detection_check_write_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_everyday_check_write_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_front_check_write_date
+#: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_plan_details_write_date
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_vehicle_special_check_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
@@ -271,6 +286,12 @@ msgid "Vehicle special check id"
 msgstr "安全技术专项抽查"
 
 #. module: security_vehicle_check
+#: code:addons/security_vehicle_check/models/models.py:34
+#, python-format
+msgid "action_dispatch"
+msgstr "action_dispatch"
+
+#. module: security_vehicle_check
 #: selection:security.vehicle_plan_details,check_result:0
 msgid "check_abnormal"
 msgstr "异常"
@@ -342,6 +363,11 @@ msgid "department id"
 msgstr "部门"
 
 #. module: security_vehicle_check
+#: model:ir.ui.view,arch_db:security_vehicle_check.security_vehicle_front_check_form
+msgid "eidt"
+msgstr "编辑"
+
+#. module: security_vehicle_check
 #: model:ir.model.fields,field_description:security_vehicle_check.field_security_manage_check_table_name
 msgid "function_module"
 msgstr "功能模块"
@@ -379,6 +405,11 @@ msgstr "备注"
 #: model:ir.ui.view,arch_db:security_vehicle_check.vehicle_manage_vehicle_front_check
 msgid "routine_check"
 msgstr "例行检查"
+
+#. module: security_vehicle_check
+#: model:ir.ui.view,arch_db:security_vehicle_check.security_vehicle_front_check_form_action
+msgid "save"
+msgstr "保存"
 
 #. module: security_vehicle_check
 #: model:ir.model,name:security_vehicle_check.model_security_vehicle_abarbeitung_check
@@ -462,7 +493,7 @@ msgid "security_manage_security_check_table_window"
 msgstr "安全检查表"
 
 #. module: security_vehicle_check
-#: model:ir.ui.view,arch_db:security_vehicle_check.security_vehicle_front_check_form
+#: model:ir.ui.view,arch_db:security_vehicle_check.security_vehicle_front_check_form_action
 msgid "upload_pic"
 msgstr "上传图片"
 

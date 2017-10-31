@@ -24,3 +24,23 @@ class vehicle_plan_details(models.Model):
     # 图片
     image_ids = fields.Many2many('ir.attachment', 'front_check_attachment', id1='check_pic',
                              id2='attach_id', string='checking image')
+
+    def openeditform(self):
+        self.ensure_one()
+
+        form_view_ref = self.env.ref('security_vehicle_front_check_form_action', False)
+
+        return {
+            'name': _('action_dispatch'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'security.vehicle_plan_details',
+            'res_id': self.id,
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'view_id': False,
+            'views': [(form_view_ref and form_view_ref.id, 'form')],
+        }
+
+    def save_change(self):
+        return True
