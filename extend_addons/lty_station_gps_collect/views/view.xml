@@ -1,0 +1,31 @@
+﻿<openerp>
+  <data>
+	<!-- 继承站台管理form视图 -->
+	<record id="opertation_resources_station_form_gps_collect_inherit" model="ir.ui.view">
+		<field name="name">opertation_resources_station</field>
+		<field name="model">opertation_resources_station</field>
+		<field name="inherit_id" ref="scheduling_parameters.opertation_resources_station_form"/>
+		<field name="arch" type="xml">
+			 <xpath expr="//button[@name='do_inuse']" position="after">
+                 <button name="%(action_station_gps_collect_wizard)d" string="Collect GPS" type="action"/>
+			</xpath>
+			
+			<notebook position="inside">
+				<page name='GPS' string="Collect GPS">
+				  <field name='gps_ids'>
+					<tree>
+						<field name="name" widget='sequence'/>
+						<field name="longitude"/>
+						<field name="latitude"/>
+						<field name="azimuth"/>
+						<field name="radius"/>
+                        <button name="%(action_station_gps_collect_wizard)d" string="View in map" type="action"/>
+					</tree>
+				  </field>
+				</page>
+			</notebook>			
+			
+		</field>
+	</record>
+  </data>
+</openerp>
