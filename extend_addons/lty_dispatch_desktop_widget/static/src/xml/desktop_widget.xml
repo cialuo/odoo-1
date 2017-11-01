@@ -470,7 +470,6 @@
 
     <t t-name="arrival_time_map_template">
         <div class="carInfoScene arrival_time_map hide_model" >
-            <!-- <img width="344" height="330" t-attf-src="http://restapi.amap.com/v3/staticmap?location={{widget.data.longitude}},{{widget.data.latitude}}&amp;zoom=14&amp;size=344*330&amp;markers=large,,:{{widget.data.longitude}},{{widget.data.latitude}}&amp;key=cf2cefc7d7632953aa19dbf15c194019&amp;scale=2" alt="" /> -->
         </div>
     </t>
 

@@ -129,7 +129,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             layer.close(context);
         },
         start: function () {
-            $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
+            $.getScript("http://webapi.amap.com/maps?v=1.4.1&key=505ae72a86391b207f7e10137f51194a");
             var self = this;
             if (window.location.href.split("action=")[1].split('&')[0] != undefined) {
                 if (window.location.href.split("action=")[1].split('&')[0] == "dispatch_desktop.page") {
