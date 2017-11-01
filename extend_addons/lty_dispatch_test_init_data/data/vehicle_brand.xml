@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--常柴-->
+        <record id="clpp97" model="fleet.vehicle.model.brand">
+            <field name="name">常柴</field>
+        </record>
+
+        <!--丹柴-->
+        <record id="clpp98" model="fleet.vehicle.model.brand">
+            <field name="name">丹柴</field>
+        </record>
+
+        <!--广柴-->
+        <record id="clpp99" model="fleet.vehicle.model.brand">
+            <field name="name">广柴</field>
+        </record>
+
+        <!--牡柴-->
+        <record id="clpp100" model="fleet.vehicle.model.brand">
+            <field name="name">牡柴</field>
+        </record>
+
+        <!--武汽-->
+        <record id="clpp101" model="fleet.vehicle.model.brand">
+            <field name="name">武汽</field>
+        </record>
+
+        <!--重汽-->
+        <record id="clpp103" model="fleet.vehicle.model.brand">
+            <field name="name">重汽</field>
+        </record>
+
+        <!--小轿车-->
+        <record id="clpp113" model="fleet.vehicle.model.brand">
+            <field name="name">小轿车</field>
+        </record>
+
+        <!--五菱微型车-->
+        <record id="clpp121" model="fleet.vehicle.model.brand">
+            <field name="name">五菱微型车</field>
+        </record>
+
+        <!--旅行型小客车-->
+        <record id="clpp126" model="fleet.vehicle.model.brand">
+            <field name="name">旅行型小客车</field>
+        </record>
+
+        <!--教练车-->
+        <record id="clpp132" model="fleet.vehicle.model.brand">
+            <field name="name">教练车</field>
+        </record>
+
+        <!--送料车-->
+        <record id="clpp135" model="fleet.vehicle.model.brand">
+            <field name="name">送料车</field>
+        </record>
+
+        <!--柴油货车-->
+        <record id="clpp174" model="fleet.vehicle.model.brand">
+            <field name="name">柴油货车</field>
+        </record>
+
+        <!--柴油教练车-->
+        <record id="clpp183" model="fleet.vehicle.model.brand">
+            <field name="name">柴油教练车</field>
+        </record>
+
+        <!--苏柴-->
+        <record id="clpp194" model="fleet.vehicle.model.brand">
+            <field name="name">苏柴</field>
+        </record>
+
+        <!--越野车-->
+        <record id="clpp200" model="fleet.vehicle.model.brand">
+            <field name="name">越野车</field>
+        </record>
+
+        <!--出租车-->
+        <record id="clpp207" model="fleet.vehicle.model.brand">
+            <field name="name">出租车</field>
+        </record>
+
+        <!--厦柴-->
+        <record id="clpp239" model="fleet.vehicle.model.brand">
+            <field name="name">厦柴</field>
+        </record>
+
+        <!--郑柴-->
+        <record id="clpp243" model="fleet.vehicle.model.brand">
+            <field name="name">郑柴</field>
+        </record>
+
+        <!--安柴-->
+        <record id="clpp250" model="fleet.vehicle.model.brand">
+            <field name="name">安柴</field>
+        </record>
+
+        <!--重柴-->
+        <record id="clpp275" model="fleet.vehicle.model.brand">
+            <field name="name">重柴</field>
+        </record>
+
+        <!--金柴-->
+        <record id="clpp309" model="fleet.vehicle.model.brand">
+            <field name="name">金柴</field>
+        </record>
+
+        <!--北柴-->
+        <record id="clpp331" model="fleet.vehicle.model.brand">
+            <field name="name">北柴</field>
+        </record>
+
+        <!--南柴-->
+        <record id="clpp346" model="fleet.vehicle.model.brand">
+            <field name="name">南柴</field>
+        </record>
+
+        <!--旅柴-->
+        <record id="clpp352" model="fleet.vehicle.model.brand">
+            <field name="name">旅柴</field>
+        </record>
+
+    </data>
+</odoo>
