@@ -83,7 +83,7 @@
                                         <field name="passdate"/>
                                         <field name="employeestate"/>
                                         <field name="employeeattr"/>
-                                        <field name="bargain"/>
+                                        <field name="bargain_id" domain="[('employee_id','=',id)]" />
                                     </group>
                                     <group>
                                         <field name="iccard" readonly="1"/>

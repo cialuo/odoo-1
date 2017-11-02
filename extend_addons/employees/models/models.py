@@ -31,7 +31,7 @@ class employee(models.Model):
     # 人员属性
     employeeattr = fields.Char(string='emplyee attribute')
     # 劳动合同
-    bargain = fields.Char(string='emplyee bargain')
+    bargain_id = fields.Many2one("hr.contract", string='emplyee bargain')
     # 驾驶证类别
     drivelicense = fields.Char(string='emplyee drivelicense type')
     # 驾驶证号码

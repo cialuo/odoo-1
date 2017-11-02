@@ -21,7 +21,7 @@ class Constract(models.Model):
     @api.constrains('state')
     def _check_status(self):
         """
-        现在一个员工合同 同一时间只有一个运行中的合同
+        现在一个员工合同 同一时间只有一个执行中的合同
         """
         if self.state == 'open':
             self.searchRunningConstract()
@@ -38,6 +38,17 @@ class Constract(models.Model):
             return
         self.wage = self.employee_id.workpost.postlevel.basesalary
 
+    # @api.onchange('state')
+    # def changerelatedemployee(self):
+    #     if self.state == "open":
+    #         self.employee_id.bargain = self.id
+
+    @api.multi
+    def write(self, vals):
+        res = super(Constract, self).write(vals)
+        if self.state == "open":
+            self.employee_id.bargain_id = self.id
+        return res
 
 class PostLevel(models.Model):
 
