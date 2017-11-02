@@ -150,7 +150,7 @@ odoo.define('lty_station_gps_collect.gps_collect', function (require) {
                         self.model_gps_data.call("create", [
                             {
                                 'station_id': self.re_cid,
-                                'radius':100,
+                                'radius': 100,
                                 'name': dom.eq(a).parent().parent().find('.gps_index').html(),
                                 'longitude': dom.eq(a).parent().parent().find('.lon').html(),
                                 'latitude': dom.eq(a).parent().parent().find('.lat').html()
@@ -163,7 +163,7 @@ odoo.define('lty_station_gps_collect.gps_collect', function (require) {
                             {
                                 'longitude': dom.eq(a).parent().parent().find('.lon').html(),
                                 'latitude': dom.eq(a).parent().parent().find('.lat').html(),
-                                'azimuth':100,
+                                'azimuth': 100,
                             }]).then(function (res) {
                             self.close_gps(a, dom);
                         });
@@ -176,7 +176,9 @@ odoo.define('lty_station_gps_collect.gps_collect', function (require) {
             if (a == 9) {
                 this.destroy();
                 $(".modal-dialog .close").click();
-                window.location.reload();
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
             } else {
                 var close_or_no = true;
                 for (var b = a + 1; b < 9; b++) {
@@ -189,7 +191,9 @@ odoo.define('lty_station_gps_collect.gps_collect', function (require) {
                 }
                 if (close_or_no == true) {
                     $(".modal-dialog .close").click();
-                    window.location.reload()
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
                 }
             }
         },
