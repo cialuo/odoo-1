@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<template xml:space="preserve">
+    <t t-name="gps_control">
+        <div></div>
+    </t>
+	<t t-name="gps_content">
+		<div class="gps_modal">
+            <div class="gps_modal_content">
+                <div class="map_container"></div>
+                <div class="operate_content">
+                    <ul class="op_content_tt">
+                        <li>车场</li>
+                        <li>竹子林</li>
+                        <li>
+                            <input type="checkbox" class="ipc"/>
+                            <span>显示半径</span>
+                        </li>
+                    </ul>
+                    <div class="">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>经度</th>
+                                    <th>纬度</th>
+                                    <th>半径</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="[1, 2, 3,4,5, 6, 7, 8, 9,10]" t-as="item">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="item"></t>
+                                        </td>
+                                        <td class="lon"></td>
+                                        <td class="lat"></td>
+                                        <td class="cir">100</td>
+                                        <td>
+                                            <a href="javascript:;" class="to_change"  t-attf-cid="change#{item}">修改</a>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</t>
+</template>

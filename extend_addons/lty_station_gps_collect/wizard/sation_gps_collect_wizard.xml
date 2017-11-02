@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="view_station_gps_collect_wizard" model="ir.ui.view">
-        <field name="name">station_gps_collect_wizard</field>
+        <field name="name">station.gps.collect.wizard</field>
         <field name="model">station.gps.collect.wizard</field>
         <field name="arch" type="xml">
             <form string="gen bus move time">
-                <group col="2">
-                    <group>
-                        <field name="station_id" readonly="1" invisible="1"/>
-                        <field name="name"/>
-                    </group>
-                </group>
+                <notebook>
+                    <page string="gps_control11" name="gps_control">
+
+                    </page>
+                    <!--<group>-->
+                    <!--<field name="station_id" readonly="1" invisible="1"/>-->
+                    <!--<field name="name"/>-->
+                    <!--</group>-->
+                </notebook>
                 <footer>
                     <button name="done_collect" string="Done" type="object" class="btn-primary"/>
-                    <button string="Cancel" class="btn-default" special="cancel" />
+                    <button string="Cancel" class="btn-default" special="cancel"/>
                 </footer>
             </form>
         </field>
     </record>
 
-   <!--cord model="ir.actions.act_window" id="action_station_gps_collect_wizard">
-        <field name="name">station_gps_collect_wizard</field>
-        <field name="res_model">station.gps.collect.wizard</field>
-        <field name="src_model">opertation_resources_station</field>
-        <field name="view_mode">form</field>
+    <!--<record model="ir.actions.act_window" id="action_station_gps_collect_wizard">-->
+    <!--<field name="name">station_gps_collect_wizard</field>-->
+    <!--<field name="res_model">station.gps.collect.wizard</field>-->
+    <!--<field name="src_model">opertation_resources_station</field>-->
+    <!--<field name="view_mode">form</field>-->
+    <!--<field name="target">new</field>-->
+    <!--<field name="key2">client_action_multi</field>-->
+    <!--<field name="context">{'default_active_id': active_id}</field>-->
+    <!--</record>-->
+
+    <record id="action_station_gps_collect_wizard" model="ir.actions.client">
+        <field name="name">gps_control</field>
         <field name="target">new</field>
-        <field name="key2">client_action_multi</field>		
-        <field name="context">{'default_active_id': active_id}</field>
-    </record>-->
-	
-	<act_window id="action_station_gps_collect_wizard"
-		name="station_gps_collect_wizard"
-		src_model="opertation_resources_station"
-		res_model="station.gps.collect.wizard"
-		view_type="form" view_mode="form"
-		key2="client_action_multi" target="new"/>	
+        <field name="tag">gps_control.page</field>
+    </record>
+
+
+    <!--<act_window id="action_station_gps_collect_wizard"-->
+    <!--name="station_gps_collect_wizard"-->
+    <!--src_model="opertation_resources_station"-->
+    <!--res_model="station.gps.collect.wizard"-->
+    <!--view_type="form" view_mode="form"-->
+    <!--&lt;!&ndash;view_id="action_dispatch_desktop"&ndash;&gt;-->
+    <!--key2="client_action_multi" target="new"/>-->
 </odoo>

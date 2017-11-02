@@ -25,10 +25,12 @@
 
     # always loaded
     'data': [
-        #'security/ir.model.access.csv',
+        # 'security/ir.model.access.csv',
         'wizard/sation_gps_collect_wizard.xml',
         'views/view.xml',
-        #'views/menus.xml',
-    ]
-
+        # 'views/menus.xml',
+    ],
+    'qweb': [
+        "static/src/xml/*.xml",
+    ],
 }
