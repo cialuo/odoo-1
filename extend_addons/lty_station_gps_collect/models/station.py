@@ -6,6 +6,7 @@ from odoo import models, fields, api
 
 class station_collected_gps_info(models.Model):
     _name = 'station.collected.gps.info'
+    _order = "name"
 
     name = fields.Integer('name') # 序号
     radius = fields.Integer('radius') # 半径
