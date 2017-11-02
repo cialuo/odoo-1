@@ -1,0 +1,28 @@
+﻿<openerp>
+  <data>
+	<!-- 继承站台管理form视图 -->
+	<record id="opertation_resources_vehicle_yard_form_view_gps_inherit" model="ir.ui.view">
+		<field name="name">opertation_resources_vehicle_yard_form_view</field>
+		<field name="model">opertation_resources_vehicle_yard</field>
+		<field name="inherit_id" ref="scheduling_parameters.opertation_resources_vehicle_yard_form_view"/>
+		<field name="arch" type="xml">
+			<notebook position="inside">
+				<page name='GPS' string="Collect GPS">
+				  <button name="test" string="Collect GPS" type="object"  class="oe_highlight"/>
+				  <field name='gps_ids'>
+					<tree>
+						<field name="name" widget='sequence'/>
+						<field name="longitude"/>
+						<field name="latitude"/>
+						<field name="azimuth"/>
+						<field name="radius"/>
+						<button name="test" string="Collect GPS" type="object"  class="oe_highlight"/>
+					</tree>
+				  </field>
+				</page>
+			</notebook>			
+			
+		</field>
+	</record>
+  </data>
+</openerp>

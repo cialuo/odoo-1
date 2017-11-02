@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data noupdate="1">
+       <record id="gzfl1" model="maintain.fault.category">
+           <field name="fault_category_code">04</field>
+           <field name="name">发动机综合故障</field>
+       </record>
+
+       <record id="gzfl141" model="maintain.fault.category">
+           <field name="fault_category_code">10</field>
+           <field name="name">底盘其他类故障</field>
+       </record>
+
+       <record id="gzfl308" model="maintain.fault.category">
+           <field name="fault_category_code">13</field>
+           <field name="name">车厢类故障</field>
+       </record>
+
+       <record id="gzfl378" model="maintain.fault.category">
+           <field name="fault_category_code">11</field>
+           <field name="name">电器类故障</field>
+       </record>
+
+       <record id="gzfl1050" model="maintain.fault.category">
+           <field name="fault_category_code">01</field>
+           <field name="name">冷却系故障</field>
+       </record>
+
+       <record id="gzfl1051" model="maintain.fault.category">
+           <field name="fault_category_code">02</field>
+           <field name="name">供油系故障</field>
+       </record>
+
+       <record id="gzfl1052" model="maintain.fault.category">
+           <field name="fault_category_code">03</field>
+           <field name="name">润滑系故障</field>
+       </record>
+
+       <record id="gzfl1053" model="maintain.fault.category">
+           <field name="fault_category_code">05</field>
+           <field name="name">前桥类故障</field>
+       </record>
+
+       <record id="gzfl1054" model="maintain.fault.category">
+           <field name="fault_category_code">06</field>
+           <field name="name">中桥类故障</field>
+       </record>
+
+       <record id="gzfl1055" model="maintain.fault.category">
+           <field name="fault_category_code">07</field>
+           <field name="name">后桥类故障</field>
+       </record>
+
+       <record id="gzfl1056" model="maintain.fault.category">
+           <field name="fault_category_code">08</field>
+           <field name="name">气路类故障</field>
+       </record>
+
+       <record id="gzfl1057" model="maintain.fault.category">
+           <field name="fault_category_code">09</field>
+           <field name="name">制动类故障</field>
+       </record>
+
+       <record id="gzfl1533" model="maintain.fault.category">
+           <field name="fault_category_code">14</field>
+           <field name="name">轮胎类故障</field>
+       </record>
+
+       <record id="gzfl2131" model="maintain.fault.category">
+           <field name="fault_category_code">20</field>
+           <field name="name">仪表类故障</field>
+       </record>
+
+       <record id="gzfl2134" model="maintain.fault.category">
+           <field name="fault_category_code">16</field>
+           <field name="name">发电机工作不良</field>
+       </record>
+
+       <record id="gzfl2392" model="maintain.fault.category">
+           <field name="fault_category_code">19</field>
+           <field name="name">灯光类故障</field>
+       </record>
+
+       <record id="gzfl2393" model="maintain.fault.category">
+           <field name="fault_category_code">23</field>
+           <field name="name">灯罩、灯框等外饰件类故障</field>
+       </record>
+
+       <record id="gzfl2395" model="maintain.fault.category">
+           <field name="fault_category_code">25</field>
+           <field name="name">蓄电池类故障</field>
+       </record>
+
+       <record id="gzfl2396" model="maintain.fault.category">
+           <field name="fault_category_code">22</field>
+           <field name="name">感应塞、报警器类故障</field>
+       </record>
+
+       <record id="gzfl2397" model="maintain.fault.category">
+           <field name="fault_category_code">21</field>
+           <field name="name">喇叭类故障</field>
+       </record>
+
+       <record id="gzfl2408" model="maintain.fault.category">
+           <field name="fault_category_code">15</field>
+           <field name="name">发动机类其他故障</field>
+       </record>
+
+       <record id="gzfl2414" model="maintain.fault.category">
+           <field name="fault_category_code">24</field>
+           <field name="name">开关类故障</field>
+       </record>
+
+       <record id="gzfl2491" model="maintain.fault.category">
+           <field name="fault_category_code">26</field>
+           <field name="name">消声器、排气管漏气</field>
+       </record>
+
+       <record id="gzfl2524" model="maintain.fault.category">
+           <field name="fault_category_code">666</field>
+           <field name="name">出租车故障</field>
+       </record>
+
+       <record id="gzfl2526" model="maintain.fault.category">
+           <field name="fault_category_code">669</field>
+           <field name="name">出租车发动机类故障</field>
+       </record>
+
+       <record id="gzfl2527" model="maintain.fault.category">
+           <field name="fault_category_code">668</field>
+           <field name="name">出租车底盘类故障</field>
+       </record>
+
+       <record id="gzfl2528" model="maintain.fault.category">
+           <field name="fault_category_code">667</field>
+           <field name="name">出租车电器类故障</field>
+       </record>
+
+       <record id="gzfl2890" model="maintain.fault.category">
+           <field name="fault_category_code">12</field>
+           <field name="name">电子设备故障</field>
+       </record>
+
+       <record id="gzfl2944" model="maintain.fault.category">
+           <field name="fault_category_code">27</field>
+           <field name="name">后门锁控</field>
+       </record>
+
+       <record id="gzfl2948" model="maintain.fault.category">
+           <field name="fault_category_code">17</field>
+           <field name="name">客车空调</field>
+       </record>
+
+       <record id="gzfl2986" model="maintain.fault.category">
+           <field name="fault_category_code">18</field>
+           <field name="name">事故</field>
+       </record>
+
+       <record id="gzfl2959" model="maintain.fault.category">
+           <field name="fault_category_code">017</field>
+           <field name="name">电涡流缓速器故障</field>
+       </record>
+
+       <record id="gzfl2527" model="maintain.fault.category">
+           <field name="fault_category_code">668</field>
+           <field name="name">出租车底盘类故障</field>
+       </record>
+
+       <record id="gzfl2528" model="maintain.fault.category">
+           <field name="fault_category_code">667</field>
+           <field name="name">出租车电器类故障</field>
+       </record>
+
+   </data>
+</odoo>
