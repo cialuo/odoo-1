@@ -47,6 +47,7 @@
             <field name="domain_force">[(1, '=', 1)]</field>
         </record>
 
+
         <!--对外调动-->
         <record id="user_readonly_innertransfer_rule_foreign" model="ir.rule">
             <field name="name">foreign user</field>
