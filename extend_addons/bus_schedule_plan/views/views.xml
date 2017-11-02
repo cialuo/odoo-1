@@ -126,7 +126,7 @@
                                     <tree default_order="seqid" editable="bottom">
                                         <field name="seqid" widget="line_sequence"/>
                                         <field name="starttime" widget="input_time"/>
-                                        <field name="endtime" widget="input_time"/>
+                                        <field name="endtime" widget="input_time"/>>
                                         <field name="interval"/>
                                         <field name="speed"/>
                                         <field name="worktimelength"/>
@@ -156,12 +156,18 @@
                                     </form>
                                 </field>
                                 </page>
-                                <page string='大数据建议'>                               
+                                <page string='大数据建议'>
 								<field name="uptimearrange_bigdata">
                                     <tree default_order="seqid" editable="bottom">
+<<<<<<< HEAD
                                         <field name="seqid" string='序号' widget="line_sequence"/>
                                         <field name="starttime" string='开始时间' widget="input_time"/>
                                         <field name="endtime" string='结束时间' widget="input_time"/>
+=======
+                                        <field name="seqid" string='序号'/>
+                                        <field name="starttime" string='开始时间'/>
+                                        <field name="endtime" string='结束时间'/>
+>>>>>>> 0384e1ed1f118e32b1f269c784ea1d349c885113
                                         <field name="interval" string='发车间隔'/>
                                         <field name="speed" string='车速'/>
                                         <field name="worktimelength" string='运营时长'/>
@@ -189,10 +195,10 @@
                                             </group>
                                         </group>
                                     </form>
-                                </field>                                
+                                </field>
                                 </page>
                              </notebook>
-                                
+
                             </div>
                         </page>
                         <page string="down work plan" attrs="{'invisible': [('schedule_method', '=', 'singleway')]}">
@@ -258,7 +264,7 @@
                                     </form>
                                 </field>
                                 </page>
-                                <page string='大数据建议'>                              
+                                <page string='大数据建议'>
 								<field name="downtimearrange_bigdata">
                                     <tree default_order="seqid" editable="bottom">
                                         <field name="seqid" string='序号' widget="line_sequence" />
@@ -291,7 +297,7 @@
                                             </group>
                                         </group>
                                     </form>
-                                </field>                                     
+                                </field>
                                 </page>
                               </notebook>
                             </div>
@@ -437,8 +443,8 @@
                     <field name="line_id"/>
                     <field name="rule_id"/>
                     <field name="schedule_method"/>
-                    <field name="plan_trips"/>
-                    <field name="real_trips"/>
+                    <field name="plan_totaltimes"/>
+                    <field name="real_times"/>
                 </tree>
             </field>
         </record>

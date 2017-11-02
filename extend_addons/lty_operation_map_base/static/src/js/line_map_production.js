@@ -287,7 +287,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
             }
             self.isShowPoint_fn(map);
         },
-        isShowPoint_fn(map){
+        isShowPoint_fn:function(map){
             var self = this;
             if (self.isShowPoint) {
                 _.each(self.polyline_gps_list, function(ret, index) {
