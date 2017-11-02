@@ -7,7 +7,7 @@
             <field name="model">warranty_order</field>
             <field name="inherit_id" ref="vehicle_warranty.warranty_order_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='action_confirm_effective']" position="after">
+                <xpath expr="//button[@name='action_batch_dispatch']" position="before">
                    <button type="object"
                             name="action_manage_handover_sheet"
                             string="Delivery Manage"
