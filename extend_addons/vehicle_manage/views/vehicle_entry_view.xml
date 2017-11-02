@@ -3,7 +3,7 @@
 
         <!--Vehicle Tree-->
         <record id='vehicle_entry_view_tree' model='ir.ui.view'>
-            <field name="name">vehicle.tree</field>
+            <field name="name">vehicle.entry.tree</field>
             <field name="model">fleet.vehicle</field>
             <field name="priority">110</field>
             <field name="arch" type="xml">
@@ -23,7 +23,7 @@
 
         <!--Vehicle Form-->
         <record id='vehicle_entry_view_form' model='ir.ui.view'>
-            <field name="name">fleet_vehicle.form</field>
+            <field name="name">vehicle.entry.form</field>
             <field name="model">fleet.vehicle</field>
             <field name="priority">110</field>
             <field name="arch" type="xml">
@@ -153,7 +153,7 @@
 
 
         <record id='fleet_vehicle_view_kanban_extend' model='ir.ui.view'>
-            <field name="name">fleet.vehicle.kanban</field>
+            <field name="name">vehicle.entry.kanban</field>
             <field name="model">fleet.vehicle</field>
             <field name="priority">110</field>
             <field name="arch" type="xml">
@@ -197,7 +197,7 @@
 
         <!-- Vehicle Action -->
         <record id='vehicle_entry_view_action' model='ir.actions.act_window'>
-            <field name="name">vehicle_manage_action</field>
+            <field name="name">vehicle.entry.action</field>
             <field name="res_model">fleet.vehicle</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban,tree,form</field>
