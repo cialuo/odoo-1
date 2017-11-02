@@ -10,9 +10,9 @@
                 <div class="operate_content">
                     <ul class="op_content_tt">
                         <li>车场</li>
-                        <li>竹子林</li>
+                        <li></li>
                         <li>
-                            <input type="checkbox" class="ipc"/>
+                            <input type="checkbox" class="ipc" checked="checked" />
                             <span>显示半径</span>
                         </li>
                     </ul>
@@ -28,23 +28,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <t t-foreach="[1, 2, 3,4,5, 6, 7, 8, 9,10]" t-as="item">
+                                <t t-foreach="widget.gps_data" t-as="item">
                                     <tr>
-                                        <td>
-                                            <t t-esc="item"></t>
+                                        <td class="gps_index">
+                                            <t t-esc="item_index + 1"></t>
                                         </td>
-                                        <td class="lon"></td>
-                                        <td class="lat"></td>
+                                        <td class="lon"><t t-if="item.longitude"><t t-esc="item.longitude"></t></t></td>
+                                        <td class="lat"><t t-if="item.latitude"><t t-esc="item.latitude"></t></t></td>
                                         <td class="cir">100</td>
                                         <td>
-                                            <a href="javascript:;" class="to_change"  t-attf-cid="change#{item}">修改</a>
+                                            <a href="javascript:;" class="to_change" t-attf-gps_name="#{item.id}"  t-attf-cid="change#{item_index + 1}">修改</a>
                                         </td>
                                     </tr>
                                 </t>
                             </tbody>
                         </table>
                     </div>
+                    <div class="gps_footer">
+                        <button class="btn btn-default save_gps">保存</button>
+                        <button class="btn btn-default reset_gps">重置</button>
+                    </div>
                 </div>
+
             </div>
         </div>
 	</t>
