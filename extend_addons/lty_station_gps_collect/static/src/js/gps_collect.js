@@ -163,7 +163,7 @@ odoo.define('lty_station_gps_collect.gps_collect', function (require) {
                             {
                                 'longitude': dom.eq(a).parent().parent().find('.lon').html(),
                                 'latitude': dom.eq(a).parent().parent().find('.lat').html(),
-                                'azimuth': 100,
+                                'radius': 100,
                             }]).then(function (res) {
                             self.close_gps(a, dom);
                         });
