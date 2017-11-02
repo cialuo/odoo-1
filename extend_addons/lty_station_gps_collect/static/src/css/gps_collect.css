@@ -7,50 +7,75 @@
     z-index: 100;
 }
 
-.gps_modal .gps_close{
+.gps_modal .gps_close {
     background: #1ABC9B;
     height: 30px;
 }
-.map_container{
-    width:946px;
-    height:596px;
+
+.map_container {
+    width: 946px;
+    height: 596px;
 }
-.gps_modal .operate_content{
+
+.gps_modal .operate_content {
     position: absolute;
     right: 20px;
-    top:40px;
+    top: 40px;
     background: #fff;
-    width:360px;
-    height:440px;
-    z-index:1000;
-    -webkit-border-radius:10px;
-    -moz-border-radius:10px;
-    border-radius:10px;
+    width: 360px;
+    height: 440px;
+    z-index: 1000;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }
-.gps_modal .op_content_tt{
+
+.gps_modal .op_content_tt {
     overflow: hidden;
-    height:60px;
+    height: 60px;
 }
-.gps_modal .op_content_tt li{
+
+.gps_modal .op_content_tt li {
     float: left;
-    width:33%;
+    width: 33%;
     line-height: 60px;
     text-align: center;
     font-size: 14px;
 }
-.gps_modal table{
-    margin:0 auto;
-    width:300px;
-    font-size:14px;
-    text-align:center;
+
+.gps_modal table {
+    margin: 0 auto;
+    width: 300px;
+    font-size: 14px;
+    text-align: center;
 }
-.gps_modal table th,.gps_modal table td{
+
+.gps_modal table th, .gps_modal table td {
     text-align: center;
     line-height: 30px;
 }
-.gps_modal .ipc{
+
+.gps_modal .ipc {
     margin: -2px 0 0;
     vertical-align: middle;
 }
 
+.gps_modal .gps_footer {
+    height: 50px;
+}
 
+.gps_modal .gps_footer .save_gps {
+    float: right;
+    background: #21b799;
+    color: #fff;
+    margin-top: 9px;
+}
+
+.gps_modal .gps_footer .reset_gps {
+    float: left;
+    color: #fff;
+    margin-top: 9px;
+    margin-left: 10px;
+    border:none;
+    background: #ccc;
+}
