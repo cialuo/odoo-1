@@ -81,7 +81,7 @@ class InspectionPlan(models.Model):
     # 审批时间
     approvaldate = fields.Datetime(string="approval date")
     # 分公司
-    branchcompany = fields.Many2one('hr.department', string="branch company", required=True)
+    branchcompany = fields.Many2one('res.company', string="branch company", required=True)
     # 审批人
     approver = fields.Many2one('res.users', string="approver")
     # 制表人
