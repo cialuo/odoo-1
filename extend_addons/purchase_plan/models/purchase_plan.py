@@ -36,11 +36,11 @@ class PuchasePlan(models.Model):
 
     name = fields.Char(string='name', default='/', readonly=True)
     month = fields.Char(string='Month', readonly=True, states={'draft': [('readonly', False)]}, required=True, default=_get_month)
-    user_id = fields.Many2one('hr.employee', string='Create User', required=True, readonly=True,
+    employee_id = fields.Many2one('hr.employee', string='Create User', required=True, readonly=True,
                               states={'draft': [('readonly', False)]}, default=_get_default_user)
     login_user = fields.Many2one('res.users', string='Login user', default=lambda self: self.env.user)
-    sub_company = fields.Many2one('hr.department', related='user_id.department_id', string='User Company', readonly=True)
-    user_department = fields.Many2one('hr.department', related='user_id.department_id', string='User Department')
+    sub_company = fields.Many2one('hr.department', related='employee_id.department_id', string='User Company', readonly=True)
+    user_department = fields.Many2one('hr.department', related='employee_id.department_id', string='User Department')
     checker_id = fields.Many2one('hr.employee', string='Check User', readonly=True)
     checker_login = fields.Many2one('res.users')
     checker_department = fields.Many2one('hr.department', related='checker_id.department_id', string='User Department', readonly=True)
