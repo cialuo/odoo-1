@@ -14,7 +14,8 @@ class VehiclePlant(models.Model):
 
     name = fields.Char("Plant Name", required=True)
     plant_code = fields.Char(string="Plant Code", required=True)
-    department_id = fields.Many2one('hr.department',required=True, domain="[('departmenttype', '=', 'maintainfactory')]")
+    department_id = fields.Many2one('hr.department', required=True, domain="[('departmenttype', '=', 'maintainfactory')]")
+    company_id = fields.Many2one('res.company', related='department_id.company_id', store=True)
     scale = fields.Char("Plant Scale")
     active = fields.Boolean(default=True)
     address =  fields.Char("Plant Address")
