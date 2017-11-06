@@ -73,6 +73,7 @@
         </field>
     </record>
 
+
     <record model="ir.actions.act_window" id="opertation_resources_station_action">
             <field name="name">站台管理</field>
             <field name="res_model">opertation_resources_station</field>
