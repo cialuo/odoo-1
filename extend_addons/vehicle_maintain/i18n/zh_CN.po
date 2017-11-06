@@ -969,7 +969,7 @@ msgstr "旧维修方法"
 #. module: vehicle_maintain
 #: model:ir.model.fields,field_description:vehicle_maintain.field_maintain_manage_repair_change_method_old_reason_id
 msgid "Old Reason"
-msgstr "旧维修方法"
+msgstr "旧故障原因"
 
 #. module: vehicle_maintain
 #: model:ir.ui.view,arch_db:vehicle_maintain.maintain_inspect_confirm_view
