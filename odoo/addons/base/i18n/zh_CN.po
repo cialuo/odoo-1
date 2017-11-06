@@ -17164,7 +17164,7 @@ msgstr "南斯拉夫"
 #: model:ir.ui.view,arch_db:base.view_partner_form
 #: model:ir.ui.view,arch_db:base.view_res_bank_form
 msgid "ZIP"
-msgstr "ZIP"
+msgstr "邮编"
 
 #. module: base
 #: model:res.country,name:base.zr

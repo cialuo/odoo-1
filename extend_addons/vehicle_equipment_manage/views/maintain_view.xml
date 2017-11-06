@@ -77,7 +77,7 @@
 						<notebook>
 							<page string="Deliverys">
                                 <field name="equipment_ids" attrs="{'readonly':[('state','!=','draft')]}">
-                                    <tree string="Deliverys" editable="top">
+                                    <tree string="Deliverys" create="0" editable="top">
 										<field name="equipment_id" options="{'no_open': True, 'no_create': True}"/>
 										<field name="serial_no"/>
 										<field name="fixed_asset_number"/>
@@ -87,7 +87,7 @@
                             </page>
 							<page string="ReturnDeliverys" >
                                 <field name="equipment_return_ids">
-                                    <tree string="ReturnDeliverys" editable="top">
+                                    <tree string="ReturnDeliverys" create="0" editable="top">
 										<field name="equipment_id" options="{'no_open': True, 'no_create': True}"/>
 										<field name="serial_no"/>
 										<field name="fixed_asset_number"/>
