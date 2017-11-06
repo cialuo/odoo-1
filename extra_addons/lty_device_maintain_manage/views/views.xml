@@ -84,8 +84,7 @@
 
 
     <!-- 综合服务管理 -->
-    <menuitem name="综合服务管理"  id="lty_integrate_menu_manage"  sequence="10" web_icon="operation_menu,static/description/icon.png"/>
-    <menuitem name="设备维护"  id="lty_device_maintain_item" parent="lty_integrate_menu_manage"  sequence="70" web_icon="operation_menu,static/description/icon.png"/>
+    <menuitem name="设备维护"  id="lty_device_maintain_item" parent="lty_integrate_menu_manage.lty_integrate_menu_manage"  sequence="70" web_icon="operation_menu,static/description/icon.png"/>
 
 
     <menuitem id="double_eye_vidicon_manage_item" name="双目摄像机管理" parent="lty_device_maintain_item" sequence="70"/>
@@ -93,7 +92,7 @@
       <menuitem id="double_eye_upgrade_doc_item" name="双目升级文件库" parent="double_eye_vidicon_manage_item" action="opertation_resources_station_action" sequence="70"/>
       <menuitem id="parameter_doc_item" name="参数文件库" parent="double_eye_vidicon_manage_item" action="opertation_resources_station_action" sequence="70"/>
 
-      <menuitem id="device_upgrade_item" name="设备升级" parent="lty_device_maintain_item_item" action="opertation_resources_station_action" sequence="70"/>
+      <menuitem id="device_upgrade_item" name="设备升级" parent="lty_device_maintain_item" action="opertation_resources_station_action" sequence="70"/>
       <menuitem id="application_procedure_upgrade_item" name="应用程序升级" parent="device_upgrade_item" action="opertation_resources_station_action" sequence="70"/>
     <menuitem id="application_procedure_item" name="应用程序" parent="device_upgrade_item" action="opertation_resources_station_action" sequence="70"/>
 
