@@ -10,7 +10,7 @@
         综合服务管理菜单
     """,
 
-    'author': "youmy",
+    'author': "chupeng",
     'website': "http://www.lantaiyuan.com/",
 
     # Categories can be used to filter modules in modules listing

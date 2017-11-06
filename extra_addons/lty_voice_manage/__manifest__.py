@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "综合服务管理",
+    'name': "自行更改",
 
     'summary': """
-        综合服务管理
+        自行更改
     """,
 
     'description': """
@@ -20,12 +20,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['integrate_manage_menu','scheduling_parameters'],
+    'depends': ['base'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
+        #'views/views.xml',
         #'views/templates.xml',
     ],
     # only loaded in demonstration mode

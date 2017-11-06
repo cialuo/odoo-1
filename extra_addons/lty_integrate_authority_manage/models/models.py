@@ -15,11 +15,6 @@ from odoo import models, fields, api
 #         self.value2 = float(self.value) / 100
 
 
-class Student(models.Model):
-    _name = 'lty.station.stu'
 
-    name = fields.Char()
-    age = fields.Integer()
-    sex = fields.Char()
 
 

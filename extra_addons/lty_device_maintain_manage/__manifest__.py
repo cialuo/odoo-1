@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "综合服务管理",
+    'name': "设备维护",
 
     'summary': """
-        综合服务管理
+        设备维护
     """,
 
     'description': """
@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['integrate_manage_menu','scheduling_parameters'],
+    'depends': ['lty_integrate_menu_manage','scheduling_parameters'],
 
     # always loaded
     'data': [

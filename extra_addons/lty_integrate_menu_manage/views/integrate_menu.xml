@@ -1,34 +1,35 @@
 <odoo>
     <data>
         <!-- 综合服务管理 -->
-        <menuitem name="综合服务管理"  id="integrate_service_manage_menu"  sequence="10" web_icon="operation_menu,static/description/icon.png"/>
+        <menuitem name="综合服务管理"  id="lty_integrate_menu_manage"  sequence="10" web_icon="operation_menu,static/description/icon.png"/>
 
         <!--GIS监控-->
-		<menuitem name="GIS监控" id="GIS_monitor_menu" parent="integrate_service_manage_menu" sequence="20"/>
+		<menuitem name="GIS监控" id="GIS_monitor_menu" parent="lty_integrate_menu_manage" sequence="20"/>
 
         <!--站台管理-->
-		<menuitem name="站台管理" id="station_manage_menu" parent="integrate_service_manage_menu" sequence="30"/>
+		<menuitem name="站台管理" id="station_manage_menu" parent="lty_integrate_menu_manage" sequence="30"/>
 
         <!--语音库管理-->
-		<menuitem name="语音库管理" id="voice_library_menu" parent="integrate_service_manage_menu" sequence="40"/>
+		<menuitem name="语音库管理" id="voice_library_menu" parent="lty_integrate_menu_manage" sequence="40"/>
 
         <!--地理坐标管理-->
-        <menuitem name="地理坐标管理" id="geography_coordinate_menu" parent="integrate_service_manage_menu" sequence="50"/>
+        <menuitem name="地理坐标管理" id="geography_coordinate_menu" parent="lty_integrate_menu_manage" sequence="50"/>
 
         <!--线路参数设置-->
-        <menuitem name="线路参数设置" id="route_parameter_menu" parent="integrate_service_manage_menu" sequence="60"/>
+        <menuitem name="线路参数设置" id="route_parameter_menu" parent="lty_integrate_menu_manage" sequence="60"/>
 
         <!--广告管理-->
-        <menuitem name="广告管理" id="advert_manage_menu" parent="integrate_service_manage_menu" sequence="70"/>
+        <menuitem name="广告管理" id="advert_manage_menu" parent="lty_integrate_menu_manage" sequence="70"/>
 
         <!--设备维护-->
-        <menuitem name="设备维护" id="equipment_maintain_menu" parent="integrate_service_manage_menu" sequence="80"/>
+        <menuitem name="设备维护" id="equipment_maintain_menu" parent="lty_integrate_menu_manage" sequence="80"/>
 
         <!--统计分析-->
-		<menuitem name="统计分析" id="statistics_analysis_menu" parent="integrate_service_manage_menu" sequence="90"/>
+		<menuitem name="统计分析" id="statistics_analysis_menu" parent="lty_integrate_menu_manage" sequence="90"/>
 
         <!--系统设置-->
-        <menuitem name="系统设置" id="system_setting_menu" parent="integrate_service_manage_menu" sequence="100"/>
+        <menuitem name="系统设置" id="system_setting_menu" parent="lty_integrate_menu_manage" sequence="100"/>
 
+        
     </data>
 </odoo>

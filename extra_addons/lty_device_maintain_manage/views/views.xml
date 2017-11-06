@@ -55,42 +55,6 @@
     <menuitem name="Server to list" id="chupeng_test" parent="chupeng_test.menu_2"
               action="chupeng_test.action_server"/>
     -->
-   <record id="lty_station_manage_view_list" model="ir.ui.view">
-       <field name="name">学生</field>
-       <field name="model">lty.station.stu</field>
-       <field name="arch" type="xml">
-           <tree>
-               <field name="name"/>
-               <field name="age"/>
-               <field name="sex"/>
-           </tree>
-       </field>
-   </record>
-
-    <!-- 综合服务管理 -->
-    <record model="ir.actions.act_window" id="lty_station_manage_action">
-      <field name="name">综合服务管理</field>
-      <field name="res_model">lty.station.stu</field>
-      <field name="view_mode">tree,form</field>
-    <field name="help" type="html">
-        <p class="oe_view_nocontent_create">
-            暂无数据<br/>
-        </p>
-    </field>
-    </record>
-
-    <record model="ir.actions.act_window" id="lty_station_manage_action1">
-      <field name="name">我的</field>
-      <field name="res_model">lty.station.stu</field>
-      <field name="view_mode">form</field>
-    <field name="help" type="html">
-        <p class="oe_view_nocontent_create">
-            暂无数据<br/>
-        </p>
-    </field>
-    </record>
-
-
 
     <!-- 站台管理 -->
     <record model="ir.ui.view" id="opertation_resources_station_list">
@@ -117,39 +81,18 @@
     </record>
 
 
-    <menuitem name="综合服务管理"  id="lty_station_manage_menu"  sequence="5" web_icon="operation_menu,static/description/icon.png"/>
-    <menuitem id="lty_station_manage_gis" name="GIS监控" parent="integrate_manage_menu.GIS_monitor_menu" action="lty_station_manage_action" sequence="20"/>
-
-    <menuitem id="lty_station_manage_station" name="站台管理" parent="integrate_manage_menu.station_manage_menu" action="opertation_resources_station_action" sequence="30"/>
-
-    <menuitem id="lty_station_manage_station_point" name="站点语音" parent="integrate_manage_menu.voice_library_menu" action="lty_station_manage_action" sequence="40"/>
-    <menuitem id="lty_station_manage_route_voice" name="线路语音" parent="integrate_manage_menu.voice_library_menu" action="lty_station_manage_action" sequence="40"/>
-    <menuitem id="lty_station_manage_public_voice" name="公共语音" parent="integrate_manage_menu.voice_library_menu" action="lty_station_manage_action" sequence="40"/>
-
-    <menuitem id="lty_station_manage_axis" name="地理坐标管理" parent="integrate_manage_menu.geography_coordinate_menu" action="lty_station_manage_action" sequence="50"/>
-
-    <menuitem id="lty_station_manage_route_config" name="线路配置发布" parent="integrate_manage_menu.route_parameter_menu" action="lty_station_manage_action" sequence="60"/>
-
-    <menuitem id="lty_station_manage_advert" name="广告发布管理" parent="integrate_manage_menu.advert_manage_menu" action="lty_station_manage_action" sequence="70"/>
-
-    <menuitem id="lty_station_manage_double_vidicon" name="双目摄像机管理" parent="integrate_manage_menu.equipment_maintain_menu" action="lty_station_manage_action" sequence="80"/>
-
-    <menuitem id="lty_station_manage_statistics_analysis" name="统计分析" parent="integrate_manage_menu.statistics_analysis_menu" action="lty_station_manage_action" sequence="90"/>
-
-    <menuitem id="lty_station_manage_city" name="城市管理" parent="integrate_manage_menu.system_setting_menu" action="lty_station_manage_action" sequence="100"/>
 
 
+    <!-- 综合服务管理 -->
+    <menuitem name="综合服务管理"  id="lty_integrate_menu_manage"  sequence="10" web_icon="operation_menu,static/description/icon.png"/>
+    <menuitem name="设备维护"  id="lty_device_maintain_item" parent="lty_integrate_menu_manage"  sequence="10" web_icon="operation_menu,static/description/icon.png"/>
 
 
-
-
-    <!--<menuitem id="opertation_resources_station_menu"
-            name="Station management"
-            parent="operation_menu.opertation_resources_menu"
-            action="opertation_resources_station_action"
-            groups="schedule_dispatch_group.schedule_user"
-            sequence="30"
-    />-->
+    <menuitem id="lty_device_maintain_manage" name="双目摄像机管理" parent="lty_device_maintain_item" sequence="70"/>
+    <menuitem id="lty_device_maintain_manage" name="设备升级" parent="lty_integrate_menu_manage.advert_manage_menu" action="opertation_resources_station_action" sequence="70"/>
+    <menuitem id="lty_device_maintain_manage" name="双目摄像机维护" parent="lty_integrate_menu_manage.advert_manage_menu" action="opertation_resources_station_action" sequence="70"/>
+    <menuitem id="lty_device_maintain_manage" name="双目升级文件库" parent="lty_integrate_menu_manage.advert_manage_menu" action="opertation_resources_station_action" sequence="70"/>
+    <menuitem id="lty_device_maintain_manage" name="参数文件库" parent="lty_integrate_menu_manage.advert_manage_menu" action="opertation_resources_station_action" sequence="70"/>
 
 
 
