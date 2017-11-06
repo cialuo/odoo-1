@@ -79,15 +79,12 @@
             <field name="view_model">tree,form</field>
     </record>
 
-
-
     <!-- 综合服务管理 -->
-    <menuitem name="系统设置"  id="lty_system_setting_item" parent="lty_integrate_menu_manage.lty_integrate_menu_manage"  sequence="90" web_icon="operation_menu,static/description/icon.png"/>
+    <menuitem name="统计分析"  id="lty_statistic_analysis_item" parent="lty_integrate_menu_manage.lty_integrate_menu_manage"  sequence="80" web_icon="operation_menu,static/description/icon.png"/>
 
-    <menuitem id="city_manage_item" name="城市管理" parent="lty_system_setting_item" action="opertation_resources_station_action" sequence="90"/>
-    <menuitem id="bus_company_manage_item" name="公交公司管理" parent="lty_system_setting_item" action="opertation_resources_station_action" sequence="90"/>
-    <menuitem id="role_manage_item" name="角色管理" parent="lty_system_setting_item" action="opertation_resources_station_action" sequence="90"/>
-    <menuitem id="user_information_item" name="人员信息" parent="lty_system_setting_item" action="opertation_resources_station_action" sequence="90"/>
+    <menuitem id="lty_statistic_analysis_item1" name="统计分析" parent="lty_statistic_analysis_item" action="opertation_resources_station_action" sequence="80"/>
+
+
 
 
   </data>
