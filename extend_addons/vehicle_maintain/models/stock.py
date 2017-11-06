@@ -84,7 +84,7 @@ class StockPicking(models.Model):
                                                      ('picking_type_id.name', 'in', [u'退料']),])
 
         if order.repair_id.materials_control:
-            if type == u'领料':
+            if type in [u'发料', u'领料']:
                 '''
                    统计所有领料单和发料，退料单中这些商品的
                    1，查询pinking中领料，发料在标记为代办以上的状态的单，退料为完成的单 。统计出相应的数量

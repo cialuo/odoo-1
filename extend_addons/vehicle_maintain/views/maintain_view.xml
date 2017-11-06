@@ -161,7 +161,7 @@
 											   readonly="1"
 											   options="{'no_open':True,'no_create':True}"/>
 										<field name="repair_company_id"
-											   attrs="{'readonly': [('state', '=', 'completed')]}"
+											   attrs="{'readonly': [('state', 'in', ['repair','completed'])]}"
 											   required="1"
 											   options="{'no_open':True,'no_create':True}"/>
 

@@ -109,6 +109,8 @@ class StockPicking(models.Model):
                     return super(StockPicking, self).action_confirm()
                 elif all([p.is_important == True for p in order.move_lines.mapped('product_id')]):
                     obj = order.repair_id or order.warranty_order_id
+                    if not obj:
+                        continue
                     location_id = obj.vehicle_id.location_stock_id.id  # 车的实库
                     location_dest_id = self.env.ref('stock_picking_types.stock_location_old_to_new').id
                     if type == u'退料':

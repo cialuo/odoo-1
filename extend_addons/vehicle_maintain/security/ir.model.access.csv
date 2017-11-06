@@ -81,6 +81,8 @@ access_stock_location_repair,stock location,stock.model_stock_location,vehicle_g
 
 access_maintain_manage_repair_stock_user,maintain_manage_repair,model_maintain_manage_repair,stock.group_stock_user,1,0,0,0
 
+access_maintain_manage_available_product_user,maintain_manage_available_product,model_maintain_manage_available_product,stock.group_stock_user,1,1,1,1
+
 
 
 
