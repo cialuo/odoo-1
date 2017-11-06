@@ -272,7 +272,7 @@ class MaintainRepair(models.Model):
     inspect_standard = fields.Text("Inspect Standard", related='fault_method_id.inspect_standard',
                                    help="Inspect Standard", store=True, readonly=True)
 
-    picking_ids = fields.One2many("stock.picking", 'repair_id', string='Stock Pickings', copy=True) #物料单
+    picking_ids = fields.One2many("stock.picking", 'repair_id', string='Stock Pickings', copy=False) #物料单
 
     return_repair_state = fields.Selection([('yes', "yes"), ('no', "no"), ('doubt', "doubt")],
                                            default='no', string="Return Repair State",states={

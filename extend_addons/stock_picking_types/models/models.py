@@ -71,7 +71,7 @@ class PackOperationLot(models.Model):
         for order in self:
             if order.lot_id:
                 origins = order.lot_id.mapped('quant_ids').mapped('history_ids').mapped('origin')
-                order_lines = self.env['purchase.order'].search([('name', 'in', origins)]).mapped('order_line')
+                order_lines = self.env['purchase.order'].sudo().search([('name', 'in', origins)]).mapped('order_line')
                 line = order_lines.filtered(lambda x: x.product_id == order.product_id)
                 if line:
                     order.lot_price_unit = line[0].price_unit

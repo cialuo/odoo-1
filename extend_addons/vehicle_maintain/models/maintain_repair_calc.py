@@ -54,7 +54,7 @@ class MaintainRepairCalculate(models.Model):
         self._refresh_fee()
 
         self.write({
-            'calculate_user_id': self._default_employee().id,
+            'calculate_user_id': self._default_employee().id if self._default_employee() else '',
             'calculate_time': datetime.datetime.now(),
             'calculate_state': 'calculated'
         })

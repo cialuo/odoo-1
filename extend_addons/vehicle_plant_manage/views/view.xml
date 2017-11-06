@@ -9,6 +9,7 @@
                     <field name="plant_code"/>
 					<field name="name"/>
                     <field name="department_id"/>
+					<field name="company_id"/>
 					<field name="scale"/>
 					<field name="create_uid"/>
                     <field name="address"/>
