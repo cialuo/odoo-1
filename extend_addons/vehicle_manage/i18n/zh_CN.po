@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* vehicle_manage
+# 	* vehicle_manage
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-23 09:40+0000\n"
-"PO-Revision-Date: 2017-10-23 09:40+0000\n"
+"POT-Creation-Date: 2017-11-02 07:45+0000\n"
+"PO-Revision-Date: 2017-11-02 15:47+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_cost_type_set_cost_type_set_active
@@ -32,7 +34,7 @@ msgid "Annual inspection date"
 msgstr "年检到期"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:123
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:122
 #, python-format
 msgid "Annual inspection details can not be empty."
 msgstr "年检计划详情不能为空!"
@@ -147,22 +149,22 @@ msgid "Control Number"
 msgstr "检验"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:166
-#: code:addons/vehicle_manage/models/vehicle.py:175
+#: code:addons/vehicle_manage/models/vehicle.py:174
+#: code:addons/vehicle_manage/models/vehicle.py:183
 #, python-format
 msgid "Copy of {}"
 msgstr "Copy of {}"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:168
-#: code:addons/vehicle_manage/models/vehicle.py:177
+#: code:addons/vehicle_manage/models/vehicle.py:176
+#: code:addons/vehicle_manage/models/vehicle.py:185
 #, python-format
 msgid "Copy of {} ({})"
 msgstr "Copy of {} ({})"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:164
-#: code:addons/vehicle_manage/models/vehicle.py:173
+#: code:addons/vehicle_manage/models/vehicle.py:172
+#: code:addons/vehicle_manage/models/vehicle.py:181
 #, python-format
 msgid "Copy of {}%"
 msgstr "Copy of {}%"
@@ -442,8 +444,8 @@ msgid "Inspection state"
 msgstr "状态"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:213
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:324
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:212
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:332
 #, python-format
 msgid "Inspectionexpire can not be greater than the inspectiondate"
 msgstr "年检过期时间不能小于年检日期!"
@@ -747,13 +749,6 @@ msgid "Specifications"
 msgstr "型号规格"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:294
-#: sql_constraint:vehicle_manage.emission_standard:0
-#, python-format
-msgid "Standard code already exists"
-msgstr "排放等级编码已经存在"
-
-#. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_fleet_vehicle_start_service_date
 msgid "Start Service Date"
 msgstr "投入日期"
@@ -790,13 +785,6 @@ msgstr "年检日期"
 #, python-format
 msgid "The cost must be greater than zero"
 msgstr "费用不能小于0!"
-
-#. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicle.py:14
-#: sql_constraint:fleet.vehicle:0
-#, python-format
-msgid "The license_plate must be unique !"
-msgstr "车辆编号必须唯一"
 
 #. module: vehicle_manage
 #: model:ir.model.fields,help:vehicle_manage.field_fleet_vehicle_reg_no
@@ -1019,7 +1007,7 @@ msgid "branch company"
 msgstr "分公司"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:383
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:391
 #, python-format
 msgid "can not found inner code %s in system "
 msgstr "不存在的车辆自编号 %s  "
@@ -1171,7 +1159,7 @@ msgid "import vehicle"
 msgstr "导入车辆"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:382
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:390
 #, python-format
 msgid "inner code not exist %s "
 msgstr "不存在车辆自编号 %s "
@@ -1306,7 +1294,7 @@ msgstr "提前生成维保天数"
 #. module: vehicle_manage
 #: model:ir.model.fields,field_description:vehicle_manage.field_vehicleusage_driverecords_relateddate
 msgid "mileage data"
-msgstr "mileage data"
+msgstr "所属日期"
 
 #. module: vehicle_manage
 #: model:ir.ui.view,arch_db:vehicle_manage.vehicle_manage_model_view_form_ext
@@ -1314,37 +1302,37 @@ msgid "mm"
 msgstr "mm"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:373
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:381
 #, python-format
 msgid "must have inner code in data file"
 msgstr "必须包含自编号"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:361
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:369
 #, python-format
 msgid "must have inspection date in data file"
 msgstr "必须包含年检日期"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:367
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:375
 #, python-format
 msgid "must have inspection expire date in data file"
 msgstr "必须包含年检过期日期"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:372
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:380
 #, python-format
 msgid "need inner code"
 msgstr "需要自编号"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:360
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:368
 #, python-format
 msgid "need inspection date"
 msgstr "需要年检日期"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:366
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:374
 #, python-format
 msgid "need inspection expire date"
 msgstr "需要年检过期日期"
@@ -1478,8 +1466,8 @@ msgid "synthesize rate"
 msgstr "人车比"
 
 #. module: vehicle_manage
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:191
-#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:201
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:190
+#: code:addons/vehicle_manage/models/vehicleUsageManagement.py:200
 #, python-format
 msgid "there is a vehicle that already have inspection plan "
 msgstr "列表中包含已计划车辆 "
@@ -1571,6 +1559,11 @@ msgid "vehicle.config.settings"
 msgstr "设置"
 
 #. module: vehicle_manage
+#: model:ir.actions.act_window,name:vehicle_manage.vehicle_entry_view_action
+msgid "vehicle.entry.action"
+msgstr "车辆信息"
+
+#. module: vehicle_manage
 #: model:ir.actions.act_window,name:vehicle_manage.vehicle_inspection_list_action
 msgid "vehicle_inspection_list"
 msgstr "年检查询"
@@ -1586,7 +1579,6 @@ msgid "vehicle_manage.emission_standard"
 msgstr "排放标准"
 
 #. module: vehicle_manage
-#: model:ir.actions.act_window,name:vehicle_manage.vehicle_entry_view_action
 #: model:ir.actions.act_window,name:vehicle_manage.vehicle_manage_action
 msgid "vehicle_manage_action"
 msgstr "车辆技术档案"
@@ -1645,4 +1637,3 @@ msgstr "行车记录"
 #: selection:fleet.vehicle,state:0
 msgid "warrantly"
 msgstr "保养"
-

@@ -3263,7 +3263,7 @@ msgstr "创建时间"
 #: model:ir.ui.view,arch_db:account.report_partnerledger
 #: model:ir.ui.view,arch_db:account.report_trialbalance
 msgid "Credit"
-msgstr "Credit"
+msgstr "信用"
 
 #. module: account
 #: model:account.account.type,name:account.data_account_type_credit_card
@@ -3496,7 +3496,7 @@ msgstr "开票日之后的天数"
 #: model:ir.ui.view,arch_db:account.report_partnerledger
 #: model:ir.ui.view,arch_db:account.report_trialbalance
 msgid "Debit"
-msgstr "Debit"
+msgstr "借记"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_journal_inbound_payment_method_ids

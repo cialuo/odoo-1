@@ -296,7 +296,9 @@
     <menuitem id="employee_experience_manage_menu" name="employee experience manage"
               parent="staff_file_menu"
               action="employee_experience_management_action"
-              sequence="30"/>
+              sequence="30"
+              groups="hr.group_hr_user"
+    />
 
     <!--个人工作台账-->
     <menuitem id="employee_work_records_menu" name="employee work records"

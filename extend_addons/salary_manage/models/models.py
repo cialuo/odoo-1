@@ -52,9 +52,10 @@ class SalaryCompute(models.Model):
             }
             day_from = fields.Datetime.from_string(date_from)
             day_to = fields.Datetime.from_string(date_to)
-            nb_of_days = (day_to - day_from).days + 1
+            nb_of_days = (day_to - day_from).days+1
             for day in range(0, nb_of_days):
-                working_hours_on_day = contract.working_hours.working_hours_on_day(day_from + timedelta(days=day))
+                day_offset = day_from + timedelta(days=day)
+                working_hours_on_day = contract.working_hours.working_hours_on_day(day_offset)
                 if working_hours_on_day:
                     # the employee had to work
                     attendances['number_of_days'] += 1.0
@@ -100,18 +101,12 @@ class SalaryCompute(models.Model):
         date_to = self.date_to
 
         absCumputer = CumpouteAbsenceData(self)
-        # monthAndYear = datetime.fromtimestamp(time.mktime(time.strptime(date_from, "%Y-%m-%d"))).strftime('%Y-%m-01')
         monthAndYear = absCumputer.cumputDateAndYear(date_from)
         if date_from > date_to:
             raise ValidationError(_("Payslip 'Date From' must be before 'Date To'."))
 
         ttyme = datetime.fromtimestamp(time.mktime(time.strptime(date_from, "%Y-%m-%d")))
         self.name = _('Salary Slip of %s for %s') % (employee.name, tools.ustr(ttyme.strftime('%Y-%m')))
-
-        date_from_china = datetime.fromtimestamp(time.mktime(time.strptime(date_from, "%Y-%m-%d"))) - timedelta(hours=8)
-        date_to_china = datetime.fromtimestamp(time.mktime(time.strptime(date_to, "%Y-%m-%d"))) - timedelta(hours=8)
-        date_from = date_from_china.strftime(odoo.tools.misc.DEFAULT_SERVER_DATETIME_FORMAT)
-        date_to = date_to_china.strftime(odoo.tools.misc.DEFAULT_SERVER_DATETIME_FORMAT)
 
         self.company_id = employee.company_id
 
@@ -125,7 +120,7 @@ class SalaryCompute(models.Model):
             return
         self.struct_id = self.contract_id.struct_id
         contractToUse = [self.contract_id.id]
-        # computation of the salary input
+
         worked_days_line_ids = self.get_worked_day_lines(contractToUse, date_from, date_to)
         worked_days_lines = self.worked_days_line_ids.browse([])
         for r in worked_days_line_ids:
@@ -135,7 +130,6 @@ class SalaryCompute(models.Model):
         input_line_ids = self.get_inputs(contractToUse, date_from, date_to)
         input_lines = self.input_line_ids.browse([])
 
-        # absenceLines = self.getAbsenceData(monthAndYear, employee.id, self.contract_id.id)
         absenceLines = absCumputer.genWriteRecord(employee.id, monthAndYear, self.contract_id.id)
         if absenceLines != None:
             input_line_ids += [absenceLines]
