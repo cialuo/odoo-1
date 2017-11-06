@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "自行更改",
+    'name': "系统设置",
 
     'summary': """
-        自行更改
+        系统设置
     """,
 
     'description': """
@@ -20,12 +20,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['lty_integrate_menu_manage','scheduling_parameters'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        #'views/views.xml',
+        'views/views.xml',
         #'views/templates.xml',
     ],
     # only loaded in demonstration mode
