@@ -63,6 +63,7 @@
                                         <field name="staff_driver_names"/>
                                         <field name="staff_conductor_names"/>
                                         <field name="bus_shift_id" invisible="1" options="{'no_open':True,'no_create':True}"/>
+                                        <field name="direction" invisible="0" string="方向"/>
                                     </tree>
                                 </field>
                             </page>
