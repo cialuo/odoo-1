@@ -56,7 +56,36 @@
               action="chupeng_test.action_server"/>
     -->
 
+  <!-- 城市管理 -->
+      <record model="ir.ui.view" id="lty_system_setting_manage_list">
+          <field name="name">lty_system_setting_manage_list</field>
+          <field name="model">lty.system.setting.city</field>
+          <field name="arch" type="xml">
+          <tree>
+              <field name="id"/>
+              <field name="name"/>
+              <field name="area_code"/>
+          </tree>
+          </field>
+      </record>
 
+  <record model="ir.actions.act_window" id="lty_system_setting_manage_action">
+          <field name="name">城市管理</field>
+          <field name="res_model">lty.system.setting.city</field>
+          <field name="view_model">tree,form</field>
+  </record>
+
+
+
+
+
+      <!-- 综合服务管理 -->
+    <menuitem name="系统设置"  id="lty_system_setting_item" parent="lty_integrate_menu_manage.lty_integrate_menu_manage"  sequence="90" web_icon="operation_menu,static/description/icon.png"/>
+
+    <menuitem id="city_manage_item" name="城市管理" parent="lty_system_setting_item" action="lty_system_setting_manage_action" sequence="90"/>
+    <menuitem id="bus_company_manage_item" name="公交公司管理" parent="lty_system_setting_item" action="lty_system_setting_manage_action" sequence="90"/>
+    <menuitem id="role_manage_item" name="角色管理" parent="lty_system_setting_item" action="lty_system_setting_manage_action" sequence="90"/>
+    <menuitem id="user_information_item" name="人员信息" parent="lty_system_setting_item" action="lty_system_setting_manage_action" sequence="90"/>
 
   </data>
 </openerp>

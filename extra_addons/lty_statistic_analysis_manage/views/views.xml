@@ -55,6 +55,36 @@
     <menuitem name="Server to list" id="chupeng_test" parent="chupeng_test.menu_2"
               action="chupeng_test.action_server"/>
     -->
+    <!-- 站台管理 -->
+    <record model="ir.ui.view" id="opertation_resources_station_list">
+        <field name="name">opertation_resources_station_list</field>
+        <field name="model">opertation_resources_station</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="entrance_azimuth"/>
+                <field name="entrance_longitude"/>
+                <field name="entrance_latitude"/>
+                <field name="exit_azimuth"/>
+                <field name="exit_longitude"/>
+                <field name="exit_latitude"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="opertation_resources_station_action">
+            <field name="name">站台管理</field>
+            <field name="res_model">opertation_resources_station</field>
+            <field name="view_model">tree,form</field>
+    </record>
+
+    <!-- 综合服务管理 -->
+    <menuitem name="统计分析"  id="lty_statistic_analysis_item" parent="lty_integrate_menu_manage.lty_integrate_menu_manage"  sequence="80" web_icon="operation_menu,static/description/icon.png"/>
+
+    <menuitem id="lty_statistic_analysis_item1" name="统计分析" parent="lty_statistic_analysis_item" action="opertation_resources_station_action" sequence="80"/>
+
 
 
 
