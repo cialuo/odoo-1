@@ -35,10 +35,28 @@
                                         </td>
                                         <td class="lon"><t t-if="item.longitude"><t t-esc="item.longitude"></t></t></td>
                                         <td class="lat"><t t-if="item.latitude"><t t-esc="item.latitude"></t></t></td>
-                                        <td class="cir">100</td>
-                                        <td>
-                                            <a href="javascript:;" class="to_change" t-attf-gps_name="#{item.id}"  t-attf-cid="change#{item_index + 1}">修改</a>
-                                        </td>
+                                        <t t-if="item.radius">
+                                            <td class="cir">
+                                                <input type="text" t-attf-value="{{item.radius}}"/>
+                                                <!--<t t-esc="item.radius"></t>-->
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td class="cir">
+                                                <input type="text" value="200"/>
+                                            </td>
+                                        </t>
+                                        <t t-if="item.id">
+                                           <td>
+                                               <a href="javascript:;" class="to_change not_null" t-attf-gps_name="#{item.id}"  t-attf-cid="change#{item_index + 1}">修改</a>
+                                           </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td>
+                                               <a href="javascript:;" class="to_change" t-attf-gps_name="#{item.id}"  t-attf-cid="change#{item_index + 1}">修改</a>
+                                           </td>
+                                        </t>
+
                                     </tr>
                                 </t>
                             </tbody>
@@ -46,6 +64,9 @@
                     </div>
                     <div class="gps_footer">
                         <button class="btn btn-default save_gps">保存</button>
+                        <button class="btn btn-default point_gps">
+                            <img src="/lty_station_gps_collect/static/src/img/point_in.png" />
+                        </button>
                         <button class="btn btn-default reset_gps">重置</button>
                     </div>
                 </div>

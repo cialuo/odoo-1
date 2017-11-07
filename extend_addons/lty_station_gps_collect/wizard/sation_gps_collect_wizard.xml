@@ -34,7 +34,8 @@
 
     <record id="action_station_gps_collect_wizard" model="ir.actions.client">
         <field name="name">坐标采集</field>
-        <!--<field name="target">new</field>-->
+        <field name="target">new</field>
+        <!--此处引入gps_collect注册的部件-->
         <field name="tag">gps_control.page</field>
     </record>
 
