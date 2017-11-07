@@ -9,7 +9,7 @@ class station_collected_gps_info(models.Model):
     _order = "name"
 
     name = fields.Integer('name') # 序号
-    radius = fields.Integer('radius') # 半径
+    radius = fields.Integer('radius' ,default=200) # 半径
     azimuth = fields.Integer('azimuth') # 方位角
     longitude = fields.Float(digits=(10, 6), string='longitude') # 经度
     latitude = fields.Float(digits=(10, 6), string='latitude') # 纬度

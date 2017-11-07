@@ -22,7 +22,6 @@
     'depends': [
         'scheduling_parameters',
     ],
-
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
