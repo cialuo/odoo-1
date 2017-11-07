@@ -222,7 +222,7 @@ function vehicle_drop(controllerObj, dataObj) {
         var vehicle = dom.find(".yard_box .content_tb tr[pid=" + abnormal_description.car_id + "]");
         if (vehicle.length > 0) {
             // if (dataObj.status != 0) {
-            if (dataObj.packageType == 1044) {
+            if (dataObj.packageType == 1003) {
                 vehicle.find(".runState").attr('st', 1).removeClass("icon2_0").addClass("icon2_1");
                 return false;
             }
@@ -1081,7 +1081,7 @@ function update_linePlanParkOnlineModel_load_fn() {
         if ($(this).hasClass("checkOut")) {
             txt = (st == 1) ? '已签到' : '未签到'
         } else if ($(this).hasClass("runState")) {
-            txt = (st == 1) ? '在线' : '未在线'
+            txt = (st == 0) ? '在线' : '未在线'
         } else if ($(this).hasClass("carStateIdIcon")) {
             if (st == 1001) {
                 txt = "正常";

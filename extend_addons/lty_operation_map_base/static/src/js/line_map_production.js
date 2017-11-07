@@ -5,14 +5,35 @@ odoo.define("line_map_production.line_map_production", function(require) {
     var Model = require('web.Model');
     // 地图线路配置
     var model_map_line_info= new Model('map.line.production.info');
+    var config_parameter = new Model('ir.config_parameter');
 
     // 加载高德地图组件
-    $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
+    // $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
+    // $.getScript("http://webapi.amap.com/maps?v=1.4.1&key=505ae72a86391b207f7e10137f51194a");
+
+    var line_map_production_base = Widget.extend({
+        template: "line_map_production_base_template",
+        init: function (parent) {
+            this._super(parent);
+            this.layer = layer.msg("加载中...", {time: 0, shade: 0.3});
+        },
+        start: function () {
+            var self = this;
+            config_parameter.query().filter([["key", "=", "dispatch.gdmap.service"]]).all().then(function (gdmap) {
+                var gdmap_url = gdmap[0].value;
+                // 加载高德地图组件
+                $.getScript(gdmap_url, function(){
+                    new line_map_production(self, self.layer).appendTo(self.$el); 
+                });
+            });
+        }
+    });
 
     var line_map_production = Widget.extend({
         template: "line_map_production_template",
-        init: function(parent) {
+        init: function(parent, layer_index) {
             this._super(parent);
+            layer.close(layer_index);
         },
         start: function() {
             var self = this;
@@ -49,7 +70,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
         }
     });
 
-    core.action_registry.add('scheduling_parameters.line_map_production', line_map_production);
+    core.action_registry.add('scheduling_parameters.line_map_production', line_map_production_base);
 
     var line_map_production_line_set = Widget.extend({
         template: 'line_map_production_line_set_template',
@@ -103,7 +124,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
                     if (set_list.length > 0){
                         _.each(set_list, function(set){
                             var direction = set.direction=='up'?'0':'1'
-                            his_dict[direction].gps_list = JSON.parse(set.map_data);
+                            his_dict[direction].gps_list = self.correct_data_fn(JSON.parse(set.map_data));
                             if (set.tools_line_color){
                                 his_dict[direction].c = set.tools_line_color;
                             }
@@ -149,6 +170,23 @@ odoo.define("line_map_production.line_map_production", function(require) {
                 });
             });
             self.map_binding_fn(map);
+        },
+        //  纠正坐标采集历史数据（重复，保存为对象非数组两块bug），之后保存将更正
+        correct_data_fn: function(gps_list){
+            var new_gps_list = [];
+            _.each(gps_list, function(ret){
+                var pos = new Array();
+                if (ret.lng) {
+                    pos = [ret.lng, ret.lat];
+                } else {
+                    pos = [ret[0], ret[1]];
+                }
+                if (self.his_gps && JSON.stringify(self.his_gps) == JSON.stringify(gps)){
+                    return false;
+                }
+                new_gps_list.push(pos);
+            })
+            return new_gps_list;
         },
         map_binding_fn:function(map) {
             var self = this;
@@ -223,6 +261,8 @@ odoo.define("line_map_production.line_map_production", function(require) {
                 }
                 self.direction = v;
                 self.init_map_fn(map, self.direction);
+                self.openBrush(map);
+                self.$('.mapSetLineContext').find('.setMapBt input.active_bt').click();
             });
 
             // 保存
@@ -342,20 +382,23 @@ odoo.define("line_map_production.line_map_production", function(require) {
             // 初始化历史制定线路
             self.load_his_establishment_line(map, self.options.his_dict[direction], self.options.site_dict[direction]);
 
-            // 初始化显示辅助点
-            self.load_isShowPoint_fn(map);
-
             // 加载地图点击事件
             self.switch = false;
             var clickEventListener = map.on('click', function(e) {
+                var gps = [e.lnglat.getLng(), e.lnglat.getLat()];
+                // 相同的坐标点只采集一次；
+                if (self.his_gps && JSON.stringify(self.his_gps) == JSON.stringify(gps)){
+                    return false;
+                }
                 if (self.switch) {
                     // mouseTool.marker({offset:new AMap.Pixel(-14,-11)});
-                    var gps = [e.lnglat.getLng(), e.lnglat.getLat()];
                     self.polyline_gps_list.push(gps);
-                    self.polyline.setPath(self.polyline_gps_list);
+                    var set_polyline_gps_list = new Array().concat(self.polyline_gps_list);
+                    self.polyline.setPath(set_polyline_gps_list);
                     if (self.isShowPoint){
                         self.add_point_fn(map, gps);
                     }
+                    self.his_gps = gps;
                 }
             });
         },
@@ -375,7 +418,8 @@ odoo.define("line_map_production.line_map_production", function(require) {
             var ancillary_list = self.ancillary_list;
             if (polyline_gps_list.length > 1) {
                 polyline_gps_list.pop();
-                self.polyline.setPath(polyline_gps_list);
+                var set_polyline_gps_list = new Array().concat(self.polyline_gps_list);
+                self.polyline.setPath(set_polyline_gps_list);
                 self.delete_point_fn(ancillary_list.length-1);
             }
             self.polyline_gps_list = polyline_gps_list;
@@ -396,7 +440,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
                     polyline_gps_list = [[new_gps.lon, new_gps.lat]];
                     self.polyline.setPath(polyline_gps_list);
                     self.delete_point_fn();
-                    self.polyline_gps_list = polyline_gps_list;
+                    self.polyline_gps_list = [[new_gps.lon, new_gps.lat]];;
                     layer.close(self.layer_emptyLine_index);
                 });
             }
@@ -404,8 +448,9 @@ odoo.define("line_map_production.line_map_production", function(require) {
         load_his_establishment_line: function(map, hisObj, site_list) {
             var self = this;
             if (hisObj.gps_list.length > 0) {
+                var set_polyline_gps_list = new Array().concat(hisObj.gps_list);
                 var polyline = new AMap.Polyline({
-                    path: hisObj.gps_list,
+                    path: set_polyline_gps_list,
                     strokeColor: hisObj.c,
                     strokeWeight: hisObj.w,
                     lineJoin: "round"
@@ -413,6 +458,8 @@ odoo.define("line_map_production.line_map_production", function(require) {
                 polyline.setMap(map);
                 self.polyline_gps_list = hisObj.gps_list;
                 self.polyline = polyline;
+                // 初始化显示辅助点
+                self.load_isShowPoint_fn(map);
             } else {
                 // 默认第一个点为起始站
                 if (site_list.length == 0){
@@ -427,13 +474,15 @@ odoo.define("line_map_production.line_map_production", function(require) {
                         [new_gps.lon, new_gps.lat]
                     ];
                     var polyline = new AMap.Polyline({
-                        path: self.polyline_gps_list,
+                        path: [new_gps.lon, new_gps.lat], 
                         strokeColor: hisObj.c,
                         strokeWeight: hisObj.w,
                         lineJoin: "round"
                     });
                     polyline.setMap(map);
                     self.polyline = polyline;
+                    // 初始化显示辅助点
+                    self.load_isShowPoint_fn(map);
                 });
             }
         },

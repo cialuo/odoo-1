@@ -84,10 +84,15 @@ odoo.define("electronic_map.electronic_map", function(require) {
             var self = this;
             config_parameter.query().filter([["key", "=", "dispatch.desktop.socket"]]).all().then(function (socket) {
                 config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
-                    SOCKET_URL = socket[0].value;
-                    RESTFUL_URL = restful[0].value;
-                    $.getScript("/lty_operation_map_base/static/src/js/websocket_electronic_map.js", function(){
-                        self.get_line_info();
+                    config_parameter.query().filter([["key", "=", "dispatch.gdmap.service"]]).all().then(function (gdmap) {
+                        var gdmap_url = gdmap[0].value;
+                        SOCKET_URL = socket[0].value;
+                        RESTFUL_URL = restful[0].value;
+                        $.getScript(gdmap_url, function(){
+                            $.getScript("/lty_operation_map_base/static/src/js/websocket_electronic_map.js", function(){
+                                self.get_line_info();
+                            });
+                        });
                     });
                 });
             });
@@ -202,8 +207,8 @@ odoo.define("electronic_map.electronic_map", function(require) {
         load_his_establishment_line: function(map, hisObj) {
             var self = this;
             var pos = [];
-            var up_gps_list = hisObj.gps_dict['0'],
-                down_gps_list = hisObj.gps_dict['1'],
+            var up_gps_list = self.correct_data_fn(hisObj.gps_dict['0']),
+                down_gps_list = self.correct_data_fn(hisObj.gps_dict['1']),
                 setArg = hisObj.setArg;
             var gps_list = up_gps_list.concat(down_gps_list);
             if (gps_list.length > 0) {
@@ -228,6 +233,23 @@ odoo.define("electronic_map.electronic_map", function(require) {
                 }
             }
             self.vehicle_position_http(map);
+        },
+        //  纠正坐标采集历史数据（重复，保存为对象非数组两块bug），之后保存将更正
+        correct_data_fn: function(gps_list){
+            var new_gps_list = [];
+            _.each(gps_list, function(ret){
+                var pos = new Array();
+                if (ret.lng) {
+                    pos = [ret.lng, ret.lat];
+                } else {
+                    pos = [ret[0], ret[1]];
+                }
+                if (self.his_gps && JSON.stringify(self.his_gps) == JSON.stringify(gps)){
+                    return false;
+                }
+                new_gps_list.push(pos);
+            })
+            return new_gps_list;
         },
         // 线路闪烁
         map_line_flash: function(map ,polyline, setArg){
@@ -465,11 +487,14 @@ odoo.define("electronic_map.electronic_map", function(require) {
         },
         start: function() {
             var self = this;
-            config_parameter.query().filter([
-                ["key", "=", "dispatch.desktop.restful"]
-            ]).all().then(function(restful) {
-                RESTFUL_URL = restful[0].value;
-                self.get_line_info();
+            config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function(restful) {
+                config_parameter.query().filter([["key", "=", "dispatch.gdmap.service"]]).all().then(function (gdmap) {
+                    var gdmap_url = gdmap[0].value;
+                    RESTFUL_URL = restful[0].value;
+                    $.getScript(gdmap_url, function(){
+                        self.get_line_info();
+                    });
+                });
             });
         },
         get_line_info: function() {

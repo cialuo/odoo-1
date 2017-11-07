@@ -1,6 +1,6 @@
 /*----------线路地图制作-----------*/
 
-.line_map_production {
+.line_map_production, .line_map_production_base {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     width: 100%;
     height: 100%;

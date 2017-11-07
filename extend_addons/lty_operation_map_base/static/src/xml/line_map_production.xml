@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <templates xml:space="preserve">
+	<t t-name="line_map_production_base_template">
+		<div class="line_map_production_base">
+			
+		</div>
+	</t>
+
     <t t-name="line_map_production_template">
 		<div class="line_map_production">
 			<div class="title">
