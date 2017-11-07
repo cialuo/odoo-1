@@ -5,15 +5,35 @@ odoo.define("line_map_production.line_map_production", function(require) {
     var Model = require('web.Model');
     // 地图线路配置
     var model_map_line_info= new Model('map.line.production.info');
+    var config_parameter = new Model('ir.config_parameter');
 
     // 加载高德地图组件
     // $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
-    $.getScript("http://webapi.amap.com/maps?v=1.4.1&key=505ae72a86391b207f7e10137f51194a");
+    // $.getScript("http://webapi.amap.com/maps?v=1.4.1&key=505ae72a86391b207f7e10137f51194a");
+
+    var line_map_production_base = Widget.extend({
+        template: "line_map_production_base_template",
+        init: function (parent) {
+            this._super(parent);
+            this.layer = layer.msg("加载中...", {time: 0, shade: 0.3});
+        },
+        start: function () {
+            var self = this;
+            config_parameter.query().filter([["key", "=", "dispatch.gdmap.service"]]).all().then(function (gdmap) {
+                var gdmap_url = gdmap[0].value;
+                // 加载高德地图组件
+                $.getScript(gdmap_url, function(){
+                    new line_map_production(self, self.layer).appendTo(self.$el); 
+                });
+            });
+        }
+    });
 
     var line_map_production = Widget.extend({
         template: "line_map_production_template",
-        init: function(parent) {
+        init: function(parent, layer_index) {
             this._super(parent);
+            layer.close(layer_index);
         },
         start: function() {
             var self = this;
@@ -50,7 +70,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
         }
     });
 
-    core.action_registry.add('scheduling_parameters.line_map_production', line_map_production);
+    core.action_registry.add('scheduling_parameters.line_map_production', line_map_production_base);
 
     var line_map_production_line_set = Widget.extend({
         template: 'line_map_production_line_set_template',

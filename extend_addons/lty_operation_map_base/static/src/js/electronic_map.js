@@ -84,10 +84,15 @@ odoo.define("electronic_map.electronic_map", function(require) {
             var self = this;
             config_parameter.query().filter([["key", "=", "dispatch.desktop.socket"]]).all().then(function (socket) {
                 config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
-                    SOCKET_URL = socket[0].value;
-                    RESTFUL_URL = restful[0].value;
-                    $.getScript("/lty_operation_map_base/static/src/js/websocket_electronic_map.js", function(){
-                        self.get_line_info();
+                    config_parameter.query().filter([["key", "=", "dispatch.gdmap.service"]]).all().then(function (gdmap) {
+                        var gdmap_url = gdmap[0].value;
+                        SOCKET_URL = socket[0].value;
+                        RESTFUL_URL = restful[0].value;
+                        $.getScript(gdmap_url, function(){
+                            $.getScript("/lty_operation_map_base/static/src/js/websocket_electronic_map.js", function(){
+                                self.get_line_info();
+                            });
+                        });
                     });
                 });
             });
@@ -482,11 +487,14 @@ odoo.define("electronic_map.electronic_map", function(require) {
         },
         start: function() {
             var self = this;
-            config_parameter.query().filter([
-                ["key", "=", "dispatch.desktop.restful"]
-            ]).all().then(function(restful) {
-                RESTFUL_URL = restful[0].value;
-                self.get_line_info();
+            config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function(restful) {
+                config_parameter.query().filter([["key", "=", "dispatch.gdmap.service"]]).all().then(function (gdmap) {
+                    var gdmap_url = gdmap[0].value;
+                    RESTFUL_URL = restful[0].value;
+                    $.getScript(gdmap_url, function(){
+                        self.get_line_info();
+                    });
+                });
             });
         },
         get_line_info: function() {

@@ -129,7 +129,6 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             layer.close(context);
         },
         start: function () {
-            $.getScript("http://webapi.amap.com/maps?v=1.4.1&key=505ae72a86391b207f7e10137f51194a");
             var self = this;
             if (window.location.href.split("action=")[1].split('&')[0] != undefined) {
                 if (window.location.href.split("action=")[1].split('&')[0] == "dispatch_desktop.page") {
@@ -209,9 +208,15 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             var self = this;
             config_parameter.query().filter([["key", "=", "dispatch.desktop.socket"]]).all().then(function (socket) {
                 config_parameter.query().filter([["key", "=", "dispatch.desktop.restful"]]).all().then(function (restful) {
-                    SOCKET_URL = socket[0].value;
-                    RESTFUL_URL = restful[0].value;
-                    new dispatch_desktop(self, self.layer).appendTo(self.$el); 
+                    config_parameter.query().filter([["key", "=", "dispatch.gdmap.service"]]).all().then(function (gdmap) {
+                        var gdmap_url = gdmap[0].value;
+                        SOCKET_URL = socket[0].value;
+                        RESTFUL_URL = restful[0].value;
+                        // 加载高德地图组件
+                        $.getScript(gdmap_url, function(){
+                            new dispatch_desktop(self, self.layer).appendTo(self.$el);
+                        });
+                    });
                 });
             });
         }
