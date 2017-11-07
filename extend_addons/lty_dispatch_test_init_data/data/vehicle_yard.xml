@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
    <data noupdate="0">
+   
+		<!-- 车场信息 -->
+       <record id="100000" model="opertation_resources_vehicle_yard">
+           <field name="code">100000</field>
+           <field name="name">邯郸高铁</field>
+       </record>
+       <record id="100001" model="opertation_resources_vehicle_yard">
+           <field name="code">100001</field>
+           <field name="name">百家村</field>
+       </record>   
+      
 		<!-- 站场调度屏信息 -->
 		<record id="s1900" model="opertation_resources_dispatch_screen">
 		   <field name="name">screen1</field>
@@ -44,17 +55,6 @@
            <field name="longitude">5555</field>
            <field name="latitude">55555</field>
            <field name="park_id" ref="100001" />
-       </record>	   
-	   
-	   
-		<!-- 车场信息 -->
-       <record id="100000" model="opertation_resources_vehicle_yard">
-           <field name="code">100000</field>
-           <field name="name">邯郸高铁</field>
-       </record>
-       <record id="100001" model="opertation_resources_vehicle_yard">
-           <field name="code">100001</field>
-           <field name="name">百家村</field>
-       </record>	   
+       </record>	   	   
    </data>
 </odoo>

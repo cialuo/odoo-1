@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+        <template id="lty_base_widget_backend web_widget_ascending_sequence_backend" name="lty_base_widget_set" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+            	<link rel="stylesheet" href="/lty_base_widget/static/src/css/input_widget.css"/>
+                <script type="text/javascript" src="/lty_base_widget/static/src/js/input_widget.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>
