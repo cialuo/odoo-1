@@ -235,16 +235,28 @@
                             <field name="name"/>
                             <field name="expiredate"/>
                             <field name="department_id" readonly="1"/>
+                        </group>
+                        <group string="upload image">
                             <field name="title" readonly="1"/>
                             <field name="mobile_phone" readonly="1"/>
                             <field name="work_email" readonly="1"/>
                         </group>
-                        <group string="upload image">
-                            <div>
-                                <field name="image" widget='image' class="certificate_img" />
-                            </div>
-                        </group>
-
+                    </group>
+                    <group>
+                        <notebook>
+                            <page string="certificate trains">
+                                <field name="trains"/>
+                            </page>
+                            <page string="certificate validates">
+                                <field name="validates"/>
+                            </page>
+                            <page string="certificate perecords">
+                                <field name="perecords"/>
+                            </page>
+                        </notebook>
+                    </group>
+                    <group>
+                        <field name="image" widget="many2many_binary" string="certificate pic" class="oe_inline"/>
                     </group>
                 </sheet>
             </form>
