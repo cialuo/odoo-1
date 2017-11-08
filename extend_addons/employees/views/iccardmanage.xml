@@ -247,16 +247,12 @@
                             <page string="certificate trains">
                                 <field name="trains"/>
                             </page>
-                            <page string="certificate validates">
-                                <field name="validates"/>
-                            </page>
-                            <page string="certificate perecords">
-                                <field name="perecords"/>
-                            </page>
                         </notebook>
                     </group>
                     <group>
                         <field name="image" widget="many2many_binary" string="certificate pic" class="oe_inline"/>
+                        <field name="validates" widget="many2many_binary" string="validates pic" class="oe_inline"/>
+                        <field name="perecords" widget="many2many_binary" string="perecords pic" class="oe_inline"/>
                     </group>
                 </sheet>
             </form>

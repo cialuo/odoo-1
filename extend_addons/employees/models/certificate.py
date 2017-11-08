@@ -13,7 +13,7 @@ class certificate(models.Model):
     expiredate = fields.Date('certificate expire date')
 
     # 图片
-    image = fields.Many2many('ir.attachment', 'front_check_attachment', id1='check_pic',
+    image = fields.Many2many('ir.attachment', 'certificate_attachment', id1='check_pic',
                              id2='attach_id', string='certificate image')
     # 工号
     jobnumber = fields.Char(related='employee_id.jobnumber', readonly=True)
@@ -42,10 +42,12 @@ class certificate(models.Model):
     trains = fields.One2many("certificate.trains", "certificate_id", string="certificate trains")
 
     # 审验记录
-    validates = fields.One2many("certificate.validate", "certificate_id", string="certificate validate")
+    validates = fields.Many2many('ir.attachment', 'certificate_validates_attachment', id1='check_pic',
+                             id2='attach_id', string='certificate validate')
 
     # 体检记录
-    perecords = fields.One2many("certificate.perecords", "certificate_id", string="certificate perecords")
+    perecords = fields.Many2many('ir.attachment', 'certificate_perecords_attachment', id1='check_pic',
+                     id2='attach_id', string='certificate perecords')
 
 class trains(models.Model):
     """
