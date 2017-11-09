@@ -95,7 +95,7 @@
                                                attrs="{'readonly':[('state','!=','draft')]}"/>
                                         <field name="line" readonly="1"/>
                                         <field name="repaircompany" options="{'no_create': True, 'no_open': True}"/>
-                                        <field name="depa_id"/>
+                                        <!--<field name="depa_id"/>-->
                                         <field name="warranty_location"
                                                domain = "[('department_id.company_id','=',repaircompany)]"
                                                attrs="{'readonly':[('state','!=','draft')]}"

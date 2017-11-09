@@ -58,8 +58,6 @@ class FleetVehicle(models.Model):
     @api.multi
     def _getInspectionState(self):
         for item in self:
-            #planitem = self.env['vehicle_usage.planitem']
-            #count = planitem.search_count([('vehicle_id', '=', item.id), ('state', '=', 'execution')])
             if item.deadlinedays > 0:
                 item.inspectionState = _('checking')
             elif item.deadlinedays < 0:

@@ -36,7 +36,7 @@
                             <group name="left">
                                 <field name="month" widget="form_month"/>
                                 <field name="create_date" readonly="1"/>
-                                <field name="user_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="employee_id" options="{'no_open': True, 'no_create': True}"/>
                                 <field name="login_user" invisible="1"/>
                                 <field name="user_department" readonly="1"/>
                                 <field name="note" type="email"/>
@@ -93,7 +93,7 @@
                     <field name="month"/>
                     <field name="sub_company"/>
                     <field name="user_department"/>
-                    <field name="user_id"/>
+                    <field name="employee_id"/>
                     <field name="create_date"/>
                     <field name="no_suppliers"/>
                     <field name="total"/>

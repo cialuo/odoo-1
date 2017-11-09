@@ -50,7 +50,8 @@
                                         <field name="age"/>
                                         <field name="native_place"/>
                                         <field name="specialty"/>
-                                        <field name="nation"/>
+                                        <!--隐藏国籍字段-->
+                                        <field name="nation" invisible="1"/>
                                     </group>
                                     <group>
                                         <field name="mobile_phone"/>

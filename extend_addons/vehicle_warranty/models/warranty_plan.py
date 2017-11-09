@@ -185,7 +185,7 @@ class WarrantyPlan(models.Model): # 车辆保养计划
         for plan_order in self.plan_order_ids:
             if plan_order.state == 'commit':
                 plan_order.state = 'wait'
-            plan_order.vehicle_id.state = 'warrantly'
+            # plan_order.vehicle_id.state = 'warrantly'
 
 
     @api.multi
@@ -248,7 +248,7 @@ class WarrantyPlanOrder(models.Model): # 计划详情单
     # 车牌
     license_plate = fields.Char("License Plate", related='vehicle_id.license_plate', store=True, readonly=True)
 
-    #fleet = fields.Char()  # 车队
+
     fleet = fields.Many2one("res.company", related='vehicle_id.company_id', store=True, readonly=True)
 
     # 承修公司
@@ -282,13 +282,17 @@ class WarrantyPlanOrder(models.Model): # 计划详情单
 
     #保养地点
     warranty_location = fields.Many2one('vehicle.plant')
+
     # 修理厂所属部门
-    depa_id = fields.Many2one('hr.department', related='warranty_location.department_id',
-                              store=True, readonly=True)
+    # depa_id = fields.Many2one('hr.department', related='warranty_location.department_id',
+    #                           store=True, readonly=True)
 
-    maintain_sheet_id = fields.Many2one('warranty_order', string="Warranty Maintain Sheet")  # 保养单号 , required=True,
+    # 保养单号
+    maintain_sheet_id = fields.Many2one('warranty_order', string="Warranty Maintain Sheet")
 
-    report_repair_user = fields.Many2one('hr.employee', string="Report Name")  # 报修人
+    # 报修人
+    report_repair_user = fields.Many2one('hr.employee', string="Report Name",
+                                         domain="[('company_id', '=', report_company)]")
 
     state = fields.Selection([ # 状态
         ('draft', "draft"), # 草稿
@@ -357,7 +361,7 @@ class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生�
                 maintain_sheets = self.env['warranty_order'].search([('plan_id', '=', plan.id)])
                 maintain_sheets_count = len(maintain_sheets)
                 maintain_sheet_val = {
-                    'name': plan.name + '_' + str(maintain_sheets_count + 1),  # +''+str(maintain_sheets_count)
+                    'name': plan.name + '_' + str(maintain_sheets_count + 1),
                     'vehicle_id': plan_sheet.vehicle_id.id,
                     'vehicle_type': plan_sheet.vehicle_type.id,
                     'license_plate': plan_sheet.license_plate,
