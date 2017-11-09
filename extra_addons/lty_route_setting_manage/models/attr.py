@@ -2,8 +2,8 @@
 
 from odoo import models, fields, api
 
-class Card(models.Model):
-    _name = 'line.card'
+class Attr(models.Model):
+    _name = 'route.attr'
 
     name = fields.Char(string="line name", required=True)
     city = fields.Integer(string="line city", required=True)

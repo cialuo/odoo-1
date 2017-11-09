@@ -1,0 +1,20 @@
+<openerp>
+  <data>
+     <!--继承线路管理模块-->
+    <record id="ticket_price_form" model="ir.ui.view">
+        <field name="name">ticket price</field>
+        <field name="model">route_manage.route_manage</field>
+        <field name="inherit_id" ref="scheduling_parameters.route_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='ChildRoutes']" position="after">
+                <page string="ticket price" name="ticket_price_page">
+                    <field name="ticket_price_relation" string="ticket price relation">
+
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+  </data>
+</openerp>
