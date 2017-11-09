@@ -16,7 +16,7 @@
         <menuitem name="地理坐标管理" id="geography_coordinate_menu" parent="lty_integrate_menu_manage" sequence="50"/>
 
         <!--线路参数设置-->
-        <menuitem name="线路参数设置" id="line_setting_menu" parent="lty_integrate_menu_manage" sequence="60"/>
+        <menuitem name="线路参数设置" id="route_setting_menu" parent="lty_integrate_menu_manage" sequence="60"/>
 
         <!--广告管理-->
         <menuitem name="广告管理" id="advert_manage_menu" parent="lty_integrate_menu_manage" sequence="70"/>

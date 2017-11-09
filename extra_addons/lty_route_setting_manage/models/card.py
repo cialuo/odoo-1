@@ -5,6 +5,6 @@ from odoo import models, fields, api
 
 
 class Card(models.Model):
-    _name = 'line.card'
+    _name = 'route.card'
 
     name = fields.Char()

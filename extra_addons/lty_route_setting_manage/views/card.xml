@@ -1,9 +1,9 @@
 <openerp>
   <data>
     <!-- tree视图 -->
-    <record id="view_tree_line_card" model="ir.ui.view">
+    <record id="view_tree_route_card" model="ir.ui.view">
       <field name="name">卡类配置</field>
-      <field name="model">line.card</field>
+      <field name="model">route.card</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
@@ -12,9 +12,9 @@
     </record>
 
     <!-- form视图 -->
-    <record id="view_form_line_card" model="ir.ui.view">
+    <record id="view_form_route_card" model="ir.ui.view">
       <field name="name">卡类配置</field>
-      <field name="model">line.card</field>
+      <field name="model">route.card</field>
       <field name="arch" type="xml">
         <form>
           <sheet>
@@ -27,13 +27,13 @@
     </record>
 
     <!-- 视图动作 -->
-    <act_window id="action_line_card"
+    <act_window id="action_route_card"
                    name="卡类配置"
-                   res_model="line.card"
+                   res_model="route.card"
                    view_mode="tree,form" />
 
     <!-- 二级菜单 -->
-    <menuitem name="卡类配置" id="menu_line_card" parent="lty_integrate_menu_manage.line_setting_menu" action="action_line_card"/>
+    <menuitem name="卡类配置" id="menu_route_card" parent="lty_integrate_menu_manage.route_setting_menu" action="action_route_card"/>
 
   </data>
 </openerp>

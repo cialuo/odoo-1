@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 
-from . import line
+from . import attr
 from . import card
