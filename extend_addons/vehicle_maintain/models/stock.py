@@ -68,7 +68,7 @@ class StockPicking(models.Model):
                     location_id = self.env.ref('stock_picking_types.stock_location_ullage').id  # 维修(生产)虚位
 
                     picking_type = self.env['stock.picking.type'].search(
-                        [('name', '=', u'交旧领新'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
+                        [('name', '=', u'交旧领新'), ('warehouse_id.company_id', '=', self.env.user.company_id.id)])
 
                     location_dest_id = picking_type.default_location_dest_id.id or picking_type.warehouse_id.lot_stock_id.id
 
@@ -151,7 +151,7 @@ class StockPicking(models.Model):
     def _gen_old_new_picking_repair(self,order, products, location_id, location_dest_id):
         # picking_type = self.env.ref('stock_picking_types.picking_old_to_new_material')  # 交旧领新分拣类型
         picking_type = self.env['stock.picking.type'].search(
-            [('name', '=', u'交旧领新'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
+            [('name', '=', u'交旧领新'), ('warehouse_id.company_id', '=', self.env.user.company_id.id)])
         move_lines = []
         picking = []
         for i in products:

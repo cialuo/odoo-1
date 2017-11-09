@@ -62,7 +62,7 @@ class MaintainReport(models.Model):
                                              related='create_name.department_id', readonly=True)
 
     report_company_id = fields.Many2one('res.company', related='vehicle_id.company_id', string="Report Company",
-                                        required=True)#报修公司
+                                        required=True, store=True)#报修公司
     repair_company_id = fields.Many2one('res.company', string="Repair Company")#承修公司
 
     repair_plant_id = fields.Many2one('vehicle.plant', string="Repair Plant")  # 维修厂 (承修车间)
@@ -77,6 +77,7 @@ class MaintainReport(models.Model):
 
     #2017年7月25日 新增字段：预检时间；用于计算抢修总时长
     preflight_date = fields.Datetime(string='Preflight date')
+
 
     @api.multi
     def unlink(self):
@@ -593,7 +594,7 @@ class MaintainRepair(models.Model):
             self._generate_picking(avail_products, location_dest_id)
 
     def _generate_picking(self, products, location):
-            picking_type = self.env['stock.picking.type'].search([('name','=',u'发料'),('warehouse_id.company_id','child_of',self.env.user.company_id.id)])
+            picking_type = self.env['stock.picking.type'].search([('name','=',u'发料'),('warehouse_id.company_id','=',self.env.user.company_id.id)])
             #picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
             # location_id = self.env.ref('stock.stock_location_stock').id     # 库存
 
@@ -648,7 +649,7 @@ class MaintainRepair(models.Model):
         """
         self.ensure_one()
         picking_type = self.env['stock.picking.type'].search(
-            [('name', '=', u'领料'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
+            [('name', '=', u'领料'), ('warehouse_id.company_id', '=', self.env.user.company_id.id)])
         context = dict(self.env.context,
                        default_repair_id=self.id,
                        default_origin=self.name,
@@ -670,7 +671,7 @@ class MaintainRepair(models.Model):
         """
         self.ensure_one()
         picking_type = self.env['stock.picking.type'].search(
-            [('name', '=', u'退料'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
+            [('name', '=', u'退料'), ('warehouse_id.company_id', '=', self.env.user.company_id.id)])
         context = dict(self.env.context,
                        default_repair_id=self.id,
                        default_origin=self.name,
