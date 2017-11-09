@@ -1056,7 +1056,7 @@ msgstr "承修车间"
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_report_repair_user
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_plan_order_report_repair_user
 msgid "Report Name"
-msgstr "报告名称"
+msgstr "送保人"
 
 #. module: vehicle_warranty
 #: model:ir.model.fields,field_description:vehicle_warranty.field_warranty_order_product_require_trans

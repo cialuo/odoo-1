@@ -7,7 +7,7 @@ class WarrantyOrderProject(models.Model): # 保养单_保养项目
     component_ids = fields.Many2many('product.component', 'warranty_order_item_component_rel', 'project_component_id', 'component_id', 'Component',
         readonly=True, domain="[('product_id', '=', important_product_id),('parent_vehicle','=',vehicle_id)]")
     important_product_id = fields.Many2one('product.product', related='project_id.important_product_id',
-                                           string="Important Product")
+                                           string="Important Product", readonly=True)
 
 class WarrantyOrder(models.Model):
     _inherit = 'warranty_order'
@@ -23,7 +23,9 @@ class WarrantyOrder(models.Model):
         im_products = products.filtered(lambda x: x.product_id.is_important == True)
         if im_products:
             im_location = self.vehicle_id.location_stock_id.id
-            picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
+            # picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
+            picking_type = self.env['stock.picking.type'].search(
+                [('name', '=', u'发料'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
             for p in im_products:
                 #找到对应物资的在库备用重要部件，选取更换数量 加入到库存移动中
                 domain = [('state', '=', 'avaliable'), ('product_id', '=', p.product_id.id)]
