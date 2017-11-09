@@ -79,7 +79,7 @@ class WarrantyOrder(models.Model): # 保养单
     @api.multi
     def create_get_picking(self): # 创建领料单
         picking_type = self.env['stock.picking.type'].search(
-            [('name', '=', u'领料'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
+            [('name', '=', u'领料'), ('warehouse_id.company_id', '=', self.env.user.company_id.id)])
         self.ensure_one()
         context = dict(self.env.context,
             default_warranty_order_id=self.id,
@@ -99,7 +99,7 @@ class WarrantyOrder(models.Model): # 保养单
     def create_back_picking(self): # 创建退料单
         self.ensure_one()
         picking_type = self.env['stock.picking.type'].search(
-            [('name', '=', u'退料'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
+            [('name', '=', u'退料'), ('warehouse_id.company_id', '=', self.env.user.company_id.id)])
         context = dict(self.env.context,
             default_warranty_order_id=self.id,
             default_origin=self.name,
@@ -134,7 +134,7 @@ class WarrantyOrder(models.Model): # 保养单
 
     def _generate_picking(self, products, location):
         picking_type = self.env['stock.picking.type'].search(
-            [('name', '=', u'发料'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
+            [('name', '=', u'发料'), ('warehouse_id.company_id', '=', self.env.user.company_id.id)])
 
         location_id = picking_type.default_location_src_id.id or picking_type.warehouse_id.lot_stock_id.id
 
