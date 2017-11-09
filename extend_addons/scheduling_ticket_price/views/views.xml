@@ -1,20 +1,52 @@
 <openerp>
-  <data>
-     <!--继承线路管理模块-->
-    <record id="ticket_price_form" model="ir.ui.view">
-        <field name="name">ticket price</field>
-        <field name="model">route_manage.route_manage</field>
-        <field name="inherit_id" ref="scheduling_parameters.route_form_view"/>
-        <field name="arch" type="xml">
-            <xpath expr="//page[@name='ChildRoutes']" position="after">
-                <page string="ticket price" name="ticket_price_page">
-                    <field name="ticket_price_relation" string="ticket price relation">
+    <data>
+        <!--继承线路管理模块-->
+        <record id="ticket_price_form" model="ir.ui.view">
+            <field name="name">ticket price</field>
+            <field name="model">route_manage.route_manage</field>
+            <field name="inherit_id" ref="scheduling_parameters.route_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='ChildRoutes']" position="after">
+                    <page string="票价配置" name="ticket_price_page">
+                        <div style="display:none" id="the_rec_id">
+                            <field name="id"/>
+                        </div>
+                        <ul class="chose_price_line">
+                            <li class="active">上行</li>
+                            <li>下行</li>
+                        </ul>
+                        <div class="dom_price_set">
+                            <div class="clone_th_pa">
+                                <ul class="clone_th">
 
-                    </field>
-                </page>
-            </xpath>
-        </field>
-    </record>
+                                </ul>
+                            </div>
 
-  </data>
+                            <ul class="div_heng_site">
+                                <li class="div_heng_title">名称</li>
+                            </ul>
+                            <!--<ul class="div_site_id">-->
+                                <!--<li class="div_heng_title">站点Id</li>-->
+                            <!--</ul>-->
+                            <div class="table_price_set_pa">
+                                <table class="table_price_set o_list_view table table-condensed table-striped">
+                                    <thead>
+                                            <tr></tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <link rel="stylesheet"
+                              href="/scheduling_ticket_price/static/src/css/price_setting.css?20170907"/>
+                        <script src="/scheduling_ticket_price/static/src/js/price_setting.js"
+                                type="text/javascript">
+                        </script>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
 </openerp>

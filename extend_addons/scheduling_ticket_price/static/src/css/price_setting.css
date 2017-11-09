@@ -1,0 +1,70 @@
+.chose_price_line{
+    height:30px;
+    margin-top: 30px;
+    border-bottom: 2px solid #ccc;
+}
+.chose_price_line li{
+    width:90px;
+    line-height: 30px;
+    float: left;
+    text-align: center;
+    color: #a8a8a8;
+    cursor: pointer;
+}
+.chose_price_line li.active{
+    color: #21b799;
+    border-bottom: 2px solid #21b799;
+    margin-top: -2px;
+}
+.dom_price_set{
+    width:100%;
+    overflow: hidden;
+}
+.table_price_set_pa{
+    float: left;
+    width:calc(100% - 120px);
+    overflow-x: auto;
+}
+.table_price_set_pa thead{
+}
+.table_price_set th,.table_price_set td{
+    white-space: nowrap;
+}
+
+.div_heng_site{
+    width:120px;
+    float: left;
+    height:2000px;
+
+}
+.div_heng_site li{
+    width:120px;
+    padding: 6px;
+    line-height: 1.42857143;
+    color: #000;
+    white-space: nowrap;
+}
+
+li.div_heng_title{
+    color: #000;
+    font-weight: bold;
+}
+.pos_re{
+    position: relative;
+}
+.clone_th_pa{
+    position: absolute;
+    display: none;
+    width:1020px;
+    height:30px;
+    overflow: hidden;
+}
+.clone_th{
+    white-space:nowrap;
+    position: absolute;
+}
+.clone_th li{
+    padding: 5px;
+    padding-left: 15px;
+    display: inline-block;
+}
