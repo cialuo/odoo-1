@@ -355,8 +355,8 @@ class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生�
         active_ids = self._context.get('active_ids')
         plan_sheets = self.env['warranty_plan_order'].browse(active_ids)
         for plan_sheet in plan_sheets:
-
             if not plan_sheet.maintain_sheet_id:
+                plan_sheet.vehicle_id.state = 'warrantly'
                 plan = plan_sheet.parent_id
                 maintain_sheets = self.env['warranty_order'].search([('plan_id', '=', plan.id)])
                 maintain_sheets_count = len(maintain_sheets)

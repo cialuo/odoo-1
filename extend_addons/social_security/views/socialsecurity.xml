@@ -262,6 +262,7 @@
         <field name="name"> work injury report </field>
         <field name="res_model">social.workinjury</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'reporting')]</field>
         <field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('work_injury_checking_tree')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('work_injury_checking_form')})

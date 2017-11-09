@@ -25,7 +25,7 @@ class WarrantyOrder(models.Model):
             im_location = self.vehicle_id.location_stock_id.id
             # picking_type = self.env.ref('stock_picking_types.picking_type_issuance_of_material')
             picking_type = self.env['stock.picking.type'].search(
-                [('name', '=', u'发料'), ('warehouse_id.company_id', 'child_of', self.env.user.company_id.id)])
+                [('name', '=', u'发料'), ('warehouse_id.company_id', '=', self.env.user.company_id.id)])
             for p in im_products:
                 #找到对应物资的在库备用重要部件，选取更换数量 加入到库存移动中
                 domain = [('state', '=', 'avaliable'), ('product_id', '=', p.product_id.id)]
