@@ -32,6 +32,7 @@ odoo.define('price_setting', function (require) {
                 clearInterval(set_pi_dom);
                 // 查询线路
                 model_line.query().order_by("sequence").filter([["route_id", "=", parseInt(the_line_id)], ["direction", "=", direction]]).all().then(function (data) {
+                   console.log(data)
                     if(data.length>0){
                         $('.dom_price_set').show();
                     }else{
@@ -54,7 +55,7 @@ odoo.define('price_setting', function (require) {
                         //行内容
                         td_str += '<td></td>';
                         // 站点id
-                        li_si_id += '<li tr_id=' + data[st].id + '>' + data[st].id + '</li>';
+                        li_si_id += '<li tr_id=' + data[st].id + '>' + data[st].station_id[0] + '</li>';
                     }
                     td_str = '<tr>' + td_str + '</tr>'
                     //渲染表头
@@ -104,7 +105,7 @@ odoo.define('price_setting', function (require) {
                             var parnt = /^\d+(?=\.{0,1}\d+$|$)/;
                             var tr_index = $(this).parents('tr').index();
                             var td_index = $(this).parent('td').index();
-                            var price_end_id = $('.div_site_id li').eq(parseInt(tr_index) + 1).html()
+                            var price_end_id = $('.div_site_id li').eq(parseInt(tr_index) + 1).attr('tr_id');
                             var price_start_id = $('.table_price_set th').eq(td_index).attr('data_id');
                             // 如果输入为空
                             if (val_change_price == '') {
@@ -158,6 +159,4 @@ odoo.define('price_setting', function (require) {
             }
         }, 300);
     }
-
-
 });
