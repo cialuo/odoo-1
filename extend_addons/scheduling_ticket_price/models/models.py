@@ -24,30 +24,30 @@ class TicketPrice(models.Model):
 class route_manage(models.Model):
     _inherit = 'route_manage.route_manage'
 
+    ticket_price_xml = fields.Text(string='ticket price xml', default='')
     ticket_price_relation = fields.One2many('opertation_resources_ticket_price', 'route_id', string='ticket price relation')
 
-    def generate_xml(self, vals):
-        res = self.env['opertation_resources_ticket_price'].search([('route_id', '=', vals['route_id'])])
-        res2 = self.ticket_price_relation
+    def generate_xml(self):
+        res = self.ticket_price_relation
         xml_str = """
         <?xml version="1.0" encoding="gbk"?>
             <TicketPrice>
                 <Tickets Dir="1">
                     <Item StartSt="" StartStID="" EndSt="" EndStID="" Price="" />
                 <Tickets>"""
+
         for i in res:
-            dir = 1 if i.direction == 'up' else 'down'
+            dir = '1' if i.direction == 'up' else '0'
             xml_str += """
-            <Tickets Dir="{Dir}">
-                <Item StartSt="{StartSt}" StartStID="{StartStID}" EndSt="{EndSt}" EndStID="{EndStID}" Price="{Price}" />
-            <Tickets>""".format(Dir=str(dir), StartSt=i.start_station_id.station_id.name,
-                                StartStID=i.start_station_id.station_id.code,
-                                EndSt=i.end_station_id.station_id.name,
-                                EndStID=i.end_station_id.station_id.code,
-                                Price=i.price)
+            <Tickets Dir="%s">
+                <Item StartSt="%s" StartStID="%s" EndSt="%s" EndStID="%s" Price="%s" />
+            <Tickets>""" % (dir, i.start_station_id.station_id.name,
+                                i.start_station_id.station_id.code,
+                                i.end_station_id.station_id.name,
+                                i.end_station_id.station_id.code,
+                                str(i.price))
         xml_str += "</TicketPrice>"
-        res_route = self.env['route_manage.route_manage'].search([('route_id', '=', vals['route_id'])])
-        res_route.write({'ticket_price_xml':xml_str})
-        return xml_str
+        self.write({'ticket_price_xml':xml_str})
+        return self
 
 
