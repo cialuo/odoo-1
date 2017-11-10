@@ -10,7 +10,7 @@ odoo.define('price_setting', function (require) {
     // 切换上下行路线
 
     window.onhashchange = function () {
-        $('.chose_price_line li').click(function () {
+        $('.chose_price_line li').unbind().click(function () {
             $(this).addClass('active').siblings().removeClass('active');
             if ($(this).attr('direction') == "up") {
                 render_price_down_up("up");
@@ -21,6 +21,21 @@ odoo.define('price_setting', function (require) {
         //渲染
         render_price_down_up("up");
     }
+    // 强制保留两位数
+    function change_float2(x) {
+        var f = Math.round(x * 100) / 100;
+        var s = f.toString();
+        var rs = s.indexOf('.');
+        if (rs < 0) {
+            rs = s.length;
+            s += '.';
+        }
+        while (s.length <= rs + 2) {
+            s += '0';
+        }
+        return s;
+    }
+
     // // 添加上下行的站点数据
     function render_price_down_up(direction) {
         var the_line_id = $('#the_rec_id .o_form_field').html();
@@ -77,7 +92,7 @@ odoo.define('price_setting', function (require) {
                         for (var m = 0; m < data_p.length; m++) {
                             var td_id_index = $('.table_price_set thead th[data_id=' + data_p[m].start_station_id[0] + ']').index();
                             var tr_id_index = parseInt($('.div_site_id li[tr_id=' + data_p[m].end_station_id[0] + ']').index()) - 1;
-                            $('.table_price_set tbody tr').eq(tr_id_index).find('td').eq(td_id_index).addClass('has_price').attr('change_id', data_p[m].id).find('input').val(data_p[m].price);
+                            $('.table_price_set tbody tr').eq(tr_id_index).find('td').eq(td_id_index).addClass('has_price').attr('change_id', data_p[m].id).find('input').val(change_float2(data_p[m].price));
                         }
                         // 设置悬浮站点位置
                         var of_left = ($(window).width() - 1172) / 2 + 60 + 8 + 120;
@@ -123,18 +138,8 @@ odoo.define('price_setting', function (require) {
                             } else {
                                 // 校验通过
                                 if (parnt.test(val_change_price)) {
-                                    //如果是修改
-                                     var f = Math.round(val_change_price*100)/100;
-                                    var s = f.toString();
-                                    var rs = s.indexOf('.');
-                                    if (rs < 0) {
-                                        rs = s.length;
-                                        s += '.';
-                                    }
-                                    while (s.length <= rs + 2) {
-                                        s += '0';
-                                    }
-                                    $(this).val(s);
+                                    //如果是修改  强制保留两位小数
+                                    $(this).val(change_float2(val_change_price));
 
                                     if ($(this).parent().hasClass('has_price')) {
                                         model_price.call("write", [parseInt($(this).parent().attr('change_id')),
