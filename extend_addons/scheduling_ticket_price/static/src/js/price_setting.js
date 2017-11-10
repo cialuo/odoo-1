@@ -102,7 +102,7 @@ odoo.define('price_setting', function (require) {
                     //修改或者添加价格
                     $('.table_price_set tbody input').on('blur', function () {
                             var val_change_price = $(this).val();
-                            var parnt = /^\d+(?=\.{0,1}\d+$|$)/;
+                            var parnt = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
                             var tr_index = $(this).parents('tr').index();
                             var td_index = $(this).parent('td').index();
                             var price_end_id = $('.div_site_id li').eq(parseInt(tr_index) + 1).attr('tr_id');
@@ -149,7 +149,7 @@ odoo.define('price_setting', function (require) {
                                         });
                                     }
                                 } else {
-                                    layer.msg('请输入票价为正数', {time: 1000, shade: 0.3});
+                                    layer.msg('请输入票价为正数且不超过两位数', {time: 1000, shade: 0.3});
                                     $(this).val('');
                                 }
                             }
