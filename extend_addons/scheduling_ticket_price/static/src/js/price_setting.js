@@ -32,10 +32,10 @@ odoo.define('price_setting', function (require) {
                 clearInterval(set_pi_dom);
                 // 查询线路
                 model_line.query().order_by("sequence").filter([["route_id", "=", parseInt(the_line_id)], ["direction", "=", direction]]).all().then(function (data) {
-                   console.log(data)
-                    if(data.length>0){
+                    console.log(data)
+                    if (data.length > 0) {
                         $('.dom_price_set').show();
-                    }else{
+                    } else {
                         $('.dom_price_set').hide();
                     }
                     $('.table_price_set thead>tr').html('');
@@ -102,7 +102,7 @@ odoo.define('price_setting', function (require) {
                     //修改或者添加价格
                     $('.table_price_set tbody input').on('blur', function () {
                             var val_change_price = $(this).val();
-                            var parnt = /^\d+(?=\.{0,1}\d+$|$)/;
+                            var parnt = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
                             var tr_index = $(this).parents('tr').index();
                             var td_index = $(this).parent('td').index();
                             var price_end_id = $('.div_site_id li').eq(parseInt(tr_index) + 1).attr('tr_id');
@@ -124,6 +124,18 @@ odoo.define('price_setting', function (require) {
                                 // 校验通过
                                 if (parnt.test(val_change_price)) {
                                     //如果是修改
+                                     var f = Math.round(val_change_price*100)/100;
+                                    var s = f.toString();
+                                    var rs = s.indexOf('.');
+                                    if (rs < 0) {
+                                        rs = s.length;
+                                        s += '.';
+                                    }
+                                    while (s.length <= rs + 2) {
+                                        s += '0';
+                                    }
+                                    $(this).val(s);
+
                                     if ($(this).parent().hasClass('has_price')) {
                                         model_price.call("write", [parseInt($(this).parent().attr('change_id')),
                                             {
@@ -149,7 +161,7 @@ odoo.define('price_setting', function (require) {
                                         });
                                     }
                                 } else {
-                                    layer.msg('请输入票价为正数', {time: 1000, shade: 0.3});
+                                    layer.msg('请输入票价为正数且不超过两位数', {time: 1000, shade: 0.3});
                                     $(this).val('');
                                 }
                             }
