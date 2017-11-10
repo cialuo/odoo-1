@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='ChildRoutes']" position="after">
                     <page string="票价配置" name="ticket_price_page">
+                        <button name="generate_xml" string="生成xml" type="object" class="oe_highlight"/>
                         <div style="display:none" id="the_rec_id">
                             <field name="id"/>
                         </div>

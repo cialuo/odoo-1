@@ -13,7 +13,7 @@ class TicketPrice(models.Model):
                                required=True) #线路id
     price = fields.Float(string='Ticket Price') #票价
     direction = fields.Selection([('up', 'up'),
-                                  ('down', 'down')], default='up')
+                                  ('down', 'down')], default='up', required=True)
 
 #
 #     @api.depends('value')
@@ -30,23 +30,31 @@ class route_manage(models.Model):
     def generate_xml(self):
         res = self.ticket_price_relation
         xml_str = """
-        <?xml version="1.0" encoding="gbk"?>
-            <TicketPrice>
-                <Tickets Dir="1">
-                    <Item StartSt="" StartStID="" EndSt="" EndStID="" Price="" />
-                <Tickets>"""
-
+        <?xml version="1.0" encoding="gbk"?> \r\n
+        <TicketPrice> \r\n
+            <Tickets Dir="1"> \r\n
+                %s
+            <Tickets> \r\n
+            <Tickets Dir="0"> \r\n
+                %s
+            <Tickets> \r\n
+        </TicketPrice> \r\n
+        """
+        up_str = ''
+        down_str = ''
         for i in res:
-            dir = '1' if i.direction == 'up' else '0'
-            xml_str += """
-            <Tickets Dir="%s">
-                <Item StartSt="%s" StartStID="%s" EndSt="%s" EndStID="%s" Price="%s" />
-            <Tickets>""" % (dir, i.start_station_id.station_id.name,
+            tmp_str = """
+                <Item StartSt="%s" StartStID="%s" EndSt="%s" EndStID="%s" Price="%s" /> \r\n
+            """ % (i.start_station_id.station_id.name,
                                 i.start_station_id.station_id.code,
                                 i.end_station_id.station_id.name,
                                 i.end_station_id.station_id.code,
                                 str(i.price))
-        xml_str += "</TicketPrice>"
+            if i.direction == 'up':
+                up_str += tmp_str
+            else:
+                down_str += tmp_str
+        xml_str = xml_str % (up_str, down_str)
         self.write({'ticket_price_xml':xml_str})
         return self
 
