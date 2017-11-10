@@ -12,8 +12,8 @@
                             <field name="id"/>
                         </div>
                         <ul class="chose_price_line">
-                            <li class="active">上行</li>
-                            <li>下行</li>
+                            <li class="active" direction="up">上行</li>
+                            <li direction="down">下行</li>
                         </ul>
                         <div class="dom_price_set">
                             <div class="clone_th_pa">
@@ -25,9 +25,9 @@
                             <ul class="div_heng_site">
                                 <li class="div_heng_title">名称</li>
                             </ul>
-                            <!--<ul class="div_site_id">-->
-                                <!--<li class="div_heng_title">站点Id</li>-->
-                            <!--</ul>-->
+                            <ul class="div_site_id">
+                                <li class="div_site_title">站点Id</li>
+                            </ul>
                             <div class="table_price_set_pa">
                                 <table class="table_price_set o_list_view table table-condensed table-striped">
                                     <thead>
