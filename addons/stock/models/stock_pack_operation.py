@@ -265,9 +265,9 @@ class PackOperationLot(models.Model):
     plus_visible = fields.Boolean(compute='_compute_plus_visible', default=True)
 
     _sql_constraints = [
-        ('qty', 'CHECK(qty >= 0.0)', 'Quantity must be greater than or equal to 0.0!'),
-        ('uniq_lot_id', 'unique(operation_id, lot_id)', u'你应该已经注意到在别的行中这个批次'),
-        ('uniq_lot_name', 'unique(operation_id, lot_name)', 'You have already mentioned this lot name in another line')]
+        ('qty', 'CHECK(qty >= 0.0)', u'数量必须大于或等于0.0!'),
+        ('uniq_lot_id', 'unique(operation_id, lot_id)', u'你应该已经注意到在别的行中这个批次!'),
+        ('uniq_lot_name', 'unique(operation_id, lot_name)', u'这个批次已经存在!')]
 
     @api.one
     def _compute_plus_visible(self):
