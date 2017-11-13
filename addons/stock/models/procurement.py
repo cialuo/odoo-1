@@ -200,7 +200,7 @@ class ProcurementOrder(models.Model):
 
         # after all the procurements are run, check if some created a draft stock move that needs to be confirmed
         # (we do that in batch because it fasts the picking assignation and the picking state computation)
-        new_self.filtered(lambda order: order.state == 'running' and order.rule_id.action == 'move').mapped('move_ids').filtered(lambda move: move.state == 'draft').action_confirm()
+        new_self.filtered(lambda order: order.state == 'running' and order.rule_id.action == 'move').sudo().mapped('move_ids').filtered(lambda move: move.state == 'draft').action_confirm()
 
         # TDE FIXME: action_confirm in stock_move already call run() ... necessary ??
         # If procurements created other procurements, run the created in batch
