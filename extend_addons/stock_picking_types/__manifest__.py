@@ -10,7 +10,7 @@
     'author': "He",
     'category': 'Basic Edition',
     'version': '1.2',
-    'depends': ['materials_menu', 'stock'],
+    'depends': ['materials_menu', 'stock', 'purchase'],
     'data': [
         # 'security/ir.model.access.csv',
         'data/picking_types.xml',

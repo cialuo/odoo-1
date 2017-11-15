@@ -20,6 +20,7 @@
     'depends': [
         'materials_product',
         'hr',
+        'web_duplicate_visibility',
     ],
     'application': True,
 }
