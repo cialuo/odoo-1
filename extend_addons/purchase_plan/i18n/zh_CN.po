@@ -55,7 +55,7 @@ msgstr "条码"
 #. module: purchase_plan
 #: model:ir.model.fields,field_description:purchase_plan.field_purchase_plan_line_category
 msgid "Categ id"
-msgstr "Categ id"
+msgstr "物资分类"
 
 #. module: purchase_plan
 #: model:ir.model.fields,field_description:purchase_plan.field_purchase_plan_check_date
@@ -83,7 +83,7 @@ msgid "Confirm Cancel"
 msgstr "退回重审"
 
 #. module: purchase_plan
-#: model:ir.model.fields,field_description:purchase_plan.field_purchase_plan_user_id
+#: model:ir.model.fields,field_description:purchase_plan.field_purchase_plan_employee_id
 msgid "Create User"
 msgstr "制单人"
 
