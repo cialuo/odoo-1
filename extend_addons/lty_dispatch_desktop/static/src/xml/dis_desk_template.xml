@@ -357,24 +357,10 @@
 											<div class="abs_info"></div>
 											<div class="handleBtn ovf">
 												<a class="manual" href="javascript:;">人工</a>
-												<button type="button" class="abnormal_agree" disabled="disabled">同意</button>
-												<button type="button" class="abnormal_refuse" disabled="disabled">拒绝</button>
-												<button type="button" class="abnormal_ignore" disabled="disabled">忽略</button>
+
 											</div>
 											<div class="finishBtn">
 												<a href="javascript:;" class="is_check">完成</a>
-											</div>
-											<div class="ignore_btn">
-												<a href="javascript:;" class="not_ignore">取消</a>
-												<a href="javascript:;" class="is_ignore">忽略</a>
-											</div>
-											<div class="agree_btn">
-												<a href="javascript:;" class="not_agree">取消</a>
-												<a href="javascript:;" class="is_agree">同意</a>
-											</div>
-											<div class="refuse_btn">
-												<a href="javascript:;" class="not_refuse">取消</a>
-												<a href="javascript:;" class="is_refuse">拒绝</a>
 											</div>
 										</li>
 										<li class="normal">
@@ -393,9 +379,6 @@
 											<div class="abs_info"></div>
 											<div class="handleBtn ovf">
 												<a class="manual" href="javascript:;">人工</a>
-												<a href="javascript:;" disabled="disabled">同意</a>
-												<a href="javascript:;" disabled="disabled">拒绝</a>
-												<a class="abnormal_ignore" href="javascript:;" disabled="disabled">忽略</a>
 											</div>
 											<div class="finishBtn">
 												<a href="javascript:;" class="is_check">完成</a>
