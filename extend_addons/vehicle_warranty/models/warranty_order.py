@@ -816,8 +816,10 @@ class WizardProjectBatchCheckPass(models.TransientModel):  # 保养项目_批量
             i.vehicle_id.state = 'normal'
             if all(project.state == 'complete' for project in i.warranty_order_id.project_ids):
                 i.warranty_order_id.state = 'done'
-                i.warranty_order_id.plan_order_ids.state = 'done'
-                plan = i.warranty_order_id.plan_order_ids.parent_id
+                # i.warranty_order_id.plan_order_ids.state = 'done'
+                for item in i.warranty_order_id.plan_order_ids:
+                    item.state = 'done'
+                plan = i.warranty_order_id.plan_order_ids[0].parent_id
                 if all(plan_sheet.state == 'done' for plan_sheet in plan.plan_order_ids):
                     plan.state = 'done'
 

@@ -18,6 +18,7 @@ class WizardCreateWarrantyOrderByDriver(models.TransientModel): # 计划单生�
             if not plan_sheet.report_repair_user:
                 raise exceptions.UserError(_("report_repair_user Required!"))
             if not plan_sheet.maintain_sheet_id:
+                plan_sheet.vehicle_id.state = 'warrantly'
                 plan = plan_sheet.parent_id
                 maintain_sheets = self.env['warranty_order'].search([('plan_id', '=', plan.id)])
                 maintain_sheets_count = len(maintain_sheets)
