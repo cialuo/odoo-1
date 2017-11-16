@@ -1,4 +1,4 @@
-.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
+﻿.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
@@ -34,7 +34,10 @@ In the form view declaration, put widget='timepicker' attribute in the field tag
         <form string="View name">
             ...
             <field name="name"/>
-            <field name="mytimefieldname" widget="timepicker"/>
+            <field name="mytimefieldname" widget="line_sequence"/>  <!-- 行号序号 -->
+	    <field name="mytimefieldname" widget="input_time"/>  <!-- 时间输入 -->
+
+
             ...
         </form>
     </field>
@@ -43,7 +46,7 @@ In the form view declaration, put widget='timepicker' attribute in the field tag
 Additional jquery-timepicker plugin options can be specified by an options attribute::
 
     ...
-    <field name="mytimefieldname" widget="timepicker" options="{'step': '30', 'disableTextInput': false}"/>
+    <field name="mytimefieldname" widget="timepicker" options="{'step': '12', 'disableTextInput': false}"/>
     ...
 
 See the available options at `jquery-timepicker <https://github.com//jonthornton//jquery-timepicker#timepicker-plugin-for-jquery>`_.
