@@ -55,6 +55,16 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
             this.$el.find('.config_bus_source').slideDown();
         },
         closeFn: function () {
+            var package = {
+                type: 2001,
+                controlId: this.desktop_id,
+                open_modules: ["bus_resource"]
+            };
+            try {
+                websocket.send(JSON.stringify(package));
+            } catch(e) {
+                console.log(e);
+            }
             this.destroy();
         },
         close_set: function () {

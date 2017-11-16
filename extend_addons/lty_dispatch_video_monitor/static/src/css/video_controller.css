@@ -1,14 +1,17 @@
-.dispatch_desktop_video{
+.dispatch_desktop_video {
     color: #000;
 }
-.dispatch_desktop_video .video_title{
+
+.dispatch_desktop_video .video_title {
     margin-top: 16px;
     margin-left: 16px;
     margin-bottom: 16px;
 }
-.dispatch_desktop_video .ovf{
+
+.dispatch_desktop_video .ovf {
     overflow: hidden;
 }
+
 .dispatch_desktop_video .ztree .online {
     color: #008000;
 }
@@ -18,17 +21,18 @@
     overflow: auto;
 }
 
-.dispatch_desktop_video .video_box_player{
+.dispatch_desktop_video .video_box_player {
     display: none;
 }
 
-.dispatch_desktop_video .content-left{
-    width:15%;
+.dispatch_desktop_video .content-left {
+    width: 15%;
     float: left;
-    border:2px solid #ddd;
+    border: 2px solid #ddd;
 }
-.dispatch_desktop_video .search_road{
-    width:160px;
+
+.dispatch_desktop_video .search_road {
+    width: 160px;
     margin: 8px;
     border: 1px solid #ccc;
     padding-left: 4px;
@@ -52,9 +56,11 @@
     margin-right: 2px;
     margin-bottom: 10px;
 }
-.video_show_box object{
+
+.video_show_box object {
     margin-left: calc(50% - 320px);
 }
+
 .dispatch_desktop_video .show_car {
     position: absolute;
     left: calc(50% - 300px);
@@ -66,3 +72,4 @@
 .dispatch_desktop_video .now_play {
     margin-right: 20px;
 }
+

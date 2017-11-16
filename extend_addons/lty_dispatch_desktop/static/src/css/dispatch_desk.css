@@ -23,6 +23,11 @@
     color: #fff;
 }
 
+.table_bus_num_tbody .line_src_site {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .desktop_head > li:first-of-type {
     padding-left: 30px;
     display: flex;
@@ -369,33 +374,39 @@
     width: 720px;
     margin: 0 auto;
     color: #838697;
-    max-height:342px;
+    max-height: 342px;
 }
-.mutual_content .pagination{
+
+.mutual_content .pagination {
     margin-right: 20px;
     float: right;
 }
-.mutual_content .pagination>li>a{
+
+.mutual_content .pagination > li > a {
     background: none;
     border-color: #fff;
     color: #fff;
 }
-.mutual_content .pagination>li.active>a{
+
+.mutual_content .pagination > li.active > a {
     border-color: #fff;
     background: #555C77;
 }
+
 .mutual_content th, .mutual_content td {
     text-align: left;
     max-height: 30px;
     line-height: 30px;
     border-bottom: 1px solid #6D7487;
 }
-.mutual_content td a{
+
+.mutual_content td a {
     display: inline-block;
     color: #838697;
     cursor: pointer;
 }
-.line_way_chs option,.bus_way_chs option,.type_chs option{
+
+.line_way_chs option, .bus_way_chs option, .type_chs option {
     color: #fff;
     background: #37405f;
 }
@@ -477,18 +488,6 @@
 }
 
 .no_absnormal .finishBtn {
-    display: none;
-}
-
-.no_absnormal .ignore_btn {
-    display: none;
-}
-
-.no_absnormal .agree_btn {
-    display: none;
-}
-
-.no_absnormal .refuse_btn {
     display: none;
 }
 
@@ -629,7 +628,7 @@
     -webkit-appearance: none;
 }
 
-.updown_line_table a.min, .bus_src_config .min, .main_controll_interface .min, .mutual_information .min {
+.updown_line_table a.min, .bus_src_config .min, .main_controll_interface .min, .mutual_information .min, .abnormal_driver .min {
     width: 16px;
     height: 16px;
     line-height: 12px;
@@ -777,7 +776,7 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
 
 .same_car_show {
     position: absolute;
-    width: 50px;
+    width: 20px;
     height: 15px;
     color: white;
     font-size: 12px !important;
@@ -1311,3 +1310,90 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     height: 300px;
 }
 
+/*司机手动异常*/
+.abnormal_driver {
+    width: 370px;
+    height: 400px;
+    background: #343B58;
+    border-radius: 8px;
+    position: fixed;
+    box-shadow: 0px 0px 20px #242A51;
+
+}
+
+.abnormal_driver .line_btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.abnormal_driver_title {
+    height: 30px;
+}
+
+.abnormal_driver .abnormal_ques {
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    color: #fff;
+}
+
+.abnormal_driver .abnorma_driver_desc {
+    width: 370px;
+    height: 370px;
+}
+
+.abnormal_driver_desc ul > li {
+    height: 40px;
+    margin: 0 50px;
+}
+
+.abnormal_driver_desc ul li > div {
+    float: left;
+    line-height: 40px;
+    width: 4em;
+
+}
+.abnormal_driver_desc ul{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.abnormal_driver_desc ul li>div {
+    display: block;
+    color: #fff;
+}
+
+.abnormal_driver_desc .w2 {
+    letter-spacing: 2em;
+    margin-right: -2em;
+}
+
+.abnormal_driver_desc input {
+    display: inline-block;
+    width: 200px;
+    background: none;
+    border: 1px solid #666;
+    color: #666;
+    vertical-align: middle;
+    margin-top: 6px;
+    margin-left: 10px;
+}
+.abnormal_driver_desc .deal_button{
+    margin:0 50px;
+}
+.abnormal_driver_desc .deal_button button {
+    background: none;
+    border: 1px solid;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 4px;
+    color: #4ecfc7;
+    border-color: #4ecfc7;
+    cursor: pointer;
+}
+
+.abnormal_driver_desc .deal_button .abnormal_ignore{
+    color: #666;
+    border-color: #666;
+}

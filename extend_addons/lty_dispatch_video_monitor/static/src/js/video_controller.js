@@ -1,7 +1,6 @@
 /**
  * Created by Administrator on 2017/9/22.
  */
-var video_socket = null;
 odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
     var core = require('web.core');
     var Widget = require('web.Widget');
@@ -30,8 +29,8 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             var onlineData = 0; //在线车辆
             var self = this;
             var channelType = 258;
+            var video_socket = null;
             this.model_route_line.query().order_by('route_id').filter([["route_id", "!=", false]]).all().then(function (res) {
-                console.log(res)
                 var arr = [];
                 for (var i = 0; i < res.length; i++) {
                     arr.push([res[i].route_id, [res[i].on_boardid]]);
@@ -63,7 +62,6 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 var arr_node = [];
                 for (var m = 0; m < end_arr.length; m++) {
                     var arr_node_child = [];
-
                     for (var y = 0; y < end_arr[m][1].length; y++) {
                         arr_node_child.push(
                             {
@@ -122,7 +120,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             });
 
             var data_tree = [{
-                'id': 9990,
+                'id': 15745,
                 "channels": [{
                     "online": 1,
                     "channel_id": 1
@@ -150,30 +148,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 },
             ];
             //心跳包检测
-            var heartCheck = {
-                timeout: 10000, //10秒发送一次心跳包
-                serverTimeout: 60000, //服务端60秒没有响应重连
-                timeoutObj: null,
-                serverTimeoutObj: null,
-                reset: function () {
-                    clearTimeout(this.timeoutObj);
-                    clearTimeout(this.serverTimeoutObj);
-                    this.start();
-                },
-                start: function () {
-                    var self = this;
-                    this.timeoutObj = setTimeout(function () {
-                        //发送心跳包
-                        video_socket.send('{"msg_type":100}');
-                        self.serverTimeoutObj = setTimeout(function () {
-                            //如果onclose会执行reconnect，我们执行ws.close()就行了.如果直接执行reconnect 会触发onclose导致重连两次
-                            video_socket.close();
-                            sendVideoInit();
-                        }, self.serverTimeout);
 
-                    }, this.timeout);
-                }
-            };
 
             function setFontCss(treeId, treeNode) {
                 var css = null;
@@ -225,7 +200,6 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                     //				showMonflasitor(dataJson); //回应的地址
                     deal_getData(dataJson);
                 }
-
             }
 
             //设备通道断流重新去请求
@@ -278,7 +252,6 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 var webUrl = "ws://202.104.136.228:9001/lty-video-service";
                 if ('WebSocket' in window) {
                     video_socket = new ReconnectingWebSocket(webUrl + "/websocket/socketServer.ws?sessionID=" + SessionId);
-                    video_socket.timeoutInterval = 12000; //websocket捂手超时时间
                 } else if ('MozWebSocket' in window) {
                     video_socket = new MozWebSocket(webUrl + "/websocket/socketServer.ws?sessionID=" + SessionId);
                 } else {
@@ -291,7 +264,6 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             }
 
             //展示当前播放器的播放器和渠道
-
             //清空数组
             function removeobj() {
                 catData = [];
@@ -347,7 +319,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 if (results == null)
                     return "";
                 else
-                    return unescape(results[1]);
+                    return encodeURI(results[1]);
 
             }
 
@@ -394,17 +366,10 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 var swfVersionStr = "10.3.0";
                 var xiSwfUrlStr = "swfs/playerProductInstall.swf";
                 var queryParameters = new Array();
-                queryParameters['source'] = getUrlParam('source');
-                queryParameters['type'] = getUrlParam('type');
-                if (queryParameters['source'] == "")
-                    queryParameters['source'] = arrcut[i];
-                if (queryParameters['type'] == "")
-                    queryParameters['type'] = "recorded";
-                if (queryParameters['idx'] == "")
-                    queryParameters['idx'] = "2";
+                queryParameters['source'] = arrcut[i];
                 var soFlashVars = {
                     src: queryParameters['source'],
-                    streamType: queryParameters['type'],
+                    streamType: "live",
                     autoPlay: "true",
                     //自动播放功能
                     controlBarAutoHide: "true",
@@ -454,7 +419,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 var dom_chose = '#' + treeNode.tId + '_span';
                 //			webSocketVideo(channelType, deviceId, channeld)
                 //'{"msg_type":258,"params":{"bus_id":8000,"channel_id":0}}'
-                var deviceId = treeNode.id;
+                var deviceId = 9990;
                 var channelId = -1;
                 $('.video_player.hide').removeClass('hide');
                 $('.content-right').html('');
@@ -474,7 +439,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                             }
                         }
                     } else {
-                        deviceId=treeNode.getParentNode().id;
+                        deviceId = 9990;
                         //添加播放器盒子
                         channelId = 0;
                         $('.content-right').append($('.video_box').html());
@@ -488,7 +453,6 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             function webSocketVideo(channelType, deviceId, channeld) {
                 var webzTreeShow = $.fn.zTree.getZTreeObj("ztree");
                 var deviceIdscoket = deviceId;
-
 
                 ///--------- y有数据之后使用 -------------
                 // var nodesocket = webzTreeShow.getNodeByParam("id", 8, null);
@@ -506,6 +470,8 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                     var videoParams = '{"msg_type":' + channelType + ',"params":{"bus_id":' + deviceId + '}}';
                 }
                 //				websocket.send('{"msg_type":258,"params":{"bus_id":8000,"channel_id":0}}');
+                console.log(videoParams)
+                debugger
                 video_socket.send(videoParams); //发送参数
                 //			}
             }
@@ -528,7 +494,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                         var nodes = treeObj.getSelectedNodes();
                         treeObj.expandNode(nodes[0], true, true, true)
                     } else {
-                        layer.msg('输入线路或车辆无效', { time: 0, shade: 0.3 })
+                        layer.msg('输入线路或车辆无效', {time: 0, shade: 0.3})
                     }
 
                 }

@@ -533,7 +533,35 @@
 			</div>
 		</div>
 	</t>
-
+	<t t-name="abnormal_driver">
+		<div class="dragContent abnormal_driver" t-attf-style="right:{{widget.posi_left}}px;bottom:{{widget.posi_top}}px">
+			<div class="abnormal_driver_content">
+				<div class="abnormal_driver_title dragAreaDesk">
+					<div class="abnormal_ques"><t t-esc="widget.location_data.data.abnormal_description.log_text"></t></div>
+					<div class="line_btn">
+						<div class="line_btn_content posR">
+							<a class="min" href="javascript:;" title="最小化">×</a>
+						</div>
+					</div>
+				</div>
+				<div class="abnormal_driver_desc">
+					<ul>
+						<li><div><div class="w2">线路</div></div><input type="text" t-attf-value="{{widget.location_data.data.line_id}}"/></li>
+						<li><div><div class="w2">车号</div></div><input type="text" t-attf-value="{{widget.location_data.data.abnormal_description.bus_num}}"/></li>
+						<li><div><div>司机工号</div></div><input type="text"  t-attf-value="{{widget.location_data.data.abnormal_description.employee_no}}"/></li>
+						<li><div><div>司机名称</div></div><input type="text"  t-attf-value="{{widget.location_data.data.abnormal_description.employee_name}}"/></li>
+						<li><div><div class="w2">事件</div></div><input type="text"  t-attf-value="{{widget.location_data.data.abnormal_description.log_text}}"/></li>
+						<li><div><div class="w2">时间</div></div><input type="text"  t-attf-value="{{widget.location_data.data.abnormal_description.occurTime}}"/></li>
+					</ul>
+					<div class="deal_button" t-attf-did="{{widget.location_data.data.abnormal_description.id}}">
+						<button type="button" class="abnormal_agree" >同意</button>
+						<button type="button" class="abnormal_refuse" >拒绝</button>
+						<button type="button" class="abnormal_ignore" >忽略</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</t>
 	<t t-name="bus_source_config">
 		<div class="dragContent bus_src_config" t-attf-line_id="{{widget.location_data.line_id}}" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
 			<div class="src_title">

@@ -73,6 +73,90 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             });
         }
     });
+    //司机手动异常
+    var abnormal_driver = Widget.extend({
+        template: 'abnormal_driver',
+        init: function (parent, data, left) {
+            this._super(parent);
+            this.location_data = data;
+            this.posi_left = left;
+            this.posi_top = left+55;
+        },
+        start: function () {
+            var self = this;
+
+            this.timeClose = function () {
+                self.time_out = setTimeout(function () {
+                    self.destroy();
+                }, 10000);
+            }
+            this.timeClose();
+            this.$el.mouseenter(function () {
+                clearTimeout(self.time_out);
+            }).mouseleave(function () {
+                self.timeClose();
+            });
+        },
+        events: {
+            'click .abnormal_ignore': 'abnormal_ignore',
+            'click .abnormal_agree': 'abnormal_agree',
+            'click .abnormal_refuse': 'abnormal_refuse',
+            'click .min': 'closeFn',
+            'mouseover .abnormal_driver': 'close_ten',
+            'mouseout .abnormal_driver': 'stop_close'
+        },
+        closeFn: function () {
+            this.destroy();
+        },
+        abnormal_refuse: function (event) {
+            stopPropagation(event);
+            var x_comp = event.currentTarget;
+            var send_id = parseInt($(x_comp).parent().attr('did'));
+            var self = this;
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/exchange/processCommand?apikey=71029270&params={warningId:' + send_id + ',agreeTypeId:2}',
+                type: 'put',
+                dataType: 'json',
+                data: {},
+                success: function (res) {
+                    layer.msg(res.respose.text);
+                    self.destroy();
+                }
+            });
+        },
+        abnormal_agree: function (event) {
+            var self = this;
+            stopPropagation(event);
+            var x_comp = event.currentTarget;
+            var send_id = parseInt($(x_comp).parent().attr('did'));
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/exchange/processCommand?apikey=71029270&params={warningId:' + send_id + ',agreeTypeId:3}',
+                type: 'put',
+                dataType: 'json',
+                data: {},
+                success: function (res) {
+                    layer.msg(res.respose.text);
+                    self.destroy();
+                }
+            });
+        },
+        abnormal_ignore: function (event) {
+            var self = this;
+            stopPropagation(event);
+            var x_comp = event.currentTarget;
+            var send_id = parseInt($(x_comp).parent().attr('did'));
+            $.ajax({
+                url: RESTFUL_URL + '/ltyop/exchange/processCommand?apikey=71029270&params={warningId:' + send_id + ',agreeTypeId:1}',
+                type: 'put',
+                dataType: 'json',
+                data: {},
+                success: function (res) {
+                    layer.msg(res.respose.text);
+                    self.destroy();
+                }
+            });
+        },
+    });
     // 控制台顶部
     var desktop_top = Widget.extend({
         template: 'desktop_top',
@@ -136,10 +220,10 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                 }
             }
             self.$el.append(QWeb.render("myConsole"));
-            var desktop_id = window.location.href.split("active_id=")[1].split("&")[0];
-            CONTROLLERID = desktop_id;
-            self.$el.parent().addClass("controller_" + desktop_id).attr("desktop_id", desktop_id);
-            self.model_line.query(["line_id"]).filter([["desktop_id", "=", parseInt(desktop_id)]]).all().then(function (data) {
+            this.desktop_id = window.location.href.split("active_id=")[1].split("&")[0];
+            CONTROLLERID = this.desktop_id;
+            self.$el.parent().addClass("controller_" + this.desktop_id).attr("desktop_id", this.desktop_id);
+            self.model_line.query(["line_id"]).filter([["desktop_id", "=", parseInt(self.desktop_id)]]).all().then(function (data) {
                 var s = [];
                 if (data.length > 0) {
                     // 去重
@@ -150,7 +234,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                     }
                     // 遍历
                     for (var j = 0; j < s.length; j++) {
-                        self.model_line.query().filter([["desktop_id", "=", parseInt(desktop_id)], ["line_id", "=", parseInt(s[j])]]).all().then(function (res) {
+                        self.model_line.query().filter([["desktop_id", "=", parseInt(self.desktop_id)], ["line_id", "=", parseInt(s[j])]]).all().then(function (res) {
                             new dispatch_bus(this, res, 0).appendTo(self.$el);
                         });
                     }
@@ -158,11 +242,39 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
             });
             new desktop_top(this).appendTo(self.$el);
             $.getScript("/lty_dispatch_desktop/static/src/js/websocket.js");
+            var model_abnormal = 'abnormal__driver';
+            if (socket_model_info[model_abnormal]) {
+                delete socket_model_info[model_abnormal];
+            }
+            socket_model_info[model_abnormal] = {
+                arg: {
+                    self: self
+                }, fn: self.abnormal_driver
+            };
+
         },
         events: {
             'click .new_console': 'addLine_click',
             'click .read_console': 'config_click',
-            'click .save_console': 'save_click'
+            'click .save_console': 'save_click',
+
+        },
+
+        abnormal_driver: function (datalist, arg) {
+            var self = arg.self;
+            var data_use = JSON.parse(datalist);
+            // if(data_use.line_id == parseInt(arg.line_id))
+            if (data_use.data.packageType == 1013) {
+                if (data_use.controllerId == self.desktop_id) {
+                    if (data_use.data.abnormal_description.operateFlag == 0) {
+                        var len = ($('body').find('.abnormal_driver').length) * 25 + 10;
+                        console.log(len)
+                        new abnormal_driver(self, data_use, len).appendTo(self.$el);
+                    } else if (data_use.data.abnormal_description.operateFlag == 1) {
+                        $('body').find('.deal_button[did=' + data_use.data.abnormal_description.id + ']').parents('.abnormal_driver').remove();
+                    }
+                }
+            }
         },
         addLine_click: function () {
             var self = this;
@@ -213,7 +325,7 @@ odoo.define('lty_dispatch_desktop.dispatch_desktop', function (require) {
                         SOCKET_URL = socket[0].value;
                         RESTFUL_URL = restful[0].value;
                         // 加载高德地图组件
-                        $.getScript(gdmap_url, function(){
+                        $.getScript(gdmap_url, function () {
                             new dispatch_desktop(self, self.layer).appendTo(self.$el);
                         });
                     });

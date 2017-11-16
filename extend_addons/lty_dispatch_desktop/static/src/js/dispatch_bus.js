@@ -42,6 +42,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             this.line_id = self.$el.attr('line_id');
             //为了每条线路对应左右两个模块的tid相同问题
             var tid = self.$el.attr('tid');
+            // 等同于line_id 后台需要的字段
             this.gprs_id = self.$el.attr('gprs_id');
             //所有点击的按钮移除click属性并给当前的添加
             $('*[click="yes"]').removeAttr('click');
@@ -51,8 +52,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 var x = event.currentTarget;
                 var zIndex = parseInt(self.$el[0].style.zIndex) + 1;
                 if (!$(x).hasClass('beChose')) {
-                    $(x).addClass('beChose').html('<div class="nzindex">' + $(x).siblings('.data_same').html() + '</div>');
-                    $(x).find('.nzindex').css('zIndex', zIndex);
+                    $(x).addClass('beChose').html('<div class="nzindex">' + $(x).siblings('.data_same').html() + '</div>').find('.nzindex').css('zIndex', zIndex);
+                    //若无多余时间，则5秒后进行自动隐藏操作
                     setTimeout(function () {
                         $(x).removeClass('beChose').html('...');
                     }, 5000);
@@ -81,6 +82,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     return;
                 } else {
                     $(".busRealStateModel").remove();
+                    // 打开车辆实时状态模块
                     var dialog = new bus_real_info(self, options);
                     dialog.appendTo($(".controller_" + options.controllerId));
                 }
@@ -88,9 +90,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
 
             function site_info(mode_line, model_station_platform, model_bus_num, model_config) {
                 if (self.$el.find('.line_line')[0] != undefined) {
+                    // 由于目前使用query只用到异步的使用，所以请求数据库需要一层层的操作
                     // 根据tid拿到线路id
                     mode_line.query().filter([["id", "=", parseInt(tid)]]).all().then(function (data) {
-                        // 根据线路id拿到线路的数据
+                        // 根据线路id拿到线路的数据   上下行的站点数据
                         model_station_platform.query().order_by("sequence").filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "up"]]).all().then(function (res_top) {
                             model_station_platform.query().order_by("sequence").filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "down"]]).all().then(function (res_down) {
                                 var site_t = [];
@@ -99,54 +102,33 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 }
                                 sessionStorage.setItem("bus_site_top" + self.line_id, site_t);
                                 // 给每个上下行的车辆所在位置添加一个盒子，后面用来装和判断是否发生串车
-                                for (var it = 0; it < res_top.length * 2; it++) {
+                                for (var it = 0; it < res_top.length * 2 + 1; it++) {
                                     self.$el.find('.content_car_road_top').append('<div class="car_line_tb car_line_top' + it + '"></div>');
-                                    self.$el.find('.car_line_top' + it).css('left', 1190 * (it + 1) / (res_top.length * 2) + 'px');
                                 }
-                                for (var id = 0; id < res_down.length * 2; id++) {
+                                for (var id = 0; id < res_down.length * 2 + 1; id++) {
                                     self.$el.find('.content_car_road_down').append('<div class="car_line_tb car_line_down' + id + '"></div>');
-                                    self.$el.find('.car_line_down' + id).css('left', 1990 - 1190 * (id + 1) / (res_down.length * 2) + 'px');
                                 }
                                 // 查询模拟地图上方车辆信息
                                 model_config.query().filter([["id", "=", parseInt(self.desktop_id)]]).all().then(function (conf) {
-
                                     // 用来做上方信息的可配置显示与否
-                                    // 配车数量
-                                    if (conf[0].applycar_num == true) {
-                                        self.$el.find('.show_applycar_num').show();
-                                    }
+                                    // 配车数量 根据后台是否返回字段进行判断
+                                    dom_show(self.$el.find('.show_applycar_num'), conf[0].applycar_num);
                                     // 机动车辆
-                                    if (conf[0].active_car == true) {
-                                        self.$el.find('.show_active_car').show();
-                                    }
+                                    dom_show(self.$el.find('.show_active_car'), conf[0].active_car);
                                     // 维保停运
-                                    if (conf[0].main_outage == true) {
-                                        self.$el.find('.show_main_outage').show();
-                                    }
+                                    dom_show(self.$el.find('.show_main_outage'), conf[0].main_outage);
                                     // 共享机动
-                                    if (conf[0].share_active_car == true) {
-                                        self.$el.find('.show_share_active_car').show();
-                                    }
+                                    dom_show(self.$el.find('.show_share_active_car'), conf[0].share_active_car);
                                     // 信号在线
-                                    if (conf[0].signal_online == true) {
-                                        self.$el.find('.show_signal_online').show();
-                                    }
-                                    // 信号在线
-                                    if (conf[0].signal_outline == true) {
-                                        self.$el.find('.show_signal_outline').show();
-                                    }
-                                    // 司机
-                                    if (conf[0].car_driver == true) {
-                                        self.$el.find('.show_car_driver').show();
-                                    }
-                                    // 乘务员
-                                    if (conf[0].car_attendant == true) {
-                                        self.$el.find('.show_car_attendant').show();
-                                    }
-                                    //挂车数量
-                                    if (conf[0].trailerNum == true) {
-                                        self.$el.find('.show_trailerNum').show();
-                                    }
+                                    dom_show(self.$el.find('.show_signal_online'), conf[0].signal_online);
+                                    //信号掉线
+                                    dom_show(self.$el.find('.show_signal_outline'), conf[0].signal_outline);
+                                    //司机
+                                    dom_show(self.$el.find('.show_car_driver'), conf[0].car_driver);
+
+                                    dom_show(self.$el.find('.show_car_attendant'), conf[0].car_attendant);
+                                    //乘务
+                                    dom_show(self.$el.find('.show_trailerNum'), conf[0].trailerNum);
                                     var dataSite_top_color_cof = {};
                                     var dataSite_down_color_cof = {};
                                     var res_down_deal = res_down.reverse();
@@ -157,16 +139,18 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     }
                                     sessionStorage.setItem("bus_site_down" + self.line_id, site_d);
                                     self.$el.find('.bus_info>ul>li').css('color', conf[0].src_font_conf);
+                                    var color = '';
                                     for (var i = 0; i < res_top.length; i++) {
-                                        var color = 'color' + res_top[i].id;
+                                        color = 'color' + res_top[i].id;
                                         dataSite_top_color_cof[color] = '#18d76b';
                                     }
-                                    for (var i = 0; i < res_down_deal.length; i++) {
-                                        var color = 'color' + res_down_deal[i].id;
+                                    for (var j = 0; j < res_down_deal.length; j++) {
+                                        color = 'color' + res_down_deal[j].id;
                                         dataSite_down_color_cof[color] = '#18d76b';
                                     }
                                     // 上下行的车辆描圈
-                                    var cirTop = {
+                                    // 上下行的名称显示
+                                    cir_and_text({
                                         id: '.can_top',
                                         ciry: 27,
                                         testy: 13,
@@ -174,8 +158,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         self: self.$el,
                                         dataSite_color: dataSite_top_color_cof,
                                         site_infos: res_top
-                                    };
-                                    var cirBottom = {
+                                    });
+                                    cir_and_text({
                                         id: '.can_bottom',
                                         ciry: 6,
                                         testy: 25,
@@ -183,16 +167,15 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         // color: data.color,
                                         dataSite_color: dataSite_down_color_cof,
                                         site_infos: res_down_deal
-                                    };
-                                    // 上下行的名称显示
-                                    cir_and_text(cirTop);
-                                    cir_and_text(cirBottom);
+                                    });
+                                    //将字段重新赋值
                                     self.site_top_infos = res_top;
                                     self.site_down_infos = res_down_deal;
                                     // 站点颜色
                                     self.dataSite_top_color = dataSite_top_color_cof;
                                     self.dataSite_down_color = dataSite_down_color_cof;
                                     self.subsection = '';
+                                    //将line_message的websocket模块入库
                                     var model_id = "line_message__" + self.line_id;
                                     if (socket_model_info[model_id]) {
                                         delete socket_model_info[model_id];
@@ -237,73 +220,45 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                     success: function (res) {
                                                         console.log(res)
                                                         for (var i = 0; i < res.length; i++) {
+                                                            //给设置的车子的隐藏盒子赋上bus_no字段
                                                             $('.run_car_hide').find('.line_car').attr('bus_no', res[i].onboard);
+                                                            // 根据数据源判断车辆是否在线
                                                             if (res[i].onlineFlag == 0) {
                                                                 $('.run_car_hide').find('.line_car').removeClass('to_gray');
                                                             } else if (res[i].onlineFlag == 1) {
                                                                 $('.run_car_hide').find('.line_car').addClass('to_gray');
                                                             }
                                                             // 上下行
-                                                            if (res[i].direction == 0) {
-                                                                //是否在车场
-                                                                if (res[i].stationFlag != 2) {
+                                                            if (res[i].stationFlag != 2) {
+                                                                if (res[i].direction == 0) {
+                                                                    //是否在车场
                                                                     // 进站0 出站1
                                                                     if (res[i].stationFlag == 0) {
-                                                                        self.$el.find('.content_car_road_top .car_line_top' + (parseInt(res[i].stationNo) * 2 - 2)).append($('.run_car_hide').html());
+                                                                        self.$el.find('.content_car_road_top .car_line_top' + (parseInt(res[i].stationNo) * 2 - 1)).append($('.run_car_hide').html());
                                                                         var oLeft = 1190 * (parseInt(res[i].stationNo) - 0.5) / res_top.length;
                                                                     } else if (res[i].stationFlag == 1) {
-                                                                        self.$el.find('.content_car_road_top .car_line_top' + (parseInt(res[i].stationNo) * 2 - 1)).append($('.run_car_hide').html());
+                                                                        self.$el.find('.content_car_road_top .car_line_top' + (parseInt(res[i].stationNo) * 2 )).append($('.run_car_hide').html());
                                                                         var oLeft = 1190 * (parseInt(res[i].stationNo)) / res_top.length;
                                                                     }
                                                                     self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px');
                                                                     self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').attr("car_id", res[i].car_id).html(res[i].carNum);
-                                                                }
-                                                            } else if (res[i].direction == 1) {
-                                                                if (res[i].stationFlag != 2) {
+                                                                } else if (res[i].direction == 1) {
                                                                     // 进站   出站
                                                                     if (res[i].stationFlag == 0) {
-                                                                        self.$el.find('.content_car_road_down .car_line_down' + (parseInt(res[i].stationNo) * 2 - 2)).append($('.run_car_hide').html());
+                                                                        self.$el.find('.content_car_road_down .car_line_down' + (parseInt(res[i].stationNo) * 2 - 1)).append($('.run_car_hide').html());
                                                                         var oLeft = 1190 - 1190 * (parseInt(res[i].stationNo) - 0.5) / res_down_deal.length;
                                                                     } else if (res[i].stationFlag == 1) {
-                                                                        self.$el.find('.content_car_road_down .car_line_down' + (parseInt(res[i].stationNo) * 2 - 1)).append($('.run_car_hide').html());
+                                                                        self.$el.find('.content_car_road_down .car_line_down' + (parseInt(res[i].stationNo) * 2 )).append($('.run_car_hide').html());
                                                                         var oLeft = 1190 - 1190 * (parseInt(res[i].stationNo)) / res_down_deal.length;
                                                                     }
-
                                                                     self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px');
                                                                     self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').attr("car_id", res[i].car_id).html(res[i].carNum);
                                                                 }
                                                             }
                                                         }
-                                                        for (var aj_nu = 0; aj_nu < self.$('.content_car_road_top .car_line_tb').length; aj_nu++) {
-                                                            //移除之前的重复位置
-                                                            //如果已经有两辆车
-                                                            self.$('.content_car_road_top .car_line_top' + aj_nu).find('.same_car_show').remove();
-                                                            self.$('.content_car_road_top .car_line_top' + aj_nu).find('.data_same').remove();
-                                                            if (self.$('.content_car_road_top .car_line_top' + aj_nu).find('.line_car').length > 1) {
-                                                                var html_c = '';
-                                                                for (var i = 0; i < self.$('.content_car_road_top .car_line_top' + aj_nu).find('.line_car').length; i++) {
-                                                                    var carObj = self.$('.content_car_road_top .car_line_top' + aj_nu).find('.line_car .type_car span').eq(i);
-                                                                    html_c += '<div car_id=' + carObj.attr("car_id") + '>' + carObj.html() + '</div>';
-                                                                }
-                                                                self.$('.content_car_road_top .car_line_top' + aj_nu).append('<div class="same_car_show" style="left: ' + (parseFloat(self.$('.content_car_road_top .car_line_top' + aj_nu).find('.line_car').css('left')) - 50) + 'px">...</div><span style="display: none" class="data_same"></span>')
-                                                                self.$('.content_car_road_top .car_line_top' + aj_nu).find('.data_same').html(html_c);
-                                                            }
-                                                        }
-                                                        for (var aj_num = 0; aj_num < self.$('.content_car_road_down .car_line_tb').length; aj_num++) {
-                                                            //移除之前的重复位置
-                                                            //如果已经有两辆车
-                                                            self.$('.content_car_road_down .car_line_down' + aj_num).find('.same_car_show').remove();
-                                                            self.$('.content_car_road_down .car_line_down' + aj_num).find('.data_same').remove();
-                                                            if (self.$('.content_car_road_down .car_line_down' + aj_num).find('.line_car').length > 1) {
-                                                                var html_cd = '';
-                                                                for (var i = 0; i < self.$('.content_car_road_down .car_line_down' + aj_num).find('.line_car').length; i++) {
-                                                                    var carObj = self.$('.content_car_road_down .car_line_down' + aj_num).find('.line_car .type_car span').eq(i);
-                                                                    html_cd += '<div car_id=' + carObj.attr("car_id") + '>' + carObj.html() + '</div>';
-                                                                }
-                                                                self.$('.content_car_road_down .car_line_down' + aj_num).append('<div class="same_car_show" style="left: ' + (parseFloat(self.$('.content_car_road_down .car_line_down' + aj_num).find('.line_car').css('left')) + 30) + 'px">...</div><span style="display: none" class="data_same"></span>')
-                                                                self.$('.content_car_road_down .car_line_down' + aj_num).find('.data_same').html(html_cd);
-                                                            }
-                                                        }
+                                                        //渲染串车
+                                                        self.render_cc('top', -20);
+                                                        self.render_cc('down', 30);
                                                         $('.run_car_hide').find('.line_car').removeClass('to_gray');
                                                         can_left_right(
                                                             {
@@ -329,6 +284,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                                 busNumber: data[0].downFieldBusNum + '辆'
                                                             }
                                                         );
+                                                        // 这里调用socket时的方法   fn调用方法   arg给参
                                                         socket_model_info[model_id] =
                                                             {
                                                                 fn: self.site_websocket,
@@ -372,65 +328,33 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             //     return false;
             // });
         },
+        render_cc: function (dom_direct, num_distance) {
+            var dom_par = '.content_car_road_' + dom_direct + ' .car_line_tb';
+            var dom = '.content_car_road_' + dom_direct + ' .car_line_' + dom_direct;
+            for (var i = 0; i < self.$(dom_par).length; i++) {
+                //移除之前的重复位置
+                //如果已经有两辆车
+                self.$(dom + i).find('.same_car_show').remove();
+                self.$(dom + i).find('.data_same').remove();
+                if (self.$(dom + i).find('.line_car').length > 1) {
+                    var html_c = '';
+                    for (var j = 0; j < self.$(dom + i).find('.line_car').length; j++) {
+                        var carObj = self.$(dom + i).find('.line_car .type_car span').eq(j);
+                        html_c += '<div car_id=' + carObj.attr("car_id") + '>' + carObj.html() + '</div>';
+                    }
+                    self.$(dom + i).append('<div class="same_car_show" style="left: ' + (parseFloat(self.$(dom + i).find('.line_car').css('left')) + num_distance) + 'px">...</div><span style="display: none" class="data_same"></span>')
+                    self.$(dom + i).find('.data_same').html(html_c);
+                }
+            }
+        },
         site_websocket: function (data_list, arg) {
             var self = arg.self;
             var data_use = JSON.parse(data_list)
             var data = new Object();
             var line_c = parseInt(arg.line_id);
-            //车辆在途刷新  后期socket推送
-            if (data_use.moduleName == "line_park" || data_use.moduleName == "line_online") {
-                $.ajax({
-                    url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
-                    type: 'get',
-                    dataType: 'json',
-                    data: {},
-                    success: function (data) {
-                        bus_way_top = bus_way_down = 0;
-                        for (var i = 0; i < data.respose.length; i++) {
-                            if (data.respose[i].direction == 0 && data.respose[i].inField == 0) {
-                                bus_way_top++;
-                            }
-                            else if (data.respose[i].direction == 1 && data.respose[i].inField == 0) {
-                                bus_way_down++;
-                            }
-                        }
-                        self.$el.find('.park_left li').html(bus_way_top);
-                        self.$el.find('.park_right li').html(bus_way_down);
-                    },
-                    error: function () {
-                        layer.msg('请求出错', {time: 1000, shade: 0.3});
-                    }
-                });
-            }
-
-            //匹配line_id和desktop_id
+            //匹配line_id和desktop_id  过滤掉socket多余的数据
             if (data_use.data.line_id == line_c && data_use.controllerId == self.desktop_id) {
-                if (data_use.moduleName == "line_park" || data_use.moduleName == "line_online") {
-                    $.ajax({
-                        url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.desktop_id + ',lineId:' + line_c + '}',
-                        type: 'get',
-                        dataType: 'json',
-                        data: {},
-                        success: function (data) {
-                            bus_way_top = bus_way_down = 0;
-                            for (var i = 0; i < data.respose.length; i++) {
-                                if (data.respose[i].direction == 0 && data.respose[i].inField == 0) {
-                                    bus_way_top++;
-                                }
-                                else if (data.respose[i].direction == 1 && data.respose[i].inField == 0) {
-                                    bus_way_down++;
-                                }
-                            }
-                            self.$el.find('.park_left li').html(bus_way_top);
-                            self.$el.find('.park_right li').html(bus_way_down);
-                        },
-                        error: function () {
-                            layer.msg('请求出错', {time: 1000, shade: 0.3});
-                        }
-                    });
-                }
                 if (data_use.moduleName == "bus_resource") {
-                    // debugger
                 }
                 //线路状态分段颜色   目前使用的假数据
                 data.color = [
@@ -441,20 +365,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     "#a19dde",
                     "#cc21ff"
                 ];
-                // 线路路况实时反馈
-                // if(data_use.type== "1032"){
-                //     debugger
-                //     var road_info = data_use.data.road_condition.split('|');
-                //     for(var i = 0;i<road_info.length;i++){
-                //         data.color.push(parseInt(road_info[i].split(',')[0]));
-                //     }
-                // }
+
                 data.site_top_infos = arg.site_top_infos;
                 data.site_down_infos = arg.site_down_infos;
                 //站点滞站客流  根据状态值决定显示
                 if (data_use.type == "1036") {
+                    var color_id = data_use.data.location_id;
                     if (data_use.data.direction == 0) {
-                        var color_id = data_use.data.location_id;
                         arg.dataSite_top_color_cof['color' + color_id] = data_use.data.state;
                         for (var each in  arg.dataSite_top_color_cof) {
                             if (arg.dataSite_top_color_cof[each] == 1) {
@@ -470,20 +387,19 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             }
                         }
                     } else {
-                        var color_id = data_use.data.location_id;
                         arg.dataSite_down_color_cof['color' + color_id] = data_use.data.state;
-                        for (var each in arg.dataSite_down_color_cof) {
+                        for (var each_b in arg.dataSite_down_color_cof) {
                             // 路况色值配置项
-                            if (arg.dataSite_down_color_cof[each] == 1) {
-                                arg.dataSite_down_color_cof[each] = 'green';
-                            } else if (arg.dataSite_down_color_cof[each] == 2) {
-                                arg.dataSite_down_color_cof[each] = 'yellow';
-                            } else if (arg.dataSite_down_color_cof[each] == 3) {
-                                arg.dataSite_down_color_cof[each] = 'orange';
-                            } else if (arg.dataSite_down_color_cof[each] == 4) {
-                                arg.dataSite_down_color_cof[each] = 'red';
-                            } else if (arg.dataSite_down_color_cof[each] == 5) {
-                                arg.dataSite_down_color_cof[each] = 'blue';
+                            if (arg.dataSite_down_color_cof[each_b] == 1) {
+                                arg.dataSite_down_color_cof[each_b] = 'green';
+                            } else if (arg.dataSite_down_color_cof[each_b] == 2) {
+                                arg.dataSite_down_color_cof[each_b] = 'yellow';
+                            } else if (arg.dataSite_down_color_cof[each_b] == 3) {
+                                arg.dataSite_down_color_cof[each_b] = 'orange';
+                            } else if (arg.dataSite_down_color_cof[each_b] == 4) {
+                                arg.dataSite_down_color_cof[each_b] = 'red';
+                            } else if (arg.dataSite_down_color_cof[each_b] == 5) {
+                                arg.dataSite_down_color_cof[each_b] = 'blue';
                             }
                         }
                     }
@@ -501,6 +417,21 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     //进场之后车辆消失
                     if (data_use.data.inField == 1) {
                         $('body').find('.dispatch_desktop[line_id=' + data_use.data.line_id + ']').find('.traffic_car .line_car[bus_no=' + data_use.data.bus_no + ']').remove();
+                    } else if (data_use.data.inField == 0) {
+                        $('.traffic_car .line_car[bus_no=' + data_use.data.bus_no + ']').remove();
+                        $('.run_car_hide').find('.line_car').attr('bus_no', data_use.data.bus_no);
+                        // 车辆进出站上下行 进出站  0 上行 in进站
+                        if (data_use.data.direction == 0) {
+                            self.$el.find('.content_car_road_top .car_line_top0').append($('.run_car_hide').html());
+                            self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.bus_no + ']').css('left', 0 - 15 + 'px');
+                            // self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.bus_no + ']').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.carNum);
+                        } else if (data_use.data.direction == 1) {
+                            self.$el.find('.content_car_road_down .car_line_down0').append($('.run_car_hide').html());
+                            self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.bus_no + ']').css('left', 1190 - 15 + 'px');
+                            // self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.bus_no + ']').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.carNum);
+                        }
+                        self.render_cc('top', -20);
+                        self.render_cc('down', 30);
                     }
                 }
                 //车辆实时位置  分上下行已经进出站
@@ -544,36 +475,9 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.carNum);
 
                     }
-                    for (var nu = 0; nu < self.$('.content_car_road_top .car_line_tb').length; nu++) {
-                        //移除之前的重复位置
-                        //如果已经有两辆车
-                        self.$('.content_car_road_top .car_line_top' + nu).find('.same_car_show').remove();
-                        self.$('.content_car_road_top .car_line_top' + nu).find('.data_same').remove();
-                        if (self.$('.content_car_road_top .car_line_top' + nu).find('.line_car').length > 1) {
-                            var html_c = '';
-                            for (var i = 0; i < self.$('.content_car_road_top .car_line_top' + nu).find('.line_car').length; i++) {
-                                var carObj = self.$('.content_car_road_top .car_line_top' + nu).find('.line_car .type_car span').eq(i);
-                                html_c += '<div car_id=' + carObj.attr("car_id") + '>' + carObj.html() + '</div>';
-                            }
-                            self.$('.content_car_road_top .car_line_top' + nu).append('<div class="same_car_show" style="left: ' + (parseFloat(self.$('.content_car_road_top .car_line_top' + nu).find('.line_car').css('left')) - 50) + 'px">...</div><span style="display: none" class="data_same"></span>')
-                            self.$('.content_car_road_top .car_line_top' + nu).find('.data_same').html(html_c);
-                        }
-                    }
-                    for (var num = 0; num < self.$('.content_car_road_down .car_line_tb').length; num++) {
-                        //移除之前的重复位置
-                        //如果已经有两辆车
-                        self.$('.content_car_road_down .car_line_down' + num).find('.same_car_show').remove();
-                        self.$('.content_car_road_down .car_line_down' + num).find('.data_same').remove();
-                        if (self.$('.content_car_road_down .car_line_down' + num).find('.line_car').length > 1) {
-                            var html_c = '';
-                            for (var i = 0; i < self.$('.content_car_road_down .car_line_down' + num).find('.line_car').length; i++) {
-                                var carObj = self.$('.content_car_road_down .car_line_down' + num).find('.line_car .type_car span').eq(i);
-                                html_c += '<div car_id=' + carObj.attr("car_id") + '>' + carObj.html() + '</div>';
-                            }
-                            self.$('.content_car_road_down .car_line_down' + num).append('<div class="same_car_show" style="left: ' + (parseFloat(self.$('.content_car_road_down .car_line_down' + num).find('.line_car').css('left')) + 30) + 'px">...</div><span style="display: none" class="data_same"></span>')
-                            self.$('.content_car_road_down .car_line_down' + num).find('.data_same').html(html_c);
-                        }
-                    }
+                    //渲染串车
+                    self.render_cc('top', -20);
+                    self.render_cc('down', 30);
                 }
                 data.busTopNumber = arg.busTopNumber;
                 data.busDownNumber = arg.busDownNumber;
@@ -614,7 +518,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             // 行车组件关闭
             'click .min': 'closeFn',
             'click .park_top_down_way': 'open_park_way',
-            'mouseup .show_mutual_information': 'show_mutual_information'
+            'mouseup .show_mutual_information': 'show_mutual_information',
         },
         show_mutual_information: function (ev) {
             var self = this;
@@ -638,18 +542,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     new mutual_information(self, option).appendTo($(".controller_" + option.controllerId));
                 }
             })
-            // $.ajax({
-            //     url: RESTFUL_URL + '/exchange/list?apikey=71029270&params={lineId:'+this.line_id+',controlId:'+this.desktop_id+',arg:'',arg1:1,pageNum:1,pageSize1}',
-            //     type: 'get',
-            //     dataType: 'json',
-            //     data: {},
-            //     success: function (data) {
-            //
-            //     },
-            //     error:function () {
-            //         layer.msg('请求出错', {time: 1000, shade: 0.3});
-            //     }
-            // });
         },
         closeFn: function () {
             var self = this;
@@ -678,8 +570,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             if ($('body').find('.dispatch_desktop').length > 0) {
                 $('body').find('.dispatch_desktop:last').attr("click", "yes");
             }
-        }
-        ,
+        },
         open_park_way: function (e) {
             var self = this;
             var zIndex = parseInt(this.$el[0].style.zIndex) + 1;
@@ -703,8 +594,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 // var layer_index = layer.msg("websoket断开链接，请检查网络是否通畅", {shade: 0.3});
                 // }
             }
-        }
-        ,
+        },
         cursor_pointer_tb: function (canvas, e) {
             var e = e || window.event;
             var c = this.$el.find(canvas.cId)[0];
@@ -734,7 +624,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 'top': y + 45
                             }).show().html(mySite);
                         }
-
                     }
                     cxt.closePath();
                     cxt.beginPath();
@@ -747,8 +636,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     }
                 }
             }
-        }
-        ,
+        },
         slide_cursor_pointer_top: function (e) {
             var option = {
                 cId: '.can_top',
@@ -758,8 +646,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 ciry: 27
             }
             this.cursor_pointer_tb(option, e);
-        }
-        ,
+        },
         slide_cursor_pointer_bottom: function (e) {
             var option = {
                 cId: '.can_bottom',
@@ -769,8 +656,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 ciry: 6
             }
             this.cursor_pointer_tb(option, e);
-        }
-        ,
+        },
         bus_info: function (e) {
             var car_num = e.currentTarget.getElementsByClassName("type_car")[0].children[0].textContent;
             var car_id = e.currentTarget.getElementsByClassName("type_car")[0].children[0].getAttribute("car_id");
@@ -800,8 +686,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 dialog.appendTo($(".controller_" + options.controllerId));
             }
             // e.delegateTarget.parentElement.append(dialog);
-        }
-        ,
+        },
         clk_can_top: function (e) {
             this.clickTb({
                 id: '.can_top',
@@ -814,8 +699,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 subsection: this.subsection,
                 model: this.model_station_platform
             }, e);
-        }
-        ,
+        },
         clk_can_bottom: function (e) {
             this.clickTb({
                 id: '.can_bottom',
@@ -828,8 +712,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 subsection: this.subsection,
                 model: this.model_station_platform
             }, e);
-        }
-        ,
+        },
         bus_man_src: function (e) {
             var self = this;
             var ev = e || window.event;
@@ -900,8 +783,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     isDrag = false;
                 }
             }
-        }
-        ,
+        },
         clickTb: function (canvas, e) {
             var self = this;
             var event = e || window.event;
@@ -1014,26 +896,22 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     }
                 }
             }
-        }
-        ,
+        },
 // 点击左侧车场
         clk_can_left: function (e) {
             this.click_lr({
                 id: '.canvas_left',
             }, e);
-        }
-        ,
+        },
 // 点击右侧车场
         clk_can_right: function (e) {
             this.click_lr({
                 id: '.canvas_right',
             }, e);
-        }
-        ,
+        },
         del_chose_line: function () {
             this.$('.edit_content').hide();
-        }
-        ,
+        },
         show_chose_line: function () {
             var self = this;
             self.$el.find(".edit_content .chs").mCustomScrollbar("destroy");
@@ -1050,8 +928,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 });
                 self.$('.edit_content').show();
             });
-        }
-        ,
+        },
         cursor_pointer_lr: function (canvas, e) {
             var event = e || window.event;
             var c = this.$el.find(canvas.id)[0];
@@ -1063,20 +940,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             if (cxt.isPointInPath(x, y)) {
                 c.style.cursor = 'pointer';
             }
-        }
-        ,
+        },
         slide_cursor_pointer_left: function (e) {
             this.cursor_pointer_lr({
                 id: '.canvas_left',
             }, e);
-        }
-        ,
+        },
         slide_cursor_pointer_right: function (e) {
             this.cursor_pointer_lr({
                 id: '.canvas_right',
             }, e);
-        }
-        ,
+        },
 //左侧的停车场的点击事件
         click_lr: function (canvas, e) {
             var self = this;
@@ -1111,6 +985,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
         }
     });
+
+
     var mutual_information = Widget.extend({
         template: 'mutual_information',
         init: function (parent, option) {

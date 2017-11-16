@@ -72,9 +72,9 @@ websocket.onmessage = function (event) {
                 var session_t = sessionStorage.getItem('bus_site_top' + eventObj.data.line_id).split(",");
                 var session_d = sessionStorage.getItem('bus_site_down' + eventObj.data.line_id).split(",");
                 if (eventObj.data.direction == 0) {
-                    $('body').find('.bus_src_config tr[bus_no=' + eventObj.data.terminalNo + '] .line_src_site').html(session_t[eventObj.data.stationNo]);
+                    $('body').find('.bus_src_config tr[src_id=' + eventObj.data.car_id + '] .line_src_site').html(session_t[eventObj.data.stationNo]);
                 } else {
-                    $('body').find('.bus_src_config tr[bus_no=' + eventObj.data.terminalNo + '] .line_src_site').html(session_d[session_d.length - eventObj.data.stationNo]);
+                    $('body').find('.bus_src_config tr[src_id=' + eventObj.data.car_id + '] .line_src_site').html(session_d[session_d.length - eventObj.data.stationNo]);
                 }
             }
         }
@@ -179,23 +179,48 @@ function line_car_src_real_state(controllerObj, data_list) {
 function line_resource(controllerObj, data_list) {
     var dom = controllerObj.find('.bus_src_config[line_id=' + data_list.line_id + ']');
     // 通过lineid以及资源id拿到信息
-    if (dom.length > 0) {
-        //遍历车辆资源新增的数据
-        var theid = data_list.id;
-        var tr_num = $('.table_bus_num').find('tr[src_id=' + theid + ']');
-        if (data_list.planRunTime != undefined) {
-            dom.find('tr[src_id=' + theid + ']').find('.line_src_next_trip_time').html(data_list.planRunTime.split(' ')[1]);
+    if (dom.find('tr[src_id=' + data_list.id + ']').length > 0) {
+        if (dom.length > 0) {
+            //遍历车辆资源新增的数据
+            var theid = data_list.id;
+            var tr_num = $('.table_bus_num').find('tr[src_id=' + theid + ']');
+            if (data_list.planRunTime != undefined) {
+                dom.find('tr[src_id=' + theid + ']').find('.line_src_next_trip_time').html(data_list.planRunTime.split(' ')[1]);
+            }
+            if (data_list.realReachTime != undefined) {
+                dom.find('tr[src_id=' + theid + ']').find('.line_src_return_time').html(data_list.realReachTime.split(' ')[1]);
+            }
+            if (tr_num.find('.line_src_sinal_status').html() == '异常') {
+                tr_num.find('.line_src_sinal_status').addClass('towarn');
+                tr_num.find('.line_src_onBoardId').addClass('towarn');
+            } else {
+                tr_num.find('.line_src_sinal_status').removeClass('towarn');
+                tr_num.find('.line_src_onBoardId').removeClass('towarn');
+            }
         }
-        if (data_list.realReachTime != undefined) {
-            dom.find('tr[src_id=' + theid + ']').find('.line_src_return_time').html(data_list.realReachTime.split(' ')[1]);
-        }
-        if (tr_num.find('.line_src_sinal_status').html() == '异常') {
-            tr_num.find('.line_src_sinal_status').addClass('towarn');
-            tr_num.find('.line_src_onBoardId').addClass('towarn');
-        } else {
-            tr_num.find('.line_src_sinal_status').removeClass('towarn');
-            tr_num.find('.line_src_onBoardId').removeClass('towarn');
-        }
+    } else {
+        var html_tr = '';
+        html_tr += '<tr src_id="' + data_list.id + '">' +
+            '<td class="line_src_lineName td_small"></td>' +
+            '<td class="line_src_carNum td_small"></td>' +
+            '<td class="line_src_onBoardId td_small"></td>' +
+            '<td class="line_src_driverName td_small"></td>' +
+            '<td class="bus_direct td_small"></td>' +
+            '<td class="line_src_site td_small"></td>' +
+            '<td class="line_src_status td_small"></td>' +
+            '<td class="line_src_current_task td_small"></td>' +
+            '<td class="line_src_Passanger_number td_small"></td>' +
+            '<td class="line_src_full_load_rate td_small"></td>' +
+            '<td class="line_src_sinal_status td_small"></td>' +
+            '<td class="line_src_speed td_small"></td>' +
+            '<td class="line_src_next_trip_time td_small"></td>' +
+            '<td class="line_src_return_time td_small"></td>' +
+            '<td class="line_src_residual_clearance"></td>' +
+            '<td>' +
+            '<button class="add_operate add_success">+加入运营</button>' +
+            '</td>' +
+            '</tr>';
+        dom.find('.table_bus_num_tbody tr[src_id]').after(html_tr);
     }
 }
 // 异常
@@ -206,11 +231,13 @@ function absnormal_del(controllerObj, data_list) {
         if (data_list.packageType == 1003) {
             vehicle_drop(controllerObj, data_list);
         }
-        var timer_carousel = sessionStorage.getItem('timer' + data_list.line_id);
-        clearInterval(timer_carousel);
-        dom.find('.carousel_content').addClass('abnormal_active');
-        sessionStorage.removeItem('timer' + data_list.line_id);
-        //信号在线掉线处理
+        if (data_list.packageType != 1013) {
+            var timer_carousel = sessionStorage.getItem('timer' + data_list.line_id);
+            clearInterval(timer_carousel);
+            dom.find('.carousel_content').addClass('abnormal_active');
+            sessionStorage.removeItem('timer' + data_list.line_id);
+            //信号在线掉线处理
+        }
     }
 }
 
