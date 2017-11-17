@@ -996,7 +996,7 @@ msgstr ""
 #: code:addons/hr_holidays/models/hr_holidays.py:455
 #, python-format
 msgid "Only an HR Officer or Manager can approve leave requests."
-msgstr ""
+msgstr "仅人资操作员或人资经理可以审批休假申请"
 
 #. module: hr_holidays
 #: code:addons/hr_holidays/models/hr_holidays.py:514

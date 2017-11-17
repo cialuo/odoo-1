@@ -3,7 +3,11 @@
     <record id="group_hr_holidays_user" model="res.groups">
         <field name="name">Officer</field>
         <field name="category_id" ref="base.module_category_hr_holidays"/>
-        <field name="implied_ids" eval="[(4, ref('hr.group_hr_user'))]"/>
+        <!--<field name="implied_ids" eval="[(4, ref('hr.group_hr_user'))]"/>-->
+    </record>
+
+    <record id="hr.group_hr_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_hr_holidays_user'))]"/>
     </record>
 
     <record id="group_hr_holidays_manager" model="res.groups">
