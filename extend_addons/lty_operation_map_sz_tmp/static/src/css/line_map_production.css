@@ -62,18 +62,23 @@
 .tmp_line_map_production .map_content .tool {
     position: absolute;
     width: 100%;
-    min-height: 600px;
+    min-height: 560px;
     right: 8px;
     top: 90px;
     /*margin-top: -330px;*/
     z-index: 3;
     background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
 
 .tmp_line_map_production .map_content .tool a,
 .tmp_line_map_production .map_content .tool select { display: inline-block; }
 
-.tmp_line_map_production .map_content .tool select { padding-right: 15px; }
+.tmp_line_map_production .map_content .tool select { 
+    padding: 0 15px 0 6px;
+    border: none;
+}
 
 .tmp_line_map_production .map_content .tool .fc_green { color: #21b799; }
 .tmp_line_map_production .map_content .tool .fc_gray { color: #b3b2b2; }
@@ -113,11 +118,38 @@
 }
 
 
-.tmp_line_map_production .map_content .mapSetLineDiv { padding: 16px 12px; }
+.tmp_line_map_production .map_content .mapSetLineDiv { 
+    padding: 16px 12px;
+    font-size: 12px;
+    position: relative;
+}
+
+.tmp_line_map_production .map_content .mapSetLineDiv .cInfo {
+    position: relative;
+    height: 20px;
+    line-height: 20px;
+}
+
+.tmp_line_map_production .map_content .mapSetLineDiv .trajectoryInfo {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    top: 0;
+}
+
+.tmp_line_map_production .map_content .mapSetLineDiv .upFile {
+    position: absolute;
+    width: 56px;
+    top: 0;
+    left: 0;
+    font-size: 12px;
+    opacity: 0;
+    z-index: 3;
+}
 
 
 .tmp_line_map_production .map_content .mapSetLineDiv .set_border {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     padding: 10px;
     border: 1px solid #ccc;
@@ -134,27 +166,111 @@
     text-align: center;
 }
 
-.tmp_line_map_production .map_content .mapSetLineDiv .mapGprs th {
-    font-weight: normal;
-    color: #000;
-    text-align: center;
-}
-
 .tmp_line_map_production .map_content .saveBt { text-align: right; }
 
 .tmp_line_map_production .map_content .mapGprsBox { 
     padding: 0 0 10px;
     border-top: 1px solid #ccc;
+    height: 351px;
+    overflow-y: auto;
+    width: 100%;
 }
 
-.tmp_line_map_production .map_content .mapGprsBox .noData {
+.tmp_line_map_production .map_content .mapGprsBox .w1 { width: 25%; }
+.tmp_line_map_production .map_content .mapGprsBox .w2 { width: 14%; }
+.tmp_line_map_production .map_content .mapGprsBox .w3 { width: 21%; }
+
+
+.tmp_line_map_production .map_content .mapGprsBox .mapGprs { 
+    width: 100%;
+    overflow: hidden;
+}
+
+
+.tmp_line_map_production .mapGprs th {
+    font-weight: normal;
+    background: #eee;
     text-align: center;
-    line-height: 300px;
+}
+.tmp_line_map_production .mapGprs th,
+.tmp_line_map_production .mapGprs td {
+    line-height: 30px;
+    height: 30px;
+    color: #000;
 }
 
-.tmp_line_map_production .map_content .mapGprsBox .gprsInfo {
-    height: 300px;
+.tmp_line_map_production .map_content .mapGprsBox .gprsIcon {
     display: block;
+    width: 100%;
+    height: 100%;
+    background: url(/lty_operation_map_sz_tmp/static/src/image/gIcon.png) no-repeat center center;
+}
+
+.tmp_line_map_production .editMapSetTools { padding: 0 32px; }
+
+.tmp_line_map_production .editMapSetTools select,
+.tmp_line_map_production .editMapSetTools option {
+    color: #000;
+    text-shadow: none;
+}
+
+.tmp_line_map_production .editMapSetTools .mapSetLineDiv {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 16px 36px;
+    margin-top: 36px;
+}
+
+.tmp_line_map_production .editMapSetTools .temp_title {
+    position: absolute;
+    left: 12px;
+    top: -10px;
+    background: #fff;
+    z-index: 5;
+    padding: 0 2px;
+    color: #a0a0a0;
+    font-size: 14px;
+}
+
+.tmp_line_map_production .editMapSetTools .temp { width: 100%; }
+
+.tmp_line_map_production .editMapSetTools .temp td { 
+    width: 50%;
+    line-height: 26px;
+}
+
+.tmp_line_map_production .editMapSetTools input[type="checkbox"] {
+    vertical-align: middle;
+    margin: -1px 5px 0 0;
+}
+
+.tmp_line_map_production .editMapSetTools input[type="number"] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 20px;
+    padding: 0 6px;
+    font-size: 12px;
+    width: 60px;
+}
+
+.tmp_line_map_production .tmp_map_page .cont {
+    text-align: center;
+    white-space:nowrap;
+    font-size: 14px;
+}
+
+.tmp_line_map_production .tmp_map_page .ancillary {
+    position: absolute;
+    left: 6px;
+    top: 22px;
+    font-size: 10px;
+}
+
+.tmp_line_map_production .tmp_map_page .edit_status_marker {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    border: 2px solid red;
 }
 
 /*

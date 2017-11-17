@@ -29,39 +29,40 @@
 	    		</div>
 				<div class="editLineMap">
 					<div class="mapSetLineDiv">
-						<ul class="list-inline">
-						    <li>
-						        线路&#160;
-						        <select name="line" class="valid line w1">
-						            <option value="">--请选择--</option>
-						            <t t-foreach="widget.lineData" t-as="item">
-						                <option t-attf-value="{{item.id}}">
-						                    <t t-esc="item.line_name"></t>
-						                </option>
-						            </t>
-						        </select>
-						        &#160;
-						        <select name="direction" class="valid direction w2">
-						            <option value="0">上行</option>
-						            <option value="1">下行</option>
-						        </select>
-						        &#160;
-						    </li>
-						    <li>
-						        <a class="lead_in_bt fc_green" href="javascript:;">轨迹导入</a>
-						        <a class="clear_locus_bt fc_gray" href="javascript:;">|&#160;清除</a>
-						    </li>
-						</ul>
+						<div class="cInfo">
+					        线路&#160;
+					        <select name="line" class="valid line w1">
+					            <option value="">--请选择--</option>
+					            <t t-foreach="widget.lineData" t-as="item">
+					                <option t-attf-value="{{item.id}}">
+					                    <t t-esc="item.line_name"></t>
+					                </option>
+					            </t>
+					        </select>
+					        &#160;
+					        <select name="direction" class="valid direction w2">
+					            <option value="up">上行</option>
+					            <option value="down">下行</option>
+					        </select>
+					        <div class="trajectoryInfo">
+					        	<a class="lead_in_bt fc_green" href="javascript:;">轨迹导入</a>
+					        	<input class="upFile" type="file"/>
+					        	<a class="clear_locus_bt fc_gray" href="javascript:;">|&#160;清除</a>
+					        </div>
+						</div>
 					</div>
 					<div class="mapSetLineDiv">
 						<div class="set_border">
 							<table class="brushTool">
 								<tr>
 									<td>
-										<a class="start_bt btcss" href="javascript:;">开始画笔</a>
+										<a class="start_bt btcss hb_bt" href="javascript:;">画笔画线</a>
 									</td>
 									<td>
-										<a class="close_bt btcss" href="javascript:;">结束画笔</a>
+										<a class="fix_bt btcss hb_bt" href="javascript:;">画笔修改</a>
+									</td>
+									<td>
+										<a class="close_bt btcss hb_bt" href="javascript:;">结束画笔</a>
 									</td>
 									<td>
 										<a class="clear_bt btcss" href="javascript:;">清除</a>
@@ -70,51 +71,181 @@
 							</table>
 						</div>
 					</div>
-					<div class="mapSetLineDiv mapGprsBox">
-						<table class="mapGprs">
-							<tr>
-								<th>经度</th>
-								<th>纬度</th>
-								<th>方位角</th>
-								<th>属性</th>
-								<th>修改</th>
-							</tr>
-						</table>
-						<div class="noData">
-							暂无轨迹数据
-						</div>
-					</div>
+					<div class="mapSetLineDiv mapGprsBox"></div>
 					<div class="mapSetLineDiv saveBt">
 						<a class="lead_out_bt btcss" href="javascript:;">导出</a>
 						<a class="save_bt btcss active_bt" href="javascript:;">保存</a>
 					</div>
 				</div>
 				<div class="editMapSetTools hide_model">
-					待开发...
+					<div class="mapSetLineDiv">
+						<span class="temp_title">线路绘制</span>
+						<table class="temp">
+							<tr>
+								<td>线条颜色</td>
+								<td>
+									<input type="color" name="tools_line_color" t-attf-value="{{widget.base_map_set.tools_line_color}}" readonly="readonly" class="textInput readonly valid tools_line_color mapLineSet" />
+								</td>
+							</tr>
+							<tr>
+								<td>线条宽度</td>
+								<td>
+									<input type="number" name="tools_line_width" t-attf-value="{{widget.base_map_set.tools_line_width}}" min="1" class="textInput readonly valid tools_line_width mapLineSet" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<label><input type="checkbox" class="isShowPoint vt" name="isShowPoint" value="1" />显示辅助点</label>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="mapSetLineDiv">
+						<span class="temp_title">导入设置</span>
+						<table class="temp">
+							<tr>
+								<td>轨迹颜色</td>
+								<td>
+									<input type="color" name="tools_import_trajectory_color" t-attf-value="{{widget.base_map_set.tools_import_trajectory_color}}" readonly="readonly" class="textInput readonly valid tools_import_trajectory_color mapTrajectoryLineSet" />
+								</td>
+							</tr>
+							<tr>
+								<td>轨迹宽度</td>
+								<td>
+									<input type="number" name="tools_import_trajectory_width" t-attf-value="{{widget.base_map_set.tools_import_trajectory_width}}" min="1" class="textInput readonly valid tools_import_trajectory_width mapTrajectoryLineSet" />
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="mapSetLineDiv">
+						<span class="temp_title">站点设置</span>
+						<table class="temp">
+							<tr>
+								<td>标签字体</td>
+								<td>
+									<select name="tools_station_font_family" class="valid tools_station_font_family siteTypeSet">
+										<t t-foreach="widget.family_list" t-as="family">
+											<option t-attf-value="{{family}}"><t t-esc="family"></t></option>
+										</t>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>标签颜色</td>
+								<td>
+									<input type="color" name="tools_station_font_color" t-attf-value="{{widget.base_map_set.tools_station_font_color}}" class="textInput readonly valid tools_station_font_color siteTypeSet" />
+								</td>
+							</tr>
+							<tr>
+								<td>站点样式</td>
+								<td>
+									<select name="tools_station_font_style" class="valid tools_station_font_style siteTypeSet">
+										<t t-foreach="widget.station_style_list" t-as="station">
+											<option t-attf-value="{{station}}"><t t-esc="station"></t></option>
+										</t>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>站点颜色</td>
+								<td>
+									<input type="color" name="tools_station_font_style_color" t-attf-value="{{widget.base_map_set.tools_station_font_style_color}}" class="textInput readonly valid tools_station_font_style_color siteTypeSet" />
+								</td>
+							</tr>
+							<tr>
+								<td><label><input type="checkbox" class="isShowStation siteShowTypeSet vt" checked="true" name="isShowStation" value="1" />显示站点</label></td>
+								<td>
+									<label><input type="checkbox" class="isShowStationName siteShowTypeSet vt" checked="true" name="isShowStationName" value="1" />显示站点名</label>
+								</td>
+							</tr>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
     </t>
 
-    <t t-name="tmp_map_gprs_template">
-    	<tbody class="gprsInfo">
-			<t t-foreach="widget.gprsInfo" t-as="item">
-				<tr>
-					<td><t t-esc="item.lon"></t></td>
-					<td><t t-esc="item.lat"></t></td>
-					<td><t t-esc="item.azimuth"></t></td>
-					<td>
-						<t t-foreach="widget.typeInfo" t-as="tp">
-			                <option t-attf-value="{{tp.value}}">
-			                    <t t-esc="tp.name"></t>
-			                </option>
-			            </t>
-					</td>
-					<td>
-						<a class="edit_gprs_bt" href="javascript:;">修改</a>
-					</td>
-				</tr>
-	        </t>				
-        </tbody>
-    </t>
+<t t-name="tmp_map_gprs_template">
+    <table class="mapGprs">
+        <tr>
+            <th class="w1">经度</th>
+            <th class="w1">纬度</th>
+            <th class="w2">方位角</th>
+            <th class="w3">属性</th>
+            <th class="w2">位置</th>
+        </tr>
+        <t t-if="widget.gprsInfo.length>0">
+            <t t-foreach="widget.gprsInfo" t-as="item">
+            	<t t-set="gpsKey" t-value="'gps_'+item.lng.toString().replace('.', 'd')+'_'+item.lat.toString().replace('.', 'd')"/>
+                <tr t-attf-class="{{gpsKey}}" t-attf-lng="{{item.lng}}" t-attf-lat="{{item.lat}}">
+                    <td class="w1">
+                        <t t-esc="item.lng"></t>
+                    </td>
+                    <td class="w1">
+                        <t t-esc="item.lat"></t>
+                    </td>
+                    <td class="w2">
+                    	<t t-if="item.azimuthType">
+                    		<t t-esc="item.azimuthType"></t>
+                    	</t>
+                    	<t t-elif="widget.point_marker_type_dict &amp;&amp; widget.point_marker_type_dict[gpsKey] &amp;&amp; widget.point_marker_type_dict[gpsKey].azimuthType">
+                    		<t t-esc="widget.point_marker_type_dict[gpsKey].azimuthType"></t>
+                    	</t>
+                    	<t t-else="">
+                    		
+                    	</t>
+                    </td>
+                    <td class="w3">
+                        <select name="road_type" class="roadType">
+                            <t t-foreach="widget.typeInfo" t-as="tp">
+                            	<t t-if="tp.value == item.roadType">
+                        			<option t-attf-value="{{tp.value}}" selected="selected">
+                                    	<t t-esc="tp.name"></t>
+                                	</option>
+                            	</t>
+                            	<t t-elif="widget.point_marker_type_dict &amp;&amp; widget.point_marker_type_dict[gpsKey] &amp;&amp; widget.point_marker_type_dict[gpsKey].roadType &amp;&amp; widget.point_marker_type_dict[gpsKey].roadType==tp.value">
+                        			<option t-attf-value="{{tp.value}}" selected="selected">
+                                    	<t t-esc="tp.name"></t>
+                                	</option>
+                            	</t>
+                            	<t t-else="">
+                            		<option t-attf-value="{{tp.value}}">
+                                    	<t t-esc="tp.name"></t>
+                                	</option>
+                            	</t>
+                            </t>
+                        </select>
+                    </td>
+                    <td class="w2">
+                        <a class="gprsIcon edit_gprs_bt" href="javascript:;"></a>
+                    </td>
+                </tr>
+            </t>
+        </t>
+    </table>
+</t>
+
+<t t-name="mapGprsTr">
+	<tr t-attf-class="gps_{{gps.lng.toString().replace('.', 'd')}}_{{gps.lat.toString().replace('.', 'd')}}" t-attf-lng="{{gps.lng}}" t-attf-lat="{{gps.lat}}">
+	    <td class="w1">
+	        <t t-esc="gps.lng"></t>
+	    </td>
+	    <td class="w1">
+	        <t t-esc="gps.lat"></t>
+	    </td>
+	    <td class="w2"></td>
+	    <td class="w3">
+	        <select name="road_type" class="roadType">
+	            <t t-foreach="typeInfo" t-as="tp">
+	                <option t-attf-value="{{tp.value}}">
+	                    <t t-esc="tp.name"></t>
+	                </option>
+	            </t>
+	        </select>
+	    </td>
+	    <td class="w2">
+	        <a class="gprsIcon edit_gprs_bt" href="javascript:;"></a>
+	    </td>
+	</tr>
+</t>
 </templates>
