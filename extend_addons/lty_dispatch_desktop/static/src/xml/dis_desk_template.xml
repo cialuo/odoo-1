@@ -268,7 +268,6 @@
 			</div>
 			<div class="mutual_content">
 				<table class="mutual_table">
-					<tbody>
 					<thead>
 						<tr>
 							<th>序号</th>
@@ -277,10 +276,12 @@
 							<th>车辆</th>
 							<th>事件</th>
 							<th>备注</th>
-							<th>状态</th>
 							<th>操作</th>
+							<th>状态</th>
 						</tr>
 					</thead>
+					<tbody>
+
 
 					</tbody>
 				</table>
@@ -754,5 +755,64 @@
 	</t>
 	<t t-name="dispatch_control">
 		<div class="back_style"></div>
+	</t>
+	<t t-name="pagination_table">
+		<t t-foreach="widget" t-as="item">
+			<tr>
+				<t t-if="index_num">
+					<td>
+						<t t-set="index_this" t-value="item_index+ index_num"></t>
+						<t t-esc="index_this"></t>
+					</td>
+				</t>
+				<t t-else="">
+					<td>
+						<t t-esc="item_index"></t>
+					</td>
+				</t>
+
+			<td>
+				<t t-esc="item.occurTime"></t>
+			</td>
+			<td>
+				<t t-esc="item.lineName"></t>
+			</td>
+			<td t-attf-obd="#{item.id}">
+				<t t-esc="item.onBoardId"></t>
+			</td>
+			<td>
+				<t t-esc="item.logText"></t>
+			</td>
+			<td>
+				<t t-esc="item.remark"></t>
+			</td>
+			<t t-if="item.result==0">
+				<td>
+					<a class="agree_abnormal">同意</a>|<a class='refuse_abnormal'>拒绝</a>
+				</td>
+				<td class='deal_or_not'>待操作</td>
+			</t>
+			<t t-if="item.result==1">
+				<td></td>
+				<td class='deal_or_not'>已忽略</td>
+			</t>
+			<t t-if="item.result==2">
+				<td></td>
+				<td class='deal_or_not'>已拒绝</td>
+			</t>
+			<t t-if="item.result==3">
+				<td></td>
+				<td class='deal_or_not'>已同意</td>
+			</t>
+			<t t-if="item.result==4">
+				<td></td>
+				<td class='deal_or_not'>进场执行</td>
+			</t>
+			<t t-if="item.result==5">
+				<td></td>
+				<td class='deal_or_not'>已自动处理</td>
+			</t>
+		</tr>
+		</t>
 	</t>
 </template>
