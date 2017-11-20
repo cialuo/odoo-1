@@ -42,7 +42,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
             var location_set = {
                 zoom: 10,
                 center: [116.408075, 39.950187]
-            }
+            };
 
             var map = new AMap.Map(this.$(".mapPage")[0], {
                 resizeEnable: true,
@@ -65,7 +65,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
                 map.addControl(new AMap.ToolBar({ locate: false }));
             });
             if (location.href.indexOf('&guide=1') !== -1) {
-                map.setStatus({ scrollWheel: false })
+                map.setStatus({ scrollWheel: false });
             }
         }
     });
@@ -123,7 +123,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
                     };
                     if (set_list.length > 0){
                         _.each(set_list, function(set){
-                            var direction = set.direction=='up'?'0':'1'
+                            var direction = set.direction=='up'?'0':'1';
                             his_dict[direction].gps_list = self.correct_data_fn(JSON.parse(set.map_data));
                             if (set.tools_line_color){
                                 his_dict[direction].c = set.tools_line_color;
@@ -185,7 +185,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
                     return false;
                 }
                 new_gps_list.push(pos);
-            })
+            });
             return new_gps_list;
         },
         map_binding_fn:function(map) {
@@ -269,7 +269,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
             self.$('.dataSave').on('click', '.save_bt', function(){
                 var tools_info = self.getMapLineInfo();
                 var site_info = self.getSiteInfo();
-                var direction = self.direction==0?'up':'down'
+                var direction = self.direction==0?'up':'down';
                 model_map_line_info.query().filter([
                     ["line_id", "=", parseInt(line_id)],
                     ["direction", "=", direction]
@@ -306,7 +306,7 @@ odoo.define("line_map_production.line_map_production", function(require) {
                             layer.msg('保存成功', {time: 1000, shade: 0.3});
                         });
                     }
-                })
+                });
             });
 
             // 取消
@@ -501,25 +501,18 @@ odoo.define("line_map_production.line_map_production", function(require) {
             _.each(site_marker_list,function(mk) {
                 mk.setMap(null);
             });
-            self.site_line(map, self.options.site_dict[self.direction], true)
-            // var obj = this.$el.parents('.mapPage');
-            // obj.find('.siteName').css({
-            //     'font-family': contentInfo.family,
-            //     'color': contentInfo.color,
-            //     'display': contentInfo.isShowStationName ? 'block' : 'none'
-            // });
-            // obj.find('.siteIcon').html(contentInfo.lab).css({
-            //     'color': contentInfo.lab_color,
-            //     'display': contentInfo.isShowStation ? 'inline-block' : 'none'
-            // });
-
-
-        },
+            self.site_line(map, self.options.site_dict[self.direction], true);        },
         site_line: function(map, site_list, noCenter) {
             var self = this;
             var contentInfo = self.getSiteInfo();
-            var map_i = 0;
-            var site_marker_list = [];
+            if (!contentInfo.isShowStationName && !contentInfo.isShowStation){
+                return false;
+            }
+            var map_i = 0,
+                site_marker_list = [],
+                siteName_str = "",
+                siteIcon_str = "";
+
             for (var i = 0; i < site_list.length; i++) {
                 var site_i = site_list[i];
                 self.model_station.query().filter([
@@ -534,14 +527,22 @@ odoo.define("line_map_production.line_map_production", function(require) {
                     }
                     map_i++;
                     var cont_W = site.name.length * 14 - 12;
+                    if (contentInfo.isShowStationName){
+                        siteName_str =
+                            '<p class="siteName" style="position: absolute; z-index: 1; top:-18px; left: -' + cont_W / 2 + 'px; font-family:' + contentInfo.family + ';color:' + contentInfo.color + ';">' +
+                            site.name +
+                            '</p>';
+                    }
+                    if (contentInfo.isShowStation){
+                        siteIcon_str =
+                            '<p class="siteIcon" style="position: absolute; z-index:1; top: 0; left: 0; color: ' + contentInfo.lab_color + '">' +
+                            contentInfo.lab +
+                            '</p>';
+                    }
                     var content_info =
                         '<div class="cont">' +
-                        '<p class="siteName" style="position: absolute; z-index: 1; top:-18px; left: -' + cont_W / 2 + 'px; font-family:' + contentInfo.family + ';color:' + contentInfo.color + ';">' +
-                        site.name +
-                        '</p>' +
-                        '<p class="siteIcon" style="position: absolute; z-index:1; top: 0; left: 0; color: ' + contentInfo.lab_color + '">' +
-                        contentInfo.lab +
-                        '</p>' +
+                        siteName_str + 
+                        siteIcon_str +
                         '</div>';
 
                     var marker = new AMap.Marker({
@@ -571,8 +572,8 @@ odoo.define("line_map_production.line_map_production", function(require) {
                 color: this.$('.mapStationFontColor').val() || '#000',
                 lab: this.$('.mapStationIcon').val() || "●",
                 lab_color: this.$(".mapStationColor").val(),
-                isShowStationName: this.$('.isShowStationName:checked').length,
-                isShowStation: this.$('.isShowStation:checked').length,
+                isShowStationName: this.$('.isShowStationName')[0].checked,
+                isShowStation: this.$('.isShowStation')[0].checked,
             };
             return contentInfo;
         }
