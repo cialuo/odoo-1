@@ -90,7 +90,7 @@
                                 <field name="bus_algorithm_date" invisible="1"/>
                                 <field name="bus_driver_algorithm_id" options="{'no_create':True}"/>
                                 <field name="bus_shift_id" options="{'no_create':True}"/>
-                                <field name="direction" string="方向"/>
+                                <field name="direction" string="方向" required="True"/>
                                 <!--<field name="is_conductor"/>-->
                             </group>
                             <group>

@@ -1,0 +1,29 @@
+<!--<openerp>-->
+    <!--<data>-->
+        <!--&lt;!&ndash; <template id="listing"> &ndash;&gt;-->
+        <!--&lt;!&ndash;   <ul> &ndash;&gt;-->
+        <!--&lt;!&ndash;     <li t-foreach="objects" t-as="object"> &ndash;&gt;-->
+        <!--&lt;!&ndash;       <a t-attf-href="#{ root }/objects/#{ object.id }"> &ndash;&gt;-->
+        <!--&lt;!&ndash;         <t t-esc="object.display_name"/> &ndash;&gt;-->
+        <!--&lt;!&ndash;       </a> &ndash;&gt;-->
+        <!--&lt;!&ndash;     </li> &ndash;&gt;-->
+        <!--&lt;!&ndash;   </ul> &ndash;&gt;-->
+        <!--&lt;!&ndash; </template> &ndash;&gt;-->
+        <!--&lt;!&ndash; <template id="object"> &ndash;&gt;-->
+        <!--&lt;!&ndash;   <h1><t t-esc="object.display_name"/></h1> &ndash;&gt;-->
+        <!--&lt;!&ndash;   <dl> &ndash;&gt;-->
+        <!--&lt;!&ndash;     <t t-foreach="object._fields" t-as="field"> &ndash;&gt;-->
+        <!--&lt;!&ndash;       <dt><t t-esc="field"/></dt> &ndash;&gt;-->
+        <!--&lt;!&ndash;       <dd><t t-esc="object[field]"/></dd> &ndash;&gt;-->
+        <!--&lt;!&ndash;     </t> &ndash;&gt;-->
+        <!--&lt;!&ndash;   </dl> &ndash;&gt;-->
+        <!--&lt;!&ndash; </template> &ndash;&gt;-->
+        <!--&lt;!&ndash;<template id="index">&ndash;&gt;-->
+            <!--&lt;!&ndash;<title>MyModule</title>&ndash;&gt;-->
+            <!--&lt;!&ndash;<t t-foreach="fruits" t-as="fruit">&ndash;&gt;-->
+                <!--&lt;!&ndash;<p><t t-esc="fruit"/></p>&ndash;&gt;-->
+            <!--&lt;!&ndash;</t>&ndash;&gt;-->
+        <!--&lt;!&ndash;</template>&ndash;&gt;-->
+
+    <!--</data>-->
+<!--</openerp>-->
