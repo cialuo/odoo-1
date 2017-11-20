@@ -1412,10 +1412,26 @@
                             </tr>
                             <tr>
                                 <td>
+                                    司&#160;&#160;&#160;&#160;&#160;&#160;&#160;机
+                                </td>
+                                <td>
+                                    <input class="w2 driverName" disabled="disabled"  t-attf-value="{{widget.set_data.driverName}}" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     司机工号
                                 </td>
                                 <td>
                                     <input class="w2 workerId" disabled="disabled" t-attf-value="{{widget.set_data.workerId}}" type="text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    乘&#160;&#160;务&#160;&#160;员
+                                </td>
+                                <td>
+                                    <input class="w2 trainName" disabled="disabled" t-attf-value="{{widget.set_data.trainName}}" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -1450,10 +1466,26 @@
                             </tr>
                             <tr>
                                 <td>
+                                    司&#160;&#160;&#160;&#160;&#160;&#160;&#160;机
+                                </td>
+                                <td>
+                                    <input class="w2 driverName_switched" disabled="disabled" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     司机工号
                                 </td>
                                 <td>
                                     <input class="w2 workerId_switched" disabled="disabled" type="text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    乘&#160;&#160;务&#160;&#160;员
+                                </td>
+                                <td>
+                                    <input class="w2 trainName_switched" disabled="disabled" type="text"/>
                                 </td>
                             </tr>
                             <tr>

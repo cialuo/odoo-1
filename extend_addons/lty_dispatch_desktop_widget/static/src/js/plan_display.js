@@ -947,7 +947,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     $(options.event).val(new Date(ui.item.planRunTime).toTimeString().slice(0,5).replace("Inval", ""));
                     $(".customModal .switched_pid").val(ui.item.id);
                     $(".customModal .carNum_switched").val(ui.item.onBoardId);
+                    $(".customModal .driverName_switched").val(ui.item.driverName);
                     $(".customModal .workerId_switched").val(ui.item.workerId);
+                    $(".customModal .trainName_switched").val(ui.item.trainName);
                     $(".customModal .train_switched").val(ui.item.trainId);
                     return false;
                 }
