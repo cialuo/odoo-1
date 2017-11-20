@@ -13,6 +13,7 @@
                     <field name="vehicle_ct"/>
                     <field name="driver_ct"/>
                     <field name="conductor_ct"/>
+                    <field name="direction" string="方向"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -89,6 +90,7 @@
                                 <field name="bus_algorithm_date" invisible="1"/>
                                 <field name="bus_driver_algorithm_id" options="{'no_create':True}"/>
                                 <field name="bus_shift_id" options="{'no_create':True}"/>
+                                <field name="direction" string="方向" required="True"/>
                                 <!--<field name="is_conductor"/>-->
                             </group>
                             <group>

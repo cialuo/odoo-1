@@ -1,0 +1,100 @@
+.chose_price_line {
+    height: 30px;
+    margin-top: 30px;
+    border-bottom: 2px solid #ccc;
+}
+
+.chose_price_line li {
+    width: 90px;
+    line-height: 30px;
+    float: left;
+    text-align: center;
+    color: #a8a8a8;
+    cursor: pointer;
+}
+
+.chose_price_line li.active {
+    color: #21b799;
+    border-bottom: 2px solid #21b799;
+    margin-top: -2px;
+}
+
+.dom_price_set {
+    width: 100%;
+    overflow: hidden;
+}
+
+.table_price_set_pa {
+    float: left;
+    width: calc(100% - 180px);
+    overflow-x: auto;
+}
+
+.table_price_set_pa thead {
+}
+
+.table_price_set th, .table_price_set td {
+    white-space: nowrap;
+}
+
+.table_price_set tbody td > input {
+    border-bottom: 1px solid #21b799;
+    color: #21b799;
+}
+
+.div_heng_site {
+    width: 120px;
+    float: left;
+}
+
+.div_heng_site li {
+    width: 120px;
+    padding: 7px 0 6px;
+    line-height: 1.42857143;
+    color: #000;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.div_site_id {
+    float: left;
+}
+
+.div_site_id li {
+    width: 60px;
+    padding: 7px 0 6px;
+    line-height: 1.42857143;
+    color: #000;
+    white-space: nowrap;
+    text-align: center;
+}
+
+li.div_heng_title, li.div_site_title {
+    color: #000;
+    font-weight: bold;
+}
+
+.pos_re {
+    position: relative;
+}
+
+.clone_th_pa {
+    position: absolute;
+    display: none;
+    width: 960px;
+    height: 30px;
+    overflow: hidden;
+}
+
+.clone_th {
+    white-space: nowrap;
+    position: absolute;
+}
+
+.clone_th li {
+    padding: 5px;
+    padding-left: 15px;
+    display: inline-block;
+    color: #000;
+    font-weight: bold;
+}

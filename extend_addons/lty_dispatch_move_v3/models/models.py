@@ -394,7 +394,7 @@ class attence(models.Model):
             if self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))]):
                 employee_id = self.env['hr.employee'].search([('jobnumber', '=', item.get('workerId'))])[0].id
             else:
-                raise UserError((u"考勤信息，员工不存在."))
+                raise UserError((u"考勤信息，员工(workerId:%s)不存在." %(item.get('workerId'))))
 
             new_data = {
                 'company_id': '',

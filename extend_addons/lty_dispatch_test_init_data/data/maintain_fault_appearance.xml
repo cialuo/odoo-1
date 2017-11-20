@@ -1,0 +1,1523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data noupdate="1">
+       <record id="gzxx615" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">柴油机起动困难或不能起动</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx624" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">柴油机功率下降（动力不足）</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx634" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">柴油机异响</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx646" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">柴油机排气冒黑烟</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx654" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">柴油机工作不稳定</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx658" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">柴油机排气冒白烟</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx662" model="maintain.fault.appearance">
+           <field name="inner_code">09</field>
+           <field name="name">柴油机排气冒蓝烟</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx668" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">柴油机机油压力不足</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx696" model="maintain.fault.appearance">
+           <field name="inner_code">10</field>
+           <field name="name">调速器标定转速达不到</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx697" model="maintain.fault.appearance">
+           <field name="inner_code">11</field>
+           <field name="name">调速器转速不稳定（游车）</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx698" model="maintain.fault.appearance">
+           <field name="inner_code">12</field>
+           <field name="name">调速器转速突然升高到不正常状态</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx708" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">柴油机自行熄火</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx1063" model="maintain.fault.appearance">
+           <field name="inner_code">13</field>
+           <field name="name">发动机窜气大、工作无力</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx1094" model="maintain.fault.appearance">
+           <field name="inner_code">14</field>
+           <field name="name">发动机无力，踩刹车熄火，提速不良</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx1131" model="maintain.fault.appearance">
+           <field name="inner_code">16</field>
+           <field name="name">车辆油耗高</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx2860" model="maintain.fault.appearance">
+           <field name="inner_code">17</field>
+           <field name="name">国Ⅲ电控燃油系统故障</field>
+           <field name="category_id" ref="gzfl1"/>
+       </record>
+
+       <record id="gzxx1462" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">减振器故障</field>
+           <field name="category_id" ref="gzfl141"/>
+       </record>
+
+       <record id="gzxx1467" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">钢板或悬挂故障</field>
+           <field name="category_id" ref="gzfl141"/>
+       </record>
+
+       <record id="gzxx724" model="maintain.fault.appearance">
+           <field name="inner_code">16</field>
+           <field name="name">驾驶门锁坏</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx729" model="maintain.fault.appearance">
+           <field name="inner_code">14</field>
+           <field name="name">投币箱部分</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx734" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">客门故障</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx752" model="maintain.fault.appearance">
+           <field name="inner_code">17</field>
+           <field name="name">电瓶架腐蚀</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx313" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">前面脸(保险杠)部分</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx321" model="maintain.fault.appearance">
+           <field name="inner_code">12</field>
+           <field name="name">后视镜</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx347" model="maintain.fault.appearance">
+           <field name="inner_code">15</field>
+           <field name="name">工具箱部分</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx359" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">玻璃部分</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx364" model="maintain.fault.appearance">
+           <field name="inner_code">11</field>
+           <field name="name">座椅部分</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx494" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">油漆部分</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx1796" model="maintain.fault.appearance">
+           <field name="inner_code">13</field>
+           <field name="name">扶手部分</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx1797" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">外蒙部分</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx1798" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">内蒙部分</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx1800" model="maintain.fault.appearance">
+           <field name="inner_code">10</field>
+           <field name="name">地板部分</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx1801" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">车架部分</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx1802" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">天窗部分</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx2458" model="maintain.fault.appearance">
+           <field name="inner_code">18</field>
+           <field name="name">边盖部分、行李仓锁坏</field>
+           <field name="category_id" ref="gzfl308"/>
+       </record>
+
+       <record id="gzxx2138" model="maintain.fault.appearance">
+           <field name="inner_code">13</field>
+           <field name="name">车载多媒体故障</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx2201" model="maintain.fault.appearance">
+           <field name="inner_code">18</field>
+           <field name="name">投币机工作不良</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx2362" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">起动机空转</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx2767" model="maintain.fault.appearance">
+           <field name="inner_code">23</field>
+           <field name="name">GPS故障</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx386" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">雨刮臂工作不正常</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx398" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">雨刮电机不工作</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx441" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">雨刮刮水不干净</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx433" model="maintain.fault.appearance">
+           <field name="inner_code">21</field>
+           <field name="name">调节器坏</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx1391" model="maintain.fault.appearance">
+           <field name="inner_code">15</field>
+           <field name="name">起动机工作不正常</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx1570" model="maintain.fault.appearance">
+           <field name="inner_code">20</field>
+           <field name="name">保险盒短路</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx1578" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">闪光器不工作</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx1582" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">闪光器工作不正常</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx1649" model="maintain.fault.appearance">
+           <field name="inner_code">11</field>
+           <field name="name">后门监视器不工作</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx1655" model="maintain.fault.appearance">
+           <field name="inner_code">12</field>
+           <field name="name">报站器不工作</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx1659" model="maintain.fault.appearance">
+           <field name="inner_code">10</field>
+           <field name="name">电子滚动屏不工作</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx1662" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">POS机坏</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx1666" model="maintain.fault.appearance">
+           <field name="inner_code">09</field>
+           <field name="name">车载机电源盒不工作</field>
+           <field name="category_id" ref="gzfl378"/>
+       </record>
+
+       <record id="gzxx679" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">水温过高</field>
+           <field name="category_id" ref="gzfl1050"/>
+       </record>
+
+       <record id="gzxx1075" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">发动机漏水</field>
+           <field name="category_id" ref="gzfl1050"/>
+       </record>
+
+       <record id="gzxx1089" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">过桥皮带轮座响</field>
+           <field name="category_id" ref="gzfl1050"/>
+       </record>
+
+       <record id="gzxx1090" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">过桥皮带断</field>
+           <field name="category_id" ref="gzfl1050"/>
+       </record>
+
+       <record id="gzxx2037" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">水箱返水</field>
+           <field name="category_id" ref="gzfl1050"/>
+       </record>
+
+       <record id="gzxx2051" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">水箱进机油</field>
+           <field name="category_id" ref="gzfl1050"/>
+       </record>
+
+       <record id="gzxx2042" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">喷油嘴冲垫漏气</field>
+           <field name="category_id" ref="gzfl1051"/>
+       </record>
+
+       <record id="gzxx2045" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">高压油管漏油</field>
+           <field name="category_id" ref="gzfl1051"/>
+       </record>
+
+       <record id="gzxx1080" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">漏油故障</field>
+           <field name="category_id" ref="gzfl1051"/>
+       </record>
+
+       <record id="gzxx1113" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">油路进空气</field>
+           <field name="category_id" ref="gzfl1051"/>
+       </record>
+
+       <record id="gzxx684" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">喷油泵不供油、来油不畅</field>
+           <field name="category_id" ref="gzfl1051"/>
+       </record>
+
+       <record id="gzxx690" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">喷油泵出油量不足或不均匀</field>
+           <field name="category_id" ref="gzfl1051"/>
+       </record>
+
+       <record id="gzxx1070" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">油底壳机油过多</field>
+           <field name="category_id" ref="gzfl1052"/>
+       </record>
+
+       <record id="gzxx1088" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">漏油故障</field>
+           <field name="category_id" ref="gzfl1052"/>
+       </record>
+
+       <record id="gzxx675" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">机油温度过高、过稀、消耗大</field>
+           <field name="category_id" ref="gzfl1052"/>
+       </record>
+
+       <record id="gzxx1097" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">油底壳进水</field>
+           <field name="category_id" ref="gzfl1052"/>
+       </record>
+
+       <record id="gzxx2054" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">机油变质(机油进柴油)</field>
+           <field name="category_id" ref="gzfl1052"/>
+       </record>
+
+       <record id="gzxx1916" model="maintain.fault.appearance">
+           <field name="inner_code">09</field>
+           <field name="name">自动润滑系统程序控制器报警</field>
+           <field name="category_id" ref="gzfl1052"/>
+       </record>
+
+       <record id="gzxx1919" model="maintain.fault.appearance">
+           <field name="inner_code">10</field>
+           <field name="name">自动润滑系统油泵电机不转</field>
+           <field name="category_id" ref="gzfl1052"/>
+       </record>
+
+       <record id="gzxx1925" model="maintain.fault.appearance">
+           <field name="inner_code">11</field>
+           <field name="name">自动润滑系统主油管内压力达不到0.38MPa</field>
+           <field name="category_id" ref="gzfl1052"/>
+       </record>
+
+       <record id="gzxx1932" model="maintain.fault.appearance">
+           <field name="inner_code">12</field>
+           <field name="name">自动润滑系统电机停转后分配器均不出油</field>
+           <field name="category_id" ref="gzfl1052"/>
+       </record>
+
+       <record id="gzxx1935" model="maintain.fault.appearance">
+           <field name="inner_code">13</field>
+           <field name="name">自动润滑系统主管路内压力正常但程控器报警</field>
+           <field name="category_id" ref="gzfl1052"/>
+       </record>
+
+       <record id="gzxx1937" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">自动润滑系统个别摩擦副没有油</field>
+           <field name="category_id" ref="gzfl1052"/>
+       </record>
+
+       <record id="gzxx2058" model="maintain.fault.appearance">
+           <field name="inner_code">34</field>
+           <field name="name">前桥轴头大螺帽松</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1726" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">方向机漏油</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1731" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">方向机油管（接头）漏油</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1738" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">方向机松动</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1741" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">方向机直臂大螺帽松动</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1747" model="maintain.fault.appearance">
+           <field name="inner_code">09</field>
+           <field name="name">打方向时有异响（行驶中)</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1758" model="maintain.fault.appearance">
+           <field name="inner_code">10</field>
+           <field name="name">方向机（方向盘）传动轴松</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1766" model="maintain.fault.appearance">
+           <field name="inner_code">11</field>
+           <field name="name">方向机打方向时卡（不回位）</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1773" model="maintain.fault.appearance">
+           <field name="inner_code">15</field>
+           <field name="name">行驶中打方向重</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1789" model="maintain.fault.appearance">
+           <field name="inner_code">13</field>
+           <field name="name">方向自动向左（右）转</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1791" model="maintain.fault.appearance">
+           <field name="inner_code">12</field>
+           <field name="name">怠速时打方向重（高速无）</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1793" model="maintain.fault.appearance">
+           <field name="inner_code">14</field>
+           <field name="name">转向节两边（左、右）松</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx2451" model="maintain.fault.appearance">
+           <field name="inner_code">38</field>
+           <field name="name">轮胎螺丝</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1141" model="maintain.fault.appearance">
+           <field name="inner_code">29</field>
+           <field name="name">前制动性能差</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1159" model="maintain.fault.appearance">
+           <field name="inner_code">30</field>
+           <field name="name">前刹车调整臂开口销坏</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1163" model="maintain.fault.appearance">
+           <field name="inner_code">31</field>
+           <field name="name">刹车抢左</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1164" model="maintain.fault.appearance">
+           <field name="inner_code">32</field>
+           <field name="name">刹车抢右</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1179" model="maintain.fault.appearance">
+           <field name="inner_code">33</field>
+           <field name="name">刹车（轮毂）异响</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1196" model="maintain.fault.appearance">
+           <field name="inner_code">35</field>
+           <field name="name">轮毂发热</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1197" model="maintain.fault.appearance">
+           <field name="inner_code">16</field>
+           <field name="name">横拉杆球头松</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1199" model="maintain.fault.appearance">
+           <field name="inner_code">19</field>
+           <field name="name">横拉杆球节松</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1201" model="maintain.fault.appearance">
+           <field name="inner_code">18</field>
+           <field name="name">横拉杆球节外部磨损严重</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1203" model="maintain.fault.appearance">
+           <field name="inner_code">20</field>
+           <field name="name">横拉杆球头螺帽松</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1205" model="maintain.fault.appearance">
+           <field name="inner_code">17</field>
+           <field name="name">横拉杆变形严重</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1206" model="maintain.fault.appearance">
+           <field name="inner_code">21</field>
+           <field name="name">横拉杆球头螺帽开口销脱</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1207" model="maintain.fault.appearance">
+           <field name="inner_code">25</field>
+           <field name="name">直拉杆球头松</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1208" model="maintain.fault.appearance">
+           <field name="inner_code">26</field>
+           <field name="name">直拉杆球节松</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1209" model="maintain.fault.appearance">
+           <field name="inner_code">27</field>
+           <field name="name">直拉杆球头螺帽松</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1210" model="maintain.fault.appearance">
+           <field name="inner_code">22</field>
+           <field name="name">直拉杆球头螺帽开口销脱</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1211" model="maintain.fault.appearance">
+           <field name="inner_code">23</field>
+           <field name="name">直拉杆球头“8”字孔磨大</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx1212" model="maintain.fault.appearance">
+           <field name="inner_code">24</field>
+           <field name="name">直拉杆过桥臂松旷</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx859" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">转向盘自由转动量大，转向操纵不稳</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx874" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">转向角度不足</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx879" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">转向沉重</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx902" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">前轮摆头</field>
+           <field name="category_id" ref="gzfl1053"/>
+       </record>
+
+       <record id="gzxx802" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">离合器有异响</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx815" model="maintain.fault.appearance">
+           <field name="inner_code">12</field>
+           <field name="name">变速器有异响</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx841" model="maintain.fault.appearance">
+           <field name="inner_code">15</field>
+           <field name="name">传动轴异响</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx850" model="maintain.fault.appearance">
+           <field name="inner_code">14</field>
+           <field name="name">传动轴中间轴承发响</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx562" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">离合器打滑</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx571" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">离合器分离不彻底</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx574" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">离合器打抖</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx161" model="maintain.fault.appearance">
+           <field name="inner_code">09</field>
+           <field name="name">变速器乱档、挂不进档、换档难</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx162" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">变速器跳档</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx1316" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">离合器液压油过脏</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx1318" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">离合器液压管路进空气</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx1355" model="maintain.fault.appearance">
+           <field name="inner_code">10</field>
+           <field name="name">变速器卡档</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx1363" model="maintain.fault.appearance">
+           <field name="inner_code">11</field>
+           <field name="name">变速器漏油故障</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx1376" model="maintain.fault.appearance">
+           <field name="inner_code">13</field>
+           <field name="name">变速器其他故障</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx2194" model="maintain.fault.appearance">
+           <field name="inner_code">16</field>
+           <field name="name">自动变速箱故障</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx2959" model="maintain.fault.appearance">
+           <field name="inner_code">17</field>
+           <field name="name">电涡流缓速器故障</field>
+           <field name="category_id" ref="gzfl1054"/>
+       </record>
+
+       <record id="gzxx2328" model="maintain.fault.appearance">
+           <field name="inner_code">13</field>
+           <field name="name">后轮制动拖滞(发烫、卡滞)</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1404" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">差速器异响、震动</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1439" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">主减速器大螺帽松</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1441" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">差速器漏油</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1443" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">主减速器漏油</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1450" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">后轮甩油</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1457" model="maintain.fault.appearance">
+           <field name="inner_code">11</field>
+           <field name="name">半轴或半轴套管故障</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1481" model="maintain.fault.appearance">
+           <field name="inner_code">12</field>
+           <field name="name">后轮制动性能差(无拖印)</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1519" model="maintain.fault.appearance">
+           <field name="inner_code">14</field>
+           <field name="name">制动异响</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1524" model="maintain.fault.appearance">
+           <field name="inner_code">09</field>
+           <field name="name">轮胎螺丝松</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1527" model="maintain.fault.appearance">
+           <field name="inner_code">15</field>
+           <field name="name">半轴螺丝</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1531" model="maintain.fault.appearance">
+           <field name="inner_code">16</field>
+           <field name="name">后桥其他故障</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1534" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">主、被动锥齿轮齿面磨损、损伤严重</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx937" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">后桥驱动时有异响</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx946" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">后桥满载或下坡时有异响</field>
+           <field name="category_id" ref="gzfl1055"/>
+       </record>
+
+       <record id="gzxx1041" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">气压过低</field>
+           <field name="category_id" ref="gzfl1056"/>
+       </record>
+
+       <record id="gzxx2170" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">卸荷阀工作不良</field>
+           <field name="category_id" ref="gzfl1056"/>
+       </record>
+
+       <record id="gzxx2175" model="maintain.fault.appearance">
+           <field name="inner_code">13</field>
+           <field name="name">继动阀工作不良</field>
+           <field name="category_id" ref="gzfl1056"/>
+       </record>
+
+       <record id="gzxx2180" model="maintain.fault.appearance">
+           <field name="inner_code">11</field>
+           <field name="name">气手刹工作不良</field>
+           <field name="category_id" ref="gzfl1056"/>
+       </record>
+
+       <record id="gzxx1809" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">气压过高</field>
+           <field name="category_id" ref="gzfl1056"/>
+       </record>
+
+       <record id="gzxx1954" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">气路系统漏气</field>
+           <field name="category_id" ref="gzfl1056"/>
+       </record>
+
+       <record id="gzxx1956" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">空压机工作不良</field>
+           <field name="category_id" ref="gzfl1056"/>
+       </record>
+
+       <record id="gzxx1959" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">制动分泵工作不良</field>
+           <field name="category_id" ref="gzfl1056"/>
+       </record>
+
+       <record id="gzxx1960" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">门泵工作不良</field>
+           <field name="category_id" ref="gzfl1056"/>
+       </record>
+
+       <record id="gzxx1962" model="maintain.fault.appearance">
+           <field name="inner_code">09</field>
+           <field name="name">管路工作不良</field>
+           <field name="category_id" ref="gzfl1056"/>
+       </record>
+
+       <record id="gzxx1963" model="maintain.fault.appearance">
+           <field name="inner_code">10</field>
+           <field name="name">贮气筒工作不良</field>
+           <field name="category_id" ref="gzfl1056"/>
+       </record>
+
+       <record id="gzxx1965" model="maintain.fault.appearance">
+           <field name="inner_code">12</field>
+           <field name="name">刹车灯开关工作不良</field>
+           <field name="category_id" ref="gzfl1056"/>
+       </record>
+
+       <record id="gzxx2108" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">制动发抖</field>
+           <field name="category_id" ref="gzfl1057"/>
+       </record>
+
+       <record id="gzxx2113" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">制动粗暴</field>
+           <field name="category_id" ref="gzfl1057"/>
+       </record>
+
+       <record id="gzxx2247" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">制动毂发热</field>
+           <field name="category_id" ref="gzfl1057"/>
+       </record>
+
+       <record id="gzxx2280" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">制动跑偏</field>
+           <field name="category_id" ref="gzfl1057"/>
+       </record>
+
+       <record id="gzxx964" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">制动力不足（或制动气压表指针下降）</field>
+           <field name="category_id" ref="gzfl1057"/>
+       </record>
+
+       <record id="gzxx967" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">制动管路漏气或制动软管破裂</field>
+           <field name="category_id" ref="gzfl1057"/>
+       </record>
+
+       <record id="gzxx980" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">制动无“点刹”</field>
+           <field name="category_id" ref="gzfl1057"/>
+       </record>
+
+       <record id="gzxx991" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">制动时偶尔“发啃”“发叫”</field>
+           <field name="category_id" ref="gzfl1057"/>
+       </record>
+
+       <record id="gzxx1320" model="maintain.fault.appearance">
+           <field name="inner_code">09</field>
+           <field name="name">手刹失效</field>
+           <field name="category_id" ref="gzfl1057"/>
+       </record>
+
+       <record id="gzxx1539" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">轮胎偏磨</field>
+           <field name="category_id" ref="gzfl1533"/>
+       </record>
+
+       <record id="gzxx713" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">轮胎磨平花</field>
+           <field name="category_id" ref="gzfl1533"/>
+       </record>
+
+       <record id="gzxx716" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">轮胎漏气</field>
+           <field name="category_id" ref="gzfl1533"/>
+       </record>
+
+       <record id="gzxx719" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">轮胎气压不足</field>
+           <field name="category_id" ref="gzfl1533"/>
+       </record>
+
+       <record id="gzxx721" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">外胎破损</field>
+           <field name="category_id" ref="gzfl1533"/>
+       </record>
+
+       <record id="gzxx426" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">机油压力表不工作</field>
+           <field name="category_id" ref="gzfl2131"/>
+       </record>
+
+       <record id="gzxx421" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">水温表不工作</field>
+           <field name="category_id" ref="gzfl2131"/>
+       </record>
+
+       <record id="gzxx1552" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">水温表工作不正常</field>
+           <field name="category_id" ref="gzfl2131"/>
+       </record>
+
+       <record id="gzxx1544" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">发电机皮带断</field>
+           <field name="category_id" ref="gzfl2134"/>
+       </record>
+
+       <record id="gzxx1409" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">发电机发电量小</field>
+           <field name="category_id" ref="gzfl2134"/>
+       </record>
+
+       <record id="gzxx1419" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">发电机发电量过大</field>
+           <field name="category_id" ref="gzfl2134"/>
+       </record>
+
+       <record id="gzxx381" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">发电机不发电</field>
+           <field name="category_id" ref="gzfl2134"/>
+       </record>
+
+       <record id="gzxx1604" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">雾灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx1585" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">大灯变光器不变光</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx1614" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">刹车灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx1622" model="maintain.fault.appearance">
+           <field name="inner_code">09</field>
+           <field name="name">牌照灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx1630" model="maintain.fault.appearance">
+           <field name="inner_code">13</field>
+           <field name="name">仪表灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx1636" model="maintain.fault.appearance">
+           <field name="inner_code">10</field>
+           <field name="name">车厢灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx1642" model="maintain.fault.appearance">
+           <field name="inner_code">14</field>
+           <field name="name">后门灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx1681" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">小灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx1690" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">转向灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx1699" model="maintain.fault.appearance">
+           <field name="inner_code">15</field>
+           <field name="name">腰灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx2366" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">大灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx2386" model="maintain.fault.appearance">
+           <field name="inner_code">11</field>
+           <field name="name">车厢顶灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx2401" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">灯光常亮类</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx1708" model="maintain.fault.appearance">
+           <field name="inner_code">12</field>
+           <field name="name">投币箱灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx1887" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">倒车灯不亮</field>
+           <field name="category_id" ref="gzfl2392"/>
+       </record>
+
+       <record id="gzxx1888" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">倒车灯罩烂</field>
+           <field name="category_id" ref="gzfl2393"/>
+       </record>
+
+       <record id="gzxx1724" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">车厢顶灯灯罩烂</field>
+           <field name="category_id" ref="gzfl2393"/>
+       </record>
+
+       <record id="gzxx1706" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">腰灯灯罩烂</field>
+           <field name="category_id" ref="gzfl2393"/>
+       </record>
+
+       <record id="gzxx1697" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">转向灯灯罩烂</field>
+           <field name="category_id" ref="gzfl2393"/>
+       </record>
+
+       <record id="gzxx1688" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">小灯灯罩烂</field>
+           <field name="category_id" ref="gzfl2393"/>
+       </record>
+
+       <record id="gzxx1628" model="maintain.fault.appearance">
+           <field name="inner_code">09</field>
+           <field name="name">牌照灯灯罩烂</field>
+           <field name="category_id" ref="gzfl2393"/>
+       </record>
+
+       <record id="gzxx1620" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">刹车灯灯罩坏</field>
+           <field name="category_id" ref="gzfl2393"/>
+       </record>
+
+       <record id="gzxx1677" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">大灯灯罩烂</field>
+           <field name="category_id" ref="gzfl2393"/>
+       </record>
+
+       <record id="gzxx1679" model="maintain.fault.appearance">
+           <field name="inner_code">10</field>
+           <field name="name">大灯灯框烂</field>
+           <field name="category_id" ref="gzfl2393"/>
+       </record>
+
+       <record id="gzxx1612" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">雾灯灯罩烂</field>
+           <field name="category_id" ref="gzfl2393"/>
+       </record>
+
+       <record id="gzxx1546" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">蓄电池连接类故障</field>
+           <field name="category_id" ref="gzfl2395"/>
+       </record>
+
+       <record id="gzxx423" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">蓄电池不存电</field>
+           <field name="category_id" ref="gzfl2395"/>
+       </record>
+
+       <record id="gzxx2442" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">蓄电池架故障</field>
+           <field name="category_id" ref="gzfl2395"/>
+       </record>
+
+       <record id="gzxx430" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">机油压力报警器坏</field>
+           <field name="category_id" ref="gzfl2396"/>
+       </record>
+
+       <record id="gzxx1557" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">水温报警器不工作</field>
+           <field name="category_id" ref="gzfl2396"/>
+       </record>
+
+       <record id="gzxx1571" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">机油感应塞失效</field>
+           <field name="category_id" ref="gzfl2396"/>
+       </record>
+
+       <record id="gzxx1564" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">喇叭音量小</field>
+           <field name="category_id" ref="gzfl2397"/>
+       </record>
+
+       <record id="gzxx1566" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">喇叭发哑</field>
+           <field name="category_id" ref="gzfl2397"/>
+       </record>
+
+       <record id="gzxx1600" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">车厢喇叭不响</field>
+           <field name="category_id" ref="gzfl2397"/>
+       </record>
+
+       <record id="gzxx438" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">内外喇叭不响</field>
+           <field name="category_id" ref="gzfl2397"/>
+       </record>
+
+       <record id="gzxx1122" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">发动机抱死</field>
+           <field name="category_id" ref="gzfl2408"/>
+       </record>
+
+       <record id="gzxx1095" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">发动机皮带松、脱</field>
+           <field name="category_id" ref="gzfl2408"/>
+       </record>
+
+       <record id="gzxx2411" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">柴油滤清器</field>
+           <field name="category_id" ref="gzfl2408"/>
+       </record>
+
+       <record id="gzxx2294" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">空气滤清器故障</field>
+           <field name="category_id" ref="gzfl2408"/>
+       </record>
+
+       <record id="gzxx1590" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">熄火开关坏</field>
+           <field name="category_id" ref="gzfl2414"/>
+       </record>
+
+       <record id="gzxx1596" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">电源总开关坏</field>
+           <field name="category_id" ref="gzfl2414"/>
+       </record>
+
+       <record id="gzxx2530" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">轮胎类故障</field>
+           <field name="category_id" ref="gzfl2524"/>
+       </record>
+
+       <record id="gzxx2541" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">离合器类故障</field>
+           <field name="category_id" ref="gzfl2524"/>
+       </record>
+
+       <record id="gzxx2832" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">计价器故障</field>
+           <field name="category_id" ref="gzfl2524"/>
+       </record>
+
+       <record id="gzxx2844" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">抛锚车故障</field>
+           <field name="category_id" ref="gzfl2524"/>
+       </record>
+
+       <record id="gzxx2555" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">车厢类故障</field>
+           <field name="category_id" ref="gzfl2524"/>
+       </record>
+
+       <record id="gzxx2556" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">玻璃类故障</field>
+           <field name="category_id" ref="gzfl2524"/>
+       </record>
+
+       <record id="gzxx2610" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">车门故障</field>
+           <field name="category_id" ref="gzfl2524"/>
+       </record>
+
+       <record id="gzxx2653" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">规定在大修厂维修的项目</field>
+           <field name="category_id" ref="gzfl2524"/>
+       </record>
+
+       <record id="gzxx2698" model="maintain.fault.appearance">
+           <field name="inner_code">09</field>
+           <field name="name">综合故障</field>
+           <field name="category_id" ref="gzfl2526"/>
+       </record>
+
+       <record id="gzxx2779" model="maintain.fault.appearance">
+           <field name="inner_code">12</field>
+           <field name="name">引擎盖打不开</field>
+           <field name="category_id" ref="gzfl2526"/>
+       </record>
+
+       <record id="gzxx2531" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">曲轴连杆机构故障</field>
+           <field name="category_id" ref="gzfl2526"/>
+       </record>
+
+       <record id="gzxx2533" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">配气机构故障</field>
+           <field name="category_id" ref="gzfl2526"/>
+       </record>
+
+       <record id="gzxx2534" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">电控燃油喷射系统故障</field>
+           <field name="category_id" ref="gzfl2526"/>
+       </record>
+
+       <record id="gzxx2536" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">点火系故障</field>
+           <field name="category_id" ref="gzfl2526"/>
+       </record>
+
+       <record id="gzxx2538" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">润滑系故障</field>
+           <field name="category_id" ref="gzfl2526"/>
+       </record>
+
+       <record id="gzxx2539" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">冷却系统故障</field>
+           <field name="category_id" ref="gzfl2526"/>
+       </record>
+
+       <record id="gzxx2542" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">变速器类故障</field>
+           <field name="category_id" ref="gzfl2527"/>
+       </record>
+
+       <record id="gzxx2543" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">半轴和前后轮毂类故障</field>
+           <field name="category_id" ref="gzfl2527"/>
+       </record>
+
+       <record id="gzxx2544" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">悬挂类故障</field>
+           <field name="category_id" ref="gzfl2527"/>
+       </record>
+
+       <record id="gzxx2545" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">转向系统故障</field>
+           <field name="category_id" ref="gzfl2527"/>
+       </record>
+
+       <record id="gzxx2546" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">制动系统故障</field>
+           <field name="category_id" ref="gzfl2527"/>
+       </record>
+
+       <record id="gzxx2548" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">发电机和调节器类故障</field>
+           <field name="category_id" ref="gzfl2528"/>
+       </record>
+
+       <record id="gzxx2549" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">起动机故障</field>
+           <field name="category_id" ref="gzfl2528"/>
+       </record>
+
+       <record id="gzxx2551" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">车身电器类故障</field>
+           <field name="category_id" ref="gzfl2528"/>
+       </record>
+
+       <record id="gzxx2553" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">空调系统类故障</field>
+           <field name="category_id" ref="gzfl2528"/>
+       </record>
+
+       <record id="gzxx2554" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">汽车线路故障</field>
+           <field name="category_id" ref="gzfl2528"/>
+       </record>
+
+       <record id="gzxx2891" model="maintain.fault.appearance">
+           <field name="inner_code">05</field>
+           <field name="name">IC卡收费机</field>
+           <field name="category_id" ref="gzfl2890"/>
+       </record>
+
+       <record id="gzxx2896" model="maintain.fault.appearance">
+           <field name="inner_code">06</field>
+           <field name="name">IC卡采集仪</field>
+           <field name="category_id" ref="gzfl2890"/>
+       </record>
+
+       <record id="gzxx2898" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">GPS终端机</field>
+           <field name="category_id" ref="gzfl2890"/>
+       </record>
+
+       <record id="gzxx2899" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">电子路牌</field>
+           <field name="category_id" ref="gzfl2890"/>
+       </record>
+
+       <record id="gzxx2900" model="maintain.fault.appearance">
+           <field name="inner_code">07</field>
+           <field name="name">出租车计价器</field>
+           <field name="category_id" ref="gzfl2890"/>
+       </record>
+
+       <record id="gzxx2902" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">电子到站提示牌</field>
+           <field name="category_id" ref="gzfl2890"/>
+       </record>
+
+       <record id="gzxx2936" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">倒车摄像头</field>
+           <field name="category_id" ref="gzfl2890"/>
+       </record>
+
+       <record id="gzxx2942" model="maintain.fault.appearance">
+           <field name="inner_code">08</field>
+           <field name="name">出租车空车灯</field>
+           <field name="category_id" ref="gzfl2890"/>
+       </record>
+
+       <record id="gzxx2960" model="maintain.fault.appearance">
+           <field name="inner_code">01</field>
+           <field name="name">缓速器不工作</field>
+           <field name="category_id" ref="gzfl2959"/>
+       </record>
+
+       <record id="gzxx2963" model="maintain.fault.appearance">
+           <field name="inner_code">03</field>
+           <field name="name">缓速器工作时有时无</field>
+           <field name="category_id" ref="gzfl2959"/>
+       </record>
+
+       <record id="gzxx2964" model="maintain.fault.appearance">
+           <field name="inner_code">04</field>
+           <field name="name">缓速器扭矩不够</field>
+           <field name="category_id" ref="gzfl2959"/>
+       </record>
+
+       <record id="gzxx2962" model="maintain.fault.appearance">
+           <field name="inner_code">02</field>
+           <field name="name">缓速器工作不停止</field>
+           <field name="category_id" ref="gzfl2959"/>
+       </record>
+
+   </data>
+</odoo>

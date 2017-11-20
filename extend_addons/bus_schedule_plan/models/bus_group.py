@@ -53,6 +53,8 @@ class BusGroup(models.Model):
         ('wait_check', "wait_check"),
         ('use', "use"),], string='Bus Group State', default='draft', readonly=True)
 
+    direction = fields.Selection([('0', u'上行'), ('1', u'下行')], string='direction')  # required=True)
+
     # @api.multi
     # def action_test1(self):
     #     staff_date = datetime.date.today() + timedelta(days=1)

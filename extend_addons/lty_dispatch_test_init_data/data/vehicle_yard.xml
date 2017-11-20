@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data noupdate="0">
+   
+		<!-- 车场信息 -->
+       <record id="100000" model="opertation_resources_vehicle_yard">
+           <field name="code">100000</field>
+           <field name="name">邯郸高铁</field>
+       </record>
+       <record id="100001" model="opertation_resources_vehicle_yard">
+           <field name="code">100001</field>
+           <field name="name">百家村</field>
+       </record>   
+      
+		<!-- 站场调度屏信息 -->
+		<record id="s1900" model="opertation_resources_dispatch_screen">
+		   <field name="name">screen1</field>
+		   <field name="screen_code">1900</field>
+		   <field name="screen_ip">127.0.0.1</field>
+		   <field name="yard_id" ref="100000" />
+		</record>
+		<record id="s1901" model="opertation_resources_dispatch_screen">
+		   <field name="name">screen2</field>
+		   <field name="screen_code">1902</field>
+		   <field name="screen_ip">127.0.0.2</field>
+		   <field name="yard_id" ref="100000" />
+		</record>
+		
+        <record id="s2900" model="opertation_resources_dispatch_screen">
+           <field name="name">screen1</field>
+           <field name="screen_code">2900</field>
+           <field name="screen_ip">127.0.0.1</field>
+           <field name="yard_id" ref="100001" />
+       </record>
+       <record id="s2901" model="opertation_resources_dispatch_screen">
+           <field name="name">screen2</field>
+           <field name="screen_code">2901</field>
+           <field name="screen_ip">127.0.0.2</field>
+           <field name="yard_id" ref="100001" />
+       </record>	
+
+		<!-- 站场GPS信息 -->
+       <record id="gpsid0001" model="park.collected.gps.info">
+           <field name="name">1</field>
+           <field name="radius">30</field>
+           <field name="azimuth">30</field>
+           <field name="longitude">5555</field>
+           <field name="latitude">55555</field>
+           <field name="park_id" ref="100001" />
+       </record>
+       <record id="gpsid0002" model="park.collected.gps.info">
+           <field name="name">2</field>
+           <field name="radius">30</field>
+           <field name="azimuth">30</field>
+           <field name="longitude">5555</field>
+           <field name="latitude">55555</field>
+           <field name="park_id" ref="100001" />
+       </record>	   	   
+   </data>
+</odoo>

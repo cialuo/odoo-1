@@ -63,6 +63,7 @@
                                         <field name="staff_driver_names"/>
                                         <field name="staff_conductor_names"/>
                                         <field name="bus_shift_id" invisible="1" options="{'no_open':True,'no_create':True}"/>
+                                        <field name="direction" invisible="0" string="方向"/>
                                     </tree>
                                 </field>
                             </page>
@@ -86,7 +87,7 @@
                                     <tree string="StaffLines" create="false" editable="bottom">
 										<field name="sequence" readonly="1"/>
                                         <field name="group_id" invisible="1"/>
-										<field name="driver_id" readonly="1"/>
+										<field name="driver_id" options="{'no_create':True}"/>
 										<field name="driver_jobnumber" readonly="1"/>
 										<field name="conductor_id" options="{'no_create':True}"/>
 										<field name="conductor_jobnumber" readonly="1"/>

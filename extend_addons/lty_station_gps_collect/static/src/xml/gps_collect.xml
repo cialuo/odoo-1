@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<template xml:space="preserve">
+    <t t-name="gps_control">
+        <div></div>
+    </t>
+	<t t-name="gps_content">
+		<div class="gps_modal">
+            <div class="gps_modal_content">
+                <div class="map_container"></div>
+                <div class="operate_content">
+                    <ul class="op_content_tt">
+                        <li>车场</li>
+                        <li></li>
+                        <li>
+                            <input type="checkbox" class="ipc" checked="checked" />
+                            <span>显示半径</span>
+                        </li>
+                    </ul>
+                    <div class="">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>经度</th>
+                                    <th>纬度</th>
+                                    <th>半径</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="widget.gps_data" t-as="item">
+                                    <tr>
+                                        <td class="gps_index">
+                                            <t t-esc="item_index + 1"></t>
+                                        </td>
+                                        <td class="lon"><t t-if="item.longitude"><t t-esc="item.longitude"></t></t></td>
+                                        <td class="lat"><t t-if="item.latitude"><t t-esc="item.latitude"></t></t></td>
+                                        <t t-if="item.radius">
+                                            <td class="cir">
+                                                <input type="text" t-attf-value="{{item.radius}}"/>
+                                                <!--<t t-esc="item.radius"></t>-->
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td class="cir">
+                                                <input type="text" value="200"/>
+                                            </td>
+                                        </t>
+                                        <t t-if="item.id">
+                                           <td>
+                                               <a href="javascript:;" class="to_change not_null" t-attf-gps_name="#{item.id}"  t-attf-cid="change#{item_index + 1}">修改</a>
+                                           </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td>
+                                               <a href="javascript:;" class="to_change" t-attf-gps_name="#{item.id}"  t-attf-cid="change#{item_index + 1}">修改</a>
+                                           </td>
+                                        </t>
+
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="gps_footer">
+                        <button class="btn btn-default save_gps">保存</button>
+                        <button class="btn btn-default point_gps">
+                            <img src="/lty_station_gps_collect/static/src/img/point_in.png" />
+                        </button>
+                        <button class="btn btn-default reset_gps">重置</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+	</t>
+</template>

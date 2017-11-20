@@ -282,4 +282,11 @@ function transform(obj) {
     return arr;
 }
 
+function dom_show(dom, condit) {
+    if (condit == true) {
+        dom.show();
+    }
+}
+
+
 

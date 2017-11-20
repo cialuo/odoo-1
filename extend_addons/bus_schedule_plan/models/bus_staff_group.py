@@ -51,7 +51,7 @@ class BusStaffGroup(models.Model):
         #判断该线路的班组的车辆是否小于计划需要的运营车辆数
         bus_group_vehicle_ct = len(self.env['bus_group'].search([('route_id', '=', route_id.id),('state', '=', 'use')]).mapped('vehicle_ids'))
         if bus_group_vehicle_ct < operation_ct:
-            raise exceptions.UserError(('班线车辆总数少于运营车辆总数.(线路： %s)')%route_id.line_name)
+            raise exceptions.UserError((u'班线车辆总数少于运营车辆总数.(线路： %s)')%route_id.line_name)
         use_date = datetime.datetime.strftime(staff_date-timedelta(days=1), "%Y-%m-%d")
         staff_date_str = datetime.datetime.strftime(staff_date, "%Y-%m-%d")
 
@@ -75,11 +75,14 @@ class BusStaffGroup(models.Model):
                 groupby=['vehicle_sequence'], orderby='vehicle_sequence')
 
         datas = []
-        count = 0
+        count = 1
+        #机动车序号
+        back_count = operation_ct
         for j in res_group_shift:
             res_vehicles = self.env['bus_group_driver_vehicle_shift'].search(j['__domain'])
             sequence = 0
             data_shift = []
+            #循环上行人车配班
             for m in res_vehicles:
                 sequence += 1
                 vals_shift = {
@@ -91,8 +94,11 @@ class BusStaffGroup(models.Model):
                     "sequence": sequence
                 }
                 data_shift.append((0, 0, vals_shift))
+
+            if res_vehicles:
+                if res_vehicles[0].group_id.direction == '0':
+                    continue
             if data_shift:
-                count += 1
                 vals = {
                     "route_id": res_vehicles[0].route_id.id,
                     'vehicle_id': res_vehicles[0].bus_group_vehicle_id.vehicle_id.id,
@@ -102,18 +108,69 @@ class BusStaffGroup(models.Model):
                     'bus_group_id': res_vehicles[0].group_id.id,
                     'staff_line_ids': data_shift
                 }
-                if count <= operation_ct:
+                #如果数量小于下行运营总数，标记为运营
+                if count <= move_time_id.downworkvehicle:
+                    count += 1
                     vals.update({'operation_state': 'operation'})
+                #如果数量超出下行运营总数，标记为机动
+                else:
+                    back_count += 1
+                    vals.update({'sequence': back_count})
+                datas.append((0, 0, vals))
+
+        for j in res_group_shift:
+            res_vehicles = self.env['bus_group_driver_vehicle_shift'].search(j['__domain'])
+            sequence = 0
+            data_shift = []
+
+            for m in res_vehicles:
+                # if m.group_id.direction == '1':
+                #     continue
+
+                sequence += 1
+                vals_shift = {
+                    'group_id': m.group_id.id,
+                    "driver_id": m.driver_id.driver_id.id,
+                    "conductor_id": m.conductor_id.conductor_id.id or None,
+                    'bus_shift_id': m.bus_shift_id.id,
+                    'bus_shift_choose_line_id': m.bus_shift_choose_line_id.id,
+                    "sequence": sequence
+                }
+                data_shift.append((0, 0, vals_shift))
+
+            if res_vehicles:
+                if res_vehicles[0].group_id.direction == '1':
+                    continue
+
+            if data_shift:
+                vals = {
+                    "route_id": res_vehicles[0].route_id.id,
+                    'vehicle_id': res_vehicles[0].bus_group_vehicle_id.vehicle_id.id,
+                    'operation_state': 'flexible',
+                    # 'sequence': res_vehicles[0].vehicle_sequence,
+                    'sequence': count,
+                    'bus_group_id': res_vehicles[0].group_id.id,
+                    'staff_line_ids': data_shift
+                }
+                #如果数量小于下行运营总数+上行运营总数，标记为运营
+                if count <=  move_time_id.upworkvehicle + move_time_id.downworkvehicle:
+                    count += 1
+                    vals.update({'operation_state': 'operation'})
+                #如果数量大于下行运营总数+上行运营总数，标记为机动
+                else:
+                    back_count += 1
+                    vals.update({'sequence': back_count})
+
                 datas.append((0, 0, vals))
         if not datas:
-            raise exceptions.UserError(('人车配班表不存在，请检查班组设置.(线路: %s)')%route_id.line_name)
+            raise exceptions.UserError((u'人车配班表不存在，请检查班组设置.(线路: %s)')%route_id.line_name)
+
         return self.env['bus_staff_group'].create({'vehicle_line_ids': datas,
                                                    'route_id': route_id.id,
                                                    'move_time_id':move_time_id.id or None,
                                                    'name': route_id.line_name + '/' + staff_date_str,
                                                    'staff_date': staff_date
                                                   })
-
 
 
     # @api.onchange('route_id', 'bus_shift_id')
@@ -142,6 +199,7 @@ class BusStaffGroupVehicleLine(models.Model):
     """
     _name = 'bus_staff_group_vehicle_line'
     _rec_name = 'vehicle_id'
+    _order = 'sequence'
     sequence = fields.Integer("Sequence")
 
     staff_group_id = fields.Many2one('bus_staff_group', readonly=True, ondelete='cascade')
@@ -165,6 +223,8 @@ class BusStaffGroupVehicleLine(models.Model):
     staff_driver_names = fields.Char(string='Staff Driver Names', compute='_get_staff_names')
 
     staff_conductor_names = fields.Char(string='Staff Conductor Names', compute='_get_staff_names')
+
+    direction = fields.Selection(related='bus_group_id.direction', readonly=True)
 
     @api.depends("staff_line_ids")
     def _get_staff_names(self):
