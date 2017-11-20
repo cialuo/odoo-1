@@ -7,7 +7,7 @@ odoo.define('lty_station_gps_collect.gps_collect', function (require) {
     var Model = require('web.Model');
     var Widget = require('web.Widget');
     // 引入地图js文件
-    $.getScript("http://webapi.amap.com/maps?v=1.3&key=505ae72a86391b207f7e10137f51194a");
+    $.getScript("http://webapi.amap.com/maps?v=1.3&key=cf2cefc7d7632953aa19dbf15c194019");
     var gps_content = Widget.extend({
         template: 'gps_content',
         //data_len为父widget继承下来的数据

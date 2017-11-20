@@ -116,37 +116,9 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 //websocket初始化
                 sendVideoInit()
                 //			高亮在线视频列表
-                heigh_light_show_tree(data_tree);
             });
 
-            var data_tree = [{
-                'id': 15745,
-                "channels": [{
-                    "online": 1,
-                    "channel_id": 1
-                }, {
-                    "online": 1,
-                    "channel_id": 2
-                }, {
-                    "online": 1,
-                    "channel_id": 3
-                }]
-            },
-                {
-                    'id': 4103,
-                    "channels": [{
-                        "online": 1,
-                        "channel_id": 1
-                    }, {
-                        "online": 1,
-                        //channel_id
-                        "channel_id": 2
-                    }, {
-                        "online": 1,
-                        "channel_id": 3
-                    }]
-                },
-            ];
+
             //心跳包检测
 
 
@@ -189,7 +161,21 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 // heartCheck.reset();
                 var dataJson = $.parseJSON(event.data);
                 if (dataJson.msg_type == '257') { //第一次加载过来推送的在线
+                    var data_tree = [{
+                        'id': 15745,
+                        "channels": [{
+                            "online": 1,
+                            "channel_id": 1
+                        }, {
+                            "online": 1,
+                            "channel_id": 2
+                        }, {
+                            "online": 1,
+                            "channel_id": 3
+                        }]
+                    }];
                     onlineData = dataJson.result;
+                    heigh_light_show_tree(data_tree);
                     // heigh_light_show_tree(dataJson.result); //设置在线的状态
                     // getVideoOnlines(onlineData, dataJson.result); //断流重连
                 } else if (dataJson.msg_type == '512') { //推送在线的状态
@@ -206,7 +192,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
             function getVideoOnlines(dataJsonVideo, dataChangeVideo) {
                 var busIdStr = dataChangeVideo[0].bus_id;
                 if (dataJsonVideo && dataJsonVideo.params && dataJsonVideo.params.bus_id && dataJsonVideo.params.bus_id == busIdStr) {
-//			busIdStr = busIdStr.substring(1, busIdStr.length);
+        //			busIdStr = busIdStr.substring(1, busIdStr.length);
                     if (dataChangeVideo[0].online == '1') {
                         var channellen = dataChangeVideo[0].channels.length;
                         for (var m = 0; m < channellen; m++) {
@@ -222,11 +208,11 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                                 }
                                 video_socket.send(videoParams); //发送参数
                             } else {
-                                alert('通道不在线！')
+                                alert('通道不在线！');
                             }
                         }
                     } else if (dataChangeVideo.online == '0') {
-                        alert('设备不在线，无法请求！')
+                        alert('设备不在线，无法请求！');
                     }
                 }
             }
@@ -419,7 +405,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                 var dom_chose = '#' + treeNode.tId + '_span';
                 //			webSocketVideo(channelType, deviceId, channeld)
                 //'{"msg_type":258,"params":{"bus_id":8000,"channel_id":0}}'
-                var deviceId = 9990;
+                var deviceId = 19880;
                 var channelId = -1;
                 $('.video_player.hide').removeClass('hide');
                 $('.content-right').html('');
@@ -439,7 +425,7 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                             }
                         }
                     } else {
-                        deviceId = 9990;
+                        deviceId = 19880;
                         //添加播放器盒子
                         channelId = 0;
                         $('.content-right').append($('.video_box').html());
@@ -470,12 +456,9 @@ odoo.define('lty_dispatch_video_monitor.video_show', function (require) {
                     var videoParams = '{"msg_type":' + channelType + ',"params":{"bus_id":' + deviceId + '}}';
                 }
                 //				websocket.send('{"msg_type":258,"params":{"bus_id":8000,"channel_id":0}}');
-                console.log(videoParams)
-                debugger
                 video_socket.send(videoParams); //发送参数
                 //			}
             }
-
         },
         events: {
             'keypress .search_road': 'show_video_tree'
