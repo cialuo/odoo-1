@@ -1536,6 +1536,14 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
 
             self.$(".realRunTime").focus();
 
+            self.$el.on('change', '.opType', function(){
+                if ($(this).val() == 0){
+                    self.$(".realReachTime").val(new Date(self.set_data.planReachTime).toTimeString().slice(0, 5).replace('Inval', ''));
+                }else{
+                    self.$(".realReachTime").val(new Date(self.set_data.planRunTime).toTimeString().slice(0, 5).replace('Inval', ''));
+                }
+            });
+
             // 提交
             self.$('.btn-primary').on('click', function() {
                 self.submit_fn();

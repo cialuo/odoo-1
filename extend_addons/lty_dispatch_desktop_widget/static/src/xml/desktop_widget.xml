@@ -1097,12 +1097,6 @@
                             </tr>
                             <tr>
                                 <td>
-                                    返回时间&#160;
-                                    <input class="w6 realReachTime required_field" t-attf-value="{{new Date(widget.set_data.realReachTime).toTimeString().slice(0, 5).replace('Inval', '')}}" type="text"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
                                     回场方向&#160;
                                     <select name="" class="w6 direction retrun_direction required_field" id="">
                                         <t t-if="widget.set_data.direction==0">
@@ -1123,6 +1117,12 @@
                                         <option value="0" selected="selected">正常返回</option>
                                         <option value="1">异常点返回</option>
                                     </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    返回时间&#160;
+                                    <input class="w6 realReachTime required_field" t-attf-value="{{new Date(widget.set_data.planReachTime).toTimeString().slice(0, 5).replace('Inval', '')}}" type="text"/>
                                 </td>
                             </tr>
                             <tr style="display: none;">
