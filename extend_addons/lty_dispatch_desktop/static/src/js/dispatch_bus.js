@@ -41,7 +41,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             //线路id
             this.line_id = self.$el.attr('line_id');
             //为了每条线路对应左右两个模块的tid相同问题
-            var tid = self.$el.attr('tid');
+
             // 等同于line_id 后台需要的字段
             this.gprs_id = self.$el.attr('gprs_id');
             //所有点击的按钮移除click属性并给当前的添加
@@ -67,6 +67,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 var car_num = $(event.currentTarget).html();
                 var car_id = $(event.currentTarget).attr("car_id");
                 var zIndex = parseInt(self.$el[0].style.zIndex) + 1;
+                //只允许一个此dom存在
                 var options =
                     {
                         x: event.clientX + 5,
@@ -87,247 +88,241 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     dialog.appendTo($(".controller_" + options.controllerId));
                 }
             });
+            self.site_info(this.model_line, this.model_station_platform, this.model_config);
+        },
+        site_info: function (mode_line, model_station_platform, model_config) {
+            var self = this;
+            var t_id = self.$el.attr('tid');
+            if (self.$el.find('.line_line')[0] != undefined) {
+                // 由于目前使用query只用到异步的使用，所以请求数据库需要一层层的操作
+                // 根据tid拿到线路id
+                mode_line.query().filter([["id", "=", parseInt(t_id)]]).all().then(function (data) {
+                    // 根据线路id拿到线路的数据   上下行的站点数据
+                    model_station_platform.query().order_by("sequence").filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "up"]]).all().then(function (res_top) {
+                        model_station_platform.query().order_by("sequence").filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "down"]]).all().then(function (res_down) {
+                            var site_t = [];
+                            for (var st = 0; st < res_top.length; st++) {
+                                site_t.push(res_top[st].station_id[1].split('/')[0]);
+                            }
+                            sessionStorage.setItem("bus_site_top" + self.line_id, site_t);
+                            // 给每个上下行的车辆所在位置添加一个盒子，后面用来装和判断是否发生串车
+                            for (var it = 0; it < res_top.length * 2; it++) {
+                                self.$el.find('.content_car_road_top').append('<div class="car_line_tb car_line_top' + it + '"></div>');
+                            }
+                            for (var id = 0; id < res_down.length * 2; id++) {
+                                self.$el.find('.content_car_road_down').append('<div class="car_line_tb car_line_down' + id + '"></div>');
+                            }
+                            // 查询模拟地图上方车辆信息
+                            model_config.query().filter([["id", "=", parseInt(self.desktop_id)]]).all().then(function (conf) {
+                                // 用来做上方信息的可配置显示与否
+                                // 配车数量 根据后台是否返回字段进行判断
+                                dom_show(self.$el.find('.show_applycar_num'), conf[0].applycar_num);
+                                // 机动车辆
+                                dom_show(self.$el.find('.show_active_car'), conf[0].active_car);
+                                // 维保停运
+                                dom_show(self.$el.find('.show_main_outage'), conf[0].main_outage);
+                                // 共享机动
+                                dom_show(self.$el.find('.show_share_active_car'), conf[0].share_active_car);
+                                // 信号在线
+                                dom_show(self.$el.find('.show_signal_online'), conf[0].signal_online);
+                                //信号掉线
+                                dom_show(self.$el.find('.show_signal_outline'), conf[0].signal_outline);
+                                //司机
+                                dom_show(self.$el.find('.show_car_driver'), conf[0].car_driver);
 
-            function site_info(mode_line, model_station_platform, model_bus_num, model_config) {
-                if (self.$el.find('.line_line')[0] != undefined) {
-                    // 由于目前使用query只用到异步的使用，所以请求数据库需要一层层的操作
-                    // 根据tid拿到线路id
-                    mode_line.query().filter([["id", "=", parseInt(tid)]]).all().then(function (data) {
-                        // 根据线路id拿到线路的数据   上下行的站点数据
-                        model_station_platform.query().order_by("sequence").filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "up"]]).all().then(function (res_top) {
-                            model_station_platform.query().order_by("sequence").filter([["route_id", "=", data[0].line_id[0]], ["direction", "=", "down"]]).all().then(function (res_down) {
-                                var site_t = [];
-                                for (var st = 0; st < res_top.length; st++) {
-                                    site_t.push(res_top[st].station_id[1].split('/')[0]);
+                                dom_show(self.$el.find('.show_car_attendant'), conf[0].car_attendant);
+                                //乘务
+                                dom_show(self.$el.find('.show_trailerNum'), conf[0].trailerNum);
+                                var dataSite_top_color_cof = {};
+                                var dataSite_down_color_cof = {};
+                                var res_down_deal = res_down.reverse();
+                                var site_d = [];
+                                //将站点信息缓存起来，车辆资源模块调用
+                                for (var sd = 0; sd < res_down_deal.length; sd++) {
+                                    site_d.push(res_down_deal[sd].station_id[1].split('/')[0]);
                                 }
-                                sessionStorage.setItem("bus_site_top" + self.line_id, site_t);
-                                // 给每个上下行的车辆所在位置添加一个盒子，后面用来装和判断是否发生串车
-                                for (var it = 0; it < res_top.length * 2; it++) {
-                                    self.$el.find('.content_car_road_top').append('<div class="car_line_tb car_line_top' + it + '"></div>');
+                                sessionStorage.setItem("bus_site_down" + self.line_id, site_d);
+                                self.$el.find('.bus_info>ul>li').css('color', conf[0].src_font_conf);
+                                var color = '';
+                                for (var i = 0; i < res_top.length; i++) {
+                                    color = 'color' + res_top[i].id;
+                                    dataSite_top_color_cof[color] = '#18d76b';
                                 }
-                                for (var id = 0; id < res_down.length * 2; id++) {
-                                    self.$el.find('.content_car_road_down').append('<div class="car_line_tb car_line_down' + id + '"></div>');
+                                for (var j = 0; j < res_down_deal.length; j++) {
+                                    color = 'color' + res_down_deal[j].id;
+                                    dataSite_down_color_cof[color] = '#18d76b';
                                 }
-                                // 查询模拟地图上方车辆信息
-                                model_config.query().filter([["id", "=", parseInt(self.desktop_id)]]).all().then(function (conf) {
-                                    // 用来做上方信息的可配置显示与否
-                                    // 配车数量 根据后台是否返回字段进行判断
-                                    dom_show(self.$el.find('.show_applycar_num'), conf[0].applycar_num);
-                                    // 机动车辆
-                                    dom_show(self.$el.find('.show_active_car'), conf[0].active_car);
-                                    // 维保停运
-                                    dom_show(self.$el.find('.show_main_outage'), conf[0].main_outage);
-                                    // 共享机动
-                                    dom_show(self.$el.find('.show_share_active_car'), conf[0].share_active_car);
-                                    // 信号在线
-                                    dom_show(self.$el.find('.show_signal_online'), conf[0].signal_online);
-                                    //信号掉线
-                                    dom_show(self.$el.find('.show_signal_outline'), conf[0].signal_outline);
-                                    //司机
-                                    dom_show(self.$el.find('.show_car_driver'), conf[0].car_driver);
-
-                                    dom_show(self.$el.find('.show_car_attendant'), conf[0].car_attendant);
-                                    //乘务
-                                    dom_show(self.$el.find('.show_trailerNum'), conf[0].trailerNum);
-                                    var dataSite_top_color_cof = {};
-                                    var dataSite_down_color_cof = {};
-                                    var res_down_deal = res_down.reverse();
-                                    var site_d = [];
-                                    //将站点信息缓存起来，车辆资源模块调用
-                                    for (var sd = 0; sd < res_down_deal.length; sd++) {
-                                        site_d.push(res_down_deal[sd].station_id[1].split('/')[0]);
-                                    }
-                                    sessionStorage.setItem("bus_site_down" + self.line_id, site_d);
-                                    self.$el.find('.bus_info>ul>li').css('color', conf[0].src_font_conf);
-                                    var color = '';
-                                    for (var i = 0; i < res_top.length; i++) {
-                                        color = 'color' + res_top[i].id;
-                                        dataSite_top_color_cof[color] = '#18d76b';
-                                    }
-                                    for (var j = 0; j < res_down_deal.length; j++) {
-                                        color = 'color' + res_down_deal[j].id;
-                                        dataSite_down_color_cof[color] = '#18d76b';
-                                    }
-                                    // 上下行的车辆描圈
-                                    // 上下行的名称显示
-                                    cir_and_text({
-                                        id: '.can_top',
-                                        ciry: 27,
-                                        testy: 13,
-                                        // color: data.color,
-                                        self: self.$el,
-                                        dataSite_color: dataSite_top_color_cof,
-                                        site_infos: res_top
-                                    });
-                                    cir_and_text({
-                                        id: '.can_bottom',
-                                        ciry: 6,
-                                        testy: 25,
-                                        self: self.$el,
-                                        // color: data.color,
-                                        dataSite_color: dataSite_down_color_cof,
-                                        site_infos: res_down_deal
-                                    });
-                                    //将字段重新赋值
-                                    self.site_top_infos = res_top;
-                                    self.site_down_infos = res_down_deal;
-                                    // 站点颜色
-                                    self.dataSite_top_color = dataSite_top_color_cof;
-                                    self.dataSite_down_color = dataSite_down_color_cof;
-                                    self.subsection = '';
-                                    //将line_message的websocket模块入库
-                                    var model_id = "line_message__" + self.line_id;
-                                    if (socket_model_info[model_id]) {
-                                        delete socket_model_info[model_id];
-                                    }
-                                    // 查询显示车辆上方数据
-                                    $.ajax({
-                                        url: RESTFUL_URL + '/ltyop/dispatchRealtimeStatus/cachelineStat?apikey=71029270&params={"gprsId":' + self.gprs_id + '}',
-                                        type: 'get',
-                                        async: false,
-                                        dataType: 'json',
-                                        data: {},
-                                        success: function (data) {
-                                            if (data) {
-                                                //配车数量
-                                                self.$el.find('.show_applycar_num span').html(data[0].withBus);
-                                                //挂车数量
-                                                self.$el.find('.show_trailerNum span').html(data[0].runBus);
-                                                //机动车辆
-                                                self.$el.find('.show_active_car span').html(data[0].motorBus);
-                                                // 信号在线
-                                                self.$el.find('.show_signal_online span').html(data[0].online);
-                                                //信号掉线
-                                                self.$el.find('.show_signal_outline span').html(data[0].offline);
-                                                //司机
-                                                self.$el.find('.show_car_driver span').html(data[0].driver);
-                                                //乘务
-                                                self.$el.find('.show_car_attendant span').html(data[0].train);
-                                                self.$el.find('.park_left li').eq(0).html(data[0].upReturnLevel1);
-                                                self.$el.find('.park_left li').eq(1).html(data[0].upReturnLevel2);
-                                                self.$el.find('.park_left li').eq(2).html(data[0].upReturnLevel3);
-                                                self.$el.find('.park_left li').eq(3).html(data[0].upReturnLevel4);
-                                                self.$el.find('.park_right li').eq(3).html(data[0].downReturnLevel1);
-                                                self.$el.find('.park_right li').eq(2).html(data[0].downReturnLevel2);
-                                                self.$el.find('.park_right li').eq(1).html(data[0].downReturnLevel3);
-                                                self.$el.find('.park_right li').eq(0).html(data[0].downReturnLevel4);
-                                                $.ajax({
-                                                    url: RESTFUL_URL + '/ltyop/dispatchRealtimeStatus/cacheDrivingStat?apikey=71029270&params={"gprsId":"' + self.gprs_id + '"}',
-                                                    type: 'get',
-                                                    async: false,
-                                                    dataType: 'json',
-                                                    data: {},
-                                                    success: function (res) {
-                                                        console.log(res)
-                                                        for (var i = 0; i < res.length; i++) {
-                                                            //给设置的车子的隐藏盒子赋上bus_no字段
-                                                            $('.run_car_hide').find('.line_car').attr('bus_no', res[i].onboard);
-                                                            // 根据数据源判断车辆是否在线
-                                                            if (res[i].onlineFlag == 0) {
-                                                                $('.run_car_hide').find('.line_car').removeClass('to_gray');
-                                                            } else if (res[i].onlineFlag == 1) {
-                                                                $('.run_car_hide').find('.line_car').addClass('to_gray');
-                                                            }
-                                                            // 上下行
-                                                            if (res[i].stationFlag != 2) {
-                                                                if (res[i].direction == 0) {
-                                                                    //是否在车场
-                                                                    // 进站0 出站1
-                                                                    if (res[i].stationFlag == 0) {
-                                                                        self.$el.find('.content_car_road_top .car_line_top' + (parseInt(res[i].stationNo) * 2 - 2)).append($('.run_car_hide').html());
-                                                                        var oLeft = 1190 * (parseInt(res[i].stationNo) - 0.5) / res_top.length;
-                                                                    } else if (res[i].stationFlag == 1) {
-                                                                        self.$el.find('.content_car_road_top .car_line_top' + (parseInt(res[i].stationNo) * 2 - 1)).append($('.run_car_hide').html());
-                                                                        var oLeft = 1190 * (parseInt(res[i].stationNo)) / res_top.length;
-                                                                    }
-                                                                    self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px');
-                                                                    self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').attr("car_id", res[i].car_id).html(res[i].carNum);
-                                                                } else if (res[i].direction == 1) {
-                                                                    // 进站   出站
-                                                                    if (res[i].stationFlag == 0) {
-                                                                        self.$el.find('.content_car_road_down .car_line_down' + (parseInt(res[i].stationNo) * 2 - 2)).append($('.run_car_hide').html());
-                                                                        var oLeft = 1190 - 1190 * (parseInt(res[i].stationNo) - 0.5) / res_down_deal.length;
-                                                                    } else if (res[i].stationFlag == 1) {
-                                                                        self.$el.find('.content_car_road_down .car_line_down' + (parseInt(res[i].stationNo) * 2 - 1)).append($('.run_car_hide').html());
-                                                                        var oLeft = 1190 - 1190 * (parseInt(res[i].stationNo)) / res_down_deal.length;
-                                                                    }
-                                                                    self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px');
-                                                                    self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').find('.type_car span').attr("car_id", res[i].car_id).html(res[i].carNum);
+                                // 上下行的车辆描圈
+                                // 上下行的名称显示
+                                cir_and_text({
+                                    id: '.can_top',
+                                    ciry: 27,
+                                    testy: 13,
+                                    // color: data.color,
+                                    self: self.$el,
+                                    dataSite_color: dataSite_top_color_cof,
+                                    site_infos: res_top
+                                });
+                                cir_and_text({
+                                    id: '.can_bottom',
+                                    ciry: 6,
+                                    testy: 25,
+                                    self: self.$el,
+                                    // color: data.color,
+                                    dataSite_color: dataSite_down_color_cof,
+                                    site_infos: res_down_deal
+                                });
+                                //将字段重新赋值
+                                self.site_top_infos = res_top;
+                                self.site_down_infos = res_down_deal;
+                                // 站点颜色
+                                self.dataSite_top_color = dataSite_top_color_cof;
+                                self.dataSite_down_color = dataSite_down_color_cof;
+                                self.subsection = '';
+                                //将line_message的websocket模块入库
+                                var model_id = "line_message__" + self.line_id;
+                                if (socket_model_info[model_id]) {
+                                    delete socket_model_info[model_id];
+                                }
+                                // 查询显示车辆上方数据
+                                $.ajax({
+                                    url: RESTFUL_URL + '/ltyop/dispatchRealtimeStatus/cachelineStat?apikey=71029270&params={"gprsId":' + self.gprs_id + '}',
+                                    type: 'get',
+                                    async: false,
+                                    dataType: 'json',
+                                    data: {},
+                                    success: function (data) {
+                                        if (data) {
+                                            //配车数量
+                                            self.$el.find('.show_applycar_num span').html(data[0].withBus);
+                                            //挂车数量
+                                            self.$el.find('.show_trailerNum span').html(data[0].runBus);
+                                            //机动车辆
+                                            self.$el.find('.show_active_car span').html(data[0].motorBus);
+                                            // 信号在线
+                                            self.$el.find('.show_signal_online span').html(data[0].online);
+                                            //信号掉线
+                                            self.$el.find('.show_signal_outline span').html(data[0].offline);
+                                            //司机
+                                            self.$el.find('.show_car_driver span').html(data[0].driver);
+                                            //乘务
+                                            self.$el.find('.show_car_attendant span').html(data[0].train);
+                                            //上下行在途车辆不同状态的车辆数量
+                                            self.$el.find('.park_left li').eq(0).html(data[0].upReturnLevel1);
+                                            self.$el.find('.park_left li').eq(1).html(data[0].upReturnLevel2);
+                                            self.$el.find('.park_left li').eq(2).html(data[0].upReturnLevel3);
+                                            self.$el.find('.park_left li').eq(3).html(data[0].upReturnLevel4);
+                                            self.$el.find('.park_right li').eq(3).html(data[0].downReturnLevel1);
+                                            self.$el.find('.park_right li').eq(2).html(data[0].downReturnLevel2);
+                                            self.$el.find('.park_right li').eq(1).html(data[0].downReturnLevel3);
+                                            self.$el.find('.park_right li').eq(0).html(data[0].downReturnLevel4);
+                                            //restful渲染车辆
+                                            $.ajax({
+                                                url: RESTFUL_URL + '/ltyop/dispatchRealtimeStatus/cacheDrivingStat?apikey=71029270&params={"gprsId":"' + self.gprs_id + '"}',
+                                                type: 'get',
+                                                async: false,
+                                                dataType: 'json',
+                                                data: {},
+                                                success: function (res) {
+                                                    for (var i = 0; i < res.length; i++) {
+                                                        //给设置的车子的隐藏盒子赋上bus_no字段
+                                                        $('.run_car_hide').find('.line_car').attr('bus_no', res[i].onboard);
+                                                        // 根据数据源判断车辆是否在线
+                                                        if (res[i].onlineFlag == 0) {
+                                                            $('.run_car_hide').find('.line_car').removeClass('to_gray');
+                                                        } else if (res[i].onlineFlag == 1) {
+                                                            $('.run_car_hide').find('.line_car').addClass('to_gray');
+                                                        }
+                                                        // 上下行
+                                                        if (res[i].stationFlag != 2) {
+                                                            var oLeft = '';
+                                                            if (res[i].direction == 0) {
+                                                                //是否在车场
+                                                                // 进站0 出站1
+                                                                if (res[i].stationFlag == 0) {
+                                                                    self.$el.find('.content_car_road_top .car_line_top' + (parseInt(res[i].stationNo) * 2 - 2)).append($('.run_car_hide').html());
+                                                                    oLeft = 1190 * (parseInt(res[i].stationNo) - 0.5) / res_top.length;
+                                                                } else if (res[i].stationFlag == 1) {
+                                                                    self.$el.find('.content_car_road_top .car_line_top' + (parseInt(res[i].stationNo) * 2 - 1)).append($('.run_car_hide').html());
+                                                                    oLeft = 1190 * (parseInt(res[i].stationNo)) / res_top.length;
                                                                 }
+                                                                self.$('.content_car_road_top').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px').find('.type_car span').attr("car_id", res[i].car_id).html(res[i].carNum);
+                                                            } else if (res[i].direction == 1) {
+                                                                // 进站   出站
+                                                                if (res[i].stationFlag == 0) {
+                                                                    self.$el.find('.content_car_road_down .car_line_down' + (parseInt(res[i].stationNo) * 2 - 2)).append($('.run_car_hide').html());
+                                                                    oLeft = 1190 - 1190 * (parseInt(res[i].stationNo) - 0.5) / res_down_deal.length;
+                                                                } else if (res[i].stationFlag == 1) {
+                                                                    self.$el.find('.content_car_road_down .car_line_down' + (parseInt(res[i].stationNo) * 2 - 1)).append($('.run_car_hide').html());
+                                                                    oLeft = 1190 - 1190 * (parseInt(res[i].stationNo)) / res_down_deal.length;
+                                                                }
+                                                                self.$('.content_car_road_down').find('.line_car[bus_no=' + res[i].onboard + ']').css('left', oLeft - 15 + 'px').find('.type_car span').attr("car_id", res[i].car_id).html(res[i].carNum);
                                                             }
                                                         }
-                                                        //渲染串车
-                                                        self.render_cc('top', -20);
-                                                        self.render_cc('down', 30);
-                                                        $('.run_car_hide').find('.line_car').removeClass('to_gray');
-                                                        can_left_right(
-                                                            {
-                                                                id: '.canvas_left',
-                                                                color: '#252B43',
-                                                                ciry: 27,
-                                                                self: self.$el,
-                                                                r: 4,
-                                                                lineLen: 17,
-                                                                sta: 1,
-                                                                busNumber: data[0].upFieldBusNum + '辆'
-                                                            }
-                                                        );
-                                                        can_left_right(
-                                                            {
-                                                                id: '.canvas_right',
-                                                                color: '#252B43',
-                                                                ciry: 27,
-                                                                self: self.$el,
-                                                                r: 4,
-                                                                lineLen: 0,
-                                                                sta: 1.5,
-                                                                busNumber: data[0].downFieldBusNum + '辆'
-                                                            }
-                                                        );
-                                                        // 这里调用socket时的方法   fn调用方法   arg给参
-                                                        socket_model_info[model_id] =
-                                                            {
-                                                                fn: self.site_websocket,
-                                                                arg: {
-                                                                    self: self,
-                                                                    line_id: self.line_id,
-                                                                    desktop_id: self.desktop_id,
-                                                                    site_top_infos: res_top,
-                                                                    site_down_infos: res_down_deal,     //此处修改
-                                                                    dataSite_top_color_cof: dataSite_top_color_cof,
-                                                                    dataSite_down_color_cof: dataSite_down_color_cof,
-                                                                    busTopNumber: data[0].upFieldBusNum + '辆',
-                                                                    busDownNumber: data[0].downFieldBusNum + '辆',
-                                                                    hasCar: []
-                                                                }
-                                                            };
-                                                    },
-                                                    error: function () {
-                                                        layer.msg('请求出错', {time: 1000, shade: 0.3});
                                                     }
-                                                });
-                                            }
-                                        },
-                                        error: function () {
-                                            layer.msg('请求出错', {time: 1000, shade: 0.3});
+                                                    //渲染串车
+                                                    self.render_cc('top', -20);
+                                                    self.render_cc('down', 30);
+                                                    $('.run_car_hide').find('.line_car').removeClass('to_gray');
+                                                    can_left_right(
+                                                        {
+                                                            id: '.canvas_left',
+                                                            color: '#252B43',
+                                                            ciry: 27,
+                                                            self: self.$el,
+                                                            r: 4,
+                                                            lineLen: 17,
+                                                            sta: 1,
+                                                            busNumber: data[0].upFieldBusNum + '辆'
+                                                        }
+                                                    );
+                                                    can_left_right(
+                                                        {
+                                                            id: '.canvas_right',
+                                                            color: '#252B43',
+                                                            ciry: 27,
+                                                            self: self.$el,
+                                                            r: 4,
+                                                            lineLen: 0,
+                                                            sta: 1.5,
+                                                            busNumber: data[0].downFieldBusNum + '辆'
+                                                        }
+                                                    );
+                                                    // 这里调用socket时的方法   fn调用方法   arg给参
+                                                    socket_model_info[model_id] =
+                                                        {
+                                                            fn: self.site_websocket,
+                                                            arg: {
+                                                                self: self,
+                                                                line_id: self.line_id,
+                                                                desktop_id: self.desktop_id,
+                                                                site_top_infos: res_top,
+                                                                site_down_infos: res_down_deal,     //此处修改
+                                                                dataSite_top_color_cof: dataSite_top_color_cof,
+                                                                dataSite_down_color_cof: dataSite_down_color_cof,
+                                                                busTopNumber: data[0].upFieldBusNum + '辆',
+                                                                busDownNumber: data[0].downFieldBusNum + '辆',
+                                                                hasCar: []
+                                                            }
+                                                        };
+                                                },
+                                                error: function () {
+                                                    layer.msg('请求出错', {time: 1000, shade: 0.3});
+                                                }
+                                            });
                                         }
-                                    });
+                                    },
+                                    error: function () {
+                                        layer.msg('请求出错', {time: 1000, shade: 0.3});
+                                    }
                                 });
                             });
                         });
                     });
-                }
+                });
             }
-
-            site_info(this.model_line, this.model_station_platform, this.model_bus_num, this.model_config);
-            //阻止右键引起的默认事件必须使用contextmenu,暂时功能弃用
-            // self.$('.can_top').bind('contextmenu', function () {
-            //     return false;
-            // });
-            // self.$('.can_bottom').bind('contextmenu', function () {
-            //     return false;
-            // });
         },
+        //渲染串车
         render_cc: function (dom_direct, num_distance) {
             var dom_par = '.content_car_road_' + dom_direct + ' .car_line_tb';
             var dom = '.content_car_road_' + dom_direct + ' .car_line_' + dom_direct;
@@ -437,35 +432,35 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                     $('.traffic_car .line_car[bus_no=' + data_use.data.terminalNo + ']').remove();
                     $('.run_car_hide').find('.line_car').attr('bus_no', data_use.data.terminalNo);
                     // 车辆进出站上下行 进出站  0 上行 in进站
+                    var tLeft = '';
                     if (data_use.data.direction == 0) {
                         if (data_use.data.type == "in") {
                             self.$el.find('.content_car_road_top .car_line_top' + (parseInt(data_use.data.stationNo) * 2 - 2)).append($('.run_car_hide').html());
-                            var oLeft = 1190 * (parseInt(data_use.data.stationNo) - 0.5) / arg.site_top_infos.length;
+                            tLeft = 1190 * (parseInt(data_use.data.stationNo) - 0.5) / arg.site_top_infos.length;
                         } else if (data_use.data.type == "out") {
                             self.$el.find('.content_car_road_top .car_line_top' + (parseInt(data_use.data.stationNo) * 2 - 1)).append($('.run_car_hide').html());
-                            var oLeft = 1190 * (parseInt(data_use.data.stationNo)) / arg.site_top_infos.length;
+                            tLeft = 1190 * (parseInt(data_use.data.stationNo)) / arg.site_top_infos.length;
                         }
-                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').css('left', oLeft - 15 + 'px');
-                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.carNum);
+                        self.$('.content_car_road_top').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').css('left', tLeft - 15 + 'px').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.carNum);
                         //遍历每个小格子
                     } else if (data_use.data.direction == 1) {
                         if (data_use.data.type == "in") {
                             self.$el.find('.content_car_road_down .car_line_down' + (parseInt(data_use.data.stationNo) * 2 - 2)).append($('.run_car_hide').html());
-                            var oLeft = 1190 - 1190 * (parseInt(data_use.data.stationNo) - 0.5) / arg.site_down_infos.length;
+                            tLeft = 1190 - 1190 * (parseInt(data_use.data.stationNo) - 0.5) / arg.site_down_infos.length;
                         } else if (data_use.data.type == "out") {
                             self.$el.find('.content_car_road_down .car_line_down' + (parseInt(data_use.data.stationNo) * 2 - 1)).append($('.run_car_hide').html());
-                            var oLeft = 1190 - 1190 * (parseInt(data_use.data.stationNo)) / arg.site_down_infos.length;
+                            tLeft = 1190 - 1190 * (parseInt(data_use.data.stationNo)) / arg.site_down_infos.length;
                         }
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').css('left', oLeft - 15 + 'px');
-                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.carNum);
-
+                        self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').css('left', tLeft - 15 + 'px').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.carNum);
                     }
                     //渲染串车
                     self.render_cc('top', -20);
                     self.render_cc('down', 30);
                 }
+                //修改变量的值
                 data.busTopNumber = arg.busTopNumber;
                 data.busDownNumber = arg.busDownNumber;
+                //分段区域
                 data.subsection = [1, 2, 3, 4, 5, 6];
                 //公交模拟地图canvas绘制
                 qrend_desktop_canvas(data, '.can_top', '.can_bottom', '.canvas_left', '.canvas_right', self.$el);
@@ -503,7 +498,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             // 行车组件关闭
             'click .min': 'closeFn',
             'click .park_top_down_way': 'open_park_way',
-            'mouseup .show_mutual_information': 'show_mutual_information',
+            'mouseup .show_mutual_information': 'show_mutual_information'
         },
         show_mutual_information: function (ev) {
             var self = this;
@@ -777,18 +772,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var x = event.pageX - c.getBoundingClientRect().left;
             var y = event.pageY - c.getBoundingClientRect().top;
             var zIndex = parseInt(this.$el[0].style.zIndex) + 1;
-            // if (e.button == 2) {
-            //     if ($('body').find('.bus_site_info').length > 0) {
-            //         $('body').find('.bus_site_info').remove();
-            //     }
-            //     var options =
-            //         {
-            //             x: event.clientX - self.$el[0].offsetLeft + 5,
-            //             y: event.clientY - self.$el[0].offsetTop + 5,
-            //             zIndex: zIndex,
-            //         };
-            //     new bus_site_info(this, options).appendTo(this.$el);
-            // }
             if (canvas.site_infos) {
                 for (var i = 0; i < canvas.site_infos.length; i++) {
                     cxt.beginPath();
@@ -847,6 +830,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                             cxt.fill();
                             cxt.closePath();
                         }
+                        //绘上之后及跳出
                         break
                     }
                     cxt.closePath();
@@ -882,13 +866,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 }
             }
         },
-// 点击左侧车场
+        // 点击左侧车场
         clk_can_left: function (e) {
             this.click_lr({
                 id: '.canvas_left',
             }, e);
         },
-// 点击右侧车场
+        // 点击右侧车场
         clk_can_right: function (e) {
             this.click_lr({
                 id: '.canvas_right',
@@ -936,7 +920,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 id: '.canvas_right',
             }, e);
         },
-//左侧的停车场的点击事件
+        //左侧的停车场的点击事件
         click_lr: function (canvas, e) {
             var self = this;
             var event = e || window.event;
@@ -1053,7 +1037,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             if (bus_val == undefined) {
                 bus_val = '';
             }
-            var td_txt = '';
             if (line_val) {
                 $.ajax({
                     url: RESTFUL_URL + '/ltyop/exchange/list?apikey=71029270&params={lineId:' + line_val + ',controlId:' + self.desktop_id + ',arg:\'' + bus_val + '\',arg1:\'' + make_deal + '\',pageSize:10}',
@@ -1064,37 +1047,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         var totalPage = data.respose.vo.totalCount % 10 == 0 ? data.respose.vo.totalCount / 10 : Math.ceil(data.respose.vo.totalCount / 10);
                         self.$el.find('.mutual_content tbody').html('');
                         if (data.respose.opWarningList.length > 0) {
-
-                            $.each(data.respose.opWarningList, function (index, value) {   // 解析出data对应的Object数组
-                                td_txt += "<tr>"
-                                    + "<td>" + index + "</td>"
-                                    + "<td>" + value.occurTime + "</td>"
-                                    + "<td>" + value.lineName + "</td>"
-                                    + "<td obd=" + value.id + ">" + value.onBoardId + "</td>"
-                                    + "<td>" + value.logText + "</td>"
-                                    + "<td>" + value.remark + "</td>"
-                                if (value.result == 0) {
-                                    td_txt += "<td><a class='agree_abnormal'>同意</a>|<a class='refuse_abnormal'>拒绝</a></td>"
-                                        + "<td class='deal_or_not'>待操作</td>"
-                                } else if (value.result == 1) {
-                                    td_txt += "<td></td>"
-                                        + "<td class='deal_or_not'>已忽略</td>"
-                                } else if (value.result == 2) {
-                                    td_txt += "<td></td>"
-                                        + "<td class='deal_or_not'>已拒绝</td>"
-                                } else if (value.result == 3) {
-                                    td_txt += "<td></td>"
-                                        + "<td class='deal_or_not'>已同意</td>"
-                                } else if (value.result == 4) {
-                                    td_txt += "<td></td>"
-                                        + "<td class='deal_or_not'>进场执行</td>"
-                                } else if (value.result == 5) {
-                                    td_txt += "<td></td>"
-                                        + "<td class='deal_or_not'>已自动处理</td>"
-                                }
-                                td_txt += "</tr>";
-                            });
-                            self.$el.find('.mutual_content tbody').html(td_txt);
+                            self.$el.find('.mutual_content tbody').html(QWeb.render("pagination_table", {widget: data.respose.opWarningList}));
                             // 分页的初始渲染
                             $('.pagination_tbl').bootstrapPaginator({
                                 currentPage: 1,//当前的请求页面。
@@ -1126,43 +1079,17 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                         data: '',
                                         success: function (data1) {
                                             self.$el.find('.mutual_content tbody').html('');
-                                            td_txt = '';
-                                            $.each(data1.respose.opWarningList, function (index, value) {   // 解析出data对应的Object数组
-                                                var index_num = parseInt((page - 1) * 10) + index;
-                                                td_txt += "<tr>"
-                                                    + "<td>" + index_num + "</td>"
-                                                    + "<td>" + value.occurTime + "</td>"
-                                                    + "<td>" + value.lineName + "</td>"
-                                                    + "<td obd=" + value.id + ">" + value.onBoardId + "</td>"
-                                                    + "<td>" + value.logText + "</td>"
-                                                    + "<td>" + value.remark + "</td>"
-                                                if (value.result == 0) {
-                                                    td_txt += "<td><a class='agree_abnormal'>同意</a>|<a class='refuse_abnormal'>拒绝</a></td>"
-                                                        + "<td class='deal_or_not'>待操作</td>"
-                                                } else if (value.result == 1) {
-                                                    td_txt += "<td></td>"
-                                                        + "<td class='deal_or_not'>已操作</td>"
-                                                } else if (value.result == 2) {
-                                                    td_txt += "<td></td>"
-                                                        + "<td class='deal_or_not'>已拒绝</td>"
-                                                } else if (value.result == 3) {
-                                                    td_txt += "<td></td>"
-                                                        + "<td class='deal_or_not'>已同意</td>"
-                                                } else if (value.result == 4) {
-                                                    td_txt += "<td></td>"
-                                                        + "<td class='deal_or_not'>进场执行</td>"
-                                                } else if (value.result == 5) {
-                                                    td_txt += "<td></td>"
-                                                        + "<td class='deal_or_not'>已自动处理</td>"
-                                                }
-                                                td_txt += "</tr>";
-                                            });
-                                            self.$el.find('.mutual_content tbody').html(td_txt);
+                                            var index_num = parseInt((page - 1) * 10);
+                                            self.$el.find('.mutual_content tbody').html(QWeb.render("pagination_table", {
+                                                widget: data1.respose.opWarningList,
+                                                index_num: index_num
+                                            }));
                                         }
                                     })
                                 }
                             })
                         } else {
+                            $('.mutual_content .pagination').remove();
                             layer.msg('暂无数据', {time: 1000, shade: 0.3});
                         }
                     },
@@ -1173,12 +1100,12 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             } else {
                 layer.msg('请选择路线！', {time: 1000, shade: 0.3});
             }
-
         },
+        //点击关闭销毁该模块
         close_this: function () {
             this.destroy()
         }
-    })
+    });
     var dispatch_line_control = Widget.extend({
         init: function (parent, data, type) {
             this._super(parent);
@@ -1207,7 +1134,6 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                 } else if (data.length > 1) {
                     new dispatch_canvas(this, data[0], 0).appendTo(this.$el);
                     new dispatch_updown_line(this, data[1], 0).appendTo(this.$el);
-                    // this.$el.find('.show_right').hide();
                     if (data[1].tem_display == 'none') {
                         this.$el.find('.show_right').show();
                         this.$el.find('.line_edit').hide();
@@ -1216,7 +1142,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         this.$el.find('.line_edit').show();
                     }
                 }
-                // 手动添加渲染
+                // 手动添加渲染   添加模块
             } else if (type == 1) {
                 var zr_index = 1;
                 if ($('body').find('.dragContent[click]').length > 0) {
@@ -1227,10 +1153,10 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
         },
         events: {
-            'click .chs li': 'chose_line',
-
+            'click .chs li': 'chose_line'
         },
         chose_line: function (event) {
+            //event.currentTarget为点击的dom，用于处理取不到当前this；
             var x = event.currentTarget;
             var self = this;
             var line = $(x).attr("lineid");
@@ -1244,6 +1170,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var lineName = $('body').find('.line_line');
             var resName = [];
             var desktop_id = self.desktop_id;
+            //所有站点
             for (var j = 0; j < lineName.length; j++) {
                 resName.push(lineName[j].innerHTML);
             }
@@ -1302,7 +1229,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                 'position_top': siteTopPf,
                                 'position_z_index': 0,
                                 'name': x.innerHTML
-                            }]).then(function (res) {
+                            }]).then(function (res1) {
                             self.model_line.query().filter([["desktop_id", '=', parseInt(desktop_id)], ["line_id", "=", parseInt(line)]]).all().then(function (data) {
                                 data[1].position_left = self.$el.find('.updown_line_table')[0].offsetLeft;
                                 data[1].position_top = self.$el.find('.updown_line_table')[0].offsetTop;
@@ -1316,12 +1243,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
         }
     });
-//整个车行的组件
+    //整个车行的组件
     var dispatch_bus = Widget.extend({
         init: function (parent, data, type) {
             this._super(parent);
             this.data = data;
             this.type = type;
+            //线路——表
             this.model_line = new Model('dispatch.control.desktop.component');
         },
         start: function () {
@@ -1338,13 +1266,13 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             var self = this;
             var zIndex = parseInt(this.$el[0].style.zIndex) + 1;
             var tid = this.$el.find('.updown_line_table').attr('tid');
+            // tem_play为用于区分模块是否为展示状态的值
             self.model_line.call("write", [parseInt(tid),
                 {
                     'tem_display': ''
                 }]).then(function () {
                 self.$el.find('.updown_line_table').show().css('z-index', zIndex);
-                $(x).hide();
-                $(x).siblings('.line_edit').show();
+                $(x).hide().siblings('.line_edit').show();
             });
         }
     });

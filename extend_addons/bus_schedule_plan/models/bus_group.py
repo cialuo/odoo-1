@@ -241,6 +241,7 @@ class BusGroupVehicle(models.Model):
     """
     _name = 'bus_group_vehicle'
     _rec_name = 'vehicle_id'
+    _order = "sequence"
 
     _sql_constraints = [
         ('record_unique', 'unique(route_id,vehicle_id)', _('The route and vehicle must be unique!')),
@@ -254,6 +255,12 @@ class BusGroupVehicle(models.Model):
                                    readonly=True, copy=False, string="Vehicle Model")
     ride_number = fields.Integer('Ride Number', related='vehicle_id.ride_number', readonly=True)
     state = fields.Selection(related='vehicle_id.state', readonly=True, string="Vehicle State")
+    #台次
+    sequence = fields.Integer()
+    
+    _sql_constraints = [
+        ('bus_group_id_sequence_unique', 'unique(bus_group_id,sequence)', (u'车辆序号不可重复！'))
+    ]    
 
 
 class BusGroupDriver(models.Model):
@@ -262,6 +269,7 @@ class BusGroupDriver(models.Model):
     """
     _name = 'bus_group_driver'
     _rec_name = 'driver_id'
+    _order = "sequence"
 
     _sql_constraints = [
         ('record_unique', 'unique(route_id,driver_id)', _('The route and driver must be unique!')),
@@ -273,7 +281,12 @@ class BusGroupDriver(models.Model):
     driver_id = fields.Many2one('hr.employee', string="driver", required=True,
                                 domain="[('workpost.posttype', '=', 'driver'), ('lines', '=', route_id)]")
     jobnumber = fields.Char(string='employee work number', related='driver_id.jobnumber', readonly=True)
-
+    #台次
+    sequence = fields.Integer()
+    
+    _sql_constraints = [
+        ('bus_group_id_sequence_unique', 'unique(bus_group_id,sequence)', (u'司机序号不可重复！'))
+    ]    
 
 class BusGroupConductor(models.Model):
     """
@@ -281,6 +294,7 @@ class BusGroupConductor(models.Model):
     """
     _name = 'bus_group_conductor'
     _rec_name = 'conductor_id'
+    _order = "sequence"
 
     _sql_constraints = [
         ('record_unique', 'unique(route_id,conductor_id)', _('The route and conductor must be unique!')),
@@ -291,6 +305,13 @@ class BusGroupConductor(models.Model):
     conductor_id = fields.Many2one('hr.employee', string="conductor", required=True,
                                    domain="[('workpost.posttype', '=', 'conductor'), ('lines', '=', route_id)]")
     jobnumber = fields.Char(string='employee work number', related='conductor_id.jobnumber', readonly=True)
+    #台次
+    sequence = fields.Integer()
+    
+    _sql_constraints = [
+        ('bus_group_id_sequence_unique', 'unique(bus_group_id,sequence)', (u'乘务员序号不可重复！'))
+    ]    
+    
 
 
 class BusGroupDriverVehicleShift(models.Model):
