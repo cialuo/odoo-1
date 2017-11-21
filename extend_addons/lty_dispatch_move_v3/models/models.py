@@ -46,7 +46,6 @@ class operation_records_move2v3(models.Model):
     ],default="draft", readonly=True)
     move_result = fields.Text()       
     
-    
     _sql_constraints = [
         ('name_uniq', 'unique (name,line_id)', u'不能重复迁移同一日期，同一线路的数据!')
     ]
@@ -364,6 +363,10 @@ class attence(models.Model):
         ('approved','审核'), 
         ('moved','迁移') 
     ],default="draft", readonly=True)
+    #计划趟次
+    plan_count = fields.Float()
+    #实际趟次    
+    run_count = fields.Float()    
 
     @api.multi
     def restful_get_data(self, search_para):
@@ -407,7 +410,8 @@ class attence(models.Model):
                 'is_add': False,
                 'restful_key_id':item.get('id'), 
                 'work_type_id':str(item.get('workerType')), 
-                
+                'plan_count':item.get('planCount') or None,
+                'run_count':item.get('runCount') or None,
 
                 # : item.get('dispatchPlanId'],		#  -1,
                 # : item.get('driverName'],			#  "司机姓名 15373",

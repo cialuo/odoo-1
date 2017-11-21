@@ -794,6 +794,10 @@ attend = {
     ('planTime', None): None,
 	#员工类型//1019 司机  1020 售票员
     ('workerType', 'work_type_id'): None,
+	#计划趟次
+    ('runCount', 'run_count'): None,	
+	#实际趟次
+    ('planCount', 'plan_count'): None,		
 	#以下为odoo所有界面的字段传输信息 - 员工考勤
 	#补录
     ('is_add', 'is_add'): None,	

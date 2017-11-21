@@ -57,6 +57,9 @@
 			<field name="gen_date" string="生成时间" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			<field name="note" string="备注" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			<field name="state" string="状态" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
+			
+			
+			
 		</tree>
       </field>
     </record>    
@@ -75,6 +78,8 @@
 			  <field name="date" string="日期" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			  <field name="checkingin" string="签到时间" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			  <field name="checkinginout" string="签退时间" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
+			  <field name="plan_count" string="计划趟次" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
+			  <field name="run_count" string="实际趟次" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>			  
 			  <field name="state" string="状态" readonly='1'/>
         </tree>
       </field>
