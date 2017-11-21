@@ -701,7 +701,7 @@ operate_nonOperate = {
     ('invalidCount', None): None,
 	#planStateId ??
     ('planStateId', None): None,	
-	#以下为odoo所有界面的字段传输信息
+	#以下为odoo所有界面的字段传输信息 - 运营+非运营
 	#是否补录
     ('is_add', 'is_add'): None,	
 	#类型
@@ -715,9 +715,9 @@ operate_nonOperate = {
 	#执行日期
     ('date', 'date'): None,		
 	#计划时间
-    ('date_plan', 'date_plan'): None,			
+    ('planRunTime', 'date_plan'): None,			
 	#实际发车时间
-    ('realitydepart', 'realitydepart'): None,		
+    ('realRunTime', 'realitydepart'): None,		
 	#计划状态
     ('state_plan', 'state_plan'): None,		
 	#车辆编号
@@ -727,13 +727,13 @@ operate_nonOperate = {
 	#司机姓名
     ('driver_name', 'driver_name'): None,	
 	#计划到达时间
-    ('planarrive', 'planarrive'): None,	
+    ('planReachTime', 'planarrive'): None,	
 	#实际到达时间
     ('realityarrive', 'realityarrive'): None,	
 	#运营时长
     ('time_operation', 'time_operation'): None,	
 	#计划公理数
-    ('planmileage', 'planmileage'): None,	
+    ('planKm', 'planmileage'): None,	
 	#GPS公理数
     ('GPSmileage', 'GPSmileage'): None,	
 	#运营属性
@@ -745,7 +745,7 @@ operate_nonOperate = {
 	#备注
     ('note', 'note'): None,	
 	#状态
-    ('state', 'state'): None,		
+    ('planState', 'state'): None,		
 }
 #考勤信息表表
 #attend -- employee.attencerecords
@@ -794,7 +794,7 @@ attend = {
     ('planTime', None): None,
 	#员工类型//1019 司机  1020 售票员
     ('workerType', 'work_type_id'): None,
-	#以下为odoo所有界面的字段传输信息
+	#以下为odoo所有界面的字段传输信息 - 员工考勤
 	#补录
     ('is_add', 'is_add'): None,	
 	#公司
