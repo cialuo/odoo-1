@@ -325,6 +325,8 @@ odoo.define("line_map_production_sz_tmp.line_map_production", function(require) 
             self.switch = false;
             if (self.polylineEditor){
                 self.polylineEditor.open();
+                // 增加历史找对应修改对象
+                self.his_path_gps_list = new Array().concat(self.polyline.getPath());
             }
         },
         // 停止画笔
@@ -355,8 +357,6 @@ odoo.define("line_map_production_sz_tmp.line_map_production", function(require) 
         // 画笔修改绑定相关事件
         load_polylineEditor_fn: function(polylineEditor){
             var self = this;
-            // 增加历史找对应修改对象
-            self.his_path_gps_list = new Array().concat(self.polyline.getPath());
             // 增加
             polylineEditor.on("addnode", function(e){
                 self.update_polyline_data(e);
@@ -568,6 +568,7 @@ odoo.define("line_map_production_sz_tmp.line_map_production", function(require) 
             var self = this;
             var map = self.map;
             var configurationInfo = self.get_configuration_fn();
+            var new_gprs_info = [];
             _.each(gprsInfo, function(oe){
                 if (oe.azimuthType || oe.roadType){
                     var gpsKey = "gps_"+oe.lng.toString().replace('.', 'd')+"_"+oe.lat.toString().replace('.', 'd');
@@ -580,14 +581,16 @@ odoo.define("line_map_production_sz_tmp.line_map_production", function(require) 
                     }
                     self.point_marker_type_dict[gpsKey] = type_dict;
                 }
+                new_gprs_info.push([oe.lng, oe.lat]);
             });
-            self.polyline = new AMap.Polyline({
-                path: gprsInfo,
+            var polyline = new AMap.Polyline({
+                path: new_gprs_info,
                 strokeColor: configurationInfo.tools_line_color,
                 strokeWeight: configurationInfo.tools_line_width,
                 lineJoin: "round"
             });
-            self.polyline.setMap(map);
+            polyline.setMap(map);
+            self.polyline = polyline;
             self.bing_map_poly_edit(map);
         },
         bing_map_poly_edit: function(map){
