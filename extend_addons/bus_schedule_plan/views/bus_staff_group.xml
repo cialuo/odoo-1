@@ -55,7 +55,7 @@
                             <page string="DriverVehicles">
                                 <field name="vehicle_line_ids" context="{'form_view_ref': 'bus_staff_group_vehicle_line_form_action'}">
                                     <tree create="0" delete="0">
-                                        <field name="sequence"/>
+                                        <field name="sequence" widget='line_sequence'/>
                                         <field name="vehicle_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="operation_state"/>
                                         <field name="state"/>
@@ -81,11 +81,16 @@
             <field name="arch" type="xml">
                 <form>
                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="vehicle_id" readonly = '0'/>
+                            </group>
+                        </group>
                         <notebook  attrs="{'invisible':[('operation_state','=','flexible')] }">
 							<page string="StaffLines" >
                                 <field name="staff_line_ids">
                                     <tree string="StaffLines" create="false" editable="bottom">
-										<field name="sequence" readonly="1"/>
+										<field name="sequence" readonly="1"  widget='line_sequence'/>
                                         <field name="group_id" invisible="1"/>
 										<field name="driver_id" options="{'no_create':True}"/>
 										<field name="driver_jobnumber" readonly="1"/>
