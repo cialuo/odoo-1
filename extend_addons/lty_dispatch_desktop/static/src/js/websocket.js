@@ -762,14 +762,14 @@ function update_linePlan(controllerObj, dataObj) {
     var active_tr_obj = controllerObj.find(".bus_plan .content_tb tr[pid=" + dataObj.id + "]");
 
     // 已完成的计划移除
-    if (dataObj.planState == 2 || dataObj.planState == 3) {
+    if (dataObj.planState==2 || dataObj.planState==3 || dataObj.isFinish==1) {
         active_tr_obj.remove();
         return false;
     }
 
     if (active_tr_obj.length == 0 && typeof dataObj.direction == undefined) {
         console.log(dataObj);
-        alert("数据有异常")
+        alert("数据有异常");
         return false;
     }
 
@@ -784,6 +784,7 @@ function update_linePlan(controllerObj, dataObj) {
         }
 
     } else {
+        set_op = extend_obj_fn(set_op, dataObj);
         busResourcePlan[dataObj.id] = dataObj;
     }
 
