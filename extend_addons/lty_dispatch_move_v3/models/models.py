@@ -122,6 +122,7 @@ class DriveRecords(models.Model):
     行车记录
     """
     _inherit = 'vehicleusage.driverecords'
+    _order = 'date_plan, realitydepart'
 
     # 公司
     #company_id = fields.Many2one('res.company')
@@ -146,7 +147,7 @@ class DriveRecords(models.Model):
     # 司机工号 driver_id
 
     # 司机姓名
-    driver_name = fields.Char(related='driver_id.jobnumber', readonly=True)
+    driver_name = fields.Char(related='driver_id.jobnumber', readonly=True, store=True)
     # 计划到达时间 planarrive
 
     # 实际到达时间 realityarrive
@@ -331,6 +332,7 @@ class attence(models.Model):
     考勤记录
     """
     _inherit = 'employee.attencerecords'
+    _order = 'checkingin'
 
     # 公司
     #company_id = fields.Many2one('res.company')

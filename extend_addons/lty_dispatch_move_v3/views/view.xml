@@ -20,8 +20,8 @@
 			<field name="realitydepart" string="实际发车时间" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			<field name="state_plan" string="计划状态" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			<field name="vehicle_id" string="车辆编号" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
-			<field name="driver_id" string="司机工号" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
-			<field name="driver_name" string="司机姓名" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
+			<field name="driver_id" string="司机姓名" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
+			<field name="driver_name" string="司机工号" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			<field name="planarrive" string="计划到达时间" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			<field name="realityarrive" string="实际到达时间" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			<field name="time_operation" string="运营时长" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
@@ -46,8 +46,8 @@
 			<field name="company_id" string="公司" readonly='1'/>
 			<field name="route_id" string="线路" readonly='1'/>
 			<field name="vehicle_id" string="车辆编号" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
-			<field name="driver_id" string="司机工号" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
-			<field name="driver_name" string="司机姓名" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
+			<field name="driver_id" string="司机姓名" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
+			<field name="driver_name" string="司机工号" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			<field name="date" string="日期" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			<field name="realitydepart" string="开始时间" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
 			<field name="realityarrive" string="结束时间" attrs="{'readonly': [('state','in',('approved','moved'))]}"/>
