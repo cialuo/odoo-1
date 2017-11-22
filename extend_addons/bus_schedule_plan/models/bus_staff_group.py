@@ -77,7 +77,10 @@ class BusStaffGroup(models.Model):
         datas = []
         count = 1
         #机动车序号
+        res_group_shift_f = self.env['bus_group_driver_vehicle_shift'].search( [('vehicle_sequence', '=', 0),('active','!=','2')])                                                            
+        
         back_count = operation_ct
+        len(res_group_shift)
         for j in res_group_shift:
             res_vehicles = self.env['bus_group_driver_vehicle_shift'].search(j['__domain'])
             sequence = 0
@@ -162,6 +165,22 @@ class BusStaffGroup(models.Model):
                     vals.update({'sequence': back_count})
 
                 datas.append((0, 0, vals))
+        #将机动车辆加入到人车配班表        
+        for j_f in res_group_shift_f:
+            back_count += 1
+            #循环上行人车配班
+            vals = {
+                "route_id": j_f.route_id.id,
+                'vehicle_id': j_f.bus_group_vehicle_id.vehicle_id.id,
+                'operation_state': 'flexible',
+                # 'sequence': res_vehicles[0].vehicle_sequence,
+                'sequence': back_count,
+                'bus_group_id': j_f.group_id.id,
+                #'staff_line_ids': data_shift
+            }
+            #如果数量小于下行运营总数，标记为运营
+            datas.append((0, 0, vals))                
+                
         if not datas:
             raise exceptions.UserError((u'人车配班表不存在，请检查班组设置.(线路: %s)')%route_id.line_name)
 

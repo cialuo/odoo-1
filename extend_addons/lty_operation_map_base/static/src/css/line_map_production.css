@@ -369,7 +369,7 @@
 .amap-logo {
     right: 0 !important;
     left: auto !important;
-    display: none;
+    display: none !important;
 }
 
 .amap-copyright {

@@ -53,17 +53,25 @@ class Toup(models.Model):
             cityCode = self.env['ir.config_parameter'].get_param('city.code')
 
             rp = True
+            if res.rule_id.schedule_method == 'dubleway':
+                plan_count = 0.5
+            if res.rule_id.schedule_method == 'singleway':
+                plan_count = 1                
+            
             try:
                 _logger.info('Start create data: %s', self._name)
                 if self._name == 'scheduleplan.toup':
                     vals.update({
                         'id': int(str(res.id)+'0'),
                         'direction': 'up',
+                        'plan_count': plan_count,
+                        
                     })
                 if self._name == 'scheduleplan.todown':
                     vals.update({
                         'id': int(str(res.id) + '1'),
                         'direction': 'down',
+                        'plan_count': plan_count,
                     })
                 vals.update({
                     'starttime': '2017-01-01 ' + res.starttime + ":00",
@@ -94,6 +102,10 @@ class Toup(models.Model):
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
             if seconds.seconds > 5 and (not self._context.get('dryrun')):
                 rp = True
+            if r.rule_id.schedule_method == 'dubleway':
+                plan_count = 0.5
+            if r.rule_id.schedule_method == 'singleway':
+                plan_count = 1                    
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -101,11 +113,15 @@ class Toup(models.Model):
                         vals.update({
                             'id': int(str(r.id) + '0'),
                             'direction': 'up',
+                            'plan_count': plan_count,
+                            
                         })
                     if self._name == 'scheduleplan.todown':
                         vals.update({
                             'id': int(str(r.id) + '1'),
                             'direction': 'down',
+                            'plan_count': plan_count,
+                            
                         })
                     vals.update({
                         'starttime': '2017-01-01 ' + r.starttime + ":00",

@@ -62,7 +62,8 @@ class attence(models.Model):
                     'gprsId': res.line_id.gprs_id,
                     'workerId': res.employee_id.jobnumber,
                     'driver': res.employee_id.name,
-                    'WorkerType': int(res.work_type_id),
+                    'driverName': res.employee_id.name,
+                    'workerType': int(res.work_type_id),
                 })
                 params = Params(type=1, cityCode=cityCode, tableName=TABLE, data=vals).to_dict()
                 #调用restful
@@ -100,7 +101,7 @@ class attence(models.Model):
                 vals = mapping.dict_transfer(self._name, vals)
                 vals.update({
                     'id': int(r.restful_key_id),
-                    'WorkerType': r.work_type_id, 
+                    'workerType': r.work_type_id, 
                     'onboardId': int(r.vehicle_id.on_boardid),
                     'selfId': r.vehicle_id.inner_code,
                     'gprsId': r.line_id.gprs_id,
@@ -135,7 +136,7 @@ class attence(models.Model):
             for r in self:
                 # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                 _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': int(r.restful_key_id),'WorkerType': r.work_type_id}
+                vals = {'id': int(r.restful_key_id),'workerType': r.work_type_id}
                 res = super(attence, r).unlink()
                 params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
                 #调用restful

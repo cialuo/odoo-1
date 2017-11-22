@@ -46,7 +46,6 @@ class operation_records_move2v3(models.Model):
     ],default="draft", readonly=True)
     move_result = fields.Text()       
     
-    
     _sql_constraints = [
         ('name_uniq', 'unique (name,line_id)', u'不能重复迁移同一日期，同一线路的数据!')
     ]
@@ -123,6 +122,7 @@ class DriveRecords(models.Model):
     行车记录
     """
     _inherit = 'vehicleusage.driverecords'
+    _order = 'date_plan, realitydepart'
 
     # 公司
     #company_id = fields.Many2one('res.company')
@@ -147,7 +147,7 @@ class DriveRecords(models.Model):
     # 司机工号 driver_id
 
     # 司机姓名
-    driver_name = fields.Char(related='driver_id.name', readonly=True)
+    driver_name = fields.Char(related='driver_id.jobnumber', readonly=True, store=True)
     # 计划到达时间 planarrive
 
     # 实际到达时间 realityarrive
@@ -332,6 +332,7 @@ class attence(models.Model):
     考勤记录
     """
     _inherit = 'employee.attencerecords'
+    _order = 'checkingin'
 
     # 公司
     #company_id = fields.Many2one('res.company')
@@ -364,6 +365,10 @@ class attence(models.Model):
         ('approved','审核'), 
         ('moved','迁移') 
     ],default="draft", readonly=True)
+    #计划趟次
+    plan_count = fields.Float()
+    #实际趟次    
+    run_count = fields.Float()    
 
     @api.multi
     def restful_get_data(self, search_para):
@@ -407,7 +412,8 @@ class attence(models.Model):
                 'is_add': False,
                 'restful_key_id':item.get('id'), 
                 'work_type_id':str(item.get('workerType')), 
-                
+                'plan_count':item.get('planCount') or None,
+                'run_count':item.get('runCount') or None,
 
                 # : item.get('dispatchPlanId'],		#  -1,
                 # : item.get('driverName'],			#  "司机姓名 15373",
