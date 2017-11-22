@@ -51,7 +51,7 @@ class LinePlan(models.Model):
         if not self._context.get('dryrun'):
             url = self.env['ir.config_parameter'].get_param('restful.url')
             cityCode = self.env['ir.config_parameter'].get_param('city.code')
-            rp = True
+            rp = True	
             try:
                 _logger.info('Start create data: %s', self._name)
                 vals.update({
@@ -107,6 +107,7 @@ class LinePlan(models.Model):
                         # 后台取值,
                         'gprs_id': r.line_id.gprs_id,
                         'schedule_type': r.line_id.schedule_type,
+						
                     })
                     vals = mapping.dict_transfer(self._name, vals)
                     params = Params(type=3, cityCode=cityCode,tableName=LINEPLAN_TABLE, data=vals).to_dict()

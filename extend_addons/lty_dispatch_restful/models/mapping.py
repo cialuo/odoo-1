@@ -203,7 +203,7 @@ op_lineplan = {
     #上行末班时间 Datetime
     ('lastTime', 'uplasttime'): None,
     # #计划趟次,无对应字段
-    # ('planCount', None): None,
+    ('planCount', None): None,
     #下行首班时间 Datetime
     ('firstTimeD', 'downfirsttime'): None,
     #下行末班时间 Datetime
@@ -442,8 +442,8 @@ op_planparam = {
     ('direction', 'direction'): {'up': 0,'down': 1},
     # #备注 String not found
     # ('remark', None): None,
-    # #int 无描述不传
-    # ('planCount', None): None,
+    # #int 计划趟次
+    ('planCount', 'plan_count'): None,
     # #int 无描述不传
     # ('avgRestTime', None): None,
     # #int 无描述不传
@@ -523,7 +523,8 @@ op_dispatchplan = {
     ('workDate', 'work_date'): None,
     #行车规则ID 后台获取
     ('linePlanId', 'rule_id'): None,
-    #
+    # #int 计划趟次
+    ('planCount', 'plan_count'): None,
 }
 
 #1.3.15	车辆资源

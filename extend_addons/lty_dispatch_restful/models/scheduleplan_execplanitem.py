@@ -53,6 +53,10 @@ class upplanitem(models.Model):
             cityCode = self.env['ir.config_parameter'].get_param('city.code')
 
             rp = True
+            if res.execplan_id.rule_id.schedule_method == 'dubleway':
+                plan_count = 0.5
+            if res.execplan_id.rule_id.schedule_method == 'singleway':
+                plan_count = 1                
             try:
                 _logger.info('Start create data: %s', self._name)
                 vals = mapping.dict_transfer(self._name, vals)
@@ -74,11 +78,13 @@ class upplanitem(models.Model):
                     vals.update({
                         'id': int(str(res.id) + '0'),
                         'direction': 0,
+                        'planCount': plan_count,
                     })
                 if self._name == 'scheduleplan.execdownplanitem':
                     vals.update({
                         'id': int(str(res.id) + '1'),
                         'direction': 1,
+                        'planCount': plan_count,
                     })
                 params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                 rp = Client().http_post(url, data=params)
