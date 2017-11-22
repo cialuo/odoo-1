@@ -54,6 +54,10 @@ class BusGroup(models.Model):
         ('use', "use"),], string='Bus Group State', default='draft', readonly=True)
 
     direction = fields.Selection([('0', u'上行'), ('1', u'下行')], string='direction')  # required=True)
+    # 是否机动
+    is_flexible = fields.Boolean(default=False)
+    
+    
 
     # @api.multi
     # def action_test1(self):
@@ -135,34 +139,34 @@ class BusGroup(models.Model):
         :return:
         """
         for i in self:
-            
-            vehicle_ct = len(i.vehicle_ids)
-            driver_ct = len(i.driver_ids)
-            if i.bus_shift_id:
-                shift_ct = len(i.bus_shift_id.shift_line_ids)
-                if shift_ct == 0:
-                    i.is_not_match = True
-                    i.not_match_reason = u'所选班制的班次不存在，请选择正确的班制'
-                    if self.state != 'draft':
-                        self.write({'state': 'draft'})                       
-                if vehicle_ct and shift_ct and driver_ct:
-                    if vehicle_ct * shift_ct > driver_ct:
+            if not i.is_flexible:
+                vehicle_ct = len(i.vehicle_ids)
+                driver_ct = len(i.driver_ids)
+                if i.bus_shift_id:
+                    shift_ct = len(i.bus_shift_id.shift_line_ids)
+                    if shift_ct == 0:
                         i.is_not_match = True
-                        i.not_match_reason = u'所选的班制，车辆数，司机数配置不合理，建议重新选择'
+                        i.not_match_reason = u'所选班制的班次不存在，请选择正确的班制'
                         if self.state != 'draft':
                             self.write({'state': 'draft'})                       
-            if i.driver_vehicle_shift_ids:
-                for line in  i.driver_vehicle_shift_ids :
-                    if (line.vehicle_sequence > 0)  and (len(line.driver_id) == 0):
-                        i.is_not_match = True
-                        i.not_match_reason = u'运营车辆或班组为空，请检查！'
-                        if self.state != 'draft':
-                            self.write({'state': 'draft'})                       
-                    if (line.vehicle_sequence > 0) and (len(line.bus_group_vehicle_id) == 0) :
-                        i.is_not_match = True
-                        i.not_match_reason = u'运营车辆或班组为空，请检查！'
-                        if self.state != 'draft':
-                            self.write({'state': 'draft'})                       
+                    if vehicle_ct and shift_ct and driver_ct:
+                        if vehicle_ct * shift_ct > driver_ct:
+                            i.is_not_match = True
+                            i.not_match_reason = u'所选的班制，车辆数，司机数配置不合理，建议重新选择'
+                            if self.state != 'draft':
+                                self.write({'state': 'draft'})                       
+                if i.driver_vehicle_shift_ids:
+                    for line in  i.driver_vehicle_shift_ids :
+                        if (line.vehicle_sequence > 0)  and (len(line.driver_id) == 0):
+                            i.is_not_match = True
+                            i.not_match_reason = u'运营车辆或班组为空，请检查！'
+                            if self.state != 'draft':
+                                self.write({'state': 'draft'})                       
+                        if (line.vehicle_sequence > 0) and (len(line.bus_group_vehicle_id) == 0) :
+                            i.is_not_match = True
+                            i.not_match_reason = u'运营车辆或班组为空，请检查！'
+                            if self.state != 'draft':
+                                self.write({'state': 'draft'})                       
                         
 
     @api.depends('vehicle_ids')
@@ -200,6 +204,7 @@ class BusGroup(models.Model):
                 vehicle_lists = vehicle_lists + k.vehicle_ids.mapped('vehicle_id').ids
                 driver_lists = driver_lists + k.driver_ids.mapped('driver_id').ids
                 conductor_lists += k.conductor_ids.mapped('conductor_id').ids
+            vehicle_sequence = 1
             for j in i.route_id.vehicle_res.ids:  #更新车辆
                 if j in vehicle_lists:
                     continue
@@ -207,31 +212,38 @@ class BusGroup(models.Model):
                     # 'sequence': count+len(lists),
                     "route_id": i.route_id.id,
                     'vehicle_id': j,
+                    'sequence': vehicle_sequence,
                 }
                 datas.append((0, 0, vals))
+                vehicle_sequence = vehicle_sequence +1
             i.vehicle_ids = datas
 
             datas = []
+            drive_sequence = 1
             for j in i.route_id.human_resource.filtered(lambda field: field.workpost.posttype == "driver").ids: #更新司机
                 if j in driver_lists:
                     continue
                 vals = {
                     "route_id": i.route_id.id,
                     'driver_id': j,
+                    'sequence': drive_sequence,
                 }
                 datas.append((0, 0, vals))
+                drive_sequence = drive_sequence +1
             i.driver_ids = datas
 
             datas = []
+            conductor_sequence = 1
             for j in i.route_id.human_resource.filtered(lambda field: field.workpost.posttype == "conductor").ids: #更新乘务员
                 if j in conductor_lists:
                     continue
                 vals = {
                     "route_id": i.route_id.id,
                     'conductor_id': j,
+                    'sequence': conductor_sequence,
                 }
-
                 datas.append((0, 0, vals))
+                conductor_sequence = conductor_sequence +1
             i.conductor_ids = datas
 
 
@@ -258,9 +270,9 @@ class BusGroupVehicle(models.Model):
     #台次
     sequence = fields.Integer()
     
-    _sql_constraints = [
-        ('bus_group_id_sequence_unique', 'unique(bus_group_id,sequence)', (u'车辆序号不可重复！'))
-    ]    
+#     _sql_constraints = [
+#         ('bus_group_id_sequence_unique', 'unique(bus_group_id,sequence)', (u'车辆序号不可重复！'))
+#     ]    
 
 
 class BusGroupDriver(models.Model):
@@ -284,9 +296,9 @@ class BusGroupDriver(models.Model):
     #台次
     sequence = fields.Integer()
     
-    _sql_constraints = [
-        ('bus_group_id_sequence_unique', 'unique(bus_group_id,sequence)', (u'司机序号不可重复！'))
-    ]    
+#     _sql_constraints = [
+#         ('bus_group_id_sequence_unique', 'unique(bus_group_id,sequence)', (u'司机序号不可重复！'))
+#     ]    
 
 class BusGroupConductor(models.Model):
     """
@@ -308,10 +320,10 @@ class BusGroupConductor(models.Model):
     #台次
     sequence = fields.Integer()
     
-    _sql_constraints = [
-        ('bus_group_id_sequence_unique', 'unique(bus_group_id,sequence)', (u'乘务员序号不可重复！'))
-    ]    
-    
+#     _sql_constraints = [
+#         ('bus_group_id_sequence_unique', 'unique(bus_group_id,sequence)', (u'乘务员序号不可重复！'))
+#     ]    
+#     
 
 
 class BusGroupDriverVehicleShift(models.Model):

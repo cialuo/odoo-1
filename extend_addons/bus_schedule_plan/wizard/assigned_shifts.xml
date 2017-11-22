@@ -26,7 +26,7 @@
                                     <field name="group_id" invisible="1"/>
                                     <field name="bus_shift_id" invisible="1"/>
                                     <field name="use_date"/>
-                                    <field name="driver_id" required="1" options="{'no_open':True,'no_create':True}"/>
+                                    <field name="driver_id" required="0" options="{'no_open':True,'no_create':True}"/>
                                     <field name="driver_jobnumber"/>
                                     <field name="conductor_id" options="{'no_open':True,'no_create':True}"/>
                                     <field name="conductor_jobnumber"/>

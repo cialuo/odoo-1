@@ -78,7 +78,11 @@ class AssignedShifts(models.TransientModel):
         datas = []
         sequence = 0
         for j in xyz:
-            sequence += 1
+            sequence = sequence + 1
+            if self.group_id.is_flexible :
+                vehicle_sequence = 0
+            else:
+                vehicle_sequence =  j[4]
             data = {
                 'sequence': sequence,
                 'driver_id': j[0],
@@ -90,7 +94,7 @@ class AssignedShifts(models.TransientModel):
             if j[2]:
                 data.update({'bus_group_vehicle_id': j[2],
                              'bus_shift_choose_line_id': j[3],
-                             'vehicle_sequence': j[4]})
+                             'vehicle_sequence': vehicle_sequence})
             datas.append((0, 0, data))
         self.write({'driver_vehicle_shift_ids': datas})
         return {
@@ -148,7 +152,7 @@ class BusGroupDriverVehicleShiftTran(models.TransientModel):
 
     assign_id = fields.Many2one('assigned_shifts', ondelete='cascade', readonly=True)
 
-    sequence = fields.Integer("Shift Line Sequence", default=1, readonly=True)
+    sequence = fields.Integer("Shift Line Sequence", default=1, readonly=False)
 
     group_id = fields.Many2one('bus_group', 'Group', ondelete='cascade', required=True)
     route_id = fields.Many2one('route_manage.route_manage', related='group_id.route_id', required=True)
@@ -164,6 +168,6 @@ class BusGroupDriverVehicleShiftTran(models.TransientModel):
     conductor_jobnumber = fields.Char(string='conductor_jobnumber', related='conductor_id.jobnumber', readonly=True)
 
     bus_group_vehicle_id = fields.Many2one("bus_group_vehicle", domain="[('bus_group_id','=',group_id)]")
-    vehicle_sequence = fields.Integer("Vehicle Sequence", readonly=True)
+    vehicle_sequence = fields.Integer("Vehicle Sequence", readonly=False)
 
     use_date = fields.Date(default=fields.Date.context_today, readonly=True)

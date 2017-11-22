@@ -90,12 +90,15 @@
                                 <field name="bus_algorithm_date" invisible="1"/>
                                 <field name="bus_driver_algorithm_id" options="{'no_create':True}"/>
                                 <field name="bus_shift_id" options="{'no_create':True}"/>
-                                <field name="direction" string="方向" required="True"/>
+                                <field name="is_flexible" string="机动"/>
+                                <field name="direction" string="方向" attrs="{'invisible':[('is_flexible','=',True)]}"/>
                                 <!--<field name="is_conductor"/>-->
                             </group>
                             <group>
                                 <field name="is_not_match" invisible="0" string='异常'/>
                                 <field name="not_match_reason" attrs="{'invisible':[('is_not_match','=',False)]}"/>
+                                
+                                
                             </group>
                         </group>
 
@@ -103,7 +106,7 @@
                             <page string="GroupVehicles">
                                 <field name="vehicle_ids" context="{'default_route_id':context.get('route_id','')}">
                                     <tree editable="bottom">
-                                        <field name="sequence" string='序号'/>
+                                        <field name="sequence" string='序号'  widget='line_sequence'/>
                                         <field name="route_id" invisible="1"/>
                                         <field name="vehicle_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="vehicle_type"/>
@@ -115,7 +118,7 @@
                             <page string="GroupDrivers">
                                 <field name="driver_ids" context="{'default_route_id':context.get('route_id','')}">
                                     <tree editable="bottom">
-                                        <field name="sequence"  string='序号'/>
+                                        <field name="sequence"  string='序号'  widget='line_sequence'/>
                                         <field name="route_id" invisible="1"/>
                                         <field name="driver_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="jobnumber"/>
@@ -126,7 +129,7 @@
                             <page string="GroupConductors">
                                 <field name="conductor_ids" context="{'default_route_id':context.get('route_id','')}">
                                     <tree editable="bottom">
-                                        <field name="sequence"  string='序号'/>
+                                        <field name="sequence"  string='序号'  widget='line_sequence'/>
                                         <field name="route_id" invisible="1"/>
                                         <field name="conductor_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="jobnumber"/>
