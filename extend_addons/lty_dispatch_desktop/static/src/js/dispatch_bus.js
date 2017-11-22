@@ -192,7 +192,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                     dataType: 'json',
                                     data: {},
                                     success: function (data) {
-                                        if (data) {
+                                        if (data.length>0) {
                                             //配车数量
                                             self.$el.find('.show_applycar_num span').html(data[0].withBus);
                                             //挂车数量
