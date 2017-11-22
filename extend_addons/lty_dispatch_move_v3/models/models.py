@@ -146,7 +146,7 @@ class DriveRecords(models.Model):
     # 司机工号 driver_id
 
     # 司机姓名
-    driver_name = fields.Char(related='driver_id.name', readonly=True)
+    driver_name = fields.Char(related='driver_id.jobnumber', readonly=True)
     # 计划到达时间 planarrive
 
     # 实际到达时间 realityarrive
