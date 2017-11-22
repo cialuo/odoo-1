@@ -746,7 +746,7 @@ operate_nonOperate = {
 	#备注
     ('note', 'note'): None,	
 	#状态
-    ('planState', 'state'): None,		
+    ('planState', 'state_plan'): None,		
 }
 #考勤信息表表
 #attend -- employee.attencerecords
