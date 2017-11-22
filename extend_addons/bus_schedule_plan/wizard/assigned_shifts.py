@@ -78,7 +78,7 @@ class AssignedShifts(models.TransientModel):
         datas = []
         sequence = 0
         for j in xyz:
-            sequence = sequence + 1
+            sequence = sequence +1 
             if self.group_id.is_flexible :
                 vehicle_sequence = 0
             else:
