@@ -67,7 +67,7 @@ class DriveRecords(models.Model):
                 'gprsId':res.route_id.gprs_id,
                 'workerId':res.driver_id.jobnumber,
                 'driver':res.driver_id.name,
-                'workdate':res.record_move_id.name,                
+                'workDate':res.record_move_id.name,                
             })
             params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
             #调用restful
@@ -112,7 +112,7 @@ class DriveRecords(models.Model):
                     'selfId':r.vehicle_id.inner_code or '',
                     'onBoardId':int(r.vehicle_id.on_boardid),
                     'gprsId':r.route_id.gprs_id or '',
-                    'workdate':res.record_move_id.name,                
+                    'workDate':res.record_move_id.name,                
                     #'workerId':r.driver_id.jobnumber or '',
                     #'driver':r.driver_id.name or '',                    
                 })
