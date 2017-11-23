@@ -134,7 +134,7 @@ msgstr "消息模板"
 #. module: messages
 #: model:ir.actions.act_window,name:messages.aw_send_messages
 msgid "send_messages window"
-msgstr "消息动作"
+msgstr "消息"
 
 #. module: messages
 #: selection:send_messages,tyep:0
@@ -144,7 +144,7 @@ msgstr "手机信息"
 #. module: messages
 #: model:ir.actions.act_window,name:messages.aw_sms_model
 msgid "sms_model window"
-msgstr "消息模板动作"
+msgstr "消息模板"
 
 #. module: messages
 #: selection:send_messages,message_status:0
