@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+    <!-- 消息管理 -->
+    <menuitem name="message management root" id="menu_message_management_root" sequence="100" />
+
+
+    <!--消息视图　　开始　　-->
+    <record model="ir.ui.view" id="send_messages_list">
+      <field name="name">send_messages list</field>
+      <field name="model">send_messages</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="employee_id"/>
+          <field name="mobile"/>
+          <field name="sms_model_id"/>
+          <field name="tyep"/>
+          <field name="message_status"/>
+        </tree>
+      </field>
+    </record>
+
+   <record model="ir.ui.view" id="send_messages_form">
+      <field name="name">send_messages form</field>
+      <field name="model">send_messages</field>
+      <field name="arch" type="xml">
+        <form string="Pile form">
+            <sheet>
+               <group>
+                   <group>
+                       <field name="employee_id"/>
+                       <field name="mobile"/>
+                   </group>
+                   <group>
+                        <field name="sms_model_id"/>
+                       <field name="tyep"/>
+                   </group>
+               </group>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+
+
+
+    <!--消息视图　　结束　　-->
+
+
+    <!--消息模板视图　　开始　　-->
+    <record model="ir.ui.view" id="sms_model_list">
+        <field name="name">sms_model list</field>
+        <field name="model">sms_model</field>
+        <field name="arch" type="xml">
+            <tree>
+              <field name="name"/>
+              <field name="message_text"/>
+            </tree>
+        </field>
+    </record>
+
+       <record model="ir.ui.view" id="sms_model_form">
+          <field name="name">sms_model form</field>
+          <field name="model">sms_model</field>
+          <field name="arch" type="xml">
+            <form string="Pile form">
+                <sheet>
+                   <group>
+                       <field name="name"/>
+                       <field name="message_text"/>
+                   </group>
+                </sheet>
+            </form>
+          </field>
+        </record>
+
+    <!--消息视模板图　　结束　　-->
+
+    <!--动作　开始-->
+    <record model="ir.actions.act_window" id="aw_send_messages">
+        <field name="name">send_messages window</field>
+        <field name="res_model">send_messages</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="aw_sms_model">
+        <field name="name">sms_model window</field>
+        <field name="res_model">sms_model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--动作　结束-->
+
+    <!--消息-->
+    <menuitem name="message management" id="menu_message_management"
+              parent="menu_message_management_root" sequence="10" action="aw_send_messages"/>
+    <!--消息模板-->
+    <menuitem name="message model management" id="menu_message_model_management"
+              parent="menu_message_management_root" sequence="20" action="aw_sms_model"/>
+
+
+    </data>
+</odoo>

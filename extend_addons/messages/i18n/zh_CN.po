@@ -1,0 +1,157 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* messages
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-23 02:32+0000\n"
+"PO-Revision-Date: 2017-11-23 10:36+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.3\n"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages_create_uid
+#: model:ir.model.fields,field_description:messages.field_sms_model_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages_create_date
+#: model:ir.model.fields,field_description:messages.field_sms_model_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages_display_name
+#: model:ir.model.fields,field_description:messages.field_sms_model_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages_employee_id
+msgid "Employee id"
+msgstr "员工"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages_id
+#: model:ir.model.fields,field_description:messages.field_sms_model_id
+msgid "ID"
+msgstr "ID"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages___last_update
+#: model:ir.model.fields,field_description:messages.field_sms_model___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages_write_uid
+#: model:ir.model.fields,field_description:messages.field_sms_model_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages_write_date
+#: model:ir.model.fields,field_description:messages.field_sms_model_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages_message_status
+msgid "Message status"
+msgstr "消息状态"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages_message_text
+#: model:ir.model.fields,field_description:messages.field_sms_model_message_text
+msgid "Message text"
+msgstr "消息体"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_sms_model_name
+msgid "Name"
+msgstr "名字"
+
+#. module: messages
+#: model:ir.ui.view,arch_db:messages.send_messages_form
+#: model:ir.ui.view,arch_db:messages.sms_model_form
+msgid "Pile form"
+msgstr "表单"
+
+#. module: messages
+#: model:ir.model,name:messages.model_send_messages
+msgid "Send Messages"
+msgstr "发送消息"
+
+#. module: messages
+#: model:ir.model,name:messages.model_sms_model
+msgid "Sms Model"
+msgstr "消息模板"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages_sms_model_id
+msgid "Sms model id"
+msgstr "消息模板"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages_tyep
+msgid "Tyep"
+msgstr "类型"
+
+#. module: messages
+#: model:ir.model.fields,field_description:messages.field_send_messages_mobile
+msgid "Work Mobile"
+msgstr "办公手机"
+
+#. module: messages
+#: selection:send_messages,message_status:0
+msgid "failure"
+msgstr "失败"
+
+#. module: messages
+#: model:ir.ui.menu,name:messages.menu_message_management
+msgid "message management"
+msgstr "消息信息"
+
+#. module: messages
+#: model:ir.ui.menu,name:messages.menu_message_management_root
+msgid "message management root"
+msgstr "消息通知"
+
+#. module: messages
+#: model:ir.ui.menu,name:messages.menu_message_model_management
+msgid "message model management"
+msgstr "消息模板"
+
+#. module: messages
+#: model:ir.actions.act_window,name:messages.aw_send_messages
+msgid "send_messages window"
+msgstr "消息动作"
+
+#. module: messages
+#: selection:send_messages,tyep:0
+msgid "sms"
+msgstr "手机信息"
+
+#. module: messages
+#: model:ir.actions.act_window,name:messages.aw_sms_model
+msgid "sms_model window"
+msgstr "消息模板动作"
+
+#. module: messages
+#: selection:send_messages,message_status:0
+msgid "success"
+msgstr "成功"
+
+#. module: messages
+#: selection:send_messages,tyep:0
+msgid "weChat"
+msgstr "微信"
