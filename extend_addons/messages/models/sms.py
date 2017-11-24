@@ -11,7 +11,7 @@ account  = "C40327916"
 #密码
 password = "fbd368db490fd093e4d1ddd469abe0c9"
 
-class sms():
+class sms(object):
 
     def send_sms(self,text, mobile):
         params = urllib.urlencode(
@@ -24,7 +24,6 @@ class sms():
         conn.close()
         encode_json = json.dumps(response_str)
         return json.loads(encode_json)
-
 
 if __name__ == '__main__':
     mobile = "18617121307"
