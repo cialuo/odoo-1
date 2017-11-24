@@ -77,7 +77,7 @@ class BusStaffGroup(models.Model):
         datas = []
         count = 1
         #机动车序号
-        res_group_shift_f = self.env['bus_group_driver_vehicle_shift'].search( [('vehicle_sequence', '=', 0),('active','!=','2')])                                                            
+        res_group_shift_f = self.env['bus_group_driver_vehicle_shift'].search( [('use_date', '=', staff_date_str),('route_id', '=', route_id.id),('vehicle_sequence', '=', 0),('active','!=','2')])
         
         back_count = operation_ct
         len(res_group_shift)
