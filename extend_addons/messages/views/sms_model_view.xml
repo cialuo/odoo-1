@@ -30,7 +30,7 @@
                <group>
                    <group>
                        <field name="employee_id"/>
-                       <field name="mobile"/>
+                       <field name="mobile" invisible="1"/>
                    </group>
                    <group>
                         <field name="sms_model_id"/>

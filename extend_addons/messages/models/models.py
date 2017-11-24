@@ -12,11 +12,11 @@ class sendMessage(models.Model):
         发送消息
     """
 
-    employee_id = fields.Many2one('hr.employee')  # 员工
+    employee_id = fields.Many2one('hr.employee',required=True)  # 员工
 
     mobile = fields.Char(related='employee_id.mobile_phone', store=True)#手机号码
 
-    sms_model_id = fields.Many2one('sms_model')#短信模板
+    sms_model_id = fields.Many2one('sms_model',required=True)#短信模板
 
     message_text = fields.Text(related='sms_model_id.message_text', store=True)
 
