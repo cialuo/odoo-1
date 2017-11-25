@@ -1022,7 +1022,7 @@ msgstr "已审批"
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:64
 #, python-format
 msgid "checking"
-msgstr "年检中"
+msgstr "快过期"
 
 #. module: vehicle_manage
 #: code:addons/vehicle_manage/models/vehicleUsageManagement.py:68
