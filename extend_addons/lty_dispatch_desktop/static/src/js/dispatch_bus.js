@@ -261,8 +261,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                                                         }
                                                     }
                                                     //渲染串车
-                                                    self.render_cc('top', -20);
-                                                    self.render_cc('down', 30);
+                                                    self.render_cc('top', -20,self);
+                                                    self.render_cc('down', 30,self);
                                                     $('.run_car_hide').find('.line_car').removeClass('to_gray');
                                                     can_left_right(
                                                         {
@@ -323,7 +323,7 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
             }
         },
         //渲染串车
-        render_cc: function (dom_direct, num_distance) {
+        render_cc: function (dom_direct, num_distance,self) {
             var dom_par = '.content_car_road_' + dom_direct + ' .car_line_tb';
             var dom = '.content_car_road_' + dom_direct + ' .car_line_' + dom_direct;
             for (var i = 0; i < self.$(dom_par).length; i++) {
@@ -454,8 +454,8 @@ odoo.define('lty_dispaych_desktop.getWidget', function (require) {
                         self.$('.content_car_road_down').find('.line_car[bus_no=' + data_use.data.terminalNo + ']').css('left', tLeft - 15 + 'px').find('.type_car span').attr("car_id", data_use.data.car_id).html(data_use.data.carNum);
                     }
                     //渲染串车
-                    self.render_cc('top', -20);
-                    self.render_cc('down', 30);
+                    self.render_cc('top', -20,self);
+                    self.render_cc('down', 30,self);
                 }
                 //修改变量的值
                 data.busTopNumber = arg.busTopNumber;
