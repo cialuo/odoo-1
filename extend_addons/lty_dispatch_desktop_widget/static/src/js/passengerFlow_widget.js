@@ -86,8 +86,10 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                 controlId: this.location_data.controllerId,
                 open_modules: ["passenger_delay"]
             };
-            if (websocket){
+            try {
                 websocket.send(JSON.stringify(package));
+            } catch(e) {
+                console.log(e);
             }
         },
         send_express_info: function(){
@@ -150,8 +152,10 @@ odoo.define("lty_dispatch_desktop_widget.passenger_flow", function (require) {
                 controlId: this.location_data.controllerId,
                 open_modules: ["passenger_delay"]
             };
-            if (websocket){
+            try {
                 websocket.send(JSON.stringify(package));
+            } catch(e) {
+                console.log(e);
             }
             this.destroy();
         }

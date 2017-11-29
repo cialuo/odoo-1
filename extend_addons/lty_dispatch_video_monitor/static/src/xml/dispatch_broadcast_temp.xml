@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<template xml:space="preserve">
+    <t t-name="ztree_show_dian">
+		<ul id="ztree" class="ztree"></ul>
+	</t>
+   <t t-name="dispatch_desktop_broadcast">
+    <div style="overflow: hidden;" class="dispatch_desktop_broadcast">
+		   <div class="broadcast_title">
+			   视频点播
+		   </div>
+        <div class="ovf">
+			   <div class="content-left">
+					<input type="text" placeholder="查询" class="search_road" />
+			   </div>
+			 	<div class="content-center">
+					<div class="ovf">
+						<div class="fl chs_span">选择时间</div>
+						<div class="fl mg-lr">
+							<input type="text" id="datetimepicker" class="search_road datetimepicker" />
+						</div>
+						<div class="fl">
+							<input type="button" class="search_date_btn btn btn-primary" value="查询" />
+						</div>
+					</div>
+					<div class="chs_show_time">
+						片段选择
+					</div>
+					<div class="show_broadcast_time">
+						<ul class="show_broadcast_list"></ul>
+					</div>
+			   </div>
+			   <div class="content-right">
+
+			   </div>
+            <div class="broadcast_box">
+				   <div class="hide broadcast_player">
+						<div class="show_car">
+							<span class="now_play"></span>
+							<span class="now_channel"></span>
+						</div>
+						<div class="broadcast_show_box">
+							<div class="broadcast_box_player">
+								<p>To view this page ensure that Adobe Flash Player version 10.3.0 or greater is installed.</p>
+								<noscript>
+									<a href="http://www.adobe.com/go/getflashplayer/" style="color:black">
+										<img src="img/ERROR_getFlashPlayer.gif" width="640" height="377" />
+									</a>
+								</noscript>
+							</div>
+						</div>
+				   </div>
+			   </div>
+       </div>
+    </div>
+
+   </t>
+</template>

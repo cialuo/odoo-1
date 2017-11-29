@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<openerp>
+  <data>
+      <template id="lineMapProductionSzTmp" name="lineMapProductionSzTmp" inherit_id="web.assets_backend">
+          <xpath expr="." position="inside">
+              <link rel="stylesheet" href="/lty_operation_map_sz_tmp/static/src/css/line_map_production.css"/>
+              <link rel="stylesheet" href="/lty_operation_map_sz_tmp/static/src/lib/layer/skin/default/layer.css"/>
+              <link rel="stylesheet" href="/lty_operation_map_sz_tmp/static/src/lib/mCustomScrollbar/jquery.mCustomScrollbar.css"/>
+              <script src="/lty_operation_map_sz_tmp/static/src/lib/layer/layer.js" type="text/javascript"></script>
+              <script src="/lty_operation_map_sz_tmp/static/src/lib/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js" type="text/javascript"></script>
+              <script src="/lty_operation_map_sz_tmp/static/src/js/conversions_gps.js" type="text/javascript"></script>
+              <script src="/lty_operation_map_sz_tmp/static/src/js/line_map_production.js" type="text/javascript"></script>
+          </xpath>
+      </template>
+  </data>
+</openerp>

@@ -48,39 +48,51 @@ class upplanitem(models.Model):
         '''
 
         res = super(upplanitem, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
-            vals.update({
-                'lineName': res.execplan_id.line_id.line_name,
-                'gprsId': res.execplan_id.line_id.gprs_id,
-                'selfId': res.vehicle_id.inner_code,
-                'onBoardId': res.vehicle_id.on_boardid,
-                'workerId': res.driver.jobnumber,
-                'driverName': res.driver.name,
-                'trainName': res.steward.name,
-                'trainId': res.steward.jobnumber,
-                'workDate': res.execplan_id.excutedate,
-                'lineId': res.execplan_id.line_id.id,
-                'runGprsId': res.line_id.gprs_id,
-                'linePlanId': res.execplan_id.rule_id.id,
-            })
-            if self._name == 'scheduleplan.execupplanitem':
+        if not self._context.get('dryrun'):
+            url = self.env['ir.config_parameter'].get_param('restful.url')
+            cityCode = self.env['ir.config_parameter'].get_param('city.code')
+
+            rp = True
+            if res.execplan_id.rule_id.schedule_method == 'dubleway':
+                plan_count = 0.5
+            if res.execplan_id.rule_id.schedule_method == 'singleway':
+                plan_count = 1                
+            try:
+                _logger.info('Start create data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)
                 vals.update({
-                    'id': int(str(res.id) + '0'),
-                    'direction': 0,
+                    'lineName': res.execplan_id.line_id.line_name,
+                    'gprsId': res.execplan_id.line_id.gprs_id,
+                    'selfId': res.vehicle_id.inner_code,
+                    'onBoardId': res.vehicle_id.on_boardid,
+                    'workerId': res.driver.jobnumber,
+                    'driverName': res.driver.name,
+                    'trainName': res.steward.name,
+                    'trainId': res.steward.jobnumber,
+                    'workDate': res.execplan_id.excutedate,
+                    'lineId': res.execplan_id.line_id.id,
+                    'runGprsId': res.line_id.gprs_id,
+                    'linePlanId': res.execplan_id.rule_id.id,
                 })
-            if self._name == 'scheduleplan.execdownplanitem':
-                vals.update({
-                    'id': int(str(res.id) + '1'),
-                    'direction': 1,
-                })
-            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+                if self._name == 'scheduleplan.execupplanitem':
+                    vals.update({
+                        'id': int(str(res.id) + '0'),
+                        'direction': 0,
+                        'planCount': plan_count,
+                    })
+                if self._name == 'scheduleplan.execdownplanitem':
+                    vals.update({
+                        'id': int(str(res.id) + '1'),
+                        'direction': 1,
+                        'planCount': plan_count,
+                    })
+                params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+
+            except Exception,e:
+                _logger.info('%s', e.message)
+
+            response_check(rp)
         return res
 
     @api.multi
@@ -96,7 +108,8 @@ class upplanitem(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
+            if seconds.seconds > 5 and (not self._context.get('dryrun')):
+                rp = True
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -134,6 +147,8 @@ class upplanitem(models.Model):
                     # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
+
+                response_check(rp)
         return res
 
     @api.multi
@@ -162,6 +177,7 @@ class upplanitem(models.Model):
                 rp = Client().http_post(url, data=params)
             except Exception,e:
                 _logger.info('%s', e.message)
+            response_check(rp)
         return res
 
 #整条执行表删除,删除对应的司成，车辆资源。调度计划
@@ -173,15 +189,13 @@ class Excutetable(models.Model):
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for s in self:
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                _logger.info('Start unlink data: %s', self._name)
-                vals = {'lineId': s.line_id.id, 'workDate': s.excutedate}
-                params = Params(type = 2, cityCode = cityCode,tableName='op_dispatchplan', data = vals).to_dict()
-                rp = Client().http_post(url, data=params)
-            except Exception,e:
-                _logger.info('%s', e.message)
-        res = super(Excutetable, self).unlink()
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            _logger.info('Start unlink data: %s', self._name)
+            vals = {'lineId': s.line_id.id, 'workDate': s.excutedate}
+            params = Params(type = 2, cityCode = cityCode,tableName='op_dispatchplan', data = vals).to_dict()
+            res = super(Excutetable, s).unlink()
+            rp = Client().http_post(url, data=params)
+            response_check(rp)
         return res
 
 # class downplanitem(models.Model):

@@ -13,6 +13,7 @@
                     <field name="vehicle_ct"/>
                     <field name="driver_ct"/>
                     <field name="conductor_ct"/>
+                    <field name="direction" string="方向"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -51,15 +52,15 @@
 						<button name="action_submit"
 								type="object"
 								string="Submit check"
-								states="draft"
 								class="oe_highlight"
+                                attrs="{'invisible': ['|','|',('driver_vehicle_shift_ids', '=', []),('state', '!=', 'draft'),('is_not_match', '=', True)]}"
                                 groups="schedule_dispatch_group.schedule_user"
 								/> <!-- 提交审核-->
 
                         <button name="action_check_success"
 								type="object"
 								string="check success"
-								states="wait_check"
+                                attrs="{'invisible': ['|',('state', '!=', 'wait_check'),('is_not_match', '=', True)]}"
 								class="oe_highlight"
                                 groups="schedule_dispatch_group.schedule_manager"
 								/> <!-- 审核通过-->
@@ -89,11 +90,15 @@
                                 <field name="bus_algorithm_date" invisible="1"/>
                                 <field name="bus_driver_algorithm_id" options="{'no_create':True}"/>
                                 <field name="bus_shift_id" options="{'no_create':True}"/>
+                                <field name="is_flexible" string="机动"/>
+                                <field name="direction" string="方向" attrs="{'invisible':[('is_flexible','=',True)]}"/>
                                 <!--<field name="is_conductor"/>-->
                             </group>
                             <group>
-                                <field name="is_not_match" invisible="1"/>
+                                <field name="is_not_match" invisible="0" string='异常'/>
                                 <field name="not_match_reason" attrs="{'invisible':[('is_not_match','=',False)]}"/>
+                                
+                                
                             </group>
                         </group>
 
@@ -101,7 +106,7 @@
                             <page string="GroupVehicles">
                                 <field name="vehicle_ids" context="{'default_route_id':context.get('route_id','')}">
                                     <tree editable="bottom">
-                                        <!--<field name="sequence"/>-->
+                                        <field name="sequence" string='序号'  widget='line_sequence'/>
                                         <field name="route_id" invisible="1"/>
                                         <field name="vehicle_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="vehicle_type"/>
@@ -113,6 +118,7 @@
                             <page string="GroupDrivers">
                                 <field name="driver_ids" context="{'default_route_id':context.get('route_id','')}">
                                     <tree editable="bottom">
+                                        <field name="sequence"  string='序号'  widget='line_sequence'/>
                                         <field name="route_id" invisible="1"/>
                                         <field name="driver_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="jobnumber"/>
@@ -123,6 +129,7 @@
                             <page string="GroupConductors">
                                 <field name="conductor_ids" context="{'default_route_id':context.get('route_id','')}">
                                     <tree editable="bottom">
+                                        <field name="sequence"  string='序号'  widget='line_sequence'/>
                                         <field name="route_id" invisible="1"/>
                                         <field name="conductor_id" options="{'no_open':True,'no_create':True}"/>
                                         <field name="jobnumber"/>

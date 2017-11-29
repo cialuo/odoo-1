@@ -40,6 +40,7 @@
     <record model="ir.actions.act_window" id="ltyhr_checkingin_records">
         <field name="name">employee checkingint records</field>
         <field name="res_model">employee.attencerecords</field>
+        <field name="view_id" ref="ltyhr_chekcingin_record_tree"/>
         <field name="view_mode">tree,form</field>
     </record>
 

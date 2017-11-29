@@ -49,33 +49,39 @@ class attendance(models.Model):
         '''
 
         res = super(attendance, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            table = self._name + '.%s' % res.title
-            vals = mapping.dict_transfer(table, vals)
-            vals.update({
-                'id': res.id,
-                'lineId': res.execplan_id.line_id.id,
-                'lineName': res.execplan_id.line_id.line_name,
-                'gprsId': res.execplan_id.line_id.gprs_id,
-                'selfId': res.vehicle_id.inner_code,
-                'onBoardId': res.vehicle_id.on_boardid,
-                'workDate': res.execplan_id.excutedate,
-            })
-            if res.title == 'driver':
-                # 出勤司机
-                TABLE = 'op_attendance'
-                vals.update({'driverName': res.employee_id.name, 'workerId': res.employee_sn})
-            if res.title == 'steward':
-                # 出勤乘务员
-                TABLE = 'op_trainattendance'
-                vals.update({'trainName': res.employee_id.name, 'trainId': res.employee_sn})
-            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+        if not self._context.get('dryrun'):
+            url = self.env['ir.config_parameter'].get_param('restful.url')
+            cityCode = self.env['ir.config_parameter'].get_param('city.code')
+
+            rp = True
+            try:
+                _logger.info('Start create data: %s', self._name)
+                table = self._name + '.%s' % res.title
+                vals = mapping.dict_transfer(table, vals)
+                vals.update({
+                    'id': res.id,
+                    'lineId': res.execplan_id.line_id.id,
+                    'lineName': res.execplan_id.line_id.line_name,
+                    'gprsId': res.execplan_id.line_id.gprs_id,
+                    'selfId': res.vehicle_id.inner_code,
+                    'onBoardId': res.vehicle_id.on_boardid,
+                    'workDate': res.execplan_id.excutedate,
+                })
+                if res.title == 'driver':
+                    # 出勤司机
+                    TABLE = 'op_attendance'
+                    vals.update({'driverName': res.employee_id.name, 'workerId': res.employee_sn})
+                if res.title == 'steward':
+                    # 出勤乘务员
+                    TABLE = 'op_trainattendance'
+                    vals.update({'trainName': res.employee_id.name, 'trainId': res.employee_sn})
+                params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+
+            except Exception,e:
+                _logger.info('%s', e.message)
+
+            response_check(rp)
         return res
 
     @api.multi
@@ -91,7 +97,8 @@ class attendance(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
+            if seconds.seconds > 5 and (not self._context.get('dryrun')):
+                rp = True
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -116,8 +123,11 @@ class attendance(models.Model):
                         vals.update({'trainName': r.employee_id.name, 'trainId': r.employee_sn})
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
+
                 except Exception,e:
                     _logger.info('%s', e.message)
+
+                response_check(rp)
         return res
 
     @api.multi
@@ -133,19 +143,20 @@ class attendance(models.Model):
         res = super(attendance, self).unlink()
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-            _logger.info('Start unlink data: %s', self._name)
-            #出勤司机
-            if drivervals:
-                for driver in drivervals:
-                    params = Params(type = 2, cityCode = cityCode,tableName = 'op_attendance', data = {'id': driver}).to_dict()
-                    rp = Client().http_post(url, data=params)
-            #出勤乘务员
-            if stewardvals:
-                for steward in stewardvals:
-                    params = Params(type = 2, cityCode = cityCode,tableName = 'op_trainattendance', data = {'id': steward}).to_dict()
-                    rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
-        return res
+
+        # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+        _logger.info('Start unlink data: %s', self._name)
+        #出勤司机
+        if drivervals:
+            for driver in drivervals:
+                params = Params(type = 2, cityCode = cityCode,tableName = 'op_attendance', data = {'id': driver}).to_dict()
+                rp = Client().http_post(url, data=params)
+                response_check(rp)
+        #出勤乘务员
+        if stewardvals:
+            for steward in stewardvals:
+                params = Params(type = 2, cityCode = cityCode,tableName = 'op_trainattendance', data = {'id': steward}).to_dict()
+                rp = Client().http_post(url, data=params)
+                response_check(rp)
+
+        return

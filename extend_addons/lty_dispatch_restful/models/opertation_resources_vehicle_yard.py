@@ -28,9 +28,9 @@ import logging
 TABLE = 'op_dspLine'
 
 _logger = logging.getLogger(__name__)
-class Yard(models.Model):
+class opertation_yard_lines(models.Model):
 
-    _inherit = 'opertation_resources_vehicle_yard'
+    _inherit = 'opertation_yard_lines'
 
     '''
         继承调度线路基础数据,调用restful api
@@ -47,26 +47,36 @@ class Yard(models.Model):
         :return:
         '''
 
-        res = super(Yard, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
+        res = super(opertation_yard_lines, self).create(vals)
+
+        if not self._context.get('dryrun'):
+            url = self.env['ir.config_parameter'].get_param('restful.url')
+            cityCode = self.env['ir.config_parameter'].get_param('city.code')
             vals.update({
                 'id': res.id,
                 'screen1': 0,
                 'screen2': 0,
-                'lineName': res.route_id.line_name,
+                'route_name': res.name.line_name,
+                'direction': res.yard_id.direction,
+                'yard_name': res.yard_id.name,
+                'code': res.yard_id.code,
             })
-            if len(res.dispatch_screen_ids) >= 1:
-                vals.update({'screen1': res.dispatch_screen_ids[0].screen_code})
-                if len(res.dispatch_screen_ids) > 1:
-                    vals.update({'screen2': res.dispatch_screen_ids[1].screen_code})
-            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+            if len(res.yard_id.dispatch_screen_ids) >= 1:
+                vals.update({'screen1': res.yard_id.dispatch_screen_ids[0].screen_code})
+                if len(res.yard_id.dispatch_screen_ids) > 1:
+                    vals.update({'screen2': res.yard_id.dispatch_screen_ids[1].screen_code})                           
+            rp = True
+            try:
+                _logger.info('Start create data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)        
+            
+                params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+
+            except Exception,e:
+                _logger.info('%s', e.message)
+
+            response_check(rp)
         return res
 
     @api.multi
@@ -77,32 +87,39 @@ class Yard(models.Model):
         :return:
         '''
 
-        res = super(Yard, self).write(vals)
+        res = super(opertation_yard_lines, self).write(vals)
         url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
+        cityCode = self.env['ir.config_parameter'].get_param('city.code')      
+        
         for r in self:
+            vals.update({
+                'id': r.id,
+                'screen1': 0,
+                'screen2': 0,
+                'route_name': r.name.line_name,
+                'direction': r.yard_id.direction,
+                'yard_name': r.yard_id.name,
+                'code': r.yard_id.code,
+            })
+            if len(r.yard_id.dispatch_screen_ids) >= 1:
+                vals.update({'screen1': r.yard_id.dispatch_screen_ids[0].screen_code})
+                if len(r.yard_id.dispatch_screen_ids) > 1:
+                    vals.update({'screen2': r.yard_id.dispatch_screen_ids[1].screen_code})               
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
+            if seconds.seconds > 5 and (not self._context.get('dryrun')):
+                rp = True
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
                     vals = mapping.dict_transfer(self._name, vals)
-                    vals.update({
-                        'id': r.id,
-                        'screen1': 0,
-                        'screen2': 0,
-                        'lineName': r.route_id.line_name,
-                    })
-                    if len(r.dispatch_screen_ids) >= 1:
-                        vals.update({'screen1': r.dispatch_screen_ids[0].screen_code})
-                        if len(r.dispatch_screen_ids) > 1:
-                            vals.update({'screen2': r.dispatch_screen_ids[1].screen_code})
                     params = Params(type=3, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
                     rp = Client().http_post(url, data=params)
 
                     # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
+
+                response_check(rp)
         return res
 
     @api.multi
@@ -114,16 +131,16 @@ class Yard(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         # vals = {"ids": self.ids}
-        res = super(Yard, self).unlink()
+
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': r.id}
-                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-                rp = Client().http_post(url, data=params)
-            except Exception,e:
-                _logger.info('%s', e.message)
-        return res
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            _logger.info('Start unlink data: %s', self._name)
+            vals = {'id': r.id}
+            params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+            res = super(opertation_yard_lines, r).unlink()
+            rp = Client().http_post(url, data=params)
+            response_check(rp)
+
+        return

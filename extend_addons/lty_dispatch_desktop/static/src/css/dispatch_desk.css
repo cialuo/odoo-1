@@ -23,6 +23,11 @@
     color: #fff;
 }
 
+.table_bus_num_tbody .line_src_site {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .desktop_head > li:first-of-type {
     padding-left: 30px;
     display: flex;
@@ -215,7 +220,8 @@
     height: 20px;
     width: 100px;
     font-size: 14px;
-    text-align: center;
+    text-align: left;
+    padding-left: 15px;
     cursor: pointer;
     overflow: hidden;
 }
@@ -312,6 +318,18 @@
     filter: gray;
 }
 
+.to_red {
+    -ms-filter: hue-rotate(140deg) saturate(300%); /* 0度则不变，维持原色，可以是任何度数，但每360度完成一次完整变化 */
+    -webkit-filter: hue-rotate(140deg) saturate(300%);
+    filter: hue-rotate(140deg) saturate(300%);
+}
+
+.to_yellow {
+    -ms-filter: hue-rotate(170deg); /* 0度则不变，维持原色，可以是任何度数，但每360度完成一次完整变化 */
+    -webkit-filter: hue-rotate(170deg);
+    filter: hue-rotate(170deg);
+}
+
 .dispatch_desktop .line_car .type_car span {
     font-size: 12px;
     -webkit-transform: scale(0.75);
@@ -322,6 +340,78 @@
     line-height: 12px;
 }
 
+.mutual_information {
+    width: 750px;
+    height: 540px;
+    border-radius: 8px;
+    background: #37405F;
+    color: #fff;
+}
+
+.show_mutual_information {
+    color: #ddd;
+    line-height: 30px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.mutual_information .mutual_title {
+    position: absolute;
+    left: 20px;
+    right: 10px;
+}
+
+.dispatch_desktop .src_title {
+    height: 50px;
+}
+
+.mutual_content {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.mutual_content table {
+    width: 720px;
+    margin: 0 auto;
+    color: #838697;
+    max-height: 342px;
+}
+
+.mutual_content .pagination {
+    margin-right: 20px;
+    float: right;
+}
+
+.mutual_content .pagination > li > a {
+    background: none;
+    border-color: #fff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.mutual_content .pagination > li.active > a {
+    border-color: #fff;
+    background: #555C77;
+}
+
+.mutual_content th, .mutual_content td {
+    text-align: left;
+    max-height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #6D7487;
+}
+
+.mutual_content td a {
+    display: inline-block;
+    color: #838697;
+    cursor: pointer;
+}
+
+.line_way_chs option, .bus_way_chs option, .type_chs option {
+    color: #fff;
+    background: #37405f;
+}
+
 /*右至左车辆*/
 .dispatch_desktop .content_car_road_down .line_car {
     position: absolute;
@@ -330,6 +420,14 @@
     background: url("/lty_dispatch_desktop/static/src/img/little_car_r.png?v=20170918") no-repeat left top;
     top: 0px;
     cursor: pointer;
+}
+
+.dispatch_desktop .car_div {
+    float: right;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+    display: inline-block;
 }
 
 .dispatch_desktop .line_car .type_car {
@@ -376,7 +474,7 @@
 }
 
 .updown_line_table .absnormal_operate {
-    width: 210px;
+    width: 240px;
 }
 
 .updown_line_table .absnormal_operate p {
@@ -394,6 +492,10 @@
     display: none;
 }
 
+.toRed {
+    color: #cb413c;
+}
+
 .updown_line_table .no_absnormal {
     display: none;
 }
@@ -402,11 +504,11 @@
     color: #4ecfc7;
 }
 
-.updown_line_table .handleBtn a, .updown_line_table .finishBtn a {
+.updown_line_table .handleBtn a, .updown_line_table .finishBtn a, .ignore_btn a, .agree_btn a, .refuse_btn a {
     display: block;
     float: left;
     color: #cb413c;
-    width: 64px;
+    width: 54px;
     height: 24px;
     border: 1px solid #cb413c;
     border-radius: 4px;
@@ -415,6 +517,24 @@
     font-size: 14px;
     margin-right: 6px;
     cursor: pointer;
+}
+
+.handleBtn button {
+    background: none;
+    border: 1px solid;
+    border-radius: 4px;
+}
+
+.handleBtn button[disabled='disabled'] {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #ccc;
+}
+
+.handleBtn button {
+    color: #cb413c;
+    border-color: #cb413c;
 }
 
 .updown_line_table .real_time_process {
@@ -478,7 +598,38 @@
     right: 10px;
 }
 
-.updown_line_table a.min, .bus_src_config .min, .main_controll_interface .min {
+.mutual_information .min {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.mutual_information .mutual_input li {
+    float: left;
+    /*width: 25%;*/
+    padding-left: 5px;
+}
+
+.mutual_input {
+    margin: 10px 5px;
+    overflow: hidden;
+}
+
+.mutual_input .form-control {
+    border-radius: 4px !important;
+    background: none;
+    border: 1px solid #ccc;
+    color: #ddd;
+    -webkit-appearance: menulist-button;
+    -moz-appearance: menulist-button;
+}
+
+.mutual_input .mutal_srh_btn {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.updown_line_table a.min, .bus_src_config .min, .main_controll_interface .min, .mutual_information .min, .abnormal_driver .min {
     width: 16px;
     height: 16px;
     line-height: 12px;
@@ -603,6 +754,14 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     }
 }
 
+.modal.config dd span, .modal.config dd div:first-of-type {
+    margin-left: 20px;
+}
+
+.modal.config dt {
+    margin-bottom: 8px;
+}
+
 .modal.config .src_font_color {
     margin-left: 180px;
 }
@@ -614,6 +773,29 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
 
 .modal.config .modal-header {
     border: none;
+}
+
+.same_car_show {
+    position: absolute;
+    width: 20px;
+    height: 15px;
+    color: white;
+    font-size: 12px !important;
+    cursor: pointer;
+    text-align: right;
+}
+
+.content_car_road_down .same_car_show {
+    text-align: left;
+}
+
+.same_car_show > div {
+    position: absolute;
+    right: 0;
+}
+
+.content_car_road_down .same_car_show > div {
+    left: 0;
 }
 
 .modal.config .modal-footer .btn-primary {
@@ -749,6 +931,13 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
 .bus_src_config .closeBox, .main_controll_interface .closeBox {
     height: 30px;
     position: relative;
+}
+
+.mutual_information .closeBox {
+    height: 40px;
+    position: relative;
+    line-height: 40px;
+    border-bottom: 1px solid #bbb;
 }
 
 .bus_src_config .dis_close_bt, .main_controll_interface .dis_close_bt, .digital_map .dis_close_bt {
@@ -1122,3 +1311,90 @@ dispatch_desktop .del, .edit_content .del, .bus_site_info .del {
     height: 300px;
 }
 
+/*司机手动异常*/
+.abnormal_driver {
+    width: 370px;
+    height: 400px;
+    background: #343B58;
+    border-radius: 8px;
+    position: fixed;
+    box-shadow: 0px 0px 20px #242A51;
+
+}
+
+.abnormal_driver .line_btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.abnormal_driver_title {
+    height: 30px;
+}
+
+.abnormal_driver .abnormal_ques {
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    color: #fff;
+}
+
+.abnormal_driver .abnorma_driver_desc {
+    width: 370px;
+    height: 370px;
+}
+
+.abnormal_driver_desc ul > li {
+    height: 40px;
+    margin: 0 50px;
+}
+
+.abnormal_driver_desc ul li > div {
+    float: left;
+    line-height: 40px;
+    width: 4em;
+
+}
+.abnormal_driver_desc ul{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.abnormal_driver_desc ul li>div {
+    display: block;
+    color: #fff;
+}
+
+.abnormal_driver_desc .w2 {
+    letter-spacing: 2em;
+    margin-right: -2em;
+}
+
+.abnormal_driver_desc input {
+    display: inline-block;
+    width: 200px;
+    background: none;
+    border: 1px solid #666;
+    color: #666;
+    vertical-align: middle;
+    margin-top: 6px;
+    margin-left: 10px;
+}
+.abnormal_driver_desc .deal_button{
+    margin:0 50px;
+}
+.abnormal_driver_desc .deal_button button {
+    background: none;
+    border: 1px solid;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 4px;
+    color: #4ecfc7;
+    border-color: #4ecfc7;
+    cursor: pointer;
+}
+
+.abnormal_driver_desc .deal_button .abnormal_ignore{
+    color: #666;
+    border-color: #666;
+}

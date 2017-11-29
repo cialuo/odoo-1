@@ -49,26 +49,32 @@ class Station(models.Model):
         '''
 
         res = super(Station, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
-            vals.update({
-                'id': res.id,
-                'gprsId': res.route_id.gprs_id,
-                'stationName': res.station_id.name,
-                'longitude': res.station_id.entrance_longitude,
-                'latitude': res.station_id.entrance_latitude,
-                'angle': res.station_id.entrance_azimuth,
-                'longitudeOut': res.station_id.exit_longitude,
-                'latitudeOut': res.station_id.exit_latitude,
-                'angleOut': res.station_id.exit_azimuth,
-            })
-            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+        if not self._context.get('dryrun'):
+            url = self.env['ir.config_parameter'].get_param('restful.url')
+            cityCode = self.env['ir.config_parameter'].get_param('city.code')
+
+            rp = True
+            try:
+                _logger.info('Start create data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)
+                vals.update({
+                    'id': res.id,
+                    'gprsId': res.route_id.gprs_id,
+                    'stationName': res.station_id.name,
+                    'longitude': res.station_id.entrance_longitude,
+                    'latitude': res.station_id.entrance_latitude,
+                    'angle': res.station_id.entrance_azimuth,
+                    'longitudeOut': res.station_id.exit_longitude,
+                    'latitudeOut': res.station_id.exit_latitude,
+                    'angleOut': res.station_id.exit_azimuth,
+                })
+                params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+
+            except Exception,e:
+                _logger.info('%s', e.message)
+
+            response_check(rp)
         return res
 
     @api.multi
@@ -85,7 +91,8 @@ class Station(models.Model):
         for r in self:
             #时间戳 避免 create方法进入 write方法
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
+            if seconds.seconds > 5 and (not self._context.get('dryrun')):
+                rp = True
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -107,6 +114,8 @@ class Station(models.Model):
                     # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
+
+                response_check(rp)
         return res
 
     @api.multi
@@ -118,16 +127,15 @@ class Station(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         # vals = {"ids": self.ids}
-        res = super(Station, self).unlink()
+
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': r.id}
-                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-                rp = Client().http_post(url, data=params)
-            except Exception,e:
-                _logger.info('%s', e.message)
-        return res
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            _logger.info('Start unlink data: %s', self._name)
+            vals = {'id': r.id}
+            params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+            res = super(Station, r).unlink()
+            rp = Client().http_post(url, data=params)
+            response_check(rp)
+        return

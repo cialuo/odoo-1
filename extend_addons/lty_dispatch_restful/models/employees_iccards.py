@@ -48,20 +48,27 @@ class ICCard(models.Model):
         '''
 
         res = super(ICCard, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            vals = mapping.dict_transfer(self._name, vals)
-            vals.update({
-                'id': res.id,
-            })
-            if res.employee_id:
-                vals.update({'name': res.employee_id.jobnumber})
-            params = Params(type=1, cityCode=cityCode,tableName=TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+
+        if not self._context.get('dryrun'):
+            url = self.env['ir.config_parameter'].get_param('restful.url')
+            cityCode = self.env['ir.config_parameter'].get_param('city.code')
+
+            rp = True
+            try:
+                _logger.info('Start create data: %s', self._name)
+                vals = mapping.dict_transfer(self._name, vals)
+                vals.update({
+                    'id': res.id,
+                })
+                if res.employee_id:
+                    vals.update({'name': res.employee_id.jobnumber})
+                params = Params(type=1, cityCode=cityCode, tableName=TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+
+            except Exception,e:
+                _logger.info('%s', e.message)
+
+            response_check(rp)
         return res
 
     @api.multi
@@ -77,7 +84,8 @@ class ICCard(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
+            if seconds.seconds > 5 and (not self._context.get('dryrun')):
+                rp = True
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -94,6 +102,8 @@ class ICCard(models.Model):
                     # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
+
+                response_check(rp)
         return res
 
     @api.multi
@@ -105,16 +115,15 @@ class ICCard(models.Model):
         # fk_ids = self.mapped('fk_id')
         # vals = {"ids":fk_ids}
         # vals = {"ids": self.ids}
-        res = super(ICCard, self).unlink()
+
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                _logger.info('Start unlink data: %s', self._name)
-                vals = {'id': r.id}
-                params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
-                rp = Client().http_post(url, data=params)
-            except Exception,e:
-                _logger.info('%s', e.message)
-        return res
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            _logger.info('Start unlink data: %s', self._name)
+            vals = {'id': r.id}
+            params = Params(type = 2, cityCode = cityCode,tableName = TABLE, data = vals).to_dict()
+            res = super(ICCard, r).unlink()
+            rp = Client().http_post(url, data=params)
+            response_check(rp)
+        return

@@ -1,0 +1,96 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* lty_dispatch_pre_arranged
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-13 05:41+0000\n"
+"PO-Revision-Date: 2017-10-13 05:41+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model.fields,field_description:lty_dispatch_pre_arranged.field_pre_arranged_planning_solutions_ids
+msgid "All Solutions"
+msgstr "解决办法"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model.fields,field_description:lty_dispatch_pre_arranged.field_pre_arranged_planning_auto_apply
+msgid "Auto apply"
+msgstr "自动套用"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model.fields,field_description:lty_dispatch_pre_arranged.field_pre_arranged_planning_average_hit_times
+msgid "Average hit times"
+msgstr "30天平均命中次数"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.actions.act_window,help:lty_dispatch_pre_arranged.lty_dispatch_pre_arranged_action
+msgid "Click to create a type.\n"
+"                    <br>"
+msgstr "Click to create a type.\n"
+"                    <br>"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model.fields,field_description:lty_dispatch_pre_arranged.field_pre_arranged_planning_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model.fields,field_description:lty_dispatch_pre_arranged.field_pre_arranged_planning_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model.fields,field_description:lty_dispatch_pre_arranged.field_pre_arranged_planning_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model.fields,help:lty_dispatch_pre_arranged.field_pre_arranged_planning_auto_apply
+msgid "Do you want to apply automatically?"
+msgstr "自动套用"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model.fields,field_description:lty_dispatch_pre_arranged.field_pre_arranged_planning_id
+msgid "ID"
+msgstr "编号"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model.fields,field_description:lty_dispatch_pre_arranged.field_pre_arranged_planning___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model.fields,field_description:lty_dispatch_pre_arranged.field_pre_arranged_planning_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model.fields,field_description:lty_dispatch_pre_arranged.field_pre_arranged_planning_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model.fields,field_description:lty_dispatch_pre_arranged.field_pre_arranged_planning_number_of_solutions
+msgid "Number of Solutions"
+msgstr "处理办法数量"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.ui.view,arch_db:lty_dispatch_pre_arranged.lty_dispatch_pre_arranged_list
+#: model:ir.ui.view,arch_db:lty_dispatch_pre_arranged.pre_arranged_form
+msgid "Pre-arranged"
+msgstr "预案"
+
+#. module: lty_dispatch_pre_arranged
+#: model:ir.model,name:lty_dispatch_pre_arranged.model_pre_arranged_planning
+#: model:ir.model.fields,field_description:lty_dispatch_pre_arranged.field_pre_arranged_planning_name
+msgid "Pre-arranged planning"
+msgstr "预案名称"
+

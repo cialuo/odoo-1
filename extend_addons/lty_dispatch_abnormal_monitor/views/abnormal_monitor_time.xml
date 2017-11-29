@@ -1,49 +1,49 @@
 <openerp>
-  <data>
-    <record model="ir.actions.act_window" id="abnormal_monitor_time_tiqianfache_action">
-      <field name="name">提前发车</field>
-      <field name="res_model">dispatch.abnormal.mgt</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-    <record model="ir.actions.act_window" id="abnormal_monitor_time_diaodianweifa_action">
-      <field name="name">到点未发车</field>
-      <field name="res_model">dispatch.abnormal.mgt</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-    
-    <record model="ir.actions.act_window" id="abnormal_monitor_time_daozhanzhundian_action">
-      <field name="name">到站准点</field>
-      <field name="res_model">dispatch.abnormal.mgt</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-    <record model="ir.actions.act_window" id="abnormal_monitor_time_tangcihuichang_action">
-      <field name="name">超次回场</field>
-      <field name="res_model">dispatch.abnormal.mgt</field>
-      <field name="view_mode">tree,form</field>
-    </record>    
-    <record model="ir.actions.act_window" id="abnormal_monitor_time_tangcihuichangyanzhong_action">
-      <field name="name">超次回场严重异常</field>
-      <field name="res_model">dispatch.abnormal.mgt</field>
-      <field name="view_mode">tree,form</field>
-    </record>      
-    
+    <data>
+        <record model="ir.actions.act_window" id="abnormal_monitor_time_tiqianfache_action">
+            <field name="name">提前发车</field>
+            <field name="res_model">dispatch.abnormal.mgt</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('package_type', '=', '1016')]</field>
+        </record>
+        <record model="ir.actions.act_window" id="abnormal_monitor_time_diaodianweifa_action">
+            <field name="name">到点未发车</field>
+            <field name="res_model">dispatch.abnormal.mgt</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('package_type', '=', '1017')]</field>
+        </record>
 
-    <menuitem name="提前发车" id="abnormal_monitor_time_tiqianfache_nenu" parent="lty_dispatch_abnormal_monitor_time"
-              action="abnormal_monitor_time_tiqianfache_action" sequence="10"/>   
-    <menuitem name="到点未发车" id="abnormal_monitor_time_diaodianweifa_menu" parent="lty_dispatch_abnormal_monitor_time"
-              action="abnormal_monitor_time_diaodianweifa_action" sequence="10"/>   
-    <menuitem name="到站准点" id="abnormal_monitor_time_daozhanzhundian_menu" parent="lty_dispatch_abnormal_monitor_time"
-              action="abnormal_monitor_time_daozhanzhundian_action" sequence="10"/>                 
-    <menuitem name="超次回场" id="abnormal_monitor_time_tangcihuichang_menu" parent="lty_dispatch_abnormal_monitor_time"
-              action="abnormal_monitor_time_tangcihuichang_action" sequence="10"/>                  
-    <menuitem name="超次回场严重异常" id="abnormal_monitor_time_tangcihuichangyanzhong_menu" parent="lty_dispatch_abnormal_monitor_time"
-              action="abnormal_monitor_time_tangcihuichangyanzhong_action" sequence="10"/>                 
-              
-              
-              
-              
-              
-              
+        <record model="ir.actions.act_window" id="abnormal_monitor_time_daozhanzhundian_action">
+            <field name="name">到站准点</field>
+            <field name="res_model">dispatch.abnormal.mgt</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('package_type', '=', '1005')]</field>
+        </record>
+        <record model="ir.actions.act_window" id="abnormal_monitor_time_tangcihuichang_action">
+            <field name="name">超时回场</field>
+            <field name="res_model">dispatch.abnormal.mgt</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('package_type', '=', '1007')]</field>
+        </record>
+        <record model="ir.actions.act_window" id="abnormal_monitor_time_tangcihuichangyanzhong_action">
+            <field name="name">超时回场严重异常</field>
+            <field name="res_model">dispatch.abnormal.mgt</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('package_type', '=', '1008')]</field>
+        </record>
 
-  </data>
+
+        <menuitem name="提前发车" id="abnormal_monitor_time_tiqianfache_nenu" parent="lty_dispatch_abnormal_monitor_time"
+                  action="abnormal_monitor_time_tiqianfache_action" sequence="10"/>
+        <menuitem name="到点未发车" id="abnormal_monitor_time_diaodianweifa_menu" parent="lty_dispatch_abnormal_monitor_time"
+                  action="abnormal_monitor_time_diaodianweifa_action" sequence="10"/>
+        <menuitem name="到站准点" id="abnormal_monitor_time_daozhanzhundian_menu"
+                  parent="lty_dispatch_abnormal_monitor_time"
+                  action="abnormal_monitor_time_daozhanzhundian_action" sequence="10"/>
+        <menuitem name="趟次回场" id="abnormal_monitor_time_tangcihuichang_menu" parent="lty_dispatch_abnormal_monitor_time"
+                  action="abnormal_monitor_time_tangcihuichang_action" sequence="10"/>
+        <menuitem name="趟次回场严重异常" id="abnormal_monitor_time_tangcihuichangyanzhong_menu"
+                  parent="lty_dispatch_abnormal_monitor_time"
+                  action="abnormal_monitor_time_tangcihuichangyanzhong_action" sequence="10"/>
+    </data>
 </openerp>

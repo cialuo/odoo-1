@@ -212,7 +212,7 @@
                     <field name="line_name"/>
                     <field name="gprs_id"/>
                     <field name="line_type_name"/>
-                    <field name="class_system_name"/>
+                    <field name="class_system_name" />
                     <field name="schedule_type"/>
                     <field name="people_number"/>
                     <field name="department_id"/>
@@ -240,6 +240,7 @@
 
                         <group col="2">
                             <group name="first_group">
+                                <field name="company_id" options="{'no_create':True}" string = '公司'/>
                                 <field name="gprs_id"/>
                                 <field name="line_type_name"/>
                                 <field name="main_line_id" options="{'no_create':True}"
@@ -248,7 +249,7 @@
                                 <field name="loop_type"/>
                                 <field name="oil_wear_coefficient"/>
                                 <field name="department_id" options="{'no_create':True}"/>
-                                <field name="class_system_name"/>
+                                <field name="class_system_name" invisible="1"/>
                                 <field name="run_type_name"/>
                                 <field name="schedule_type"/>
                             </group>
@@ -271,7 +272,7 @@
                             <page string="StationUps" name="StationUps">
                                 <field name="station_up_ids" context="{'default_direction':'up'}">
                                     <tree string="StationUps" editable="bottom" default_order="sequence">
-                                        <field name="sequence"/>
+                                        <field name="sequence" widget="sequence"/>
                                         <field name="direction" invisible="1"/>
                                         <field name="station_id" options="{'no_create':True}"/>
                                         <field name="station_type"/>
@@ -290,7 +291,7 @@
                             <page string="StationDowns" name="StationDowns">
                                 <field name="station_down_ids" context="{'default_direction':'down'}">
                                     <tree string="StationDowns" editable="bottom" default_order="sequence">
-                                        <field name="sequence"/>
+                                        <field name="sequence" widget="sequence"/>
                                         <field name="direction" invisible="1"/>
                                         <field name="station_id" options="{'no_create':True}"/>
                                         <field name="station_type"/>
@@ -307,16 +308,14 @@
                                 </field>
                             </page>
                             <page string="VehicleYards">
-                                <field name="yard_ids" readonly="1">
-                                    <tree>
-                                        <field name="code"/>
-										<field name="name"/>
-                                        <field name="direction"/>
-                                        <field name="is_yard"/>
-									</tree>
+                                <field name="yard2_ids" readonly="0">
+					                <tree editable='top'>
+					                    <field name="code" string ='编码'/>
+					                    <field name="yard_id" string = '车场'/>
+					                    <field name="direction" string ='方向'/>
+					                </tree>
                                 </field>
-                            </page>
-
+                            </page>                         
                             <page string="human resource" name="hr_page">
                                 <field name="human_resource"/>
                             </page>
@@ -332,6 +331,7 @@
                             <page string="调度员权限">
                                 <field name="dispatch_user_ids"/>
                             </page>
+                            
 
                         </notebook>
                     </sheet>
@@ -348,14 +348,25 @@
                 <tree>
                     <field name="code"/>
                     <field name="name"/>
-                    <field name="route_id"/>
                     <field name="direction"/>
                     <field name="is_yard"/>
                 </tree>
             </field>
         </record>
-
-
+        <!-- 车场线路管理 tree-->
+        <record model="ir.ui.view" id="opertation_yard_lines_tree_view">
+            <field name="name">opertation_yard_lines_tree_view</field>
+            <field name="model">opertation_yard_lines</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <tree editable='top'>
+                    <field name="code" string ='编码'/>
+                    <field name="name" string = '线路'/>
+                    <field name="yard_id" string = '车场'/>
+                    <field name="direction" string ='方向'/>
+                </tree>
+            </field>
+        </record>
         <!-- 车场管理 form-->
         <record model="ir.ui.view" id="opertation_resources_vehicle_yard_form_view">
             <field name="name">opertation_resources_vehicle_yard_form_view</field>
@@ -372,7 +383,6 @@
                         </div>
                         <group col="2">
                             <group>
-                                <field name="route_id" options="{'no_create':True}"/>
                                 <field name="direction" required="1"/>
                             </group>
                             <group>
@@ -390,6 +400,14 @@
 									</tree>
                                 </field>
                             </page>
+                            <page string="过场线路">
+                                <field name="lin_ids"  readonly="1">
+					                <tree editable='top'>
+					                    <field name="name" string = '线路' required ='1'/>
+					                </tree>                                
+                                </field>
+                            </page>                            
+                            
                         </notebook>
                     </sheet>
                 </form>

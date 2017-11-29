@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-
-        <!--<record id="schedule_dispatch_group.schedule_user" model="res.groups">-->
-            <!--<field name="implied_ids" eval="[(4, ref('vehicle_group.vehicle_driver'))]"/>-->
-            <!--<field name="users" eval="[(4, ref('base.user_root'))]"/>-->
-        <!--</record>-->
-
-    </data>
+    <record id="scheduling_parameters_route_manage_rule" model="ir.rule">
+        <field name="name">route_manage_rule</field>
+        <field name="model_id" ref="model_route_manage_route_manage"/>
+        <field name="domain_force">[('dispatch_user_ids', 'in', [user.id])]</field>
+        <field name="global" eval="True"/>
+    </record>
 </odoo>

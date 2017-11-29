@@ -48,30 +48,35 @@ class LinePlan(models.Model):
         '''
 
         res = super(LinePlan, self).create(vals)
-        url = self.env['ir.config_parameter'].get_param('restful.url')
-        cityCode = self.env['ir.config_parameter'].get_param('city.code')
-        try:
-            _logger.info('Start create data: %s', self._name)
-            vals.update({
-                'id': res.id,
-                #后台取值,
-                'gprs_id': res.line_id.gprs_id,
-                'schedule_type': res.line_id.schedule_type,
-                'line_id': res.line_id.id,
-                'upfirsttime': '2017-01-01 ' + res.upfirsttime + ':00',
-                'uplasttime': '2017-01-01 ' + res.uplasttime + ':00',
-                'downfirsttime': '2017-01-01 ' + res.downfirsttime + ':00',
-                'downlasttime': '2017-01-01 ' + res.downlasttime + ':00',
-                # 'upfirsttime': res.upfirsttime,
-                # 'uplasttime': res.uplasttime,
-                # 'downfirsttime': res.downfirsttime,
-                # 'downlasttime': res.downlasttime,
-            })
-            vals = mapping.dict_transfer(self._name, vals)
-            params = Params(type=1, cityCode=cityCode,tableName=LINEPLAN_TABLE, data=vals).to_dict()
-            rp = Client().http_post(url, data=params)
-        except Exception,e:
-            _logger.info('%s', e.message)
+        if not self._context.get('dryrun'):
+            url = self.env['ir.config_parameter'].get_param('restful.url')
+            cityCode = self.env['ir.config_parameter'].get_param('city.code')
+            rp = True	
+            try:
+                _logger.info('Start create data: %s', self._name)
+                vals.update({
+                    'id': res.id,
+                    #后台取值,
+                    'gprs_id': res.line_id.gprs_id,
+                    'schedule_type': res.line_id.schedule_type,
+                    'line_id': res.line_id.id,
+                    'upfirsttime': '2017-01-01 ' + res.upfirsttime + ':00',
+                    'uplasttime': '2017-01-01 ' + res.uplasttime + ':00',
+                    'downfirsttime': '2017-01-01 ' + res.downfirsttime + ':00',
+                    'downlasttime': '2017-01-01 ' + res.downlasttime + ':00',
+                    # 'upfirsttime': res.upfirsttime,
+                    # 'uplasttime': res.uplasttime,
+                    # 'downfirsttime': res.downfirsttime,
+                    # 'downlasttime': res.downlasttime,
+                })
+                vals = mapping.dict_transfer(self._name, vals)
+                params = Params(type=1, cityCode=cityCode,tableName=LINEPLAN_TABLE, data=vals).to_dict()
+                rp = Client().http_post(url, data=params)
+
+            except Exception,e:
+                _logger.info('%s', e.message)
+
+            response_check(rp)
         return res
 
     @api.multi
@@ -87,7 +92,8 @@ class LinePlan(models.Model):
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
             seconds = datetime.datetime.utcnow() - datetime.datetime.strptime(r.create_date, "%Y-%m-%d %H:%M:%S")
-            if seconds.seconds > 5:
+            if seconds.seconds > 5 and (not self._context.get('dryrun')):
+                rp = True
                 try:
                     # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
                     _logger.info('Start write data: %s', self._name)
@@ -101,6 +107,7 @@ class LinePlan(models.Model):
                         # 后台取值,
                         'gprs_id': r.line_id.gprs_id,
                         'schedule_type': r.line_id.schedule_type,
+						
                     })
                     vals = mapping.dict_transfer(self._name, vals)
                     params = Params(type=3, cityCode=cityCode,tableName=LINEPLAN_TABLE, data=vals).to_dict()
@@ -109,6 +116,8 @@ class LinePlan(models.Model):
                     # clientThread(url,params,res).start()
                 except Exception,e:
                     _logger.info('%s', e.message)
+
+                response_check(rp)
         return res
 
     @api.multi
@@ -124,17 +133,11 @@ class LinePlan(models.Model):
         url = self.env['ir.config_parameter'].get_param('restful.url')
         cityCode = self.env['ir.config_parameter'].get_param('city.code')
         for r in self:
-            try:
-                # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
-                vals = {'id': r.id}
-                _logger.info('Start unlink data: %s', self._name)
-                params = Params(type = 2, cityCode = cityCode,tableName = LINEPLAN_TABLE, data = vals).to_dict()
-                rp = Client().http_post(url, data=params)
-            except Exception,e:
-                _logger.info('%s', e.message)
-            r.bigsite_up.unlink()
-            r.bigsite_down.unlink()
-            r.uptimearrange.unlink()
-            r.downtimearrange.unlink()
-        res = super(LinePlan, self).unlink()
+            # url = 'http://10.1.50.83:8080/ltyop/syn/synData/'
+            vals = {'id': r.id}
+            _logger.info('Start unlink data: %s', self._name)
+            params = Params(type = 2, cityCode = cityCode,tableName = LINEPLAN_TABLE, data = vals).to_dict()
+            res = super(LinePlan, r).unlink()
+            rp = Client().http_post(url, data=params)
+            response_check(rp)
         return res

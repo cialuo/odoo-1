@@ -19,11 +19,13 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
             var package_send = {
                 type: 2000,
                 controlId: this.desktop_id,
-                open_modules: ["bus_real_state"]
+                open_modules: ["bus_resource"]
             };
-            if (websocket){
+            try {
                 websocket.send(JSON.stringify(package_send));
-            }   
+            } catch(e) {
+                console.log(e);
+            }
             $('.table_bus_num_tbody').mCustomScrollbar({
                 theme: 'minimal'
             });
@@ -53,6 +55,16 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
             this.$el.find('.config_bus_source').slideDown();
         },
         closeFn: function () {
+            var package = {
+                type: 2001,
+                controlId: this.desktop_id,
+                open_modules: ["bus_resource"]
+            };
+            try {
+                websocket.send(JSON.stringify(package));
+            } catch(e) {
+                console.log(e);
+            }
             this.destroy();
         },
         close_set: function () {
@@ -68,7 +80,7 @@ odoo.define('lty_dispatch_desktop.bus_source_config', function (require) {
                 yes: function (index) {
                     layer.close(index);
                     $.ajax({
-                        url: 'http://202.104.136.228:8888/ltyop/resource/addRunMethod?apikey=71029270&params={id:' + car_id + ',direction:' + car_direct + '}',
+                        url: RESTFUL_URL+'/ltyop/resource/addRunMethod?apikey=71029270&params={id:' + car_id + ',direction:' + car_direct + '}',
                         type: 'get',
                         dataType: 'json',
                         data: {},

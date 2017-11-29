@@ -34,7 +34,7 @@ class BusShiftChooseLine(models.Model):
     ]
 
     shift_id = fields.Many2one('bus_shift', ondelete='cascade')
-    sequence = fields.Integer("Shift Line Sequence", default=0, required=True, readonly=True)
+    sequence = fields.Integer("Shift Line Sequence", required=True)
     shift_line_id = fields.Many2one('bus_shift_line', string='Shift Name', required=True)
 
     @api.model

@@ -1,0 +1,2582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data noupdate="1">
+
+       <record id="clxh251" model="fleet.vehicle.model">
+           <field name="code">ACA1</field>
+           <field name="name">安柴A1</field>
+           <field name="specifications">HFF6104GK39</field>
+           <field name="deadline">13</field>
+           <field name="length">10320</field>
+           <field name="width">2500</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1830</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5500</field>
+           <field name="rear_max_weight">10000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">10.5</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp250"/>
+           <field name="chassis_no">HFF6101D13</field>
+       </record>
+
+       <record id="clxh120" model="fleet.vehicle.model">
+           <field name="code">017</field>
+           <field name="name">奥迪</field>
+           <field name="specifications">AUDIA6L2.8CVT</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp113"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh332" model="fleet.vehicle.model">
+           <field name="code">BCA1</field>
+           <field name="name">北柴A1(空调车)</field>
+           <field name="specifications">BJ6760C5MFB</field>
+           <field name="deadline">13</field>
+           <field name="length">7645</field>
+           <field name="width">2350</field>
+           <field name="height">3100</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1945</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">3600</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">22.5</field>
+           <field name="brand_id" ref="clpp331"/>
+           <field name="chassis_no">BJ6750BC03A</field>
+       </record>
+
+       <record id="clxh349" model="fleet.vehicle.model">
+           <field name="code">BCX1</field>
+           <field name="name">北柴混合A</field>
+           <field name="specifications">BJ6105CHEVCA-2</field>
+           <field name="deadline">13</field>
+           <field name="length">10500</field>
+           <field name="width">2500</field>
+           <field name="height">3200</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">2098</field>
+           <field name="rear_distance">1880</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5500</field>
+           <field name="rear_max_weight">11000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">17.5</field>
+           <field name="brand_id" ref="clpp331"/>
+           <field name="chassis_no">承载式车身</field>
+       </record>
+
+       <record id="clxh350" model="fleet.vehicle.model">
+           <field name="code">BCX2</field>
+           <field name="name">北柴混合B</field>
+           <field name="specifications">BJ6905CHEVCA-2</field>
+           <field name="deadline">13</field>
+           <field name="length">8990</field>
+           <field name="width">2450</field>
+           <field name="height">3100</field>
+           <field name="inner_height">2100</field>
+           <field name="front_distance">2010</field>
+           <field name="rear_distance">1840</field>
+           <field name="shaft_distance">4250</field>
+           <field name="front_max_weight">4200</field>
+           <field name="rear_max_weight">9500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">16</field>
+           <field name="brand_id" ref="clpp331"/>
+           <field name="chassis_no">承载式车身</field>
+       </record>
+
+       <record id="clxh220" model="fleet.vehicle.model">
+           <field name="code">012</field>
+           <field name="name">大众昊锐</field>
+           <field name="specifications">SVW7209CJD</field>
+           <field name="deadline">0</field>
+           <field name="length">4838</field>
+           <field name="width">1817</field>
+           <field name="height">1462</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp113"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh89" model="fleet.vehicle.model">
+           <field name="code">DCA1</field>
+           <field name="name">丹柴A1（普通型朝柴机）</field>
+           <field name="specifications">DD6101HS</field>
+           <field name="deadline">13</field>
+           <field name="length">10200</field>
+           <field name="width">2500</field>
+           <field name="height">3080</field>
+           <field name="inner_height">2200</field>
+           <field name="front_distance">1900</field>
+           <field name="rear_distance">1770</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2500</field>
+           <field name="rear_max_weight">5400</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">24</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh90" model="fleet.vehicle.model">
+           <field name="code">DCA2</field>
+           <field name="name">丹柴A2（普通型朝柴机）</field>
+           <field name="specifications">DD6101HS</field>
+           <field name="deadline">13</field>
+           <field name="length">10200</field>
+           <field name="width">2500</field>
+           <field name="height">3080</field>
+           <field name="inner_height">2200</field>
+           <field name="front_distance">1900</field>
+           <field name="rear_distance">1770</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2500</field>
+           <field name="rear_max_weight">5400</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">24</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh91" model="fleet.vehicle.model">
+           <field name="code">DCA-Ⅱ2</field>
+           <field name="name">丹柴A-Ⅱ2（普通型玉柴机）</field>
+           <field name="specifications">DD6101HS</field>
+           <field name="deadline">13</field>
+           <field name="length">10200</field>
+           <field name="width">2500</field>
+           <field name="height">3080</field>
+           <field name="inner_height">2200</field>
+           <field name="front_distance">1900</field>
+           <field name="rear_distance">1770</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2500</field>
+           <field name="rear_max_weight">5400</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">24</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh92" model="fleet.vehicle.model">
+           <field name="code">DCB1</field>
+           <field name="name">丹柴B1（黄三、朝柴增压机）</field>
+           <field name="specifications">DD6103HSC</field>
+           <field name="deadline">13</field>
+           <field name="length">10200</field>
+           <field name="width">2496</field>
+           <field name="height">3080</field>
+           <field name="inner_height">2194</field>
+           <field name="front_distance">1940</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2500</field>
+           <field name="rear_max_weight">5400</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh93" model="fleet.vehicle.model">
+           <field name="code">DCB-Ⅱ2</field>
+           <field name="name">丹柴B-Ⅱ2（观景型、玉柴增压机）</field>
+           <field name="specifications">DD6103HS</field>
+           <field name="deadline">13</field>
+           <field name="length">10200</field>
+           <field name="width">2496</field>
+           <field name="height">3080</field>
+           <field name="inner_height">2200</field>
+           <field name="front_distance">1900</field>
+           <field name="rear_distance">1770</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2500</field>
+           <field name="rear_max_weight">5400</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">24</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh94" model="fleet.vehicle.model">
+           <field name="code">DCC1</field>
+           <field name="name">丹柴C1（黄三、11米车）</field>
+           <field name="specifications">DD6111HS</field>
+           <field name="deadline">13</field>
+           <field name="length">11100</field>
+           <field name="width">2490</field>
+           <field name="height">3120</field>
+           <field name="inner_height">1967</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5600</field>
+           <field name="front_max_weight">3000</field>
+           <field name="rear_max_weight">7300</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">26</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">EQ153</field>
+       </record>
+
+       <record id="clxh106" model="fleet.vehicle.model">
+           <field name="code">DCD1</field>
+           <field name="name">丹柴D1(10米车）</field>
+           <field name="specifications">DD6105S01</field>
+           <field name="deadline">13</field>
+           <field name="length">10200</field>
+           <field name="width">2480</field>
+           <field name="height">3020</field>
+           <field name="inner_height">2190</field>
+           <field name="front_distance">1930</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2400</field>
+           <field name="rear_max_weight">5750</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">EQ153</field>
+       </record>
+
+       <record id="clxh155" model="fleet.vehicle.model">
+           <field name="code">DCD2</field>
+           <field name="name">丹柴D2(10米车）</field>
+           <field name="specifications">DD6105S05</field>
+           <field name="deadline">13</field>
+           <field name="length">10200</field>
+           <field name="width">2480</field>
+           <field name="height">3020</field>
+           <field name="inner_height">2190</field>
+           <field name="front_distance">1930</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2400</field>
+           <field name="rear_max_weight">5750</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">EQ153</field>
+       </record>
+
+       <record id="clxh162" model="fleet.vehicle.model">
+           <field name="code">DCD3</field>
+           <field name="name">丹柴D3(10米车)</field>
+           <field name="specifications">DD6105S05</field>
+           <field name="deadline">13</field>
+           <field name="length">10200</field>
+           <field name="width">2480</field>
+           <field name="height">3020</field>
+           <field name="inner_height">2300</field>
+           <field name="front_distance">1930</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">4500</field>
+           <field name="rear_max_weight">8500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">EQ153</field>
+       </record>
+
+       <record id="clxh170" model="fleet.vehicle.model">
+           <field name="code">DCD4</field>
+           <field name="name">丹柴D4（10米车）</field>
+           <field name="specifications">DD6105S05</field>
+           <field name="deadline">13</field>
+           <field name="length">10200</field>
+           <field name="width">2480</field>
+           <field name="height">3020</field>
+           <field name="inner_height">2300</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">4500</field>
+           <field name="rear_max_weight">8500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">28</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">EQ153</field>
+       </record>
+
+       <record id="clxh176" model="fleet.vehicle.model">
+           <field name="code">DCD5</field>
+           <field name="name">丹柴D5（10米车）</field>
+           <field name="specifications">DD6105S05</field>
+           <field name="deadline">13</field>
+           <field name="length">10200</field>
+           <field name="width">2480</field>
+           <field name="height">3020</field>
+           <field name="inner_height">2300</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">28</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">EQ153</field>
+       </record>
+
+       <record id="clxh107" model="fleet.vehicle.model">
+           <field name="code">DCE1</field>
+           <field name="name">丹柴E1（9米中型车）</field>
+           <field name="specifications">DD6890S01</field>
+           <field name="deadline">13</field>
+           <field name="length">8940</field>
+           <field name="width">2360</field>
+           <field name="height">3150</field>
+           <field name="inner_height">2290</field>
+           <field name="front_distance">1957</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">4200</field>
+           <field name="front_max_weight">2250</field>
+           <field name="rear_max_weight">5100</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">9</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">20</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh142" model="fleet.vehicle.model">
+           <field name="code">DCE2</field>
+           <field name="name">丹柴E2（9米中型车）</field>
+           <field name="specifications">DD6890S08</field>
+           <field name="deadline">13</field>
+           <field name="length">8940</field>
+           <field name="width">2360</field>
+           <field name="height">3150</field>
+           <field name="inner_height">2290</field>
+           <field name="front_distance">1957</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">4200</field>
+           <field name="front_max_weight">2250</field>
+           <field name="rear_max_weight">5100</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">9</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">20</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh154" model="fleet.vehicle.model">
+           <field name="code">DCE3</field>
+           <field name="name">丹柴E3（9米中型车）</field>
+           <field name="specifications">DD6890S08</field>
+           <field name="deadline">13</field>
+           <field name="length">8940</field>
+           <field name="width">2360</field>
+           <field name="height">3150</field>
+           <field name="inner_height">2290</field>
+           <field name="front_distance">1957</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">4200</field>
+           <field name="front_max_weight">2250</field>
+           <field name="rear_max_weight">5100</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">9</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">20</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh163" model="fleet.vehicle.model">
+           <field name="code">DCE4</field>
+           <field name="name">丹柴E4（9米中型车）</field>
+           <field name="specifications">DD6890S08</field>
+           <field name="deadline">13</field>
+           <field name="length">8940</field>
+           <field name="width">2360</field>
+           <field name="height">3150</field>
+           <field name="inner_height">2290</field>
+           <field name="front_distance">1957</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">4200</field>
+           <field name="front_max_weight">4200</field>
+           <field name="rear_max_weight">7500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">9</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">20</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh169" model="fleet.vehicle.model">
+           <field name="code">DCE5</field>
+           <field name="name">丹柴E5（9米中型车）</field>
+           <field name="specifications">DD6890S08</field>
+           <field name="deadline">13</field>
+           <field name="length">8940</field>
+           <field name="width">2360</field>
+           <field name="height">3150</field>
+           <field name="inner_height">2290</field>
+           <field name="front_distance">1957</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">4200</field>
+           <field name="front_max_weight">2350</field>
+           <field name="rear_max_weight">5450</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">9</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">20</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh188" model="fleet.vehicle.model">
+           <field name="code">DCF1</field>
+           <field name="name">丹柴F1</field>
+           <field name="specifications">DD6109S31</field>
+           <field name="deadline">13</field>
+           <field name="length">10150</field>
+           <field name="width">2482</field>
+           <field name="height">3100</field>
+           <field name="inner_height">2190</field>
+           <field name="front_distance">2040</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5000</field>
+           <field name="rear_max_weight">10500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">DD6109S31</field>
+       </record>
+
+       <record id="clxh196" model="fleet.vehicle.model">
+           <field name="code">DCF2</field>
+           <field name="name">丹柴F2</field>
+           <field name="specifications">DD6109S32</field>
+           <field name="deadline">13</field>
+           <field name="length">10150</field>
+           <field name="width">2482</field>
+           <field name="height">3100</field>
+           <field name="inner_height">2190</field>
+           <field name="front_distance">2040</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5000</field>
+           <field name="rear_max_weight">10500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">DD6980DS32</field>
+       </record>
+
+       <record id="clxh214" model="fleet.vehicle.model">
+           <field name="code">DCF2-Ⅱ</field>
+           <field name="name">丹柴F2-Ⅱ</field>
+           <field name="specifications">DD6109S32</field>
+           <field name="deadline">13</field>
+           <field name="length">10150</field>
+           <field name="width">2482</field>
+           <field name="height">3100</field>
+           <field name="inner_height">2190</field>
+           <field name="front_distance">2040</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5000</field>
+           <field name="rear_max_weight">15000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">DD6980DS32</field>
+       </record>
+
+       <record id="clxh202" model="fleet.vehicle.model">
+           <field name="code">DCF3</field>
+           <field name="name">丹柴F3</field>
+           <field name="specifications">DD6109S32</field>
+           <field name="deadline">13</field>
+           <field name="length">10150</field>
+           <field name="width">2482</field>
+           <field name="height">3100</field>
+           <field name="inner_height">2190</field>
+           <field name="front_distance">1914</field>
+           <field name="rear_distance">1842</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5000</field>
+           <field name="rear_max_weight">10500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">柳汽153</field>
+       </record>
+
+       <record id="clxh216" model="fleet.vehicle.model">
+           <field name="code">DCF4</field>
+           <field name="name">丹柴F4</field>
+           <field name="specifications">DD6109S32</field>
+           <field name="deadline">13</field>
+           <field name="length">10150</field>
+           <field name="width">2482</field>
+           <field name="height">3100</field>
+           <field name="inner_height">2190</field>
+           <field name="front_distance">1914</field>
+           <field name="rear_distance">1842</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5000</field>
+           <field name="rear_max_weight">10500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">DD6980DS32</field>
+       </record>
+
+       <record id="clxh223" model="fleet.vehicle.model">
+           <field name="code">DCF5</field>
+           <field name="name">丹柴F5</field>
+           <field name="specifications">DD6109S32</field>
+           <field name="deadline">13</field>
+           <field name="length">10150</field>
+           <field name="width">2482</field>
+           <field name="height">3100</field>
+           <field name="inner_height">2190</field>
+           <field name="front_distance">1914</field>
+           <field name="rear_distance">1842</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5000</field>
+           <field name="rear_max_weight">10500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">DD6980DS32</field>
+       </record>
+
+       <record id="clxh224" model="fleet.vehicle.model">
+           <field name="code">DCF6</field>
+           <field name="name">丹柴F6</field>
+           <field name="specifications">DD6109S32</field>
+           <field name="deadline">13</field>
+           <field name="length">10150</field>
+           <field name="width">2482</field>
+           <field name="height">3100</field>
+           <field name="inner_height">2190</field>
+           <field name="front_distance">1914</field>
+           <field name="rear_distance">1842</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5000</field>
+           <field name="rear_max_weight">10500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">DD6980DS32</field>
+       </record>
+
+       <record id="clxh253" model="fleet.vehicle.model">
+           <field name="code">DCF7</field>
+           <field name="name">丹柴F7</field>
+           <field name="specifications">DD6109S32</field>
+           <field name="deadline">13</field>
+           <field name="length">10150</field>
+           <field name="width">2482</field>
+           <field name="height">3100</field>
+           <field name="inner_height">2190</field>
+           <field name="front_distance">1914</field>
+           <field name="rear_distance">1842</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5000</field>
+           <field name="rear_max_weight">10500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">DD6980DS32</field>
+       </record>
+
+       <record id="clxh281" model="fleet.vehicle.model">
+           <field name="code">DCF8</field>
+           <field name="name">丹柴F8</field>
+           <field name="specifications">DD6109S32</field>
+           <field name="deadline">13</field>
+           <field name="length">10150</field>
+           <field name="width">2482</field>
+           <field name="height">3100</field>
+           <field name="inner_height">2190</field>
+           <field name="front_distance">2040</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5000</field>
+           <field name="rear_max_weight">10500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">DD6980DS32</field>
+       </record>
+
+       <record id="clxh313" model="fleet.vehicle.model">
+           <field name="code">DCG1</field>
+           <field name="name">丹柴G1（观光型）</field>
+           <field name="specifications">DD6761G02</field>
+           <field name="deadline">13</field>
+           <field name="length">7640</field>
+           <field name="width">2400</field>
+           <field name="height">3285</field>
+           <field name="inner_height">2430</field>
+           <field name="front_distance">1950</field>
+           <field name="rear_distance">1840</field>
+           <field name="shaft_distance">4800</field>
+           <field name="front_max_weight">4000</field>
+           <field name="rear_max_weight">7200</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">8.5</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">15</field>
+           <field name="brand_id" ref="clpp98"/>
+           <field name="chassis_no">DD6751DG02</field>
+       </record>
+
+       <record id="clxh229" model="fleet.vehicle.model">
+           <field name="code">013</field>
+           <field name="name">东风景逸</field>
+           <field name="specifications">LZ6430BQBE</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp113"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh208" model="fleet.vehicle.model">
+           <field name="code">002</field>
+           <field name="name">风行景逸1</field>
+           <field name="specifications">东风LZ6430BQ4E</field>
+           <field name="deadline">8</field>
+           <field name="length">4320</field>
+           <field name="width">1804</field>
+           <field name="height">1620</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">2685</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp207"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh209" model="fleet.vehicle.model">
+           <field name="code">003</field>
+           <field name="name">风行景逸2</field>
+           <field name="specifications">东风LZ6430BQ4E</field>
+           <field name="deadline">8</field>
+           <field name="length">4320</field>
+           <field name="width">1804</field>
+           <field name="height">1620</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">2685</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp207"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh221" model="fleet.vehicle.model">
+           <field name="code">005</field>
+           <field name="name">风行景逸3</field>
+           <field name="specifications">NULL</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp207"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh186" model="fleet.vehicle.model">
+           <field name="code">034</field>
+           <field name="name">广本思迪</field>
+           <field name="specifications">HG7150A（VTEC 5AT）</field>
+           <field name="deadline">0</field>
+           <field name="length">4390</field>
+           <field name="width">1690</field>
+           <field name="height">1505</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1438</field>
+           <field name="rear_distance">1438</field>
+           <field name="shaft_distance">2450</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp113"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh63" model="fleet.vehicle.model">
+           <field name="code">GCA1</field>
+           <field name="name">广柴A1</field>
+           <field name="specifications">GZK6100AD</field>
+           <field name="deadline">13</field>
+           <field name="length">10100</field>
+           <field name="width">2453</field>
+           <field name="height">3010</field>
+           <field name="inner_height">1940</field>
+           <field name="front_distance">1900</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2250</field>
+           <field name="rear_max_weight">5050</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">10</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">18</field>
+           <field name="brand_id" ref="clpp99"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh68" model="fleet.vehicle.model">
+           <field name="code">GCA2</field>
+           <field name="name">广柴A2</field>
+           <field name="specifications">GZK6100AD</field>
+           <field name="deadline">13</field>
+           <field name="length">10100</field>
+           <field name="width">2453</field>
+           <field name="height">3010</field>
+           <field name="inner_height">1940</field>
+           <field name="front_distance">1900</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2250</field>
+           <field name="rear_max_weight">5050</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">10</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">18</field>
+           <field name="brand_id" ref="clpp99"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh69" model="fleet.vehicle.model">
+           <field name="code">GCA3</field>
+           <field name="name">广柴A3</field>
+           <field name="specifications">GZK6100AD</field>
+           <field name="deadline">13</field>
+           <field name="length">10100</field>
+           <field name="width">2453</field>
+           <field name="height">3010</field>
+           <field name="inner_height">1940</field>
+           <field name="front_distance">1900</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2250</field>
+           <field name="rear_max_weight">5050</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">10</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">18</field>
+           <field name="brand_id" ref="clpp99"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh70" model="fleet.vehicle.model">
+           <field name="code">GCA4</field>
+           <field name="name">广柴A4</field>
+           <field name="specifications">GZK6100AD</field>
+           <field name="deadline">13</field>
+           <field name="length">10100</field>
+           <field name="width">2453</field>
+           <field name="height">3010</field>
+           <field name="inner_height">1940</field>
+           <field name="front_distance">1900</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2250</field>
+           <field name="rear_max_weight">5050</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">3</field>
+           <field name="turn_radius">10</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">18</field>
+           <field name="brand_id" ref="clpp99"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh71" model="fleet.vehicle.model">
+           <field name="code">GCA5</field>
+           <field name="name">广柴A5</field>
+           <field name="specifications">GZK6100AD</field>
+           <field name="deadline">13</field>
+           <field name="length">10100</field>
+           <field name="width">2453</field>
+           <field name="height">3010</field>
+           <field name="inner_height">1940</field>
+           <field name="front_distance">1900</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2250</field>
+           <field name="rear_max_weight">5050</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">10</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">18</field>
+           <field name="brand_id" ref="clpp99"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh72" model="fleet.vehicle.model">
+           <field name="code">GCA6</field>
+           <field name="name">广柴A6</field>
+           <field name="specifications">GZK6100AD</field>
+           <field name="deadline">13</field>
+           <field name="length">10100</field>
+           <field name="width">2453</field>
+           <field name="height">3010</field>
+           <field name="inner_height">1940</field>
+           <field name="front_distance">1900</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2250</field>
+           <field name="rear_max_weight">5050</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">10</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">18</field>
+           <field name="brand_id" ref="clpp99"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh73" model="fleet.vehicle.model">
+           <field name="code">GCA7</field>
+           <field name="name">广柴A7</field>
+           <field name="specifications">GZK6100AD</field>
+           <field name="deadline">13</field>
+           <field name="length">10100</field>
+           <field name="width">2453</field>
+           <field name="height">3010</field>
+           <field name="inner_height">1940</field>
+           <field name="front_distance">1900</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2250</field>
+           <field name="rear_max_weight">5050</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">10</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">18</field>
+           <field name="brand_id" ref="clpp99"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh74" model="fleet.vehicle.model">
+           <field name="code">GCA8</field>
+           <field name="name">广柴A8</field>
+           <field name="specifications">GZK6100AD</field>
+           <field name="deadline">13</field>
+           <field name="length">10100</field>
+           <field name="width">2453</field>
+           <field name="height">3010</field>
+           <field name="inner_height">1940</field>
+           <field name="front_distance">1900</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">2250</field>
+           <field name="rear_max_weight">5050</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">10</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">18</field>
+           <field name="brand_id" ref="clpp99"/>
+           <field name="chassis_no">CA151D4</field>
+       </record>
+
+       <record id="clxh343" model="fleet.vehicle.model">
+           <field name="code">SCX1</field>
+           <field name="name">海格混合A</field>
+           <field name="specifications">KL6129GAHEVE4B</field>
+           <field name="deadline">13</field>
+           <field name="length">12000</field>
+           <field name="width">2550</field>
+           <field name="height">3300</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">2096</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">6100</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">22</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">承载式车身</field>
+       </record>
+
+       <record id="clxh348" model="fleet.vehicle.model">
+           <field name="code">SCX2</field>
+           <field name="name">海格混合B</field>
+           <field name="specifications">KLQ6109GAHEVE5E</field>
+           <field name="deadline">13</field>
+           <field name="length">10490</field>
+           <field name="width">2480</field>
+           <field name="height">3250</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">2096</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5100</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">19.3</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">承载式车身</field>
+       </record>
+
+       <record id="clxh127" model="fleet.vehicle.model">
+           <field name="code">022</field>
+           <field name="name">海狮</field>
+           <field name="specifications"></field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp126"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh283" model="fleet.vehicle.model">
+           <field name="code">004</field>
+           <field name="name">衡山</field>
+           <field name="specifications">衡山牌HSZ6905JL</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp183"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh351" model="fleet.vehicle.model">
+           <field name="code">006</field>
+           <field name="name">衡山牌</field>
+           <field name="specifications">衡山牌HSZ511XLH</field>
+           <field name="deadline">0</field>
+           <field name="length">9000</field>
+           <field name="width">2495</field>
+           <field name="height">3245</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp183"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh197" model="fleet.vehicle.model">
+           <field name="code">035</field>
+           <field name="name">金杯海狮客车</field>
+           <field name="specifications">SY6483L3</field>
+           <field name="deadline">0</field>
+           <field name="length">5070</field>
+           <field name="width">1690</field>
+           <field name="height">1935</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp126"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh310" model="fleet.vehicle.model">
+           <field name="code">JCA1</field>
+           <field name="name">金柴A1（BRT)</field>
+           <field name="specifications">JNP6180G</field>
+           <field name="deadline">13</field>
+           <field name="length">18000</field>
+           <field name="width">2550</field>
+           <field name="height">3175</field>
+           <field name="inner_height">2435</field>
+           <field name="front_distance">2096</field>
+           <field name="rear_distance">1836</field>
+           <field name="shaft_distance">5800</field>
+           <field name="front_max_weight">7500</field>
+           <field name="rear_max_weight">13000</field>
+           <field name="wheel_count">10</field>
+           <field name="driving_wheel_count">6</field>
+           <field name="turn_radius">12.5</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">48</field>
+           <field name="brand_id" ref="clpp309"/>
+           <field name="chassis_no">全承载式</field>
+       </record>
+
+       <record id="clxh353" model="fleet.vehicle.model">
+           <field name="code">LCX1</field>
+           <field name="name">金旅混合A</field>
+           <field name="specifications">XML6105JHEVG8C1</field>
+           <field name="deadline">13</field>
+           <field name="length">10480</field>
+           <field name="width">2500</field>
+           <field name="height">3300</field>
+           <field name="inner_height">1200</field>
+           <field name="front_distance">2096</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp352"/>
+           <field name="chassis_no">承载式车身</field>
+       </record>
+
+       <record id="clxh179" model="fleet.vehicle.model">
+           <field name="code">032</field>
+           <field name="name">康华运料车</field>
+           <field name="specifications">WG6800E</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp135"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh95" model="fleet.vehicle.model">
+           <field name="code">MCA1</field>
+           <field name="name">牡柴A1（小蝗虫）</field>
+           <field name="specifications">MD6602AD5</field>
+           <field name="deadline">13</field>
+           <field name="length">5980</field>
+           <field name="width">2080</field>
+           <field name="height">2760</field>
+           <field name="inner_height">1820</field>
+           <field name="front_distance">1580</field>
+           <field name="rear_distance">1485</field>
+           <field name="shaft_distance">3308</field>
+           <field name="front_max_weight">1570</field>
+           <field name="rear_max_weight">1630</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">7.7</field>
+           <field name="max_climb">30</field>
+           <field name="fuel_consumption_pre_hund">13</field>
+           <field name="brand_id" ref="clpp100"/>
+           <field name="chassis_no">HFC6601KY</field>
+       </record>
+
+       <record id="clxh347" model="fleet.vehicle.model">
+           <field name="code">NCX1</field>
+           <field name="name">南柴混合A</field>
+           <field name="specifications">TEG6851EHEV01</field>
+           <field name="deadline">13</field>
+           <field name="length">8540</field>
+           <field name="width">2430</field>
+           <field name="height">3180</field>
+           <field name="inner_height">2200</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">4000</field>
+           <field name="front_max_weight">4500</field>
+           <field name="rear_max_weight">8000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">9.5</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">14.1</field>
+           <field name="brand_id" ref="clpp346"/>
+           <field name="chassis_no">半承载</field>
+       </record>
+
+       <record id="clxh119" model="fleet.vehicle.model">
+           <field name="code">016</field>
+           <field name="name">帕萨特</field>
+           <field name="specifications">SVW7183DJI</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp113"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh115" model="fleet.vehicle.model">
+           <field name="code">014</field>
+           <field name="name">桑塔纳</field>
+           <field name="specifications"></field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp113"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh245" model="fleet.vehicle.model">
+           <field name="code">XCA1</field>
+           <field name="name">厦柴A1</field>
+           <field name="specifications">XMQ6106G</field>
+           <field name="deadline">13</field>
+           <field name="length">10480</field>
+           <field name="width">2500</field>
+           <field name="height">3040</field>
+           <field name="inner_height">2280</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5100</field>
+           <field name="front_max_weight">5000</field>
+           <field name="rear_max_weight">10000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp239"/>
+           <field name="chassis_no">柳汽153前后桥</field>
+       </record>
+
+       <record id="clxh241" model="fleet.vehicle.model">
+           <field name="code">XCA1-Ⅱ</field>
+           <field name="name">厦柴A1-Ⅱ(空调车)</field>
+           <field name="specifications">XMQ6106G</field>
+           <field name="deadline">13</field>
+           <field name="length">10480</field>
+           <field name="width">2500</field>
+           <field name="height">3040</field>
+           <field name="inner_height">2280</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5100</field>
+           <field name="front_max_weight">5000</field>
+           <field name="rear_max_weight">10000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">22</field>
+           <field name="brand_id" ref="clpp239"/>
+           <field name="chassis_no">XMQ6102GR</field>
+       </record>
+
+       <record id="clxh195" model="fleet.vehicle.model">
+           <field name="code">SCA1</field>
+           <field name="name">苏柴A1(8.5米）</field>
+           <field name="specifications">KLQ6850GE3</field>
+           <field name="deadline">13</field>
+           <field name="length">8540</field>
+           <field name="width">2440</field>
+           <field name="height">2900</field>
+           <field name="inner_height">2250</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">3850</field>
+           <field name="front_max_weight">4000</field>
+           <field name="rear_max_weight">8000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">9</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">23</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">KLQ6820GE3</field>
+       </record>
+
+       <record id="clxh210" model="fleet.vehicle.model">
+           <field name="code">SCA2</field>
+           <field name="name">苏柴A2(8.5米）</field>
+           <field name="specifications">KLQ6850GE3</field>
+           <field name="deadline">13</field>
+           <field name="length">8540</field>
+           <field name="width">2440</field>
+           <field name="height">2900</field>
+           <field name="inner_height">2250</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">3850</field>
+           <field name="front_max_weight">4000</field>
+           <field name="rear_max_weight">8000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">9</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">23</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">KLQ6820GE3</field>
+       </record>
+
+       <record id="clxh225" model="fleet.vehicle.model">
+           <field name="code">SCA3</field>
+           <field name="name">苏柴A3(8.5米)</field>
+           <field name="specifications">KLQ6850GE3</field>
+           <field name="deadline">13</field>
+           <field name="length">8540</field>
+           <field name="width">2440</field>
+           <field name="height">2900</field>
+           <field name="inner_height">2250</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">4000</field>
+           <field name="front_max_weight">4200</field>
+           <field name="rear_max_weight">8200</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">9</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">23</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">KLQ6820GE3</field>
+       </record>
+
+       <record id="clxh254" model="fleet.vehicle.model">
+           <field name="code">SCA4</field>
+           <field name="name">苏柴A4(8.5米)</field>
+           <field name="specifications">KLQ6850GE3</field>
+           <field name="deadline">13</field>
+           <field name="length">8540</field>
+           <field name="width">2440</field>
+           <field name="height">2900</field>
+           <field name="inner_height">2250</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">4000</field>
+           <field name="front_max_weight">4200</field>
+           <field name="rear_max_weight">8200</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">9</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">23</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">KLQ6820GE3</field>
+       </record>
+
+       <record id="clxh280" model="fleet.vehicle.model">
+           <field name="code">SCA5</field>
+           <field name="name">苏柴A5（8.5米）</field>
+           <field name="specifications">KLQ6850GE3</field>
+           <field name="deadline">13</field>
+           <field name="length">8540</field>
+           <field name="width">2440</field>
+           <field name="height">2900</field>
+           <field name="inner_height">2250</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1800</field>
+           <field name="shaft_distance">4000</field>
+           <field name="front_max_weight">4200</field>
+           <field name="rear_max_weight">8200</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">9</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">23</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">KLQ68250GE3</field>
+       </record>
+
+       <record id="clxh219" model="fleet.vehicle.model">
+           <field name="code">SCB1</field>
+           <field name="name">苏柴B1</field>
+           <field name="specifications">KLQ6108GE3</field>
+           <field name="deadline">13</field>
+           <field name="length">10490</field>
+           <field name="width">2480</field>
+           <field name="height">2950</field>
+           <field name="inner_height">2190</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1850</field>
+           <field name="shaft_distance">5100</field>
+           <field name="front_max_weight">5000</field>
+           <field name="rear_max_weight">11000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">9.5</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">23</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">KLQ6101GE3</field>
+       </record>
+
+       <record id="clxh227" model="fleet.vehicle.model">
+           <field name="code">SCC1</field>
+           <field name="name">苏柴C1(7.7米空调车)</field>
+           <field name="specifications">KLQ6770G</field>
+           <field name="deadline">13</field>
+           <field name="length">7749</field>
+           <field name="width">2340</field>
+           <field name="height">3050</field>
+           <field name="inner_height">2200</field>
+           <field name="front_distance">1847</field>
+           <field name="rear_distance">1740</field>
+           <field name="shaft_distance">3600</field>
+           <field name="front_max_weight">3500</field>
+           <field name="rear_max_weight">7000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">8.5</field>
+           <field name="max_climb">30</field>
+           <field name="fuel_consumption_pre_hund">18</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">KLQ6770G</field>
+       </record>
+
+       <record id="clxh304" model="fleet.vehicle.model">
+           <field name="code">SCC2</field>
+           <field name="name">苏柴C2(7.7米空调）</field>
+           <field name="specifications">KLQ6770G</field>
+           <field name="deadline">15</field>
+           <field name="length">7749</field>
+           <field name="width">2340</field>
+           <field name="height">3050</field>
+           <field name="inner_height">2200</field>
+           <field name="front_distance">1847</field>
+           <field name="rear_distance">1740</field>
+           <field name="shaft_distance">3600</field>
+           <field name="front_max_weight">3500</field>
+           <field name="rear_max_weight">7000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">8.5</field>
+           <field name="max_climb">30</field>
+           <field name="fuel_consumption_pre_hund">23</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">KLQ6770G</field>
+       </record>
+
+       <record id="clxh234" model="fleet.vehicle.model">
+           <field name="code">SCD1</field>
+           <field name="name">苏柴D1</field>
+           <field name="specifications">KLQ6109G</field>
+           <field name="deadline">13</field>
+           <field name="length">10490</field>
+           <field name="width">2480</field>
+           <field name="height">2950</field>
+           <field name="inner_height">2000</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1850</field>
+           <field name="shaft_distance">5100</field>
+           <field name="front_max_weight">5500</field>
+           <field name="rear_max_weight">11000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">22</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">KLQ6101GE3</field>
+       </record>
+
+       <record id="clxh235" model="fleet.vehicle.model">
+           <field name="code">SCD1-Ⅱ</field>
+           <field name="name">苏柴D1-Ⅱ(空调车)</field>
+           <field name="specifications">KLQ6109G</field>
+           <field name="deadline">13</field>
+           <field name="length">10490</field>
+           <field name="width">2480</field>
+           <field name="height">3200</field>
+           <field name="inner_height">2000</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1850</field>
+           <field name="shaft_distance">5100</field>
+           <field name="front_max_weight">5500</field>
+           <field name="rear_max_weight">11000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">22</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">KLQ6101GE3</field>
+       </record>
+
+       <record id="clxh255" model="fleet.vehicle.model">
+           <field name="code">SCD2</field>
+           <field name="name">苏柴D2</field>
+           <field name="specifications">KLQ6109G</field>
+           <field name="deadline">13</field>
+           <field name="length">10490</field>
+           <field name="width">2480</field>
+           <field name="height">2950</field>
+           <field name="inner_height">2000</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1850</field>
+           <field name="shaft_distance">5100</field>
+           <field name="front_max_weight">5500</field>
+           <field name="rear_max_weight">11000</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">22</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">KLQ6101GE3</field>
+       </record>
+
+       <record id="clxh305" model="fleet.vehicle.model">
+           <field name="code">SCE1</field>
+           <field name="name">苏柴E1(BRT)</field>
+           <field name="specifications">KLQ6129GQ1</field>
+           <field name="deadline">13</field>
+           <field name="length">12000</field>
+           <field name="width">2550</field>
+           <field name="height">3150</field>
+           <field name="inner_height">2200</field>
+           <field name="front_distance">2096</field>
+           <field name="rear_distance">1838</field>
+           <field name="shaft_distance">6000</field>
+           <field name="front_max_weight">5500</field>
+           <field name="rear_max_weight">6500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">38</field>
+           <field name="brand_id" ref="clpp194"/>
+           <field name="chassis_no">KLQ6121GQ</field>
+       </record>
+
+       <record id="clxh157" model="fleet.vehicle.model">
+           <field name="code">028</field>
+           <field name="name">索纳塔1</field>
+           <field name="specifications">BH7200MW</field>
+           <field name="deadline">8</field>
+           <field name="length">4747</field>
+           <field name="width">1820</field>
+           <field name="height">1440</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1540</field>
+           <field name="rear_distance">1530</field>
+           <field name="shaft_distance">2700</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">4</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">7</field>
+           <field name="brand_id" ref="clpp113"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh128" model="fleet.vehicle.model">
+           <field name="code">023</field>
+           <field name="name">塔菲克</field>
+           <field name="specifications">T5EHA</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp126"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh122" model="fleet.vehicle.model">
+           <field name="code">018</field>
+           <field name="name">五菱1010</field>
+           <field name="specifications">LZW1010VH</field>
+           <field name="deadline">8</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp121"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh123" model="fleet.vehicle.model">
+           <field name="code">019</field>
+           <field name="name">五菱6330</field>
+           <field name="specifications"></field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp121"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh125" model="fleet.vehicle.model">
+           <field name="code">021</field>
+           <field name="name">五菱6330B</field>
+           <field name="specifications">LZW6330Bi1</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp121"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh124" model="fleet.vehicle.model">
+           <field name="code">020</field>
+           <field name="name">五菱6330E</field>
+           <field name="specifications">LZW6330EI3</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp121"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh140" model="fleet.vehicle.model">
+           <field name="code">027</field>
+           <field name="name">五菱6360</field>
+           <field name="specifications">五菱LZW6360Ei1</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp121"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh228" model="fleet.vehicle.model">
+           <field name="code">007</field>
+           <field name="name">五菱6376NF</field>
+           <field name="specifications">LZW6376NF</field>
+           <field name="deadline">0</field>
+           <field name="length">3730</field>
+           <field name="width">1510</field>
+           <field name="height">1860</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp121"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh296" model="fleet.vehicle.model">
+           <field name="code">NULL</field>
+           <field name="name">五菱6407</field>
+           <field name="specifications">LZ6407BAF</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp121"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh258" model="fleet.vehicle.model">
+           <field name="code">008</field>
+           <field name="name">五菱6430MF-宏光</field>
+           <field name="specifications">LZW6430MF</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp121"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh314" model="fleet.vehicle.model">
+           <field name="code">NULL</field>
+           <field name="name">五菱LZ1029SPA</field>
+           <field name="specifications">LZ1029SPA</field>
+           <field name="deadline">0</field>
+           <field name="length">4550</field>
+           <field name="width">1610</field>
+           <field name="height">1875</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1386</field>
+           <field name="rear_distance">1408</field>
+           <field name="shaft_distance">3050</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">4</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp121"/>
+           <field name="chassis_no">LZ1029SPA</field>
+       </record>
+
+       <record id="clxh342" model="fleet.vehicle.model">
+           <field name="code">011</field>
+           <field name="name">五菱LZW6442KAF-宏光S</field>
+           <field name="specifications">LZW6442KAF</field>
+           <field name="deadline">0</field>
+           <field name="length">4400</field>
+           <field name="width">1680</field>
+           <field name="height">1770</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1420</field>
+           <field name="rear_distance">1440</field>
+           <field name="shaft_distance">2720</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">4</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp121"/>
+           <field name="chassis_no">LZWADAGA5F4113471</field>
+       </record>
+
+       <record id="clxh129" model="fleet.vehicle.model">
+           <field name="code">024</field>
+           <field name="name">五菱微货</field>
+           <field name="specifications">LZW1010PSN</field>
+           <field name="deadline">8</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp121"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh65" model="fleet.vehicle.model">
+           <field name="code">WQA1</field>
+           <field name="name">武汽A1</field>
+           <field name="specifications">WG6800</field>
+           <field name="deadline">10</field>
+           <field name="length">8080</field>
+           <field name="width">2250</field>
+           <field name="height">2850</field>
+           <field name="inner_height">1870</field>
+           <field name="front_distance">1800</field>
+           <field name="rear_distance">1600</field>
+           <field name="shaft_distance">3915</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">4</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">9</field>
+           <field name="max_climb">32</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp101"/>
+           <field name="chassis_no">HFC6801Y</field>
+       </record>
+
+       <record id="clxh66" model="fleet.vehicle.model">
+           <field name="code">WQA2</field>
+           <field name="name">武汽A2</field>
+           <field name="specifications">WG6800</field>
+           <field name="deadline">13</field>
+           <field name="length">7960</field>
+           <field name="width">2280</field>
+           <field name="height">2895</field>
+           <field name="inner_height">1890</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">3800</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">8</field>
+           <field name="max_climb">30</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp101"/>
+           <field name="chassis_no">EQ1070KT1Q3</field>
+       </record>
+
+       <record id="clxh67" model="fleet.vehicle.model">
+           <field name="code">WQA3</field>
+           <field name="name">武汽A3</field>
+           <field name="specifications">WG6800E</field>
+           <field name="deadline">13</field>
+           <field name="length">7960</field>
+           <field name="width">2280</field>
+           <field name="height">2895</field>
+           <field name="inner_height">1890</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">8</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp101"/>
+           <field name="chassis_no">EQ1070KT1Q3-1</field>
+       </record>
+
+       <record id="clxh158" model="fleet.vehicle.model">
+           <field name="code">029</field>
+           <field name="name">现代-名驭1</field>
+           <field name="specifications">BH7200MW</field>
+           <field name="deadline">8</field>
+           <field name="length">4747</field>
+           <field name="width">1820</field>
+           <field name="height">1440</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1540</field>
+           <field name="rear_distance">1530</field>
+           <field name="shaft_distance">2700</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">4</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">7</field>
+           <field name="brand_id" ref="clpp113"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh164" model="fleet.vehicle.model">
+           <field name="code">030</field>
+           <field name="name">现代-名驭2</field>
+           <field name="specifications">BH7183MY</field>
+           <field name="deadline">8</field>
+           <field name="length">4770</field>
+           <field name="width">1820</field>
+           <field name="height">1420</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1540</field>
+           <field name="rear_distance">1530</field>
+           <field name="shaft_distance">2700</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">4</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">7</field>
+           <field name="brand_id" ref="clpp113"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh312" model="fleet.vehicle.model">
+           <field name="code">009</field>
+           <field name="name">现代-名驭3</field>
+           <field name="specifications">北京现代BH7183FMY</field>
+           <field name="deadline">0</field>
+           <field name="length">4770</field>
+           <field name="width">1820</field>
+           <field name="height">1420</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1540</field>
+           <field name="rear_distance">1530</field>
+           <field name="shaft_distance">2700</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">4</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">6.8</field>
+           <field name="brand_id" ref="clpp113"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh201" model="fleet.vehicle.model">
+           <field name="code">001</field>
+           <field name="name">现代胜达2656C</field>
+           <field name="specifications">KMHSH81D</field>
+           <field name="deadline">0</field>
+           <field name="length">4680</field>
+           <field name="width">1890</field>
+           <field name="height">1800</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp200"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh316" model="fleet.vehicle.model">
+           <field name="code">010</field>
+           <field name="name">现代-伊兰特</field>
+           <field name="specifications">BH7162FMY</field>
+           <field name="deadline">8</field>
+           <field name="length">4545</field>
+           <field name="width">1725</field>
+           <field name="height">1425</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1485</field>
+           <field name="rear_distance">1447</field>
+           <field name="shaft_distance">2610</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">4</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">7</field>
+           <field name="brand_id" ref="clpp113"/>
+           <field name="chassis_no">——</field>
+       </record>
+
+       <record id="clxh118" model="fleet.vehicle.model">
+           <field name="code">015</field>
+           <field name="name">新凯</field>
+           <field name="specifications">HXK6360</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp113"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh133" model="fleet.vehicle.model">
+           <field name="code">025</field>
+           <field name="name">扬子江</field>
+           <field name="specifications">扬子江WG6800E</field>
+           <field name="deadline">10</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp132"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh319" model="fleet.vehicle.model">
+           <field name="code">NULL</field>
+           <field name="name">油灌车</field>
+           <field name="specifications">欧曼牌BJ5163GYY-AB</field>
+           <field name="deadline">15</field>
+           <field name="length">8321</field>
+           <field name="width">2480</field>
+           <field name="height">2900</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1960</field>
+           <field name="rear_distance">1847</field>
+           <field name="shaft_distance">4700</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">35</field>
+           <field name="brand_id" ref="clpp174"/>
+           <field name="chassis_no">BJ5163GYY-AB</field>
+       </record>
+
+       <record id="clxh344" model="fleet.vehicle.model">
+           <field name="code">ZCX1</field>
+           <field name="name">宇通混合A</field>
+           <field name="specifications">ZK6105CHEVPG1</field>
+           <field name="deadline">13</field>
+           <field name="length">10500</field>
+           <field name="width">2500</field>
+           <field name="height">3200</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">2096</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5200</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">12</field>
+           <field name="fuel_consumption_pre_hund">22</field>
+           <field name="brand_id" ref="clpp243"/>
+           <field name="chassis_no">全承载</field>
+       </record>
+
+       <record id="clxh354" model="fleet.vehicle.model">
+           <field name="code">ZCX2</field>
+           <field name="name">宇通混合B</field>
+           <field name="specifications">ZK6105CHEVPG21</field>
+           <field name="deadline">13</field>
+           <field name="length">10500</field>
+           <field name="width">2500</field>
+           <field name="height">3200</field>
+           <field name="inner_height">2100</field>
+           <field name="front_distance">2115</field>
+           <field name="rear_distance">1880</field>
+           <field name="shaft_distance">5200</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp243"/>
+           <field name="chassis_no">全承载</field>
+       </record>
+
+       <record id="clxh321" model="fleet.vehicle.model">
+           <field name="code">NULL</field>
+           <field name="name">宇通运钞车A1</field>
+           <field name="specifications">ZK5060XXY1</field>
+           <field name="deadline">15</field>
+           <field name="length">5995</field>
+           <field name="width">2240</field>
+           <field name="height">3050</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1757</field>
+           <field name="rear_distance">1616</field>
+           <field name="shaft_distance">3300</field>
+           <field name="front_max_weight">2140</field>
+           <field name="rear_max_weight">2110</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">13</field>
+           <field name="max_climb">30</field>
+           <field name="fuel_consumption_pre_hund">17</field>
+           <field name="brand_id" ref="clpp243"/>
+           <field name="chassis_no">ZK6563CD1</field>
+       </record>
+
+       <record id="clxh333" model="fleet.vehicle.model">
+           <field name="code">NULL</field>
+           <field name="name">宇通运钞车A2</field>
+           <field name="specifications">ZK5060XXY1</field>
+           <field name="deadline">15</field>
+           <field name="length">5995</field>
+           <field name="width">2240</field>
+           <field name="height">3050</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1757</field>
+           <field name="rear_distance">1616</field>
+           <field name="shaft_distance">3300</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">13</field>
+           <field name="max_climb">30</field>
+           <field name="fuel_consumption_pre_hund">20</field>
+           <field name="brand_id" ref="clpp243"/>
+           <field name="chassis_no">ZK6563CD1</field>
+       </record>
+
+       <record id="clxh184" model="fleet.vehicle.model">
+           <field name="code">033</field>
+           <field name="name">长江</field>
+           <field name="specifications">CJ6100G2C10HK</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp183"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh252" model="fleet.vehicle.model">
+           <field name="code">ZCA1</field>
+           <field name="name">郑柴A1</field>
+           <field name="specifications">ZK6108HGC</field>
+           <field name="deadline">13</field>
+           <field name="length">10305</field>
+           <field name="width">2500</field>
+           <field name="height">3240</field>
+           <field name="inner_height">2200</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5500</field>
+           <field name="rear_max_weight">11000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp243"/>
+           <field name="chassis_no">ZK6100GCRA</field>
+       </record>
+
+       <record id="clxh244" model="fleet.vehicle.model">
+           <field name="code">ZCA1-Ⅱ</field>
+           <field name="name">郑柴A1-Ⅱ（空调车)</field>
+           <field name="specifications">ZK6108HGC</field>
+           <field name="deadline">13</field>
+           <field name="length">10305</field>
+           <field name="width">2500</field>
+           <field name="height">3240</field>
+           <field name="inner_height">2200</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5500</field>
+           <field name="rear_max_weight">11000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">22</field>
+           <field name="brand_id" ref="clpp243"/>
+           <field name="chassis_no">ZK6100GCRA</field>
+       </record>
+
+       <record id="clxh268" model="fleet.vehicle.model">
+           <field name="code">ZCA2</field>
+           <field name="name">郑柴A2</field>
+           <field name="specifications">ZK6108HGC</field>
+           <field name="deadline">13</field>
+           <field name="length">10305</field>
+           <field name="width">2500</field>
+           <field name="height">3240</field>
+           <field name="inner_height">2200</field>
+           <field name="front_distance">2020</field>
+           <field name="rear_distance">1860</field>
+           <field name="shaft_distance">5000</field>
+           <field name="front_max_weight">5500</field>
+           <field name="rear_max_weight">11000</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">25</field>
+           <field name="brand_id" ref="clpp243"/>
+           <field name="chassis_no">ZK6100GCRA</field>
+       </record>
+
+       <record id="clxh306" model="fleet.vehicle.model">
+           <field name="code">ZCB1</field>
+           <field name="name">郑柴B1(BRT)</field>
+           <field name="specifications">ZK6128HGK</field>
+           <field name="deadline">13</field>
+           <field name="length">12000</field>
+           <field name="width">2550</field>
+           <field name="height">3200</field>
+           <field name="inner_height">2200</field>
+           <field name="front_distance">2096</field>
+           <field name="rear_distance">1836</field>
+           <field name="shaft_distance">6100</field>
+           <field name="front_max_weight">6300</field>
+           <field name="rear_max_weight">11500</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">12</field>
+           <field name="max_climb">25</field>
+           <field name="fuel_consumption_pre_hund">38</field>
+           <field name="brand_id" ref="clpp243"/>
+           <field name="chassis_no">全承载式</field>
+       </record>
+
+       <record id="clxh175" model="fleet.vehicle.model">
+           <field name="code">031</field>
+           <field name="name">中型罐式货车</field>
+           <field name="specifications">运力LG5250GJY</field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp174"/>
+           <field name="chassis_no">NULL</field>
+       </record>
+
+       <record id="clxh276" model="fleet.vehicle.model">
+           <field name="code">ZCA1</field>
+           <field name="name">重柴A1（7.05米）</field>
+           <field name="specifications">CKZ6710D3</field>
+           <field name="deadline">13</field>
+           <field name="length">7050</field>
+           <field name="width">2200</field>
+           <field name="height">2640</field>
+           <field name="inner_height">1820</field>
+           <field name="front_distance">1750</field>
+           <field name="rear_distance">1586</field>
+           <field name="shaft_distance">4100</field>
+           <field name="front_max_weight">3500</field>
+           <field name="rear_max_weight">3600</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">4</field>
+           <field name="turn_radius">11</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">18</field>
+           <field name="brand_id" ref="clpp275"/>
+           <field name="chassis_no">EQ6692K3AC</field>
+       </record>
+
+       <record id="clxh322" model="fleet.vehicle.model">
+           <field name="code">ZCA2</field>
+           <field name="name">重柴A2</field>
+           <field name="specifications">CK6710D4</field>
+           <field name="deadline">13</field>
+           <field name="length">7055</field>
+           <field name="width">2200</field>
+           <field name="height">2640</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">1750</field>
+           <field name="rear_distance">1586</field>
+           <field name="shaft_distance">4100</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">6</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">20</field>
+           <field name="fuel_consumption_pre_hund">23</field>
+           <field name="brand_id" ref="clpp275"/>
+           <field name="chassis_no">EQ6880K4AC</field>
+       </record>
+
+       <record id="clxh56" model="fleet.vehicle.model">
+           <field name="code">CQA1</field>
+           <field name="name">重汽A1</field>
+           <field name="specifications"></field>
+           <field name="deadline">0</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp103"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh58" model="fleet.vehicle.model">
+           <field name="code">CQB1</field>
+           <field name="name">重汽B1</field>
+           <field name="specifications">CKZ6965</field>
+           <field name="deadline">10</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">4</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp103"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh59" model="fleet.vehicle.model">
+           <field name="code">CQB2</field>
+           <field name="name">重汽B2</field>
+           <field name="specifications">CKZ6965C</field>
+           <field name="deadline">10</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">4</field>
+           <field name="driving_wheel_count">2</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp103"/>
+           <field name="chassis_no"></field>
+       </record>
+
+       <record id="clxh134" model="fleet.vehicle.model">
+           <field name="code">026</field>
+           <field name="name">重庆</field>
+           <field name="specifications">重庆CKZ6108EBI</field>
+           <field name="deadline">10</field>
+           <field name="length">0</field>
+           <field name="width">0</field>
+           <field name="height">0</field>
+           <field name="inner_height">0</field>
+           <field name="front_distance">0</field>
+           <field name="rear_distance">0</field>
+           <field name="shaft_distance">0</field>
+           <field name="front_max_weight">0</field>
+           <field name="rear_max_weight">0</field>
+           <field name="wheel_count">0</field>
+           <field name="driving_wheel_count">0</field>
+           <field name="turn_radius">0</field>
+           <field name="max_climb">0</field>
+           <field name="fuel_consumption_pre_hund">0</field>
+           <field name="brand_id" ref="clpp132"/>
+           <field name="chassis_no"></field>
+       </record>
+
+   </data>
+</odoo>

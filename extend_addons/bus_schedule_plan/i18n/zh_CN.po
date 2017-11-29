@@ -814,6 +814,18 @@ msgid "The conductor is more than the driver"
 msgstr "售票员比司机多，请重新分配"
 
 #. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/wizard/gen_bus_move_time.py:32
+#, python-format
+msgid "The date of the generated line does not match the date type."
+msgstr "生成线路的日期与日期类型不匹配."
+
+#. module: bus_schedule_plan
+#: code:addons/bus_schedule_plan/wizard/gen_bus_move_time.py:36
+#, python-format
+msgid "The date of the generation schedule is not within the time limit specified by the date type selected by the rule."
+msgstr "生成行车时刻表的日期,不在规则所选日期类型限定的时间区间之内."
+
+#. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/bus_shift.py:63
 #: sql_constraint:bus_shift_line:0
 #, python-format
@@ -1708,7 +1720,7 @@ msgstr "不能生成重复的行车作业执行表"
 #. module: bus_schedule_plan
 #: sql_constraint:scheduleplan.busmovetime:0
 msgid "one line one executedate one move time table"
-msgstr "不能生成重复的行车时刻表"
+msgstr "不能生成重复的行车时刻表,同一条线路同一天只有一个行车作时刻表."
 
 #. module: bus_schedule_plan
 #: selection:bus_staff_group_vehicle_line,operation_state:0
@@ -1744,6 +1756,11 @@ msgid "plan total times"
 msgstr "计划趟次"
 
 #. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_plan_trips
+msgid "plan trips"
+msgstr "计划趟次"
+
+#. module: bus_schedule_plan
 #: selection:bus_algorithm,direction:0
 #: selection:bus_driver_algorithm,direction:0
 msgid "positive"
@@ -1758,6 +1775,11 @@ msgstr "满载率"
 #. module: bus_schedule_plan
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_real_times
 msgid "real total times"
+msgstr "实际趟次"
+
+#. module: bus_schedule_plan
+#: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_busmovetime_real_trips
+msgid "real trips"
 msgstr "实际趟次"
 
 #. module: bus_schedule_plan
@@ -1963,7 +1985,7 @@ msgstr "起始站点"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_todown_starttime
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_toup_starttime
 msgid "start time"
-msgstr "开始"
+msgstr "开始时间"
 
 #. module: bus_schedule_plan
 #: code:addons/bus_schedule_plan/models/bus_shift.py:117
@@ -2166,7 +2188,7 @@ msgstr "车速"
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_down_rulebusarrange_workingnumber
 #: model:ir.model.fields,field_description:bus_schedule_plan.field_scheduleplan_up_rulebusarrange_workingnumber
 msgid "vehicle working number"
-msgstr "运营数量"
+msgstr "运营车辆数量"
 
 #. module: bus_schedule_plan
 #: model:ir.ui.view,arch_db:bus_schedule_plan.bus_work_exec_table_form

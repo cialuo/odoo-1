@@ -136,6 +136,8 @@
 								<li class="show_car_attendant">乘务：<span></span></li>
 							</ul>
 						</div>
+						<div class="show_mutual_information fl">交互信息</div>
+
 						<div class="line_btn">
 							<div class="line_btn_content posR">
 								<a class="min" href="javascript:;" title="删除">-</a>
@@ -217,7 +219,76 @@
 			</div>
 		</t>
 	</t>
+	<t t-name="mutual_information">
+		<div class="dragContent mutual_information mutual_information_{{widget.location_data.line_id}}" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}};">
+			<div class="src_title">
+				<div class="closeBox dragArea">
+					<div class="mutual_title">交互信息</div>
+					<div class="mutual_btn">
+						<a class="min" href="javascript:;">×</a>
+					</div>
+				</div>
+			</div>
+			<div>
+				<ul class="mutual_input">
+					<li>
+						<div class="input-group">
+							<select class="form-control line_way_chs" >
+								<option selected="selected">线路</option>
+								<t t-foreach="widget.location_data.data" t-as="item">
+									<option t-attf-oid="{{item.id}}">
+										<t t-esc="item.line_name"></t>
+									</option>
+								</t>
+							</select>
+						</div>
+					</li>
+					<li>
+						<div class="input-group">
+							<select class="form-control bus_way_chs">
+								<option selected="selected">全部车辆</option>
+							</select>
+						</div>
+					</li>
+					<li>
+						<div class="input-group">
+							<select class="form-control type_chs">
+						  		<option selected="selected" mid="">全部状态</option>
+						  		<option mid="1">已处理</option>
+						  		<option mid="0">待处理</option>
+							</select>
+						</div>
+					</li>
+					<li>
+						<div class="input-group">
+						  <input type="button" class="form-control mutal_srh_btn" value="查询"/>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="mutual_content">
+				<table class="mutual_table">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>时间</th>
+							<th>线路</th>
+							<th>车辆</th>
+							<th>事件</th>
+							<th>备注</th>
+							<th>操作</th>
+							<th>状态</th>
+						</tr>
+					</thead>
+					<tbody>
 
+
+					</tbody>
+				</table>
+				<ul class="pagination_tbl"></ul>
+			</div>
+		</div>
+	</t>
 	<t t-name="myConsole">
 		<div class="my_console">
 			<ul>
@@ -287,8 +358,7 @@
 											<div class="abs_info"></div>
 											<div class="handleBtn ovf">
 												<a class="manual" href="javascript:;">人工</a>
-												<a class="process_check" href="javascript:;">校准</a>
-												<a>忽略</a>
+
 											</div>
 											<div class="finishBtn">
 												<a href="javascript:;" class="is_check">完成</a>
@@ -310,11 +380,13 @@
 											<div class="abs_info"></div>
 											<div class="handleBtn ovf">
 												<a class="manual" href="javascript:;">人工</a>
-												<a class="process_check" href="javascript:;">校准</a>
-												<a>忽略</a>
 											</div>
 											<div class="finishBtn">
 												<a href="javascript:;" class="is_check">完成</a>
+											</div>
+											<div class="jgnore_tn">
+												<a href="javascript:;" class="not_ignore">取消</a>
+												<a href="javascript:;" class="is_ignore">忽略</a>
 											</div>
 										</li>
 										<li class="normal">
@@ -445,7 +517,35 @@
 			</div>
 		</div>
 	</t>
-
+	<t t-name="abnormal_driver">
+		<div class="dragContent abnormal_driver" t-attf-style="right:{{widget.posi_left}}px;bottom:{{widget.posi_top}}px">
+			<div class="abnormal_driver_content">
+				<div class="abnormal_driver_title dragAreaDesk">
+					<div class="abnormal_ques"><t t-esc="widget.location_data.data.abnormal_description.log_text"></t></div>
+					<div class="line_btn">
+						<div class="line_btn_content posR">
+							<a class="min" href="javascript:;" title="最小化">×</a>
+						</div>
+					</div>
+				</div>
+				<div class="abnormal_driver_desc">
+					<ul>
+						<li><div><div class="w2">线路</div></div><input type="text" t-attf-value="{{widget.location_data.data.line_id}}"/></li>
+						<li><div><div class="w2">车号</div></div><input type="text" t-attf-value="{{widget.location_data.data.abnormal_description.bus_num}}"/></li>
+						<li><div><div>司机工号</div></div><input type="text"  t-attf-value="{{widget.location_data.data.abnormal_description.employee_no}}"/></li>
+						<li><div><div>司机名称</div></div><input type="text"  t-attf-value="{{widget.location_data.data.abnormal_description.employee_name}}"/></li>
+						<li><div><div class="w2">事件</div></div><input type="text"  t-attf-value="{{widget.location_data.data.abnormal_description.log_text}}"/></li>
+						<li><div><div class="w2">时间</div></div><input type="text"  t-attf-value="{{widget.location_data.data.abnormal_description.occurTime}}"/></li>
+					</ul>
+					<div class="deal_button" t-attf-did="{{widget.location_data.data.abnormal_description.id}}">
+						<button type="button" class="abnormal_agree" >同意</button>
+						<button type="button" class="abnormal_refuse" >拒绝</button>
+						<button type="button" class="abnormal_ignore" >忽略</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</t>
 	<t t-name="bus_source_config">
 		<div class="dragContent bus_src_config" t-attf-line_id="{{widget.location_data.line_id}}" t-attf-style="position: absolute;left:{{widget.location_data.x}}px;top:{{widget.location_data.y}}px;z-index:{{widget.location_data.zIndex}}">
 			<div class="src_title">
@@ -459,12 +559,12 @@
 						<div class="src_line_number"><t t-esc="widget.line_src.respose[0].lineName"></t></div>
 						<div>资源配备</div>
 					</div>
-					<div class="line_src">
-						<ul>
-							<li class="active">车辆资源</li>
-							<li>人力资源</li>
-						</ul>
-					</div>
+                    <!--<div class="line_src">-->
+                    <!--<ul>-->
+                    <!--&lt;!&ndash;<li class="active">车辆资源</li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<li>人力资源</li>&ndash;&gt;-->
+                    <!--</ul>-->
+                    <!--</div>-->
 					<div></div>
 				</div>
 			</div>
@@ -508,7 +608,7 @@
 						</thead>
 						<tbody class="table_bus_num_tbody">
 							<t t-foreach="widget.line_src.respose" t-as="item">
-								<tr t-attf-src_id="{{item.id}}">
+								<tr t-attf-src_id="{{item.id}}" t-attf-bus_no="{{item.onBoardId}}">
 									<!--线路-->
 									<td class="line_src_lineName td_small">
 										<t t-esc="item.lineName"></t>
@@ -531,9 +631,6 @@
 									</td>
                                     <!--位置-->
 									<td class="line_src_site td_small">
-										<a href="#" class="position_site">
-											<!--<t t-esc="item.location_gps"></t>-->
-										</a>
 									</td>
 									<td class="line_src_status td_small">
 										<p t-if="item.carStateId==2008">机动</p>
@@ -544,22 +641,22 @@
 										<!--<t t-esc="item.Current_task"></t>-->
                                         <!--当前任务-->
 										<p t-if="item.task==1000">正常</p>
-										<p t-elif="item.carStateId==1001">进场包车开始</p>
-										<p t-elif="item.carStateId==1002">进场包车结束</p>
-										<p t-elif="item.carStateId==1003">进场加气开始</p>
-										<p t-elif="item.carStateId==1004">进场加气结束</p>
-										<p t-elif="item.carStateId==1005">进场报修开始</p>
-										<p t-elif="item.carStateId==1006">进场报修结束</p>
-										<p t-elif="item.carStateId==0">进场后小休息</p>
-										<p t-elif="item.carStateId==1007">进场保养开始</p>
-										<p t-elif="item.carStateId==1008">进场保养结束</p>
-										<p t-elif="item.carStateId==1009">进场空放开始</p>
-										<p t-elif="item.carStateId==1010">进场空放结束</p>
-										<p t-elif="item.carStateId==1011">进场不操作</p>
-										<p t-elif="item.carStateId==1012">进场下班，变机动</p>
-										<p t-elif="item.carStateId==2011">什么也不做</p>
-										<p t-elif="item.carStateId==2015">进场医疗开始</p>
-										<p t-elif="item.carStateId==2016">进场医疗结束</p>
+										<p t-elif="item.task==1001">进场包车开始</p>
+										<p t-elif="item.task==1002">进场包车结束</p>
+										<p t-elif="item.task==1003">进场加气开始</p>
+										<p t-elif="item.task==1004">进场加气结束</p>
+										<p t-elif="item.task==1005">进场报修开始</p>
+										<p t-elif="item.task==1006">进场报修结束</p>
+										<p t-elif="item.task==0">进场后小休息</p>
+										<p t-elif="item.task==1007">进场保养开始</p>
+										<p t-elif="item.task==1008">进场保养结束</p>
+										<p t-elif="item.task==1009">进场空放开始</p>
+										<p t-elif="item.task==1010">进场空放结束</p>
+										<p t-elif="item.task==1011">进场不操作</p>
+										<p t-elif="item.task==1012">进场下班，变机动</p>
+										<p t-elif="item.task==2011">什么也不做</p>
+										<p t-elif="item.task==2015">进场医疗开始</p>
+										<p t-elif="item.task==2016">进场医疗结束</p>
 									</td>
                                     <!--乘客数量-->
 									<td class="line_src_Passanger_number td_small">
@@ -658,5 +755,64 @@
 	</t>
 	<t t-name="dispatch_control">
 		<div class="back_style"></div>
+	</t>
+	<t t-name="pagination_table">
+		<t t-foreach="widget" t-as="item">
+			<tr>
+				<t t-if="index_num">
+					<td>
+						<t t-set="index_this" t-value="item_index+ index_num"></t>
+						<t t-esc="index_this"></t>
+					</td>
+				</t>
+				<t t-else="">
+					<td>
+						<t t-esc="item_index"></t>
+					</td>
+				</t>
+
+			<td>
+				<t t-esc="item.occurTime"></t>
+			</td>
+			<td>
+				<t t-esc="item.lineName"></t>
+			</td>
+			<td t-attf-obd="#{item.id}">
+				<t t-esc="item.onBoardId"></t>
+			</td>
+			<td>
+				<t t-esc="item.logText"></t>
+			</td>
+			<td>
+				<t t-esc="item.remark"></t>
+			</td>
+			<t t-if="item.result==0">
+				<td>
+					<a class="agree_abnormal">同意</a>|<a class='refuse_abnormal'>拒绝</a>
+				</td>
+				<td class='deal_or_not'>待操作</td>
+			</t>
+			<t t-if="item.result==1">
+				<td></td>
+				<td class='deal_or_not'>已忽略</td>
+			</t>
+			<t t-if="item.result==2">
+				<td></td>
+				<td class='deal_or_not'>已拒绝</td>
+			</t>
+			<t t-if="item.result==3">
+				<td></td>
+				<td class='deal_or_not'>已同意</td>
+			</t>
+			<t t-if="item.result==4">
+				<td></td>
+				<td class='deal_or_not'>进场执行</td>
+			</t>
+			<t t-if="item.result==5">
+				<td></td>
+				<td class='deal_or_not'>已自动处理</td>
+			</t>
+		</tr>
+		</t>
 	</t>
 </template>

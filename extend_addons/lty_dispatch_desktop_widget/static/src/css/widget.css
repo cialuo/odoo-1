@@ -779,7 +779,7 @@
 }
 
 .plan_display .plan_group .section_plan_cont table .pL {
-    padding-left: 12px;
+    padding-left: 6px;
 }
 
 .plan_display .plan_group .section_plan_cont table td.pL {
@@ -787,7 +787,35 @@
 }
 
 .plan_display .plan_group .section_plan_cont table .pR {
-    padding-right: 12px;
+    padding-right: 6px;
+}
+
+.plan_display .plan_group .section_plan_cont .td_w1 {
+    width: 68px;
+}
+
+.plan_display .plan_group .bus_yard .lineName {
+    max-width: 60px;
+    overflow: hidden;
+}
+
+.plan_display .plan_group .bus_transit .lineName {
+    max-width: 40px;
+    overflow: hidden;
+}
+
+.plan_display .plan_group .bus_yard .planRunTime, .plan_display .plan_group .bus_yard .realReachTime {
+    width: 38px;
+}
+
+ 
+.plan_display .plan_group .bus_yard .realReachTime {
+    padding-left: 6px;
+}
+
+.plan_display .plan_group .bus_transit .td_w3, .plan_display .plan_group .bus_transit .planReachTime {
+    padding: 0 6px;
+    width: 44px;
 }
 
 .plan_display .plan_group .section_plan_cont tr {
@@ -814,6 +842,10 @@
     font-size: 12px;
     border-bottom: 1px solid #6D7487;
     white-space:nowrap;
+}
+
+.plan_display .plan_group .section_plan_cont .bus_plan_fix td {
+    color: #e3bc6e;
 }
 
 .plan_display .plan_group .plan_box {
@@ -898,12 +930,48 @@
     background-position: -59px 0;
 }
 
-.plan_display .plan_group .section_plan_cont .icon2_0 {
+.plan_display .plan_group .section_plan_cont .icon2_1 {
     background-position: 0 0;
 }
 
-.plan_display .plan_group .section_plan_cont .icon2_1 {
+.plan_display .plan_group .section_plan_cont .icon2_0 {
     background-position: -19px 0;
+}
+
+.plan_display .plan_group .section_plan_cont .carStateIdIcon {
+    background-position: 0 -71px;
+}
+
+.plan_display .plan_group .section_plan_cont .carStateIdIcon_1001 {
+    background-position: 0 -98px;
+}
+
+.plan_display .plan_group .section_plan_cont .carStateIdIcon_2003 {
+    background-position: 0 -85px;
+}
+
+.plan_display .plan_group .section_plan_cont .carStateIdIcon_2002 {
+    background-position: 0 -28px;
+}
+
+.plan_display .plan_group .section_plan_cont .carStateIdIcon_2006 {
+    background-position: 0 -14px;
+}
+
+.plan_display .plan_group .section_plan_cont .carStateIdIcon_2010 {
+    background-position: 0 -56px;
+}
+
+.plan_display .plan_group .section_plan_cont .carStateIdIcon_2005 {
+    background-position: 0 -42px;
+}
+
+.plan_display .plan_group .section_plan_cont .taskIcon {
+    background-position: 0 -155px;
+}
+
+.plan_display .plan_group .section_plan_cont .disNoneIcon {
+    display: none;
 }
 
 
@@ -1011,6 +1079,10 @@
     border: 1px solid #6d7487;
     padding: 0 10px;
     resize: none;
+}
+
+.customModal .modal-dialog .modal-content .required_field, .modal_lty .modal-dialog .modal-content .required_field {
+    border: 1px solid #d27c28;
 }
 
 .customModal .btn {

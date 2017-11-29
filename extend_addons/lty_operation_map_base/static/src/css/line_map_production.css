@@ -1,6 +1,6 @@
 /*----------线路地图制作-----------*/
 
-.line_map_production {
+.line_map_production, .line_map_production_base {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     width: 100%;
     height: 100%;
@@ -27,9 +27,6 @@
     font-size: 14px;
 }
 
-.line_map_production .mapPage .cont .siteName {
-    /*background: #fff;*/
-}
 
 .line_map_production .mapPage .ancillary {
     position: absolute;
@@ -152,6 +149,12 @@
     padding: 0 3px;
 }
 
+.line_map_production .mapCustomPanel select.line {
+    width: 110px;
+    padding-right: 10px;
+    overflow: hidden;
+}
+
 .line_map_production .mapCustomPanel .dataSave {
     height: 90px;
     line-height: 30px;
@@ -202,6 +205,7 @@
 .map_work_trace .map_work_title .screen_cont {
     padding: 10px 40px;
     line-height: 30px;
+    min-width: 1210px;
 }
 .map_work_trace .map_work_title input {
     display: inline-block;
@@ -245,4 +249,198 @@
     bottom: 0px;
     left: 0;
     width: 100%;
+    min-width: 1210px;
+    border-bottom: 1px solid #ccc;
+}
+
+.map_work_trace .map_work_content .markerPoint {
+    background:#1aba9b;
+    position:absolute;
+    left:-3px;
+    top:0;
+    z-index:1;
+    width:5px;
+    height:5px;
+    border-radius: 5px;
+}
+
+.track_playback_map .video_progress {
+    padding: 5px 0;
+    height: 200px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 1400px;
+    margin-left: -700px;
+    display: none;
+}
+
+.track_playback_map .video_progress .progress_box {
+    height: 45px;
+    padding: 0 20px;
+}
+
+.track_playback_map .video_progress .progress_box li {
+    display: block;
+    line-height: 45px;
+    height: 45px;
+    float: left;
+}
+
+.track_playback_map .video_progress .progress_box .partIcon {
+    cursor: pointer;
+    width: 38px;
+    height: 45px;
+    background: url('/lty_operation_map_base/static/src/image/playIcon.png') no-repeat 0 center;
+}
+
+.track_playback_map .video_progress .progress_box .start_bt {
+    background-position: -38px;
+}
+
+.track_playback_map .video_progress .progress_box .partTime {
+    width: 70px;
+    text-align: center;
+}
+
+.track_playback_map .video_progress .progress_box .partProgress {
+    width: 1180px;
+    padding: 0 15px;
+}
+
+.track_playback_map .video_progress .progress_box .progress_bar {
+    border-radius: 5px;
+    height: 10px;
+    width: 1150px;
+    background: #cacaca;
+    position: relative;
+    margin-top: 17px;
+}
+
+.track_playback_map .video_progress .progress_box .progress_bar .progress_cn {
+    position: absolute;
+    border-radius: 5px;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 10px;
+    background: #1aba9b;
+    z-index: 1;
+}
+
+
+.track_playback_map .video_progress .progress_box .progress_bar .progress_icon {
+    position: absolute;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    left: -15px;
+    top: 50%;
+    margin-top: -15px;
+    z-index: 1;
+    background: url('/lty_operation_map_base/static/src/image/playpr.png') no-repeat center;
+}
+
+
+.track_playback_map .video_progress .progress_data {
+    height: 145px;
+    margin: 0 40px;
+    overflow: auto;
+    clear: both;
+}
+
+.track_playback_map .video_progress .progress_data table {
+    width: 100%;
+    min-width: 1100px;
+    border: 1px solid #ccc;
+}
+
+.track_playback_map .video_progress .progress_data table td,.track_playback_map .video_progress .progress_data table th {
+    height: 40px;
+    border-bottom: 1px solid #ccc;
+}
+
+.track_playback_map .video_progress .progress_data table td:first-child,.track_playback_map .video_progress .progress_data table th:first-child{
+    padding-left: 10px;
+}
+
+/*隐藏高德地图icon*/
+.amap-logo {
+    right: 0 !important;
+    left: auto !important;
+    display: none !important;
+}
+
+.amap-copyright {
+    right: 70px !important;
+    left: auto !important;
+    display: none !important;
+}
+
+
+
+/*bus_real_info */
+
+.bus_real_info_electronicMap {
+    background: #fff;
+}
+
+.bus_real_info_electronicMap .closeBox {
+    background: #fff;
+}
+
+.bus_real_info_electronicMap .closeBox .close_bt {
+    background: #3a4263;
+}
+
+.bus_real_info_electronicMap .popupContent .popupC {
+    color: #000;
+}
+
+.bus_real_info_electronicMap .infoR .scene .sceneTitle {
+    background: #fff;
+}
+
+.bus_real_info_electronicMap .infoR .scene .operationNav {
+    background: #fff;
+}
+
+.bus_real_info_electronicMap .infoR .scene .operationNav li a {
+    color: #000;
+}
+
+.bus_real_info_electronicMap .infoR .scene .operationNav li a:hover {
+    background: #ccc;
+    color: #4ecfc7;
+}
+
+.bus_real_info_electronicMap .lineInfo {
+    color: #000;
+}
+
+
+/*车辆调度弹窗*/
+.styleModel_electronicMap .modal-dialog .modal-content{
+    background: #fff;
+    color: #000;
+}
+
+.styleModel_electronicMap .modal-dialog .modal-content .modal-header .close {
+    color: #ccc !important;
+}
+
+.styleModel_electronicMap .modal-dialog .modal-content input {
+    background: #fff;
+    color: #21b799;
+}
+
+.styleModel_electronicMap .modal-dialog .modal-content select {
+    background: #fff;
+    color: #21b799;
+}
+
+.styleModel_electronicMap .msg_send_info option {
+    background: #fff;
+    color: #21b799;
 }

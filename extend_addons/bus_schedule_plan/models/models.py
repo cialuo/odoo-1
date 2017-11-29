@@ -3,6 +3,8 @@
 from odoo import models, fields, api, _
 from itertools import izip_longest
 import math
+import time
+import datetime
 from utils import *
 
 timeFormatStr = "%Y-%m-%d %H:%M:%S"
@@ -69,9 +71,11 @@ class BusMoveExcuteTable(models.Model):
     """
     _name = "scheduleplan.excutetable"
 
+    _order = "id desc"
+
     # 同一条线路同一天只有一个行车作业执行表
     _sql_constraints = [
-        ('line_date_unique', 'unique (line_id, excutedate)', 'one line one date one execute table')
+        ('line_date_unique', 'unique (line_id, excutedate)', u'每条线路同一天只允许生成一张行转时刻表！')
     ]
 
     name = fields.Char(string="excute table name")
@@ -87,6 +91,12 @@ class BusMoveExcuteTable(models.Model):
                                 ("wait4use", "wait for use"),   # 待使用
                                 ("done", "done"),               # 完成
                               ], default="wait4use",  string="status")
+    
+    # 状态
+    use_status = fields.Selection([("wait4use", u"待用"),              # 草稿
+                                ("useing", u"使用中"),   # 待使用
+                                ("used", u"已使用"),               # 完成
+                              ], compute='_compute_use_status',  string="use status")    
 
     # 行车时刻表
     movetimetable_id = fields.Many2one("scheduleplan.busmovetime", string="move time tale")
@@ -120,6 +130,22 @@ class BusMoveExcuteTable(models.Model):
 
     # 下行趟次
     downmovenum =  fields.Integer(string="down move number")
+    
+    @api.one
+    @api.depends('excutedate')
+    def _compute_use_status(self):
+        
+        if self.excutedate:
+            excutedatetime = datetime.datetime.strptime(self.excutedate, '%Y-%m-%d')
+            now_datetime = (datetime.datetime.now()+datetime.timedelta(hours=8)).strftime("%Y-%m-%d")
+            exetuedatetime_from = datetime.datetime.strptime(now_datetime, '%Y-%m-%d')
+            exetuedatetime_end = datetime.datetime.strptime(now_datetime, '%Y-%m-%d')+datetime.timedelta(hours=24)
+            if excutedatetime < exetuedatetime_from :
+                self.use_status = 'used' 
+            if excutedatetime >= exetuedatetime_end :
+                self.use_status = 'wait4use'
+            if excutedatetime >= exetuedatetime_from and excutedatetime < exetuedatetime_end :
+                self.use_status = 'useing'       
 
     @api.multi
     def _getTotalMoveNumber(self):
@@ -168,10 +194,16 @@ class ExecUpPlanItem(models.Model):
 
     # 发车时间
     starttime = fields.Datetime(string="start move time", readonly=True)
-
+    
+    # 发车时间h:s
+    starttime_hs = fields.Char(string="start move time", compute='_compute_time_hs', readonly=True)
+    
     # 到达时间
     arrivetime = fields.Datetime(string="arrive time", readonly=True)
-
+    
+    # 到达时间h:s
+    arrivetime_hs = fields.Char(string="arrive time", compute='_compute_time_hs', readonly=True)
+    
     # 时长 分钟记
     timelenght = fields.Integer(string="time length (min)", readonly=True)
 
@@ -179,6 +211,15 @@ class ExecUpPlanItem(models.Model):
     mileage = fields.Integer(string="mileage number", readonly=True)
 
     rule_lineid = fields.Integer(compute="_getRuleLineId")
+    
+    
+    @api.one
+    @api.depends('starttime', 'arrivetime')
+    def _compute_time_hs(self):
+        if self.starttime:
+            self.starttime_hs = (datetime.datetime.strptime(self.starttime, '%Y-%m-%d %H:%M:%S')+datetime.timedelta(hours=8)).strftime('%H:%M')
+        if self.arrivetime:
+            self.arrivetime_hs = (datetime.datetime.strptime(self.arrivetime, '%Y-%m-%d %H:%M:%S')+datetime.timedelta(hours=8)).strftime('%H:%M')            
 
     @api.multi
     def _getRuleLineId(self):
@@ -271,3 +312,7 @@ class VehicleResource(models.Model):
     # 车辆状态
     workstatus = fields.Selection([('operation', "operation"),('flexible', "flexible")],
                                   default='operation', required=True)
+    # 运行方向
+    direction = fields.Selection([("up", u"上行"),    # 上行
+                                  ("down", u"下行"), # 下行
+                                  ])

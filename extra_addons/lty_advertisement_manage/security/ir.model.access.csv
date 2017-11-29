@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_chupeng_test_chupeng_test,chupeng_test.chupeng_test,model_chupeng_test_chupeng_test,,1,0,0,0

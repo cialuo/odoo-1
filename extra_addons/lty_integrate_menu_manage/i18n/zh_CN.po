@@ -1,0 +1,77 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* operation_menu
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-21 08:08+0000\n"
+"PO-Revision-Date: 2017-08-21 08:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.balance_of_supply_and_demand_menu
+msgid "balance of supply and demand"
+msgstr "供需平衡分析"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.benefit_of_company_analysis_menu
+msgid "benefit of company analysis"
+msgstr "企业效益分析"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.benefit_of_line_analysis_menu
+msgid "benefit of line analysis"
+msgstr "线路效益分析"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.bus_line_optimize_analysis_menu
+msgid "bus line optimize analysis"
+msgstr "公交线网优化分析"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.bus_working_plan_menu
+msgid "bus schedule plan arrange menu"
+msgstr "行车作业编制"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.bus_working_plan_basic_info
+msgid "bus schedule plan basic info"
+msgstr "基础信息"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.operation_menu_root
+msgid "operation manage"
+msgstr "运营管理"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.operation_plans_menu
+msgid "operation plans"
+msgstr "运营计划编制"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.opertation_resources_menu
+msgid "opertation_resources"
+msgstr "运营资源"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.platform_join_up_menu
+msgid "platform join up"
+msgstr "平台接入"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.revenue_menu
+msgid "revenue manage"
+msgstr "营收管理"
+
+#. module: operation_menu
+#: model:ir.ui.menu,name:operation_menu.settings_menu
+msgid "settings"
+msgstr "配置"
+

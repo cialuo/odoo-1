@@ -12,58 +12,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
         init: function(parent, data) {
             this._super(parent);
             this.location_data = data;
-            var uplink_plan = {
-                direction: 0,
-                data_list: [{
-                    id: "plan_1",
-                    sendToScreen: 0,
-                    sendToBus: 1,
-                    planRunTime: new Date().getTime(),
-                    planReachTime: new Date().getTime(),
-                    selfId: "655",
-                    driverName: "刘德华",
-                    planState: "0",
-                    direction: 0
-                }]
-            };
-            var uplink_yard = {
-                direction: 0,
-                inField: 1,
-                data_list: [{
-                    id: "yard_1",
-                    checkOut: 0,
-                    runState: 1,
-                    planRunTime: new Date().getTime(),
-                    carNum: "264",
-                    line: 16,
-                    realReachTime: new Date().getTime(),
-                    stopTime: "5",
-                    direction: 0,
-                    inField: 1
-                }]
-            };
-            var uplink_transit = {
-                direction: 0,
-                inField: 0,
-                data_list: [{
-                    id: "transit_1",
-                    checkOut: 0,
-                    runState: 1,
-                    planRunTime: new Date().getTime(),
-                    carNum: "264",
-                    line: 16,
-                    planReachTime: new Date().getTime(),
-                    stopTime: "5",
-                    direction: 0,
-                    inField: 0
-                }]
-            }
-            this.uplink_plan = uplink_plan;
-            this.uplink_yard = uplink_yard;
-            this.uplink_transit = uplink_transit;
-            this.down_plan = uplink_plan;
-            this.down_yard = uplink_yard;
-            this.down_transit = uplink_transit;
         },
         start: function() {
             var layer_index = layer.msg("加载中...", { time: 0, shade: 0.3 });
@@ -72,63 +20,86 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             }
             sessionStorage.setItem("linePlanParkOnlineModel_set", JSON.stringify(linePlanParkOnlineModel_set));
 
+            // 加载调度详情
+            this.load_plan();
+
+
             // 订阅线路计划、车场、状态
             var package = {
                 type: 2000,
                 controlId: this.location_data.controllerId,
                 open_modules: ["line_plan"]
             };
-            if (websocket) {
+            try {
                 websocket.send(JSON.stringify(package));
+            } catch(e) {
+                console.log(e);
             }
-
-            this.load_plan();
         },
         load_plan: function() {
             var self = this;
-            console.log(self.location_data.controllerId + '_' + self.location_data.line_id);
             $.ajax({
                 url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_dispatchplan",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + '}',
                 type: 'get',
                 dataType: 'json',
                 data: {},
-                success: function(ret) {
-                    console.log(ret.respose);
-                    self.uplink_plan = {
-                        direction: 0,
-                        data_list: ret.respose
-                    };
-                    self.down_plan = {
-                        direction: 1,
-                        data_list: ret.respose
-                    };
+                success: function(retPlan) {
+                    var busResourcePlan = {},
+                        uplink_plan = [],  // 上行计划
+                        down_plan = [];    // 下行计划
+
+                    _.each(retPlan.respose, function(planBus){
+                        busResourcePlan[planBus.id] = planBus;
+                        planBus.fixPlanClass = "";
+                        if (planBus.oldRunTime){
+                            if (new Date(planBus.oldRunTime).getTime() != new Date(planBus.planRunTime).getTime()){
+                                planBus.fixPlanClass = "bus_plan_fix";
+                            }
+                        }
+
+
+                        if (planBus.direction == 0){
+                            uplink_plan.push(planBus);
+                        }else{
+                            down_plan.push(planBus);
+                        }
+                    });
+                    self.uplink_plan = uplink_plan;
+                    self.down_plan = down_plan;
+                    sessionStorage.setItem("busResourcePlan", JSON.stringify(busResourcePlan));
                     $.ajax({
                         url: RESTFUL_URL + '/ltyop/planData/query?apikey=71029270&params={tablename:"op_busresource",controlsId:' + self.location_data.controllerId + ',lineId:' + self.location_data.line_id + '}',
                         type: 'get',
                         dataType: 'json',
                         data: {},
-                        success: function(data) {
-                            sessionStorage.setItem("busResource", JSON.stringify(data.respose));
-                            self.uplink_yard = {
-                                inField: 1,
-                                direction: 0,
-                                data_list: data.respose
-                            };
-                            self.down_yard = {
-                                inField: 1,
-                                direction: 1,
-                                data_list: data.respose
-                            };
-                            self.uplink_transit = {
-                                inField: 0,
-                                direction: 0,
-                                data_list: data.respose
-                            };
-                            self.down_transit = {
-                                inField: 0,
-                                direction: 1,
-                                data_list: data.respose
-                            };
+                        success: function(resBus) {
+                            sessionStorage.setItem("busResource", JSON.stringify(resBus.respose));
+                            var uplink_yard = [],     //上行车场
+                                down_yard = [],       //下行车场
+                                uplink_transit = [],  //上行在途
+                                down_transit = [];    //下行在途
+
+                            _.each(resBus.respose, function(runBus){
+                                if (runBus.carStateId != 2008){
+                                    if (runBus.inField == 1){
+                                        if(runBus.direction == 0){
+                                            uplink_yard.push(runBus);
+                                        }else{
+                                            down_yard.push(runBus);
+                                        }
+                                    }else{
+                                        if(runBus.direction == 0){
+                                            uplink_transit.push(runBus);
+                                        }else{
+                                            down_transit.push(runBus);
+                                        }
+                                    }
+                                }
+                            })
+                            self.uplink_yard = uplink_yard;
+                            self.down_yard = down_yard;
+                            self.uplink_transit = uplink_transit;
+                            self.down_transit = down_transit;
                             self.cont_info();
                         }
                     });
@@ -136,12 +107,12 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             });
         },
         cont_info: function() {
-            new bus_plan(this, this.uplink_plan).appendTo(this.$(".plan_group"));
-            new bus_yard(this, this.uplink_yard).appendTo(this.$(".plan_group"));
-            new bus_transit(this, this.uplink_transit).appendTo(this.$(".plan_group"));
-            new bus_plan(this, this.down_plan).appendTo(this.$(".plan_group"));
-            new bus_yard(this, this.down_yard).appendTo(this.$(".plan_group"));
-            new bus_transit(this, this.down_transit).appendTo(this.$(".plan_group"));
+            new bus_plan(this, this.uplink_plan, 0).appendTo(this.$(".plan_group"));         // 上行计划
+            new bus_yard(this, this.uplink_yard, 0, 1).appendTo(this.$(".plan_group"));      // 上行车场
+            new bus_transit(this, this.uplink_transit, 0, 0).appendTo(this.$(".plan_group"));// 上行在途
+            new bus_plan(this, this.down_plan, 1).appendTo(this.$(".plan_group"));           // 下行计划
+            new bus_yard(this, this.down_yard, 1, 1).appendTo(this.$(".plan_group"));        // 下行车场
+            new bus_transit(this, this.down_transit, 1, 0).appendTo(this.$(".plan_group"));  // 下行在途
             this.load_fn();
         },
         load_fn: function() {
@@ -168,6 +139,14 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     $(".plan_display_set").remove();
                 }
             });
+
+            // 回车键触发事件
+            document.onkeydown=function(event){
+                var e = event || window.event;       
+                 if(e && e.keyCode==13){
+                     $('.btn-primary').click();
+                }
+            };
 
             // 计划，在场，在途手动操作交互事件
             self.linePlanParktransit_bt_fn();
@@ -219,6 +198,18 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     model: obj.attr("model")
                 };
                 self.add_plan_fn(options);
+            });
+
+            // 取消计划
+            plan_display.on("click", ".plan_display_set li.cancel_plan_bt", function() {
+                var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
+                var obj = $(this).parents(".plan_display_set");
+                var options = {
+                    id: obj.attr("plan_pid"),
+                    layer_index: layer_index,
+                    model: obj.attr("model")
+                };
+                self.cancel_plan_fn(options);
             });
 
             // 手动发车
@@ -368,12 +359,14 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             });
 
             // 搜索-司机工号
-            $("body").on("focus", ".customModal .workerId", function() {
+            // 应用功能: 添加计划、调整计划、批量更改车辆或司机、司乘签到
+            $("body").on("focus", ".customModal .workerIdSearch, .customModal .driverNameSearch", function() {
                 self.driver_search_autocomplete({ evt: this, controlId: controllerId });
             });
 
             // 搜索-乘务工号
-            $("body").on("focus", ".customModal .train", function() {
+            // 应用: 添加计划、调整计划、司乘签到
+            $("body").on("focus", ".customModal .trainSearch, .customModal .trainNameSearch", function() {
                 self.trainman_search_autocomplete({ evt: this, controlId: controllerId });
             });
 
@@ -476,7 +469,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     if (ret.result == 0) {
                         //这里特别说明一下，由于请求成功后，后台会立即触发一次推送websoket，页面状态更新这里将不在做处理
                     }
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                 }
             });
         },
@@ -552,7 +545,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     if (ret.result == 0) {
                         //这里特别说明一下，由于请求成功后，后台会立即触发一次推送websoket，页面状态更新这里将不在做处理
                     }
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                 }
             });
         },
@@ -666,7 +659,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(options.layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                 }
             });
         },
@@ -678,7 +671,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(options.layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                 }
             });
         },
@@ -690,7 +683,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(options.layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                 }
             });
         },
@@ -716,7 +709,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         if (type == 1) {
                             prev_tr.before(active_tr);
@@ -786,6 +779,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 minLength: 0,
                 width: options.event.offsetWidth,
                 resultsClass: 'autocomplete_custom_model_class',
+                autoFocus: true,
                 source: function(request, response) {
                     var carNum = $(options.event).val();
                     if (carNum == "") {
@@ -795,7 +789,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         url: RESTFUL_URL + '/ltyop/dspSimulationDisPatchPlan/autocompleteBusResourcByControlIdNoCarState?apikey=71029270&params={dateSearch: "' + options.dateSearch + '" ,controlId: "' + options.controlId + '" ,lineId: "' + options.lineId + '" ,carNum: "' + carNum + '"}',
                         dataType: "json",
                         success: function(data) {
-                            if (data.result == 0){
+                            if (data.length > 0){
                                 response(data);
                             }else{
                                 response([]);
@@ -833,6 +827,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 minLength: 0,
                 width: options.event.offsetWidth,
                 resultsClass: 'autocomplete_custom_model_class',
+                autoFocus: true,
                 source: function(request, response) {
                     var workerId = $(options.event).val();
                     if (workerId == "") {
@@ -842,7 +837,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         url: RESTFUL_URL + '/ltyop/dspSimulationDisPatchPlan/autocompleteAttendanceByGprsid?apikey=71029270&params={dateSearch: "' + options.dateSearch + '" ,controlId: "' + options.controlId + '" ,gprsid: "' + options.gprsid + '" ,workerId: "' + workerId + '"}',
                         dataType: "json",
                         success: function(data) {
-                            if (data.result == 0){
+                            if (data.length > 0){
                                 response(data);
                             }else{
                                 response([]);
@@ -854,10 +849,11 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     return false;
                 },
                 select: function(event, ui) {
-                    $(options.event).val(ui.item.workerId);
+                    // $(options.event).val(ui.item.workerId);
+                    $(".customModal .workerIdSearch").val(ui.item.workerId);
                     $(".customModal .driverNameSearch").val(ui.item.driverName);
                     return false;
-                }
+                },
             }).focus(function() {
                 $(this).autocomplete("search");
             }).autocomplete("instance")._renderItem = function(ul, item) {
@@ -880,6 +876,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 minLength: 0,
                 width: options.event.offsetWidth,
                 resultsClass: 'autocomplete_custom_model_class',
+                autoFocus: true,
                 source: function(request, response) {
                     var workerId = $(options.event).val();
                     if (workerId == "") {
@@ -889,7 +886,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         url: RESTFUL_URL + '/ltyop/dspSimulationDisPatchPlan/autocompleteTrainAttendanceByGprsid?apikey=71029270&params={dateSearch: "' + options.dateSearch + '" ,controlId: "' + options.controlId + '" ,gprsid: "' + options.gprsid + '" ,workerId: "' + workerId + '"}',
                         dataType: "json",
                         success: function(data) {
-                            if (data.result == 0){
+                            if (data.length > 0){
                                 response(data);
                             }else{
                                 response([]);
@@ -901,7 +898,8 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     return false;
                 },
                 select: function(event, ui) {
-                    $(options.event).val(ui.item.workerId);
+                    // $(options.event).val(ui.item.workerId);
+                    $(".customModal .trainSearch").val(ui.item.workerId);
                     $(".customModal .trainNameSearch").val(ui.item.driverName);
                     return false;
                 }
@@ -924,6 +922,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 minLength: 0,
                 width: options.event.offsetWidth,
                 resultsClass: 'autocomplete_custom_model_class',
+                autoFocus: true,
                 source: function(request, response) {
                     var planRunTime = $(options.event).val();
                     if (planRunTime == ""){
@@ -948,7 +947,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     $(options.event).val(new Date(ui.item.planRunTime).toTimeString().slice(0,5).replace("Inval", ""));
                     $(".customModal .switched_pid").val(ui.item.id);
                     $(".customModal .carNum_switched").val(ui.item.onBoardId);
+                    $(".customModal .driverName_switched").val(ui.item.driverName);
                     $(".customModal .workerId_switched").val(ui.item.workerId);
+                    $(".customModal .trainName_switched").val(ui.item.trainName);
                     $(".customModal .train_switched").val(ui.item.trainId);
                     return false;
                 }
@@ -968,8 +969,10 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 controlId: this.location_data.controllerId,
                 open_modules: ["line_plan"]
             };
-            if (websocket){
+            try {
                 websocket.send(JSON.stringify(package));
+            } catch(e) {
+                console.log(e);
             }
             this.destroy();
         },
@@ -978,9 +981,12 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
 
     var bus_plan = Widget.extend({
         template: "vehicles_plan_template",
-        init: function(parent, data) {
+        init: function(parent, data, direction) {
             this._super(parent);
-            this.plan_data = data;
+            this.plan_data = {
+                data_list: data,
+                direction: direction
+            };
         },
         start: function() {
             var self = this;
@@ -1032,8 +1038,9 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                             { name: "发送消息", en_name: "send_message_bt" },
                             { name: "添加计划", en_name: "add_plan_bt" },
                             { name: "手动发车", en_name: "manual_start_bt" },
-                            { name: "修改", en_name: "fix_bt" },
+                            { name: "修改计划", en_name: "fix_bt" },
                             { name: "批量更改车辆司机", en_name: "batch_change_drivers_bt" },
+                            { name: "取消计划", en_name: "cancel_plan_bt" },
                             { name: "还原时间", en_name: "reduction_time_bt" },
                             { name: "电子地图", en_name: "electronic_map_bt" }
                         ]
@@ -1048,18 +1055,56 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
 
     var bus_yard = Widget.extend({
         template: "vehicles_yard_template",
-        init: function(parent, data) {
+        init: function(parent, data, direction, inField) {
             this._super(parent);
-            this.yard_data = data;
+            this.yard_data = {
+                data_list: data,
+                direction: direction,
+                inField: inField
+            };
         },
         start: function() {
             var self = this;
             // 增加icon浮层说明
             self.$(".content_tb .icon").hover(function() {
+                var txt = "";
+                var st = $(this).attr("st");
                 if ($(this).hasClass("checkOut")) {
-                    var txt = ($(this).attr("st") == 1) ? '已签到' : '未签到'
-                } else {
-                    var txt = ($(this).attr("st") == 1) ? '在线' : '未在线'
+                    txt = (st == 1) ? '已签到' : '未签到'
+                }else if ($(this).hasClass("runState")) {
+                    txt = (st == 0) ? '在线' : '未在线'
+                }else if ($(this).hasClass("carStateIdIcon")){
+                    if (st == 1001){
+                        txt = "正常";
+                    }else if (st == 2003){
+                        txt = "休息";
+                    }else if (st == 1002){
+                        txt = "故障";
+                    }else if (st == 2006){
+                        txt = "保养";
+                    }else if (st == 2010){
+                        txt = "空放";
+                    }else if (st == 2005){
+                        txt = "加油";
+                    }else{
+                        txt = "其它";
+                    }
+                }else if ($(this).hasClass("taskIcon")){
+                    if (st == 1001){
+                        txt = "进场包车开始";
+                    }else if (st == 1002){
+                        txt = "进场包车结束";
+                    }else if (st == 1003){
+                        txt = "进场加油开始";
+                    }else if (st == 1004){
+                        txt = "进场加油结束";
+                    }else if (st == 1005){
+                        txt = "进场修车开始";
+                    }else if (st == 1006){
+                        txt = "进场修车结束";
+                    }else if (st == 1012){
+                        txt = "进场下班，变机动";
+                    }
                 }
                 self.layer_f_index = layer.tips(txt, this);
             }, function() {
@@ -1109,18 +1154,56 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
 
     var bus_transit = Widget.extend({
         template: "vehicles_transit_template",
-        init: function(parent, data) {
+        init: function(parent, data, direction, inField) {
             this._super(parent);
-            this.transit_data = data;
+            this.transit_data = {
+                data_list: data,
+                direction: direction,
+                inField: inField
+            };
         },
         start: function() {
             var self = this;
             // 增加icon浮层说明
             self.$(".content_tb .icon").hover(function() {
+                var txt = "";
+                var st = $(this).attr("st");
                 if ($(this).hasClass("checkOut")) {
-                    var txt = ($(this).attr("st") == 1) ? '已签到' : '未签到'
-                } else {
-                    var txt = ($(this).attr("st") == 1) ? '在线' : '未在线'
+                    txt = (st == 1) ? '已签到' : '未签到'
+                }else if ($(this).hasClass("runState")) {
+                    txt = (st == 0) ? '在线' : '未在线'
+                }else if ($(this).hasClass("carStateIdIcon")){
+                    if (st == 1001){
+                        txt = "正常";
+                    }else if (st == 2003){
+                        txt = "休息";
+                    }else if (st == 1002){
+                        txt = "故障";
+                    }else if (st == 2006){
+                        txt = "保养";
+                    }else if (st == 2010){
+                        txt = "空放";
+                    }else if (st == 2005){
+                        txt = "加油";
+                    }else{
+                        txt = "其它";
+                    }
+                }else if ($(this).hasClass("taskIcon")){
+                    if (st == 1001){
+                        txt = "进场包车开始";
+                    }else if (st == 1002){
+                        txt = "进场包车结束";
+                    }else if (st == 1003){
+                        txt = "进场加油开始";
+                    }else if (st == 1004){
+                        txt = "进场加油结束";
+                    }else if (st == 1005){
+                        txt = "进场修车开始";
+                    }else if (st == 1006){
+                        txt = "进场修车结束";
+                    }else if (st == 1012){
+                        txt = "进场下班，变机动";
+                    }
                 }
                 self.layer_f_index = layer.tips(txt, this);
             }, function() {
@@ -1172,15 +1255,21 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
         init: function(parent, data) {
             this._super(parent);
             this.location_data = data;
-        },
+        }
     });
 
     // 发送消息
     var send_short_msg_msg = Widget.extend({
         template: "send_short_msg_msg",
-        init: function(parent, data) {
+        init: function(parent, data, styleArgs) {
             this._super(parent);
             this.location_data = data;
+            var styleModel = "";
+            if (styleArgs){
+                var styleArgs_list = styleArgs.split("_");
+                styleModel = styleArgs_list[styleArgs_list.length-1];
+            }
+            this.styleModel = styleModel;
         },
         start: function() {
             this.load_fn();
@@ -1214,7 +1303,6 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
         },
         ready_msg: function() {
             var val_select = this.$el.find('.ready_info');
-            console.log(this.select_title)
             if (val_select.val() != this.select_title) {
                 this.$el.find('.short_msg_text').val(val_select.val());
             } else {
@@ -1222,14 +1310,17 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
             }
         },
         send_msg: function() {
-            var input_msg = this.$el.find('.short_msg_text').val();
-            var laba_msg = this.$el.find('.laba').val();
+            var self = this;
+            var input_msg = self.$el.find('.short_msg_text').val();
+            var laba_msg = self.$el.find('.laba').val();
             var is_check = 0;
-            if (this.$el.find('.input-checkbox').is(':checked')) {
+            if (self.$el.find('.input-checkbox').is(':checked')) {
                 is_check = 1;
             };
-            var self = this;
-            var nodeIdArr = this.location_data.selfId;
+            var nodeIdArr = self.location_data.selfId;
+            if (self.$el.find('.lineTypeCk').is(':checked')) {
+                nodeIdArr = self.$el.find('.lineTypeCk').attr("line_id");
+            };
             var layer_index = layer.msg("请求中，请稍后...", { shade: 0.3, time: 0 });
             if (input_msg != '') {
                 $.ajax({
@@ -1248,7 +1339,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                     }
                 });
             } else {
-                layer.msg('请输入短信内容或选择预设短信');
+                layer.msg('请输入短信内容或选择预设短信', { time: 0, shade: 0.3 });
             }
         }
     });
@@ -1330,7 +1421,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         });
                         return false;
                     }
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1396,7 +1487,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1408,9 +1499,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
     // 手动返回
     var manual_return_w = Widget.extend({
         template: 'manual_return_template',
-        init: function(parent, data) {
+        init: function(parent, data, styleArgs) {
             this._super(parent);
             this.set_data = data;
+            var styleModel = "";
+            if (styleArgs){
+                var styleArgs_list = styleArgs.split("_");
+                styleModel = styleArgs_list[styleArgs_list.length-1];
+            }
+            this.styleModel = styleModel;
         },
         start: function() {
             this.modal_fn();
@@ -1439,6 +1536,14 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
 
             self.$(".realRunTime").focus();
 
+            self.$el.on('change', '.opType', function(){
+                if ($(this).val() == 0){
+                    self.$(".realReachTime").val(new Date(self.set_data.planReachTime).toTimeString().slice(0, 5).replace('Inval', ''));
+                }else{
+                    self.$(".realReachTime").val(new Date(self.set_data.planRunTime).toTimeString().slice(0, 5).replace('Inval', ''));
+                }
+            });
+
             // 提交
             self.$('.btn-primary').on('click', function() {
                 self.submit_fn();
@@ -1463,7 +1568,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1537,7 +1642,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1609,7 +1714,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 trainName: confObj.find(".trainName").val(),
                 addType: confObj.find(".addType").val(),
                 addReasonId: confObj.find(".addReasonId").val(),
-                isBatchChangePlan: confObj.find(".selectType .active").attr("name"),
+                isBatchChangePlan: confObj.find(".selectType .active").attr("typename"),
                 changePlanCount: confObj.find(".changePlanCount").val(),
                 changeInterval: confObj.find(".changeInterval").val(),
                 startTime: confObj.find(".startTime").val(),
@@ -1632,7 +1737,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                         });
                         return false;
                     }
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1695,7 +1800,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1767,7 +1872,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1779,9 +1884,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
     // 司乘签到
     var driver_check_in_w = Widget.extend({
         template: 'driver_check_in_template',
-        init: function(parent, data) {
-            this._super(parent);
+        init: function(parent, data, styleArgs) {
+            this._super(parent, styleArgs);
             this.set_data = data;
+            var styleModel = "";
+            if (styleArgs){
+                var styleArgs_list = styleArgs.split("_");
+                styleModel = styleArgs_list[styleArgs_list.length-1];
+            }
+            this.styleModel = styleModel;
         },
         start: function() {
             this.modal_fn();
@@ -1836,7 +1947,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1903,7 +2014,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1915,9 +2026,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
     //异常状态
     var error_state_w = Widget.extend({
         template: 'error_state_template',
-        init: function(parent, data) {
-            this._super(parent);
+        init: function(parent, data, styleArgs) {
+            this._super(parent, styleArgs);
             this.set_data = data;
+            var styleModel = "";
+            if (styleArgs){
+                var styleArgs_list = styleArgs.split("_");
+                styleModel = styleArgs_list[styleArgs_list.length-1];
+            }
+            this.styleModel = styleModel;
         },
         start: function() {
             this.modal_fn();
@@ -1969,7 +2086,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -1981,9 +2098,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
     //进场任务
     var in_the_task_w = Widget.extend({
         template: 'in_the_task_template',
-        init: function(parent, data) {
+        init: function(parent, data, styleArgs) {
             this._super(parent);
             this.set_data = data;
+            var styleModel = "";
+            if (styleArgs){
+                var styleArgs_list = styleArgs.split("_");
+                styleModel = styleArgs_list[styleArgs_list.length-1];
+            }
+            this.styleModel = styleModel;
         },
         start: function() {
             this.modal_fn();
@@ -2033,7 +2156,7 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
                 data: {},
                 success: function(ret) {
                     layer.close(layer_index);
-                    layer.msg(ret.respose.text, { time: 2000, shade: 0.3 });
+                    layer.msg(ret.respose.text, { time: 1000, shade: 0.3 });
                     if (ret.result == 0) {
                         self.$('.btn-default').click();
                     }
@@ -2042,5 +2165,15 @@ odoo.define("lty_dispatch_desktop_widget.plan_display", function(require) {
         }
     });
 
-    return plan_display;
+    // return plan_display;
+    var exports = {
+        plan_display: plan_display,
+        manual_return_w: manual_return_w,
+        driver_check_in_w: driver_check_in_w,
+        error_state_w: error_state_w,
+        in_the_task_w: in_the_task_w,
+        send_short_msg_msg: send_short_msg_msg
+    }
+
+    return exports;
 });

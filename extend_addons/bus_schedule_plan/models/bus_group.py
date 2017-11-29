@@ -53,6 +53,12 @@ class BusGroup(models.Model):
         ('wait_check', "wait_check"),
         ('use', "use"),], string='Bus Group State', default='draft', readonly=True)
 
+    direction = fields.Selection([('0', u'上行'), ('1', u'下行')], string='direction')  # required=True)
+    # 是否机动
+    is_flexible = fields.Boolean(default=False)
+    
+    
+
     # @api.multi
     # def action_test1(self):
     #     staff_date = datetime.date.today() + timedelta(days=1)
@@ -133,17 +139,35 @@ class BusGroup(models.Model):
         :return:
         """
         for i in self:
-            vehicle_ct = len(i.vehicle_ids)
-            driver_ct = len(i.driver_ids)
-            if i.bus_shift_id:
-                shift_ct = len(i.bus_shift_id.shift_line_ids)
-                if shift_ct == 0:
-                    i.is_not_match = True
-                    i.not_match_reason = u'所选班制的班次不存在，请选择正确的班制'
-                if vehicle_ct and shift_ct and driver_ct:
-                    if vehicle_ct * shift_ct > driver_ct:
+            if not i.is_flexible:
+                vehicle_ct = len(i.vehicle_ids)
+                driver_ct = len(i.driver_ids)
+                if i.bus_shift_id:
+                    shift_ct = len(i.bus_shift_id.shift_line_ids)
+                    if shift_ct == 0:
                         i.is_not_match = True
-                        i.not_match_reason = u'所选的班制，车辆数，司机数配置不合理，建议重新选择'
+                        i.not_match_reason = u'所选班制的班次不存在，请选择正确的班制'
+                        if self.state != 'draft':
+                            self.write({'state': 'draft'})                       
+                    if vehicle_ct and shift_ct and driver_ct:
+                        if vehicle_ct * shift_ct > driver_ct:
+                            i.is_not_match = True
+                            i.not_match_reason = u'所选的班制，车辆数，司机数配置不合理，建议重新选择'
+                            if self.state != 'draft':
+                                self.write({'state': 'draft'})                       
+                if i.driver_vehicle_shift_ids:
+                    for line in  i.driver_vehicle_shift_ids :
+                        if (line.vehicle_sequence > 0)  and (len(line.driver_id) == 0):
+                            i.is_not_match = True
+                            i.not_match_reason = u'运营车辆或班组为空，请检查！'
+                            if self.state != 'draft':
+                                self.write({'state': 'draft'})                       
+                        if (line.vehicle_sequence > 0) and (len(line.bus_group_vehicle_id) == 0) :
+                            i.is_not_match = True
+                            i.not_match_reason = u'运营车辆或班组为空，请检查！'
+                            if self.state != 'draft':
+                                self.write({'state': 'draft'})                       
+                        
 
     @api.depends('vehicle_ids')
     def get_vehicle_ct(self):
@@ -180,6 +204,7 @@ class BusGroup(models.Model):
                 vehicle_lists = vehicle_lists + k.vehicle_ids.mapped('vehicle_id').ids
                 driver_lists = driver_lists + k.driver_ids.mapped('driver_id').ids
                 conductor_lists += k.conductor_ids.mapped('conductor_id').ids
+            vehicle_sequence = 1
             for j in i.route_id.vehicle_res.ids:  #更新车辆
                 if j in vehicle_lists:
                     continue
@@ -187,31 +212,38 @@ class BusGroup(models.Model):
                     # 'sequence': count+len(lists),
                     "route_id": i.route_id.id,
                     'vehicle_id': j,
+                    'sequence': vehicle_sequence,
                 }
                 datas.append((0, 0, vals))
+                vehicle_sequence = vehicle_sequence +1
             i.vehicle_ids = datas
 
             datas = []
+            drive_sequence = 1
             for j in i.route_id.human_resource.filtered(lambda field: field.workpost.posttype == "driver").ids: #更新司机
                 if j in driver_lists:
                     continue
                 vals = {
                     "route_id": i.route_id.id,
                     'driver_id': j,
+                    'sequence': drive_sequence,
                 }
                 datas.append((0, 0, vals))
+                drive_sequence = drive_sequence +1
             i.driver_ids = datas
 
             datas = []
+            conductor_sequence = 1
             for j in i.route_id.human_resource.filtered(lambda field: field.workpost.posttype == "conductor").ids: #更新乘务员
                 if j in conductor_lists:
                     continue
                 vals = {
                     "route_id": i.route_id.id,
                     'conductor_id': j,
+                    'sequence': conductor_sequence,
                 }
-
                 datas.append((0, 0, vals))
+                conductor_sequence = conductor_sequence +1
             i.conductor_ids = datas
 
 
@@ -221,6 +253,7 @@ class BusGroupVehicle(models.Model):
     """
     _name = 'bus_group_vehicle'
     _rec_name = 'vehicle_id'
+    _order = "sequence"
 
     _sql_constraints = [
         ('record_unique', 'unique(route_id,vehicle_id)', _('The route and vehicle must be unique!')),
@@ -234,6 +267,12 @@ class BusGroupVehicle(models.Model):
                                    readonly=True, copy=False, string="Vehicle Model")
     ride_number = fields.Integer('Ride Number', related='vehicle_id.ride_number', readonly=True)
     state = fields.Selection(related='vehicle_id.state', readonly=True, string="Vehicle State")
+    #台次
+    sequence = fields.Integer()
+    
+#     _sql_constraints = [
+#         ('bus_group_id_sequence_unique', 'unique(bus_group_id,sequence)', (u'车辆序号不可重复！'))
+#     ]    
 
 
 class BusGroupDriver(models.Model):
@@ -242,6 +281,7 @@ class BusGroupDriver(models.Model):
     """
     _name = 'bus_group_driver'
     _rec_name = 'driver_id'
+    _order = "sequence"
 
     _sql_constraints = [
         ('record_unique', 'unique(route_id,driver_id)', _('The route and driver must be unique!')),
@@ -251,9 +291,14 @@ class BusGroupDriver(models.Model):
     bus_group_id = fields.Many2one('bus_group', ondelete='cascade')
 
     driver_id = fields.Many2one('hr.employee', string="driver", required=True,
-                                domain="[('workpost.posttype', '=', 'driver')]")
+                                domain="[('workpost.posttype', '=', 'driver'), ('lines', '=', route_id)]")
     jobnumber = fields.Char(string='employee work number', related='driver_id.jobnumber', readonly=True)
-
+    #台次
+    sequence = fields.Integer()
+    
+#     _sql_constraints = [
+#         ('bus_group_id_sequence_unique', 'unique(bus_group_id,sequence)', (u'司机序号不可重复！'))
+#     ]    
 
 class BusGroupConductor(models.Model):
     """
@@ -261,6 +306,7 @@ class BusGroupConductor(models.Model):
     """
     _name = 'bus_group_conductor'
     _rec_name = 'conductor_id'
+    _order = "sequence"
 
     _sql_constraints = [
         ('record_unique', 'unique(route_id,conductor_id)', _('The route and conductor must be unique!')),
@@ -269,8 +315,15 @@ class BusGroupConductor(models.Model):
     bus_group_id = fields.Many2one('bus_group', ondelete='cascade')
     route_id = fields.Many2one('route_manage.route_manage')
     conductor_id = fields.Many2one('hr.employee', string="conductor", required=True,
-                                   domain="[('workpost.posttype', '=', 'conductor')]")
+                                   domain="[('workpost.posttype', '=', 'conductor'), ('lines', '=', route_id)]")
     jobnumber = fields.Char(string='employee work number', related='conductor_id.jobnumber', readonly=True)
+    #台次
+    sequence = fields.Integer()
+    
+#     _sql_constraints = [
+#         ('bus_group_id_sequence_unique', 'unique(bus_group_id,sequence)', (u'乘务员序号不可重复！'))
+#     ]    
+#     
 
 
 class BusGroupDriverVehicleShift(models.Model):
@@ -315,7 +368,8 @@ class BusGroupDriverVehicleShift(models.Model):
 
         _logger.info(u"班组管理人车配班同步时间:%s" % (str(next_use_date)))
 
-        res = self.env['bus_group_driver_vehicle_shift'].search([('use_date', '<', str(datetime.date.today()-timedelta(days=3)))])
+        res = self.env['bus_group_driver_vehicle_shift'].search(['|',('use_date', '<', str(datetime.date.today()-timedelta(days=2)))
+                                                                 ,('driver_id','=',False)])
 
         if res:
             res.write({'active': False})
@@ -360,17 +414,25 @@ class BusGroupDriverVehicleShift(models.Model):
             if last_rotation_date:
                 last_rotation_date = datetime.datetime.strptime(last_rotation_date, "%Y-%m-%d")
             else:
-                last_rotation_date = datetime.datetime.today()
+                last_rotation_date = datetime.date.today()
 
-            if is_big_rotation and (next_use_date - last_rotation_date).days >= rotation_cycle:
-                for k, v in old_group_dict.iteritems():
-                    tmp = []
-                    for m in v:
-                        tmp.append(new_t_sequence_list[old_t_sequence_list.index(m)])
-                    new_group_dict[k] = tmp
-                group_dict = new_group_dict
-                res_groups[0].route_id.last_rotation_date = use_date
-                _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 大轮换后 新顺序%s" % (str(next_use_date), route_id, group_dict))
+
+            group_dict = {}
+            if is_big_rotation :
+                # 满足大轮换 或者 最后一次大轮换时间大于等于指定时间
+                if (next_use_date - last_rotation_date).days >= rotation_cycle or str(last_rotation_date) >= use_date:
+                    for k, v in old_group_dict.iteritems():
+                        tmp = []
+                        for m in v:
+                            tmp.append(new_t_sequence_list[old_t_sequence_list.index(m)])
+                        new_group_dict[k] = tmp
+                    group_dict = new_group_dict
+                    if str(last_rotation_date) < use_date:
+                        res_groups[0].route_id.last_rotation_date = use_date
+                    _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 大轮换后 新顺序%s" % (str(next_use_date), route_id, group_dict))
+                else:
+                    group_dict = copy.deepcopy(old_group_dict)
+                    _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 大论换 周期没到" % (str(next_use_date), route_id,))
             else:
                 group_dict = copy.deepcopy(old_group_dict)
                 _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 没有进行大论换" % (str(next_use_date), route_id, ))
@@ -381,9 +443,10 @@ class BusGroupDriverVehicleShift(models.Model):
                 bus_group_res = self.env['bus_group'].search([('id', '=', k)])
                 cycle = bus_group_res[0].bus_algorithm_id.cycle
                 direction = bus_group_res[0].bus_algorithm_id.direction
-                bus_algorithm_date = datetime.datetime.strptime(bus_group_res[0].bus_algorithm_date, "%Y-%m-%d")
+                last_bus_algorithm_date = datetime.datetime.strptime(bus_group_res[0].bus_algorithm_date, "%Y-%m-%d")
                 if cycle > 0:
-                    if (next_use_date - bus_algorithm_date).days >= cycle:
+                    # 满足车辆轮趟 或者 最后一次车辆轮趟时间大于等于指定时间
+                    if (next_use_date - last_bus_algorithm_date).days >= cycle or str(last_bus_algorithm_date) >= use_date:
                         def leftMove2(list, step):
                             l = list[:step]
                             for m in range(step, len(list)):
@@ -396,7 +459,8 @@ class BusGroupDriverVehicleShift(models.Model):
                             v.insert(0, b)
                         else:                     #向后移
                             v = leftMove2(v, 1)
-                        bus_group_res.write({'bus_algorithm_date': use_date})
+                        if str(last_bus_algorithm_date) < use_date:
+                            bus_group_res.write({'bus_algorithm_date': use_date})
                 new_group_dict_vehicle[k] = v
             _logger.info(u"同步时间:%s,线路id:%s 线路下所有的组 车辆顺序 车辆轮趟算法 新顺序%s" % (str(next_use_date), route_id, new_group_dict_vehicle))
 
@@ -405,7 +469,7 @@ class BusGroupDriverVehicleShift(models.Model):
                 bus_group_res = self.env['bus_group'].search([('id', '=', k)])
                 driver_cycle = bus_group_res[0].bus_driver_algorithm_id.cycle
                 driver_direction = bus_group_res[0].bus_driver_algorithm_id.direction
-                bus_driver_algorithm_date = datetime.datetime.strptime(bus_group_res[0].bus_driver_algorithm_date, "%Y-%m-%d")
+                last_bus_driver_algorithm_date = datetime.datetime.strptime(bus_group_res[0].bus_driver_algorithm_date, "%Y-%m-%d")
 
                 res_group_shift = self.env['bus_group_driver_vehicle_shift'].search(
                     [('route_id', '=', route_id),
@@ -421,7 +485,7 @@ class BusGroupDriverVehicleShift(models.Model):
                 shift_list = res_group_shift.mapped('choose_sequence')
                 old_shift_list = shift_list[:]
                 if driver_cycle > 0:
-                    if (next_use_date - bus_driver_algorithm_date).days >= driver_cycle:
+                    if (next_use_date - last_bus_driver_algorithm_date).days >= driver_cycle or str(last_bus_driver_algorithm_date) >= use_date:
                         def leftMove2(list, step):
                             l = list[:step]
                             for m in range(step, len(list)):
@@ -434,7 +498,8 @@ class BusGroupDriverVehicleShift(models.Model):
                             shift_list.insert(0, b)
                         else:
                             shift_list = leftMove2(shift_list, 1)
-                        bus_group_res.write({'bus_driver_algorithm_date': use_date})
+                        if str(last_bus_driver_algorithm_date) < use_date:
+                            bus_group_res.write({'bus_driver_algorithm_date': use_date})
 
                 _logger.info(u"同步时间:%s,线路id:%s,组:%s 车辆顺序 司机轮班算法 班次顺序%s" % (str(next_use_date), route_id, k, old_shift_list))
                 _logger.info(u"同步时间:%s,线路id:%s,组:%s 车辆顺序 司机轮班算法 新班次顺序%s" % (str(next_use_date), route_id, k, shift_list))

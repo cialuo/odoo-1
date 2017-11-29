@@ -38,7 +38,6 @@ import werkzeug.routing
 import werkzeug.wrappers
 import werkzeug.wsgi
 from werkzeug.wsgi import wrap_file
-from odoo import redis_sessionstore
 
 try:
     import psutil
@@ -1289,20 +1288,9 @@ class Root(object):
     @lazy_property
     def session_store(self):
         # Setup http sessions
-        storageType = odoo.tools.config.get("session_storage")
-        if storageType == 'file':
-            path = odoo.tools.config.session_dir
-            _logger.debug('HTTP sessions stored in: %s', path)
-            return werkzeug.contrib.sessions.FilesystemSessionStore(path, session_class=OpenERPSession)
-        elif storageType == 'redis':
-            host = odoo.tools.config.get("s_redis_host")
-            port = odoo.tools.config.get("s_redis_port")
-            db = odoo.tools.config.get("s_redis_db")
-            expireTime = odoo.tools.config.get("s_expire_time")
-            return redis_sessionstore.RedisSessionStore(host, expireTime, port, db, session_class=OpenERPSession)
-        else:
-            return None
-
+        path = odoo.tools.config.session_dir
+        _logger.debug('HTTP sessions stored in: %s', path)
+        return werkzeug.contrib.sessions.FilesystemSessionStore(path, session_class=OpenERPSession)
 
     @lazy_property
     def nodb_routing_map(self):
@@ -1349,8 +1337,7 @@ class Root(object):
 
     def setup_session(self, httprequest):
         # recover or create session
-        if self.session_store.path != None:
-            session_gc(self.session_store)
+        session_gc(self.session_store)
 
         sid = httprequest.args.get('session_id')
         explicit_session = True
