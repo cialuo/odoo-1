@@ -6,7 +6,7 @@
             <field name="name">Purchase Plan Form</field>
             <field name="model">purchase.plan</field>
             <field name="arch" type="xml">
-                <form>
+                <form duplicate="0">
                     <header>
                         <button string="Action Submit" name="action_submit" type="object" class="oe_highlight" states="draft"/>
                         <button string="Action Confirm" name="action_confirm" type="object" class="oe_highlight"

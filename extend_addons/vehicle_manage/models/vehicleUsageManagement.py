@@ -38,7 +38,7 @@ class FleetVehicle(models.Model):
     # 到期天数
     deadlinedays = fields.Integer(compute="_deadlinedays", string="dead line days")
 
-    @api.multi
+    @api.depends('annual_inspection_date')
     def _deadlinedays(self):
         for item in self:
             today = datetime.datetime.today()
@@ -55,10 +55,10 @@ class FleetVehicle(models.Model):
         else:
             return vechileinfo[0]
 
-    @api.multi
+    @api.depends('deadlinedays')
     def _getInspectionState(self):
         for item in self:
-            if item.deadlinedays > 0:
+            if 90 > item.deadlinedays > 0:
                 item.inspectionState = _('checking')
             elif item.deadlinedays < 0:
                 item.inspectionState = _('expired')

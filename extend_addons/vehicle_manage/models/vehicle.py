@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _,exceptions
 from datetime import datetime,timedelta
 import odoo.addons.decimal_precision as dp
 
@@ -102,6 +102,17 @@ class Vehicle(models.Model):
     average_day_number = fields.Integer(related='company_id_s.average_day_number')
     #修改公司字段为必填，默认值为当前登录用户的公司
     company_id = fields.Many2one(required=True, default=lambda self: self.env.user.company_id)
+
+
+    @api.constrains('on_boardid')
+    def check_on_boardid(self):
+        """
+            校验设备号大于一小于 65535
+        :return:
+        """
+        for r in self:
+            if r.on_boardid <= 0 or r.on_boardid > 65535:
+                raise exceptions.ValidationError(_("Device number exceeded access:1-65535"))
 
     @api.multi
     def action_stop(self):
