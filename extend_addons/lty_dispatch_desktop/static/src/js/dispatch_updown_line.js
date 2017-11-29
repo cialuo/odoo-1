@@ -161,7 +161,11 @@ odoo.define('lty_dispaych_desktop.updown_line', function (require) {
                     }
                     // 提前或延后发车
                     else if (data_use.data.packageType == 1016) {
-                        abnoraml_desc.html('车辆' + data_use.data.abnormal_description.bus_no + '员工' + data_use.data.abnormal_description.employee_name + '提前发车,提前' + data_use.data.abnormal_description.advance_time + '分钟');
+                        if(data_use.data.abnormal_description.advance_time>0){
+                            abnoraml_desc.html('车辆' + data_use.data.abnormal_description.bus_no + '员工' + data_use.data.abnormal_description.employee_name + '提前发车,提前' + data_use.data.abnormal_description.advance_time + '分钟');
+                        }else if(data_use.data.abnormal_description.advance_time<0){
+                            abnoraml_desc.html('车辆' + data_use.data.abnormal_description.bus_no + '员工' + data_use.data.abnormal_description.employee_name + '延后发车,延后' + (-1 * data_use.data.abnormal_description.advance_time) + '分钟');
+                        }
                     }
                     // 到点未发车
                     else if (data_use.data.packageType == 1017) {
